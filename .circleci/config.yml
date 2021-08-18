@@ -1,0 +1,71 @@
+version: 2.0
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:3.0.1-stretch-node-browsers
+        environment:
+          RAILS_ENV: test
+      - image: circleci/postgres:9.6.5
+    steps:
+      - checkout
+
+      # Restore bundle cache
+      - restore_cache:
+          key: ucnrs_rams-{{ checksum "Gemfile.lock" }}
+
+      # cmake is required by Rugged, a dependency of Pronto
+      - run:
+          name: Install cmake
+          command: sudo apt-get -y -qq update && sudo apt-get -y -qq install cmake
+
+      # Bundle install dependencies
+      - run:
+          name: Install dependencies
+          command: bundle install --path vendor/bundle
+
+      # Store bundle cache
+      - save_cache:
+          key: ucnrs_rams-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      # Database setup
+      - run:
+          name: Create database
+          command: bundle exec rake db:create
+      - run:
+          name: Load database schema
+          command: bundle exec rake db:schema:load
+
+      # Tests
+      - run:
+          name: RSpec
+          command: bundle exec rspec
+
+      # Security analysis
+      - run:
+          name: Bundler Audit
+          command: bundle exec bundle-audit update && bundle exec bundle-audit check
+      - run:
+          name: Brakeman
+          command: ./bin/brakeman
+
+      # Pronto
+      - run:
+          name: Pronto
+          command: ./bin/ci_pronto
+
+      # Save Brakeman
+      - store_artifacts:
+          path: tmp/brakeman.html
+          destination: security/brakeman.html
+
+      # Save Coverage Analysis
+      - store_artifacts:
+          path: coverage
+          destination: coverage
+
+      # Save Capybara Screenshots
+      - store_artifacts:
+          path: tmp/screenshots
+          destination: capybara/screenshots

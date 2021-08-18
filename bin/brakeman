@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# Script for running Brakeman tests
+# Brakeman is a security scanner https://github.com/presidentbeef/brakeman.
+gem install brakeman --no-document
+
+brakeman --exit-on-warn --separate-models -o tmp/brakeman.html -o tmp/brakeman.text .
+brakeman_exit_code=$?
+cat tmp/brakeman.text
+
+if [ $CIRCLE_ARTIFACTS ]; then
+  mv tmp/brakeman.html $CIRCLE_ARTIFACTS
+fi
+
+exit $brakeman_exit_code

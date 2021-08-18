@@ -1,0 +1,33 @@
+scss_files: 'app/assets/stylesheets/**/*.scss'
+exclude: 'app/assets/stylesheets/plugins/**'
+
+linters:
+  StringQuotes:
+    enabled: false
+
+  LeadingZero:
+    enabled: false
+
+  BorderZero:
+    enabled: false
+
+  ColorVariable:
+    enabled: false
+
+  Comment:
+    enabled: false
+
+  FinalNewline:
+    enabled: false
+
+  IdSelector:
+    enabled: false
+
+  NestingDepth:
+    enabled: true
+    max_depth: 6
+    ignore_parent_selectors: false
+
+  SelectorDepth:
+    enabled: true
+    max_depth: 6
