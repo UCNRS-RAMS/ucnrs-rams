@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.1'
 
 gem 'bootsnap', '>= 1.4.4', require: false
-gem "devise", "~> 4.8"
+gem "devise", '~> 4.8'
 gem 'foreman'
 gem 'jbuilder', '~> 2.7'
 gem 'mysql2', '~> 0.5'
@@ -14,7 +14,6 @@ gem 'sass-rails', '>= 6'
 gem 'turbolinks', '~> 5'
 gem 'view_component', require: 'view_component/engine'
 gem 'webpacker', '~> 5.0'
-
 
 group :development, :test do
   gem 'axe-core-capybara'

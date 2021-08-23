@@ -12,6 +12,8 @@ require "capybara/rails"
 require "axe-rspec"
 require "axe-capybara"
 require "selenium/webdriver"
+require "view_component/test_helpers"
+require "capybara/rspec"
 
 require "view_component/test_helpers"
 require "capybara/rspec"
@@ -92,3 +94,4 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
