@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_19_145311) do
+ActiveRecord::Schema.define(version: 2021_08_23_200245) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ReserveID"
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_145311) do
 
   create_table "ActPeople", primary_key: "ActPeopleID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ActivityID", null: false
-    t.integer "PeopleID", null: false
+    t.integer "user_id", null: false
     t.column "Role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')", null: false
     t.integer "ReserveID"
     t.integer "InstitutionID"
@@ -99,11 +99,11 @@ ActiveRecord::Schema.define(version: 2021_08_19_145311) do
     t.index ["ActivityID"], name: "ActivityID"
     t.index ["ArrivalDate"], name: "ArrivalDate"
     t.index ["DepartureDate"], name: "DepartureDate"
-    t.index ["PeopleID", "ActivityID", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "People"
-    t.index ["PeopleID"], name: "PeopleID"
     t.index ["ReserveID", "ArrivalDate", "ActivityID"], name: "Reserves"
     t.index ["Status", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "StatusAndDate"
     t.index ["Status"], name: "status"
+    t.index ["user_id", "ActivityID", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "user_activity_date_range"
+    t.index ["user_id"], name: "user"
   end
 
   create_table "AppAnswers", primary_key: "AppAnswerID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_145311) do
 
   create_table "AppTeamMembers", primary_key: "ApplicationTMID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ApplicationID", null: false
-    t.integer "PeopleID", null: false
+    t.integer "user_id", null: false
     t.integer "InstitutionID"
     t.column "UserType", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')"
     t.column "DegreeSought", "set('No selection made','BA','BS','MA','MS','PhD')", default: "No selection made"
@@ -146,14 +146,14 @@ ActiveRecord::Schema.define(version: 2021_08_19_145311) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["ApplicationID"], name: "Applications"
-    t.index ["InstitutionID", "PeopleID", "ApplicationID"], name: "Institutions"
-    t.index ["IsPrincipalInvestigator", "PeopleID"], name: "PI"
-    t.index ["PeopleID", "ApplicationID"], name: "People"
+    t.index ["InstitutionID", "user_id", "ApplicationID"], name: "Institutions"
+    t.index ["IsPrincipalInvestigator", "user_id"], name: "PI"
+    t.index ["user_id", "ApplicationID"], name: "user_application"
   end
 
   create_table "Applications", primary_key: "ApplicationID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ReserveID", null: false
-    t.integer "PeopleID", null: false, comment: "This person can be selected by the manager and can change over time.\nThis is the name that shows up on reports and in calendars."
+    t.integer "user_id", null: false, comment: "This person can be selected by the manager and can change over time.\nThis is the name that shows up on reports and in calendars."
     t.integer "ApplicantID", null: false, comment: "This is the original applicant and cannot be edited."
     t.text "ProjectTitle"
     t.text "ThesisTitle"
@@ -229,7 +229,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_145311) do
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ReserveID", null: false
     t.integer "ApplicationID", null: false
-    t.integer "PeopleID", null: false
+    t.integer "user_id", null: false
     t.string "Owner", limit: 100, null: false
     t.string "DeviceDescription", limit: 100, null: false
     t.string "DataCollected", limit: 200, null: false
@@ -245,11 +245,11 @@ ActiveRecord::Schema.define(version: 2021_08_19_145311) do
 
   create_table "GrantPIs", primary_key: "GrantPIID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "GrantID"
-    t.integer "PeopleID"
+    t.integer "user_id"
     t.integer "InstitutionID"
     t.index ["GrantID"], name: "Grants"
     t.index ["InstitutionID"], name: "Institution"
-    t.index ["PeopleID"], name: "People"
+    t.index ["user_id"], name: "user"
   end
 
   create_table "Grants", primary_key: "GrantID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -295,7 +295,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_145311) do
     t.integer "AssetID", null: false
     t.integer "ActivityID", null: false
     t.integer "AssetRateID", null: false
-    t.integer "PeopleID"
+    t.integer "user_id"
     t.bigint "InvoiceID", default: 0
     t.integer "RateCategoryID", comment: "Rate Category that is selected from INVRateCategories for that reserve"
     t.date "ArrivalDate"
@@ -323,7 +323,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_145311) do
   create_table "InvPayments", primary_key: "PaymentID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "InvoiceID", null: false
     t.integer "ActivityID"
-    t.integer "PeopleID"
+    t.integer "user_id"
     t.decimal "Amount", precision: 10, scale: 2
     t.date "Date"
     t.column "PaymentType", "enum('cash','check','credit card','debit card','campus','purchase order','pay later','no charge','inter-campus recharge','no selection made','')"
@@ -337,7 +337,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_145311) do
 
   create_table "InvPaymentsTemp", primary_key: "InvPaymentsTempID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ActivityID"
-    t.integer "PeopleID"
+    t.integer "user_id"
     t.decimal "Amount", precision: 10, scale: 2
     t.date "Date"
     t.string "Notes", default: ""
@@ -350,11 +350,11 @@ ActiveRecord::Schema.define(version: 2021_08_19_145311) do
 
   create_table "InvRecipients", primary_key: "InvRecipientID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "InvoiceID", null: false
-    t.integer "PeopleID", null: false
+    t.integer "user_id", null: false
     t.integer "ActivityID"
     t.index ["ActivityID"], name: "Activity"
     t.index ["InvoiceID"], name: "Invoice"
-    t.index ["PeopleID"], name: "People"
+    t.index ["user_id"], name: "user"
   end
 
   create_table "InvoicesEdit", primary_key: "InvoicesEditID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -390,7 +390,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_145311) do
 
   create_table "NRSPersonnel", primary_key: "NRSID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ReserveID", null: false
-    t.integer "PeopleID", null: false
+    t.integer "user_id", null: false
     t.column "Role", "enum('No selection made','Reserve manager','Reserve assistant manager','Reserve co-manager','Reserve steward','Reserve staff','Campus NRS director','Campus committee member','Information manager','Faculty reserve manager','Reserve accountant','Resident researcher')", default: "No selection made"
     t.string "Supervisor", limit: 50
     t.boolean "ReceiveApplicationEmail", default: false, null: false, comment: "Boolean"
@@ -403,70 +403,8 @@ ActiveRecord::Schema.define(version: 2021_08_19_145311) do
     t.boolean "receive_scuba_email", default: false
     t.boolean "receive_new_app_email", default: false
     t.boolean "receive_new_act_email", default: false
-    t.index ["PeopleID"], name: "People"
     t.index ["ReserveID"], name: "Reserve"
-  end
-
-  create_table "People", primary_key: "PeopleID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.column "Gender", "enum('Female','Male','Non-binary','')"
-    t.string "NameFirst", limit: 100
-    t.string "NameMiddle", limit: 20
-    t.string "NameLast", limit: 100
-    t.string "NameGroup", limit: 40
-    t.integer "Count", limit: 2, default: 1, null: false
-    t.string "Title", limit: 30
-    t.string "AddrLine1", limit: 100
-    t.string "AddrLine2", limit: 100
-    t.string "AddrCity", limit: 100
-    t.string "AddrPostalCode", limit: 20
-    t.integer "AddrStateID"
-    t.integer "AddrCountryID"
-    t.string "PermAddrLine1", limit: 100
-    t.string "PermAddrLine2", limit: 100
-    t.string "PermAddrCity", limit: 100
-    t.string "PermAddrPostalCode", limit: 20
-    t.integer "PermAddrStateID"
-    t.integer "PermAddrCountryID"
-    t.string "EmailAddress", limit: 100
-    t.string "CellPhone", limit: 20
-    t.string "FaxPhone", limit: 20
-    t.string "OtherPhone", limit: 20
-    t.string "EmergencyContact", limit: 100
-    t.string "EmergencyTelephone", limit: 60
-    t.integer "InstitutionID"
-    t.column "Role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')"
-    t.date "Birthdate"
-    t.string "IdentificationNumber", limit: 20
-    t.string "HousingConcerns", limit: 1000
-    t.string "Department", limit: 200
-    t.string "BillingPersonName", limit: 100
-    t.string "BillingPersonPhone", limit: 20
-    t.string "BillingPersonEmail", limit: 100
-    t.string "BillingAddrLine1", limit: 100
-    t.string "BillingAddrLine2", limit: 100
-    t.string "BillingAddrCity", limit: 100
-    t.string "BillingAddrPostalCode", limit: 20
-    t.integer "BillingAddrStateID"
-    t.integer "BillingAddrCountryID"
-    t.boolean "RecordComplete", default: false, null: false, comment: "This is to check if user has completed their information entry."
-    t.string "AdministrativeNotes", limit: 100, default: "", comment: "notes about the user (not intended to be public)"
-    t.integer "DefaultReserveID", default: 0, null: false, comment: "This value will determain which reserve the user is placed by default when they log in."
-    t.string "Advisor", limit: 100, comment: "Advisor or Supervisor"
-    t.string "ORCID", limit: 50, comment: "Unique ID for Researchers https://orcid.org/"
-    t.datetime "DateCreated", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Use to determain if need to update record"
-    t.string "activation_digest", limit: 100
-    t.boolean "activated", default: false
-    t.string "reset_digest", limit: 100
-    t.datetime "reset_sent_at"
-    t.boolean "admin", default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string "password_digest"
-    t.index ["InstitutionID", "NameLast", "NameFirst", "NameMiddle"], name: "Institution+Name"
-    t.index ["InstitutionID"], name: "Institution"
-    t.index ["NameGroup", "NameLast", "NameFirst"], name: "Group"
-    t.index ["NameLast", "NameFirst", "NameMiddle"], name: "Name"
-    t.index ["PeopleID"], name: "People"
+    t.index ["user_id"], name: "user"
   end
 
   create_table "Permits", primary_key: "PermitID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -650,7 +588,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_145311) do
   create_table "activities", primary_key: "ActivityID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ApplicationID", null: false
     t.integer "ReserveID"
-    t.integer "PeopleID", comment: "THis is the ID of the person that submitted the activity (may be diffferent than Application's PeopleID)"
+    t.integer "user_id", comment: "THis is the ID of the person that submitted the activity (may be diffferent than Application's user_id)"
     t.date "DateSubmitted"
     t.text "StatementOfPurpose"
     t.boolean "AgreeToPolicy", default: false, comment: "Boolean"
@@ -676,8 +614,8 @@ ActiveRecord::Schema.define(version: 2021_08_19_145311) do
     t.index ["ActivityStatus"], name: "status"
     t.index ["ApplicationID", "ActivityID"], name: "Application"
     t.index ["DateSubmitted", "ApplicationID", "ActivityID"], name: "Date"
-    t.index ["PeopleID"], name: "PeopleID"
     t.index ["ReserveID"], name: "ReserveID"
+    t.index ["user_id"], name: "user"
   end
 
   create_table "applications_disciplines", primary_key: "applications_disciplines_id", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -913,6 +851,68 @@ ActiveRecord::Schema.define(version: 2021_08_19_145311) do
     t.datetime "updated_at", null: false
     t.index ["person_id"], name: "index_signatures_on_person_id"
     t.index ["waiver_id"], name: "index_signatures_on_waiver_id"
+  end
+
+  create_table "users", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.column "Gender", "enum('Female','Male','Non-binary','')"
+    t.string "NameFirst", limit: 100
+    t.string "NameMiddle", limit: 20
+    t.string "NameLast", limit: 100
+    t.string "NameGroup", limit: 40
+    t.integer "Count", limit: 2, default: 1, null: false
+    t.string "Title", limit: 30
+    t.string "AddrLine1", limit: 100
+    t.string "AddrLine2", limit: 100
+    t.string "AddrCity", limit: 100
+    t.string "AddrPostalCode", limit: 20
+    t.integer "AddrStateID"
+    t.integer "AddrCountryID"
+    t.string "PermAddrLine1", limit: 100
+    t.string "PermAddrLine2", limit: 100
+    t.string "PermAddrCity", limit: 100
+    t.string "PermAddrPostalCode", limit: 20
+    t.integer "PermAddrStateID"
+    t.integer "PermAddrCountryID"
+    t.string "EmailAddress", limit: 100
+    t.string "CellPhone", limit: 20
+    t.string "FaxPhone", limit: 20
+    t.string "OtherPhone", limit: 20
+    t.string "EmergencyContact", limit: 100
+    t.string "EmergencyTelephone", limit: 60
+    t.integer "InstitutionID"
+    t.column "Role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')"
+    t.date "Birthdate"
+    t.string "IdentificationNumber", limit: 20
+    t.string "HousingConcerns", limit: 1000
+    t.string "Department", limit: 200
+    t.string "BillingPersonName", limit: 100
+    t.string "BillingPersonPhone", limit: 20
+    t.string "BillingPersonEmail", limit: 100
+    t.string "BillingAddrLine1", limit: 100
+    t.string "BillingAddrLine2", limit: 100
+    t.string "BillingAddrCity", limit: 100
+    t.string "BillingAddrPostalCode", limit: 20
+    t.integer "BillingAddrStateID"
+    t.integer "BillingAddrCountryID"
+    t.boolean "RecordComplete", default: false, null: false, comment: "This is to check if user has completed their information entry."
+    t.string "AdministrativeNotes", limit: 100, default: "", comment: "notes about the user (not intended to be public)"
+    t.integer "DefaultReserveID", default: 0, null: false, comment: "This value will determain which reserve the user is placed by default when they log in."
+    t.string "Advisor", limit: 100, comment: "Advisor or Supervisor"
+    t.string "ORCID", limit: 50, comment: "Unique ID for Researchers https://orcid.org/"
+    t.datetime "DateCreated", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Use to determain if need to update record"
+    t.string "activation_digest", limit: 100
+    t.string "reset_digest", limit: 100
+    t.datetime "reset_sent_at"
+    t.boolean "admin", default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string "password_digest"
+    t.boolean "activated", default: false
+    t.index ["InstitutionID", "NameLast", "NameFirst", "NameMiddle"], name: "Institution+Name"
+    t.index ["InstitutionID"], name: "Institution"
+    t.index ["NameGroup", "NameLast", "NameFirst"], name: "Group"
+    t.index ["NameLast", "NameFirst", "NameMiddle"], name: "Name"
+    t.index ["id"], name: "user"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
