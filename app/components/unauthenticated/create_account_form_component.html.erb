@@ -1,0 +1,157 @@
+<%= form_with url: root_path do |f| %>
+  <section>
+    <fieldset>
+      <legend><%= I18n.t(".users.new.titles.basics") %></legend>
+
+      <%= f.label :first_name, I18n.t(".users.new.labels.first_name") %>
+      <%= f.text_field :first_name %>
+
+      <%= f.label :last_name, I18n.t(".users.new.labels.last_name") %>
+      <%= f.text_field :last_name %>
+
+      <%= f.label :gender_identity, I18n.t(".users.new.labels.gender_identity") %>
+      <%= f.select :gender_identity, gender_identity_options %>
+      
+      <fieldset>
+        <legend><%= I18n.t(".users.new.titles.age_range") %></legend>
+        <p><%= I18n.t(".users.new.helper_text.age_range") %></p>
+        <% age_range_options.each do |age_range_option|%>
+          <%= f.radio_button :age_range, age_range_option %>
+          <%= f.label :age_range, age_range_option %>
+        <% end %>
+      </fieldset>
+
+      <%= f.label :phone_number, I18n.t(".users.new.labels.phone_number") %>
+      <%= f.text_field :phone_number, placeholder: phone_number_placeholder %>
+
+      <%= f.label :secondary_phone_number, I18n.t(".users.new.labels.secondary_phone_number") %>
+      <%= f.text_field :secondary_phone_number, placeholder: phone_number_placeholder %>
+
+      <%= f.label :accessibility_requirements, I18n.t(".users.new.labels.accessibility_requirements") %>
+      <%= f.text_area :accessibility_requirements %>
+    </fieldset>
+
+    <fieldset>
+      <%= f.label :email, I18n.t(".users.new.labels.email_address") %>
+      <%= f.text_field :email %>
+
+      <%= f.label :backup_email_address, I18n.t(".users.new.labels.backup_email_address") %>
+      <%= f.text_field :backup_email_address %>
+
+      <%= f.label :password, I18n.t(".users.new.labels.password") %>
+      <p><%= I18n.t(".users.new.helper_text.password") %></p>
+      <%= f.password_field :password %>
+
+      <%= f.label :password_confirmation, I18n.t(".users.new.labels.password_confirmation") %>
+      <%= f.password_field :password_confirmation %>
+    </fieldset>
+  </section>
+
+  <section>
+    <fieldset>
+      <legend><%= I18n.t(".users.new.titles.role") %></legend>
+
+      <fieldset>
+        <% role_options.each do |role_option|%>
+          <%= f.radio_button :role, role_option %>
+          <%= f.label :role, role_option %>
+        <% end %>
+      </fieldset>
+
+      <fieldset>
+        <%= f.label :institution, I18n.t(".users.new.labels.institution") %>
+        <%= f.text_field :institution %>
+        <p><%= I18n.t(".users.new.helper_text.institution") %></p>
+        <%= link_to I18n.t(".users.new.links.create_new_instituion"), "#" %>
+      </fieldset>
+
+      <fieldset>
+        <%= f.label :ORCID, I18n.t(".users.new.labels.orcid") %>
+        <%= f.text_field :ORCID, placeholder: phone_number_placeholder %>
+        <%= link_to I18n.t(".users.new.links.orcid"), "https://orcid.org/", target: :_blank %>
+      </fieldset>
+
+      <%= f.label :advisor, I18n.t(".users.new.labels.advisor_name") %>
+      <%= f.text_field :advisor %>
+    </fieldset>
+
+    <fieldset>
+      <legend><%= I18n.t(".users.new.titles.emergency_contact") %></legend>
+      <p><%= I18n.t(".users.new.helper_text.emergency_contact") %></p>
+
+      <%= f.label :emergency_contact_full_name, I18n.t(".users.new.labels.emergency_contact_full_name") %>
+      <%= f.text_field :emergency_contact_full_name %>
+
+      <%= f.label :emergency_contact_phone_number, I18n.t(".users.new.labels.emergency_contact_phone_number") %>
+      <%= f.text_field :emergency_contact_phone_number, placeholder: phone_number_placeholder %>
+    </fieldset>
+
+    <fieldset>
+      <legend><%= I18n.t(".users.new.titles.current_address") %></legend>
+
+      <%= f.label :address_country, I18n.t(".users.new.labels.country") %>
+      <%= f.select :address_country, country_options, selected: country_options[0] %>
+
+      <%= f.label :address_line_1, I18n.t(".users.new.labels.address") %>
+      <%= f.text_field :address_line_1 %>
+      <%= f.text_field :address_line_2 %>
+
+      <%= f.label :address_city, I18n.t(".users.new.labels.city") %>
+      <%= f.text_field :address_city %>
+
+      <%= f.label :address_state, I18n.t(".users.new.labels.state") %>
+      <%= f.select :address_state, state_options %>
+
+      <%= f.label :address_postal_code, I18n.t(".users.new.labels.postal_code") %>
+      <%= f.text_field :address_postal_code, placeholder: I18n.t(".users.new.placeholders.postal_code") %>
+    </fieldset>
+
+    <fieldset>
+      <fieldset>
+        <legend><%= I18n.t(".users.new.titles.billing_address") %></legend>
+
+        <%= f.check_box :billing_address_same_as_current %> 
+        <%= f.label :billing_address_same_as_current, I18n.t(".users.new.labels.same_as_current") %> 
+      </fieldset>
+
+      <%= f.label :billing_address_country, I18n.t(".users.new.labels.country") %>
+      <%= f.select :billing_address_country, country_options, selected: country_options[0] %>
+
+      <%= f.label :billing_address_address_line_1, I18n.t(".users.new.labels.address") %>
+      <%= f.text_field :billing_address_address_line_1 %>
+      <%= f.text_field :billing_address_address_line_2 %>
+
+      <%= f.label :billing_address_city, I18n.t(".users.new.labels.city") %>
+      <%= f.text_field :billing_address_city %>
+
+      <%= f.label :billing_address_state, I18n.t(".users.new.labels.state") %>
+      <%= f.select :billing_address_state, state_options %>
+
+      <%= f.label :billing_address_postal_code, I18n.t(".users.new.labels.postal_code") %>
+      <%= f.text_field :billing_address_postal_code, placeholder: I18n.t(".users.new.placeholders.postal_code") %>
+
+      <%= f.label :billing_person_full_name, I18n.t(".users.new.labels.billing_name") %>
+      <%= f.text_field :billing_person_full_name %>
+
+      <%= f.label :billing_person_email, I18n.t(".users.new.labels.billing_email") %>
+      <%= f.text_field :billing_person_email %>
+
+      <%= f.label :billing_person_phone_number, I18n.t(".users.new.labels.billing_phone_number") %>
+      <%= f.text_field :billing_person_phone_number %>
+    </fieldset>
+
+    <fieldset>
+      <p>
+        <%= I18n.t(".users.new.helper_text.receive_nrs_updates") %>
+        <%= link_to I18n.t(".users.new.links.ucnrs_newsletter"), "https://ucnrs.org/subscribe-to-our-monthly-newsletter/", target: "_blank" %>
+      </p>
+      <%= f.label :accepted_terms, I18n.t(".users.new.labels.agree_to_terms_of_use", link: link_to(I18n.t(".users.new.links.terms_of_use"), "https://ucnrs.org/ucnrs-websites-terms-of-use/", target: "_blank")).html_safe %>
+      <%= f.check_box :accepted_terms %>
+    </fieldset>
+
+    <fieldset class="actions">
+      <%= link_to I18n.t(".users.new.links.go_back"), root_path %>
+      <%= f.submit I18n.t(".users.new.links.create_account") %>
+    </fieldset>
+  </section>
+<% end %>
