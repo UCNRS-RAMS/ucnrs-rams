@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_23_200245) do
+ActiveRecord::Schema.define(version: 2021_08_24_110701) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ReserveID"
@@ -873,7 +873,7 @@ ActiveRecord::Schema.define(version: 2021_08_23_200245) do
     t.string "PermAddrPostalCode", limit: 20
     t.integer "PermAddrStateID"
     t.integer "PermAddrCountryID"
-    t.string "EmailAddress", limit: 100
+    t.string "email", limit: 100, null: false
     t.string "CellPhone", limit: 20
     t.string "FaxPhone", limit: 20
     t.string "OtherPhone", limit: 20
@@ -900,19 +900,25 @@ ActiveRecord::Schema.define(version: 2021_08_23_200245) do
     t.string "Advisor", limit: 100, comment: "Advisor or Supervisor"
     t.string "ORCID", limit: 50, comment: "Unique ID for Researchers https://orcid.org/"
     t.datetime "DateCreated", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Use to determain if need to update record"
-    t.string "activation_digest", limit: 100
-    t.string "reset_digest", limit: 100
-    t.datetime "reset_sent_at"
+    t.string "confirmation_token", limit: 100
+    t.string "reset_password_token", limit: 100
+    t.datetime "reset_password_sent_at"
     t.boolean "admin", default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "password_digest"
-    t.boolean "activated", default: false
+    t.string "encrypted_password", null: false
+    t.datetime "remember_created_at"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
     t.index ["InstitutionID", "NameLast", "NameFirst", "NameMiddle"], name: "Institution+Name"
     t.index ["InstitutionID"], name: "Institution"
     t.index ["NameGroup", "NameLast", "NameFirst"], name: "Group"
     t.index ["NameLast", "NameFirst", "NameMiddle"], name: "Name"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["id"], name: "user"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
