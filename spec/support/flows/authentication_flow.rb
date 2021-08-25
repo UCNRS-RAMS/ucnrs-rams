@@ -3,8 +3,40 @@ class AuthenticationFlow
     @page = page
   end
 
+  def visit_sign_in_page
+    page.visit("/users/sign_in")
+  end
+
   def visit_sign_up_page
     page.visit("/users/sign_up")
+  end
+
+  def visit_forgot_password_page
+    visit_sign_in_page
+    page.click_link("Forgot your password?")
+  end
+
+  def reset_password_for(email)
+    page.fill_in("Email", with: email)
+    page.find("input[type='submit']").click
+  end
+
+  def follow_reset_password_email_link
+    email_delivery = ActionMailer::Base.deliveries.last
+    match = email_delivery.body.match(%r{http://localhost:3000/users/password/edit\?reset_password_token=\w+})
+    if match.present?
+      page.visit(match[0])
+    end
+  end
+
+  def reset_password_to(new_password)
+    page.fill_in("New password", with: new_password)
+    page.fill_in("Confirm new password", with: new_password)
+    page.find("input[type='submit']").click
+  end
+
+  def has_confirmed_email_is_valid?
+    page.has_content?("Your password has been changed successfully.")
   end
 
   def visit_homepage

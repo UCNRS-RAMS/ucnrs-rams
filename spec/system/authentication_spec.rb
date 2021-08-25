@@ -29,6 +29,20 @@ RSpec.describe "Authentication", type: :feature do
       flow.sign_in_as(email: email, password: password)
       expect(flow).to be_signed_in
     end
+
+    it "allows the user to change their password to something new" do
+      user = FactoryBot.create(:user, :confirmed, email: email, password: password)
+      flow = AuthenticationFlow.new(page)
+      flow.visit_forgot_password_page
+      flow.reset_password_for(email)
+      flow.follow_reset_password_email_link
+      flow.reset_password_to("asdf1234")
+      expect(flow).to be_signed_in
+
+      flow.sign_out
+      flow.sign_in_as(email: email, password: "asdf1234")
+      expect(flow).to be_signed_in
+    end
   end
 
   describe "when signed in" do
