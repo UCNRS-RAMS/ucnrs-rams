@@ -21,3 +21,6 @@ coverage
 
 # Ignore node_modules
 node_modules
+
+# Ignore generated assets
+public/assets
