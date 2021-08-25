@@ -36,6 +36,10 @@ class AuthenticationFlow
     page.find("input[type='submit']").click
   end
 
+  def sign_out
+    page.find("a", text: "Sign Out").click
+  end
+
   def signed_in?
     page.has_css?("body.home")
   end

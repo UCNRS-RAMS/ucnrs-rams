@@ -2,7 +2,6 @@ require "rails_helper"
 
 RSpec.describe "Authentication", type: :feature do
   describe "when signed out" do
-    let(:name) { "name" }
     let(:email) { "test@test.test" }
     let(:password) { "1234567890" }
 
@@ -29,6 +28,25 @@ RSpec.describe "Authentication", type: :feature do
 
       flow.sign_in_as(email: email, password: password)
       expect(flow).to be_signed_in
+    end
+  end
+
+  describe "when signed in" do
+    let(:email) { "test@test.test" }
+    let(:password) { "1234567890" }
+
+    it "can sign the user out" do
+      user = FactoryBot.create(:user, :confirmed, email: email, password: password)
+      flow = AuthenticationFlow.new(page)
+      flow.visit_homepage
+      flow.sign_in_as(email: email, password: password)
+      expect(flow).to be_signed_in
+
+      flow.sign_out
+      expect(flow).to_not be_signed_in
+
+      flow.visit_homepage
+      expect(flow).to_not be_signed_in
     end
   end
 end
