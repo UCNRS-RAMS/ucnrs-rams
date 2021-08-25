@@ -139,6 +139,7 @@ GEM
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
     ffi (1.15.3)
+    foreman (0.87.2)
     gitlab (4.17.0)
       httparty (~> 0.18)
       terminal-table (~> 1.5, >= 1.5.1)
@@ -400,6 +401,7 @@ DEPENDENCIES
   devise (~> 4.8)
   dotenv-rails
   factory_bot_rails
+  foreman
   gnar-style
   jbuilder (~> 2.7)
   launchy
