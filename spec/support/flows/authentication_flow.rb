@@ -23,7 +23,7 @@ class AuthenticationFlow
 
   def follow_reset_password_email_link
     email_delivery = ActionMailer::Base.deliveries.last
-    match = email_delivery.body.match(%r{http://localhost:3000/users/password/edit\?reset_password_token=[\w-]+})
+    match = email_delivery.body.match(%r{/users/password/edit\?reset_password_token=[\w-]+})
     if match.present?
       page.visit(match[0])
     end
@@ -52,7 +52,7 @@ class AuthenticationFlow
 
   def confirm_email
     email_delivery = ActionMailer::Base.deliveries.last
-    match = email_delivery.body.match(%r{http://localhost:3000/users/confirmation\?confirmation_token=[\w-]+})
+    match = email_delivery.body.match(%r{/users/confirmation\?confirmation_token=[\w-]+})
     if match.present?
       page.visit(match[0])
     end
@@ -61,7 +61,7 @@ class AuthenticationFlow
   def has_confirmed_email_is_valid?
     page.has_content?("Your email address has been successfully confirmed.")
   end
-
+  
   def sign_in_as(email:, password:)
     page.fill_in("Email", with: email)
     page.fill_in("Password", with: password)
