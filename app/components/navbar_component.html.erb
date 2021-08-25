@@ -1,0 +1,18 @@
+<nav>
+  <div>
+    <span>RAMS</span>
+    <span>Natural Reserve System</span>
+  </div>
+  <% if @user.present? %>
+    <div>
+      <ul>
+        <li> <%= link_to I18n.t(".navbar.link.visits"), "#" %> </li>
+        <li> <%= link_to I18n.t(".navbar.link.reserves"), "#" %> </li>
+        <li> <%= link_to I18n.t(".navbar.link.my_projects"), "#" %> </li>
+        <li> <%= link_to I18n.t(".navbar.link.help"), "#" %> </li>
+        <li> <%= link_to I18n.t(".navbar.link.account"), "#" %> </li>
+      </ul>
+      <%= link_to I18n.t(".navbar.link.schedule_visit"), "#" %>
+    </div>
+  <% end %>
+</nav>

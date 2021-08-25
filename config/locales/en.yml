@@ -54,3 +54,17 @@ en:
         orcid: "What is an ORCID?"
         ucnrs_newsletter: "NRS Newsletter."
         terms_of_use: "Terms of Use"
+  navbar:
+    link:
+      visits: "Visits"
+      reserves: "Reserves"
+      my_projects: "My Projects"
+      help: "Help"
+      account: "Account"
+      schedule_visit: "Schedule a Visit"
+  footer:
+    link:
+      sign_up_newsletter: "Sign Up for the Newsletter"
+      terms_of_use: "Terms of Use"
+      privacy_policy: "Privacy Policy"
+
