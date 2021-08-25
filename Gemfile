@@ -14,7 +14,8 @@ gem 'webpacker', '~> 5.0'
 gem 'foreman'
 
 group :development, :test do
-  gem 'axe-matchers'
+  gem 'axe-core-capybara'
+  gem 'axe-core-rspec'
   gem 'bullet'
   gem 'bundler-audit'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

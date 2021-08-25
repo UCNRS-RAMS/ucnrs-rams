@@ -1,13 +1,15 @@
 require "rails_helper"
 
-RSpec.describe "Authentication", type: :feature do
+RSpec.describe "Authentication" do
   describe "when signed out" do
     let(:email) { "test@test.test" }
     let(:password) { "1234567890" }
 
-    it "allows the user to sign up" do
+    it "allows the user to sign up", js: true do
       flow = AuthenticationFlow.new(page)
+
       flow.visit_sign_up_page
+      expect(page).to be_axe_clean
       flow.fill_out_account_creation_form(
         email: email,
         password: password,
@@ -15,14 +17,16 @@ RSpec.describe "Authentication", type: :feature do
 
       flow.confirm_email
       expect(flow).to have_confirmed_email_is_valid
+      expect(page).to be_axe_clean
 
       flow.sign_in_as(email: email, password: password)
       expect(flow).to be_signed_in
     end
 
-    it "means the user gets redirected to sign in when going to the homepage" do
+    it "means the user gets redirected to sign in when going to the homepage", js: true do
       user = FactoryBot.create(:user, :confirmed, email: email, password: password)
       flow = AuthenticationFlow.new(page)
+
       flow.visit_homepage
       expect(flow).to be_on_sign_in_page
 
@@ -30,12 +34,17 @@ RSpec.describe "Authentication", type: :feature do
       expect(flow).to be_signed_in
     end
 
-    it "allows the user to change their password to something new" do
+    it "allows the user to change their password to something new", js: true do
       user = FactoryBot.create(:user, :confirmed, email: email, password: password)
       flow = AuthenticationFlow.new(page)
+
       flow.visit_forgot_password_page
+      expect(page).to be_axe_clean
+
       flow.reset_password_for(email)
       flow.follow_reset_password_email_link
+      expect(page).to be_axe_clean
+
       flow.reset_password_to("asdf1234")
       expect(flow).to be_signed_in
 
@@ -52,6 +61,7 @@ RSpec.describe "Authentication", type: :feature do
     it "can sign the user out" do
       user = FactoryBot.create(:user, :confirmed, email: email, password: password)
       flow = AuthenticationFlow.new(page)
+
       flow.visit_homepage
       flow.sign_in_as(email: email, password: password)
       expect(flow).to be_signed_in
