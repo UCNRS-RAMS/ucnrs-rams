@@ -438,6 +438,7 @@ DEPENDENCIES
   shoulda-matchers
   simplecov
   turbolinks (~> 5)
+  tzinfo-data
   view_component
   web-console (>= 4.1.0)
   webdrivers
