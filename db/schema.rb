@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_30_193718) do
+ActiveRecord::Schema.define(version: 2021_08_30_221758) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ReserveID"
@@ -214,13 +214,6 @@ ActiveRecord::Schema.define(version: 2021_08_30_193718) do
     t.index ["ReserveID"], name: "ReserveID"
   end
 
-  create_table "Countries", primary_key: "CountryID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "Name", null: false
-    t.string "Code", limit: 2
-    t.string "Subunit", default: "-"
-    t.index ["Name"], name: "Name"
-  end
-
   create_table "Disciplines", primary_key: "DisciplineID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "DisciplineName", limit: 50, default: "Other", null: false
     t.string "DisciplineCategory", limit: 50, default: "Other", null: false
@@ -283,7 +276,7 @@ ActiveRecord::Schema.define(version: 2021_08_30_193718) do
     t.string "Name", limit: 80
     t.string "City", limit: 30
     t.integer "StateID"
-    t.integer "CountryID"
+    t.integer "country_id"
     t.column "CategoryNRS", "enum('University of California','California State University System','California Community College','California - Other University or College','U.S. - University or College Outside of California','International University or College','K-12 Education','Non-Governmental Organization or Non-Profit Entity','Governmental Agency or Entity','Business Entity','Individual or Other Entity')"
     t.string "Acronym", limit: 10
     t.string "DOI", limit: 25, default: "0000", comment: "Unique ID"
@@ -533,11 +526,11 @@ ActiveRecord::Schema.define(version: 2021_08_30_193718) do
   end
 
   create_table "States", primary_key: "StateID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "CountryID", default: 235
+    t.integer "country_id", default: 235
     t.string "Name"
     t.string "Code", limit: 10
-    t.index ["CountryID", "Name"], name: "Country"
     t.index ["Name"], name: "Name"
+    t.index ["country_id", "Name"], name: "country"
   end
 
   create_table "Waivers", primary_key: "WaiverID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -622,6 +615,13 @@ ActiveRecord::Schema.define(version: 2021_08_30_193718) do
     t.integer "application_id"
     t.integer "discipline_id"
     t.index ["applications_disciplines_id"], name: "applications_disciplines_id"
+  end
+
+  create_table "countries", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", limit: 2
+    t.string "subunit", default: "-"
+    t.index ["name"], name: "name"
   end
 
   create_table "group_signatures", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -865,7 +865,7 @@ ActiveRecord::Schema.define(version: 2021_08_30_193718) do
     t.string "address_city", limit: 100
     t.string "address_postal_code", limit: 20
     t.integer "AddrStateID"
-    t.integer "AddrCountryID"
+    t.integer "address_country_id"
     t.string "email", limit: 100, null: false
     t.string "phone_number", limit: 20
     t.string "fax_phone_number", limit: 20
@@ -886,7 +886,7 @@ ActiveRecord::Schema.define(version: 2021_08_30_193718) do
     t.string "billing_address_city", limit: 100
     t.string "billing_address_postal_code", limit: 20
     t.integer "BillingAddrStateID"
-    t.integer "BillingAddrCountryID"
+    t.integer "billing_address_country_id"
     t.boolean "record_complete", default: false, null: false, comment: "This is to check if user has completed their information entry."
     t.string "administrative_notes", limit: 100, default: "", comment: "notes about the user (not intended to be public)"
     t.integer "DefaultReserveID", default: 0, null: false, comment: "This value will determain which reserve the user is placed by default when they log in."
