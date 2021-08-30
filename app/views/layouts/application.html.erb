@@ -19,9 +19,6 @@
     <main role="main">
       <%= yield %>
     </main>
-    <nav role="navigation">
-      <%= link_to "Sign Out", destroy_user_session_url %>
-    </nav>
     <%= render(FooterComponent.new) %>
   </body>
 </html>
