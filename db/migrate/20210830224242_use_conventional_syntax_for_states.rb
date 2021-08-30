@@ -1,0 +1,15 @@
+class UseConventionalSyntaxForStates < ActiveRecord::Migration[6.1]
+  def change
+    rename_table :States, :states_
+    rename_table :states_, :states
+    rename_column :states, :Name, :name
+    rename_column :states, :Code, :code
+
+    rename_column :states, :StateID, :id
+    rename_column :Institutions, :StateID, :state_id
+    rename_column :users, :AddrStateID, :address_state_id
+    rename_column :users, :BillingAddrStateID, :billing_address_state_id
+
+    rename_index :states, :Name, :name
+  end
+end

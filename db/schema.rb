@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_30_221758) do
+ActiveRecord::Schema.define(version: 2021_08_30_224242) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ReserveID"
@@ -275,7 +275,7 @@ ActiveRecord::Schema.define(version: 2021_08_30_221758) do
     t.integer "ManagingInstID", default: 0
     t.string "Name", limit: 80
     t.string "City", limit: 30
-    t.integer "StateID"
+    t.integer "state_id"
     t.integer "country_id"
     t.column "CategoryNRS", "enum('University of California','California State University System','California Community College','California - Other University or College','U.S. - University or College Outside of California','International University or College','K-12 Education','Non-Governmental Organization or Non-Profit Entity','Governmental Agency or Entity','Business Entity','Individual or Other Entity')"
     t.string "Acronym", limit: 10
@@ -523,14 +523,6 @@ ActiveRecord::Schema.define(version: 2021_08_30_221758) do
     t.index ["QuestionLocation", "SortOrder", "ShowUser", "QuestionType"], name: "LocationSOShowType"
     t.index ["ReserveID", "SortOrder"], name: "SortOrderByReserve"
     t.index ["SortOrder"], name: "SortOrderPlain"
-  end
-
-  create_table "States", primary_key: "StateID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "country_id", default: 235
-    t.string "Name"
-    t.string "Code", limit: 10
-    t.index ["Name"], name: "Name"
-    t.index ["country_id", "Name"], name: "country"
   end
 
   create_table "Waivers", primary_key: "WaiverID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -853,6 +845,14 @@ ActiveRecord::Schema.define(version: 2021_08_30_221758) do
     t.index ["waiver_id"], name: "index_signatures_on_waiver_id"
   end
 
+  create_table "states", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "country_id", default: 235
+    t.string "name"
+    t.string "code", limit: 10
+    t.index ["country_id", "name"], name: "country"
+    t.index ["name"], name: "name"
+  end
+
   create_table "users", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.column "gender_identity", "enum('Male','Female','Non-binary','Other','Prefer not to state')"
     t.string "first_name", limit: 100
@@ -864,7 +864,7 @@ ActiveRecord::Schema.define(version: 2021_08_30_221758) do
     t.string "address_line_2", limit: 100
     t.string "address_city", limit: 100
     t.string "address_postal_code", limit: 20
-    t.integer "AddrStateID"
+    t.integer "address_state_id"
     t.integer "address_country_id"
     t.string "email", limit: 100, null: false
     t.string "phone_number", limit: 20
@@ -885,7 +885,7 @@ ActiveRecord::Schema.define(version: 2021_08_30_221758) do
     t.string "billing_address_address_line_2", limit: 100
     t.string "billing_address_city", limit: 100
     t.string "billing_address_postal_code", limit: 20
-    t.integer "BillingAddrStateID"
+    t.integer "billing_address_state_id"
     t.integer "billing_address_country_id"
     t.boolean "record_complete", default: false, null: false, comment: "This is to check if user has completed their information entry."
     t.string "administrative_notes", limit: 100, default: "", comment: "notes about the user (not intended to be public)"
