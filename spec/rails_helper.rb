@@ -13,6 +13,9 @@ require "axe-rspec"
 require "axe-capybara"
 require "selenium/webdriver"
 
+require "view_component/test_helpers"
+require "capybara/rspec"
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -77,6 +80,8 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.include FactoryBot::Syntax::Methods
+  config.include ViewComponent::TestHelpers, type: :component
+  config.include Capybara::RSpecMatchers, type: :component
 end
 
 Capybara.default_max_wait_time = 3

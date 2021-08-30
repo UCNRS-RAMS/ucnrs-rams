@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>UCNRS RAMS</title>
+    <title>RAMS - <%= yield :title %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -10,11 +10,18 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class="unauthenicated <%= body_class %>">
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+  <body class="unauthenticated <%= body_class %>">
+    <section role="region" aria-label="errors">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    </section>
 
-    <%= yield %>
+    <main role="main">
+      <%= yield %>
+    </main>
+
+    <nav role="navigation">
+      <%= link_to "Sign Out", destroy_user_session_url %>
+    </nav>
   </body>
 </html>
-

@@ -365,6 +365,9 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.0.0)
     uniform_notifier (1.14.2)
+    view_component (2.38.0)
+      activesupport (>= 5.0.0, < 8.0)
+      method_source (~> 1.0)
     virtus (2.0.0)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -435,6 +438,7 @@ DEPENDENCIES
   shoulda-matchers
   simplecov
   turbolinks (~> 5)
+  view_component
   web-console (>= 4.1.0)
   webdrivers
   webpacker (~> 5.0)
