@@ -62,6 +62,7 @@ en:
       help: "Help"
       account: "Account"
       schedule_visit: "Schedule a Visit"
+      sign_out: "Sign Out"
   footer:
     link:
       sign_up_newsletter: "Sign Up for the Newsletter"
