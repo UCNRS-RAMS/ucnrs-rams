@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_24_110701) do
+ActiveRecord::Schema.define(version: 2021_08_30_193718) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ReserveID"
@@ -854,52 +854,45 @@ ActiveRecord::Schema.define(version: 2021_08_24_110701) do
   end
 
   create_table "users", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.column "Gender", "enum('Female','Male','Non-binary','')"
-    t.string "NameFirst", limit: 100
-    t.string "NameMiddle", limit: 20
-    t.string "NameLast", limit: 100
-    t.string "NameGroup", limit: 40
-    t.integer "Count", limit: 2, default: 1, null: false
-    t.string "Title", limit: 30
-    t.string "AddrLine1", limit: 100
-    t.string "AddrLine2", limit: 100
-    t.string "AddrCity", limit: 100
-    t.string "AddrPostalCode", limit: 20
+    t.column "gender_identity", "enum('Male','Female','Non-binary','Other','Prefer not to state')"
+    t.string "first_name", limit: 100
+    t.string "middle_name", limit: 20
+    t.string "last_name", limit: 100
+    t.string "group_name", limit: 40
+    t.string "title", limit: 30
+    t.string "address_line_1", limit: 100
+    t.string "address_line_2", limit: 100
+    t.string "address_city", limit: 100
+    t.string "address_postal_code", limit: 20
     t.integer "AddrStateID"
     t.integer "AddrCountryID"
-    t.string "PermAddrLine1", limit: 100
-    t.string "PermAddrLine2", limit: 100
-    t.string "PermAddrCity", limit: 100
-    t.string "PermAddrPostalCode", limit: 20
-    t.integer "PermAddrStateID"
-    t.integer "PermAddrCountryID"
     t.string "email", limit: 100, null: false
-    t.string "CellPhone", limit: 20
-    t.string "FaxPhone", limit: 20
-    t.string "OtherPhone", limit: 20
-    t.string "EmergencyContact", limit: 100
-    t.string "EmergencyTelephone", limit: 60
+    t.string "phone_number", limit: 20
+    t.string "fax_phone_number", limit: 20
+    t.string "secondary_phone_number", limit: 20
+    t.string "emergency_contact_full_name", limit: 100
+    t.string "emergency_contact_phone_number", limit: 60
     t.integer "InstitutionID"
-    t.column "Role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')"
-    t.date "Birthdate"
-    t.string "IdentificationNumber", limit: 20
-    t.string "HousingConcerns", limit: 1000
-    t.string "Department", limit: 200
-    t.string "BillingPersonName", limit: 100
-    t.string "BillingPersonPhone", limit: 20
-    t.string "BillingPersonEmail", limit: 100
-    t.string "BillingAddrLine1", limit: 100
-    t.string "BillingAddrLine2", limit: 100
-    t.string "BillingAddrCity", limit: 100
-    t.string "BillingAddrPostalCode", limit: 20
+    t.column "role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')"
+    t.date "date_of_birth"
+    t.string "identification_number", limit: 20
+    t.string "housing_concerns", limit: 1000
+    t.string "department", limit: 200
+    t.string "billing_person_full_name", limit: 100
+    t.string "billing_person_phone_number", limit: 20
+    t.string "billing_person_email", limit: 100
+    t.string "billing_address_address_line_1", limit: 100
+    t.string "billing_address_address_line_2", limit: 100
+    t.string "billing_address_city", limit: 100
+    t.string "billing_address_postal_code", limit: 20
     t.integer "BillingAddrStateID"
     t.integer "BillingAddrCountryID"
-    t.boolean "RecordComplete", default: false, null: false, comment: "This is to check if user has completed their information entry."
-    t.string "AdministrativeNotes", limit: 100, default: "", comment: "notes about the user (not intended to be public)"
+    t.boolean "record_complete", default: false, null: false, comment: "This is to check if user has completed their information entry."
+    t.string "administrative_notes", limit: 100, default: "", comment: "notes about the user (not intended to be public)"
     t.integer "DefaultReserveID", default: 0, null: false, comment: "This value will determain which reserve the user is placed by default when they log in."
-    t.string "Advisor", limit: 100, comment: "Advisor or Supervisor"
-    t.string "ORCID", limit: 50, comment: "Unique ID for Researchers https://orcid.org/"
-    t.datetime "DateCreated", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Use to determain if need to update record"
+    t.string "advisor", limit: 100, comment: "Advisor or Supervisor"
+    t.string "orcid", limit: 50, comment: "Unique ID for Researchers https://orcid.org/"
+    t.datetime "date_created", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Use to determain if need to update record"
     t.string "confirmation_token", limit: 100
     t.string "reset_password_token", limit: 100
     t.datetime "reset_password_sent_at"
@@ -911,13 +904,18 @@ ActiveRecord::Schema.define(version: 2021_08_24_110701) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
-    t.index ["InstitutionID", "NameLast", "NameFirst", "NameMiddle"], name: "Institution+Name"
+    t.text "accessibility_requirements"
+    t.boolean "billing_address_same_as_current"
+    t.string "backup_email_address"
+    t.datetime "terms_accepted_at"
+    t.column "age_range", "enum('1-17','18-25','25-50','50 or older')"
+    t.index ["InstitutionID", "last_name", "first_name", "middle_name"], name: "Institution+Name"
     t.index ["InstitutionID"], name: "Institution"
-    t.index ["NameGroup", "NameLast", "NameFirst"], name: "Group"
-    t.index ["NameLast", "NameFirst", "NameMiddle"], name: "Name"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["group_name", "last_name", "first_name"], name: "Group"
     t.index ["id"], name: "user"
+    t.index ["last_name", "first_name", "middle_name"], name: "Name"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
