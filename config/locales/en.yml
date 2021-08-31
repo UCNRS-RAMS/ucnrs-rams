@@ -1,4 +1,11 @@
 en:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            password:
+              complexity: "Password complexity requirement not met. Length should be 8-70 characters and include: 1 uppercase character and 1 digit."
   users:
     new:
       header:
