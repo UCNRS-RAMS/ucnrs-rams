@@ -1,29 +1,164 @@
-<h1>Sign up</h1>
+<% content_for(:title) { t(".header.title") } %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<header>
+  <h1><%= t(".header.title") %></h1>
+  <p><%= t(".header.description") %></p>
+</header>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+<%= form_with model: @form.user, url: new_user_registration_path do |f| %>
+  <section>
+    <fieldset>
+      <legend><%= t(".titles.basics") %></legend>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+      <%= f.label :first_name, t(".labels.first_name") %>
+      <%= f.text_field :first_name %>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+      <%= f.label :last_name, t(".labels.last_name") %>
+      <%= f.text_field :last_name %>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
+      <%= f.label :gender_identity, t(".labels.gender_identity") %>
+      <%= f.select :gender_identity, @form.gender_identity_options %>
+
+      <fieldset>
+        <legend><%= t(".titles.age_range") %></legend>
+        <p><%= t(".helper_text.age_range") %></p>
+        <% @form.age_range_options.each do |age_range_option|%>
+          <%= f.radio_button :age_range, age_range_option, id: @form.identifier_for("age_range", age_range_option) %>
+          <%= f.label :age_range, age_range_option, for: @form.identifier_for("age_range", age_range_option) %>
+        <% end %>
+      </fieldset>
+
+      <%= f.label :phone_number, t(".labels.phone_number") %>
+      <%= f.telephone_field :phone_number, placeholder: @form.phone_number_placeholder %>
+
+      <%= f.label :secondary_phone_number, t(".labels.secondary_phone_number") %>
+      <%= f.telephone_field :secondary_phone_number, placeholder: @form.phone_number_placeholder %>
+
+      <%= f.label :accessibility_requirements, t(".labels.accessibility_requirements") %>
+      <%= f.text_area :accessibility_requirements %>
+    </fieldset>
+
+    <fieldset>
+      <%= f.label :email, t(".labels.email_address") %>
+      <%= f.email_field :email %>
+
+      <%= f.label :backup_email_address, t(".labels.backup_email_address") %>
+      <%= f.email_field :backup_email_address %>
+
+      <%= f.label :password, t(".labels.password") %>
+      <p><%= t(".helper_text.password") %></p>
+      <%= f.password_field :password %>
+
+      <%= f.label :password_confirmation, t(".labels.password_confirmation") %>
+      <%= f.password_field :password_confirmation %>
+    </fieldset>
+  </section>
+
+  <section>
+    <fieldset>
+      <legend><%= t(".titles.role") %></legend>
+
+      <fieldset>
+        <% @form.role_options.each do |role_option|%>
+          <%= f.radio_button :role, role_option, id: @form.identifier_for("role", role_option) %>
+          <%= f.label :role, role_option, for: @form.identifier_for("role", role_option) %>
+        <% end %>
+      </fieldset>
+
+      <fieldset>
+        <%= f.label :institution, t(".labels.institution") %>
+        <%= f.text_field :institution %>
+        <p><%= t(".helper_text.institution") %></p>
+        <%= link_to t(".links.create_new_instituion"), t(".urls.new_institution") %>
+      </fieldset>
+
+      <fieldset>
+        <%= f.label :ORCID, t(".labels.orcid") %>
+        <%= f.text_field :ORCID, placeholder: @form.phone_number_placeholder %>
+        <%= link_to t(".links.orcid"), t(".urls.orcid"), target: :_blank %>
+      </fieldset>
+
+      <%= f.label :advisor, t(".labels.advisor_name") %>
+      <%= f.text_field :advisor %>
+    </fieldset>
+
+    <fieldset>
+      <legend><%= t(".titles.emergency_contact") %></legend>
+      <p><%= t(".helper_text.emergency_contact") %></p>
+
+      <%= f.label :emergency_contact_full_name, t(".labels.emergency_contact_full_name") %>
+      <%= f.text_field :emergency_contact_full_name %>
+
+      <%= f.label :emergency_contact_phone_number, t(".labels.emergency_contact_phone_number") %>
+      <%= f.telephone_field :emergency_contact_phone_number, placeholder: @form.phone_number_placeholder %>
+    </fieldset>
+
+    <fieldset>
+      <legend><%= t(".titles.current_address") %></legend>
+
+      <%= f.label :address_country, t(".labels.country") %>
+      <%= f.select :address_country, @form.country_options, selected: @form.country_options[0] %>
+
+      <%= f.label :address_line_1, t(".labels.address") %>
+      <%= f.text_field :address_line_1 %>
+      <%= f.text_field :address_line_2, aria: { label: "Address Line 2" } %>
+
+      <%= f.label :address_city, t(".labels.city") %>
+      <%= f.text_field :address_city %>
+
+      <%= f.label :address_state, t(".labels.state") %>
+      <%= f.select :address_state, @form.state_options %>
+
+      <%= f.label :address_postal_code, t(".labels.postal_code") %>
+      <%= f.text_field :address_postal_code, placeholder: t(".placeholders.postal_code") %>
+    </fieldset>
+
+    <fieldset>
+      <fieldset>
+        <legend><%= t(".titles.billing_address") %></legend>
+
+        <%= f.check_box :billing_address_same_as_current %> 
+        <%= f.label :billing_address_same_as_current, t(".labels.same_as_current") %> 
+      </fieldset>
+
+      <%= f.label :billing_address_country, t(".labels.country") %>
+      <%= f.select :billing_address_country, @form.country_options, selected: @form.country_options[0] %>
+
+      <%= f.label :billing_address_line_1, t(".labels.address") %>
+      <%= f.text_field :billing_address_line_1 %>
+      <%= f.text_field :billing_address_line_2, aria: { label: "Billing Address Line 2" } %>
+
+      <%= f.label :billing_address_city, t(".labels.city") %>
+      <%= f.text_field :billing_address_city %>
+
+      <%= f.label :billing_address_state, t(".labels.state") %>
+      <%= f.select :billing_address_state, @form.state_options %>
+
+      <%= f.label :billing_address_postal_code, t(".labels.postal_code") %>
+      <%= f.text_field :billing_address_postal_code, placeholder: t(".placeholders.postal_code") %>
+
+      <%= f.label :billing_person_full_name, t(".labels.billing_name") %>
+      <%= f.text_field :billing_person_full_name %>
+
+      <%= f.label :billing_person_email, t(".labels.billing_email") %>
+      <%= f.email_field :billing_person_email %>
+
+      <%= f.label :billing_person_phone_number, t(".labels.billing_phone_number") %>
+      <%= f.telephone_field :billing_person_phone_number %>
+    </fieldset>
+
+    <fieldset>
+      <p>
+        <%= t(".helper_text.receive_nrs_updates") %>
+        <%= link_to t(".links.ucnrs_newsletter"), t(".urls.ucnrs_newsletter"), target: "_blank" %>
+      </p>
+      <%= f.label :accepted_terms, t(".labels.agree_to_terms_of_use", link: link_to(t(".links.terms_of_use"), t(".urls.ucnrs_terms_of_use"), target: "_blank")).html_safe %>
+      <%= f.check_box :accepted_terms %>
+    </fieldset>
+
+    <fieldset class="actions">
+      <%= link_to t(".links.go_back"), root_path %>
+      <%= f.submit t(".links.create_account") %>
+    </fieldset>
+  </section>
 <% end %>
-
-<%= render "devise/shared/links" %>
