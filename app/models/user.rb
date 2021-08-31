@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   devise :confirmable,
     :database_authenticatable,
@@ -14,17 +16,19 @@ class User < ApplicationRecord
   validates :phone_number, presence: true
   validates :address_line_1, presence: true
   validates :address_city, presence: true
-  validates :address_state_id, presence: true
-  validates :address_country_id, presence: true
   validates :address_postal_code, presence: true
   validates :billing_address_address_line_1, presence: true
   validates :billing_address_city, presence: true
-  validates :billing_address_state_id, presence: true
-  validates :billing_address_country_id, presence: true
   validates :billing_address_postal_code, presence: true
   validates :terms_accepted_at, presence: true
 
   validate :password_complexity
+
+  belongs_to :institution
+  belongs_to :address_country, class_name: "Country"
+  belongs_to :billing_address_country, class_name: "Country"
+  belongs_to :address_state, class_name: "State", optional: true
+  belongs_to :billing_address_state, class_name: "State", optional: true
 
   enum gender_identity: {
     male: "Male",
