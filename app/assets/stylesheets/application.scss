@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+
+@import "variables";
+
+body {
+  border: 0;
+  font-family: $sora, $sans-serif;
+  font-size: $base-font-size;
+  margin: 0;
+  padding: 0;
+}

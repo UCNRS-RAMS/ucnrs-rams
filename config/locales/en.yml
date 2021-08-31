@@ -68,4 +68,11 @@ en:
       sign_up_newsletter: "Sign Up for the Newsletter"
       terms_of_use: "Terms of Use"
       privacy_policy: "Privacy Policy"
-
+  layouts:
+    unauthenticated:
+      hero:
+        title: Plan Your Visit
+        emphasized: The University of California Natural Reserve System offers outdoor laboratories to field scientists, classrooms without walls for students, and nature’s inspiration to all.
+        explanation1: The UCNRS is a library of ecosystems throughout California. Most of the state’s major habitat types are represented, from coastal tidepools to inland deserts, and lush wetlands to redwood forests.
+        explanation2: Access to the reserves is by permission only, and are available for teaching, research and public service, but not general recreation.
+        more_information: For more information, visit <a href="https://ucnrs.org">UCNRS.ORG</a>

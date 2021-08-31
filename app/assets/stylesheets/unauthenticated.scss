@@ -1,0 +1,143 @@
+@import "variables";
+
+.unauthenticated {
+  main {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+
+    .left-side {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 13rem 10rem;
+    }
+
+    .right-side {
+      display: flex;
+      flex-direction: column;
+      width: 331px;
+    }
+
+    .hero {
+      background-size: cover;
+      background: no-repeat url(asset-path("hero-background.jpg"));
+      position: relative;
+
+      h1 {
+        color: $hero-title;
+        font-size: 3.75rem;
+        font-weight: 700;
+        line-height: 4.25rem;
+      }
+
+      img {
+        left: 5.5rem;
+        position: absolute;
+        top: 12.5rem;
+      }
+
+      p {
+        color: $hero-copy;
+        font-size: 0.875rem;
+        margin-top: 0;
+
+        &:first-of-type{
+          color: $hero-emphasis;
+          font-size: 1.125rem;
+          font-weight: $semi-bold;
+        }
+
+        a {
+          color: $hero-link;
+          font-size: 0.75rem;
+        }
+      }
+    }
+
+    .form {
+      color: $form-copy-color;
+      padding: 13rem 8.4rem;
+      position: relative;
+
+      .navigation {
+        color: $form-copy-color;
+        position: absolute;
+        top: 10rem;
+        vertical-align: center;
+
+        a {
+          color: $form-copy-color;
+          display: flex;
+          flex-direction: row;
+          text-decoration: none;
+        }
+
+        img {
+          margin-right: 0.5rem;
+        }
+
+        span {
+          margin-top: 2px;
+        }
+      }
+
+      h1 {
+        color: $form-title-color;
+        font-size: 2.25rem;
+        font-weight: $semi-bold;
+      }
+
+      .instructions {
+        font-size: 0.75rem;
+        margin-bottom: 2rem;
+      }
+
+      label {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+
+        span {
+          font-size: 0.75rem;
+          font-weight: $bold;
+        }
+
+        input[type="email"],
+        input[type="password"],
+        input[type="text"] {
+          border-radius: 0.375rem;
+          border: 1px solid $navy-blue;
+          font-size: 1rem;
+          padding: 0.25rem;
+        }
+      }
+
+      input[type="submit"] {
+        background-color: $active-button-fill;
+        border-radius: 25px;
+        border: 0;
+        color: $active-button-text;
+        display: block;
+        font-size: 1rem;
+        font-weight: $semi-bold;
+        padding: 0.5rem;
+        width: 100%;
+      }
+
+      .contact {
+        color: $form-copy-color;
+        font-size: 0.75rem;
+        margin-top: 3.5rem;
+
+        a {
+          color: $form-copy-color;
+          font-size: 0.75rem;
+        }
+      }
+    }
+  }
+}

@@ -8,20 +8,29 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <%= render partial: "layouts/fonts" %>
   </head>
 
   <body class="unauthenticated <%= body_class %>">
-    <section role="region" aria-label="errors">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-    </section>
-
     <main role="main">
-      <%= yield %>
-    </main>
+      <section class="left-side hero">
+        <%= image_tag "white-logo.svg", height: "168px", width: "173px", alt: "Swirling UCRNS Logo" %>
+        <h1><%= t(".hero.title") %></h1>
+        <p><%= t(".hero.emphasized") %></p>
+        <p><%= t(".hero.explanation1") %></p>
+        <p><%= t(".hero.explanation2") %></p>
+        <p><%= raw t(".hero.more_information") %></p>
+      </section>
 
-    <nav role="navigation">
-      <%= link_to "Sign Out", destroy_user_session_url %>
-    </nav>
+      <section class="right-side form">
+        <section role="region" aria-label="errors">
+          <p class="notice"><%= notice %></p>
+          <p class="alert"><%= alert %></p>
+        </section>
+
+        <%= yield %>
+      </section>
+    </main>
   </body>
 </html>
