@@ -5,7 +5,7 @@ RSpec.describe "Authentication" do
     let(:email) { "test@test.test" }
     let(:password) { "1234567890" }
 
-    it "allows the user to sign up", js: true do
+    xit "allows the user to sign up", js: true do
       flow = AuthenticationFlow.new(page)
 
       flow.visit_sign_up_page

@@ -7,7 +7,6 @@ en:
             password:
               confirmation: "does not match Password"
               too_short: "must be at least %{count} characters"
-  users:
     new:
       header:
         title: "Create An Account"
