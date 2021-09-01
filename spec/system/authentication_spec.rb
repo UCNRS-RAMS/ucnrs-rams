@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Authentication" do
   describe "when signed out" do
     let(:email) { "test@test.test" }
-    let(:password) { "1234567890" }
+    let(:password) { "Password1" }
 
     xit "allows the user to sign up", js: true do
       flow = AuthenticationFlow.new(page)
@@ -45,18 +45,18 @@ RSpec.describe "Authentication" do
       flow.follow_reset_password_email_link
       expect(page).to be_axe_clean
 
-      flow.reset_password_to("asdf1234")
+      flow.reset_password_to("Password2")
       expect(flow).to be_signed_in
 
       flow.sign_out
-      flow.sign_in_as(email: email, password: "asdf1234")
+      flow.sign_in_as(email: email, password: "Password2")
       expect(flow).to be_signed_in
     end
   end
 
   describe "when signed in" do
     let(:email) { "test@test.test" }
-    let(:password) { "1234567890" }
+    let(:password) { "Password1" }
 
     it "can sign the user out" do
       user = FactoryBot.create(:user, :confirmed, email: email, password: password)
