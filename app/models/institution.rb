@@ -1,11 +1,13 @@
 class Institution < ApplicationRecord
   validates :name, presence: true
   validates :name, uniqueness: { scope: :city, case_sensitive: false }
+  validates :city, presence: true
   validates :country, presence: true
+  validates :state, presence: true
   validates :category_nrs, presence: true
 
   has_many :users, inverse_of: :institution, dependent: :restrict_with_error
-  belongs_to :state, optional: true
+  belongs_to :state
   belongs_to :country
 
   enum category_nrs: {
