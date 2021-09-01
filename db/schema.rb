@@ -525,6 +525,14 @@ ActiveRecord::Schema.define(version: 2021_08_30_224853) do
     t.index ["SortOrder"], name: "SortOrderPlain"
   end
 
+  create_table "States", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "country_id", default: 235, null: false
+    t.string "name", null: false
+    t.string "code", limit: 10
+    t.index ["country_id", "name"], name: "country"
+    t.index ["name"], name: "name"
+  end
+
   create_table "Waivers", primary_key: "WaiverID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ReserveID"
     t.string "Name"
@@ -845,14 +853,6 @@ ActiveRecord::Schema.define(version: 2021_08_30_224853) do
     t.index ["waiver_id"], name: "index_signatures_on_waiver_id"
   end
 
-  create_table "states", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "country_id", default: 235, null: false
-    t.string "name", null: false
-    t.string "code", limit: 10
-    t.index ["country_id", "name"], name: "country"
-    t.index ["name"], name: "name"
-  end
-
   create_table "users", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.column "gender_identity", "enum('Male','Female','Non-binary','Other','Prefer not to state')"
     t.string "first_name", limit: 100, null: false
@@ -884,7 +884,7 @@ ActiveRecord::Schema.define(version: 2021_08_30_224853) do
     t.string "billing_address_city", limit: 100
     t.string "billing_address_postal_code", limit: 20
     t.integer "billing_address_state_id"
-    t.integer "billing_address_country_id", null: false
+    t.integer "billing_address_country_id"
     t.boolean "record_complete", default: false, null: false, comment: "This is to check if user has completed their information entry."
     t.string "administrative_notes", limit: 100, default: "", comment: "notes about the user (not intended to be public)"
     t.integer "DefaultReserveID", default: 0, null: false, comment: "This value will determain which reserve the user is placed by default when they log in."
