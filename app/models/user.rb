@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  VALID_PASSWORD_PATTERN = /^(?=.*?[A-Z])(?=.*?[0-9]).{8,70}$/
+
   devise :confirmable,
     :database_authenticatable,
     :registerable,
@@ -16,18 +18,17 @@ class User < ApplicationRecord
   validates :phone_number, presence: true
   validates :address_line_1, presence: true
   validates :address_city, presence: true
+  validates :address_state, presence: true
   validates :address_postal_code, presence: true
-  validates :billing_address_address_line_1, presence: true
-  validates :billing_address_city, presence: true
-  validates :billing_address_postal_code, presence: true
   validates :terms_accepted_at, presence: true
+  validates :institution, presence: true
 
   validate :password_complexity
 
   belongs_to :institution
   belongs_to :address_country, class_name: "Country"
-  belongs_to :billing_address_country, class_name: "Country"
-  belongs_to :address_state, class_name: "State", optional: true
+  belongs_to :billing_address_country, class_name: "Country", optional: true
+  belongs_to :address_state, class_name: "State"
   belongs_to :billing_address_state, class_name: "State", optional: true
 
   enum gender_identity: {
@@ -64,7 +65,7 @@ class User < ApplicationRecord
   private
 
   def password_complexity
-    return if password.blank? || password =~ /^(?=.*?[A-Z])(?=.*?[0-9]).{8,70}$/
+    return if password.blank? || password =~ VALID_PASSWORD_PATTERN
     errors.add(:password, :complexity)
   end
 end

@@ -10,17 +10,15 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of(:address_line_1) }
     it { is_expected.to validate_presence_of(:address_city) }
     it { is_expected.to validate_presence_of(:address_postal_code) }
-    it { is_expected.to validate_presence_of(:billing_address_address_line_1) }
-    it { is_expected.to validate_presence_of(:billing_address_city) }
-    it { is_expected.to validate_presence_of(:billing_address_postal_code) }
     it { is_expected.to validate_presence_of(:terms_accepted_at) }
+    it { is_expected.to validate_presence_of(:institution) }
 
     describe "#password_complexity" do
       let!(:country) { create(:country, name: "United States") }
       let!(:state) { create(:state, name: "California", country: country) }
 
       it "adds an error if the password is less than 8 characters" do
-        user = build(:user, password: "Pass1", address_country: country, address_state: state, billing_address_country: country, billing_address_state: state)
+        user = build(:user, password: "Pass1")
 
         user.save
 
@@ -69,8 +67,8 @@ RSpec.describe User, type: :model do
   describe "associations" do
     it { is_expected.to belong_to(:institution) }
     it { is_expected.to belong_to(:address_country).class_name("Country") }
-    it { is_expected.to belong_to(:billing_address_country).class_name("Country") }
-    it { is_expected.to belong_to(:address_state).class_name("State").optional(:true) }
+    it { is_expected.to belong_to(:billing_address_country).class_name("Country").optional(:true) }
+    it { is_expected.to belong_to(:address_state).class_name("State") }
     it { is_expected.to belong_to(:billing_address_state).class_name("State").optional(:true) }
   end
 

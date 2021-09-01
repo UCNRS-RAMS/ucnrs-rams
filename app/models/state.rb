@@ -1,4 +1,7 @@
 class State < ApplicationRecord
+  validates :name, presence: true
+  validates :country, presence: true
+
   belongs_to :country
   has_many :institutions, inverse_of: :state, dependent: :nullify
   has_many :user_address_states, class_name: "User", foreign_key: :address_state_id

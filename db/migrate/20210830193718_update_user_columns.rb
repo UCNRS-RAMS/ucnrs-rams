@@ -67,7 +67,6 @@ class UpdateUserColumns < ActiveRecord::Migration[6.1]
     change_column_null :users, :emergency_contact_full_name, false
     change_column_null :users, :emergency_contact_phone_number, false
     change_column_null :users, :role, false
-    change_column_null :users, :institution_id, false
 
     change_column_default :users, :date_of_birth, from: nil, to: DateTime.new(2000, 1, 1)
 

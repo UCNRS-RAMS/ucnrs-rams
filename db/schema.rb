@@ -271,19 +271,6 @@ ActiveRecord::Schema.define(version: 2021_08_30_224853) do
     t.index ["StartDate"], name: "Start"
   end
 
-  create_table "Institutions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "ManagingInstID", default: 0
-    t.string "name", limit: 80, null: false
-    t.string "city", limit: 30, null: false
-    t.integer "state_id", null: false
-    t.integer "country_id", null: false
-    t.column "category_nrs", "enum('University of California','California State University System','California Community College','California - Other University or College','U.S. - University or College Outside of California','International University or College','K-12 Education','Non-Governmental Organization or Non-Profit Entity','Governmental Agency or Entity','Business Entity','Individual or Other Entity')", null: false
-    t.string "acronym", limit: 10
-    t.string "doi", limit: 25, default: "0000", comment: "Unique ID"
-    t.index ["category_nrs", "name"], name: "CategoryNRS"
-    t.index ["name"], name: "Name"
-  end
-
   create_table "InvAssetReservation", primary_key: "AssetActivityID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "AssetID", null: false
     t.integer "ActivityID", null: false
@@ -525,14 +512,6 @@ ActiveRecord::Schema.define(version: 2021_08_30_224853) do
     t.index ["SortOrder"], name: "SortOrderPlain"
   end
 
-  create_table "States", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "country_id", default: 235, null: false
-    t.string "name", null: false
-    t.string "code", limit: 10
-    t.index ["country_id", "name"], name: "country"
-    t.index ["name"], name: "name"
-  end
-
   create_table "Waivers", primary_key: "WaiverID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ReserveID"
     t.string "Name"
@@ -633,6 +612,19 @@ ActiveRecord::Schema.define(version: 2021_08_30_224853) do
     t.string "guardian_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "institutions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "ManagingInstID", default: 0
+    t.string "name", limit: 80, null: false
+    t.string "city", limit: 30, null: false
+    t.integer "state_id", null: false
+    t.integer "country_id", null: false
+    t.column "category_nrs", "enum('University of California','California State University System','California Community College','California - Other University or College','U.S. - University or College Outside of California','International University or College','K-12 Education','Non-Governmental Organization or Non-Profit Entity','Governmental Agency or Entity','Business Entity','Individual or Other Entity')", null: false
+    t.string "acronym", limit: 10
+    t.string "doi", limit: 25, default: "0000", comment: "Unique ID"
+    t.index ["category_nrs", "name"], name: "CategoryNRS"
+    t.index ["name"], name: "Name"
   end
 
   create_table "invoices", primary_key: "InvoiceID", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -853,6 +845,14 @@ ActiveRecord::Schema.define(version: 2021_08_30_224853) do
     t.index ["waiver_id"], name: "index_signatures_on_waiver_id"
   end
 
+  create_table "states", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "country_id", default: 235, null: false
+    t.string "name", null: false
+    t.string "code", limit: 10
+    t.index ["country_id", "name"], name: "country"
+    t.index ["name"], name: "name"
+  end
+
   create_table "users", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.column "gender_identity", "enum('Male','Female','Non-binary','Other','Prefer not to state')"
     t.string "first_name", limit: 100, null: false
@@ -870,7 +870,7 @@ ActiveRecord::Schema.define(version: 2021_08_30_224853) do
     t.string "secondary_phone_number", limit: 20
     t.string "emergency_contact_full_name", limit: 100, null: false
     t.string "emergency_contact_phone_number", limit: 60, null: false
-    t.integer "institution_id", null: false
+    t.integer "institution_id"
     t.column "role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')", null: false
     t.date "date_of_birth", default: "2000-01-01"
     t.string "identification_number", limit: 20
