@@ -855,25 +855,23 @@ ActiveRecord::Schema.define(version: 2021_08_30_224853) do
 
   create_table "users", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.column "gender_identity", "enum('Male','Female','Non-binary','Other','Prefer not to state')"
-    t.string "first_name", limit: 100
+    t.string "first_name", limit: 100, null: false
     t.string "middle_name", limit: 20
-    t.string "last_name", limit: 100
-    t.string "group_name", limit: 40
+    t.string "last_name", limit: 100, null: false
     t.string "title", limit: 30
-    t.string "address_line_1", limit: 100
+    t.string "address_line_1", limit: 100, null: false
     t.string "address_line_2", limit: 100
-    t.string "address_city", limit: 100
-    t.string "address_postal_code", limit: 20
+    t.string "address_city", limit: 100, null: false
+    t.string "address_postal_code", limit: 20, null: false
     t.integer "address_state_id"
     t.integer "address_country_id"
     t.string "email", limit: 100, null: false
-    t.string "phone_number", limit: 20
-    t.string "fax_phone_number", limit: 20
+    t.string "phone_number", limit: 20, null: false
     t.string "secondary_phone_number", limit: 20
-    t.string "emergency_contact_full_name", limit: 100
-    t.string "emergency_contact_phone_number", limit: 60
+    t.string "emergency_contact_full_name", limit: 100, null: false
+    t.string "emergency_contact_phone_number", limit: 60, null: false
     t.integer "institution_id"
-    t.column "role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')"
+    t.column "role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')", null: false
     t.date "date_of_birth"
     t.string "identification_number", limit: 20
     t.string "housing_concerns", limit: 1000
@@ -907,15 +905,15 @@ ActiveRecord::Schema.define(version: 2021_08_30_224853) do
     t.text "accessibility_requirements"
     t.boolean "billing_address_same_as_current"
     t.string "backup_email_address"
-    t.datetime "terms_accepted_at"
+    t.datetime "terms_accepted_at", null: false
     t.column "age_range", "enum('1-17','18-25','25-50','50 or older')"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["group_name", "last_name", "first_name"], name: "Group"
     t.index ["id"], name: "user"
     t.index ["institution_id", "last_name", "first_name", "middle_name"], name: "Institution+Name"
     t.index ["institution_id"], name: "Institution"
     t.index ["last_name", "first_name", "middle_name"], name: "Name"
+    t.index ["last_name", "first_name"], name: "Group"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

@@ -16,14 +16,12 @@ class UpdateUserColumns < ActiveRecord::Migration[6.1]
     rename_column :users, :NameFirst, :first_name
     rename_column :users, :NameMiddle, :middle_name
     rename_column :users, :NameLast, :last_name
-    rename_column :users, :NameGroup, :group_name
     rename_column :users, :Title, :title
     rename_column :users, :AddrLine1, :address_line_1
     rename_column :users, :AddrLine2, :address_line_2
     rename_column :users, :AddrCity, :address_city
     rename_column :users, :AddrPostalCode, :address_postal_code
     rename_column :users, :CellPhone, :phone_number
-    rename_column :users, :FaxPhone, :fax_phone_number
     rename_column :users, :OtherPhone, :secondary_phone_number
     rename_column :users, :Birthdate, :date_of_birth
     rename_column :users, :IdentificationNumber, :identification_number
@@ -48,7 +46,7 @@ class UpdateUserColumns < ActiveRecord::Migration[6.1]
     add_column :users, :accessibility_requirements, :text
     add_column :users, :billing_address_same_as_current, :boolean
     add_column :users, :backup_email_address, :string
-    add_column :users, :terms_accepted_at, :datetime
+    add_column :users, :terms_accepted_at, :datetime, null: false
     reversible do |dir|
       dir.up do
         execute <<-SQL
@@ -60,6 +58,16 @@ class UpdateUserColumns < ActiveRecord::Migration[6.1]
       end
     end
 
+    change_column_null :users, :first_name, false
+    change_column_null :users, :last_name, false
+    change_column_null :users, :address_line_1, false
+    change_column_null :users, :address_city, false
+    change_column_null :users, :address_postal_code, false
+    change_column_null :users, :phone_number, false
+    change_column_null :users, :emergency_contact_full_name, false
+    change_column_null :users, :emergency_contact_phone_number, false
+    change_column_null :users, :role, false
+
     remove_column :users, :PermAddrLine1, :string
     remove_column :users, :PermAddrLine2, :string
     remove_column :users, :PermAddrCity, :string
@@ -67,5 +75,7 @@ class UpdateUserColumns < ActiveRecord::Migration[6.1]
     remove_column :users, :PermAddrStateID, :integer
     remove_column :users, :PermAddrCountryID, :integer
     remove_column :users, :Count, :integer
+    remove_column :users, :NameGroup, :string
+    remove_column :users, :FaxPhone, :string
   end
 end
