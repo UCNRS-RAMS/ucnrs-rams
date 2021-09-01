@@ -47,6 +47,24 @@ class AuthenticationFlow
     page.fill_in("Email", with: email)
     page.fill_in("Password", with: password)
     page.fill_in("Password confirmation", with: password)
+    page.fill_in("First name", with: "John")
+    page.fill_in("Last name", with: "Muir")
+    page.choose("Faculty")
+    page.fill_in("Emergency Contact", with: "Louisa Wanda Strentzel")
+    page.fill_in("Emergency Phone Number", with: "111-111-1111")
+    page.fill_in("Address line 1", with: "1 Muir Woods Rd")
+    page.fill_in("Address city", with: "Mill Valley")
+    page.fill_in("Address country", with: "United States")
+    page.fill_in("Address state", with: "California")
+    page.fill_in("Address postal code", with: "94941")
+    page.fill_in("Billing address line 1", with: "1 Muir Woods Rd")
+    page.fill_in("Billing address city", with: "Mill Valley")
+    page.fill_in("Billing address country", with: "United States")
+    page.fill_in("Billing address state", with: "California")
+    page.fill_in("Billing address postal code", with: "94941")
+    page.fill_in("Insitution", with: "1")
+    # page.fill_in("Accepted ter", with: "1")
+
     page.find("input[type='submit']").click
   end
 
