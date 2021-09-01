@@ -15,6 +15,7 @@ RSpec.describe Institution, type: :model do
   describe "associations" do
     it { is_expected.to belong_to(:country) }
     it { is_expected.to belong_to(:state) }
+    it { is_expected.to have_many(:users).inverse_of(:institution).dependent(:restrict_with_error) }
   end
 
   it do

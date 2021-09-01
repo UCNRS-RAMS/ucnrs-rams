@@ -8,6 +8,7 @@ class Institution < ApplicationRecord
 
   belongs_to :state
   belongs_to :country
+  has_many :users, inverse_of: :institution, dependent: :restrict_with_error
 
   enum institution_type: {
     university_of_california: "University of California",

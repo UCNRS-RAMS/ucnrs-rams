@@ -5,8 +5,10 @@ en:
         user:
           attributes:
             password:
+              complexity: "Password complexity requirement not met. Length should be 8-70 characters and include: 1 uppercase character and 1 digit."
               confirmation: "does not match Password"
               too_short: "must be at least %{count} characters"
+  users:
     new:
       header:
         title: "Create An Account"
