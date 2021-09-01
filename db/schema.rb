@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_01_185830) do
+ActiveRecord::Schema.define(version: 2021_09_01_190351) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ReserveID"
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 2021_09_01_185830) do
     t.integer "user_id", null: false
     t.column "Role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')", null: false
     t.integer "ReserveID"
-    t.integer "InstitutionID"
+    t.integer "institution_id"
     t.date "ArrivalDate", default: "1999-12-31"
     t.time "ArrivalTime", default: "2000-01-01 00:00:00"
     t.date "DepartureDate", default: "1999-12-31"
@@ -132,7 +132,7 @@ ActiveRecord::Schema.define(version: 2021_09_01_185830) do
   create_table "AppTeamMembers", primary_key: "ApplicationTMID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ApplicationID", null: false
     t.integer "user_id", null: false
-    t.integer "InstitutionID"
+    t.integer "institution_id"
     t.column "UserType", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')"
     t.column "DegreeSought", "set('No selection made','BA','BS','MA','MS','PhD')", default: "No selection made"
     t.boolean "IsPrincipalInvestigator", default: false, null: false
@@ -146,8 +146,8 @@ ActiveRecord::Schema.define(version: 2021_09_01_185830) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["ApplicationID"], name: "Applications"
-    t.index ["InstitutionID", "user_id", "ApplicationID"], name: "Institutions"
     t.index ["IsPrincipalInvestigator", "user_id"], name: "PI"
+    t.index ["institution_id", "user_id", "ApplicationID"], name: "Institutions"
     t.index ["user_id", "ApplicationID"], name: "user_application"
   end
 
@@ -239,9 +239,9 @@ ActiveRecord::Schema.define(version: 2021_09_01_185830) do
   create_table "GrantPIs", primary_key: "GrantPIID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "GrantID"
     t.integer "user_id"
-    t.integer "InstitutionID"
+    t.integer "institution_id"
     t.index ["GrantID"], name: "Grants"
-    t.index ["InstitutionID"], name: "Institution"
+    t.index ["institution_id"], name: "Institution"
     t.index ["user_id"], name: "user"
   end
 
@@ -269,19 +269,6 @@ ActiveRecord::Schema.define(version: 2021_09_01_185830) do
     t.index ["ReserveID", "StartDate"], name: "ReserveStart"
     t.index ["StartDate", "ReserveID"], name: "StartReserve"
     t.index ["StartDate"], name: "Start"
-  end
-
-  create_table "Institutions", primary_key: "InstitutionID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "ManagingInstID", default: 0
-    t.string "Name", limit: 80
-    t.string "City", limit: 30
-    t.integer "state_id", null: false
-    t.integer "country_id", null: false
-    t.column "CategoryNRS", "enum('University of California','California State University System','California Community College','California - Other University or College','U.S. - University or College Outside of California','International University or College','K-12 Education','Non-Governmental Organization or Non-Profit Entity','Governmental Agency or Entity','Business Entity','Individual or Other Entity')"
-    t.string "Acronym", limit: 10
-    t.string "DOI", limit: 25, default: "0000", comment: "Unique ID"
-    t.index ["CategoryNRS", "Name"], name: "CategoryNRS"
-    t.index ["Name"], name: "Name"
   end
 
   create_table "InvAssetReservation", primary_key: "AssetActivityID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -627,6 +614,19 @@ ActiveRecord::Schema.define(version: 2021_09_01_185830) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "institutions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "managing_institution_id", default: 0
+    t.string "name", limit: 80, null: false
+    t.string "city", limit: 30, null: false
+    t.integer "state_id", null: false
+    t.integer "country_id", null: false
+    t.column "institution_type", "enum('University of California','California State University System','California Community College','California - Other University or College','U.S. - University or College Outside of California','International University or College','K-12 Education','Non-Governmental Organization or Non-Profit Entity','Governmental Agency or Entity','Business Entity','Individual or Other Entity')", null: false
+    t.string "acronym", limit: 10
+    t.string "doi", limit: 25, default: "0000", comment: "Unique ID"
+    t.index ["institution_type", "name"], name: "institution_type"
+    t.index ["name"], name: "name"
+  end
+
   create_table "invoices", primary_key: "InvoiceID", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ActivityID", null: false
     t.date "InvoiceDate"
@@ -879,7 +879,7 @@ ActiveRecord::Schema.define(version: 2021_09_01_185830) do
     t.string "OtherPhone", limit: 20
     t.string "EmergencyContact", limit: 100
     t.string "EmergencyTelephone", limit: 60
-    t.integer "InstitutionID"
+    t.integer "institution_id", null: false
     t.column "Role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')"
     t.date "Birthdate"
     t.string "IdentificationNumber", limit: 20
@@ -911,13 +911,13 @@ ActiveRecord::Schema.define(version: 2021_09_01_185830) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
-    t.index ["InstitutionID", "NameLast", "NameFirst", "NameMiddle"], name: "Institution+Name"
-    t.index ["InstitutionID"], name: "Institution"
     t.index ["NameGroup", "NameLast", "NameFirst"], name: "Group"
     t.index ["NameLast", "NameFirst", "NameMiddle"], name: "Name"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["id"], name: "user"
+    t.index ["institution_id", "NameLast", "NameFirst", "NameMiddle"], name: "Institution+Name"
+    t.index ["institution_id"], name: "Institution"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
