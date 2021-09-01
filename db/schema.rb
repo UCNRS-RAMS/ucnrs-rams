@@ -271,19 +271,6 @@ ActiveRecord::Schema.define(version: 2021_08_30_224853) do
     t.index ["StartDate"], name: "Start"
   end
 
-  create_table "Institutions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "ManagingInstID", default: 0
-    t.string "name", limit: 80
-    t.string "city", limit: 30
-    t.integer "state_id"
-    t.integer "country_id"
-    t.column "category_nrs", "enum('University of California','California State University System','California Community College','California - Other University or College','U.S. - University or College Outside of California','International University or College','K-12 Education','Non-Governmental Organization or Non-Profit Entity','Governmental Agency or Entity','Business Entity','Individual or Other Entity')"
-    t.string "acronym", limit: 10
-    t.string "doi", limit: 25, default: "0000", comment: "Unique ID"
-    t.index ["category_nrs", "name"], name: "CategoryNRS"
-    t.index ["name"], name: "Name"
-  end
-
   create_table "InvAssetReservation", primary_key: "AssetActivityID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "AssetID", null: false
     t.integer "ActivityID", null: false
@@ -625,6 +612,19 @@ ActiveRecord::Schema.define(version: 2021_08_30_224853) do
     t.string "guardian_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "institutions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "ManagingInstID", default: 0
+    t.string "name", limit: 80, null: false
+    t.string "city", limit: 30, null: false
+    t.integer "state_id"
+    t.integer "country_id"
+    t.column "category_nrs", "enum('University of California','California State University System','California Community College','California - Other University or College','U.S. - University or College Outside of California','International University or College','K-12 Education','Non-Governmental Organization or Non-Profit Entity','Governmental Agency or Entity','Business Entity','Individual or Other Entity')", null: false
+    t.string "acronym", limit: 10
+    t.string "doi", limit: 25, default: "0000", comment: "Unique ID"
+    t.index ["category_nrs", "name"], name: "CategoryNRS"
+    t.index ["name"], name: "Name"
   end
 
   create_table "invoices", primary_key: "InvoiceID", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
