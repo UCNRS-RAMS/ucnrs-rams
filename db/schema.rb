@@ -870,9 +870,9 @@ ActiveRecord::Schema.define(version: 2021_08_30_224853) do
     t.string "secondary_phone_number", limit: 20
     t.string "emergency_contact_full_name", limit: 100, null: false
     t.string "emergency_contact_phone_number", limit: 60, null: false
-    t.integer "institution_id"
+    t.integer "institution_id", null: false
     t.column "role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')", null: false
-    t.date "date_of_birth"
+    t.date "date_of_birth", default: "2000-01-01"
     t.string "identification_number", limit: 20
     t.string "housing_concerns", limit: 1000
     t.string "department", limit: 200
@@ -903,7 +903,7 @@ ActiveRecord::Schema.define(version: 2021_08_30_224853) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.text "accessibility_requirements"
-    t.boolean "billing_address_same_as_current"
+    t.boolean "billing_address_same_as_current", default: false
     t.string "backup_email_address"
     t.datetime "terms_accepted_at", null: false
     t.column "age_range", "enum('1-17','18-25','25-50','50 or older')"

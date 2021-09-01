@@ -44,7 +44,7 @@ class UpdateUserColumns < ActiveRecord::Migration[6.1]
     rename_column :users, :Role, :role
 
     add_column :users, :accessibility_requirements, :text
-    add_column :users, :billing_address_same_as_current, :boolean
+    add_column :users, :billing_address_same_as_current, :boolean, default: false
     add_column :users, :backup_email_address, :string
     add_column :users, :terms_accepted_at, :datetime, null: false
     reversible do |dir|
@@ -67,6 +67,9 @@ class UpdateUserColumns < ActiveRecord::Migration[6.1]
     change_column_null :users, :emergency_contact_full_name, false
     change_column_null :users, :emergency_contact_phone_number, false
     change_column_null :users, :role, false
+    change_column_null :users, :institution_id, false
+
+    change_column_default :users, :date_of_birth, from: nil, to: DateTime.new(2000, 1, 1)
 
     remove_column :users, :PermAddrLine1, :string
     remove_column :users, :PermAddrLine2, :string
