@@ -10,6 +10,9 @@ class UseConventionalSyntaxForStates < ActiveRecord::Migration[6.1]
     rename_column :users, :AddrStateID, :address_state_id
     rename_column :users, :BillingAddrStateID, :billing_address_state_id
 
+    change_column_null :users, :address_state_id, false
+    change_column_null :users, :billing_address_state_id, false
+
     rename_index :states, :Name, :name
   end
 end
