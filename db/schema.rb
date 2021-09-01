@@ -271,6 +271,19 @@ ActiveRecord::Schema.define(version: 2021_08_30_224853) do
     t.index ["StartDate"], name: "Start"
   end
 
+  create_table "Institutions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "ManagingInstID", default: 0
+    t.string "name", limit: 80
+    t.string "city", limit: 30
+    t.integer "state_id"
+    t.integer "country_id"
+    t.column "category_nrs", "enum('University of California','California State University System','California Community College','California - Other University or College','U.S. - University or College Outside of California','International University or College','K-12 Education','Non-Governmental Organization or Non-Profit Entity','Governmental Agency or Entity','Business Entity','Individual or Other Entity')"
+    t.string "acronym", limit: 10
+    t.string "doi", limit: 25, default: "0000", comment: "Unique ID"
+    t.index ["category_nrs", "name"], name: "CategoryNRS"
+    t.index ["name"], name: "Name"
+  end
+
   create_table "InvAssetReservation", primary_key: "AssetActivityID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "AssetID", null: false
     t.integer "ActivityID", null: false
@@ -512,6 +525,14 @@ ActiveRecord::Schema.define(version: 2021_08_30_224853) do
     t.index ["SortOrder"], name: "SortOrderPlain"
   end
 
+  create_table "States", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "country_id", default: 235
+    t.string "name"
+    t.string "code", limit: 10
+    t.index ["country_id", "name"], name: "country"
+    t.index ["name"], name: "name"
+  end
+
   create_table "Waivers", primary_key: "WaiverID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ReserveID"
     t.string "Name"
@@ -612,19 +633,6 @@ ActiveRecord::Schema.define(version: 2021_08_30_224853) do
     t.string "guardian_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "institutions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "ManagingInstID", default: 0
-    t.string "name", limit: 80
-    t.string "city", limit: 30
-    t.integer "state_id"
-    t.integer "country_id"
-    t.column "category_nrs", "enum('University of California','California State University System','California Community College','California - Other University or College','U.S. - University or College Outside of California','International University or College','K-12 Education','Non-Governmental Organization or Non-Profit Entity','Governmental Agency or Entity','Business Entity','Individual or Other Entity')"
-    t.string "acronym", limit: 10
-    t.string "doi", limit: 25, default: "0000", comment: "Unique ID"
-    t.index ["category_nrs", "name"], name: "CategoryNRS"
-    t.index ["name"], name: "Name"
   end
 
   create_table "invoices", primary_key: "InvoiceID", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -845,14 +853,6 @@ ActiveRecord::Schema.define(version: 2021_08_30_224853) do
     t.index ["waiver_id"], name: "index_signatures_on_waiver_id"
   end
 
-  create_table "states", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "country_id", default: 235
-    t.string "name"
-    t.string "code", limit: 10
-    t.index ["country_id", "name"], name: "country"
-    t.index ["name"], name: "name"
-  end
-
   create_table "users", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.column "gender_identity", "enum('Male','Female','Non-binary','Other','Prefer not to state')"
     t.string "first_name", limit: 100, null: false
@@ -864,7 +864,7 @@ ActiveRecord::Schema.define(version: 2021_08_30_224853) do
     t.string "address_city", limit: 100, null: false
     t.string "address_postal_code", limit: 20, null: false
     t.integer "address_state_id"
-    t.integer "address_country_id"
+    t.integer "address_country_id", null: false
     t.string "email", limit: 100, null: false
     t.string "phone_number", limit: 20, null: false
     t.string "secondary_phone_number", limit: 20
@@ -884,7 +884,7 @@ ActiveRecord::Schema.define(version: 2021_08_30_224853) do
     t.string "billing_address_city", limit: 100
     t.string "billing_address_postal_code", limit: 20
     t.integer "billing_address_state_id"
-    t.integer "billing_address_country_id"
+    t.integer "billing_address_country_id", null: false
     t.boolean "record_complete", default: false, null: false, comment: "This is to check if user has completed their information entry."
     t.string "administrative_notes", limit: 100, default: "", comment: "notes about the user (not intended to be public)"
     t.integer "DefaultReserveID", default: 0, null: false, comment: "This value will determain which reserve the user is placed by default when they log in."
