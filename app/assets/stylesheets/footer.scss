@@ -1,0 +1,130 @@
+@import "variables";
+
+.display-none {
+  display: none;
+}
+
+footer {
+  background-color: $footer-background-color;
+  color: $footer-color;
+  display:flex;
+  font-size: .75rem;
+  justify-content: space-between;
+  padding: 1.75rem 1.375rem;
+
+  a {
+    color: $footer-color;
+    text-decoration: underline;
+  }
+
+  .left-side, .right-side {
+    align-items: center;
+    display: flex;
+
+    #footer-rams-logo {
+      margin-right: .625rem;
+    }
+
+    > span {
+      align-items: center;
+      display: flex;
+    }
+
+    > span:not(:last-child)::after {
+      background: $white-50;
+      content: "";
+      display: block;
+      height: 20px;
+      margin: 0 1.25rem;
+      width: 1px;
+    }
+
+    img {
+      vertical-align: middle;
+    }
+  }
+
+  .left-side {
+    font-size: .75rem;
+    font-weight: $semi-bold;
+
+    a {
+      display: inline-block;
+      margin-left: .5rem;
+      margin-right: .5rem;
+    }
+
+    .social {
+      margin-left: .9375rem;
+      margin-right: .9375rem;
+      white-space: nowrap;
+    }
+
+    #newsletter-link {
+      color: $footer-newsletter-color;
+    }
+  }
+
+  .right-side {
+    color: $footer-color-right-side;
+    font-size: .75rem;
+    font-weight: $normal;
+
+    a {
+      color: $footer-color-right-side;
+    }
+  }
+
+}
+
+@media screen and (max-width: 1024px) {
+  footer{
+    flex-direction: column;
+
+    .left-side, .right-side {
+      > span:not(:last-child)::after {
+        margin: 0 .625rem;
+        transition: all .15s ease-in-out;
+      }
+    }
+    .right-side {
+      margin-left: 4.6875rem;
+    }
+  }
+}
+
+@media screen and (max-width: 765px) {
+  footer{
+
+    #footer-rams-logo {
+      display: none;
+    }
+    .left-side, .right-side {
+      > span:not(:last-child)::after {
+        width: 0;
+        margin: 0 .5rem;
+      }
+    }
+    .left-side {
+      font-size: .6875rem;
+      margin: .3125rem 0;
+
+      .social {
+        margin-left: 0;
+        transition: all .15s ease-in-out;
+      }
+    }
+    .right-side {
+      font-size: .625rem;
+      margin: .9375rem 0 .3125rem 0;
+      transition: all .15s ease-in-out;
+    }
+  }
+
+  .hide-765 {
+    display: none;
+  }
+  .show-765 {
+    display: unset;
+  }
+}

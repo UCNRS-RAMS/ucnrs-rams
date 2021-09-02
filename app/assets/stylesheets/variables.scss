@@ -19,8 +19,13 @@ $gold: #ffb511;
 $gray: #aab7bb;
 $light-gray: #f3f6f7;
 $navy-blue: #002045;
-$white: #ffffff;
+$navy-blue-025: rgba($navy-blue, .025);
+$navy-blue-20: rgba($navy-blue, .20);
 $red: #c03e2d;
+$sky-blue: rgba(18, 149, 216, 1);
+$white: #ffffff;
+$white-50: rgba($white, 0.50);
+$white-75: rgba($white, 0.75);
 
 // Semantic Colors
 $active-button-fill: $gold;
@@ -32,6 +37,10 @@ $buttonset-foreground-selected: $white;
 $buttonset-foreground: $gray;
 $form-copy-color: $dark-bluegray;
 $form-title-color: $navy-blue;
+$footer-background-color: $navy-blue;
+$footer-color: $white-75;
+$footer-color-right-side: $white-50;
+$footer-newsletter-color: $sky-blue;
 $hero-copy: $white;
 $hero-emphasis: $gold;
 $hero-link: $cornflower;
@@ -53,4 +62,3 @@ $table-row-odd-background-neutral: $light-gray;
 $table-row-odd-border-neutral: $gray;
 $table-text-color: $navy-blue;
 $error-red: $red;
-
