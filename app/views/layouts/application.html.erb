@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>UcnrsRams</title>
+    <title>UCNRS RAMS</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -13,12 +13,14 @@
   </head>
 
   <body class="<%= body_class %>">
-    <%= render(NavbarComponent.new(user: current_user)) %>
-    <main role="main">
-      <section role="region" aria-label="errors">
+    <header>
+      <%= render partial: 'layouts/navbar', locals: { current_user: current_user } %>
+      <section role="region" aria-label="errors" class="flash">
         <p class="notice"><%= notice %></p>
         <p class="alert"><%= alert %></p>
       </section>
+    </header>
+    <main role="main">
       <%= yield %>
     </main>
     <%= render partial: "layouts/footer" %>

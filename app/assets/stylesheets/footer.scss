@@ -122,9 +122,9 @@ footer {
   }
 
   .hide-765 {
-    display: none;
+    display: none !important;
   }
   .show-765 {
-    display: unset;
+    display: unset !important;
   }
 }
