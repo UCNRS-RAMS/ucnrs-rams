@@ -9,14 +9,18 @@
 </div>
 
 <%= form_with model: resource, url: user_password_path do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
   <section class="instructions">
     <%= t(".instructions") %>
   </section>
 
   <div class="field">
     <%= f.label :email do %>
-      <span><%= t(".email_address") %></span>
+      <span>
+        <%= t(".email_address") %>
+        <% if resource.errors[:email].present? %>
+          <em class="errors">(<%= resource.errors[:email].join(", ") %>)</em>
+        <% end %>
+      </span>
       <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
     <% end %>
   </div>
@@ -25,7 +29,7 @@
     <%= f.submit t(".submit") %>
   </div>
 
-  <section class="contact">
+  <section class="afterword extra_actions">
     <%= t(".having_trouble") %>
     <%= link_to t(".contact_us"), "mailto:hello@ucnrs.org" %>
   </section>

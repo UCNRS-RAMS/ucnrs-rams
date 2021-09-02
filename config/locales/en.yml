@@ -1,4 +1,12 @@
 en:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            password:
+              confirmation: "does not match Password"
+              too_short: "must be at least %{count} characters"
   users:
     new:
       header:

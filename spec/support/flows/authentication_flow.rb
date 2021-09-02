@@ -13,7 +13,7 @@ class AuthenticationFlow
 
   def visit_forgot_password_page
     visit_sign_in_page
-    page.click_link("Forgot your password?")
+    page.click_link("Forgot Password")
   end
 
   def reset_password_for(email)
@@ -30,8 +30,8 @@ class AuthenticationFlow
   end
 
   def reset_password_to(new_password)
-    page.fill_in("New password", with: new_password)
-    page.fill_in("Confirm new password", with: new_password)
+    page.fill_in("Create a New Password", with: new_password)
+    page.fill_in("Re-enter Password", with: new_password)
     page.find("input[type='submit']").click
   end
 

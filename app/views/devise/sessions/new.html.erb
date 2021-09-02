@@ -1,26 +1,32 @@
-<h1>Log in</h1>
+<% content_for(:title) { t(".title") } %>
+<h1><%= t(".title") %></h1>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+  <section class="instructions">
+    <%= t(".instructions") %>
+    <%= link_to t(".create_an_account"), new_user_registration_path %>
+  </section>
+
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label :email do %>
+      <span><%= t(".email_address") %></span>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <% end %>
   </div>
 
   <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
+    <%= f.label :password do %>
+      <span><%= t(".password") %></span>
+      <%= f.password_field :password %>
+    <% end %>
   </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
+  <section class="extra_actions">
+    <%= link_to t(".forgot_password"), new_user_password_path %>
+  </section>
 
   <div class="actions">
-    <%= f.submit "Log in" %>
+    <%= f.submit t(".submit") %>
   </div>
 <% end %>
-
-<%= render "devise/shared/links" %>

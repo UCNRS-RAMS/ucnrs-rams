@@ -32,12 +32,13 @@
         font-size: 3.75rem;
         font-weight: 700;
         line-height: 4.25rem;
+        margin-top: 0;
       }
 
       img {
-        left: 5.5rem;
+        left: 5.25rem;
         position: absolute;
-        top: 12.5rem;
+        top: 9.25rem;
       }
 
       p {
@@ -63,11 +64,18 @@
       padding: 13rem 8.4rem;
       position: relative;
 
+      .notifications {
+        position: absolute;
+        top: 7rem;
+        width: inherit;
+      }
+
       .navigation {
         color: $form-copy-color;
         position: absolute;
-        top: 10rem;
+        top: 7rem;
         vertical-align: center;
+        width: inherit;
 
         a {
           color: $form-copy-color;
@@ -89,6 +97,7 @@
         color: $form-title-color;
         font-size: 2.25rem;
         font-weight: $semi-bold;
+        margin-top: 0;
       }
 
       .instructions {
@@ -106,6 +115,10 @@
           font-weight: $bold;
         }
 
+        em.errors {
+          color: $bluegray;
+        }
+
         input[type="email"],
         input[type="password"],
         input[type="text"] {
@@ -113,6 +126,7 @@
           border: 1px solid $navy-blue;
           font-size: 1rem;
           padding: 0.25rem;
+          width: 100%;
         }
       }
 
@@ -128,10 +142,14 @@
         width: 100%;
       }
 
-      .contact {
+      .afterword {
+        margin-top: 3.5rem;
+      }
+
+      .extra_actions {
         color: $form-copy-color;
         font-size: 0.75rem;
-        margin-top: 3.5rem;
+        margin-bottom: 2.5rem;
 
         a {
           color: $form-copy-color;

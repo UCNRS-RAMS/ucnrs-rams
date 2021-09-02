@@ -13,6 +13,7 @@ $base-font-size: 16px;
 // Colors
 $cornflower: #6dccf6;
 $dark-bluegray: #5f777f;
+$bluegray: lighten($dark-bluegray, 20%);
 $gold: #ffb511;
 $navy-blue: #002045;
 $white: #ffffff;
