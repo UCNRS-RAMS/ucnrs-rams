@@ -58,7 +58,7 @@ class UpdateColumnsAndSyntaxForUsers < ActiveRecord::Migration[6.1]
     add_column :users, :accessibility_requirements, :text
     add_column :users, :billing_address_same_as_current, :boolean, default: false
     add_column :users, :backup_email_address, :string
-    add_column :users, :terms_accepted_at, :datetime, null: false
+    add_column :users, :terms_accepted_at, :datetime
     reversible do |dir|
       dir.up do
         execute <<-SQL
@@ -69,16 +69,6 @@ class UpdateColumnsAndSyntaxForUsers < ActiveRecord::Migration[6.1]
         remove_column :users, :age_range
       end
     end
-
-    change_column_null :users, :first_name, false
-    change_column_null :users, :last_name, false
-    change_column_null :users, :address_line_1, false
-    change_column_null :users, :address_city, false
-    change_column_null :users, :address_postal_code, false
-    change_column_null :users, :phone_number, false
-    change_column_null :users, :emergency_contact_full_name, false
-    change_column_null :users, :emergency_contact_phone_number, false
-    change_column_null :users, :role, false
 
     change_column_default :users, :date_of_birth, from: nil, to: DateTime.new(2000, 1, 1)
 

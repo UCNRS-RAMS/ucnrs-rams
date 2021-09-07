@@ -15,11 +15,6 @@ class UseConventionalSyntaxForInstitutions < ActiveRecord::Migration[6.1]
     rename_column :AppTeamMembers, :InstitutionID, :institution_id
     rename_column :GrantPIs, :InstitutionID, :institution_id
 
-    change_column_null :institutions, :name, false
-    change_column_null :institutions, :city, false
-    change_column_null :institutions, :institution_type, false
-    change_column_null :users, :institution_id, false
-
     rename_index :institutions, :CategoryNRS, :institution_type
     rename_index :institutions, :Name, :name
   end
