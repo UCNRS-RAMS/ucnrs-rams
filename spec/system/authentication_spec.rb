@@ -5,24 +5,6 @@ RSpec.describe "Authentication" do
     let(:email) { "test@test.test" }
     let(:password) { "Password1" }
 
-    xit "allows the user to sign up", js: true do
-      flow = AuthenticationFlow.new(page)
-
-      flow.visit_sign_up_page
-      expect(page).to be_axe_clean
-      flow.fill_out_account_creation_form(
-        email: email,
-        password: password,
-      )
-
-      flow.confirm_email
-      expect(flow).to have_confirmed_email_is_valid
-      expect(page).to be_axe_clean
-
-      flow.sign_in_as(email: email, password: password)
-      expect(flow).to be_signed_in
-    end
-
     it "means the user gets redirected to sign in when going to the homepage", js: true do
       user = FactoryBot.create(:user, :confirmed, email: email, password: password)
       flow = AuthenticationFlow.new(page)

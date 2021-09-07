@@ -81,6 +81,7 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include ViewComponent::TestHelpers, type: :component
   config.include Capybara::RSpecMatchers, type: :component
+  config.include ActiveSupport::Testing::TimeHelpers
 end
 
 Capybara.default_max_wait_time = 3

@@ -5,4 +5,8 @@ class Country < ApplicationRecord
   has_many :institutions
   has_many :user_address_countries, class_name: "User", foreign_key: :address_country_id
   has_many :user_billing_address_countries, class_name: "User", foreign_key: :billing_address_country_id
+
+  def self.alphabetical_by_name
+    order(:name)
+  end
 end

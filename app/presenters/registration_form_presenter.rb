@@ -1,50 +1,51 @@
+# frozen_string_literal: true
+
 class RegistrationFormPresenter
   SPECIAL_CHARACTERS_PATTERN = %r{[^0-9A-Za-z]+}
   BEGINNING_OR_END_UNDERSCORE_PATTERN = %r{(?:\A_+|_+\z)}
+  PHONE_NUMBER_PLACEHOLDER = "(_ _ _) _ _ _ - _ _ _ _"
+  POSTAL_CODE_PLACEHOLDER = "_ _ _ _ _"
 
-  attr_reader :user
+  attr_reader :form
 
-  def initialize
-    @user = User.new
+  def initialize(form = nil)
+    @form = form || RegistrationForm.new
   end
 
+  delegate :user, to: :form, prefix: true
+
   def gender_identity_options
-    ["--Select--", "Male", "Female", "Non-binary"]
+    User.gender_identities.map do |key, value|
+      [key.titleize, User.gender_identities.key(value)]
+    end
   end
 
   def age_range_options
-    ["1-17", "18-25", "25-50", "50 or older"]
-  end
-
-  def phone_number_placeholder
-    I18n.t(".devise.registrations.new.placeholders.phone_number")
+    User.age_ranges.map do |key, value|
+      [value, identifier_for(:age_range, value)]
+    end
   end
 
   def role_options
-    [
-      "No selection",
-      "Faculty",
-      "Research Scientist/Post Doc",
-      "Research Assistant (non-student/faculty/postdoc)",
-      "Graduate Student",
-      "Undergraduate Student",
-      "K-12 Instructor",
-      "K-12 Student",
-      "Professional",
-      "Other",
-      "Docent",
-      "Volunteer",
-      "Staff",
-    ]
+    User.roles.map do |key, value|
+      [value, identifier_for(:role, value)]
+    end
   end
 
-  def country_options
-    ["United States", "Canada"]
+  def selected_country_option
+    united_states = Country.find_by(name: "United States")
+    [united_states.name, united_states.id]
   end
 
-  def state_options
-    %w[Massachusetts Quebec]
+  def phone_number_placeholder
+    PHONE_NUMBER_PLACEHOLDER
   end
+
+  def postal_code_placeholder
+    POSTAL_CODE_PLACEHOLDER
+  end
+
+  private
 
   def identifier_for(field, value)
     value_with_no_special_chars = value
