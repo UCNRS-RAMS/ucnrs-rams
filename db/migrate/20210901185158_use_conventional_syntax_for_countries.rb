@@ -12,8 +12,6 @@ class UseConventionalSyntaxForCountries < ActiveRecord::Migration[6.1]
     rename_column :users, :AddrCountryID, :address_country_id
     rename_column :users, :BillingAddrCountryID, :billing_address_country_id
 
-    change_column_null :users, :address_country_id, false
-
     rename_index :countries, :Name, :name
     rename_index :States, :Country, :country
   end

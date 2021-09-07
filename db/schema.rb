@@ -101,7 +101,6 @@ ActiveRecord::Schema.define(version: 2021_09_01_192016) do
     t.index ["DepartureDate"], name: "DepartureDate"
     t.index ["ReserveID", "ArrivalDate", "ActivityID"], name: "Reserves"
     t.index ["Status", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "StatusAndDate"
-    t.index ["Status"], name: "status"
     t.index ["user_id", "ActivityID", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "user_activity_date_range"
     t.index ["user_id"], name: "user"
   end
@@ -170,15 +169,16 @@ ActiveRecord::Schema.define(version: 2021_09_01_192016) do
     t.boolean "MethodSoilDisturbance", comment: "Boolean"
     t.boolean "MethodLongTermStructures", comment: "Boolean"
     t.boolean "MethodAnchorCollectShoreline", comment: "Boolean"
-    t.string "MethodStudyArea", limit: 500
+    t.string "MethodStudyArea", limit: 10000
     t.boolean "NonNativeGenotype", default: false, comment: "Boolean"
     t.date "DateSubmitted"
-    t.column "ApplicationType", "enum('Research','Class','Public','Housing','All')", default: "Research"
+    t.column "ApplicationType", "enum('Research','Class','Public','Housing','Meeting','All')", default: "Research"
     t.column "app_html_type", "enum('research','class','other','housing','conference')"
+    t.column "ApplicationSubType", "enum('Default','Meeting','Housing')", default: "Default"
     t.date "ProjectStartDate"
     t.date "ProjectEndDate"
     t.text "ProjectChanges"
-    t.string "ApplicationPassword", limit: 20
+    t.string "ApplicationPassword", limit: 100
     t.column "USDACategories", "set('AES: Agricultural Experiment Station','CE: Cooperative Extension','ANR: Division of Agriculture and Natural Resources','USDA: U. S. Department of Agriculture','USFS: U. S. Forest Service','CSREES: Cooperative State Research Education and Extension Service','College of Agricultural and Natural Science (Riverside)','College of Agricultural and Environmental Science (Davis)','College of Natural Resources (Berkeley)','School of Forestry','Veterinary School of Medicine','Other','No USDA category applicable')"
     t.boolean "ApprovalStatus", default: false, null: false, comment: "Pending or Approved"
     t.string "ApprovedBy", limit: 30
@@ -204,14 +204,14 @@ ActiveRecord::Schema.define(version: 2021_09_01_192016) do
     t.datetime "updated_at", default: "0001-01-01 00:00:00", null: false
     t.bigint "log_id"
     t.datetime "submitted_at"
-    t.index ["ApplicationID", "ReserveID"], name: "applicationid_reserveid"
     t.index ["ApplicationID"], name: "ApplicationID"
-    t.index ["ApplicationStatus"], name: "ApplicationStatus"
+    t.index ["ApplicationStatus", "ReserveID", "ApplicationID"], name: "ApplicationStatus"
     t.index ["ApplicationType", "ApplicationID"], name: "ApplicationType"
     t.index ["CourseName"], name: "CourseName"
     t.index ["DateSubmitted"], name: "DateSubmitted"
     t.index ["ProjectStartDate"], name: "ProjectStart"
-    t.index ["ReserveID"], name: "ReserveID"
+    t.index ["ReserveID", "ApplicationStatus", "ApplicationID"], name: "Reserve"
+    t.index ["ReserveID"], name: "reserve_id"
   end
 
   create_table "Disciplines", primary_key: "DisciplineID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -472,25 +472,6 @@ ActiveRecord::Schema.define(version: 2021_09_01_192016) do
     t.index ["SortOrder"], name: "PlainSortOrder"
   end
 
-  create_table "ReservePermits", primary_key: "ReservePermitID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "ReserveID", null: false
-    t.integer "PermitID", null: false
-    t.text "ReserveSpecificText", comment: "Instructions about this permit which are unique to this particular reserve"
-    t.integer "SortOrderOverride", unsigned: true
-    t.boolean "Visible", default: true, null: false
-    t.boolean "CollectPermitInfo", default: false, null: false, comment: "Collect Permit number and Permit date Information from applicant"
-    t.integer "ReserveIDTemp"
-    t.boolean "ResearchApplication", default: true, null: false
-    t.boolean "ClassApplication", default: true, null: false
-    t.boolean "PublicApplication", default: false, null: false
-    t.boolean "HousingOnlyApplication", default: false, null: false
-    t.boolean "conference_application", default: false, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["ReserveID", "PermitID"], name: "ReservesPermitID"
-    t.index ["Visible", "SortOrderOverride"], name: "VisibleSortOrder"
-  end
-
   create_table "ReserveQuestions", primary_key: "ResQuestionID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ReserveID", null: false
     t.column "ShowUser", "enum('Show','Hide')", null: false
@@ -529,9 +510,9 @@ ActiveRecord::Schema.define(version: 2021_09_01_192016) do
     t.index ["SortOrder"], name: "SortOrderPlain"
   end
 
-  create_table "active_storage_attachments", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "record_type", null: false
+  create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name", null: false, collation: "utf8_general_ci"
+    t.string "record_type", null: false, collation: "utf8_general_ci"
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -539,13 +520,13 @@ ActiveRecord::Schema.define(version: 2021_09_01_192016) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
-    t.string "key", null: false
-    t.string "filename", null: false
-    t.string "content_type"
-    t.text "metadata"
+  create_table "active_storage_blobs", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "key", null: false, collation: "utf8_general_ci"
+    t.string "filename", null: false, collation: "utf8_general_ci"
+    t.string "content_type", collation: "utf8_general_ci"
+    t.text "metadata", collation: "utf8_general_ci"
     t.bigint "byte_size", null: false
-    t.string "checksum", null: false
+    t.string "checksum", null: false, collation: "utf8_general_ci"
     t.datetime "created_at", null: false
     t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
@@ -582,8 +563,7 @@ ActiveRecord::Schema.define(version: 2021_09_01_192016) do
     t.string "sign_token", limit: 64, null: false
     t.bigint "log_id"
     t.datetime "submitted_at"
-    t.index ["ActivityID"], name: "ActivityID"
-    t.index ["ActivityStatus"], name: "status"
+    t.index ["ActivityID"], name: "id"
     t.index ["ApplicationID", "ActivityID"], name: "Application"
     t.index ["DateSubmitted", "ApplicationID", "ActivityID"], name: "Date"
     t.index ["ReserveID"], name: "ReserveID"
@@ -616,11 +596,11 @@ ActiveRecord::Schema.define(version: 2021_09_01_192016) do
 
   create_table "institutions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "managing_institution_id", default: 0
-    t.string "name", limit: 80, null: false
-    t.string "city", limit: 30, null: false
-    t.integer "state_id", null: false
-    t.integer "country_id", null: false
-    t.column "institution_type", "enum('University of California','California State University System','California Community College','California - Other University or College','U.S. - University or College Outside of California','International University or College','K-12 Education','Non-Governmental Organization or Non-Profit Entity','Governmental Agency or Entity','Business Entity','Individual or Other Entity')", null: false
+    t.string "name", limit: 80
+    t.string "city", limit: 30
+    t.integer "state_id"
+    t.integer "country_id"
+    t.column "institution_type", "enum('University of California','California State University System','California Community College','California - Other University or College','U.S. - University or College Outside of California','International University or College','K-12 Education','Non-Governmental Organization or Non-Profit Entity','Governmental Agency or Entity','Business Entity','Individual or Other Entity')"
     t.string "acronym", limit: 10
     t.string "doi", limit: 25, default: "0000", comment: "Unique ID"
     t.index ["institution_type", "name"], name: "institution_type"
@@ -647,19 +627,19 @@ ActiveRecord::Schema.define(version: 2021_09_01_192016) do
     t.index ["InvoiceID"], name: "InvoiceID"
   end
 
-  create_table "logs", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
-    t.text "text"
-    t.string "type"
+  create_table "logs", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.text "text", collation: "utf8_general_ci"
+    t.string "type", collation: "utf8_general_ci"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "logx", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "action"
-    t.text "metadata"
-    t.text "log"
+    t.text "metadata", collation: "utf8_general_ci"
+    t.text "log", collation: "utf8_general_ci"
     t.text "comment"
-    t.string "record_type", null: false
+    t.string "record_type", null: false, collation: "utf8_general_ci"
     t.bigint "record_id", null: false
     t.bigint "record_about_id"
     t.string "record_about_type"
@@ -677,25 +657,44 @@ ActiveRecord::Schema.define(version: 2021_09_01_192016) do
     t.index ["user_id"], name: "index_logx_on_user_id"
   end
 
-  create_table "new_waivers", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.string "url1"
+  create_table "new_waivers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name", collation: "utf8_general_ci"
+    t.text "description", collation: "utf8_general_ci"
+    t.string "url1", collation: "utf8_general_ci"
     t.integer "years_to_expiration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "rams_options", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
-    t.string "option_name"
-    t.text "option_value"
+  create_table "rams_options", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "option_name", collation: "utf8_general_ci"
+    t.text "option_value", collation: "utf8_general_ci"
   end
 
-  create_table "reserve_settings", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
+  create_table "reserve_settings", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.boolean "req_resource", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "reserve_id", null: false
+  end
+
+  create_table "reservepermits", primary_key: "ReservePermitID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "ReserveID", null: false
+    t.integer "PermitID", null: false
+    t.text "ReserveSpecificText", comment: "Instructions about this permit which are unique to this particular reserve"
+    t.integer "SortOrderOverride", unsigned: true
+    t.boolean "Visible", default: true, null: false
+    t.boolean "CollectPermitInfo", default: false, null: false, comment: "Collect Permit number and Permit date Information from applicant"
+    t.integer "ReserveIDTemp"
+    t.boolean "ResearchApplication", default: true, null: false
+    t.boolean "ClassApplication", default: true, null: false
+    t.boolean "PublicApplication", default: false, null: false
+    t.boolean "HousingOnlyApplication", default: false, null: false
+    t.boolean "conference_application", default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["ReserveID", "PermitID"], name: "ReservesPermitID"
+    t.index ["Visible", "SortOrderOverride"], name: "VisibleSortOrder"
   end
 
   create_table "reserves", primary_key: "ReserveID", id: { type: :integer, comment: "NRS reserves listed in order of inclusion in the system", default: nil }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -734,9 +733,10 @@ ActiveRecord::Schema.define(version: 2021_09_01_192016) do
     t.boolean "ResearchAppsAccepted", default: true, null: false, comment: "Boolean"
     t.boolean "ClassAppsAccepted", default: true, null: false, comment: "Boolean"
     t.boolean "PublicAppsAccepted", default: true, null: false, comment: "Boolean"
-    t.boolean "PublicAppFormat", default: false, null: false, comment: "0 = short form  1= long form"
     t.boolean "HousingAppsAccepted"
     t.boolean "conference_apps_accepted", default: false, null: false
+    t.boolean "MeetingAppsAccepted", default: false, comment: "Boolean"
+    t.boolean "PublicAppFormat", default: false, null: false, comment: "0 = short form  1= long form"
     t.boolean "PublicDayUseAppsAccepted", default: false, null: false
     t.integer "PublicDayUseAppNumber"
     t.boolean "PublicCalendar", default: false, null: false, comment: "Boolean"
@@ -822,6 +822,7 @@ ActiveRecord::Schema.define(version: 2021_09_01_192016) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "bill_name", limit: 200
+    t.column "Ecosystem", "enum('Undefined','Open Water','Perennial Ice/Snow','Develope','Open Space','Developed Low Intensity','Developed Medium Intensity','Developed High Intensity','Barren Land (Rock/Sand/Clay)','Unconsolidated Shore','Deciduous Forest','Evergreen Forest','Mixed Forest','Dwarf Scrub','Shrub/Scrub','Grasslands/Herbaceous','Sedge/Herbaceous','Lichens','Moss','Pasture/Hay','Cultivated Crops','Woody Wetlands','Emergent Herbaceous Wetlands')", default: "Undefined", collation: "ascii_general_ci"
     t.index ["ManagingCampus", "Name"], name: "ManagingCampus"
     t.index ["Name"], name: "Name"
   end
@@ -846,8 +847,8 @@ ActiveRecord::Schema.define(version: 2021_09_01_192016) do
   end
 
   create_table "states", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "country_id", default: 235, null: false
-    t.string "name", null: false
+    t.integer "country_id", default: 235
+    t.string "name"
     t.string "code", limit: 10
     t.index ["country_id", "name"], name: "country"
     t.index ["name"], name: "name"
@@ -855,23 +856,23 @@ ActiveRecord::Schema.define(version: 2021_09_01_192016) do
 
   create_table "users", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.column "gender_identity", "enum('Male','Female','Non-binary','Other','Prefer not to state')"
-    t.string "first_name", limit: 100, null: false
+    t.string "first_name", limit: 100
     t.string "middle_name", limit: 20
-    t.string "last_name", limit: 100, null: false
+    t.string "last_name", limit: 100
     t.string "title", limit: 30
-    t.string "address_line_1", limit: 100, null: false
+    t.string "address_line_1", limit: 100
     t.string "address_line_2", limit: 100
-    t.string "address_city", limit: 100, null: false
-    t.string "address_postal_code", limit: 20, null: false
-    t.integer "address_state_id", null: false
-    t.integer "address_country_id", null: false
+    t.string "address_city", limit: 100
+    t.string "address_postal_code", limit: 20
+    t.integer "address_state_id"
+    t.integer "address_country_id"
     t.string "email", limit: 100, null: false
-    t.string "phone_number", limit: 20, null: false
+    t.string "phone_number", limit: 20
     t.string "secondary_phone_number", limit: 20
-    t.string "emergency_contact_full_name", limit: 100, null: false
-    t.string "emergency_contact_phone_number", limit: 60, null: false
-    t.integer "institution_id", null: false
-    t.column "role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')", null: false
+    t.string "emergency_contact_full_name", limit: 100
+    t.string "emergency_contact_phone_number", limit: 60
+    t.integer "institution_id"
+    t.column "role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')"
     t.date "date_of_birth", default: "2000-01-01"
     t.string "identification_number", limit: 20
     t.string "housing_concerns", limit: 1000
@@ -879,8 +880,8 @@ ActiveRecord::Schema.define(version: 2021_09_01_192016) do
     t.string "billing_person_full_name", limit: 100
     t.string "billing_person_phone_number", limit: 20
     t.string "billing_person_email", limit: 100
-    t.string "billing_address_address_line_1", limit: 100
-    t.string "billing_address_address_line_2", limit: 100
+    t.string "billing_address_line_1", limit: 100
+    t.string "billing_address_line_2", limit: 100
     t.string "billing_address_city", limit: 100
     t.string "billing_address_postal_code", limit: 20
     t.integer "billing_address_state_id"
@@ -905,7 +906,7 @@ ActiveRecord::Schema.define(version: 2021_09_01_192016) do
     t.text "accessibility_requirements"
     t.boolean "billing_address_same_as_current", default: false
     t.string "backup_email_address"
-    t.datetime "terms_accepted_at", null: false
+    t.datetime "terms_accepted_at"
     t.column "age_range", "enum('1-17','18-25','25-50','50 or older')"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
