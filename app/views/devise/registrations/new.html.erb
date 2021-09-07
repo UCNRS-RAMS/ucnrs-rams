@@ -5,7 +5,7 @@
   <p><%= t(".header.description") %></p>
 </header>
 
-<%= form_with model: @form.user, url: new_user_registration_path do |f| %>
+<%= form_with model: @page.form_user, url: user_registration_path do |f| %>
   <section>
     <fieldset>
       <legend><%= t(".titles.basics") %></legend>
@@ -17,22 +17,22 @@
       <%= f.text_field :last_name %>
 
       <%= f.label :gender_identity, t(".labels.gender_identity") %>
-      <%= f.select :gender_identity, @form.gender_identity_options %>
+      <%= f.select :gender_identity, @page.gender_identity_options %>
 
       <fieldset>
         <legend><%= t(".titles.age_range") %></legend>
         <p><%= t(".helper_text.age_range") %></p>
-        <% @form.age_range_options.each do |age_range_option|%>
-          <%= f.radio_button :age_range, age_range_option, id: @form.identifier_for("age_range", age_range_option) %>
-          <%= f.label :age_range, age_range_option, for: @form.identifier_for("age_range", age_range_option) %>
+        <% @page.age_range_options.each do |age_range_option|%>
+          <%= f.radio_button :age_range, age_range_option[0], id: age_range_option[-1] %>
+          <%= f.label :age_range, age_range_option[0], for: age_range_option[-1] %>
         <% end %>
       </fieldset>
 
       <%= f.label :phone_number, t(".labels.phone_number") %>
-      <%= f.telephone_field :phone_number, placeholder: @form.phone_number_placeholder %>
+      <%= f.telephone_field :phone_number, placeholder: @page.phone_number_placeholder %>
 
       <%= f.label :secondary_phone_number, t(".labels.secondary_phone_number") %>
-      <%= f.telephone_field :secondary_phone_number, placeholder: @form.phone_number_placeholder %>
+      <%= f.telephone_field :secondary_phone_number, placeholder: @page.phone_number_placeholder %>
 
       <%= f.label :accessibility_requirements, t(".labels.accessibility_requirements") %>
       <%= f.text_area :accessibility_requirements %>
@@ -59,22 +59,22 @@
       <legend><%= t(".titles.role") %></legend>
 
       <fieldset>
-        <% @form.role_options.each do |role_option|%>
-          <%= f.radio_button :role, role_option, id: @form.identifier_for("role", role_option) %>
-          <%= f.label :role, role_option, for: @form.identifier_for("role", role_option) %>
+        <% @page.role_options.each do |role_option|%>
+          <%= f.radio_button :role, role_option[0], id: role_option[-1] %>
+          <%= f.label :role, role_option[0], for: role_option[-1] %>
         <% end %>
       </fieldset>
 
       <fieldset>
         <%= f.label :institution, t(".labels.institution") %>
-        <%= f.text_field :institution %>
+        <%= f.text_field :institution, value: Institution.first.name%>
         <p><%= t(".helper_text.institution") %></p>
         <%= link_to t(".links.create_new_instituion"), t(".urls.new_institution") %>
       </fieldset>
 
       <fieldset>
-        <%= f.label :ORCID, t(".labels.orcid") %>
-        <%= f.text_field :ORCID, placeholder: @form.phone_number_placeholder %>
+        <%= f.label :orcid, t(".labels.orcid") %>
+        <%= f.text_field :orcid, placeholder: @page.phone_number_placeholder %>
         <%= link_to t(".links.orcid"), t(".urls.orcid"), target: :_blank %>
       </fieldset>
 
@@ -90,14 +90,13 @@
       <%= f.text_field :emergency_contact_full_name %>
 
       <%= f.label :emergency_contact_phone_number, t(".labels.emergency_contact_phone_number") %>
-      <%= f.telephone_field :emergency_contact_phone_number, placeholder: @form.phone_number_placeholder %>
+      <%= f.telephone_field :emergency_contact_phone_number, placeholder: @page.phone_number_placeholder %>
     </fieldset>
 
     <fieldset>
       <legend><%= t(".titles.current_address") %></legend>
-
-      <%= f.label :address_country, t(".labels.country") %>
-      <%= f.select :address_country, @form.country_options, selected: @form.country_options[0] %>
+      <%= f.label :address_country_id, t(".labels.country") %>
+      <%= f.collection_select(:address_country_id, Country.alphabetical_by_name, :id, :name, selected: @page.selected_country_option) %>
 
       <%= f.label :address_line_1, t(".labels.address") %>
       <%= f.text_field :address_line_1 %>
@@ -106,11 +105,11 @@
       <%= f.label :address_city, t(".labels.city") %>
       <%= f.text_field :address_city %>
 
-      <%= f.label :address_state, t(".labels.state") %>
-      <%= f.select :address_state, @form.state_options %>
+      <%= f.label :address_state_id, t(".labels.state") %>
+      <%= f.collection_select(:address_state_id, State.alphabetical_by_name, :id, :name) %>
 
       <%= f.label :address_postal_code, t(".labels.postal_code") %>
-      <%= f.text_field :address_postal_code, placeholder: t(".placeholders.postal_code") %>
+      <%= f.text_field :address_postal_code, placeholder: @page.postal_code_placeholder %>
     </fieldset>
 
     <fieldset>
@@ -121,8 +120,8 @@
         <%= f.label :billing_address_same_as_current, t(".labels.same_as_current") %> 
       </fieldset>
 
-      <%= f.label :billing_address_country, t(".labels.country") %>
-      <%= f.select :billing_address_country, @form.country_options, selected: @form.country_options[0] %>
+      <%= f.label :billing_address_country_id, t(".labels.country") %>
+      <%= f.collection_select(:billing_address_country_id, Country.alphabetical_by_name, :id, :name, selected: @page.selected_country_option) %>
 
       <%= f.label :billing_address_line_1, t(".labels.address") %>
       <%= f.text_field :billing_address_line_1 %>
@@ -131,11 +130,11 @@
       <%= f.label :billing_address_city, t(".labels.city") %>
       <%= f.text_field :billing_address_city %>
 
-      <%= f.label :billing_address_state, t(".labels.state") %>
-      <%= f.select :billing_address_state, @form.state_options %>
+      <%= f.label :billing_address_state_id, t(".labels.state") %>
+      <%= f.collection_select(:billing_address_state_id, State.alphabetical_by_name, :id, :name) %>
 
       <%= f.label :billing_address_postal_code, t(".labels.postal_code") %>
-      <%= f.text_field :billing_address_postal_code, placeholder: t(".placeholders.postal_code") %>
+      <%= f.text_field :billing_address_postal_code, placeholder: @page.postal_code_placeholder  %>
 
       <%= f.label :billing_person_full_name, t(".labels.billing_name") %>
       <%= f.text_field :billing_person_full_name %>
@@ -144,7 +143,7 @@
       <%= f.email_field :billing_person_email %>
 
       <%= f.label :billing_person_phone_number, t(".labels.billing_phone_number") %>
-      <%= f.telephone_field :billing_person_phone_number %>
+      <%= f.telephone_field :billing_person_phone_number, placeholder: @page.phone_number_placeholder %>
     </fieldset>
 
     <fieldset>
@@ -152,8 +151,8 @@
         <%= t(".helper_text.receive_nrs_updates") %>
         <%= link_to t(".links.ucnrs_newsletter"), t(".urls.ucnrs_newsletter"), target: "_blank" %>
       </p>
-      <%= f.label :accepted_terms, t(".labels.agree_to_terms_of_use", link: link_to(t(".links.terms_of_use"), t(".urls.ucnrs_terms_of_use"), target: "_blank")).html_safe %>
-      <%= f.check_box :accepted_terms %>
+      <%= f.check_box :terms_accepted_at %>
+      <%= f.label :terms_accepted_at, t(".labels.agree_to_terms_of_use", link: link_to(t(".links.terms_of_use"), t(".urls.ucnrs_terms_of_use"), target: "_blank")).html_safe %>
     </fieldset>
 
     <fieldset class="actions">

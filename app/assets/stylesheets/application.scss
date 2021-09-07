@@ -22,4 +22,29 @@ body {
   font-size: $base-font-size;
   margin: 0;
   padding: 0;
+
+  form {
+    label.error {
+      color: $error-red !important;
+    }
+  
+    input.error {
+      border-color: $error-red !important;
+      border-width: 2px !important;
+    }
+  
+    .error_messages {
+      color: $error-red;
+      font-size: 0.8rem;
+      font-style: italic;
+  
+      &:before {
+        content: "(";
+      }
+  
+      &:after {
+        content: ")";
+      }
+    }
+  }
 }
