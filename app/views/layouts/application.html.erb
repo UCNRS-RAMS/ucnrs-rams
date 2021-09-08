@@ -14,11 +14,11 @@
 
   <body class="<%= body_class %>">
     <%= render(NavbarComponent.new(user: current_user)) %>
-    <section role="region" aria-label="errors">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-    </section>
     <main role="main">
+      <section role="region" aria-label="errors">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+      </section>
       <%= yield %>
     </main>
     <%= render(FooterComponent.new) %>

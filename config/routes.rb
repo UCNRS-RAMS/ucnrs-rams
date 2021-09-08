@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    sessions: "unauthenticated/sessions",
+    confirmations: "unauthenticated/confirmations",
     passwords: "unauthenticated/passwords",
     registrations: "unauthenticated/registrations",
+    sessions: "unauthenticated/sessions",
   }
   root to: "home#index"
 end

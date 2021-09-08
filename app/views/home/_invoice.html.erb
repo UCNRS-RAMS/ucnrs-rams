@@ -1,0 +1,14 @@
+<tr class="invoice <%= invoice.status %>">
+  <td>
+    <span class="<%= invoice.status %> pill">
+      <%= invoice.status %>
+    </span>
+  </td>
+  <td><%= invoice.requested_reserve_name %></td>
+  <td><%= invoice.amount %></td>
+  <td>
+    <%= link_to "#" do %>
+      <%= image_tag "arrow-right-circle-light.svg", height: "16", width: "16" %>
+    <% end %>
+  </td>
+</tr>

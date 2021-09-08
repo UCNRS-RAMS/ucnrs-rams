@@ -20,8 +20,7 @@
     }
 
     .hero {
-      background-size: cover;
-      background: no-repeat url(asset-path("hero-background.jpg"));
+      background: no-repeat top left / cover url(asset-path("hero-background.jpg"));
       position: relative;
 
       h1 {

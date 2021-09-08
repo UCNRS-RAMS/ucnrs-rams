@@ -1,0 +1,144 @@
+@import "variables";
+
+.home-index {
+  .content {
+    display: flex;
+    flex-direction: row;
+
+    > * {
+      box-sizing: content-box;
+      padding: 2.5rem;
+
+      header {
+        align-items: center;
+        border-bottom: 2px solid $gray;
+        display: flex;
+        flex-direction: row;
+        font-size: 1.25rem;
+        font-weight: $bold;
+        margin: 0;
+        margin-bottom: 1.25rem;
+        padding: 0.75rem 0;
+
+        em {
+          font-style: normal;
+          flex: 1;
+        }
+
+        select {
+          background-color: $buttonset-background;
+          border: 1px solid $buttonset-border;
+          border-radius: 0.325rem;
+          flex: none;
+          font-weight: $semi-bold;
+          margin-right: 0.25rem;
+          padding: 0.25rem;
+        }
+
+        .toolbar-buttons {
+          flex: none;
+        }
+      }
+
+      &:first-child {
+        background-color: $section-background-odd;
+        flex: 6;
+      }
+
+      &:last-child {
+        background-color: $section-background-even;
+        flex: 4;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+
+        tr {
+          border-radius: 0.25rem;
+
+          &.invoice {
+            background-color: $table-row-even-background-neutral;
+            border: 1px solid $table-row-even-border-neutral;
+          }
+
+          &.visit_request {
+            background-color: $table-row-odd-background-neutral;
+            border: 1px solid $table-row-odd-border-neutral;
+          }
+
+          &.denied {
+            background-color: $table-row-background-highlight;
+            border-color: $table-row-border-highlight;
+          }
+        }
+
+        td {
+          box-sizing: content-box;
+          color: $table-text-color;
+          font-size: 0.825rem;
+          font-weight: $normal;
+          padding: 0.75rem 0.25rem;
+
+          &:first-child {
+            align-items: stretch;
+            display: flex;
+            justify-content: stretch;
+          }
+
+          &.date-range {
+            font-weight: $bold;
+          }
+        }
+      }
+    }
+  }
+
+  .news {
+    background: no-repeat top left / cover url(asset-path("latest-news-background.jpg"));
+    padding: 4.75rem 6rem;
+
+    header {
+      color: $news-title-color;
+      font-size: 1.25rem;
+
+      a {
+        color: $news-viewall-color;
+        font-size: 0.75rem;
+      }
+    }
+
+    .articles {
+      display: flex;
+      flex-direction: row;
+
+      .news_article {
+        background: $white;
+        border-radius: 0.25rem;
+        flex-direction: column;
+        flex: 1;
+        margin: 1.25rem;
+        margin-right: 0;
+        text-decoration: none;
+
+        &:first-child {
+          margin-left: 0;
+        }
+
+        img {
+          flex: 1;
+          width: 100%;
+        }
+
+        p {
+          color: $news-headline-color;
+          font-size: 1rem;
+          font-weight: $medium;
+          margin: 0;
+          padding: 1.5rem;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

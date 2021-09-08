@@ -1,0 +1,41 @@
+<section class="content">
+  <section class="visit_requests">
+    <header>
+      <em>
+        <%= t(".visit_requests.title") %>
+      </em>
+      <select>
+        <option value="recent">Most Recent</option>
+      </select>
+      <div class="toolbar-buttons">
+        <button class="selected"><%= image_tag "list.svg", height: "16", width: "16" %></button>
+        <button><%= image_tag "calendar.svg", height: "16", width: "16" %></button>
+      </div>
+    </header>
+    <table class="visit-requests">
+      <%= render partial: "visit_request", collection: @page.visit_requests %>
+    </table>
+  </section>
+  <section class="invoices">
+    <header>
+      <em><%= t(".invoices.title") %></em>
+      <select>
+        <option value="recent">Most Recent</option>
+      </select>
+    </header>
+    <table class="invoices">
+      <%= render partial: "invoice", collection: @page.invoices %>
+    </table>
+  </section>
+</section>
+
+<section class="news">
+  <header>
+    <%= t(".latest_news") %>
+    <%= link_to t(".view_all"), "#" %>
+  </header>
+
+  <section class="articles">
+    <%= render partial: "news_article", collection: @page.news_articles %>
+  </section>
+</section>

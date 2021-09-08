@@ -5,6 +5,7 @@ $sora: "Sora";
 // Font Styles
 $bold: 700;
 $medium: 500;
+$normal: 400;
 $semi-bold: 600;
 
 // Font Sizes
@@ -15,15 +16,38 @@ $cornflower: #6dccf6;
 $dark-bluegray: #5f777f;
 $bluegray: lighten($dark-bluegray, 20%);
 $gold: #ffb511;
+$gray: #aab7bb;
+$light-gray: #f3f6f7;
 $navy-blue: #002045;
 $white: #ffffff;
 
 // Semantic Colors
 $active-button-fill: $gold;
 $active-button-text: $navy-blue;
+$buttonset-background-selected: $gray;
+$buttonset-background: $white;
+$buttonset-border: $gray;
+$buttonset-foreground-selected: $white;
+$buttonset-foreground: $gray;
 $form-copy-color: $dark-bluegray;
 $form-title-color: $navy-blue;
 $hero-copy: $white;
 $hero-emphasis: $gold;
 $hero-link: $cornflower;
 $hero-title: $white;
+$news-headline-color: $navy-blue;
+$news-title-color: $white;
+$news-viewall-color: $gold;
+$pill-background-active: $gold;
+$pill-background-neutral: $white;
+$pill-border-active: $gold;
+$pill-border-neutral: $gray;
+$section-background-even: $light-gray;
+$section-background-odd: $white;
+$table-row-background-highlight: rgba($gold, 0.32);
+$table-row-border-highlight: $gold;
+$table-row-even-background-neutral: $white;
+$table-row-even-border-neutral: $gray;
+$table-row-odd-background-neutral: $light-gray;
+$table-row-odd-border-neutral: $gray;
+$table-text-color: $navy-blue;

@@ -1,0 +1,42 @@
+@import "variables";
+
+.toolbar-buttons {
+  display: inline-block;
+  font-size: 0;
+
+  button {
+    background: $buttonset-background;
+    border: 1px solid $buttonset-border;
+    color: $buttonset-foreground;
+    font-size: 0;
+    margin: 0;
+    margin-left: -1px;
+    padding: 0.5rem;
+
+    img {
+      color: $buttonset-foreground;
+      filter: invert(30%);
+    }
+
+    &.selected {
+      background: $buttonset-background-selected;
+      color: $buttonset-foreground-selected;
+
+      img {
+        color: $buttonset-foreground-selected;
+        filter: invert(100%);
+      }
+    }
+  }
+
+  button:first-child {
+    border-radius: 1rem 0 0 1rem;
+    margin-left: 0;
+    padding-left: 0.75rem;
+  }
+
+  button:last-child {
+    border-radius: 0 1rem 1rem 0;
+    padding-right: 0.75rem;
+  }
+}

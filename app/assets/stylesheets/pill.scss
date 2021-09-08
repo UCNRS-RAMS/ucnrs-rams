@@ -1,0 +1,28 @@
+@import "variables";
+
+.pill {
+  background: 0.5rem / 1rem 1rem no-repeat url(asset-path("check.svg")) $pill-background-neutral;
+  border: 1px solid $pill-border-neutral;
+  border-radius: 0.75rem;
+  flex: 1;
+  font-size: 0.625rem;
+  padding: 0.25rem 0 0.25rem 2rem;
+  text-transform: uppercase;
+
+  &.review {
+    background-image: url(asset-path("clock.svg"));
+  }
+
+  &.due {
+    background-color: $pill-background-active;
+    background-image: url(asset-path("clock.svg"));
+    border-color: $pill-border-active;
+  }
+
+  &.denied {
+    background-color: $pill-background-active;
+    background-image: url(asset-path("x.svg"));
+    border-color: $pill-border-active;
+  }
+}
+

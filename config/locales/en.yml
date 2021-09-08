@@ -8,6 +8,23 @@ en:
               complexity: "Password complexity requirement not met. Length should be 8-70 characters and include: 1 uppercase character and 1 digit."
               confirmation: "does not match Password"
               too_short: "must be at least %{count} characters"
+  date:
+    formats:
+      date_range:
+        month_name: "%b"
+  date_range:
+    same_day: "%{start_month} %{start_day}, %{start_year}"
+    different_days_same_month: "%{start_month} %{start_day} - %{end_day}, %{start_year}"
+    different_months_same_year: "%{start_month} %{start_day} - %{end_month} %{end_day}, %{start_year}"
+    different_years: "%{start_month} %{start_day}, %{start_year} - %{end_month} %{end_day}, %{end_year}"
+  home:
+    index:
+      invoices:
+        title: "Invoices"
+      visit_requests:
+        title: "Visit Requests"
+      latest_news: "Latest News"
+      view_all: "View All"
   users:
     new:
       header:
