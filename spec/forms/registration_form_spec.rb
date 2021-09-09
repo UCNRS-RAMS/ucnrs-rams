@@ -122,7 +122,6 @@ RSpec.describe RegistrationForm do
         address_country_id: country.id,
         address_state_id: state.id,
         address_postal_code: "94941",
-        billing_address_same_as_current: "0",
         email: "john@muirwoods.test",
         phone_number: "(222) 222-2222",
         emergency_contact_full_name: "Louisa Wanda Strentzel",

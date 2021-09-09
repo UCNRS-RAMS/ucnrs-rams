@@ -20,28 +20,30 @@ class RegistrationFlow
   end
 
   def fill_out_account_creation_form(
-    first_name: "",
-    last_name: "",
-    phone_number: "",
-    gender_identity: "Prefer not to state",
-    email: "",
-    password: "",
-    password_confirmation: "",
-    age_range: "25-50",
+    first_name: "John",
+    last_name: "Muir",
+    phone_number: "(111) 111 - 1111",
+    gender_identity: "Male",
+    email: "john@muirwoods.test",
+    password: "Password1",
+    password_confirmation: "Password1",
+    age_range: "50 or older",
     secondary_phone_number: "",
     accessibility_requirements: "",
     backup_email_address: "",
-    role: "No selection",
+    role: "Docent",
     orcid: "",
     advisor: "",
     institution: "",
-    emergency_contact_full_name: "",
-    emergency_contact_phone_number: "",
-    address_line_1: "",
+    emergency_contact_full_name: "Louisa Wanda Strentzel",
+    emergency_contact_phone_number: "(222) 222 - 2222",
+    address_line_1: "1 Muir Woods Road",
     address_line_2: "",
-    address_city: "",
-    address_postal_code: "",
-    billing_address_same_as_current: "0",
+    address_city: "Mill Valley",
+    address_postal_code: "94941",
+    address_country: "United States",
+    address_state: "California",
+    billing_address_same_as_current: "1",
     billing_address_line_1: "",
     billing_address_line_2: "",
     billing_address_city: "",
@@ -70,6 +72,8 @@ class RegistrationFlow
     page.fill_in("Address", id: "user_address_line_1", with: address_line_1)
     page.fill_in("user_address_line_2", with: address_line_2)
     page.fill_in("City", id: "user_address_city", with: address_city)
+    page.select(address_country, from: "user_address_country_id")
+    page.select(address_state, from: "user_address_state_id")
     page.fill_in("Zip/Postcode", id: "user_address_postal_code", with: address_postal_code)
     page.fill_in("Address", id: "user_billing_address_line_1", with: billing_address_line_1)
     page.fill_in("user_billing_address_line_2", with: billing_address_line_2)
@@ -114,6 +118,28 @@ class RegistrationFlow
 
   def has_no_displayed_institutions?
     page.has_no_css?("div#institutions", text: "")
+  end
+
+  def has_selected_country_option_for?(select_field:, country_name:)
+    page.has_select?(select_field, selected: country_name)
+  end
+
+  def has_no_selected_option_for?(select_field)
+    page.has_select?(select_field, selected: "")
+  end
+
+  def has_correct_state_options_for?(select_field:, country_name:)
+    state_names = Country.find_by(name: country_name)
+      .states
+      .order(:name)
+      .pluck(:name) || []
+    options = page.find("##{select_field}").all("option").collect(&:text)
+
+    state_names == options
+  end
+
+  def change_country_to(select_field:, country_name:)
+    page.select(country_name, from: select_field)
   end
 
   private

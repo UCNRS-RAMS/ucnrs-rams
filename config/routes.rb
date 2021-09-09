@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   resources :institutions, only: [:index]
+  resources :states, only: [:index]
 end

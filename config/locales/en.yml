@@ -8,6 +8,10 @@ en:
               complexity: "Password complexity requirement not met. Length should be 8-70 characters and include: 1 uppercase character and 1 digit."
               confirmation: "does not match Password"
               too_short: "must be at least %{count} characters"
+            address_state_id:
+              must_be_in_country: "must exist as a state, province, or territory of the address country"
+            billing_address_state_id:
+              must_be_in_country: "must exist as a state, province, or territory of the billing address country"
   date:
     formats:
       date_range:

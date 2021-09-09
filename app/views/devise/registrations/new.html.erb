@@ -99,10 +99,10 @@
       <%= f.telephone_field :emergency_contact_phone_number, placeholder: @page.phone_number_placeholder %>
     </fieldset>
 
-    <fieldset>
+    <fieldset data-controller="state-select-options">
       <legend><%= t(".titles.current_address") %></legend>
       <%= f.label :address_country_id, t(".labels.country") %>
-      <%= f.collection_select(:address_country_id, Country.alphabetical_by_name, :id, :name, selected: @page.selected_country_option) %>
+      <%= f.collection_select(:address_country_id, Country.alphabetical_by_name, :id, :name, { selected: @page.default_country_option }, { data: { action: "state-select-options#handleSelectChange", url: states_url } }) %>
 
       <%= f.label :address_line_1, t(".labels.address") %>
       <%= f.text_field :address_line_1 %>
@@ -112,13 +112,13 @@
       <%= f.text_field :address_city %>
 
       <%= f.label :address_state_id, t(".labels.state") %>
-      <%= f.collection_select(:address_state_id, State.alphabetical_by_name, :id, :name) %>
+      <%= f.collection_select(:address_state_id, @page.initial_state_options, :id, :name, { selected: @page.default_state_option }, { data: { state_select_options_target: "states" } }) %>
 
       <%= f.label :address_postal_code, t(".labels.postal_code") %>
       <%= f.text_field :address_postal_code, placeholder: @page.postal_code_placeholder %>
     </fieldset>
 
-    <fieldset>
+    <fieldset data-controller= "state-select-options">
       <fieldset>
         <legend><%= t(".titles.billing_address") %></legend>
 
@@ -127,7 +127,7 @@
       </fieldset>
 
       <%= f.label :billing_address_country_id, t(".labels.country") %>
-      <%= f.collection_select(:billing_address_country_id, Country.alphabetical_by_name, :id, :name, selected: @page.selected_country_option) %>
+      <%= f.collection_select(:billing_address_country_id, Country.alphabetical_by_name, :id, :name, { include_blank: "" }, { data: { action: "state-select-options#handleSelectChange", url: states_url } }) %>
 
       <%= f.label :billing_address_line_1, t(".labels.address") %>
       <%= f.text_field :billing_address_line_1 %>
@@ -137,7 +137,7 @@
       <%= f.text_field :billing_address_city %>
 
       <%= f.label :billing_address_state_id, t(".labels.state") %>
-      <%= f.collection_select(:billing_address_state_id, State.alphabetical_by_name, :id, :name) %>
+      <%= f.collection_select(:billing_address_state_id, State.alphabetical_by_name, :id, :name, { include_blank: "" }, { data: { state_select_options_target: "states" } }) %>
 
       <%= f.label :billing_address_postal_code, t(".labels.postal_code") %>
       <%= f.text_field :billing_address_postal_code, placeholder: @page.postal_code_placeholder  %>

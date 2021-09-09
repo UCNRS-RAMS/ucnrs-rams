@@ -3,9 +3,9 @@ require "rails_helper"
 RSpec.describe "Registration" do
   describe "creating an account" do
     it "allows the user to view a form and create their account", js: true do
-      institution = create(:institution, name: "University of California")
       country = create(:country, name: "United States")
       state = create(:state, country: country)
+      institution = create(:institution, name: "University of California", country: country, state: state)
 
       flow = RegistrationFlow.new(page)
 
@@ -13,7 +13,17 @@ RSpec.describe "Registration" do
       expect(flow).to be_on_sign_up_page
       expect(page).to be_axe_clean
 
-      flow.fill_out_account_creation_form(email: "john@muir.test", password: "foo")
+      flow.fill_out_account_creation_form(
+        first_name: "",
+        last_name: "",
+        password: "foo",
+        emergency_contact_full_name: "",
+        emergency_contact_phone_number: "",
+        address_line_1: "",
+        address_city: "",
+        address_postal_code: "",
+        institution: "",
+      )
       flow.submit_account_creation_form
       expect(flow).to have_validation_errors_on_sign_up_page
       expect(page).to be_axe_clean
@@ -29,13 +39,11 @@ RSpec.describe "Registration" do
       expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_address_line_1")
       expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_address_city")
       expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_address_postal_code")
+      expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_institution")
 
       flow.fill_out_account_creation_form(
         first_name: "John",
         last_name: "Muir",
-        phone_number: "(111) 111 - 1111",
-        gender_identity: "Male",
-        email: "john@muirwoods.test",
         password: "Password1",
         password_confirmation: "Password1",
         age_range: "50 or older",
@@ -48,18 +56,11 @@ RSpec.describe "Registration" do
         institution: "University of California",
         emergency_contact_full_name: "Louisa Wanda Strentzel",
         emergency_contact_phone_number: "(222) 222 - 2222",
-        address_line_1: "1 Muir Woods Road",
-        address_line_2: "",
+        address_line_1: "1 Muir Woods Rd",
         address_city: "Mill Valley",
         address_postal_code: "94941",
-        billing_address_same_as_current: "1",
-        billing_address_line_1: "",
-        billing_address_line_2: "",
-        billing_address_city: "",
-        billing_address_postal_code: "",
-        billing_person_full_name: "",
-        billing_person_email: "",
-        billing_person_phone_number: ""
+        address_country: country.name,
+        address_state: state.name,
       )
       flow.submit_account_creation_form
       expect(flow).to be_on_sign_in_page
@@ -85,6 +86,36 @@ RSpec.describe "Registration" do
       flow.select_institution("University of California")
       expect(flow).to have_institution_field_with_value("University of California")
       expect(flow).to have_no_displayed_institutions
+      expect(page).to be_axe_clean
+    end
+
+    it "allows a user to dynamically select states based on the selected country", js: true do
+      us = create(:country, name: "United States")
+      create(:state, name: "California", country: us)
+      create(:state, name: "Massachusetts", country: us)
+      uk = create(:country, name: "United Kingdom")
+      create(:state, name: "Avon", country: uk)
+      create(:state, name: "Yorkshire", country: uk)
+      create(:country, name: "Zimbabwe", states: [])
+      flow = RegistrationFlow.new(page)
+
+      flow.visit_sign_up_page
+      expect(flow).to be_on_sign_up_page
+      expect(flow).to have_selected_country_option_for(select_field: "user_address_country_id", country_name: "United States")
+      expect(flow).to have_correct_state_options_for(select_field: "user_address_state_id", country_name: "United States")
+
+      flow.change_country_to(country_name: "United Kingdom", select_field: "user_address_country_id")
+      expect(flow).to have_selected_country_option_for(select_field: "user_address_country_id", country_name: "United Kingdom")
+      expect(flow).to have_correct_state_options_for(select_field: "user_address_state_id", country_name: "United Kingdom")
+      expect(page).to be_axe_clean
+
+      expect(flow).to have_no_selected_option_for("user_billing_address_country_id")
+      expect(flow).to have_no_selected_option_for("user_billing_address_state_id")
+      expect(page).to be_axe_clean
+
+      flow.change_country_to(country_name: "Zimbabwe", select_field: "user_billing_address_country_id")
+      expect(flow).to have_selected_country_option_for(select_field: "user_billing_address_country_id", country_name: "Zimbabwe")
+      expect(flow).to have_correct_state_options_for(select_field: "user_billing_address_state_id", country_name: "Zimbabwe")
       expect(page).to be_axe_clean
     end
   end

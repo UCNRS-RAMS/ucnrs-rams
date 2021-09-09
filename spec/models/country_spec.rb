@@ -12,13 +12,27 @@ RSpec.describe Country, type: :model do
     it { is_expected.to have_many(:institutions) }
   end
 
-  describe "#alphabetical_by_name" do
+  describe ".alphabetical_by_name" do
     it "returns all records ordered alphabetically by name" do
       united_states = create(:country, name: "United States")
       zimbabwe = create(:country, name: "Zimbabwe")
       afghanistan = create(:country, name: "Afghanistan")
 
       expect(Country.alphabetical_by_name).to contain_exactly(afghanistan, united_states, zimbabwe)
+    end
+  end
+
+  describe "#has_states?" do
+    it "is true if the country has associated states" do
+      country = create(:country, states: [create(:state)])
+
+      expect(country.has_states?).to be true
+    end
+
+    it "is false if the country does not have associated states" do
+      country = create(:country, states: [])
+
+      expect(country.has_states?).to be false
     end
   end
 end

@@ -18,8 +18,9 @@ class User < ApplicationRecord
   validates :phone_number, presence: true
   validates :address_line_1, presence: true
   validates :address_city, presence: true
-  validates :address_state, presence: true
+  validates :address_state, presence: true, if: :required_for_address_country?
   validates :address_postal_code, presence: true
+  validates :billing_address_state, presence: true, if: :required_for_billing_address_country?
   validates :terms_accepted_at, presence: true
   validates :institution, presence: true
 
@@ -27,9 +28,9 @@ class User < ApplicationRecord
 
   belongs_to :institution
   belongs_to :address_country, class_name: "Country"
-  belongs_to :billing_address_country, class_name: "Country"
-  belongs_to :address_state, class_name: "State"
-  belongs_to :billing_address_state, class_name: "State"
+  belongs_to :billing_address_country, class_name: "Country", optional: true
+  belongs_to :address_state, class_name: "State", optional: true
+  belongs_to :billing_address_state, class_name: "State", optional: true
 
   enum gender_identity: {
     male: "Male",
@@ -67,5 +68,25 @@ class User < ApplicationRecord
   def password_complexity
     return if password.blank? || password =~ VALID_PASSWORD_PATTERN
     errors.add(:password, :complexity)
+  end
+
+  def required_for_address_country?
+    if address_state.present?
+      if !address_state.in_country?(address_country)
+        errors.add(:address_state_id, :must_be_in_country)
+      end
+    elsif address_country.present? && address_country.has_states?
+      errors.add(:address_state_id, :must_be_in_country)
+    end
+  end
+
+  def required_for_billing_address_country?
+    if billing_address_state.present?
+      if billing_address_country.present? && !billing_address_state.in_country?(billing_address_country)
+        errors.add(:billing_address_state_id, :must_be_in_country)
+      end
+    elsif billing_address_country.present? && billing_address_country.has_states?
+      errors.add(:billing_address_state_id, :must_be_in_country)
+    end
   end
 end
