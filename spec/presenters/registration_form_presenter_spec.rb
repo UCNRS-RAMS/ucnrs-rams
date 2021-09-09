@@ -81,12 +81,34 @@ RSpec.describe RegistrationFormPresenter do
     end
   end
 
-  describe "#selected_country_option" do
+  describe "#default_country_option" do
     it "is an array containing the name and id for the United States" do
       country = create(:country, name: "United States")
       presenter = RegistrationFormPresenter.new
 
-      expect(presenter.selected_country_option).to match_array ["United States", country.id]
+      expect(presenter.default_country_option).to match_array ["United States", country.id]
+    end
+  end
+
+  describe "#default_state_option" do
+    it "is an array containing the name and id for California" do
+      state = create(:state, name: "California")
+      presenter = RegistrationFormPresenter.new
+
+      expect(presenter.default_state_option).to match_array ["California", state.id]
+    end
+  end
+
+  describe "#initial_state_options" do
+    it "returns an array of U.S. states alphabetized by name" do
+      us = create(:country)
+      canada = create(:country)
+      massachusetts = create(:state, name: "Massachusetts", country: us)
+      california = create(:state, name: "California", country: us)
+      non_us_state = create(:state, name: "Quebec", country: canada)
+      presenter = RegistrationFormPresenter.new
+  
+      expect(presenter.initial_state_options).to contain_exactly california, massachusetts
     end
   end
 

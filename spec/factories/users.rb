@@ -15,9 +15,6 @@ FactoryBot.define do
 
     association :institution, factory: :institution
     association :address_country, factory: :country
-    association :billing_address_country, factory: :country
-    association :address_state, factory: :state
-    association :billing_address_state, factory: :state
 
     trait :confirmed do
       confirmed_at { 1.minute.ago }

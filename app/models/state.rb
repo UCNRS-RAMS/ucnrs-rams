@@ -10,4 +10,12 @@ class State < ApplicationRecord
   def self.alphabetical_by_name
     order(:name)
   end
+
+  def self.in_country(country)
+    where(country: country)
+  end
+
+  def in_country?(country)
+    self.country == country
+  end
 end

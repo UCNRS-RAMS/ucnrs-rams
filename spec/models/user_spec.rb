@@ -62,14 +62,130 @@ RSpec.describe User, type: :model do
         expect(user.errors.messages[:password]).to be_empty
       end
     end
+
+    describe "#required_for_address_country?" do
+      context "when the address_state exists" do
+        context "when the address_state is not associated with the address_country" do
+          it "adds an error message" do
+            country = create(:country, name: "Country")
+            other_country = create(:country, name: "Other Country")
+            state = create(:state, country: other_country)
+            user = build(:user, address_country: country, address_state: state)
+  
+            user.save
+  
+            expect(user).not_to be_valid
+            expect(user.errors.messages[:address_state_id]).to include("must exist as a state, province, or territory of the address country")
+          end
+        end
+
+        context "when the address_state is associated with the address_country" do
+          it "does not add an error message" do
+            country = create(:country, name: "Country")
+            state = create(:state, country: country)
+            user = build(:user, address_country: country, address_state: state)
+  
+            user.save
+  
+            expect(user).to be_valid
+            expect(user.errors.messages[:address_state_id]).to be_empty
+          end
+        end
+      end
+
+      context "when the address_state does not exist" do
+        context "when the address_country does not have states" do
+          it "does not add an error message" do
+            country = create(:country, name: "Country")
+            user = build(:user, address_country: country, address_state: nil)
+  
+            user.save
+  
+            expect(user).to be_valid
+            expect(user.errors.messages[:address_state_id]).to be_empty
+          end
+        end
+
+        context "when the address_country does have states" do
+          it "adds an error message" do
+            country = create(:country, name: "Country")
+            state = create(:state, country: country)
+            user = build(:user, address_country: country, address_state: nil)
+
+            user.save
+
+            expect(user).not_to be_valid
+            expect(user.errors.messages[:address_state_id]).to include("must exist as a state, province, or territory of the address country")
+          end
+        end
+      end
+    end
+
+    describe "#required_for_billing_address_country?" do
+      context "when the billing_address_state exists" do
+        context "when the billing_address_state is not associated with the billing_address_country" do
+          it "adds an error message" do
+            country = create(:country, name: "Country")
+            other_country = create(:country, name: "Other Country")
+            state = create(:state, country: other_country)
+            user = build(:user, billing_address_country: country, billing_address_state: state)
+  
+            user.save
+  
+            expect(user).not_to be_valid
+            expect(user.errors.messages[:billing_address_state_id]).to include("must exist as a state, province, or territory of the billing address country")
+          end
+        end
+
+        context "when the billing_address_state is associated with the billing_address_country" do
+          it "does not add an error message" do
+            country = create(:country, name: "Country")
+            state = create(:state, country: country)
+            user = build(:user, billing_address_country: country, billing_address_state: state)
+  
+            user.save
+  
+            expect(user).to be_valid
+            expect(user.errors.messages[:billing_address_state_id]).to be_empty
+          end
+        end
+      end
+
+      context "when the billing_address_state does not exist" do
+        context "when the billing_address_country does not have states" do
+          it "does not add an error message" do
+            country = create(:country, name: "Country")
+            user = build(:user, billing_address_country: country, billing_address_state: nil)
+  
+            user.save
+  
+            expect(user).to be_valid
+            expect(user.errors.messages[:billing_address_state_id]).to be_empty
+          end
+        end
+
+        context "when the billing_address_country does have states" do
+          it "adds an error message" do
+            country = create(:country, name: "Country")
+            _state = create(:state, country: country)
+            user = build(:user, billing_address_country: country, billing_address_state: nil)
+
+            user.save
+
+            expect(user).not_to be_valid
+            expect(user.errors.messages[:billing_address_state_id]).to include("must exist as a state, province, or territory of the billing address country")
+          end
+        end
+      end
+    end
   end
 
   describe "associations" do
     it { is_expected.to belong_to(:institution) }
     it { is_expected.to belong_to(:address_country).class_name("Country") }
-    it { is_expected.to belong_to(:billing_address_country).class_name("Country") }
-    it { is_expected.to belong_to(:address_state).class_name("State") }
-    it { is_expected.to belong_to(:billing_address_state).class_name("State") }
+    it { is_expected.to belong_to(:billing_address_country).class_name("Country").optional(true) }
+    it { is_expected.to belong_to(:address_state).class_name("State").optional(true) }
+    it { is_expected.to belong_to(:billing_address_state).class_name("State").optional(true) }
   end
 
   it do 

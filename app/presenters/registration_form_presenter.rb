@@ -33,9 +33,18 @@ class RegistrationFormPresenter
     end
   end
 
-  def selected_country_option
-    united_states = Country.find_by(name: "United States")
-    [united_states.name, united_states.id]
+  def default_country_option
+    [default_country.name, default_country.id]
+  end
+
+  def default_state_option
+    [default_state.name, default_state.id]
+  end
+
+  def initial_state_options
+    State
+      .in_country(default_country)
+      .alphabetical_by_name
   end
 
   def default_gender_identity_option
@@ -59,5 +68,13 @@ class RegistrationFormPresenter
       .gsub(SPECIAL_CHARACTERS_PATTERN, "_")
       .gsub(BEGINNING_OR_END_UNDERSCORE_PATTERN, "")
     [field, value_with_no_special_chars].join("_").to_sym
+  end
+
+  def default_country
+    Country.find_by(name: "United States")
+  end
+
+  def default_state
+    State.find_by(name: "California")
   end
 end

@@ -9,4 +9,8 @@ class Country < ApplicationRecord
   def self.alphabetical_by_name
     order(:name)
   end
+
+  def has_states?
+    states.exists?
+  end
 end
