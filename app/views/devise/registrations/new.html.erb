@@ -17,7 +17,7 @@
       <%= f.text_field :last_name %>
 
       <%= f.label :gender_identity, t(".labels.gender_identity") %>
-      <%= f.select :gender_identity, @page.gender_identity_options %>
+      <%= f.select :gender_identity, @page.gender_identity_options, { selected: @page.default_gender_identity_option } %>
 
       <fieldset>
         <legend><%= t(".titles.age_range") %></legend>
@@ -74,7 +74,7 @@
 
       <fieldset>
         <%= f.label :orcid, t(".labels.orcid") %>
-        <%= f.text_field :orcid, placeholder: @page.phone_number_placeholder %>
+        <%= f.text_field :orcid %>
         <%= link_to t(".links.orcid"), t(".urls.orcid"), target: :_blank %>
       </fieldset>
 

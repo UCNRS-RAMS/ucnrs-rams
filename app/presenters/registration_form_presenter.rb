@@ -15,8 +15,9 @@ class RegistrationFormPresenter
   delegate :user, to: :form, prefix: true
 
   def gender_identity_options
-    User.gender_identities.map do |key, value|
-      [key.titleize, User.gender_identities.key(value)]
+    gender_identity_options = User.gender_identities
+    gender_identity_options.map do |key, value|
+      [value, gender_identity_options.key(value)]
     end
   end
 
@@ -35,6 +36,11 @@ class RegistrationFormPresenter
   def selected_country_option
     united_states = Country.find_by(name: "United States")
     [united_states.name, united_states.id]
+  end
+
+  def default_gender_identity_option
+    gender_identity_options = User.gender_identities
+    [gender_identity_options[:prefer_not_to_state], :prefer_not_to_state]
   end
 
   def phone_number_placeholder

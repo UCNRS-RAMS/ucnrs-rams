@@ -23,7 +23,7 @@ class RegistrationFlow
     first_name: "",
     last_name: "",
     phone_number: "",
-    gender_identity: "Male",
+    gender_identity: "Prefer not to state",
     email: "",
     password: "",
     password_confirmation: "",
