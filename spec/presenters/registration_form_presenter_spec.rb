@@ -19,9 +19,9 @@ RSpec.describe RegistrationFormPresenter do
       expect(gender_identity_options).to match_array [
         ["Male", "male"],
         ["Female", "female"],
-        ["Non Binary", "non_binary"],
-        ["Other Gender", "other_gender"],
-        ["Prefer Not To State", "prefer_not_to_state"],
+        ["Non-binary", "non_binary"],
+        ["Other", "other_gender"],
+        ["Prefer not to state", "prefer_not_to_state"],
       ]
     end
   end
@@ -87,6 +87,14 @@ RSpec.describe RegistrationFormPresenter do
       presenter = RegistrationFormPresenter.new
 
       expect(presenter.selected_country_option).to match_array ["United States", country.id]
+    end
+  end
+
+  describe "#default_gender_identity_option" do
+    it "is an array containing the value and key for the 'Prefer not to state' enum option" do
+      presenter = RegistrationFormPresenter.new
+
+      expect(presenter.default_gender_identity_option).to match_array ["Prefer not to state", :prefer_not_to_state]
     end
   end
 end
