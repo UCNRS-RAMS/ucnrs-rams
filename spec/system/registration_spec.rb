@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Registration" do
   describe "creating an account" do
     it "allows the user to view a form and create their account", js: true do
-      institution = create(:institution)
+      institution = create(:institution, name: "University of California")
       country = create(:country, name: "United States")
       state = create(:state, country: country)
 
@@ -23,6 +23,7 @@ RSpec.describe "Registration" do
         "Password complexity requirement not met. Length should be 8-70 characters and include: 1 uppercase character and 1 digit.",
         on_field_with_id: "user_password",
       )
+      expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_institution")
       expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_emergency_contact_full_name")
       expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_emergency_contact_phone_number")
       expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_address_line_1")
@@ -44,6 +45,7 @@ RSpec.describe "Registration" do
         role: "Docent",
         orcid: "",
         advisor: "",
+        institution: "University of California",
         emergency_contact_full_name: "Louisa Wanda Strentzel",
         emergency_contact_phone_number: "(222) 222 - 2222",
         address_line_1: "1 Muir Woods Road",
@@ -63,6 +65,27 @@ RSpec.describe "Registration" do
       expect(flow).to be_on_sign_in_page
       expect(page).to be_axe_clean
       expect(flow).to have_no_form_errors
+    end
+
+    it "allows users to search for an institution by name", js: true do
+      uc = create(:institution, name: "University of California")
+      umass = create(:institution, name: "University of Massachusetts")
+      caltech = create(:institution, name: "California Institute of Technology")
+
+      flow = RegistrationFlow.new(page)
+
+      flow.visit_sign_up_page
+      expect(flow).to be_on_sign_up_page
+
+      flow.fill_out_institution_field("Cal")
+      expect(page).to be_axe_clean
+      expect(flow).to have_displayed_institution("University of California")
+      expect(flow).to have_displayed_institution("California Institute of Technology")
+
+      flow.select_institution("University of California")
+      expect(flow).to have_institution_field_with_value("University of California")
+      expect(flow).to have_no_displayed_institutions
+      expect(page).to be_axe_clean
     end
   end
 end
