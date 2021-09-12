@@ -65,11 +65,17 @@
         <% end %>
       </fieldset>
 
-      <fieldset>
+      <fieldset data-controller="institution-search" data-institution-search-url-value="<%= institutions_url %>">
         <%= f.label :institution, t(".labels.institution") %>
-        <%= f.text_field :institution, value: Institution.first.name%>
+        <%= f.text_field :institution, 
+          data: {
+            action: "institution-search#handleSearch", 
+            institution_search_target: "institution",
+          }
+        %>
         <p><%= t(".helper_text.institution") %></p>
         <%= link_to t(".links.create_new_instituion"), t(".urls.new_institution") %>
+        <div id="#institutions"></div>
       </fieldset>
 
       <fieldset>

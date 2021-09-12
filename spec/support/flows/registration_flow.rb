@@ -34,6 +34,7 @@ class RegistrationFlow
     role: "No selection",
     orcid: "",
     advisor: "",
+    institution: "",
     emergency_contact_full_name: "",
     emergency_contact_phone_number: "",
     address_line_1: "",
@@ -61,6 +62,7 @@ class RegistrationFlow
     page.fill_in("Accessibility Requirements or Known Allergies (Optional)", with: accessibility_requirements)
     page.fill_in("Backup Email Address", id: "user_backup_email_address", with: backup_email_address)
     page.choose(role)
+    page.fill_in("Institution, Organization, or Agency", with: institution)
     page.fill_in("ORCID (Optional)", with: orcid)
     page.fill_in("Advisor/Supervisor Name", with: advisor)
     page.fill_in("Full Name", with: emergency_contact_full_name)
@@ -92,6 +94,26 @@ class RegistrationFlow
 
   def has_no_form_errors?
     page.find_all(:css, ".error_messages").length == 0
+  end
+
+  def fill_out_institution_field(query)
+    page.fill_in("Institution, Organization, or Agency", with: query)
+  end
+
+  def has_displayed_institution?(institution_name)
+    page.has_selector?("li", text: institution_name)
+  end
+
+  def select_institution(institution_name)
+    page.find("li", text: institution_name).click
+  end
+
+  def has_institution_field_with_value?(institution_name)
+    page.has_field?("Institution, Organization, or Agency", with: institution_name)
+  end
+
+  def has_no_displayed_institutions?
+    page.has_no_css?("div#institutions", text: "")
   end
 
   private

@@ -6,4 +6,6 @@ Rails.application.routes.draw do
     sessions: "unauthenticated/sessions",
   }
   root to: "home#index"
+
+  resources :institutions, only: [:index]
 end

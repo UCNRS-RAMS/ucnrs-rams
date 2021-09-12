@@ -1,4 +1,6 @@
 class Institution < ApplicationRecord
+  DEFAULT_LIMIT_FOR_INDEX = 10.freeze
+
   validates :name, presence: true
   validates :name, uniqueness: { scope: :city, case_sensitive: false }
   validates :city, presence: true
@@ -23,4 +25,8 @@ class Institution < ApplicationRecord
     business_entity: "Business Entity",
     individual_or_other_entity: "Individual or Other Entity",
   }
+
+  def self.with_name_like(value)
+    where("LOWER(name) LIKE LOWER(?)", "%#{value}%")
+  end
 end

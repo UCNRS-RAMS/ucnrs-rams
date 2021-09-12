@@ -34,4 +34,34 @@ RSpec.describe Institution, type: :model do
         individual_or_other_entity: "Individual or Other Entity",
       ).backed_by_column_of_type(:string)
   end
+
+  describe ".with_name_like" do
+    it "returns all institutions where the name is similar to the passed value" do
+      first_institution = create(:institution, name: "The Gnar Company")
+      second_institution = create(:institution, name: "Gnarly Ways")
+      third_institution = create(:institution, name: "The Bar Company")
+
+      results = Institution.with_name_like("Gnar")
+
+      expect(results).to match_array [first_institution, second_institution]
+    end
+
+    it "is case insensitive" do
+      first_institution = create(:institution, name: "The GNAR Company")
+      second_institution = create(:institution, name: "gnaRly Ways")
+      third_institution = create(:institution, name: "The Bar Company")
+
+      results = Institution.with_name_like("gnar")
+
+      expect(results).to match_array [first_institution, second_institution]
+    end
+
+    it "returns an empty array if there are no institutions where the name is similar to the passed value" do
+      create(:institution, name: "The Bar Company")
+
+      results = Institution.with_name_like("Gnar")
+
+      expect(results).to be_empty
+    end
+  end
 end

@@ -2,8 +2,8 @@
   "name": "ucnrs-rams",
   "private": true,
   "dependencies": {
-    "@babel/plugin-transform-typescript": "^7.15.4",
-    "@babel/preset-typescript": "^7.15.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-transform-typescript": "^7.15.0",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
