@@ -26,6 +26,9 @@ node_modules
 public/assets
 public/packs
 
+# Ignore compiled javascript
+public/packs
+
 # Ignore some .env files
 .env
 .env.development
