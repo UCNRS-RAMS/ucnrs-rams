@@ -1,0 +1,111 @@
+@import "variables";
+
+.modal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  right: 0;
+  background: rgba($navy-blue, 0.85);
+  display: none;
+
+  &.visible {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-content {
+    border: 1px solid #808080;
+    border-radius: 10px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    min-width: 768px;
+  }
+
+  img.main-image {
+    object-fit: cover;
+  }
+
+  .text {
+    padding: 1.25rem;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 2.25rem;
+    font-weight: $semi-bold;
+    margin: 1rem;
+  }
+
+  p {
+    text-align: center;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    font-weight: $normal;
+    padding: 0;
+    margin: 0 3rem;
+  }
+
+  .buttons {
+    margin: 0 3rem 2rem 3rem;
+    display: flex;
+    justify-content: end;
+
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      background: $active-button-fill;
+      color: $active-button-text;
+      border: 0;
+      border-radius: 1.25rem;
+      padding: 0.75rem 1.25rem;
+      font-size: 1rem;
+      font-weight: $semi-bold;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .modal {
+    .modal-content {
+      border-radius: 0;
+      width: 100vw;
+      min-width: 100vw;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+
+      img.main-image {
+        flex: 1;
+        object-fit: cover;
+        width: 100vw;
+      }
+
+      .text {
+        flex: 0;
+        padding: 1.25rem;
+
+        h1 {
+          font-size: 1.5rem;
+        }
+
+        p {
+          font-size: 0.75rem;
+          line-height: 1.25rem;
+          margin: 0;
+        }
+      }
+
+      .buttons {
+        flex: 0;
+        margin: 0 1.5rem 1rem;
+      }
+    }
+  }
+}

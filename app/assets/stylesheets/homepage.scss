@@ -4,6 +4,7 @@
   .content {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 
     > * {
       box-sizing: content-box;
@@ -14,6 +15,7 @@
         border-bottom: 2px solid $gray;
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
         font-size: 1.25rem;
         font-weight: $bold;
         margin: 0;
@@ -21,14 +23,15 @@
         padding: 0.75rem 0;
 
         em {
-          font-style: normal;
           flex: 1;
+          font-style: normal;
+          white-space: nowrap;
         }
 
         select {
           background-color: $buttonset-background;
-          border: 1px solid $buttonset-border;
           border-radius: 0.325rem;
+          border: 1px solid $buttonset-border;
           flex: none;
           font-weight: $semi-bold;
           margin-right: 0.25rem;
@@ -111,14 +114,16 @@
     .articles {
       display: flex;
       flex-direction: row;
+      flex-wrap: wrap;
 
       .news_article {
         background: $white;
         border-radius: 0.25rem;
         flex-direction: column;
         flex: 1;
-        margin: 1.25rem;
         margin-right: 0;
+        margin: 1.25rem;
+        min-width: 250px;
         text-decoration: none;
 
         &:first-child {
@@ -137,6 +142,20 @@
           margin: 0;
           padding: 1.5rem;
           text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .home-index {
+    .news {
+      padding: 1rem;
+
+      .articles {
+        .news_article {
+          margin: 1.25rem 0;
         }
       }
     }

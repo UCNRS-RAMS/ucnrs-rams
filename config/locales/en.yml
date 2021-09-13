@@ -25,6 +25,11 @@ en:
         title: "Visit Requests"
       latest_news: "Latest News"
       view_all: "View All"
+  modals:
+    welcome:
+      title: Welcome to RAMS
+      content: Here you can learn about natural reserves and field stations, request dates and accommodations for your visit, submit project descriptions and permits, and sign any necessary waivers or other permissions.
+      continue: Let's go!
   users:
     new:
       header:
