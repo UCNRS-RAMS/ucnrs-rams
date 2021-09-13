@@ -29,4 +29,20 @@
   <div class="actions">
     <%= f.submit t(".submit") %>
   </div>
+
+  <section class="legal">
+    <p>
+      <span><%= I18n.t(".footer.link.all_rights") %></span>
+    </p>
+    <p>
+      <span><%= link_to I18n.t(".footer.link.terms_of_use"), "https://ucnrs.org/ucnrs-websites-terms-of-use/" %></span>
+      <span>
+        <%= link_to I18n.t(".footer.link.privacy_policy_short"), href: "https://ucnrs.org/rams-privacy-statement/" do %>
+          <span id="privacy-long" class="hide-765"><%= I18n.t(".footer.link.privacy_policy") %></span>
+          <span id="privacy-short" class="display-none show-765"><%= I18n.t(".footer.link.privacy_policy_short") %></span>
+        <% end %>
+      </span>
+    </p>
+  </section>
+  
 <% end %>

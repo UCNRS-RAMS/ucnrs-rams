@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="unauthenticated-html">
   <head>
     <title>RAMS - <%= yield :title %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -14,23 +14,30 @@
 
   <body class="unauthenticated <%= body_class %>">
     <main role="main">
-    
+
       <section class="left-side hero">
-        <%= image_tag "white-logo.svg", height: "168px", width: "173px", alt: "Swirling UCRNS Logo" %>
-        <h1><%= t(".hero.title") %></h1>
-        <p><%= t(".hero.emphasized") %></p>
-        <p><%= t(".hero.explanation1") %></p>
-        <p><%= t(".hero.explanation2") %></p>
-        <p><%= raw t(".hero.more_information") %></p>
+        <div class="hero-container">
+          <div class="logo-relative">
+            <%= image_tag "white-logo.svg", height: "168px", width: "173px", alt: "Swirling UCRNS Logo" %>
+            <h1><%= t(".hero.title") %></h1>
+          </div>
+          <p><%= t(".hero.emphasized") %></p>
+          <p><%= t(".hero.explanation1") %></p>
+          <p><%= t(".hero.explanation2") %></p>
+          <p><%= raw t(".hero.more_information") %></p>
+          <p><%= raw t(".hero.public_information") %></p>
+        </div>
       </section>
 
       <section class="right-side form">
-        <section class="notifications" role="region" aria-label="errors">
-          <p class="notice"><%= notice %></p>
-          <p class="alert"><%= alert %></p>
-        </section>
+        <div class="form-container">
+          <section class="notifications" role="region" aria-label="errors">
+            <p class="notice"><%= notice %></p>
+            <p class="alert"><%= alert %></p>
+          </section>
 
-        <%= yield %>
+          <%= yield %>
+        </div>
       </section>
     </main>
   </body>
