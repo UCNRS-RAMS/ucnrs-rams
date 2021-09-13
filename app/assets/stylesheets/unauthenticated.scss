@@ -58,6 +58,7 @@
     .form {
       color: $form-copy-color;
       padding: 13rem 8.4rem;
+      min-width: 332px;
       position: relative;
 
       .notifications {
