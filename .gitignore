@@ -24,6 +24,7 @@ node_modules
 
 # Ignore generated assets
 public/assets
+public/packs
 
 # Ignore some .env files
 .env
