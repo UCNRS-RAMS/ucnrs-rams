@@ -1,0 +1,15 @@
+<div class="modal welcome" data-controller="modal">
+  <div class="modal-content" role="dialog" aria-labelledby="dialog-title">
+    <%= image_tag "latest-news-background.jpg", class: "main-image" %>
+    <section class="text">
+      <h1 id="dialog-title"><%= t(".title") %></h1>
+      <p id="dialog-description"><%= t(".content") %></p>
+    </section>
+    <section class="buttons">
+      <button data-action="click->modal#close">
+        <%= t(".continue") %>
+        <%= image_tag "arrow-right.svg" %>
+      </button>
+    </section>
+  </div>
+</div>

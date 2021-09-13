@@ -39,3 +39,7 @@
     <%= render partial: "news_article", collection: @page.news_articles %>
   </section>
 </section>
+
+<% content_for :modal do %>
+  <%= render partial: "modals/welcome" %>
+<% end %>
