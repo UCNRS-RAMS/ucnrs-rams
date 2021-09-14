@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Authentication" do
+RSpec.describe "Authentication", type: :system, js: true do
   describe "when signed out" do
     let(:email) { "test@test.test" }
     let(:password) { "Password1" }
@@ -48,6 +48,7 @@ RSpec.describe "Authentication" do
       flow.sign_in_as(email: email, password: password)
       expect(flow).to be_signed_in
 
+      flow.dismiss_modal
       flow.sign_out
       expect(flow).to_not be_signed_in
 

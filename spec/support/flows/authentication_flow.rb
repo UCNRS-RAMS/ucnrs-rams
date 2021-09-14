@@ -68,6 +68,10 @@ class AuthenticationFlow
     page.find("input[type='submit']").click
   end
 
+  def dismiss_modal
+    page.find(".modal button.active", text: "Let's go!").click
+  end
+
   def sign_out
     page.find("a", text: "Sign Out").click
   end

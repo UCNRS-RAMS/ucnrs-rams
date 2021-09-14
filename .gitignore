@@ -24,7 +24,10 @@ node_modules
 
 # Ignore generated assets
 public/assets
+
+# Ignore compiled JS
 public/packs
+public/packs-test
 
 # Ignore compiled javascript
 public/packs
