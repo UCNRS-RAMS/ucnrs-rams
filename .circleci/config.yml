@@ -37,6 +37,11 @@ jobs:
           name: Load database schema
           command: bundle exec rake db:schema:load
 
+      # Assets setup
+      - run:
+          name: Precompile Assets
+          command: bundle exec bin/rails assets:precompile
+
       # Tests
       - run:
           name: RSpec

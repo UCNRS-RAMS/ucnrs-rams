@@ -1,0 +1,8 @@
+{
+  "addTrailingCommas": true,
+  "inlineConditionals": false,
+  "inlineLoops": false,
+  "preferSingleQuotes": false,
+  "semi": false,
+  "singleQuote": false
+}
