@@ -150,8 +150,14 @@
 
 @media screen and (max-width: 768px) {
   .home-index {
+    .content
+
+    & > * {
+      padding: 1.325rem;
+    }
+
     .news {
-      padding: 1rem;
+      padding: 1rem 1.325rem;
 
       .articles {
         .news_article {

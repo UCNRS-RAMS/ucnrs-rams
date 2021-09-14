@@ -1,0 +1,16 @@
+@import "variables";
+
+button.active {
+  align-items: center;
+  background: $active-button-fill;
+  border-radius: 1.25rem;
+  border: 0;
+  color: $active-button-text;
+  display: flex;
+  flex-direction: row;
+  font-size: 1rem;
+  font-weight: $semi-bold;
+  justify-content: center;
+  padding: 0.75rem 1.25rem;
+}
+

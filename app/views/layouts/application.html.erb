@@ -24,6 +24,9 @@
       <%= yield %>
     </main>
     <%= render partial: "layouts/footer" %>
-    <%= yield :modal %>
+
+    <div class="modal" data-controller="modal" aria-hidden="true">
+      <%= yield :modal %>
+    </div>
   </body>
 </html>
