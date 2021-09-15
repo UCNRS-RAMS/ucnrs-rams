@@ -28,7 +28,8 @@ class RegistrationFormPresenter
   end
 
   def role_options
-    User.roles.map do |key, value|
+    role_options = User.roles.except(:no_selection)
+    role_options.map do |key, value|
       [value, identifier_for(:role, value)]
     end
   end
@@ -58,6 +59,10 @@ class RegistrationFormPresenter
 
   def postal_code_placeholder
     POSTAL_CODE_PLACEHOLDER
+  end
+
+  def institution_field_value
+    form_user&.institution&.name
   end
 
   private

@@ -86,7 +86,7 @@ class RegistrationFlow
   end
 
   def submit_account_creation_form
-    page.find("input[type='submit']").click
+    page.find("button[type='submit']").click
   end
 
   def has_form_error?(error, on_field_with_id:)
@@ -135,7 +135,7 @@ class RegistrationFlow
       .pluck(:name) || []
     options = page.find("##{select_field}").all("option").collect(&:text)
 
-    state_names == options
+    state_names == options.reject(&:empty?)
   end
 
   def change_country_to(select_field:, country_name:)

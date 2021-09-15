@@ -1,0 +1,359 @@
+@import "variables";
+
+.registrations {
+  .content {
+    align-items: center;
+    color: $form-title-color;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    width: 60%;
+
+    h1 {
+      font-size: 2.25rem;
+      margin-bottom: 0;
+    }
+
+    p {
+      font-size: 0.813rem;
+      margin-top: 0;
+    }
+  }
+
+  form {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .section-container {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      &.blue-bg {
+        background-color: $light-light-blue;
+      }
+      section {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+        width: 60%;
+  
+        &.basics {
+          max-height: 600px;
+
+          .field {
+            &.email {
+              margin-top: 3.625rem;
+            }
+          }
+        }
+        &.role {
+          min-height: 400px;
+  
+          input[type="text"]:first-of-type{
+            margin-bottom: 0;
+          }
+          p {
+            width: 100%;
+          }
+          .orcid {
+            max-width: 170px;
+          }
+        }
+        &.emergency-contact {
+          h2 {
+            margin-bottom: 0;
+          }
+          p {
+            margin-bottom: 1rem;
+          }
+        }
+        &.address{
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+  
+          section:nth-of-type(2) {
+            height: 100%;
+  
+            .billing-title {
+              display: flex;
+
+              .field {
+                align-items: center;
+                display: flex;
+                flex-direction: row;
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+                padding-left: 1rem;
+              }
+            }
+            .billing-contact {
+              .field {
+                margin-bottom: 0;
+              }
+            }
+          }
+        }
+        &.terms{
+          .field {
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+          }
+        }
+        &.actions {
+          height: 100px;
+          margin-bottom: 0;
+  
+          div {
+            align-items: center;
+            display: flex;
+            height: 90%;
+            justify-content: flex-end;
+  
+            span {
+              align-items: center;
+              display: flex;
+  
+              img {
+                color: $form-title-color;
+                padding-left: .25rem;
+                padding-right: .25rem;
+              }
+            }
+            a {
+              color: $form-title-color;
+              font-size: 0.875rem;
+            }
+            button {
+              margin-left: 4.625rem;
+            }
+          }
+        }
+
+        h2 {
+          font-size: 1.25rem;
+        }
+
+        a {
+          color: $dark-sky-blue;
+          font-size: 0.75rem;
+        }
+
+        .helper-text {
+          color: $dark-bluegray;
+          font-size: 0.75rem;
+          margin-bottom: 0;
+          margin-top: 0;
+        }
+
+        .inline {
+          align-items: center;
+          display: flex;
+          height: 100px;
+
+          div {
+            padding-right: 1rem;
+          }
+        }
+  
+        .field {
+          display: flex;
+          flex-direction: column;
+          padding: 0;
+  
+          &.large {
+            width: 423px;
+          }
+          &.medium {
+            width: 332px;
+          }
+          &.small {
+            min-width: 170px;
+          }
+          &.extra-small {
+            min-width: 92px;
+          }
+  
+          label {
+            color: $form-copy-color;
+            font-size: 0.75rem;
+            font-weight: $bold;
+          }
+  
+          input[type="text"],
+          input[type="email"],
+          input[type="password"],
+          input[type="tel"],
+          select,
+          textarea {
+            color: $navy-blue;
+            border: 1px solid $dark-bluegray;
+            border-radius: 0.375rem;
+            height: 34px;
+            margin-bottom: 0.875rem;
+            text-indent: 0.5rem;
+
+            &.error {
+              border-color: $error-red !important;
+              border-width: 2px !important;
+            }
+          }
+          select {
+            height: 38px;
+          }
+        }
+
+        .radio-buttons {
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+  
+          &.age-range {
+            height: 1.5rem;
+            margin-top: 1rem;
+  
+            label {
+              font-weight: $normal;
+            }
+          }
+          &.role {
+            height: 6rem;
+
+            label {
+              color: $form-title-color;
+              font-weight: $normal;
+            }
+            .error_messages {
+              display: none;
+            }
+            .wrapped_label {
+              display: inline;
+            }
+          }
+          .radio-button {
+            flex: 1;
+            white-space: nowrap;
+  
+            label {
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  #institutions {
+    background-color: $white;
+    border-radius: 0.375rem;
+    display: flex;
+    flex-direction: column;
+    width: 423px;
+
+    &.with-border {
+      border: 1px solid $dark-bluegray;
+      margin-top: 1rem;
+    }
+
+    ul {
+      margin-bottom: 0;
+      margin-top: 0;
+      padding: 0;
+    }
+
+    li {
+      color: $form-title-color;
+      font-size: 0.813rem;
+      list-style: none;
+      padding-bottom: 0.75rem;
+      padding-left: 1rem;
+      padding-top: 0.75rem;
+    
+      &:hover {
+        background-color: $light-light-blue;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .registrations {
+    header {
+      width: 80%;
+    }
+    form {
+      .section-container {
+        section {
+          flex-wrap: nowrap;
+          width: 80%;
+  
+          &.basics {
+            max-height: none;
+
+            .field {
+              &.email {
+                margin-top: 0;
+              }
+            }
+          }
+          &.role {
+            .radio-buttons {
+              height: auto;
+              flex-wrap: nowrap;
+            }
+          }
+          &.address{
+            flex-direction: column;
+            margin-bottom: 2rem;
+          }
+          .field {
+            &.large {
+              width: 315px;
+            }
+            &.medium {
+              width: 315px;
+            }
+            &.small {
+              min-width: 200px;
+            }
+            &.extra-small {
+              min-width: 92px;
+            }
+          }
+          .inline {
+            align-items: flex-start;
+            flex-direction: column;
+            height: auto;
+          }
+        }
+      }
+    } 
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .registrations {
+    form {
+      .section-container {
+        section {
+          &.address{
+            .inline {
+              align-items: flex-start;
+              flex-direction: column;
+              height: auto;
+            }
+          }
+        }
+      }
+    }
+  }
+}

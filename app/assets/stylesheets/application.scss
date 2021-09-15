@@ -35,6 +35,7 @@ body {
   
     .error_messages {
       color: $error-red;
+      display: inline;
       font-size: 0.8rem;
       font-style: italic;
   

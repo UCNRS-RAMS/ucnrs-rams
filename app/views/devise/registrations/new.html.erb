@@ -1,169 +1,233 @@
 <% content_for(:title) { t(".header.title") } %>
 
-<header>
-  <h1><%= t(".header.title") %></h1>
-  <p><%= t(".header.description") %></p>
-</header>
+<div class="content">
+  <header>
+    <h1><%= t(".header.title") %></h1>
+    <p><%= t(".header.description") %></p>
+  </header>
 
-<%= form_with model: @page.form_user, url: user_registration_path do |f| %>
-  <section>
-    <fieldset>
-      <legend><%= t(".titles.basics") %></legend>
+  <%= form_with model: @page.form_user, url: user_registration_path do |f| %>
+    <div class="section-container">
+      <section class="basics">
+        <h2><%= t(".titles.basics") %></h2>
 
-      <%= f.label :first_name, t(".labels.first_name") %>
-      <%= f.text_field :first_name %>
+        <div class="field large">
+          <%= f.label :first_name, t(".labels.first_name") %>
+          <%= f.text_field :first_name %>
+        </div>
+        <div class="field large">
+          <%= f.label :last_name, t(".labels.last_name") %>
+          <%= f.text_field :last_name %>
+        </div>
+        <div class="field medium">
+          <%= f.label :gender_identity, t(".labels.gender_identity") %>
+          <%= f.select :gender_identity, @page.gender_identity_options, 
+            selected: @page.default_gender_identity_option
+          %>
+        </div>
+        <div class="field medium">
+          <p class="helper-text"><strong><%= t(".titles.age_range") %></strong></p>
+          <p class="helper-text"><%= t(".helper_text.age_range") %></p>
+          <div class="radio-buttons age-range">
+            <% @page.age_range_options.each do |age_range_option|%>
+              <span class="radio-button">
+                <%= f.radio_button :age_range, age_range_option[0], id: age_range_option[-1] %>
+                <%= f.label :age_range, age_range_option[0], for: age_range_option[-1] %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+        <div class="inline">
+          <div class="field small">
+            <%= f.label :phone_number, t(".labels.phone_number") %>
+            <%= f.telephone_field :phone_number, placeholder: @page.phone_number_placeholder %>
+          </div>
+          <div class="field small">
+            <%= f.label :secondary_phone_number, t(".labels.secondary_phone_number") %>
+            <%= f.telephone_field :secondary_phone_number, placeholder: @page.phone_number_placeholder %>
+          </div>
+        </div>
+        <div class="field large">
+          <%= f.label :accessibility_requirements, t(".labels.accessibility_requirements") %>
+          <%= f.text_area :accessibility_requirements, class: "form-field-large" %>
+        </div>
+        <div class="field medium email">
+          <%= f.label :email, t(".labels.email_address") %>
+          <%= f.email_field :email %>
+        </div>
+        <div class="field medium">
+          <%= f.label :backup_email_address, t(".labels.backup_email_address") %>
+          <%= f.email_field :backup_email_address %>
+        </div>
+        <div class="field medium">
+          <%= f.label :password, t(".labels.password") %>
+          <%= f.password_field :password %>
+        </div>
+        <div class="field medium">
+          <%= f.label :password_confirmation, t(".labels.password_confirmation") %>
+          <%= f.password_field :password_confirmation %>
+        </div>
+      </section>
+    </div>
+    <div class="section-container blue-bg">
+      <section class="role">
+        <div class="field">
+          <h2><%= t(".titles.role") %></h2>
+          <div class="radio-buttons role">
+            <% @page.role_options.each do |role_option| %>
+              <span class="radio-button">
+                <%= f.radio_button :role, role_option[0], id: role_option[-1] %>
+                <%= f.label :role, role_option[0], for: role_option[-1] %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+        <div class="field small orcid">
+          <%= f.label :orcid, t(".labels.orcid") %>
+          <%= f.text_field :orcid %>
+          <%= link_to t(".links.orcid"), t(".urls.orcid"), target: :_blank %>
+        </div>
+        <div
+          data-institution-search-url-value="<%= institutions_url %>"
+          class="field institution-field large"
+          data-controller="institution-search"
+        >
+          <%= f.label :institution, t(".labels.institution") %>
+          <%= f.text_field :institution, 
+            data: {
+              action: "institution-search#handleSearch", 
+              institution_search_target: "institution",
+            },
+            class: "large",
+            value: @page.institution_field_value
+          %>
+          <p class="helper-text">
+            <strong><%= t(".helper_text.tip") %></strong>
+            <%= t(".helper_text.institution") %>
+            <%= link_to t(".links.create_new_instituion"), t(".urls.new_institution") %>
+          </p>
+          <div id="institutions"></div>
+        </div>
+        <div class="field large">
+          <%= f.label :advisor, t(".labels.advisor_name") %>
+          <%= f.text_field :advisor %>
+        </div>
+      </section>
+    </div>
+    <div class="section-container">
+      <section class="emergency-contact">
+        <div>
+          <h2><%= t(".titles.emergency_contact") %></h2>
+          <p class="helper-text"><%= t(".helper_text.emergency_contact") %></p>
+        </div>
+        <div class="inline">
+          <div class="field large">
+            <%= f.label :emergency_contact_full_name, t(".labels.emergency_contact_full_name") %>
+            <%= f.text_field :emergency_contact_full_name %>
+          </div>
+          <div class="field small">
+            <%= f.label :emergency_contact_phone_number, t(".labels.emergency_contact_phone_number") %>
+            <%= f.telephone_field :emergency_contact_phone_number, placeholder: @page.phone_number_placeholder %>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="section-container">
+      <section class="address">
+        <section data-controller="state-select-options">
+          <h2><%= t(".titles.current_address") %></h2>
+          <div class="field medium">
+            <%= f.label :address_country_id, t(".labels.country") %>
+            <%= f.collection_select(:address_country_id, Country.alphabetical_by_name, :id, :name, { selected: @page.default_country_option }, { data: { action: "state-select-options#handleSelectChange", url: states_url } }) %>
+          </div>
+          <div class="field medium">
+            <%= f.label :address_line_1, t(".labels.address") %>
+            <%= f.text_field :address_line_1 %>
+            <%= f.text_field :address_line_2, aria: { label: "Address Line 2" } %>
+          </div>
+          <div class="field medium">
+            <%= f.label :address_city, t(".labels.city") %>
+            <%= f.text_field :address_city %>
+          </div>
+          <div class="inline">
+            <div class="field medium">
+              <%= f.label :address_state_id, t(".labels.state") %>
+              <%= f.collection_select(:address_state_id, @page.initial_state_options, :id, :name, { include_blank: true }, { data: { state_select_options_target: "states" } }) %>
+            </div>
+            <div class="field extra-small">
+              <%= f.label :address_postal_code, t(".labels.postal_code") %>
+              <%= f.text_field :address_postal_code, placeholder: @page.postal_code_placeholder %>
+            </div>
+          </div>
+        </section>
 
-      <%= f.label :last_name, t(".labels.last_name") %>
-      <%= f.text_field :last_name %>
-
-      <%= f.label :gender_identity, t(".labels.gender_identity") %>
-      <%= f.select :gender_identity, @page.gender_identity_options, { selected: @page.default_gender_identity_option } %>
-
-      <fieldset>
-        <legend><%= t(".titles.age_range") %></legend>
-        <p><%= t(".helper_text.age_range") %></p>
-        <% @page.age_range_options.each do |age_range_option|%>
-          <%= f.radio_button :age_range, age_range_option[0], id: age_range_option[-1] %>
-          <%= f.label :age_range, age_range_option[0], for: age_range_option[-1] %>
-        <% end %>
-      </fieldset>
-
-      <%= f.label :phone_number, t(".labels.phone_number") %>
-      <%= f.telephone_field :phone_number, placeholder: @page.phone_number_placeholder %>
-
-      <%= f.label :secondary_phone_number, t(".labels.secondary_phone_number") %>
-      <%= f.telephone_field :secondary_phone_number, placeholder: @page.phone_number_placeholder %>
-
-      <%= f.label :accessibility_requirements, t(".labels.accessibility_requirements") %>
-      <%= f.text_area :accessibility_requirements %>
-    </fieldset>
-
-    <fieldset>
-      <%= f.label :email, t(".labels.email_address") %>
-      <%= f.email_field :email %>
-
-      <%= f.label :backup_email_address, t(".labels.backup_email_address") %>
-      <%= f.email_field :backup_email_address %>
-
-      <%= f.label :password, t(".labels.password") %>
-      <p><%= t(".helper_text.password") %></p>
-      <%= f.password_field :password %>
-
-      <%= f.label :password_confirmation, t(".labels.password_confirmation") %>
-      <%= f.password_field :password_confirmation %>
-    </fieldset>
-  </section>
-
-  <section>
-    <fieldset>
-      <legend><%= t(".titles.role") %></legend>
-
-      <fieldset>
-        <% @page.role_options.each do |role_option|%>
-          <%= f.radio_button :role, role_option[0], id: role_option[-1] %>
-          <%= f.label :role, role_option[0], for: role_option[-1] %>
-        <% end %>
-      </fieldset>
-
-      <fieldset data-controller="institution-search" data-institution-search-url-value="<%= institutions_url %>">
-        <%= f.label :institution, t(".labels.institution") %>
-        <%= f.text_field :institution, 
-          data: {
-            action: "institution-search#handleSearch", 
-            institution_search_target: "institution",
-          }
-        %>
-        <p><%= t(".helper_text.institution") %></p>
-        <%= link_to t(".links.create_new_instituion"), t(".urls.new_institution") %>
-        <div id="#institutions"></div>
-      </fieldset>
-
-      <fieldset>
-        <%= f.label :orcid, t(".labels.orcid") %>
-        <%= f.text_field :orcid %>
-        <%= link_to t(".links.orcid"), t(".urls.orcid"), target: :_blank %>
-      </fieldset>
-
-      <%= f.label :advisor, t(".labels.advisor_name") %>
-      <%= f.text_field :advisor %>
-    </fieldset>
-
-    <fieldset>
-      <legend><%= t(".titles.emergency_contact") %></legend>
-      <p><%= t(".helper_text.emergency_contact") %></p>
-
-      <%= f.label :emergency_contact_full_name, t(".labels.emergency_contact_full_name") %>
-      <%= f.text_field :emergency_contact_full_name %>
-
-      <%= f.label :emergency_contact_phone_number, t(".labels.emergency_contact_phone_number") %>
-      <%= f.telephone_field :emergency_contact_phone_number, placeholder: @page.phone_number_placeholder %>
-    </fieldset>
-
-    <fieldset data-controller="state-select-options">
-      <legend><%= t(".titles.current_address") %></legend>
-      <%= f.label :address_country_id, t(".labels.country") %>
-      <%= f.collection_select(:address_country_id, Country.alphabetical_by_name, :id, :name, { selected: @page.default_country_option }, { data: { action: "state-select-options#handleSelectChange", url: states_url } }) %>
-
-      <%= f.label :address_line_1, t(".labels.address") %>
-      <%= f.text_field :address_line_1 %>
-      <%= f.text_field :address_line_2, aria: { label: "Address Line 2" } %>
-
-      <%= f.label :address_city, t(".labels.city") %>
-      <%= f.text_field :address_city %>
-
-      <%= f.label :address_state_id, t(".labels.state") %>
-      <%= f.collection_select(:address_state_id, @page.initial_state_options, :id, :name, { selected: @page.default_state_option }, { data: { state_select_options_target: "states" } }) %>
-
-      <%= f.label :address_postal_code, t(".labels.postal_code") %>
-      <%= f.text_field :address_postal_code, placeholder: @page.postal_code_placeholder %>
-    </fieldset>
-
-    <fieldset data-controller= "state-select-options">
-      <fieldset>
-        <legend><%= t(".titles.billing_address") %></legend>
-
-        <%= f.check_box :billing_address_same_as_current %> 
-        <%= f.label :billing_address_same_as_current, t(".labels.same_as_current") %> 
-      </fieldset>
-
-      <%= f.label :billing_address_country_id, t(".labels.country") %>
-      <%= f.collection_select(:billing_address_country_id, Country.alphabetical_by_name, :id, :name, { include_blank: "" }, { data: { action: "state-select-options#handleSelectChange", url: states_url } }) %>
-
-      <%= f.label :billing_address_line_1, t(".labels.address") %>
-      <%= f.text_field :billing_address_line_1 %>
-      <%= f.text_field :billing_address_line_2, aria: { label: "Billing Address Line 2" } %>
-
-      <%= f.label :billing_address_city, t(".labels.city") %>
-      <%= f.text_field :billing_address_city %>
-
-      <%= f.label :billing_address_state_id, t(".labels.state") %>
-      <%= f.collection_select(:billing_address_state_id, State.alphabetical_by_name, :id, :name, { include_blank: "" }, { data: { state_select_options_target: "states" } }) %>
-
-      <%= f.label :billing_address_postal_code, t(".labels.postal_code") %>
-      <%= f.text_field :billing_address_postal_code, placeholder: @page.postal_code_placeholder  %>
-
-      <%= f.label :billing_person_full_name, t(".labels.billing_name") %>
-      <%= f.text_field :billing_person_full_name %>
-
-      <%= f.label :billing_person_email, t(".labels.billing_email") %>
-      <%= f.email_field :billing_person_email %>
-
-      <%= f.label :billing_person_phone_number, t(".labels.billing_phone_number") %>
-      <%= f.telephone_field :billing_person_phone_number, placeholder: @page.phone_number_placeholder %>
-    </fieldset>
-
-    <fieldset>
-      <p>
-        <%= t(".helper_text.receive_nrs_updates") %>
-        <%= link_to t(".links.ucnrs_newsletter"), t(".urls.ucnrs_newsletter"), target: "_blank" %>
-      </p>
-      <%= f.check_box :terms_accepted_at %>
-      <%= f.label :terms_accepted_at, t(".labels.agree_to_terms_of_use", link: link_to(t(".links.terms_of_use"), t(".urls.ucnrs_terms_of_use"), target: "_blank")).html_safe %>
-    </fieldset>
-
-    <fieldset class="actions">
-      <%= link_to t(".links.go_back"), root_path %>
-      <%= f.submit t(".links.create_account") %>
-    </fieldset>
-  </section>
-<% end %>
+        <section data-controller="state-select-options">
+          <div class="billing-title">
+            <h2><%= t(".titles.billing_address") %></h2>
+            <div class="field">
+              <%= f.check_box :billing_address_same_as_current %> 
+              <%= f.label :billing_address_same_as_current, t(".labels.same_as_current") %> 
+            </div>
+          </div>
+          <div class="field medium">
+            <%= f.label :billing_address_country_id, t(".labels.country") %>
+            <%= f.collection_select(:billing_address_country_id, Country.alphabetical_by_name, :id, :name, { include_blank: true }, { data: { action: "state-select-options#handleSelectChange", url: states_url } }) %>
+          </div>
+          <div class="field medium">
+            <%= f.label :billing_address_line_1, t(".labels.address") %>
+            <%= f.text_field :billing_address_line_1 %>
+            <%= f.text_field :billing_address_line_2, aria: { label: "Billing Address Line 2" } %>
+          </div>
+          <div class="field medium">
+            <%= f.label :billing_address_city, t(".labels.city") %>
+            <%= f.text_field :billing_address_city %>
+          </div>
+          <div class="inline">
+            <div class="field medium">
+              <%= f.label :billing_address_state_id, t(".labels.state") %>
+              <%= f.collection_select(:billing_address_state_id, [], :id, :name, { include_blank: true }, { data: { state_select_options_target: "states" } }) %>
+            </div>
+            <div class="field extra-small">
+              <%= f.label :billing_address_postal_code, t(".labels.postal_code") %>
+              <%= f.text_field :billing_address_postal_code, placeholder: @page.postal_code_placeholder, class: "form-field-extra-small" %>
+            </div>
+          </div>
+          <div class="billing-contact">
+            <div class="field medium">
+              <%= f.label :billing_person_full_name, t(".labels.billing_name") %>
+              <%= f.text_field :billing_person_full_name %>
+            </div>
+            <div class="field medium">
+              <%= f.label :billing_person_email, t(".labels.billing_email") %>
+              <%= f.email_field :billing_person_email %>
+            </div>
+            <div class="field medium">
+              <%= f.label :billing_person_phone_number, t(".labels.billing_phone_number") %>
+              <%= f.telephone_field :billing_person_phone_number, placeholder: @page.phone_number_placeholder, class: "form-field-small" %>
+            </div>
+          </div>
+        </section>
+      </section>
+    </div>
+    <div class="section-container">
+      <section class="terms">
+        <div class="field">
+          <%= f.check_box :terms_accepted_at %>
+          <%= f.label :terms_accepted_at, t(".labels.agree_to_terms_of_use", link: link_to(t(".links.terms_of_use"), t(".urls.ucnrs_terms_of_use"), target: "_blank")).html_safe %>
+        </div>
+        <p class="helper-text">
+          <%= t(".helper_text.receive_nrs_updates") %>
+          <%= link_to t(".links.ucnrs_newsletter"), t(".urls.ucnrs_newsletter"), target: "_blank" %>
+        </p>
+      </section>
+    </div>
+    <div class="section-container blue-bg">
+      <section class="actions blue-bg">
+        <div class="actions">
+          <span><%= image_tag("arrow-left.svg", alt: "left facing arrow") %> <%= link_to t(".links.go_back"), root_path %></span>
+          <%= f.button t(".links.create_account", icon: image_tag("arrow-right.svg", alt: "right facing arrow")).html_safe, type: :submit, class: "active" %>
+        <div>
+      </section>
+    </div>
+  <% end %>
+</div>
