@@ -3,6 +3,7 @@ en:
     errors:
       models:
         user:
+          billing_address_fields_presence: "can't be blank if including a billing address"
           attributes:
             password:
               complexity: "Password complexity requirement not met. Length should be 8-70 characters and include: 1 uppercase character and 1 digit."

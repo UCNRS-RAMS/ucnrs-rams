@@ -178,6 +178,212 @@ RSpec.describe User, type: :model do
         end
       end
     end
+
+    describe "validating billing_address_fields" do
+      it "does not add an error if no billing_address_fields are present" do
+        user = build(:user,
+          billing_address_line_1: nil,
+          billing_address_city: nil,
+          billing_address_state: nil,
+          billing_address_country: nil,
+          billing_address_postal_code: nil,
+        )
+
+        user.save
+
+        expect(user).to be_valid
+        expect(user.errors.messages).to be_blank
+      end
+
+      describe "#billing_address_line_1" do
+        context "when the other billing_address fields are complete" do
+          it "adds an error if billing_address_line_1 is not present" do
+            country = create(:country)
+            state = create(:state, country: country)
+            user = build(:user,
+              billing_address_line_1: nil,
+              billing_address_city: "Some city",
+              billing_address_state: state,
+              billing_address_country: country,
+              billing_address_postal_code: "11111",
+            )
+
+            user.save
+
+            expect(user).not_to be_valid
+            expect(user.errors.messages[:billing_address_line_1]).to include("can't be blank if including a billing address")
+          end
+        end
+
+        context "when the other billing_address fields are not complete" do
+          it "does not add an error if billing_address_line_1 is present" do
+            user = build(:user,
+              billing_address_line_1: "123 Main St.",
+              billing_address_city: nil,
+              billing_address_state: nil,
+              billing_address_country: nil,
+              billing_address_postal_code: nil,
+            )
+
+            user.save
+
+            expect(user.errors.messages[:billing_address_line_1]).to be_blank
+          end
+        end
+      end
+
+      describe "#billing_address_city" do
+        context "when the other billing_address fields are complete" do
+          it "adds an error if billing_address_city is not present" do
+            country = create(:country)
+            state = create(:state, country: country)
+            user = build(:user,
+              billing_address_line_1: "123 Main St",
+              billing_address_city: nil,
+              billing_address_state: state,
+              billing_address_country: country,
+              billing_address_postal_code: "11111",
+            )
+
+            user.save
+
+            expect(user).not_to be_valid
+            expect(user.errors.messages[:billing_address_city]).to include("can't be blank if including a billing address")
+          end
+        end
+
+        context "when the other billing_address fields are not complete" do
+          it "does not add an error if billing_address_city is present" do
+            user = build(:user,
+              billing_address_line_1: nil,
+              billing_address_city: "Some city",
+              billing_address_state: nil,
+              billing_address_country: nil,
+              billing_address_postal_code: nil,
+            )
+
+            user.save
+
+            expect(user.errors.messages[:billing_address_city]).to be_blank
+          end
+        end
+      end
+
+      describe "#billing_address_state" do
+        context "when the other billing_address fields are complete" do
+          it "adds an error if billing_address_state is not present" do
+            country = create(:country)
+            state = create(:state, country: country)
+            user = build(:user,
+              billing_address_line_1: "123 Main St",
+              billing_address_city: "Some city",
+              billing_address_state: nil,
+              billing_address_country: country,
+              billing_address_postal_code: "11111",
+            )
+
+            user.save
+
+            expect(user).not_to be_valid
+            expect(user.errors.messages[:billing_address_state]).to include("can't be blank if including a billing address")
+          end
+        end
+
+        context "when the other billing_address fields are not complete" do
+          it "does not add an error if billing_address_state is present" do
+            country = create(:country)
+            state = create(:state, country: country)
+            user = build(:user,
+              billing_address_line_1: nil,
+              billing_address_city: nil,
+              billing_address_state: state,
+              billing_address_country: nil,
+              billing_address_postal_code: nil,
+            )
+
+            user.save
+
+            expect(user.errors.messages[:billing_address_state]).to be_blank
+          end
+        end
+      end
+
+      describe "#billing_address_country" do
+        context "when the other billing_address fields are complete" do
+          it "adds an error if billing_address_country is not present" do
+            country = create(:country)
+            state = create(:state, country: country)
+            user = build(:user,
+              billing_address_line_1: "123 Main St",
+              billing_address_city: "Some city",
+              billing_address_state: state,
+              billing_address_country: nil,
+              billing_address_postal_code: "11111",
+            )
+
+            user.save
+
+            expect(user).not_to be_valid
+            expect(user.errors.messages[:billing_address_country]).to include("can't be blank if including a billing address")
+          end
+        end
+
+        context "when the other billing_address fields are not complete" do
+          it "does not add an error if billing_address_country is present" do
+            country = create(:country)
+            state = create(:state, country: country)
+            user = build(:user,
+              billing_address_line_1: nil,
+              billing_address_city: nil,
+              billing_address_state: nil,
+              billing_address_country: country,
+              billing_address_postal_code: nil,
+            )
+
+            user.save
+
+            expect(user.errors.messages[:billing_address_country]).to be_blank
+          end
+        end
+      end
+
+      describe "#billing_address_postal_code" do
+        context "when the other billing_address fields are complete" do
+          it "adds an error if billing_address_postal_code is not present" do
+            country = create(:country)
+            state = create(:state, country: country)
+            user = build(:user,
+              billing_address_line_1: "123 Main St",
+              billing_address_city: "Some city",
+              billing_address_state: state,
+              billing_address_country: country,
+              billing_address_postal_code: nil,
+            )
+
+            user.save
+
+            expect(user).not_to be_valid
+            expect(user.errors.messages[:billing_address_postal_code]).to include("can't be blank if including a billing address")
+          end
+        end
+
+        context "when the other billing_address fields are not complete" do
+          it "does not add an error if billing_address_postal_code is present" do
+            user = build(:user,
+              billing_address_line_1: nil,
+              billing_address_city: nil,
+              billing_address_state: nil,
+              billing_address_country: nil,
+              billing_address_postal_code: "11111",
+            )
+
+            user.save
+
+            expect(user.errors.messages[:billing_address_postal_code]).to be_blank
+          end
+        end
+      end
+    end
   end
 
   describe "associations" do
