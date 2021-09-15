@@ -14,15 +14,8 @@
   </section>
 
   <div class="field">
-    <%= f.label :email do %>
-      <span>
-        <%= t(".email_address") %>
-        <% if resource.errors[:email].present? %>
-          <em class="errors">(<%= resource.errors[:email].join(", ") %>)</em>
-        <% end %>
-      </span>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-    <% end %>
+    <%= f.label :email, t(".email") %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
   <div class="actions">

@@ -9,18 +9,18 @@
   </section>
 
   <div class="field">
-    <%= f.label :email do %>
-      <span><%= t(".email_address") %></span>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-    <% end %>
+    <%= f.label :email, t(".email") %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
-  <div class="field">
-    <%= f.label :password do %>
-      <span><%= t(".password") %></span>
-      <%= f.password_field :password %>
-    <% end %>
+  <div class="field" data-controller="passwords">
+    <%= f.label :password, t(".password") %>
+    <div class="input-with-buttons">
+      <%= f.password_field :password, data: { target: "passwords.input" } %>
+      <%= image_tag "hide-password.svg", class: "input-icon", data: { action: "click->passwords#togglePasswordDisplay", target: "passwords.icon", info: { show_url: image_url("show-password.svg"), hide_url: image_url("hide-password.svg") } }, alt: t(".password_visibility_alt") %>
+    </div>
   </div>
+  
 
   <section class="extra_actions">
     <%= link_to t(".forgot_password"), new_user_password_path %>

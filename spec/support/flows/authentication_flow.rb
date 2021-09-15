@@ -72,6 +72,23 @@ class AuthenticationFlow
     page.find(".modal button.active", text: "Let's go!").click
   end
 
+  def hiding_contents_of_field?(field_name)
+    label = page.find("label", text: field_name)
+    input = page.find("##{label['for']}")
+    input["type"] == "password"
+  end
+
+  def show_password(field_name = "Password")
+    label = page.find("label", text: field_name)
+    page
+      .find("##{label['for']}")
+      .find(:xpath, ".//..")
+      .find("img.input-icon")
+      .click
+  end
+
+  alias_method :hide_password, :show_password
+
   def sign_out
     page.find("a", text: "Sign Out").click
   end
@@ -83,6 +100,8 @@ class AuthenticationFlow
   def on_sign_in_page?
     page.has_css?("body.sessions.sessions-new")
   end
+
+
 
   private
 

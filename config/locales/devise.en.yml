@@ -40,7 +40,7 @@ en:
         title: Forgot Password
         submit: Okay, Go
         instructions: Enter your email address, and we’ll send you instructions to reset your password.
-        email_address: Email Address
+        email: Email Address
         go_back: Go Back
         having_trouble: Having trouble?
         contact_us: Contact us
@@ -49,6 +49,8 @@ en:
         submit: Okay, Go
         password: Create a New Password
         password_confirmation: Re-enter Password
+        password_visibility_alt: "A button to toggle the visibility of the password in plain text"
+        password_confirmation_visibility_alt: "A button to toggle the visibility of the password confirmation in plain text"
         go_back: Go Back
         having_trouble: Having trouble?
         contact_us: Contact us
@@ -128,8 +130,9 @@ en:
       new:
         title: Sign In
         instructions: Don't have an account?
-        email_address: Email Address
+        email: Email Address
         password: Password
+        password_visibility_alt: "A button to toggle the visibility of the password in plain text"
         create_an_account: Create an account
         submit: Sign In
         forgot_password: Forgot Password?
