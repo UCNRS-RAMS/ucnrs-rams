@@ -32,6 +32,9 @@ export default class extends Controller {
   populateStateSelectOptions(states: State[]) {
     const statesSelect = this.statesTarget
     this.deleteExistingStateSelectOptions(statesSelect)
+
+    const blankOption = document.createElement('option')
+    statesSelect.appendChild(blankOption)
     states.forEach(state => statesSelect.appendChild(this.buildStateOptionHtml(state)))
   }
 

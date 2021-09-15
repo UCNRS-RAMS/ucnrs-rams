@@ -48,7 +48,6 @@ RSpec.describe RegistrationFormPresenter do
       role_options = presenter.role_options
 
       expect(role_options).to match_array [
-        ["No selection", :role_no_selection],
         ["Faculty", :role_faculty],
         ["Research Scientist/Post Doc", :role_research_scientist_post_doc],
         ["Research Assistant (non-student/faculty/postdoc)", :role_research_assistant_non_student_faculty_postdoc],

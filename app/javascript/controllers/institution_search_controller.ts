@@ -31,6 +31,8 @@ export default class extends Controller {
 
     if (query.length > 2) {
       this.getInstitutions(this.urlValue, query)
+    } else {
+      this.clearInstitutions()
     }
   }
 
@@ -48,8 +50,9 @@ export default class extends Controller {
   }
 
   displayInstitutions(institutions: Institution[]) {
-    const institutionsDisplay = document.getElementById('#institutions') as HTMLDivElement
+    const institutionsDisplay = document.getElementById('institutions') as HTMLDivElement
     this.removeChildNodes(institutionsDisplay)
+    institutionsDisplay.classList.toggle("with-border", !!institutions.length)
     const ul = document.createElement('ul')
 
     institutions.forEach(institution => {
@@ -69,15 +72,20 @@ export default class extends Controller {
 
   setInstitution(e: MouseEvent) {
     const selectedInstitution = e.currentTarget as HTMLLIElement
-    const institutionsDisplay = document.getElementById('#institutions') as HTMLDivElement
     this.institutionTarget.value = selectedInstitution.innerText
 
-    this.removeChildNodes(institutionsDisplay)
+    this.clearInstitutions()
   }
 
   removeChildNodes(parent: Element) {
     while (parent.firstChild) {
       parent.removeChild(parent.firstChild)
     }
+  }
+
+  clearInstitutions() {
+    const institutionsDisplay = document.getElementById('institutions') as HTMLDivElement
+    institutionsDisplay.classList.remove("with-border")
+    this.removeChildNodes(institutionsDisplay)
   }
 }

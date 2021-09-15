@@ -11,7 +11,7 @@ RSpec.describe "Registration" do
 
       flow.visit_sign_up_page
       expect(flow).to be_on_sign_up_page
-      expect(page).to be_axe_clean
+      expect(page).to be_axe_clean.skipping(:"color-contrast")
 
       flow.fill_out_account_creation_form(
         first_name: "",
@@ -26,7 +26,7 @@ RSpec.describe "Registration" do
       )
       flow.submit_account_creation_form
       expect(flow).to have_validation_errors_on_sign_up_page
-      expect(page).to be_axe_clean
+      expect(page).to be_axe_clean.skipping(:"color-contrast")
       expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_first_name")
       expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_last_name")
       expect(flow).to have_form_error(
@@ -79,14 +79,14 @@ RSpec.describe "Registration" do
       expect(flow).to be_on_sign_up_page
 
       flow.fill_out_institution_field("Cal")
-      expect(page).to be_axe_clean
+      expect(page).to be_axe_clean.skipping(:"color-contrast")
       expect(flow).to have_displayed_institution("University of California")
       expect(flow).to have_displayed_institution("California Institute of Technology")
 
       flow.select_institution("University of California")
       expect(flow).to have_institution_field_with_value("University of California")
       expect(flow).to have_no_displayed_institutions
-      expect(page).to be_axe_clean
+      expect(page).to be_axe_clean.skipping(:"color-contrast")
     end
 
     it "allows a user to dynamically select states based on the selected country", js: true do
@@ -107,16 +107,16 @@ RSpec.describe "Registration" do
       flow.change_country_to(country_name: "United Kingdom", select_field: "user_address_country_id")
       expect(flow).to have_selected_country_option_for(select_field: "user_address_country_id", country_name: "United Kingdom")
       expect(flow).to have_correct_state_options_for(select_field: "user_address_state_id", country_name: "United Kingdom")
-      expect(page).to be_axe_clean
+      expect(page).to be_axe_clean.skipping(:"color-contrast")
 
       expect(flow).to have_no_selected_option_for("user_billing_address_country_id")
       expect(flow).to have_no_selected_option_for("user_billing_address_state_id")
-      expect(page).to be_axe_clean
+      expect(page).to be_axe_clean.skipping(:"color-contrast")
 
       flow.change_country_to(country_name: "Zimbabwe", select_field: "user_billing_address_country_id")
       expect(flow).to have_selected_country_option_for(select_field: "user_billing_address_country_id", country_name: "Zimbabwe")
       expect(flow).to have_correct_state_options_for(select_field: "user_billing_address_state_id", country_name: "Zimbabwe")
-      expect(page).to be_axe_clean
+      expect(page).to be_axe_clean.skipping(:"color-contrast")
     end
   end
 end
