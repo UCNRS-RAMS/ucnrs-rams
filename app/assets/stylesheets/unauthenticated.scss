@@ -18,6 +18,7 @@
       box-sizing: content-box;
       padding: 13.75rem 8.4375rem;
       min-width: 330px;
+      position: relative;
     }
 
     .hero {
@@ -78,14 +79,22 @@
 
       .notifications {
         position: absolute;
-        top: 8.625rem;
+        top: -4.875rem;
+        left: 0;
+        padding: inherit;
         width: inherit;
+
+        p {
+          margin: 0;
+        }
       }
 
       .navigation {
         color: $form-copy-color;
         position: absolute;
-        top: 8.625rem;
+        top: -4.875rem;
+        left: 0;
+        padding: inherit;
         width: inherit;
 
         a {
@@ -300,6 +309,8 @@
           position: initial;
           top: 0;
           width: inherit;
+          padding-left: 0;
+          padding-right: 0;
         }
 
         label {
