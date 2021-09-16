@@ -16,28 +16,25 @@
     <main role="main">
 
       <section class="left-side hero">
-        <div class="hero-container">
-          <div class="logo-relative">
-            <%= image_tag "white-logo.svg", height: "168px", width: "173px", alt: "Swirling UCRNS Logo" %>
-            <h1><%= t(".hero.title") %></h1>
-          </div>
-          <p><%= t(".hero.emphasized") %></p>
-          <p><%= t(".hero.explanation1") %></p>
-          <p><%= t(".hero.explanation2") %></p>
-          <p><%= raw t(".hero.more_information") %></p>
-          <p><%= raw t(".hero.public_information") %></p>
-        </div>
+        <header>
+          <%= image_tag "white-logo-big.svg", class: "logo big-logo", height: "168px", width: "173px", alt: "Swirling UCRNS Logo" %>
+          <%= image_tag "white-logo-small.svg", class: "logo small-logo", height: "168px", width: "173px", alt: "Swirling UCRNS Logo" %>
+          <h1><%= t(".hero.title") %></h1>
+        </header>
+        <p><%= t(".hero.emphasized") %></p>
+        <p><%= t(".hero.explanation1") %></p>
+        <p><%= t(".hero.explanation2") %></p>
+        <p><%= raw t(".hero.more_information") %></p>
+        <p><%= raw t(".hero.public_information") %></p>
       </section>
 
       <section class="right-side form">
-        <div class="form-container">
-          <section class="notifications" role="region" aria-label="errors">
-            <p class="notice"><%= notice %></p>
-            <p class="alert"><%= alert %></p>
-          </section>
+        <section class="notifications" role="region" aria-label="errors">
+          <p class="notice"><%= notice %></p>
+          <p class="alert"><%= alert %></p>
+        </section>
 
-          <%= yield %>
-        </div>
+        <%= yield %>
       </section>
     </main>
   </body>

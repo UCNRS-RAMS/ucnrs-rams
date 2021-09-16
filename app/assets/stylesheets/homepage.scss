@@ -46,11 +46,13 @@
       &:first-child {
         background-color: $section-background-odd;
         flex: 6;
+        padding-left: 6.25rem;
       }
 
       &:last-child {
         background-color: $section-background-even;
         flex: 4;
+        padding-right: 6.25rem;
       }
 
       table {
@@ -99,7 +101,7 @@
 
   .news {
     background: no-repeat top left / cover url(asset-path("latest-news-background.jpg"));
-    padding: 4.75rem 6rem;
+    padding: 4.75rem 6.25rem;
 
     header {
       color: $news-title-color;
@@ -150,10 +152,19 @@
 
 @media screen and (max-width: 768px) {
   .home-index {
-    .content
+    .content {
 
-    & > * {
-      padding: 1.325rem;
+      & > * {
+        padding: 1.325rem;
+
+        &:first-child {
+          padding-left: 1.325rem;
+        }
+
+        &:last-child {
+          padding-right: 1.325rem;
+        }
+      }
     }
 
     .news {

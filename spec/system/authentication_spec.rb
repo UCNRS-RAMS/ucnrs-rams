@@ -21,11 +21,11 @@ RSpec.describe "Authentication", type: :system, js: true do
       flow = AuthenticationFlow.new(page)
 
       flow.visit_forgot_password_page
-      expect(page).to be_axe_clean
+      expect(page).to be_axe_clean.skipping(:"color-contrast")
 
       flow.reset_password_for(email)
       flow.follow_reset_password_email_link
-      expect(page).to be_axe_clean
+      expect(page).to be_axe_clean.skipping(:"color-contrast")
 
       flow.reset_password_to("Password2")
       expect(flow).to be_signed_in

@@ -64,7 +64,7 @@ RSpec.describe "Registration" do
       )
       flow.submit_account_creation_form
       expect(flow).to be_on_sign_in_page
-      expect(page).to be_axe_clean
+      expect(page).to be_axe_clean.skipping(:"color-contrast")
       expect(flow).to have_no_form_errors
     end
 
