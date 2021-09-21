@@ -6,7 +6,6 @@ RSpec.describe Institution, type: :model do
   describe "validations" do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:city) }
-    it { is_expected.to validate_presence_of(:state) }
     it { is_expected.to validate_presence_of(:country) }
     it { is_expected.to validate_uniqueness_of(:name).scoped_to(:city).case_insensitive }
     it { is_expected.to validate_presence_of(:institution_type) }
@@ -14,7 +13,7 @@ RSpec.describe Institution, type: :model do
 
   describe "associations" do
     it { is_expected.to belong_to(:country) }
-    it { is_expected.to belong_to(:state) }
+    it { is_expected.to belong_to(:state).optional(true) }
     it { is_expected.to have_many(:users).inverse_of(:institution).dependent(:restrict_with_error) }
   end
 

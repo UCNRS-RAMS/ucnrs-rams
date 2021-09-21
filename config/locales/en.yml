@@ -22,6 +22,8 @@ en:
     different_days_same_month: "%{start_month} %{start_day} - %{end_day}, %{start_year}"
     different_months_same_year: "%{start_month} %{start_day} - %{end_month} %{end_day}, %{start_year}"
     different_years: "%{start_month} %{start_day}, %{start_year} - %{end_month} %{end_day}, %{end_year}"
+  forms:
+    select_one: "Please Select One"
   home:
     index:
       invoices:
@@ -30,6 +32,17 @@ en:
         title: "Visit Requests"
       latest_news: "Latest News"
       view_all: "View All"
+  institutions:
+    new:
+      header: "Create New Institution"
+      submit: "Create Institution"
+      cancel: "Close"
+    labels:
+      name: "Name"
+      institution_type: "Institution Type"
+      city: "City"
+      country: "Country"
+      state: "State"
   modals:
     welcome:
       title: Welcome to RAMS

@@ -1,0 +1,4 @@
+document.getElementById('modal').classList.remove("visible")
+document.getElementById('modal').setAttribute("aria-hidden", "true")
+document.getElementsByTagName("main")[0].setAttribute("aria-hidden", "false")
+document.getElementById("user_institution").value = "<%= @form.institution.name %>"

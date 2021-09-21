@@ -7,6 +7,6 @@ Rails.application.routes.draw do
   }
   root to: "home#index"
 
-  resources :institutions, only: [:index]
+  resources :institutions, only: [:index, :new, :create]
   resources :states, only: [:index]
 end

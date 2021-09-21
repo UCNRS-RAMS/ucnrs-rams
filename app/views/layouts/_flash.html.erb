@@ -1,0 +1,6 @@
+<% flash.each do |type, msg| %>
+  <div class="flash <%= type %>">
+    <%= type.capitalize %>:
+    <%= msg.html_safe %>
+  </div>
+<% end %>

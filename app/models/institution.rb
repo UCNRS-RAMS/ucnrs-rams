@@ -5,11 +5,11 @@ class Institution < ApplicationRecord
   validates :name, uniqueness: { scope: :city, case_sensitive: false }
   validates :city, presence: true
   validates :country, presence: true
-  validates :state, presence: true
+
   validates :institution_type, presence: true
 
-  belongs_to :state
   belongs_to :country
+  belongs_to :state, optional: true
   has_many :users, inverse_of: :institution, dependent: :restrict_with_error
 
   enum institution_type: {
@@ -32,5 +32,17 @@ class Institution < ApplicationRecord
 
   def self.alphabetized
     order(:name)
+  end
+
+  private
+
+  def required_for_country?
+    if state.present?
+      if !state.in_country?(country)
+        errors.add(:state_id, :must_be_in_country)
+      end
+    elsif country.present? && country.has_states?
+      errors.add(:state_id, :must_be_in_country)
+    end
   end
 end
