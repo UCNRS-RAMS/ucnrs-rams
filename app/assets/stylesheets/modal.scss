@@ -58,6 +58,86 @@
     justify-content: end;
     margin: 0 3rem 2rem 3rem;
   }
+
+  .body {
+    box-sizing: border-box;
+    color: $modal-body-color;
+    font-size: .8125rem;
+    padding: 1.5rem;
+
+    form {
+      align-items: normal;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    header {
+      font-size: 1.25rem;
+      font-weight: $semi-bold;
+    }
+
+    .flash {
+      border-radius: 0.3125rem;
+      margin: 1rem 0;
+      padding: .5rem 1rem;
+    }
+
+    .flash.error {
+      background-color: $light-red;
+      border: 1px solid $red;
+      color: $red;
+    }
+
+    hr {
+      border-bottom: 1px solid $modal-hr-color;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      margin: 1.25rem 0;
+    }
+
+    label {
+      color: $modal-label-color;
+      font-size: 0.6875rem;
+      font-weight: $semi-bold;
+    }
+
+    input, select {
+      border-radius: 0.3125rem;
+      border: 1px solid $modal-input-select-border;
+      box-sizing: border-box;
+      color: $modal-input-select-color;
+    }
+
+    input {
+      padding: 0.5rem .75rem;
+    }
+
+    select {
+      padding: 0.5rem;
+    }
+
+    .buttons {
+      align-items: center;
+      display: flex;
+      font-size: 1rem;
+      justify-content: end;
+      margin: 0;
+
+      > *:not(:last-child) {
+        margin-right: 1rem;
+      }
+
+      .button {
+        background-color: $modal-button-background;
+        border: none;
+        border-radius: 25px;
+        font-size: 1rem;
+        padding: .875rem 2rem;
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 768px) {

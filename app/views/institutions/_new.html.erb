@@ -1,0 +1,17 @@
+<div class="modal-content" data-modal-target="dialog">
+  <div class="body">
+    <header><%= I18n.t(".institutions.new.header") %></header>
+    <hr />
+  
+    <%= render partial: "layouts/flash" %>
+
+    <%= form_with model: @page.form_institution, url: institutions_path, local: false, html: { class: "needs-validation" } do |f| %> 
+      <%= render partial: "institution_field", locals: { f: f } %>
+      <hr />
+      <div class="buttons">
+        <%= link_to I18n.t(".institutions.new.cancel"), new_institution_path, { class: "button-medium", data: { action: "click->modal#close" } } %>
+        <%= f.submit I18n.t(".institutions.new.submit"), class: "button button-medium" %>
+      </div>
+    <% end %>
+  </div>
+</div>

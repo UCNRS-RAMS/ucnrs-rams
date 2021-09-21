@@ -20,7 +20,10 @@ export default class extends Controller {
     }
   }
 
-  close() {
+  close(e: MouseEvent) {
+    e.preventDefault()
+    e.stopPropagation()
+
     if (this.hasDialogTarget) {
       this.element.classList.remove("visible")
       this.element.setAttribute("aria-hidden", "true")
