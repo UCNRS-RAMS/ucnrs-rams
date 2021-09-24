@@ -103,11 +103,13 @@ RSpec.describe "Registration" do
       expect(flow).to be_on_sign_up_page
       expect(flow).to have_selected_country_option_for(select_field: "user_address_country_id", country_name: "United States")
       expect(flow).to have_correct_state_options_for(select_field: "user_address_state_id", country_name: "United States")
+      expect(flow).to_not have_correct_state_options_for(select_field: "user_address_state_id", country_name: "United Kingdom")
 
       flow.change_country_to(country_name: "United Kingdom", select_field: "user_address_country_id")
       expect(flow).to have_selected_country_option_for(select_field: "user_address_country_id", country_name: "United Kingdom")
       expect(flow).to have_correct_state_options_for(select_field: "user_address_state_id", country_name: "United Kingdom")
-      expect(page).to be_axe_clean.skipping(:"color-contrast")
+      expect(flow).to_not have_correct_state_options_for(select_field: "user_address_state_id", country_name: "United States")
+      expect(page).to be_axe_clean
 
       expect(flow).to have_no_selected_option_for("user_billing_address_country_id")
       expect(flow).to have_no_selected_option_for("user_billing_address_state_id")

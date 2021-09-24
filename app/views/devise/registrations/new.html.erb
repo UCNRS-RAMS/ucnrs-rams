@@ -134,11 +134,11 @@
     </div>
     <div class="section-container">
       <section class="address">
-        <section data-controller="state-select-options">
+        <section data-controller="followup-content" data-followup-content-url-value="<%= states_url(country_id: "VALUE") %>">
           <h2><%= t(".titles.current_address") %></h2>
           <div class="field medium">
             <%= f.label :address_country_id, t(".labels.country") %>
-            <%= f.collection_select(:address_country_id, Country.alphabetical_by_name, :id, :name, { selected: @page.default_country_option }, { data: { action: "state-select-options#handleSelectChange", url: states_url } }) %>
+            <%= f.collection_select(:address_country_id, Country.alphabetical_by_name, :id, :name, { selected: @page.default_country_option }, { data: { action: "change->followup-content#change" } }) %>
           </div>
           <div class="field medium">
             <%= f.label :address_line_1, t(".labels.address") %>
@@ -152,7 +152,7 @@
           <div class="inline">
             <div class="field medium">
               <%= f.label :address_state_id, t(".labels.state") %>
-              <%= f.collection_select(:address_state_id, @page.initial_state_options, :id, :name, { include_blank: true }, { data: { state_select_options_target: "states" } }) %>
+              <%= f.collection_select(:address_state_id, @page.initial_state_options, :id, :name, { include_blank: true }, { data: { followup_content_target: "destination" } }) %>
             </div>
             <div class="field extra-small">
               <%= f.label :address_postal_code, t(".labels.postal_code") %>
@@ -161,7 +161,7 @@
           </div>
         </section>
 
-        <section data-controller="state-select-options">
+        <section data-controller="followup-content" data-followup-content-url-value="<%= states_url(country_id: "VALUE") %>">
           <div class="billing-title">
             <h2><%= t(".titles.billing_address") %></h2>
             <div class="field">
@@ -171,7 +171,7 @@
           </div>
           <div class="field medium">
             <%= f.label :billing_address_country_id, t(".labels.country") %>
-            <%= f.collection_select(:billing_address_country_id, Country.alphabetical_by_name, :id, :name, { include_blank: true }, { data: { action: "state-select-options#handleSelectChange", url: states_url } }) %>
+            <%= f.collection_select(:billing_address_country_id, Country.alphabetical_by_name, :id, :name, { include_blank: true }, { data: { action: "change->followup-content#change" } }) %>
           </div>
           <div class="field medium">
             <%= f.label :billing_address_line_1, t(".labels.address") %>
@@ -185,7 +185,7 @@
           <div class="inline">
             <div class="field medium">
               <%= f.label :billing_address_state_id, t(".labels.state") %>
-              <%= f.collection_select(:billing_address_state_id, [], :id, :name, { include_blank: true }, { data: { state_select_options_target: "states" } }) %>
+              <%= f.collection_select(:billing_address_state_id, [], :id, :name, { include_blank: true }, { data: { followup_content_target: "destination" } }) %>
             </div>
             <div class="field extra-small">
               <%= f.label :billing_address_postal_code, t(".labels.postal_code") %>

@@ -21,6 +21,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
     add_column :users, :confirmation_sent_at, :datetime
     add_column :users, :unconfirmed_email, :string
 
+    execute("UPDATE users SET email = '' WHERE email IS NULL")
     change_column_null :users, :email, false
     change_column_null :users, :encrypted_password, false
 

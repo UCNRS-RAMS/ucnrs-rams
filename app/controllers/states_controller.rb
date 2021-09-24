@@ -1,10 +1,8 @@
 class StatesController < ApplicationController
   def index
-    @states = State
-      .in_country(country)
-      .alphabetical_by_name
+    @page = StatesIndexPresenter.new(country: country)
 
-    render json: @states
+    render layout: false
   end
 
   private
