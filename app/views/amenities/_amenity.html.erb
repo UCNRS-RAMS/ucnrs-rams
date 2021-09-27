@@ -1,11 +1,13 @@
-<section>
-  <% if amenity.with_image_url? %>
-    <%= image_tag amenity.image_url, alt: t("amenities.alt_text.amenity_picture") %>
-  <% else %>
-    <%= image_tag "amenity_placeholder.jpg", alt: t("amenities.alt_text.amenity_picture") %>
-  <% end %>
-  <span><%= amenity.title %></span>
-  <span><%= amenity.comment %></span>
-  <span><%= link_to t(".link"), "#" %></span>
-  <%= render partial: "rate", collection: amenity.rates, locals: { amenity: amenity } %>
+<section class="card">
+  <div class="image">
+    <%= image_tag amenity.image, alt: t("amenities.alt_text.amenity_picture") %>
+  </div>
+  <div class="card-body">
+    <header><%= amenity.title %></header>
+    <span class="description"><%= amenity.comment %></span>
+    <%= link_to t(".link"), "#" %>
+    <div class="rates">
+      <%= render partial: "rate", collection: amenity.rates, locals: { amenity: amenity } %>
+    </div>
+  </div>
 </section>

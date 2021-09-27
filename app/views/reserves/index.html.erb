@@ -1,25 +1,45 @@
-<div>
-  <section class="left-side">
-    <h1><%= t(".direction_title") %></h1>
-    <p>
-      <%= t(".direction_body") %>
-    </p>
-    <%= render partial: "reserve", collection: @page.reserves %>
-  </section>
-  <section class="right-side">
-    <div>
-      <label>
-        <header><%= t(".search") %></header>
-        <input type="text" id="reserve-search">
-      </label>
-    </div>
-    <section class="tags">
-      <header><%= t(".tags") %></header>
-      <%= render partial: "tag", collection: @page.tags %>
+<div class="split-background">
+  <div class="reserves-list container">
+    <section class="left-side">
+      <div id="left-reserve-intro" class="hide-765">
+        <h1><%= t(".direction_title") %></h1>
+        <p>
+          <%= t(".direction_body") %>
+        </p>
+      </div>
+      <section class="reserve-cards">
+        <%= render partial: "reserve", collection: @page.reserves %>
+      </section>
     </section>
-    <section class="amenities">
-      <header><%= t(".amenity_tags") %></header>
-      <%= render partial: "amenities_tag", collection: @page.amenities_tags %>
+    <section class="right-side">
+      <div class="reserve-search">
+        <div id="right-reserve-intro" class="load-hide show-765">
+          <h1><%= t(".direction_title") %></h1>
+          <p>
+            <%= t(".direction_body") %>
+          </p>
+        </div>
+        <section class="search">
+          <label>
+            <header><%= t(".search") %></header>
+            <div class="input-with-buttons">
+              <input type="text" id="reserve-search">
+            </div>
+          </label>
+        </section>
+        <div class="search-options">
+          <section class="tag-badges">
+            <header><%= t(".tags") %></header>
+            <%= render partial: "tag", collection: @page.tags %>
+          </section>
+          <section class="amenity-badges">
+            <header><%= t(".amenity_tags") %></header>
+            <%= render partial: "amenities_tag", collection: @page.amenities_tags %>
+          </section>
+          <a href="#" class="icon-refresh-a"><%= t(".clear_selection_and_start_over") %></a>
+        </div>
+        <button class="button-clear load-hide show-765"><%= t(".less_options") %></button>
+      </div>
     </section>
-  </section>
+  </div>
 </div>

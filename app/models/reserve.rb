@@ -1,5 +1,7 @@
 class Reserve < ApplicationRecord
   has_one_attached :reserve_avatar
+
+  belongs_to :managing_campus, class_name: "Institution"
   has_many :amenities
 
   def self.alphabetized
