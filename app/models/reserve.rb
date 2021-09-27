@@ -1,7 +1,16 @@
 class Reserve < ApplicationRecord
+  has_one_attached :reserve_avatar
+  has_many :amenities
+
   def self.alphabetized
     order(:pulldown_name)
   end
 
-  has_many :amenities
+  def waivers
+    Waiver.fake
+  end
+
+  def image_placeholder
+    "reserve_placeholder.jpg"
+  end
 end

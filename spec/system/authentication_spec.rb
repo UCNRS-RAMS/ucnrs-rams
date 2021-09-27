@@ -51,7 +51,8 @@ RSpec.describe "Authentication", type: :system, js: true do
 
       flow.dismiss_modal
       flow.sign_out
-      expect(flow).to_not be_signed_in
+      # expect(flow).to_not be_signed_in  # Doesn't work after turbo
+      expect(page).to_not have_css("body.home")
 
       flow.visit_homepage
       expect(flow).to_not be_signed_in

@@ -1,6 +1,8 @@
 FactoryBot.define do
   factory :amenity do
     description { "Description" }
+    time_type { "day" }
+    units_type { "facility" }
     reserve
 
     transient do

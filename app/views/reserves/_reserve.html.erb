@@ -1,0 +1,6 @@
+<%= link_to reserve_path(reserve.id) do %>
+  <div class="image">
+    <%= image_tag reserve.image_placeholder, alt: t(".alt_text.reserve_picture"), class: "reserve-image", height: 165, width: 270 %>
+  </div>
+  <span><%= reserve.name %></span>
+<% end %>

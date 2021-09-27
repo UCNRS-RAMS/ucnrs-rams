@@ -46,13 +46,23 @@ en:
     different_months_same_year: "%{start_month} %{start_day} - %{end_month} %{end_day}, %{start_year}"
     different_years: "%{start_month} %{start_day}, %{start_year} - %{end_month} %{end_day}, %{end_year}"
   amenities:
+    alt_text:
+      amenity_picture: "picture of a reserve amenity"
+    units:
+      per: "per"
     amenity:
+      link: "Amenity Link"
       more_info: "Learn More"
       dates_of_use: "Dates of Use"
       rate: "Rate"
       rate_period: "(per %{unit} per %{period})"
       number_of_people: "No. of People"
       subtotal: "Subtotal"
+    index:
+      title: "Amenities and Rates"
+  calendars:
+    show:
+      title: "Reserve Calendar"
   forms:
     select_one: "Please Select One"
   home:
@@ -83,6 +93,37 @@ en:
     calendar:
       title: "Select visit date."
       okay: "Okay"
+  reserves:
+    personnel_card:
+      alt_text: 
+        personnel_picture: "picture of reserve personnel"
+    reserve:
+      alt_text:
+        reserve_picture: "image of a reserve"
+    index:
+      direction_title: "Reserves"
+      direction_body: "Click a thumbnail to learn more about a reserve, or search by features such as geographic region, ecosystem type, and amenities such as overnight accommodations."
+      search: "Search"
+      tags: "Tags"
+      amenity_tags: "Amenities"
+    show:
+      alt_text:
+        reserve_logo: "small picture of reserve logo"
+        ucnrs_logo: "small picture of ucnrs logo"
+      schedule_a_visit: "Schedule a Visit"
+      get_directions: "Get Directions"
+      visit_reserve_website: "Visit Reserve Website"
+      mailing_address: "Mailing Address"
+      link:
+        amenities_and_rates: "Amenities & Rates"
+        calendar: "Calendar"
+        waivers: "Waivers"
+        rules_and_regulations: "Rules & Regulations"
+  rules_and_regulations:
+    show:
+      title: "Rules and Regulations"
+    rules_and_regulations:
+      link: "Link"
   users:
     new:
       header:
@@ -223,6 +264,14 @@ en:
       not_applicable: "N/A"
       alt:
         right_facing_arrow: "A right facing arrow enclosed in a circle"
+  waivers:
+    index:
+      title: "Waivers"
+    waivers:
+      direction_title: "All visitors must sign and return a waiver agreement prior to visiting a reserve."
+      direction_body: "If your application is approved, the group leader (person who is listed as contact for the requested activity) will be responsible 
+                      for ensuring that all necessary waivers are submitted to reserve staff prior to the proposed visit. Waiver agreements for minors 
+                      must be signed by the parent or legal guardian."
   navbar:
     link:
       visits: "Visits"
@@ -249,4 +298,6 @@ en:
         explanation1: Our library of ecosystems includes examples of most major state habitats. We offer outdoor laboratories to field scientists, classrooms without walls for students, and nature’s inspiration to all.
         explanation2: Reserves are available for teaching, research, and public service, but not general recreation. Access is by permission only.
         more_information: For more UCNRS information, visit <a href="https://ucnrs.org">UCNRS.ORG</a>
-        public_information: For RAMS public information, <a href="#">Reserve Info</a> <a href="#">Application Info</a>
+        public_information: "For RAMS public information, %{reserves_info_link} %{project_search_link}"
+        reserves_info: Reserves Info
+        project_search: Project Search
