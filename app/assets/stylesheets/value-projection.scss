@@ -1,0 +1,21 @@
+@import "variables";
+
+[data-value-projection-projected-value] {
+  .project_select {
+    display: block;
+  }
+
+  .public_use_select {
+    display: none;
+  }
+}
+
+*[data-value-projection-projected-value="public"] {
+  .project_select {
+    display: none;
+  }
+
+  .public_use_select {
+    display: block;
+  }
+}
