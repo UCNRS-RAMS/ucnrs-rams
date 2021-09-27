@@ -13,8 +13,12 @@ class AmenityPresenter
     to: :amenity
 
   def rates
-    amenity.amenity_rates.includes([:amenity_rate_category]).in_order.map do |rate|
-      AmenityRatePresenter.new(rate)
+    amenity
+      .amenity_rates
+      .in_order
+      .includes([:amenity_rate_category])
+      .map do |rate|
+        AmenityRatePresenter.new(rate)
     end
   end
 
@@ -36,6 +40,14 @@ class AmenityPresenter
 
   def with_image_url?
     image_url.present?
+  end
+
+  def image
+    if with_image_url?
+      image_url
+    else
+      "amenity_placeholder.jpg"
+    end
   end
 
   private

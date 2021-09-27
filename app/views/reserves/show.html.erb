@@ -1,63 +1,65 @@
-<div>
-  <section class="left-side">
-    <section class="reserve-message">
+<div class="split-background">
+  <div class="reserves-list container">
+    <section class="reserve-name">
+      <h1><%= @page.reserve_name %></h1>
+      <span><%= @page.reserve_managing_campus.name %></span>
     </section>
-    <p class="reserve-description">
-    </p>
-    <div>
-      <ul class="tab-bar" data-controller="tab-bar">
-        <li>
-          <%= link_to t(".link.amenities_and_rates"),
-            reserve_amenities_path(@page.reserve_id),
-            { class: "active", data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" } } 
-          %>
-        </li>
-        <li>
-          <%= link_to t(".link.calendar"),
-            reserve_calendar_path(@page.reserve_id),
-            { data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" } }
-          %>
-        </li>
-        <li>
-          <%= link_to t(".link.waivers"),
-            reserve_waivers_path(@page.reserve_id),
-            { data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" } }
-          %>
-        </li>
-        <li>
-          <%= link_to t(".link.rules_and_regulations"),
-            reserve_rules_and_regulations_path(@page.reserve_id),
-            { data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" } } 
-          %>
-        </li>
-      </ul>
-      <%= turbo_frame_tag "details", src: reserve_amenities_path(@page.reserve_id), target: "_top" %>
-    </div>
-  </section>
-  <section class="right-side">
-    <button><%= t(".schedule_a_visit") %></button>
-    <% if @page.reserve_has_avatar? %>
-      <%= image_tag(rails_blob_path(@page.reserve_reserve_avatar), alt: t(".alt_text.reserve_logo")) %>
-    <% else %>
-      <%= image_tag "reserve_icon1.png", alt: t(".alt_text.ucnrs_logo") %>
-    <% end %>
-    <div>
-      <span><%= @page.reserve_name %></span>
-      <span><%= @page.reserve_address_line_1 %></span>
-      <span><%= @page.reserve_address_line_2 %></span>
-      <span><%= "#{@page.reserve_address_city}, #{@page.reserve_State} #{@page.reserve_address_postal_code}" %></span>
-      <span><%= @page.reserve_Country %></span>
-    </div>
-    <span><%= t(".get_directions") %></span>
-    <span><%= t(".visit_reserve_website") %></span>
-    <div>
-      <span><%= t(".mailing_address") %></span>
-      <span>Mailing Address</span>
-      <span>Mailing City</span>
-    </div>
-    <hr />
-    <section class="reserve-personnel">
-      <%= render partial: "reserves/personnel_card", collection: @page.personnel %>
+    <section class="left-side">
+      <section class="reserve-message"><%= @page.reserve_reserve_alert_message %></section>
+      <p class="reserve-description"><%= simple_format @page.reserve_directions %></p>
+      <div>
+        <ul class="navbar-nav" class="tab-bar" data-controller="tab-bar">
+          <li>
+            <%= link_to t(".link.amenities_and_rates"),
+              reserve_amenities_path(@page.reserve_id),
+              { class: "active", data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" } } 
+            %>
+          </li>
+          <li>
+            <%= link_to t(".link.calendar"),
+              reserve_calendar_path(@page.reserve_id),
+              { data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" } }
+            %>
+          </li>
+          <li>
+            <%= link_to t(".link.waivers"),
+              reserve_waivers_path(@page.reserve_id),
+              { data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" } }
+            %>
+          </li>
+          <li>
+            <%= link_to t(".link.rules_and_regulations"),
+              reserve_rules_and_regulations_path(@page.reserve_id),
+              { data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" } } 
+            %>
+          </li>
+        </ul>
+        <%= turbo_frame_tag "details", src: reserve_amenities_path(@page.reserve_id), target: "_top" %>
+      </div>
     </section>
-  </section>
+    <section class="right-side">
+      <button class="button-main"><%= t(".schedule_a_visit") %></button>
+      <section class="reserve-info">
+        <%= image_tag @page.reserve_avatar, alt: t(".alt_text.reserve_logo") %>
+        <div>
+          <header><%= @page.reserve_name %></header>
+          <span><%= @page.reserve_address_line_1 %></span>
+          <span><%= @page.reserve_address_line_2 %></span>
+          <span><%= @page.reserve_address_line_3 %></span>
+          <span><%= @page.reserve_country %></span>
+        </div>
+        <a class="icon-map" href="#"><%= t(".get_directions") %></a>
+        <a class="icon-external-link" href="#"><%= t(".visit_reserve_website") %></a>
+        <div>
+          <header><%= t(".mailing_address") %></header>
+          <span>Mailing Address</span>
+          <span>Mailing City</span>
+        </div>
+      </section>
+      <section class="reserve-personnel">
+        <hr />
+        <%= render partial: "personnel_card", collection: @page.personnel %>
+      </section>
+    </section>
+  </div>
 </div>

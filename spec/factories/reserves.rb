@@ -12,5 +12,6 @@ FactoryBot.define do
         reserve.amenities << build(:amenity, title: name, rates: [0])
       end
     end
+    association :managing_campus, factory: :institution
   end
 end

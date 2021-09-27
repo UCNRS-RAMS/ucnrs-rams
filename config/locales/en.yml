@@ -97,6 +97,7 @@ en:
     personnel_card:
       alt_text: 
         personnel_picture: "picture of reserve personnel"
+      email: "Email"
     reserve:
       alt_text:
         reserve_picture: "image of a reserve"
@@ -106,6 +107,8 @@ en:
       search: "Search"
       tags: "Tags"
       amenity_tags: "Amenities"
+      clear_selection_and_start_over: "Clear Selection & Start Over"
+      less_options: "Less Options"
     show:
       alt_text:
         reserve_logo: "small picture of reserve logo"
@@ -272,6 +275,8 @@ en:
       direction_body: "If your application is approved, the group leader (person who is listed as contact for the requested activity) will be responsible 
                       for ensuring that all necessary waivers are submitted to reserve staff prior to the proposed visit. Waiver agreements for minors 
                       must be signed by the parent or legal guardian."
+    waiver:
+      download_pdf: "Download PDF"
   navbar:
     link:
       visits: "Visits"

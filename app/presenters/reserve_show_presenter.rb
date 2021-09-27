@@ -8,13 +8,16 @@ class ReserveShowPresenter
     :name,
     :address_line_1,
     :address_line_2,
+    :address_line_3,
     :address_city,
     :address_postal_code,
-    :State,
-    :Country,
-    :has_avatar?,
-    :reserve_avatar,
+    :state,
+    :country,
+    :avatar,
     :image_placeholder,
+    :managing_campus,
+    :reserve_alert_message,
+    :directions,
     to: :reserve, prefix: true
 
   def personnel

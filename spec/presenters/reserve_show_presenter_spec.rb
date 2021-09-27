@@ -9,10 +9,9 @@ RSpec.describe ReserveShowPresenter do
     it { is_expected.to delegate_method(:address_line_2).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:address_city).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:address_postal_code).to(:reserve).with_prefix(true) }
-    it { is_expected.to delegate_method(:State).to(:reserve).with_prefix(true) }
-    it { is_expected.to delegate_method(:Country).to(:reserve).with_prefix(true) }
-    it { is_expected.to delegate_method(:has_avatar?).to(:reserve).with_prefix(true) }
-    it { is_expected.to delegate_method(:reserve_avatar).to(:reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:state).to(:reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:country).to(:reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:avatar).to(:reserve).with_prefix(true) }
   end
 
   describe "#reserve" do

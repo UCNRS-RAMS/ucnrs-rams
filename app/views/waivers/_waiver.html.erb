@@ -1,5 +1,5 @@
-<div>
-  <h2><%= waiver.name %></h2>
-  <span><%= waiver.description %></span>
-  <%= link_to waiver.pdf_link %>
+<div class="card">
+  <header><%= waiver.name %></header>
+  <div class="description"><%= waiver.description %></div>
+  <%= link_to t(".download_pdf"), "#", class: "icon-document-a" %>
 </div>

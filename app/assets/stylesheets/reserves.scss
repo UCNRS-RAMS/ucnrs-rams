@@ -1,0 +1,562 @@
+@import "variables";
+
+@mixin icon-link($icons) {
+  @each $name, $size in $icons {
+    a.icon-#{$name}:before {
+      background: no-repeat center/$size url(asset-path("icon-#{$name}.svg"));
+      content: "";
+      display: block;
+      height: 1.125rem;
+      left: 0px;
+      position: absolute;
+      top: 0;
+      width: 1.125rem;
+    }
+  }
+};
+
+ul.navbar-nav {
+  display: flex;
+  font-size: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: flex;
+
+    a {
+      color: $dark-bluegray;
+      display: inline-block;
+      font-weight: $medium;
+      padding-bottom: .25rem;
+      text-decoration: none;
+
+      &.active {
+        border-bottom: 6px solid $sky-blue;
+        color: $navy-blue;
+        font-weight: $medium;
+      }
+    }
+  }
+}
+
+.reserves-show {
+  nav {
+    background: no-repeat center/cover url(asset-path("reserve-hero-placeholder.jpg"));
+    color: $white;
+    height: 450px;
+
+    .navbar-nav {
+      .nav-link {
+        color: $white;
+      
+        &.schedule {
+          border-color: $white;
+        }
+  
+        &:hover {
+          color: $gold;
+        }
+      }
+    }
+  }
+
+  nav::after {
+    display: none;
+  }
+
+  .reserves-list {
+    .left-side {
+      position: relative;
+    }
+  }
+}
+
+.split-background {
+  background: linear-gradient(90deg, $white 50%, $light-gray 50%);
+}
+
+.reserves-list.container {
+  margin: 0 auto;
+  max-width: 1300px;
+}
+
+.reserves-list {
+  display: flex;
+
+  span, p {
+    line-height: 1.25rem;
+  }
+
+  hr {
+    border-bottom: 1px solid $gray;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    margin: 1.5625rem 0;
+  }
+
+  .navbar-nav {
+    border-bottom: 1px solid $gray;
+    gap: 2.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .reserve-name {
+    padding: 0 1.25rem;
+    position: absolute;
+    top: 171px;
+
+    h1 {
+      color: $white;
+      font-size: 3.75rem;
+      font-weight: $semi-bold;
+      margin: 0.25rem 0;
+    }
+
+    span {
+      color: $gold;
+      font-size: 1.25rem;
+    }
+  }
+
+  .left-side {
+    background-color: $white;
+    box-sizing: border-box;
+    color: $navy-blue;
+    flex-grow: 1;
+    font-size: 0.875rem;
+    padding: 3.5rem 3.50rem 1.5rem 1.25rem;
+
+    h1 {
+      color: $navy-blue;
+      font-size: 2.25rem;
+      font-weight: $medium;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      line-height: 1.5625rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .reserve-message:empty {
+      display: none;
+    }
+
+    .reserve-message {
+      background-color: $gold;
+      border-radius: 0.3125rem;
+      font-size: 0.8125rem;
+      margin-right: 60px;
+      padding: 1.25rem 1.25rem 1.25rem 50px;
+      position: absolute;
+      top: -40px;
+    }
+
+    .reserve-message::before {
+      background: no-repeat center/18px url(asset-path("icon-alert-circle.svg"));
+      content: "";
+      display: block;
+      height: 1.125rem;
+      left: 1.25rem;
+      position: absolute;
+      top: 1.25rem;
+      width: 1.125rem;
+    }
+
+    .reserve-description:empty {
+      display: none;
+    }
+  }
+
+  .right-side {
+    background-color: $light-gray;
+    box-sizing: border-box;
+    color: $navy-blue;
+    font-size: 0.8125rem;
+    min-width: 360px;
+    padding: 4.5rem 1.25rem 1.5rem 3.50rem;
+
+    .search input {
+      background-color: $white;
+      border: 1px solid $gray;
+      border-radius: 0.3125rem;
+      box-sizing: border-box;
+      padding: 0.5rem 1.875rem;
+      width: 100%;
+    }
+
+    .input-with-buttons {
+      position: relative;
+    }
+
+    .input-with-buttons::before {
+      background: no-repeat center/12px url(asset-path("icon-search.svg"));
+      content: "";
+      display: block;
+      height: 0.75rem;
+      left: 0.625rem;
+      position: absolute;
+      top: 0.6875rem;
+      width: 0.75rem;
+    }
+
+    .input-with-buttons::after {
+      background: no-repeat center/15px url(asset-path("icon-x-circle.svg"));
+      content: "";
+      display: inline-block;
+      height: 0.9375rem;
+      position: absolute;
+      right: 0.625rem;
+      top: 0.625rem;
+      width: 0.9375rem;
+    }
+
+    .search-options {
+      margin: 2rem auto;
+    }
+
+    section, .reserve-cards {
+      margin: 2.5rem auto;
+
+      header {
+        margin: .5rem 0;
+      }
+
+      span, a {
+        display: block;
+      }
+
+      span.badge {
+        border: 1px solid $gray;
+        color: $semidark-bluegray;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 0.75rem;
+        margin: 0.3125rem;
+        padding: 0.3125rem 0.4375rem;
+      }
+    }
+  }
+}
+
+.reserve-cards, .amenity-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem 1.625rem;
+  justify-content: space-evenly;
+  margin: 2rem 0;
+
+  .card {
+    color: $navy-blue;
+    flex-basis: 15%;
+    margin: 0 0 .75rem 0;
+    min-height: 230px;
+    min-width: 270px;
+    
+    .image img {
+      height: 100%;
+      width: 100%;
+    }
+
+    a {
+      color: $navy-blue;
+      text-decoration: none;
+    }
+
+    header {
+      font-size: 0.9375rem;
+      font-weight: $medium;
+      margin-bottom: 0.3125rem;
+    }
+
+    .card-body { 
+      font-size: 0.75rem;
+      font-weight: normal;
+      line-height: 1.25rem;
+      margin: .5rem 0;
+
+      a {
+        color: $dark-bluegray;
+        display: block;
+        font-size: 0.75rem;
+        font-weight: $normal;
+        margin: 0.75rem 0;
+        text-decoration: underline;
+      }
+
+      .rates > span {
+        display: inline-block;
+      }
+
+      .rates > span:first-of-type {
+        font-size: 0.8125rem;
+        font-weight: $semi-bold;
+      }
+    }
+  }
+}
+
+.reserve-waivers,
+.reserve-personnel,
+.reserve-info,
+.reserve-search {
+  header {
+    font-size: 0.9375rem;
+    font-weight: $semi-bold;
+    margin: 0;
+  }
+
+  a {
+    color: $sky-blue;
+    font-size: 0.875rem;
+    font-weight: $medium;
+    margin: 1rem 0;
+    padding-left: 1.5625rem;
+    position: relative;
+    text-decoration: none;
+  }
+
+  @include icon-link(
+    (
+      "map": 18px,
+      "external-link": 18px,
+      "email": 18px,
+      "document-a": 15px,
+      "refresh-a": 18px
+    )
+  );
+}
+
+.reserve-waivers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+
+  .card {
+    background-color: $light-gray;
+    border: 1px solid $gray;
+    padding: 1.25rem 1.5625rem;
+    width: 300px;
+
+    .description {
+      font-size: 0.75rem;
+      margin: 0.5rem 0 1rem 0;
+    }
+  }
+}
+
+.reserve-personnel {
+  .card {
+    display: flex;
+
+    .image img {
+      border-radius: 3rem;
+      margin-right: 1.25rem;
+    }
+
+    .details {
+      header {
+        margin: 0;
+      }
+    }
+  }
+}
+
+.reserve-search a {
+  display: block;
+}
+
+.reserve-rules-regulations {
+  line-height: 1.4375rem;
+}
+
+@media screen and (max-width: 1024px) {
+  .reserves-list {
+
+    .left-side, .right-side {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+
+    .right-side {
+      min-width: 280px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  ul.navbar-nav {
+    font-size: 0.75rem;
+  }
+
+  .reserves-show nav {
+    height: 320px;
+  }
+
+  .reserves-list {
+    flex-direction: column;
+
+    .reserve-name {
+      top: 125px;
+      
+      h1 {
+        font-size: 1.625rem;
+      }
+
+      span {
+        font-size: 0.875rem;
+      }
+    }
+
+    .navbar-nav {
+      overflow: scroll;
+    }
+
+    .left-side {
+      font-size: 0.6875rem;
+      line-height: 1.125rem;
+      padding-top: 0;
+
+      .reserve-message {
+        border-radius: 0;
+        font-size: 0.625rem;
+        line-height: 0.8125rem;
+        margin: 0 -1.25rem 2.5rem -1.25rem;
+        position: unset;
+      }
+    }
+
+    .right-side {
+      padding-top: 2.5rem;
+
+      section {
+        margin: 1.875rem 0;
+      }
+    }
+  }
+
+  .reserve-cards, .amenity-cards {
+    gap: 0.625rem;
+
+    .card {
+      flex-basis: 40%;
+      min-width: 150px;
+      min-height: unset;
+
+      header {
+        font-size: 0.75rem;
+      }
+  
+      .card-body { 
+        font-size: 0.6875rem;
+
+        a {
+          font-size: 0.8125rem;
+        }
+  
+        .rates > span:first-of-type {
+          font-size: 0.75rem;
+        }
+      }
+    }
+  }
+
+  .reserve-waivers, .reserve-personnel, .reserve-info, .reserve-search {
+    header {
+      font-size: 0.8125rem;
+    }
+
+    a {
+      font-size: 0.6875rem;
+      margin: 0.75rem 0;
+    }
+
+    a[class*="icon"]::before {
+      height: 0.875rem;
+      width: 0.875rem;
+    }
+
+    a.icon-map::before {
+      background: no-repeat center/14px url(asset-path("icon-map.svg"));
+    }
+
+    a.icon-external-link::before {
+      background: no-repeat center/14px url(asset-path("icon-external-link.svg"));
+    }
+
+    a.icon-email::before {
+      background: no-repeat center/14px url(asset-path("icon-email.svg"));
+    }
+
+    a.icon-document-a::before {
+      background: no-repeat center/12px url(asset-path("icon-document-a.svg"));
+    }
+
+    a.icon-refresh-a::before {
+      background: no-repeat center/16px url(asset-path("icon-refresh-a.svg"));
+    }
+  }
+
+  .reserve-waivers {
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .card {
+      padding: 0.625rem 0.8125rem;
+      width: unset;
+
+      .description {
+        font-size: 0.6875rem;
+        margin: 0.25rem 0 0.5rem 0;
+      }
+    }
+  }
+
+  .reserve-personnel {
+    .card .image img {
+      margin-right: 0.9375rem;
+      width: 75px;
+    }
+
+    .card .details {
+      font-size: 0.6875rem;
+    }
+
+    hr:last-of-type {
+      display: none;
+    }
+  }
+
+  .reserve-info {
+    span {
+      font-size: 0.75rem;
+    }
+  }
+
+  .reserves-index .reserves-list {
+    flex-direction: column-reverse;
+  }
+
+  #right-reserve-intro {
+    h1 {
+      font-size: 1.375rem;
+      font-weight: $semi-bold;
+      margin-top: 0;
+    }
+    
+    p {
+      font-size: 0.75rem;
+    }
+  }
+
+  .button-main {
+    font-size: 0.875rem;
+  }
+}
+
+.load-hide {
+  display: none;
+}
