@@ -44,8 +44,8 @@ jobs:
 
       # Tests
       - run:
-          name: RSpec
-          command: bundle exec rspec
+          name: rake
+          command: bundle exec rake
 
       # Security analysis
       - run:
