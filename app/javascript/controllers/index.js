@@ -3,6 +3,7 @@
 
 import { Application } from "@hotwired/stimulus"
 import { definitionsFromContext } from "@hotwired/stimulus-webpack-helpers"
+import "@hotwired/turbo-rails"
 
 const application = Application.start()
 const context = require.context("controllers", true, /_controller\.[jt]s$/)

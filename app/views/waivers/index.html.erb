@@ -1,0 +1,7 @@
+<div>
+  <header><%= t(".title") %></header>
+  <hr />
+  <%= turbo_frame_tag "details" do %>
+    <%= render partial: "waivers", locals: { waivers: @page.waivers } %>
+  <% end %>
+</div>

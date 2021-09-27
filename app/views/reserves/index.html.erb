@@ -1,0 +1,25 @@
+<div>
+  <section class="left-side">
+    <h1><%= t(".direction_title") %></h1>
+    <p>
+      <%= t(".direction_body") %>
+    </p>
+    <%= render partial: "reserve", collection: @page.reserves %>
+  </section>
+  <section class="right-side">
+    <div>
+      <label>
+        <header><%= t(".search") %></header>
+        <input type="text" id="reserve-search">
+      </label>
+    </div>
+    <section class="tags">
+      <header><%= t(".tags") %></header>
+      <%= render partial: "tag", collection: @page.tags %>
+    </section>
+    <section class="amenities">
+      <header><%= t(".amenity_tags") %></header>
+      <%= render partial: "amenities_tag", collection: @page.amenities_tags %>
+    </section>
+  </section>
+</div>

@@ -1,4 +1,7 @@
 class Amenity < ApplicationRecord
+  belongs_to :reserve
+  has_many :amenity_rates
+
   def self.in_sort_order
     order(:sort_order)
   end

@@ -35,3 +35,8 @@ public/packs
 # Ignore some .env files
 .env
 .env.development
+
+# Ignore uploaded files in development
+/storage/*
+!/storage/.keep
+/public/uploads
