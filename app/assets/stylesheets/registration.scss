@@ -44,7 +44,7 @@
         flex-wrap: wrap;
         margin-bottom: 2rem;
         width: 60%;
-  
+
         &.basics {
           max-height: 600px;
 
@@ -56,8 +56,8 @@
         }
         &.role {
           min-height: 400px;
-  
-          input[type="text"]:first-of-type{
+
+          input[type="text"]:first-of-type {
             margin-bottom: 0;
           }
           p {
@@ -75,14 +75,14 @@
             margin-bottom: 1rem;
           }
         }
-        &.address{
+        &.address {
           display: flex;
           flex-direction: row;
           flex-wrap: nowrap;
-  
+
           section:nth-of-type(2) {
             height: 100%;
-  
+
             .billing-title {
               display: flex;
 
@@ -102,7 +102,7 @@
             }
           }
         }
-        &.terms{
+        &.terms {
           .field {
             align-items: center;
             display: flex;
@@ -112,21 +112,21 @@
         &.actions {
           height: 100px;
           margin-bottom: 0;
-  
+
           div {
             align-items: center;
             display: flex;
             height: 90%;
             justify-content: flex-end;
-  
+
             span {
               align-items: center;
               display: flex;
-  
+
               img {
                 color: $form-title-color;
-                padding-left: .25rem;
-                padding-right: .25rem;
+                padding-left: 0.25rem;
+                padding-right: 0.25rem;
               }
             }
             a {
@@ -164,12 +164,12 @@
             padding-right: 1rem;
           }
         }
-  
+
         .field {
           display: flex;
           flex-direction: column;
           padding: 0;
-  
+
           &.large {
             width: 423px;
           }
@@ -182,13 +182,13 @@
           &.extra-small {
             min-width: 92px;
           }
-  
+
           label {
             color: $form-copy-color;
             font-size: 0.75rem;
             font-weight: $bold;
           }
-  
+
           input[type="text"],
           input[type="email"],
           input[type="password"],
@@ -216,11 +216,11 @@
           display: flex;
           flex-direction: column;
           flex-wrap: wrap;
-  
+
           &.age-range {
             height: 1.5rem;
             margin-top: 1rem;
-  
+
             label {
               font-weight: $normal;
             }
@@ -242,7 +242,7 @@
           .radio-button {
             flex: 1;
             white-space: nowrap;
-  
+
             label {
               white-space: nowrap;
             }
@@ -252,22 +252,20 @@
     }
   }
 
-  #institutions {
+  ul {
     background-color: $white;
     border-radius: 0.375rem;
+    border: 1px solid $dark-bluegray;
     display: flex;
     flex-direction: column;
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-top: 1rem;
+    padding: 0;
     width: 423px;
 
-    &.with-border {
-      border: 1px solid $dark-bluegray;
-      margin-top: 1rem;
-    }
-
-    ul {
-      margin-bottom: 0;
-      margin-top: 0;
-      padding: 0;
+    &:empty {
+      display: none;
     }
 
     li {
@@ -277,7 +275,7 @@
       padding-bottom: 0.75rem;
       padding-left: 1rem;
       padding-top: 0.75rem;
-    
+
       &:hover {
         background-color: $light-light-blue;
         cursor: pointer;
@@ -296,7 +294,7 @@
         section {
           flex-wrap: nowrap;
           width: 80%;
-  
+
           &.basics {
             max-height: none;
 
@@ -312,7 +310,7 @@
               flex-wrap: nowrap;
             }
           }
-          &.address{
+          &.address {
             flex-direction: column;
             margin-bottom: 2rem;
           }
@@ -337,7 +335,7 @@
           }
         }
       }
-    } 
+    }
   }
 }
 
@@ -346,7 +344,7 @@
     form {
       .section-container {
         section {
-          &.address{
+          &.address {
             .inline {
               align-items: flex-start;
               flex-direction: column;

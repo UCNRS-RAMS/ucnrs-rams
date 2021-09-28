@@ -1,10 +1,7 @@
 class InstitutionsController < ApplicationController
   def index
-    @institutions = Institution
-      .with_name_like(query)
-      .limit(Institution::DEFAULT_LIMIT_FOR_INDEX)
-
-    render json: @institutions
+    @page = InstitutionsIndexPresenter.new(query: query)
+    render layout: false
   end
 
   private

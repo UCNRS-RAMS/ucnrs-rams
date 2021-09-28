@@ -29,4 +29,8 @@ class Institution < ApplicationRecord
   def self.with_name_like(value)
     where("LOWER(name) LIKE LOWER(?)", "%#{value}%")
   end
+
+  def self.alphabetized
+    order(:name)
+  end
 end

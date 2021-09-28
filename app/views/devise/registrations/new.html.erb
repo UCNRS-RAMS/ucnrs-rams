@@ -70,7 +70,7 @@
       </section>
     </div>
     <div class="section-container blue-bg">
-      <section class="role">
+      <section class="role" data-controller="copy">
         <div class="field">
           <h2><%= t(".titles.role") %></h2>
           <div class="radio-buttons role">
@@ -88,25 +88,27 @@
           <%= link_to t(".links.orcid"), t(".urls.orcid"), target: :_blank %>
         </div>
         <div
-          data-institution-search-url-value="<%= institutions_url %>"
-          class="field institution-field large"
-          data-controller="institution-search"
-        >
-          <%= f.label :institution, t(".labels.institution") %>
-          <%= f.text_field :institution, 
-            data: {
-              action: "institution-search#handleSearch", 
-              institution_search_target: "institution",
-            },
-            class: "large",
-            value: @page.institution_field_value
-          %>
+            data-followup-content-url-value="<%= institutions_url(name: "VALUE") %>"
+            class="field institution-field large"
+            data-controller="followup-content"
+            data-followup-content-length-value="3"
+            >
+            <%= f.label :institution, t(".labels.institution") %>
+            <%= f.text_field :institution, 
+              data: {
+                action: "input->followup-content#change",
+                "copy-target": "destination",
+              },
+              class: "large",
+              value: @page.institution_field_value,
+              autocomplete: "off"
+            %>
           <p class="helper-text">
-            <strong><%= t(".helper_text.tip") %></strong>
-            <%= t(".helper_text.institution") %>
-            <%= link_to t(".links.create_new_instituion"), t(".urls.new_institution") %>
+          <strong><%= t(".helper_text.tip") %></strong>
+          <%= t(".helper_text.institution") %>
+          <%= link_to t(".links.create_new_instituion"), t(".urls.new_institution") %>
           </p>
-          <div id="institutions"></div>
+          <ul id="institutions" data-followup-content-target="destination"></ul>
         </div>
         <div class="field large">
           <%= f.label :advisor, t(".labels.advisor_name") %>

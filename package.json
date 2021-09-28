@@ -23,7 +23,11 @@
   },
   "jest": {
     "testEnvironment": "jsdom",
-    "testRegex": ["./app/javascript/.*_spec\\.[jt]s"],
-    "setupFiles": ["./app/javascript/setup.js"]
+    "testRegex": [
+      "./app/javascript/.*_spec\\.[jt]s"
+    ],
+    "setupFiles": [
+      "./app/javascript/setup.js"
+    ]
   }
 }
