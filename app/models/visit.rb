@@ -1,0 +1,1 @@
+class Visit < ApplicationRecord;end
