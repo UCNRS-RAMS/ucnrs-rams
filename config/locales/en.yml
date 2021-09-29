@@ -54,6 +54,20 @@ en:
       content: Here you can learn about natural reserves and field stations, request dates and accommodations for your visit, submit project descriptions and permits, and sign any necessary waivers or other permissions.
       continue: Let's go!
       accessible_description: This is a dialog that welcomes you to RAMS. Press the Let's Go button to continue.
+    calendar:
+      title: "Please select an arrival date"
+      okay: "Okay, Go"
+  visits:
+    new:
+      title: "Visit Details"
+      reserve: "Reserve"
+      browse_reserves: "Browse Our Reserves"
+      select_reserve: "Which reserve would you like to visit?"
+      arrival: "Arrival"
+      departure: "Departure"
+      calendar_icon_alt: "A button to toggle a date picker pop-up"
+      select_time: "Select a time"
+      select_reserve: "Select a Reserve"
   users:
     new:
       header:

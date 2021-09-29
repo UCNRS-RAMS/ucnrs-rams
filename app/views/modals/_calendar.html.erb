@@ -1,0 +1,14 @@
+<div class="modal-content calendar" role="dialog" aria-labelledby="dialog-title" aria-describedby="modal-description" data-modal-target="dialog">
+  <section>
+    <%= image_tag "x.svg", data: { action: "click->modal#close" }, alt: "A button to close the modal" %>
+    <h1 id="dialog-title"><%= t(".title") %></h1>
+  </section>
+  <section data-controller="calendar">
+    <%= month_calendar(start_time: Date.current) do |date| %>
+      <%= date.day %>
+    <% end %>
+  </section>
+  <section class="actions">
+    <button data-action="click->modal#close"><%= t(".okay") %></button>
+  </section>
+</div>

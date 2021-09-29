@@ -7,3 +7,7 @@
 <%= form_with model: @page.visit, url: visits_path do |form| %>
   <%= render partial: "form", locals: { page: @page, form: form } %>
 <% end %>
+
+<% content_for :modal do %>
+  <%= render partial: "modals/calendar" %>
+<% end %>
