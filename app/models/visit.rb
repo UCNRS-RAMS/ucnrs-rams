@@ -1,1 +1,3 @@
-class Visit < ApplicationRecord;end
+class Visit < ApplicationRecord
+  belongs_to :user
+end

@@ -1,0 +1,76 @@
+<section>
+  <fieldset data-controller="value-projection" data-value-projection-projected-value="">
+    <legend><%= t(".titles.purpose") %></legend>
+
+    <fieldset>
+      <% @page.purpose_options.each do |value|%>
+        <%= form.label :purpose, for: "purpose-#{value}" do %>
+          <%= form.radio_button :purpose, value, id: "purpose-#{value}", data: { action: "click->value-projection#change" } %>
+          <span><%= t(".purpose_options.labels.#{value}") %></span>
+          <span><%= t(".purpose_options.explanation.#{value}") %></span>
+        <% end %>
+      <% end %>
+    </fieldset>
+
+    <div class="field project_select">
+      <%= form.label :project, t(".labels.project") %>
+      <%= form.collection_select(:project_id, @page.project_options, :id, :name, { selected: @page.default_public_use_category }) %>
+      <%= link_to t(".links.create_a_new_project"), "/projects/new" %>
+    </div>
+
+    <div class="field public_use_select">
+      <%= form.label :public_use_category, t(".labels.public_use_category") %>
+      <%= form.collection_select(
+        :public_use_category,
+        @page.public_use_categories,
+        :to_s,
+        @page.translate_in(".public_use_options.labels"),
+        { selected: @page.default_public_use_category }
+      )
+    %>
+    </div>
+
+    <%= form.label :plans, t(".labels.plans") %>
+    <%= form.text_area :plans %>
+  </fieldset>
+
+  <span data-controller="followup-content" data-followup-content-url-value="<%= reserve_amenities_url("VALUE") %>">
+    <fieldset class="reserve-info">
+      <legend><%= t(".titles.reserve") %> <%= link_to t(".links.browse_reserves"), "#" %></legend>
+
+      <div class="field">
+        <%= form.label :reserve_id, t(".labels.reserve") %>
+        <%= form.collection_select(:reserve_id, @page.reserve_options, :id, :pulldown_name, {}, { data: { action: "change-> followup-content#change" } }) %>
+      </div>
+
+      <div class="date_range_select">
+        <div class="field">
+          <%= form.label :arrival, t(".labels.arrival") %>
+          <div class="date-time-select" data-controller="date-time-select">
+            <%= image_tag "calendar.svg", class: "input-icon", alt: t(".alt_text.calendar") %>
+            <%= form.text_field(:arrival_date, value: @page.arrival_date) %>
+            <%= form.collection_select(:arrival_time, @page.time_options, :value, :human, { selected: @page.arrival_time }) %>
+          </div>
+        </div>
+
+        <span class="separator"></span>
+
+        <div class="field">
+          <%= form.label :reserve, t(".labels.departure") %>
+          <div class="date-time-select" data-controller="date-time-select">
+            <%= image_tag "calendar.svg", class: "input-icon", alt: t(".alt_text.calendar") %>
+            <%= form.text_field(:departure_date, value: @page.departure_date) %>
+            <%= form.collection_select(:departure_time, @page.time_options, :value, :human, { selected: @page.departure_time }) %>
+          </div>
+        </div>
+      </div>
+
+    </fieldset>
+
+    <fieldset class"amenities">
+      <legend><%= t(".titles.amenities") %><span><%= t(".titles.amenities_subtitle") %></span></legend>
+      <section class="amenity-options" data-followup-content-target="destination">
+      </section>
+    </fieldset>
+  </span>
+</section>
