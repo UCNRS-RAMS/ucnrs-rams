@@ -1,0 +1,23 @@
+@import "variables";
+
+.visits-new {
+  .reserve-info {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .date_range_select {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    .separator {
+      border: 1px solid black;
+      font-size: 0;
+      height: 0;
+      margin: 0.5rem;
+      width: 0.625rem;
+    }
+  }
+}
