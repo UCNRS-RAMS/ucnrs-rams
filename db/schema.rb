@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_28_165254) do
+ActiveRecord::Schema.define(version: 2021_09_29_194612) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "ReserveID"
+    t.integer "reserve_id"
     t.column "ReferenceType", "enum('Audiovisual Material','Book','Book Section','Computer Program','Conference Proceedings','Ecological Studies','Edited Book','Electronic Source','Generic','Journal Article','Magazine Article','Manuscript','Map','Newspaper Article','Personal Communication','Report','Thesis')"
     t.string "Author"
     t.string "Year"
@@ -42,11 +42,11 @@ ActiveRecord::Schema.define(version: 2021_09_28_165254) do
     t.text "Notes"
     t.string "URL"
     t.text "AuthorAddress"
-    t.index ["ReserveID"], name: "Reserves"
+    t.index ["reserve_id"], name: "reserve"
   end
 
   create_table "ARParts", primary_key: "AnnualReportID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "ReserveID", null: false
+    t.integer "reserve_id", null: false
     t.integer "Year"
     t.column "YearOld", "enum('2000-01','2001-02','2002-03','2003-04','2004-05','2005-06','2006-07','2007-08','2008-09','2009-10','2010-11','2011-12','2012-13','2013-14','2014-15','2015-16','2016-17','2017-18','2018-19','2019-20')"
     t.text "Part5Publications", size: :long
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 2021_09_28_165254) do
     t.text "Part6NarrativeFile"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["ReserveID", "YearOld"], name: "ReserveYear"
+    t.index ["reserve_id", "YearOld"], name: "reserve_year"
   end
 
   create_table "ActAnswers", primary_key: "ResAnswerID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 2021_09_28_165254) do
     t.integer "visit_id", null: false
     t.integer "user_id", null: false
     t.column "Role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')", null: false
-    t.integer "ReserveID"
+    t.integer "reserve_id"
     t.integer "institution_id"
     t.date "ArrivalDate", default: "1999-12-31"
     t.time "ArrivalTime", default: "2000-01-01 00:00:00"
@@ -96,8 +96,8 @@ ActiveRecord::Schema.define(version: 2021_09_28_165254) do
     t.datetime "updated_at"
     t.index ["ArrivalDate"], name: "ArrivalDate"
     t.index ["DepartureDate"], name: "DepartureDate"
-    t.index ["ReserveID", "ArrivalDate", "visit_id"], name: "Reserves"
     t.index ["Status", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "StatusAndDate"
+    t.index ["reserve_id", "ArrivalDate", "visit_id"], name: "reserve"
     t.index ["user_id", "visit_id", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "user_visit_date_range"
     t.index ["user_id"], name: "user"
     t.index ["visit_id", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "visit_arrival_date"
@@ -146,15 +146,15 @@ ActiveRecord::Schema.define(version: 2021_09_28_165254) do
   end
 
   create_table "AppPermits", primary_key: "AppPermitID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "ReservePermitID", null: false
+    t.integer "id", null: false
     t.integer "ApplicationID"
     t.text "PermitNumber"
     t.date "PermitDate"
     t.date "PermitExpireDate"
     t.string "Vertebrates", collation: "utf8_general_ci"
     t.text "PermitAnswer"
-    t.index ["ApplicationID", "ReservePermitID"], name: "Applications"
-    t.index ["ApplicationID"], name: "Reserves"
+    t.index ["ApplicationID", "id"], name: "Applications"
+    t.index ["ApplicationID"], name: "reserve"
   end
 
   create_table "AppTeamMembers", primary_key: "ApplicationTMID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -249,7 +249,7 @@ ActiveRecord::Schema.define(version: 2021_09_28_165254) do
   end
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "ReserveID", null: false
+    t.integer "reserve_id", null: false
     t.integer "ApplicationID", null: false
     t.integer "user_id", null: false
     t.string "Owner", limit: 100, null: false
@@ -275,7 +275,7 @@ ActiveRecord::Schema.define(version: 2021_09_28_165254) do
   end
 
   create_table "Grants", primary_key: "GrantID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "ReserveID", null: false
+    t.integer "reserve_id", null: false
     t.integer "ApplicationID", null: false
     t.float "AwardAmount", limit: 53, unsigned: true
     t.string "Title"
@@ -292,18 +292,18 @@ ActiveRecord::Schema.define(version: 2021_09_28_165254) do
     t.boolean "GrantWillBeSubmitted", comment: "Boolean"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["EndDate", "ReserveID"], name: "EndReserve"
+    t.index ["EndDate", "reserve_id"], name: "EndReserve"
     t.index ["EndDate"], name: "End"
-    t.index ["ReserveID", "EndDate"], name: "ReserveEnd"
-    t.index ["ReserveID", "StartDate"], name: "ReserveStart"
-    t.index ["StartDate", "ReserveID"], name: "StartReserve"
+    t.index ["StartDate", "reserve_id"], name: "StartReserve"
     t.index ["StartDate"], name: "Start"
+    t.index ["reserve_id", "EndDate"], name: "ReserveEnd"
+    t.index ["reserve_id", "StartDate"], name: "ReserveStart"
   end
 
   create_table "InvAssetReservation", primary_key: "asset_visit_id", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "AssetID", null: false
+    t.integer "amenity_id", null: false
     t.integer "visit_id", null: false
-    t.integer "AssetRateID", null: false
+    t.integer "amenity_rate_id", null: false
     t.integer "user_id"
     t.bigint "InvoiceID", default: 0
     t.integer "RateCategoryID", comment: "Rate Category that is selected from INVRateCategories for that reserve"
@@ -376,14 +376,14 @@ ActiveRecord::Schema.define(version: 2021_09_28_165254) do
   create_table "InvoicesTemp", primary_key: "InvoiceTempID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "InvoiceID", null: false
     t.integer "visit_id", null: false
-    t.integer "asset_visit_id"
+    t.integer "amenity_visit_id"
     t.integer "InvoiceNow", default: 1
     t.decimal "BalanceDue", precision: 10, scale: 2
   end
 
   create_table "InvoicesTransition", primary_key: "InvoiceID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "visit_id"
-    t.integer "ReserveID"
+    t.integer "reserve_id"
     t.date "InvoiceDate"
     t.text "Notes"
     t.integer "Modified"
@@ -393,12 +393,12 @@ ActiveRecord::Schema.define(version: 2021_09_28_165254) do
     t.integer "r2ReserveIDTemp"
     t.decimal "RAMS1BilledAmount", precision: 10, scale: 2
     t.index ["InvoiceID"], name: "InvoiceID"
-    t.index ["ReserveID", "visit_id", "InvoiceID"], name: "ReservePlus"
+    t.index ["reserve_id", "visit_id", "InvoiceID"], name: "ReservePlus"
     t.index ["visit_id"], name: "visit"
   end
 
   create_table "NRSPersonnel", primary_key: "NRSID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "ReserveID", null: false
+    t.integer "reserve_id", null: false
     t.integer "user_id", null: false
     t.column "Role", "enum('No selection made','Reserve manager','Reserve assistant manager','Reserve co-manager','Reserve steward','Reserve staff','Campus NRS director','Campus committee member','Information manager','Faculty reserve manager','Reserve accountant','Resident researcher')", default: "No selection made"
     t.string "Supervisor", limit: 50
@@ -412,7 +412,7 @@ ActiveRecord::Schema.define(version: 2021_09_28_165254) do
     t.boolean "receive_scuba_email", default: false
     t.boolean "receive_new_app_email", default: false
     t.boolean "receive_new_act_email", default: false
-    t.index ["ReserveID"], name: "Reserve"
+    t.index ["reserve_id"], name: "reserve"
     t.index ["user_id"], name: "user"
   end
 
@@ -439,70 +439,27 @@ ActiveRecord::Schema.define(version: 2021_09_28_165254) do
     t.index ["PermitAuthority", "PermitID"], name: "Authority"
   end
 
-  create_table "ReserveAssetRateCategories", primary_key: "RateCategoryID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "ReserveID", null: false
-    t.string "Description"
-    t.integer "SortOrder", default: 0, null: false
+  create_table "ReservePermits", primary_key: "ReservePermitID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "reserve_id", null: false
+    t.integer "PermitID", null: false
+    t.text "ReserveSpecificText", comment: "Instructions about this permit which are unique to this particular reserve"
+    t.integer "SortOrderOverride", unsigned: true
     t.boolean "Visible", default: true, null: false
-    t.boolean "UnivOfCA", default: false, null: false
-    t.boolean "CAState", default: false, null: false
-    t.boolean "CommunityCollege", default: false, null: false
-    t.boolean "CAOther", default: false, null: false
-    t.boolean "OutsideCA", default: false, null: false
-    t.boolean "International", default: false, null: false
-    t.boolean "K12", default: false, null: false
-    t.boolean "NonGovernmental", default: false, null: false
-    t.boolean "Governmental", default: false, null: false
-    t.boolean "Business", default: false, null: false
-    t.boolean "Other", default: false, null: false
+    t.boolean "CollectPermitInfo", default: false, null: false, comment: "Collect Permit number and Permit date Information from applicant"
+    t.integer "reserve_id_temp"
+    t.boolean "ResearchApplication", default: true, null: false
+    t.boolean "ClassApplication", default: true, null: false
+    t.boolean "PublicApplication", default: false, null: false
+    t.boolean "HousingOnlyApplication", default: false, null: false
+    t.boolean "conference_application", default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["ReserveID", "SortOrder"], name: "SortOrderReserves"
-    t.index ["SortOrder", "Description"], name: "RSODescription"
-    t.index ["SortOrder"], name: "SortOrderPlain"
-    t.index ["Visible", "SortOrder", "Description"], name: "Visible"
-  end
-
-  create_table "ReserveAssetRates", primary_key: "AssetRateID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "AssetID", null: false
-    t.integer "RateCategoryID", null: false
-    t.decimal "Rate", precision: 10, scale: 2
-    t.column "RateType", "enum('value','free','tbd')", default: "value", null: false, comment: "Specify how the value is displayed to the public"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["AssetID"], name: "AssetID"
-    t.index ["AssetRateID"], name: "PrimaryKey", unique: true
-  end
-
-  create_table "ReserveAssets", primary_key: "ReserveAssetID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "ReserveID", null: false
-    t.string "Description", limit: 200, default: ""
-    t.string "Comment", default: ""
-    t.integer "TotalCapacity", limit: 2, default: 0, null: false
-    t.column "UnitsType", "enum('hour','day','night','week','month','quarter','semi-annual','year','session','use','4 hours','8 hours','person','mile','square foot','unit','facility','')", comment: "Units for this Asset"
-    t.column "time_type", "enum('hour','day','night','week','month','quarter','semi-annual','year','4 hours','8 hours','each')", default: "day"
-    t.integer "SortOrder", limit: 3, default: 255, null: false, unsigned: true
-    t.boolean "Visible", default: true, null: false, comment: "Visable to Admin and User (1) or just Admin (0)"
-    t.boolean "Disable", default: false, null: false, comment: "Asset used in the past, but won't be used in the future"
-    t.integer "ReserveIDTemp"
-    t.boolean "DefaultSelect", default: false, null: false, comment: "Allows manager to choose if this asset is selected by default when the page is loaded"
-    t.boolean "ShowOnInvoice", default: true, null: false, comment: "Allow admin to determain if an asset will show up as an univoiced item"
-    t.boolean "OutsideReservationSystem", default: false, null: false, comment: "THis asset requires outside reservation system"
-    t.boolean "EmailNotificationSystem", default: false, null: false
-    t.string "EmailNotificationAddress", limit: 50
-    t.string "AssetCode", limit: 10, default: "-", null: false, comment: "Abbreviation"
-    t.column "GroupNumber", "enum('1','2','3','4','5')"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["Disable", "SortOrder", "Description"], name: "DisableSortDescription"
-    t.index ["ReserveID", "Description"], name: "Reserve"
-    t.index ["ReserveID", "SortOrder"], name: "ReserveSortOrder"
-    t.index ["SortOrder", "Description"], name: "SortOrderDescription"
-    t.index ["SortOrder"], name: "PlainSortOrder"
+    t.index ["Visible", "SortOrderOverride"], name: "VisibleSortOrder"
+    t.index ["reserve_id", "PermitID"], name: "ReservesPermitID"
   end
 
   create_table "ReserveQuestions", primary_key: "ResQuestionID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "ReserveID", null: false
+    t.integer "reserve_id", null: false
     t.column "ShowUser", "enum('Show','Hide')", null: false
     t.column "QuestionType", "enum('Boolean','Text')", null: false
     t.column "QuestionLocation", "enum('Application','Reservation')", null: false
@@ -518,25 +475,25 @@ ActiveRecord::Schema.define(version: 2021_09_28_165254) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["QuestionLocation", "SortOrder", "ShowUser", "QuestionType"], name: "LocationSOShowType"
-    t.index ["ReserveID", "SortOrder"], name: "SortOrderByReserve"
     t.index ["SortOrder"], name: "SortOrderPlain"
+    t.index ["reserve_id", "SortOrder"], name: "SortOrderByReserve"
   end
 
   create_table "Waivers", primary_key: "WaiverID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "ReserveID"
+    t.integer "reserve_id"
     t.string "Name"
     t.text "Description"
     t.string "WaiverURL"
     t.integer "SortOrder", limit: 1
-    t.integer "ReserveIDTemp"
+    t.integer "reserve_id_temp"
     t.integer "Online", limit: 1, default: 0
     t.text "OnlineHTMLText", comment: "Use HTML code"
     t.integer "NumberOfYearsUntilExpire", default: 3, comment: "How many years can a waiver be helpd until you require applicant to submit a new one"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["ReserveID", "SortOrder"], name: "ReserveAndSortOrder"
-    t.index ["ReserveID"], name: "ReserveIDPlain"
     t.index ["SortOrder"], name: "SortOrderPlain"
+    t.index ["reserve_id", "SortOrder"], name: "ReserveAndSortOrder"
+    t.index ["reserve_id"], name: "ReserveIDPlain"
   end
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -565,6 +522,71 @@ ActiveRecord::Schema.define(version: 2021_09_28_165254) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "amenities", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "reserve_id", null: false
+    t.string "title", limit: 200, default: ""
+    t.string "comment", default: ""
+    t.integer "total_capacity", limit: 2, default: 0, null: false
+    t.column "units_type", "enum('hour','day','night','week','month','quarter','semi-annual','year','session','use','4 hours','8 hours','person','mile','square foot','unit','facility','')", comment: "Units for this Asset"
+    t.column "time_type", "enum('hour','day','night','week','month','quarter','semi-annual','year','4 hours','8 hours','each')", default: "day"
+    t.integer "sort_order", limit: 3, default: 255, null: false, unsigned: true
+    t.boolean "visible", default: true, null: false, comment: "Visable to Admin and User (1) or just Admin (0)"
+    t.boolean "disable", default: false, null: false, comment: "Asset used in the past, but won't be used in the future"
+    t.integer "reserve_id_temp"
+    t.boolean "default_select", default: false, null: false, comment: "Allows manager to choose if this asset is selected by default when the page is loaded"
+    t.boolean "show_on_invoice", default: true, null: false, comment: "Allow admin to determain if an asset will show up as an univoiced item"
+    t.boolean "outside_reservation_system", default: false, null: false, comment: "THis asset requires outside reservation system"
+    t.boolean "email_notification_system", default: false, null: false
+    t.string "email_notification_address", limit: 50
+    t.string "amenities_code", limit: 10, default: "-", null: false, comment: "Abbreviation"
+    t.column "group_number", "enum('1','2','3','4','5')"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string "description"
+    t.column "amenities_type", "enum('Housing & Camping','Classroom & Meeting Space','Laboratory & Storage Space','Vehicles & Boats','Other Amenity')"
+    t.string "image_url"
+    t.index ["disable", "sort_order", "title"], name: "DisableSortDescription"
+    t.index ["reserve_id", "sort_order"], name: "reserve_sort_order"
+    t.index ["reserve_id", "title"], name: "reserve"
+    t.index ["sort_order", "title"], name: "SortOrderDescription"
+    t.index ["sort_order"], name: "PlainSortOrder"
+  end
+
+  create_table "amenity_rate_categories", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "reserve_id", null: false
+    t.string "description"
+    t.integer "sort_order", default: 0, null: false
+    t.boolean "visible", default: true, null: false
+    t.boolean "state_university", default: false, null: false
+    t.boolean "state_college", default: false, null: false
+    t.boolean "community_college", default: false, null: false
+    t.boolean "other_state_institution", default: false, null: false
+    t.boolean "outside_state", default: false, null: false
+    t.boolean "international", default: false, null: false
+    t.boolean "K12", default: false, null: false
+    t.boolean "nongovernmental", default: false, null: false
+    t.boolean "governmental", default: false, null: false
+    t.boolean "business", default: false, null: false
+    t.boolean "other", default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["reserve_id", "sort_order"], name: "SortOrderReserves"
+    t.index ["sort_order", "description"], name: "RSODescription"
+    t.index ["sort_order"], name: "SortOrderPlain"
+    t.index ["visible", "sort_order", "description"], name: "Visible"
+  end
+
+  create_table "amenity_rates", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "amenity_id", null: false
+    t.integer "rate_category_id", null: false
+    t.decimal "Rate", precision: 10, scale: 2
+    t.column "rate_type", "enum('value','free','tbd')", default: "value", null: false, comment: "Specify how the value is displayed to the public"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["amenity_id"], name: "amenity"
+    t.index ["id"], name: "PrimaryKey", unique: true
   end
 
   create_table "applications_disciplines", primary_key: "applications_disciplines_id", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -675,153 +697,149 @@ ActiveRecord::Schema.define(version: 2021_09_28_165254) do
     t.integer "reserve_id", null: false
   end
 
-  create_table "reservepermits", primary_key: "ReservePermitID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "ReserveID", null: false
-    t.integer "PermitID", null: false
-    t.text "ReserveSpecificText", comment: "Instructions about this permit which are unique to this particular reserve"
-    t.integer "SortOrderOverride", unsigned: true
-    t.boolean "Visible", default: true, null: false
-    t.boolean "CollectPermitInfo", default: false, null: false, comment: "Collect Permit number and Permit date Information from applicant"
-    t.integer "ReserveIDTemp"
-    t.boolean "ResearchApplication", default: true, null: false
-    t.boolean "ClassApplication", default: true, null: false
-    t.boolean "PublicApplication", default: false, null: false
-    t.boolean "HousingOnlyApplication", default: false, null: false
-    t.boolean "conference_application", default: false, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["ReserveID", "PermitID"], name: "ReservesPermitID"
-    t.index ["Visible", "SortOrderOverride"], name: "VisibleSortOrder"
-  end
-
-  create_table "reserves", primary_key: "ReserveID", id: { type: :integer, comment: "NRS reserves listed in order of inclusion in the system", default: nil }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "Name", limit: 80
-    t.string "NickName", limit: 20
-    t.string "PulldownName", limit: 80, default: "Pulldown", null: false, comment: "Pulldown Name Sorted Alphabetically"
-    t.text "Directions"
-    t.text "Rules"
-    t.text "Rates"
-    t.integer "ManagingCampus"
-    t.string "Department", limit: 100
-    t.string "AddrLine1", limit: 100
-    t.string "AddrLine2", limit: 100
-    t.string "City", limit: 50
+  create_table "reserves", id: { type: :integer, comment: "NRS reserves listed in order of inclusion in the system" }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name", limit: 80
+    t.string "short_name", limit: 20
+    t.string "pulldown_name", limit: 80, default: "Pulldown", null: false, comment: "Pulldown Name Sorted Alphabetically"
+    t.text "directions"
+    t.text "rules"
+    t.text "rates"
+    t.integer "managing_campus_id"
+    t.string "department", limit: 100
+    t.string "address_line_1", limit: 100
+    t.string "address_line_2", limit: 100
+    t.string "address_city", limit: 50
     t.string "State", limit: 50
-    t.string "PostalCode", limit: 15
+    t.string "address_postal_code", limit: 15
     t.string "Country", limit: 100
-    t.string "BillLine1", limit: 100
-    t.string "BillLine2", limit: 100
-    t.string "BillCity", limit: 50
+    t.string "billing_address_line_1", limit: 100
+    t.string "billing_address_line_2", limit: 100
+    t.string "billing_city", limit: 50
     t.string "BillState", limit: 50
-    t.string "BillPostalCode", limit: 15
+    t.string "billing_address_postal_code", limit: 15
     t.string "BillCountry", limit: 100
-    t.string "ApplicationEMailAddress", limit: 100
-    t.string "ReserveEmailAddress", limit: 50, comment: "Generic Email Address"
-    t.boolean "EmailAttachment", comment: "Boolean"
-    t.column "EmailFormat", "enum('Full','Short')", default: "Full", null: false, comment: "Email Version of App"
-    t.string "Telephone", limit: 20
-    t.string "Facsimile", limit: 20
-    t.string "CheckPayableName", limit: 50
-    t.string "HomePageURL"
-    t.string "IconURL", comment: "URL of reserve Icon"
-    t.string "DirectionsURL"
-    t.string "RulesURL"
-    t.string "RatesURL", default: ""
-    t.boolean "ResearchAppsAccepted", default: true, null: false, comment: "Boolean"
-    t.boolean "ClassAppsAccepted", default: true, null: false, comment: "Boolean"
-    t.boolean "PublicAppsAccepted", default: true, null: false, comment: "Boolean"
-    t.boolean "HousingAppsAccepted"
-    t.boolean "conference_apps_accepted", default: false, null: false
+    t.string "applicaton_email_address", limit: 100
+    t.string "email_address", limit: 50, comment: "Generic Email Address"
+    t.boolean "EmailAttachment", comment: "DEPRECATED"
+    t.column "EmailFormat", "enum('Full','Short')", default: "Full", null: false, comment: "DEPRECATED"
+    t.string "phone_number", limit: 20
+    t.string "fax_number", limit: 20
+    t.string "check_payable_to_name", limit: 50
+    t.string "home_page_url"
+    t.string "logo_url", comment: "URL of reserve Icon"
+    t.string "directions_url"
+    t.string "rules_url"
+    t.string "rates_url", default: ""
+    t.boolean "research_projects_accepted", default: true, null: false, comment: "Boolean"
+    t.boolean "class_projects_accepted", default: true, null: false, comment: "Boolean"
+    t.boolean "public_projects_accepted", default: true, null: false, comment: "Boolean"
+    t.boolean "housing_projects_accepted"
+    t.boolean "conference_projects_accepted", default: false, null: false
     t.boolean "MeetingAppsAccepted", default: false, comment: "Boolean"
-    t.boolean "PublicAppFormat", default: false, null: false, comment: "0 = short form  1= long form"
-    t.boolean "PublicDayUseAppsAccepted", default: false, null: false
-    t.integer "PublicDayUseAppNumber"
-    t.boolean "PublicCalendar", default: false, null: false, comment: "Boolean"
-    t.boolean "CollectBirthDate", default: false, null: false, comment: "Boolean"
-    t.boolean "CollectCAProjectSponsor", default: false, null: false, comment: "Boolean"
-    t.boolean "CollectCellPhone", default: false, null: false, comment: "Boolean"
-    t.boolean "CollectGender", default: false, null: false, comment: "Boolean"
-    t.boolean "CollectHousingConcerns", default: false, null: false, comment: "Boolean"
-    t.boolean "CollectIDNumber", default: false, null: false, comment: "Boolean"
-    t.boolean "CollectPermanentAddress", default: false, null: false, comment: "Boolean"
-    t.boolean "CollectSensorData", default: false, null: false, comment: "Boolean"
-    t.column "UserMailingListSettings", "set('Research','Class','Public')"
-    t.text "ContactInfoText"
-    t.text "EMailAcceptMessage"
-    t.text "EmailMessage2"
-    t.text "EmailMessage3"
-    t.text "EmailMessage4"
-    t.boolean "AllowMailSpoofing", default: true, null: false, comment: "1 means Yes - 0 neans No"
-    t.float "Latitude", limit: 53, default: 0.0, null: false
-    t.float "Longitude", limit: 53, default: 0.0, null: false
-    t.float "LatDeg", limit: 53, default: 0.0, null: false
-    t.float "LatMin", limit: 53, default: 0.0, null: false
-    t.float "LatSec", limit: 53, default: 0.0, null: false
-    t.string "LatHemisphere", limit: 50, default: "N", null: false
-    t.float "LongDeg", limit: 53, default: 0.0, null: false
-    t.float "LongMin", limit: 53, default: 0.0, null: false
-    t.float "LongSec", limit: 53, default: 0.0, null: false
-    t.string "LongHemisphere", limit: 50, default: "W", null: false
-    t.text "UTMX"
-    t.text "UTMY"
-    t.integer "UTMZone", limit: 2
-    t.string "Map1URL"
-    t.string "Map2URL"
-    t.string "Map3URL"
-    t.string "Map1Caption", limit: 200
-    t.string "Map2Caption", limit: 200
-    t.string "Map3Caption", limit: 200
-    t.text "FacilitySpecialNeedsStatement"
-    t.text "InvoiceText"
-    t.string "TaxIDNumber", limit: 20
-    t.boolean "UseCAPermitQuestions", comment: "Boolean"
-    t.boolean "UseAdditionalAppQuestions", comment: "Boolean"
-    t.integer "AccountantID"
-    t.string "InvoiceTrailer", limit: 12
-    t.integer "YearIncludedInNRS"
-    t.boolean "ShowRateTable", default: true, null: false, comment: "Show or hide rate table in reserve info page"
-    t.string "LDAP", limit: 100, default: "uid=nrsadmin,o=unaffiliated,dc=ecoinformatics,dc=org", null: false
-    t.string "OutsideReservationSystemURL", default: "0", null: false
-    t.text "OutsideReservationSystemText", comment: "Text displayed when user selects a trigger Asset"
-    t.string "DOI", limit: 100, default: "0", null: false, comment: "Reserve DOI"
-    t.string "GoogleCalendarID", limit: 100, default: "0", null: false, comment: "Calendar ID value"
-    t.boolean "ReserveMessageOnOff"
-    t.text "ReserveMessage"
-    t.string "CodeOfConductURL", default: "http://rams.ucnrs.org/PDF/nrs-codeofconduct.pdf", null: false, comment: "Code of Conduct"
-    t.string "ZoteroURL", limit: 200, default: "https://www.zotero.org/groups/"
-    t.string "ZoteroLogin", limit: 50
-    t.string "ZoteroPassword", limit: 50
-    t.column "FacilityGroup", "enum('No Facilities','Less Than 30 Overnight Facilities','Over 30 Overnight Facilities','Lab Facility')", default: "No Facilities"
-    t.column "InternetStatus", "enum('No Network','Cell Phone Only','DSL Internet','Satellite Internet','Broadband Internet','Cable Internet','High Speed Internet','Unknown')", default: "Unknown"
-    t.integer "DistanceToManagingCampus", default: 0
-    t.integer "AverageDistanceToCampus", default: 0
-    t.integer "DistanceToUCB", default: 0
-    t.integer "DistanceToUCD", default: 0
-    t.integer "DistanceToUCI", default: 0
-    t.integer "DistanceToUCM", default: 0
-    t.integer "DistanceToUCLA", default: 0
-    t.integer "DistanceToUCR", default: 0
-    t.integer "DistanceToUCSB", default: 0
-    t.integer "DistanceToUCSC", default: 0
-    t.integer "DistanceToUCSD", default: 0
-    t.string "DropBoxLogin", limit: 40, default: ""
-    t.string "DropBoxPassword", limit: 40, default: ""
-    t.string "DropBoxRequestURL", default: "https://www.dropbox.com/l/"
-    t.string "AssetGroupLabel1", limit: 40, default: "1"
-    t.string "AssetGroupLabel2", limit: 40, default: "2"
-    t.string "AssetGroupLabel3", limit: 40, default: "3"
-    t.string "AssetGroupLabel4", limit: 40, default: "4"
-    t.string "AssetGroupLabel5", limit: 40, default: "5"
-    t.string "UAVContactPerson", limit: 40
-    t.string "UAVContactPersonEmail", limit: 40
-    t.string "IACUCContactPerson", limit: 40
-    t.string "IACUCContactPersonEmail", limit: 40
+    t.boolean "PublicAppFormat", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "PublicDayUseAppsAccepted", default: false, null: false, comment: "DEPRECATED"
+    t.integer "PublicDayUseAppNumber", comment: "DEPRECATED"
+    t.boolean "public_calendar_access", default: false, null: false, comment: "Boolean"
+    t.boolean "CollectBirthDate", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "CollectCAProjectSponsor", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "CollectCellPhone", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "CollectGender", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "CollectHousingConcerns", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "CollectIDNumber", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "CollectPermanentAddress", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "CollectSensorData", default: false, null: false, comment: "DEPRECATED"
+    t.column "UserMailingListSettings", "set('Research','Class','Public')", comment: "DEPRECATED"
+    t.text "how_to_contact"
+    t.text "approval_message"
+    t.text "email_message_2"
+    t.text "email_message_3"
+    t.text "email_message_4"
+    t.boolean "AllowMailSpoofing", default: true, null: false, comment: "DEPRECATED"
+    t.float "latitude", limit: 53, default: 0.0, null: false
+    t.float "longitude", limit: 53, default: 0.0, null: false
+    t.float "LatDeg", limit: 53, default: 0.0, null: false, comment: "DEPRECATED moved to reserve_locations"
+    t.float "LatMin", limit: 53, default: 0.0, null: false, comment: "DEPRECATED moved to reserve_locations"
+    t.float "LatSec", limit: 53, default: 0.0, null: false, comment: "DEPRECATED moved to reserve_locations"
+    t.string "LatHemisphere", limit: 50, default: "N", null: false, comment: "DEPRECATED moved to reserve_locations"
+    t.float "LongDeg", limit: 53, default: 0.0, null: false, comment: "DEPRECATED moved to reserve_locations"
+    t.float "LongMin", limit: 53, default: 0.0, null: false, comment: "DEPRECATED moved to reserve_locations"
+    t.float "LongSec", limit: 53, default: 0.0, null: false, comment: "DEPRECATED moved to reserve_locations"
+    t.string "LongHemisphere", limit: 50, default: "W", null: false, comment: "DEPRECATED moved to reserve_locations"
+    t.text "UTMX", comment: "DEPRECATED moved to reserve_locations"
+    t.text "UTMY", comment: "DEPRECATED moved to reserve_locations"
+    t.integer "UTMZone", limit: 2, comment: "DEPRECATED moved to reserve_locations"
+    t.string "Map1URL", comment: "DEPRECATED - WIll store in separate table."
+    t.string "Map2URL", comment: "DEPRECATED - WIll store in separate table."
+    t.string "Map3URL", comment: "DEPRECATED - WIll store in separate table."
+    t.string "Map1Caption", limit: 200, comment: "DEPRECATED - WIll store in separate table."
+    t.string "Map2Caption", limit: 200, comment: "DEPRECATED - WIll store in separate table."
+    t.string "Map3Caption", limit: 200, comment: "DEPRECATED - WIll store in separate table."
+    t.text "special_needs_statement", comment: "Reserve personalized message text dispalyed with this field"
+    t.text "invoice_message"
+    t.string "tax_id_number", limit: 20
+    t.boolean "UseCAPermitQuestions", comment: "DEPRECATED"
+    t.boolean "UseAdditionalAppQuestions", comment: "DEPRECATED"
+    t.integer "AccountantID", comment: "DEPRECATED"
+    t.string "invoice_message_footer", limit: 12
+    t.integer "year_reserve_established"
+    t.boolean "show_rate_table", default: true, null: false, comment: "Show or hide rate table in reserve info page"
+    t.string "ldap_address", limit: 100, default: "uid=nrsadmin,o=unaffiliated,dc=ecoinformatics,dc=org", null: false
+    t.string "outside_reservation_system_url", default: "0", null: false
+    t.text "outside_reservation_system_text", comment: "Text displayed when user selects a trigger Asset"
+    t.string "doi", limit: 100, default: "0", null: false, comment: "Reserve DOI"
+    t.string "google_calendar_id", limit: 100, default: "0", null: false, comment: "Calendar ID value"
+    t.boolean "reserve_alert_message_enabled"
+    t.text "reserve_alert_message"
+    t.string "code_of_conduct_url", default: "http://rams.ucnrs.org/PDF/nrs-codeofconduct.pdf", null: false, comment: "Code of Conduct"
+    t.string "zotero_url", limit: 200, default: "https://www.zotero.org/groups/"
+    t.string "zotero_login", limit: 50
+    t.string "zotero_password", limit: 50
+    t.column "facility_group_name", "enum('No Facilities','Less Than 30 Overnight Facilities','Over 30 Overnight Facilities','Lab Facility')", default: "No Facilities"
+    t.column "internet_status", "enum('No Network','Cell Phone Only','DSL Internet','Satellite Internet','Broadband Internet','Cable Internet','High Speed Internet','Unknown')", default: "Unknown"
+    t.integer "DistanceToManagingCampus", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.integer "AverageDistanceToCampus", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.integer "DistanceToUCB", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.integer "DistanceToUCD", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.integer "DistanceToUCI", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.integer "DistanceToUCM", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.integer "DistanceToUCLA", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.integer "DistanceToUCR", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.integer "DistanceToUCSB", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.integer "DistanceToUCSC", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.integer "DistanceToUCSD", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.string "drop_box_login", limit: 40, default: ""
+    t.string "drop_box_password", limit: 40, default: ""
+    t.string "drop_box_request_url", default: "https://www.dropbox.com/l/"
+    t.string "amenity_group_label_1", limit: 40, default: "1"
+    t.string "amenity_group_label_2", limit: 40, default: "2"
+    t.string "amenity_group_label_3", limit: 40, default: "3"
+    t.string "amenity_group_label_4", limit: 40, default: "4"
+    t.string "amenity_group_label_5", limit: 40, default: "5"
+    t.string "UAVContactPerson", limit: 40, comment: "DEPRECATED"
+    t.string "UAVContactPersonEmail", limit: 40, comment: "DEPRECATED"
+    t.string "IACUCContactPerson", limit: 40, comment: "DEPRECATED"
+    t.string "IACUCContactPersonEmail", limit: 40, comment: "DEPRECATED"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "bill_name", limit: 200
     t.column "Ecosystem", "enum('Undefined','Open Water','Perennial Ice/Snow','Develope','Open Space','Developed Low Intensity','Developed Medium Intensity','Developed High Intensity','Barren Land (Rock/Sand/Clay)','Unconsolidated Shore','Deciduous Forest','Evergreen Forest','Mixed Forest','Dwarf Scrub','Shrub/Scrub','Grasslands/Herbaceous','Sedge/Herbaceous','Lichens','Moss','Pasture/Hay','Cultivated Crops','Woody Wetlands','Emergent Herbaceous Wetlands')", default: "Undefined", collation: "ascii_general_ci"
-    t.index ["ManagingCampus", "Name"], name: "ManagingCampus"
-    t.index ["Name"], name: "Name"
+    t.string "administrative_group_name"
+    t.string "administrative_group_name_acronym"
+    t.string "administrative_group_state"
+    t.integer "address_state_id"
+    t.integer "address_country_id"
+    t.integer "billing_address_state_id"
+    t.integer "billing_address_country_id"
+    t.virtual "latitude_degrees", type: :integer, as: "floor(abs(`latitude`))"
+    t.virtual "latitude_minutes", type: :integer, as: "floor(((abs(`latitude`) % 1) * 60))"
+    t.virtual "latitude_seconds", type: :float, as: "((((abs(`latitude`) % 1) * 60) % 1) * 60)"
+    t.virtual "latitude_hemisphere", type: :string, limit: 50, as: "if((`latitude` > 0),_utf8mb3'N',_utf8mb3'S')"
+    t.virtual "longitude_degrees", type: :integer, as: "floor(abs(`longitude`))"
+    t.virtual "longitude_minutes", type: :integer, as: "floor(((abs(`longitude`) % 1) * 60))"
+    t.virtual "longitude_seconds", type: :float, as: "((((abs(`longitude`) % 1) * 60) % 1) * 60)"
+    t.virtual "longitude_hemisphere", type: :string, limit: 50, as: "if((`longitude` > 0),_utf8mb3'E',_utf8mb3'W')"
+    t.index ["managing_campus_id", "name"], name: "ManagingCampus"
+    t.index ["name"], name: "Name"
   end
 
   create_table "reserves_waivers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -917,7 +935,7 @@ ActiveRecord::Schema.define(version: 2021_09_28_165254) do
 
   create_table "visits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ApplicationID", null: false
-    t.integer "ReserveID"
+    t.integer "reserve_id"
     t.integer "user_id", comment: "THis is the ID of the person that submitted the activity (may be diffferent than Application's user_id)"
     t.date "DateSubmitted", comment: "DEPRICATED"
     t.text "purpose_of_visit"
@@ -947,8 +965,8 @@ ActiveRecord::Schema.define(version: 2021_09_28_165254) do
     t.column "project_type", "enum('research','university class','meeting or conference','public use')"
     t.index ["ApplicationID", "id"], name: "Application"
     t.index ["DateSubmitted", "ApplicationID", "id"], name: "Date"
-    t.index ["ReserveID"], name: "ReserveID"
     t.index ["id"], name: "id"
+    t.index ["reserve_id"], name: "reserve"
     t.index ["user_id"], name: "user"
   end
 
