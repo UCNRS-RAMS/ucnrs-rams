@@ -13,8 +13,13 @@ en:
               must_be_in_country: "must exist as a state, province, or territory of the address country"
             billing_address_state_id:
               must_be_in_country: "must exist as a state, province, or territory of the billing address country"
+  time:
+    formats:
+      visit_form_input_date: "%-m/%-d/%Y"
+      visit_form_input_time: "%H%M"
   date:
     formats:
+      visit_form_input_date: "%-m/%-d/%Y"
       date_range:
         month_name: "%b"
   date_range:
@@ -49,17 +54,6 @@ en:
       content: Here you can learn about natural reserves and field stations, request dates and accommodations for your visit, submit project descriptions and permits, and sign any necessary waivers or other permissions.
       continue: Let's go!
       accessible_description: This is a dialog that welcomes you to RAMS. Press the Let's Go button to continue.
-  visits:
-    new:
-      title: "Visit Details"
-      reserve: "Reserve"
-      browse_reserves: "Browse Our Reserves"
-      select_reserve: "Which reserve would you like to visit?"
-      arrival: "Arrival"
-      departure: "Departure"
-      calendar_icon_alt: "A button to toggle a date picker pop-up"
-      select_time: "Select a time"
-      select_reserve: "Select a Reserve"
   users:
     new:
       header:
@@ -115,6 +109,46 @@ en:
         orcid: "What is an ORCID?"
         ucnrs_newsletter: "NRS Newsletter."
         terms_of_use: "Terms of Use"
+  visits:
+    new:
+      title: "Visit Details"
+    form:
+      titles:
+        amenities: "Select Amenities"
+        amenities_subtitle: "(Optional)"
+        purpose: "Purpose of Visit"
+        reserve: "Reserves"
+      labels:
+        project: "Research Project"
+        public_use_category: "Choose a category that best describes your visit"
+        plans: "What do you plan to do on this visit?"
+        reserve: "Reserve"
+        arrival: "Arrival"
+        departure: "Departure"
+      alt_text:
+        calendar: "Calendar Icon"
+      links:
+        create_a_new_project: "or Create a new Project"
+        browse_reserves: "Browse Our Reserves"
+      public_use_options:
+        labels:
+          general_use: "General Use"
+          community_event: "Community Event"
+          fundraiser: "Fundraiser"
+          k_12_class: "K-12 Class"
+          private_class: "Private Class (Not University or K-12)"
+          volunteer: "Volunteer Event"
+      purpose_options:
+        labels:
+          research: "Research"
+          class: "University Class"
+          meeting: "Meeting or Conference"
+          public: "Public Use"
+        explanation:
+          research: "Research"
+          class: "Class"
+          meeting: "Meeting"
+          public: "Public"
   navbar:
     link:
       visits: "Visits"
@@ -133,6 +167,8 @@ en:
       privacy_policy_short: "Privacy"
   layouts:
     unauthenticated:
+      alt-text:
+        logo: "Swirling UCNRS Logo"
       hero:
         title: Plan Your Visit
         emphasized: The University of California Natural Reserve System is the world’s largest network of university-administered field stations and protected lands.
