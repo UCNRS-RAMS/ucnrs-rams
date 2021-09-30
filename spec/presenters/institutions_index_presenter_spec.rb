@@ -11,9 +11,10 @@ RSpec.describe InstitutionsIndexPresenter do
       institutions = presenter.institutions
 
       expect(institutions.length).to eq 2
-      expect(institutions[0].name).to eq "One Cool School"
-      expect(institutions[1].name).to eq "School of Rock"
-      expect(institutions.any? { |institution| institution.id == first_institution.id }).to be_falsey
+      expect(institutions.map(&:name)).to eq [
+        "One Cool School",
+        "School of Rock",
+      ]
     end
   end
 end
