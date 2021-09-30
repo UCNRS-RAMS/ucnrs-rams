@@ -9,5 +9,5 @@ Rails.application.routes.draw do
 
   resources :institutions, only: [:index, :new, :create]
   resources :states, only: [:index]
-  resources :visits, only: [:new]
+  resources :visits, only: [:new, :create]
 end
