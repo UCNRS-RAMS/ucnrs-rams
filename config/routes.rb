@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   resources :institutions, only: [:index, :new, :create]
+  resources :reserves, only: [] do
+    resources :amenities, only: [:index]
+  end
   resources :states, only: [:index]
   resources :visits, only: [:new, :create]
 end
