@@ -31,7 +31,6 @@ class UseConventionalNamesForAmenities < ActiveRecord::Migration[6.1]
     # ReserveAssetRateCategories DB changes
     rename_table :ReserveAssetRateCategories, :amenity_rate_categories
     rename_column :amenity_rate_categories, :RateCategoryID, :id
-    rename_column :amenity_rate_categories, :ReserveID, :reserve_id
     rename_column :amenity_rate_categories, :Description, :description
     rename_column :amenity_rate_categories, :SortOrder, :sort_order
     rename_column :amenity_rate_categories, :Visible, :visible
