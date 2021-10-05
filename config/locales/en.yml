@@ -134,9 +134,13 @@ en:
         reserve: "Reserve"
         arrival: "Arrival"
         departure: "Departure"
+        next_page:
+          visitors: "Next Page: Visitors"
       alt_text:
         calendar: "Calendar Icon"
+        left_arrow: "Left Arrow to Go Back"
       links:
+        go_back: "Go Back"
         create_a_new_project: "or Create a new Project"
         browse_reserves: "Browse Our Reserves"
       public_use_options:

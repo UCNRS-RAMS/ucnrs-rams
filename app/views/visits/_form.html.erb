@@ -73,4 +73,12 @@
       </section>
     </fieldset>
   </span>
+
+  <fieldset>
+    <%= link_to  "#" do %>
+      <%= image_tag "arrow-left.svg", height: "24px", width: "24px", alt: t(".alt_text.left_arrow") %>
+      <%= t(".links.go_back") %>
+    <% end %>
+    <%= form.submit(t(".labels.next_page.visitors")) %>
+  </fieldset>
 </section>
