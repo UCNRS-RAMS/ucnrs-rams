@@ -4,4 +4,5 @@ class Amenity < ApplicationRecord
   end
 
   belongs_to :reserve
+  has_many :amenity_rates
 end

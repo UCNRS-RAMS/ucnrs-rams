@@ -27,6 +27,15 @@ en:
     different_days_same_month: "%{start_month} %{start_day} - %{end_day}, %{start_year}"
     different_months_same_year: "%{start_month} %{start_day} - %{end_month} %{end_day}, %{start_year}"
     different_years: "%{start_month} %{start_day}, %{start_year} - %{end_month} %{end_day}, %{end_year}"
+
+  amenities:
+    amenity:
+      more_info: "Learn More"
+      dates_of_use: "Dates of Use"
+      rate: "Rate"
+      rate_period: "(per %{unit} per %{period})"
+      number_of_people: "No. of People"
+      subtotal: "Subtotal"
   forms:
     select_one: "Please Select One"
   home:

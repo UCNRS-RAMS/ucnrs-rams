@@ -1,0 +1,60 @@
+@import "variables";
+
+.amenity {
+  input[type="checkbox"] {
+    left: -9999px;
+    position: absolute;
+  }
+
+  label {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0.5rem 0;
+
+    img {
+      border: 1px dotted black;
+      height: 89px;
+      width: 146px;
+    }
+
+    .content {
+      flex: 1;
+      margin: 0 1rem;
+
+      h3 {
+        margin: 0;
+      }
+    }
+
+    .booking {
+      display: none;
+      flex-basis: 100%;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .field {
+        align-items: flex-end;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        position: relative;
+
+        label {
+          flex-basis: 100%;
+        }
+      }
+    } 
+  }
+
+  input:checked + label {
+    background: lighten($bluegray, 30%);
+    border: 1px dotted $dark-bluegray;
+
+    .booking {
+      display: flex;
+    }
+  }
+
+}
