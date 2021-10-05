@@ -1,5 +1,6 @@
 import { Application, Controller } from "stimulus"
-import FollowupContentController from "./followup_content_controller"
+import { renderDOM, clearDOM } from "./support/dom"
+import FollowupContentController from "../controllers/followup_content_controller"
 
 global.fetch = jest.fn(() =>
   Promise.resolve({
@@ -12,9 +13,18 @@ const allowFetchToResolve = (timeout = 1) =>
   new Promise((r) => setTimeout(r, timeout))
 
 describe("FollowupContentController", () => {
+  beforeAll(() => {
+    const application = Application.start()
+    application.register("followup-content", FollowupContentController)
+  })
+
+  beforeEach(() => jest.clearAllMocks())
+
+  afterEach(() => clearDOM())
+
   describe("#change from a select click", () => {
     beforeEach(() => {
-      document.body.innerHTML = `
+      renderDOM(`
         <section
           data-controller="followup-content"
           data-followup-content-url-value="http://localhost/?thing=VALUE"
@@ -30,13 +40,8 @@ describe("FollowupContentController", () => {
             <option value="blue">Blue</option>
           </select>
           <div id="content" data-followup-content-target="destination"/>
-        </section>`
-
-      const application = Application.start()
-      application.register("followup-content", FollowupContentController)
+        </section>`)
     })
-
-    beforeEach(() => jest.clearAllMocks())
 
     it("HTTP requests the VALUE and puts the response in the destination", async () => {
       const source = document.getElementById("source")
@@ -55,7 +60,7 @@ describe("FollowupContentController", () => {
 
   describe("#change from input typing", () => {
     beforeEach(() => {
-      document.body.innerHTML = `
+      renderDOM(`
         <section
           data-controller="followup-content"
           data-followup-content-length-value="2"
@@ -69,13 +74,8 @@ describe("FollowupContentController", () => {
           <div id="content" data-followup-content-target="destination">
             <hr/>
           </div>
-        </section>`
-
-      const application = Application.start()
-      application.register("followup-content", FollowupContentController)
+        </section>`)
     })
-
-    beforeEach(() => jest.clearAllMocks())
 
     it("makes an HTTP request with the value of the source", () => {
       const input = document.getElementById("input")
