@@ -1,17 +1,22 @@
 import { Application, Controller } from "stimulus"
-import CounterController from "./counter_controller"
+import { renderDOM, clearDOM } from "./support/dom"
+import CounterController from "../controllers/counter_controller"
 
 describe("CounterController", () => {
   beforeAll(() => {
-    document.body.innerHTML = `
-      <section data-controller="counter">
-        <input id="output" data-counter-target="output" value="3"/>
-        <input type="button" id="down" data-action="click->counter#decrement"/>
-        <input type="button" id="up" data-action="click->counter#increment"/>
-      </section>`
-
     const application = Application.start()
     application.register("counter", CounterController)
+  })
+
+  afterEach(() => clearDOM())
+
+  beforeEach(() => {
+    renderDOM(`
+      <section data-controller="counter">
+        <input id="output" data-counter-target="output" value="NaN"/>
+        <input type="button" id="down" data-action="click->counter#decrement"/>
+        <input type="button" id="up" data-action="click->counter#increment"/>
+      </section>`)
   })
 
   describe("#increment and #decrement", () => {

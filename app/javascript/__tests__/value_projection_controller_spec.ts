@@ -1,10 +1,18 @@
 import { Application, Controller } from "stimulus"
-import ValueProjectionController from "./value_projection_controller"
+import { renderDOM, clearDOM } from "./support/dom"
+import ValueProjectionController from "../controllers/value_projection_controller"
 
 describe("ValueProjectionController", () => {
+  beforeAll(() => {
+    const application = Application.start()
+    application.register("value-projection", ValueProjectionController)
+  })
+
+  afterAll(() => clearDOM())
+
   describe("#change", () => {
     beforeEach(() => {
-      document.body.innerHTML = `
+      renderDOM(`
         <section data-controller="value-projection">
           <div>
             <select id="select" data-action="change->value-projection#change">
@@ -14,10 +22,7 @@ describe("ValueProjectionController", () => {
           </div>
           <div id="only-personal">...</div>
           <div id="only-business">...</div>
-        </section>`
-
-      const application = Application.start()
-      application.register("value-projection", ValueProjectionController)
+        </section>`)
     })
 
     it("uses the new value as the 'projected' value attribute", () => {
@@ -25,11 +30,11 @@ describe("ValueProjectionController", () => {
       const select = document.getElementById("select")
 
       select.value = "Business"
-      select.dispatchEvent(new Event("change"));
+      select.dispatchEvent(new Event("change"))
 
-      expect(section.getAttribute("data-value-projection-projected-value")).toEqual(
-        "Business"
-      )
+      expect(
+        section.getAttribute("data-value-projection-projected-value")
+      ).toEqual("Business")
     })
   })
 })
