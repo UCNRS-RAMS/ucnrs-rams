@@ -5,9 +5,27 @@ class AmenityPresenter
 
   attr_reader :amenity
 
-  delegate :id, to: :amenity
+  delegate :id,
+    :title,
+    :description,
+    :image_url,
+    to: :amenity
 
-  def title
-    amenity.description
+  def checkbox_id
+    "amenity-checkbox-#{id}"
+  end
+
+  def rates
+    amenity.amenity_rates.in_order.map do |rate|
+      AmenityRatePresenter.new(rate)
+    end
+  end
+
+  def unit
+    amenity.units_type
+  end
+
+  def period
+    amenity.time_type
   end
 end
