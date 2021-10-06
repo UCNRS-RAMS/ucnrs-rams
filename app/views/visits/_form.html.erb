@@ -13,7 +13,7 @@
     </fieldset>
 
     <div class="field project_select">
-      <%= form.label :project, t(".labels.project") %>
+      <%= form.label :project_id, t(".labels.project") %>
       <%= form.collection_select(:project_id, @page.project_options, :id, :name, { selected: @page.default_public_use_category }) %>
       <%= link_to t(".links.create_a_new_project"), "/projects/new" %>
     </div>
@@ -45,26 +45,33 @@
 
       <div class="date_range_select">
         <div class="field">
-          <%= form.label :arrival, t(".labels.arrival") %>
-          <div class="date-time-select" data-controller="date-time-select">
-            <%= image_tag "calendar.svg", class: "input-icon", alt: t(".alt_text.calendar") %>
-            <%= form.text_field(:arrival_date, value: @page.arrival_date) %>
-            <%= form.collection_select(:arrival_time, @page.time_options, :value, :human, { selected: @page.arrival_time }) %>
+          <%= form.label :start_date, t(".labels.arrival") %>
+          <div class="date-time-select", data-controller="date-input">
+            <%= image_tag "calendar.svg",
+              class: "input-icon arrival",
+              alt: t(".alt_text.calendar"),
+              data: { action: "click->date-input#displayCalendar" }
+            %>
+            <%= form.text_field(:start_date, value: @page.arrival_date, data: { date_input_target: "input" }) %>
+            <%= form.collection_select(:start_time, @page.time_options, :value, :human, { selected: @page.arrival_time }, aria: { label: "Start Time" }) %>
           </div>
         </div>
 
         <span class="separator"></span>
 
         <div class="field">
-          <%= form.label :reserve, t(".labels.departure") %>
-          <div class="date-time-select" data-controller="date-time-select">
-            <%= image_tag "calendar.svg", class: "input-icon", alt: t(".alt_text.calendar") %>
-            <%= form.text_field(:departure_date, value: @page.departure_date) %>
-            <%= form.collection_select(:departure_time, @page.time_options, :value, :human, { selected: @page.departure_time }) %>
+          <%= form.label :end_date, t(".labels.departure") %>
+          <div class="date-time-select" data-controller="date-input">
+            <%= image_tag "calendar.svg",
+              class: "input-icon departure",
+              alt: t(".alt_text.calendar"),
+              data: { action: "click->date-input#displayCalendar" }
+            %>
+            <%= form.text_field(:end_date, value: @page.departure_date, data: { date_input_target: "input" }) %>
+            <%= form.collection_select(:end_time, @page.time_options, :value, :human, { selected: @page.departure_time }, aria: { label: "End Time" }) %>
           </div>
         </div>
       </div>
-
     </fieldset>
 
     <fieldset class"amenities">
