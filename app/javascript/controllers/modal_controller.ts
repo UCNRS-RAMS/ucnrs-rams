@@ -18,9 +18,6 @@ export default class extends Controller {
     if (this.hasDialogTarget) {
       this.element.classList.add("visible")
       this.element.setAttribute("aria-hidden", "false")
-      document
-        .getElementsByTagName("main")[0]
-        .setAttribute("aria-hidden", "true")
     }
   }
 
@@ -31,9 +28,6 @@ export default class extends Controller {
     if (this.hasDialogTarget) {
       this.element.classList.remove("visible")
       this.element.setAttribute("aria-hidden", "true")
-      document
-        .getElementsByTagName("main")[0]
-        .setAttribute("aria-hidden", "false")
     }
   }
 }
