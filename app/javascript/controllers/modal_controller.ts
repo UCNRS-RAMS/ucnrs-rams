@@ -1,13 +1,17 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["dialog"]
+  static targets = ["dialog", "openOnLoad"]
+
   declare dialogTarget: Element
   declare dialogTargets: Element[]
   declare hasDialogTarget: boolean
+  declare hasOpenOnLoadTarget: boolean
 
   connect() {
-    this.open()
+    if (this.hasOpenOnLoadTarget) {
+      this.open()
+    }
   }
 
   open() {
