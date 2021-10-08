@@ -34,7 +34,7 @@
     <%= form.text_area :plans %>
   </fieldset>
 
-  <span data-controller="followup-content" data-followup-content-url-value="<%= reserve_amenities_url("VALUE") %>">
+  <span data-controller="followup-content">
     <fieldset class="reserve-info">
       <legend><%= t(".titles.reserve") %> <%= link_to t(".links.browse_reserves"), "#" %></legend>
 
@@ -62,11 +62,16 @@
           </div>
         </div>
       </div>
+
+      <div class="flex-break"></div>
+
+      <div data-followup-content-target="destination" data-followup-content-url-value="<%= reserve_reserve_inputs_url("VALUE") %>" class="reserve-specific-fields">
+      </div>
     </fieldset>
 
     <fieldset class"amenities">
       <legend><%= t(".titles.amenities") %><span><%= t(".titles.amenities_subtitle") %></span></legend>
-      <section class="amenity-options" data-followup-content-target="destination">
+      <section class="amenity-options" data-followup-content-target="destination" data-followup-content-url-value="<%= reserve_amenities_url("VALUE") %>">
       </section>
     </fieldset>
   </span>

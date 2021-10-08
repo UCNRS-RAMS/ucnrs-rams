@@ -2,13 +2,15 @@ import { Controller } from "stimulus"
 
 export default class extends Controller {
   static targets = ["destination"]
-  static values = { url: String, length: Number }
 
-  declare destinationTargets: Element[]
+  static values = { length: Number }
+  declare lengthValue: number
+
+  declare destinationTargets: HTMLElement[]
 
   urlPlaceholder = "VALUE"
 
-  valueOfInput(input: HTMLElement) {
+  valueOfInput(input: HTMLElement): string {
     if (input.tagName == "SELECT") {
       const element = input as HTMLSelectElement
       return element.options[element.selectedIndex].value
@@ -21,31 +23,42 @@ export default class extends Controller {
   change(e: Event) {
     const value = this.valueOfInput(e.currentTarget as HTMLElement)
     if (String(value).length < this.lengthValue) {
-      this.clear()
+      this.clearAllContent()
       return
     }
-    const url = this.generateUrl(value)
+
+    this.destinationTargets.forEach((target) => this.loadContent(target, value))
+  }
+
+  loadContent(target: HTMLElement, value: string) {
+    const urlPattern = target.dataset.followupContentUrlValue;
+    const url = this.generateUrl(urlPattern, value)
 
     fetch(url).then((response: Response) => {
       if (response.ok) {
-        response.text().then((text) => this.populateContent(text))
+        response.text().then((text) => this.populateContent(target, text))
       } else {
+        this.clearContent(target)
         console.error("Error", response)
       }
     })
   }
 
-  clear() {
-    this.populateContent("")
+  generateUrl(pattern: string, value: string) {
+    return pattern.replace(this.urlPlaceholder, value)
   }
 
-  generateUrl(value: string) {
-    return this.urlValue.replace(this.urlPlaceholder, value)
-  }
-
-  populateContent(data: string) {
+  clearAllContent() {
     this.destinationTargets.forEach((target) => {
-      target.innerHTML = data
+      this.clearContent(target)
     })
+  }
+
+  clearContent(target: HTMLElement) {
+    this.populateContent(target, "")
+  }
+
+  populateContent(target: HTMLElement, data: string) {
+    target.innerHTML = data
   }
 }

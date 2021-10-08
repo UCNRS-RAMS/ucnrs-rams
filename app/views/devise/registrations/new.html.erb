@@ -88,7 +88,6 @@
           <%= link_to t(".links.orcid"), t(".urls.orcid"), target: :_blank %>
         </div>
         <div
-            data-followup-content-url-value="<%= institutions_url(name: "VALUE") %>"
             class="field institution-field large"
             data-controller="followup-content"
             data-followup-content-length-value="3"
@@ -108,7 +107,11 @@
           <%= t(".helper_text.institution") %>
           <%= link_to t(".links.create_new_instituion"), new_institution_path, remote: true %>
           </p>
-          <ul id="institutions" data-followup-content-target="destination"></ul>
+          <ul
+            id="institutions"
+            data-followup-content-target="destination"
+            data-followup-content-url-value="<%= institutions_url(name: "VALUE") %>"
+          ></ul>
         </div>
         <div class="field large">
           <%= f.label :advisor, t(".labels.advisor_name") %>
@@ -136,7 +139,7 @@
     </div>
     <div class="section-container">
       <section class="address">
-        <section data-controller="followup-content" data-followup-content-url-value="<%= states_url(country_id: "VALUE") %>">
+        <section data-controller="followup-content">
           <h2><%= t(".titles.current_address") %></h2>
           <div class="field medium">
             <%= f.label :address_country_id, t(".labels.country") %>
@@ -154,7 +157,7 @@
           <div class="inline">
             <div class="field medium">
               <%= f.label :address_state_id, t(".labels.state") %>
-              <%= f.collection_select(:address_state_id, @page.initial_state_options, :id, :name, { include_blank: true }, { data: { followup_content_target: "destination" } }) %>
+              <%= f.collection_select(:address_state_id, @page.initial_state_options, :id, :name, { include_blank: true }, { data: { followup_content_target: "destination", "followup-content-url-value": states_url(country_id: "VALUE") } }) %>
             </div>
             <div class="field extra-small">
               <%= f.label :address_postal_code, t(".labels.postal_code") %>
@@ -163,7 +166,7 @@
           </div>
         </section>
 
-        <section data-controller="followup-content" data-followup-content-url-value="<%= states_url(country_id: "VALUE") %>">
+        <section data-controller="followup-content">
           <div class="billing-title">
             <h2><%= t(".titles.billing_address") %></h2>
             <div class="field">
@@ -187,7 +190,7 @@
           <div class="inline">
             <div class="field medium">
               <%= f.label :billing_address_state_id, t(".labels.state") %>
-              <%= f.collection_select(:billing_address_state_id, [], :id, :name, { include_blank: true }, { data: { followup_content_target: "destination" } }) %>
+              <%= f.collection_select(:billing_address_state_id, [], :id, :name, { include_blank: true }, { data: { followup_content_target: "destination", "followup-content-url-value": states_url(country_id: "VALUE") } }) %>
             </div>
             <div class="field extra-small">
               <%= f.label :billing_address_postal_code, t(".labels.postal_code") %>

@@ -121,6 +121,10 @@ en:
         orcid: "What is an ORCID?"
         ucnrs_newsletter: "NRS Newsletter."
         terms_of_use: "Terms of Use"
+  reserve_inputs:
+    show:
+      labels:
+        special_needs: "Special Needs"
   visits:
     new:
       title: "Visit Details"

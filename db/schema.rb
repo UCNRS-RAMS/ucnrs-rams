@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_29_194612) do
+ActiveRecord::Schema.define(version: 2021_10_07_144100) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id"
@@ -934,7 +934,7 @@ ActiveRecord::Schema.define(version: 2021_09_29_194612) do
   end
 
   create_table "visits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "ApplicationID", null: false
+    t.integer "project_id", null: false
     t.integer "reserve_id"
     t.integer "user_id", comment: "THis is the ID of the person that submitted the activity (may be diffferent than Application's user_id)"
     t.date "DateSubmitted", comment: "DEPRICATED"
@@ -963,9 +963,10 @@ ActiveRecord::Schema.define(version: 2021_09_29_194612) do
     t.time "start_time"
     t.time "end_time"
     t.column "project_type", "enum('research','university class','meeting or conference','public use')"
-    t.index ["ApplicationID", "id"], name: "Application"
-    t.index ["DateSubmitted", "ApplicationID", "id"], name: "Date"
+    t.column "public_use_category", "enum('general-use','community-event','fundraiser','k-12-class','private-class','volunteer')", default: "general-use"
+    t.index ["DateSubmitted", "project_id", "id"], name: "Date"
     t.index ["id"], name: "id"
+    t.index ["project_id", "id"], name: "Application"
     t.index ["reserve_id"], name: "reserve"
     t.index ["user_id"], name: "user"
   end

@@ -27,7 +27,6 @@ describe("FollowupContentController", () => {
       renderDOM(`
         <section
           data-controller="followup-content"
-          data-followup-content-url-value="http://localhost/?thing=VALUE"
         >
           <select
             id="source"
@@ -39,7 +38,11 @@ describe("FollowupContentController", () => {
             <option value="red">Red</option>
             <option value="blue">Blue</option>
           </select>
-          <div id="content" data-followup-content-target="destination"/>
+          <div
+            id="content"
+            data-followup-content-target="destination"
+            data-followup-content-url-value="http://localhost/?thing=VALUE"
+          />
         </section>`)
     })
 
@@ -64,14 +67,17 @@ describe("FollowupContentController", () => {
         <section
           data-controller="followup-content"
           data-followup-content-length-value="2"
-          data-followup-content-url-value="http://localhost/?thing=VALUE"
         >
           <input
             id="input"
             data-action="input->followup-content#change"
             name="input"
           />
-          <div id="content" data-followup-content-target="destination">
+          <div 
+            id="content"
+            data-followup-content-target="destination"
+            data-followup-content-url-value="http://localhost/?thing=VALUE"
+          >
             <hr/>
           </div>
         </section>`)

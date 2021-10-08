@@ -4,6 +4,12 @@
   .reserve-info {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .flex-break {
+    flex-basis: 100%;
+    height: 0;
   }
 
   .date-range-select {
@@ -19,5 +25,14 @@
       margin: 0.5rem;
       width: 0.625rem;
     }
+  }
+
+  .reserve-specific-fields {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .special-needs-statement:empty {
+    display: none;
   }
 }
