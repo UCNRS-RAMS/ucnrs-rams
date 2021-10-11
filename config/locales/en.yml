@@ -15,11 +15,11 @@ en:
               must_be_in_country: "must exist as a state, province, or territory of the billing address country"
   time:
     formats:
-      visit_form_input_date: "%-m/%-d/%Y"
-      visit_form_input_time: "%H%M"
+      visit_form_input_date: "%Y-%m-%d"
+      visit_form_input_time: "%H:%M"
   date:
     formats:
-      visit_form_input_date: "%-m/%-d/%Y"
+      visit_form_input_date: "%Y-%m-%d"
       date_range:
         month_name: "%b"
   date_range:
@@ -125,6 +125,9 @@ en:
     new:
       title: "Visit Details"
     form:
+      aria:
+        arrival_time: "Arrival Time"
+        departure_time: "Departure Time"
       titles:
         amenities: "Select Amenities"
         amenities_subtitle: "(Optional)"
