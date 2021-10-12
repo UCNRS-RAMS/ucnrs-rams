@@ -20,14 +20,14 @@ en:
   date:
     formats:
       visit_form_input_date: "%Y-%m-%d"
+      project_visit_start_date: "%b %d, %Y"
       date_range:
         month_name: "%b"
   date_range:
-    same_day: "%{start_month} %{start_day}, %{start_year}"
-    different_days_same_month: "%{start_month} %{start_day} - %{end_day}, %{start_year}"
-    different_months_same_year: "%{start_month} %{start_day} - %{end_month} %{end_day}, %{start_year}"
-    different_years: "%{start_month} %{start_day}, %{start_year} - %{end_month} %{end_day}, %{end_year}"
-
+      same_day: "%{start_month} %{start_day}, %{start_year}"
+      different_days_same_month: "%{start_month} %{start_day} - %{end_day}, %{start_year}"
+      different_months_same_year: "%{start_month} %{start_day} - %{end_month} %{end_day}, %{start_year}"
+      different_years: "%{start_month} %{start_day}, %{start_year} - %{end_month} %{end_day}, %{end_year}"
   amenities:
     amenity:
       more_info: "Learn More"
@@ -172,6 +172,26 @@ en:
           class: "Class"
           meeting: "Meeting"
           public: "Public"
+  projects:
+    index:
+      title: "My Projects"
+      table:
+        headers:
+          title: "Title"
+          timeframe: "Timeframe"
+          type: "Type"
+          num_visits: "No. Visits"
+          recent_visit_date: "Date of Recent Visit"
+      project_description: "A project encompasses the activities you plan to conduct for a specific purpose. For example, a project might be teaching a class, or running a study. Projects are not site-specific; they may be conducted at multiple reserves/field stations."
+      links:
+        help: "Help Topics"
+        create_a_new_project: "Create A New Project"
+      alt:
+        help: "A question mark endclosed in a circle"
+    project:
+      not_applicable: "N/A"
+      alt:
+        right_arrow: "A right facing arrow enclosed in a circle"
   navbar:
     link:
       visits: "Visits"

@@ -12,42 +12,18 @@ RSpec.describe VisitRequestPresenter do
   end
 
   describe "#requested_date_range" do
-    def presenting_dates(start_date, end_date)
-      VisitRequestPresenter.new(
-        VisitRequest.new(1, "approved", start_date, end_date, "My backyard")
+    it "generates a date range" do
+      start_date = Date.today
+      end_date = Date.today + 1.day
+      presenter = VisitRequestPresenter.new(
+        VisitRequest.new(1, "approved", start_date, end_date, "Here")
       )
-    end
+      allow(DateRangePresenter).to receive(:value)
 
-    it "returns a single day if start and end are the same" do
-      presenter = presenting_dates(Date.new(2020, 10, 1), Date.new(2020, 10, 1))
+      presenter.requested_date_range
 
-      output = presenter.requested_date_range
-
-      expect(output).to eq "Oct 1, 2020"
-    end
-
-    it "returns a day range if start and end are in the same month" do
-      presenter = presenting_dates(Date.new(2020, 1, 1), Date.new(2020, 1, 10))
-
-      output = presenter.requested_date_range
-
-      expect(output).to eq "Jan 1 - 10, 2020"
-    end
-
-    it "returns a month range if start and end are in the same year" do
-      presenter = presenting_dates(Date.new(2020, 1, 1), Date.new(2020, 2, 10))
-
-      output = presenter.requested_date_range
-
-      expect(output).to eq "Jan 1 - Feb 10, 2020"
-    end
-
-    it "returns a year range if start and end are not in the same year" do
-      presenter = presenting_dates(Date.new(2020, 12, 31), Date.new(2021, 1, 1))
-
-      output = presenter.requested_date_range
-
-      expect(output).to eq "Dec 31, 2020 - Jan 1, 2021"
+      expect(DateRangePresenter).to have_received(:value)
+        .with(start_date: start_date, end_date: end_date)
     end
   end
 end

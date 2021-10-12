@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_07_144100) do
+ActiveRecord::Schema.define(version: 2021_10_11_215651) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id"
@@ -136,111 +136,47 @@ ActiveRecord::Schema.define(version: 2021_10_07_144100) do
 
   create_table "AppAnswers", primary_key: "AppAnswerID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ResQuestionID", null: false
-    t.integer "ApplicationID", null: false
+    t.integer "project_id", null: false
     t.boolean "BooleanAnswer", comment: "Boolean"
     t.text "TextAnswer"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["ApplicationID", "ResQuestionID"], name: "Applications"
-    t.index ["ResQuestionID", "ApplicationID"], name: "Questions"
+    t.index ["ResQuestionID", "project_id"], name: "Questions"
+    t.index ["project_id", "ResQuestionID"], name: "Applications"
   end
 
   create_table "AppPermits", primary_key: "AppPermitID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
-    t.integer "ApplicationID"
+    t.integer "project_id"
     t.text "PermitNumber"
     t.date "PermitDate"
     t.date "PermitExpireDate"
     t.string "Vertebrates", collation: "utf8_general_ci"
     t.text "PermitAnswer"
-    t.index ["ApplicationID", "reserve_id"], name: "Applications"
-    t.index ["ApplicationID"], name: "reserve"
+    t.index ["project_id", "reserve_id"], name: "Applications"
+    t.index ["project_id"], name: "reserve"
   end
 
   create_table "AppTeamMembers", primary_key: "ApplicationTMID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "ApplicationID", null: false
+    t.integer "project_id", null: false
     t.integer "user_id", null: false
     t.integer "institution_id"
     t.column "UserType", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')"
     t.column "DegreeSought", "set('No selection made','BA','BS','MA','MS','PhD')", default: "No selection made"
     t.boolean "IsPrincipalInvestigator", default: false, null: false
-    t.boolean "CanEditApplication", default: false, null: false
+    t.boolean "can_edit_project", default: false, null: false
     t.boolean "CanAddTeamMember", default: false, null: false
     t.boolean "CanMakeReservation", default: false, null: false
     t.boolean "ReceiveInvoice", default: false, null: false
     t.column "InvoiceDelivery", "enum('pdf','paper','none')", default: "pdf", null: false
-    t.boolean "ViewedApplication", default: false, null: false, comment: "Flag determining if the team member has viewed the application or not."
+    t.boolean "viewed_project", default: false, null: false, comment: "Flag determining if the team member has viewed the application or not."
     t.boolean "Visible", default: true, null: false, comment: "Boolean to show or hide team member, for the purpose of hiding team members who is not active anymore on the application."
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["ApplicationID"], name: "Applications"
     t.index ["IsPrincipalInvestigator", "user_id"], name: "PI"
-    t.index ["institution_id", "user_id", "ApplicationID"], name: "Institutions"
-    t.index ["user_id", "ApplicationID"], name: "user_application"
-  end
-
-  create_table "Applications", primary_key: "ApplicationID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "ReserveID", null: false
-    t.integer "user_id", null: false, comment: "This person can be selected by the manager and can change over time.\nThis is the name that shows up on reports and in calendars."
-    t.integer "ApplicantID", null: false, comment: "This is the original applicant and cannot be edited."
-    t.text "ProjectTitle"
-    t.text "ThesisTitle"
-    t.string "CourseName"
-    t.text "ProjectAbstract", comment: "Project abstract for RESEARCH applications, course number for CLASS applications"
-    t.text "KeyWordSearch"
-    t.text "TaxonomicSearch"
-    t.text "MethodDescription"
-    t.boolean "MethodRemoveOrganisms", comment: "Boolean"
-    t.boolean "MethodTransferOrganisms", comment: "Boolean"
-    t.boolean "MethodStudyNonNativeSpecies", comment: "Boolean"
-    t.boolean "MethodChemicals", comment: "Boolean"
-    t.text "MethodChemicalsList"
-    t.boolean "MethodSoilDisturbance", comment: "Boolean"
-    t.boolean "MethodLongTermStructures", comment: "Boolean"
-    t.boolean "MethodAnchorCollectShoreline", comment: "Boolean"
-    t.string "MethodStudyArea", limit: 10000
-    t.boolean "NonNativeGenotype", default: false, comment: "Boolean"
-    t.date "DateSubmitted"
-    t.column "ApplicationType", "enum('Research','Class','Public','Housing','Meeting','All')", default: "Research"
-    t.column "app_html_type", "enum('research','class','other','housing','conference')"
-    t.column "ApplicationSubType", "enum('Default','Meeting','Housing')", default: "Default"
-    t.date "ProjectStartDate"
-    t.date "ProjectEndDate"
-    t.text "ProjectChanges"
-    t.string "ApplicationPassword", limit: 100
-    t.column "USDACategories", "set('AES: Agricultural Experiment Station','CE: Cooperative Extension','ANR: Division of Agriculture and Natural Resources','USDA: U. S. Department of Agriculture','USFS: U. S. Forest Service','CSREES: Cooperative State Research Education and Extension Service','College of Agricultural and Natural Science (Riverside)','College of Agricultural and Environmental Science (Davis)','College of Natural Resources (Berkeley)','School of Forestry','Veterinary School of Medicine','Other','No USDA category applicable')"
-    t.boolean "ApprovalStatus", default: false, null: false, comment: "Pending or Approved"
-    t.string "ApprovedBy", limit: 30
-    t.date "ApprovalDate"
-    t.column "ApplicationStatus", "enum('Closed','Open','Rejected','Cancelled','Updating','Temp','All')"
-    t.column "EMailType", "enum('Automatic','Compose','Silent')"
-    t.text "MissingData"
-    t.boolean "Page1Complete", default: false, null: false
-    t.boolean "Page2Complete", default: false, null: false
-    t.boolean "Page3Complete", default: false, null: false
-    t.boolean "Page4Complete", default: false, null: false
-    t.boolean "Page5Complete", default: false, null: false
-    t.boolean "AnnualReportAccess", default: true, null: false
-    t.boolean "ARPart1Access", default: true, null: false
-    t.boolean "PermitsMade", default: false, null: false
-    t.text "RecentPublications", comment: "Publication list"
-    t.column "MetaFData", "enum('Unnecessary','Required','Submitted')", default: "Unnecessary", null: false
-    t.text "CommunicationLog", comment: "Log of activity and notes made by administrator"
-    t.integer "AnnualReportAccessTEMP", limit: 1, default: 1, null: false
-    t.integer "Discipline1", comment: "Discipline of this application, if > 0 then discipline is found in the discipline table, if 0 then discipline is found in application table under column disciplineOther"
-    t.string "DisciplineOther", limit: 30, comment: "If Discipline1 is 0 then this is the name of the discipline input by user"
-    t.datetime "created_at"
-    t.datetime "updated_at", default: "0001-01-01 00:00:00", null: false
-    t.bigint "log_id"
-    t.datetime "submitted_at"
-    t.index ["ApplicationID"], name: "ApplicationID"
-    t.index ["ApplicationStatus", "ReserveID", "ApplicationID"], name: "ApplicationStatus"
-    t.index ["ApplicationType", "ApplicationID"], name: "ApplicationType"
-    t.index ["CourseName"], name: "CourseName"
-    t.index ["DateSubmitted"], name: "DateSubmitted"
-    t.index ["ProjectStartDate"], name: "ProjectStart"
-    t.index ["ReserveID", "ApplicationStatus", "ApplicationID"], name: "Reserve"
-    t.index ["ReserveID"], name: "reserve_id"
+    t.index ["institution_id", "user_id", "project_id"], name: "Institutions"
+    t.index ["project_id"], name: "Applications"
+    t.index ["user_id", "project_id"], name: "user_application"
   end
 
   create_table "Disciplines", primary_key: "DisciplineID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -250,7 +186,7 @@ ActiveRecord::Schema.define(version: 2021_10_07_144100) do
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
-    t.integer "ApplicationID", null: false
+    t.integer "project_id", null: false
     t.integer "user_id", null: false
     t.string "Owner", limit: 100, null: false
     t.string "DeviceDescription", limit: 100, null: false
@@ -276,7 +212,7 @@ ActiveRecord::Schema.define(version: 2021_10_07_144100) do
 
   create_table "Grants", primary_key: "GrantID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
-    t.integer "ApplicationID", null: false
+    t.integer "project_id", null: false
     t.float "AwardAmount", limit: 53, unsigned: true
     t.string "Title"
     t.string "GrantNumber", limit: 100
@@ -402,7 +338,7 @@ ActiveRecord::Schema.define(version: 2021_10_07_144100) do
     t.integer "user_id", null: false
     t.column "Role", "enum('No selection made','Reserve manager','Reserve assistant manager','Reserve co-manager','Reserve steward','Reserve staff','Campus NRS director','Campus committee member','Information manager','Faculty reserve manager','Reserve accountant','Resident researcher')", default: "No selection made"
     t.string "Supervisor", limit: 50
-    t.boolean "ReceiveApplicationEmail", default: false, null: false, comment: "Boolean"
+    t.boolean "receive_project_email", default: false, null: false, comment: "Boolean"
     t.boolean "ReceiveBillEmail", default: false, null: false, comment: "Set checkbox if Recieve email of invoice"
     t.boolean "ReceiveUpdateEmail", default: false, null: false, comment: "Recieve Email when user updates an app or res"
     t.boolean "ReceiveIACUCEmail", default: false, null: false
@@ -447,11 +383,11 @@ ActiveRecord::Schema.define(version: 2021_10_07_144100) do
     t.boolean "Visible", default: true, null: false
     t.boolean "CollectPermitInfo", default: false, null: false, comment: "Collect Permit number and Permit date Information from applicant"
     t.integer "reserve_id_temp"
-    t.boolean "ResearchApplication", default: true, null: false
-    t.boolean "ClassApplication", default: true, null: false
-    t.boolean "PublicApplication", default: false, null: false
-    t.boolean "HousingOnlyApplication", default: false, null: false
-    t.boolean "conference_application", default: false, null: false
+    t.boolean "research_project", default: true, null: false
+    t.boolean "class_project", default: true, null: false
+    t.boolean "public_project", default: false, null: false
+    t.boolean "housing_only_project", default: false, null: false
+    t.boolean "conference_project", default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["Visible", "SortOrderOverride"], name: "VisibleSortOrder"
@@ -462,16 +398,16 @@ ActiveRecord::Schema.define(version: 2021_10_07_144100) do
     t.integer "reserve_id", null: false
     t.column "ShowUser", "enum('Show','Hide')", null: false
     t.column "QuestionType", "enum('Boolean','Text')", null: false
-    t.column "QuestionLocation", "enum('Application','Reservation')", null: false
+    t.column "QuestionLocation", "enum('Reservation','project')"
     t.text "Question"
     t.text "AdditionalText"
     t.integer "SortOrder"
     t.boolean "AnswerRequired", default: false, null: false
-    t.boolean "PublicApplication", default: true, null: false
-    t.boolean "ClassApplication", default: true, null: false
-    t.boolean "ResearchApplication", default: true, null: false
-    t.boolean "HousingOnlyApplication", default: true, null: false
-    t.boolean "conference_application", default: false, null: false
+    t.boolean "public_project", default: true, null: false
+    t.boolean "class_project", default: true, null: false
+    t.boolean "research_project", default: true, null: false
+    t.boolean "housing_only_project", default: true, null: false
+    t.boolean "conference_project", default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["QuestionLocation", "SortOrder", "ShowUser", "QuestionType"], name: "LocationSOShowType"
@@ -589,10 +525,10 @@ ActiveRecord::Schema.define(version: 2021_10_07_144100) do
     t.index ["id"], name: "PrimaryKey", unique: true
   end
 
-  create_table "applications_disciplines", primary_key: "applications_disciplines_id", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "application_id"
+  create_table "applications_disciplines", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "project_id"
     t.integer "discipline_id"
-    t.index ["applications_disciplines_id"], name: "applications_disciplines_id"
+    t.index ["id"], name: "project_disciplines_id"
   end
 
   create_table "countries", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -663,13 +599,13 @@ ActiveRecord::Schema.define(version: 2021_10_07_144100) do
     t.bigint "record_about_id"
     t.string "record_about_type"
     t.bigint "reserve_id", null: false
-    t.bigint "application_id"
+    t.bigint "project_id"
     t.bigint "reservation_id"
     t.bigint "invoice_id"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
-    t.index ["application_id"], name: "index_logx_on_application_id"
     t.index ["invoice_id"], name: "index_logx_on_invoice_id"
+    t.index ["project_id"], name: "index_logx_on_project_id"
     t.index ["record_about_type", "record_about_id"], name: "index_logx_on_record_about_type_and_record_about_id"
     t.index ["reservation_id"], name: "index_logx_on_reservation_id"
     t.index ["reserve_id"], name: "index_logx_on_reserve_id"
@@ -683,6 +619,80 @@ ActiveRecord::Schema.define(version: 2021_10_07_144100) do
     t.integer "years_to_expiration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "projects", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "reserve_id", null: false
+    t.integer "user_id", null: false, comment: "This person can be selected by the manager and can change over time.\nThis is the name that shows up on reports and in calendars."
+    t.integer "applicant_id", null: false, comment: "This is the original applicant and cannot be edited."
+    t.text "title"
+    t.text "thesis_title"
+    t.string "course_title"
+    t.text "abstract", comment: "Project abstract for RESEARCH applications, course number for CLASS applications"
+    t.text "keywords"
+    t.text "taxonomic_keywords"
+    t.text "method_description"
+    t.boolean "method_remove_organisms", comment: "Boolean"
+    t.boolean "method_transfer_organisms", comment: "Boolean"
+    t.boolean "method_study_non_native_species", comment: "Boolean"
+    t.boolean "method_chemicals", comment: "Boolean"
+    t.text "method_chemicals_list"
+    t.boolean "method_soil_disturbance", comment: "Boolean"
+    t.boolean "method_long_term_structures", comment: "Boolean"
+    t.boolean "MethodAnchorCollectShoreline", comment: "DEPRECATED"
+    t.string "method_study_area", limit: 10000
+    t.boolean "NonNativeGenotype", default: false, comment: "DEPRECATED"
+    t.date "date_submitted", comment: "Move data to submitted_at with default time"
+    t.column "project_type", "enum('Research','Class','Public','Housing','Meeting','All')", default: "Research"
+    t.column "app_html_type", "enum('research','class','other','housing','conference')", comment: "DEPRECATED"
+    t.column "project_sub_type", "enum('Default','Meeting','Housing')", default: "Default"
+    t.date "start_date"
+    t.date "end_date"
+    t.text "ProjectChanges", comment: "DEPRECATED"
+    t.string "ApplicationPassword", limit: 100, comment: "DEPRECATED"
+    t.column "USDACategories", "set('AES: Agricultural Experiment Station','CE: Cooperative Extension','ANR: Division of Agriculture and Natural Resources','USDA: U. S. Department of Agriculture','USFS: U. S. Forest Service','CSREES: Cooperative State Research Education and Extension Service','College of Agricultural and Natural Science (Riverside)','College of Agricultural and Environmental Science (Davis)','College of Natural Resources (Berkeley)','School of Forestry','Veterinary School of Medicine','Other','No USDA category applicable')", comment: "DEPRECATED"
+    t.boolean "ApprovalStatus", default: false, null: false, comment: "DEPRECATED"
+    t.string "ApprovedBy", limit: 30, comment: "DEPRECATED"
+    t.date "ApprovalDate", comment: "DEPRECATED"
+    t.column "status", "enum('Closed','Open','Incomplete')"
+    t.column "EMailType", "enum('Automatic','Compose','Silent')", comment: "DEPRECATED"
+    t.text "MissingData", comment: "DEPRECATED"
+    t.boolean "Page1Complete", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "Page2Complete", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "Page3Complete", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "Page4Complete", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "Page5Complete", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "AnnualReportAccess", default: true, null: false, comment: "DEPRECATED"
+    t.boolean "ARPart1Access", default: true, null: false, comment: "DEPRECATED"
+    t.boolean "permits_completed", default: false, null: false
+    t.text "recent_publications", comment: "Publication list"
+    t.column "data_submitted", "enum('Unnecessary','Required','Submitted')", default: "Unnecessary", null: false
+    t.text "CommunicationLog", comment: "DEPRECATED"
+    t.integer "AnnualReportAccessTEMP", limit: 1, default: 1, null: false, comment: "DEPRECATED"
+    t.integer "Discipline1", comment: "DEPRECATED Discipline of this application, if > 0 then discipline is found in the discipline table, if 0 then discipline is found in application table under column disciplineOther"
+    t.string "discipline_other", limit: 30, comment: "If Discipline1 is 0 then this is the name of the discipline input by user"
+    t.datetime "created_at"
+    t.datetime "updated_at", default: "0001-01-01 00:00:00", null: false
+    t.bigint "log_id"
+    t.datetime "submitted_at"
+    t.string "discipline"
+    t.string "course_number", comment: "You will find this info in the abstract field for a CLASS type project in RAM2 data"
+    t.string "approved_permits"
+    t.boolean "involves_mammals"
+    t.boolean "involves_reptiles"
+    t.boolean "involves_amphibians"
+    t.boolean "involves_fish"
+    t.boolean "involves_birds"
+    t.boolean "involves_plants_fungus_soil"
+    t.boolean "involves_none"
+    t.index ["course_title"], name: "project_course_name"
+    t.index ["date_submitted"], name: "project_date_submitted"
+    t.index ["id"], name: "project_id"
+    t.index ["project_type", "id"], name: "project_type"
+    t.index ["reserve_id", "status", "id"], name: "Reserve"
+    t.index ["reserve_id"], name: "reserve_id"
+    t.index ["start_date"], name: "project_start_date"
+    t.index ["status", "reserve_id", "id"], name: "project_status"
   end
 
   create_table "rams_options", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -793,7 +803,7 @@ ActiveRecord::Schema.define(version: 2021_10_07_144100) do
     t.string "code_of_conduct_url", default: "http://rams.ucnrs.org/PDF/nrs-codeofconduct.pdf", null: false, comment: "Code of Conduct"
     t.string "zotero_url", limit: 200, default: "https://www.zotero.org/groups/"
     t.string "zotero_login", limit: 50
-    t.string "zotero_password", limit: 51
+    t.string "zotero_password", limit: 50
     t.column "facility_group_name", "enum('No Facilities','Less Than 30 Overnight Facilities','Over 30 Overnight Facilities','Lab Facility')", default: "No Facilities"
     t.column "internet_status", "enum('No Network','Cell Phone Only','DSL Internet','Satellite Internet','Broadband Internet','Cable Internet','High Speed Internet','Unknown')", default: "Unknown"
     t.integer "DistanceToManagingCampus", default: 0, comment: "DEPRECATED moved to reserve_locations"
