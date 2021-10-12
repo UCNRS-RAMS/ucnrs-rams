@@ -1,17 +1,20 @@
-class Project
-  def self.all
-    []
-  end
+class Project < ApplicationRecord
+  belongs_to :reserve
+  belongs_to :owner, class_name: "User", foreign_key: :user_id
+  belongs_to :applicant, class_name: "User"
+  has_many :visits
+
+  enum status: {
+    open: "Open",
+    closed: "Closed",
+    incomplete: "Incomplete",
+  }
 
   def self.alphabetized
-    []
+    order(Arel.sql("SUBSTRING(title, 1, 10)"))
   end
 
-  def id
-    0
-  end
-
-  def name
-    ""
+  def visits_count
+    visits.count
   end
 end

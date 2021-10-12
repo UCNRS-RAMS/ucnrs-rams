@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   end
   resources :states, only: [:index]
   resources :visits, only: [:new, :create]
+  resources :projects, only: [:index]
 end

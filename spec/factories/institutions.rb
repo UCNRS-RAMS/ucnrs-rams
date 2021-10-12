@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :institution do
-    name { "University of California, San Francisco" }
+    sequence(:name) { |n| "Institution #{n}" }
     city { "San Francisco" }
     institution_type { :university_of_california }
 

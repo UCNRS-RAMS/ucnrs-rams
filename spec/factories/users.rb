@@ -10,8 +10,8 @@ FactoryBot.define do
     address_city { "Mill Valley" }
     address_postal_code { "94941" }
     terms_accepted_at { Time.current }
-    email { "john@muir.test" }
     password { "Password1" }
+    sequence(:email) { |n| "john@muir#{n}.test" }
 
     association :institution, factory: :institution
     association :address_country, factory: :country

@@ -1,0 +1,38 @@
+<% content_for(:title) { t(".title") } %>
+
+<section class="content">
+  <section class="left">
+    <header>
+      <h1><%= t(".title") %></h1>
+      <select>
+        <% @page.filter_options.each do |filter_option| %>
+          <option><%= filter_option %></option>
+        <% end %>
+      </select>
+    </header>
+    <table class="projects">
+      <thead>
+        <tr>
+          <th><%= t(".table.headers.title") %></th>
+          <th><%= t(".table.headers.timeframe") %></th>
+          <th><%= t(".table.headers.type") %></th>
+          <th><%= t(".table.headers.num_visits") %></th>
+          <th><%= t(".table.headers.recent_visit_date") %></th>
+        </tr>
+      <thead>
+      <tbody>
+        <%= render partial: "project", collection: @page.projects %>
+      </tbody>
+    </table>
+  </section>
+  <section class="right">
+    <div>
+      <%= link_to t(".links.create_a_new_project"), "#" %>
+      <p><%= t(".project_description") %></p>
+      <div>
+        <%= image_tag "help-circle.svg", height: "18px", width: "18px", alt: t(".alt.help") %>
+        <%= link_to t(".links.help"), "#" %>
+      <div>
+    </div>
+  </section>
+</section>
