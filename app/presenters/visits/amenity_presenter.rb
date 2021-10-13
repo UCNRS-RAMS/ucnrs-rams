@@ -1,4 +1,4 @@
-class AmenityPresenter
+class Visits::AmenityPresenter
   def initialize(amenity)
     @amenity = amenity
   end
@@ -17,7 +17,7 @@ class AmenityPresenter
 
   def rates
     amenity.amenity_rates.in_order.map do |rate|
-      AmenityRatePresenter.new(rate)
+      Visits::AmenityRatePresenter.new(rate)
     end
   end
 

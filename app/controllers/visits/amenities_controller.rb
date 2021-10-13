@@ -1,9 +1,9 @@
-class AmenitiesController < ApplicationController
+class Visits::AmenitiesController < ApplicationController
   before_action :authenticate_user!
+  layout false
 
   def index
-    @page = AmenitiesIndexPresenter.new(for_reserve: reserve_id)
-    render layout: false
+    @page = Visits::AmenitiesPresenter.new(reserve_id: reserve_id)
   end
 
   private

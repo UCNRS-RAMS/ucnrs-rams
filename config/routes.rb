@@ -8,11 +8,12 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   resources :institutions, only: [:index, :new, :create]
-  resources :reserves, only: [] do
-    resources :amenities, only: [:index]
-    resource :reserve_inputs, only: [:show]
-  end
   resources :states, only: [:index]
   resources :visits, only: [:new, :create]
   resources :projects, only: [:index]
+
+  namespace :visits do
+    resources :reserve_inputs, only: [:show]
+    resources :amenities, only: [:index]
+  end
 end

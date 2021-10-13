@@ -1,4 +1,4 @@
-class AmenityRatePresenter
+class Visits::AmenityRatePresenter
   def initialize(amenity_rate)
     @amenity_rate = amenity_rate
   end

@@ -1,5 +1,5 @@
 <div class="amenity">
-  <input type="checkbox" value="<%= amenity.id %>" name="amenities[]" id="<%= amenity.checkbox_id %>"/>
+  <input type="checkbox" value="<%= amenity.id %>" name="visit[amenities][][id]" id="<%= amenity.checkbox_id %>"/>
   <label for="<%= amenity.checkbox_id %>">
     <img src="<%= amenity.image_url %>"/>
     <div class="content">
@@ -10,11 +10,11 @@
     <div class="booking">
       <div class="field">
         <label><%= t(".dates_of_use") %></label>
-        <input name="reservation_dates" type="text"/>
+        <input name="visit[amenities][][dates]" type="text"/>
       </div>
       <div class="field">
       <label><%= t(".rate") %><%= t(".rate_period", unit: amenity.unit, period: amenity.period) %></label>
-        <select class="rate_select">
+        <select class="rate_select" name="visit[amenities][][rate]">
           <%= amenity.rates.map do |rate| %>
             <option value="<%= rate.value %>"><%= rate.amount %> (<%= rate.description %>)</option>
           <% end %>
@@ -23,11 +23,11 @@
       <div class="field" data-controller="counter">
         <label><%= t(".number_of_people") %></label>
         <input type="button" data-action="click->counter#decrement" value="-"/>
-        <input name="people_count" type="text" data-counter-target="output" value="1"/>
+        <input name="visit[amenities][][people]" type="text" data-counter-target="output" value="1"/>
         <input type="button" data-action="click->counter#increment" value="+"/>
       </div>
       <div class="field">
-        <label><%= t(".subtotal") %></label>
+        <label><%= t(".subtotal") %><%=t(".rate_period", unit: amenity.unit, period: amenity.period) %></label>
         <p>$120.00</p>
       </div>
     </div>
