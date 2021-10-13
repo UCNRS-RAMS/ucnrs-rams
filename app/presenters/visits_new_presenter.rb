@@ -6,10 +6,10 @@ class VisitsNewPresenter
   attr_reader :form
 
   delegate :visit,
-    :arrival_date,
-    :arrival_time,
-    :departure_date,
-    :departure_time, to: :form
+    :start_date,
+    :start_time,
+    :end_date,
+    :end_time, to: :form
 
   def amenities
     Visits::AmenitiesPresenter.new(reserve_id: visit.reserve_id).amenities
@@ -51,5 +51,19 @@ class VisitsNewPresenter
 
   def default_public_use_category
     nil
+  end
+
+  def reserve
+    form.visit.reserve
+  end
+
+  def special_needs_statement
+    form.visit.reserve&.special_needs_statement
+  end
+
+  def alert_message
+    if visit.reserve&.reserve_alert_message_enabled
+      visit.reserve&.reserve_alert_message
+    end
   end
 end

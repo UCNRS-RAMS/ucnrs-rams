@@ -1,33 +1,27 @@
 class VisitForm
-  def initialize
-    @visit = Visit.new
+  def initialize(params = {})
+    @visit = Visit.where(id: params[:id]).first || Visit.new
+    @visit.attributes = params[:visit] || {}
+    @amenities_params = params[:amenities] || {}
   end
 
   attr_reader :visit
 
-  def arrival_datetime
-    # @visit.arrive_at ||
-    1.day.from_now.noon
+  delegate :special_needs, to: :visit
+
+  def start_date
+    visit.start_date ? I18n.l(visit.start_date, format: :visit_form_input_date) : ""
   end
 
-  def departure_datetime
-    # @visit.depart_at ||
-    2.days.from_now.noon
+  def start_time
+    visit.start_time ? I18n.l(visit.start_time, format: :visit_form_input_time) : "0000"
   end
 
-  def arrival_date
-    I18n.l(arrival_datetime, format: :visit_form_input_date)
+  def end_date
+    visit.end_date ? I18n.l(visit.end_date, format: :visit_form_input_date) : ""
   end
 
-  def arrival_time
-    I18n.l(arrival_datetime, format: :visit_form_input_time)
-  end
-
-  def departure_date
-    I18n.l(departure_datetime, format: :visit_form_input_date)
-  end
-
-  def departure_time
-    I18n.l(departure_datetime, format: :visit_form_input_time)
+  def end_time
+    visit.end_time ? I18n.l(visit.end_time, format: :visit_form_input_time) : "0000"
   end
 end

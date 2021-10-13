@@ -4,6 +4,6 @@
   <h1><%= t(".title") %></h1>
 </header>
 
-<%= form_with model: @page.visit, url: visits_path do |form| %>
+<%= form_with model: @page.visit, url: visits_path, remote: true do |form| %>
   <%= render partial: "form", locals: { page: @page, form: form } %>
 <% end %>

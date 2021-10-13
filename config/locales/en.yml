@@ -146,8 +146,8 @@ en:
         public_use_category: "Choose a category that best describes your visit"
         purpose_of_visit: "What do you plan to do on this visit?"
         reserve: "Reserve"
-        arrival: "Arrival"
-        departure: "Departure"
+        start: "Arrival"
+        end: "Departure"
         next_page:
           visitors: "Next Page: Visitors"
       alt_text:
