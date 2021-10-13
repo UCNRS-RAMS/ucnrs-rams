@@ -6,6 +6,10 @@ RSpec.describe Visit, type: :model do
     it { is_expected.to belong_to(:reserve) }
   end
 
+  describe "delegations" do
+    it { is_expected.to delegate_method(:short_name).to(:reserve).with_prefix }
+  end
+
   describe ".recent_start_date_first" do
     it "returns records in reverse chronological order by start_date" do
       one = travel_to(1.week.ago) { create(:visit, start_date: Date.current) }

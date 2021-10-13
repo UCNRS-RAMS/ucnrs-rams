@@ -1,4 +1,18 @@
+#frozen_string_literal: true
+
 class Project < ApplicationRecord
+  ALL_FILTER = "All Projects"
+  ACTIVE_FILTER = "Active Projects"
+  INCOMPLETE_FILTER = "Incomplete Projects"
+  INACTIVE_FILTER = "Inactive Projects"
+
+  STATUS_FILTERS = {
+    ALL_FILTER => nil,
+    ACTIVE_FILTER => "Open",
+    INCOMPLETE_FILTER => "Incomplete",
+    INACTIVE_FILTER => "Closed",
+  }
+
   belongs_to :reserve
   belongs_to :owner, class_name: "User", foreign_key: :user_id
   belongs_to :applicant, class_name: "User", foreign_key: :applicant_id
@@ -22,6 +36,32 @@ class Project < ApplicationRecord
 
   def self.recent_first
     order(created_at: :desc)
+  end
+
+  def self.ordered_by_visit_date
+    date = Date.current.strftime("MAKEDATE(%Y, %j)")
+    left_outer_joins(:visits)
+      .select(
+        Arel.sql(<<-end_sql)
+        projects.*,
+        (CASE
+            WHEN(visits.start_date IS NULL) THEN CONCAT('1-', DATE_FORMAT(visits.created_at, '%Y-%m-%d'))
+            WHEN(#{date} BETWEEN visits.start_date AND visits.end_date) THEN CONCAT('2-', DATE_FORMAT(visits.start_date, '%Y-%m-%d'))
+            WHEN(visits.start_date > #{date}) THEN CONCAT('3-', DATE_FORMAT(visits.start_date, '%Y-%m-%d'))
+            WHEN(visits.end_date < #{date}) THEN CONCAT('4-', DATE_FORMAT(visits.start_date, '%Y-%m-%d'))
+            ELSE CONCAT('5-', DATE_FORMAT(visits.start_date, '%Y-%m-%d'))
+        END) as ordered_visits
+        end_sql
+      )
+      .order("ordered_visits")
+  end
+
+  def self.for_status(status_filter)
+    if status_filter == ALL_FILTER
+      all
+    else
+      where(status: STATUS_FILTERS[status_filter])
+    end
   end
 
   def visits_count
