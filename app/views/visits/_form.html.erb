@@ -3,11 +3,11 @@
     <legend><%= t(".titles.purpose") %></legend>
 
     <fieldset>
-      <% @page.purpose_options.each do |value|%>
-        <%= form.label :purpose, for: "purpose-#{value}" do %>
-          <%= form.radio_button :purpose, value, id: "purpose-#{value}", data: { action: "click->value-projection#change" } %>
-          <span><%= t(".purpose_options.labels.#{value}") %></span>
-          <span><%= t(".purpose_options.explanation.#{value}") %></span>
+      <% @page.project_type_options.each do |value|%>
+        <%= form.label :project_type, for: "project-type-#{value}" do %>
+          <%= form.radio_button :project_type, value, id: "project-type-#{value}", data: { action: "click->value-projection#change" } %>
+          <span><%= t(".project_type_options.labels.#{value}") %></span>
+          <span><%= t(".project_type_options.explanation.#{value}") %></span>
         <% end %>
       <% end %>
     </fieldset>
@@ -30,8 +30,8 @@
       %>
     </div>
 
-    <%= form.label :plans, t(".labels.plans") %>
-    <%= form.text_area :plans %>
+    <%= form.label :purpose_of_visit, t(".labels.purpose_of_visit") %>
+    <%= form.text_area :purpose_of_visit %>
   </fieldset>
 
   <span data-controller="followup-content">

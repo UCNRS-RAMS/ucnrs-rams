@@ -11,8 +11,14 @@ class VisitsNewPresenter
     :departure_date,
     :departure_time, to: :form
 
-  def purpose_options
-    [ "research", "class", "meeting", "public" ]
+  def amenities
+    Visits::AmenitiesPresenter.new(reserve_id: visit.reserve_id).amenities
+  end
+
+  def project_type_options
+    Visit.project_type_options.keys.map do |option|
+      option.tr(" ", "-")
+    end
   end
 
   def project_options
@@ -24,14 +30,7 @@ class VisitsNewPresenter
   end
 
   def public_use_categories
-    [
-      "general-use",
-      "community-event",
-      "fundraiser",
-      "k-12-class",
-      "private-class",
-      "volunteer",
-    ]
+    Visit.public_use_categories.keys
   end
 
   def translate_in(context)

@@ -24,10 +24,10 @@ en:
       date_range:
         month_name: "%b"
   date_range:
-      same_day: "%{start_month} %{start_day}, %{start_year}"
-      different_days_same_month: "%{start_month} %{start_day} - %{end_day}, %{start_year}"
-      different_months_same_year: "%{start_month} %{start_day} - %{end_month} %{end_day}, %{start_year}"
-      different_years: "%{start_month} %{start_day}, %{start_year} - %{end_month} %{end_day}, %{end_year}"
+    same_day: "%{start_month} %{start_day}, %{start_year}"
+    different_days_same_month: "%{start_month} %{start_day} - %{end_day}, %{start_year}"
+    different_months_same_year: "%{start_month} %{start_day} - %{end_month} %{end_day}, %{start_year}"
+    different_years: "%{start_month} %{start_day}, %{start_year} - %{end_month} %{end_day}, %{end_year}"
   amenities:
     amenity:
       more_info: "Learn More"
@@ -121,11 +121,15 @@ en:
         orcid: "What is an ORCID?"
         ucnrs_newsletter: "NRS Newsletter."
         terms_of_use: "Terms of Use"
-  reserve_inputs:
-    show:
-      labels:
-        special_needs: "Special Needs"
   visits:
+    amenities:
+      amenity:
+        more_info: "Learn More"
+        dates_of_use: "Dates of Use"
+        rate: "Rate"
+        rate_period: "(per %{unit} per %{period})"
+        number_of_people: "No. of People"
+        subtotal: "Subtotal"
     new:
       title: "Visit Details"
     form:
@@ -140,7 +144,7 @@ en:
       labels:
         project: "Research Project"
         public_use_category: "Choose a category that best describes your visit"
-        plans: "What do you plan to do on this visit?"
+        purpose_of_visit: "What do you plan to do on this visit?"
         reserve: "Reserve"
         arrival: "Arrival"
         departure: "Departure"
@@ -161,17 +165,21 @@ en:
           k_12_class: "K-12 Class"
           private_class: "Private Class (Not University or K-12)"
           volunteer: "Volunteer Event"
-      purpose_options:
+      project_type_options:
         labels:
           research: "Research"
-          class: "University Class"
-          meeting: "Meeting or Conference"
-          public: "Public Use"
+          university-class: "University Class"
+          meeting-or-conference: "Meeting or Conference"
+          public-use: "Public Use"
         explanation:
           research: "Research"
-          class: "Class"
-          meeting: "Meeting"
-          public: "Public"
+          university-class: "Class"
+          meeting-or-conference: "Meeting"
+          public-use: "Public"
+  reserve_inputs:
+    show:
+      labels:
+        special_needs: "Special Needs"
   projects:
     index:
       title: "My Projects"
