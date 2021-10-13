@@ -15,6 +15,7 @@ RSpec.describe Institution, type: :model do
     it { is_expected.to belong_to(:country) }
     it { is_expected.to belong_to(:state).optional(true) }
     it { is_expected.to have_many(:users).inverse_of(:institution).dependent(:restrict_with_error) }
+    it { is_expected.to have_many(:project_team_members) }
   end
 
   it do

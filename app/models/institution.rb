@@ -11,6 +11,7 @@ class Institution < ApplicationRecord
   belongs_to :country
   belongs_to :state, optional: true
   has_many :users, inverse_of: :institution, dependent: :restrict_with_error
+  has_many :project_team_members
 
   enum institution_type: {
     university_of_california: "University of California",

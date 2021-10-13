@@ -5,8 +5,9 @@ class ProjectsIndexPresenter
 
   def projects
     Project
-      .where(owner: user)
-      .order(:created_at)
+      .with_active_team_member(user)
+      .recent_first
+      .limit(10)
       .map { |project| ProjectPresenter.new(project) }
   end
 

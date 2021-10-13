@@ -6,6 +6,7 @@ RSpec.describe Project, type: :model do
     it { is_expected.to belong_to(:owner).class_name("User").with_foreign_key(:user_id) }
     it { is_expected.to belong_to(:applicant).class_name("User") }
     it { is_expected.to have_many(:visits) }
+    it { is_expected.to have_many(:team_members).class_name("ProjectTeamMember") }
   end
 
   it do 
@@ -24,6 +25,35 @@ RSpec.describe Project, type: :model do
       project_b = create(:project, title: "B")
 
       expect(Project.alphabetized).to eq [project_a, project_b, project_c]
+    end
+  end
+
+  describe ".with_active_team_member" do
+    it "returns all projects that are associated with a given user and are labeled as active" do
+      first_user = create(:user)
+      second_user = create(:user)
+      first_project = create(:project)
+      second_project = create(:project)
+      third_project = create(:project)
+      create(:project_team_member, project: first_project, user: first_user, active: false)
+      create(:project_team_member, project: second_project, user: second_user, active: true)
+      create(:project_team_member, project: third_project, user: first_user, active: true)
+
+      results = Project.with_active_team_member(first_user)
+
+      expect(results).to match_array [third_project]
+    end
+  end
+
+  describe ".recent_first" do
+    it "returns records in reverse chronological order" do
+      one = travel_to(1.week.ago) { create(:project) }
+      two = travel_to(1.month.ago) { create(:project) }
+      three = create(:project)
+
+      results = Project.recent_first
+
+      expect(results).to eq([three, one, two])
     end
   end
 

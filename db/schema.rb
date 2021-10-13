@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_11_215651) do
+ActiveRecord::Schema.define(version: 2021_10_13_132405) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id"
@@ -155,28 +155,6 @@ ActiveRecord::Schema.define(version: 2021_10_11_215651) do
     t.text "PermitAnswer"
     t.index ["project_id", "reserve_id"], name: "Applications"
     t.index ["project_id"], name: "reserve"
-  end
-
-  create_table "AppTeamMembers", primary_key: "ApplicationTMID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "project_id", null: false
-    t.integer "user_id", null: false
-    t.integer "institution_id"
-    t.column "UserType", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')"
-    t.column "DegreeSought", "set('No selection made','BA','BS','MA','MS','PhD')", default: "No selection made"
-    t.boolean "IsPrincipalInvestigator", default: false, null: false
-    t.boolean "can_edit_project", default: false, null: false
-    t.boolean "CanAddTeamMember", default: false, null: false
-    t.boolean "CanMakeReservation", default: false, null: false
-    t.boolean "ReceiveInvoice", default: false, null: false
-    t.column "InvoiceDelivery", "enum('pdf','paper','none')", default: "pdf", null: false
-    t.boolean "viewed_project", default: false, null: false, comment: "Flag determining if the team member has viewed the application or not."
-    t.boolean "Visible", default: true, null: false, comment: "Boolean to show or hide team member, for the purpose of hiding team members who is not active anymore on the application."
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["IsPrincipalInvestigator", "user_id"], name: "PI"
-    t.index ["institution_id", "user_id", "project_id"], name: "Institutions"
-    t.index ["project_id"], name: "Applications"
-    t.index ["user_id", "project_id"], name: "user_application"
   end
 
   create_table "Disciplines", primary_key: "DisciplineID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -619,6 +597,28 @@ ActiveRecord::Schema.define(version: 2021_10_11_215651) do
     t.integer "years_to_expiration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "project_team_members", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.integer "user_id", null: false
+    t.integer "institution_id"
+    t.column "user_role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')"
+    t.column "degree_sought", "set('No selection made','BA','BS','MA','MS','PhD')", default: "No selection made", comment: "DEPRECATED"
+    t.boolean "is_principal_investigator", default: false, null: false
+    t.boolean "can_edit_project", default: false, null: false
+    t.boolean "can_add_project_user", default: false, null: false
+    t.boolean "can_add_visit", default: false, null: false
+    t.boolean "can_receive_invoice", default: false, null: false
+    t.column "invoice_delivery", "enum('pdf','paper','none')", default: "pdf", null: false, comment: "DEPRECATED"
+    t.boolean "viewed_project", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "active", default: true, null: false, comment: "Boolean to show or hide team member, for the purpose of hiding team members who is not active anymore on the application."
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["institution_id", "user_id", "project_id"], name: "Institutions"
+    t.index ["is_principal_investigator", "user_id"], name: "PI"
+    t.index ["project_id"], name: "projects"
+    t.index ["user_id", "project_id"], name: "user_application"
   end
 
   create_table "projects", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
