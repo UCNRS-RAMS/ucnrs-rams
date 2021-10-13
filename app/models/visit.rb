@@ -3,6 +3,8 @@ class Visit < ApplicationRecord
   belongs_to :project
   belongs_to :reserve
 
+  delegate :short_name, to: :reserve, prefix: true
+
   def self.recent_start_date_first
     order(start_date: :desc)
   end

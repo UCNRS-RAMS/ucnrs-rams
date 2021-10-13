@@ -192,23 +192,23 @@ en:
   projects:
     index:
       title: "My Projects"
-      table:
-        headers:
-          title: "Title"
-          timeframe: "Timeframe"
-          type: "Type"
-          num_visits: "No. Visits"
-          recent_visit_date: "Date of Recent Visit"
+      table_headers:
+        title: "Title"
+        timeframe: "Timeframe"
+        type: "Type"
+        num_visits: "No. of Visits"
+        recent_visit_date: "Most Recent Visit"
+        recent_visit_reserve: "Reserve Name"
       project_description: "A project encompasses the activities you plan to conduct for a specific purpose. For example, a project might be teaching a class, or running a study. Projects are not site-specific; they may be conducted at multiple reserves/field stations."
       links:
         help: "Help Topics"
         create_a_new_project: "Create A New Project"
       alt:
-        help: "A question mark endclosed in a circle"
+        help_icon: "A question mark endclosed in a circle"
     project:
       not_applicable: "N/A"
       alt:
-        right_arrow: "A right facing arrow enclosed in a circle"
+        right_facing_arrow: "A right facing arrow enclosed in a circle"
   navbar:
     link:
       visits: "Visits"

@@ -2,35 +2,38 @@
 
 <section class="content">
   <section class="left">
-    <header>
-      <h1><%= t(".title") %></h1>
-      <select>
-        <% @page.filter_options.each do |filter_option| %>
-          <option><%= filter_option %></option>
-        <% end %>
-      </select>
-    </header>
-    <table class="projects">
-      <thead>
-        <tr>
-          <th><%= t(".table.headers.title") %></th>
-          <th><%= t(".table.headers.timeframe") %></th>
-          <th><%= t(".table.headers.type") %></th>
-          <th><%= t(".table.headers.num_visits") %></th>
-          <th><%= t(".table.headers.recent_visit_date") %></th>
-        </tr>
-      <thead>
-      <tbody>
-        <%= render partial: "project", collection: @page.projects %>
-      </tbody>
-    </table>
+    <turbo-frame id="projects-table">
+      <header>
+        <h1><%= t(".title") %></h1>
+        <form method="get">
+          <select id="status" name="status" aria-label="status" onchange="this.form.submit()">
+            <% @page.filter_options.each do |option| %>
+              <option <%= @page.selected?(option) %> value="<%= option %>"><%= option %></option>
+            <% end %>
+          </select>
+        </form>
+      </header>
+      <table class="projects">
+        <thead>
+          <tr>
+            <th><%= t(".table_headers.title") %></th>
+            <th><%= t(".table_headers.timeframe") %></th>
+            <th><%= t(".table_headers.type") %></th>
+            <th><%= t(".table_headers.num_visits") %></th>
+            <th><%= t(".table_headers.recent_visit_date") %></th>
+            <th><%= t(".table_headers.recent_visit_reserve") %></th>
+          </tr>
+        <thead>
+        <%= render partial: "table", locals: { page: @page } %>
+      </table>
+    </turbo-frame>
   </section>
   <section class="right">
     <div>
       <%= link_to t(".links.create_a_new_project"), "#" %>
       <p><%= t(".project_description") %></p>
       <div>
-        <%= image_tag "help-circle.svg", height: "18px", width: "18px", alt: t(".alt.help") %>
+        <%= image_tag "help-circle.svg", height: "18px", width: "18px", alt: t(".alt.help_icon") %>
         <%= link_to t(".links.help"), "#" %>
       <div>
     </div>

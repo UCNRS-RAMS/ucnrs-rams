@@ -1,12 +1,13 @@
-<tr class="project">
+<tr id="project_<%= project.id %>" class="project">
   <td><%= truncate(project.title, length: 50) %></td>
   <td><%= project.timeframe %></td>
   <td><%= project.project_type %></td>
   <td><%= project.visits_count %></td>
   <td><%= project.recent_visit_date %></td>
+  <td><%= project.recent_visit_reserve %></td>
   <td>
     <%= link_to "#" do %>
-      <%= image_tag "arrow-right-circle-light.svg", height: "16", width: "16", alt: t(".alt.right_arrow") %>
+      <%= image_tag "arrow-right-circle-light.svg", height: "16px", width: "16px", alt: t(".alt.right_facing_arrow") %>
     <% end %>
   </td>
 </tr>

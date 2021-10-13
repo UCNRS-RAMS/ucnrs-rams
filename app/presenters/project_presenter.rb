@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class ProjectPresenter
-  def initialize(project)
+  def initialize(project:, status_filter: Project::ALL_FILTER)
     @project = project
+    @status_filter = status_filter
   end
 
-  attr_reader :project
+  attr_reader :project, :status_filter
 
   delegate :id,
     :project_type,
@@ -13,7 +14,8 @@ class ProjectPresenter
     :title, to: :project
   delegate :start_date,
     :end_date,
-    :created_at, to: :project, private: true
+    :created_at,
+    :status, to: :project, private: true
 
   def timeframe
     if project_requires_dates?
@@ -25,17 +27,33 @@ class ProjectPresenter
 
   def recent_visit_date
     if visits.exists?
-      start_date = visits
-        .recent_start_date_first
-        .first
-        .start_date
-      I18n.l(start_date, format: :project_visit_start_date)
+      I18n.l(most_recent_visit.start_date, format: :project_visit_start_date)
+    else
+      not_applicable
+    end
+  end
+
+  def recent_visit_reserve
+    if with_visits? && most_recent_visit.reserve.present?
+      most_recent_visit.reserve_short_name
     else
       not_applicable
     end
   end
 
   private
+
+  def with_visits?
+    visits.exists?
+  end
+
+  def showing_all_projects?
+    status_filter == Project::ALL_FILTER
+  end
+
+  def most_recent_visit
+    visits.recent_start_date_first.first
+  end
 
   def project_requires_dates?
     start_date.present? && end_date.present?

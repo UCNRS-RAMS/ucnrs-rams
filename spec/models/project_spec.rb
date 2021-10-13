@@ -58,6 +58,57 @@ RSpec.describe Project, type: :model do
     end
   end
 
+  describe ".ordered_by_visit_date" do
+    it "orders the project records by the associated visits start_dates" do
+      project1 = create(:project, title: "P1")
+      project2 = create(:project, title: "P2")
+      project3 = create(:project, title: "P3")
+      project4 = create(:project, title: "P4")
+      project5 = create(:project, title: "P5")
+      project6 = create(:project, title: "P6")
+      past_visit = create(:visit, project: project1, start_date: Date.current - 1.year, end_date: Date.current - 6.months)
+      ongoing_visit = create(:visit, project: project2, start_date: Date.current - 1.day, end_date: Date.current + 3.days)
+      null_start_date = create(:visit, project: project3, start_date: nil, end_date: nil)
+      future_visit = create(:visit, project: project4, start_date: Date.current + 1.year, end_date: Date.current + 2.years)
+      other_null_start_date = create(:visit, project: project5, start_date: nil, end_date: nil)
+      other_ongoing_visit = create(:visit, project: project6, start_date: Date.current - 3.days, end_date: Date.current + 3.days)
+
+      results = Project.ordered_by_visit_date
+
+      expect(results.map(&:title)).to eq [
+        "P3",
+        "P5",
+        "P6",
+        "P2",
+        "P4",
+        "P1",
+      ]
+    end
+  end
+
+  describe ".for_status" do
+    context "when the passed status category is 'All Projects'" do
+      it "returns all project records" do
+        projects = create_pair(:project)
+
+        results = Project.for_status("All Projects")
+
+        expect(results).to match_array projects
+      end
+    end
+
+    context "when the passed status category is something other than 'All Projects'" do
+      it "returns the project records where the status maps to the status category" do
+        incomplete_projects = create_pair(:project, status: "Incomplete")
+        active_project = create(:project, status: "Open")
+
+        results = Project.for_status("Incomplete Projects")
+
+        expect(results).to match_array incomplete_projects
+      end
+    end
+  end
+
   describe "#visits_count" do
     it "counts the number of visits associtated with a project" do
       project = create(:project)
