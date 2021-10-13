@@ -1,6 +1,15 @@
 require "rails_helper"
 
 RSpec.describe User, type: :model do
+  describe "associations" do
+    it { is_expected.to belong_to(:institution) }
+    it { is_expected.to belong_to(:address_country).class_name("Country") }
+    it { is_expected.to belong_to(:billing_address_country).class_name("Country").optional(true) }
+    it { is_expected.to belong_to(:address_state).class_name("State").optional(true) }
+    it { is_expected.to belong_to(:billing_address_state).class_name("State").optional(true) }
+    it { is_expected.to have_many(:project_team_memberships).class_name("ProjectTeamMember") }
+  end
+
   describe "validations" do
     it { is_expected.to validate_presence_of(:first_name) }
     it { is_expected.to validate_presence_of(:last_name) }
@@ -384,14 +393,6 @@ RSpec.describe User, type: :model do
         end
       end
     end
-  end
-
-  describe "associations" do
-    it { is_expected.to belong_to(:institution) }
-    it { is_expected.to belong_to(:address_country).class_name("Country") }
-    it { is_expected.to belong_to(:billing_address_country).class_name("Country").optional(true) }
-    it { is_expected.to belong_to(:address_state).class_name("State").optional(true) }
-    it { is_expected.to belong_to(:billing_address_state).class_name("State").optional(true) }
   end
 
   it do 
