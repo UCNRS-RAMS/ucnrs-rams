@@ -1,4 +1,4 @@
-import { Application, Controller } from "stimulus"
+import { Application, Controller } from "@hotwired/stimulus"
 import { renderDOM, clearDOM } from "./support/dom"
 import CounterController from "../controllers/counter_controller"
 

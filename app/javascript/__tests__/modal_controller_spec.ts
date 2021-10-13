@@ -1,4 +1,4 @@
-import { Application, Controller } from "stimulus"
+import { Application, Controller } from "@hotwired/stimulus"
 import { renderDOM, clearDOM } from "./support/dom"
 import ModalController from "../controllers/modal_controller"
 
