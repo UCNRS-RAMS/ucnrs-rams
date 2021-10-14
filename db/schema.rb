@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_13_132405) do
+ActiveRecord::Schema.define(version: 2021_10_22_183552) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id"
@@ -212,35 +212,6 @@ ActiveRecord::Schema.define(version: 2021_10_13_132405) do
     t.index ["StartDate"], name: "Start"
     t.index ["reserve_id", "EndDate"], name: "ReserveEnd"
     t.index ["reserve_id", "StartDate"], name: "ReserveStart"
-  end
-
-  create_table "InvAssetReservation", primary_key: "asset_visit_id", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "amenity_id", null: false
-    t.integer "visit_id", null: false
-    t.integer "amenity_rate_id", null: false
-    t.integer "user_id"
-    t.bigint "InvoiceID", default: 0
-    t.integer "RateCategoryID", comment: "Rate Category that is selected from INVRateCategories for that reserve"
-    t.date "ArrivalDate"
-    t.time "ArrivalTime", default: "2000-01-01 00:00:00"
-    t.date "DepartureDate"
-    t.time "DepartureTime", default: "2000-01-01 00:00:00"
-    t.integer "NumberOfPeople"
-    t.column "NeedRating", "enum('Required','High','Medium','Low','NA','')"
-    t.string "UserComments", limit: 80
-    t.column "Status", "enum('Pending approval','Approved','Cancelled','Rejected')", default: "Pending approval"
-    t.integer "ManualPeople", default: 0
-    t.decimal "ManualRate", precision: 10, scale: 4, default: "0.0"
-    t.decimal "ManualUnits", precision: 10, scale: 4, default: "0.0"
-    t.boolean "InvoiceNow", default: true
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "ArrivalDateTime"
-    t.index ["InvoiceID"], name: "index_InvAssetReservation_on_InvoiceID"
-    t.index ["NeedRating", "visit_id"], name: "Priority"
-    t.index ["Status", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "StatusAndDates"
-    t.index ["visit_id", "NeedRating"], name: "Facility"
-    t.index ["visit_id"], name: "visit"
   end
 
   create_table "InvPayments", primary_key: "PaymentID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -501,6 +472,35 @@ ActiveRecord::Schema.define(version: 2021_10_13_132405) do
     t.datetime "updated_at"
     t.index ["amenity_id"], name: "amenity"
     t.index ["id"], name: "PrimaryKey", unique: true
+  end
+
+  create_table "amenity_visits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "amenity_id", null: false
+    t.integer "visit_id", null: false
+    t.integer "amenity_rate_id", null: false
+    t.integer "user_id"
+    t.bigint "invoice_id", default: 0
+    t.integer "rate_category_id", comment: "Rate Category that is selected from INVRateCategories for that reserve"
+    t.date "arrives_on"
+    t.time "arrives_at", default: "2000-01-01 00:00:00"
+    t.date "departs_on"
+    t.time "departs_at", default: "2000-01-01 00:00:00"
+    t.integer "number_of_people"
+    t.column "need_rating", "enum('Required','High','Medium','Low','NA','')"
+    t.string "user_comments", limit: 80
+    t.column "status", "enum('Pending approval','Approved','Cancelled','Rejected')", default: "Pending approval"
+    t.integer "manual_people", default: 0
+    t.decimal "ManualRate", precision: 10, scale: 4, default: "0.0"
+    t.decimal "manual_units", precision: 10, scale: 4, default: "0.0"
+    t.boolean "invoice_now", default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["arrives_on", "arrives_at", "departs_on", "departs_at"], name: "ArrivalDateTime"
+    t.index ["invoice_id"], name: "index_amenity_visits_on_invoice_id"
+    t.index ["need_rating", "visit_id"], name: "Priority"
+    t.index ["status", "arrives_on", "arrives_at", "departs_on", "departs_at"], name: "StatusAndDates"
+    t.index ["visit_id", "need_rating"], name: "Facility"
+    t.index ["visit_id"], name: "visit"
   end
 
   create_table "applications_disciplines", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
