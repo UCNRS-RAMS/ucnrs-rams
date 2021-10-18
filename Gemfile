@@ -7,6 +7,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem "devise", '~> 4.8'
 gem 'foreman'
 gem 'jbuilder', '~> 2.7'
+gem 'kaminari'
 gem 'mysql2', '~> 0.5'
 gem 'nokogiri', '~> 1.12.5'
 gem 'puma', '~> 5.5.1'
