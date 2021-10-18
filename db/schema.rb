@@ -793,7 +793,7 @@ ActiveRecord::Schema.define(version: 2021_10_07_144100) do
     t.string "code_of_conduct_url", default: "http://rams.ucnrs.org/PDF/nrs-codeofconduct.pdf", null: false, comment: "Code of Conduct"
     t.string "zotero_url", limit: 200, default: "https://www.zotero.org/groups/"
     t.string "zotero_login", limit: 50
-    t.string "zotero_password", limit: 50
+    t.string "zotero_password", limit: 51
     t.column "facility_group_name", "enum('No Facilities','Less Than 30 Overnight Facilities','Over 30 Overnight Facilities','Lab Facility')", default: "No Facilities"
     t.column "internet_status", "enum('No Network','Cell Phone Only','DSL Internet','Satellite Internet','Broadband Internet','Cable Internet','High Speed Internet','Unknown')", default: "Unknown"
     t.integer "DistanceToManagingCampus", default: 0, comment: "DEPRECATED moved to reserve_locations"
