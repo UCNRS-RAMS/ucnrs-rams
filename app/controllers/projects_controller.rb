@@ -5,6 +5,7 @@ class ProjectsController < ApplicationController
     @page = ProjectsIndexPresenter.new(
       user: current_user,
       status_filter: status_filter,
+      page: page_number,
     )
   end
 
@@ -12,5 +13,9 @@ class ProjectsController < ApplicationController
 
   def status_filter
     params[:status]
+  end
+ 
+  def page_number
+    params[:page]
   end
 end

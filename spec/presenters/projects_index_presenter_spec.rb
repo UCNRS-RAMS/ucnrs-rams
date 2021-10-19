@@ -11,6 +11,7 @@ RSpec.describe ProjectsIndexPresenter do
         second_project = project_team_membership2.project
         presenter = ProjectsIndexPresenter.new(
           user: user,
+          page: 1,
           status_filter: "All Projects",
         )
 
@@ -30,6 +31,7 @@ RSpec.describe ProjectsIndexPresenter do
         second_project = project_team_membership2.project
         presenter = ProjectsIndexPresenter.new(
           user: user,
+          page: 1,
           status_filter: "Foo",
         )
 
@@ -47,7 +49,7 @@ RSpec.describe ProjectsIndexPresenter do
       create(:project_team_membership, user: user, project: first_active_project, active: true)
       create(:project_team_membership, user: user, project: second_active_project, active: true)
       create(:project_team_membership, user: user, project: inactive_project, active: false)
-      presenter = ProjectsIndexPresenter.new(user: user, status_filter: "All Projects")
+      presenter = ProjectsIndexPresenter.new(user: user, page: 1, status_filter: "All Projects")
 
       scope = presenter.project_scope
 
@@ -86,7 +88,7 @@ RSpec.describe ProjectsIndexPresenter do
         start_date: Date.current - 1.year,
         end_date: Date.current - 6.months,
       )
-      presenter = ProjectsIndexPresenter.new(user: user, status_filter: "All Projects")
+      presenter = ProjectsIndexPresenter.new(user: user, page: 1, status_filter: "All Projects")
 
       scope = presenter.project_scope
 
@@ -108,6 +110,7 @@ RSpec.describe ProjectsIndexPresenter do
       create(:project_team_membership, project: closed_project, user: user, active: true)
       presenter = ProjectsIndexPresenter.new(
         user: user,
+        page: 1,
         status_filter: "Active Projects",
       )
 
@@ -121,7 +124,7 @@ RSpec.describe ProjectsIndexPresenter do
 
     it "returns a maxiumum of 10 projects" do
       user = create(:user)
-      presenter = ProjectsIndexPresenter.new(user: user, status_filter: "All Projects")
+      presenter = ProjectsIndexPresenter.new(user: user, page: 1, status_filter: "All Projects")
       create_list(:project_team_membership, 11, user: user)
 
       scope = presenter.project_scope
@@ -133,14 +136,14 @@ RSpec.describe ProjectsIndexPresenter do
   describe "#selected?" do
     it "is 'selected' if the supplied option is the same as the status_filter" do
       user = create(:user)
-      presenter = ProjectsIndexPresenter.new(user: user, status_filter: "All Projects")
+      presenter = ProjectsIndexPresenter.new(user: user, page: 1, status_filter: "All Projects")
 
       expect(presenter.selected?("All Projects")).to eq("selected")
     end
 
     it "is an empty string if the supplied option is different than the status_filter" do
       user = create(:user)
-      presenter = ProjectsIndexPresenter.new(user: user, status_filter: "Incomplete Projects")
+      presenter = ProjectsIndexPresenter.new(user: user, page: 1, status_filter: "Incomplete Projects")
 
       expect(presenter.selected?("All Projects")).to be_blank
     end
@@ -149,7 +152,7 @@ RSpec.describe ProjectsIndexPresenter do
   describe "#filter_options" do
     it "returns the keys of the Project::STATUS_FILTERS constant" do
       user = create(:user)
-      presenter = ProjectsIndexPresenter.new(user: user, status_filter: "All Projects")
+      presenter = ProjectsIndexPresenter.new(user: user, page: 1, status_filter: "All Projects")
 
       expect(presenter.filter_options).to eq Project::STATUS_FILTERS.keys
     end
