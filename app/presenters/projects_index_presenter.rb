@@ -1,10 +1,13 @@
+# frozen_string_literal: true
+
 class ProjectsIndexPresenter
-  def initialize(user:, status_filter:)
+  def initialize(user:, page:, status_filter:)
     @status_filter = status_filter || Project::ALL_FILTER
+    @page = page || 1
     @user = user
   end
 
-  attr_reader :status_filter, :user
+  attr_reader :status_filter, :user, :page
 
   def projects
     project_scope.map do |project|
@@ -17,7 +20,8 @@ class ProjectsIndexPresenter
       .with_active_team_member(user)
       .ordered_by_visit_date
       .for_status(status_filter)
-      .limit(10)
+      .page(page)
+      .per(10)
   end
 
   def selected?(option)

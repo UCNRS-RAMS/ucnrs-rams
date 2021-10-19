@@ -26,6 +26,7 @@
         <thead>
         <%= render partial: "table", locals: { page: @page } %>
       </table>
+      <%= paginate @page.project_scope %>
     </turbo-frame>
   </section>
   <section class="right">

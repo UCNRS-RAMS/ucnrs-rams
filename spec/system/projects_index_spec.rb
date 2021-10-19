@@ -155,4 +155,40 @@ RSpec.describe "Projects Index" do
       travel_back
     end
   end
+
+  describe "paginated projects" do
+    it "paginates projects displaying 10 at a time", js: true do
+      user = create(:user, :confirmed)
+      25.times do |n|
+        project = create(:project, title: "Project #{n}", owner: user)
+        create(:project_team_membership, project: project, user: user, active: true)
+      end
+
+      flow = ProjectIndexFlow.new(page)
+      sign_in(user)
+
+      flow.visit_projects_index_page
+      expect(flow).to be_on_projects_index_page
+      expect(flow).to have_active_my_projects_tab
+      expect(flow).to have_displayed_projects(10)
+      expect(flow).to have_pagination_link("next")
+      expect(flow).to have_pagination_link("last")
+      expect(flow).to have_selected_page_number_link(1)
+      expect(flow).to have_page_number_link(2)
+      expect(flow).to have_page_number_link(3)
+      expect(page).to be_axe_clean.skipping(:"color-contrast")
+
+      flow.go_to_page(3)
+      expect(flow).to have_displayed_projects(5)
+      expect(flow).to have_pagination_link("first")
+      expect(flow).to have_pagination_link("prev")
+      expect(flow).to have_page_number_link(1)
+      expect(flow).to have_page_number_link(2)
+      expect(flow).to have_selected_page_number_link(3)
+
+      flow.filter_by_status("Incomplete Projects")
+      expect(flow).to have_displayed_projects(0)
+      expect(flow).to have_no_pagination_links
+    end
+  end
 end

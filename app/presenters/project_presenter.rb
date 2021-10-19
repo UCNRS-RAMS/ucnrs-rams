@@ -11,7 +11,8 @@ class ProjectPresenter
   delegate :id,
     :project_type,
     :visits_count,
-    :title, to: :project
+    :title,
+    :total_pages, to: :project
   delegate :start_date,
     :end_date,
     :created_at,
@@ -45,10 +46,6 @@ class ProjectPresenter
 
   def with_visits?
     visits.exists?
-  end
-
-  def showing_all_projects?
-    status_filter == Project::ALL_FILTER
   end
 
   def most_recent_visit
