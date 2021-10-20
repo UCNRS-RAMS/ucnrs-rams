@@ -1,4 +1,4 @@
-<section data-controller="state-select-options">
+<section data-controller="followup-content">
   <div class="field">
     <%= f.label :name, I18n.t(".institutions.labels.name") %>
     <%= f.text_field :name, placeholder: @page.name_placeholder, required: true %> 
@@ -13,10 +13,10 @@
   </div>
   <div class="field" >
     <%= f.label :country_id, I18n.t(".institutions.labels.country") %>
-    <%= f.collection_select(:country_id, Country.alphabetical_by_name, :id, :name, { prompt: I18n.t(".forms.select_one") }, { required:true, data: { action: "state-select-options#handleSelectChange", url: states_url } } ) %>
+    <%= f.collection_select(:country_id, Country.alphabetical_by_name, :id, :name, { prompt: I18n.t(".forms.select_one") }, { required:true, data: { action: "change->followup-content#change" } } ) %>
   </div>
   <div class="field">
     <%= f.label :state_id, I18n.t(".institutions.labels.state") %>
-    <%= f.collection_select(:state_id, State.alphabetical_by_name, :id, :name, { prompt: I18n.t(".forms.select_one") }, { data: { state_select_options_target: "states" } } ) %>
+    <%= f.collection_select(:state_id, State.alphabetical_by_name, :id, :name, { prompt: I18n.t(".forms.select_one") }, { data: { followup_content_target: "destination", "followup-content-url-value": states_url(country_id: "VALUE") } } ) %>
   </div>
 </section>
