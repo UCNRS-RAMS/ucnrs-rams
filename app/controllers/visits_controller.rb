@@ -2,12 +2,12 @@ class VisitsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @page = VisitsNewPresenter.new
+    @page = VisitsFormPresenter.new
   end
 
   def create
     @form = VisitForm.new(visit_params)
-    @page = VisitsNewPresenter.new(form: @form)
+    @page = VisitsFormPresenter.new(form: @form)
     render :new
   end
 
@@ -16,6 +16,7 @@ class VisitsController < ApplicationController
   def visit_params
     params.require(:visit).permit(
       :project_id,
+      :project_type,
       :public_use_category,
       :purpose_of_visit,
       :reserve_id,
@@ -25,10 +26,12 @@ class VisitsController < ApplicationController
       :end_time,
       :special_needs,
       amenities: [
-        :id,
-        :dates,
-        :rate,
-        :people,
+        :amenity_id,
+        :amenity_visit_id,
+        :arrives_on,
+        :departs_on,
+        :amenity_rate_id,
+        :number_of_people,
       ]
     )
   end

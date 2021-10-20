@@ -1,18 +1,33 @@
 class Visits::AmenityPresenter
-  def initialize(amenity)
+  def initialize(amenity, form: nil)
     @amenity = amenity
+    @form = form || AmenityForm.new
   end
 
-  attr_reader :amenity
+  attr_reader :amenity, :form
 
-  delegate :id,
-    :title,
+  delegate :title,
     :description,
     :image_url,
     to: :amenity
 
+  delegate :arrives_on,
+    :departs_on,
+    :amenity_rate_id,
+    :number_of_people,
+    :checked,
+    to: :form
+
+  def amenity_id
+    amenity.id
+  end
+
+  def amenity_visit_id
+    form.id
+  end
+
   def checkbox_id
-    "amenity-checkbox-#{id}"
+    "amenity-#{amenity_id}"
   end
 
   def rates

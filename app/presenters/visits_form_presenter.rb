@@ -1,4 +1,4 @@
-class VisitsNewPresenter
+class VisitsFormPresenter
   def initialize(form: VisitForm.new)
     @form = form
   end
@@ -9,10 +9,13 @@ class VisitsNewPresenter
     :start_date,
     :start_time,
     :end_date,
-    :end_time, to: :form
+    :end_time,
+    to: :form
 
   def amenities
-    Visits::AmenitiesPresenter.new(reserve_id: visit.reserve_id).amenities
+    selectable_amenities.map do |amenity|
+      Visits::AmenityPresenter.new(amenity, form: form.amenity_form(amenity.id.to_s))
+    end
   end
 
   def project_type_options
@@ -43,7 +46,7 @@ class VisitsNewPresenter
     midnight = Time.current.beginning_of_day
     (0..47).to_a.map do |i|
       OpenStruct.new(
-        value: (midnight + (i * 30).minutes).strftime("%H%M"),
+        value: (midnight + (i * 30).minutes).strftime("%H:%M"),
         human: (midnight + (i * 30).minutes).strftime("%I:%M %p"),
       )
     end
@@ -65,5 +68,9 @@ class VisitsNewPresenter
     if visit.reserve&.reserve_alert_message_enabled
       visit.reserve&.reserve_alert_message
     end
+  end
+
+  def selectable_amenities
+    visit.reserve&.amenities || []
   end
 end

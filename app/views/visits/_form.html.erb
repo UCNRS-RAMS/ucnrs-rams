@@ -1,11 +1,11 @@
 <section>
-  <fieldset data-controller="value-projection" data-value-projection-projected-value="">
+  <fieldset data-controller="value-projection" data-value-projection-projected-value="<%= form.object.project_type %>">
     <legend><%= t(".titles.purpose") %></legend>
 
     <fieldset>
       <% @page.project_type_options.each do |value|%>
         <%= form.label :project_type, for: "project-type-#{value}" do %>
-          <%= form.radio_button :project_type, value, id: "project-type-#{value}", data: { action: "click->value-projection#change" } %>
+          <%= form.radio_button :project_type, value, id: "project-type-#{value}", data: { action: "click->value-projection#change" }, checked: form.object.project_type == value %>
           <span><%= t(".project_type_options.labels.#{value}") %></span>
           <span><%= t(".project_type_options.explanation.#{value}") %></span>
         <% end %>
@@ -14,7 +14,7 @@
 
     <div class="field project_select">
       <%= form.label :project, t(".labels.project") %>
-      <%= form.collection_select(:project_id, @page.project_options, :id, :ProjectTitle, { selected: @page.default_public_use_category }) %>
+      <%= form.collection_select(:project_id, @page.project_options, :id, :ProjectTitle, { selected: form.object.project_id }) %>
       <%= link_to t(".links.create_a_new_project"), "/projects/new" %>
     </div>
 
@@ -25,7 +25,7 @@
             @page.public_use_categories,
             :to_s,
             @page.translate_in(".public_use_options.labels"),
-            { selected: @page.default_public_use_category }
+            { selected: form.object.public_use_category }
           )
       %>
     </div>
@@ -45,10 +45,10 @@
 
       <div class="date-range-select">
         <div class="field">
-          <%= form.label :start, t(".labels.start") %>
+          <%= form.label :start_date, t(".labels.arrival") %>
           <div class="date-time-select" data-controller="date-time-select">
             <%= image_tag "calendar.svg", class: "input-icon", alt: t(".alt_text.calendar") %>
-            <%= form.text_field(:start_date, value: @page.start_date) %>
+            <%= form.date_field(:start_date, value: @page.start_date) %>
             <%= form.collection_select(:start_time, @page.time_options, :value, :human, { selected: @page.start_time }) %>
           </div>
         </div>
@@ -57,9 +57,10 @@
 
         <div class="field">
           <%= form.label :end_date, t(".labels.departure") %>
-          <div class="date-time-select">
-            <%= form.date_field(:end_date, value: @page.departure_date) %>
-            <%= form.time_field(:end_time, value: @page.departure_time, aria: { label: t(".aria.departure_time") }) %>
+          <div class="date-time-select" data-controller="date-time-select">
+            <%= image_tag "calendar.svg", class: "input-icon", alt: t(".alt_text.calendar") %>
+            <%= form.date_field(:end_date, value: @page.end_date) %>
+            <%= form.collection_select(:end_time, @page.time_options, :value, :human, { selected: @page.end_time }) %>
           </div>
         </div>
       </div>
@@ -71,10 +72,10 @@
       </div>
     </fieldset>
 
-    <fieldset class"amenities">
+    <fieldset class="amenities">
       <legend><%= t(".titles.amenities") %><span><%= t(".titles.amenities_subtitle") %></span></legend>
       <section class="amenity-options" data-followup-content-target="destination" data-followup-content-url-value="<%= visits_amenities_url(reserve_id: "VALUE") %>">
-        <%= render partial: "visits/amenities/amenity", collection: @page.amenities, locals: { form: form } %>
+        <%= render partial: "visits/amenities/amenity", collection: @page.amenities, locals: { page: @page }%>
       </section>
     </fieldset>
   </span>

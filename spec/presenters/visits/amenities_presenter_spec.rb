@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe AmenitiesIndexPresenter do
+RSpec.describe Visits::AmenitiesPresenter do
   describe "#amenities" do
     it "presents the relevant amenities in order" do
       reserve = create(:reserve)
@@ -8,12 +8,12 @@ RSpec.describe AmenitiesIndexPresenter do
       second_amenity = create(:amenity, sort_order: 3, reserve: reserve)
       third_amenity = create(:amenity, sort_order: 1, reserve: reserve)
       fourth_amenity = create(:amenity, sort_order: 0)
-      presenter = AmenitiesIndexPresenter.new(for_reserve: reserve)
+      presenter = Visits::AmenitiesPresenter.new(reserve_id: reserve.id)
 
       amenities = presenter.amenities
 
       expect(amenities.length).to eq 3
-      expect(amenities.map(&:id)).to eq [
+      expect(amenities.map(&:amenity_id)).to eq [
         third_amenity.id,
         first_amenity.id,
         second_amenity.id,

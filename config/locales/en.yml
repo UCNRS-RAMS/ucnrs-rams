@@ -16,10 +16,13 @@ en:
   time:
     formats:
       visit_form_input_date: "%Y-%m-%d"
-      visit_form_input_time: "%H:%M"
+      visit_form_input_time: "%H:%M %z"
+      visit_form_output_date: "%Y-%m-%d"
+      visit_form_output_time: "%H:%M"
   date:
     formats:
       visit_form_input_date: "%Y-%m-%d"
+      visit_form_output_date: "%Y-%m-%d"
       project_visit_start_date: "%b %d, %Y"
       date_range:
         month_name: "%b"
@@ -125,7 +128,8 @@ en:
     amenities:
       amenity:
         more_info: "Learn More"
-        dates_of_use: "Dates of Use"
+        date_of_arrival: "Arrival"
+        date_of_departure: "Departure"
         rate: "Rate"
         rate_period: "(per %{unit} per %{period})"
         number_of_people: "No. of People"
@@ -146,8 +150,8 @@ en:
         public_use_category: "Choose a category that best describes your visit"
         purpose_of_visit: "What do you plan to do on this visit?"
         reserve: "Reserve"
-        start: "Arrival"
-        end: "Departure"
+        arrival: "Arrival"
+        departure: "Departure"
         next_page:
           visitors: "Next Page: Visitors"
       alt_text:

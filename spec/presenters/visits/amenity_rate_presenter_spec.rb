@@ -1,15 +1,15 @@
 require "rails_helper"
 
-RSpec.describe AmenityRatePresenter do
+RSpec.describe Visits::AmenityRatePresenter do
   describe "delegations" do
-    subject { AmenityRatePresenter.new(build(:amenity_rate)) }
+    subject { Visits::AmenityRatePresenter.new(build(:amenity_rate)) }
     it { is_expected.to delegate_method(:id).to(:amenity_rate) }
   end
 
   describe "#amount" do
     it "displays the value as money" do
       rate = create(:amenity_rate, rate: 12.3)
-      presenter = AmenityRatePresenter.new(rate)
+      presenter = Visits::AmenityRatePresenter.new(rate)
 
       expect(presenter.amount).to eq "$12.30"
     end
@@ -18,7 +18,7 @@ RSpec.describe AmenityRatePresenter do
   describe "#value" do
     it "converts the rate into a string for display" do
       rate = create(:amenity_rate, rate: 0.2)
-      presenter = AmenityRatePresenter.new(rate)
+      presenter = Visits::AmenityRatePresenter.new(rate)
 
       expect(presenter.value).to eq "0.20"
     end
@@ -33,7 +33,7 @@ RSpec.describe AmenityRatePresenter do
           description: "Free for everyone!"
         )
       )
-      presenter = AmenityRatePresenter.new(rate)
+      presenter = Visits::AmenityRatePresenter.new(rate)
 
       expect(presenter.description).to eq "Free for everyone!"
     end

@@ -1,6 +1,7 @@
 <div class="amenity">
-  <input type="checkbox" value="<%= amenity.id %>" name="visit[amenities][][id]" id="<%= amenity.checkbox_id %>"/>
+  <input type="checkbox" value="<%= amenity.amenity_id %>" name="visit[amenities][<%= amenity.amenity_id %>][amenity_id]" id="<%= amenity.checkbox_id %>" <%= amenity.checked %>/>
   <label for="<%= amenity.checkbox_id %>">
+    <input type="hidden" value="<%= amenity.amenity_visit_id %>" name="visit[amenities][<%= amenity.amenity_id %>][amenity_visit_id]"/>
     <img src="<%= amenity.image_url %>"/>
     <div class="content">
       <h3><%= amenity.title %></h3>
@@ -9,21 +10,25 @@
     </div>
     <div class="booking">
       <div class="field">
-        <label><%= t(".dates_of_use") %></label>
-        <input name="visit[amenities][][dates]" type="text"/>
+        <label><%= t(".date_of_arrival") %></label>
+        <input name="visit[amenities][<%= amenity.amenity_id %>][arrives_on]" type="text" value="<%= amenity.arrives_on %>"/>
+      </div>
+      <div class="field">
+        <label><%= t(".date_of_departure") %></label>
+        <input name="visit[amenities][<%= amenity.amenity_id %>][departs_on]" type="text" value="<%= amenity.departs_on %>"/>
       </div>
       <div class="field">
       <label><%= t(".rate") %><%= t(".rate_period", unit: amenity.unit, period: amenity.period) %></label>
-        <select class="rate_select" name="visit[amenities][][rate]">
-          <%= amenity.rates.map do |rate| %>
-            <option value="<%= rate.value %>"><%= rate.amount %> (<%= rate.description %>)</option>
+        <select class="rate_select" name="visit[amenities][<%= amenity.amenity_id %>][amenity_rate_id]">
+          <% amenity.rates.each do |rate| %>
+            <option value="<%= rate.id %>" <%= rate.selected_for(amenity) %> ><%= rate.amount %> (<%= rate.description %>)</option>
           <% end %>
         </select>
       </div>
       <div class="field" data-controller="counter">
         <label><%= t(".number_of_people") %></label>
         <input type="button" data-action="click->counter#decrement" value="-"/>
-        <input name="visit[amenities][][people]" type="text" data-counter-target="output" value="1"/>
+        <input name="visit[amenities][<%= amenity.amenity_id %>][number_of_people]" type="text" data-counter-target="output" value="<%= amenity.number_of_people %>"/>
         <input type="button" data-action="click->counter#increment" value="+"/>
       </div>
       <div class="field">

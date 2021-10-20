@@ -42,4 +42,62 @@ class RequestVisitFlow
   def select_reserve(name)
     page.select name, from: "Reserve"
   end
+
+  def select_project_type(type)
+    page.find("label span", text: type).click
+  end
+
+  def has_project_type?(type)
+    page.has_css?("input:checked + span", text: type)
+  end
+
+  def select_project(name)
+    page.select name, from: "Research Project"
+  end
+
+  def set_purpose(purpose)
+    page.fill_in "What do you plan to do on this visit?", with: purpose
+  end
+
+  def has_purpose?(purpose)
+    page.has_css?("textarea[name='visit[purpose_of_visit]']", text: purpose)
+  end
+
+  def set_usage_dates(arrival:, departure:)
+    page.find("#visit_start_date").set(arrival.strftime("%m/%d/%Y"))
+    page.select arrival.strftime("%-I:%M %p"), from: "visit_start_time"
+    page.find("#visit_end_date").set(departure.strftime("%m/%d/%Y"))
+    page.select departure.strftime("%-I:%M %p"), from: "visit_end_time"
+  end
+
+  def has_usage_dates?(arrival:, departure:)
+    (page.find("#visit_start_date").value == arrival.strftime("%Y-%m-%d")) &&
+      (page.find("#visit_end_date").value == departure.strftime("%Y-%m-%d")) &&
+      (page.find("#visit_start_time").value == arrival.strftime("%H:%M")) &&
+      (page.find("#visit_end_time").value == departure.strftime("%H:%M"))
+  end
+
+  def set_special_needs(needs)
+    page.fill_in "Special Needs", with: needs
+  end
+
+  def has_special_needs?(needs)
+    page.has_css?("textarea[name='visit[special_needs]']", text: needs)
+  end
+
+  def select_amenity(title)
+    page.find("div.amenity h3", text: title).click
+  end
+
+  def has_selected_amenity?(title)
+    page.find(
+      "div.amenity input:checked + label h3",
+      text: title,
+      visible: false
+    )
+  end
+
+  def submit_visit_request
+    page.find("input[type='submit']").click
+  end
 end
