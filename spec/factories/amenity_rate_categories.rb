@@ -4,4 +4,3 @@ FactoryBot.define do
     description { "Normal Price" }
   end
 end
-

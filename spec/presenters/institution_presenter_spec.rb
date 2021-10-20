@@ -7,4 +7,3 @@ RSpec.describe InstitutionPresenter do
     it { is_expected.to delegate_method(:name).to(:institution) }
   end
 end
-

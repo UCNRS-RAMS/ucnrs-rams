@@ -18,4 +18,3 @@ RSpec.describe InstitutionsIndexPresenter do
     end
   end
 end
-
