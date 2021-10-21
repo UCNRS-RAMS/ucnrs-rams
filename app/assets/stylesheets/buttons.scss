@@ -1,6 +1,7 @@
 @import "variables";
 
 button.active,
+a.button,
 input[type="submit"] {
   align-items: center;
   background: $active-button-fill;
