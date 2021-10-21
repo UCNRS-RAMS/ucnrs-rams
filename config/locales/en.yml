@@ -199,6 +199,7 @@ en:
         num_visits: "No. of Visits"
         recent_visit_date: "Most Recent Visit"
         recent_visit_reserve: "Reserve Name"
+      what_are_projects: "What are Projects?"
       project_description: "A project encompasses the activities you plan to conduct for a specific purpose. For example, a project might be teaching a class, or running a study. Projects are not site-specific; they may be conducted at multiple reserves/field stations."
       links:
         help: "Help Topics"

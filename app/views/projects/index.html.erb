@@ -22,6 +22,7 @@
             <th><%= t(".table_headers.num_visits") %></th>
             <th><%= t(".table_headers.recent_visit_date") %></th>
             <th><%= t(".table_headers.recent_visit_reserve") %></th>
+            <th></th>
           </tr>
         <thead>
         <%= render partial: "table", locals: { page: @page } %>
@@ -31,12 +32,12 @@
   </section>
   <section class="right">
     <div>
-      <%= link_to t(".links.create_a_new_project"), "#" %>
+      <%= link_to t(".links.create_a_new_project"), "#", class: "button" %>
+      <h2><%= t(".what_are_projects") %></h2>
       <p><%= t(".project_description") %></p>
-      <div>
-        <%= image_tag "help-circle.svg", height: "18px", width: "18px", alt: t(".alt.help_icon") %>
-        <%= link_to t(".links.help"), "#" %>
-      <div>
+      <%= link_to "#", class: "help" do %>
+        <%= image_tag "blue-help-circle.svg", height: "18px", width: "18px", alt: t(".alt.help_icon") %> <%= t(".links.help") %>
+      <% end %>
     </div>
   </section>
 </section>

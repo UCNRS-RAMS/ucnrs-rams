@@ -176,7 +176,7 @@ RSpec.describe "Projects Index" do
       expect(flow).to have_selected_page_number_link(1)
       expect(flow).to have_page_number_link(2)
       expect(flow).to have_page_number_link(3)
-      expect(page).to be_axe_clean.skipping(:"color-contrast")
+      expect(page).to be_axe_clean
 
       flow.go_to_page(3)
       expect(flow).to have_displayed_projects(5)
