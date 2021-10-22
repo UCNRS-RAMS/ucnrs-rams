@@ -34,7 +34,6 @@ class RequestVisitFlow
       page.has_css?("div.amenity")
     else
       names.all? do |name|
-        byebug
         page.has_css?("div.amenity h3", text: name)
       end
     end
