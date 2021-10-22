@@ -1,6 +1,9 @@
 class VisitForm
-  def initialize(params = {})
+  include ActiveModel::Model
+
+  def initialize(user:, params: {})
     @visit = Visit.where(id: params[:id]).first || Visit.new
+    @user = user
     @amenities_params = params.delete(:amenities) || []
     assign(params)
   end
@@ -29,6 +32,14 @@ class VisitForm
     display_time(visit.end_time)
   end
 
+  private
+
+  def assign(params)
+    params.each do |key, value|
+      self.send("#{key}=", value)
+    end
+  end
+
   def start_date=(date)
     visit.start_date = parse_date(date)
   end
@@ -43,14 +54,6 @@ class VisitForm
 
   def end_time=(time)
     visit.end_time = parse_time(time)
-  end
-
-  private
-
-  def assign(params)
-    params.each do |key, value|
-      self.send("#{key}=", value)
-    end
   end
 
   def display_date(date)

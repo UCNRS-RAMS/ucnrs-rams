@@ -1,6 +1,7 @@
 class VisitsFormPresenter
-  def initialize(form: VisitForm.new)
-    @form = form
+  def initialize(user:, form: nil)
+    @user = user
+    @form = form || VisitForm.new(user: user)
   end
 
   attr_reader :form
@@ -25,11 +26,11 @@ class VisitsFormPresenter
   end
 
   def project_options
-    [OpenStruct.new(name: "Select a project", id: nil), *Project.alphabetized]
+    @user.projects.alphabetized
   end
 
   def reserve_options
-    [OpenStruct.new(name: "Select a reserve", id: nil), *Reserve.alphabetized]
+    Reserve.alphabetized
   end
 
   def public_use_categories
@@ -46,31 +47,33 @@ class VisitsFormPresenter
     midnight = Time.current.beginning_of_day
     (0..47).to_a.map do |i|
       OpenStruct.new(
-        value: (midnight + (i * 30).minutes).strftime("%H:%M"),
-        human: (midnight + (i * 30).minutes).strftime("%I:%M %p"),
+        value: I18n.l(
+          midnight + (i * 30).minutes,
+          format: :visit_form_output_time
+        ),
+        human: I18n.l(
+          midnight + (i * 30).minutes,
+          format: :visit_form_output_time_human
+        )
       )
     end
   end
 
-  def default_public_use_category
-    nil
-  end
-
   def reserve
-    form.visit.reserve
+    visit.reserve
   end
 
   def special_needs_statement
-    form.visit.reserve&.special_needs_statement
+    reserve&.special_needs_statement
   end
 
   def alert_message
-    if visit.reserve&.reserve_alert_message_enabled
-      visit.reserve&.reserve_alert_message
+    if reserve&.reserve_alert_message_enabled
+      reserve&.reserve_alert_message
     end
   end
 
   def selectable_amenities
-    visit.reserve&.amenities || []
+    reserve&.amenities || []
   end
 end

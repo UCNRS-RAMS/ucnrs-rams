@@ -2,12 +2,12 @@ class VisitsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @page = VisitsFormPresenter.new
+    @page = VisitsFormPresenter.new(user: current_user)
   end
 
   def create
-    @form = VisitForm.new(visit_params)
-    @page = VisitsFormPresenter.new(form: @form)
+    @form = VisitForm.new(user: current_user, params: visit_params)
+    @page = VisitsFormPresenter.new(user: current_user, form: @form)
     render :new
   end
 

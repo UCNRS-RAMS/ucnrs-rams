@@ -11,6 +11,10 @@ class Project < ApplicationRecord
     incomplete: "Incomplete",
   }
 
+  belongs_to :user
+  belongs_to :applicant, foreign_key: "ApplicantID", class_name: "User"
+  belongs_to :reserve, foreign_key: "ReserveID", class_name: "Reserve"
+
   def self.alphabetized
     order(Arel.sql("SUBSTRING(title, 1, 10)"))
   end
