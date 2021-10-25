@@ -13,7 +13,7 @@ class Project < ApplicationRecord
   }
 
   def self.alphabetized
-    order(Arel.sql("SUBSTRING(title, 1, 10)"))
+    order(Arel.sql("SUBSTRING(title, 1, 50)"))
   end
 
   def self.with_active_team_member(user)
