@@ -46,10 +46,9 @@
       <div class="date-range-select">
         <div class="field">
           <%= form.label :start_date, t(".labels.arrival") %>
-          <div class="date-time-select" data-controller="date-time-select">
-            <%= image_tag "calendar.svg", class: "input-icon", alt: t(".alt_text.calendar") %>
-            <%= form.date_field(:start_date, value: @page.start_date) %>
-            <%= form.collection_select(:start_time, @page.time_options, :value, :human, { selected: @page.start_time }) %>
+          <div class="date-time-select">
+            <%= form.date_field(:start_date, value: @page.start_date, min: Date.today) %>
+            <%= form.time_field(:start_time, value: @page.start_time, aria: { label: t(".aria.arrival_time") }) %>
           </div>
         </div>
 
@@ -57,10 +56,9 @@
 
         <div class="field">
           <%= form.label :end_date, t(".labels.departure") %>
-          <div class="date-time-select" data-controller="date-time-select">
-            <%= image_tag "calendar.svg", class: "input-icon", alt: t(".alt_text.calendar") %>
-            <%= form.date_field(:end_date, value: @page.end_date) %>
-            <%= form.collection_select(:end_time, @page.time_options, :value, :human, { selected: @page.end_time }) %>
+          <div class="date-time-select">
+            <%= form.date_field(:end_date, value: @page.end_date, min: Date.today) %>
+            <%= form.time_field(:end_time, value: @page.end_time, aria: { label: t(".aria.departure_time") }) %>
           </div>
         </div>
       </div>
@@ -75,7 +73,7 @@
     <fieldset class="amenities">
       <legend><%= t(".titles.amenities") %><span><%= t(".titles.amenities_subtitle") %></span></legend>
       <section class="amenity-options" data-followup-content-target="destination" data-followup-content-url-value="<%= visits_amenities_url(reserve_id: "VALUE") %>">
-        <%= render partial: "visits/amenities/amenity", collection: @page.amenities, locals: { page: @page }%>
+        <%= render partial: "visits/amenities/amenity", collection: @page.amenities, locals: { page: @page } %>
       </section>
     </fieldset>
   </span>

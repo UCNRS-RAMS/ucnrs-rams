@@ -65,9 +65,9 @@ class RequestVisitFlow
 
   def set_usage_dates(arrival:, departure:)
     page.find("#visit_start_date").set(arrival.strftime("%m/%d/%Y"))
-    page.select arrival.strftime("%-I:%M %p"), from: "visit_start_time"
+    page.find("#visit_start_time").set(arrival.strftime("%I:%M%p"))
     page.find("#visit_end_date").set(departure.strftime("%m/%d/%Y"))
-    page.select departure.strftime("%-I:%M %p"), from: "visit_end_time"
+    page.find("#visit_end_time").set(departure.strftime("%I:%M%p"))
   end
 
   def has_usage_dates?(arrival:, departure:)

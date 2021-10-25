@@ -11,11 +11,11 @@
     <div class="booking">
       <div class="field">
         <label><%= t(".date_of_arrival") %></label>
-        <input name="visit[amenities][<%= amenity.amenity_id %>][arrives_on]" type="text" value="<%= amenity.arrives_on %>"/>
+        <input type="date" name="visit[amenities][<%= amenity.amenity_id %>][arrives_on]" type="text" value="<%= amenity.arrives_on %>"/>
       </div>
       <div class="field">
         <label><%= t(".date_of_departure") %></label>
-        <input name="visit[amenities][<%= amenity.amenity_id %>][departs_on]" type="text" value="<%= amenity.departs_on %>"/>
+        <input type="date" name="visit[amenities][<%= amenity.amenity_id %>][departs_on]" type="text" value="<%= amenity.departs_on %>"/>
       </div>
       <div class="field">
       <label><%= t(".rate") %><%= t(".rate_period", unit: amenity.unit, period: amenity.period) %></label>

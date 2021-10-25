@@ -13,7 +13,7 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     amenity_rate = create(:amenity_rate, rate: 0, amenity: amenity, sort_order: 1)
     user = create(:user, :confirmed)
     sign_in(user)
-    now = Time.new(2021, 2, 3, 4, 30, 0)
+    now = Time.current
     flow = RequestVisitFlow.new(page)
 
     flow.visit_new_visit_page
