@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe VisitForm do
   describe "initializing" do
     it "makes an empty VisitForm from empty params" do
-      form = VisitForm.new({})
+      form = VisitForm.new(user: build(:user), params: {})
 
       expect(form).to have_attributes(
         project_type: nil,
@@ -32,7 +32,7 @@ RSpec.describe VisitForm do
         end_time: "15:30",
         special_needs: "A teddy bear",
       }
-      form = VisitForm.new(params)
+      form = VisitForm.new(user: build(:user), params: params)
 
       expect(form).to have_attributes(
         project_type: "public-use",
@@ -57,7 +57,7 @@ RSpec.describe VisitForm do
           101 => {amenity_id: 101},
         }
       }
-      form = VisitForm.new(params)
+      form = VisitForm.new(user: build(:user), params: params)
 
       expect(form.amenity_form("1")).to be_a(AmenityForm)
       expect(form.amenity_form("1").amenity_id).to eq 1

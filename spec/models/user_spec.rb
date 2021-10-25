@@ -7,7 +7,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to belong_to(:billing_address_country).class_name("Country").optional(true) }
     it { is_expected.to belong_to(:address_state).class_name("State").optional(true) }
     it { is_expected.to belong_to(:billing_address_state).class_name("State").optional(true) }
-    it { is_expected.to have_many(:project_team_memberships).class_name("ProjectTeamMember") }
+    it { is_expected.to have_many(:project_team_memberships).class_name("ProjectTeamMembership") }
   end
 
   describe "validations" do

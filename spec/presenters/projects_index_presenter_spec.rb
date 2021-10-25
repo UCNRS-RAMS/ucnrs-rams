@@ -7,9 +7,9 @@ RSpec.describe ProjectsIndexPresenter do
       first_active_project = create(:project, created_at: DateTime.current - 2.days)
       second_active_project = create(:project, created_at: DateTime.current)
       inactive_project = create(:project, created_at: DateTime.current)
-      create(:project_team_member, user: user, project: first_active_project, active: true)
-      create(:project_team_member, user: user, project: second_active_project, active: true)
-      create(:project_team_member, user: user, project: inactive_project, active: false)
+      create(:project_team_membership, user: user, project: first_active_project, active: true)
+      create(:project_team_membership, user: user, project: second_active_project, active: true)
+      create(:project_team_membership, user: user, project: inactive_project, active: false)
       presenter = ProjectsIndexPresenter.new(user)
 
       projects = presenter.projects
@@ -25,8 +25,8 @@ RSpec.describe ProjectsIndexPresenter do
       user = create(:user)
       first_project = create(:project, created_at: DateTime.current - 2.days)
       second_project = create(:project, created_at: DateTime.current)
-      create(:project_team_member, user: user, project: first_project)
-      create(:project_team_member, user: user, project: second_project)
+      create(:project_team_membership, user: user, project: first_project)
+      create(:project_team_membership, user: user, project: second_project)
       presenter = ProjectsIndexPresenter.new(user)
 
       projects = presenter.projects
@@ -41,7 +41,7 @@ RSpec.describe ProjectsIndexPresenter do
     it "presents a maxiumum of 10 projects" do
       user = create(:user)
       presenter = ProjectsIndexPresenter.new(user)
-      create_list(:project_team_member, 11, user: user)
+      create_list(:project_team_membership, 11, user: user)
 
       projects = presenter.projects
 

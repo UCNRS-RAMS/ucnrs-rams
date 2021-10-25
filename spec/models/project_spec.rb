@@ -6,7 +6,8 @@ RSpec.describe Project, type: :model do
     it { is_expected.to belong_to(:owner).class_name("User").with_foreign_key(:user_id) }
     it { is_expected.to belong_to(:applicant).class_name("User") }
     it { is_expected.to have_many(:visits) }
-    it { is_expected.to have_many(:team_members).class_name("ProjectTeamMember") }
+    it { is_expected.to have_many(:team_memberships).class_name("ProjectTeamMembership") }
+    it { is_expected.to have_many(:team_members).class_name("User") }
   end
 
   it do 
@@ -35,9 +36,9 @@ RSpec.describe Project, type: :model do
       first_project = create(:project)
       second_project = create(:project)
       third_project = create(:project)
-      create(:project_team_member, project: first_project, user: first_user, active: false)
-      create(:project_team_member, project: second_project, user: second_user, active: true)
-      create(:project_team_member, project: third_project, user: first_user, active: true)
+      create(:project_team_membership, project: first_project, user: first_user, active: false)
+      create(:project_team_membership, project: second_project, user: second_user, active: true)
+      create(:project_team_membership, project: third_project, user: first_user, active: true)
 
       results = Project.with_active_team_member(first_user)
 

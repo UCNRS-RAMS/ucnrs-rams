@@ -49,7 +49,8 @@ class User < ApplicationRecord
   belongs_to :billing_address_country, class_name: "Country", optional: true
   belongs_to :address_state, class_name: "State", optional: true
   belongs_to :billing_address_state, class_name: "State", optional: true
-  has_many :project_team_memberships, class_name: "ProjectTeamMember"
+  has_many :project_team_memberships, class_name: "ProjectTeamMembership"
+  has_many :projects, through: :project_team_memberships, class_name: "Project"
 
   enum gender_identity: {
     male: "Male",

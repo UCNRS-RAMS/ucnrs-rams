@@ -39,12 +39,12 @@ RSpec.describe VisitsFormPresenter do
     it "returns all projects accessible to the user" do
       user = create(:user)
       expected_projects = [
-        create(:project, user: user, ProjectTitle: "Z"),
-        create(:project, user: user, ProjectTitle: "A"),
+        create(:project_team_membership, user: user, project_title: "Z").project,
+        create(:project_team_membership, user: user, project_title: "A").project,
       ]
       other_projects = [
-        create(:project),
-        create(:project),
+        create(:project_team_membership).project,
+        create(:project_team_membership).project,
       ]
       presenter = VisitsFormPresenter.new(user: user)
 
@@ -75,7 +75,8 @@ RSpec.describe VisitsFormPresenter do
     it "returns the Visit's public_use_categories" do
       presenter = VisitsFormPresenter.new(user: build(:user))
 
-      expect(presenter.public_use_categories).to eq Visit.public_use_categories
+      expect(presenter.public_use_categories)
+        .to eq Visit.public_use_categories.keys
     end
   end
 

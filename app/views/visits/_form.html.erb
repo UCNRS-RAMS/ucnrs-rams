@@ -14,7 +14,7 @@
 
     <div class="field project_select">
       <%= form.label :project, t(".labels.project") %>
-      <%= form.collection_select(:project_id, @page.project_options, :id, :ProjectTitle, { selected: form.object.project_id }) %>
+      <%= form.collection_select(:project_id, @page.project_options, :id, :title, { selected: form.object.project_id }) %>
       <%= link_to t(".links.create_a_new_project"), "/projects/new" %>
     </div>
 

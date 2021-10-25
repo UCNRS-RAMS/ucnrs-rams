@@ -181,6 +181,10 @@ en:
           university-class: "Class"
           meeting-or-conference: "Meeting"
           public-use: "Public"
+    reserve_inputs:
+      fields:
+        labels:
+          special_needs: "Special Needs"
   reserve_inputs:
     show:
       labels:
