@@ -13,6 +13,8 @@ class VisitsFormPresenter
     :end_time,
     to: :form
 
+  delegate :reserve, to: :visit
+
   def amenities
     selectable_amenities.map do |amenity|
       Visits::AmenityPresenter.new(amenity, form: form.amenity_form(amenity.id.to_s))
@@ -57,10 +59,6 @@ class VisitsFormPresenter
         )
       )
     end
-  end
-
-  def reserve
-    visit.reserve
   end
 
   def special_needs_statement
