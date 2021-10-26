@@ -7,6 +7,7 @@ import Rails from "@rails/ujs"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import { Turbo } from "@hotwired/turbo-rails"
+import "@hotwired/stimulus"
 
 Rails.start()
 ActiveStorage.start()
