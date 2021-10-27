@@ -254,25 +254,6 @@ ActiveRecord::Schema.define(version: 2021_11_02_145708) do
     t.index ["visit_id"], name: "visit"
   end
 
-  create_table "NRSPersonnel", primary_key: "NRSID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "reserve_id", null: false
-    t.integer "user_id", null: false
-    t.column "Role", "enum('No selection made','Reserve manager','Reserve assistant manager','Reserve co-manager','Reserve steward','Reserve staff','Campus NRS director','Campus committee member','Information manager','Faculty reserve manager','Reserve accountant','Resident researcher')", default: "No selection made"
-    t.string "Supervisor", limit: 50
-    t.boolean "receive_project_email", default: false, null: false, comment: "Boolean"
-    t.boolean "ReceiveBillEmail", default: false, null: false, comment: "Set checkbox if Recieve email of invoice"
-    t.boolean "ReceiveUpdateEmail", default: false, null: false, comment: "Recieve Email when user updates an app or res"
-    t.boolean "ReceiveIACUCEmail", default: false, null: false
-    t.boolean "ReceiveIntendedReservationEmail", default: false, null: false, comment: "Get emailed when applicant starts a reservation"
-    t.boolean "RecieveApproveEmail", default: false, null: false
-    t.boolean "receive_drone_email", default: false
-    t.boolean "receive_scuba_email", default: false
-    t.boolean "receive_new_app_email", default: false
-    t.boolean "receive_new_act_email", default: false
-    t.index ["reserve_id"], name: "reserve"
-    t.index ["user_id"], name: "user"
-  end
-
   create_table "Permits", primary_key: "PermitID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.column "PermitAuthority", "enum('Federal','State','Local','Institution')", default: "Federal", null: false
     t.text "PermitQuestion", comment: "The Answer will be a BOOLEAN so phrase in the form of a Yes No Question."
@@ -343,7 +324,7 @@ ActiveRecord::Schema.define(version: 2021_11_02_145708) do
     t.string "WaiverURL"
     t.integer "SortOrder", limit: 1
     t.integer "reserve_id_temp"
-    t.integer "Online", limit: 1, default: 0
+    t.integer "Online", default: 0
     t.text "OnlineHTMLText", comment: "Use HTML code"
     t.integer "NumberOfYearsUntilExpire", default: 3, comment: "How many years can a waiver be helpd until you require applicant to submit a new one"
     t.datetime "created_at"
@@ -353,7 +334,7 @@ ActiveRecord::Schema.define(version: 2021_11_02_145708) do
     t.index ["reserve_id"], name: "ReserveIDPlain"
   end
 
-  create_table "active_storage_attachments", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
+  create_table "active_storage_attachments", charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -363,7 +344,7 @@ ActiveRecord::Schema.define(version: 2021_11_02_145708) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
+  create_table "active_storage_blobs", charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -532,7 +513,7 @@ ActiveRecord::Schema.define(version: 2021_11_02_145708) do
     t.index ["visit_id"], name: "visit"
   end
 
-  create_table "logs", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
+  create_table "logs", charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.text "text"
     t.string "type"
     t.datetime "created_at", null: false
@@ -562,7 +543,7 @@ ActiveRecord::Schema.define(version: 2021_11_02_145708) do
     t.index ["user_id"], name: "index_logx_on_user_id"
   end
 
-  create_table "new_waivers", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
+  create_table "new_waivers", charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.string "url1"
@@ -646,6 +627,7 @@ ActiveRecord::Schema.define(version: 2021_11_02_145708) do
     t.datetime "updated_at", default: "0001-01-01 00:00:00", null: false
     t.bigint "log_id"
     t.datetime "submitted_at"
+    t.column "project_sub_type", "enum('Default','Meeting','Housing')", default: "Default"
     t.string "discipline"
     t.string "course_number", comment: "You will find this info in the abstract field for a CLASS type project in RAM2 data"
     t.string "approved_permits"
@@ -666,12 +648,34 @@ ActiveRecord::Schema.define(version: 2021_11_02_145708) do
     t.index ["status"], name: "project_status"
   end
 
-  create_table "rams_options", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
+  create_table "rams_options", charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "option_name"
     t.text "option_value"
   end
 
-  create_table "reserve_settings", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
+  create_table "reserve_personnel", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "reserve_id", null: false
+    t.integer "user_id", null: false
+    t.column "role", "enum('No selection made','Reserve manager','Reserve assistant manager','Reserve co-manager','Reserve steward','Reserve staff','Campus NRS director','Campus committee member','Information manager','Faculty reserve manager','Reserve accountant','Resident researcher')", default: "No selection made"
+    t.string "supervisor_name", limit: 50
+    t.boolean "receive_project_email", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "receive_invoice_email", default: false, null: false, comment: "Set checkbox if Recieve email of invoice"
+    t.boolean "receive_update_email", default: false, null: false, comment: "Recieve Email when user updates an app or res"
+    t.boolean "receive_iacuc_email", default: false, null: false
+    t.boolean "receive_incomplete_visit_email", default: false, null: false, comment: "Get emailed when applicant starts a reservation"
+    t.boolean "receive_approval_email", default: false, null: false
+    t.boolean "receive_drone_email", default: false, null: false
+    t.boolean "receive_scuba_email", default: false, null: false
+    t.boolean "receive_new_project_email", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "receive_new_visit_email", default: false, null: false
+    t.string "phone_number", limit: 25
+    t.string "email"
+    t.index ["reserve_id"], name: "reserve"
+    t.index ["user_id", "reserve_id"], name: "index_reserve_personnel_on_user_id_and_reserve_id", unique: true
+    t.index ["user_id"], name: "user"
+  end
+
+  create_table "reserve_settings", charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.boolean "req_resource", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

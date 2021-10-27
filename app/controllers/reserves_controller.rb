@@ -4,19 +4,14 @@ class ReservesController < ApplicationController
   end
 
   def show
-    @page = ReserveShowPresenter.new(
-      reserve: reserve,
-      personnel: Personnel.fake,
-    )
+    reserve = Reserve.includes(personnel: [:user, :avatar_attachment]).find(reserve_id)
+
+    @page = ReserveShowPresenter.new(reserve: reserve)
   end
 
   private
 
   def reserve_id
     params.permit(:id).require(:id)
-  end
-
-  def reserve
-    reserve = Reserve.find(reserve_id)
   end
 end

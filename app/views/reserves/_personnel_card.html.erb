@@ -1,11 +1,11 @@
 <div class="card">
   <div class="image">
-    <%= image_tag personnel_card.image, alt: t(".alt_text.personnel_picture") %>
+    <%= image_tag personnel_card.avatar, alt: t(".alt_text.personnel_picture") %>
   </div>
   <div class="details">
-    <header><%= personnel_card.name %></header>
-    <span><%= personnel_card.title %></span>
-    <span><%= personnel_card.phone %></span>
+    <header><%= personnel_card.full_name %></header>
+    <span><%= personnel_card.role %></span>
+    <span><%= personnel_card.phone_number %></span>
     <%= mail_to personnel_card.email, t(".email"), class: "icon-email" %>
   </div>
 </div>
