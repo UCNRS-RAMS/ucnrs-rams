@@ -9,19 +9,26 @@ class Visit < ApplicationRecord
     order(start_date: :desc)
   end
 
-  enum project_type_options: {
-    "research" => "research",
-    "university class" => "university class",
-    "meeting or conference" => "meeting or conference",
-    "public use" => "public use",
+  enum status: {
+    approved: "Approved",
+    pending: "Pending approval",
+    cancelled: "Cancelled",
+    temp: "Temp",
   }
 
-  enum public_use_categories: {
-    "general-use" => "general-use",
-    "community-event" => "community-event",
-    "fundraiser" => "fundraiser",
-    "k-12-class" => "k-12-class",
-    "private-class" => "private-class",
-    "volunteer" => "volunteer",
+  enum project_type: {
+    research: "research",
+    university_class: "university class",
+    meeting_or_conference: "meeting or conference",
+    public_use: "public use",
+  }
+
+  enum public_use_category: {
+    general_use: "general-use",
+    community_event: "community-event",
+    fundraiser: "fundraiser",
+    k_12_class: "k-12-class",
+    private_class: "private-class",
+    volunteer: "volunteer",
   }
 end

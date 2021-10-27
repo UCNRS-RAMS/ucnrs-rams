@@ -177,14 +177,14 @@ en:
       project_type_options:
         labels:
           research: "Research"
-          university-class: "University Class"
-          meeting-or-conference: "Meeting or Conference"
-          public-use: "Public Use"
+          university_class: "University Class"
+          meeting_or_conference: "Meeting or Conference"
+          public_use: "Public Use"
         explanation:
           research: "Research"
-          university-class: "Class"
-          meeting-or-conference: "Meeting"
-          public-use: "Public"
+          university_class: "Class"
+          meeting_or_conference: "Meeting"
+          public_use: "Public"
     reserve_inputs:
       fields:
         labels:

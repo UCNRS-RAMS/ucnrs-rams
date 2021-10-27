@@ -28,9 +28,9 @@ RSpec.describe VisitsFormPresenter do
 
       expect(presenter.project_type_options).to eq [
         "research",
-        "university-class",
-        "meeting-or-conference",
-        "public-use",
+        "university_class",
+        "meeting_or_conference",
+        "public_use",
       ]
     end
   end

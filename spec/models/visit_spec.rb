@@ -10,6 +10,37 @@ RSpec.describe Visit, type: :model do
     it { is_expected.to delegate_method(:short_name).to(:reserve).with_prefix }
   end
 
+  describe "enums" do
+    it do
+      is_expected.to define_enum_for(:status).with_values({
+        approved: "Approved",
+        pending: "Pending approval",
+        cancelled: "Cancelled",
+        temp: "Temp",
+      }).backed_by_column_of_type(:string)
+    end
+
+    it do
+      is_expected.to define_enum_for(:project_type).with_values({
+        research: "research",
+        university_class: "university class",
+        meeting_or_conference: "meeting or conference",
+        public_use: "public use",
+      }).backed_by_column_of_type(:string)
+    end
+
+    it do
+      is_expected.to define_enum_for(:public_use_category).with_values({
+        general_use: "general-use",
+        community_event: "community-event",
+        fundraiser: "fundraiser",
+        k_12_class: "k-12-class",
+        private_class: "private-class",
+        volunteer: "volunteer",
+      }).backed_by_column_of_type(:string)
+    end
+  end
+
   describe ".recent_start_date_first" do
     it "returns records in reverse chronological order by start_date" do
       one = travel_to(1.week.ago) { create(:visit, start_date: Date.current) }
@@ -19,28 +50,6 @@ RSpec.describe Visit, type: :model do
       results = Visit.recent_start_date_first
 
       expect(results).to eq [three, one, two]
-    end
-  end
-
-  describe "enums" do
-    it "has the right .project_type_options" do
-      expect(Visit.project_type_options).to eq ({
-        "research" => "research",
-        "university class" => "university class",
-        "meeting or conference" => "meeting or conference",
-        "public use" => "public use",
-      })
-    end
-
-    it "has the right .public_use_categories" do
-      expect(Visit.public_use_categories).to eq ({
-        "general-use" => "general-use",
-        "community-event" => "community-event",
-        "fundraiser" => "fundraiser",
-        "k-12-class" => "k-12-class",
-        "private-class" => "private-class",
-        "volunteer" => "volunteer",
-      })
     end
   end
 end

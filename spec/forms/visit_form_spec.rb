@@ -8,7 +8,7 @@ RSpec.describe VisitForm do
       expect(form).to have_attributes(
         project_type: nil,
         project_id: nil,
-        public_use_category: "general-use",
+        public_use_category: "general_use",
         purpose_of_visit: nil,
         reserve_id: nil,
         start_date: "",
@@ -21,7 +21,7 @@ RSpec.describe VisitForm do
 
     it "makes a new VisitForm from params" do
       params = {
-        project_type: "public-use",
+        project_type: "public_use",
         project_id: 101,
         public_use_category: "k-12-class",
         purpose_of_visit: "World Conquest",
@@ -35,9 +35,9 @@ RSpec.describe VisitForm do
       form = VisitForm.new(user: build(:user), params: params)
 
       expect(form).to have_attributes(
-        project_type: "public-use",
+        project_type: "public_use",
         project_id: 101,
-        public_use_category: "k-12-class",
+        public_use_category: "k_12_class",
         purpose_of_visit: "World Conquest",
         reserve_id: 102,
         start_date: "2021-07-07",

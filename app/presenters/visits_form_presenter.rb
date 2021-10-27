@@ -22,9 +22,7 @@ class VisitsFormPresenter
   end
 
   def project_type_options
-    Visit.project_type_options.keys.map do |option|
-      option.tr(" ", "-")
-    end
+    Visit.project_types.keys
   end
 
   def project_options
