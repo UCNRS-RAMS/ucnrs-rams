@@ -4,6 +4,7 @@ class Reserve < ApplicationRecord
   belongs_to :managing_campus, class_name: "Institution"
   belongs_to :address_state, class_name: "State"
   has_many :amenities
+  has_many :personnel, class_name: "ReservePersonnel"
 
   def self.blank
     Reserve.new(id: -1, name: "", pulldown_name: "")

@@ -1,7 +1,6 @@
 class ReserveShowPresenter
-  def initialize(reserve:, personnel:)
+  def initialize(reserve:)
     @reserve = reserve
-    @personnel = personnel
   end
 
   delegate :id,
@@ -20,9 +19,9 @@ class ReserveShowPresenter
     :directions,
     to: :reserve, prefix: true
 
-  def personnel
-    @personnel.map do |person|
-      PersonnelPresenter.new(person)
+  def reserve_personnel
+    @reserve.personnel.map do |personnel|
+      ReservePersonnelPresenter.new(personnel)
     end
   end
 

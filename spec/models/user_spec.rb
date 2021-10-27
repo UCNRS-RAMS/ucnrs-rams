@@ -8,6 +8,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to belong_to(:address_state).class_name("State").optional(true) }
     it { is_expected.to belong_to(:billing_address_state).class_name("State").optional(true) }
     it { is_expected.to have_many(:project_team_memberships).class_name("ProjectTeamMembership") }
+    it { is_expected.to have_many(:reserve_personnel) }
   end
 
   describe "validations" do
@@ -433,5 +434,13 @@ RSpec.describe User, type: :model do
         twenty_five_to_fifty: "25-50",
         fifty_or_older: "50 or older",
       ).backed_by_column_of_type(:string)
+  end
+
+  describe "#full_name" do
+    it "return first_name and last_name of user" do
+      user = create(:user, first_name: "Thorin", last_name: "Oakenshield")
+
+      expect(user.full_name).to eq "Thorin Oakenshield"
+    end
   end
 end

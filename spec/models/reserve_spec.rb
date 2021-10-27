@@ -4,6 +4,7 @@ RSpec.describe Reserve, type: :model do
   describe "associations" do
     it { is_expected.to have_many(:amenities) }
     it { is_expected.to belong_to(:address_state) }
+    it { is_expected.to have_many(:personnel).class_name("ReservePersonnel") }
   end
 
   describe ".with_accepted_project_type" do

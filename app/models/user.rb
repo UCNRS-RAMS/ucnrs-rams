@@ -51,6 +51,7 @@ class User < ApplicationRecord
   belongs_to :billing_address_state, class_name: "State", optional: true
   has_many :project_team_memberships, class_name: "ProjectTeamMembership"
   has_many :projects, through: :project_team_memberships, class_name: "Project"
+  has_many :reserve_personnel
 
   enum gender_identity: {
     male: "Male",
@@ -82,6 +83,10 @@ class User < ApplicationRecord
     twenty_five_to_fifty: "25-50",
     fifty_or_older: "50 or older",
   }
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 
   private
 

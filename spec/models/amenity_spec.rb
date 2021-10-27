@@ -24,4 +24,3 @@ RSpec.describe Amenity do
     end
   end
 end
-
