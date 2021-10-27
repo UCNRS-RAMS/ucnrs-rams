@@ -1,6 +1,8 @@
 en:
-  activerecord:
+  activerecord: &errors
     errors:
+      messages:
+        must_be_after: "must be after %{attribute}"
       models:
         user:
           billing_address_fields_presence: "can't be blank if including a billing address"
@@ -13,6 +15,8 @@ en:
               must_be_in_country: "must exist as a state, province, or territory of the address country"
             billing_address_state_id:
               must_be_in_country: "must exist as a state, province, or territory of the billing address country"
+  activemodel:
+    <<: *errors
   time:
     formats:
       visit_form_input_date: "%Y-%m-%d"
