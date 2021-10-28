@@ -1,16 +1,36 @@
 class VisitForm
   include ActiveModel::Model
 
+  def model_name
+    ActiveModel::Name.new(Visit)
+  end
+
   def initialize(user:, params: {})
     @visit = Visit.where(id: params[:id]).first || Visit.new
     @user = user
-    @amenities_params = params.delete(:amenities) || []
+    @amenities_params = params.delete(:amenities) || {}
     assign(params)
   end
 
   attr_reader :visit
 
   delegate_missing_to :visit
+
+  validates :start_date, presence: true
+  validates :end_date, presence: true
+
+  def save
+    begin
+      Visit.transaction do
+        validate_everything
+        if errors.blank?
+          save_visit
+          save_amenities
+        end
+      end
+    rescue ActiveRecord::RecordInvalid => e
+    end
+  end
 
   def amenity_form(amenity_id)
     amenity_forms[amenity_id]
@@ -38,6 +58,44 @@ class VisitForm
     params.each do |key, value|
       self.send("#{key}=", value)
     end
+  end
+
+  def validate_everything
+    validate
+    validate_visit
+    validate_amenities
+    copy_errors_to_self
+  end
+
+  def validate_visit
+    visit.validate
+  end
+
+  def validate_amenities
+    amenity_forms.each do |key, amenity|
+      amenity.validate
+    end
+  end
+
+  def copy_errors_to_self
+    errors.merge!(visit.errors)
+    amenity_forms.each do |key, amenity|
+      errors.merge!(amenity.errors)
+    end
+  end
+
+  def save_visit
+    if public_use?
+      visit.project_id = 0
+    end
+    visit.status = :temp
+    visit.sign_token = SecureRandom.urlsafe_base64(48)
+    visit.user = @user
+    visit.save!
+  end
+
+  def save_amenities
+
   end
 
   def start_date=(date)

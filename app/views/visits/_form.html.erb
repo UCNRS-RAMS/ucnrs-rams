@@ -3,18 +3,19 @@
     <legend><%= t(".titles.purpose") %></legend>
 
     <fieldset>
+      <%= form.label :project_type, "" %>
       <% @page.project_type_options.each do |value|%>
-        <%= form.label :project_type, for: "project-type-#{value}" do %>
+        <label for="project-type-<%= value %>">
           <%= form.radio_button :project_type, value, id: "project-type-#{value}", data: { action: "click->value-projection#change" }, checked: form.object.project_type == value %>
           <span><%= t(".project_type_options.labels.#{value}") %></span>
           <span><%= t(".project_type_options.explanation.#{value}") %></span>
-        <% end %>
+        </label>
       <% end %>
     </fieldset>
 
     <div class="field project_select">
-      <%= form.label :project, t(".labels.project") %>
-      <%= form.collection_select(:project_id, @page.project_options, :id, :title, { selected: form.object.project_id }) %>
+      <%= form.label :project, t(".labels.project"), for: "visit_project_id" %>
+      <%= form.collection_select(:project_id, @page.project_options, :id, :title, { selected: form.object.project_id, include_blank: true }) %>
       <%= link_to t(".links.create_a_new_project"), "/projects/new" %>
     </div>
 
@@ -39,8 +40,8 @@
       <legend><%= t(".titles.reserve") %> <%= link_to t(".links.browse_reserves"), "#" %></legend>
 
       <div class="field">
-        <%= form.label :reserve_id, t(".labels.reserve") %>
-        <%= form.collection_select(:reserve_id, @page.reserve_options, :id, :pulldown_name, {}, { data: { action: "change-> followup-content#change" } }) %>
+        <%= form.label :reserve, t(".labels.reserve"), for: "visit_reserve_id" %>
+        <%= form.collection_select(:reserve_id, @page.reserve_options, :id, :pulldown_name, { include_blank: true }, { data: { action: "change-> followup-content#change" } }) %>
       </div>
 
       <div class="date-range-select">

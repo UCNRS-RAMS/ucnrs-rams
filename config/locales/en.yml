@@ -1,5 +1,9 @@
 en:
   activerecord: &errors
+    attributes:
+      visit:
+        start_date: "start date"
+        end_date: "end date"
     errors:
       messages:
         must_be_after: "must be after %{attribute}"

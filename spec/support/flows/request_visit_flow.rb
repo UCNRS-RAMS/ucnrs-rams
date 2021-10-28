@@ -100,4 +100,11 @@ class RequestVisitFlow
   def submit_visit_request
     page.find("input[type='submit']").click
   end
+
+  def has_error_on?(label, message)
+    page
+      .find("label", text: label, visible: false)
+      .first(:xpath, ".//..", visible: false)
+      .has_css?("span", text: message, visible: false)
+  end
 end

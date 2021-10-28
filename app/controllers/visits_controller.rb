@@ -7,8 +7,12 @@ class VisitsController < ApplicationController
 
   def create
     @form = VisitForm.new(user: current_user, params: visit_params)
-    @page = VisitsFormPresenter.new(user: current_user, form: @form)
-    render :new
+    if @form.save
+      redirect_to visits_team_url(visit_id: @form.id)
+    else
+      @page = VisitsFormPresenter.new(user: current_user, form: @form)
+      render :new
+    end
   end
 
   private

@@ -47,4 +47,37 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     expect(flow).to have_special_needs("None")
     expect(flow).to have_selected_amenity("Beach Access")
   end
+
+  it "displays error messages when an incompletee form is subitted" do
+    reserve = create(
+      :reserve,
+      name: "Silver Lake Area",
+      special_needs_statement: "Tell us!",
+      reserve_alert_message_enabled: true,
+      reserve_alert_message: "Alert!",
+    )
+    user = create(:user, :confirmed)
+    sign_in(user)
+    now = Time.current
+    flow = RequestVisitFlow.new(page)
+
+    flow.visit_new_visit_page
+    expect(flow).to be_on_new_visit_page
+
+    flow.submit_visit_request
+
+    expect(flow).to have_error_on("Project type", "can't be blank")
+    expect(flow).to have_error_on("What do you plan to do on this visit?", "can't be blank")
+    expect(flow).to have_error_on("Research Project", "must exist")
+    expect(flow).to have_error_on("Reserve", "must exist")
+    expect(flow).to have_error_on("Arrival", "can't be blank")
+    expect(flow).to have_error_on("Departure", "can't be blank")
+
+    flow.set_usage_dates(
+      arrival: now + 1.week,
+      departure: now + 1.day,
+    )
+    flow.submit_visit_request
+    expect(flow).to have_error_on("Departure", "must be after start date")
+  end
 end

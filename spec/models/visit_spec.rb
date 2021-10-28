@@ -6,6 +6,22 @@ RSpec.describe Visit, type: :model do
     it { is_expected.to belong_to(:reserve) }
   end
 
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:purpose_of_visit) }
+    it { is_expected.to validate_presence_of(:project_type) }
+    it { is_expected.to validate_date(:end_date).is_after(:start_date) }
+
+    describe "when public-use" do
+      before { subject.project_type = :public_use }
+      it { is_expected.to validate_presence_of(:public_use_category) }
+    end
+
+    describe "when not public-use" do
+      before { subject.project_type = :research }
+      it { is_expected.to_not validate_presence_of(:public_use_category) }
+    end
+  end
+
   describe "delegations" do
     it { is_expected.to delegate_method(:short_name).to(:reserve).with_prefix }
   end
