@@ -13,6 +13,14 @@ class RequestVisitFlow
     page.has_css?("body.visits-new") || page.has_css?("body.visits-create")
   end
 
+  def has_a_project_type_selected?
+    page.has_css?("[data-purpose='project_type'] [type='radio']:checked")
+  end
+
+  def showing_project_selection?
+    page.has_css?("#visit_project_id", visible: true)
+  end
+
   def has_special_needs_section?(content = nil)
     if content
       page.has_css?("p.special-needs-statement", text: content)
@@ -99,5 +107,12 @@ class RequestVisitFlow
 
   def submit_visit_request
     page.find("input[type='submit']").click
+  end
+
+  def has_error_on?(label, message)
+    page
+      .find("label", text: label, visible: false)
+      .first(:xpath, ".//..", visible: false)
+      .has_css?("span", text: message, visible: false)
   end
 end
