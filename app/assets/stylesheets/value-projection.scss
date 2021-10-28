@@ -10,7 +10,17 @@
   }
 }
 
-*[data-value-projection-projected-value="public_use"] {
+[data-value-projection-projected-value=""] {
+  .project_select {
+    display: none;
+  }
+
+  .public_use_select {
+    display: none;
+  }
+}
+
+[data-value-projection-projected-value="public_use"] {
   .project_select {
     display: none;
   }
