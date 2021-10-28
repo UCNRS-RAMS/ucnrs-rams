@@ -1,7 +1,7 @@
 <div class="amenity">
-  <input type="checkbox" value="<%= amenity.amenity_id %>" name="visit[amenities][<%= amenity.amenity_id %>][amenity_id]" id="<%= amenity.checkbox_id %>" <%= amenity.checked %>/>
+  <%= check_box_tag "#{form.object_name}[amenity_id]", amenity.amenity_id, amenity.checked, id: amenity.checkbox_id %>
   <label for="<%= amenity.checkbox_id %>">
-    <input type="hidden" value="<%= amenity.amenity_visit_id %>" name="visit[amenities][<%= amenity.amenity_id %>][amenity_visit_id]"/>
+    <%= form.hidden_field :amenity_visit_id %>
     <img src="<%= amenity.image_url %>"/>
     <div class="content">
       <h3><%= amenity.title %></h3>
@@ -10,25 +10,21 @@
     </div>
     <div class="booking">
       <div class="field">
-        <label><%= t(".date_of_arrival") %></label>
-        <input type="date" name="visit[amenities][<%= amenity.amenity_id %>][arrives_on]" type="text" value="<%= amenity.arrives_on %>"/>
+        <%= form.label :arrives_on, t(".date_of_arrival") %>
+        <%= form.date_field :arrives_on, value: form.object.arrives_on %>
       </div>
       <div class="field">
-        <label><%= t(".date_of_departure") %></label>
-        <input type="date" name="visit[amenities][<%= amenity.amenity_id %>][departs_on]" type="text" value="<%= amenity.departs_on %>"/>
+        <%= form.label :departs_on, t(".date_of_departure") %>
+        <%= form.date_field :departs_on, value: form.object.departs_on %>
       </div>
       <div class="field">
-      <label><%= t(".rate") %><%= t(".rate_period", unit: amenity.unit, period: amenity.period) %></label>
-        <select class="rate_select" name="visit[amenities][<%= amenity.amenity_id %>][amenity_rate_id]">
-          <% amenity.rates.each do |rate| %>
-            <option value="<%= rate.id %>" <%= rate.selected_for(amenity) %> ><%= rate.amount %> (<%= rate.description %>)</option>
-          <% end %>
-        </select>
+        <%= form.label :amenity_rate_id, "#{t(".rate")}#{t(".rate_period", unit: amenity.unit, period: amenity.period)}" %>
+        <%= form.collection_select :amenity_rate_id, amenity.rates, :id, :label %> 
       </div>
       <div class="field" data-controller="counter">
         <label><%= t(".number_of_people") %></label>
         <input type="button" data-action="click->counter#decrement" value="-"/>
-        <input name="visit[amenities][<%= amenity.amenity_id %>][number_of_people]" type="text" data-counter-target="output" value="<%= amenity.number_of_people %>"/>
+        <%= form.text_field :number_of_people, data: { "counter-target": "output" } %>
         <input type="button" data-action="click->counter#increment" value="+"/>
       </div>
       <div class="field">

@@ -38,4 +38,20 @@ RSpec.describe Visits::AmenityRatePresenter do
       expect(presenter.description).to eq "Free for everyone!"
     end
   end
+
+  describe "#label" do
+    it "combines the amount and description" do
+      rate = create(
+        :amenity_rate,
+        rate: 1.25,
+        amenity_rate_category: create(
+          :amenity_rate_category,
+          description: "Cool!"
+        )
+      )
+      presenter = Visits::AmenityRatePresenter.new(rate)
+
+      expect(presenter.label).to eq "$1.25 (Cool!)"
+    end
+  end
 end

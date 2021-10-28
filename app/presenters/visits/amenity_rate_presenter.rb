@@ -19,6 +19,10 @@ class Visits::AmenityRatePresenter
     amenity_rate.amenity_rate_category.description
   end
 
+  def label
+    "#{amount} (#{description})"
+  end
+
   def selected_for(amenity)
     if id == amenity.amenity_rate_id
       "selected"
