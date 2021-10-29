@@ -8,9 +8,6 @@ class Visit < ApplicationRecord
   validates :end_date, must_be_after: :start_date
   validates :public_use_category, presence: true, if: :public_use?
 
-  # Future validations
-  # validates :acceptance_of_stuff, if: (status > pending)
-
   delegate :short_name, to: :reserve, prefix: true
 
   def self.recent_start_date_first

@@ -48,14 +48,7 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     expect(flow).to have_selected_amenity("Beach Access")
   end
 
-  it "displays error messages when an incompletee form is subitted" do
-    reserve = create(
-      :reserve,
-      name: "Silver Lake Area",
-      special_needs_statement: "Tell us!",
-      reserve_alert_message_enabled: true,
-      reserve_alert_message: "Alert!",
-    )
+  it "displays error messages when an incomplete form is submitted" do
     user = create(:user, :confirmed)
     sign_in(user)
     now = Time.current
