@@ -317,23 +317,6 @@ ActiveRecord::Schema.define(version: 2021_11_02_145708) do
     t.index ["reserve_id", "SortOrder"], name: "SortOrderByReserve"
   end
 
-  create_table "Waivers", primary_key: "WaiverID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "reserve_id"
-    t.string "Name"
-    t.text "Description"
-    t.string "WaiverURL"
-    t.integer "SortOrder", limit: 1
-    t.integer "reserve_id_temp"
-    t.integer "Online", default: 0
-    t.text "OnlineHTMLText", comment: "Use HTML code"
-    t.integer "NumberOfYearsUntilExpire", default: 3, comment: "How many years can a waiver be helpd until you require applicant to submit a new one"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["SortOrder"], name: "SortOrderPlain"
-    t.index ["reserve_id", "SortOrder"], name: "ReserveAndSortOrder"
-    t.index ["reserve_id"], name: "ReserveIDPlain"
-  end
-
   create_table "active_storage_attachments", charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -543,13 +526,21 @@ ActiveRecord::Schema.define(version: 2021_11_02_145708) do
     t.index ["user_id"], name: "index_logx_on_user_id"
   end
 
-  create_table "new_waivers", charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
+  create_table "old_waivers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "reserve_id"
     t.string "name"
     t.text "description"
-    t.string "url1"
-    t.integer "years_to_expiration"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "url"
+    t.integer "sort_order", limit: 1
+    t.integer "reserve_id_temp", comment: "DEPRECATED"
+    t.boolean "online", default: false, null: false
+    t.text "online_html_text", comment: "Use HTML code"
+    t.integer "years_until_expire", default: 3, comment: "How many years can a waiver be helpd until you require applicant to submit a new one"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["reserve_id", "sort_order"], name: "reserve_and_sort_order"
+    t.index ["reserve_id"], name: "reserve_id"
+    t.index ["sort_order"], name: "sort_order"
   end
 
   create_table "project_team_memberships", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -648,7 +639,7 @@ ActiveRecord::Schema.define(version: 2021_11_02_145708) do
     t.index ["status"], name: "project_status"
   end
 
-  create_table "rams_options", charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
+  create_table "rams_options", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "option_name"
     t.text "option_value"
   end
@@ -675,7 +666,7 @@ ActiveRecord::Schema.define(version: 2021_11_02_145708) do
     t.index ["user_id"], name: "user"
   end
 
-  create_table "reserve_settings", charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
+  create_table "reserve_settings", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.boolean "req_resource", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -953,6 +944,16 @@ ActiveRecord::Schema.define(version: 2021_11_02_145708) do
     t.index ["reserve_id"], name: "reserve"
     t.index ["status"], name: "status"
     t.index ["user_id"], name: "user"
+  end
+
+  create_table "waivers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.string "url"
+    t.integer "years_to_expiration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.column "url_type", "enum('link','pdf')", default: "link", null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

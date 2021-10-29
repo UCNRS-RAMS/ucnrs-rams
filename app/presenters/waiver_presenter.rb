@@ -3,7 +3,11 @@ class WaiverPresenter
     @waiver = waiver
   end
 
-  delegate :id, :name, :description, :pdf_link, to: :waiver
+  delegate :id, :name, :description, :url, to: :waiver
+
+  def pdf_link
+    url
+  end
 
   private
 
