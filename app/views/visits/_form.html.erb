@@ -75,8 +75,8 @@
       <legend><%= t(".titles.amenities") %><span><%= t(".titles.amenities_subtitle") %></span></legend>
       <section class="amenity-options" data-followup-content-target="destination" data-followup-content-url-value="<%= visits_amenities_url(reserve_id: "VALUE") %>">
         <% @page.amenities.each do |amenity| %>
-          <%= fields_for "visit[amenities][#{ amenity.amenity_id }]", amenity do |form| %>
-            <%= render partial: "visits/amenities/amenity", locals: { form: form, amenity: amenity } %>
+          <%= fields_for "visit[amenities][#{ amenity.amenity_id }]", amenity.form do |form| %>
+            <%= render partial: "visits/amenities/amenity", locals: { form: form, page: amenity } %>
           <% end %>
         <% end %>
       </section>

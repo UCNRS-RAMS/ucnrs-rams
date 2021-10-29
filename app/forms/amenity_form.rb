@@ -1,5 +1,11 @@
 class AmenityForm
-  def initialize(params = {})
+  include ActiveModel::Model
+
+  def class_name
+    ActiveModel::Name.new(Amenity)
+  end
+
+  def initialize(user: User.new, params: {})
     @amenity_visit = AmenityVisit.where(
       id: params[:amenity_visit_id]
     ).first || AmenityVisit.new
@@ -8,6 +14,10 @@ class AmenityForm
 
   attr_reader :amenity_visit
   delegate_missing_to :amenity_visit
+
+  validates :amenity_id, presence: true
+  validates :arrives_on, presence: true
+  validates :departs_on, presence: true
 
   def amenity_visit_id
     amenity_visit.id
@@ -35,7 +45,38 @@ class AmenityForm
     amenity_visit.departs_on = parse_date(date)
   end
 
+  alias_method :validate_form, :validate
+  alias_method :valid_form?, :valid?
+
+  def validate
+    validate_form
+    validate_amenity_visit
+    copy_errors_to_self
+    errors.empty?
+  end
+  alias_method :valid?, :validate
+
+  def save
+    if valid_form?
+      AmenityVisit.transaction do
+        save_amenity_visit!
+      end
+    end
+  end
+
   private
+
+  def validate_amenity_visit
+    amenity_visit.validate
+  end
+
+  def save_amenity_visit!
+    amenity_visit.save!
+  end
+
+  def copy_errors_to_self
+    errors.merge!(amenity_visit.errors)
+  end
 
   def assign(params)
     params.each do |key, value|
@@ -51,10 +92,13 @@ class AmenityForm
     begin
       Time.strptime(
         date_string,
-        I18n.translate("time.formats.visit_form_input_date")
+        I18n.translate("time.formats.visit_form_input_date"),
       )
-    rescue ArgumentError
+    rescue ArgumentError, TypeError
       nil
     end
   end
+
+  private :valid_form?, :validate_form
+
 end

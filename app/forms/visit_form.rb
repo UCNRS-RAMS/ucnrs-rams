@@ -5,9 +5,10 @@ class VisitForm
     ActiveModel::Name.new(Visit)
   end
 
-  def initialize(user:, params: {})
+  def initialize(user: User.new, params: {})
     @visit = Visit.where(id: params[:id]).first || Visit.new
-    @user = user
+    @visit.user = user
+    @visit.sign_token = SecureRandom.urlsafe_base64(48)
     @amenities_params = params.delete(:amenities) || {}
     assign(params)
   end
@@ -19,16 +20,31 @@ class VisitForm
   validates :start_date, presence: true
   validates :end_date, presence: true
 
+  alias_method :validate_form, :validate
+  alias_method :valid_form?, :valid?
+  def validate
+    validate_form
+    validate_visit
+    validate_amenities
+    copy_errors_to_self
+    errors.empty?
+  end
+  alias_method :valid?, :validate
+
   def save
     begin
       Visit.transaction do
-        validate_everything
+        validate
         if errors.blank?
-          save_visit
-          save_amenities
+          save_visit!
+          save_amenities!
+          true
+        else
+          false
         end
       end
     rescue ActiveRecord::RecordInvalid => e
+      false
     end
   end
 
@@ -52,50 +68,11 @@ class VisitForm
     display_time(visit.end_time)
   end
 
-  private
-
-  def assign(params)
-    params.each do |key, value|
-      self.send("#{key}=", value)
-    end
-  end
-
-  def validate_everything
-    validate
-    validate_visit
-    validate_amenities
-    copy_errors_to_self
-  end
-
-  def validate_visit
-    visit.validate
-  end
-
-  def validate_amenities
-    amenity_forms.each do |key, amenity|
-      amenity.validate
-    end
-  end
-
-  def copy_errors_to_self
-    errors.merge!(visit.errors)
-    amenity_forms.each do |key, amenity|
-      errors.merge!(amenity.errors)
-    end
-  end
-
-  def save_visit
+  def project_type=(category)
+    visit.project_type = category
     if public_use?
-      visit.project_id = 0
+      visit.project_id = Visit::PUBLIC_PROJECT_ID
     end
-    visit.status = :temp
-    visit.sign_token = SecureRandom.urlsafe_base64(48)
-    visit.user = @user
-    visit.save!
-  end
-
-  def save_amenities
-
   end
 
   def start_date=(date)
@@ -114,6 +91,39 @@ class VisitForm
     visit.end_time = parse_time(time)
   end
 
+  private
+
+  def assign(params)
+    params.each do |key, value|
+      self.send("#{key}=", value)
+    end
+  end
+
+  def validate_visit
+    visit.validate
+  end
+
+  def validate_amenities
+    amenity_forms.each do |key, amenity|
+      amenity.validate
+    end
+  end
+
+  def copy_errors_to_self
+    errors.merge!(visit.errors)
+  end
+
+  def save_visit!
+    visit.save!
+  end
+
+  def save_amenities!
+    amenity_forms.each do |key, amenity|
+      amenity.visit_id = visit.id
+      amenity.save!
+    end
+  end
+
   def display_date(date)
     date ? I18n.l(date, format: :visit_form_output_date) : ""
   end
@@ -123,27 +133,35 @@ class VisitForm
   end
 
   def parse_date(date_string)
-    if date_string.present?
-      Time.strptime(date_string, I18n.translate("date.formats.visit_form_input_date"))
-    else
+    begin
+      Time.strptime(
+        date_string,
+        I18n.translate("date.formats.visit_form_input_date"),
+      )
+    rescue ArgumentError, TypeError
       nil
     end
   end
 
   def parse_time(time_string)
-    if time_string.present?
+    begin
       Time.strptime(
         "#{time_string} -0000",
         I18n.translate("time.formats.visit_form_input_time")
       )
-    else
+    rescue ArgumentError, TypeError
       nil
     end
   end
 
   def amenity_forms
     @amenity_forms ||= @amenities_params.values.each_with_object({}) do |params, forms|
-      forms[params[:amenity_id].to_s] = AmenityForm.new(params)
+      forms[params[:amenity_id].to_s] = AmenityForm.new(
+        user: user,
+        params: params,
+      )
     end
   end
+
+  private :valid_form?, :validate_form
 end

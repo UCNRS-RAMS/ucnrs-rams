@@ -53,6 +53,15 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
   end
 
   it "displays error messages when an incomplete form is submitted" do
+    reserve = create(
+      :reserve,
+      name: "Silver Lake Area",
+      special_needs_statement: "Tell us!",
+      reserve_alert_message_enabled: true,
+      reserve_alert_message: "Alert!",
+    )
+    amenity = create(:amenity, title: "Beach Access", reserve: reserve)
+    amenity_rate = create(:amenity_rate, rate: 0, amenity: amenity, sort_order: 1)
     user = create(:user, :confirmed)
     sign_in(user)
     now = Time.current
@@ -61,20 +70,30 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     flow.visit_new_visit_page
     expect(flow).to be_on_new_visit_page
 
+    flow.select_reserve("Silver Lake Area")
+    flow.select_amenity("Beach Access")
     flow.submit_visit_request
 
     expect(flow).to have_error_on("Project type", "can't be blank")
     expect(flow).to have_error_on("What do you plan to do on this visit?", "can't be blank")
     expect(flow).to have_error_on("Research Project", "must exist")
-    expect(flow).to have_error_on("Reserve", "must exist")
-    expect(flow).to have_error_on("Arrival", "can't be blank")
-    expect(flow).to have_error_on("Departure", "can't be blank")
+    flow.inside_reserve_section do
+      expect(flow).to have_error_on("Arrival", "can't be blank")
+      expect(flow).to have_error_on("Departure", "can't be blank")
+    end
+    flow.inside_amenity(amenity) do
+      expect(flow).to have_error_on("Arrival", "can't be blank")
+      expect(flow).to have_error_on("Departure", "can't be blank")
+      expect(flow).to have_error_on("No. of People", "must be a number greater than 0")
+    end
 
     flow.set_usage_dates(
       arrival: now + 1.week,
       departure: now + 1.day,
     )
     flow.submit_visit_request
-    expect(flow).to have_error_on("Departure", "must be after start date")
+    flow.inside_reserve_section do
+      expect(flow).to have_error_on("Departure", "must be after start date")
+    end
   end
 end
