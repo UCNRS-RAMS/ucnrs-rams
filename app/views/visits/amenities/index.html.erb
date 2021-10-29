@@ -1,5 +1,5 @@
 <% @page.amenities.each do |amenity| %>
   <%= fields_for "visit[amenities][#{amenity.amenity_id}]", amenity do |form| %>
-    <%= render partial: "amenity", locals: { form: form, amenity: amenity } %>
+    <%= render partial: "amenity", locals: { form: form, page: amenity } %>
   <% end %>
 <% end %>

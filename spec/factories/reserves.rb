@@ -2,5 +2,15 @@ FactoryBot.define do
   factory :reserve do
     pulldown_name { name || "Pulldown" }
     sequence(:name) { |n| "Reserve #{n}" }
+
+    transient do
+      amenities_named { [] }
+    end
+
+    after(:build) do |reserve, evaluator|
+      evaluator.amenities_named.each do |name|
+        reserve.amenities << build(:amenity, title: name)
+      end
+    end
   end
 end

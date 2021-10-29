@@ -1,12 +1,36 @@
 class RequestVisitFlow
   def initialize(page)
-    @page = page
+    @capybara_page = page
+    @page_scope = nil
   end
-
-  attr_reader :page
 
   def visit_new_visit_page
     page.visit("/visits/new")
+  end
+
+  def page
+    if @page_scope
+      capybara_page.find(@page_scope)
+    else
+      capybara_page
+    end
+  end
+
+  def within(selector, &block)
+    begin
+      @page_scope = selector
+      block.call
+    ensure
+      @page_scope = nil
+    end
+  end
+
+  def inside_reserve_section(&block)
+    within(".reserve-info", &block)
+  end
+
+  def inside_amenity(amenity, &block)
+    within(".amenity label[for='amenity-#{amenity.id}']", &block)
   end
 
   def on_new_visit_page?
@@ -107,4 +131,8 @@ class RequestVisitFlow
       .first(:xpath, ".//..", visible: false)
       .has_css?("span", text: message, visible: false)
   end
+
+  private
+
+  attr_reader :capybara_page
 end

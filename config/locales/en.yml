@@ -8,6 +8,11 @@ en:
       messages:
         must_be_after: "must be after %{attribute}"
       models:
+        amenity_visit:
+          attributes:
+            number_of_people:
+              greater_than: "must be a number greater than %{count}"
+              not_a_number: "must be a number greater than 0"
         user:
           billing_address_fields_presence: "can't be blank if including a billing address"
           attributes:

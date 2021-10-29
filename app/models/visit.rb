@@ -3,6 +3,8 @@ class Visit < ApplicationRecord
   belongs_to :project
   belongs_to :reserve
 
+  PUBLIC_PROJECT_ID = 0
+
   validates :purpose_of_visit, presence: true
   validates :project_type, presence: true
   validates :end_date, must_be_after: :start_date
