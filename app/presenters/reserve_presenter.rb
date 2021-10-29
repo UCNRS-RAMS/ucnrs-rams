@@ -1,5 +1,7 @@
 class ReservePresenter
   include Rails.application.routes.url_helpers
+
+  AVATAR_PLACEHOLDER = "reserve_icon1.png".freeze
   
   def initialize(reserve)
     @reserve = reserve
@@ -32,7 +34,7 @@ class ReservePresenter
     if has_avatar?
       rails_blob_path(reserve_avatar, only_path: true)
     else
-      "reserve_icon1.png"
+      AVATAR_PLACEHOLDER
     end
   end
 

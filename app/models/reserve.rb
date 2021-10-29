@@ -1,10 +1,13 @@
 class Reserve < ApplicationRecord
+  IMAGE_PLACEHOLDER = "reserve_placeholder.jpg".freeze
+
   has_one_attached :reserve_avatar
 
-  belongs_to :managing_campus, class_name: "Institution"
+  belongs_to :managing_campus, class_name: "Institution", optional: true
   belongs_to :address_state, class_name: "State"
   has_many :amenities
   has_many :personnel, class_name: "ReservePersonnel"
+  has_and_belongs_to_many :waivers
 
   def self.blank
     Reserve.new(id: -1, name: "", pulldown_name: "")
@@ -25,11 +28,7 @@ class Reserve < ApplicationRecord
     end
   end
 
-  def waivers
-    Waiver.fake
-  end
-
   def image_placeholder
-    "reserve_placeholder.jpg"
+    IMAGE_PLACEHOLDER
   end
 end
