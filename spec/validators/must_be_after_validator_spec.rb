@@ -19,12 +19,12 @@ RSpec.describe MustBeAfterValidator do
   end
 
   it "must be after the 'early date'" do
-    dummy = Dummy.new(Date.today, 1.day.ago)
+    dummy = Dummy.new(Date.current, 1.day.ago)
     expect(dummy).to be_valid
   end
 
   it "must be after the 'early date' or we get an error" do
-    dummy = Dummy.new(Date.today, 1.day.from_now)
+    dummy = Dummy.new(Date.current, 1.day.from_now)
     expect(dummy).to_not be_valid
     expect(dummy.errors.full_messages).to eq [
       "Date must be after the earlier of the dates"
