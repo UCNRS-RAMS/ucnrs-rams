@@ -2,6 +2,8 @@ class Visit < ApplicationRecord
   belongs_to :user
   belongs_to :project
   belongs_to :reserve
+  has_many :amenity_visits
+  has_many :amenities, through: :amenity_visits
 
   PUBLIC_PROJECT_ID = 0
 

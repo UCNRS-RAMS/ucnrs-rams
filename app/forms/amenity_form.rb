@@ -9,6 +9,7 @@ class AmenityForm
     @amenity_visit = AmenityVisit.where(
       id: params[:amenity_visit_id]
     ).first || AmenityVisit.new
+    @amenity_visit.user = user
     assign(params)
   end
 

@@ -34,16 +34,12 @@ class VisitForm
   def save
     begin
       Visit.transaction do
-        validate
-        if errors.blank?
-          save_visit!
-          save_amenities!
-          true
-        else
-          false
-        end
+        save_visit!
+        save_amenities!
+        true
       end
     rescue ActiveRecord::RecordInvalid => e
+      validate
       false
     end
   end
@@ -105,6 +101,7 @@ class VisitForm
 
   def validate_amenities
     amenity_forms.each do |key, amenity|
+      amenity.visit_id = visit.id
       amenity.validate
     end
   end
@@ -156,7 +153,9 @@ class VisitForm
 
   def amenity_forms
     @amenity_forms ||= @amenities_params.values.each_with_object({}) do |params, forms|
-      forms[params[:amenity_id].to_s] = AmenityForm.new(
+      amenity_id = params[:amenity_id].to_s
+      next if amenity_id.blank?
+      forms[amenity_id] = AmenityForm.new(
         user: user,
         params: params,
       )

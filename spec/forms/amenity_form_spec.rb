@@ -8,15 +8,17 @@ RSpec.describe AmenityForm, type: :model do
   end
 
   describe "initializing" do
-    it "makes a new AmenityVisit from params" do
+    it "makes a new AmenityVisit from arguments" do
       amenity = create(:amenity)
+      user = create(:user)
       params = {
         amenity_id: amenity.id,
       }
-      form = AmenityForm.new(params: params)
+      form = AmenityForm.new(params: params, user: user)
 
       expect(form.amenity_visit).to have_attributes(
         amenity_id: amenity.id,
+        user_id: user.id,
       )
     end
 
@@ -95,7 +97,6 @@ RSpec.describe AmenityForm, type: :model do
         arrives_on: ["can't be blank"],
         departs_on: ["can't be blank"],
         number_of_people: ["must be a number greater than 0"],
-        user: ["must exist"],
         visit: ["must exist"],
       })
     end

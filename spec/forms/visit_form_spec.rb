@@ -149,6 +149,73 @@ RSpec.describe VisitForm, type: :model do
     end
   end
 
+  describe "#save" do
+    it "saves both the Visit and the Amenities if there are no errors" do
+      project = create(:project)
+      reserve = create(:reserve, amenities_named: ["one", "two"])
+      one, two = reserve.amenities
+      user = create(:user)
+      form = VisitForm.new(user: user, params: {
+        project: project,
+        reserve: reserve,
+        purpose_of_visit: "Nothing",
+        project_type: "research",
+        start_date: 1.week.from_now.strftime("%Y-%m-%d"),
+        end_date: 2.weeks.from_now.strftime("%Y-%m-%d"),
+        amenities: {
+          one.id.to_s => {
+            amenity_id: one.id,
+            arrives_on: 1.week.from_now.strftime("%Y-%m-%d"),
+            departs_on: 2.weeks.from_now.strftime("%Y-%m-%d"),
+            number_of_people: 2,
+            amenity_rate_id: one.amenity_rates.first.id,
+          },
+          two.id.to_s => {}
+        }
+      })
+
+      result = form.save
+
+      expect(result).to be_truthy
+      expect(form.visit).to be_persisted
+      form.visit.amenity_visits.each do |amenity_visit|
+        expect(amenity_visit).to be_persisted
+      end
+    end
+
+    it "makes sure all errors are visible when save fails" do
+      project = create(:project)
+      reserve = create(:reserve, amenities_named: ["one", "two"])
+      one, two = reserve.amenities
+      user = create(:user)
+      form = VisitForm.new(user: user, params: {
+        project: project,
+        reserve: reserve,
+        purpose_of_visit: nil,
+        project_type: "research",
+        start_date: 1.week.from_now.strftime("%Y-%m-%d"),
+        end_date: 2.weeks.from_now.strftime("%Y-%m-%d"),
+        amenities: {
+          one.id.to_s => {
+            amenity_id: one.id,
+            arrives_on: 2.weeks.from_now.strftime("%Y-%m-%d"),
+            departs_on: 1.week.from_now.strftime("%Y-%m-%d"),
+            number_of_people: 2,
+            amenity_rate_id: one.amenity_rates.first.id,
+          },
+          two.id.to_s => {}
+        }
+      })
+
+      result = form.save
+
+      expect(result).to be_falsy
+      expect(form.visit).to_not be_persisted
+      expect(form.errors).to be_present
+      expect(form.amenity_form(one.id.to_s).errors).to be_present
+    end
+  end
+
   describe "#parse_date" do
     it "parses a date in %Y-%m-%d format" do
       form = VisitForm.new

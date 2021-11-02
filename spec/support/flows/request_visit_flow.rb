@@ -37,6 +37,10 @@ class RequestVisitFlow
     page.has_css?("body.visits-new") || page.has_css?("body.visits-create")
   end
 
+  def on_select_team_form?
+    page.has_css?("body.home-index") # Temporary: To show movement
+  end
+
   def has_a_project_type_selected?
     page.has_css?("[data-purpose='project_type'] [type='radio']:checked")
   end
@@ -100,6 +104,25 @@ class RequestVisitFlow
     page.find("#visit_start_time").set(arrival.strftime("%I:%M%p"))
     page.find("#visit_end_date").set(departure.strftime("%m/%d/%Y"))
     page.find("#visit_end_time").set(departure.strftime("%I:%M%p"))
+  end
+
+  def inside_amenity_labeled(title, &block)
+    amenity_title = page.find(".amenity h3", text: title)
+    section = amenity_title.first(:xpath, ".//../..")
+    block.call(section)
+  end
+
+  def set_amenity_usage_dates(title, arrival:, departure:)
+    inside_amenity_labeled(title) do |section|
+      section.find("label", text: "Arrival").set(arrival.strftime("%m/%d/%Y"))
+      section.find("label", text: "Departure").set(departure.strftime("%m/%d/%Y"))
+    end
+  end
+
+  def set_number_of_people_for_amenity(title, number)
+    inside_amenity_labeled(title) do |section|
+      section.fill_in "No. of People", with: number
+    end
   end
 
   def has_usage_dates?(arrival:, departure:)

@@ -4,6 +4,8 @@ RSpec.describe Visit, type: :model do
   describe "associations" do
     it { is_expected.to belong_to(:project) }
     it { is_expected.to belong_to(:reserve) }
+    it { is_expected.to have_many(:amenity_visits) }
+    it { is_expected.to have_many(:amenities).through(:amenity_visits) }
   end
 
   describe "validations" do

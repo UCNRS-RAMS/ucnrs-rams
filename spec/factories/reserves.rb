@@ -9,7 +9,7 @@ FactoryBot.define do
 
     after(:build) do |reserve, evaluator|
       evaluator.amenities_named.each do |name|
-        reserve.amenities << build(:amenity, title: name)
+        reserve.amenities << build(:amenity, title: name, rates: [0])
       end
     end
   end
