@@ -31,9 +31,11 @@ class Visits::AmenityPresenter
   end
 
   def rates
-    amenity.amenity_rates.in_order.map do |rate|
-      Visits::AmenityRatePresenter.new(rate)
-    end
+    amenity
+      .amenity_rates
+      .in_order
+      .includes(:amenity_rate_category)
+      .map{ |rate| Visits::AmenityRatePresenter.new(rate) }
   end
 
   def unit
