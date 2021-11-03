@@ -157,6 +157,7 @@ class RequestVisitFlow
   end
 
   def has_error_on?(label, message)
+    sleep(0.5)
     page
       .find("label", text: label, visible: false)
       .first(:xpath, ".//..", visible: false)

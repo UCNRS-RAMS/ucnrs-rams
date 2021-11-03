@@ -11,7 +11,7 @@ class VisitsController < ApplicationController
       redirect_to root_url
     else
       @page = VisitsFormPresenter.new(user: current_user, form: @form)
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
