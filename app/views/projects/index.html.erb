@@ -6,7 +6,7 @@
       <header>
         <h1><%= t(".title") %></h1>
         <form method="get">
-          <select id="status" name="status" aria-label="status" onchange="this.form.submit()">
+          <select id="status" name="status" aria-label="status" onchange="this.form.requestSubmit()">
             <% @page.filter_options.each do |option| %>
               <option <%= @page.selected?(option) %> value="<%= option %>"><%= option %></option>
             <% end %>

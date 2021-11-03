@@ -20,9 +20,9 @@ class ProjectIndexFlow
   end
 
   def has_projects_in_order?(projects)
+    sleep(0.5)
     project_ids = projects.map { |project| "project_#{project.id}" }
     row_ids = page.find_all("tr.project").map { |row| row[:id] }
-
     row_ids == project_ids
   end
 
