@@ -6,7 +6,7 @@
     <p><%= t(".header.description") %></p>
   </header>
 
-  <%= form_with model: @page.form_user, url: user_registration_path do |f| %>
+  <%= form_with model: @page.form_user, url: user_registration_path, data: { turbo: false } do |f| %>
     <div class="section-container">
       <section class="basics">
         <h2><%= t(".titles.basics") %></h2>

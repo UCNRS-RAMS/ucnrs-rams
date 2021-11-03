@@ -8,7 +8,7 @@
   <% end %>
 </div>
 
-<%= form_with model: resource, url: user_password_path do |f| %>
+<%= form_with model: resource, url: user_password_path, data: { turbo: false } do |f| %>
   <section class="instructions">
     <%= t(".instructions") %>
   </section>
