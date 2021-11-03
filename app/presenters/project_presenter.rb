@@ -9,7 +9,6 @@ class ProjectPresenter
   attr_reader :project, :status_filter
 
   delegate :id,
-    :project_type,
     :visits_count,
     :title,
     :total_pages, to: :project
@@ -40,6 +39,10 @@ class ProjectPresenter
     else
       not_applicable
     end
+  end
+
+  def project_type
+    project.project_type.titleize
   end
 
   private

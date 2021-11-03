@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_25_164933) do
+ActiveRecord::Schema.define(version: 2021_11_02_145708) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id"
@@ -643,7 +643,7 @@ ActiveRecord::Schema.define(version: 2021_10_25_164933) do
     t.string "method_study_area", limit: 10000
     t.boolean "NonNativeGenotype", default: false, comment: "DEPRECATED"
     t.date "date_submitted", comment: "Move data to submitted_at with default time"
-    t.column "project_type", "enum('Research','Class','Public','Housing','Meeting','All')", default: "Research"
+    t.column "project_type", "enum('Research','Class','Public Use','Housing','Meeting')"
     t.column "app_html_type", "enum('research','class','other','housing','conference')", comment: "DEPRECATED"
     t.column "project_sub_type", "enum('Default','Meeting','Housing')", default: "Default"
     t.date "start_date"
