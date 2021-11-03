@@ -25,8 +25,8 @@ class VisitsFormPresenter
     Visit.project_types.keys
   end
 
-  def project_options
-    @user.projects.alphabetized
+  def projects
+    []
   end
 
   def reserve_options

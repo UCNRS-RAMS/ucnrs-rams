@@ -22,5 +22,6 @@ Rails.application.routes.draw do
   namespace :visits do
     resources :reserve_inputs, only: [:show]
     resources :amenities, only: [:index]
+    resources :projects, only: [:index]
   end
 end

@@ -1,12 +1,12 @@
 <section>
-  <fieldset data-controller="value-projection" data-value-projection-projected-value="<%= form.object.project_type %>">
+  <fieldset data-controller="value-projection turbo-content" data-value-projection-projected-value="<%= form.object.project_type %>">
     <legend><%= t(".titles.purpose") %></legend>
 
     <fieldset data-purpose="project_type">
       <%= form.label :project_type, "" %>
       <% @page.project_type_options.each do |value|%>
         <label for="project-type-<%= value %>">
-          <%= form.radio_button :project_type, value, id: "project-type-#{value}", data: { action: "click->value-projection#change" }, checked: form.object.project_type == value %>
+          <%= form.radio_button :project_type, value, id: "project-type-#{value}", data: { action: "click->value-projection#change click->turbo-content#change" }, checked: form.object.project_type == value %>
           <span><%= t(".project_type_options.labels.#{value}") %></span>
           <span><%= t(".project_type_options.explanation.#{value}") %></span>
         </label>
@@ -15,7 +15,7 @@
 
     <div class="field project_select">
       <%= form.label :project, t(".labels.project"), for: "visit_project_id" %>
-      <%= form.collection_select(:project_id, @page.project_options, :id, :title, { selected: form.object.project_id, include_blank: true }) %>
+      <%= render partial: "visits/projects/projects_select", locals: { projects: @page.projects } %>
       <%= link_to t(".links.create_a_new_project"), "/projects/new" %>
     </div>
 

@@ -110,7 +110,8 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     amenity = create(:amenity, title: "Beach Access", reserve: reserve)
     amenity_rate = create(:amenity_rate, rate: 0, amenity: amenity, sort_order: 1)
     user = create(:user, :confirmed)
-    project = create(:project, title: "Fun", reserve: reserve, members: [user])
+    project = create(:project, title: "Fun", project_type: "Class", reserve: reserve)
+    create(:project_team_membership, user: user, project: project, can_add_visit: true, active: true)
     sign_in(user)
     now = Time.current
     flow = RequestVisitFlow.new(page)
@@ -119,8 +120,8 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     expect(flow).to be_on_new_visit_page
 
     flow.select_project_type("University Class")
-    flow.select_reserve("Silver Lake Area")
     flow.select_project("Fun")
+    flow.select_reserve("Silver Lake Area")
     flow.set_purpose("To swim")
     flow.set_usage_dates(
       arrival: now + 1.hour,

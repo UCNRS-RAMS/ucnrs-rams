@@ -26,12 +26,26 @@ class Project < ApplicationRecord
     incomplete: "Incomplete",
   }
 
+  enum project_type: {
+    research: "Research",
+    class: "Class",
+    meeting: "Meeting",
+    public_use: "Public Use",
+  }
+
   def self.alphabetized
     order(Arel.sql("SUBSTRING(title, 1, 50)"))
   end
 
-  def self.with_active_team_member(user)
-    joins(:team_memberships).where(team_memberships: { user: user, active: true })
+  def self.with_active_team_member(user:, can_add_visit: false)
+    joins(:team_memberships)
+      .where(
+        team_memberships: {
+          user: user,
+          active: true,
+          can_add_visit: can_add_visit,
+        }
+      )
   end
 
   def self.recent_first
@@ -66,5 +80,16 @@ class Project < ApplicationRecord
 
   def visits_count
     visits.count
+  end
+
+  def self.of_type(project_type)
+    case project_type
+    when "research" then where(project_type: "Research")
+    when "university_class" then where(project_type: "Class")
+    when "meeting_or_conference" then where(project_type: "Meeting")
+    when "public_use" then where(project_type: "Public Use")
+    else
+      none
+    end
   end
 end

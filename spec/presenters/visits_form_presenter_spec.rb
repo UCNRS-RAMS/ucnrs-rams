@@ -35,23 +35,12 @@ RSpec.describe VisitsFormPresenter do
     end
   end
 
-  describe "#project_options" do
-    it "returns all projects accessible to the user" do
+  describe "#projects" do
+    it "is an empty array" do
       user = create(:user)
-      expected_projects = [
-        create(:project_team_membership, user: user, project_title: "Z").project,
-        create(:project_team_membership, user: user, project_title: "A").project,
-      ]
-      other_projects = [
-        create(:project_team_membership).project,
-        create(:project_team_membership).project,
-      ]
       presenter = VisitsFormPresenter.new(user: user)
 
-      expect(presenter.project_options).to eq [
-        expected_projects[1],
-        expected_projects[0],
-      ]
+      expect(presenter.projects).to eq []
     end
   end
 

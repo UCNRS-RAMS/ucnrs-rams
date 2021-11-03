@@ -4,9 +4,26 @@ RSpec.describe ProjectPresenter do
   describe "delegations" do
     subject { ProjectPresenter.new(project: create(:project)) }
     it { is_expected.to delegate_method(:id).to(:project) }
-    it { is_expected.to delegate_method(:project_type).to(:project) }
     it { is_expected.to delegate_method(:visits_count).to(:project) }
     it { is_expected.to delegate_method(:title).to(:project) }
+  end
+
+  describe "#project_type" do
+    it "capitalizes the first letter of the project type" do
+      project_presenter = ProjectPresenter.new(
+        project: create(:project, project_type: "research")
+      )
+
+      expect(project_presenter.project_type).to eq "Research"
+    end
+
+    it "converts underscores in the project type to spaces and capitalizes the first letter of each word" do
+      project_presenter = ProjectPresenter.new(
+        project: create(:project, project_type: "public_use")
+      )
+
+      expect(project_presenter.project_type).to eq "Public Use"
+    end
   end
 
   describe "#timeframe" do

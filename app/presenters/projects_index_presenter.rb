@@ -17,7 +17,7 @@ class ProjectsIndexPresenter
 
   def project_scope
     Project
-      .with_active_team_member(user)
+      .with_active_team_member(user: user)
       .ordered_by_visit_date
       .for_status(status_filter)
       .page(page)

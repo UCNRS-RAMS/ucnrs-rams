@@ -19,6 +19,16 @@ RSpec.describe Project, type: :model do
       ).backed_by_column_of_type(:string)
   end
 
+  it do 
+    is_expected.to define_enum_for(:project_type)
+      .with_values(
+        research: "Research",
+        class: "Class",
+        meeting: "Meeting",
+        public_use: "Public Use",
+      ).backed_by_column_of_type(:string)
+  end
+
   describe ".alphabetized" do
     it "returns all records ordered alphabetically by title" do
       project_c = create(:project, title: "C")
@@ -30,19 +40,38 @@ RSpec.describe Project, type: :model do
   end
 
   describe ".with_active_team_member" do
-    it "returns all projects that are associated with a given user and are labeled as active" do
-      first_user = create(:user)
-      second_user = create(:user)
-      first_project = create(:project)
-      second_project = create(:project)
-      third_project = create(:project)
-      create(:project_team_membership, project: first_project, user: first_user, active: false)
-      create(:project_team_membership, project: second_project, user: second_user, active: true)
-      create(:project_team_membership, project: third_project, user: first_user, active: true)
+    context "when the can_add_visit argument is not supplied" do
+      it "returns all projects that are associated with a given user and are labeled as active" do
+        first_user = create(:user)
+        second_user = create(:user)
+        first_project = create(:project)
+        second_project = create(:project)
+        third_project = create(:project)
+        create(:project_team_membership, project: first_project, user: first_user, active: false)
+        create(:project_team_membership, project: second_project, user: second_user, active: true)
+        create(:project_team_membership, project: third_project, user: first_user, active: true)
+  
+        results = Project.with_active_team_member(user: first_user)
+  
+        expect(results).to match_array [third_project]
+      end
+    end
 
-      results = Project.with_active_team_member(first_user)
+    context "when the can_add_visit argument is supplied" do
+      it "returns all projects that are associated with a given user and are labeled as active and are able to add visits" do
+        first_user = create(:user)
+        second_user = create(:user)
+        first_project = create(:project)
+        second_project = create(:project)
+        third_project = create(:project)
+        create(:project_team_membership, project: first_project, user: first_user, active: true, can_add_visit: false)
+        create(:project_team_membership, project: second_project, user: second_user, active: true, can_add_visit: true)
+        create(:project_team_membership, project: third_project, user: first_user, active: true, can_add_visit: true)
 
-      expect(results).to match_array [third_project]
+        results = Project.with_active_team_member(user: first_user, can_add_visit: true)
+
+        expect(results).to match_array [third_project]
+      end
     end
   end
 
@@ -117,6 +146,48 @@ RSpec.describe Project, type: :model do
       visit3 = create(:visit)
 
       expect(project.visits_count).to eq 2
+    end
+  end
+
+  describe ".of_type" do
+    it "returns research projects when the supplied type is 'research'" do
+      research_project = create(:project, project_type: "Research")
+      non_research_project = create(:project, project_type: "Public Use")
+
+      results = Project.of_type("research")
+
+      expect(results).to eq [research_project]
+    end
+    
+    it "returns class projects when the supplied type is 'university_class'" do
+      class_project = create(:project, project_type: "Class")
+      non_class_project = create(:project, project_type: "Public Use")
+
+      results = Project.of_type("university_class")
+
+      expect(results).to eq [class_project]
+    end
+
+    it "returns meeting projects when the supplied type is 'meeting_or_conference'" do
+      meeting_project = create(:project, project_type: "Meeting")
+      non_meeting_project = create(:project, project_type: "Public Use")
+
+      results = Project.of_type("meeting_or_conference")
+
+      expect(results).to eq [meeting_project]
+    end
+
+    it "returns public projects when the supplied type is 'public_use'" do
+      public_project = create(:project, project_type: "Public Use")
+      non_public_project = create(:project, project_type: "Meeting")
+
+      results = Project.of_type("public_use")
+
+      expect(results).to eq [public_project]
+    end
+
+    it "returns an empty scope when anything else is passed" do
+      expect(Project.of_type("foo")).to eq []
     end
   end
 end

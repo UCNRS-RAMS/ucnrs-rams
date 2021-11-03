@@ -4,6 +4,7 @@ FactoryBot.define do
     start_date { Date.current }
     end_date { Date.current + 1.day }
     status { "Open" }
+    project_type { "Research" }
 
     association :reserve
     association :owner, factory: :user
