@@ -4,6 +4,7 @@ class Visits::ProjectsController < ApplicationController
 
   def index
     @page = Visits::ProjectsPresenter.new(
+      project_id: project_id,
       project_type: project_type,
       user: current_user,
     )
@@ -13,5 +14,9 @@ class Visits::ProjectsController < ApplicationController
 
   def project_type
     params[:project_type]
+  end
+
+  def project_id
+    params[:project_id]
   end
 end

@@ -10,7 +10,7 @@ RSpec.describe Visits::ProjectsPresenter do
       create(:project_team_membership, user: user, project: first_active_project, active: true, can_add_visit: true)
       create(:project_team_membership, user: user, project: second_active_project, active: true, can_add_visit: false)
       create(:project_team_membership, user: user, project: inactive_project, active: false, can_add_visit: true)
-      presenter = Visits::ProjectsPresenter.new(user: user, project_type: "research")
+      presenter = Visits::ProjectsPresenter.new(user: user, project_type: "research", project_id: nil)
 
       projects = presenter.projects
 
@@ -26,7 +26,7 @@ RSpec.describe Visits::ProjectsPresenter do
       create(:project_team_membership, project: project_c, user: user, active: true, can_add_visit: true)
       create(:project_team_membership, project: project_a, user: user, active: true, can_add_visit: true)
       create(:project_team_membership, project: project_b, user: user, active: true, can_add_visit: true)
-      presenter = Visits::ProjectsPresenter.new(user: user, project_type: "university_class")
+      presenter = Visits::ProjectsPresenter.new(user: user, project_type: "university_class", project_id: nil)
 
       projects = presenter.projects
 

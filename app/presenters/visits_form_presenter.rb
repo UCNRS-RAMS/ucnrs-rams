@@ -26,7 +26,11 @@ class VisitsFormPresenter
   end
 
   def projects
-    []
+    Visits::ProjectsPresenter.new(
+      user: @user,
+      project_type: form.project_type,
+      project_id: form.project_id,
+    )
   end
 
   def reserve_options

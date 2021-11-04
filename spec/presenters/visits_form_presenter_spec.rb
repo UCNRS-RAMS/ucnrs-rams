@@ -36,11 +36,14 @@ RSpec.describe VisitsFormPresenter do
   end
 
   describe "#projects" do
-    it "is an empty array" do
-      user = create(:user)
-      presenter = VisitsFormPresenter.new(user: user)
+    it "initializes a Visits::ProjectsPresenter" do
+      presenter = VisitsFormPresenter.new(user: build(:user))
 
-      expect(presenter.projects).to eq []
+      visit_projects_presenter = presenter.projects
+
+      expect(visit_projects_presenter.projects).to eq []
+      expect(visit_projects_presenter.project_id).to be_nil
+      expect(visit_projects_presenter.project_type).to be_nil
     end
   end
 
