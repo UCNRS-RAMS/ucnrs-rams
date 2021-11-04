@@ -15,7 +15,7 @@
 
     <div class="field project_select">
       <%= form.label :project, t(".labels.project"), for: "visit_project_id" %>
-      <%= render partial: "visits/projects/projects_select", locals: { projects: @page.projects } %>
+      <%= render partial: "visits/projects/projects_select", locals: { page: @page.projects } %>
       <%= link_to t(".links.create_a_new_project"), "/projects/new" %>
     </div>
 

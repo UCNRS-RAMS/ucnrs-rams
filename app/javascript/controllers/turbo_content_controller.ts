@@ -9,26 +9,25 @@ export default class extends Controller {
   urlPatternPlaceholder = "VALUE"
 
   connect() {
-    const selectedProjectType = document.querySelectorAll('input[type="radio"]:checked')
-    if (selectedProjectType.length == 0) return
-
-    const radioValue = (selectedProjectType[0] as HTMLInputElement).value
-    this.generateUrl(radioValue)
-    this.reloadFrame()
+    this.load(this.selectedProjectType())
   }
 
   change(e: Event) {
     const value = (e.currentTarget as HTMLInputElement).value
-    this.generateUrl(value)
-    this.reloadFrame()
+    this.load(value)
+  }
+
+  selectedProjectType() {
+    const selected = this.element.querySelector('input[type="radio"]:checked')
+    return (selected as HTMLInputElement).value
   }
 
   generateUrl(query: string) {
     const srcPattern = this.destinationTarget.dataset.pattern
-    this.destinationTarget.src = srcPattern.replace(this.urlPatternPlaceholder, query)
+    return srcPattern.replace(this.urlPatternPlaceholder, query)
   }
 
-  reloadFrame() {
-    this.destinationTarget.reload()
+  load(value: string) {
+    this.destinationTarget.src = this.generateUrl(value)
   }
 }
