@@ -1,4 +1,4 @@
-class RulesAndRegulationsShowPresenter
+class Reserves::RulesAndRegulationsShowPresenter
   def initialize(reserve:)
     @reserve = reserve
   end

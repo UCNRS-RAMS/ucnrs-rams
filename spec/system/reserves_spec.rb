@@ -46,6 +46,10 @@ RSpec.describe "Reserves", type: :system, js: true do
       expect(flow).to be_displaying_rules_and_regulations_section
       expect(page).to be_axe_clean
 
+      flow.go_to_more_information
+      expect(flow).to be_displaying_more_information_section
+      expect(page).to be_axe_clean
+
       flow.go_to_amenities
       expect(flow).to be_displaying_amenities_section
     end

@@ -1,4 +1,4 @@
-class WaiversIndexPresenter
+class Reserves::WaiversIndexPresenter
   def initialize(reserve_waivers:)
     @reserve_waivers = reserve_waivers
   end

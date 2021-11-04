@@ -12,7 +12,7 @@
           <li>
             <%= link_to t(".link.amenities_and_rates"),
               reserve_amenities_path(@page.reserve_id),
-              { class: "active", data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" } } 
+              { class: "active", data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" } }
             %>
           </li>
           <li>
@@ -33,6 +33,12 @@
               { data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" } } 
             %>
           </li>
+          <li>
+            <%= link_to t(".link.more_information"),
+              reserve_more_information_index_path(@page.reserve_id),
+              { data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" } }
+            %>
+          </li>
         </ul>
         <%= turbo_frame_tag "details", src: reserve_amenities_path(@page.reserve_id), target: "_top" %>
       </div>
@@ -42,7 +48,7 @@
       <section class="reserve-info">
         <%= image_tag @page.reserve_avatar, alt: t(".alt_text.reserve_logo") %>
         <div>
-          <header><%= @page.reserve_name %></header>
+          <h2><%= @page.reserve_name %></h2>
           <span><%= @page.reserve_address_line_1 %></span>
           <span><%= @page.reserve_address_line_2 %></span>
           <span><%= @page.reserve_address_line_3 %></span>
@@ -51,7 +57,7 @@
         <a class="icon-map" href="#"><%= t(".get_directions") %></a>
         <a class="icon-external-link" href="#"><%= t(".visit_reserve_website") %></a>
         <div>
-          <header><%= t(".mailing_address") %></header>
+          <h2><%= t(".mailing_address") %></h2>
           <span>Mailing Address</span>
           <span>Mailing City</span>
         </div>

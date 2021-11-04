@@ -1,0 +1,7 @@
+<div>
+  <h1><%= t(".title") %></h1>
+  <hr />
+  <turbo-frame id="details">
+    <%= render partial: "reserve_addendums", locals: { reserve_addendums: @page.reserve_addendums } %>
+  </turbo-frame>
+</div>

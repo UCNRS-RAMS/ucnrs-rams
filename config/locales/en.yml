@@ -52,25 +52,6 @@ en:
     different_days_same_month: "%{start_month} %{start_day} - %{end_day}, %{start_year}"
     different_months_same_year: "%{start_month} %{start_day} - %{end_month} %{end_day}, %{start_year}"
     different_years: "%{start_month} %{start_day}, %{start_year} - %{end_month} %{end_day}, %{end_year}"
-  amenities:
-    alt_text:
-      amenity_picture: "picture of a reserve amenity"
-    units:
-      per: "per"
-    amenity:
-      link: "Amenity Link"
-      more_info: "Show More"
-      less_info: "Show Less"
-      dates_of_use: "Dates of Use"
-      rate: "Rate"
-      rate_period: "(per %{unit} per %{period})"
-      number_of_people: "No. of People"
-      subtotal: "Subtotal"
-    index:
-      title: "Amenities and Rates"
-  calendars:
-    show:
-      title: "Reserve Calendar"
   forms:
     select_one: "Please Select One"
   home:
@@ -137,11 +118,53 @@ en:
         calendar: "Calendar"
         waivers: "Waivers"
         rules_and_regulations: "Rules & Regulations"
-  rules_and_regulations:
-    show:
-      title: "Rules and Regulations"
+        more_information: "More Information"
+    addendums:
+      index:
+        title: "More Information"
+    amenities:
+      amenity:
+        link: "Amenity Link"
+        more_info: "Learn More"
+        dates_of_use: "Dates of Use"
+        rate: "Rate"
+        rate_period: "(per %{unit} per %{period})"
+        number_of_people: "No. of People"
+        subtotal: "Subtotal"
+      index:
+        title: "Amenities and Rates"
+    calendar:
+      show:
+        title: "Reserve Calendar"
     rules_and_regulations:
-      link: "Link"
+      show:
+        title: "Rules and Regulations"
+      rules_and_regulations:
+        link: "Link"
+    waivers:
+      index:
+        title: "Waivers"
+      waivers:
+        direction_title: "All visitors must sign and return a waiver agreement prior to visiting a reserve."
+        direction_body: "If your application is approved, the group leader (person who is listed as contact for the requested activity) will be responsible 
+                        for ensuring that all necessary waivers are submitted to reserve staff prior to the proposed visit. Waiver agreements for minors 
+                        must be signed by the parent or legal guardian."
+      waiver:
+        download_pdf: "Download PDF"
+  amenities:
+      alt_text:
+        amenity_picture: "picture of a reserve amenity"
+      units:
+        per: "per"
+      amenity:
+        link: "Amenity Link"
+        more_info: "Show More"
+        less_info: "Show Less"
+        dates_of_use: "Dates of Use"
+        rate: "Rate"
+        rate_period: "(per %{unit} per %{period})"
+        number_of_people: "No. of People"
+        subtotal: "Subtotal"
   users:
     new:
       header:

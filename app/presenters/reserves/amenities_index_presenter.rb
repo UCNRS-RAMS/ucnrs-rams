@@ -1,4 +1,4 @@
-class AmenitiesIndexPresenter
+class Reserves::AmenitiesIndexPresenter
   def initialize(reserve_amenities:)
     @reserve_amenities = reserve_amenities
   end

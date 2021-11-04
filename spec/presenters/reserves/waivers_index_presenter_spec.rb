@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe WaiversIndexPresenter do
+RSpec.describe Reserves::WaiversIndexPresenter do
   describe "#waivers" do
     it "presents waivers correctly" do
       reserve = create(:reserve)
@@ -8,7 +8,7 @@ RSpec.describe WaiversIndexPresenter do
       waiver_two = create(:waiver, name: "waiver 2", reserves: [reserve])
       waiver_three = create(:waiver, name: "waiver 3", reserves: [reserve])
 
-      index_presenter = WaiversIndexPresenter.new(reserve_waivers: reserve.waivers)
+      index_presenter = Reserves::WaiversIndexPresenter.new(reserve_waivers: reserve.waivers)
 
       expect(index_presenter.waivers.length).to eq 3
       expect(index_presenter.waivers[0])

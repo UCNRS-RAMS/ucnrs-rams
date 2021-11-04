@@ -21,7 +21,7 @@
         </div>
         <section class="search">
           <label>
-            <header><%= t(".search") %></header>
+            <h2><%= t(".search") %></h2>
             <div class="input-with-buttons">
               <input type="text" id="reserve-search">
             </div>
@@ -29,11 +29,11 @@
         </section>
         <div class="search-options">
           <section class="tag-badges">
-            <header><%= t(".tags") %></header>
+            <h2><%= t(".tags") %></h2>
             <%= render partial: "tag", collection: @page.tags %>
           </section>
           <section class="amenity-badges">
-            <header><%= t(".amenity_tags") %></header>
+            <h2><%= t(".amenity_tags") %></h2>
             <%= render partial: "amenities_tag", collection: @page.amenities_tags %>
           </section>
           <a href="#" class="icon-refresh-a"><%= t(".clear_selection_and_start_over") %></a>

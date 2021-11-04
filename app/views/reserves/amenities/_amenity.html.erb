@@ -1,0 +1,13 @@
+<section class="card">
+  <div class="image">
+    <%= image_tag amenity.image, alt: t("amenities.alt_text.amenity_picture") %>
+  </div>
+  <div class="card-body">
+    <h2><%= amenity.title %></h2>
+    <span class="description"><%= amenity.comment %></span>
+    <%= link_to t(".link"), "#" %>
+    <div class="rates">
+      <%= render partial: "rate", collection: amenity.rates, locals: { amenity: amenity } %>
+    </div>
+  </div>
+</section>
