@@ -12,11 +12,12 @@ Rails.application.routes.draw do
   resources :visits, only: [:new, :create]
   resources :projects, only: [:index, :new, :create]
   resources :reserves, only: [:index, :show] do
-    resources :amenities, only: [:index]
-    resource :reserve_inputs, only: [:show]
-    resource :calendar, only: [:show]
-    resources :waivers, only: [:index]
-    resource :rules_and_regulations, only: [:show]
+    resources :amenities, only: [:index], controller: "reserves/amenities"
+    resource :reserve_inputs, only: [:show], controller: "reserves/reserve_inputs"
+    resource :calendar, only: [:show], controller: "reserves/calendar"
+    resources :waivers, only: [:index], controller: "reserves/waivers"
+    resource :rules_and_regulations, only: [:show], controller: "reserves/rules_and_regulations"
+    resources :more_information, only: [:index], controller: "reserves/addendums"
   end
 
   namespace :visits do

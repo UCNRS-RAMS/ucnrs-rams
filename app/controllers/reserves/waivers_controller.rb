@@ -1,6 +1,6 @@
-class WaiversController < ApplicationController
+class Reserves::WaiversController < ApplicationController
   def index
-    @page = WaiversIndexPresenter.new(
+    @page = Reserves::WaiversIndexPresenter.new(
       reserve_waivers: reserve_waivers
     )
   end

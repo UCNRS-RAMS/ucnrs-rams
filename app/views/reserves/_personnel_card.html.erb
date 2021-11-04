@@ -3,7 +3,7 @@
     <%= image_tag personnel_card.avatar, alt: t(".alt_text.personnel_picture") %>
   </div>
   <div class="details">
-    <header><%= personnel_card.full_name %></header>
+    <h2><%= personnel_card.full_name %></h2>
     <span><%= personnel_card.role %></span>
     <span><%= personnel_card.phone_number %></span>
     <%= mail_to personnel_card.email, t(".email"), class: "icon-email" %>

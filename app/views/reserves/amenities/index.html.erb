@@ -1,0 +1,7 @@
+<div>
+  <h1><%= t(".title") %></h1>
+  <hr />
+  <%= turbo_frame_tag "details" do %>
+    <%= render partial: "amenities", locals: { amenities: @page.amenities } %>
+  <% end %>
+</div>

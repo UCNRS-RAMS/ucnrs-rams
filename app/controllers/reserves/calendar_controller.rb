@@ -1,4 +1,4 @@
-class CalendarsController < ApplicationController
+class Reserves::CalendarController < ApplicationController
   def show; end
 
   private

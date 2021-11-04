@@ -221,7 +221,7 @@ ul.navbar-nav {
     section, .reserve-cards {
       margin: 2.5rem auto;
 
-      header {
+      h2 {
         margin: .5rem 0;
       }
 
@@ -266,7 +266,7 @@ ul.navbar-nav {
       text-decoration: none;
     }
 
-    header {
+    h2 {
       font-size: 0.9375rem;
       font-weight: $medium;
       margin-bottom: 0.3125rem;
@@ -303,7 +303,7 @@ ul.navbar-nav {
 .reserve-personnel,
 .reserve-info,
 .reserve-search {
-  header {
+  h2 {
     font-size: 0.9375rem;
     font-weight: $semi-bold;
     margin: 0;
@@ -358,7 +358,7 @@ ul.navbar-nav {
     }
 
     .details {
-      header {
+      h2 {
         margin: 0;
       }
     }
@@ -446,7 +446,7 @@ ul.navbar-nav {
       min-width: 150px;
       min-height: unset;
 
-      header {
+      h2 {
         font-size: 0.75rem;
       }
   
@@ -465,7 +465,7 @@ ul.navbar-nav {
   }
 
   .reserve-waivers, .reserve-personnel, .reserve-info, .reserve-search {
-    header {
+    h2 {
       font-size: 0.8125rem;
     }
 

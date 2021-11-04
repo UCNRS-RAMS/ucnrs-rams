@@ -12,6 +12,8 @@ class Reserve < ApplicationRecord
   def self.blank
     Reserve.new(id: -1, name: "", pulldown_name: "")
   end
+  has_many :additional_information, class_name: "ReserveAdditionalInformation"
+  has_many :addendums, class_name: "ReserveAddendum"
 
   def self.alphabetized
     order(:pulldown_name)

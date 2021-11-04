@@ -7,12 +7,14 @@ class AmenityRatePresenter
 
   delegate :id,
     :rate,
-    :amenity,
     :amenity_rate_category,
     to: :amenity_rate
 
   delegate :description,
     to: :amenity_rate_category
+
+  delegate :per_sentence,
+    to: :amenity
 
   def amount
     "$#{value}"
@@ -23,6 +25,11 @@ class AmenityRatePresenter
   end
 
   def amenity
-    AmenityPresenter.new(amenity)
+    AmenityPresenter.new(amenity_rate_amenity)
   end
+
+  private
+
+  delegate :amenity,
+    to: :amenity_rate, prefix: true
 end

@@ -32,7 +32,7 @@ class ReservesFlow
   end
 
   def displaying_calendar_section?
-    page.has_css?("section.calendars.calendars-show")
+    page.has_css?("section.calendar.calendar-show")
   end
 
   def go_to_waivers
@@ -49,6 +49,14 @@ class ReservesFlow
 
   def displaying_rules_and_regulations_section?
     page.has_css?("section.rules_and_regulations.rules_and_regulations-show")
+  end
+
+  def go_to_more_information
+    page.click_link("More Information")
+  end
+
+  def displaying_more_information_section?
+    page.has_css?("section.addendums.addendums-index")
   end
 
   private
