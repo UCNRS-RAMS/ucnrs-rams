@@ -1,10 +1,11 @@
 class Visits::AmenityPresenter
-  def initialize(amenity, form: nil)
+  def initialize(amenity, form: nil, user: nil)
     @amenity = amenity
     @form = form || AmenityForm.new
+    @user = user
   end
 
-  attr_reader :amenity, :form
+  attr_reader :amenity, :form, :user
 
   delegate :title,
     :description,
@@ -18,7 +19,6 @@ class Visits::AmenityPresenter
     :arrives_at,
     :departs_on,
     :departs_at,
-    :amenity_rate_id,
     :number_of_people,
     :checked,
     to: :form
@@ -29,6 +29,14 @@ class Visits::AmenityPresenter
 
   def amenity_visit_id
     form.id
+  end
+
+  def selected_amenity_rate_id
+    if form&.amenity_rate_id.nil?
+      rates.detect{ |r| r.default_for_user == 1 }&.id
+    else
+      form.amenity_rate_id
+    end
   end
 
   def group_label
@@ -43,7 +51,9 @@ class Visits::AmenityPresenter
     amenity
       .amenity_rates
       .in_order
+      .visible
       .includes(:amenity_rate_category)
+      .with_default_for_user(user)
       .map{ |rate| Visits::AmenityRatePresenter.new(rate) }
   end
 

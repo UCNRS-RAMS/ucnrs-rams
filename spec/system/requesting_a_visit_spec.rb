@@ -115,11 +115,31 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
       class_projects_accepted: true,
       amenity_group_label_1: "Fun Things"
     )
-    amenity = create(:amenity, title: "Beach Access", reserve: reserve, group_number: "1")
-    amenity_rate = create(:amenity_rate, rate: 0, amenity: amenity, sort_order: 1)
-    user = create(:user, :confirmed)
-    project = create(:project, title: "Fun", project_type: "Class", reserve: reserve)
-    create(:project_team_membership, user: user, project: project, can_add_visit: true, active: true)
+    amenity = create(
+      :amenity,
+      title: "Beach Access", reserve: reserve,
+      group_number: "1",
+    )
+    amenity_rate = create(
+      :amenity_rate,
+      rate: 0,
+      amenity: amenity,
+      sort_order: 1,
+      visible: true,
+      k12: true,
+    )
+    user = create(
+      :user,
+      :confirmed,
+      institution: create(:institution, institution_type: :k_12_education),
+    )
+    project = create(
+      :project,
+      title: "Fun",
+      project_type: "class",
+      reserve: reserve,
+      members: [user]
+    )
     sign_in(user)
     now = Time.current
     flow = RequestVisitFlow.new(page)

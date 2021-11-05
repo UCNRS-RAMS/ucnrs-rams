@@ -16,7 +16,13 @@ FactoryBot.define do
 
     after(:build) do |project, evaluator|
       evaluator.members.each do |member|
-        project.team_members << member
+        project.team_memberships << build(
+          :project_team_membership,
+          user: member,
+          project: project,
+          active: true,
+          can_add_visit: true,
+        )
       end
     end
   end

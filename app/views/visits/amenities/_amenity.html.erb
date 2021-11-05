@@ -28,7 +28,7 @@
       </div>
       <div class="field">
         <%= form.label :amenity_rate_id, "#{t(".rate")}#{t(".rate_period", unit: page.unit, period: page.period)}" %>
-        <%= form.collection_select :amenity_rate_id, page.rates, :id, :label %> 
+        <%= form.collection_select :amenity_rate_id, page.rates, :id, :label, { selected: page.selected_amenity_rate_id } %> 
       </div>
       <div class="field" data-controller="counter">
         <%= form.label :number_of_people, t(".number_of_people") %>

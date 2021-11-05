@@ -3,7 +3,10 @@ class Visits::AmenitiesController < ApplicationController
   layout false
 
   def index
-    @page = Visits::AmenitiesPresenter.new(reserve_id: reserve_id)
+    @page = Visits::AmenitiesPresenter.new(
+      reserve_id: reserve_id,
+      user: current_user,
+    )
   end
 
   private

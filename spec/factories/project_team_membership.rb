@@ -5,6 +5,7 @@ FactoryBot.define do
     end
 
     active { true }
+    can_add_visit { true }
 
     project { build(:project, title: project_title) }
     association :user

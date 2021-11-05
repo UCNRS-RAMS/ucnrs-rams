@@ -47,7 +47,7 @@ class Project < ApplicationRecord
         team_memberships: {
           user: user,
           active: true,
-          can_add_visit: can_add_visit,
+          can_add_visit: [true, can_add_visit],
         }
       )
   end

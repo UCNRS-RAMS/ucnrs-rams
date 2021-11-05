@@ -5,7 +5,7 @@ class Visits::AmenityRatePresenter
 
   attr_reader :amenity_rate
 
-  delegate :id, to: :amenity_rate
+  delegate :id, :default_for_user, to: :amenity_rate
 
   def amount
     "$#{value}"
@@ -21,11 +21,5 @@ class Visits::AmenityRatePresenter
 
   def label
     "#{amount} (#{description})"
-  end
-
-  def selected_for(amenity)
-    if id == amenity.amenity_rate_id
-      "selected"
-    end
   end
 end

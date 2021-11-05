@@ -21,26 +21,53 @@ RSpec.describe Visits::AmenityPresenter do
   end
 
   describe "#rates" do
-    it "presents its rates in order" do
-      amenity = Visits::AmenityPresenter.new(create(:amenity))
+    it "presents its visible, applicable rates in order" do
+      insitiution = create(:institution, institution_type: :k_12_education )
+      user = create(:user, institution: insitiution)
+      amenity = Visits::AmenityPresenter.new(create(:amenity), user: user)
       rates = [
-        create(:amenity_rate, amenity: amenity.amenity, sort_order: 1),
-        create(:amenity_rate, amenity: amenity.amenity, sort_order: 3),
-        create(:amenity_rate, amenity: amenity.amenity, sort_order: 2),
+        create(
+          :amenity_rate,
+          amenity: amenity.amenity,
+          sort_order: 1,
+          visible: true,
+          k12: true,
+        ),
+        create(
+          :amenity_rate,
+          amenity: amenity.amenity,
+          sort_order: 4,
+          visible: true,
+          business: true,
+        ),
+        create(
+          :amenity_rate,
+          amenity: amenity.amenity,
+          sort_order: 2,
+          visible: false,
+          k12: true
+        ),
+        create(
+          :amenity_rate,
+          amenity: amenity.amenity,
+          sort_order: 3,
+          visible: true,
+          k12: true,
+        ),
       ]
 
       presented_rates = amenity.rates
 
       expect(presented_rates.map(&:id))
-        .to eq [rates[0].id, rates[2].id, rates[1].id]
+        .to eq [rates[0].id, rates[3].id, rates[1].id]
     end
   end
 
   describe "#rate_descriptions" do
     it "generates the right descriptions for time-period-based rates" do
       amenity = create(:amenity, units_type: :use, time_type: :four_hours)
-      rate = create(:amenity_rate, amenity: amenity, rate: "12.34")
-      rate = create(:amenity_rate, amenity: amenity, rate: "0.01")
+      create(:amenity_rate, amenity: amenity, rate: "12.34")
+      create(:amenity_rate, amenity: amenity, rate: "0.01")
       presenter = Visits::AmenityPresenter.new(amenity)
 
       rate_descriptions = presenter.rate_descriptions
@@ -53,8 +80,8 @@ RSpec.describe Visits::AmenityPresenter do
 
     it "generates the right descriptions for individual rates" do
       amenity = create(:amenity, units_type: :use, time_type: :each)
-      rate = create(:amenity_rate, amenity: amenity, rate: "12.34")
-      rate = create(:amenity_rate, amenity: amenity, rate: "0.01")
+      create(:amenity_rate, amenity: amenity, rate: "12.34")
+      create(:amenity_rate, amenity: amenity, rate: "0.01")
       presenter = Visits::AmenityPresenter.new(amenity)
 
       rate_descriptions = presenter.rate_descriptions
@@ -142,6 +169,42 @@ RSpec.describe Visits::AmenityPresenter do
       presenter = Visits::AmenityPresenter.new(amenity)
 
       expect(presenter.group_label).to eq "2"
+    end
+  end
+
+  describe "#selected_amenity_rate_id" do
+    it "returns the default amenity_rate for the user by default" do
+      user = create(:user, institution: build(
+        :institution, institution_type: :k_12_education
+      ))
+      amenity = create(:amenity, amenity_rates: [
+        create(:amenity_rate, k12: false),
+        create(:amenity_rate, k12: true),
+      ])
+      presenter = Visits::AmenityPresenter.new(amenity, user: user)
+      expected_rate = amenity.amenity_rates[1]
+
+      selected_amenity_rate_id = presenter.selected_amenity_rate_id
+
+      expect(selected_amenity_rate_id).to eq expected_rate.id
+    end
+
+    it "returns the amenity_rate_id from form (if exists) regardless of user" do
+      user = create(:user, institution: build(
+        :institution, institution_type: :k_12_education
+      ))
+      amenity = create(:amenity, amenity_rates: [
+        create(:amenity_rate, k12: false),
+        create(:amenity_rate, k12: true),
+      ])
+      selected_rate = amenity.amenity_rates[1]
+      expected_rate = amenity.amenity_rates[1]
+      form = AmenityForm.new(params: { amenity_rate_id: selected_rate.id })
+      presenter = Visits::AmenityPresenter.new(amenity, user: user, form: form)
+
+      selected_amenity_rate_id = presenter.selected_amenity_rate_id
+
+      expect(selected_amenity_rate_id).to eq expected_rate.id
     end
   end
 end

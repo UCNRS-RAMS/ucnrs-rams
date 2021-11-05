@@ -86,6 +86,10 @@ class VisitsFormPresenter
   end
 
   def wrap_amenity_in_presenter(amenity)
-    Visits::AmenityPresenter.new(amenity, form: form.amenity_form(amenity.id.to_s))
+    Visits::AmenityPresenter.new(
+      amenity,
+      form: form.amenity_form(amenity.id.to_s),
+      user: @user,
+    )
   end
 end
