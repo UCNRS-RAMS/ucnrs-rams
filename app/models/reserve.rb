@@ -8,6 +8,17 @@ class Reserve < ApplicationRecord
     order(:pulldown_name)
   end
 
+  def self.with_accepted_project_type(project_type)
+    case project_type
+    when "research" then where(research_projects_accepted: true)
+    when "university_class" then where(class_projects_accepted: true)
+    when "meeting_or_conference" then where(conference_projects_accepted: true)
+    when "public_use" then where(public_projects_accepted: true)
+    else
+      none
+    end
+  end
+
   def waivers
     Waiver.fake
   end

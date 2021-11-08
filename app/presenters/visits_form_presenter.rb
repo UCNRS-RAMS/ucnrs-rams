@@ -33,8 +33,11 @@ class VisitsFormPresenter
     )
   end
 
-  def reserve_options
-    Reserve.alphabetized
+  def reserves
+    Visits::ReservesPresenter.new(
+      project_type: form.project_type,
+      reserve_id: reserve&.id,
+    )
   end
 
   def public_use_categories

@@ -23,5 +23,6 @@ Rails.application.routes.draw do
     resources :reserve_inputs, only: [:show]
     resources :amenities, only: [:index]
     resources :projects, only: [:index]
+    resources :reserves, only: [:index]
   end
 end

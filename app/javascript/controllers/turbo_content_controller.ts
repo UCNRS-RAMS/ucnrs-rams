@@ -5,6 +5,7 @@ export default class extends Controller {
   static targets = ["destination"]
 
   declare destinationTarget: FrameElement
+  declare destinationTargets: FrameElement[]
 
   urlPatternPlaceholder = "VALUE"
 
@@ -19,15 +20,17 @@ export default class extends Controller {
 
   selectedProjectType() {
     const selected = this.element.querySelector('input[type="radio"]:checked')
-    return (selected as HTMLInputElement).value
+    if (selected) {
+      return (selected as HTMLInputElement).value
+    }
   }
 
-  generateUrl(query: string) {
-    const srcPattern = this.destinationTarget.dataset.pattern
+  generateUrl(target: FrameElement, query: string) {
+    const srcPattern = target.dataset.pattern
     return srcPattern.replace(this.urlPatternPlaceholder, query)
   }
 
   load(value: string) {
-    this.destinationTarget.src = this.generateUrl(value)
+    this.destinationTargets.forEach((target) => target.src = this.generateUrl(target, value))
   }
 }
