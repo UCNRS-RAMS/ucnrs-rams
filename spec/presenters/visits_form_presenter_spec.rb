@@ -47,19 +47,15 @@ RSpec.describe VisitsFormPresenter do
     end
   end
 
-  describe "#resere_options" do
-    it "returns all reserves accessible to the user" do
-      user = create(:user)
-      reserves = [
-        create(:reserve, name: "Z"),
-        create(:reserve, name: "A"),
-      ]
-      presenter = VisitsFormPresenter.new(user: user)
+  describe "#reserves" do
+    it "initializes a Visits::ReservesPresenter" do
+      presenter = VisitsFormPresenter.new(user: build(:user))
 
-      expect(presenter.reserve_options).to eq [
-        reserves[1],
-        reserves[0],
-      ]
+      visit_reserves_presenter = presenter.reserves
+
+      expect(visit_reserves_presenter.reserves).to eq []
+      expect(visit_reserves_presenter.reserve_id).to be_nil
+      expect(visit_reserves_presenter.project_type).to be_nil
     end
   end
 

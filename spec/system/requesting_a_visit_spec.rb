@@ -8,6 +8,7 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
       special_needs_statement: "Tell us!",
       reserve_alert_message_enabled: true,
       reserve_alert_message: "Alert!",
+      class_projects_accepted: true,
     )
     amenity = create(:amenity, title: "Beach Access", reserve: reserve)
     amenity_rate = create(:amenity_rate, rate: 0, amenity: amenity, sort_order: 1)
@@ -25,18 +26,19 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     expect(flow).to_not have_alert_section
     expect(flow).to_not have_amenities
 
-    flow.select_reserve("Silver Lake Area")
-    expect(flow).to have_special_needs_section("Tell us!")
-    expect(flow).to have_alert_section("Alert!")
-    expect(flow).to have_amenities("Beach Access")
-
     flow.select_project_type("University Class")
     flow.set_purpose("To swim")
     flow.set_usage_dates(
       arrival: now + 1.hour,
       departure: now + 2.hours,
     )
+
+    flow.select_reserve("Silver Lake Area")
     flow.set_special_needs("None")
+    expect(flow).to have_special_needs_section("Tell us!")
+    expect(flow).to have_alert_section("Alert!")
+    expect(flow).to have_amenities("Beach Access")
+
     flow.select_amenity("Beach Access")
     flow.submit_visit_request
 
@@ -60,6 +62,7 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
       special_needs_statement: "Tell us!",
       reserve_alert_message_enabled: true,
       reserve_alert_message: "Alert!",
+      class_projects_accepted: true,
     )
     amenity = create(:amenity, title: "Beach Access", reserve: reserve)
     amenity_rate = create(:amenity_rate, rate: 0, amenity: amenity, sort_order: 1)
@@ -71,24 +74,17 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     flow.visit_new_visit_page
     expect(flow).to be_on_new_visit_page
 
-    flow.select_reserve("Silver Lake Area")
-    flow.select_amenity("Beach Access")
     flow.submit_visit_request
 
     expect(flow).to be_on_new_visit_page
     expect(flow).to have_error_on("Project type", "can't be blank")
     expect(flow).to have_error_on("What do you plan to do on this visit?", "can't be blank")
     expect(flow).to have_error_on("Research Project", "must exist")
-    flow.inside_reserve_section do
-      expect(flow).to have_error_on("Arrival", "can't be blank")
-      expect(flow).to have_error_on("Departure", "can't be blank")
-    end
-    flow.inside_amenity(amenity) do
-      expect(flow).to have_error_on("Arrival", "can't be blank")
-      expect(flow).to have_error_on("Departure", "can't be blank")
-      expect(flow).to have_error_on("No. of People", "must be a number greater than 0")
-    end
+    expect(flow).to have_error_on("Reserve", "must exist")
 
+    flow.select_project_type("University Class")
+    flow.select_reserve("Silver Lake Area")
+    flow.select_amenity("Beach Access")
     flow.set_usage_dates(
       arrival: now + 1.week,
       departure: now + 1.day,
@@ -96,6 +92,11 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     flow.submit_visit_request
     flow.inside_reserve_section do
       expect(flow).to have_error_on("Departure", "must be after start date")
+    end
+    flow.inside_amenity(amenity) do
+      expect(flow).to have_error_on("Arrival", "can't be blank")
+      expect(flow).to have_error_on("Departure", "can't be blank")
+      expect(flow).to have_error_on("No. of People", "must be a number greater than 0")
     end
   end
 
@@ -106,6 +107,7 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
       special_needs_statement: "Tell us!",
       reserve_alert_message_enabled: true,
       reserve_alert_message: "Alert!",
+      class_projects_accepted: true,
     )
     amenity = create(:amenity, title: "Beach Access", reserve: reserve)
     amenity_rate = create(:amenity_rate, rate: 0, amenity: amenity, sort_order: 1)

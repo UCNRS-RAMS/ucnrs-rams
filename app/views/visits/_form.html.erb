@@ -1,5 +1,5 @@
-<section>
-  <fieldset data-controller="value-projection turbo-content" data-value-projection-projected-value="<%= form.object.project_type %>">
+<section data-controller="turbo-content">
+  <fieldset data-controller="value-projection" data-value-projection-projected-value="<%= form.object.project_type %>">
     <legend><%= t(".titles.purpose") %></legend>
 
     <fieldset data-purpose="project_type">
@@ -41,7 +41,7 @@
 
       <div class="field">
         <%= form.label :reserve, t(".labels.reserve"), for: "visit_reserve_id" %>
-        <%= form.collection_select(:reserve_id, @page.reserve_options, :id, :pulldown_name, { include_blank: true }, { data: { action: "change-> followup-content#change" } }) %>
+        <%= render partial: "visits/reserves/reserves_select", locals: { page: @page.reserves } %>
       </div>
 
       <div class="date-range-select">
