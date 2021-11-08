@@ -119,6 +119,13 @@ class RequestVisitFlow
     end
   end
 
+  def has_amenity_usage_dates?(title, arrival:, departure:)
+    inside_amenity_labeled(title) do |section|
+      (page.find("input[type='date'][name*='arrives_on']").value == arrival.strftime("%Y-%m-%d")) &&
+      (page.find("input[type='date'][name*='departs_on']").value == departure.strftime("%Y-%m-%d"))
+    end
+  end
+
   def set_number_of_people_for_amenity(title, number)
     inside_amenity_labeled(title) do |section|
       section.fill_in "No. of People", with: number

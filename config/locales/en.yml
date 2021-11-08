@@ -4,6 +4,8 @@ en:
       visit:
         start_date: "start date"
         end_date: "end date"
+      amenity_visit:
+        arrives_on: "start date"
     errors:
       messages:
         must_be_after: "must be after %{attribute}"
