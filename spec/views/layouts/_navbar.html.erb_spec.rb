@@ -6,13 +6,14 @@ RSpec.describe "navbar", type: :view do
 
     render partial: 'layouts/navbar', locals: { current_user: user }
 
-    expect(rendered).to have_link("Visits")
-    expect(rendered).to have_link("Reserves")
-    expect(rendered).to have_link("My Projects")
-    expect(rendered).to have_link("Help")
-    expect(rendered).to have_link("Account")
+    expect(rendered).to have_link("Visits", href: "/")
+    expect(rendered).to have_link("Reserves", href: "/reserves")
+    expect(rendered).to have_link("My Projects", href: "/projects")
+    expect(rendered).to have_link("Help", href: "#")
+    expect(rendered).to have_link("Account", href: "#")
+    expect(rendered).to have_link("Sign Out", href: "/users/sign_out")
 
-    expect(rendered).to have_link("Schedule a Visit")
+    expect(rendered).to have_link("Schedule a Visit", href: "/visits/new")
   end
 
   it "display the signed out navbar" do
