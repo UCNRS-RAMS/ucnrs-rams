@@ -1,4 +1,4 @@
-<section data-controller="turbo-content">
+<section data-controller="turbo-content copy-first copy-second">
   <fieldset data-controller="value-projection" data-value-projection-projected-value="<%= form.object.project_type %>">
     <legend><%= t(".titles.purpose") %></legend>
 
@@ -48,7 +48,7 @@
         <div class="field">
           <%= form.label :start_date, t(".labels.arrival") %>
           <div class="date-time-select">
-            <%= form.date_field(:start_date, value: @page.start_date, min: Date.today) %>
+            <%= form.date_field(:start_date, value: @page.start_date, min: Date.today, data: { action: "change->copy-first#copy" }) %>
             <%= form.time_field(:start_time, value: @page.start_time, aria: { label: t(".aria.arrival_time") }) %>
           </div>
         </div>
@@ -58,7 +58,7 @@
         <div class="field">
           <%= form.label :end_date, t(".labels.departure") %>
           <div class="date-time-select">
-            <%= form.date_field(:end_date, value: @page.end_date, min: Date.today) %>
+            <%= form.date_field(:end_date, value: @page.end_date, min: Date.today, data: { action: "change->copy-second#copy" }) %>
             <%= form.time_field(:end_time, value: @page.end_time, aria: { label: t(".aria.departure_time") }) %>
           </div>
         </div>

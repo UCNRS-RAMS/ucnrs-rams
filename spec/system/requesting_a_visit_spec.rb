@@ -94,8 +94,7 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
       expect(flow).to have_error_on("Departure", "must be after start date")
     end
     flow.inside_amenity(amenity) do
-      expect(flow).to have_error_on("Arrival", "can't be blank")
-      expect(flow).to have_error_on("Departure", "can't be blank")
+      expect(flow).to have_error_on("Departure", "must be after start date")
       expect(flow).to have_error_on("No. of People", "must be a number greater than 0")
     end
   end
@@ -132,10 +131,12 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     flow.set_special_needs("None")
 
     flow.select_amenity("Beach Access")
-    flow.set_amenity_usage_dates("Beach Access",
+    expect(flow).to have_amenity_usage_dates(
+      "Beach Access",
       arrival: now + 1.hour,
       departure: now + 2.hours,
     )
+
     flow.set_number_of_people_for_amenity("Beach Access", 2)
     flow.submit_visit_request
 

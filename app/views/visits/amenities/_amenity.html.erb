@@ -11,11 +11,11 @@
     <div class="booking">
       <div class="field">
         <%= form.label :arrives_on, t(".date_of_arrival") %>
-        <%= form.date_field :arrives_on, value: form.object.arrives_on %>
+        <%= form.date_field :arrives_on, value: form.object.arrives_on, "data-copy-first-target": "destination" %>
       </div>
       <div class="field">
         <%= form.label :departs_on, t(".date_of_departure") %>
-        <%= form.date_field :departs_on, value: form.object.departs_on %>
+        <%= form.date_field :departs_on, value: form.object.departs_on, "data-copy-second-target": "destination" %>
       </div>
       <div class="field">
         <%= form.label :amenity_rate_id, "#{t(".rate")}#{t(".rate_period", unit: page.unit, period: page.period)}" %>
