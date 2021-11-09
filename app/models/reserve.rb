@@ -2,6 +2,7 @@ class Reserve < ApplicationRecord
   has_one_attached :reserve_avatar
 
   belongs_to :managing_campus, class_name: "Institution"
+  belongs_to :address_state, class_name: "State"
   has_many :amenities
 
   def self.blank

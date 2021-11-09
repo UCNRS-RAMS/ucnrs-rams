@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :reserve do
     pulldown_name { name || "Pulldown" }
     sequence(:name) { |n| "Reserve #{n}" }
+    address_state { association(:state) }
 
     transient do
       amenities_named { [] }
