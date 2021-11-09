@@ -24,9 +24,9 @@ RSpec.describe VisitForm, type: :model do
         purpose_of_visit: nil,
         reserve_id: nil,
         start_date: "",
-        start_time: "",
+        start_time: "12:00",
         end_date: "",
-        end_time: "",
+        end_time: "12:00",
         special_needs: nil,
       )
     end
@@ -108,6 +108,8 @@ RSpec.describe VisitForm, type: :model do
         project_type: :research,
         start_date: 1.day.from_now.strftime("%Y-%m-%d"),
         end_date: 2.days.from_now.strftime("%Y-%m-%d"),
+        start_time: "15:00",
+        end_time: "17:00",
       })
 
       form.validate
@@ -162,6 +164,8 @@ RSpec.describe VisitForm, type: :model do
         project_type: "research",
         start_date: 1.week.from_now.strftime("%Y-%m-%d"),
         end_date: 2.weeks.from_now.strftime("%Y-%m-%d"),
+        start_time: "15:00",
+        end_time: "16:00",
         amenities: {
           one.id.to_s => {
             amenity_id: one.id,

@@ -135,8 +135,8 @@ class RequestVisitFlow
   def has_usage_dates?(arrival:, departure:)
     (page.find("#visit_start_date").value == arrival.strftime("%Y-%m-%d")) &&
       (page.find("#visit_end_date").value == departure.strftime("%Y-%m-%d")) &&
-      (page.find("#visit_start_time").value == arrival.strftime("%H:%M")) &&
-      (page.find("#visit_end_time").value == departure.strftime("%H:%M"))
+      (page.find("#visit_start_time").value == "12:00") &&
+      (page.find("#visit_end_time").value == "12:00")
   end
 
   def set_special_needs(needs)

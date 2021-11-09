@@ -1,4 +1,5 @@
 class VisitsFormPresenter
+  HOURS_PER_DAY = 24
   def initialize(user:, form: nil)
     @user = user
     @form = form || VisitForm.new(user: user)
@@ -48,6 +49,24 @@ class VisitsFormPresenter
     lambda do |key|
       I18n.t("visits.form#{context}.#{key.tr("-", "_")}")
     end
+  end
+
+  def time_options
+    midnight = Time.current.beginning_of_day
+    hours = []
+    (HOURS_PER_DAY).times do |i|
+      hours << OpenStruct.new(
+        value: I18n.l(
+          midnight + i.hours,
+          format: :visit_form_output_time
+        ),
+        human: I18n.l(
+          midnight + i.hours,
+          format: :visit_form_output_time_human
+        )
+      )
+    end
+    hours
   end
 
   def special_needs_statement
