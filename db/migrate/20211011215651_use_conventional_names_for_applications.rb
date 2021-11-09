@@ -20,7 +20,6 @@ class UseConventionalNamesForApplications < ActiveRecord::Migration[6.1]
     rename_column :projects, :MethodLongTermStructures, :method_long_term_structures 
     rename_column :projects, :MethodStudyArea, :method_study_area 
     rename_column :projects, :ApplicationType, :project_type
-    rename_column :projects, :ApplicationSubType, :project_sub_type
     rename_column :projects, :ApplicationStatus, :status
     reversible do |dir|
       dir.up do
