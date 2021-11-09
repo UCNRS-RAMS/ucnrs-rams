@@ -2,7 +2,7 @@ version: 2.0
 jobs:
   build:
     docker:
-      - image: circleci/ruby:3.0.1-node-browsers
+      - image: circleci/ruby:3.0.2-node-browsers
         environment:
           RAILS_ENV: test
       - image: circleci/mysql:8.0-ram
