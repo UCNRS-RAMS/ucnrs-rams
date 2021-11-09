@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 class VisitForm
   include ActiveModel::Model
+
+  DEFAULT_TIME = "12:00"
 
   def model_name
     ActiveModel::Name.new(Visit)
@@ -126,7 +130,7 @@ class VisitForm
   end
 
   def display_time(time)
-    time ? I18n.l(time, format: :visit_form_output_time) : ""
+    time ? I18n.l(time, format: :visit_form_output_time) : DEFAULT_TIME
   end
 
   def parse_date(date_string)

@@ -125,16 +125,16 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     flow.select_reserve("Silver Lake Area")
     flow.set_purpose("To swim")
     flow.set_usage_dates(
-      arrival: now + 1.hour,
-      departure: now + 2.hours,
+      arrival: now + 1.day,
+      departure: now + 2.days,
     )
     flow.set_special_needs("None")
 
     flow.select_amenity("Beach Access")
     expect(flow).to have_amenity_usage_dates(
       "Beach Access",
-      arrival: now + 1.hour,
-      departure: now + 2.hours,
+      arrival: now + 1.day,
+      departure: now + 2.days,
     )
 
     flow.set_number_of_people_for_amenity("Beach Access", 2)
