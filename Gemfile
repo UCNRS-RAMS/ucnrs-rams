@@ -14,7 +14,7 @@ gem 'puma', '~> 5.5.1'
 gem 'rails', '~> 6.1.4'
 gem 'sass-rails', '>= 6'
 gem 'simple_calendar', '~> 2.4'
-gem 'turbo-rails', '~> 7.1.1'
+gem 'turbo-rails', '~> 0.8.3'
 gem 'view_component', require: 'view_component/engine'
 gem 'webpacker', '~> 5.0'
 
