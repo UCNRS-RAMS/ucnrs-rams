@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_02_145708) do
+ActiveRecord::Schema.define(version: 2021_11_10_142923) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id"
@@ -418,9 +418,9 @@ ActiveRecord::Schema.define(version: 2021_11_02_145708) do
     t.bigint "invoice_id", default: 0
     t.integer "rate_category_id", comment: "Rate Category that is selected from INVRateCategories for that reserve"
     t.date "arrives_on"
-    t.time "arrives_at", default: "2000-01-01 00:00:00"
+    t.time "arrives_at", default: "2000-01-01 12:00:00"
     t.date "departs_on"
-    t.time "departs_at", default: "2000-01-01 00:00:00"
+    t.time "departs_at", default: "2000-01-01 12:00:00"
     t.integer "number_of_people"
     t.column "need_rating", "enum('Required','High','Medium','Low','NA','')"
     t.string "user_comments", limit: 80
