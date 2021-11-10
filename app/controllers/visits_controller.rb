@@ -29,6 +29,7 @@ class VisitsController < ApplicationController
       :end_date,
       :end_time,
       :special_needs,
+      :study_area,
       amenities: [
         :amenity_id,
         :amenity_visit_id,

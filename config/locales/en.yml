@@ -247,10 +247,12 @@ en:
       fields:
         labels:
           special_needs: "Special Needs"
+          study_area: "Study Area"
   reserve_inputs:
     show:
       labels:
         special_needs: "Special Needs"
+        study_area: "Study Area"
   projects:
     index:
       title: "My Projects"

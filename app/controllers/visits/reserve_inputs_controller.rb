@@ -4,7 +4,7 @@ class Visits::ReserveInputsController < ApplicationController
 
   def show
     @page = Visits::ReserveInputsPresenter.new(reserve)
-    @form_values = OpenStruct.new(special_needs: "")
+    @form_values = Visit.new(special_needs: "", study_area: "")
   end
 
   private
