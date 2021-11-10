@@ -8,10 +8,13 @@ class Visits::ProjectsPresenter
   attr_reader :project_type, :project_id
 
   def projects
-    Project
-      .with_active_team_member(user: user, can_add_visit: true)
-      .of_type(project_type)
-      .alphabetized
+    [
+      Project.blank,
+      *Project
+        .with_active_team_member(user: user, can_add_visit: true)
+        .of_type(project_type)
+        .alphabetized
+    ]
   end
 
   def selected_project(project)

@@ -9,8 +9,8 @@ RSpec.describe Visits::ReservesPresenter do
 
       reserves = presenter.reserves
 
-      expect(reserves.length).to eq 1
-      expect(reserves.map(&:id)).to match_array [research_reserve.id]
+      expect(reserves.length).to eq 2
+      expect(reserves.map(&:id)).to match_array [-1, research_reserve.id]
     end
 
     it "orders the reserves alphabetically by pulldown_name" do
@@ -21,7 +21,7 @@ RSpec.describe Visits::ReservesPresenter do
 
       reserves = presenter.reserves
 
-      expect(reserves.map(&:pulldown_name)).to eq ["Reserve A", "Reserve B", "Reserve C"]
+      expect(reserves.map(&:pulldown_name)).to eq ["", "Reserve A", "Reserve B", "Reserve C"]
     end
   end
 

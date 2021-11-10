@@ -7,9 +7,10 @@ class Visits::ReservesPresenter
   attr_reader :project_type, :reserve_id
 
   def reserves
-    Reserve
-      .with_accepted_project_type(project_type)
-      .alphabetized
+    [
+      Reserve.blank,
+      *Reserve.with_accepted_project_type(project_type).alphabetized
+    ]
   end
 
   def selected_reserve(reserve)

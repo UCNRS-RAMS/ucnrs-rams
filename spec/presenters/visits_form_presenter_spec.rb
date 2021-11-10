@@ -41,7 +41,7 @@ RSpec.describe VisitsFormPresenter do
 
       visit_projects_presenter = presenter.projects
 
-      expect(visit_projects_presenter.projects).to eq []
+      expect(visit_projects_presenter.projects).to eq [Project.blank]
       expect(visit_projects_presenter.project_id).to be_nil
       expect(visit_projects_presenter.project_type).to be_nil
     end
@@ -53,7 +53,7 @@ RSpec.describe VisitsFormPresenter do
 
       visit_reserves_presenter = presenter.reserves
 
-      expect(visit_reserves_presenter.reserves).to eq []
+      expect(visit_reserves_presenter.reserves).to eq [Reserve.blank]
       expect(visit_reserves_presenter.reserve_id).to be_nil
       expect(visit_reserves_presenter.project_type).to be_nil
     end

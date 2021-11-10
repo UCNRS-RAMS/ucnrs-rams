@@ -33,6 +33,10 @@ class Project < ApplicationRecord
     public_use: "Public Use",
   }
 
+  def self.blank
+    Project.new(id: -1, title: "")
+  end
+
   def self.alphabetized
     order(Arel.sql("SUBSTRING(title, 1, 50)"))
   end

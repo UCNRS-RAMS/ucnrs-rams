@@ -4,6 +4,10 @@ class Reserve < ApplicationRecord
   belongs_to :managing_campus, class_name: "Institution"
   has_many :amenities
 
+  def self.blank
+    Reserve.new(id: -1, name: "", pulldown_name: "")
+  end
+
   def self.alphabetized
     order(:pulldown_name)
   end
