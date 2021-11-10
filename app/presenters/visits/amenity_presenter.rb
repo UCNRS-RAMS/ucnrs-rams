@@ -12,7 +12,9 @@ class Visits::AmenityPresenter
     to: :amenity
 
   delegate :arrives_on,
+    :arrives_at,
     :departs_on,
+    :departs_at,
     :amenity_rate_id,
     :number_of_people,
     :checked,
@@ -44,5 +46,21 @@ class Visits::AmenityPresenter
 
   def period
     amenity.time_type
+  end
+
+  def time_options
+    midnight = Time.current.beginning_of_day
+    (0..23).to_a.map do |i|
+      OpenStruct.new(
+        value: I18n.l(
+          midnight + i.hours,
+          format: :visit_form_output_time
+        ),
+        human: I18n.l(
+          midnight + i.hours,
+          format: :visit_form_output_time_human
+        )
+      )
+    end
   end
 end

@@ -188,12 +188,15 @@ en:
     amenities:
       amenity:
         more_info: "Learn More"
-        date_of_arrival: "Arrival"
-        date_of_departure: "Departure"
+        date_of_arrival: "Arrival Date"
+        date_of_departure: "Departure Date"
         rate: "Rate"
         rate_period: "(per %{unit} per %{period})"
         number_of_people: "No. of People"
         subtotal: "Subtotal"
+        aria:
+          time_of_arrival: "Arrival Time"
+          time_of_departure: "Departure Time"
     new:
       title: "Visit Details"
     form:

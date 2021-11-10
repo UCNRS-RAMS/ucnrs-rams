@@ -23,11 +23,11 @@ RSpec.describe AmenityForm, type: :model do
     end
 
     it "assigns the dates through accessors" do
-      arrival = "2020-10-13"
-      departure = "2021-01-02"
+      arrival_time = "2020-10-13"
+      departure_time = "2021-01-02"
       params = {
-        arrives_on: arrival,
-        departs_on: departure,
+        arrives_on: arrival_time,
+        departs_on: departure_time,
       }
       form = AmenityForm.new(params: params)
 
@@ -128,7 +128,7 @@ RSpec.describe AmenityForm, type: :model do
     end
   end
 
-  describe "#parse_date" do
+  describe "#parse_date (implicitly through setters)" do
     it "parses a date in %Y-%m-%d format" do
       form = AmenityForm.new
 
@@ -147,6 +147,27 @@ RSpec.describe AmenityForm, type: :model do
 
       amenity_visit_arrives_on = form.amenity_visit.arrives_on
       expect(amenity_visit_arrives_on).to be_nil
+    end
+  end
+
+  describe "#parse_time (implicitly through setters)" do
+    it "parses a time in %H:%M format" do
+      form = AmenityForm.new
+
+      form.arrives_at = "15:51"
+
+      amenity_visit_arrives_at = form.amenity_visit.arrives_at
+      expect(amenity_visit_arrives_at.hour).to eq 15
+      expect(amenity_visit_arrives_at.min).to eq 51
+    end
+
+    it "returns nil if there is an error in parsing the time" do
+      form = AmenityForm.new
+
+      form.arrives_at = "Midnight"
+
+      amenity_visit_arrives_at = form.amenity_visit.arrives_at
+      expect(amenity_visit_arrives_at).to be_nil
     end
   end
 end

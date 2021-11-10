@@ -33,7 +33,9 @@ class VisitsController < ApplicationController
         :amenity_id,
         :amenity_visit_id,
         :arrives_on,
+        :arrives_at,
         :departs_on,
+        :departs_at,
         :amenity_rate_id,
         :number_of_people,
       ]
