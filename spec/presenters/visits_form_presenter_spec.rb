@@ -69,7 +69,7 @@ RSpec.describe VisitsFormPresenter do
   end
 
   describe "#time_options" do
-    it "gives options for each half hour" do
+    it "gives options for each hour" do
       presenter = VisitsFormPresenter.new(user: build(:user))
 
       options = presenter.time_options

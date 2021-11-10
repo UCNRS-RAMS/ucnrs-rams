@@ -147,6 +147,8 @@ RSpec.describe VisitForm, type: :model do
         project_type: ["can't be blank"],
         start_date: ["can't be blank"],
         end_date: ["can't be blank"],
+        start_time: ["can't be blank"],
+        end_time: ["can't be blank"],
       })
     end
   end

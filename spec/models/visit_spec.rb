@@ -11,6 +11,8 @@ RSpec.describe Visit, type: :model do
   describe "validations" do
     it { is_expected.to validate_presence_of(:purpose_of_visit) }
     it { is_expected.to validate_presence_of(:project_type) }
+    it { is_expected.to validate_presence_of(:start_time) }
+    it { is_expected.to validate_presence_of(:end_time) }
     it { is_expected.to validate_date(:end_date).is_after(:start_date) }
 
     describe "when public-use" do
