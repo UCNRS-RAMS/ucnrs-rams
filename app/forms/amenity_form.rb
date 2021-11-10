@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class AmenityForm
   include ActiveModel::Model
+  DEFAULT_TIME = "12:00"
 
   def class_name
     ActiveModel::Name.new(Amenity)
@@ -34,16 +37,32 @@ class AmenityForm
     display_date(amenity_visit.arrives_on)
   end
 
+  def arrives_at
+    display_time(amenity_visit.arrives_at)
+  end
+
   def departs_on
     display_date(amenity_visit.departs_on)
+  end
+
+  def departs_at
+    display_time(amenity_visit.departs_at)
   end
 
   def arrives_on=(date)
     amenity_visit.arrives_on = parse_date(date)
   end
 
+  def arrives_at=(time)
+    amenity_visit.arrives_at = parse_time(time)
+  end
+
   def departs_on=(date)
     amenity_visit.departs_on = parse_date(date)
+  end
+
+  def departs_at=(time)
+    amenity_visit.departs_at = parse_time(time)
   end
 
   alias_method :validate_form, :validate
@@ -89,17 +108,25 @@ class AmenityForm
     date ? I18n.l(date, format: :visit_form_output_date) : ""
   end
 
-  def parse_date(date_string)
+  def display_time(time)
+    time ? I18n.l(time, format: :visit_form_output_time) : DEFAULT_TIME
+  end
+
+  def parse_date(date)
     begin
-      Time.strptime(
-        date_string,
-        I18n.translate("time.formats.visit_form_input_date"),
-      )
+      Date.strptime(date, I18n.t("date.formats.visit_form_input_date"))
+    rescue ArgumentError, TypeError
+      nil
+    end
+  end
+
+  def parse_time(time)
+    begin
+      Time.strptime("#{time} -0000", I18n.t("time.formats.visit_form_input_time"))
     rescue ArgumentError, TypeError
       nil
     end
   end
 
   private :valid_form?, :validate_form
-
 end

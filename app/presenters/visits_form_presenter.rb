@@ -50,22 +50,6 @@ class VisitsFormPresenter
     end
   end
 
-  def time_options
-    midnight = Time.current.beginning_of_day
-    (0..47).to_a.map do |i|
-      OpenStruct.new(
-        value: I18n.l(
-          midnight + (i * 30).minutes,
-          format: :visit_form_output_time
-        ),
-        human: I18n.l(
-          midnight + (i * 30).minutes,
-          format: :visit_form_output_time_human
-        )
-      )
-    end
-  end
-
   def special_needs_statement
     reserve&.special_needs_statement
   end

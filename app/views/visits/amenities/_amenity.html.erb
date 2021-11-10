@@ -12,10 +12,12 @@
       <div class="field">
         <%= form.label :arrives_on, t(".date_of_arrival") %>
         <%= form.date_field :arrives_on, value: form.object.arrives_on, "data-copy-first-target": "destination" %>
+        <%= form.collection_select(:arrives_at, page.time_options, :value, :human, { selected: form.object.arrives_at }) %>
       </div>
       <div class="field">
         <%= form.label :departs_on, t(".date_of_departure") %>
         <%= form.date_field :departs_on, value: form.object.departs_on, "data-copy-second-target": "destination" %>
+        <%= form.collection_select(:departs_at, page.time_options, :value, :human, { selected: form.object.departs_at }) %>
       </div>
       <div class="field">
         <%= form.label :amenity_rate_id, "#{t(".rate")}#{t(".rate_period", unit: page.unit, period: page.period)}" %>
