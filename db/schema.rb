@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_10_142923) do
+ActiveRecord::Schema.define(version: 2021_11_10_174551) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id"
@@ -317,7 +317,7 @@ ActiveRecord::Schema.define(version: 2021_11_10_142923) do
     t.index ["reserve_id", "SortOrder"], name: "SortOrderByReserve"
   end
 
-  create_table "active_storage_attachments", charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
+  create_table "active_storage_attachments", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -327,7 +327,7 @@ ActiveRecord::Schema.define(version: 2021_11_10_142923) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
+  create_table "active_storage_blobs", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -496,7 +496,7 @@ ActiveRecord::Schema.define(version: 2021_11_10_142923) do
     t.index ["visit_id"], name: "visit"
   end
 
-  create_table "logs", charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
+  create_table "logs", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.text "text"
     t.string "type"
     t.datetime "created_at", null: false
@@ -618,7 +618,6 @@ ActiveRecord::Schema.define(version: 2021_11_10_142923) do
     t.datetime "updated_at", default: "0001-01-01 00:00:00", null: false
     t.bigint "log_id"
     t.datetime "submitted_at"
-    t.column "project_sub_type", "enum('Default','Meeting','Housing')", default: "Default"
     t.string "discipline"
     t.string "course_number", comment: "You will find this info in the abstract field for a CLASS type project in RAM2 data"
     t.string "approved_permits"
@@ -639,7 +638,7 @@ ActiveRecord::Schema.define(version: 2021_11_10_142923) do
     t.index ["status"], name: "project_status"
   end
 
-  create_table "rams_options", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "rams_options", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "option_name"
     t.text "option_value"
   end
@@ -666,7 +665,7 @@ ActiveRecord::Schema.define(version: 2021_11_10_142923) do
     t.index ["user_id"], name: "user"
   end
 
-  create_table "reserve_settings", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "reserve_settings", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.boolean "req_resource", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -938,6 +937,7 @@ ActiveRecord::Schema.define(version: 2021_11_10_142923) do
     t.time "end_time"
     t.column "project_type", "enum('research','university class','meeting or conference','public use')"
     t.column "public_use_category", "enum('general-use','community-event','fundraiser','k-12-class','private-class','volunteer')", default: "general-use"
+    t.string "study_area"
     t.index ["DateSubmitted", "project_id", "id"], name: "Date"
     t.index ["id"], name: "ActivityID"
     t.index ["project_id", "id"], name: "Application"
@@ -946,7 +946,7 @@ ActiveRecord::Schema.define(version: 2021_11_10_142923) do
     t.index ["user_id"], name: "user"
   end
 
-  create_table "waivers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "waivers", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
     t.string "url"
