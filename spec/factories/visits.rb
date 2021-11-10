@@ -8,5 +8,7 @@ FactoryBot.define do
     purpose_of_visit do
       "Same thing we do every night. Try to take over the world!"
     end
+    start_time { Time.current }
+    end_time { Time.current + 1.day }
   end
 end

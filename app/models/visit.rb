@@ -7,6 +7,8 @@ class Visit < ApplicationRecord
 
   PUBLIC_PROJECT_ID = 0
 
+  validates :start_time, presence: true
+  validates :end_time, presence: true
   validates :purpose_of_visit, presence: true
   validates :project_type, presence: true
   validates :end_date, must_be_after: :start_date
