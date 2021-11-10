@@ -23,6 +23,7 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     expect(flow).to_not have_a_project_type_selected
     expect(flow).to_not be_showing_project_selection
     expect(flow).to_not have_special_needs_section
+    expect(flow).to_not have_study_area_section
     expect(flow).to_not have_alert_section
     expect(flow).to_not have_amenities
 
@@ -36,6 +37,7 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     flow.select_reserve("Silver Lake Area")
     flow.set_special_needs("None")
     expect(flow).to have_special_needs_section("Tell us!")
+    expect(flow).to have_study_area_section
     expect(flow).to have_alert_section("Alert!")
     expect(flow).to have_amenities("Beach Access")
 

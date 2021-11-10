@@ -5,5 +5,10 @@
     <textarea name="visit[special_needs]" id="reserve-special-needs"><%= form_values.special_needs %></textarea>
   </div>
 
+  <div class="field">
+    <label for="visit_study_area"><%= t(".labels.study_area") %></label>
+    <input name="visit[study_area]" id="visit_study_area" value="<%= form_values.study_area %>"/>
+  </div>
+
   <div class="alert_message"><%= page.alert_message %></div>
 <% end %>
