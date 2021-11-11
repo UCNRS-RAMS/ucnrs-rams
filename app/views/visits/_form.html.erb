@@ -22,13 +22,13 @@
     <div class="field public_use_select">
       <%= form.label :public_use_category, t(".labels.public_use_category") %>
       <%= form.collection_select(
-            :public_use_category,
-            @page.public_use_categories,
-            :to_s,
-            @page.translate_in(".public_use_options.labels"),
-            { selected: form.object.public_use_category }
-          )
-      %>
+        :public_use_category,
+        @page.public_use_categories,
+        :to_s,
+        @page.translate_in(".public_use_options.labels"),
+        { selected: form.object.public_use_category }
+      )
+    %>
     </div>
 
     <%= form.label :purpose_of_visit, t(".labels.purpose_of_visit") %>
@@ -74,10 +74,8 @@
     <fieldset class="amenities">
       <legend><%= t(".titles.amenities") %><span><%= t(".titles.amenities_subtitle") %></span></legend>
       <section class="amenity-options" data-followup-content-target="destination" data-followup-content-url-value="<%= visits_amenities_url(reserve_id: "VALUE") %>">
-        <% @page.amenities.each do |amenity| %>
-          <%= fields_for "visit[amenities][#{ amenity.amenity_id }]", amenity.form do |form| %>
-            <%= render partial: "visits/amenities/amenity", locals: { form: form, page: amenity } %>
-          <% end %>
+        <% @page.amenities_by_group_label.each do |group_label, amenities| %>
+          <%= render partial: "visits/amenities/amenities", locals: { group_label: group_label, amenities: amenities } %>
         <% end %>
       </section>
     </fieldset>

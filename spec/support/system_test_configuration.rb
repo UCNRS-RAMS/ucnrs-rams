@@ -9,5 +9,6 @@ RSpec.configure do |config|
     #
     # Keep headless committed, only use alternatives for troubleshooting
     driven_by :selenium_chrome_headless
+    Capybara.current_session.current_window.resize_to(1000, 1000)
   end
 end

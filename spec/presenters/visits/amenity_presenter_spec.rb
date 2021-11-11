@@ -3,9 +3,10 @@ require "rails_helper"
 RSpec.describe Visits::AmenityPresenter do
   describe "delegations to amenity" do
     subject { Visits::AmenityPresenter.new(build(:amenity)) }
-    it { is_expected.to delegate_method(:title).to(:amenity) }
+    it { is_expected.to delegate_method(:group_number).to(:amenity) }
     it { is_expected.to delegate_method(:description).to(:amenity) }
     it { is_expected.to delegate_method(:image_url).to(:amenity) }
+    it { is_expected.to delegate_method(:reserve).to(:amenity) }
     it { is_expected.to delegate_method(:unit).to(:amenity).as(:units_type) }
     it { is_expected.to delegate_method(:period).to(:amenity).as(:time_type) }
   end
@@ -92,6 +93,24 @@ RSpec.describe Visits::AmenityPresenter do
         "10:00 PM",
         "11:00 PM",
       ]
+    end
+  end
+
+  describe "#group_label" do
+    it "is the label that corresponds to the amenity's group_number" do
+      reserve = create(:reserve, amenity_group_label_1: "Housing & Lodging")
+      amenity = create(:amenity, group_number: 1, reserve: reserve)
+      presenter = Visits::AmenityPresenter.new(amenity)
+
+      expect(presenter.group_label).to eq "Housing & Lodging"
+    end
+
+    it "returns the default value for the amenity_group_label if the group number doesn't match" do
+      reserve = create(:reserve, amenity_group_label_1: "Housing & Lodging")
+      amenity = create(:amenity, group_number: 2, reserve: reserve)
+      presenter = Visits::AmenityPresenter.new(amenity)
+
+      expect(presenter.group_label).to eq "2"
     end
   end
 end

@@ -3,6 +3,7 @@ FactoryBot.define do
     pulldown_name { name || "Pulldown" }
     sequence(:name) { |n| "Reserve #{n}" }
     address_state { association(:state) }
+    amenity_group_label_1 { "Label 1" }
 
     transient do
       amenities_named { [] }

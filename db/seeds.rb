@@ -56,12 +56,15 @@ ActiveRecord::Base.transaction do
     :reserve,
     name: "A Single Tree",
     short_name: "Tree",
-    pulldown_name: "Single Tree",
+    pulldown_name: "Single Tree, A",
     address_state: massachusetts,
     research_projects_accepted: true,
     class_projects_accepted: false,
     conference_projects_accepted: true,
     public_projects_accepted: false,
+    amenity_group_label_1: "Fun Things",
+    amenity_group_label_2: "Stuff to Get",
+    amenity_group_label_3: "Accomodations",
   )
   oak_ridge = FactoryBot.create(
     :reserve,
@@ -73,13 +76,27 @@ ActiveRecord::Base.transaction do
     class_projects_accepted: true,
     conference_projects_accepted: true,
     public_projects_accepted: false,
+    amenity_group_label_1: "ATV Vroooooooom",
+    amenity_group_label_2: "Only One Acorn, Okay?",
+    amenity_group_label_3: "(Not) Spooky Cabin",
   )
 
   # Amenities
+  leaf_pile = FactoryBot.create(
+    :amenity,
+    title: "Leaf Pile",
+    sort_order: 1,
+    units_type: "person",
+    time_type: "4 hours",
+    reserve: a_single_tree,
+    visible: true,
+    group_number: "1",
+  )
+  FactoryBot.create(:amenity_rate, rate: 10.01, amenity: leaf_pile)
   day_use = FactoryBot.create(
     :amenity,
     title: "Day Use",
-    sort_order: 1,
+    sort_order: 2,
     units_type: "person",
     time_type: "day",
     reserve: a_single_tree,
@@ -90,7 +107,7 @@ ActiveRecord::Base.transaction do
   your_own_leaf = FactoryBot.create(
     :amenity,
     title: "Your Own Leaf",
-    sort_order: 2,
+    sort_order: 3,
     units_type: "person",
     time_type: "each",
     reserve: a_single_tree,
@@ -101,7 +118,7 @@ ActiveRecord::Base.transaction do
   hotel_accomodations = FactoryBot.create(
     :amenity,
     title: "Hotel Accomodations",
-    sort_order: 3,
+    sort_order: 4,
     units_type: "person",
     time_type: "night",
     reserve: a_single_tree,
@@ -109,6 +126,17 @@ ActiveRecord::Base.transaction do
     group_number: "3",
   )
   FactoryBot.create(:amenity_rate, rate: 15.44, amenity: hotel_accomodations)
+  friendly_squirrel = FactoryBot.create(
+    :amenity,
+    title: "Hole Up with a Friendly Squirrel",
+    sort_order: 5,
+    units_type: "person",
+    time_type: "night",
+    reserve: a_single_tree,
+    visible: true,
+    group_number: "3",
+  )
+  FactoryBot.create(:amenity_rate, rate: 1.23, amenity: friendly_squirrel)
   atv_rental = FactoryBot.create(
     :amenity,
     title: "ATV Rental",

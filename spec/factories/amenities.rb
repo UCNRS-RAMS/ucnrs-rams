@@ -3,6 +3,7 @@ FactoryBot.define do
     description { "Description" }
     time_type { "day" }
     units_type { "facility" }
+    group_number { "1" }
     reserve
 
     transient do
