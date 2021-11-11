@@ -9,6 +9,8 @@ class Visits::AmenityPresenter
   delegate :title,
     :description,
     :image_url,
+    :group_number,
+    :reserve,
     to: :amenity
 
   delegate :arrives_on,
@@ -26,6 +28,10 @@ class Visits::AmenityPresenter
 
   def amenity_visit_id
     form.id
+  end
+
+  def group_label
+    reserve&.public_send(:"amenity_group_label_#{group_number}")
   end
 
   def checkbox_id

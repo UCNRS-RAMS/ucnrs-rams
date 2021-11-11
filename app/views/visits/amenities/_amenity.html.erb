@@ -1,5 +1,5 @@
 <div class="amenity">
-  <%= check_box_tag "#{form.object_name}[amenity_id]", form.object.amenity_id, form.object.checked, id: page.checkbox_id %>
+  <%= check_box_tag "#{form.object_name}[amenity_id]", page.amenity_id, form.object.checked, id: page.checkbox_id %>
   <label for="<%= page.checkbox_id %>">
     <%= form.hidden_field :amenity_visit_id %>
     <img src="<%= page.image_url %>"/>

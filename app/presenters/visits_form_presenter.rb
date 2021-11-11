@@ -16,10 +16,10 @@ class VisitsFormPresenter
 
   delegate :reserve, to: :visit
 
-  def amenities
-    selectable_amenities.map do |amenity|
-      Visits::AmenityPresenter.new(amenity, form: form.amenity_form(amenity.id.to_s))
-    end
+  def amenities_by_group_label
+    amenity_scope
+      .map(&method(:wrap_amenity_in_presenter))
+      .group_by(&:group_label)
   end
 
   def project_type_options
@@ -79,7 +79,13 @@ class VisitsFormPresenter
     end
   end
 
-  def selectable_amenities
-    reserve&.amenities || []
+  def amenity_scope
+    (reserve&.amenities || Amenity.none)
+      .visible
+      .by_group_number
+  end
+
+  def wrap_amenity_in_presenter(amenity)
+    Visits::AmenityPresenter.new(amenity, form: form.amenity_form(amenity.id.to_s))
   end
 end

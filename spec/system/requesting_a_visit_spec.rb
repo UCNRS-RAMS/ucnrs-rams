@@ -9,8 +9,9 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
       reserve_alert_message_enabled: true,
       reserve_alert_message: "Alert!",
       class_projects_accepted: true,
+      amenity_group_label_1: "Fun Things"
     )
-    amenity = create(:amenity, title: "Beach Access", reserve: reserve)
+    amenity = create(:amenity, title: "Beach Access", reserve: reserve, group_number: "1")
     amenity_rate = create(:amenity_rate, rate: 0, amenity: amenity, sort_order: 1)
     user = create(:user, :confirmed)
     sign_in(user)
@@ -65,8 +66,9 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
       reserve_alert_message_enabled: true,
       reserve_alert_message: "Alert!",
       class_projects_accepted: true,
+      amenity_group_label_1: "Fun Things"
     )
-    amenity = create(:amenity, title: "Beach Access", reserve: reserve)
+    amenity = create(:amenity, title: "Beach Access", reserve: reserve, group_number: "1")
     amenity_rate = create(:amenity_rate, rate: 0, amenity: amenity, sort_order: 1)
     user = create(:user, :confirmed)
     sign_in(user)
@@ -109,8 +111,9 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
       reserve_alert_message_enabled: true,
       reserve_alert_message: "Alert!",
       class_projects_accepted: true,
+      amenity_group_label_1: "Fun Things"
     )
-    amenity = create(:amenity, title: "Beach Access", reserve: reserve)
+    amenity = create(:amenity, title: "Beach Access", reserve: reserve, group_number: "1")
     amenity_rate = create(:amenity_rate, rate: 0, amenity: amenity, sort_order: 1)
     user = create(:user, :confirmed)
     project = create(:project, title: "Fun", project_type: "Class", reserve: reserve)

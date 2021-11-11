@@ -3,10 +3,12 @@ class Visits::AmenitiesPresenter
     @reserve_id = reserve_id
   end
 
-  def amenities
+  def amenities_by_group_label
     Amenity
       .where(reserve_id: @reserve_id)
-      .in_sort_order
+      .includes([:reserve])
+      .by_group_number
       .map { |amenity| Visits::AmenityPresenter.new(amenity) }
+      .group_by(&:group_label)
   end
 end

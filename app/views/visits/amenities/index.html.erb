@@ -1,5 +1,3 @@
-<% @page.amenities.each do |amenity| %>
-  <%= fields_for "visit[amenities][#{amenity.amenity_id}]", amenity do |form| %>
-    <%= render partial: "amenity", locals: { form: form, page: amenity } %>
-  <% end %>
+<% @page.amenities_by_group_label.each do |group_label, amenities| %>
+  <%= render partial: "visits/amenities/amenities", locals: { group_label: group_label, amenities: amenities } %>
 <% end %>
