@@ -3,10 +3,17 @@
   <label for="<%= page.checkbox_id %>">
     <%= form.hidden_field :amenity_visit_id %>
     <img src="<%= page.image_url %>"/>
-    <div class="content">
+    <div class="content" data-controller="toggle">
       <h3><%= page.title %></h3>
       <p><%= page.description %></p>
-      <%= link_to t(".more_info"), "#" %>
+      <div class="comment-and-rates" data-toggle-target="toggle" data-toggle-class="showing">
+        <p><%= page.comment %></p>
+        <% page.rate_descriptions.each do |rate| %>
+          <p><%= rate %></p>
+        <% end %>
+      </div>
+      <%= link_to t(".more_info"), "#", "data-action": "click->toggle#toggle", "data-toggle-class": "showing", "data-toggle-target": "toggle", class: "showing" %>
+      <%= link_to t(".less_info"), "#", "data-action": "click->toggle#toggle", "data-toggle-class": "showing", "data-toggle-target": "toggle" %>
     </div>
     <div class="booking">
       <div class="field">

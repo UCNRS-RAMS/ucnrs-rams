@@ -11,6 +11,7 @@ class Visits::AmenityPresenter
     :image_url,
     :group_number,
     :reserve,
+    :comment,
     to: :amenity
 
   delegate :arrives_on,
@@ -67,6 +68,16 @@ class Visits::AmenityPresenter
           format: :visit_form_output_time_human
         )
       )
+    end
+  end
+
+  def rate_descriptions
+    rates.map do |rate|
+      rate_string = "#{rate.amount} per #{unit}"
+      if period != "each"
+        rate_string << "/per #{period}"
+      end
+      rate_string
     end
   end
 end

@@ -7,6 +7,7 @@ RSpec.describe Visits::AmenityPresenter do
     it { is_expected.to delegate_method(:description).to(:amenity) }
     it { is_expected.to delegate_method(:image_url).to(:amenity) }
     it { is_expected.to delegate_method(:reserve).to(:amenity) }
+    it { is_expected.to delegate_method(:comment).to(:amenity) }
     it { is_expected.to delegate_method(:unit).to(:amenity).as(:units_type) }
     it { is_expected.to delegate_method(:period).to(:amenity).as(:time_type) }
   end
@@ -32,6 +33,36 @@ RSpec.describe Visits::AmenityPresenter do
 
       expect(presented_rates.map(&:id))
         .to eq [rates[0].id, rates[2].id, rates[1].id]
+    end
+  end
+
+  describe "#rate_descriptions" do
+    it "generates the right descriptions for time-period-based rates" do
+      amenity = create(:amenity, units_type: :use, time_type: :four_hours)
+      rate = create(:amenity_rate, amenity: amenity, rate: "12.34")
+      rate = create(:amenity_rate, amenity: amenity, rate: "0.01")
+      presenter = Visits::AmenityPresenter.new(amenity)
+
+      rate_descriptions = presenter.rate_descriptions
+
+      expect(rate_descriptions).to eq [
+        "$12.34 per use/per four_hours",
+        "$0.01 per use/per four_hours",
+      ]
+    end
+
+    it "generates the right descriptions for individual rates" do
+      amenity = create(:amenity, units_type: :use, time_type: :each)
+      rate = create(:amenity_rate, amenity: amenity, rate: "12.34")
+      rate = create(:amenity_rate, amenity: amenity, rate: "0.01")
+      presenter = Visits::AmenityPresenter.new(amenity)
+
+      rate_descriptions = presenter.rate_descriptions
+
+      expect(rate_descriptions).to eq [
+        "$12.34 per use",
+        "$0.01 per use",
+      ]
     end
   end
 

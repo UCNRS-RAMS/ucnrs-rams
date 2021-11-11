@@ -18,4 +18,41 @@ class Amenity < ApplicationRecord
   def self.by_group_number
     reorder(:group_number, :sort_order)
   end
+
+  enum units_type: {
+      hour: "hour",
+      day: "day",
+      night: "night",
+      week: "week",
+      month: "month",
+      quarter: "quarter",
+      semi_annual: "semi-annual",
+      year: "year",
+      session: "session",
+      use: "use",
+      four_hours: "4 hours",
+      eight_hours: "8 hours",
+      person: "person",
+      mile: "mile",
+      square_foot: "square foot",
+      unit: "unit",
+      facility: "facility",
+      empty: ""
+    },
+    _prefix: :unit
+
+  enum time_type: {
+      hour: "hour",
+      day: "day",
+      night: "night",
+      week: "week",
+      month: "month",
+      quarter: "quarter",
+      semi_annual: "semi-annual",
+      year: "year",
+      four_hours: "4 hours",
+      eight_hours: "8 hours",
+      each: "each"
+    },
+    _prefix: :time
 end

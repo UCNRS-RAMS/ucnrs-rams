@@ -26,6 +26,22 @@
       h3 {
         margin: 0;
       }
+
+      a {
+        display: none;
+
+        &.showing {
+          display: initial;
+        }
+      }
+
+      .comment-and-rates {
+        display: none;
+
+        &.showing {
+          display: initial;
+        }
+      }
     }
 
     .booking {

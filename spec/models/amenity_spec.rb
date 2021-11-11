@@ -52,4 +52,51 @@ RSpec.describe Amenity do
       expect(amenities).to eq [ amenity1 ]
     end
   end
+
+  describe "enums" do
+    it do
+      is_expected.to define_enum_for(:units_type)
+        .with_values(
+          hour: "hour",
+          day: "day",
+          night: "night",
+          week: "week",
+          month: "month",
+          quarter: "quarter",
+          semi_annual: "semi-annual",
+          year: "year",
+          session: "session",
+          use: "use",
+          four_hours: "4 hours",
+          eight_hours: "8 hours",
+          person: "person",
+          mile: "mile",
+          square_foot: "square foot",
+          unit: "unit",
+          facility: "facility",
+          empty: ""
+        )
+          .backed_by_column_of_type(:string)
+          .with_prefix(:unit)
+    end
+
+    it do
+      is_expected.to define_enum_for(:time_type)
+        .with_values(
+          hour: "hour",
+          day: "day",
+          night: "night",
+          week: "week",
+          month: "month",
+          quarter: "quarter",
+          semi_annual: "semi-annual",
+          year: "year",
+          four_hours: "4 hours",
+          eight_hours: "8 hours",
+          each: "each"
+        )
+          .backed_by_column_of_type(:string)
+          .with_prefix(:time)
+    end
+  end
 end

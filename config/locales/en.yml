@@ -54,7 +54,8 @@ en:
       per: "per"
     amenity:
       link: "Amenity Link"
-      more_info: "Learn More"
+      more_info: "Show More"
+      less_info: "Show Less"
       dates_of_use: "Dates of Use"
       rate: "Rate"
       rate_period: "(per %{unit} per %{period})"
@@ -187,7 +188,8 @@ en:
   visits:
     amenities:
       amenity:
-        more_info: "Learn More"
+        more_info: "Show More"
+        less_info: "Show Less"
         date_of_arrival: "Arrival Date"
         date_of_departure: "Departure Date"
         rate: "Rate"
