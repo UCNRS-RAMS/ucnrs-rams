@@ -13,6 +13,15 @@ RSpec.describe State, type: :model do
     it { is_expected.to have_many(:institutions) }
   end
 
+  describe ".coded" do
+    it "finds the state by code" do
+      ma = create(:state, code: "MA")
+      az = create(:state, code: "AZ")
+
+      expect(State.coded("MA")).to eq [ma]
+    end
+  end
+
   describe ".alphabetical_by_name" do
     it "returns all records ordered alphabetically by name" do
       wyoming = create(:state, name: "Wyoming")

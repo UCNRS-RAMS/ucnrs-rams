@@ -1,8 +1,5 @@
 class Amenity < ApplicationRecord
   belongs_to :reserve
-  has_many :amenity_rates
-
-  belongs_to :reserve
   has_many :amenity_visits
   has_many :visits, through: :amenity_visits
   has_many :amenity_rates

@@ -12,6 +12,15 @@ RSpec.describe Country, type: :model do
     it { is_expected.to have_many(:institutions) }
   end
 
+  describe ".coded" do
+    it "finds the country by code" do
+      aa = create(:country, code: "AA")
+      gg = create(:country, code: "GG")
+
+      expect(Country.coded("GG")).to eq [gg]
+    end
+  end
+
   describe ".alphabetical_by_name" do
     it "returns all records ordered alphabetically by name" do
       united_states = create(:country, name: "United States")
