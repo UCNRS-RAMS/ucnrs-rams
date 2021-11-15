@@ -5,8 +5,6 @@ class Visit < ApplicationRecord
   has_many :amenity_visits
   has_many :amenities, through: :amenity_visits
 
-  PUBLIC_PROJECT_ID = 0
-
   validates :start_time, presence: true
   validates :end_time, presence: true
   validates :purpose_of_visit, presence: true

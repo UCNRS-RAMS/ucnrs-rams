@@ -62,15 +62,7 @@ RSpec.describe VisitForm, type: :model do
   end
 
   describe "assigning project_type" do
-    it "sets the project_id to 0 to indicate a 'public project'" do
-      form = VisitForm.new
-
-      form.project_type = :public_use
-
-      expect(form.project_id).to eq 0
-    end
-
-    it "leave the project_id alone when setting to anyting else" do
+    it "sets the project_id to nil" do
       form = VisitForm.new
 
       form.project_type = :research
