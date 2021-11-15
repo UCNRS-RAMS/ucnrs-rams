@@ -70,9 +70,6 @@ class VisitForm
 
   def project_type=(category)
     visit.project_type = category
-    if public_use?
-      visit.project_id = Visit::PUBLIC_PROJECT_ID
-    end
   end
 
   def start_date=(date)
