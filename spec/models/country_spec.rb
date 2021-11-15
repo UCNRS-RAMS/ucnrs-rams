@@ -17,7 +17,7 @@ RSpec.describe Country, type: :model do
       aa = create(:country, code: "AA")
       gg = create(:country, code: "GG")
 
-      expect(Country.coded("GG")).to eq [gg]
+      expect(Country.coded("GG")).to eq gg
     end
   end
 

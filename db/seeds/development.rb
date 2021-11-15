@@ -21,7 +21,9 @@ fake_user = User.where(email: "mister@moustache.test").first_or_create(
   institution: fake_university,
   role: "faculty",
   password: "F4keLOL!",
+  terms_accepted_at: Time.current,
 )
+fake_user.confirm
 
 # Reserves
 a_single_tree = Reserve.where(name: "A Single Tree").first_or_create(
