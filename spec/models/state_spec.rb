@@ -18,7 +18,7 @@ RSpec.describe State, type: :model do
       ma = create(:state, code: "MA")
       az = create(:state, code: "AZ")
 
-      expect(State.coded("MA")).to eq [ma]
+      expect(State.coded("MA")).to eq ma
     end
   end
 

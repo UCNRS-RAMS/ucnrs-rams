@@ -8,7 +8,7 @@ class State < ApplicationRecord
   has_many :user_billing_address_states, class_name: "User", foreign_key: :billing_address_state_id
 
   def self.coded(code)
-    where(code: code)
+    find_by(code: code)
   end
 
   def self.alphabetical_by_name
