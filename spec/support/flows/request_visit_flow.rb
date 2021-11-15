@@ -49,6 +49,14 @@ class RequestVisitFlow
     page.has_css?("#visit_project_id", visible: true)
   end
 
+  def showing_project_selection_label?(label)
+    page.has_css?(".project_select label", text: "#{label} Project")
+  end
+
+  def showing_project_selection_link?
+    page.has_css?(".project_select a")
+  end
+
   def has_special_needs_section?(content = nil)
     if content
       page.has_css?("p.special-needs-statement", text: content)
@@ -122,7 +130,7 @@ class RequestVisitFlow
   def has_amenity_usage_dates?(title, arrival:, departure:)
     inside_amenity_labeled(title) do |section|
       (page.find("input[type='date'][name*='arrives_on']").value == arrival.strftime("%Y-%m-%d")) &&
-      (page.find("input[type='date'][name*='departs_on']").value == departure.strftime("%Y-%m-%d"))
+        (page.find("input[type='date'][name*='departs_on']").value == departure.strftime("%Y-%m-%d"))
     end
   end
 

@@ -3,7 +3,7 @@
     <legend><%= t(".titles.purpose") %></legend>
 
     <fieldset data-purpose="project_type">
-      <%= form.label :project_type, "" %>
+      <%= form.label :project_type %>
       <% @page.project_type_options.each do |value|%>
         <label for="project-type-<%= value %>">
           <%= form.radio_button :project_type, value, id: "project-type-#{value}", data: { action: "click->value-projection#change click->turbo-content#change" }, checked: form.object.project_type == value %>
@@ -14,21 +14,13 @@
     </fieldset>
 
     <div class="field project_select">
-      <%= form.label :project, t(".labels.project"), for: "visit_project_id" %>
+      <% @page.project_type_options.each do |type| %>
+        <div id="project-label-<%= type %>" class="label_container">
+          <%= form.label :project, "#{t(".project_type_options.labels.#{type}")} Project", for: "visit_project_id" %>
+        </div>
+      <% end %>
       <%= render partial: "visits/projects/projects_select", locals: { page: @page.projects } %>
       <%= link_to t(".links.create_a_new_project"), "/projects/new" %>
-    </div>
-
-    <div class="field public_use_select">
-      <%= form.label :public_use_category, t(".labels.public_use_category") %>
-      <%= form.collection_select(
-        :public_use_category,
-        @page.public_use_categories,
-        :to_s,
-        @page.translate_in(".public_use_options.labels"),
-        { selected: form.object.public_use_category }
-      )
-    %>
     </div>
 
     <%= form.label :purpose_of_visit, t(".labels.purpose_of_visit") %>

@@ -2,11 +2,9 @@
 
 [data-value-projection-projected-value] {
   .project_select {
-    display: block;
-  }
-
-  .public_use_select {
-    display: none;
+    .label_container {
+      display: none;
+    }
   }
 }
 
@@ -14,18 +12,40 @@
   .project_select {
     display: none;
   }
+}
 
-  .public_use_select {
-    display: none;
+[data-value-projection-projected-value="research"] {
+  .project_select {
+    #project-label-research {
+      display: initial;
+    }
+  }
+}
+
+[data-value-projection-projected-value="university_class"] {
+  .project_select {
+    #project-label-university_class {
+      display: initial;
+    }
+  }
+}
+
+[data-value-projection-projected-value="meeting_or_conference"] {
+  .project_select {
+    #project-label-meeting_or_conference {
+      display: initial;
+    }
   }
 }
 
 [data-value-projection-projected-value="public_use"] {
   .project_select {
-    display: none;
-  }
+    #project-label-public_use {
+      display: initial;
+    }
 
-  .public_use_select {
-    display: block;
+    a {
+      display: none;
+    }
   }
 }
