@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Requesting a Visit", type: :system, js: true do
-  it "loads fields when reserve selected, redisplays data on bad submit" do
+  it "scripts on page function appropriately, re-fills in data on submit" do
     reserve = create(
       :reserve,
       name: "Silver Lake Area",
@@ -49,6 +49,8 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     expect(flow).to have_a_project_type_selected
     expect(flow).to have_project_type("University Class")
     expect(flow).to be_showing_project_selection
+    expect(flow).to be_showing_project_selection_label("University Class")
+    expect(flow).to be_showing_project_selection_link
     expect(flow).to have_purpose("To swim")
     expect(flow).to have_usage_dates(
       arrival: now + 1.hour,

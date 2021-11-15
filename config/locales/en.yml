@@ -211,7 +211,6 @@ en:
         purpose: "Purpose of Visit"
         reserve: "Reserves"
       labels:
-        project: "Research Project"
         public_use_category: "Choose a category that best describes your visit"
         purpose_of_visit: "What do you plan to do on this visit?"
         reserve: "Reserve"
