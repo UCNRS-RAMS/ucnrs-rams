@@ -17,7 +17,17 @@
           <li> <%= link_to I18n.t(".navbar.link.schedule_visit"), new_visit_path, class:"nav-link schedule #{active_class_for("visits")}" %></li>
         </ul>
 
-        <%= image_tag 'hamburger.svg', alt: "hamburger menu", class: "navbar-hamburger display-none" %>
+        <%= image_tag 'hamburger.svg', alt: I18n.t(".navbar.alt_text.mobile_menu"), class: "navbar-hamburger display-none" %>
+      </div>
+    <% else %>
+      <div class="right-side">
+        <ul class="navbar-nav">
+          <li> <%= link_to I18n.t(".navbar.link.reserves"), reserves_path, class:"nav-link #{active_class_for("reserves")}" %> </li>
+          <li> <%= link_to I18n.t(".navbar.link.project_search"), "#", class:"nav-link #{active_class_for("project_search")}" %> </li>
+          <li> <%= link_to I18n.t(".navbar.link.schedule_visit"), new_visit_path, class:"nav-link schedule #{active_class_for("visits")}" %></li>
+        </ul>
+
+        <%= image_tag 'hamburger.svg', alt: I18n.t(".navbar.alt_text.mobile_menu"), class: "navbar-hamburger display-none" %>
       </div>
     <% end %>
   </div>

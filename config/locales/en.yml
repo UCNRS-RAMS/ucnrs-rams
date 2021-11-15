@@ -287,6 +287,8 @@ en:
     waiver:
       download_pdf: "Download PDF"
   navbar:
+    alt_text:
+      mobile_menu: "Mobile Menu"
     link:
       visits: "Visits"
       reserves: "Reserves"
@@ -295,6 +297,7 @@ en:
       account: "Account"
       schedule_visit: "Schedule a Visit"
       sign_out: "Sign Out"
+      project_search: "Project Search"
   footer:
     link:
       all_rights: "© 2021 UCNRS. All rights reserved."

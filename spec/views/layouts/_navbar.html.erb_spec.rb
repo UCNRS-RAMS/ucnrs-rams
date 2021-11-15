@@ -21,12 +21,13 @@ RSpec.describe "navbar", type: :view do
 
     render partial: 'layouts/navbar', locals: { current_user: user }
 
+    expect(rendered).to have_link("Reserves", href: "/reserves")
+    expect(rendered).to have_link("Search", href: "#")
+    expect(rendered).to have_link("Schedule a Visit", href: "/visits/new")
+
     expect(rendered).not_to have_link("Visits")
-    expect(rendered).not_to have_link("Reserves")
     expect(rendered).not_to have_link("My Projects")
     expect(rendered).not_to have_link("Help")
     expect(rendered).not_to have_link("Account")
-
-    expect(rendered).not_to have_link("Schedule a Visit")
   end
 end
