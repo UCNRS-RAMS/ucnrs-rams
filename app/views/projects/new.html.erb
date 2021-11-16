@@ -1,0 +1,7 @@
+<% content_for(:title) { t(".title") } %>
+
+<h1><%= t(".title") %></h1>
+
+<% content_for :modal do %>
+  <%= render partial: "modals/project" %>
+<% end %>
