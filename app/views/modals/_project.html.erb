@@ -1,0 +1,18 @@
+<div class="modal-content project" role="dialog" aria-labelledby="dialog-title" aria-describedby="modal-description" data-modal-target="dialog openOnLoad">
+  <p class="screenreader-text" id="modal-description"><%= t(".accessible_description") %></p>
+  <section class="text">
+    <%= image_tag "x.svg", alt: t(".alt.close_modal_icon"), data: { action: "click->modal#close" } %>
+    <h1 id="dialog-title"><%= t(".title") %></h1>
+    <div id="dialog-description">
+      <p><%= t(".content_first") %></p>
+      <p><%= t(".content_middle") %></p>
+      <p><%= t(".content_last") %></p>
+    </div>
+  </section>
+  <section class="buttons">
+    <button class="active" data-action="click->modal#close">
+      <%= t(".okay") %>
+      <%= image_tag "arrow-right.svg", alt: t(".alt.right_facing_arrow") %>
+    </button>
+  </section>
+</div>
