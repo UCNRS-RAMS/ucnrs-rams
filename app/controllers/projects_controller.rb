@@ -9,6 +9,8 @@ class ProjectsController < ApplicationController
     )
   end
 
+  def new; end
+
   private
 
   def status_filter
