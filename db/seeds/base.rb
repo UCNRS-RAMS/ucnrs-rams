@@ -22,6 +22,7 @@ california = State.where(name: "California").first_or_create(
 ucnrs = Institution.where(name: "UCNRS").first_or_create(
   city: "Oakland",
   state: california,
+  acronym: "UCNRS",
   country: united_states,
   institution_type: :university_of_california,
 )

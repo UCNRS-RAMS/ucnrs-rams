@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_10_174551) do
+ActiveRecord::Schema.define(version: 2021_11_17_121924) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id"
@@ -473,6 +473,7 @@ ActiveRecord::Schema.define(version: 2021_11_10_174551) do
     t.string "acronym", limit: 10
     t.string "doi", limit: 25, default: "0000", comment: "Unique ID"
     t.index ["institution_type", "name"], name: "institution_type"
+    t.index ["name", "city", "acronym"], name: "institution_search", type: :fulltext
     t.index ["name"], name: "name"
   end
 

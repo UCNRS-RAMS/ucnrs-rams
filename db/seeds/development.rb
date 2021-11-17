@@ -3,6 +3,7 @@ fake_university = Institution.where(name:  "Totally a Real University").first_or
   city: "Real Place",
   state: State.coded("MA"),
   country: Country.coded("US"),
+  acronym: "TRU",
   institution_type: "non_california_us_university_or_college",
 )
 

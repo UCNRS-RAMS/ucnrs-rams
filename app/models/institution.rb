@@ -35,6 +35,16 @@ class Institution < ApplicationRecord
     order(:name)
   end
 
+  def self.search(query)
+    match = sanitize_sql([
+      "MATCH (name, city, acronym) AGAINST (? IN NATURAL LANGUAGE MODE) as relevance",
+      query
+    ])
+    select(arel_table[Arel.star], match)
+      .having("relevance > 1")
+      .order("relevance DESC")
+  end
+
   private
 
   def required_for_country?
