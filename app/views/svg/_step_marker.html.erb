@@ -1,0 +1,51 @@
+<svg height="<%= presenter.size %>" width="<%= presenter.size %>" viewBox="0 0 50 50">
+  <defs>
+    <% if presenter.use_checkmark %>
+      <polyline
+        id="content-<%= presenter.number %>"
+        points="37 16 20.5 32.5 13 25"
+        fill="white"
+        stroke="black"
+        stroke-width="3"
+      />
+    <% else %>
+      <text
+        id="content-<%= presenter.number %>"
+        font-size="22px"
+        font-weight="700"
+        text-anchor="middle"
+        x="25"
+        y="25"
+        dy="0.41em"
+      >
+        <%= presenter.number %>
+      </text>
+    <% end %>
+    <mask id="invert-<%= presenter.number %>" maskContentUnits="userSpaceOnUse">
+      <rect
+        x="0"
+        y="0"
+        width="50"
+        height="50"
+        stroke-width="0"
+        fill="white"
+      />
+      <use href="#content-<%= presenter.number %>" fill="black"/>
+    </mask>
+  </defs>
+  <circle
+    cx="25"
+    cy="25"
+    r="22"
+    fill="<%= presenter.color %>"
+    stroke="<%= presenter.color %>"
+    fill-opacity="<%= presenter.fill_opacity %>"
+    stroke-width="2"
+    <% if presenter.invert %>
+      mask="url(#invert-<%= presenter.number %>)"
+    <% end %>
+  />
+  <% if !presenter.invert %>
+    <use href="#content-<%= presenter.number %>" fill="<%= presenter.color %>" />
+  <% end %>
+</svg>

@@ -284,6 +284,11 @@ en:
         right_facing_arrow: "A right facing arrow enclosed in a circle"
     new:
       title: "Project Details"
+    steps:
+      step_1: "Project Details"
+      step_2: "Team"
+      step_3: "Permits"
+      step_4: "Funding"
   waivers:
     index:
       title: "Waivers"

@@ -9,7 +9,12 @@ class ProjectsController < ApplicationController
     )
   end
 
-  def new; end
+  def new
+    @presenter = ProjectsFormPresenter.new(
+      user: current_user,
+      current_step: 1,
+    )
+  end
 
   private
 

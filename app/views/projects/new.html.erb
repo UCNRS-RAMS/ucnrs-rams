@@ -1,5 +1,5 @@
 <% content_for(:title) { t(".title") } %>
-
+<%= render partial: "steps", locals: { presenter: @presenter } %>
 <h1><%= t(".title") %></h1>
 
 <% content_for :modal do %>

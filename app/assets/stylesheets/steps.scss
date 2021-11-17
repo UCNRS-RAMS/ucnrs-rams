@@ -1,0 +1,35 @@
+@import "variables";
+
+.progress-steps {
+  background-color: $light-light-blue;
+  border: 0;
+  margin: 0;
+  padding: 1.625rem $form-page-gutter;
+
+  ol {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      align-items: center;
+      color: $dark-bluegray;
+      display: flex;
+      flex-direction: row;
+      font-size: 0.875rem;
+      font-weight: $semi-bold;
+      line-height: 1rem;
+      padding-right: 2.5rem;
+
+      svg {
+        padding: 0.25rem;
+      }
+
+      &.active {
+        color: $navy-blue;
+      }
+    }
+  }
+}
