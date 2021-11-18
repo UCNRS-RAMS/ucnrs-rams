@@ -1,6 +1,6 @@
 @import "variables";
 
-.registrations {
+.registrations main{
   .content {
     align-items: center;
     color: $form-title-color;
@@ -285,7 +285,7 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .registrations {
+  .registrations main{
     header {
       width: 80%;
     }
@@ -340,7 +340,7 @@
 }
 
 @media screen and (max-width: 1400px) {
-  .registrations {
+  .registrations main{
     form {
       .section-container {
         section {
