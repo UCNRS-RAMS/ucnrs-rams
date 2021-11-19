@@ -1,1 +1,4 @@
-<li data-action="click->copy#copy click->followup-content#clear"><%= institution.name %></li>
+<li id="<%= dom_id institution.institution %>" data-copy-label="<%= institution.name %>" data-action="click->copy#copy click->followup-content#clearAllContent">
+  <strong><%= institution.name %></strong> - 
+  <span><%= institution.city %> | <%= institution.country_name %></span>
+</li>
