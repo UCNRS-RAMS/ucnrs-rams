@@ -5,7 +5,8 @@ class InstitutionsIndexPresenter
 
   def institutions
     Institution
-      .with_name_like(query)
+      .search(query)
+      .preload([:country])
       .limit(Institution::DEFAULT_LIMIT_FOR_INDEX)
       .alphabetized
       .map { |institution| InstitutionPresenter.new(institution) }

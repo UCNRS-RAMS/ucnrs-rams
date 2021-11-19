@@ -449,6 +449,7 @@ ActiveRecord::Schema.define(version: 2021_11_23_141459) do
     t.string "name", null: false
     t.string "code", limit: 2
     t.string "subunit", default: "-"
+    t.index ["name"], name: "country_search", type: :fulltext
     t.index ["name"], name: "name"
   end
 
@@ -473,6 +474,7 @@ ActiveRecord::Schema.define(version: 2021_11_23_141459) do
     t.string "acronym", limit: 10
     t.string "doi", limit: 25, default: "0000", comment: "Unique ID"
     t.index ["institution_type", "name"], name: "institution_type"
+    t.index ["name", "city", "acronym"], name: "institution_search", type: :fulltext
     t.index ["name"], name: "name"
   end
 

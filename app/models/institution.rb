@@ -1,5 +1,5 @@
 class Institution < ApplicationRecord
-  DEFAULT_LIMIT_FOR_INDEX = 10.freeze
+  DEFAULT_LIMIT_FOR_INDEX = 15.freeze
 
   validates :name, presence: true
   validates :name, uniqueness: { scope: :city, case_sensitive: false }
@@ -35,6 +35,24 @@ class Institution < ApplicationRecord
     order(:name)
   end
 
+  def self.search(query)
+    full_text_query_array = tokenize(query)
+
+    @found_institutions = select(arel_table[Arel.star]).left_joins(:country)
+    
+    full_text_query_array.each do |partial|
+      @found_institutions = @found_institutions.where(
+                                "institutions.`name` REGEXP :match 
+                                OR city REGEXP :match
+                                OR acronym REGEXP :match
+                                OR countries.`name` REGEXP :match",
+                                { match: partial }
+                            )
+    end
+
+    @found_institutions
+  end
+
   private
 
   def required_for_country?
@@ -45,5 +63,9 @@ class Institution < ApplicationRecord
     elsif country.present? && country.has_states?
       errors.add(:state_id, :must_be_in_country)
     end
+  end
+
+  def self.tokenize(query)
+    return URI.decode_www_form_component(query).strip.split
   end
 end

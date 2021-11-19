@@ -9,6 +9,7 @@ RSpec.describe InstitutionsIndexPresenter do
       presenter = InstitutionsIndexPresenter.new(query: "School")
 
       institutions = presenter.institutions
+      institutions.first.country.name
 
       expect(institutions.length).to eq 2
       expect(institutions.map(&:name)).to eq [

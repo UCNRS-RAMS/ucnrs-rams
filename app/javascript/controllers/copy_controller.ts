@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { ElementAccessChain } from "typescript"
 
 export default class extends Controller {
   static targets = ["destination"]
@@ -7,6 +8,7 @@ export default class extends Controller {
 
   copy(e: Event) {
     const source = e.currentTarget as HTMLInputElement
-    this.destinationTargets.forEach(target => target.value = source.value || source.textContent)
+
+    this.destinationTargets.forEach(target => target.value = source.dataset.copyLabel || source.value || source.textContent.trim())
   }
 }
