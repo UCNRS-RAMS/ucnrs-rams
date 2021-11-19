@@ -10,9 +10,10 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @presenter = ProjectsFormPresenter.new(
+    @presenter = ProjectsNewPresenter.new(
       user: current_user,
       current_step: 1,
+      project_type: project_type,
     )
   end
 
@@ -24,5 +25,9 @@ class ProjectsController < ApplicationController
  
   def page_number
     params[:page]
+  end
+
+  def project_type
+    params[:project_type]
   end
 end

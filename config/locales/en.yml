@@ -284,6 +284,18 @@ en:
         right_facing_arrow: "A right facing arrow enclosed in a circle"
     new:
       title: "Project Details"
+      submit: "Next: Team"
+      project_type_options:
+        labels:
+          research: "Research"
+          university_class: "University Class"
+          meeting_or_conference: "Meeting or Conference"
+          public_use: "Public Use"
+        explanation:
+          research: "Research"
+          university_class: "Class"
+          meeting_or_conference: "Meeting"
+          public_use: "Public"
     steps:
       step_1: "Project Details"
       step_2: "Team"
