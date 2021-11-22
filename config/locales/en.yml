@@ -286,6 +286,7 @@ en:
       title: "Project Details"
       submit: "Next: Team"
       project_type_options:
+        title: "Project Type"
         labels:
           research: "Research"
           university_class: "University Class"

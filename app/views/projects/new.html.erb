@@ -1,26 +1,33 @@
 <% content_for(:title) { t(".title") } %>
 <%= render partial: "projects/steps", locals: { presenter: @presenter } %>
-<h1><%= t(".title") %></h1>
 
-<%= form_with model: @presenter.form, data: { controller: "turbo-content" } do |form| %>
-  <% @presenter.project_type_options.each do |project_type| %>
-    <label for="project-type-<%= project_type %>">
-      <%= form.radio_button :project_type, project_type, id: "project-type-#{project_type}", data: { action: "click->turbo-content#change" }, checked: form.object.project_type == project_type %>
-      <span><%= t(".project_type_options.labels.#{project_type}") %></span>
-      <span><%= t(".project_type_options.explanation.#{project_type}") %></span>
-    </label>
-  <% end %>
-
-  <%= turbo_frame_tag "project_type_form", data: { pattern: new_project_path(project_type: "VALUE"), "turbo-content-target": "destination" } do %>
-    <section class="<%= @presenter.project_type %>">
-      <%= render partial: @presenter.partial_name, locals: {
-        form: form,
-        presenter: @presenter
-      } %>
+<section class="project-form">
+  <h1><%= t(".title") %></h1>
+  <%= form_with model: @presenter.form, data: { controller: "turbo-content" } do |form| %>
+    <h2><%= t(".project_type_options.title") %></h2>
+    <section class="project-type-options" data-controller="value-projection" data-value-projection-projected-value="<%= form.object.project_type %>">
+      <% @presenter.project_type_options.each do |project_type| %>
+        <label for="project-type-<%= project_type %>">
+          <%= form.radio_button :project_type, project_type, id: "project-type-#{project_type}", data: { action: "click->turbo-content#change click->value-projection#change" }, checked: form.object.project_type == project_type %>
+          <div class="project-type-label">
+            <h3><%= t(".project_type_options.labels.#{project_type}") %></h3>
+            <p><%= t(".project_type_options.explanation.#{project_type}") %></p>
+          </div>
+        </label>
       <% end %>
-      <%= form.submit t(".submit") %>
     </section>
-<% end %>
+
+    <%= turbo_frame_tag "project_type_form", data: { pattern: new_project_path(project_type: "VALUE"), "turbo-content-target": "destination" } do %>
+      <section class="<%= @presenter.project_type %>">
+        <%= render partial: @presenter.partial_name, locals: {
+          form: form,
+          presenter: @presenter
+        } %>
+    <% end %>
+    <%= form.submit t(".submit") %>
+      </section>
+    <% end %>
+</section>
 
 <% content_for :modal do %>
   <%= render partial: "modals/project" %>

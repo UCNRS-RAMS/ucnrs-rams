@@ -1,19 +1,25 @@
-<h1><%= t(".details") %></h1>
+<h2><%= t(".details") %></h2>
 
 <div class="field">
   <%= form.label :title, t(".project_title.field_name") %>
-  <%= form.text_field :title %>
-  <p class="explanation"><%= t(".project_title.explanation") %></p>
+  <p>
+    <%= form.text_field :title %>
+    <span class="explanation"><%= t(".project_title.explanation") %></span>
+  </p>
 </div>
 
 <div class="field">
   <%= form.label :thesis_title, t(".thesis_title.field_name") %>
-  <%= form.text_field :thesis_title %>
-  <p class="explanation"><%= t(".thesis_title.explanation") %></p>
+  <p>
+    <%= form.text_field :thesis_title %>
+    <span class="explanation"><%= t(".thesis_title.explanation") %></span>
+  </p>
 </div>
 
 <div class="field">
   <%= form.label :abstract, t(".abstract.field_name") %>
-  <%= form.text_area :abstract %>
-  <p class="explanation"><%= t(".abstract.explanation") %></p>
+  <p>
+    <%= form.text_area :abstract %>
+    <span class="explanation"><%= t(".abstract.explanation") %></span>
+  </p>
 </div>

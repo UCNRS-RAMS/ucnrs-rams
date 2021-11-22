@@ -200,4 +200,129 @@
       }
     }
   }
+
+  .project-form {
+    color: $navy-blue;
+    padding: 0 $form-page-gutter;
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: $semi-bold;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: $bold;
+    }
+
+    .project-type-options {
+      display: flex;
+      flex-direction: row;
+
+      &[data-value-projection-projected-value="research"] {
+        label[for="project-type-research"] {
+          background-color: $light-light-blue;
+          border: 2px solid $navy-blue;
+          padding: 1rem;
+        }
+      }
+
+      &[data-value-projection-projected-value="university_class"] {
+        label[for="project-type-university_class"] {
+          background-color: $light-light-blue;
+          border: 2px solid $navy-blue;
+          padding: 1rem;
+        }
+      }
+
+      &[data-value-projection-projected-value="meeting_or_conference"] {
+        label[for="project-type-meeting_or_conference"] {
+          background-color: $light-light-blue;
+          border: 2px solid $navy-blue;
+          padding: 1rem;
+        }
+      }
+
+      label {
+        align-items: flex-start;
+        background-color: transparent;
+        border: 1px solid $gray;
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+        margin-right: 10px;
+        padding: calc(1rem + 1px);
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        input {
+          margin-right: 0.5rem;
+        }
+
+        .project-type-label {
+          align-content: flex-start;
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+
+          h3 {
+            font-size: 1rem;
+            font-weight: $bold;
+            margin: 0;
+            padding: 0;
+          }
+
+          p {
+            font-size: 0.625rem;
+            font-weight: $normal;
+            margin: 0;
+            padding: 0;
+          }
+        }
+      }
+    }
+
+    section.research {
+      .field {
+        display: flex;
+        flex-direction: column;
+
+        label {
+          color: $dark-bluegray;
+          display: block;
+          font-size: 0.625rem;
+          font-weight: $bold;
+        }
+
+        p {
+          display: flex;
+          flex-direction: row;
+          margin: 0;
+          padding: 0;
+        }
+
+        input,
+        textarea {
+          border-radius: $border-radius;
+          border: 1px solid $bluegray;
+          flex: 1;
+          height: 2rem;
+          margin-right: 2rem;
+        }
+
+        textarea {
+          height: 3.675rem;
+        }
+
+        .explanation {
+          display: block;
+          flex: initial;
+          font-size: 0.625rem;
+          width: 240px;
+        }
+      }
+    }
+  }
 }
