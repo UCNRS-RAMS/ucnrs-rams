@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :institutions, only: [:index, :new, :create]
   resources :states, only: [:index]
   resources :visits, only: [:new, :create]
-  resources :projects, only: [:index, :new]
+  resources :projects, only: [:index, :new, :create]
   resources :reserves, only: [:index, :show] do
     resources :amenities, only: [:index]
     resource :reserve_inputs, only: [:show]

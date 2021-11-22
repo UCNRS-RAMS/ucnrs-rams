@@ -301,6 +301,17 @@ en:
       step_2: "Team"
       step_3: "Permits"
       step_4: "Funding"
+    research_form:
+      details: "Details"
+      project_title:
+        field_name: "Project or Event Title"
+        explanation: "Enter a short descriptive title to uniquely identify your application."
+      thesis_title:
+        field_name: "Thesis Title"
+        explanation: "Please provide the most complete version of your thesis title."
+      abstract:
+        field_name: "Project Abstract"
+        explanation: "Enter a short summary of your project."
   waivers:
     index:
       title: "Waivers"

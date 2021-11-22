@@ -10,6 +10,20 @@ RSpec.describe Project, type: :model do
     it { is_expected.to have_many(:team_members).class_name("User") }
   end
 
+  describe "validations" do
+    context "when the project_type is research" do
+      subject { Project.new(project_type: :research) }
+      it { is_expected.to validate_presence_of(:title) }
+      it { is_expected.to validate_presence_of(:abstract) }
+    end
+
+    context "when the project_type is not research" do
+      subject { Project.new(project_type: :class) }
+      it { is_expected.not_to validate_presence_of(:title) }
+      it { is_expected.not_to validate_presence_of(:abstract) }
+    end
+  end
+
   it do 
     is_expected.to define_enum_for(:status)
       .with_values(

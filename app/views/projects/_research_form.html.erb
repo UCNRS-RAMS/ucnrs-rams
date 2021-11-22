@@ -1,1 +1,19 @@
-<h1>Research Form</h1>
+<h1><%= t(".details") %></h1>
+
+<div class="field">
+  <%= form.label :title, t(".project_title.field_name") %>
+  <%= form.text_field :title %>
+  <p class="explanation"><%= t(".project_title.explanation") %></p>
+</div>
+
+<div class="field">
+  <%= form.label :thesis_title, t(".thesis_title.field_name") %>
+  <%= form.text_field :thesis_title %>
+  <p class="explanation"><%= t(".thesis_title.explanation") %></p>
+</div>
+
+<div class="field">
+  <%= form.label :abstract, t(".abstract.field_name") %>
+  <%= form.text_area :abstract %>
+  <p class="explanation"><%= t(".abstract.explanation") %></p>
+</div>

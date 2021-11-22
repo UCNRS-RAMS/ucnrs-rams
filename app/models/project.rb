@@ -20,6 +20,11 @@ class Project < ApplicationRecord
   has_many :team_memberships, class_name: "ProjectTeamMembership"
   has_many :team_members, through: :team_memberships, source: :user
 
+  with_options(if: :research?) do
+    validates :title, presence: true
+    validates :abstract, presence: true
+  end
+
   enum status: {
     open: "Open",
     closed: "Closed",

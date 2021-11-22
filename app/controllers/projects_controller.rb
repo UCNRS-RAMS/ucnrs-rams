@@ -17,7 +17,31 @@ class ProjectsController < ApplicationController
     )
   end
 
+  def create
+    form = ProjectForm.new(user: current_user, params: project_params)
+    if form.save
+      redirect_to root_path
+    else
+      @presenter = ProjectsNewPresenter.new(
+        user: current_user,
+        current_step: 1,
+        project_type: form.project_type,
+        form: form,
+      )
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   private
+
+  def project_params
+    params.require(:project).permit(
+      :title,
+      :thesis_title,
+      :abstract,
+      :project_type,
+    )
+  end
 
   def status_filter
     params[:status]
