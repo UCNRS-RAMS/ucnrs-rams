@@ -13,6 +13,22 @@ class Project < ApplicationRecord
     INACTIVE_FILTER => "Closed",
   }
 
+  DISCIPLINES = [
+    "Agriculture",
+    "Arts/Humanities",
+    "Astronomy",
+    "Medical, Health & Safety",
+    "Biology",
+    "Earth Sciences",
+    "Education",
+    "Engineering/Computer Science",
+    "Environmental Science/Natural Resources",
+    "Physical Sciences",
+    "Social Sciences",
+    "Veterinary Medicine",
+    "Other",
+  ].freeze
+
   belongs_to :reserve
   belongs_to :owner, class_name: "User", foreign_key: :user_id
   belongs_to :applicant, class_name: "User", foreign_key: :applicant_id
@@ -23,6 +39,8 @@ class Project < ApplicationRecord
   with_options(if: :research?) do
     validates :title, presence: true
     validates :abstract, presence: true
+    validates :discipline, presence: true
+    validates :discipline_other, presence: true, if: :other_discipline?
   end
 
   enum status: {
@@ -100,5 +118,11 @@ class Project < ApplicationRecord
     else
       none
     end
+  end
+
+  private
+
+  def other_discipline?
+    discipline == "Other"
   end
 end

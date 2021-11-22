@@ -30,4 +30,40 @@ RSpec.describe ProjectsNewPresenter do
       ]
     end
   end
+
+  describe "#disciplines" do
+    it "lists all of the project disciplines" do
+      presenter =  ProjectsNewPresenter.new(user: :dummy, current_step: 1)
+
+      expect(presenter.disciplines).to eq [
+        "Agriculture",
+        "Arts/Humanities",
+        "Astronomy",
+        "Medical, Health & Safety",
+        "Biology",
+        "Earth Sciences",
+        "Education",
+        "Engineering/Computer Science",
+        "Environmental Science/Natural Resources",
+        "Physical Sciences",
+        "Social Sciences",
+        "Veterinary Medicine",
+        "Other",
+      ]
+    end
+  end
+
+  describe "other_discipline?" do
+    it "is true if the supplied discipline is 'Other'" do
+      presenter =  ProjectsNewPresenter.new(user: :dummy, current_step: 1)
+      
+      expect(presenter.other_discipline?("Other")).to eq true
+    end
+
+    it "is false if the supplied discipline is not 'Other'" do
+      presenter =  ProjectsNewPresenter.new(user: :dummy, current_step: 1)
+      
+      expect(presenter.other_discipline?("Arts/Humanities")).to eq false
+    end
+  end
 end

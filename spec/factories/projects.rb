@@ -5,7 +5,8 @@ FactoryBot.define do
     end_date { Date.current + 1.day }
     status { "Open" }
     project_type { "Research" }
-    abstract { "A project about observing art in a quiet forest"}
+    abstract { "A project about observing art in a quiet forest" }
+    discipline { "Arts/Humanities" }
 
     association :reserve
     association :owner, factory: :user

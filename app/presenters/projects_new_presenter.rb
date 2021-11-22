@@ -23,6 +23,14 @@ class ProjectsNewPresenter
     "projects/#{project_type}_form"
   end
 
+  def disciplines
+    Project::DISCIPLINES
+  end
+
+  def other_discipline?(discipline)
+    discipline == "Other"
+  end
+
   private
 
   attr_reader :user, :steps_presenter

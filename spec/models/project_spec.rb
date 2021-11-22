@@ -15,6 +15,17 @@ RSpec.describe Project, type: :model do
       subject { Project.new(project_type: :research) }
       it { is_expected.to validate_presence_of(:title) }
       it { is_expected.to validate_presence_of(:abstract) }
+      it { is_expected.to validate_presence_of(:discipline) }
+
+      context "when discipline is 'Other'" do
+        subject { Project.new(project_type: :research, discipline: "Other") }
+        it { is_expected.to validate_presence_of(:discipline_other) }
+      end
+
+      context "when discipline is not 'Other'" do
+        subject { Project.new(project_type: :research, discipline: "Agriculture") }
+        it { is_expected.not_to validate_presence_of(:discipline_other) }
+      end
     end
 
     context "when the project_type is not research" do
