@@ -23,3 +23,20 @@
     <span class="explanation"><%= t(".abstract.explanation") %></span>
   </p>
 </div>
+
+<div class="field">
+  <h2><%= t(".choose_discipline") %></h2>
+  <ul>
+    <% presenter.disciplines.each do |discipline| %>
+      <li>
+        <%= form.radio_button :discipline, discipline, id: "discipline-#{discipline}" %>
+        <%= form.label :discipline, discipline, for: "discipline-#{discipline}" %>
+
+        <% if presenter.other_discipline?(discipline) %>
+          <%= form.text_field :discipline_other %>
+          <%= form.label :discipline_other, "&#8203;".html_safe %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>

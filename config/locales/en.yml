@@ -304,6 +304,7 @@ en:
       step_4: "Funding"
     research_form:
       details: "Details"
+      choose_discipline: "Choose a discipline that best describes your project"
       project_title:
         field_name: "Project or Event Title"
         explanation: "Enter a short descriptive title to uniquely identify your application."
