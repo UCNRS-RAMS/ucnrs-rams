@@ -309,6 +309,7 @@ en:
     research_form:
       details: "Details"
       choose_discipline: "Choose a discipline that best describes your project"
+      methods: "Methods"
       project_title:
         field_name: "Project or Event Title"
         explanation: "Enter a short descriptive title to uniquely identify your application."
@@ -330,6 +331,12 @@ en:
         field_name: "Recent Publications (Optional)"
         explanation: "Enter recent publications that resulted from research done on the reserve."
         placeholder: "DOI (Digital Object Identifier)"
+      method_description:
+        field_name: "Environmental Manipulations Needed"
+        explanation: "Include objects or organisms to be collected, animal and plant populations that may be affected, disturbances of cultural resources, introductions of any species or genotypes, etc."
+      method_study_area:
+        field_name: "Describe where you will be working on the reserve."
+        explanation: "A general description of the geographic area from which you will be collecting data for the project. Could be a place name or a detailed list of sites."
       start_date: "Start Date"
       end_date: "End Date"
       select_involvements: "Will your project involve any of the following?"

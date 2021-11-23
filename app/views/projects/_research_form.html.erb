@@ -104,3 +104,23 @@
     </p>
   </div>
 </section>
+
+<section>
+  <h2><%= t(".methods") %></h2>
+
+  <div class="field">
+    <%= form.label :method_description, t(".method_description.field_name") %>
+    <p>
+      <%= form.text_area :method_description %>
+      <span class="explanation"><%= t(".method_description.explanation") %></span>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= form.label :method_study_area, t(".method_study_area.field_name") %>
+    <p>
+      <%= form.text_area :method_study_area %>
+      <span class="explanation"><%= t(".method_study_area.explanation") %></span>
+    </p>
+  </div>
+</section>
