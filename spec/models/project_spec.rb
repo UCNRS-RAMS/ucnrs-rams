@@ -19,6 +19,8 @@ RSpec.describe Project, type: :model do
       it { is_expected.to validate_presence_of(:start_date) }
       it { is_expected.to validate_presence_of(:end_date) }
       it { is_expected.to validate_date(:end_date).is_after(:start_date) }
+      it { is_expected.to validate_presence_of(:method_description) }
+      it { is_expected.to validate_presence_of(:method_study_area) }
 
       context "when discipline is 'Other'" do
         subject { Project.new(project_type: :research, discipline: "Other") }

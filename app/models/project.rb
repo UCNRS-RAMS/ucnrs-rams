@@ -45,6 +45,8 @@ class Project < ApplicationRecord
     validates :start_date, presence: true
     validates :end_date, presence: true
     validates :end_date, must_be_after: :start_date
+    validates :method_description, presence: true
+    validates :method_study_area, presence: true
   end
 
   enum status: {

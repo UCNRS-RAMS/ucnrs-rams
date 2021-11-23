@@ -15,6 +15,8 @@ FactoryBot.define do
     involves_plants_fungi_soil { false }
     involves_none { true }
     involves_threatened_endangered_species { false }
+    method_description { "Using the 5 senses in the forest" }
+    method_study_area { "Deep in the forest" }
 
     association :reserve
     association :owner, factory: :user
