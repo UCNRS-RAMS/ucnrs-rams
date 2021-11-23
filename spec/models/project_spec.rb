@@ -21,6 +21,12 @@ RSpec.describe Project, type: :model do
       it { is_expected.to validate_date(:end_date).is_after(:start_date) }
       it { is_expected.to validate_presence_of(:method_description) }
       it { is_expected.to validate_presence_of(:method_study_area) }
+      it { is_expected.to validate_booleanish_values(:method_remove_organisms) }
+      it { is_expected.to validate_booleanish_values(:method_transfer_organisms) }
+      it { is_expected.to validate_booleanish_values(:method_study_non_native_species) }
+      it { is_expected.to validate_booleanish_values(:method_chemicals) }
+      it { is_expected.to validate_booleanish_values(:method_soil_disturbance) }
+      it { is_expected.to validate_booleanish_values(:method_long_term_structures) }
 
       context "when discipline is 'Other'" do
         subject { Project.new(project_type: :research, discipline: "Other") }
@@ -30,6 +36,16 @@ RSpec.describe Project, type: :model do
       context "when discipline is not 'Other'" do
         subject { Project.new(project_type: :research, discipline: "Agriculture") }
         it { is_expected.not_to validate_presence_of(:discipline_other) }
+      end
+
+      context "when method_chemicals is true" do
+        subject { Project.new(project_type: :research, method_chemicals: true) }
+        it { is_expected.to validate_presence_of(:method_chemicals_list) }
+      end
+
+      context "when method chemicals is false" do
+        subject { Project.new(project_type: :research, method_chemicals: false) }
+        it { is_expected.not_to validate_presence_of(:method_chemicals_list) }
       end
 
       context "involvement selections" do

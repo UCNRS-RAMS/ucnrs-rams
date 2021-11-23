@@ -17,6 +17,12 @@ FactoryBot.define do
     involves_threatened_endangered_species { false }
     method_description { "Using the 5 senses in the forest" }
     method_study_area { "Deep in the forest" }
+    method_remove_organisms { false }
+    method_transfer_organisms { false }
+    method_study_non_native_species { false }
+    method_chemicals { false }
+    method_soil_disturbance { false }
+    method_long_term_structures { false }
 
     association :reserve
     association :owner, factory: :user
