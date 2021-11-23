@@ -285,6 +285,10 @@
     }
 
     section.research {
+      section {
+        margin-bottom: 2.5rem;
+      }
+
       .field {
         display: flex;
         flex-direction: column;
@@ -303,7 +307,7 @@
           padding: 0;
         }
 
-        input,
+        input[type="text"],
         textarea {
           border-radius: $border-radius;
           border: 1px solid $bluegray;
@@ -322,6 +326,57 @@
           font-size: 0.625rem;
           width: 240px;
         }
+
+        ul {
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+          height: 175px;
+          list-style: none;
+          padding-left: 0;
+          padding-top: 0;
+
+          li {
+            align-items: flex-start;
+            display: flex;
+            flex-direction: row;
+            padding-bottom: 0.25rem;
+            padding-right: 4.688rem;
+            padding-top: 0.25rem;
+
+            .other-discipline {
+              display: none;
+
+              input {
+                margin-left: 0.5rem;
+              }
+            }
+
+            #discipline-Other:checked + div {
+              .other-discipline {
+                display: block;
+              }
+            }
+
+            label {
+              color: $navy-blue;
+              font-size: 0.8125rem;
+              font-weight: $normal;
+              line-height: 1.438rem;
+              margin-left: 0.5rem;
+            }
+
+            input[type="radio"] {
+              margin-top: 0.25rem;
+            }
+          }
+        }
+      }
+
+      .small-title {
+        color: $dark-bluegray;
+        font-size: 0.75rem;
+        margin-bottom: 0;
       }
     }
   }
