@@ -1,0 +1,29 @@
+@import "variables";
+
+@mixin date-fields {
+  .date-fields {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    .field {
+      width: 150px;
+
+      input {
+        border-radius: $border-radius;
+        border: 1px solid $bluegray;
+        font-family: $sora;
+        font-size: 0.8125rem;
+        height: 2rem;
+        text-indent: 0.10rem;
+      }
+    }
+
+    .separator {
+      border: 1px solid $dark-bluegray;
+      font-size: 0;
+      height: 0;
+      margin: 0.75rem;
+      width: 0.625rem;
+    }
+  }
+}
