@@ -42,6 +42,9 @@ class Project < ApplicationRecord
     validates :discipline, presence: true
     validates :discipline_other, presence: true, if: :other_discipline?
     validate :must_select_at_least_one_involvement
+    validates :start_date, presence: true
+    validates :end_date, presence: true
+    validates :end_date, must_be_after: :start_date
   end
 
   enum status: {

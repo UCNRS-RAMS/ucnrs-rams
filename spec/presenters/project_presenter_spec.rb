@@ -46,7 +46,7 @@ RSpec.describe ProjectPresenter do
     context "when values for start_date and end_date are not present" do
       it "is 'N/A'" do
         project_presenter = ProjectPresenter.new(
-          project: create(:project, start_date: nil, end_date: nil)
+          project: build(:project, start_date: nil, end_date: nil)
         )
         allow(DateRangePresenter).to receive(:value)
 
