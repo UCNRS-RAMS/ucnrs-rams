@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_10_174551) do
+ActiveRecord::Schema.define(version: 2021_11_23_141459) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id"
@@ -626,8 +626,9 @@ ActiveRecord::Schema.define(version: 2021_11_10_174551) do
     t.boolean "involves_amphibians"
     t.boolean "involves_fish"
     t.boolean "involves_birds"
-    t.boolean "involves_plants_fungus_soil"
+    t.boolean "involves_plants_fungi_soil"
     t.boolean "involves_none"
+    t.boolean "involves_threatened_endangered_species"
     t.index ["course_title"], name: "project_course_name"
     t.index ["date_submitted"], name: "project_date_submitted"
     t.index ["id", "reserve_id"], name: "applicationid_reserveid"
