@@ -31,6 +31,19 @@ class ProjectsNewPresenter
     discipline == "Other"
   end
 
+  def involvement_flags
+    [
+      :involves_mammals,
+      :involves_reptiles,
+      :involves_amphibians,
+      :involves_fish,
+      :involves_birds,
+      :involves_plants_fungi_soil,
+      :involves_threatened_endangered_species,
+      :involves_none,
+    ]
+  end
+
   private
 
   attr_reader :user, :steps_presenter

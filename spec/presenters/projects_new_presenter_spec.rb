@@ -66,4 +66,21 @@ RSpec.describe ProjectsNewPresenter do
       expect(presenter.other_discipline?("Arts/Humanities")).to eq false
     end
   end
+
+  describe "#involvement_flags" do
+    it "is an array containing the involvement-related attributes" do
+      presenter = ProjectsNewPresenter.new(user: :dummy, current_step: 1)
+
+      expect(presenter.involvement_flags).to eq [
+        :involves_mammals,
+        :involves_reptiles,
+        :involves_amphibians,
+        :involves_fish,
+        :involves_birds,
+        :involves_plants_fungi_soil,
+        :involves_threatened_endangered_species,
+        :involves_none,
+      ]
+    end
+  end
 end
