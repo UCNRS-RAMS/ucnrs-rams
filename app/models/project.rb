@@ -47,6 +47,14 @@ class Project < ApplicationRecord
     validates :end_date, must_be_after: :start_date
     validates :method_description, presence: true
     validates :method_study_area, presence: true
+    validates :method_remove_organisms, inclusion: [true, false]
+    validates :method_transfer_organisms, inclusion: [true, false]
+    validates :method_study_non_native_species, inclusion: [true, false]
+    validates :method_chemicals, inclusion: [true, false]
+    validates :method_soil_disturbance, inclusion: [true, false]
+    validates :method_long_term_structures, inclusion: [true, false]
+
+    validates :method_chemicals_list, presence: true, if: :method_chemicals?
   end
 
   enum status: {
