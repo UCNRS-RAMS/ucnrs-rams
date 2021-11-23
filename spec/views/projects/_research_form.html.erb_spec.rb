@@ -99,4 +99,20 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
     expect(doc).to have_field("Taxonomic Keywords (Optional)", type: "textarea")
     expect(doc).to have_field("Recent Publications (Optional)", type: "textarea")
   end
+
+  it "has the required fields in the 'Methods' section" do
+    presenter = ProjectsNewPresenter.new(
+      user: :fake_user,
+      current_step: 1,
+    )
+
+    FakeForm.fields_for(ProjectForm.new) do |form|
+      render partial: "projects/research_form",
+        locals: { presenter: presenter, form: form }
+    end
+
+    doc = Capybara.string(rendered)
+    expect(doc).to have_field("Environmental Manipulations Needed", type: "textarea")
+    expect(doc).to have_field("Describe where you will be working on the reserve.", type: "textarea")
+  end
 end
