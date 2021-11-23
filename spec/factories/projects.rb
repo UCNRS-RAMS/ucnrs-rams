@@ -7,6 +7,14 @@ FactoryBot.define do
     project_type { "Research" }
     abstract { "A project about observing art in a quiet forest" }
     discipline { "Arts/Humanities" }
+    involves_mammals { false }
+    involves_reptiles { false }
+    involves_amphibians { false }
+    involves_fish { false }
+    involves_birds { false }
+    involves_plants_fungi_soil { false }
+    involves_none { true }
+    involves_threatened_endangered_species { false }
 
     association :reserve
     association :owner, factory: :user
