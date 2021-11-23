@@ -44,4 +44,44 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
     expect(doc).to have_field("Other", type: "radio")
     expect(doc).to have_field("project_discipline_other", type: "text")
   end
+
+  it "has the required fields in the 'Involvements' section" do
+    presenter = ProjectsNewPresenter.new(
+      user: :fake_user,
+      current_step: 1,
+    )
+
+    FakeForm.fields_for(ProjectForm.new) do |form|
+      render partial: "projects/research_form",
+        locals: { presenter: presenter, form: form }
+    end
+
+    doc = Capybara.string(rendered)
+    expect(doc).to have_field("Mammals", type: "checkbox")
+    expect(doc).to have_field("Reptiles", type: "checkbox")
+    expect(doc).to have_field("Amphibians", type: "checkbox")
+    expect(doc).to have_field("Fish", type: "checkbox")
+    expect(doc).to have_field("Birds", type: "checkbox")
+    expect(doc).to have_field("Plants, Fungi, or Soils", type: "checkbox")
+    expect(doc).to have_field("Threatened, Endangered, or Species of Special Concern", type: "checkbox")
+    expect(doc).to have_field("None of the Above", type: "checkbox")
+  end
+
+  it "has start and end date fields" do
+    presenter = ProjectsNewPresenter.new(
+      user: :fake_user,
+      current_step: 1,
+    )
+
+    FakeForm.fields_for(ProjectForm.new) do |form|
+      render partial: "projects/research_form",
+        locals: { presenter: presenter, form: form }
+    end
+
+    doc = Capybara.string(rendered)
+    expect(doc).to have_field("Start Date", type: "date")
+    expect(doc).to have_field("End Date", type: "date")
+  end
 end
+
+
