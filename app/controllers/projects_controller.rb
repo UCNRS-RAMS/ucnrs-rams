@@ -52,6 +52,8 @@ class ProjectsController < ApplicationController
       :involves_plants_fungi_soil,
       :involves_threatened_endangered_species,
       :involves_none,
+      :method_description,
+      :method_study_area,
     )
   end
 

@@ -321,7 +321,10 @@
         }
 
         textarea {
+          font-family: $sora;
+          font-size: 0.6875rem;
           height: 3.675rem;
+          text-indent: 0.1rem;
         }
 
         .explanation {
