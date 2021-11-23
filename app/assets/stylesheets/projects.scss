@@ -1,4 +1,5 @@
 @import "variables";
+@import "mixins/date_fields";
 
 .projects-index {
   height: 100%;
@@ -164,7 +165,10 @@
   }
 }
 
-.projects-new {
+.projects-new,
+.projects-create {
+  @include date_fields;
+
   .modal-content.project {
     color: $navy-blue;
     display: flex;
