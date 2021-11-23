@@ -318,6 +318,18 @@ en:
       abstract:
         field_name: "Project Abstract"
         explanation: "Enter a short summary of your project."
+      project_keywords:
+        field_name: "Project Keywords (Optional)"
+        explanation: "Please separate keywords/phrases with commas."
+        placeholder: "Ex: Earthquakes,Weather"
+      taxonomic_keywords:
+        field_name: "Taxonomic Keywords (Optional)"
+        explanation: "Please provide taxonomic names for any species involved in your project."
+        placeholder: "Ex: Quercus lobata,Picoides nuttallii"
+      recent_publications:
+        field_name: "Recent Publications (Optional)"
+        explanation: "Enter recent publications that resulted from research done on the reserve."
+        placeholder: "DOI (Digital Object Identifier)"
       start_date: "Start Date"
       end_date: "End Date"
       select_involvements: "Will your project involve any of the following?"
