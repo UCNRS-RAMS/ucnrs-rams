@@ -41,6 +41,7 @@ class Project < ApplicationRecord
     validates :abstract, presence: true
     validates :discipline, presence: true
     validates :discipline_other, presence: true, if: :other_discipline?
+    validate :must_select_at_least_one_involvement
   end
 
   enum status: {
@@ -124,5 +125,26 @@ class Project < ApplicationRecord
 
   def other_discipline?
     discipline == "Other"
+  end
+
+  attr_accessor :involvements
+
+  def has_selected_involvements?
+   [
+      involves_mammals,
+      involves_reptiles,
+      involves_amphibians,
+      involves_fish,
+      involves_birds,
+      involves_plants_fungi_soil,
+      involves_none,
+      involves_threatened_endangered_species,
+   ].any?
+  end
+
+  def must_select_at_least_one_involvement
+    if !has_selected_involvements?
+      errors.add(:involvements, :must_select_at_least_one)
+    end
   end
 end

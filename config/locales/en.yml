@@ -15,6 +15,10 @@ en:
             number_of_people:
               greater_than: "must be a number greater than %{count}"
               not_a_number: "must be a number greater than 0"
+        project:
+          attributes:
+            involvements:
+              must_select_at_least_one: "must select at least one"
         user:
           billing_address_fields_presence: "can't be blank if including a billing address"
           attributes:

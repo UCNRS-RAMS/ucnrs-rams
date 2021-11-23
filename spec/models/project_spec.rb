@@ -26,6 +26,46 @@ RSpec.describe Project, type: :model do
         subject { Project.new(project_type: :research, discipline: "Agriculture") }
         it { is_expected.not_to validate_presence_of(:discipline_other) }
       end
+
+      context "involvement selections" do
+        it "is valid and has no errors when at least on involvement is selected" do
+          project = build(
+            :project,
+            involves_mammals: true,
+            involves_reptiles: false,
+            involves_amphibians: false,
+            involves_fish: false,
+            involves_birds: false,
+            involves_plants_fungi_soil: false,
+            involves_none: false,
+            involves_threatened_endangered_species: false,
+          )
+
+          project.validate
+
+          expect(project).to be_valid
+          expect(project.errors.full_messages).to be_empty
+        end
+
+        it "is invalid and has an error when no involvements are selected" do
+          project = build(
+            :project,
+            involves_mammals: false,
+            involves_reptiles: false,
+            involves_amphibians: false,
+            involves_fish: false,
+            involves_birds: false,
+            involves_plants_fungi_soil: false,
+            involves_none: false,
+            involves_threatened_endangered_species: false,
+          )
+
+          project.validate
+
+          expect(project).not_to be_valid
+          expect(project.errors.full_messages).to eq ["Involvements must select at least one"]
+        end
+      end
     end
 
     context "when the project_type is not research" do
