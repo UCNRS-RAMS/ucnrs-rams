@@ -318,6 +318,17 @@ en:
       abstract:
         field_name: "Project Abstract"
         explanation: "Enter a short summary of your project."
+      select_involvements: "Will your project involve any of the following?"
+      all_that_apply: "Select all that apply."
+      involvement_flags:
+        involves_mammals: "Mammals"
+        involves_reptiles: "Reptiles"
+        involves_amphibians: "Amphibians"
+        involves_fish: "Fish"
+        involves_birds: "Birds"
+        involves_plants_fungi_soil: "Plants, Fungi, or Soils"
+        involves_none: "None of the Above"
+        involves_threatened_endangered_species: "Threatened, Endangered, or Species of Special Concern"
   waivers:
     index:
       title: "Waivers"

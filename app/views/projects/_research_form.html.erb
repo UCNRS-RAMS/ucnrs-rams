@@ -49,3 +49,20 @@
   </div>
 </section>
 
+<section>
+  <h2 class="small-title">
+    <%= t(".select_involvements") %>
+    <%= form.label :involvements, t(".all_that_apply") %>
+  </h2>
+
+  <div class="field">
+    <ul>
+      <% presenter.involvement_flags.each do |involvement_flag| %>
+        <li>
+          <%= form.check_box involvement_flag %>
+          <%= form.label involvement_flag, t(".involvement_flags.#{involvement_flag}") %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</section>
