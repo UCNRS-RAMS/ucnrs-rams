@@ -66,3 +66,17 @@
     </ul>
   </div>
 </section>
+
+<section>
+  <div class="dates">
+    <div class="field">
+      <%= form.label :start_date, t(".start_date") %>
+      <%= form.date_field(:start_date, value: presenter.form.start_date, min: Date.today) %>
+    </div>
+    <span class="separator"></span>
+    <div class="field">
+      <%= form.label :end_date, t(".end_date") %>
+      <%= form.date_field(:end_date, value: presenter.form.end_date, min: Date.today) %>
+    </div>
+  </div>
+</section>

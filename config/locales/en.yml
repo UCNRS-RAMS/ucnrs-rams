@@ -318,6 +318,8 @@ en:
       abstract:
         field_name: "Project Abstract"
         explanation: "Enter a short summary of your project."
+      start_date: "Start Date"
+      end_date: "End Date"
       select_involvements: "Will your project involve any of the following?"
       all_that_apply: "Select all that apply."
       involvement_flags:

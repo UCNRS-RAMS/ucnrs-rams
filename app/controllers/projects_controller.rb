@@ -40,6 +40,18 @@ class ProjectsController < ApplicationController
       :thesis_title,
       :abstract,
       :project_type,
+      :start_date,
+      :end_date,
+      :discipline,
+      :discipline_other,
+      :involves_mammals,
+      :involves_reptiles,
+      :involves_amphibians,
+      :involves_fish,
+      :involves_birds,
+      :involves_plants_fungi_soil,
+      :involves_threatened_endangered_species,
+      :involves_none,
     )
   end
 
