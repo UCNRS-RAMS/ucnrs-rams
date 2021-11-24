@@ -124,3 +124,27 @@
     </p>
   </div>
 </section>
+
+<section>
+  <h2><%= t(".planning") %></h2>
+
+  <% presenter.planning_questions.each do |planning_question| %>
+    <div class="field" data-controller="value-projection">
+      <%= form.label :planning_question, t(".planning_questions.#{planning_question}"), class: "planning-question-label" %>
+
+      <div class="yes-no-options">
+        <%= form.radio_button planning_question, t(".yes_option"), data: { action: "click->value-projection#change" } %>
+        <%= form.label "#{planning_question}_yes".to_sym, t(".yes_option") %>
+        <%= form.radio_button planning_question, t(".no_option"), data: { action: "click->value-projection#change" } %>
+        <%= form.label "#{planning_question}_no".to_sym, t(".no_option") %>
+      </div>
+
+      <% if presenter.chemical_question?(planning_question) %>
+        <div class="additional-question">
+          <%= form.text_field :method_chemicals_list %>
+          <%= form.label :method_chemicals_list, "&#8203;".html_safe %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</section>

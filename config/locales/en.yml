@@ -310,6 +310,7 @@ en:
       details: "Details"
       choose_discipline: "Choose a discipline that best describes your project"
       methods: "Methods"
+      planning: "Are you planning to..."
       project_title:
         field_name: "Project or Event Title"
         explanation: "Enter a short descriptive title to uniquely identify your application."
@@ -350,6 +351,15 @@ en:
         involves_plants_fungi_soil: "Plants, Fungi, or Soils"
         involves_none: "None of the Above"
         involves_threatened_endangered_species: "Threatened, Endangered, or Species of Special Concern"
+      planning_questions:
+        method_remove_organisms: "Remove organisms or materials from the reserve?"
+        method_transfer_organisms: "Transfer animals and plants from outside the reserve to within the reserve, or between different parts of the reserve?"
+        method_study_non_native_species: "Study or manipulate non-native species?"
+        method_chemicals: "Use radioactive isotopes or other chemicals? (e.g., pesticides, herbicides, fertilizers, tracers)"
+        method_soil_disturbance: "Disturb the soil?"
+        method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
+      yes_option: "Yes"
+      no_option: "No"
   waivers:
     index:
       title: "Waivers"

@@ -44,6 +44,21 @@ class ProjectsNewPresenter
     ]
   end
 
+  def planning_questions
+    [
+      :method_remove_organisms,
+      :method_transfer_organisms,
+      :method_study_non_native_species,
+      :method_chemicals,
+      :method_soil_disturbance,
+      :method_long_term_structures,
+    ]
+  end
+
+  def chemical_question?(planning_question)
+    planning_question == :method_chemicals
+  end
+
   private
 
   attr_reader :user, :steps_presenter

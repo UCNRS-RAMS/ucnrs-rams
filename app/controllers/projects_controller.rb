@@ -54,6 +54,13 @@ class ProjectsController < ApplicationController
       :involves_none,
       :method_description,
       :method_study_area,
+      :method_remove_organisms,
+      :method_transfer_organisms,
+      :method_study_non_native_species,
+      :method_chemicals,
+      :method_chemicals_list,
+      :method_soil_disturbance,
+      :method_long_term_structures,
     )
   end
 
