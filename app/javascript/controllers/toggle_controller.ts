@@ -7,8 +7,13 @@ export default class extends Controller {
 
   toggle(e: Event) {
     e.preventDefault()
+
     this.toggleTargets.forEach(target => {
-      target.classList.toggle(target.dataset.toggleClass)
+      this.toggleCSSClass(target)
     })
+  }
+
+  toggleCSSClass(target) {
+    target.classList.toggle(target.dataset.toggleClass)
   }
 }

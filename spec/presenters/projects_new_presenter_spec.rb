@@ -83,4 +83,35 @@ RSpec.describe ProjectsNewPresenter do
       ]
     end
   end
+
+  describe "#planning_questions" do
+    it "is an array containing the planning question-related attributes" do
+      presenter = ProjectsNewPresenter.new(user: :dummy, current_step: 1)
+
+      expect(presenter.planning_questions).to eq [
+        :method_remove_organisms,
+        :method_transfer_organisms,
+        :method_study_non_native_species,
+        :method_chemicals,
+        :method_soil_disturbance,
+        :method_long_term_structures,
+      ]
+    end
+  end
+
+  describe "chemical_question?" do
+    it "is true if the supplied planning_question is :method_chemicals" do
+      planning_question = :method_chemicals
+      presenter =  ProjectsNewPresenter.new(user: :dummy, current_step: 1)
+
+      expect(presenter.chemical_question?(planning_question)).to eq true
+    end
+
+    it "is false if the supplied planning_question is not method_chemicals" do
+      planning_question = :method_remove_organisms
+      presenter =  ProjectsNewPresenter.new(user: :dummy, current_step: 1)
+
+      expect(presenter.chemical_question?(planning_question)).to eq false
+    end
+  end
 end

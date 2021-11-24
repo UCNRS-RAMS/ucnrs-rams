@@ -115,4 +115,37 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
     expect(doc).to have_field("Environmental Manipulations Needed", type: "textarea")
     expect(doc).to have_field("Describe where you will be working on the reserve.", type: "textarea")
   end
+
+    it "has the required fields in the 'Planning Questions' section" do
+    presenter = ProjectsNewPresenter.new(
+      user: :fake_user,
+      current_step: 1,
+    )
+
+    FakeForm.fields_for(ProjectForm.new) do |form|
+      render partial: "projects/research_form",
+        locals: { presenter: presenter, form: form }
+    end
+
+    doc = Capybara.string(rendered)
+    expect(doc).to have_content("Remove organisms or materials from the reserve?")
+    expect(doc).to have_field("project_method_remove_organisms_yes", type: "radio")
+    expect(doc).to have_field("project_method_remove_organisms_no", type: "radio")
+    expect(doc).to have_content("Transfer animals and plants from outside the reserve to within the reserve, or between different parts of the reserve?")
+    expect(doc).to have_field("project_method_transfer_organisms_yes", type: "radio")
+    expect(doc).to have_field("project_method_transfer_organisms_no", type: "radio")
+    expect(doc).to have_content("Study or manipulate non-native species?")
+    expect(doc).to have_field("project_method_study_non_native_species_yes", type: "radio")
+    expect(doc).to have_field("project_method_study_non_native_species_no", type: "radio")
+    expect(doc).to have_content("Use radioactive isotopes or other chemicals? (e.g., pesticides, herbicides, fertilizers, tracers)")
+    expect(doc).to have_field("project_method_chemicals_yes", type: "radio")
+    expect(doc).to have_field("project_method_chemicals_no", type: "radio")
+    expect(doc).to have_field("project_method_chemicals_list", type: "text")
+    expect(doc).to have_content("Disturb the soil?")
+    expect(doc).to have_field("project_method_soil_disturbance_yes", type: "radio")
+    expect(doc).to have_field("project_method_soil_disturbance_no", type: "radio")
+    expect(doc).to have_content("Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages, data-loggers, antennas, or buoys?")
+    expect(doc).to have_field("project_method_long_term_structures_yes", type: "radio")
+    expect(doc).to have_field("project_method_long_term_structures_no", type: "radio")
+  end
 end

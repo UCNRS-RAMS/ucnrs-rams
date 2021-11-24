@@ -378,6 +378,43 @@
             }
           }
         }
+
+        .planning-question-label {
+          color: $navy-blue;
+          font-weight: $normal;
+          font-size: 0.8125rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .additional-question {
+          display: none;
+        }
+
+        &[data-value-projection-projected-value="Yes"] {
+          .additional-question {
+            display: flex;
+            flex: 1;
+          }
+        }
+
+        .yes-no-options {
+          align-items: flex-start;
+          display: flex;
+          flex-direction: row;
+          margin-bottom: 1rem;
+
+          label {
+            color: $navy-blue;
+            font-size: 0.8125rem;
+            font-weight: $normal;
+            margin-right: 20px;
+            margin-top: 2px;
+          }
+
+          input {
+            margin-left: 0;
+          }
+        }
       }
 
       .small-title {
