@@ -9,6 +9,7 @@ en:
     errors:
       messages:
         must_be_after: "must be after %{attribute}"
+        must_select_at_least_one: "must select at least one"
       models:
         amenity_visit:
           attributes:
@@ -362,6 +363,9 @@ en:
       no_option: "No"
     university_class_form:
       details: "Details"
+      choose_discipline: "Choose a discipline that best describes your project"
+      class_activities: "Class Activities"
+      planning: "Are you planning to..."
       project_title:
         field_name: "Project or Event Title"
         explanation: "Enter a short descriptive title to uniquely identify your application."
@@ -371,6 +375,46 @@ en:
       course_number:
         field_name: "Course Number"
         explanation: "Offical course number as described by your university."
+      project_keywords:
+        field_name: "Project Keywords (Optional)"
+        explanation: "Please separate keywords/phrases with commas."
+        placeholder: "Ex: Earthquakes,Weather"
+      taxonomic_keywords:
+        field_name: "Taxonomic Keywords (Optional)"
+        explanation: "Please provide taxonomic names for any species involved in your project."
+        placeholder: "Ex: Quercus lobata,Picoides nuttallii"
+      recent_publications:
+        field_name: "Recent Publications (Optional)"
+        explanation: "Enter recent publications that resulted from research done on the reserve."
+        placeholder: "DOI (Digital Object Identifier)"
+      method_description:
+        field_name: "Environmental Manipulations Needed"
+        explanation: "Include objects or organisms to be collected, animal and plant populations that may be affected, disturbances of cultural resources, introductions of any species or genotypes, etc."
+      method_study_area:
+        field_name: "Describe where you will be working on the reserve."
+        explanation: "A general description of the geographic area from which you will be collecting data for the project. Could be a place name or a detailed list of sites."
+      start_date: "Start Date"
+      end_date: "End Date"
+      select_involvements: "Will your project involve any of the following?"
+      all_that_apply: "Select all that apply."
+      involvement_flags:
+        involves_mammals: "Mammals"
+        involves_reptiles: "Reptiles"
+        involves_amphibians: "Amphibians"
+        involves_fish: "Fish"
+        involves_birds: "Birds"
+        involves_plants_fungi_soil: "Plants, Fungi, or Soils"
+        involves_none: "None of the Above"
+        involves_threatened_endangered_species: "Threatened, Endangered, or Species of Special Concern"
+      planning_questions:
+        method_remove_organisms: "Remove organisms or materials from the reserve?"
+        method_transfer_organisms: "Transfer animals and plants from outside the reserve to within the reserve, or between different parts of the reserve?"
+        method_study_non_native_species: "Study or manipulate non-native species?"
+        method_chemicals: "Use radioactive isotopes or other chemicals? (e.g., pesticides, herbicides, fertilizers, tracers)"
+        method_soil_disturbance: "Disturb the soil?"
+        method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
+      yes_option: "Yes"
+      no_option: "No"
   waivers:
     index:
       title: "Waivers"

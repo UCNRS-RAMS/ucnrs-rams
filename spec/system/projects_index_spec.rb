@@ -8,7 +8,7 @@ RSpec.describe "Projects Index" do
       reserve2 = create(:reserve, short_name: "Alpine Heights")
       project1 = create(:project, title: "Project 1", status: "Open", project_type: "Research", start_date: Date.new(2021, 12, 31), end_date: Date.new(2023, 12, 31))
       project2 = create(:project, title: "Project 2", status: "Open", project_type: "Research", start_date: Date.new(2021, 8, 1), end_date: Date.new(2021, 12, 1))
-      project3 = create(:project, title: "Project 3", status: "Incomplete", project_type: "Class", start_date: nil, end_date: nil)
+      project3 = create(:project, title: "Project 3", status: "Incomplete", project_type: "Class", start_date: Date.new(2021, 8, 1), end_date: Date.new(2021, 12, 1))
       project4 = create(:project, title: "Project 4", status: "Closed", project_type: "Class", start_date: Date.new(2019, 12, 31), end_date: Date.new(2021, 1, 2))
       Project.find_each { |project| create(:project_team_membership, project: project, user: user, active: true) }
       travel_to Date.new(2021, 10, 1) do
@@ -27,7 +27,7 @@ RSpec.describe "Projects Index" do
         expect(flow).to have_project_with(
           id: project3.id,
           title: "Project 3",
-          timeframe: "N/A",
+          timeframe: "Aug 1 - Dec 1, 2021",
           project_type: "Class",
           number_of_visits: 0,
           most_recent_visit: "N/A",
@@ -91,7 +91,7 @@ RSpec.describe "Projects Index" do
         expect(flow).to have_project_with(
           id: project3.id,
           title: "Project 3",
-          timeframe: "N/A",
+          timeframe: "Aug 1 - Dec 1, 2021",
           project_type: "Class",
           number_of_visits: 0,
           most_recent_visit: "N/A",
@@ -118,7 +118,7 @@ RSpec.describe "Projects Index" do
         expect(flow).to have_project_with(
           id: project3.id,
           title: "Project 3",
-          timeframe: "N/A",
+          timeframe: "Aug 1 - Dec 1, 2021",
           project_type: "Class",
           number_of_visits: 0,
           most_recent_visit: "N/A",
