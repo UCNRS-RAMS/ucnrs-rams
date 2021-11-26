@@ -1,0 +1,144 @@
+@import "variables";
+
+@mixin project-form {
+  section {
+    margin-bottom: 2.5rem;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      color: $dark-bluegray;
+      display: block;
+      font-size: 0.625rem;
+      font-weight: $bold;
+    }
+
+    p {
+      display: flex;
+      flex-direction: row;
+      margin: 0;
+      padding: 0;
+    }
+
+    input[type="text"],
+    textarea {
+      border-radius: $border-radius;
+      border: 1px solid $bluegray;
+      flex: 1;
+      height: 2rem;
+      margin-right: 2rem;
+    }
+
+    textarea {
+      font-family: $sora;
+      font-size: 0.6875rem;
+      height: 3.675rem;
+      text-indent: 0.1rem;
+    }
+
+    .explanation {
+      display: block;
+      flex: initial;
+      font-size: 0.625rem;
+      width: 240px;
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      max-height: 175px;
+      list-style: none;
+      padding-left: 0;
+      padding-top: 0;
+
+      li {
+        align-items: flex-start;
+        display: flex;
+        flex-direction: row;
+        padding-bottom: 0.25rem;
+        padding-right: 4.688rem;
+        padding-top: 0.25rem;
+
+        .other-discipline {
+          display: none;
+
+          input {
+            margin-left: 0.5rem;
+          }
+        }
+
+        #discipline-Other:checked + div {
+          .other-discipline {
+            display: block;
+          }
+        }
+
+        label {
+          color: $navy-blue;
+          font-size: 0.8125rem;
+          font-weight: $normal;
+          line-height: 1.438rem;
+          margin-left: 0.5rem;
+        }
+
+        input[type="radio"] {
+          margin-top: 0.25rem;
+        }
+      }
+    }
+
+    .planning-question-label {
+      color: $navy-blue;
+      font-weight: $normal;
+      font-size: 0.8125rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .additional-question {
+      display: none;
+    }
+
+    &[data-value-projection-projected-value="Yes"] {
+      .additional-question {
+        display: flex;
+        flex: 1;
+      }
+    }
+
+    .yes-no-options {
+      align-items: flex-start;
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 1rem;
+
+      label {
+        color: $navy-blue;
+        font-size: 0.8125rem;
+        font-weight: $normal;
+        margin-right: 20px;
+        margin-top: 2px;
+      }
+
+      input {
+        margin-left: 0;
+      }
+    }
+  }
+
+  .small-title {
+    color: $dark-bluegray;
+    font-size: 0.75rem;
+    margin-bottom: 0;
+
+    label {
+      color: $navy-blue;
+      font-size: 0.6875rem;
+      font-weight: $normal;
+      padding-left: 1rem;
+    }
+  }
+}
