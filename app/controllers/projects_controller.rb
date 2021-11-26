@@ -61,6 +61,8 @@ class ProjectsController < ApplicationController
       :method_chemicals_list,
       :method_soil_disturbance,
       :method_long_term_structures,
+      :course_title,
+      :course_number,
     )
   end
 

@@ -360,6 +360,17 @@ en:
         method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
       yes_option: "Yes"
       no_option: "No"
+    university_class_form:
+      details: "Details"
+      project_title:
+        field_name: "Project or Event Title"
+        explanation: "Enter a short descriptive title to uniquely identify your application."
+      course_title:
+        field_name: "Course Title"
+        explanation: "Please provide the complete course name as described by your university."
+      course_number:
+        field_name: "Course Number"
+        explanation: "Offical course number as described by your university."
   waivers:
     index:
       title: "Waivers"

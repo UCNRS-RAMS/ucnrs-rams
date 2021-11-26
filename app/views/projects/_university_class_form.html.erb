@@ -1,2 +1,28 @@
-<h1>University Class Form</h1>
+<h2><%= t(".details") %></h2>
+
+<section>
+  <div class="field">
+    <%= form.label :title, t(".project_title.field_name") %>
+    <p>
+      <%= form.text_field :title %>
+      <span class="explanation"><%= t(".project_title.explanation") %></span>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= form.label :course_title, t(".course_title.field_name") %>
+    <p>
+      <%= form.text_field :course_title %>
+      <span class="explanation"><%= t(".course_title.explanation") %></span>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= form.label :course_number, t(".course_number.field_name") %>
+    <p>
+      <%= form.text_field :course_number %>
+      <span class="explanation"><%= t(".course_number.explanation") %></span>
+    </p>
+  </div>
+</section>
 
