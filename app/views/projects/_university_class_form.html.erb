@@ -26,3 +26,125 @@
   </div>
 </section>
 
+<section>
+  <h2 class="small-title"><%= t(".choose_discipline") %></h2>
+  <div class="field">
+    <ul>
+      <% presenter.disciplines.each do |discipline| %>
+        <li>
+          <%= form.radio_button :discipline, discipline, id: "discipline-#{discipline}" %>
+          <div>
+            <%= form.label :discipline, discipline, for: "discipline-#{discipline}" %>
+
+            <% if presenter.other_discipline?(discipline) %>
+              <div class="other-discipline">
+                <%= form.text_field :discipline_other %>
+                <%= form.label :discipline_other, "&#8203;".html_safe %>
+              </div>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2 class="small-title">
+    <%= t(".select_involvements") %>
+    <%= form.label :involvements, t(".all_that_apply") %>
+  </h2>
+
+  <div class="field">
+    <ul>
+      <% presenter.involvement_flags.each do |involvement_flag| %>
+        <li>
+          <%= form.check_box involvement_flag %>
+          <%= form.label involvement_flag, t(".involvement_flags.#{involvement_flag}") %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="date-fields">
+    <div class="field">
+      <%= form.label :start_date, t(".start_date") %>
+      <%= form.date_field(:start_date, value: presenter.form.start_date, min: Date.today) %>
+    </div>
+    <span class="separator"></span>
+    <div class="field">
+      <%= form.label :end_date, t(".end_date") %>
+      <%= form.date_field(:end_date, value: presenter.form.end_date, min: Date.today) %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :keywords, t(".project_keywords.field_name") %>
+    <p>
+      <%= form.text_area :keywords, placeholder: t(".project_keywords.placeholder") %>
+      <span class="explanation"><%= t(".project_keywords.explanation") %></span>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= form.label :taxonomic_keywords, t(".taxonomic_keywords.field_name") %>
+    <p>
+      <%= form.text_area :taxonomic_keywords, placeholder: t(".taxonomic_keywords.placeholder") %>
+      <span class="explanation"><%= t(".taxonomic_keywords.explanation") %></span>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= form.label :recent_publications, t(".recent_publications.field_name") %>
+    <p>
+      <%= form.text_area :recent_publications, placeholder: t(".recent_publications.placeholder") %>
+      <span class="explanation"><%= t(".recent_publications.explanation") %></span>
+    </p>
+  </div>
+</section>
+
+<section>
+  <h2><%= t(".class_activities") %></h2>
+
+  <div class="field">
+    <%= form.label :method_description, t(".method_description.field_name") %>
+    <p>
+      <%= form.text_area :method_description %>
+      <span class="explanation"><%= t(".method_description.explanation") %></span>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= form.label :method_study_area, t(".method_study_area.field_name") %>
+    <p>
+      <%= form.text_area :method_study_area %>
+      <span class="explanation"><%= t(".method_study_area.explanation") %></span>
+    </p>
+  </div>
+</section>
+
+<section>
+  <h2><%= t(".planning") %></h2>
+
+  <% presenter.planning_questions.each do |planning_question| %>
+    <div class="field" data-controller="value-projection">
+      <%= form.label :planning_question, t(".planning_questions.#{planning_question}"), class: "planning-question-label" %>
+
+      <div class="yes-no-options">
+        <%= form.radio_button planning_question, t(".yes_option"), data: { action: "click->value-projection#change" } %>
+        <%= form.label "#{planning_question}_yes".to_sym, t(".yes_option") %>
+        <%= form.radio_button planning_question, t(".no_option"), data: { action: "click->value-projection#change" } %>
+        <%= form.label "#{planning_question}_no".to_sym, t(".no_option") %>
+      </div>
+
+      <% if presenter.chemical_question?(planning_question) %>
+        <div class="additional-question">
+          <%= form.text_field :method_chemicals_list %>
+          <%= form.label :method_chemicals_list, "&#8203;".html_safe %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</section>
