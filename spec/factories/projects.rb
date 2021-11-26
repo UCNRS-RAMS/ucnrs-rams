@@ -23,6 +23,8 @@ FactoryBot.define do
     method_chemicals { false }
     method_soil_disturbance { false }
     method_long_term_structures { false }
+    course_title { "Art Observation 101" }
+    course_number { "1234" }
 
     association :reserve
     association :owner, factory: :user

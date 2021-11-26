@@ -28,6 +28,9 @@ RSpec.describe Project, type: :model do
       it { is_expected.to validate_booleanish_values(:method_soil_disturbance) }
       it { is_expected.to validate_booleanish_values(:method_long_term_structures) }
 
+      it { is_expected.not_to validate_presence_of(:course_title) }
+      it { is_expected.not_to validate_presence_of(:course_number) }
+
       context "when discipline is 'Other'" do
         subject { Project.new(project_type: :research, discipline: "Other") }
         it { is_expected.to validate_presence_of(:discipline_other) }
@@ -89,9 +92,12 @@ RSpec.describe Project, type: :model do
       end
     end
 
-    context "when the project_type is not research" do
+    context "when the project_type is class" do
       subject { Project.new(project_type: :class) }
-      it { is_expected.not_to validate_presence_of(:title) }
+      it { is_expected.to validate_presence_of(:title) }
+      it { is_expected.to validate_presence_of(:course_title) }
+      it { is_expected.to validate_presence_of(:course_number) }
+
       it { is_expected.not_to validate_presence_of(:abstract) }
     end
   end

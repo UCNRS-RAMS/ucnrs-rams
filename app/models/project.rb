@@ -57,6 +57,12 @@ class Project < ApplicationRecord
     validates :method_chemicals_list, presence: true, if: :method_chemicals?
   end
 
+  with_options(if: :class?) do
+    validates :title, presence: true
+    validates :course_title, presence: true
+    validates :course_number, presence: true
+  end
+
   enum status: {
     open: "Open",
     closed: "Closed",
