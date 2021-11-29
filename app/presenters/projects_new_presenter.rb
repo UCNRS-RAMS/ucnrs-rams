@@ -5,7 +5,8 @@ class ProjectsNewPresenter
     @user = user
     @form = form || ProjectForm.new
     @project_type = project_type || :research
-    @steps_presenter = StepsPresenter.new(current_step)
+    @current_step = current_step
+    @steps_presenter = StepsPresenter.new(@current_step)
   end
 
   attr_reader :form, :project_type
@@ -59,7 +60,11 @@ class ProjectsNewPresenter
     planning_question == :method_chemicals
   end
 
+  def current_step_name
+    [".submit.step", current_step].join("_")
+  end
+
   private
 
-  attr_reader :user, :steps_presenter
+  attr_reader :user, :steps_presenter, :current_step
 end

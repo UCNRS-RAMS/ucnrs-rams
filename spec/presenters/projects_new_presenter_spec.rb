@@ -114,4 +114,12 @@ RSpec.describe ProjectsNewPresenter do
       expect(presenter.chemical_question?(planning_question)).to eq false
     end
   end
+
+  describe "#current_step_name" do
+    it "returns a dynamic I18n key based on step name" do
+      presenter =  ProjectsNewPresenter.new(user: :dummy, current_step: 1)
+
+      expect(presenter.current_step_name).to eq ".submit.step_1"
+    end
+  end
 end
