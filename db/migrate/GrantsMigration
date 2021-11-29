@@ -1,0 +1,31 @@
+class ChangeGrants < ActiveRecord::Migration[6.1]
+  def change
+rename_table :Grants, :grants
+rename_column :grants, :GrantID, :id
+    #reserve_id
+    #project_id
+rename_column :grants, :Title, :title
+rename_column :grants, :GrantNumber, :grant_number
+rename_column :grants, :Sponsor, :sponsor_other
+rename_column :grants, :PrincipalInvestigator, :principal_investigators
+rename_column :grants, :CoPrincipalInvestigator, :co_principal_investigators
+rename_column :grants, :StartDate, :start_date
+rename_column :grants, :EndDate, :end_date
+rename_column :grants, :GrantDate, :grant_date
+rename_column :grants, :AwardAmount, :award_amount
+rename_column :grants, :GrantIsFunded, :is_funded
+rename_column :grants, :GrantIsSelfFunded, :is_self_funded
+rename_column :grants, :GrantIsSubmitted, :is_submitted
+rename_column :grants, :GrantWillBeSubmitted, :will_be_submitted
+	#created_at
+	#updated_at
+add_column :grants, :was_denied, :tinyint
+add_column :grants, :funding_opportunity_number, :string
+add_column :grants, :sponsor_list, :ENUM('National Science Foundation (NSF)','National Institute of Health (NIH)','U.S. Geological Survey (USGS)','U.S. Forest Service (USFS),U.S. Department of Agriculture (USDA)','California Department of Fish and Wildlife','other')
+change_column_comment :grants, funding_opportunity_number:,  to: "Funding opportunity numbers (FON) is a number that a federal agency assigns to its grant announcement. FON are currently unique within the Grants.Gov System"
+change_column_comment :grants, is_funded:,  to: "Project is currently being supported by at least one grant or contract"
+change_column_comment :grants, is_submitted:,  to: "At least one grant or contract application has been submitted but has not yet been approved"
+change_column_comment :grants, will_be_submitted:,  to: "At least one grant or contract application will be submitted in the future"
+change_column_comment :grants, was_denied:,  to: "Project grant or contract application was denied by the funding agency"
+change_column_comment :grants, is_self_funded:,  to: "DEPRICATED"
+change_column_comment :grants, grant_date:,  to: "DEPRICATED"
