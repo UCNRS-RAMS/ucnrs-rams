@@ -1,0 +1,67 @@
+class ChangePermitsAndPermitAnswers < ActiveRecord::Migration[6.1]
+  def change
+
+#DB_Permits File
+
+# because permits are reserve specific we are changing the way permits are displayed to the user.
+# Yes this may not be the best way to normalize the data but it would allow for the greatest flexibility.
+# and allow RAMS to grow outside of just the NRS.
+# Therefore we are going to treat permits just like reserve specif questions.
+# They will also have the value of "location" and that location will be set 'project' in almost all cases.
+# This will 
+# Permits DB changes
+rename_table :Permits, :permits
+rename_column :permits, :PermitID, :id
+rename_column :permits, :PermitAuthority, :authority
+				#'Federal','State','Local','Institution'
+rename_column :permits, :PermitQuestion, :question
+rename_column :permits, :PermitDescription, :description
+rename_column :permits, :PermitStatement, :statement
+rename_column :permits, :PermitURL1, :url_1
+rename_column :permits, :PermitURLLinkText1, :url_link_text_1
+rename_column :permits, :PermitURL2, :url_2
+rename_column :permits, :PermitURLLinkText2, :url_link_text_2
+rename_column :permits, :PermitURL3, :url_3
+rename_column :permits, :PermitURLLinkText3, :url_link_text_3
+rename_column :permits, :DefaultSortOrder, :sort_order
+rename_column :permits, :IACUC, :iacuc_flag
+#	created_at
+# updated_at
+#	drone_flag
+#	scuba_flag
+#	vertebrate_flag
+add_column :permits, :involves_mammals, :tinyint
+add_column :permits, :involves_reptiles, :tinyint
+add_column :permits, :involves_amphibians, :tinyint
+add_column :permits, :involves_fish, :tinyint
+add_column :permits, :involves_birds, :tinyint
+add_column :permits, :involves_plants_fungi_soil, :tinyint
+add_column :permits, :involves_none, :tinyint
+add_column :permits, :involves_all, :tinyint
+add_column :permits, :location, :ENUM ('visit','project')
+              # Set to DEFAULT to 'project'
+add_column :permits, :state_id, :int
+            # set to default to CA's state ID
+add_column :permits, :visible, :int 
+add_column :permits, :public, :tinyint
+add_column :permits, :class, :tinyint
+add_column :permits, :research, :tinyint
+add_column :permits, :housing, :tinyint
+add_column :permits, :conference, :tinyint
+add_column :permits, :threatened_endangered_flag, :tinyint
+
+
+
+# Permits DB changes
+rename_table :APPPermits, :project_permit_answers
+rename_column :project_permit_answers, :AppPermitID, :id
+rename_column :project_permit_answers, :PermitNumber, :permit_id
+rename_column :project_permit_answers, :PermitAnswer, :answer
+#reserve_id
+#project_id
+# -------- Deprecated Fields  
+# -------- If possible COPY this information later to the Project's Permit Information Field "approved_permits"
+change_column_comment :project_permit_answers, reserve_id, to: "DEPRICATED"
+change_column_comment :project_permit_answers, PermitDate, to: "DEPRICATED"
+change_column_comment :project_permit_answers, PermitExpireDate, to: "DEPRICATED"
+change_column_comment :project_permit_answers, Vertebrates, to: "DEPRICATED"
