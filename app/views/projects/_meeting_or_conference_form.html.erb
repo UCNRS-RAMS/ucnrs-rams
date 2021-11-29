@@ -1,1 +1,57 @@
-<h1>Meeting or Conference</h1>
+<h2><%= t(".details") %></h2>
+
+<section>
+  <div class="field">
+    <%= form.label :title, t(".event_title.field_name") %>
+    <p>
+      <%= form.text_field :title %>
+      <span class="explanation"><%= t(".event_title.explanation") %></span>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= form.label :abstract, t(".event_description.field_name") %>
+    <p>
+      <%= form.text_area :abstract %>
+      <span class="explanation"><%= t(".event_description.explanation") %></span>
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="date-fields">
+    <div class="field">
+      <%= form.label :start_date, t(".start_date") %>
+      <%= form.date_field(:start_date, value: presenter.form.start_date, min: Date.today) %>
+    </div>
+    <span class="separator"></span>
+    <div class="field">
+      <%= form.label :end_date, t(".end_date") %>
+      <%= form.date_field(:end_date, value: presenter.form.end_date, min: Date.today) %>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="small-title"><%= t(".choose_discipline") %></h2>
+  <div class="field">
+    <ul>
+      <% presenter.disciplines.each do |discipline| %>
+        <li>
+          <%= form.radio_button :discipline, discipline, id: "discipline-#{discipline}" %>
+          <div>
+            <%= form.label :discipline, discipline, for: "discipline-#{discipline}" %>
+
+            <% if presenter.other_discipline?(discipline) %>
+              <div class="other-discipline">
+                <%= form.text_field :discipline_other %>
+                <%= form.label :discipline_other, "&#8203;".html_safe %>
+              </div>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</section>
+

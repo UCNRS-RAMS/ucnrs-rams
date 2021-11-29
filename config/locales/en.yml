@@ -361,6 +361,17 @@ en:
         method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
       yes_option: "Yes"
       no_option: "No"
+    meeting_or_conference_form:
+      details: "Details"
+      choose_discipline: "Choose a discipline that best describes your meeting or conference."
+      event_title:
+        field_name: "Event Title"
+        explanation: "Enter a short descriptive title to uniquely identify your application."
+      event_description:
+        field_name: "Event Description"
+        explanation: "Enter a short description describing the purpose of your meeting or conference."
+      start_date: "Start Date"
+      end_date: "End Date"
     university_class_form:
       details: "Details"
       choose_discipline: "Choose a discipline that best describes your project"

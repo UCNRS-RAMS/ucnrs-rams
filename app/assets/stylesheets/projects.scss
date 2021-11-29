@@ -290,7 +290,8 @@
     }
 
     section.research,
-    section.university_class {
+    section.university_class,
+    section.meeting_or_conference {
       @include project-form;
     }
   }

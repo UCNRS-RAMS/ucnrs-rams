@@ -158,6 +158,28 @@ RSpec.describe Project, type: :model do
         end
       end
     end
+
+    context "when the project_type is meeting" do
+      subject { Project.new(project_type: :meeting) }
+      it { is_expected.to validate_presence_of(:title) }
+      it { is_expected.to validate_presence_of(:abstract) }
+      it { is_expected.to validate_presence_of(:discipline) }
+      it { is_expected.to validate_presence_of(:start_date) }
+      it { is_expected.to validate_presence_of(:end_date) }
+      it { is_expected.to validate_date(:end_date).is_after(:start_date) }
+
+      it { is_expected.not_to validate_presence_of(:course_title) }
+
+      context "when discipline is 'Other'" do
+        subject { Project.new(project_type: :class, discipline: "Other") }
+        it { is_expected.to validate_presence_of(:discipline_other) }
+      end
+
+      context "when discipline is not 'Other'" do
+        subject { Project.new(project_type: :class, discipline: "Agriculture") }
+        it { is_expected.not_to validate_presence_of(:discipline_other) }
+      end
+    end
   end
 
   it do 
