@@ -1,0 +1,43 @@
+class ChangeReserveQuestions < ActiveRecord::Migration[6.1]
+def change
+rename_table :ReserveQuestions, :reserve_questions
+rename_column :reserve_questions, :ResQuestionID, :id
+#reserve_id
+#created_at
+#updated_at
+rename_column :reserve_questions, :ShowUser, :visible
+rename_column :reserve_questions, :QuestionType, :question_type
+		#ENUM('Text','Boolean')
+rename_column :reserve_questions, :QuestionLocation, :location
+		#ENUM('visit',project')
+rename_column :reserve_questions, :Question, :question
+rename_column :reserve_questions, :AdditionalText, :statement
+rename_column :reserve_questions, :SortOrder, :sort_order
+rename_column :reserve_questions, :AnswerRequired, :answer_required
+rename_column :reserve_questions, :PublicApplication, :public
+rename_column :reserve_questions, :ClassApplication, :class
+rename_column :reserve_questions, :ResearchApplication, :research
+rename_column :reserve_questions, :HousingOnlyApplication, :housing
+rename_column :reserve_questions, :conference_application, :conference
+add_column :reserve_questions, :authority, :ENUM(Federal','State','Local','Institution','Reserve')
+add_column :reserve_questions, :state_id, :int
+add_column :reserve_questions, :description, :string
+add_column :reserve_questions, :url_1, :string
+add_column :reserve_questions, :url_link_text_1, :string
+add_column :reserve_questions, :url_2, :string
+add_column :reserve_questions, :url_link_text_2, :string
+add_column :reserve_questions, :url_3, :string
+add_column :reserve_questions, :url_link_text_3, :string
+add_column :reserve_questions, :iacuc_flag, :tinyint
+add_column :reserve_questions, :drone_flag, :tinyint
+add_column :reserve_questions, :scuba_flag, :tinyint
+add_column :reserve_questions, :vertebrate_flag, :tinyint
+add_column :reserve_questions, :threatened_endangered_flag, :tinyint
+add_column :reserve_questions, :involves_mammals, :tinyint
+add_column :reserve_questions, :involves_reptiles, :tinyint
+add_column :reserve_questions, :involves_amphibians, :tinyint
+add_column :reserve_questions, :involves_fish, :tinyint
+add_column :reserve_questions, :involves_birds, :tinyint
+add_column :reserve_questions, :involves_plants_fungi_soil, :tinyint
+add_column :reserve_questions, :involves_none, :tinyint
+add_column :reserve_questions, :involves_all, :tinyint
