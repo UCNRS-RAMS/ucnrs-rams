@@ -289,7 +289,10 @@ en:
         right_facing_arrow: "A right facing arrow enclosed in a circle"
     new:
       title: "Project Details"
-      submit: "Next: Team"
+      submit: 
+        step_1: "Next: Team"
+      alt:
+        right_facing_arrow: "A right facing arrow"
       project_type_options:
         title: "Project Type"
         labels:

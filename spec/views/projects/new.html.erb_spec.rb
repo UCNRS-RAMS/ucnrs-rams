@@ -56,4 +56,18 @@ RSpec.describe "new.html.erb" do
       expect(doc).to have_css("form section.meeting_or_conference")
     end
   end
-end
+
+  describe "the submit button" do
+    it "renders a button with the correct text for step 1" do
+      assign(:presenter, ProjectsNewPresenter.new(
+        user: :dummy,
+        current_step: 1,
+      ))
+
+      render template: "projects/new"
+
+      doc = Capybara.string(rendered)
+      expect(doc).to have_css("button[form='projects-new']", text: "Next: Team")
+    end
+  end
+ end
