@@ -27,14 +27,14 @@
 </section>
 
 <section>
-  <h2 class="small-title"><%= t(".choose_discipline") %></h2>
   <div class="field">
+    <%= form.label :discipline, t(".choose_discipline") %>
     <ul>
       <% presenter.disciplines.each do |discipline| %>
         <li>
           <%= form.radio_button :discipline, discipline, id: "discipline-#{discipline}" %>
           <div>
-            <%= form.label :discipline, discipline, for: "discipline-#{discipline}" %>
+            <label for="discipline-<%= discipline %>"><%= discipline %></label>
 
             <% if presenter.other_discipline?(discipline) %>
               <div class="other-discipline">
@@ -50,12 +50,8 @@
 </section>
 
 <section>
-  <h2 class="small-title">
-    <%= t(".select_involvements") %>
-    <%= form.label :involvements, t(".all_that_apply") %>
-  </h2>
-
   <div class="field">
+    <%= form.label :involvements, t(".select_involvements") %>
     <ul>
       <% presenter.involvement_flags.each do |involvement_flag| %>
         <li>
@@ -129,8 +125,8 @@
   <h2><%= t(".planning") %></h2>
 
   <% presenter.planning_questions.each do |planning_question| %>
-    <div class="field" data-controller="value-projection">
-      <%= form.label :planning_question, t(".planning_questions.#{planning_question}"), class: "planning-question-label" %>
+    <div class="field" data-controller="value-projection" data-value-projection-projected-value="<%= form.object.send(planning_question) %>">
+      <%= form.label planning_question, t(".planning_questions.#{planning_question}"), class: "planning-question-label" %>
 
       <div class="yes-no-options">
         <%= form.radio_button planning_question, t(".yes_option"), data: { action: "click->value-projection#change" } %>

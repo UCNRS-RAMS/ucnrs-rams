@@ -3,8 +3,8 @@
 class ProjectsNewPresenter
   def initialize(user:, current_step:, form: nil, project_type: nil)
     @user = user
-    @form = form || ProjectForm.new
     @project_type = project_type || :research
+    @form = form || ProjectForm.new(params: { project_type: @project_type })
     @current_step = current_step
     @steps_presenter = StepsPresenter.new(@current_step)
   end
