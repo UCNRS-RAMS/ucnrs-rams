@@ -5,15 +5,23 @@
     margin-bottom: 2.5rem;
   }
 
+  .error_messages {
+    font-size: 0.6rem;
+  }
+
   .field {
     display: flex;
     flex-direction: column;
 
     label {
       color: $dark-bluegray;
-      display: block;
+      display: inline;
       font-size: 0.625rem;
       font-weight: $bold;
+    }
+
+    & > label {
+      display: block;
     }
 
     p {
@@ -28,15 +36,17 @@
       border-radius: $border-radius;
       border: 1px solid $bluegray;
       flex: 1;
-      height: 2rem;
       margin-right: 2rem;
+      min-height: 2rem;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
     }
 
     textarea {
       font-family: $sora;
       font-size: 0.6875rem;
       height: 3.675rem;
-      text-indent: 0.1rem;
+      padding: 0.5rem;
     }
 
     .explanation {
@@ -106,6 +116,7 @@
       .additional-question {
         display: flex;
         flex: 1;
+        flex-direction: column;
       }
     }
 

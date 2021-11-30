@@ -28,12 +28,13 @@ body {
     label.error {
       color: $error-red !important;
     }
-  
-    input.error {
+
+    input.error,
+    textarea.error {
       border-color: $error-red !important;
       border-width: 2px !important;
     }
-  
+
     .error_messages {
       color: $error-red;
       display: inline;

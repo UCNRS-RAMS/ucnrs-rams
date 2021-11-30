@@ -9,10 +9,6 @@ export default class extends Controller {
 
   urlPatternPlaceholder = "VALUE"
 
-  connect() {
-    this.load(this.selectedProjectType())
-  }
-
   change(e: Event) {
     const value = (e.currentTarget as HTMLInputElement).value
     this.load(value)

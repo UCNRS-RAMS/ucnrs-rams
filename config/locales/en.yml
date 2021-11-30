@@ -20,6 +20,20 @@ en:
           attributes:
             involvements:
               must_select_at_least_one: "must select at least one"
+            discipline:
+              blank: "must select one"
+            method_remove_organisms:
+              inclusion: "must make a choice"
+            method_transfer_organisms:
+              inclusion: "must make a choice"
+            method_study_non_native_species:
+              inclusion: "must make a choice"
+            method_chemicals:
+              inclusion: "must make a choice"
+            method_soil_disturbance:
+              inclusion: "must make a choice"
+            method_long_term_structures:
+              inclusion: "must make a choice"
         user:
           billing_address_fields_presence: "can't be blank if including a billing address"
           attributes:
@@ -35,6 +49,11 @@ en:
     <<: *errors
   time:
     formats:
+      form_input_date: "%Y-%m-%d"
+      form_input_time: "%H:%M %z"
+      form_output_date: "%Y-%m-%d"
+      form_output_time: "%H:%M"
+      form_output_time_human: "%-I:%M %p"
       visit_form_input_date: "%Y-%m-%d"
       visit_form_input_time: "%H:%M %z"
       visit_form_output_date: "%Y-%m-%d"
@@ -42,6 +61,8 @@ en:
       visit_form_output_time_human: "%-I:%M %p"
   date:
     formats:
+      form_input_date: "%Y-%m-%d"
+      form_output_date: "%Y-%m-%d"
       visit_form_input_date: "%Y-%m-%d"
       visit_form_output_date: "%Y-%m-%d"
       project_visit_start_date: "%b %d, %Y"

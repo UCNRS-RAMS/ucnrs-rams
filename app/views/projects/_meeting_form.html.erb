@@ -33,15 +33,15 @@
 </section>
 
 <section>
-  <h2 class="small-title"><%= t(".choose_discipline") %></h2>
   <div class="field">
+    <%= form.label :discipline, t(".choose_discipline") %>
     <ul>
       <% presenter.disciplines.each do |discipline| %>
         <li>
           <%= form.radio_button :discipline, discipline, id: "discipline-#{discipline}" %>
           <div>
-            <%= form.label :discipline, discipline, for: "discipline-#{discipline}" %>
 
+            <label for="discipline-<%= discipline %>"><%= discipline %></label>
             <% if presenter.other_discipline?(discipline) %>
               <div class="other-discipline">
                 <%= form.text_field :discipline_other %>

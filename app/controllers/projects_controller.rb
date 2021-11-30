@@ -63,6 +63,9 @@ class ProjectsController < ApplicationController
       :method_long_term_structures,
       :course_title,
       :course_number,
+      :keywords,
+      :taxonomic_keywords,
+      :recent_publications,
     )
   end
 
