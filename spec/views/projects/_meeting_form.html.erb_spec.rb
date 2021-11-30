@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "app/views/projects/_meeting_or_conference_form.html.erb", type: :view do
+RSpec.describe "app/views/projects/_meeting_form.html.erb", type: :view do
   it "has the required fields in the 'Details' section" do
     presenter = ProjectsNewPresenter.new(
       user: :fake_user,
@@ -8,7 +8,7 @@ RSpec.describe "app/views/projects/_meeting_or_conference_form.html.erb", type: 
     )
 
     FakeForm.fields_for(ProjectForm.new) do |form|
-      render partial: "projects/meeting_or_conference_form",
+      render partial: "projects/meeting_form",
         locals: { presenter: presenter, form: form }
     end
 
@@ -24,7 +24,7 @@ RSpec.describe "app/views/projects/_meeting_or_conference_form.html.erb", type: 
     )
 
     FakeForm.fields_for(ProjectForm.new) do |form|
-      render partial: "projects/meeting_or_conference_form",
+      render partial: "projects/meeting_form",
         locals: { presenter: presenter, form: form }
     end
 
@@ -40,7 +40,7 @@ RSpec.describe "app/views/projects/_meeting_or_conference_form.html.erb", type: 
     )
 
     FakeForm.fields_for(ProjectForm.new) do |form|
-      render partial: "projects/meeting_or_conference_form",
+      render partial: "projects/meeting_form",
         locals: { presenter: presenter, form: form }
     end
 

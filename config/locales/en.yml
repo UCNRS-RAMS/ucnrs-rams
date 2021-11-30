@@ -320,13 +320,13 @@ en:
         title: "Project Type"
         labels:
           research: "Research"
-          university_class: "University Class"
-          meeting_or_conference: "Meeting or Conference"
+          class: "University Class"
+          meeting: "Meeting or Conference"
           public_use: "Public Use"
         explanation:
           research: "Research"
-          university_class: "Class"
-          meeting_or_conference: "Meeting"
+          class: "Class"
+          meeting: "Meeting"
           public_use: "Public"
     steps:
       step_1: "Project Details"
@@ -387,7 +387,7 @@ en:
         method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
       yes_option: "Yes"
       no_option: "No"
-    meeting_or_conference_form:
+    meeting_form:
       details: "Details"
       choose_discipline: "Choose a discipline that best describes your meeting or conference."
       event_title:
@@ -398,7 +398,7 @@ en:
         explanation: "Enter a short description describing the purpose of your meeting or conference."
       start_date: "Start Date"
       end_date: "End Date"
-    university_class_form:
+    class_form:
       details: "Details"
       choose_discipline: "Choose a discipline that best describes your project"
       class_activities: "Class Activities"

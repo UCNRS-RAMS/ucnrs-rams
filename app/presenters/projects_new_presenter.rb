@@ -15,8 +15,8 @@ class ProjectsNewPresenter
   def project_type_options
     [
       :research,
-      :university_class,
-      :meeting_or_conference,
+      :class,
+      :meeting,
     ]
   end
 

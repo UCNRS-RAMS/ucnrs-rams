@@ -232,16 +232,16 @@
         }
       }
 
-      &[data-value-projection-projected-value="university_class"] {
-        label[for="project-type-university_class"] {
+      &[data-value-projection-projected-value="class"] {
+        label[for="project-type-class"] {
           background-color: $light-light-blue;
           border: 2px solid $navy-blue;
           padding: 1rem;
         }
       }
 
-      &[data-value-projection-projected-value="meeting_or_conference"] {
-        label[for="project-type-meeting_or_conference"] {
+      &[data-value-projection-projected-value="meeting"] {
+        label[for="project-type-meeting"] {
           background-color: $light-light-blue;
           border: 2px solid $navy-blue;
           padding: 1rem;
@@ -290,8 +290,8 @@
     }
 
     section.research,
-    section.university_class,
-    section.meeting_or_conference {
+    section.class,
+    section.meeting {
       @include project-form;
     }
   }
