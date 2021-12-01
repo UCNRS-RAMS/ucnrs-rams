@@ -29,11 +29,6 @@ describe("TurboContentController", () => {
         </section>`)
     })
 
-    it("sets src from value of the checked radio input on init", () => {
-      const frame = document.getElementById("not-real")
-      expect(frame.src).toEqual("http://nowhere/two")
-    })
-
     it("sets src from value of the radio input on change", () => {
       const frame = document.getElementById("not-real")
       const input = document.querySelector("input[value='one']")

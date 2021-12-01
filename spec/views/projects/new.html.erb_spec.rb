@@ -30,30 +30,30 @@ RSpec.describe "new.html.erb" do
       expect(doc).to have_css("form section.research")
     end
 
-    it "renders the university_class partial" do
+    it "renders the class partial" do
       assign(:presenter, ProjectsNewPresenter.new(
         user: :dummy,
         current_step: 1,
-        project_type: :university_class,
+        project_type: :class,
       ))
 
       render template: "projects/new"
 
       doc = Capybara.string(rendered)
-      expect(doc).to have_css("form section.university_class")
+      expect(doc).to have_css("form section.class")
     end
 
-    it "renders the meeting_or_conference partial" do
+    it "renders the meeting partial" do
       assign(:presenter, ProjectsNewPresenter.new(
         user: :dummy,
         current_step: 1,
-        project_type: :meeting_or_conference,
+        project_type: :meeting,
       ))
 
       render template: "projects/new"
 
       doc = Capybara.string(rendered)
-      expect(doc).to have_css("form section.meeting_or_conference")
+      expect(doc).to have_css("form section.meeting")
     end
   end
 

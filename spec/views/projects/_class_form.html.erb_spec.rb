@@ -148,4 +148,82 @@ RSpec.describe "app/views/projects/_class_form.html.erb", type: :view do
     expect(doc).to have_field("project_method_long_term_structures_yes", type: "radio")
     expect(doc).to have_field("project_method_long_term_structures_no", type: "radio")
   end
+
+  context "when displaying errors" do
+    it "displays errors on all validated fields" do
+      user = User.new
+      project_form = ProjectForm.new(params: { project_type: :class }, user: user)
+      project_form.validate
+      presenter = ProjectsNewPresenter.new(
+        user: user,
+        current_step: 1,
+        project_type: :class,
+        form: project_form,
+      )
+
+      FakeForm.fields_for(project_form) do |form|
+        render partial: "projects/class_form",
+          locals: { presenter: presenter, form: form }
+      end
+
+      doc = Capybara.string(rendered)
+      expect(doc).to display_error("can't be blank")
+        .for_field("Project or Event Title")
+      expect(doc).to display_error("can't be blank")
+        .for_field("Course Title")
+      expect(doc).to display_error("can't be blank")
+        .for_field("Course Number")
+      expect(doc).to display_error("must select one")
+        .for_field("Choose a discipline that best describes your project")
+      expect(doc).to display_error("must select at least one")
+        .for_field("Will your project involve any of the following?")
+      expect(doc).to display_error("can't be blank")
+        .for_field("Start Date")
+      expect(doc).to display_error("can't be blank")
+        .for_field("End Date")
+      expect(doc).to display_error("can't be blank")
+        .for_field("Environmental Manipulations Needed")
+      expect(doc).to display_error("can't be blank")
+        .for_field("Describe where you will be working on the reserve.")
+      expect(doc).to display_error("must make a choice")
+        .for_field("Remove organisms or materials from the reserve?")
+      expect(doc).to display_error("must make a choice")
+        .for_field("Transfer animals and plants from outside the reserve to within the reserve, or between different parts of the reserve?")
+      expect(doc).to display_error("must make a choice")
+        .for_field("Study or manipulate non-native species?")
+      expect(doc).to display_error("must make a choice")
+        .for_field("Use radioactive isotopes or other chemicals? (e.g., pesticides, herbicides, fertilizers, tracers")
+      expect(doc).to display_error("must make a choice")
+        .for_field("Disturb the soil?")
+      expect(doc).to display_error("must make a choice")
+        .for_field("Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages, data-loggers, antennas, or buoys?")
+    end
+
+    it "displays errors on 'popup' fields" do
+      user = User.new
+      presenter = ProjectsNewPresenter.new(
+        user: user,
+        current_step: 1,
+        project_type: :class,
+        form: ProjectForm.new(params: {
+          method_chemicals: true,
+          discipline: "Other",
+          project_type: :class,
+        }, user: user),
+      )
+      project_form = presenter.form
+      project_form.validate
+
+      FakeForm.fields_for(project_form) do |form|
+        render partial: "projects/class_form",
+          locals: { presenter: presenter, form: form }
+      end
+
+      doc = Capybara.string(rendered)
+      expect(doc).to display_error("can't be blank")
+      .for_field_with_id("method_chemicals_list")
+      expect(doc).to display_error("can't be blank")
+      .for_field_with_id("discipline_other")
+    end
+  end
 end

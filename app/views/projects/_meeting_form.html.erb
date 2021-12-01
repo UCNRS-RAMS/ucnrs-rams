@@ -45,7 +45,7 @@
             <% if presenter.other_discipline?(discipline) %>
               <div class="other-discipline">
                 <%= form.text_field :discipline_other %>
-                <%= form.label :discipline_other, "&#8203;".html_safe %>
+                <%= form.label :discipline_other, "&#8203;".html_safe, id: "discipline_other" %>
               </div>
             <% end %>
           </div>

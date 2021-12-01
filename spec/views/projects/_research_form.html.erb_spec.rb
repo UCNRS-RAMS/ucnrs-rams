@@ -208,7 +208,7 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
       user = User.new
       project_form = ProjectForm.new(params: {
         method_chemicals: true,
-        discipline: "other",
+        discipline: "Other",
       }, user: user)
       project_form.validate
       presenter = ProjectsNewPresenter.new(
@@ -224,5 +224,10 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
       end
 
       doc = Capybara.string(rendered)
+      expect(doc).to display_error("can't be blank")
+      .for_field_with_id("method_chemicals_list")
+      expect(doc).to display_error("can't be blank")
+      .for_field_with_id("discipline_other")
+    end
   end
 end

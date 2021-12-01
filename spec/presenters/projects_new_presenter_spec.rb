@@ -12,10 +12,10 @@ RSpec.describe ProjectsNewPresenter do
       presenter = ProjectsNewPresenter.new(
         user: :dummy,
         current_step: 1,
-        project_type: :meeting_or_conference
+        project_type: :meeting,
       )
 
-      expect(presenter.partial_name).to eq "projects/meeting_or_conference_form"
+      expect(presenter.partial_name).to eq "projects/meeting_form"
     end
   end
 
@@ -25,8 +25,8 @@ RSpec.describe ProjectsNewPresenter do
 
       expect(presenter.project_type_options).to eq [
         :research,
-        :university_class,
-        :meeting_or_conference,
+        :class,
+        :meeting,
       ]
     end
   end
