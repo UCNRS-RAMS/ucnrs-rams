@@ -29,7 +29,7 @@ class InstitutionsController < ApplicationController
   private
 
   def query
-    params[:name]
+    params[:q]
   end
 
   def create_institution_params

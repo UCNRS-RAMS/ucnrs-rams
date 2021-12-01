@@ -84,6 +84,8 @@ en:
       latest_news: "Latest News"
       view_all: "View All"
   institutions:
+    index:
+      no_results: "<strong>No</strong> Results Found."
     new:
       header: "Create New Institution"
       submit: "Create Institution"

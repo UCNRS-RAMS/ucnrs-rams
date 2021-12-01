@@ -94,6 +94,7 @@ en:
           same_as_current: "Same as current"
         placeholders:
           date_of_birth: "MM / DD / YYYY"
+          institution: "search institution"
         helper_text:
           tip: "TIP:"
           institution: "Your institution is likely already in our database. Start typing to search. If you cannot find your institution,"

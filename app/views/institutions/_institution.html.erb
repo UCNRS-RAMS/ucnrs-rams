@@ -1,4 +1,3 @@
-<li id="<%= dom_id institution.institution %>" data-copy-label="<%= institution.name %>" data-action="click->copy#copy click->followup-content#clearAllContent">
-  <strong><%= institution.name %></strong> - 
-  <span><%= institution.city %> | <%= institution.country_name %></span>
+<li id="<%= dom_id institution.institution %>" role="option" data-autocomplete-value="<%= institution.id %>" data-autocomplete-label="<%= institution.name %>">
+  <strong><%= institution.name %></strong> - <span><%= institution.city %> | <%= institution.country_name %></span>
 </li>
