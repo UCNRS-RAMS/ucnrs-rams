@@ -85,33 +85,36 @@
         <div class="field small orcid">
           <%= f.label :orcid, t(".labels.orcid") %>
           <%= f.text_field :orcid %>
-          <%= link_to t(".links.orcid"), t(".urls.orcid"), target: :_blank %>
+          <p class="helper-text">
+            <%= link_to t(".links.orcid"), t(".urls.orcid"), target: :_blank %>
+          </p>
         </div>
-        <div
-            class="field institution-field large"
-            data-controller="followup-content"
-            data-followup-content-length-value="3"
-            >
-            <%= f.label :institution, t(".labels.institution") %>
+        <div 
+            class="field institution-field large" 
+            data-controller="autocomplete" 
+            data-autocomplete-url-value="<%= institutions_url %>" 
+            data-autocomplete-min-length-value="3"
+            
+          >
+          <%= f.label :institution, t(".labels.institution") %>
+          <div class="autocomplete">
             <%= f.text_field :institution, 
               data: {
-                action: "input->followup-content#change",
-                "copy-target": "destination",
+                "autocomplete-target": "input",
               },
               class: "large",
               value: @page.institution_field_value,
-              autocomplete: "off"
+              placeholder: t(".placeholders.institution")
             %>
+            <%= f.hidden_field :institution_id, data: { "autocomplete-target": "hidden" } %>
+            <ul class="autocomplete-results" data-autocomplete-target="results"></ul>
+          </div>
           <p class="helper-text">
             <strong><%= t(".helper_text.tip") %></strong>
             <%= t(".helper_text.institution") %>
             <%= link_to t(".links.create_new_instituion"), new_institution_path, remote: true %>
           </p>
-          <ul
-            id="institutions"
-            data-followup-content-target="destination"
-            data-followup-content-url-value="<%= institutions_url(name: "VALUE") %>"
-          ></ul>
+          
         </div>
         <div class="field large">
           <%= f.label :advisor, t(".labels.advisor_name") %>

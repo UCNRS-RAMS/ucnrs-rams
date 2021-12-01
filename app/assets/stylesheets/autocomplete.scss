@@ -1,0 +1,33 @@
+@import "variables";
+
+.autocomplete {
+  input {
+    width: 100%;
+  }
+
+  ul.autocomplete-results {
+    border:1px solid #aab7bb;
+    border-radius: 0;
+    box-shadow: 0px 0px 3px 0px #aab7bb;
+    box-sizing: border-box;
+    margin: 0;
+    position: absolute;
+
+    li {
+      padding: 5px 12px;
+    }
+
+    li:not(:last-of-type) {
+      border-bottom: 1px solid #aab7bb;
+    }
+
+    li.active {
+      background-color: #556b72;
+      color: white;
+    }
+  }
+
+  ul.autocomplete-results:empty {
+    display: none;
+  }
+}

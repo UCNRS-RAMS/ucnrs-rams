@@ -8230,6 +8230,11 @@ static-extend@^0.1.1:
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
   integrity sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow=
 
+stimulus-autocomplete@^3.0.0-rc.5:
+  version "3.0.0-rc.5"
+  resolved "https://registry.yarnpkg.com/stimulus-autocomplete/-/stimulus-autocomplete-3.0.0-rc.5.tgz#916dfe11d0480f511b0add7fb1e432144724b63a"
+  integrity sha512-naMJo3atTHUFJQ2cwi1ujWWUMWmZ5JQuOv9SCU1DAaqDu3z6S+nGhXhkT4fTXpFRc+zQWswSrTcHCVWk7KVKzg==
+
 stream-browserify@^2.0.1:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/stream-browserify/-/stream-browserify-2.0.2.tgz#87521d38a44aa7ee91ce1cd2a47df0cb49dd660b"

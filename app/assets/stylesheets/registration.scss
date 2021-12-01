@@ -46,7 +46,7 @@
         width: 60%;
 
         &.basics {
-          max-height: 600px;
+          max-height: 620px;
 
           .field {
             &.email {
@@ -152,7 +152,7 @@
           color: $dark-bluegray;
           font-size: 0.75rem;
           margin-bottom: 0;
-          margin-top: 0;
+          margin-top: 0.15rem;
         }
 
         .inline {
@@ -187,6 +187,7 @@
             color: $form-copy-color;
             font-size: 0.75rem;
             font-weight: $bold;
+            margin-bottom: 0.15rem;
           }
 
           input[type="text"],
