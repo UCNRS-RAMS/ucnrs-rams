@@ -59,4 +59,59 @@ RSpec.describe "app/views/projects/_meeting_form.html.erb", type: :view do
     expect(doc).to have_field("Other", type: "radio")
     expect(doc).to have_field("project_discipline_other", type: "text")
   end
+
+  context "when displaying errors" do
+    it "displays errors on all validated fields" do
+      user = User.new
+      project_form = ProjectForm.new(params: { project_type: :meeting }, user: user)
+      project_form.validate
+      presenter = ProjectsNewPresenter.new(
+        user: user,
+        current_step: 1,
+        project_type: :meeting,
+        form: project_form,
+      )
+
+      FakeForm.fields_for(project_form) do |form|
+        render partial: "projects/meeting_form",
+          locals: { presenter: presenter, form: form }
+      end
+
+      doc = Capybara.string(rendered)
+      expect(doc).to display_error("can't be blank")
+        .for_field("Event Title")
+      expect(doc).to display_error("can't be blank")
+        .for_field("Event Description")
+      expect(doc).to display_error("can't be blank")
+        .for_field("Start Date")
+      expect(doc).to display_error("can't be blank")
+        .for_field("End Date")
+      expect(doc).to display_error("must select one")
+        .for_field("Choose a discipline that best describes your meeting or conference.")
+    end
+
+    it "displays errors on 'popup' fields" do
+      user = User.new
+      presenter = ProjectsNewPresenter.new(
+        user: user,
+        current_step: 1,
+        project_type: :meeting,
+        form: ProjectForm.new(params: {
+          discipline: "Other",
+          project_type: :meeting,
+        }, user: user),
+      )
+      project_form = presenter.form
+      project_form.validate
+
+      FakeForm.fields_for(project_form) do |form|
+        render partial: "projects/meeting_form",
+          locals: { presenter: presenter, form: form }
+      end
+
+      doc = Capybara.string(rendered)
+      expect(doc).to display_error("can't be blank")
+      .for_field_with_id("discipline_other")
+    end
+  end
 end

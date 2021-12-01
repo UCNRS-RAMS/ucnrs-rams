@@ -39,7 +39,7 @@
             <% if presenter.other_discipline?(discipline) %>
               <div class="other-discipline">
                 <%= form.text_field :discipline_other %>
-                <%= form.label :discipline_other, "&#8203;".html_safe %>
+                <%= form.label :discipline_other, "&#8203;".html_safe, id: "discipline_other" %>
               </div>
             <% end %>
           </div>
@@ -138,7 +138,7 @@
       <% if presenter.chemical_question?(planning_question) %>
         <div class="additional-question">
           <%= form.text_field :method_chemicals_list %>
-          <%= form.label :method_chemicals_list, "&#8203;".html_safe %>
+          <%= form.label :method_chemicals_list, "&#8203;".html_safe, id: "method_chemicals_list" %>
         </div>
       <% end %>
     </div>

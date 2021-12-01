@@ -29,8 +29,8 @@ RSpec.describe "Creating a project", type: :system, js: true do
     expect(flow).to have_selected_project_type("Research")
     expect(flow).to be_showing_project_form("Research")
 
-    flow.select_project_type("Meeting or Conference")
-    expect(flow).to have_selected_project_type("Meeting or Conference")
-    expect(flow).to be_showing_project_form("Meeting or Conference")
+    flow.select_project_type("Meeting")
+    expect(flow).to have_selected_project_type("Meeting")
+    expect(flow).to be_showing_project_form("Meeting")
   end
 end
