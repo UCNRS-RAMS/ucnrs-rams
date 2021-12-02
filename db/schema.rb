@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_23_141459) do
+ActiveRecord::Schema.define(version: 2021_12_02_132057) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id"
@@ -568,7 +568,7 @@ ActiveRecord::Schema.define(version: 2021_11_23_141459) do
   end
 
   create_table "projects", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "reserve_id", null: false
+    t.integer "reserve_id"
     t.integer "user_id", null: false, comment: "This person can be selected by the manager and can change over time.\nThis is the name that shows up on reports and in calendars."
     t.integer "applicant_id", null: false, comment: "This is the original applicant and cannot be edited."
     t.text "title"

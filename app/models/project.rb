@@ -29,7 +29,7 @@ class Project < ApplicationRecord
     "Other",
   ].freeze
 
-  belongs_to :reserve
+  belongs_to :reserve, optional: true
   belongs_to :owner, class_name: "User", foreign_key: :user_id
   belongs_to :applicant, class_name: "User", foreign_key: :applicant_id
   has_many :visits

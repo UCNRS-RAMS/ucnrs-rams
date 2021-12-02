@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Project, type: :model do
   describe "associations" do
-    it { is_expected.to belong_to(:reserve) }
+    it { is_expected.to belong_to(:reserve).optional(true) }
     it { is_expected.to belong_to(:owner).class_name("User").with_foreign_key(:user_id) }
     it { is_expected.to belong_to(:applicant).class_name("User") }
     it { is_expected.to have_many(:visits) }
