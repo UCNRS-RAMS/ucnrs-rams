@@ -8,6 +8,8 @@ RSpec.describe ProjectTeamMembership, type: :model do
   end
 
   describe "validations" do
+    it { is_expected.to validate_presence_of(:user_role) }
+
     describe "scoping unique users to projects" do
       it "does not allow a user to be added to the same project twice" do
         project_team_member1 = create(:project_team_membership)
@@ -16,5 +18,24 @@ RSpec.describe ProjectTeamMembership, type: :model do
         expect(project_team_member2).not_to be_valid
       end
     end
+  end
+
+  it do 
+    is_expected.to define_enum_for(:user_role)
+      .with_values(
+        no_selection: "No selection",
+        faculty: "Faculty",
+        research_scientist: "Research Scientist/Post Doc",
+        research_assistant: "Research Assistant (non-student/faculty/postdoc)",
+        graduate_student: "Graduate Student",
+        undergraduate_student: "Undergraduate Student",
+        k_12_instructor: "K-12 Instructor",
+        k_12_student: "K-12 Student",
+        professional: "Professional",
+        other: "Other",
+        docent: "Docent",
+        volunteer: "Volunteer",
+        staff: "Staff",
+      ).backed_by_column_of_type(:string)
   end
 end

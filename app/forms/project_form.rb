@@ -16,8 +16,20 @@ class ProjectForm
   end
 
   attr_reader :project
-  delegate :valid?, :validate, :errors, :save, to: :project
+  delegate :valid?, :validate, :errors, to: :project
   delegate_missing_to :project
+
+  def save
+    begin
+      Project.transaction do
+        project.save!
+        project_team_membership.save!
+        true
+      end
+    rescue ActiveRecord::RecordInvalid => e
+      false
+    end
+  end
 
   def start_date
     display_date(project.start_date)
@@ -76,6 +88,21 @@ class ProjectForm
   end
 
   private
+
+  def project_team_membership
+    ProjectTeamMembership.new(
+      project_id: id,
+      user_id: applicant.id,
+      institution: applicant.institution,
+      active: true,
+      user_role: applicant.role,
+      is_principal_investigator: true,
+      can_edit_project: true,
+      can_add_project_user: true,
+      can_add_visit: true,
+      can_receive_invoice: true,
+    )
+  end
 
   def assign(params)
     params.each do |key, value|
