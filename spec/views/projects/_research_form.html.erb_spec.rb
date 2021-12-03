@@ -207,7 +207,7 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
     it "displays errors on 'popup' fields" do
       user = User.new
       project_form = ProjectForm.new(params: {
-        method_chemicals: true,
+        method_chemicals: "Yes",
         discipline: "Other",
       }, user: user)
       project_form.validate

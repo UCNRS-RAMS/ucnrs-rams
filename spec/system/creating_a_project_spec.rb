@@ -33,4 +33,47 @@ RSpec.describe "Creating a project", type: :system, js: true do
     expect(flow).to have_selected_project_type("Meeting")
     expect(flow).to be_showing_project_form("Meeting")
   end
+
+  it "can create a new project" do
+    user = create(:user, :confirmed)
+    sign_in(user)
+    flow = CreateProjectFlow.new(page)
+
+    flow.visit_new_project_page
+    flow.dismiss_modal
+
+    flow.fill_out_new_project_form(
+      title: "Project Title",
+      thesis_title: "Thesis Title",
+      abstract: "Project Abstract",
+      project_type: "research",
+      start_date: Date.new(2021, 12, 10),
+      end_date: Date.new(2021, 12, 11),
+      discipline: "Agriculture",
+      discipline_other: nil,
+      involves_mammals: nil,
+      involves_reptiles: nil,
+      involves_amphibians: nil,
+      involves_fish: true,
+      involves_birds: nil,
+      involves_plants_fungi_soil: true,
+      involves_threatened_endangered_species: nil,
+      involves_none: nil,
+      method_description: "Method Description",
+      method_study_area: "Method Study Area",
+      method_remove_organisms: "Yes",
+      method_transfer_organisms: "Yes",
+      method_study_non_native_species: "No",
+      method_chemicals: "Yes",
+      method_chemicals_list: "Chemicals List",
+      method_soil_disturbance: "No",
+      method_long_term_structures: "No",
+      keywords: nil,
+      taxonomic_keywords: nil,
+      recent_publications: nil,
+    )
+    flow.submit_project_form
+
+    expect(flow).to be_on_project_teams_page
+  end
 end
