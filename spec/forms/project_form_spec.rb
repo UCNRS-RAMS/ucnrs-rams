@@ -5,7 +5,6 @@ RSpec.describe ProjectForm, type: :model do
     it { is_expected.to delegate_method(:valid?).to(:project) }
     it { is_expected.to delegate_method(:validate).to(:project) }
     it { is_expected.to delegate_method(:errors).to(:project) }
-    it { is_expected.to delegate_method(:save).to(:project) }
   end
 
   describe "#save" do
@@ -104,6 +103,52 @@ RSpec.describe ProjectForm, type: :model do
       expect(result).to be_falsy
       expect(form.project).to_not be_persisted
       expect(form.errors).to be_present
+    end
+
+    it "creates a project_team_membership between the user and the project" do
+      user = create(:user)
+      form = ProjectForm.new(user: user, params: {
+        title: "Project Title",
+        abstract: "A summary of the project",
+        project_type: :research,
+        start_date: Date.new(2021, 12, 1),
+        end_date: Date.new(2022, 12, 1),
+        discipline: "Other",
+        discipline_other: "Another Discipline",
+        involves_mammals: true,
+        involves_reptiles: nil,
+        involves_amphibians: nil,
+        involves_fish: nil,
+        involves_birds: nil,
+        involves_plants_fungi_soil: nil,
+        involves_threatened_endangered_species: nil,
+        involves_none: nil,
+        method_description: "How the project will be conducted",
+        method_study_area: "Where the project will be conducted",
+        method_remove_organisms: "Yes",
+        method_transfer_organisms: "No",
+        method_study_non_native_species: "No",
+        method_chemicals: "Yes",
+        method_chemicals_list: "A list of chemicals",
+        method_soil_disturbance: "No",
+        method_long_term_structures: "No",
+      })
+
+      form.save
+
+      project_team_memberships = form.project.team_memberships
+      expect(project_team_memberships.length).to eq 1
+      expect(project_team_memberships[0]).to have_attributes(
+        project_id: form.project.id,
+        user_id: user.id,
+        institution_id: user.institution.id,
+        user_role: user.role,
+        is_principal_investigator: true,
+        can_edit_project: true,
+        can_add_project_user: true,
+        can_add_visit: true,
+        can_receive_invoice: true,
+      )
     end
   end
 
