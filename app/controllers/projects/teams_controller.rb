@@ -1,7 +1,13 @@
 class Projects::TeamsController < ApplicationController
   before_action :authenticate_user!
 
-  def edit;end
+  def edit
+    @presenter = Projects::TeamsEditPresenter.new(
+      user: current_user,
+      current_step: 2,
+      project: project,
+    )
+  end
 
   private
 
