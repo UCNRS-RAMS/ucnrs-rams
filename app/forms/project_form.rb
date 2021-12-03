@@ -12,7 +12,7 @@ class ProjectForm
       Project.new(project_type: :research)
     @project.applicant = user
     @project.owner = user
-    @project.attributes = params
+    assign(params)
   end
 
   attr_reader :project
@@ -27,53 +27,64 @@ class ProjectForm
     display_date(project.end_date)
   end
 
-  def start_date=(date)
-    project.start_date = parse_date(date)
-  end
-
-  def end_date=(date)
-    project.end_date = parse_date(date)
-  end
-
   def method_remove_organisms
     radio_value_for(:method_remove_organisms)
+  end
+
+  def method_remove_organisms=(value)
+    project.method_remove_organisms = boolean_value_from(value)
   end
 
   def method_transfer_organisms
     radio_value_for(:method_transfer_organisms)
   end
 
+  def method_transfer_organisms=(value)
+    project.method_transfer_organisms = boolean_value_from(value)
+  end
+
   def method_study_non_native_species
     radio_value_for(:method_study_non_native_species)
+  end
+
+  def method_study_non_native_species=(value)
+    project.method_study_non_native_species = boolean_value_from(value)
   end
 
   def method_chemicals
     radio_value_for(:method_chemicals)
   end
 
+  def method_chemicals=(value)
+    project.method_chemicals = boolean_value_from(value)
+  end
+
   def method_soil_disturbance
     radio_value_for(:method_soil_disturbance)
+  end
+
+  def method_soil_disturbance=(value)
+    project.method_soil_disturbance = boolean_value_from(value)
   end
 
   def method_long_term_structures
     radio_value_for(:method_long_term_structures)
   end
 
+  def method_long_term_structures=(value)
+    project.method_long_term_structures = boolean_value_from(value)
+  end
+
   private
+
+  def assign(params)
+    params.each do |key, value|
+      self.send("#{key}=", value)
+    end
+  end
 
   def display_date(date)
     date ? I18n.l(date, format: :form_output_date) : ""
-  end
-
-  def parse_date(date_string)
-    begin
-      Time.strptime(
-        date_string,
-        I18n.translate("date.formats.form_input_date"),
-      )
-    rescue ArgumentError, TypeError
-      nil
-    end
   end
 
   def radio_value_for(field)
@@ -81,6 +92,16 @@ class ProjectForm
       "Yes"
     elsif project.send(field) == false
       "No"
+    else
+      nil
+    end
+  end
+
+  def boolean_value_from(value)
+    if value == "Yes"
+      true
+    elsif value == "No"
+      false
     else
       nil
     end
