@@ -64,12 +64,13 @@ RSpec.describe ProjectForm, type: :model do
         involves_none: nil,
         method_description: "How the project will be conducted",
         method_study_area: "Where the project will be conducted",
-        method_remove_organisms: false,
-        method_transfer_organisms: false,
-        method_study_non_native_species: false,
-        method_chemicals: false,
-        method_soil_disturbance: false,
-        method_long_term_structures: false,
+        method_remove_organisms: "Yes",
+        method_transfer_organisms: "No",
+        method_study_non_native_species: "No",
+        method_chemicals: "Yes",
+        method_chemicals_list: "A list of chemicals",
+        method_soil_disturbance: "No",
+        method_long_term_structures: "No",
       }
       form = ProjectForm.new(user: build(:user), params: params)
 
@@ -90,11 +91,11 @@ RSpec.describe ProjectForm, type: :model do
         involves_none: nil,
         method_description: "How the project will be conducted",
         method_study_area: "Where the project will be conducted",
-        method_remove_organisms: "No",
+        method_remove_organisms: "Yes",
         method_transfer_organisms: "No",
         method_study_non_native_species: "No",
-        method_chemicals: "No",
-        method_chemicals_list: nil,
+        method_chemicals: "Yes",
+        method_chemicals_list: "A list of chemicals",
         method_soil_disturbance: "No",
         method_long_term_structures: "No",
       )
@@ -102,22 +103,42 @@ RSpec.describe ProjectForm, type: :model do
   end
 
   describe "#radio_value_for" do
-    it "is 'Yes' if the returned value of the supplied attribute is true" do
-      form = ProjectForm.new(params: { method_transfer_organisms: true })
+    it "is 'Yes' if the value of the supplied attribute is 'Yes'" do
+      form = ProjectForm.new(params: { method_transfer_organisms: "Yes" })
 
       expect(form.method_transfer_organisms).to eq "Yes"
     end
 
-    it "is 'No' if the returned value of the supplied attribute is false" do
-      form = ProjectForm.new(params: { method_transfer_organisms: false })
+    it "is 'No' if the value of the supplied attribute is 'No'" do
+      form = ProjectForm.new(params: { method_transfer_organisms: "No" })
 
       expect(form.method_transfer_organisms).to eq "No"
     end
 
-    it "is nil if the returned value of the supplied attribute is anything else" do
-      form = ProjectForm.new(params: { method_transfer_organisms: nil })
+    it "is nil if the value of the supplied attribute is anything else" do
+      form = ProjectForm.new(params: { method_transfer_organisms: "Anything else" })
 
       expect(form.method_transfer_organisms).to be_nil
+    end
+  end
+
+  describe "#boolean_value_from" do
+    it "is true if the supplied value is 'Yes'" do
+      form = ProjectForm.new(params: { method_transfer_organisms: "Yes" })
+
+      expect(form.project.method_transfer_organisms).to eq true
+    end
+
+    it "is false if the suppled value is 'No'" do
+      form = ProjectForm.new(params: { method_transfer_organisms: "No" })
+
+      expect(form.project.method_transfer_organisms).to eq false
+    end
+
+    it "is nil if the suppled value is anything else" do
+      form = ProjectForm.new(params: { method_transfer_organisms: nil })
+
+      expect(form.project.method_transfer_organisms).to be_nil
     end
   end
 
