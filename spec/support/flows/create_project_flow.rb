@@ -39,6 +39,77 @@ class CreateProjectFlow
     page.first("label", text: name).click
   end
 
+  def fill_out_new_project_form(
+    title:,
+    thesis_title:,
+    abstract:,
+    project_type:,
+    start_date:,
+    end_date:,
+    discipline:,
+    discipline_other:,
+    involves_mammals:,
+    involves_reptiles:,
+    involves_amphibians:,
+    involves_fish:,
+    involves_birds:,
+    involves_plants_fungi_soil:,
+    involves_threatened_endangered_species:,
+    involves_none:,
+    method_description:,
+    method_study_area:,
+    method_remove_organisms:,
+    method_transfer_organisms:,
+    method_study_non_native_species:,
+    method_chemicals:,
+    method_chemicals_list:,
+    method_soil_disturbance:,
+    method_long_term_structures:,
+    keywords:,
+    taxonomic_keywords:,
+    recent_publications:
+  )
+    page.fill_in("Project or Event Title", with: title)
+    page.fill_in("Thesis Title", with: thesis_title)
+    page.fill_in("Project Abstract", with: abstract)
+    page.choose(discipline)
+    if discipline == "Other"
+      page.fill_in("dicipline_other", with: discipline_other)
+    end
+    page.check("Mammals") if involves_mammals
+    page.check("Reptiles") if involves_reptiles
+    page.check("Amphibians") if involves_amphibians
+    page.check("Fish") if involves_fish
+    page.check("Birds") if involves_birds
+    page.check("Plants, Fungi, or Soils") if involves_plants_fungi_soil
+    page.check("Threatened, Endangered, or Species of Special Concern") if involves_threatened_endangered_species
+    page.check("None of the Above") if involves_none
+    page.fill_in("Start Date", with: start_date)
+    page.fill_in("End Date", with: end_date)
+    page.fill_in("Project Keywords (Optional)", with: keywords)
+    page.fill_in("Taxonomic Keywords (Optional)", with: taxonomic_keywords)
+    page.fill_in("Recent Publications (Optional)", with: recent_publications)
+    page.fill_in("Environmental Manipulations Needed", with: method_description)
+    page.fill_in("Describe where you will be working on the reserve.", with: method_study_area)
+    page.choose("project_method_remove_organisms_#{method_remove_organisms.downcase}")
+    page.choose("project_method_transfer_organisms_#{method_transfer_organisms.downcase}")
+    page.choose("project_method_study_non_native_species_#{method_study_non_native_species.downcase}")
+    page.choose("project_method_chemicals_#{method_chemicals.downcase}")
+    if method_chemicals == "Yes"
+      page.fill_in("project_method_chemicals_list", with: method_chemicals_list)
+    end
+    page.choose("project_method_soil_disturbance_#{method_soil_disturbance.downcase}")
+    page.choose("project_method_long_term_structures_#{method_long_term_structures.downcase}")
+  end
+
+  def submit_project_form
+    page.find("button[form='projects-new']").click
+  end
+
+  def on_project_teams_page?
+    page.has_css?("body.team-edit")
+  end
+
   private
 
   attr_reader :page

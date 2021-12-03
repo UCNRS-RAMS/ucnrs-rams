@@ -206,7 +206,7 @@ RSpec.describe "app/views/projects/_class_form.html.erb", type: :view do
         current_step: 1,
         project_type: :class,
         form: ProjectForm.new(params: {
-          method_chemicals: true,
+          method_chemicals: "Yes",
           discipline: "Other",
           project_type: :class,
         }, user: user),

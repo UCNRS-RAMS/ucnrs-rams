@@ -8,6 +8,105 @@ RSpec.describe ProjectForm, type: :model do
     it { is_expected.to delegate_method(:save).to(:project) }
   end
 
+  describe "#save" do
+    it "saves the project if there are no errors" do
+      user = create(:user)
+      form = ProjectForm.new(user: user, params: {
+        title: "Project Title",
+        abstract: "A summary of the project",
+        project_type: :research,
+        start_date: Date.new(2021, 12, 1),
+        end_date: Date.new(2022, 12, 1),
+        discipline: "Other",
+        discipline_other: "Another Discipline",
+        involves_mammals: true,
+        involves_reptiles: nil,
+        involves_amphibians: nil,
+        involves_fish: nil,
+        involves_birds: nil,
+        involves_plants_fungi_soil: nil,
+        involves_threatened_endangered_species: nil,
+        involves_none: nil,
+        method_description: "How the project will be conducted",
+        method_study_area: "Where the project will be conducted",
+        method_remove_organisms: "Yes",
+        method_transfer_organisms: "No",
+        method_study_non_native_species: "No",
+        method_chemicals: "Yes",
+        method_chemicals_list: "A list of chemicals",
+        method_soil_disturbance: "No",
+        method_long_term_structures: "No",
+      })
+
+      result = form.save
+
+      expect(result).to be_truthy
+      expect(form.project).to be_persisted
+      expect(form.project).to have_attributes(
+        title: "Project Title",
+        abstract: "A summary of the project",
+        project_type: "research",
+        start_date: Date.new(2021, 12, 1),
+        end_date: Date.new(2022, 12, 1),
+        discipline: "Other",
+        discipline_other: "Another Discipline",
+        involves_mammals: true,
+        involves_reptiles: nil,
+        involves_amphibians: nil,
+        involves_fish: nil,
+        involves_birds: nil,
+        involves_plants_fungi_soil: nil,
+        involves_threatened_endangered_species: nil,
+        involves_none: nil,
+        method_description: "How the project will be conducted",
+        method_study_area: "Where the project will be conducted",
+        method_remove_organisms: true,
+        method_transfer_organisms: false,
+        method_study_non_native_species: false,
+        method_chemicals: true,
+        method_chemicals_list: "A list of chemicals",
+        method_soil_disturbance: false,
+        method_long_term_structures: false,
+      )
+    end
+
+    it "makes sure errors are visible when save fails" do
+      user = create(:user)
+      form = ProjectForm.new(user: user, params: {
+        title: "",
+        abstract: "A summary of the project",
+        project_type: :research,
+        start_date: "",
+        end_date: "",
+        discipline: "Agriculture",
+        discipline_other: nil,
+        involves_mammals: nil,
+        involves_reptiles: nil,
+        involves_amphibians: nil,
+        involves_fish: nil,
+        involves_birds: nil,
+        involves_plants_fungi_soil: nil,
+        involves_threatened_endangered_species: nil,
+        involves_none: nil,
+        method_description: "How the project will be conducted",
+        method_study_area: "Where the project will be conducted",
+        method_remove_organisms: "Yes",
+        method_transfer_organisms: "No",
+        method_study_non_native_species: "No",
+        method_chemicals: nil,
+        method_chemicals_list: nil,
+        method_soil_disturbance: "No",
+        method_long_term_structures: "No",
+      })
+
+      result = form.save
+
+      expect(result).to be_falsy
+      expect(form.project).to_not be_persisted
+      expect(form.errors).to be_present
+    end
+  end
+
   describe "initializing" do
     it "makes an empty ProjectForm from empty params" do
       form = ProjectForm.new
