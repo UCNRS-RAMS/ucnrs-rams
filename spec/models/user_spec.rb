@@ -396,6 +396,10 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "delegations" do
+    it { is_expected.to delegate_method(:name).to(:institution).with_prefix }
+  end
+
   it do 
     is_expected.to define_enum_for(:role)
       .with_values(

@@ -6,6 +6,7 @@ RSpec.describe "edit.html.erb" do
       assign(:presenter, Projects::TeamsEditPresenter.new(
         user: :dummy,
         current_step: 2,
+        project: build(:project),
       ))
 
       render template: "projects/teams/edit"

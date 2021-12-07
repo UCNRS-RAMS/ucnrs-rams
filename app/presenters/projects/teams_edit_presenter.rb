@@ -9,6 +9,12 @@ class Projects::TeamsEditPresenter
   attr_reader :project
   delegate :svg, :step_class, to: :steps_presenter
 
+  def team_memberships
+    project.team_memberships.map do |team_membership|
+      Projects::TeamMembershipPresenter.new(team_membership)
+    end
+  end
+
   private
 
   attr_reader :user, :steps_presenter, :current_step

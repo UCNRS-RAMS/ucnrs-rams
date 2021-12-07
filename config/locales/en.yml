@@ -478,6 +478,16 @@ en:
     teams:
       edit:
         title: "Team"
+        name: "Name"
+        institution: "Institution"
+        role: "Role"
+        project_role: "Project Role"
+        active: "Active"
+        edit: "Edit"
+        book: "Book"
+        invoice: "Invoice"
+      team_membership:
+        edit: "Edit"
   waivers:
     index:
       title: "Waivers"

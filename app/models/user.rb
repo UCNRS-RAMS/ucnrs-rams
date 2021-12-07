@@ -53,6 +53,8 @@ class User < ApplicationRecord
   has_many :projects, through: :project_team_memberships, class_name: "Project"
   has_many :reserve_personnel
 
+  delegate :name, to: :institution, prefix: true
+
   enum gender_identity: {
     male: "Male",
     female: "Female",

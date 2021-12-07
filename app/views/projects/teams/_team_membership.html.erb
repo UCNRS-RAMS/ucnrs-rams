@@ -1,0 +1,10 @@
+<tr class="team-membership">
+  <td><%= team_membership.user_full_name %></td>
+  <td><%= team_membership.user_institution_name %></td>
+  <td><%= team_membership.user_role %></td>
+  <td><%= team_membership.project_role %></td>
+  <% team_membership.permissions.each do |permission| %>
+    <td><%= image_tag team_membership.permissions_icon(permission) %></td>
+  <% end %>
+  <td><%= link_to t(".edit"), "#" %></td>
+</tr>
