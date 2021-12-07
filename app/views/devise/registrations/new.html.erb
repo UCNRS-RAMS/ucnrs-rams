@@ -222,7 +222,7 @@
     <div class="section-container">
       <section class="terms">
         <div class="field">
-          <%= f.check_box :terms_accepted_at %>
+          <%= f.check_box :terms_accepted_at, {checked: @page.form.terms_accepted?} %>
           <%= f.label :terms_accepted_at, t(".labels.agree_to_terms_of_use", link: link_to(t(".links.terms_of_use"), t(".urls.ucnrs_terms_of_use"), target: "_blank")).html_safe %>
         </div>
         <p class="helper-text">
