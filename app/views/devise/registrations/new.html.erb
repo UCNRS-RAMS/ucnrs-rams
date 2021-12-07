@@ -22,7 +22,7 @@
         <div class="field medium">
           <%= f.label :gender_identity, t(".labels.gender_identity") %>
           <%= f.select :gender_identity, @page.gender_identity_options, 
-            selected: @page.default_gender_identity_option
+            selected: f.object.gender_identity || @page.default_gender_identity_option
           %>
         </div>
         <div class="field medium">
@@ -31,8 +31,8 @@
           <div class="radio-buttons age-range">
             <% @page.age_range_options.each do |age_range_option|%>
               <span class="radio-button">
-                <%= f.radio_button :age_range, age_range_option[0], id: age_range_option[-1] %>
-                <%= f.label :age_range, age_range_option[0], for: age_range_option[-1] %>
+                <%= f.radio_button :age_range, age_range_option[1] %>
+                <%= f.label :age_range, User.age_ranges[age_range_option[1]], value: age_range_option[1] %>
               </span>
             <% end %>
           </div>
@@ -76,8 +76,8 @@
           <div class="radio-buttons role">
             <% @page.role_options.each do |role_option| %>
               <span class="radio-button">
-                <%= f.radio_button :role, role_option[0], id: role_option[-1] %>
-                <%= f.label :role, role_option[0], for: role_option[-1] %>
+                <%= f.radio_button :role, role_option[1] %>
+                <%= f.label :role, User.roles[role_option[1]], value: role_option[1] %>
               </span>
             <% end %>
           </div>
