@@ -82,7 +82,7 @@ class RegistrationFlow
     page.fill_in("Billing Name (Optional)", with: billing_person_full_name)
     page.fill_in("Billing Email Address (Optional)", with: billing_person_email)
     page.fill_in("Billing Phone Number (Optional)", with: billing_person_phone_number)
-    page.check("user_terms_accepted_at")
+    page.check("user_terms_accepted")
   end
 
   def submit_account_creation_form

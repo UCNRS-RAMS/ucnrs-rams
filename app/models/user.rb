@@ -3,6 +3,8 @@
 class User < ApplicationRecord
   VALID_PASSWORD_PATTERN = /^(?=.*?[A-Z])(?=.*?[0-9]).{8,70}$/
 
+  attr_accessor	:terms_accepted
+
   devise :confirmable,
     :database_authenticatable,
     :registerable,
@@ -21,6 +23,7 @@ class User < ApplicationRecord
   validates :address_state, presence: true, if: :required_for_address_country?
   validates :address_postal_code, presence: true
   validates :billing_address_state, presence: true, if: :required_for_billing_address_country?
+  validates :terms_accepted, acceptance: { accept: "1" }, presence: true, on: :create
   validates :terms_accepted_at, presence: true
   validates :institution, presence: true
 

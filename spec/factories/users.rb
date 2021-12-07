@@ -9,6 +9,7 @@ FactoryBot.define do
     address_line_1 { "1 Muir Woods Road" }
     address_city { "Mill Valley" }
     address_postal_code { "94941" }
+    terms_accepted { "1" }
     terms_accepted_at { Time.current }
     password { "Password1" }
     sequence(:email) { |n| "john@muir#{n}.test" }

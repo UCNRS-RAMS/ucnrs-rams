@@ -54,6 +54,7 @@ module Unauthenticated
         :billing_person_email,
         :billing_person_phone_number,
         :terms_accepted_at,
+        :terms_accepted
       )
     end
   end

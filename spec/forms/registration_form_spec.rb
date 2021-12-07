@@ -80,6 +80,7 @@ RSpec.describe RegistrationForm do
       new_user_params = {
         first_name: "John",
         last_name: "Muir",
+        terms_accepted: "1",
       }
 
       freeze_time do
@@ -131,6 +132,7 @@ RSpec.describe RegistrationForm do
         billing_address_same_as_current: "1",
         password: "Password1",
         password_confirmation: "Password1",
+        terms_accepted: "1",
       }
 
       form = RegistrationForm.new(valid_params)

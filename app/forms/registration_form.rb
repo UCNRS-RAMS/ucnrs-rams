@@ -35,12 +35,16 @@ class RegistrationForm
       password_confirmation: @params[:password_confirmation],
       accessibility_requirements: @params[:accessibility_requirements],
       backup_email_address: @params[:backup_email_address],
-      terms_accepted_at: terms_accepted_at,
+      terms_accepted: @params[:terms_accepted],
       age_range: @params[:age_range]
     )
 
     if billing_address_same_as_current_address?
       copy_address_fields_to_billing_address
+    end
+
+    if terms_accepted?
+      user.assign_attributes(terms_accepted_at: terms_accepted_at)
     end
   end
 
@@ -54,6 +58,10 @@ class RegistrationForm
   private
 
   attr_reader :params
+
+  def terms_accepted?
+    ActiveModel::Type::Boolean.new.cast(params[:terms_accepted])
+  end
 
   def terms_accepted_at
     Time.current
