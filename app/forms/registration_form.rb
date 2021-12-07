@@ -36,7 +36,8 @@ class RegistrationForm
       accessibility_requirements: @params[:accessibility_requirements],
       backup_email_address: @params[:backup_email_address],
       terms_accepted_at: terms_accepted_at,
-      age_range: @params[:age_range]
+      age_range: @params[:age_range],
+      orcid: @params[:orcid],
     )
 
     if billing_address_same_as_current_address?

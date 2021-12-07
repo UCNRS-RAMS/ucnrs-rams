@@ -15,22 +15,21 @@ class RegistrationFormPresenter
   delegate :user, to: :form, prefix: true
 
   def gender_identity_options
-    gender_identity_options = User.gender_identities
-    gender_identity_options.map do |key, value|
-      [value, gender_identity_options.key(value)]
+    User.gender_identities.map do |key, value|
+      [value, key]
     end
   end
 
   def age_range_options
     User.age_ranges.map do |key, value|
-      [value, identifier_for(:age_range, value)]
+      [value, key]
     end
   end
 
   def role_options
     role_options = User.roles.except(:no_selection)
     role_options.map do |key, value|
-      [value, identifier_for(:role, value)]
+      [value, key]
     end
   end
 
