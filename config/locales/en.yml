@@ -475,7 +475,7 @@ en:
         method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
       yes_option: "Yes"
       no_option: "No"
-    team:
+    teams:
       edit:
         title: "Team"
   waivers:

@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :visits, only: [:new, :create]
 
   resources :projects, only: [:index, :new, :create] do
-    resource :team, only: [:edit, :update], controller: "projects/team"
+    resource :teams, only: [:edit, :update], controller: "projects/teams"
   end
 
   resources :reserves, only: [:index, :show] do
