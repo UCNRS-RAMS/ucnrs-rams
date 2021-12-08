@@ -27,6 +27,7 @@ class ProjectForm
         true
       end
     rescue ActiveRecord::RecordInvalid => e
+      Rails.logger.error(e)
       false
     end
   end
