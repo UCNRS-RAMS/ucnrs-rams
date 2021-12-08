@@ -29,10 +29,10 @@
           <p class="helper-text"><strong><%= t(".titles.age_range") %></strong></p>
           <p class="helper-text"><%= t(".helper_text.age_range") %></p>
           <div class="radio-buttons age-range">
-            <% @page.age_range_options.each do |age_range_option|%>
+            <% @page.age_range_options.each do |(value, label)|%>
               <span class="radio-button">
-                <%= f.radio_button :age_range, age_range_option[1] %>
-                <%= f.label :age_range, User.age_ranges[age_range_option[1]], value: age_range_option[1] %>
+                <%= f.radio_button :age_range, value %>
+                <%= f.label :age_range, label, value: value %>
               </span>
             <% end %>
           </div>
@@ -74,10 +74,10 @@
         <div class="field">
           <h2><%= t(".titles.role") %></h2>
           <div class="radio-buttons role">
-            <% @page.role_options.each do |role_option| %>
+            <% @page.role_options.each do |(value, label)| %>
               <span class="radio-button">
-                <%= f.radio_button :role, role_option[1] %>
-                <%= f.label :role, User.roles[role_option[1]], value: role_option[1] %>
+                <%= f.radio_button :role, value %>
+                <%= f.label :role, label, value: value %>
               </span>
             <% end %>
           </div>
