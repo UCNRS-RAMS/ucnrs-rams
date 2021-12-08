@@ -150,6 +150,16 @@ RSpec.describe ProjectForm, type: :model do
         can_receive_invoice: true,
       )
     end
+
+    it "logs errors if the transaction is rolled back" do
+      form = ProjectForm.new
+      allow(Rails.logger).to receive(:error)
+
+      result = form.save
+
+      expect(Rails.logger).to have_received(:error)
+      expect(result).to be false
+    end 
   end
 
   describe "initializing" do
