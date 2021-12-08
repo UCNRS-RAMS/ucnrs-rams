@@ -33,10 +33,10 @@ RSpec.describe RegistrationFormPresenter do
       age_range_options = presenter.age_range_options
 
       expect(age_range_options).to match_array [
-        ["1-17", "one_to_seventeen"],
-        ["18-25", "eighteen_to_twenty_five"],
-        ["25-50", "twenty_five_to_fifty"],
-        ["50 or older", "fifty_or_older"],
+        ["one_to_seventeen", "1-17"],
+        ["eighteen_to_twenty_five", "18-25"],
+        ["twenty_five_to_fifty", "25-50"],
+        ["fifty_or_older", "50 or older"],
       ]
     end
   end
@@ -48,18 +48,18 @@ RSpec.describe RegistrationFormPresenter do
       role_options = presenter.role_options
 
       expect(role_options).to match_array [
-        ["Faculty", "faculty"],
-        ["Research Scientist/Post Doc", "research_scientist"],
-        ["Research Assistant (non-student/faculty/postdoc)", "research_assistant"],
-        ["Graduate Student", "graduate_student"],
-        ["Undergraduate Student", "undergraduate_student"],
-        ["K-12 Instructor", "k_12_instructor"],
-        ["K-12 Student", "k_12_student"],
-        ["Professional", "professional"],
-        ["Other", "other"],
-        ["Docent", "docent"],
-        ["Volunteer", "volunteer"],
-        ["Staff", "staff"],
+        ["faculty", "Faculty"],
+        ["research_scientist", "Research Scientist/Post Doc"],
+        ["research_assistant", "Research Assistant (non-student/faculty/postdoc)"],
+        ["graduate_student", "Graduate Student"],
+        ["undergraduate_student", "Undergraduate Student"],
+        ["k_12_instructor", "K-12 Instructor"],
+        ["k_12_student", "K-12 Student"],
+        ["professional", "Professional"],
+        ["other", "Other"],
+        ["docent", "Docent"],
+        ["volunteer", "Volunteer"],
+        ["staff", "Staff"],
       ]
     end
   end
