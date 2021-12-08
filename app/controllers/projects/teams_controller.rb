@@ -1,4 +1,4 @@
-class Projects::TeamController < ApplicationController
+class Projects::TeamsController < ApplicationController
   before_action :authenticate_user!
 
   def edit;end

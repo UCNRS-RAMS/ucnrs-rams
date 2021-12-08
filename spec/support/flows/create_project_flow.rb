@@ -107,7 +107,7 @@ class CreateProjectFlow
   end
 
   def on_project_teams_page?
-    page.has_css?("body.team-edit")
+    page.has_css?("body.teams-edit")
   end
 
   private
