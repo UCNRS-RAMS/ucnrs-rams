@@ -10,7 +10,7 @@ class Projects::TeamsEditPresenter
   delegate :svg, :step_class, to: :steps_presenter
 
   def team_memberships
-    project.team_memberships.map do |team_membership|
+    project.team_memberships.by_project_role.map do |team_membership|
       Projects::TeamMembershipPresenter.new(team_membership)
     end
   end

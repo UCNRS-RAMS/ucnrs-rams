@@ -38,4 +38,33 @@ RSpec.describe ProjectTeamMembership, type: :model do
         staff: "Staff",
       ).backed_by_column_of_type(:string)
   end
+
+  describe ".by_project_role" do
+    it "sorts members by their permissions: PI, PM, Member, Billing" do
+      member = create(:project_team_membership, :team_member)
+      inactive_pi = create(:project_team_membership, :principal_investigator, active: false)
+      billing = create(:project_team_membership, :billing)
+      someone_else = create(
+        :project_team_membership,
+        is_principal_investigator: true,
+        can_edit_project: false,
+        can_add_project_user: false,
+        can_add_visit: false,
+        can_receive_invoice: true,
+      )
+      project_manager = create(:project_team_membership, :project_manager)
+      principal_investigator = create(:project_team_membership, :principal_investigator)
+
+      members = ProjectTeamMembership.by_project_role
+
+      expect(members.map(&:id)).to eq [
+        principal_investigator,
+        project_manager,
+        member,
+        billing,
+        someone_else,
+        inactive_pi,
+      ].map(&:id)
+    end
+  end
 end
