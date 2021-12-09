@@ -25,7 +25,7 @@ RSpec.describe Projects::TeamMembershipPresenter do
           team_membership = create(:project_team_membership, active: true)
           presenter = Projects::TeamMembershipPresenter.new(team_membership)
 
-          expect(presenter.permissions_icon("Active")).to eq "check-light.svg"
+          expect(presenter.permissions_icon("Active")).to eq "check.svg"
         end
       end
 
@@ -34,14 +34,14 @@ RSpec.describe Projects::TeamMembershipPresenter do
           team_membership = create(:project_team_membership, active: true, can_edit_project: true)
           presenter = Projects::TeamMembershipPresenter.new(team_membership)
 
-          expect(presenter.permissions_icon("Edit")).to eq "check-light.svg"
+          expect(presenter.permissions_icon("Edit")).to eq "check.svg"
         end
 
         it "is the disallowable permissions icon if the team membership does not have editing permissions" do
           team_membership = create(:project_team_membership, active: true, can_edit_project: false)
           presenter = Projects::TeamMembershipPresenter.new(team_membership)
 
-          expect(presenter.permissions_icon("Edit")).to eq "square.svg"
+          expect(presenter.permissions_icon("Edit")).to eq "dot.svg"
         end
       end
 
@@ -50,14 +50,14 @@ RSpec.describe Projects::TeamMembershipPresenter do
           team_membership = create(:project_team_membership, active: true, can_add_visit: true)
           presenter = Projects::TeamMembershipPresenter.new(team_membership)
 
-          expect(presenter.permissions_icon("Book")).to eq "check-light.svg"
+          expect(presenter.permissions_icon("Book")).to eq "check.svg"
         end
 
         it "is the disallowable permissions icon if the team membership does not have booking permissions" do
           team_membership = create(:project_team_membership, active: true, can_add_visit: false)
           presenter = Projects::TeamMembershipPresenter.new(team_membership)
 
-          expect(presenter.permissions_icon("Book")).to eq "square.svg"
+          expect(presenter.permissions_icon("Book")).to eq "dot.svg"
         end
       end
 
@@ -66,14 +66,14 @@ RSpec.describe Projects::TeamMembershipPresenter do
           team_membership = create(:project_team_membership, active: true, can_receive_invoice: true)
           presenter = Projects::TeamMembershipPresenter.new(team_membership)
 
-          expect(presenter.permissions_icon("Invoice")).to eq "check-light.svg"
+          expect(presenter.permissions_icon("Invoice")).to eq "check.svg"
         end
 
         it "is the disallowable permissions icon if the team membership does not have invoicing permissions" do
           team_membership = create(:project_team_membership, active: true, can_receive_invoice: false)
           presenter = Projects::TeamMembershipPresenter.new(team_membership)
 
-          expect(presenter.permissions_icon("Invoice")).to eq "square.svg"
+          expect(presenter.permissions_icon("Invoice")).to eq "dot.svg"
         end
       end
     end
@@ -83,7 +83,7 @@ RSpec.describe Projects::TeamMembershipPresenter do
         team_membership = create(:project_team_membership, active: false)
         presenter = Projects::TeamMembershipPresenter.new(team_membership)
 
-        expect(presenter.permissions_icon(:any_value)).to eq "square.svg"
+        expect(presenter.permissions_icon(:any_value)).to eq "dot.svg"
       end
     end
   end

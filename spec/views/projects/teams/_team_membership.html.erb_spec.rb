@@ -27,10 +27,10 @@ RSpec.describe "app/views/projects/teams/_team_memberships.html.erb", type: :vie
       expect(doc).to have_css("td:nth-child(2)", text: "Good School")
       expect(doc).to have_css("td:nth-child(3)", text: "Faculty")
       expect(doc).to have_css("td:nth-child(4)", text: "Team Member")
-      expect(doc).to have_css("td:nth-child(5) img[src*='check-light']")
-      expect(doc).to have_css("td:nth-child(6) img[src*='square']")
-      expect(doc).to have_css("td:nth-child(7) img[src*='check-light']")
-      expect(doc).to have_css("td:nth-child(8) img[src*='check-light']")
+      expect(doc).to have_css("td:nth-child(5) img[src*='check']")
+      expect(doc).to have_css("td:nth-child(6) img[src*='dot']")
+      expect(doc).to have_css("td:nth-child(7) img[src*='check']")
+      expect(doc).to have_css("td:nth-child(8) img[src*='check']")
     end
   end
 end

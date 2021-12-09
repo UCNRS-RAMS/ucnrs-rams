@@ -1,6 +1,6 @@
 @import "variables";
 
-.team-edit {
+.teams-edit {
   table {
     border-collapse: separate;
     border-spacing: 0 0.375rem;
@@ -68,8 +68,7 @@
           vertical-align: middle;
           width: 1rem;
 
-          &[src*="check-light"] {
-            background-color: $navy-blue;
+          &[src*="check"] {
             height: 0.875rem;
             width: 0.875rem;
           }

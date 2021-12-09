@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Projects::TeamMembershipPresenter
-  ALLOWED_PERMISSIONS_ICON = "check-light.svg"
-  DISALLOWED_PERMISSIONS_ICON = "square.svg"
+  ALLOWED_PERMISSIONS_ICON = "check.svg"
+  DISALLOWED_PERMISSIONS_ICON = "dot.svg"
   PRINCIPAL_INVESTIGATOR_ROLE = "PI - Principal Investigator"
   PROJECT_MANAGER_ROLE = "Project Manager"
   TEAM_MEMBER_ROLE = "Team Member"
