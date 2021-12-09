@@ -15,6 +15,15 @@ class Projects::TeamsEditPresenter
     end
   end
 
+  def project_roles
+    [
+      "PI - Principal Investigator",
+      "Project Manager",
+      "Team Member",
+      "Billing",
+    ]
+  end
+
   private
 
   attr_reader :user, :steps_presenter, :current_step

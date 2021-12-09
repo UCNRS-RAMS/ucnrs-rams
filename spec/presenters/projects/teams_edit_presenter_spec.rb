@@ -22,4 +22,21 @@ RSpec.describe Projects::TeamsEditPresenter do
       ]
     end
   end
+
+  describe "#project_roles" do
+    it "is a list of project roles" do
+      presenter = Projects::TeamsEditPresenter.new(
+        user: :dummy,
+        current_step: 2,
+        project: create(:project),
+      )
+
+      expect(presenter.project_roles).to eq [
+        "PI - Principal Investigator",
+        "Project Manager",
+        "Team Member",
+        "Billing",
+      ]
+    end
+  end
 end
