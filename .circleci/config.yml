@@ -62,8 +62,8 @@ jobs:
 
       # Save Brakeman
       - store_artifacts:
-          path: tmp/brakeman.html
-          destination: security/brakeman.html
+          path: tmp/brakeman
+          destination: security/
 
       # Save Coverage Analysis
       - store_artifacts:

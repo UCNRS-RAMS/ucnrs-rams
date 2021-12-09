@@ -4,7 +4,7 @@
 # Brakeman is a security scanner https://github.com/presidentbeef/brakeman.
 gem install brakeman --no-document
 
-brakeman --exit-on-warn --separate-models -o tmp/brakeman.html -o tmp/brakeman.text .
+bundle exec brakeman --exit-on-warn --separate-models -o tmp/brakeman/brakeman.html -o tmp/brakeman/brakeman.text -o tmp/brakeman/brakeman.json .
 brakeman_exit_code=$?
 cat tmp/brakeman.text
 
