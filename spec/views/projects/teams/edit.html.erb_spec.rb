@@ -30,5 +30,21 @@ RSpec.describe "edit.html.erb" do
       expect(doc).to have_field("Full name", type: "text")
       expect(doc).to have_field("Project role", type: "select")
     end
+
+    it "includes markup for autocomplete on the user field" do
+      assign(:presenter, Projects::TeamsEditPresenter.new(
+        user: :dummy,
+        current_step: 2,
+        project: build(:project),
+      ))
+
+      render template: "projects/teams/edit"
+
+      doc = Capybara.string(rendered)
+      field = doc.find(".field.autocomplete[data-controller='autocomplete']")
+      expect(field["data-autocomplete-url-value"]).to eq "/users"
+      expect(field).to have_css("input[data-autocomplete-target='input']")
+      expect(field).to have_css(".autocomplete-results-container .autocomplete-results[data-autocomplete-target='results']")
+    end
   end
 end

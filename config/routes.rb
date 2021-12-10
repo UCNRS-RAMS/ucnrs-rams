@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :institutions, only: [:index, :new, :create]
   resources :states, only: [:index]
   resources :visits, only: [:new, :create]
+  resources :users, only: [:index]
 
   resources :projects, only: [:index, :new, :create] do
     resource :teams, only: [:edit, :update], controller: "projects/teams"

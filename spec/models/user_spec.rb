@@ -447,4 +447,12 @@ RSpec.describe User, type: :model do
       expect(user.full_name).to eq "Thorin Oakenshield"
     end
   end
+
+  describe ".search" do
+    it "generates the right SQL query to search names" do
+      query = User.search("query").to_sql
+
+      expect(query).to eq "SELECT `users`.*, MATCH (first_name, middle_name, last_name) AGAINST ('query') AS score FROM `users` HAVING (score > 0) ORDER BY score DESC"
+    end
+  end
 end

@@ -14,9 +14,13 @@
     </span>
   </div>
   <%= form_with url: root_url do |form| %>
-    <div class="field">
+    <div class="field autocomplete" data-controller="autocomplete" data-autocomplete-url-value="<%= users_path %>">
       <%= form.label :full_name %>
-      <%= form.text_field :full_name, placeholder: t(".search_by_name") %>
+      <%= form.text_field :full_name, placeholder: t(".search_by_name"), "data-autocomplete-target": "input" %>
+      <%= form.hidden_field :user_id, "data-autocomplete-target": "hidden" %>
+      <div class="autocomplete-results-container">
+        <ul class="autocomplete-results" data-autocomplete-target="results"></ul>
+      </div>
     </div>
     <div class="inline">
       <div class="field">

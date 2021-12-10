@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_02_132057) do
+ActiveRecord::Schema.define(version: 2021_12_10_134952) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id"
@@ -914,6 +914,7 @@ ActiveRecord::Schema.define(version: 2021_12_02_132057) do
     t.column "age_range", "enum('1-17','18-25','25-50','50 or older')"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["first_name", "middle_name", "last_name"], name: "name_search", type: :fulltext
     t.index ["id"], name: "user"
     t.index ["institution_id", "last_name", "first_name", "middle_name"], name: "Institution+Name"
     t.index ["institution_id"], name: "Institution"

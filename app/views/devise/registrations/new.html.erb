@@ -107,7 +107,9 @@
               placeholder: t(".placeholders.institution")
             %>
             <%= f.hidden_field :institution_id, data: { "autocomplete-target": "hidden" } %>
-            <ul class="autocomplete-results" data-autocomplete-target="results"></ul>
+            <div class="autocomplete-results-container">
+              <ul class="autocomplete-results" data-autocomplete-target="results"></ul>
+            </div>
           </div>
           <p class="helper-text">
             <strong><%= t(".helper_text.tip") %></strong>

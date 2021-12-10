@@ -1,0 +1,7 @@
+<% if @presenter.users.empty? %>
+  <li class="list-group-item" role="option" aria-disabled="true">
+    No Results
+  </li>
+<% else %>
+  <%= render partial: "users/autocomplete_result", collection: @presenter.users %>
+<% end %>

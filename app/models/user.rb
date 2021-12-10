@@ -86,6 +86,15 @@ class User < ApplicationRecord
     fifty_or_older: "50 or older",
   }
 
+  def self.search(query)
+    select(
+      arel_table[Arel.star],
+      sanitize_sql(["MATCH (first_name, middle_name, last_name) AGAINST (:query) AS score", query: query])
+    )
+      .having("score > 0")
+      .order("score DESC")
+  end
+
   def full_name
     "#{first_name} #{last_name}"
   end
