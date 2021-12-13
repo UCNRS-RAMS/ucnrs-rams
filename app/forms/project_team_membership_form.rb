@@ -1,0 +1,111 @@
+# frozen_string_literal: true
+
+class ProjectTeamMembershipForm
+  include ActiveModel::Model
+
+  def model_name
+    ActiveModel::Name.new(ProjectTeamMembership)
+  end
+
+  def initialize(project:, params: {})
+    @project_team_membership = ProjectTeamMembership.where(id: params[:id]).first ||
+      ProjectTeamMembership.new
+    @project_team_membership.project = project
+    @project_team_membership.active = true
+    assign(params)
+    set_institution_from_user
+    set_user_role_from_user
+  end
+
+  validates :project_role, inclusion: {
+    in: ProjectTeamMembership::PROJECT_ROLES,
+  }
+
+  attr_accessor :full_name
+  attr_reader :project_role
+
+  def project_role=(project_role)
+    @project_role = project_role
+    case project_role
+    when ProjectTeamMembership::PRINCIPAL_INVESTIGATOR_ROLE
+      self.is_principal_investigator = true
+      self.can_edit_project = true
+      self.can_add_project_user = true
+      self.can_add_visit = true
+      self.can_receive_invoice = true
+    when ProjectTeamMembership::PROJECT_MANAGER_ROLE
+      self.is_principal_investigator = false
+      self.can_edit_project = true
+      self.can_add_project_user = true
+      self.can_add_visit = true
+      self.can_receive_invoice = false
+    when ProjectTeamMembership::TEAM_MEMBER_ROLE
+      self.is_principal_investigator = false
+      self.can_edit_project = false
+      self.can_add_project_user = true
+      self.can_add_visit = true
+      self.can_receive_invoice = false
+    when ProjectTeamMembership::BILLING_ROLE
+      self.is_principal_investigator = false
+      self.can_edit_project = false
+      self.can_add_project_user = false
+      self.can_add_visit = true
+      self.can_receive_invoice = true
+    else
+      self.is_principal_investigator = false
+      self.can_edit_project = false
+      self.can_add_project_user = false
+      self.can_add_visit = false
+      self.can_receive_invoice = false
+    end
+  end
+
+  attr_reader :project_team_membership
+  delegate_missing_to :project_team_membership
+
+  alias_method :validate_form, :validate
+  alias_method :valid_form?, :valid?
+  def validate
+    validate_form
+    validate_project_team_membership
+    copy_errors_to_self
+    errors.empty?
+  end
+  alias_method :valid?, :validate
+
+  def save
+    validate && project_team_membership.save
+  end
+
+  private
+
+  def validate_project_team_membership
+    project_team_membership.validate
+  end
+
+  def copy_errors_to_self
+    errors.merge!(project_team_membership.errors)
+    errors[:user].each { |error| errors.add(:full_name, error) }
+  end
+
+  def set_institution_from_user
+    self.institution_id = Institution
+      .joins(:users)
+      .where(users: { id: user_id })
+      .pluck(:id)
+      .first
+  end
+
+  def set_user_role_from_user
+    self.user_role = User
+      .where(id: user_id)
+      .pluck(:role)
+      .first
+  end
+
+  def assign(params)
+    params.each do |key, value|
+      public_send(:"#{key}=", value)
+    end
+  end
+end

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index]
 
   resources :projects, only: [:index, :new, :create] do
-    resources :team_memberships, only: [:index], controller: "projects/team_memberships"
+    resources :team_memberships, only: [:index, :create], controller: "projects/team_memberships"
   end
 
   resources :reserves, only: [:index, :show] do

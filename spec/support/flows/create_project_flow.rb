@@ -110,6 +110,30 @@ class CreateProjectFlow
     page.has_css?("body.team_memberships-index")
   end
 
+  def enter_name_into_autocomplete(text)
+    page.fill_in("project_team_membership_full_name", with: text)
+  end
+
+  def showing_autocomplete_with_option?(option_name)
+    page.has_css?(".autocomplete-results li", text: option_name)
+  end
+
+  def select_autocomplete_option(option)
+    page.find(".autocomplete-results li", text: option).click
+  end
+
+  def select_project_role(option)
+    page.select(option, from: "Project Role")
+  end
+
+  def add_user_to_team
+    page.find("input[value='Add Team Member']").click
+  end
+
+  def has_team_member?(name)
+    page.has_css?("tr.team-membership td", text: name)
+  end
+
   private
 
   attr_reader :page

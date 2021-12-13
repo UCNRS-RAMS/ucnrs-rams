@@ -1,27 +1,29 @@
+# frozen_string_literal: true
+
 class Projects::TeamMembershipsIndexPresenter
-  def initialize(user:, current_step:, project: nil)
+  def initialize(user:, current_step:, project: nil, form: nil)
     @user = user
     @project = project
     @current_step = current_step
     @steps_presenter = StepsPresenter.new(@current_step)
+    @form = form || ProjectTeamMembershipForm.new(project: project)
   end
 
-  attr_reader :project
+  attr_reader :project, :form
   delegate :svg, :step_class, to: :steps_presenter
 
   def team_memberships
-    project.team_memberships.by_project_role.map do |team_membership|
-      Projects::TeamMembershipPresenter.new(team_membership)
+    project
+      .team_memberships
+      .includes([user: :institution])
+      .by_project_role
+      .map do |team_membership|
+        Projects::TeamMembershipPresenter.new(team_membership)
     end
   end
 
   def project_roles
-    [
-      "PI - Principal Investigator",
-      "Project Manager",
-      "Team Member",
-      "Billing",
-    ]
+    ProjectTeamMembership::PROJECT_ROLES
   end
 
   private

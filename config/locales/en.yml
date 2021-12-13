@@ -6,6 +6,9 @@ en:
         end_date: "end date"
       amenity_visit:
         arrives_on: "start date"
+      project_team_membership_form:
+        full_name: "Full Name"
+        project_role: "Project Role"
     errors:
       messages:
         must_be_after: "must be after %{attribute}"
@@ -34,6 +37,14 @@ en:
               inclusion: "must make a choice"
             method_long_term_structures:
               inclusion: "must make a choice"
+        project_team_membership:
+          attributes:
+            user:
+              taken: "already on this team"
+        project_team_membership_form:
+          attributes:
+            project_role:
+              inclusion: "must select an option"
         user:
           billing_address_fields_presence: "can't be blank if including a billing address"
           attributes:

@@ -36,6 +36,15 @@ RSpec.describe "Creating a project", type: :system, js: true do
 
   it "can create a new project" do
     user = create(:user, :confirmed)
+    another_user = create(
+      :user,
+      :confirmed,
+      first_name: "Another",
+      last_name: "User",
+      role: :docent,
+      email: "123@456.test",
+      institution: create(:institution, name: "MIT"),
+    )
     sign_in(user)
     flow = CreateProjectFlow.new(page)
 
@@ -73,7 +82,14 @@ RSpec.describe "Creating a project", type: :system, js: true do
       recent_publications: nil,
     )
     flow.submit_project_form
-
     expect(flow).to be_on_project_teams_page
+
+    flow.enter_name_into_autocomplete("Anot")
+    expect(flow).to be_showing_autocomplete_with_option("Another User - MIT - 1x3@456.test")
+
+    flow.select_autocomplete_option("Another User")
+    flow.select_project_role("Project Manager")
+    flow.add_user_to_team
+    expect(flow).to have_team_member("Another User")
   end
 end

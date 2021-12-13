@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProjectTeamMembership < ApplicationRecord
   belongs_to :user
   belongs_to :project
@@ -5,6 +7,13 @@ class ProjectTeamMembership < ApplicationRecord
 
   validates :user, uniqueness: { scope: :project }
   validates :user_role, presence: true
+
+  PROJECT_ROLES = [
+    PRINCIPAL_INVESTIGATOR_ROLE = "PI - Principal Investigator",
+    PROJECT_MANAGER_ROLE = "Project Manager",
+    TEAM_MEMBER_ROLE = "Team Member",
+    BILLING_ROLE = "Billing",
+  ].freeze
 
   enum user_role: {
     no_selection: "No selection",

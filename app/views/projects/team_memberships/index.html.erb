@@ -13,7 +13,7 @@
       <%= link_to t(".create_new_user"), "#" %>
     </span>
   </div>
-  <%= form_with url: root_url do |form| %>
+    <%= form_with model: @presenter.form, url: project_team_memberships_path(@presenter.project) do |form| %>
     <div class="field autocomplete" data-controller="autocomplete" data-autocomplete-url-value="<%= users_path %>">
       <%= form.label :full_name %>
       <%= form.text_field :full_name, placeholder: t(".search_by_name"), "data-autocomplete-target": "input" %>

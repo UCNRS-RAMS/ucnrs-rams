@@ -3,10 +3,6 @@
 class Projects::TeamMembershipPresenter
   ALLOWED_PERMISSIONS_ICON = "check.svg"
   DISALLOWED_PERMISSIONS_ICON = "dot.svg"
-  PRINCIPAL_INVESTIGATOR_ROLE = "PI - Principal Investigator"
-  PROJECT_MANAGER_ROLE = "Project Manager"
-  TEAM_MEMBER_ROLE = "Team Member"
-  BILLING_ROLE = "Billing"
   ACTIVE = "Active"
   EDIT = "Edit"
   BOOK = "Book"
@@ -47,13 +43,13 @@ class Projects::TeamMembershipPresenter
 
   def project_role
     if is_principal_investigator
-      PRINCIPAL_INVESTIGATOR_ROLE
+      ProjectTeamMembership::PRINCIPAL_INVESTIGATOR_ROLE
     elsif can_edit_project
-      PROJECT_MANAGER_ROLE
+      ProjectTeamMembership::PROJECT_MANAGER_ROLE
     elsif can_add_project_user
-      TEAM_MEMBER_ROLE
+      ProjectTeamMembership::TEAM_MEMBER_ROLE
     elsif can_receive_invoice
-      BILLING_ROLE
+      ProjectTeamMembership::BILLING_ROLE
     else
       nil
     end

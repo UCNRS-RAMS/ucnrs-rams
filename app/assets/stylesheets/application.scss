@@ -36,10 +36,10 @@ body {
     }
 
     .error_messages {
-      color: $error-red;
-      display: inline;
-      font-size: 0.8rem;
-      font-style: italic;
+      color: $error-red !important;
+      display: inline !important;
+      font-size: 0.8rem !important;
+      font-style: italic !important;
   
       &:before {
         content: "(";
