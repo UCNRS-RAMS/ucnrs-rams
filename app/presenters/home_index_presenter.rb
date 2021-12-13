@@ -1,14 +1,24 @@
 class HomeIndexPresenter
-  def initialize(visit_requests:, invoices:, news_articles:)
-    @visit_requests = visit_requests
+  def initialize(user:, invoices:, news_articles:)
     @invoices = invoices
     @news_articles = news_articles
+    @user = user
   end
 
-  def visit_requests
-    @visit_requests.map do |visit_request|
-      VisitRequestPresenter.new(visit_request)
+  attr_reader :user
+
+  def visits
+    visit_scope.map do |visit|
+      VisitPresenter.new(visit)
     end
+  end
+
+  def visit_scope
+    Visit
+      .visit_requests_for_user(user: user)
+      .order(starts_at: :desc)
+      .limit(Visit::DEFAULT_LIMIT_FOR_INDEX)
+      .includes(:reserve, :user_visits)
   end
 
   def invoices

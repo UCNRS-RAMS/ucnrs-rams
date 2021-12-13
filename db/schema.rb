@@ -76,35 +76,6 @@ ActiveRecord::Schema.define(version: 2022_01_07_195711) do
     t.index ["visit_id", "ResQuestionID"], name: "visit"
   end
 
-  create_table "ActPeople", primary_key: "ActPeopleID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "visit_id", null: false
-    t.integer "user_id", null: false
-    t.column "Role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')", null: false
-    t.integer "reserve_id"
-    t.integer "institution_id"
-    t.date "ArrivalDate", default: "1999-12-31"
-    t.time "ArrivalTime", default: "2000-01-01 00:00:00"
-    t.date "DepartureDate", default: "1999-12-31"
-    t.time "DepartureTime", default: "2000-01-01 00:00:00"
-    t.boolean "UsageConfirmed", default: false, comment: "Boolean"
-    t.integer "ConfirmedByID"
-    t.text "UsageNotes"
-    t.integer "ActualCount"
-    t.decimal "ActualDays", precision: 6, scale: 3, default: "0.0"
-    t.column "Status", "enum('Pending approval','Approved','Cancelled','Rejected','Bodega Laboratory only','Approved conditionally')", default: "Pending approval", null: false, comment: "Status of each Entry in the Activity"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["ArrivalDate"], name: "ArrivalDate"
-    t.index ["DepartureDate"], name: "DepartureDate"
-    t.index ["Status", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "StatusAndDate"
-    t.index ["reserve_id", "ArrivalDate", "visit_id"], name: "reserve"
-    t.index ["user_id", "visit_id", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "user_visit_date_range"
-    t.index ["user_id"], name: "user"
-    t.index ["visit_id", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "visit_arrival_date"
-    t.index ["visit_id", "DepartureDate", "DepartureTime"], name: "visit_departure_date"
-    t.index ["visit_id"], name: "visit_id"
-  end
-
   create_table "AppAnswers", primary_key: "AppAnswerID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "ResQuestionID", null: false
     t.integer "project_id", null: false
@@ -875,6 +846,38 @@ ActiveRecord::Schema.define(version: 2022_01_07_195711) do
     t.index ["name"], name: "name"
   end
 
+  create_table "user_visits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "visit_id", null: false
+    t.integer "user_id", null: false
+    t.column "role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')", null: false
+    t.integer "reserve_id", comment: "DEPRECATED - use reserve_id through visit"
+    t.integer "institution_id"
+    t.date "ArrivalDate", default: "1999-12-31", comment: "DEPRECATED"
+    t.time "ArrivalTime", default: "2000-01-01 00:00:00", comment: "DEPRECATED"
+    t.date "DepartureDate", default: "1999-12-31", comment: "DEPRECATED"
+    t.time "DepartureTime", default: "2000-01-01 00:00:00", comment: "DEPRECATED"
+    t.boolean "UsageConfirmed", default: false, comment: "DEPRECATED"
+    t.integer "ConfirmedByID", comment: "DEPRECATED"
+    t.text "UsageNotes", comment: "DEPRECATED"
+    t.integer "count"
+    t.decimal "actual_days", precision: 6, scale: 3, default: "0.0"
+    t.column "status", "enum('Pending approval','Approved','Cancelled','Rejected','Bodega Laboratory only','Approved conditionally')", default: "Pending approval", null: false, comment: "Status of each Entry in the Activity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "arrives_at"
+    t.datetime "departs_at"
+    t.index ["ArrivalDate"], name: "ArrivalDate"
+    t.index ["DepartureDate"], name: "DepartureDate"
+    t.index ["reserve_id", "ArrivalDate", "visit_id"], name: "reserve"
+    t.index ["status", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "StatusAndDate"
+    t.index ["status"], name: "status"
+    t.index ["user_id", "visit_id", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "user_visit_date_range"
+    t.index ["user_id"], name: "user"
+    t.index ["visit_id", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "visit_arrival_date"
+    t.index ["visit_id", "DepartureDate", "DepartureTime"], name: "visit_departure_date"
+    t.index ["visit_id"], name: "visit_id"
+  end
+
   create_table "users", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.column "gender_identity", "enum('Male','Female','Non-binary','Other','Prefer not to state')"
     t.string "first_name", limit: 100
@@ -947,7 +950,7 @@ ActiveRecord::Schema.define(version: 2022_01_07_195711) do
     t.text "purpose_of_visit"
     t.boolean "policy_agreement", default: false, comment: "Boolean"
     t.text "special_needs"
-    t.column "status", "enum('Approved','Pending approval','Cancelled','Temp')", default: "Temp", comment: "THis WIll be Removed when we Apply Approval to each Person and Asset instead of the Activity"
+    t.column "status", "enum('approved','in_review','cancelled','incomplete')", default: "incomplete"
     t.column "EMailType", "enum('Automatic','Automatic with confirmation','Compose','Silent','No selection made')", default: "No selection made", comment: "DEPRICATED"
     t.column "calendar_display", "enum('Public','Admin','Hide','No selection made','')", default: "No selection made"
     t.boolean "AddToMailingList", default: false, comment: "DEPRICATED"
@@ -971,6 +974,8 @@ ActiveRecord::Schema.define(version: 2022_01_07_195711) do
     t.column "project_type", "enum('research','university class','meeting or conference','public use')"
     t.column "public_use_category", "enum('general-use','community-event','fundraiser','k-12-class','private-class','volunteer')", default: "general-use"
     t.string "study_area"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
     t.index ["DateSubmitted", "project_id", "id"], name: "Date"
     t.index ["id"], name: "id"
     t.index ["project_id", "id"], name: "Application"

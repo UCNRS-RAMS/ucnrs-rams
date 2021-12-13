@@ -1,0 +1,14 @@
+<tr class="visit <%= visit.status_class %>">
+  <td>
+    <span class="<%= visit.status_class %> pill">
+      <%= visit.status %>
+    </span>
+  </td>
+  <td class="date-range"><%= visit.requested_date_range %></td>
+  <td><%= visit.requested_reserve_name %></td>
+  <td>
+    <%= link_to "#" do %>
+      <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"), height: "20", width: "20" %>
+    <% end %>
+  </td>
+</tr>

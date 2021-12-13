@@ -2,10 +2,13 @@ require "rails_helper"
 
 RSpec.describe Visit, type: :model do
   describe "associations" do
+    it { is_expected.to belong_to(:user) }
     it { is_expected.to belong_to(:project) }
     it { is_expected.to belong_to(:reserve) }
     it { is_expected.to have_many(:amenity_visits) }
     it { is_expected.to have_many(:amenities).through(:amenity_visits) }
+    it { is_expected.to have_many(:user_visits) }
+    it { is_expected.to have_many(:visitors).through(:user_visits).source(:user) }
   end
 
   describe "validations" do
@@ -33,10 +36,10 @@ RSpec.describe Visit, type: :model do
   describe "enums" do
     it do
       is_expected.to define_enum_for(:status).with_values({
-        approved: "Approved",
-        pending: "Pending approval",
-        cancelled: "Cancelled",
-        temp: "Temp",
+        approved: "approved",
+        in_review: "in_review",
+        cancelled: "cancelled",
+        incomplete: "incomplete",
       }).backed_by_column_of_type(:string)
     end
 
@@ -70,6 +73,36 @@ RSpec.describe Visit, type: :model do
       results = Visit.recent_start_date_first
 
       expect(results).to eq [three, one, two]
+    end
+  end
+
+  describe ".ordered_by_visit_date" do
+    it "returns records in reverse chronological order by user_visits earliest arrival" do
+      visit1 = create(:visit)
+      visitor1 = create(:user_visit, visit: visit1, arrives_at: 2.month.ago, departs_at: 1.month.ago)
+
+      visit2 = create(:visit)
+      visitor2 = create(:user_visit, visit: visit2, arrives_at: 2.week.ago, departs_at: 1.week.ago)
+
+      results = Visit.ordered_by_visit_date
+
+      expect(results).to eq [visit2, visit1]
+    end
+  end
+
+  describe "#visit_requests_for_user" do
+    it "returns visit records having user_visits by the user_id given" do
+      user1 = create(:user)
+      visit1 = create(:visit)
+      user_visit1 = create(:user_visit, visit: visit1, user: user1)
+      visit2 = create(:visit)
+      user_visit2 = create(:user_visit, visit: visit2, user: create(:user))
+      visit3 = create(:visit)
+      user_visit3 = create(:user_visit, visit: visit3, user: user1)
+
+      results = Visit.visit_requests_for_user(user: user1)
+
+      expect(results).to eq [visit1, visit3]
     end
   end
 end

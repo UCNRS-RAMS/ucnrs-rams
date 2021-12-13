@@ -88,6 +88,9 @@ en:
     select_one: "Please Select One"
   home:
     index:
+      visits:
+        title: "Visit Requests"
+        most_recent_filter: "Most recent"
       invoices:
         title: "Invoices"
       visit_requests:
@@ -284,6 +287,9 @@ en:
         ucnrs_newsletter: "NRS Newsletter."
         terms_of_use: "Terms of Use"
   visits:
+    index:
+      title: "Visit Requests"
+      most_recent_filter: "Most recent"
     amenities:
       amenity:
         more_info: "Show More"
@@ -597,3 +603,5 @@ en:
         public_information: "For RAMS public information, %{reserves_info_link} %{project_search_link}"
         reserves_info: Reserves Info
         project_search: Project Search
+  alt:
+    right_facing_arrow: "right facing arrow"
