@@ -1,14 +1,18 @@
 class Visit < ApplicationRecord
+  DEFAULT_LIMIT_FOR_INDEX = 10.freeze
+
   belongs_to :user
   belongs_to :project
   belongs_to :reserve
   has_many :amenity_visits
   has_many :amenities, through: :amenity_visits
+  has_many :user_visits
+  has_many :visitors, through: :user_visits, source: :user
 
-  validates :start_time, presence: true
-  validates :end_time, presence: true
   validates :purpose_of_visit, presence: true
   validates :project_type, presence: true
+  validates :start_time, presence: true
+  validates :end_time, presence: true
   validates :end_date, must_be_after: :start_date
   validates :public_use_category, presence: true, if: :public_use?
 
@@ -18,11 +22,29 @@ class Visit < ApplicationRecord
     order(start_date: :desc)
   end
 
+  def self.visit_requests_for_user(user:)
+    left_joins(:user_visits)
+      .where(user_visits: { user: user })
+      .group("visits.id")
+  end
+
+  def self.ordered_by_visit_date
+    left_joins(:user_visits)
+      .select(
+        Arel.sql(<<-end_sql)
+        visits.*,
+        MIN(user_visits.arrives_at) as ordered_visits
+        end_sql
+      )
+      .group("visits.id")
+      .order("ordered_visits DESC")
+  end
+
   enum status: {
-    approved: "Approved",
-    pending: "Pending approval",
-    cancelled: "Cancelled",
-    temp: "Temp",
+    approved: "approved",
+    in_review: "in_review",
+    cancelled: "cancelled",
+    incomplete: "incomplete",
   }
 
   enum project_type: {

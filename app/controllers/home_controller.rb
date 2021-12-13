@@ -3,9 +3,9 @@ class HomeController < ApplicationController
 
   def index
     @presenter = HomeIndexPresenter.new(
-      visit_requests: VisitRequest.fake,
       invoices: Invoice.fake,
       news_articles: NewsArticle.fake,
+      user: current_user,
     )
   end
 end

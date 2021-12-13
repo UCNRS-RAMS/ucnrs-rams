@@ -42,4 +42,8 @@ class VisitsController < ApplicationController
       ]
     )
   end
+
+  def project_type
+    params[:project_type]
+  end
 end

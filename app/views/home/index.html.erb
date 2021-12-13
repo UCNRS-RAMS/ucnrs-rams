@@ -1,21 +1,23 @@
 <section class="content">
-  <section class="visit_requests">
-    <header>
-      <em>
-        <%= t(".visit_requests.title") %>
-      </em>
-      <select>
-        <option value="recent">Most Recent</option>
-      </select>
-      <div class="toolbar-buttons">
-        <button class="selected"><%= image_tag "list.svg", height: "16", width: "16" %></button>
-        <button><%= image_tag "calendar.svg", height: "16", width: "16" %></button>
-      </div>
-    </header>
-    <table class="visit-requests">
-      <%= render partial: "visit_request", collection: @presenter.visit_requests %>
-    </table>
-  </section>
+  <%= turbo_frame_tag "visits" do %>
+    <section class="visits">
+      <header>
+        <em>
+          <%= t(".visits.title") %>
+        </em>
+        <select>
+          <option value="recent"><%= t(".visits.most_recent_filter") %></option>
+        </select>
+        <div class="toolbar-buttons">
+          <button class="selected"><%= image_tag "list.svg", height: "16", width: "16" %></button>
+          <button><%= image_tag "calendar.svg", height: "16", width: "16" %></button>
+        </div>
+      </header>
+      <table class="visit-requests">
+        <%= render partial: "visit", collection: @presenter.visits %>
+      </table>
+    </section>
+  <% end %>
   <section class="invoices">
     <header>
       <em><%= t(".invoices.title") %></em>
