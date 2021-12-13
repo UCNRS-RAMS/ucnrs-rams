@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "app/views/projects/teams/_team_memberships.html.erb", type: :view do
+RSpec.describe "app/views/projects/team_memberships/_team_memberships.html.erb", type: :view do
   describe "viewing a team membership row" do
     it "has the correct values and permissions for the columns" do
       membership = build(
@@ -20,7 +20,7 @@ RSpec.describe "app/views/projects/teams/_team_memberships.html.erb", type: :vie
       )
       presenter = Projects::TeamMembershipPresenter.new(membership)
 
-      render partial: "projects/teams/team_membership", locals: { team_membership: presenter }
+      render partial: "projects/team_memberships/team_membership", locals: { team_membership: presenter }
 
       doc = Capybara.string(rendered)
       expect(doc).to have_css("td:nth-child(1)", text: "Mx. Nobody")

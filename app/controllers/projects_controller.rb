@@ -20,7 +20,7 @@ class ProjectsController < ApplicationController
   def create
     form = ProjectForm.new(user: current_user, params: project_params)
     if form.save
-      redirect_to edit_project_teams_path(form.project)
+      redirect_to project_team_memberships_path(form.project)
     else
       @presenter = ProjectsNewPresenter.new(
         user: current_user,

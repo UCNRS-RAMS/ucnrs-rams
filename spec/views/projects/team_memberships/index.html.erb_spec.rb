@@ -1,15 +1,15 @@
 require "rails_helper"
 
-RSpec.describe "edit.html.erb" do
+RSpec.describe "index.html.erb" do
   describe "on any render" do
     it "includes steps (on step 2)" do
-      assign(:presenter, Projects::TeamsEditPresenter.new(
+      assign(:presenter, Projects::TeamMembershipsIndexPresenter.new(
         user: :dummy,
         current_step: 2,
         project: build(:project),
       ))
 
-      render template: "projects/teams/edit"
+      render template: "projects/team_memberships/index"
 
       doc = Capybara.string(rendered)
       expect(doc).to have_css("section.progress-steps")
@@ -17,13 +17,13 @@ RSpec.describe "edit.html.erb" do
     end
 
     it "displays a form to add a project team member" do
-      assign(:presenter, Projects::TeamsEditPresenter.new(
+      assign(:presenter, Projects::TeamMembershipsIndexPresenter.new(
         user: :dummy,
         current_step: 2,
         project: build(:project),
       ))
 
-      render template: "projects/teams/edit"
+      render template: "projects/team_memberships/index"
 
       doc = Capybara.string(rendered)
       expect(doc).to have_css("form")
@@ -32,13 +32,13 @@ RSpec.describe "edit.html.erb" do
     end
 
     it "includes markup for autocomplete on the user field" do
-      assign(:presenter, Projects::TeamsEditPresenter.new(
+      assign(:presenter, Projects::TeamMembershipsIndexPresenter.new(
         user: :dummy,
         current_step: 2,
         project: build(:project),
       ))
 
-      render template: "projects/teams/edit"
+      render template: "projects/team_memberships/index"
 
       doc = Capybara.string(rendered)
       field = doc.find(".field.autocomplete[data-controller='autocomplete']")
