@@ -1,8 +1,8 @@
-class Projects::TeamsController < ApplicationController
+class Projects::TeamMembershipsController < ApplicationController
   before_action :authenticate_user!
 
-  def edit
-    @presenter = Projects::TeamsEditPresenter.new(
+  def index
+    @presenter = Projects::TeamMembershipsIndexPresenter.new(
       user: current_user,
       current_step: 2,
       project: project,

@@ -1,4 +1,4 @@
-class Projects::TeamsEditPresenter
+class Projects::TeamMembershipsIndexPresenter
   def initialize(user:, current_step:, project: nil)
     @user = user
     @project = project
