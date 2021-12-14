@@ -87,12 +87,16 @@ class User < ApplicationRecord
   }
 
   def self.search(query)
-    select(
-      arel_table[Arel.star],
-      sanitize_sql(["MATCH (first_name, middle_name, last_name) AGAINST (:query) AS score", query: query])
-    )
-      .having("score > 0")
-      .order("score DESC")
+    URI
+      .decode_www_form_component(query)
+      .strip
+      .split
+      .inject(unscoped.where("0=1")) do |scope, part|
+        scope.or(where(
+          "first_name REGEXP :query OR last_name REGEXP :query",
+          query: part
+        ))
+      end
   end
 
   def full_name

@@ -449,10 +449,14 @@ RSpec.describe User, type: :model do
   end
 
   describe ".search" do
-    it "generates the right SQL query to search names" do
-      query = User.search("query").to_sql
+    it "find users whose first or last name matches the given regex" do
+      jim = create(:user, first_name: "Jim", last_name: "Timothy")
+      jane = create(:user, first_name: "Jane", last_name: "Not Jim")
+      pat = create(:user, first_name: "Pat", last_name: "(not shown)")
 
-      expect(query).to eq "SELECT `users`.*, MATCH (first_name, middle_name, last_name) AGAINST ('query') AS score FROM `users` HAVING (score > 0) ORDER BY score DESC"
+      results = User.search("Jim")
+
+      expect(results).to eq [jim, jane]
     end
   end
 end
