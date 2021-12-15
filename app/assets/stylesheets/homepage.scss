@@ -240,6 +240,22 @@
   }
 }
 
+nav.pagination {
+  display: flex;
+  font-size: 0.75rem;
+  justify-content: flex-end;
+
+  span {
+    color: $navy-blue;
+    font-weight: $bold;
+    padding: 0.313rem;
+
+    a:visited {
+      color: $navy-blue;
+    }
+  }
+}
+
 @media screen and (max-width: 768px) {
   .home-index {
     .content {

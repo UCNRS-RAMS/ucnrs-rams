@@ -1,11 +1,14 @@
 class HomeIndexPresenter
-  def initialize(user:, invoices:, news_articles:)
+  DEFAULT_LIMIT_FOR_INDEX = 10.freeze
+
+  def initialize(user:, page: nil, invoices:, news_articles:)
     @invoices = invoices
     @news_articles = news_articles
     @user = user
+    @page = page || 1
   end
 
-  attr_reader :user
+  attr_reader :user, :page
 
   def visits
     visit_scope.map do |visit|
@@ -17,8 +20,9 @@ class HomeIndexPresenter
     Visit
       .visit_requests_for_user(user: user)
       .order(starts_at: :desc)
-      .limit(Visit::DEFAULT_LIMIT_FOR_INDEX)
-      .includes(:reserve, :user_visits)
+      .page(page)
+      .per(DEFAULT_LIMIT_FOR_INDEX)
+      .includes(:reserve)
   end
 
   def invoices
