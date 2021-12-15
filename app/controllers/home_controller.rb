@@ -6,6 +6,13 @@ class HomeController < ApplicationController
       invoices: Invoice.fake,
       news_articles: NewsArticle.fake,
       user: current_user,
+      page: page_number,
     )
+  end
+
+  private
+
+  def page_number
+    params[:page]
   end
 end

@@ -27,16 +27,6 @@ class VisitPresenter
     reserve.name
   end
 
-  def start_date
-    starts_at&.to_date
-  end
-
-  def end_date
-    ends_at&.to_date
-  end
-
-  private
-
   def earliest_arrival
     user_visits.min_by(&:arrives_at) if user_visits.present?
   end
@@ -52,6 +42,16 @@ class VisitPresenter
   def latest_departure_date
     latest_departure&.departure_date
   end
+
+  def start_date
+    starts_at&.to_date
+  end
+
+  def end_date
+    ends_at&.to_date
+  end
+
+  private
 
   attr_reader :visit
 

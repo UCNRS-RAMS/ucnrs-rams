@@ -5,23 +5,24 @@
         <em>
           <%= t(".visits.title") %>
         </em>
-        <select>
+        <select name="filter" aria-label="visits filter">
           <option value="recent"><%= t(".visits.most_recent_filter") %></option>
         </select>
         <div class="toolbar-buttons">
-          <button class="selected"><%= image_tag "list.svg", height: "16", width: "16" %></button>
-          <button><%= image_tag "calendar.svg", height: "16", width: "16" %></button>
+          <button class="selected"><%= image_tag "list.svg", height: "16", width: "16", alt: t("alt.list_icon") %></button>
+          <button><%= image_tag "calendar.svg", height: "16", width: "16", alt: t("alt.calendar_icon") %></button>
         </div>
       </header>
       <table class="visit-requests">
         <%= render partial: "visit", collection: @presenter.visits %>
       </table>
+      <%= paginate @presenter.visit_scope %>
     </section>
   <% end %>
   <section class="invoices">
     <header>
       <em><%= t(".invoices.title") %></em>
-      <select>
+      <select name="invoice_filter" aria-label="invoice filter">
         <option value="recent">Most Recent</option>
       </select>
     </header>

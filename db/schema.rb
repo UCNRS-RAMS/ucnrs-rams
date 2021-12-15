@@ -632,7 +632,7 @@ ActiveRecord::Schema.define(version: 2022_01_07_195711) do
     t.text "option_value", collation: "utf8_general_ci"
   end
 
-  create_table "reserve_addendums", charset: "utf8mb3", force: :cascade do |t|
+  create_table "reserve_addendums", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.bigint "reserve_id", null: false
     t.integer "sort_order", default: 1, null: false
     t.string "url_link"
