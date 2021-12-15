@@ -214,6 +214,7 @@ RSpec.describe Project, type: :model do
         class: "Class",
         meeting: "Meeting",
         public_use: "Public Use",
+        housing: "Housing",
       ).backed_by_column_of_type(:string)
   end
 
