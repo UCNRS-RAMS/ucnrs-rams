@@ -5,9 +5,20 @@
         <em>
           <%= t(".visits.title") %>
         </em>
-        <select name="filter" aria-label="visits filter">
-          <option value="recent"><%= t(".visits.most_recent_filter") %></option>
-        </select>
+        <%= form_with url: root_path, method: :get, data: { "turbo-frame": "visits" } do %>
+          <select id="status" name="visit_filter" aria-label="visit_filter" onchange="this.form.requestSubmit()">
+            <optgroup label="<%= t(".labels.by") %>">
+              <% @presenter.filter_options.each do |key, value| %>
+                <option <%= @presenter.selected?(value) %> value="<%= value %>"><%= key.humanize %></option>
+              <% end %>
+            </optgroup>
+            <optgroup label="<%= t(".labels.by_reserve") %>">
+              <% @presenter.visits_reserve_list.each do |key, value| %>
+                <option <%= @presenter.selected?("reserve_#{value}") %> value="reserve_<%= value %>"><%= key %></option>
+              <% end %>
+            </optgroup>
+          </select>
+        <% end %>
         <div class="toolbar-buttons">
           <button class="selected"><%= image_tag "list.svg", height: "16", width: "16", alt: t("alt.list_icon") %></button>
           <button><%= image_tag "calendar.svg", height: "16", width: "16", alt: t("alt.calendar_icon") %></button>
@@ -16,7 +27,7 @@
       <table class="visit-requests">
         <%= render partial: "visit", collection: @presenter.visits %>
       </table>
-      <%= paginate @presenter.visit_scope %>
+      <%= paginate @presenter.visit_scope, param_name: :visit_page %>
     </section>
   <% end %>
   <section class="invoices">

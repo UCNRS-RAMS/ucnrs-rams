@@ -88,6 +88,9 @@ en:
     select_one: "Please Select One"
   home:
     index:
+      labels:
+        by: "By:"
+        by_reserve: "By reserve:"
       visits:
         title: "Visit Requests"
         most_recent_filter: "Most recent"

@@ -79,10 +79,9 @@ RSpec.describe Visit, type: :model do
   describe ".ordered_by_visit_date" do
     it "returns records in reverse chronological order by user_visits earliest arrival" do
       visit1 = create(:visit)
-      visitor1 = create(:user_visit, visit: visit1, arrives_at: 2.month.ago, departs_at: 1.month.ago)
-
+      visitor1 = create(:user_visit, visit: visit1, arrives_at: 2.months.ago, departs_at: 1.month.ago)
       visit2 = create(:visit)
-      visitor2 = create(:user_visit, visit: visit2, arrives_at: 2.week.ago, departs_at: 1.week.ago)
+      visitor2 = create(:user_visit, visit: visit2, arrives_at: 2.weeks.ago, departs_at: 1.week.ago)
 
       results = Visit.ordered_by_visit_date
 
@@ -90,19 +89,130 @@ RSpec.describe Visit, type: :model do
     end
   end
 
-  describe "#visit_requests_for_user" do
-    it "returns visit records having user_visits by the user_id given" do
-      user1 = create(:user)
-      visit1 = create(:visit)
-      user_visit1 = create(:user_visit, visit: visit1, user: user1)
-      visit2 = create(:visit)
-      user_visit2 = create(:user_visit, visit: visit2, user: create(:user))
+  describe ".by_reserve" do
+    context "when a reserve id passed in is nil" do
+      it "returns all visit records" do
+        reserve = create(:reserve)
+        visit1 = create(:visit, reserve: reserve)
+        visit2 = create(:visit, reserve: reserve)
+        visit3 = create(:visit)
+
+        results = Visit.by_reserve(nil)
+
+        expect(results).to eq [visit1, visit2, visit3]
+      end
+    end
+
+    context "when a reserve id is passed in" do
+      it "returns all visit records for that reserve" do
+        reserve = create(:reserve)
+        visit1 = create(:visit, reserve: reserve)
+        visit2 = create(:visit, reserve: reserve)
+        visit3 = create(:visit)
+
+        results = Visit.by_reserve(reserve.id)
+
+        expect(results).to eq [visit1, visit2]
+      end
+    end
+  end
+
+  describe ".for_status" do
+    context "when status filter passed in is nil" do
+      it "returns all visit records" do
+        visit1 = create(:visit, status: "approved")
+        visit2 = create(:visit, status: "in_review")
+        visit3 = create(:visit, status: "cancelled")
+        visit4 = create(:visit, status: "incomplete")
+        visit5 = create(:visit, status: "approved")
+
+        results = Visit.for_status(nil)
+
+        expect(results).to eq [visit1, visit2, visit3, visit4, visit5]
+      end
+    end
+
+    context "when status filter passed" do
+      it "returns all visit records with the given status" do
+        visit1 = create(:visit, status: "approved")
+        visit2 = create(:visit, status: "in_review")
+        visit3 = create(:visit, status: "cancelled")
+        visit4 = create(:visit, status: "incomplete")
+        visit5 = create(:visit, status: "approved")
+
+        results = Visit.for_status("approved")
+
+        expect(results).to eq [visit1, visit5]
+      end
+    end
+  end
+
+  describe ".visit_requests_for_user" do
+    it "returns all visit records that the given user is participating in and that the user created" do
+      user = create(:user)
+      visit1 = create(:visit, user: user)
+      visit2 = create(:visit, user: user)
       visit3 = create(:visit)
-      user_visit3 = create(:user_visit, visit: visit3, user: user1)
+      visit4 = create(:visit)
+      create(:user_visit, visit: visit4, user: user)
+      visit5 = create(:visit, user: user)
+      create(:user_visit, visit: visit5, user: user)
+      visit6 = create(:visit)
+      create(:user_visit, visit: visit6)
 
-      results = Visit.visit_requests_for_user(user: user1)
+      results = Visit.visit_requests_for_user(user)
 
-      expect(results).to eq [visit1, visit3]
+      expect(results).to eq [visit1, visit2, visit4, visit5]
+    end
+  end
+
+  describe ".reserve_list_for_user" do
+    it "returns an hash of reserve ids and reserve names of the user visits" do
+      user = create(:user)
+      reserve1 = create(:reserve, name: "Snake River Reserve")
+      reserve2 = create(:reserve, name: "Under the Hill Reserve")
+      reserve3 = create(:reserve)
+      visit1 = create(:visit, user: user, reserve: reserve1)
+      visit2 = create(:visit, user: user, reserve: reserve2)
+      visit3 = create(:visit, reserve: reserve3)
+
+      results = Visit.reserve_list_for_user(user)
+
+      expected_results = {
+        "Snake River Reserve" => reserve1.id,
+        "Under the Hill Reserve" => reserve2.id,
+      }
+
+      expect(results).to eq expected_results
+    end
+  end
+
+  describe ".participating_visit_ids" do
+    it "returns an array of visit ids user is participating" do
+      user = create(:user)
+      visit1 = create(:visit)
+      create(:user_visit, visit: visit1, user: user)
+      visit2 = create(:visit, user: user)
+      create(:user_visit, visit: visit2, user: user)
+      visit3 = create(:visit)
+      create(:user_visit, visit: visit3)
+
+      results = Visit.participating_visit_ids(user)
+
+      expect(results).to eq [visit1.id, visit2.id]
+    end
+  end
+
+  describe ".applicant_visit_ids" do
+    it "returns an array of visit ids user creates" do
+      user = create(:user)
+      visit1 = create(:visit, user: user)
+      visit2 = create(:visit, user: user)
+      visit3 = create(:visit)
+
+      results = Visit.applicant_visit_ids(user)
+
+      expect(results).to eq [visit1.id, visit2.id]
     end
   end
 end
