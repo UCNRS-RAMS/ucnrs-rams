@@ -114,6 +114,7 @@ class Project < ApplicationRecord
     class: "Class",
     meeting: "Meeting",
     public_use: "Public Use",
+    housing: "Housing",
   }
 
   def self.blank
