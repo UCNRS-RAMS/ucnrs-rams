@@ -1,6 +1,14 @@
 class Visit < ApplicationRecord
   DEFAULT_LIMIT_FOR_INDEX = 10.freeze
 
+  STATUS_FILTERS = {
+    "visit_date" => nil,
+    "approved" => "approved",
+    "in_review" => "in_review",
+    "cancelled" => "cancelled",
+    "incomplete" => "incomplete",
+  }.freeze
+
   belongs_to :user
   belongs_to :project
   belongs_to :reserve
@@ -22,10 +30,8 @@ class Visit < ApplicationRecord
     order(start_date: :desc)
   end
 
-  def self.visit_requests_for_user(user:)
-    left_joins(:user_visits)
-      .where(user_visits: { user: user })
-      .group("visits.id")
+  def self.visit_requests_for_user(user)
+    where(id: participating_visit_ids(user) | applicant_visit_ids(user))
   end
 
   def self.ordered_by_visit_date
@@ -38,6 +44,43 @@ class Visit < ApplicationRecord
       )
       .group("visits.id")
       .order("ordered_visits DESC")
+  end
+
+  def self.for_status(status_filter)
+    if status_filter.present?
+      where(status: status_filter)
+    else
+      all
+    end
+  end
+
+  def self.by_reserve(reserve_id)
+    if reserve_id
+      where(reserve_id: reserve_id)
+    else
+      all
+    end
+  end
+
+  def self.reserve_list_for_user(user)
+    where(id: participating_visit_ids(user) | applicant_visit_ids(user))
+      .left_joins(:reserve)
+      .select("reserves.id as reserve_id, reserves.name as reserve_name")
+      .group("reserves.id").order("reserves.name")
+      .map { |x| [x.reserve_name, x.reserve_id] }
+      .to_h
+  end
+
+  def self.participating_visit_ids(user)
+    left_joins(:user_visits)
+      .where(user_visits: { user: user })
+      .group(:id)
+      .map(&:id)
+  end
+
+  def self.applicant_visit_ids(user)
+    where(user: user)
+      .map(&:id)
   end
 
   enum status: {
