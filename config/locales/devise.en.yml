@@ -97,7 +97,7 @@ en:
           institution: "search institution"
         helper_text:
           tip: "TIP:"
-          institution: "Your institution is likely already in our database. Start typing to search. If you cannot find your institution,"
+          institution: 'Your institution is likely already in our database. Start typing in the full name of your Institution e.g "University of California, Davis". If you cannot find your institution,'
           emergency_contact: "In case we need to notify someone while you’re at the reserve."
           receive_nrs_updates: "If you would like to receive updates from the NRS please sign up for the"
           age_range: "This helps with demographic reporting"

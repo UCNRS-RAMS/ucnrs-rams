@@ -26,7 +26,7 @@
           %>
         </div>
         <div class="field medium">
-          <p class="helper-text"><strong><%= t(".titles.age_range") %></strong></p>
+          <p class="label"><%= t(".titles.age_range") %></p>
           <p class="helper-text"><%= t(".helper_text.age_range") %></p>
           <div class="radio-buttons age-range">
             <% @presenter.age_range_options.each do |(value, label)|%>
@@ -94,9 +94,13 @@
             data-controller="autocomplete" 
             data-autocomplete-url-value="<%= institutions_url %>" 
             data-autocomplete-min-length-value="3"
-            
           >
           <%= f.label :institution, t(".labels.institution") %>
+          <p class="helper-text">
+            <strong><%= t(".helper_text.tip") %></strong>
+            <%= t(".helper_text.institution") %>
+            <%= link_to t(".links.create_new_instituion"), new_institution_path, remote: true %>
+          </p>
           <div class="autocomplete">
             <%= f.text_field :institution, 
               data: {
@@ -111,12 +115,6 @@
               <ul class="autocomplete-results" data-autocomplete-target="results"></ul>
             </div>
           </div>
-          <p class="helper-text">
-            <strong><%= t(".helper_text.tip") %></strong>
-            <%= t(".helper_text.institution") %>
-            <%= link_to t(".links.create_new_instituion"), new_institution_path, remote: true %>
-          </p>
-          
         </div>
         <div class="field large">
           <%= f.label :advisor, t(".labels.advisor_name") %>
