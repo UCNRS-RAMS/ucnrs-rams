@@ -7,14 +7,14 @@ class ProjectTeamMembershipForm
     ActiveModel::Name.new(ProjectTeamMembership)
   end
 
-  def initialize(project:, params: {})
+  def initialize(project: nil, params: {})
     @project_team_membership = ProjectTeamMembership.where(id: params[:id]).first ||
       ProjectTeamMembership.new
-    @project_team_membership.project = project
-    @project_team_membership.active = true
+    @project_team_membership.project ||= project
+    activate_if_unset
     assign(params)
-    set_institution_from_user
-    set_user_role_from_user
+    maybe_set_institution_from_user
+    maybe_set_user_role_from_user
   end
 
   validates :project_role, inclusion: {
@@ -79,6 +79,12 @@ class ProjectTeamMembershipForm
 
   private
 
+  def activate_if_unset
+    if project_team_membership.active.nil?
+      project_team_membership.active = true
+    end
+  end
+
   def validate_project_team_membership
     project_team_membership.validate
   end
@@ -88,16 +94,16 @@ class ProjectTeamMembershipForm
     errors[:user].each { |error| errors.add(:full_name, error) }
   end
 
-  def set_institution_from_user
-    self.institution_id = Institution
+  def maybe_set_institution_from_user
+    self.institution_id ||= Institution
       .joins(:users)
       .where(users: { id: user_id })
       .pluck(:id)
       .first
   end
 
-  def set_user_role_from_user
-    self.user_role = User
+  def maybe_set_user_role_from_user
+    self.user_role ||= User
       .where(id: user_id)
       .pluck(:role)
       .first

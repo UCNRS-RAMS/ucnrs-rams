@@ -10,6 +10,7 @@ FactoryBot.define do
 
     project { build(:project, title: project_title) }
     association :user
+    association :institution
 
     trait :principal_investigator do
       is_principal_investigator { true }

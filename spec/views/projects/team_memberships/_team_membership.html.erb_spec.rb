@@ -12,6 +12,7 @@ RSpec.describe "app/views/projects/team_memberships/_team_memberships.html.erb",
           institution: build(:institution, name: "Good School"),
           role: :faculty,
         ),
+        institution: build(:institution, name: "Some Other School"),
         active: true,
         is_principal_investigator: false,
         can_edit_project: false,
@@ -24,7 +25,7 @@ RSpec.describe "app/views/projects/team_memberships/_team_memberships.html.erb",
 
       doc = Capybara.string(rendered)
       expect(doc).to have_css("td:nth-child(1)", text: "Mx. Nobody")
-      expect(doc).to have_css("td:nth-child(2)", text: "Good School")
+      expect(doc).to have_css("td:nth-child(2)", text: "Some Other School")
       expect(doc).to have_css("td:nth-child(3)", text: "Faculty")
       expect(doc).to have_css("td:nth-child(4)", text: "Team Member")
       expect(doc).to have_css("td:nth-child(5) img[src*='check']")
