@@ -1,20 +1,24 @@
-<div class="modal-content project" role="dialog" aria-labelledby="dialog-title" aria-describedby="modal-description" data-modal-target="dialog openOnLoad">
+<turbo-frame id="modal-content"
+             class="modal-content project"
+             role="dialog"
+             aria-labelledby="modal-title"
+             aria-describedby="modal-description"
+             data-modal-target="dialog openOnLoad"
+>
   <p class="screenreader-text" id="modal-description"><%= t(".accessible_description") %></p>
   <section class="text">
     <div class="close">
       <%= image_tag "x.svg", height: "16px", width: "16px", alt: t(".alt.close_modal_icon"), data: { action: "click->modal#close" } %>
     </div>
-    <h1 id="dialog-title"><%= t(".title") %></h1>
-    <div id="dialog-description">
-      <p><%= t(".content_first") %></p>
-      <p><%= t(".content_middle") %></p>
-      <p><%= t(".content_last") %></p>
-    </div>
+    <h1 id="modal-title"><%= t(".title") %></h1>
+    <p><%= t(".content_first") %></p>
+    <p><%= t(".content_middle") %></p>
+    <p><%= t(".content_last") %></p>
   </section>
   <section class="buttons">
-    <button class="active" data-action="click->modal#close">
+    <button class="active" data-action="click->modal#clickClose">
       <%= t(".okay") %>
       <%= image_tag "arrow-right.svg", alt: t(".alt.right_facing_arrow") %>
     </button>
   </section>
-</div>
+</turbo-frame>
