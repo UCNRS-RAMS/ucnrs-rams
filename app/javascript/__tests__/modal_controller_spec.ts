@@ -14,15 +14,49 @@ describe("ModalController", () => {
     beforeEach(() => {
       renderDOM(`
         <div id="modal" class="modal" data-controller="modal" aria-hidden="true">
-          <div class="modal-content" role="dialog" data-modal-target="dialog openOnLoad">Modal</div>
         </div>`)
     })
 
-    it("opens the modal", () => {
-      const modal = document.getElementById("modal")
+    it("puts an instance of the controller onto the element", () => {
+      const root = document.querySelectorAll("body > *")[0]
 
-      expect(modal.classList.contains("visible")).toBe(true)
-      expect(modal.getAttribute('aria-hidden')).toEqual("false")
+      expect(root.modal).not.toBeNull()
+    })
+  })
+
+  describe("openOnLoadTargetConnected", () => {
+    beforeEach(() => {
+      renderDOM(`
+        <div id="modal" class="modal" data-controller="modal" aria-hidden="true">
+        </div>`)
+    })
+
+    it("opens the modal", (done) => {
+      const root = document.querySelectorAll("body > *")[0]
+      const triggerFn = jest.spyOn(root.modal, "openOnLoadTargetConnected")
+
+      root.innerHTML = `<div data-modal-target="dialog openOnLoad"/>`
+
+      setTimeout(() => { try {
+        expect(triggerFn).toHaveBeenCalled()
+        expect(root.classList.contains("visible")).toBe(true)
+        expect(root.getAttribute("aria-hidden")).toBe("false")
+      } finally {
+        done()
+      }})
+    })
+
+    it("should not be called if the element isn't openOnLoad", (done) => {
+      const root = document.querySelectorAll("body > *")[0]
+
+      root.innerHTML = `<div data-modal-target="dialog"/>`
+
+      setTimeout(() => { try {
+        expect(root.classList.contains("visible")).toBe(false)
+        expect(root.getAttribute("aria-hidden")).toBe("true")
+      } finally {
+        done()
+      }})
     })
   })
 
@@ -42,7 +76,7 @@ describe("ModalController", () => {
       openButton.click()
 
       expect(modal.classList.contains("visible")).toBe(true)
-      expect(modal.getAttribute('aria-hidden')).toEqual("false")
+      expect(modal.getAttribute("aria-hidden")).toEqual("false")
     })
   })
 
@@ -62,7 +96,7 @@ describe("ModalController", () => {
       closeButton.click()
 
       expect(modal.classList.contains("visible")).toBe(false)
-      expect(modal.getAttribute('aria-hidden')).toEqual("true")
+      expect(modal.getAttribute("aria-hidden")).toEqual("true")
     })
   })
 })

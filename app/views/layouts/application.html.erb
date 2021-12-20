@@ -26,7 +26,7 @@
     <%= render partial: "layouts/footer" %>
 
     <div id="modal" class="modal" data-controller="modal" aria-hidden="true">
-      <%= yield :modal %>
+      <%= content_for?(:modal) ? yield(:modal) : render(partial: "modals/empty") %>
     </div>
   </body>
 </html>
