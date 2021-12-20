@@ -1,6 +1,6 @@
 @import "variables";
 @import "mixins/date_fields";
-@import "mixins/project_form";
+@import "mixins/form";
 
 .projects-index {
   height: 100%;
@@ -292,7 +292,7 @@
     section.research,
     section.class,
     section.meeting {
-      @include project-form;
+      @include form;
     }
   }
 
