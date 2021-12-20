@@ -134,6 +134,22 @@ class CreateProjectFlow
     page.has_css?("tr.team-membership td", text: name)
   end
 
+  def edit_team_member(name)
+    page
+      .find("td", text: name)
+      .first(:xpath, ".//..")
+      .find("a", text: "Edit")
+      .click
+  end
+
+  def showing_popup_editing_user?(name)
+    page.has_css?(".modal.visible h2", text: name)
+  end
+
+  def save_project_team_member
+    page.find(".modal.visible .buttons button").click
+  end
+
   private
 
   attr_reader :page

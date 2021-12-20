@@ -8,6 +8,13 @@ class Projects::TeamMembershipsController < ApplicationController
     )
   end
 
+  def edit
+    form = ProjectTeamMembershipForm.new(params: { id: project_team_membership.id })
+    @presenter = Projects::TeamMembershipEditPresenter.new(
+      form: form,
+    )
+  end
+
   def create
     form = ProjectTeamMembershipForm.new(project: project, params: project_team_memberships_params)
 
@@ -27,6 +34,10 @@ class Projects::TeamMembershipsController < ApplicationController
 
   def project
     Project.find(params[:project_id])
+  end
+
+  def project_team_membership
+    ProjectTeamMembership.find(params[:id])
   end
 
   def project_team_memberships_params

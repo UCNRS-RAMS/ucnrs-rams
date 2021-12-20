@@ -21,6 +21,10 @@ class Projects::TeamMembershipsIndexPresenter
     end
   end
 
+  def user_role_options
+    User.roles.except(:no_selection).map {|key, value| [key, value]}
+  end
+
   def project_roles
     ProjectTeamMembership::PROJECT_ROLES
   end

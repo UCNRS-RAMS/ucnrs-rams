@@ -1,0 +1,61 @@
+<turbo-frame id="modal-content" class="modal-content" role="dialog" aria-labelledby="modal-title">
+  <div data-modal-target="dialog openOnLoad"> 
+    <%= form_with model: presenter.form, url: team_membership_path(presenter.id), id: "modal-form" do |form| %>
+      <p class="screenreader-text">
+        <span id="modal-title"><%= t(".title") %></span>
+        <span id="modal-description"><%= t(".accessible_description") %></span>
+      </p>
+      <section class="text">
+        <h2><%= presenter.user_full_name %></h2>
+        <%= form.hidden_field :id %>
+        <div class="field autocomplete" data-controller="autocomplete" data-autocomplete-url-value="<%= institutions_path %>">
+          <%= form.label :institution_name %>
+          <%= form.text_field :institution_name, placeholder: t(".search_by_name"), value: presenter.institution_name, data: { "autocomplete-target": "input" } %>
+          <%= form.hidden_field :institution_id, data: { "autocomplete-target": "hidden" } %>
+          <div class="autocomplete-results-container">
+            <ul class="autocomplete-results" data-autocomplete-target="results"></ul>
+          </div>
+        </div>
+        <div class="field">
+          <%= form.label :user_role %>
+          <%= form.select :user_role, presenter.user_role_options %>
+        </div>
+        <fieldset>
+          <legend>Permissions</legend>
+          <div class="field checkbox">
+            <%= form.label :active %>
+            <%= form.check_box :active %>
+          </div>
+          <div class="field checkbox">
+            <%= form.label :is_principal_investigator %>
+            <%= form.check_box :is_principal_investigator %>
+          </div>
+          <div class="field checkbox">
+            <%= form.label :can_edit_project %>
+            <%= form.check_box :can_edit_project %>
+          </div>
+          <div class="field checkbox">
+            <%= form.label :can_add_project_user %>
+            <%= form.check_box :can_add_project_user %>
+          </div>
+          <div class="field checkbox">
+            <%= form.label :can_add_visit %>
+            <%= form.check_box :can_add_visit %>
+          </div>
+          <div class="field checkbox">
+            <%= form.label :can_receive_invoice %>
+            <%= form.check_box :can_receive_invoice %>
+          </div>
+        </fieldset>
+      </section>
+      <section class="buttons">
+        <div class="close">
+          <%= link_to t(".cancel"), "#", data: { action: "click->modal#clickClose" } %>
+        </div>
+        <button class="active" data-action="click->modal#clickClose">
+          <%= t(".save") %>
+        </button>
+      </section>
+    <% end %>
+  </div>
+</turbo-frame>
