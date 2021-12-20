@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class Projects::TeamMembershipsIndexPresenter
-  def initialize(user:, current_step:, project: nil, form: nil)
-    @user = user
+  def initialize(current_step:, project: nil, form: nil)
     @project = project
     @current_step = current_step
     @steps_presenter = StepsPresenter.new(@current_step)
@@ -28,5 +27,5 @@ class Projects::TeamMembershipsIndexPresenter
 
   private
 
-  attr_reader :user, :steps_presenter, :current_step
+  attr_reader :steps_presenter, :current_step
 end

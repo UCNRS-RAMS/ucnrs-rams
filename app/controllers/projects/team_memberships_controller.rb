@@ -3,7 +3,6 @@ class Projects::TeamMembershipsController < ApplicationController
 
   def index
     @presenter = Projects::TeamMembershipsIndexPresenter.new(
-      user: current_user,
       current_step: 2,
       project: project,
     )
@@ -16,7 +15,6 @@ class Projects::TeamMembershipsController < ApplicationController
       redirect_to project_team_memberships_path(project)
     else
       @presenter = Projects::TeamMembershipsIndexPresenter.new(
-        user: current_user,
         current_step: 2,
         project: project,
         form: form,
