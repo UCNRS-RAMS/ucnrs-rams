@@ -16,8 +16,9 @@ class Projects::TeamMembershipPresenter
 
   delegate_missing_to :team_membership
 
-  delegate :user, to: :team_membership
-  delegate :full_name, :institution_name, to: :user, prefix: true
+  delegate :user, :institution, to: :team_membership
+  delegate :full_name, to: :user, prefix: true
+  delegate :name, to: :institution, prefix: true
 
   def user_role
     ProjectTeamMembership.user_roles[user.role]

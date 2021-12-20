@@ -14,7 +14,7 @@ class Projects::TeamMembershipsIndexPresenter
   def team_memberships
     project
       .team_memberships
-      .includes([user: :institution])
+      .includes([:user, :institution])
       .by_project_role
       .map do |team_membership|
         Projects::TeamMembershipPresenter.new(team_membership)
