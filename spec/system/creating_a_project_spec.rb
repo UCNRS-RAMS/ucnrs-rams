@@ -91,5 +91,11 @@ RSpec.describe "Creating a project", type: :system, js: true do
     flow.select_project_role("Project Manager")
     flow.add_user_to_team
     expect(flow).to have_team_member("Another User")
+
+    flow.edit_team_member("Another User")
+    expect(flow).to be_showing_popup_editing_user("Another User")
+
+    flow.save_project_team_member
+    expect(flow).to_not be_showing_popup_editing_user("Another User")
   end
 end

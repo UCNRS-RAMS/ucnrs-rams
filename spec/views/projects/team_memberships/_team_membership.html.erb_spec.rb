@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "app/views/projects/team_memberships/_team_memberships.html.erb", type: :view do
   describe "viewing a team membership row" do
     it "has the correct values and permissions for the columns" do
-      membership = build(
+      membership = create(
         :project_team_membership,
         user: build(
           :user,

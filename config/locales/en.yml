@@ -108,6 +108,14 @@ en:
       country: "Country"
       state: "State"
   modals:
+    edit_project_team_membership:
+      title: Edit Team Member
+      accessible_description: A modal pop-up form to edit details of a team member on this project.
+      search_by_name: Search by Name
+      alt:
+        close_modal_icon: "Close Modal Icon"
+      cancel: Cancel
+      save: Save
     welcome:
       title: Welcome to RAMS
       content: Here you can learn about natural reserves and field stations, request dates and accommodations for your visit, submit project descriptions and permits, and sign any necessary waivers or other permissions.
@@ -123,6 +131,14 @@ en:
       alt:
         right_facing_arrow: "A right facing arrow"
         close_modal_icon: "An 'x' icon to close the modal"
+    edit_team_member:
+      accessible_description: "Edit Team Member"
+      title: "Edit Team Member"
+      content: ""
+      continue: "Save"
+      search_by_name: "Search by name"
+      alt:
+        close_modal_icon: "Cancel Editing and Close Modal"
   reserves:
     personnel_card:
       alt_text: 

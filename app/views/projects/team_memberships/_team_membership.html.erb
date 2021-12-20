@@ -6,5 +6,5 @@
   <% team_membership.permissions.each do |permission| %>
     <td><%= image_tag team_membership.permissions_icon(permission) %></td>
   <% end %>
-  <td><%= link_to t(".edit"), "#" %></td>
+  <td><%= link_to t(".edit"), edit_team_membership_path(team_membership.id), data: { "turbo-frame": "modal-content" } %></td>
 </tr>
