@@ -4,7 +4,6 @@ RSpec.describe "index.html.erb" do
   describe "on any render" do
     it "includes steps (on step 2)" do
       assign(:presenter, Projects::TeamMembershipsIndexPresenter.new(
-        user: :dummy,
         current_step: 2,
         project: build_stubbed(:project),
       ))
@@ -19,7 +18,6 @@ RSpec.describe "index.html.erb" do
     it "displays a form to add a project team member" do
       project = build_stubbed(:project)
       assign(:presenter, Projects::TeamMembershipsIndexPresenter.new(
-        user: :dummy,
         current_step: 2,
         project: project,
       ))
@@ -35,7 +33,6 @@ RSpec.describe "index.html.erb" do
 
     it "includes markup for autocomplete on the user field" do
       assign(:presenter, Projects::TeamMembershipsIndexPresenter.new(
-        user: :dummy,
         current_step: 2,
         project: build_stubbed(:project),
       ))
@@ -57,7 +54,6 @@ RSpec.describe "index.html.erb" do
       params: membership.attributes,
     )
     assign(:presenter, Projects::TeamMembershipsIndexPresenter.new(
-      user: :dummy,
       current_step: 2,
       project: membership.project,
       form: form
