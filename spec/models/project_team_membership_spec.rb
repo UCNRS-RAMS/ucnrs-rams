@@ -9,6 +9,12 @@ RSpec.describe ProjectTeamMembership, type: :model do
 
   describe "validations" do
     it { is_expected.to validate_presence_of(:user_role) }
+    it { is_expected.to validate_booleanish_values(:active) }
+    it { is_expected.to validate_booleanish_values(:is_principal_investigator) }
+    it { is_expected.to validate_booleanish_values(:can_edit_project) }
+    it { is_expected.to validate_booleanish_values(:can_add_project_user) }
+    it { is_expected.to validate_booleanish_values(:can_add_visit) }
+    it { is_expected.to validate_booleanish_values(:can_receive_invoice) }
 
     describe "scoping unique users to projects" do
       it "does not allow a user to be added to the same project twice" do

@@ -17,7 +17,8 @@ RSpec.describe "app/views/projects/team_memberships/_team_memberships.html.erb",
         is_principal_investigator: false,
         can_edit_project: false,
         can_add_project_user: true,
-        can_receive_invoice: true,
+        can_add_visit: true,
+        can_receive_invoice: false,
       )
       presenter = Projects::TeamMembershipPresenter.new(membership)
 
@@ -31,7 +32,7 @@ RSpec.describe "app/views/projects/team_memberships/_team_memberships.html.erb",
       expect(doc).to have_css("td:nth-child(5) img[src*='check']")
       expect(doc).to have_css("td:nth-child(6) img[src*='dot']")
       expect(doc).to have_css("td:nth-child(7) img[src*='check']")
-      expect(doc).to have_css("td:nth-child(8) img[src*='check']")
+      expect(doc).to have_css("td:nth-child(8) img[src*='dot']")
     end
   end
 end

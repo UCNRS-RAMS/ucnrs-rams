@@ -2,18 +2,30 @@ require "rails_helper"
 
 RSpec.describe ProjectTeamMembershipForm, type: :model do
   describe "validations" do
-    subject { ProjectTeamMembershipForm.new(project: build(:project)) }
-    it { is_expected.to validate_inclusion_of(:project_role).in_array(ProjectTeamMembership::PROJECT_ROLES) }
+    let(:roles) { ProjectTeamMembership::PROJECT_ROLES }
+
+    describe "create" do
+      subject { ProjectTeamMembershipForm.new(project: build(:project)) }
+
+      it { is_expected.to validate_inclusion_of(:project_role).in_array(roles) }
+    end
+
+    describe "edit" do
+      let(:membership) { create(:project_team_membership) }
+      subject { ProjectTeamMembershipForm.new(params: { id: membership.id }) }
+
+      it { is_expected.not_to validate_inclusion_of(:project_role).in_array(roles) }
+    end
   end
 
   describe "when validating params" do
-    it "multiplexes errors from itself and the ProjectTeamMembership" do
+    it "collates errors when creating a new membership" do
       membership = create(:project_team_membership)
       form = ProjectTeamMembershipForm.new(
         project: membership.project,
         params: {
           user_id: membership.user.id,
-          project_role: ""
+          project_role: "",
         }
       )
 
