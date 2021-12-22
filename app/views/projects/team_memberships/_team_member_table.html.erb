@@ -1,0 +1,23 @@
+<turbo-frame id="team-member-table">
+  <section class="team-member-table">
+    <h2><%= t(".project_team") %></h2>
+    <table>
+      <thead>
+        <tr>
+          <th><%= t(".name") %></th>
+          <th><%= t(".institution") %></th>
+          <th><%= t(".role") %></th>
+          <th><%= t(".project_role") %></th>
+          <th><%= t(".active") %></th>
+          <th><%= t(".edit") %></th>
+          <th><%= t(".book") %></th>
+          <th><%= t(".invoice") %></th>
+          <th></th>
+        </tr>
+        <thead>
+          <tbody>
+            <%= render partial: "projects/team_memberships/team_membership", collection: presenter.team_memberships %>
+          </tbody>
+    </table>
+  </section>
+</turbo-frame>

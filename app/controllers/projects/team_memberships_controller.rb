@@ -8,6 +8,7 @@ class Projects::TeamMembershipsController < ApplicationController
     )
     respond_to do |format|
       format.html
+      format.turbo_stream
     end
   end
 
@@ -44,9 +45,14 @@ class Projects::TeamMembershipsController < ApplicationController
     respond_to do |format|
       if form.save
         project = project_team_membership.project
+        format.turbo_stream { redirect_to project_team_memberships_path(project) }
         format.html { redirect_to project_team_memberships_path(project) }
       else
         @presenter = Projects::TeamMembershipEditPresenter.new(form: form)
+        format.turbo_stream do
+          render template: "projects/team_memberships/edit",
+            status: :unprocessable_entity
+        end
         format.html { render status: :unprocessable_entity }
       end
     end

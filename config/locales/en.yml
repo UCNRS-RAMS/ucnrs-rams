@@ -505,6 +505,16 @@ en:
     team_memberships:
       index:
         title: "Team"
+        add_team_member_title: "Add a Team Member"
+        add_team_member_submit: "Add Team Member"
+        cannot_find_them: "Can't find them?"
+        create_new_user: "Create new user"
+        search_by_name: "Search by name"
+        choose_role: "Choose Role"
+        next_step: "Next: Permits"
+        alt:
+          right_facing_arrow: "A right facing arrow"
+      team_member_table:
         name: "Name"
         institution: "Institution"
         role: "Role"
@@ -513,16 +523,7 @@ en:
         edit: "Edit"
         book: "Book"
         invoice: "Invoice"
-        add_team_member_title: "Add a Team Member"
-        add_team_member_submit: "Add Team Member"
-        cannot_find_them: "Can't find them?"
-        create_new_user: "Create new user"
-        search_by_name: "Search by name"
-        choose_role: "Choose Role"
-        next_step: "Next: Permits"
         project_team: "Project Team"
-        alt:
-          right_facing_arrow: "A right facing arrow"
       team_membership:
         edit: "Edit"
   waivers:
