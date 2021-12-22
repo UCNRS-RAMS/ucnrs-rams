@@ -37,13 +37,15 @@ describe("ModalController", () => {
 
       root.innerHTML = `<div data-modal-target="dialog openOnLoad"/>`
 
-      setTimeout(() => { try {
-        expect(triggerFn).toHaveBeenCalled()
-        expect(root.classList.contains("visible")).toBe(true)
-        expect(root.getAttribute("aria-hidden")).toBe("false")
-      } finally {
-        done()
-      }})
+      setTimeout(() => {
+        try {
+          expect(triggerFn).toHaveBeenCalled()
+          expect(root.classList.contains("visible")).toBe(true)
+          expect(root.getAttribute("aria-hidden")).toBe("false")
+        } finally {
+          done()
+        }
+      })
     })
 
     it("should not be called if the element isn't openOnLoad", (done) => {
@@ -51,12 +53,40 @@ describe("ModalController", () => {
 
       root.innerHTML = `<div data-modal-target="dialog"/>`
 
-      setTimeout(() => { try {
-        expect(root.classList.contains("visible")).toBe(false)
-        expect(root.getAttribute("aria-hidden")).toBe("true")
-      } finally {
-        done()
-      }})
+      setTimeout(() => {
+        try {
+          expect(root.classList.contains("visible")).toBe(false)
+          expect(root.getAttribute("aria-hidden")).toBe("true")
+        } finally {
+          done()
+        }
+      })
+    })
+  })
+
+  describe("openOnLoadTargetDisconnected", () => {
+    beforeEach(() => {
+      renderDOM(`
+        <div id="modal" class="modal" data-controller="modal" aria-hidden="true">
+          <div data-modal-target="dialog openOnLoad"/>
+        </div>`)
+    })
+
+    it("closes the modal", (done) => {
+      const root = document.querySelectorAll("body > *")[0]
+      const triggerFn = jest.spyOn(root.modal, "openOnLoadTargetDisconnected")
+
+      root.innerHTML = ``
+
+      setTimeout(() => {
+        try {
+          expect(triggerFn).toHaveBeenCalled()
+          expect(root.classList.contains("visible")).toBe(false)
+          expect(root.getAttribute("aria-hidden")).toBe("true")
+        } finally {
+          done()
+        }
+      })
     })
   })
 
@@ -86,17 +116,36 @@ describe("ModalController", () => {
         <div id="modal" class="modal visible" data-controller="modal" aria-hidden="false">
           <div class="modal-content" role="dialog" data-modal-target="dialog">Modal</div>
           <button id="close" data-action="click->modal#close">Close</button>
+          <button id="closeAndContinue" data-action="click->modal#closeAndContinue">Close</button>
         </div>`)
     })
 
     it("closes the modal", () => {
       const closeButton = document.getElementById("close")
       const modal = document.getElementById("modal")
+      const event = new MouseEvent("click")
+      const propagationFn = jest.spyOn(event, "stopPropagation")
+
+      closeButton.dispatchEvent(event)
 
       closeButton.click()
 
       expect(modal.classList.contains("visible")).toBe(false)
       expect(modal.getAttribute("aria-hidden")).toEqual("true")
+      expect(propagationFn).toHaveBeenCalled()
+    })
+
+    it("closes the modal without stopping propagation", () => {
+      const closeButton = document.getElementById("closeAndContinue")
+      const modal = document.getElementById("modal")
+      const event = new MouseEvent("click")
+      const propagationFn = jest.spyOn(event, "stopPropagation")
+
+      closeButton.dispatchEvent(event)
+
+      expect(modal.classList.contains("visible")).toBe(false)
+      expect(modal.getAttribute("aria-hidden")).toEqual("true")
+      expect(propagationFn).not.toHaveBeenCalled()
     })
   })
 })
