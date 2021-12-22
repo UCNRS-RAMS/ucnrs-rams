@@ -1,6 +1,6 @@
 <turbo-frame id="modal-content" class="modal-content" role="dialog" aria-labelledby="modal-title">
-  <div data-modal-target="dialog openOnLoad"> 
-    <%= form_with model: presenter.form, url: team_membership_path(presenter.id), id: "modal-form" do |form| %>
+  <div data-modal-target="dialog openOnLoad">
+    <%= form_with model: presenter.form, url: team_membership_path(presenter.id), method: "patch" do |form| %>
       <p class="screenreader-text">
         <span id="modal-title"><%= t(".title") %></span>
         <span id="modal-description"><%= t(".accessible_description") %></span>
@@ -52,7 +52,7 @@
         <div class="close">
           <%= link_to t(".cancel"), "#", data: { action: "click->modal#close" } %>
         </div>
-        <button class="active" data-action="click->modal#clickClose">
+        <button class="active" type="submit">
           <%= t(".save") %>
         </button>
       </section>

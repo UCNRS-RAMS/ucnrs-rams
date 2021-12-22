@@ -6,7 +6,7 @@ class Projects::TeamMembershipEditPresenter
   end
 
   attr_reader :form
-  delegate :id, to: :form
+  delegate :id, :errors, to: :form
 
   def editing_team_membership
     Projects::TeamMembershipPresenter.new(
@@ -19,7 +19,7 @@ class Projects::TeamMembershipEditPresenter
   end
 
   def institution_name
-    editing_team_membership.institution_name
+    form.institution_name || editing_team_membership.institution_name
   end
 
   def user_role_options

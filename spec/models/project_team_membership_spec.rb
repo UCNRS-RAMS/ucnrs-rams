@@ -4,7 +4,7 @@ RSpec.describe ProjectTeamMembership, type: :model do
   describe "associations" do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to belong_to(:project) }
-    it { is_expected.to belong_to(:institution).optional(true) }
+    it { is_expected.to belong_to(:institution) }
   end
 
   describe "validations" do

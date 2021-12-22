@@ -6,6 +6,9 @@ class Projects::TeamMembershipsController < ApplicationController
       current_step: 2,
       project: project,
     )
+    respond_to do |format|
+      format.html
+    end
   end
 
   def edit
@@ -16,7 +19,10 @@ class Projects::TeamMembershipsController < ApplicationController
   end
 
   def create
-    form = ProjectTeamMembershipForm.new(project: project, params: project_team_memberships_params)
+    form = ProjectTeamMembershipForm.new(
+      project: project,
+      params: project_team_memberships_params
+    )
 
     if form.save
       redirect_to project_team_memberships_path(project)
@@ -27,6 +33,22 @@ class Projects::TeamMembershipsController < ApplicationController
         form: form,
       )
       render :index, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    form = ProjectTeamMembershipForm.new(
+      params: project_team_memberships_params
+    )
+
+    respond_to do |format|
+      if form.save
+        project = project_team_membership.project
+        format.html { redirect_to project_team_memberships_path(project) }
+      else
+        @presenter = Projects::TeamMembershipEditPresenter.new(form: form)
+        format.html { render status: :unprocessable_entity }
+      end
     end
   end
 
@@ -42,6 +64,8 @@ class Projects::TeamMembershipsController < ApplicationController
 
   def project_team_memberships_params
     params.require(:project_team_membership).permit(
+      :id,
+      :institution_name,
       :full_name,
       :user_id,
       :project_id,

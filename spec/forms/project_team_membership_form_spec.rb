@@ -8,6 +8,7 @@ RSpec.describe ProjectTeamMembershipForm, type: :model do
       subject { ProjectTeamMembershipForm.new(project: build(:project)) }
 
       it { is_expected.to validate_inclusion_of(:project_role).in_array(roles) }
+      it { is_expected.to validate_presence_of(:institution_id) }
     end
 
     describe "edit" do
@@ -15,6 +16,7 @@ RSpec.describe ProjectTeamMembershipForm, type: :model do
       subject { ProjectTeamMembershipForm.new(params: { id: membership.id }) }
 
       it { is_expected.not_to validate_inclusion_of(:project_role).in_array(roles) }
+      it { is_expected.to validate_presence_of(:institution_id) }
     end
   end
 
@@ -33,6 +35,23 @@ RSpec.describe ProjectTeamMembershipForm, type: :model do
 
       expect(form.errors[:full_name]).to eq ["already on this team"]
       expect(form.errors[:project_role]).to eq ["must select an option"]
+    end
+
+    it "collates errors when saving an existing membership" do
+      membership = create(:project_team_membership)
+      form = ProjectTeamMembershipForm.new(
+        project: membership.project,
+        params: {
+          id: membership.id,
+          user_id: membership.user.id,
+          project_role: "",
+          institution_id: "",
+        }
+      )
+
+      form.validate
+
+      expect(form.errors[:institution_name]).to eq ["can't be blank"]
     end
 
     it "does not allow users that don't exist" do

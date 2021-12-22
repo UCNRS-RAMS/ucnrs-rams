@@ -8,13 +8,13 @@ RSpec.describe Projects::TeamMembershipPresenter do
   end
 
   describe "#user_role" do
-    it "maps the user's role to to the allowable user role values for a project_team_membership" do
+    it "is the project team memberships user_role" do
       user = create(:user, role: :docent)
       project = create(:project)
-      team_membership = create(:project_team_membership, user: user, project: project)
+      team_membership = create(:project_team_membership, user: user, project: project, user_role: "Faculty")
       presenter = Projects::TeamMembershipPresenter.new(team_membership)
 
-      expect(presenter.user_role).to eq "Docent"
+      expect(presenter.user_role).to eq "Faculty"
     end
   end
 

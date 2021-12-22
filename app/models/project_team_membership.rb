@@ -3,7 +3,7 @@
 class ProjectTeamMembership < ApplicationRecord
   belongs_to :user
   belongs_to :project
-  belongs_to :institution, optional: true
+  belongs_to :institution
 
   validates :user, uniqueness: { scope: :project }
   validates :user_role, presence: true

@@ -18,12 +18,16 @@ class ProjectTeamMembershipForm
   end
 
   attr_accessor :full_name
+  attr_accessor :institution_name
   attr_reader :project_role
 
+  attr_reader :project_team_membership
+  delegate_missing_to :project_team_membership
 
   validates :project_role, inclusion: {
     in: ProjectTeamMembership::PROJECT_ROLES,
   }, if: :new_record?
+  validates :institution_id, presence: true
 
   def project_role=(project_role)
     @project_role = project_role
@@ -61,9 +65,6 @@ class ProjectTeamMembershipForm
     end
   end
 
-  attr_reader :project_team_membership
-  delegate_missing_to :project_team_membership
-
   alias_method :validate_form, :validate
   alias_method :valid_form?, :valid?
   def validate
@@ -93,14 +94,17 @@ class ProjectTeamMembershipForm
   def copy_errors_to_self
     errors.merge!(project_team_membership.errors)
     errors[:user].each { |error| errors.add(:full_name, error) }
+    errors[:institution_id].each { |error| errors.add(:institution_name, error) }
   end
 
   def maybe_set_institution_from_user
-    self.institution_id ||= Institution
-      .joins(:users)
-      .where(users: { id: user_id })
-      .pluck(:id)
-      .first
+    if new_record?
+      self.institution_id = Institution
+        .joins(:users)
+        .where(users: { id: user_id })
+        .pluck(:id)
+        .first
+    end
   end
 
   def maybe_set_user_role_from_user
