@@ -1,0 +1,11 @@
+<turbo-stream action="replace" target="modal-content">
+  <template>
+    <%= render partial: "modals/empty", formats: [:html] %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="team-member-table">
+  <template>
+    <%= render partial: "projects/team_memberships/team_member_table", locals: { presenter: @presenter }, formats: [:html] %>
+  </template>
+</turbo-stream>
