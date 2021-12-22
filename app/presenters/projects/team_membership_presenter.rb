@@ -18,10 +18,10 @@ class Projects::TeamMembershipPresenter
 
   delegate :user, :institution, to: :team_membership
   delegate :full_name, to: :user, prefix: true
-  delegate :name, to: :institution, prefix: true
+  delegate :name, to: :institution, prefix: true, allow_nil: true
 
   def user_role
-    ProjectTeamMembership.user_roles[user.role]
+    ProjectTeamMembership.user_roles[team_membership.user_role]
   end
 
   def permissions_icon(column)

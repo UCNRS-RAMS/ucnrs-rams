@@ -4,6 +4,7 @@ RSpec.describe Projects::TeamMembershipEditPresenter do
   describe "delegations" do
     subject { Projects::TeamMembershipEditPresenter.new(form: :form) }
     it { is_expected.to delegate_method(:id).to(:form) }
+    it { is_expected.to delegate_method(:errors).to(:form) }
   end
 
   describe "editing_team_membership" do

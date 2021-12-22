@@ -150,6 +150,21 @@ class CreateProjectFlow
     page.find(".modal.visible .buttons button").click
   end
 
+  def inexplicably_sleep_for_a_tiny_amount_of_time_because_wait_is_insufficient
+    sleep(0.1)
+  end
+
+  def change_users_role_to(role)
+    page.select(role, from: "User role")
+  end
+
+  def showing_user_role_as?(role, for_user:)
+    page
+      .find("td", text: for_user)
+      .first(:xpath, ".//..")
+      .has_css?("td", text: role)
+  end
+
   private
 
   attr_reader :page
