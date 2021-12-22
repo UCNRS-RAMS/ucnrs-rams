@@ -14,6 +14,10 @@ export default class extends Controller {
     this.open()
   }
 
+  openOnLoadTargetDisconnected(e: HTMLElement) {
+    this.close()
+  }
+
   open() {
     if (this.hasDialogTarget) {
       this.element.classList.add("visible")
@@ -21,16 +25,16 @@ export default class extends Controller {
     }
   }
 
-  close() {
-    if (this.hasDialogTarget) {
-      this.element.classList.remove("visible")
-      this.element.setAttribute("aria-hidden", "true")
+  close(e?: MouseEvent) {
+    if (e) {
+      e.stopPropagation()
+      e.preventDefault()
     }
+    this.element.classList.remove("visible")
+    this.element.setAttribute("aria-hidden", "true")
   }
 
-  clickClose(e: MouseEvent) {
-    e.preventDefault()
-    e.stopPropagation()
+  closeAndContinue(e: MouseEvent) {
     this.close()
   }
 }
