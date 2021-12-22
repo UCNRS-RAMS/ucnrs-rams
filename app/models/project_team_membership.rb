@@ -7,6 +7,12 @@ class ProjectTeamMembership < ApplicationRecord
 
   validates :user, uniqueness: { scope: :project }
   validates :user_role, presence: true
+  validates :active, inclusion: [true, false]
+  validates :is_principal_investigator, inclusion: [true, false]
+  validates :can_edit_project, inclusion: [true, false]
+  validates :can_add_project_user, inclusion: [true, false]
+  validates :can_add_visit, inclusion: [true, false]
+  validates :can_receive_invoice, inclusion: [true, false]
 
   PROJECT_ROLES = [
     PRINCIPAL_INVESTIGATOR_ROLE = "PI - Principal Investigator",

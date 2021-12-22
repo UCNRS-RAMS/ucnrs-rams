@@ -43,17 +43,13 @@ class Projects::TeamMembershipPresenter
   end
 
   def project_role
-    if is_principal_investigator
-      ProjectTeamMembership::PRINCIPAL_INVESTIGATOR_ROLE
-    elsif can_edit_project
-      ProjectTeamMembership::PROJECT_MANAGER_ROLE
-    elsif can_add_project_user
-      ProjectTeamMembership::TEAM_MEMBER_ROLE
-    elsif can_receive_invoice
-      ProjectTeamMembership::BILLING_ROLE
-    else
-      nil
-    end
+    project_role_name[[
+      is_principal_investigator,
+      can_edit_project,
+      can_add_project_user,
+      can_add_visit,
+      can_receive_invoice,
+    ]]
   end
 
   def permissions
@@ -63,5 +59,16 @@ class Projects::TeamMembershipPresenter
       BOOK,
       INVOICE,
     ]
+  end
+
+  private
+
+  def project_role_name
+    {
+      [true, true, true, true, true] => ProjectTeamMembership::PRINCIPAL_INVESTIGATOR_ROLE,
+      [false, true, true, true, false] => ProjectTeamMembership::PROJECT_MANAGER_ROLE,
+      [false, false, true, true, false] => ProjectTeamMembership::TEAM_MEMBER_ROLE,
+      [false, false, false, true, true] => ProjectTeamMembership::BILLING_ROLE,
+    }
   end
 end

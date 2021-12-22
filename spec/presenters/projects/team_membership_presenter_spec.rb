@@ -89,39 +89,55 @@ RSpec.describe Projects::TeamMembershipPresenter do
   end
 
   describe "#project_role" do
-    it "is 'PI - Principal Investigator' if is_principal_investigator is true" do
-      team_membership = build(:project_team_membership, is_principal_investigator: true)
+    it "is 'PI - Principal Investigator' if everything is true" do
+      team_membership = build(
+        :project_team_membership,
+        is_principal_investigator: true,
+        can_edit_project: true,
+        can_add_project_user: true,
+        can_add_visit: true,
+        can_receive_invoice: true,
+      )
       presenter = Projects::TeamMembershipPresenter.new(team_membership)
 
       expect(presenter.project_role).to eq "PI - Principal Investigator"
     end
 
-    it "is 'Project Manager' if can_edit_project is true, and is_principal_investigator is false" do
-      team_membership = build(:project_team_membership,
+    it "is 'Project Manager' if can_edit_project, can_add_project_user, and can_add_visit are true" do
+      team_membership = build(
+        :project_team_membership,
         is_principal_investigator: false,
         can_edit_project: true,
+        can_add_project_user: true,
+        can_add_visit: true,
+        can_receive_invoice: false,
       )
       presenter = Projects::TeamMembershipPresenter.new(team_membership)
 
       expect(presenter.project_role).to eq "Project Manager"
     end
 
-    it "is 'Team Member' if can_add_project_user is true, and is_principal_investigator and can_edit_project are false" do
-      team_membership = build(:project_team_membership,
+    it "is 'Team Member' if can_add_project_user cna can_add_visit" do
+      team_membership = build(
+        :project_team_membership,
         is_principal_investigator: false,
         can_edit_project: false,
         can_add_project_user: true,
+        can_add_visit: true,
+        can_receive_invoice: false,
       )
       presenter = Projects::TeamMembershipPresenter.new(team_membership)
 
       expect(presenter.project_role).to eq "Team Member"
     end
 
-    it "is 'Billing' if can_receive_invoice is true, and the other boolean permissions flags are false" do
-      team_membership = build(:project_team_membership,
+    it "is 'Billing' if can_add_visit and can_receive_invoice are true" do
+      team_membership = build(
+        :project_team_membership,
         is_principal_investigator: false,
         can_edit_project: false,
         can_add_project_user: false,
+        can_add_visit: true,
         can_receive_invoice: true,
       )
       presenter = Projects::TeamMembershipPresenter.new(team_membership)
@@ -129,12 +145,14 @@ RSpec.describe Projects::TeamMembershipPresenter do
       expect(presenter.project_role).to eq "Billing"
     end
 
-    it "is nil if all of the permissions boolean flags are false" do
-      team_membership = build(:project_team_membership,
+    it "is nil if none of the above apply" do
+      team_membership = build(
+        :project_team_membership,
         is_principal_investigator: false,
-        can_edit_project: false,
+        can_edit_project: true,
         can_add_project_user: false,
-        can_receive_invoice: false,
+        can_add_visit: true,
+        can_receive_invoice: true,
       )
       presenter = Projects::TeamMembershipPresenter.new(team_membership)
 

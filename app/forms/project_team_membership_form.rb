@@ -17,12 +17,13 @@ class ProjectTeamMembershipForm
     maybe_set_user_role_from_user
   end
 
-  validates :project_role, inclusion: {
-    in: ProjectTeamMembership::PROJECT_ROLES,
-  }
-
   attr_accessor :full_name
   attr_reader :project_role
+
+
+  validates :project_role, inclusion: {
+    in: ProjectTeamMembership::PROJECT_ROLES,
+  }, if: :new_record?
 
   def project_role=(project_role)
     @project_role = project_role
@@ -113,5 +114,9 @@ class ProjectTeamMembershipForm
     params.each do |key, value|
       public_send(:"#{key}=", value)
     end
+  end
+
+  def new_record?
+    project_team_membership.new_record?
   end
 end
