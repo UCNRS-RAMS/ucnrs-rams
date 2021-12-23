@@ -84,6 +84,12 @@ RSpec.describe "Creating a project", type: :system, js: true do
     flow.submit_project_form
     expect(flow).to be_on_project_teams_page
 
+    flow.click_create_new_user
+    expect(flow).to be_showing_popup_creating_user
+
+    flow.click_cancel
+    expect(flow).to_not be_showing_popup_creating_user
+
     flow.enter_name_into_autocomplete("Anot")
     expect(flow).to be_showing_autocomplete_with_option("Another User - MIT - 1x3@456.test")
 

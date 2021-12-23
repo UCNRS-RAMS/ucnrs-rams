@@ -165,6 +165,18 @@ class CreateProjectFlow
       .has_css?("td", text: role)
   end
 
+  def click_create_new_user
+    page.click_link("Create new user")
+  end
+
+  def showing_popup_creating_user?
+    page.has_css?(".modal.visible h2", text: "Create a New User")
+  end 
+
+  def click_cancel
+    page.click_link("Cancel")
+  end
+
   private
 
   attr_reader :page

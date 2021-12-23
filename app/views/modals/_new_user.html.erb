@@ -1,0 +1,51 @@
+<turbo-frame id="modal-content" class="modal-content" role="dialog" aria-labelledby="modal-title">
+  <div data-modal-target="dialog openOnLoad">
+    <%= form_with model: presenter.form, url: users_path do |form| %>
+      <p class="screenreader-text">
+        <span id="modal-title"><%= t(".title") %></span>
+        <span id="modal-description"><%= t(".accessible_description") %></span>
+      </p>
+      <section class="text">
+        <h2><%= t(".title") %></h2>
+        <%= form.hidden_field :id %>
+        <div class="field">
+          <%= form.label :first_name %>
+          <%= form.text_field :first_name %>
+        </div>
+        <div class="field">
+          <%= form.label :last_name %>
+          <%= form.text_field :last_name %>
+        </div>
+        <div class="field">
+          <%= form.label :email %>
+          <%= form.text_field :email %>
+          <p><%=t(".email_helper_text")%></p>
+        </div>
+        <div class="field">
+          <%= form.label :user_role %>
+          <%= form.select :user_role, presenter.user_role_options, prompt: t(".select_user_role") %>
+        </div>
+        <div class="field autocomplete" data-controller="autocomplete" data-autocomplete-url-value="<%= institutions_path %>">
+          <%= form.label :institution_name %>
+          <%= form.text_field :institution_name, placeholder: t(".search_by_name"), value: presenter.institution_name, data: { "autocomplete-target": "input" } %>
+          <%= form.hidden_field :institution_id, data: { "autocomplete-target": "hidden" } %>
+          <div class="autocomplete-results-container">
+            <ul class="autocomplete-results" data-autocomplete-target="results"></ul>
+          </div>
+        </div>
+        <div class="field">
+          <%= form.label :project_role %>
+          <%= form.select :project_role, presenter.project_role_options, prompt: t(".select_project_role") %>
+        </div>
+      </section>
+      <section class="buttons">
+        <div class="close">
+          <%= link_to t(".cancel"), "#", data: { action: "click->modal#close" } %>
+        </div>
+        <button class="active" type="submit">
+          <%= t(".save") %>
+        </button>
+      </section>
+    <% end %>
+  </div>
+</turbo-frame>

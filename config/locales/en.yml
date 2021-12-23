@@ -116,6 +116,17 @@ en:
         close_modal_icon: "Close Modal Icon"
       cancel: Cancel
       save: Save
+    new_user:
+      title: "Create a New User"
+      accessible_description: "A modal pop-up form to create a new user and add them as a team member to this project."
+      search_by_name: "Search by Name"
+      email_helper_text: "Please provide an accurate email address for this user as this will allow the user to log into RAMS in the future. If you do not know this user's email address one will be generated for them."
+      alt:
+        close_modal_icon: "Close Modal Icon"
+      select_user_role: "Select User Role"
+      select_project_role: "Select Project Role"
+      cancel: "Cancel"
+      save: "Save"
     welcome:
       title: Welcome to RAMS
       content: Here you can learn about natural reserves and field stations, request dates and accommodations for your visit, submit project descriptions and permits, and sign any necessary waivers or other permissions.
