@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   resources :team_memberships, only: [:edit, :update], controller: "projects/team_memberships"
   resources :projects, only: [:index, :new, :create] do
-    resources :team_memberships, only: [:index, :create], controller: "projects/team_memberships"
+    resources :team_memberships, only: [:index, :create, :destroy], controller: "projects/team_memberships"
   end
 
   resources :reserves, only: [:index, :show] do

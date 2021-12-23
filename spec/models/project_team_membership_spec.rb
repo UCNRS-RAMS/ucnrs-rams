@@ -26,6 +26,10 @@ RSpec.describe ProjectTeamMembership, type: :model do
     end
   end
 
+  describe "delegations" do
+    it { is_expected.to delegate_method(:id).to(:project).with_prefix }
+  end
+
   it do 
     is_expected.to define_enum_for(:user_role)
       .with_values(

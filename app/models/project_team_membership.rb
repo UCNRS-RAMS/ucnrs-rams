@@ -21,6 +21,8 @@ class ProjectTeamMembership < ApplicationRecord
     BILLING_ROLE = "Billing",
   ].freeze
 
+  delegate :id, to: :project, prefix: true
+
   enum user_role: {
     no_selection: "No selection",
     faculty: "Faculty",

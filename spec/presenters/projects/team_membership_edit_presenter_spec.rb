@@ -7,6 +7,17 @@ RSpec.describe Projects::TeamMembershipEditPresenter do
     it { is_expected.to delegate_method(:errors).to(:form) }
   end
 
+  describe "#project_id" do
+    it "is the id of the team membership's assocaited project" do
+     project =  create(:project)
+     membership = create(:project_team_membership, project: project)
+     form = ProjectTeamMembershipForm.new(params: { id: membership.id })
+     presenter = Projects::TeamMembershipEditPresenter.new(form: form)
+
+     expect(presenter.project_id).to eq project.id
+    end
+  end
+
   describe "editing_team_membership" do
     it "returns a Projects::TeamMembershipPresenter from the id on the form" do
       first = create(:project_team_membership)

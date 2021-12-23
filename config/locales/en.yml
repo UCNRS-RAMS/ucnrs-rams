@@ -111,6 +111,8 @@ en:
     edit_project_team_membership:
       title: Edit Team Member
       accessible_description: A modal pop-up form to edit details of a team member on this project.
+      remove_team_member: "Remove this Team Member"
+      confirm_removal: "Are you sure you want to remove %{name}?"
       search_by_name: Search by Name
       alt:
         close_modal_icon: "Close Modal Icon"

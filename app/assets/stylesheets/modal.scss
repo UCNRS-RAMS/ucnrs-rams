@@ -16,6 +16,23 @@
     display: none;
   }
 
+  .heading {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    a {
+      color: $sky-blue;
+      font-size: 12px;
+      text-decoration: none;
+
+      &:visited {
+        color: $navy-blue;
+      }
+    }
+  }
+
   &.visible {
     align-items: center;
     display: flex;
