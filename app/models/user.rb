@@ -35,21 +35,19 @@ class User < ApplicationRecord
 
   validates_each :billing_address_line_1,
     :billing_address_city,
-    :billing_address_state,
     :billing_address_country,
     :billing_address_postal_code do |record, attr, value|
-    billing_address_values = [
-      record[:billing_address_line_1],
-      record[:billing_address_city],
-      record[:billing_address_state],
-      record[:billing_address_country],
-      record[:billing_address_postal_code],
-    ].reject { |billing_address_value| billing_address_value.blank? }
+      billing_address_values = [
+        record[:billing_address_line_1],
+        record[:billing_address_city],
+        record[:billing_address_country],
+        record[:billing_address_postal_code],
+      ].reject { |billing_address_value| billing_address_value.blank? }
 
-    if value.blank? && billing_address_values.any?
-      record.errors.add(attr, :billing_address_fields_presence)
+      if value.blank? && billing_address_values.any?
+        record.errors.add(attr, :billing_address_fields_presence)
+      end
     end
-  end
 
   belongs_to :institution
   belongs_to :address_country, class_name: "Country"

@@ -280,25 +280,6 @@ RSpec.describe User, type: :model do
       end
 
       describe "#billing_address_state" do
-        context "when the other billing_address fields are complete" do
-          it "adds an error if billing_address_state is not present" do
-            country = create(:country)
-            state = create(:state, country: country)
-            user = build(:user,
-              billing_address_line_1: "123 Main St",
-              billing_address_city: "Some city",
-              billing_address_state: nil,
-              billing_address_country: country,
-              billing_address_postal_code: "11111",
-            )
-
-            user.save
-
-            expect(user).not_to be_valid
-            expect(user.errors.messages[:billing_address_state]).to include("can't be blank if including a billing address")
-          end
-        end
-
         context "when the other billing_address fields are not complete" do
           it "does not add an error if billing_address_state is present" do
             country = create(:country)

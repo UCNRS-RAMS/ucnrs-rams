@@ -146,7 +146,12 @@
           <h2><%= t(".titles.current_address") %></h2>
           <div class="field medium">
             <%= f.label :address_country_id, t(".labels.country") %>
-            <%= f.collection_select(:address_country_id, Country.alphabetical_by_name, :id, :name, { selected: @presenter.default_country_option }, { data: { action: "change->followup-content#change" } }) %>
+            <%= f.collection_select(
+                  :address_country_id, Country.alphabetical_by_name, :id, :name,
+                  { selected: f.object.address_country_id || @presenter.default_country_option },
+                  { data: { action: "change->followup-content#change" } }
+                )
+            %>
           </div>
           <div class="field medium">
             <%= f.label :address_line_1, t(".labels.address") %>
@@ -160,7 +165,12 @@
           <div class="inline">
             <div class="field medium">
               <%= f.label :address_state_id, t(".labels.state") %>
-              <%= f.collection_select(:address_state_id, @presenter.initial_state_options, :id, :name, { include_blank: true }, { data: { followup_content_target: "destination", "followup-content-url-value": states_url(country_id: "VALUE") } }) %>
+              <%= f.collection_select(
+                    :address_state_id, @presenter.address_state_options, :id, :name,
+                    { include_blank: true },
+                    { data: { followup_content_target: "destination", "followup-content-url-value": states_url(country_id: "VALUE") } }
+                  ) 
+              %>
             </div>
             <div class="field extra-small">
               <%= f.label :address_postal_code, t(".labels.postal_code") %>
@@ -179,7 +189,12 @@
           </div>
           <div class="field medium">
             <%= f.label :billing_address_country_id, t(".labels.country") %>
-            <%= f.collection_select(:billing_address_country_id, Country.alphabetical_by_name, :id, :name, { include_blank: true }, { data: { action: "change->followup-content#change" } }) %>
+            <%= f.collection_select(
+                  :billing_address_country_id, Country.alphabetical_by_name, :id, :name,
+                  { include_blank: true },
+                  { data: { action: "change->followup-content#change" } }
+                ) 
+            %>
           </div>
           <div class="field medium">
             <%= f.label :billing_address_line_1, t(".labels.address") %>
@@ -193,7 +208,12 @@
           <div class="inline">
             <div class="field medium">
               <%= f.label :billing_address_state_id, t(".labels.state") %>
-              <%= f.collection_select(:billing_address_state_id, [], :id, :name, { include_blank: true }, { data: { followup_content_target: "destination", "followup-content-url-value": states_url(country_id: "VALUE") } }) %>
+              <%= f.collection_select(
+                    :billing_address_state_id, @presenter.billing_address_state_options, :id, :name,
+                    { include_blank: true },
+                    { data: { followup_content_target: "destination", "followup-content-url-value": states_url(country_id: "VALUE") } }
+                  )
+              %>
             </div>
             <div class="field extra-small">
               <%= f.label :billing_address_postal_code, t(".labels.postal_code") %>
@@ -221,7 +241,10 @@
       <section class="terms">
         <div class="field">
           <%= f.check_box :terms_accepted_at, {checked: @presenter.form.terms_accepted?} %>
-          <%= f.label :terms_accepted_at, t(".labels.agree_to_terms_of_use", link: link_to(t(".links.terms_of_use"), t(".urls.ucnrs_terms_of_use"), target: "_blank")).html_safe %>
+          <%= f.label :terms_accepted_at, 
+                t(".labels.agree_to_terms_of_use", 
+                link: link_to(t(".links.terms_of_use"), t(".urls.ucnrs_terms_of_use"), target: "_blank")).html_safe
+          %>
         </div>
         <p class="helper-text">
           <%= t(".helper_text.receive_nrs_updates") %>

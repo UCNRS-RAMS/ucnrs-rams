@@ -98,8 +98,8 @@ RSpec.describe RegistrationFormPresenter do
     end
   end
 
-  describe "#initial_state_options" do
-    it "returns an array of U.S. states alphabetized by name" do
+  describe "#address_state_options" do
+    it "returns an array of U.S. states alphabetized by name if form country id is empty" do
       us = create(:country)
       canada = create(:country)
       massachusetts = create(:state, name: "Massachusetts", country: us)
@@ -107,7 +107,35 @@ RSpec.describe RegistrationFormPresenter do
       non_us_state = create(:state, name: "Quebec", country: canada)
       presenter = RegistrationFormPresenter.new
   
-      expect(presenter.initial_state_options).to contain_exactly california, massachusetts
+      expect(presenter.address_state_options).to eq [california, massachusetts]
+    end
+
+    it "returns an array of states alphabetized by name based on the form address country" do
+      us = create(:country)
+      canada = create(:country)
+      massachusetts = create(:state, name: "Massachusetts", country: us)
+      california = create(:state, name: "California", country: us)
+      non_us_state = create(:state, name: "Quebec", country: canada)
+
+      form = RegistrationForm.new({address_country_id: canada.id})
+      presenter = RegistrationFormPresenter.new(form)
+  
+      expect(presenter.address_state_options).to eq [non_us_state]
+    end
+  end
+
+  describe "#billing_address_state_options" do
+    it "returns an array of states alphabetized by name based on the form billing address country" do
+      us = create(:country)
+      canada = create(:country)
+      massachusetts = create(:state, name: "Massachusetts", country: us)
+      california = create(:state, name: "California", country: us)
+      non_us_state = create(:state, name: "Quebec", country: canada)
+
+      form = RegistrationForm.new({billing_address_country_id: us.id})
+      presenter = RegistrationFormPresenter.new(form)
+  
+      expect(presenter.address_state_options).to eq [california, massachusetts]
     end
   end
 
