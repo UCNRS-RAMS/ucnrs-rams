@@ -165,6 +165,12 @@ class CreateProjectFlow
       .has_css?("td", text: role)
   end
 
+  def remove_team_member
+    page.accept_confirm do
+      page.find(".modal.visible a[data-method='delete']").click
+    end
+  end
+
   private
 
   attr_reader :page

@@ -100,5 +100,10 @@ RSpec.describe "Creating a project", type: :system, js: true do
     flow.inexplicably_sleep_for_a_tiny_amount_of_time_because_wait_is_insufficient
     expect(flow).to_not be_showing_popup_editing_user("Another User")
     expect(flow).to be_showing_user_role_as("Professional", for_user: "Another User")
+
+    flow.edit_team_member("Another User")
+    flow.remove_team_member
+    flow.inexplicably_sleep_for_a_tiny_amount_of_time_because_wait_is_insufficient
+    expect(flow).not_to have_team_member("Another User")
   end
 end

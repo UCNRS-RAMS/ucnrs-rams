@@ -58,6 +58,22 @@ class Projects::TeamMembershipsController < ApplicationController
     end
   end
 
+  def destroy
+    respond_to do |format|
+      if project_team_membership.destroy
+        format.turbo_stream { redirect_to project_team_memberships_path(project) }
+        format.html { redirect_to project_team_memberships_path(project) }
+      else
+        @presenter = Projects::TeamMembershipEditPresenter.new(form: form)
+        format.turbo_stream do
+          render template: "projects/team_memberships/edit",
+            status: :unprocessable_entity
+        end
+        format.html { render status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
 
   def project

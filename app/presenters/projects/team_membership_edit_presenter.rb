@@ -8,6 +8,10 @@ class Projects::TeamMembershipEditPresenter
   attr_reader :form
   delegate :id, :errors, to: :form
 
+  def project_id
+    editing_team_membership.project_id
+  end
+
   def editing_team_membership
     Projects::TeamMembershipPresenter.new(
       ProjectTeamMembership.find(id)
