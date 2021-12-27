@@ -10,11 +10,12 @@ Rails.application.routes.draw do
   resources :institutions, only: [:index, :new, :create]
   resources :states, only: [:index]
   resources :visits, only: [:new, :create]
-  resources :users, only: [:index, :new]
+  resources :users, only: [:index]
 
   resources :team_memberships, only: [:edit, :update], controller: "projects/team_memberships"
   resources :projects, only: [:index, :new, :create] do
     resources :team_memberships, only: [:index, :create, :destroy], controller: "projects/team_memberships"
+    resources :users, only: [:new, :create], controller: "projects/users"
   end
 
   resources :reserves, only: [:index, :show] do

@@ -1,9 +1,23 @@
 require "rails_helper"
 
-RSpec.describe UserNewPresenter do
+RSpec.describe Projects::UserNewPresenter do
+  describe "delegations" do
+    subject do
+      Projects::UserNewPresenter.new(
+        form: :fake_form,
+        project: build_stubbed(:project),
+      )
+    end
+
+    it { is_expected.to delegate_method(:institution_name).to(:form) }
+  end
+
   describe "user_role_options" do
     it "puts the user role options (not incl. 'No Selection') into a useful array" do
-      presenter = UserNewPresenter.new(form: :fake_form)
+      presenter = Projects::UserNewPresenter.new(
+        form: :fake_form,
+        project: build_stubbed(:project),
+      )
 
       expect(presenter.user_role_options).to eq [
         ["Faculty", "faculty"],
@@ -24,7 +38,10 @@ RSpec.describe UserNewPresenter do
 
   describe "#project_role_options" do
     it "is a list of project role options" do
-      presenter = UserNewPresenter.new(form: :fake_form)
+      presenter = Projects::UserNewPresenter.new(
+        form: :fake_form,
+        project: build_stubbed(:project),
+      )
 
       expect(presenter.project_role_options).to eq [
         "PI - Principal Investigator",

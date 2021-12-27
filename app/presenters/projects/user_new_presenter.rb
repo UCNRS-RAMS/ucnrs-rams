@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
-class UserNewPresenter
-  def initialize(form:)
+class Projects::UserNewPresenter
+  def initialize(form:, project:)
     @form = form
+    @project = project
   end
 
-  attr_reader :form
+  attr_reader :form, :project
 
-  attr_accessor :institution_name
+  delegate :institution_name, to: :form
 
   def user_role_options
     User.roles.except(:no_selection).map { |key, value| [value, key] }

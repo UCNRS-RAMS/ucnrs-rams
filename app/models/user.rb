@@ -3,6 +3,13 @@
 class User < ApplicationRecord
   VALID_PASSWORD_PATTERN = /^(?=.*?[A-Z])(?=.*?[0-9]).{8,70}$/
 
+  UCNRS_STREET_ADDRESS = "1111 Franklin Street"
+  UCNRS_CITY = "Oakland"
+  UCNRS_POSTAL_CODE = "94607"
+  FAKE_PHONE_NUMBER = "111-111-1111"
+  FAKE_EMERGENCY_CONTACT = "UCNRS Emergency Contact"
+  FAKE_EMERGENCY_CONTACT_PHONE_NUMBER = "222-222-2222"
+
   devise :confirmable,
     :database_authenticatable,
     :registerable,
@@ -85,6 +92,24 @@ class User < ApplicationRecord
     twenty_five_to_fifty: "25-50",
     fifty_or_older: "50 or older",
   }
+
+  def self.placeholder_data_for_non_registered_users
+    default_country = Country.where(name: "United States").first_or_create
+    default_state = State.where(name: "California", country: default_country).first_or_create
+
+    {
+      address_line_1: UCNRS_STREET_ADDRESS,
+      address_city: UCNRS_CITY,
+      address_postal_code: UCNRS_POSTAL_CODE,
+      address_state: default_state,
+      address_country: default_country,
+      phone_number: FAKE_PHONE_NUMBER,
+      password: SecureRandom.urlsafe_base64(10) + "!",
+      emergency_contact_full_name: FAKE_EMERGENCY_CONTACT,
+      emergency_contact_phone_number: FAKE_EMERGENCY_CONTACT_PHONE_NUMBER,
+      terms_accepted_at: Time.current,
+    }
+  end
 
   def self.search(query)
     URI

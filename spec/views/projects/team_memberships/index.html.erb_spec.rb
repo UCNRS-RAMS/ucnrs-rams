@@ -3,9 +3,10 @@ require "rails_helper"
 RSpec.describe "index.html.erb" do
   describe "on any render" do
     it "includes steps (on step 2)" do
+      project = create(:project)
       assign(:presenter, Projects::TeamMembershipsIndexPresenter.new(
         current_step: 2,
-        project: build_stubbed(:project),
+        project: project,
       ))
 
       render template: "projects/team_memberships/index"
@@ -16,7 +17,7 @@ RSpec.describe "index.html.erb" do
     end
 
     it "displays a form to add a project team member" do
-      project = build_stubbed(:project)
+      project = create(:project)
       assign(:presenter, Projects::TeamMembershipsIndexPresenter.new(
         current_step: 2,
         project: project,
@@ -32,9 +33,10 @@ RSpec.describe "index.html.erb" do
     end
 
     it "includes markup for autocomplete on the user field" do
+      project = create(:project)
       assign(:presenter, Projects::TeamMembershipsIndexPresenter.new(
         current_step: 2,
-        project: build_stubbed(:project),
+        project: project,
       ))
 
       render template: "projects/team_memberships/index"

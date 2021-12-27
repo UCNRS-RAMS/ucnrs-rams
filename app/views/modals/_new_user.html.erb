@@ -1,13 +1,12 @@
 <turbo-frame id="modal-content" class="modal-content" role="dialog" aria-labelledby="modal-title">
   <div data-modal-target="dialog openOnLoad">
-    <%= form_with model: presenter.form, url: users_path do |form| %>
+    <%= form_with model: presenter.form, url: project_users_path(presenter.project) do |form| %>
       <p class="screenreader-text">
         <span id="modal-title"><%= t(".title") %></span>
         <span id="modal-description"><%= t(".accessible_description") %></span>
       </p>
       <section class="text">
         <h2><%= t(".title") %></h2>
-        <%= form.hidden_field :id %>
         <div class="field">
           <%= form.label :first_name %>
           <%= form.text_field :first_name %>

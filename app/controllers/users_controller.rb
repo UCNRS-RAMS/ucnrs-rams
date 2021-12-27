@@ -5,13 +5,6 @@ class UsersController < ApplicationController
     @presenter = UsersIndexPresenter.new(query: query)
   end
 
-  def new
-    form = UserForm.new
-    @presenter = UserNewPresenter.new(
-      form: form
-    )
-  end
-
   private
 
   def query

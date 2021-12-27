@@ -2,7 +2,10 @@ require "rails_helper"
 
 RSpec.describe "modals/_new_user.html.erb", type: :view do
   it "renders a turbo-frame modal" do
-    presenter = UserNewPresenter.new(form: UserForm.new)
+    presenter = Projects::UserNewPresenter.new(
+      form: UserForm.new,
+      project: build_stubbed(:project),
+    )
 
     render partial: "modals/new_user", locals: { presenter: presenter }
 
@@ -11,7 +14,10 @@ RSpec.describe "modals/_new_user.html.erb", type: :view do
   end
 
   it "includes an autocomplete form for institution name" do
-    presenter = UserNewPresenter.new(form: UserForm.new)
+    presenter = Projects::UserNewPresenter.new(
+      form: UserForm.new,
+      project: build_stubbed(:project),
+    )
 
     render partial: "modals/new_user", locals: { presenter: presenter }
 
@@ -23,12 +29,16 @@ RSpec.describe "modals/_new_user.html.erb", type: :view do
   end
 
   it "renders a form with the right fields for a new user" do
-    presenter = UserNewPresenter.new(form: UserForm.new)
+    project = build_stubbed(:project)
+    presenter = Projects::UserNewPresenter.new(
+      form: UserForm.new,
+      project: project,
+    )
 
     render partial: "modals/new_user", locals: { presenter: presenter }
 
     doc = Capybara.string(rendered)
-    expect(doc).to have_css("form[action='/users']")
+    expect(doc).to have_css("form[action='/projects/#{project.id}/users']")
     expect(doc).to have_field("First name")
     expect(doc).to have_field("Last name")
     expect(doc).to have_field("Email")

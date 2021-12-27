@@ -10,7 +10,7 @@
     <h2><%= t(".add_team_member_title") %></h2>
     <span>
       <%= t(".cannot_find_them") %>
-      <%= link_to t(".create_new_user"), new_user_path, data: { "turbo-frame": "modal-content" } %>
+      <%= link_to t(".create_new_user"), new_project_user_path(@presenter.project), data: { "turbo-frame": "modal-content" } %>
     </span>
   </div>
     <%= form_with model: @presenter.form, url: project_team_memberships_path(@presenter.project) do |form| %>

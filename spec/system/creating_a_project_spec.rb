@@ -35,6 +35,7 @@ RSpec.describe "Creating a project", type: :system, js: true do
   end
 
   it "can create a new project" do
+    institution = create(:institution, name: "MIT")
     user = create(:user, :confirmed)
     another_user = create(
       :user,
@@ -43,7 +44,7 @@ RSpec.describe "Creating a project", type: :system, js: true do
       last_name: "User",
       role: :docent,
       email: "123@456.test",
-      institution: create(:institution, name: "MIT"),
+      institution: institution
     )
     sign_in(user)
     flow = CreateProjectFlow.new(page)
@@ -87,8 +88,15 @@ RSpec.describe "Creating a project", type: :system, js: true do
     flow.click_create_new_user
     expect(flow).to be_showing_popup_creating_user
 
-    flow.click_cancel
+    flow.create_user_with_membership(
+      first_name: "First",
+      last_name: "Last",
+      institution: institution
+    )
+    flow.save_project_team_member
+    flow.inexplicably_sleep_for_a_tiny_amount_of_time_because_wait_is_insufficient
     expect(flow).to_not be_showing_popup_creating_user
+    expect(flow).to have_team_member("First Last")
 
     flow.enter_name_into_autocomplete("Anot")
     expect(flow).to be_showing_autocomplete_with_option("Another User - MIT - 1x3@456.test")
