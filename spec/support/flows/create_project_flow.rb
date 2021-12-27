@@ -171,10 +171,23 @@ class CreateProjectFlow
 
   def showing_popup_creating_user?
     page.has_css?(".modal.visible h2", text: "Create a New User")
-  end 
+  end
 
-  def click_cancel
-    page.click_link("Cancel")
+  def create_user_with_membership(
+    first_name: "A first name",
+    last_name: "And a last name",
+    email: "foo@email.test",
+    user_role: "Other",
+    project_role: "PI - Principal Investigator",
+    institution: nil
+  )
+    page.fill_in("First name", with: first_name)
+    page.fill_in("Last name", with: last_name)
+    page.fill_in("Institution name", with: institution.name)
+    page.find("li#institution_#{institution.id}").click
+    page.fill_in("Email", with: email)
+    page.select(user_role, from: "User role")
+    page.select(project_role, from: "Project role")
   end
 
   private
