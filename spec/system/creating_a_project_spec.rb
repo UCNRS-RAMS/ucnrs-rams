@@ -119,5 +119,8 @@ RSpec.describe "Creating a project", type: :system, js: true do
     flow.remove_team_member
     flow.inexplicably_sleep_for_a_tiny_amount_of_time_because_wait_is_insufficient
     expect(flow).not_to have_team_member("Another User")
+
+    flow.submit_step_two
+    expect(flow).to be_on_project_permits_page
   end
 end
