@@ -35,8 +35,8 @@
 <%= render partial: "projects/team_memberships/team_member_table", locals: { presenter: @presenter } %>
 
 <section class="controls">
-  <button class="active">
+  <%= button_to project_permits_path(@presenter.project), method: :get, class: "active" do %>
     <%= t(".next_step") %>
     <%= image_tag "arrow-right.svg", alt: t(".alt.right_facing_arrow") %>
-  </button>
+  <% end %>
 </section>
