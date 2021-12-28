@@ -196,6 +196,14 @@ class CreateProjectFlow
     page.select(project_role, from: "Project role")
   end
 
+  def submit_step_two
+    page.find("form.button_to button").click
+  end
+
+  def on_project_permits_page?
+    page.has_css?("body.permits-index")
+  end
+
   private
 
   attr_reader :page

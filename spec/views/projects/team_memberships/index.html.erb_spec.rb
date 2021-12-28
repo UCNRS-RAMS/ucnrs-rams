@@ -68,4 +68,25 @@ RSpec.describe "index.html.erb" do
     expect(doc).to display_error("already on this team").for_field("Full Name")
     expect(doc).to display_error("must select an option").for_field("Project Role")
   end
+
+  describe "the submit button" do
+    it "renders a button with the correct text for step 2" do
+      membership = create(:project_team_membership)
+      form = ProjectTeamMembershipForm.new(
+        project: membership.project,
+        params: membership.attributes,
+      )
+      assign(:presenter, Projects::TeamMembershipsIndexPresenter.new(
+        current_step: 2,
+        project: membership.project,
+        form: form
+      ))
+
+      controller.request.path_parameters[:project_id] = membership.project.id
+      render template: "projects/team_memberships/index"
+
+      doc = Capybara.string(rendered)
+      expect(doc).to have_css("form[method='get'][action='/projects/#{membership.project.id}/permits']", text: "Next: Permits")
+    end
+  end
 end

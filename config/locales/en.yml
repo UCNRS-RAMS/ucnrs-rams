@@ -539,6 +539,9 @@ en:
         project_team: "Project Team"
       team_membership:
         edit: "Edit"
+    permits:
+      index:
+        title: "Permits"
   waivers:
     index:
       title: "Waivers"
