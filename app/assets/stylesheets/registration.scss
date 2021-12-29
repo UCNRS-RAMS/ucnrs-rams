@@ -1,6 +1,7 @@
 @import "variables";
+@import "mixins/icon_link";
 
-.registrations main{
+.registrations main, .users main{
   .content {
     align-items: center;
     color: $form-title-color;
@@ -10,6 +11,12 @@
 
   header {
     width: 60%;
+
+    .h-with-link {
+      align-items: baseline;
+      display: flex;
+      justify-content: space-between;
+    }
 
     h1 {
       font-size: 2.25rem;

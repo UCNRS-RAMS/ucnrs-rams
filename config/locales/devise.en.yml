@@ -116,6 +116,63 @@ en:
       create:
         success: "Your account has been created successfully."
         failure: "Your account could not be created."
+      edit:
+        header:
+          title: "Edit My Account"
+          description: "Here you can edit your account information."
+          sign_out: "Sign Out"
+        links:
+          go_back: "Cancel, Go Back"
+          edit_account: "Submit %{icon}"
+      user_fields:
+        titles:
+          basics: "Basics"
+          age_range: "Age Range (Optional)"
+          role: "Role"
+          emergency_contact: "Emergency Contact"
+          current_address: "Current Address"
+          billing_address: "Billing Address"
+        labels:
+          gender_identity: "Gender Identity"
+          first_name: "First Name"
+          last_name: "Last Name"
+          phone_number: "Phone Number"
+          secondary_phone_number: "Secondary Phone Number (Optional)"
+          accessibility_requirements: "Accessibility Requirements or Known Allergies (Optional)"
+          email_address: "Email Address"
+          backup_email_address: "Backup Email Address"
+          password: "Create A New Password"
+          password_confirmation: "Re-Enter Password"
+          institution: "Institution, Organization, or Agency"
+          advisor_name: "Advisor/Supervisor Name"
+          orcid: "ORCID (Optional)"
+          emergency_contact_full_name: "Full Name"
+          emergency_contact_phone_number: "Phone Number"
+          country: "Country"
+          address: "Address"
+          city: "City"
+          state: "State/Province"
+          postal_code: "Zip/Postcode"
+          billing_name: "Billing Name (Optional)"
+          billing_email: "Billing Email Address (Optional)"
+          billing_phone_number: "Billing Phone Number (Optional)"
+          agree_to_terms_of_use: "I agree to the %{link} of the UC RAMS website."
+          same_as_current: "Same as current"
+        placeholders:
+          date_of_birth: "MM / DD / YYYY"
+          institution: "search institution"
+        helper_text:
+          tip: "TIP:"
+          institution: 'Your institution is likely already in our database. Start typing in the full name of your Institution e.g "University of California, Davis". If you cannot find your institution,'
+          emergency_contact: "In case we need to notify someone while you’re at the reserve."
+          receive_nrs_updates: "If you would like to receive updates from the NRS please sign up for the"
+          age_range: "This helps with demographic reporting"
+        links:
+          change_my_password: "Change My Password"
+          create_new_instituion: "Create a New Institution."
+          orcid: "What is an ORCID?"
+        urls:
+          orcid: "https://orcid.org/"
       destroyed: "Bye! Your account has been successfully cancelled. We hope to see you again soon."
       signed_up: "Welcome! You have signed up successfully."
       signed_up_but_inactive: "You have signed up successfully. However, we could not sign you in because your account is not yet activated."

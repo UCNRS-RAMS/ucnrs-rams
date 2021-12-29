@@ -10,7 +10,7 @@ RSpec.describe "navbar", type: :view do
     expect(rendered).to have_link("Reserves", href: "/reserves")
     expect(rendered).to have_link("My Projects", href: "/projects")
     expect(rendered).to have_link("Help", href: "#")
-    expect(rendered).to have_link("Account", href: "#")
+    expect(rendered).to have_link("Account", href: "/users/edit")
     expect(rendered).to have_link("Sign Out", href: "/users/sign_out")
 
     expect(rendered).to have_link("Schedule a Visit", href: "/visits/new")

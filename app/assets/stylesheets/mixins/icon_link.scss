@@ -1,0 +1,37 @@
+@import "variables";
+
+@mixin icon-link($icons) {
+  @each $name, $size in $icons {
+    a.icon-#{$name}:before {
+      background: no-repeat center/$size url(asset-path("icon-#{$name}.svg"));
+      content: "";
+      display: block;
+      height: 1.125rem;
+      left: 0px;
+      position: absolute;
+      top: 0;
+      width: 1.125rem;
+    }
+  }
+};
+
+@include icon-link(
+  (
+    "map": 18px,
+    "external-link": 18px,
+    "email": 18px,
+    "document-a": 15px,
+    "refresh-a": 18px,
+    "sign-out": 18px
+  )
+);
+
+a.icon {
+  color: $sky-blue;
+  font-size: 0.875rem;
+  font-weight: $medium;
+  margin: 1rem 0;
+  padding-left: 1.5625rem;
+  position: relative;
+  text-decoration: none;
+}

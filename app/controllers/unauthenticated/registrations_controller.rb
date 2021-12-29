@@ -5,7 +5,7 @@ module Unauthenticated
     end
 
     def create
-      @form = RegistrationForm.new(user_params)
+      @form = RegistrationForm.new(params: user_params)
       if @form.submit
         flash[:success] = I18n.t(".devise.registrations.create.success")
         redirect_to root_path
@@ -13,6 +13,24 @@ module Unauthenticated
         flash.now[:error] = I18n.t(".devise.registrations.create.failure")
         @presenter = RegistrationFormPresenter.new(@form)
         render :new, status: :unprocessable_entity
+      end
+    end
+
+    def edit
+      form = RegistrationForm.new(user: current_user)
+      @presenter = RegistrationFormPresenter.new(form)
+    end
+  
+    def update
+      @form = RegistrationForm.new(user: current_user, params: edit_user_params)
+  
+      if @form.submit
+        flash.now[:notice] = I18n.t(".devise.registrations.updated")
+        @presenter = RegistrationFormPresenter.new(@form)
+        render :edit
+      else
+        @presenter = RegistrationFormPresenter.new(@form)
+        render :edit, status: :unprocessable_entity
       end
     end
 
@@ -55,6 +73,10 @@ module Unauthenticated
         :billing_person_phone_number,
         :terms_accepted_at,
       )
+    end
+
+    def edit_user_params
+      user_params.except(:terms_accepted_at)
     end
   end
 end

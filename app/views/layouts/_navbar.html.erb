@@ -12,7 +12,7 @@
           <li> <%= link_to I18n.t(".navbar.link.reserves"), reserves_path, class:"nav-link #{active_class_for("reserves")}" %> </li>
           <li> <%= link_to I18n.t(".navbar.link.my_projects"), projects_path, class:"nav-link #{active_class_for("projects")}" %> </li>
           <li> <%= link_to I18n.t(".navbar.link.help"), "#", class:"nav-link #{active_class_for("help")}" %> </li>
-          <li> <%= link_to I18n.t(".navbar.link.account"), "#", class:"nav-link #{active_class_for("users")}" %> </li>
+          <li> <%= link_to I18n.t(".navbar.link.account"), edit_user_registration_path, class:"nav-link #{active_class_for("registrations")}" %> </li>
           <li> <%= link_to I18n.t(".navbar.link.sign_out"), destroy_user_session_path, class:"nav-link #{active_class_for("sessions")}", data: { turbo: false } %> </li>
           <li> <%= link_to I18n.t(".navbar.link.schedule_visit"), new_visit_path, class:"nav-link schedule #{active_class_for("visits")}" %></li>
         </ul>

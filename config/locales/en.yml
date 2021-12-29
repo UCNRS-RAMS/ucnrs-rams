@@ -636,6 +636,7 @@ en:
         project_search: Project Search
   alt:
     right_facing_arrow: "right facing arrow"
+    left_facing_arrow: "left facing arrow"
     list_icon: "list icon"
     calendar_icon: "calendar icon"
     news_article_image: "news article image"

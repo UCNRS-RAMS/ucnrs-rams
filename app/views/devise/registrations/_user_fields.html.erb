@@ -1,0 +1,223 @@
+<div class="section-container">
+  <section class="basics">
+    <h2><%= t(".titles.basics") %></h2>
+
+    <div class="field large">
+      <%= f.label :first_name, t(".labels.first_name") %>
+      <%= f.text_field :first_name %>
+    </div>
+    <div class="field large">
+      <%= f.label :last_name, t(".labels.last_name") %>
+      <%= f.text_field :last_name %>
+    </div>
+    <div class="field medium">
+      <%= f.label :gender_identity, t(".labels.gender_identity") %>
+      <%= f.select :gender_identity, presenter.gender_identity_options,
+        selected: f.object.gender_identity || presenter.default_gender_identity_option
+      %>
+    </div>
+    <div class="field medium">
+      <p class="helper-text"><strong><%= t(".titles.age_range") %></strong></p>
+      <p class="helper-text"><%= t(".helper_text.age_range") %></p>
+      <div class="radio-buttons age-range">
+        <% presenter.age_range_options.each do |(value, label)|%>
+          <span class="radio-button">
+            <%= f.radio_button :age_range, value %>
+            <%= f.label :age_range, label, value: value %>
+          </span>
+        <% end %>
+      </div>
+    </div>
+    <div class="inline">
+      <div class="field small">
+        <%= f.label :phone_number, t(".labels.phone_number") %>
+        <%= f.telephone_field :phone_number, placeholder: presenter.phone_number_placeholder %>
+      </div>
+      <div class="field small">
+        <%= f.label :secondary_phone_number, t(".labels.secondary_phone_number") %>
+        <%= f.telephone_field :secondary_phone_number, placeholder: presenter.phone_number_placeholder %>
+      </div>
+    </div>
+    <div class="field large">
+      <%= f.label :accessibility_requirements, t(".labels.accessibility_requirements") %>
+      <%= f.text_area :accessibility_requirements, class: "form-field-large" %>
+    </div>
+    <div class="field medium email">
+      <%= f.label :email, t(".labels.email_address") %>
+      <%= f.email_field :email %>
+    </div>
+    <div class="field medium">
+      <%= f.label :backup_email_address, t(".labels.backup_email_address") %>
+      <%= f.email_field :backup_email_address %>
+    </div>
+    <% if f.object.new_record? %>
+      <div class="field medium">
+        <%= f.label :password, t(".labels.password") %>
+        <%= f.password_field :password %>
+      </div>
+      <div class="field medium">
+        <%= f.label :password_confirmation, t(".labels.password_confirmation") %>
+        <%= f.password_field :password_confirmation %>
+      </div>
+    <% else %>
+      <%= link_to t(".links.change_my_password"), "#" %>
+    <% end %>
+  </section>
+</div>
+<div class="section-container blue-bg">
+  <section class="role" data-controller="copy">
+    <div class="field">
+      <h2><%= t(".titles.role") %></h2>
+      <div class="radio-buttons role">
+        <% presenter.role_options.each do |(value, label)| %>
+          <span class="radio-button">
+            <%= f.radio_button :role, value %>
+            <%= f.label :role, label, value: value %>
+          </span>
+        <% end %>
+      </div>
+    </div>
+    <div class="field small orcid">
+      <%= f.label :orcid, t(".labels.orcid") %>
+      <%= f.text_field :orcid %>
+      <p class="helper-text">
+        <%= link_to t(".links.orcid"), t(".urls.orcid"), target: :_blank %>
+      </p>
+    </div>
+    <div 
+        class="field institution-field large" 
+        data-controller="autocomplete" 
+        data-autocomplete-url-value="<%= institutions_url %>" 
+        data-autocomplete-min-length-value="3"
+        
+      >
+      <%= f.label :institution, t(".labels.institution") %>
+      <p class="helper-text">
+        <strong><%= t(".helper_text.tip") %></strong>
+        <%= t(".helper_text.institution") %>
+        <%= link_to t(".links.create_new_instituion"), new_institution_path, remote: true %>
+      </p>
+      <div class="autocomplete">
+        <%= f.text_field :institution, 
+          data: {
+            "autocomplete-target": "input",
+          },
+          class: "large",
+          value: presenter.institution_field_value,
+          placeholder: t(".placeholders.institution")
+        %>
+        <%= f.hidden_field :institution_id, data: { "autocomplete-target": "hidden" } %>
+        <div class="autocomplete-results-container">
+          <ul class="autocomplete-results" data-autocomplete-target="results"></ul>
+        </div>
+      </div>
+    </div>
+    <div class="field large">
+      <%= f.label :advisor, t(".labels.advisor_name") %>
+      <%= f.text_field :advisor %>
+    </div>
+  </section>
+</div>
+<div class="section-container">
+  <section class="emergency-contact">
+    <div>
+      <h2><%= t(".titles.emergency_contact") %></h2>
+      <p class="helper-text"><%= t(".helper_text.emergency_contact") %></p>
+    </div>
+    <div class="inline">
+      <div class="field large">
+        <%= f.label :emergency_contact_full_name, t(".labels.emergency_contact_full_name") %>
+        <%= f.text_field :emergency_contact_full_name %>
+      </div>
+      <div class="field small">
+        <%= f.label :emergency_contact_phone_number, t(".labels.emergency_contact_phone_number") %>
+        <%= f.telephone_field :emergency_contact_phone_number, placeholder: presenter.phone_number_placeholder %>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="section-container">
+  <section class="address">
+    <section data-controller="followup-content">
+      <h2><%= t(".titles.current_address") %></h2>
+      <div class="field medium">
+        <%= f.label :address_country_id, t(".labels.country") %>
+        <%= f.collection_select(:address_country_id, Country.alphabetical_by_name, :id, :name, 
+                                  { selected: f.object.address_country_id || presenter.default_country_option },
+                                  { data: { action: "change->followup-content#change" } }) %>
+      </div>
+      <div class="field medium">
+        <%= f.label :address_line_1, t(".labels.address") %>
+        <%= f.text_field :address_line_1 %>
+        <%= f.text_field :address_line_2, aria: { label: "Address Line 2" } %>
+      </div>
+      <div class="field medium">
+        <%= f.label :address_city, t(".labels.city") %>
+        <%= f.text_field :address_city %>
+      </div>
+      <div class="inline">
+        <div class="field medium">
+          <%= f.label :address_state_id, t(".labels.state") %>
+          <%= f.collection_select(:address_state_id, presenter.address_state_options || presenter.initial_state_options, :id, :name,
+                                    { include_blank: true, selected: f.object.address_state_id || presenter.default_state_option },
+                                    { data: { followup_content_target: "destination", "followup-content-url-value": states_url(country_id: "VALUE") } }) %>
+        </div>
+        <div class="field extra-small">
+          <%= f.label :address_postal_code, t(".labels.postal_code") %>
+          <%= f.text_field :address_postal_code, placeholder: presenter.postal_code_placeholder %>
+        </div>
+      </div>
+    </section>
+
+    <section data-controller="followup-content">
+      <div class="billing-title">
+        <h2><%= t(".titles.billing_address") %></h2>
+        <div class="field">
+          <%= f.check_box :billing_address_same_as_current %> 
+          <%= f.label :billing_address_same_as_current, t(".labels.same_as_current") %> 
+        </div>
+      </div>
+      <div class="field medium">
+        <%= f.label :billing_address_country_id, t(".labels.country") %>
+        <%= f.collection_select(:billing_address_country_id, Country.alphabetical_by_name, :id, :name,
+                                  { include_blank: true },
+                                  { data: { action: "change->followup-content#change" } }) %>
+      </div>
+      <div class="field medium">
+        <%= f.label :billing_address_line_1, t(".labels.address") %>
+        <%= f.text_field :billing_address_line_1 %>
+        <%= f.text_field :billing_address_line_2, aria: { label: "Billing Address Line 2" } %>
+      </div>
+      <div class="field medium">
+        <%= f.label :billing_address_city, t(".labels.city") %>
+        <%= f.text_field :billing_address_city %>
+      </div>
+      <div class="inline">
+        <div class="field medium">
+          <%= f.label :billing_address_state_id, t(".labels.state") %>
+          <%= f.collection_select(:billing_address_state_id, presenter.billing_address_state_options, :id, :name,
+                                    { include_blank: true },
+                                    { data: { followup_content_target: "destination", "followup-content-url-value": states_url(country_id: "VALUE") } }) %>
+        </div>
+        <div class="field extra-small">
+          <%= f.label :billing_address_postal_code, t(".labels.postal_code") %>
+          <%= f.text_field :billing_address_postal_code, placeholder: presenter.postal_code_placeholder, class: "form-field-extra-small" %>
+        </div>
+      </div>
+      <div class="billing-contact">
+        <div class="field medium">
+          <%= f.label :billing_person_full_name, t(".labels.billing_name") %>
+          <%= f.text_field :billing_person_full_name %>
+        </div>
+        <div class="field medium">
+          <%= f.label :billing_person_email, t(".labels.billing_email") %>
+          <%= f.email_field :billing_person_email %>
+        </div>
+        <div class="field medium">
+          <%= f.label :billing_person_phone_number, t(".labels.billing_phone_number") %>
+          <%= f.telephone_field :billing_person_phone_number, placeholder: presenter.phone_number_placeholder, class: "form-field-small" %>
+        </div>
+      </div>
+    </section>
+  </section>
+</div>
