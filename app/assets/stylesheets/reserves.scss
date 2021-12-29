@@ -1,19 +1,5 @@
 @import "variables";
-
-@mixin icon-link($icons) {
-  @each $name, $size in $icons {
-    a.icon-#{$name}:before {
-      background: no-repeat center/$size url(asset-path("icon-#{$name}.svg"));
-      content: "";
-      display: block;
-      height: 1.125rem;
-      left: 0px;
-      position: absolute;
-      top: 0;
-      width: 1.125rem;
-    }
-  }
-};
+@import "mixins/icon_link";
 
 ul.navbar-nav {
   display: flex;
@@ -308,7 +294,12 @@ ul.navbar-nav {
     font-weight: $semi-bold;
     margin: 0;
   }
+}
 
+.reserve-waivers,
+.reserve-personnel,
+.reserve-info,
+.reserve-search {
   a {
     color: $sky-blue;
     font-size: 0.875rem;
@@ -318,16 +309,6 @@ ul.navbar-nav {
     position: relative;
     text-decoration: none;
   }
-
-  @include icon-link(
-    (
-      "map": 18px,
-      "external-link": 18px,
-      "email": 18px,
-      "document-a": 15px,
-      "refresh-a": 18px
-    )
-  );
 }
 
 .reserve-waivers {

@@ -4,7 +4,7 @@ RSpec.describe RegistrationForm do
   describe "#errors" do
     it "is the user's errors" do
       new_user_params = { first_name: "" }
-      form = RegistrationForm.new(new_user_params)
+      form = RegistrationForm.new(params: new_user_params)
 
       form.submit
 
@@ -20,7 +20,7 @@ RSpec.describe RegistrationForm do
         first_name: "John",
         last_name: "Muir",
       }
-      form = RegistrationForm.new(new_user_params)
+      form = RegistrationForm.new(params: new_user_params)
 
       expect(form.user).to have_attributes(
         gender_identity: "male",
@@ -41,7 +41,7 @@ RSpec.describe RegistrationForm do
         address_postal_code: "94941",
         billing_address_same_as_current: "1",
       }
-      form = RegistrationForm.new(new_user_params)
+      form = RegistrationForm.new(params: new_user_params)
 
       expect(form.user).to have_attributes(
         billing_address_line_1: "1 Muir Woods Road",
@@ -64,7 +64,7 @@ RSpec.describe RegistrationForm do
         address_postal_code: "94941",
         billing_address_same_as_current: "0",
       }
-      form = RegistrationForm.new(new_user_params)
+      form = RegistrationForm.new(params: new_user_params)
 
       expect(form.user).to have_attributes(
         billing_address_line_1: nil,
@@ -84,7 +84,7 @@ RSpec.describe RegistrationForm do
       }
 
       freeze_time do
-        form = RegistrationForm.new(new_user_params)
+        form = RegistrationForm.new(params: new_user_params)
 
         expect(form.user).to have_attributes(terms_accepted_at: Time.current)
       end
@@ -93,7 +93,7 @@ RSpec.describe RegistrationForm do
     it "assigns the user's institution_id from the instituion name in the params" do
       institution = create(:institution, name: "University of California")
       new_user_params = { institution: "University of California" }
-      form = RegistrationForm.new(new_user_params)
+      form = RegistrationForm.new(params: new_user_params)
 
       expect(form.user).to have_attributes(institution_id: institution.id)
     end
@@ -106,7 +106,7 @@ RSpec.describe RegistrationForm do
         last_name: "Muir",
       }
 
-      form = RegistrationForm.new(invalid_user_params)
+      form = RegistrationForm.new(params: invalid_user_params)
 
       expect(form.submit).to be_falsey
     end
@@ -135,7 +135,7 @@ RSpec.describe RegistrationForm do
         terms_accepted_at: "1",
       }
 
-      form = RegistrationForm.new(valid_params)
+      form = RegistrationForm.new(params: valid_params)
 
       expect(form.submit).to be true
       expect(form.user).to be_persisted

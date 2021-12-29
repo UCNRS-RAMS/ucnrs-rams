@@ -117,7 +117,7 @@ RSpec.describe RegistrationFormPresenter do
       california = create(:state, name: "California", country: us)
       non_us_state = create(:state, name: "Quebec", country: canada)
 
-      form = RegistrationForm.new({address_country_id: canada.id})
+      form = RegistrationForm.new(params: { address_country_id: canada.id })
       presenter = RegistrationFormPresenter.new(form)
   
       expect(presenter.address_state_options).to eq [non_us_state]
@@ -132,7 +132,7 @@ RSpec.describe RegistrationFormPresenter do
       california = create(:state, name: "California", country: us)
       non_us_state = create(:state, name: "Quebec", country: canada)
 
-      form = RegistrationForm.new({billing_address_country_id: us.id})
+      form = RegistrationForm.new(params: { billing_address_country_id: us.id })
       presenter = RegistrationFormPresenter.new(form)
   
       expect(presenter.address_state_options).to eq [california, massachusetts]
