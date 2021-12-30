@@ -361,6 +361,12 @@ en:
       labels:
         special_needs: "Special Needs"
         study_area: "Study Area"
+  password:
+    new:
+      description: "You will be logged out <br /> and a reset password request will be sent to:"
+      send: "Send"
+    create:
+      reset_password_sent: "A reset password email has been sent."
   projects:
     index:
       title: "My Projects"
