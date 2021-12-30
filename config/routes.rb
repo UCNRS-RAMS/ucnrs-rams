@@ -36,4 +36,7 @@ Rails.application.routes.draw do
     resources :projects, only: [:index]
     resources :reserves, only: [:index]
   end
+  devise_scope :user do 
+    resources :password, only: [:new, :create]
+  end
 end

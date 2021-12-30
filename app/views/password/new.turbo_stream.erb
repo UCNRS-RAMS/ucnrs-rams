@@ -1,0 +1,13 @@
+<turbo-stream action="update" target="password-change">
+  <template>
+    <div class="<%= body_class %>">
+      <p>
+        <%= t(".description").html_safe %>
+      </p>
+      <p>
+        <strong><%= @user.email %></strong>
+      </p>
+      <%= link_to t(".send"), password_index_path, method: :post, class: "button button-inline" %>
+    </div>
+  </template>
+</turbo-stream>
