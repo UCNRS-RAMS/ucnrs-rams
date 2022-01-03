@@ -7,8 +7,8 @@
         <h1><%= t(".title") %></h1>
         <form method="get">
           <select id="status" name="status" aria-label="status" onchange="this.form.requestSubmit()">
-            <% @page.filter_options.each do |option| %>
-              <option <%= @page.selected?(option) %> value="<%= option %>"><%= option %></option>
+            <% @presenter.filter_options.each do |option| %>
+              <option <%= @presenter.selected?(option) %> value="<%= option %>"><%= option %></option>
             <% end %>
           </select>
         </form>
@@ -25,9 +25,9 @@
             <th></th>
           </tr>
         <thead>
-        <%= render partial: "table", locals: { page: @page } %>
+        <%= render partial: "table", locals: { presenter: @presenter } %>
       </table>
-      <%= paginate @page.project_scope %>
+      <%= paginate @presenter.project_scope %>
     </turbo-frame>
   </section>
   <section class="right">

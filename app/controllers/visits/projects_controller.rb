@@ -3,7 +3,7 @@ class Visits::ProjectsController < ApplicationController
   layout false
 
   def index
-    @page = Visits::ProjectsPresenter.new(
+    @presenter = Visits::ProjectsPresenter.new(
       project_id: project_id,
       project_type: project_type,
       user: current_user,

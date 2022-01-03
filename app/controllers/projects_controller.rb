@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @page = ProjectsIndexPresenter.new(
+    @presenter = ProjectsIndexPresenter.new(
       user: current_user,
       status_filter: status_filter,
       page: page_number,

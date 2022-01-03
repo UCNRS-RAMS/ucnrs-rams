@@ -1,6 +1,6 @@
 class Reserves::RulesAndRegulationsController < ApplicationController
   def show
-    @page = Reserves::RulesAndRegulationsShowPresenter.new(
+    @presenter = Reserves::RulesAndRegulationsShowPresenter.new(
       reserve: reserve
     )
   end

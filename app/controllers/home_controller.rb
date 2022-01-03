@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @page = HomeIndexPresenter.new(
+    @presenter = HomeIndexPresenter.new(
       visit_requests: VisitRequest.fake,
       invoices: Invoice.fake,
       news_articles: NewsArticle.fake,

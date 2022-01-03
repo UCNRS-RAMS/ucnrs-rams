@@ -2,6 +2,6 @@
   <header><%= t(".title") %></header>
   <hr />
   <%= turbo_frame_tag "details" do %>
-    <%= render partial: "amenities", locals: { amenities: @page.amenities } %>
+    <%= render partial: "amenities", locals: { amenities: @presenter.amenities } %>
   <% end %>
 </div>

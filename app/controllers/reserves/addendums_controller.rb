@@ -1,6 +1,6 @@
 class Reserves::AddendumsController < ApplicationController
   def index
-    @page = Reserves::AddendumsIndexPresenter.new(
+    @presenter = Reserves::AddendumsIndexPresenter.new(
       addendums: addendums
     )
   end

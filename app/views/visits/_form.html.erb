@@ -4,7 +4,7 @@
 
     <fieldset data-purpose="project_type">
       <%= form.label :project_type %>
-      <% @page.project_type_options.each do |value|%>
+      <% @presenter.project_type_options.each do |value|%>
         <label for="project-type-<%= value %>">
           <%= form.radio_button :project_type, value, id: "project-type-#{value}", data: { action: "click->value-projection#change click->turbo-content#change" }, checked: form.object.project_type == value %>
           <span><%= t(".project_type_options.labels.#{value}") %></span>
@@ -14,12 +14,12 @@
     </fieldset>
 
     <div class="field project_select">
-      <% @page.project_type_options.each do |type| %>
+      <% @presenter.project_type_options.each do |type| %>
         <div id="project-label-<%= type %>" class="label_container">
           <%= form.label :project, "#{t(".project_type_options.labels.#{type}")} Project", for: "visit_project_id" %>
         </div>
       <% end %>
-      <%= render partial: "visits/projects/projects_select", locals: { page: @page.projects } %>
+      <%= render partial: "visits/projects/projects_select", locals: { presenter: @presenter.projects } %>
       <%= link_to t(".links.create_a_new_project"), "/projects/new" %>
     </div>
 
@@ -33,15 +33,15 @@
 
       <div class="field">
         <%= form.label :reserve, t(".labels.reserve"), for: "visit_reserve_id" %>
-        <%= render partial: "visits/reserves/reserves_select", locals: { page: @page.reserves } %>
+        <%= render partial: "visits/reserves/reserves_select", locals: { presenter: @presenter.reserves } %>
       </div>
 
       <div class="date-range-select">
         <div class="field">
           <%= form.label :start_date, t(".labels.arrival") %>
           <div class="date-time-select">
-            <%= form.date_field(:start_date, value: @page.start_date, min: Date.today, data: { action: "change->copy-first#copy" }) %>
-            <%= form.collection_select(:start_time, @page.time_options, :value, :human, aria: { label: t(".aria.arrival_time") }) %>
+            <%= form.date_field(:start_date, value: @presenter.start_date, min: Date.today, data: { action: "change->copy-first#copy" }) %>
+            <%= form.collection_select(:start_time, @presenter.time_options, :value, :human, aria: { label: t(".aria.arrival_time") }) %>
           </div>
         </div>
 
@@ -50,8 +50,8 @@
         <div class="field">
           <%= form.label :end_date, t(".labels.departure") %>
           <div class="date-time-select">
-            <%= form.date_field(:end_date, value: @page.end_date, min: Date.today, data: { action: "change->copy-second#copy" }) %>
-            <%= form.collection_select(:end_time, @page.time_options, :value, :human, aria: { label: t(".aria.departure_time") }) %>
+            <%= form.date_field(:end_date, value: @presenter.end_date, min: Date.today, data: { action: "change->copy-second#copy" }) %>
+            <%= form.collection_select(:end_time, @presenter.time_options, :value, :human, aria: { label: t(".aria.departure_time") }) %>
           </div>
         </div>
       </div>
@@ -59,14 +59,14 @@
       <div class="flex-break"></div>
 
       <div data-followup-content-target="destination" data-followup-content-url-value="<%= visits_reserve_input_url("VALUE") %>" class="reserve-specific-fields">
-        <%= render partial: "visits/reserve_inputs/fields", locals: { form_values: @page.form, page: @page } %>
+        <%= render partial: "visits/reserve_inputs/fields", locals: { form_values: @presenter.form, presenter: @presenter } %>
       </div>
     </fieldset>
 
     <fieldset class="amenities">
       <legend><%= t(".titles.amenities") %><span><%= t(".titles.amenities_subtitle") %></span></legend>
       <section class="amenity-options" data-followup-content-target="destination" data-followup-content-url-value="<%= visits_amenities_url(reserve_id: "VALUE") %>">
-        <% @page.amenities_by_group_label.each do |group_label, amenities| %>
+        <% @presenter.amenities_by_group_label.each do |group_label, amenities| %>
           <%= render partial: "visits/amenities/amenities", locals: { group_label: group_label, amenities: amenities } %>
         <% end %>
       </section>

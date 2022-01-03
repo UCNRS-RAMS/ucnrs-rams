@@ -2,7 +2,7 @@ class VisitsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @page = VisitsFormPresenter.new(user: current_user)
+    @presenter = VisitsFormPresenter.new(user: current_user)
   end
 
   def create
@@ -10,7 +10,7 @@ class VisitsController < ApplicationController
     if @form.save
       redirect_to root_url
     else
-      @page = VisitsFormPresenter.new(user: current_user, form: @form)
+      @presenter = VisitsFormPresenter.new(user: current_user, form: @form)
       render :new, status: :unprocessable_entity
     end
   end

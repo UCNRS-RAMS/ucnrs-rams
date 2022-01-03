@@ -13,7 +13,7 @@
       </div>
     </header>
     <table class="visit-requests">
-      <%= render partial: "visit_request", collection: @page.visit_requests %>
+      <%= render partial: "visit_request", collection: @presenter.visit_requests %>
     </table>
   </section>
   <section class="invoices">
@@ -24,7 +24,7 @@
       </select>
     </header>
     <table class="invoices">
-      <%= render partial: "invoice", collection: @page.invoices %>
+      <%= render partial: "invoice", collection: @presenter.invoices %>
     </table>
   </section>
 </section>
@@ -36,7 +36,7 @@
   </header>
 
   <section class="articles">
-    <%= render partial: "news_article", collection: @page.news_articles %>
+    <%= render partial: "news_article", collection: @presenter.news_articles %>
   </section>
 </section>
 

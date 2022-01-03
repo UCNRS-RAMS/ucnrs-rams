@@ -1,7 +1,7 @@
 module Unauthenticated
   class RegistrationsController < Devise::RegistrationsController
     def new
-      @page = RegistrationFormPresenter.new
+      @presenter = RegistrationFormPresenter.new
     end
 
     def create
@@ -11,7 +11,7 @@ module Unauthenticated
         redirect_to root_path
       else
         flash.now[:error] = I18n.t(".devise.registrations.create.failure")
-        @page = RegistrationFormPresenter.new(@form)
+        @presenter = RegistrationFormPresenter.new(@form)
         render :new, status: :unprocessable_entity
       end
     end
