@@ -1,12 +1,12 @@
 class ReservesController < ApplicationController
   def index
-    @page = ReservesIndexPresenter.new
+    @presenter = ReservesIndexPresenter.new
   end
 
   def show
     reserve = Reserve.includes(personnel: [:user, :avatar_attachment]).find(reserve_id)
 
-    @page = ReserveShowPresenter.new(reserve: reserve)
+    @presenter = ReserveShowPresenter.new(reserve: reserve)
   end
 
   private

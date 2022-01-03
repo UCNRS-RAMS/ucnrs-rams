@@ -1,11 +1,11 @@
 class InstitutionsController < ApplicationController
   def index
-    @page = InstitutionsIndexPresenter.new(query: query)
+    @presenter = InstitutionsIndexPresenter.new(query: query)
     render layout: false
   end
 
   def new
-    @page = InstitutionFormPresenter.new
+    @presenter = InstitutionFormPresenter.new
   end
 
   def create
@@ -20,7 +20,7 @@ class InstitutionsController < ApplicationController
       end
     else
       flash.now[:error] = "Institution <strong>#{@form.institution.name}</strong> failed to be <span class='u-l-off'>added</span>."
-      @page = InstitutionFormPresenter.new(@form)
+      @presenter = InstitutionFormPresenter.new(@form)
 
       render "new", status: :unprocessable_entity
     end

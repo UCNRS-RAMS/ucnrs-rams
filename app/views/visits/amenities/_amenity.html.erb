@@ -1,14 +1,14 @@
 <div class="amenity">
-  <%= check_box_tag "#{form.object_name}[amenity_id]", page.amenity_id, form.object.checked, id: page.checkbox_id %>
-  <label for="<%= page.checkbox_id %>">
+  <%= check_box_tag "#{form.object_name}[amenity_id]", presenter.amenity_id, form.object.checked, id: presenter.checkbox_id %>
+  <label for="<%= presenter.checkbox_id %>">
     <%= form.hidden_field :amenity_visit_id %>
-    <img src="<%= page.image_url %>"/>
+    <img src="<%= presenter.image_url %>"/>
     <div class="content" data-controller="toggle">
-      <h3><%= page.title %></h3>
-      <p><%= page.description %></p>
+      <h3><%= presenter.title %></h3>
+      <p><%= presenter.description %></p>
       <div class="comment-and-rates" data-toggle-target="toggle" data-toggle-class="showing">
-        <p><%= page.comment %></p>
-        <% page.rate_descriptions.each do |rate| %>
+        <p><%= presenter.comment %></p>
+        <% presenter.rate_descriptions.each do |rate| %>
           <p><%= rate %></p>
         <% end %>
       </div>
@@ -19,16 +19,16 @@
       <div class="field">
         <%= form.label :arrives_on, t(".date_of_arrival") %>
         <%= form.date_field :arrives_on, value: form.object.arrives_on, "data-copy-first-target": "destination" %>
-        <%= form.collection_select(:arrives_at, page.time_options, :value, :human, { selected: form.object.arrives_at }) %>
+        <%= form.collection_select(:arrives_at, presenter.time_options, :value, :human, { selected: form.object.arrives_at }) %>
       </div>
       <div class="field">
         <%= form.label :departs_on, t(".date_of_departure") %>
         <%= form.date_field :departs_on, value: form.object.departs_on, "data-copy-second-target": "destination" %>
-        <%= form.collection_select(:departs_at, page.time_options, :value, :human, { selected: form.object.departs_at }) %>
+        <%= form.collection_select(:departs_at, presenter.time_options, :value, :human, { selected: form.object.departs_at }) %>
       </div>
       <div class="field">
-        <%= form.label :amenity_rate_id, "#{t(".rate")}#{t(".rate_period", unit: page.unit, period: page.period)}" %>
-        <%= form.collection_select :amenity_rate_id, page.rates, :id, :label, { selected: page.selected_amenity_rate_id } %> 
+        <%= form.label :amenity_rate_id, "#{t(".rate")}#{t(".rate_period", unit: presenter.unit, period: presenter.period)}" %>
+        <%= form.collection_select :amenity_rate_id, presenter.rates, :id, :label, { selected: presenter.selected_amenity_rate_id } %> 
       </div>
       <div class="field" data-controller="counter">
         <%= form.label :number_of_people, t(".number_of_people") %>
@@ -37,7 +37,7 @@
         <input type="button" data-action="click->counter#increment" value="+"/>
       </div>
       <div class="field">
-        <label><%= t(".subtotal") %><%=t(".rate_period", unit: page.unit, period: page.period) %></label>
+        <label><%= t(".subtotal") %><%=t(".rate_period", unit: presenter.unit, period: presenter.period) %></label>
         <p>$120.00</p>
       </div>
     </div>

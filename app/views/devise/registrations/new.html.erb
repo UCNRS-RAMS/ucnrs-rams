@@ -6,7 +6,7 @@
     <p><%= t(".header.description") %></p>
   </header>
 
-  <%= form_with model: @page.form_user, url: user_registration_path, data: { turbo: false } do |f| %>
+  <%= form_with model: @presenter.form_user, url: user_registration_path, data: { turbo: false } do |f| %>
     <div class="section-container">
       <section class="basics">
         <h2><%= t(".titles.basics") %></h2>
@@ -21,15 +21,15 @@
         </div>
         <div class="field medium">
           <%= f.label :gender_identity, t(".labels.gender_identity") %>
-          <%= f.select :gender_identity, @page.gender_identity_options, 
-            selected: f.object.gender_identity || @page.default_gender_identity_option
+          <%= f.select :gender_identity, @presenter.gender_identity_options, 
+            selected: f.object.gender_identity || @presenter.default_gender_identity_option
           %>
         </div>
         <div class="field medium">
           <p class="helper-text"><strong><%= t(".titles.age_range") %></strong></p>
           <p class="helper-text"><%= t(".helper_text.age_range") %></p>
           <div class="radio-buttons age-range">
-            <% @page.age_range_options.each do |(value, label)|%>
+            <% @presenter.age_range_options.each do |(value, label)|%>
               <span class="radio-button">
                 <%= f.radio_button :age_range, value %>
                 <%= f.label :age_range, label, value: value %>
@@ -40,11 +40,11 @@
         <div class="inline">
           <div class="field small">
             <%= f.label :phone_number, t(".labels.phone_number") %>
-            <%= f.telephone_field :phone_number, placeholder: @page.phone_number_placeholder %>
+            <%= f.telephone_field :phone_number, placeholder: @presenter.phone_number_placeholder %>
           </div>
           <div class="field small">
             <%= f.label :secondary_phone_number, t(".labels.secondary_phone_number") %>
-            <%= f.telephone_field :secondary_phone_number, placeholder: @page.phone_number_placeholder %>
+            <%= f.telephone_field :secondary_phone_number, placeholder: @presenter.phone_number_placeholder %>
           </div>
         </div>
         <div class="field large">
@@ -74,7 +74,7 @@
         <div class="field">
           <h2><%= t(".titles.role") %></h2>
           <div class="radio-buttons role">
-            <% @page.role_options.each do |(value, label)| %>
+            <% @presenter.role_options.each do |(value, label)| %>
               <span class="radio-button">
                 <%= f.radio_button :role, value %>
                 <%= f.label :role, label, value: value %>
@@ -103,7 +103,7 @@
                 "autocomplete-target": "input",
               },
               class: "large",
-              value: @page.institution_field_value,
+              value: @presenter.institution_field_value,
               placeholder: t(".placeholders.institution")
             %>
             <%= f.hidden_field :institution_id, data: { "autocomplete-target": "hidden" } %>
@@ -137,7 +137,7 @@
           </div>
           <div class="field small">
             <%= f.label :emergency_contact_phone_number, t(".labels.emergency_contact_phone_number") %>
-            <%= f.telephone_field :emergency_contact_phone_number, placeholder: @page.phone_number_placeholder %>
+            <%= f.telephone_field :emergency_contact_phone_number, placeholder: @presenter.phone_number_placeholder %>
           </div>
         </div>
       </section>
@@ -148,7 +148,7 @@
           <h2><%= t(".titles.current_address") %></h2>
           <div class="field medium">
             <%= f.label :address_country_id, t(".labels.country") %>
-            <%= f.collection_select(:address_country_id, Country.alphabetical_by_name, :id, :name, { selected: @page.default_country_option }, { data: { action: "change->followup-content#change" } }) %>
+            <%= f.collection_select(:address_country_id, Country.alphabetical_by_name, :id, :name, { selected: @presenter.default_country_option }, { data: { action: "change->followup-content#change" } }) %>
           </div>
           <div class="field medium">
             <%= f.label :address_line_1, t(".labels.address") %>
@@ -162,11 +162,11 @@
           <div class="inline">
             <div class="field medium">
               <%= f.label :address_state_id, t(".labels.state") %>
-              <%= f.collection_select(:address_state_id, @page.initial_state_options, :id, :name, { include_blank: true }, { data: { followup_content_target: "destination", "followup-content-url-value": states_url(country_id: "VALUE") } }) %>
+              <%= f.collection_select(:address_state_id, @presenter.initial_state_options, :id, :name, { include_blank: true }, { data: { followup_content_target: "destination", "followup-content-url-value": states_url(country_id: "VALUE") } }) %>
             </div>
             <div class="field extra-small">
               <%= f.label :address_postal_code, t(".labels.postal_code") %>
-              <%= f.text_field :address_postal_code, placeholder: @page.postal_code_placeholder %>
+              <%= f.text_field :address_postal_code, placeholder: @presenter.postal_code_placeholder %>
             </div>
           </div>
         </section>
@@ -199,7 +199,7 @@
             </div>
             <div class="field extra-small">
               <%= f.label :billing_address_postal_code, t(".labels.postal_code") %>
-              <%= f.text_field :billing_address_postal_code, placeholder: @page.postal_code_placeholder, class: "form-field-extra-small" %>
+              <%= f.text_field :billing_address_postal_code, placeholder: @presenter.postal_code_placeholder, class: "form-field-extra-small" %>
             </div>
           </div>
           <div class="billing-contact">
@@ -213,7 +213,7 @@
             </div>
             <div class="field medium">
               <%= f.label :billing_person_phone_number, t(".labels.billing_phone_number") %>
-              <%= f.telephone_field :billing_person_phone_number, placeholder: @page.phone_number_placeholder, class: "form-field-small" %>
+              <%= f.telephone_field :billing_person_phone_number, placeholder: @presenter.phone_number_placeholder, class: "form-field-small" %>
             </div>
           </div>
         </section>
@@ -222,7 +222,7 @@
     <div class="section-container">
       <section class="terms">
         <div class="field">
-          <%= f.check_box :terms_accepted_at, {checked: @page.form.terms_accepted?} %>
+          <%= f.check_box :terms_accepted_at, {checked: @presenter.form.terms_accepted?} %>
           <%= f.label :terms_accepted_at, t(".labels.agree_to_terms_of_use", link: link_to(t(".links.terms_of_use"), t(".urls.ucnrs_terms_of_use"), target: "_blank")).html_safe %>
         </div>
         <p class="helper-text">
