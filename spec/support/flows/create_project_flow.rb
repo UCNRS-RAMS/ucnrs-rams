@@ -23,6 +23,10 @@ class CreateProjectFlow
     page.has_css?(".modal-content.project", visible: true)
   end
 
+  def has_no_modal_displayed?
+    page.has_no_css?(".modal-content.project", visible: true)
+  end
+
   def has_selected_project_type?(name)
     page
       .first("label", text: name)
@@ -134,6 +138,10 @@ class CreateProjectFlow
     page.has_css?("tr.team-membership td", text: name)
   end
 
+  def has_no_team_member?(name)
+    page.has_no_css?("tr.team-membership td", text: name)
+  end
+
   def edit_team_member(name)
     page
       .find("td", text: name)
@@ -146,12 +154,13 @@ class CreateProjectFlow
     page.has_css?(".modal.visible h2", text: name)
   end
 
-  def save_project_team_member
-    page.find(".modal.visible .buttons button").click
+  def not_showing_popup_editing_user?(name)
+    page.has_no_css?(".modal.visible h2", text: name)
   end
 
-  def inexplicably_sleep_for_a_tiny_amount_of_time_because_wait_is_insufficient
-    sleep(0.1)
+  def save_project_team_member
+    page.find(".modal.visible .buttons button").click
+    page.has_no_css?(".modal.visible")
   end
 
   def change_users_role_to(role)
@@ -177,6 +186,10 @@ class CreateProjectFlow
 
   def showing_popup_creating_user?
     page.has_css?(".modal.visible h2", text: "Create a New User")
+  end
+
+  def not_showing_popup_creating_user?
+    page.has_no_css?(".modal.visible h2", text: "Create a New User")
   end
 
   def create_user_with_membership(
