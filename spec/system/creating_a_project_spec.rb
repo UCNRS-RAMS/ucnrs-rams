@@ -96,8 +96,7 @@ RSpec.describe "Creating a project", type: :system, js: true do
       institution: institution
     )
     flow.save_project_team_member
-    flow.inexplicably_sleep_for_a_tiny_amount_of_time_because_wait_is_insufficient
-    expect(flow).to_not be_showing_popup_creating_user
+    expect(flow).to be_not_showing_popup_creating_user
     expect(flow).to have_team_member("First Last")
 
     flow.enter_name_into_autocomplete("Anot")
@@ -113,8 +112,7 @@ RSpec.describe "Creating a project", type: :system, js: true do
 
     flow.change_users_role_to("Professional")
     flow.save_project_team_member
-    flow.inexplicably_sleep_for_a_tiny_amount_of_time_because_wait_is_insufficient
-    expect(flow).to_not be_showing_popup_editing_user("Another User")
+    expect(flow).to be_not_showing_popup_editing_user("Another User")
     expect(flow).to be_showing_user_role_as("Professional", for_user: "Another User")
 
     flow.submit_step_two
