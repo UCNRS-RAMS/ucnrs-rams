@@ -1,6 +1,6 @@
 class StatesController < ApplicationController
   def index
-    @page = StatesIndexPresenter.new(country: country)
+    @presenter = StatesIndexPresenter.new(country: country)
 
     render layout: false
   end

@@ -3,7 +3,7 @@ class Visits::ReserveInputsController < ApplicationController
   layout false
 
   def show
-    @page = Visits::ReserveInputsPresenter.new(reserve)
+    @presenter = Visits::ReserveInputsPresenter.new(reserve)
     @form_values = Visit.new(special_needs: "", study_area: "")
   end
 

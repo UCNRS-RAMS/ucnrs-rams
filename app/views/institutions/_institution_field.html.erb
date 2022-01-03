@@ -1,15 +1,15 @@
 <section data-controller="followup-content">
   <div class="field">
     <%= f.label :name, I18n.t(".institutions.labels.name") %>
-    <%= f.text_field :name, placeholder: @page.name_placeholder, required: true %> 
+    <%= f.text_field :name, placeholder: @presenter.name_placeholder, required: true %> 
   </div>
   <div class="field">
     <%= f.label :institution_type, I18n.t(".institutions.labels.institution_type") %>
-    <%= f.select :institution_type, @page.institution_type_options, { prompt: I18n.t(".forms.select_one") }, required: true %>
+    <%= f.select :institution_type, @presenter.institution_type_options, { prompt: I18n.t(".forms.select_one") }, required: true %>
   </div>
   <div class="field">
     <%= f.label :city, I18n.t(".institutions.labels.city") %>
-    <%= f.text_field :city, class: "form-control form-control-sm", placeholder: @page.city_placeholder, required: true %> 
+    <%= f.text_field :city, class: "form-control form-control-sm", placeholder: @presenter.city_placeholder, required: true %> 
   </div>
   <div class="field" >
     <%= f.label :country_id, I18n.t(".institutions.labels.country") %>

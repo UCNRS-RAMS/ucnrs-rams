@@ -2,7 +2,7 @@
   <h1><%= group_label %></h1>
   <% amenities.each do |amenity| %>
     <%= fields_for "visit[amenities][#{ amenity.amenity_id }]", amenity.form do |form| %>
-      <%= render partial: "visits/amenities/amenity", locals: { form: form, page: amenity } %>
+      <%= render partial: "visits/amenities/amenity", locals: { form: form, presenter: amenity } %>
     <% end %>
   <% end %>
 </div>

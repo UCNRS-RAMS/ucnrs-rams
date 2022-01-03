@@ -1,6 +1,6 @@
 class Reserves::AmenitiesController < ApplicationController
   def index
-    @page = Reserves::AmenitiesIndexPresenter.new(
+    @presenter = Reserves::AmenitiesIndexPresenter.new(
       reserve_amenities: amenities.in_sort_order.by_group_number
     )
   end

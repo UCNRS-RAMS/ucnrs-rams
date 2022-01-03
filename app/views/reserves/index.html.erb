@@ -8,7 +8,7 @@
         </p>
       </div>
       <section class="reserve-cards">
-        <%= render partial: "reserve", collection: @page.reserves %>
+        <%= render partial: "reserve", collection: @presenter.reserves %>
       </section>
     </section>
     <section class="right-side">
@@ -30,11 +30,11 @@
         <div class="search-options">
           <section class="tag-badges">
             <h2><%= t(".tags") %></h2>
-            <%= render partial: "tag", collection: @page.tags %>
+            <%= render partial: "tag", collection: @presenter.tags %>
           </section>
           <section class="amenity-badges">
             <h2><%= t(".amenity_tags") %></h2>
-            <%= render partial: "amenities_tag", collection: @page.amenities_tags %>
+            <%= render partial: "amenities_tag", collection: @presenter.amenities_tags %>
           </section>
           <a href="#" class="icon-refresh-a"><%= t(".clear_selection_and_start_over") %></a>
         </div>

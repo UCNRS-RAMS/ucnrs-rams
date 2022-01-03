@@ -1,7 +1,7 @@
-<% if page.reserve %>
+<% if presenter.reserve %>
   <div class="field">
     <label for="reserve-special-needs"><%= t(".labels.special_needs") %></label>
-    <p class="special-needs-statement"><%= page.special_needs_statement %></p>
+    <p class="special-needs-statement"><%= presenter.special_needs_statement %></p>
     <textarea name="visit[special_needs]" id="reserve-special-needs"><%= form_values.special_needs %></textarea>
   </div>
 
@@ -10,5 +10,5 @@
     <input name="visit[study_area]" id="visit_study_area" value="<%= form_values.study_area %>"/>
   </div>
 
-  <div class="alert_message"><%= page.alert_message %></div>
+  <div class="alert_message"><%= presenter.alert_message %></div>
 <% end %>

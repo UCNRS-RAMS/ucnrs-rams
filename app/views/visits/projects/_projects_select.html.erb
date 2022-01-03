@@ -1,7 +1,7 @@
-<turbo-frame id="project_select" data-pattern="<%= visits_projects_path(project_type: "VALUE", project_id: page.project_id) %>" data-turbo-content-target="destination">
+<turbo-frame id="project_select" data-pattern="<%= visits_projects_path(project_type: "VALUE", project_id: presenter.project_id) %>" data-turbo-content-target="destination">
   <select id="visit_project_id" name="visit[project_id]">
-    <% page.projects.each do |project| %>
-      <option value="<%= project.id %>" <%= page.selected_project(project) %> ><%= project.title %></option>
+    <% presenter.projects.each do |project| %>
+      <option value="<%= project.id %>" <%= presenter.selected_project(project) %> ><%= project.title %></option>
     <% end %>
   </select>
 </turbo-frame>

@@ -9,7 +9,7 @@ RSpec.describe "app/views/visits/amenities/_amenity.html.erb", type: :view do
 
     FakeForm.fields_for(AmenityForm.new) do |form|
       render partial: "visits/amenities/amenity",
-        locals: { page: presenter, form: form }
+        locals: { presenter: presenter, form: form }
     end
 
     doc = Capybara.string(rendered)

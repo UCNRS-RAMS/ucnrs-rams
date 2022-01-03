@@ -1,4 +1,4 @@
 document.getElementById('modal').classList.add("visible")
 document.getElementById('modal').setAttribute("aria-hidden", "false")
 document.getElementsByTagName("main")[0].setAttribute("aria-hidden", "true")
-document.getElementById('modal').innerHTML = "<%= j render partial: 'new', locals: {page: @page} %>"
+document.getElementById('modal').innerHTML = "<%= j render partial: 'new', locals: {presenter: @presenter} %>"
