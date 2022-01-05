@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_10_134952) do
+ActiveRecord::Schema.define(version: 2022_01_04_144013) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id"
@@ -254,29 +254,6 @@ ActiveRecord::Schema.define(version: 2021_12_10_134952) do
     t.index ["visit_id"], name: "visit"
   end
 
-  create_table "Permits", primary_key: "PermitID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.column "PermitAuthority", "enum('Federal','State','Local','Institution')", default: "Federal", null: false
-    t.text "PermitQuestion", comment: "The Answer will be a BOOLEAN so phrase in the form of a Yes No Question."
-    t.text "PermitDescription"
-    t.text "PermitStatement"
-    t.text "PermitURL1"
-    t.text "PermitURLLinkText1"
-    t.text "PermitURL2"
-    t.text "PermitURLLinkText2"
-    t.text "PermitURL3"
-    t.text "PermitURLLinkText3"
-    t.integer "DefaultSortOrder"
-    t.boolean "IACUC", default: false, null: false, comment: "Institutional Animal Care and Use Committee"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean "drone_flag", default: false
-    t.boolean "scuba_flag", default: false
-    t.boolean "vertebrate_flag", default: false
-    t.index ["DefaultSortOrder"], name: "DefaultSortOrder"
-    t.index ["PermitAuthority", "DefaultSortOrder"], name: "AuthoritySortOrder"
-    t.index ["PermitAuthority", "PermitID"], name: "Authority"
-  end
-
   create_table "ReservePermits", primary_key: "ReservePermitID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.integer "PermitID", null: false
@@ -474,7 +451,6 @@ ActiveRecord::Schema.define(version: 2021_12_10_134952) do
     t.string "acronym", limit: 10
     t.string "doi", limit: 25, default: "0000", comment: "Unique ID"
     t.index ["institution_type", "name"], name: "institution_type"
-    t.index ["name", "city", "acronym"], name: "institution_search", type: :fulltext
     t.index ["name"], name: "name"
   end
 
@@ -543,6 +519,47 @@ ActiveRecord::Schema.define(version: 2021_12_10_134952) do
     t.index ["reserve_id", "sort_order"], name: "reserve_and_sort_order"
     t.index ["reserve_id"], name: "reserve_id"
     t.index ["sort_order"], name: "sort_order"
+  end
+
+  create_table "permits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.column "authority", "enum('Federal','State','Local','Institution')", default: "Federal", null: false
+    t.text "question", comment: "The Answer will be a BOOLEAN so phrase in the form of a Yes No Question."
+    t.text "description"
+    t.text "statement"
+    t.text "url1"
+    t.text "url1_description"
+    t.text "url2"
+    t.text "url2_description"
+    t.text "url3"
+    t.text "url3_description"
+    t.integer "sort_order"
+    t.boolean "iacuc", default: false, null: false, comment: "Institutional Animal Care and Use Committee"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean "drone_flag", default: false
+    t.boolean "scuba_flag", default: false
+    t.boolean "vertebrate_flag", default: false
+    t.boolean "involves_mammals"
+    t.boolean "involves_reptiles"
+    t.boolean "involves_amphibians"
+    t.boolean "involves_fish"
+    t.boolean "involves_birds"
+    t.boolean "involves_plants_fungi_soil"
+    t.boolean "involves_none"
+    t.boolean "involves_all"
+    t.column "location", "enum('visit','project')", default: "project", null: false
+    t.bigint "state_id"
+    t.boolean "visible"
+    t.boolean "public"
+    t.boolean "university_class"
+    t.boolean "research"
+    t.boolean "housing"
+    t.boolean "conference"
+    t.boolean "threatened_endangered_flag"
+    t.index ["authority", "id"], name: "Authority"
+    t.index ["authority", "sort_order"], name: "AuthoritySortOrder"
+    t.index ["sort_order"], name: "DefaultSortOrder"
+    t.index ["state_id"], name: "index_permits_on_state_id"
   end
 
   create_table "project_team_memberships", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
