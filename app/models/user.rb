@@ -101,7 +101,7 @@ class User < ApplicationRecord
       address_state: State.find_by(name: "California"),
       address_country: Country.find_by(name: "United States"),
       phone_number: FAKE_PHONE_NUMBER,
-      password: SecureRandom.urlsafe_base64(10) + "!",
+      password: SecureRandom.urlsafe_base64(10) + "1!",
       emergency_contact_full_name: FAKE_EMERGENCY_CONTACT,
       emergency_contact_phone_number: FAKE_EMERGENCY_CONTACT_PHONE_NUMBER,
       terms_accepted_at: Time.current,
