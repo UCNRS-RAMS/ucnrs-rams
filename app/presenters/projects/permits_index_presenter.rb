@@ -10,7 +10,26 @@ class Projects::PermitsIndexPresenter
   attr_reader :project
   delegate :svg, :step_class, to: :steps_presenter
 
+  def permits_by_authority
+    permit_scope
+      .map(&method(:wrap_permit_in_presenter))
+      .group_by(&:authority)
+  end
+
   private
 
-  attr_reader :steps_presenter, :current_step
+  def permit_scope
+    Permit
+      .in_order
+      .for_projects
+      .visible
+      .matching_project_type(project.project_type)
+      .involving_related(project)
+  end
+
+  def wrap_permit_in_presenter(permit)
+    Projects::PermitPresenter.new(permit)
+  end
+
+  attr_reader :steps_presenter, :current_step, :project
 end
