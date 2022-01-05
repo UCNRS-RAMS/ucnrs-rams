@@ -6,7 +6,7 @@
 </section>
 
 <section class="permits">
-  <% @presenter.authorities.each do |authority, permits| %>
+  <% @presenter.permits_by_authority.each do |authority, permits| %>
     <h2><%= authority %></h2>
   <% end %>
 </section>
