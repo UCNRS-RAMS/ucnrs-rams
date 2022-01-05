@@ -1,4 +1,12 @@
 <% content_for(:title) { t(".title") } %>
 <%= render partial: "projects/steps", locals: { presenter: @presenter } %>
 
-<h1><%=t(".title")%></h1>
+<section>
+  <h1><%=t(".title")%></h1>
+</section>
+
+<section class="permits">
+  <% @presenter.authorities.each do |authority, permits| %>
+    <h2><%= authority %></h2>
+  <% end %>
+</section>
