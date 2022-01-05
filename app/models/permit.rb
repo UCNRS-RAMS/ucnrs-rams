@@ -26,11 +26,11 @@ class Permit < ApplicationRecord
   end
 
   def self.matching_project_type(project_type)
-    where("? = 'Research' AND permits.research = 1", [project_type])
-      .or(where("? = 'Class' AND permits.university_class = 1", [project_type]))
-      .or(where("? = 'Meeting' AND permits.conference = 1", [project_type]))
-      .or(where("? = 'Public Use' AND permits.public = 1", [project_type]))
-      .or(where("? = 'Housing' AND permits.housing = 1", [project_type]))
+    where("(? = 'Research' AND permits.research = 1)", [project_type])
+      .or(where("(? = 'Class' AND permits.university_class = 1)", [project_type]))
+      .or(where("(? = 'Meeting' AND permits.conference = 1)", [project_type]))
+      .or(where("(? = 'Public Use' AND permits.public = 1)", [project_type]))
+      .or(where("(? = 'Housing' AND permits.housing = 1)", [project_type]))
   end
 
   def self.involving_related(project)

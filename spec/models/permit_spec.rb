@@ -60,10 +60,10 @@ RSpec.describe Permit, type: :model do
   describe ".matching_project_type" do
     it "uses the project_type string to filter on permit booleans" do
       research_permit = create(:permit, research: true)
-      class_permit = create(:permit, university_class: true)
-      conference_permit = create(:permit, conference: true)
-      public_permit = create(:permit, public: true)
-      housing_permit = create(:permit, housing: true)
+      class_permit = create(:permit, research: false, university_class: true)
+      conference_permit = create(:permit, research: false, conference: true)
+      public_permit = create(:permit, research: false, public: true)
+      housing_permit = create(:permit, research: false, housing: true)
 
       expect(Permit.matching_project_type("Research")).to eq [research_permit]
       expect(Permit.matching_project_type("Class")).to eq [class_permit]

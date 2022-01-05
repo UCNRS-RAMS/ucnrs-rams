@@ -4,7 +4,7 @@ RSpec.describe "app/views/projects/permits/index.html.erb" do
   describe "on any render" do
     it "includes steps (on step 3)" do
       assign(:presenter, Projects::PermitsIndexPresenter.new(
-        project: :dummy,
+        project: build(:project),
         current_step: 3,
       ))
 
