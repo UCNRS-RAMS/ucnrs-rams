@@ -556,3 +556,28 @@ Project.where(title: "Big Sur Conference").first_or_create(
   status: 'Open',
   permits_completed: true,
 )
+
+Permit.where(question: "Does this project violate federal law?").first_or_create(
+  authority: :federal,
+  sort_order: 1,
+)
+
+Permit.where(question: "Does this project violate state law?").first_or_create(
+  authority: :state,
+  sort_order: 1,
+)
+
+Permit.where(question: "Does this project violate local law?").first_or_create(
+  authority: :local,
+  sort_order: 1,
+)
+
+Permit.where(question: "Does this project violate institutional bylaws?").first_or_create(
+  authority: :institution,
+  sort_order: 1,
+)
+
+Permit.where(question: "Are you bringing a chicken into a church on a weekday?").first_or_create(
+  authority: :local,
+  sort_order: 2,
+)
