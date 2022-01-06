@@ -28,4 +28,21 @@ RSpec.describe Projects::PermitsIndexPresenter do
       expect(results["institution"].map(&:id)).to eq [institution.id]
     end
   end
+
+  describe "#has_permits_for_project?" do
+    it "is true if there are permits to be displayed for a project" do
+      project = create(:project, involves_mammals: true)
+      federal = create(:permit, authority: "Federal", involves_mammals: true)
+      presenter = Projects::PermitsIndexPresenter.new(current_step: 3, project: project)
+
+      expect(presenter).to have_permits_for_project
+    end
+
+    it "is false if there are no permits to be displayed for a project" do
+      project = create(:project, involves_mammals: false)
+      presenter = Projects::PermitsIndexPresenter.new(current_step: 3, project: project)
+
+      expect(presenter).not_to have_permits_for_project
+    end
+  end
 end

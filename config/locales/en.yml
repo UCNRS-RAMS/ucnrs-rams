@@ -542,6 +542,7 @@ en:
     permits:
       index:
         title: "Permits"
+        no_permits: "There are no necessary permit questions for this project at this time."
   waivers:
     index:
       title: "Waivers"
