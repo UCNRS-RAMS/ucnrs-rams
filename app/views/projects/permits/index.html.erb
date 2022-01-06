@@ -6,7 +6,15 @@
 </section>
 
 <section class="permits">
-  <% @presenter.permits_by_authority.each do |authority, permits| %>
-    <h2><%= authority %></h2>
+  <% if @presenter.has_permits_for_project? %>
+    <% @presenter.permits_by_authority.each do |authority, permits| %>
+      <div>
+        <h2><%= authority %></h2>
+      </div>
+    <% end %>
+  <% else %>
+    <div>
+      <p><%= t(".no_permits") %></p>
+    </div>
   <% end %>
 </section>

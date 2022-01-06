@@ -16,6 +16,10 @@ class Projects::PermitsIndexPresenter
       .group_by(&:authority)
   end
 
+  def has_permits_for_project?
+    permit_scope.exists?
+  end
+
   private
 
   def permit_scope

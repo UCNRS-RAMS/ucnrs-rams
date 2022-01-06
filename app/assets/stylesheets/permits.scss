@@ -1,0 +1,15 @@
+@import "variables";
+
+.permits-index {
+  section {
+    padding-left: $form-page-gutter;
+    padding-right: $form-page-gutter;
+
+    h1 {
+      color: $navy-blue;
+      font-size: 2.25rem;
+      font-weight: $semi-bold;
+      line-height: 2.75rem;
+    }
+  }
+}
