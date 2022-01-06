@@ -451,6 +451,7 @@ ActiveRecord::Schema.define(version: 2022_01_04_144013) do
     t.string "acronym", limit: 10
     t.string "doi", limit: 25, default: "0000", comment: "Unique ID"
     t.index ["institution_type", "name"], name: "institution_type"
+    t.index ["name", "city", "acronym"], name: "institution_search", type: :fulltext
     t.index ["name"], name: "name"
   end
 
