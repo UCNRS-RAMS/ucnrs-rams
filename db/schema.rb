@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_04_144013) do
+ActiveRecord::Schema.define(version: 2022_01_07_195711) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id"
@@ -97,7 +97,6 @@ ActiveRecord::Schema.define(version: 2022_01_04_144013) do
     t.index ["ArrivalDate"], name: "ArrivalDate"
     t.index ["DepartureDate"], name: "DepartureDate"
     t.index ["Status", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "StatusAndDate"
-    t.index ["Status"], name: "status"
     t.index ["reserve_id", "ArrivalDate", "visit_id"], name: "reserve"
     t.index ["user_id", "visit_id", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "user_visit_date_range"
     t.index ["user_id"], name: "user"
@@ -294,9 +293,9 @@ ActiveRecord::Schema.define(version: 2022_01_04_144013) do
     t.index ["reserve_id", "SortOrder"], name: "SortOrderByReserve"
   end
 
-  create_table "active_storage_attachments", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "record_type", null: false
+  create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name", null: false, collation: "utf8_general_ci"
+    t.string "record_type", null: false, collation: "utf8_general_ci"
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -304,13 +303,13 @@ ActiveRecord::Schema.define(version: 2022_01_04_144013) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
-    t.string "key", null: false
-    t.string "filename", null: false
-    t.string "content_type"
-    t.text "metadata"
+  create_table "active_storage_blobs", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "key", null: false, collation: "utf8_general_ci"
+    t.string "filename", null: false, collation: "utf8_general_ci"
+    t.string "content_type", collation: "utf8_general_ci"
+    t.text "metadata", collation: "utf8_general_ci"
     t.bigint "byte_size", null: false
-    t.string "checksum", null: false
+    t.string "checksum", null: false, collation: "utf8_general_ci"
     t.datetime "created_at", null: false
     t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
@@ -426,7 +425,6 @@ ActiveRecord::Schema.define(version: 2022_01_04_144013) do
     t.string "name", null: false
     t.string "code", limit: 2
     t.string "subunit", default: "-"
-    t.index ["name"], name: "country_search", type: :fulltext
     t.index ["name"], name: "name"
   end
 
@@ -451,7 +449,6 @@ ActiveRecord::Schema.define(version: 2022_01_04_144013) do
     t.string "acronym", limit: 10
     t.string "doi", limit: 25, default: "0000", comment: "Unique ID"
     t.index ["institution_type", "name"], name: "institution_type"
-    t.index ["name", "city", "acronym"], name: "institution_search", type: :fulltext
     t.index ["name"], name: "name"
   end
 
@@ -475,19 +472,19 @@ ActiveRecord::Schema.define(version: 2022_01_04_144013) do
     t.index ["visit_id"], name: "visit"
   end
 
-  create_table "logs", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
-    t.text "text"
-    t.string "type"
+  create_table "logs", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.text "text", collation: "utf8_general_ci"
+    t.string "type", collation: "utf8_general_ci"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "logx", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "action"
-    t.text "metadata"
-    t.text "log"
+    t.text "metadata", collation: "utf8_general_ci"
+    t.text "log", collation: "utf8_general_ci"
     t.text "comment"
-    t.string "record_type", null: false
+    t.string "record_type", null: false, collation: "utf8_general_ci"
     t.bigint "record_id", null: false
     t.bigint "record_about_id"
     t.string "record_about_type"
@@ -604,7 +601,7 @@ ActiveRecord::Schema.define(version: 2022_01_04_144013) do
     t.boolean "method_soil_disturbance", comment: "Boolean"
     t.boolean "method_long_term_structures", comment: "Boolean"
     t.boolean "MethodAnchorCollectShoreline", comment: "DEPRECATED"
-    t.string "method_study_area", limit: 500
+    t.string "method_study_area", limit: 10000
     t.boolean "NonNativeGenotype", default: false, comment: "DEPRECATED"
     t.date "date_submitted", comment: "Move data to submitted_at with default time"
     t.column "project_type", "enum('Research','Class','Public Use','Housing','Meeting')"
@@ -612,7 +609,7 @@ ActiveRecord::Schema.define(version: 2022_01_04_144013) do
     t.date "start_date"
     t.date "end_date"
     t.text "ProjectChanges", comment: "DEPRECATED"
-    t.string "ApplicationPassword", limit: 20, comment: "DEPRECATED"
+    t.string "ApplicationPassword", limit: 100, comment: "DEPRECATED"
     t.column "USDACategories", "set('AES: Agricultural Experiment Station','CE: Cooperative Extension','ANR: Division of Agriculture and Natural Resources','USDA: U. S. Department of Agriculture','USFS: U. S. Forest Service','CSREES: Cooperative State Research Education and Extension Service','College of Agricultural and Natural Science (Riverside)','College of Agricultural and Environmental Science (Davis)','College of Natural Resources (Berkeley)','School of Forestry','Veterinary School of Medicine','Other','No USDA category applicable')", comment: "DEPRECATED"
     t.boolean "ApprovalStatus", default: false, null: false, comment: "DEPRECATED"
     t.string "ApprovedBy", limit: 30, comment: "DEPRECATED"
@@ -651,17 +648,17 @@ ActiveRecord::Schema.define(version: 2022_01_04_144013) do
     t.boolean "involves_threatened_endangered_species"
     t.index ["course_title"], name: "project_course_name"
     t.index ["date_submitted"], name: "project_date_submitted"
-    t.index ["id", "reserve_id"], name: "applicationid_reserveid"
     t.index ["id"], name: "project_id"
     t.index ["project_type", "id"], name: "project_type"
-    t.index ["reserve_id"], name: "ReserveID"
+    t.index ["reserve_id", "status", "id"], name: "Reserve"
+    t.index ["reserve_id"], name: "reserve_id"
     t.index ["start_date"], name: "project_start_date"
-    t.index ["status"], name: "project_status"
+    t.index ["status", "reserve_id", "id"], name: "project_status"
   end
 
-  create_table "rams_options", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
-    t.string "option_name"
-    t.text "option_value"
+  create_table "rams_options", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "option_name", collation: "utf8_general_ci"
+    t.text "option_value", collation: "utf8_general_ci"
   end
 
   create_table "reserve_addendums", charset: "utf8mb3", force: :cascade do |t|
@@ -699,7 +696,7 @@ ActiveRecord::Schema.define(version: 2022_01_04_144013) do
     t.index ["user_id"], name: "user"
   end
 
-  create_table "reserve_settings", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
+  create_table "reserve_settings", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.boolean "req_resource", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -742,9 +739,10 @@ ActiveRecord::Schema.define(version: 2022_01_04_144013) do
     t.boolean "research_projects_accepted", default: true, null: false, comment: "Boolean"
     t.boolean "class_projects_accepted", default: true, null: false, comment: "Boolean"
     t.boolean "public_projects_accepted", default: true, null: false, comment: "Boolean"
-    t.boolean "PublicAppFormat", default: false, null: false, comment: "DEPRECATED"
     t.boolean "housing_projects_accepted"
     t.boolean "conference_projects_accepted", default: false, null: false
+    t.boolean "MeetingAppsAccepted", default: false, comment: "Boolean"
+    t.boolean "PublicAppFormat", default: false, null: false, comment: "DEPRECATED"
     t.boolean "PublicDayUseAppsAccepted", default: false, null: false, comment: "DEPRECATED"
     t.integer "PublicDayUseAppNumber", comment: "DEPRECATED"
     t.boolean "public_calendar_access", default: false, null: false, comment: "Boolean"
@@ -830,6 +828,7 @@ ActiveRecord::Schema.define(version: 2022_01_04_144013) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "bill_name", limit: 200
+    t.column "Ecosystem", "enum('Undefined','Open Water','Perennial Ice/Snow','Develope','Open Space','Developed Low Intensity','Developed Medium Intensity','Developed High Intensity','Barren Land (Rock/Sand/Clay)','Unconsolidated Shore','Deciduous Forest','Evergreen Forest','Mixed Forest','Dwarf Scrub','Shrub/Scrub','Grasslands/Herbaceous','Sedge/Herbaceous','Lichens','Moss','Pasture/Hay','Cultivated Crops','Woody Wetlands','Emergent Herbaceous Wetlands')", default: "Undefined", collation: "ascii_general_ci"
     t.string "administrative_group_name"
     t.string "administrative_group_name_acronym"
     t.string "administrative_group_state"
@@ -932,7 +931,6 @@ ActiveRecord::Schema.define(version: 2022_01_04_144013) do
     t.column "age_range", "enum('1-17','18-25','25-50','50 or older')"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["first_name", "middle_name", "last_name"], name: "name_search", type: :fulltext
     t.index ["id"], name: "user"
     t.index ["institution_id", "last_name", "first_name", "middle_name"], name: "Institution+Name"
     t.index ["institution_id"], name: "Institution"
@@ -974,17 +972,16 @@ ActiveRecord::Schema.define(version: 2022_01_04_144013) do
     t.column "public_use_category", "enum('general-use','community-event','fundraiser','k-12-class','private-class','volunteer')", default: "general-use"
     t.string "study_area"
     t.index ["DateSubmitted", "project_id", "id"], name: "Date"
-    t.index ["id"], name: "ActivityID"
+    t.index ["id"], name: "id"
     t.index ["project_id", "id"], name: "Application"
     t.index ["reserve_id"], name: "reserve"
-    t.index ["status"], name: "status"
     t.index ["user_id"], name: "user"
   end
 
-  create_table "waivers", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
+  create_table "waivers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
-    t.text "description"
-    t.string "url"
+    t.text "description", collation: "utf8_general_ci"
+    t.string "url", collation: "utf8_general_ci"
     t.integer "years_to_expiration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
