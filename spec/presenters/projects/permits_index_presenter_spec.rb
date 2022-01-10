@@ -27,6 +27,19 @@ RSpec.describe Projects::PermitsIndexPresenter do
       expect(results["local"].map(&:id)).to eq [local.id]
       expect(results["institution"].map(&:id)).to eq [institution.id]
     end
+
+    it "excludes authorities lacking permits" do
+      project = build(:project, involves_fish: false)
+      federal = create(:permit, authority: "Federal", involves_all: true)
+      state = create(:permit, authority: "State", involves_birds: true)
+      local = create(:permit, authority: "Local", involves_all: true)
+      presenter = Projects::PermitsIndexPresenter.new(current_step: 3, project: build(:project))
+
+      results = presenter.permits_by_authority
+
+      expect(results.keys).to_not include "institution"
+      expect(results.keys).to_not include "state"
+    end
   end
 
   describe "#has_permits_for_project?" do
