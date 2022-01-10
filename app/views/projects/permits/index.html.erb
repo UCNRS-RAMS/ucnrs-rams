@@ -5,16 +5,50 @@
   <h1><%=t(".title")%></h1>
 </section>
 
-<section class="permits">
-  <% if @presenter.has_permits_for_project? %>
-    <% @presenter.permits_by_authority.each do |authority, permits| %>
-      <div>
-        <h2><%= authority %></h2>
+<% if @presenter.has_permits_for_project? %>
+  <%= form_with url: "#" do |form| %>
+    <section class="permits">
+      <% @presenter.permits_by_authority.each do |authority, permits| %>
+        <div class="<%= authority %>_permits">
+          <h2><%= t(".authority.#{authority}") %></h2>
+          <ul>
+            <% permits.each do |permit| %>
+              <li data-controller="value-projection" data-value-projection-projected-value="">
+                <div class="question">
+                  <%= permit.question %>
+                  <div class="answers">
+                    <input type="radio" id="question-<%= permit.id %>-yes" name="question-<%= permit.id %>" data-action="change->value-projection#change" value="yes" />
+                    <label for="question-<%= permit.id %>-yes">Yes</label>
+                    <input type="radio" id="question-<%= permit.id %>-no" name="question-<%= permit.id %>" data-action="change->value-projection#change" value="no" checked />
+                    <label for="question-<%= permit.id %>-no">No</label>
+                  </div>
+                </div>
+                <div class="description">
+                  <%= permit.description %>
+                  <ul>
+                    <% permit.urls.each do |url, description| %>
+                      <li><%= link_to description, url, target: "_blank" %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </section>
+    <section class="approved_permits">
+      <div class="field">
+        <label for="approved_permits"><%= t(".permit_information") %></label>
+        <p>
+        <textarea id="approved_permits" name="approved_permits"></textarea>
+        <span class="explanation"><%= t(".permit_statement") %></span>
+        </p>
       </div>
-    <% end %>
-  <% else %>
-    <div>
-      <p><%= t(".no_permits") %></p>
-    </div>
+    </section>
   <% end %>
-</section>
+<% else %>
+  <section>
+    <p><%= t(".no_permits") %></p>
+  </section>
+<% end %>

@@ -217,6 +217,30 @@ class CreateProjectFlow
     page.has_css?("body.permits-index")
   end
 
+  def has_permit?(exact_title)
+    page.has_css?(".question", text: exact_title)
+  end
+
+  def has_no_permits?(exact_title)
+    page.has_no_css?(".question", text: exact_title)
+  end
+
+  def select_answer(question, answer)
+    page
+      .find(".question", text: question)
+      .find(".answers label", text: answer)
+      .click
+  end
+
+  def has_url_for_permit?(question, urls)
+    urls.all? do |text, url|
+      page
+        .find(".question", text: question)
+        .first(:xpath, ".//..")
+        .find(".description a[href='#{url}']", text: text, visible: true)
+    end
+  end
+
   private
 
   attr_reader :page

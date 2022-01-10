@@ -542,7 +542,19 @@ en:
     permits:
       index:
         title: "Permits"
+        permit_information: "Permit Information"
+        yes: "Yes"
+        no: "No"
         no_permits: "There are no necessary permit questions for this project at this time."
+        permit_statement: "If you have any approved permits, please provide the type of permit, permit number, permit dates, and any other relevant information. You may be asked to provide a copy of the approved permit prior to or upon your arrival. If you have your IACUC permit please also state the institution name that issued that permit."
+        next_step: "Next"
+        alt:
+          right_facing_arrow: "Right-facing arrow"
+        authority:
+          federal: "Federal Permits"
+          state: "State Permits"
+          local: "Local Permits"
+          institution: "Institution Permits"
   waivers:
     index:
       title: "Waivers"

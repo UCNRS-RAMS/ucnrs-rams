@@ -47,6 +47,14 @@ RSpec.describe "Creating a project", type: :system, js: true do
       institution: institution
     )
     sign_in(user)
+    create(
+      :permit,
+      involves_fish: true,
+      question: "Fish?",
+      url1: "https://fish",
+      url1_description: "About Fish"
+    )
+    create(:permit, involves_birds: true, question: "Birds?")
     flow = CreateProjectFlow.new(page)
 
     flow.visit_new_project_page
@@ -119,5 +127,10 @@ RSpec.describe "Creating a project", type: :system, js: true do
 
     flow.submit_step_two
     expect(flow).to be_on_project_permits_page
+    expect(flow).to have_permit("Fish?")
+    expect(flow).to have_no_permits("Birds?")
+
+    flow.select_answer("Fish?", "Yes")
+    expect(flow).to have_url_for_permit("Fish?", "About Fish" => "https://fish")
   end
 end
