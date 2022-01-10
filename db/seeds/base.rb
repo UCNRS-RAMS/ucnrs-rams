@@ -557,27 +557,31 @@ Project.where(title: "Big Sur Conference").first_or_create(
   permits_completed: true,
 )
 
-Permit.where(question: "Does this project violate federal law?").first_or_create(
-  authority: :federal,
-  sort_order: 1,
-)
-
-Permit.where(question: "Does this project violate state law?").first_or_create(
-  authority: :state,
-  sort_order: 1,
-)
-
-Permit.where(question: "Does this project violate local law?").first_or_create(
-  authority: :local,
-  sort_order: 1,
-)
-
-Permit.where(question: "Does this project violate institutional bylaws?").first_or_create(
-  authority: :institution,
-  sort_order: 1,
-)
-
-Permit.where(question: "Are you bringing a chicken into a church on a weekday?").first_or_create(
-  authority: :local,
-  sort_order: 2,
-)
+involvements = ["", :mammal, :reptile, :amphibian, :fish, :bird, :plant_fungus_soil, :threatened_endangered]
+[:federal, :state, :local, :institution].each do |authority|
+  8.times do |index|
+    Permit.where(question: "Does this project violate #{authority} #{involvements[index]} law?").first_or_create(
+      authority: authority,
+      sort_order: 1,
+      description: "If so, you should check the laws:",
+      url1: "https://law.com",
+      url1_description: "All About Law",
+      url2: "https://dontbreakthe.law",
+      url2_description: "Don't Break the Law",
+      visible: true,
+      research: true,
+      university_class: true,
+      conference: true,
+      public: true,
+      housing: true,
+      involves_all: index == 0,
+      involves_mammals: index == 1,
+      involves_reptiles: index == 2,
+      involves_amphibians: index == 3,
+      involves_fish: index == 4,
+      involves_birds: index == 5,
+      involves_plants_fungi_soil: index == 6,
+      threatened_endangered_flag: index == 7,
+    )
+  end
+end
