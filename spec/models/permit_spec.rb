@@ -65,10 +65,10 @@ RSpec.describe Permit, type: :model do
       public_permit = create(:permit, research: false, public: true)
       housing_permit = create(:permit, research: false, housing: true)
 
-      expect(Permit.matching_project_type("Research")).to eq [research_permit]
-      expect(Permit.matching_project_type("Class")).to eq [class_permit]
-      expect(Permit.matching_project_type("Meeting")).to eq [conference_permit]
-      expect(Permit.matching_project_type("Public Use")).to eq [public_permit]
+      expect(Permit.matching_project_type("rEsearch")).to eq [research_permit]
+      expect(Permit.matching_project_type("CLASS")).to eq [class_permit]
+      expect(Permit.matching_project_type("meeting")).to eq [conference_permit]
+      expect(Permit.matching_project_type("PuBlIc UsE")).to eq [public_permit]
       expect(Permit.matching_project_type("Housing")).to eq [housing_permit]
     end
   end
