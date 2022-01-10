@@ -92,5 +92,22 @@ RSpec.describe "app/views/projects/permits/index.html.erb" do
       expect(doc).to have_field("Yes")
       expect(doc).to have_field("No", checked: true)
     end
+
+    it "does not display authorities that do not have permits" do
+      project = build_stubbed(:project)
+      federal = create(:permit, authority: :federal, involves_all: true)
+      state = create(:permit, authority: :state, involves_all: false)
+      assign(:presenter, Projects::PermitsIndexPresenter.new(
+        project: project,
+        current_step: 3
+      ))
+
+      render template: "projects/permits/index"
+
+      doc = Capybara.string(rendered)
+      expect(doc).to have_css("div.federal_permits")
+      expect(doc).to have_no_css("div.state_permits")
+      expect(doc).to have_no_css("div.local_permits")
+    end
   end
 end

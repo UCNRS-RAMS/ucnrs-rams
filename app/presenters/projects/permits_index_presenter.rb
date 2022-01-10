@@ -14,6 +14,7 @@ class Projects::PermitsIndexPresenter
     permit_scope
       .map(&method(:wrap_permit_in_presenter))
       .group_by(&:authority)
+      .reject { |k, v| v.empty? }
   end
 
   def has_permits_for_project?
