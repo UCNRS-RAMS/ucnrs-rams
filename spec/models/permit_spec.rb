@@ -23,6 +23,7 @@ RSpec.describe Permit, type: :model do
 
   describe "associations" do
     it { is_expected.to belong_to(:state).optional }
+    it { is_expected.to have_many(:project_permit_answers) }
   end
 
   describe ".in_order" do

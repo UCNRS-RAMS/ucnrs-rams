@@ -1,5 +1,6 @@
 class Permit < ApplicationRecord
   belongs_to :state, optional: true
+  has_many :project_permit_answers
 
   enum location: {
     visit: "visit",
