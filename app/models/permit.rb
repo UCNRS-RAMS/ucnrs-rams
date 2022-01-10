@@ -41,7 +41,6 @@ class Permit < ApplicationRecord
       .or(where("(? AND involves_fish)", [project.involves_fish]))
       .or(where("(? AND involves_birds)", [project.involves_birds]))
       .or(where("(? AND involves_plants_fungi_soil)", [project.involves_plants_fungi_soil]))
-      .or(where("(? AND involves_none)", [project.involves_none]))
       .or(where("(? AND threatened_endangered_flag)", [project.involves_threatened_endangered_species]))
   end
 end

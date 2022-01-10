@@ -94,7 +94,6 @@ RSpec.describe Permit, type: :model do
       fish_permit = create(:permit, involves_fish: true)
       birds_permit = create(:permit, involves_birds: true)
       plants_fungi_soil_permit = create(:permit, involves_plants_fungi_soil: true)
-      none_permit = create(:permit, involves_none: true)
       endangered_permit = create(:permit, threatened_endangered_flag: true)
 
       expect(Permit.involving_related(project(:involves_mammals))).to eq [mammals_permit]
@@ -103,7 +102,6 @@ RSpec.describe Permit, type: :model do
       expect(Permit.involving_related(project(:involves_fish))).to eq [fish_permit]
       expect(Permit.involving_related(project(:involves_birds))).to eq [birds_permit]
       expect(Permit.involving_related(project(:involves_plants_fungi_soil))).to eq [plants_fungi_soil_permit]
-      expect(Permit.involving_related(project(:involves_none))).to eq [none_permit]
       expect(Permit.involving_related(project(:involves_threatened_endangered_species))).to eq [endangered_permit]
     end
   end
