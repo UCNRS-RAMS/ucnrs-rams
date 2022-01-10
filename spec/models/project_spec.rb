@@ -8,6 +8,7 @@ RSpec.describe Project, type: :model do
     it { is_expected.to have_many(:visits) }
     it { is_expected.to have_many(:team_memberships).class_name("ProjectTeamMembership") }
     it { is_expected.to have_many(:team_members).class_name("User") }
+    it { is_expected.to have_many(:project_permit_answers) }
   end
 
   describe "validations" do

@@ -35,6 +35,7 @@ class Project < ApplicationRecord
   has_many :visits
   has_many :team_memberships, class_name: "ProjectTeamMembership"
   has_many :team_members, through: :team_memberships, source: :user
+  has_many :project_permit_answers
 
   with_options(if: :research?) do
     validates :title, presence: true
