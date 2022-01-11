@@ -191,6 +191,7 @@ en:
     addendums:
       index:
         title: "More Information"
+        reserve_directions: "Reserve Directions"
     amenities:
       amenity:
         link: "Amenity Link"

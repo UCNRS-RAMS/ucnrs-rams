@@ -5,10 +5,15 @@ export default class extends Controller {
   declare tabTargets: HTMLElement[]
 
   changeTab(e: Event) {
-    const tab = e.currentTarget as HTMLElement
+    const currentTarget = e.currentTarget as HTMLElement
 
     this.tabTargets.forEach((tab) => tab.classList.remove("active"))
 
-    tab.classList.add("active")
+    if (currentTarget.dataset.tabBarId) {
+      document.getElementById(currentTarget.dataset.tabBarId).classList.add("active")
+    }
+    else {
+      currentTarget.classList.add("active")
+    }
   }
 }
