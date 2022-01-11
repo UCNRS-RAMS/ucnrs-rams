@@ -24,6 +24,7 @@ class ReservePresenter
     :reserve_avatar,
     :image_placeholder,
     :managing_campus,
+    :description,
     to: :reserve
 
   def has_avatar?

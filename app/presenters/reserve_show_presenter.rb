@@ -17,6 +17,7 @@ class ReserveShowPresenter
     :managing_campus,
     :reserve_alert_message,
     :directions,
+    :description,
     to: :reserve, prefix: true
 
   def reserve_personnel
