@@ -7,11 +7,16 @@ RSpec.describe ReserveShowPresenter do
     it { is_expected.to delegate_method(:name).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:address_line_1).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:address_line_2).to(:reserve).with_prefix(true) }
-    it { is_expected.to delegate_method(:address_city).to(:reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:address_line_3).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:address_postal_code).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:state).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:country).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:avatar).to(:reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:image_placeholder).to(:reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:managing_campus).to(:reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:reserve_alert_message).to(:reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:directions).to(:reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:description).to(:reserve).with_prefix(true) }
   end
 
   describe "#reserve" do

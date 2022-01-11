@@ -828,6 +828,7 @@ ActiveRecord::Schema.define(version: 2022_01_14_153056) do
     t.virtual "longitude_minutes", type: :integer, as: "floor(((abs(`longitude`) % 1) * 60))"
     t.virtual "longitude_seconds", type: :float, as: "((((abs(`longitude`) % 1) * 60) % 1) * 60)"
     t.virtual "longitude_hemisphere", type: :string, limit: 50, as: "if((`longitude` > 0),_utf8mb3'E',_utf8mb3'W')"
+    t.text "description"
     t.index ["managing_campus_id", "name"], name: "ManagingCampus"
     t.index ["name"], name: "Name"
   end
