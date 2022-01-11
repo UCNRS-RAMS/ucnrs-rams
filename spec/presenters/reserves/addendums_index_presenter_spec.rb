@@ -1,6 +1,11 @@
 require "rails_helper"
 
 RSpec.describe Reserves::AddendumsIndexPresenter do
+  describe "delegations" do
+    subject { Reserves::AddendumsIndexPresenter.new(reserve: build(:reserve), addendums: []) }
+    it { is_expected.to delegate_method(:directions).to(:reserve).with_prefix(true) }
+  end
+
   describe "#reserve_addendums" do
     it "presents reserve additional information correctly" do
       reserve = create(:reserve)
@@ -10,6 +15,7 @@ RSpec.describe Reserves::AddendumsIndexPresenter do
       fourth_reserve_addendum = create(:reserve_addendum, sort_order: 0)
 
       presenter = Reserves::AddendumsIndexPresenter.new(
+        reserve: reserve,
         addendums: reserve.addendums.in_sort_order
       )
       reserve_addendums = presenter.reserve_addendums

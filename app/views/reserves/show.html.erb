@@ -1,42 +1,57 @@
 <div class="split-background">
-  <div class="reserves-list container">
+  <div class="reserves-list container" data-controller="tab-bar">
     <section class="reserve-name">
       <h1><%= @presenter.reserve_name %></h1>
       <span><%= @presenter.reserve_managing_campus.name %></span>
     </section>
     <section class="left-side">
       <section class="reserve-message"><%= @presenter.reserve_reserve_alert_message %></section>
-      <p class="reserve-description"><%= simple_format @presenter.reserve_directions %></p>
+      <p class="reserve-description"><%= simple_format @presenter.reserve_description %></p>
       <div>
-        <ul class="navbar-nav" class="tab-bar" data-controller="tab-bar">
+        <ul class="navbar-nav" class="tab-bar">
           <li>
             <%= link_to t(".link.amenities_and_rates"),
               reserve_amenities_path(@presenter.reserve_id),
-              { class: "active", data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" } }
+              {
+                id: "amenities",
+                class: "active", data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
+              }
             %>
           </li>
           <li>
             <%= link_to t(".link.calendar"),
               reserve_calendar_path(@presenter.reserve_id),
-              { data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" } }
+              {
+                id: "calendar",
+                data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
+              }
             %>
           </li>
           <li>
             <%= link_to t(".link.waivers"),
               reserve_waivers_path(@presenter.reserve_id),
-              { data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" } }
+              {
+                id: "waivers",
+                data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
+              }
             %>
           </li>
           <li>
             <%= link_to t(".link.rules_and_regulations"),
               reserve_rules_and_regulations_path(@presenter.reserve_id),
-              { data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" } } 
+              {
+                id: "rules_and_regulations",
+                data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
+              }
             %>
           </li>
           <li>
             <%= link_to t(".link.more_information"),
               reserve_more_information_index_path(@presenter.reserve_id),
-              { data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" } }
+              {
+                id: "more_information",
+                data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
+              }
             %>
           </li>
         </ul>
@@ -54,7 +69,15 @@
           <span><%= @presenter.reserve_address_line_3 %></span>
           <span><%= @presenter.reserve_country %></span>
         </div>
-        <a class="icon-map" href="#"><%= t(".get_directions") %></a>
+        <%= link_to(
+              t(".get_directions"), 
+              reserve_more_information_index_path(@presenter.reserve_id),
+              { 
+                class: "icon-map", 
+                data: { action: "click->tab-bar#changeTab", "tab-bar-id": "more_information", turbo_frame: "details" } 
+              }
+            )
+        %>
         <a class="icon-external-link" href="#"><%= t(".visit_reserve_website") %></a>
         <div>
           <h2><%= t(".mailing_address") %></h2>

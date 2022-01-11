@@ -1,5 +1,6 @@
 class Reserves::AddendumsIndexPresenter
-  def initialize(addendums:)
+  def initialize(reserve:, addendums:)
+    @reserve = reserve
     @addendums = addendums
   end
 
@@ -9,7 +10,9 @@ class Reserves::AddendumsIndexPresenter
     end
   end
 
+  delegate :directions, to: :reserve, prefix: true
+
   private
 
-  attr_reader :addendums
+  attr_reader :reserve, :addendums
 end

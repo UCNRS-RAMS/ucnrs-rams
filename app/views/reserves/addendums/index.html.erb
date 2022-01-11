@@ -2,6 +2,9 @@
   <h1><%= t(".title") %></h1>
   <hr />
   <turbo-frame id="details">
+    <h2><%= t(".reserve_directions") %></h2>
+    <%= simple_format @presenter.reserve_directions %>
+    <hr />
     <%= render partial: "reserve_addendums", locals: { reserve_addendums: @presenter.reserve_addendums } %>
   </turbo-frame>
 </div>

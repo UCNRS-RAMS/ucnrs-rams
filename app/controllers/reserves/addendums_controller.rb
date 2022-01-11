@@ -1,7 +1,8 @@
 class Reserves::AddendumsController < ApplicationController
   def index
     @presenter = Reserves::AddendumsIndexPresenter.new(
-      addendums: addendums
+      reserve: reserve,
+      addendums: addendums,
     )
   end
 
@@ -11,7 +12,11 @@ class Reserves::AddendumsController < ApplicationController
     params.permit(:reserve_id).require(:reserve_id)
   end
 
+  def reserve
+    Reserve.find(reserve_id)
+  end
+
   def addendums
-    Reserve.find(reserve_id).addendums
+    reserve&.addendums
   end
 end
