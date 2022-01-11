@@ -27,6 +27,20 @@ RSpec.describe "app/views/projects/permits/index.html.erb" do
       doc = Capybara.string(rendered)
       expect(doc).to have_content("There are no necessary permit questions for this project at this time.")
     end
+
+    describe "the submit button" do
+      it "renders a button with the correct text for step 3" do
+        assign(:presenter, Projects::PermitsIndexPresenter.new(
+          project: build(:project),
+          current_step: 3,
+        ))
+
+        render template: "projects/permits/index"
+
+        doc = Capybara.string(rendered)
+        expect(doc).to have_css("button[form='project-permit-answers-new']", text: "Next: Funding")
+      end
+    end
   end
 
   describe "when there are permits to show" do
