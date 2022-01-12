@@ -1,8 +1,10 @@
 class Projects::PermitPresenter
-  def initialize(permit)
+  def initialize(permit, form: nil)
     @permit = permit
+    @form = form || ProjectPermitAnswerForm.new
   end
 
+  attr_reader :form
   delegate_missing_to :permit
 
   def urls

@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 class Projects::PermitsIndexPresenter
-  def initialize(current_step:, project:)
+  def initialize(current_step:, project:, form: nil)
     @current_step = current_step
     @steps_presenter = StepsPresenter.new(@current_step)
     @project = project
+    @form = form || ProjectPermitAnswersForm.new(project: project)
   end
 
-  attr_reader :project
+  attr_reader :form, :project
   delegate :svg, :step_class, to: :steps_presenter
 
   def permits_by_authority
@@ -33,8 +34,8 @@ class Projects::PermitsIndexPresenter
   end
 
   def wrap_permit_in_presenter(permit)
-    Projects::PermitPresenter.new(permit)
+    Projects::PermitPresenter.new(permit, form: form.answer_form(permit.id))
   end
 
-  attr_reader :steps_presenter, :current_step, :project
+  attr_reader :steps_presenter, :current_step
 end

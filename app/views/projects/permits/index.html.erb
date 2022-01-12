@@ -6,32 +6,34 @@
 </section>
 
 <% if @presenter.has_permits_for_project? %>
-  <%= form_with url: "#" do |form| %>
+  <%= form_with model: @presenter.form, url: project_permit_answers_url(@presenter.project), id: "project-permits" do |form| %>
     <section class="permits">
       <% @presenter.permits_by_authority.each do |authority, permits| %>
         <div class="<%= authority %>_permits">
           <h2><%= t(".authority.#{authority}") %></h2>
           <ul>
             <% permits.each do |permit| %>
-              <li data-controller="value-projection" data-value-projection-projected-value="">
-                <div class="question">
-                  <%= permit.question %>
-                  <div class="answers">
-                    <input type="radio" id="question-<%= permit.id %>-yes" name="question-<%= permit.id %>" data-action="change->value-projection#change" value="yes" />
-                    <label for="question-<%= permit.id %>-yes">Yes</label>
-                    <input type="radio" id="question-<%= permit.id %>-no" name="question-<%= permit.id %>" data-action="change->value-projection#change" value="no" checked />
-                    <label for="question-<%= permit.id %>-no">No</label>
+              <%= fields_for "answers[#{permit.id}]", permit.form do |f| %>
+                <li data-controller="value-projection" data-value-projection-projected-value="">
+                  <div class="question">
+                    <%= permit.question %>
+                    <div class="answers">
+                      <%= f.radio_button :answer, "1", data: { action: "change->value-projection#change" } %>
+                      <%= f.label :answer, t(".have_permit"), for: "answers_#{permit.id}_answer_1" %>
+                      <%= f.radio_button :answer, "0", data: { action: "change->value-projection#change" } %>
+                      <%= f.label :answer, t(".have_no_permit"), for: "answers_#{permit.id}_answer_0" %>
+                    </div>
                   </div>
-                </div>
-                <div class="description">
-                  <%= permit.description %>
-                  <ul>
-                    <% permit.urls.each do |url, description| %>
-                      <li><%= link_to description, url, target: "_blank" %></li>
-                    <% end %>
-                  </ul>
-                </div>
-              </li>
+                  <div class="description">
+                    <%= permit.description %>
+                    <ul>
+                      <% permit.urls.each do |url, description| %>
+                        <li><%= link_to description, url, target: "_blank" %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                </li>
+              <% end%>
             <% end %>
           </ul>
         </div>
@@ -39,9 +41,9 @@
     </section>
     <section class="approved_permits">
       <div class="field">
-        <label for="approved_permits"><%= t(".permit_information") %></label>
+        <%= form.label :approved_permits %>
         <p>
-        <textarea id="approved_permits" name="approved_permits"></textarea>
+        <%= form.text_area :approved_permits %>
         <span class="explanation"><%= t(".permit_statement") %></span>
         </p>
       </div>
