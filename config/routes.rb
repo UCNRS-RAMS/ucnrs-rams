@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :users, only: [:new, :create], controller: "projects/users"
     resources :permits, only: [:index], controller: "projects/permits"
     resources :permit_answers, only: [:create], controller: "projects/permit_answers"
+    resources :fundings, only: [:index], controller: "projects/fundings"
   end
 
   resources :reserves, only: [:index, :show] do

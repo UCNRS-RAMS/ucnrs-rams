@@ -562,6 +562,9 @@ en:
           local: "Local Permits"
           institution: "Institution Permits"
         next_step: "Next: Funding"
+    fundings:
+      index:
+        title: "Funding"
   waivers:
     index:
       title: "Waivers"
