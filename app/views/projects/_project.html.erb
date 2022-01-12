@@ -6,7 +6,7 @@
   <td><%= project.recent_visit_date %></td>
   <td><%= project.recent_visit_reserve %></td>
   <td>
-    <%= link_to "#" do %>
+    <%= link_to project_path(project.id), target: "_top" do %>
       <%= image_tag "arrow-circle-right-heavy-light.svg", height: "20px", width: "20px", alt: t(".alt.right_facing_arrow") %>
     <% end %>
   </td>

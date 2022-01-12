@@ -58,7 +58,9 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @presenter = ProjectShowPresenter.new(project)
+  end
 
   private
 
@@ -117,6 +119,10 @@ class ProjectsController < ApplicationController
   end
 
   def project
-    Project.find(params[:id])
+    Project.find(project_id)
+  end
+
+  def project_id
+    params.permit(:id).require(:id)
   end
 end
