@@ -5,15 +5,20 @@ a.button,
 input[type="submit"] {
   align-items: center;
   background: $active-button-fill;
-  border-radius: 1.25rem;
+  border-radius: 2.25rem;
   border: 0;
   color: $active-button-text;
   display: flex;
   flex-direction: row;
   font-size: 1rem;
-  font-weight: $semi-bold;
+  font-weight: $medium;
   justify-content: center;
   padding: 0.75rem 1.25rem;
+  text-decoration: none;
+
+  img {
+    margin-left: 1rem;
+  }
 }
 
 a.button.button-inline {

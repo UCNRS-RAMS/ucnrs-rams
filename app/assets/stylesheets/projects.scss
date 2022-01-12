@@ -315,3 +315,72 @@
   }
 
 }
+
+.split-background-sidebar {
+  background: linear-gradient(270deg, $white 50%, $light-gray 50%);
+}
+
+.project.container {
+  display: flex;
+  margin: 0 auto;
+  max-width: 1300px;
+
+  .sidebar {
+    background-color: $light-gray;
+    box-sizing: border-box;
+    color: $navy-blue;
+    font-size: 0.825rem;
+    flex-shrink: 0;
+    width: 360px;
+    padding: 3.5rem 3.50rem 1.5rem 1.25rem;
+
+    .main-header {
+      line-height: 1.75rem;
+    }
+
+    .information {
+      line-height: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .subheader {
+      font-weight: $medium;
+      margin-bottom: 0.2rem;
+    }
+
+    ul.next-steps-list {
+      list-style-type: square;
+      margin-top: 0;
+      margin-bottom: 3rem;
+      padding-left: 2rem;
+
+      li {
+        line-height: 1.5rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      li:nth-child(1) {
+        margin-top: 0;
+      }
+    }
+
+    .button {
+      margin-bottom: 3rem;
+
+      img {
+        margin-left: 1rem;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .content {
+    background-color: $white;
+    box-sizing: border-box;
+    color: $navy-blue;
+    font-size: 0.8125rem;
+    flex-grow: 1;
+    padding: 4.5rem 1.25rem 1.5rem 3.50rem;
+  }
+}
