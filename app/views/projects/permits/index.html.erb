@@ -13,15 +13,15 @@
           <h2><%= t(".authority.#{authority}") %></h2>
           <ul>
             <% permits.each do |permit| %>
-              <%= fields_for "answers[#{permit.id}]", permit.form do |f| %>
+              <%= fields_for "project[answers][#{permit.id}]", permit.form do |f| %>
                 <li data-controller="value-projection" data-value-projection-projected-value="">
                   <div class="question">
                     <%= permit.question %>
                     <div class="answers">
                       <%= f.radio_button :answer, "1", data: { action: "change->value-projection#change" } %>
-                      <%= f.label :answer, t(".have_permit"), for: "answers_#{permit.id}_answer_1" %>
+                      <%= f.label :answer, t(".have_permit"), for: "project_answers_#{permit.id}_answer_1" %>
                       <%= f.radio_button :answer, "0", data: { action: "change->value-projection#change" } %>
-                      <%= f.label :answer, t(".have_no_permit"), for: "answers_#{permit.id}_answer_0" %>
+                      <%= f.label :answer, t(".have_no_permit"), for: "project_answers_#{permit.id}_answer_0" %>
                     </div>
                   </div>
                   <div class="description">
@@ -56,7 +56,7 @@
 <% end %>
 
 <section class="controls">
-  <button form="project-permit-answers-new" class="active">
+  <button form="project-permits" class="active">
     <%= t(".next_step") %>
     <%= image_tag "arrow-right.svg", alt: t(".alt.right_facing_arrow") %>
   </button>

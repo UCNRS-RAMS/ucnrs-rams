@@ -237,8 +237,16 @@ class CreateProjectFlow
       page
         .find(".question", text: question)
         .first(:xpath, ".//..")
-        .find(".description a[href='#{url}']", text: text, visible: true)
+        .has_css?(".description a[href='#{url}']", text: text, visible: true)
     end
+  end
+
+  def submit_step_three
+    page.find("button[form='project-permits']").click
+  end
+
+  def on_project_fundings_page?
+    page.has_css?("body.fundings-index")
   end
 
   private
