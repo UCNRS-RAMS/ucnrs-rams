@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_07_195711) do
+ActiveRecord::Schema.define(version: 2022_01_12_135455) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id"
@@ -531,6 +531,16 @@ ActiveRecord::Schema.define(version: 2022_01_07_195711) do
     t.index ["state_id"], name: "index_permits_on_state_id"
   end
 
+  create_table "project_permit_answers", charset: "utf8mb3", force: :cascade do |t|
+    t.integer "project_id", null: false, unsigned: true
+    t.integer "permit_id", null: false, unsigned: true
+    t.boolean "answer", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["permit_id"], name: "index_project_permit_answers_on_permit_id"
+    t.index ["project_id"], name: "index_project_permit_answers_on_project_id"
+  end
+
   create_table "project_team_memberships", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "project_id", null: false
     t.integer "user_id", null: false
@@ -632,7 +642,7 @@ ActiveRecord::Schema.define(version: 2022_01_07_195711) do
     t.text "option_value", collation: "utf8_general_ci"
   end
 
-  create_table "reserve_addendums", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
+  create_table "reserve_addendums", charset: "utf8mb3", force: :cascade do |t|
     t.bigint "reserve_id", null: false
     t.integer "sort_order", default: 1, null: false
     t.string "url_link"
@@ -870,7 +880,6 @@ ActiveRecord::Schema.define(version: 2022_01_07_195711) do
     t.index ["DepartureDate"], name: "DepartureDate"
     t.index ["reserve_id", "ArrivalDate", "visit_id"], name: "reserve"
     t.index ["status", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "StatusAndDate"
-    t.index ["status"], name: "status"
     t.index ["user_id", "visit_id", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "user_visit_date_range"
     t.index ["user_id"], name: "user"
     t.index ["visit_id", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "visit_arrival_date"
@@ -995,4 +1004,6 @@ ActiveRecord::Schema.define(version: 2022_01_07_195711) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "project_permit_answers", "permits"
+  add_foreign_key "project_permit_answers", "projects"
 end
