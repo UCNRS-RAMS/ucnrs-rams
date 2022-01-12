@@ -8,9 +8,14 @@ class Projects::PermitAnswersController < ApplicationController
     )
 
     if form.save
-      redirect_to root_path
+      redirect_to project_fundings_path(project)
     else
-      # Do some error stuff, eventually.
+      @presenter = Projects::PermitsIndexPresenter.new(
+        current_step: 3,
+        project: project,
+        form: form,
+      )
+      render :index, status: :unprocessable_entity
     end
   end
 
@@ -21,6 +26,9 @@ class Projects::PermitAnswersController < ApplicationController
   end
 
   def permit_answers_params
-    params.require(:answers)
+    params.require(:project).permit(
+      :approved_permits,
+      answers: {},
+    )
   end
 end

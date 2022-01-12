@@ -3,7 +3,7 @@
 class ProjectPermitAnswersForm
   include ActiveModel::Model
 
-  attr_reader :params, :project
+  attr_reader :answers_params, :project
 
   def model_name
     ActiveModel::Name.new(Project)
@@ -11,13 +11,43 @@ class ProjectPermitAnswersForm
 
   def initialize(project: nil, params: {})
     @project = project
-    @params = params
+    @project.approved_permits = params[:approved_permits]
+    @answers_params = params[:answers] || {}
   end
 
   def answer_form(id)
     ProjectPermitAnswerForm.new(
       project: project,
-      params: { permit_id: id, answer: params[id.to_s] }
+      params: { permit_id: id, answer: answers_params.dig(id.to_s, :answer) }
     )
+  end
+
+  def save
+    Project.transaction do
+      begin
+        save_project
+        save_project_permit_answers
+        true
+      rescue ActiveRecord::RecordInvalid => e
+        Rails.logger.error(e)
+        false
+      end
+    end
+  end
+
+  private
+
+  def save_project_permit_answers
+    project_permit_answers.each { |answer| answer.save }
+  end
+
+  def save_project
+    project.save
+  end
+
+  def project_permit_answers
+    answers_params.to_h.each_with_object([]) do |(k, v), array|
+      array << answer_form(k)
+    end
   end
 end

@@ -38,7 +38,7 @@ RSpec.describe "app/views/projects/permits/index.html.erb" do
         render template: "projects/permits/index"
 
         doc = Capybara.string(rendered)
-        expect(doc).to have_css("button[form='project-permit-answers-new']", text: "Next: Funding")
+        expect(doc).to have_css("button[form='project-permits']", text: "Next: Funding")
       end
     end
   end
@@ -103,8 +103,8 @@ RSpec.describe "app/views/projects/permits/index.html.erb" do
       render template: "projects/permits/index"
 
       doc = Capybara.string(rendered)
-      expect(doc).to have_field("Yes")
-      expect(doc).to have_field("No", checked: true)
+      doc.has_css?("label:contains('Yes') + input[type='radio']:not([checked])")
+      doc.has_css?("label:contains('No') + input[type='radio'][checked]")
     end
 
     it "does not display authorities that do not have permits" do

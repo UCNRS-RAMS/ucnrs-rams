@@ -132,5 +132,8 @@ RSpec.describe "Creating a project", type: :system, js: true do
 
     flow.select_answer("Fish?", "Yes")
     expect(flow).to have_url_for_permit("Fish?", "About Fish" => "https://fish")
+
+    flow.submit_step_three
+    expect(flow).to be_on_project_fundings_page
   end
 end
