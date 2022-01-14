@@ -9,6 +9,16 @@
     font-size: 0.6rem;
   }
 
+  .inline {
+    align-items: center;
+    display: flex;
+    height: 100px;
+
+    div {
+      padding-right: 1rem;
+    }
+  }
+
   .field {
     display: flex;
     flex-direction: column;
@@ -55,6 +65,11 @@
       min-height: 2rem;
       padding-left: 0.5rem;
       padding-right: 0.5rem;
+
+      &:last-child {
+        padding-right: 0;
+        margin-right: 0;
+      }
     }
 
     select {

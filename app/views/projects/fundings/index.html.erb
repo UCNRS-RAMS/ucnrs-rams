@@ -1,4 +1,95 @@
 <% content_for(:title) { t(".title") } %>
 <%= render partial: "projects/steps", locals: { presenter: @presenter } %>
 
-<h1><%=t(".title")%></h1>
+<section>
+  <h1><%= t(".title") %></h1>
+</section>
+
+<section class="add-funding-form">
+  <div class="add-funding-form-header">
+    <h2><%= t(".add_funding_title") %></h2>
+  </div>
+  <%= form_with url: "#" do |form| %>
+    <div class="funding-questions">
+      <div>
+        <%= form.check_box :is_funded %>
+        <%= form.label :is_funded, t(".is_funded") %>
+      </div>
+      <div>
+        <%= form.check_box :is_submitted %>
+        <%= form.label :is_submitted, t(".is_submitted") %>
+      </div>
+      <div>
+        <%= form.check_box :will_be_submitted %>
+        <%= form.label :will_be_submitted, t(".will_be_submitted") %>
+      </div>
+      <div>
+        <%= form.check_box :was_denied %>
+        <%= form.label :was_denied, t(".was_denied") %>
+      </div>
+    </div>
+    <div class="field">
+      <%= form.label :title, t(".official_grant_title") %>
+      <%= form.text_field :title %>
+    </div>
+    <div class="inline">
+      <div class="field small">
+        <%= form.label :funding_opportunity_number, t(".funding_opportunity_number") %>
+        <%= form.text_field :funding_opportunity_number %>
+        <span><%= t(".funding_opportunity_number_explanation") %></span>
+      </div>
+      <div class="field small">
+        <%= form.label :grant_number, t(".grant_number") %>
+        <%= form.text_field :grant_number %>
+        <span><%= t(".grant_number_explanation") %></span>
+      </div>
+    </div>
+    <div class="field">
+      <%= form.label :principal_investigators, t(".principal_investigators") %>
+      <%= form.text_area :principal_investigators %>
+    </div>
+    <div class="field">
+      <%= form.label :co_principal_investigators, t(".co_principal_investigators") %>
+      <%= form.text_area :co_principal_investigators %>
+    </div>
+    <div class="inline" data-controller="value-projection" data-value-projection-projected-value="">
+      <div class="field small">
+        <%= form.label :sponsor, t(".sponsor") %>
+        <%= form.select :sponsor, @presenter.sponsor_options, { prompt: t(".sponsor_prompt") }, required: true, data: { action: "change->value-projection#change" } %>
+      </div>
+      <div class="field small sponsor_other">
+        <%= form.label :sponsor_other, t(".sponsor_other") %>
+        <%= form.text_field :sponsor_other, placeholder: t(".sponsor_other_placeholder") %>
+      </div>
+    </div>
+    <div class="inline">
+      <div class="field">
+        <%= form.label :award_amount, t(".award_amount") %>
+        <%= form.text_field :award_amount, placeholder: t(".award_amount_placeholder") %>
+      </div>
+      <div class="date-range-select">
+        <div class="field">
+          <%= form.label :start_date, t(".start_date") %>
+          <%= form.date_field(:start_date, min: Date.today) %>
+        </div>
+
+        <span class="separator"></span>
+
+        <div class="field">
+          <%= form.label :end_date, t(".end_date") %>
+          <%= form.date_field(:end_date, min: Date.today) %>
+        </div>
+      </div>
+    </div>
+    <div class="end">
+      <%= form.submit t(".add_funding_submit"), class: "button-clear" %>
+    </div>
+  <% end %>
+</section>
+
+<section class="controls">
+  <%= button_to "#", method: :get, class: "active" do %>
+    <%= t(".next_step") %>
+    <%= image_tag "arrow-right.svg", alt: t(".alt.right_facing_arrow") %>
+  <% end %>
+</section>
