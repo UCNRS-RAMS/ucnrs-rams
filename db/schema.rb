@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_12_135455) do
+ActiveRecord::Schema.define(version: 2022_01_14_153056) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id"
@@ -128,32 +128,6 @@ ActiveRecord::Schema.define(version: 2022_01_12_135455) do
     t.index ["GrantID"], name: "Grants"
     t.index ["institution_id"], name: "Institution"
     t.index ["user_id"], name: "user"
-  end
-
-  create_table "Grants", primary_key: "GrantID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "reserve_id", null: false
-    t.integer "project_id", null: false
-    t.float "AwardAmount", limit: 53, unsigned: true
-    t.string "Title"
-    t.string "GrantNumber", limit: 100
-    t.date "GrantDate"
-    t.date "StartDate"
-    t.date "EndDate", default: "1999-12-31"
-    t.string "Sponsor"
-    t.string "PrincipalInvestigator"
-    t.string "CoPrincipalInvestigator"
-    t.boolean "GrantIsFunded", comment: "Boolean"
-    t.boolean "GrantIsSelfFunded", comment: "Boolean"
-    t.boolean "GrantIsSubmitted", comment: "Boolean"
-    t.boolean "GrantWillBeSubmitted", comment: "Boolean"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["EndDate", "reserve_id"], name: "EndReserve"
-    t.index ["EndDate"], name: "End"
-    t.index ["StartDate", "reserve_id"], name: "StartReserve"
-    t.index ["StartDate"], name: "Start"
-    t.index ["reserve_id", "EndDate"], name: "ReserveEnd"
-    t.index ["reserve_id", "StartDate"], name: "ReserveStart"
   end
 
   create_table "InvPayments", primary_key: "PaymentID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -397,6 +371,35 @@ ActiveRecord::Schema.define(version: 2022_01_12_135455) do
     t.string "code", limit: 2
     t.string "subunit", default: "-"
     t.index ["name"], name: "name"
+  end
+
+  create_table "fundings", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "reserve_id"
+    t.integer "project_id", null: false
+    t.float "award_amount", limit: 53, unsigned: true
+    t.string "title"
+    t.string "grant_number", limit: 100
+    t.date "grant_date", comment: "DEPRECATED"
+    t.date "start_date"
+    t.date "end_date"
+    t.string "sponsor_other"
+    t.string "principal_investigators"
+    t.string "co_principal_investigators"
+    t.boolean "is_funded", comment: "Project is currently being supported by at least one grant or contract"
+    t.boolean "is_self_funded", comment: "DEPRECATED"
+    t.boolean "is_submitted", comment: "At least one grant or contract application has been submitted but has not yet been approved"
+    t.boolean "will_be_submitted", comment: "At least one grant or contract application will be submitted in the future"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean "was_denied", comment: "Project grant or contract application was denied by the funding agency"
+    t.string "funding_opportunity_number", comment: "Funding opportunity numbers (FON) is a number that a federal agency assigns to its grant announcement. FON are currently unique within the fundings.Gov System"
+    t.column "sponsor", "enum('National Science Foundation (NSF)','National Institute of Health (NIH)','U.S. Geological Survey (USGS)','U.S. Forest Service (USFS),U.S. Department of Agriculture (USDA)','California Department of Fish and Wildlife','Other')"
+    t.index ["end_date", "reserve_id"], name: "EndReserve"
+    t.index ["end_date"], name: "End"
+    t.index ["reserve_id", "end_date"], name: "ReserveEnd"
+    t.index ["reserve_id", "start_date"], name: "ReserveStart"
+    t.index ["start_date", "reserve_id"], name: "StartReserve"
+    t.index ["start_date"], name: "Start"
   end
 
   create_table "group_signatures", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
