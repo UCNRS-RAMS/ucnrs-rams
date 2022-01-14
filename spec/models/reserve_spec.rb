@@ -7,6 +7,7 @@ RSpec.describe Reserve, type: :model do
     it { is_expected.to belong_to(:address_state) }
     it { is_expected.to have_many(:personnel).class_name("ReservePersonnel") }
     it { is_expected.to have_and_belong_to_many(:waivers) }
+    it { is_expected.to have_many(:fundings) }
   end
 
   describe ".with_accepted_project_type" do
