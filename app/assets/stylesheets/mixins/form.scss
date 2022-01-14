@@ -30,6 +30,10 @@
       font-weight: $bold;
     }
 
+    .wrapped_label {
+      display: flex;
+    }
+
     & > label {
       display: block;
     }

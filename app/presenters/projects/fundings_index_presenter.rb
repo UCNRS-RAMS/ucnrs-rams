@@ -1,23 +1,16 @@
 class Projects::FundingsIndexPresenter
-  def initialize(current_step:, project:)
+  def initialize(current_step:, project:, form: nil)
     @current_step = current_step
     @steps_presenter = StepsPresenter.new(@current_step)
     @project = project
+    @form = form || ProjectFundingForm.new(project: project)
   end
 
-  attr_reader :project
+  attr_reader :form, :project
   delegate :svg, :step_class, to: :steps_presenter
 
   def sponsor_options
-    [
-      "National Science Foundation (NSF)",
-      "National Institute of Health (NIH)",
-      "U.S. Geological Survey (USGS)",
-      "U.S. Forest Service (USFS)",
-      "U.S. Department of Agriculture (USDA)",
-      "California Department of Fish and Wildlife",
-      "Other"
-    ]
+    Funding.sponsors.map { |key, value| [value, key] }
   end
 
   private

@@ -136,6 +136,17 @@ RSpec.describe "Creating a project", type: :system, js: true do
     flow.submit_step_three
     expect(flow).to be_on_project_fundings_page
 
+    flow.fill_out_fundings_form(
+      title: "Give me money for birdwatching",
+      principal_investigators: "Avery Visage",
+      funding_sponsor: "Other",
+      funding_sponsor_other: "Audubon",
+      start_date: "12/31/2000",
+      end_date: "1/1/2022",
+    )
+    flow.submit_new_funding
+    expect(flow).to be_on_project_fundings_page
+
     flow.submit_step_four
     expect(flow).to be_on_project_summary_page
   end

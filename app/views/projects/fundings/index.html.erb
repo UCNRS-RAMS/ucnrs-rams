@@ -9,7 +9,7 @@
   <div class="add-funding-form-header">
     <h2><%= t(".add_funding_title") %></h2>
   </div>
-  <%= form_with url: "#" do |form| %>
+  <%= form_with model: @presenter.form, url: project_fundings_url(@presenter.project) do |form| %>
     <div class="funding-questions">
       <div>
         <%= form.check_box :is_funded %>
@@ -52,7 +52,7 @@
       <%= form.label :co_principal_investigators, t(".co_principal_investigators") %>
       <%= form.text_area :co_principal_investigators %>
     </div>
-    <div class="inline" data-controller="value-projection" data-value-projection-projected-value="">
+    <div class="inline" data-controller="value-projection" data-value-projection-projected-value="<%= form.object.sponsor %>">
       <div class="field small">
         <%= form.label :sponsor, t(".sponsor") %>
         <%= form.select :sponsor, @presenter.sponsor_options, { prompt: t(".sponsor_prompt") }, required: true, data: { action: "change->value-projection#change" } %>

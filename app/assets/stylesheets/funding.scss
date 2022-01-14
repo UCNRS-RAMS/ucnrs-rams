@@ -1,7 +1,8 @@
 @import "variables";
 @import "mixins/form";
 
-.fundings-index {
+.fundings-index,
+.fundings-create {
   @include form;
 
   form {
@@ -10,6 +11,12 @@
       font-size: 0.75rem;
       font-weight: $bold;
       line-height: 0.875rem;
+    }
+
+    .field {
+      .error_messages {
+        font-size: inherit;
+      }
     }
 
     input[type="checkbox"] + label {
@@ -88,7 +95,7 @@
     display: none;
   }
 
-  [data-value-projection-projected-value="Other"] .sponsor_other {
+  [data-value-projection-projected-value="other"] .sponsor_other {
     display: inherit;
   }
 

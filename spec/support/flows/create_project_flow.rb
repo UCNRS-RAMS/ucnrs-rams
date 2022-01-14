@@ -257,6 +257,34 @@ class CreateProjectFlow
     page.has_css?("body.projects-show")
   end
 
+  def fill_out_fundings_form(
+    is_funded: false,
+    is_submitted: false,
+    will_be_submitted: false,
+    was_denied: false,
+    title:,
+    principal_investigators:,
+    funding_sponsor:,
+    funding_sponsor_other:,
+    start_date:,
+    end_date:
+  )
+    page.check("Project is currently being supported by at least one grant or contract") if is_funded
+    page.check("At least one grant or contract application has been submitted but has not yet been approved") if is_submitted
+    page.check("At least one grant or contract application will be submitted in the future") if will_be_submitted
+    page.check("Project grant or contract application was denied by the funding agency") if was_denied
+    page.fill_in("Official Grant Title", with: title)
+    page.fill_in("Principal Investigators", with: principal_investigators, exact: true)
+    page.select(funding_sponsor, from: "Funding Agency")
+    page.fill_in("Enter Funding Agency Name", with: funding_sponsor_other)
+    page.fill_in("Start Date", with: start_date)
+    page.fill_in("End Date", with: end_date)
+  end
+
+  def submit_new_funding
+    page.find(".add-funding-form input[type='submit']").click
+  end
+
   private
 
   attr_reader :page
