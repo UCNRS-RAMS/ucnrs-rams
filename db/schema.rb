@@ -87,18 +87,6 @@ ActiveRecord::Schema.define(version: 2022_01_14_153056) do
     t.index ["project_id", "ResQuestionID"], name: "Applications"
   end
 
-  create_table "AppPermits", primary_key: "AppPermitID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "reserve_id", null: false
-    t.integer "project_id"
-    t.text "PermitNumber"
-    t.date "PermitDate"
-    t.date "PermitExpireDate"
-    t.string "Vertebrates", collation: "utf8_general_ci"
-    t.text "PermitAnswer"
-    t.index ["project_id", "reserve_id"], name: "Applications"
-    t.index ["project_id"], name: "reserve"
-  end
-
   create_table "Disciplines", primary_key: "DisciplineID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "DisciplineName", limit: 50, default: "Other", null: false
     t.string "DisciplineCategory", limit: 50, default: "Other", null: false
@@ -339,6 +327,18 @@ ActiveRecord::Schema.define(version: 2022_01_14_153056) do
     t.index ["status", "arrives_on", "arrives_at", "departs_on", "departs_at"], name: "StatusAndDates"
     t.index ["visit_id", "need_rating"], name: "Facility"
     t.index ["visit_id"], name: "visit"
+  end
+
+  create_table "application_permit_answers", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", comment: "Obsolete table, use project_permit_answers.", force: :cascade do |t|
+    t.integer "reserve_permit_id", null: false
+    t.integer "project_id"
+    t.text "permit_number"
+    t.date "issued_on"
+    t.date "expires_on"
+    t.string "vertebrates", collation: "utf8_general_ci"
+    t.text "answer"
+    t.index ["project_id", "reserve_permit_id"], name: "Applications"
+    t.index ["project_id"], name: "reserve"
   end
 
   create_table "applications_disciplines", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
