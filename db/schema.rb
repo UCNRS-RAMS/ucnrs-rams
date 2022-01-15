@@ -198,25 +198,6 @@ ActiveRecord::Schema.define(version: 2022_01_14_153056) do
     t.index ["visit_id"], name: "visit"
   end
 
-  create_table "ReservePermits", primary_key: "ReservePermitID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "reserve_id", null: false
-    t.integer "PermitID", null: false
-    t.text "ReserveSpecificText", comment: "Instructions about this permit which are unique to this particular reserve"
-    t.integer "SortOrderOverride", unsigned: true
-    t.boolean "Visible", default: true, null: false
-    t.boolean "CollectPermitInfo", default: false, null: false, comment: "Collect Permit number and Permit date Information from applicant"
-    t.integer "reserve_id_temp"
-    t.boolean "research_project", default: true, null: false
-    t.boolean "class_project", default: true, null: false
-    t.boolean "public_project", default: false, null: false
-    t.boolean "housing_only_project", default: false, null: false
-    t.boolean "conference_project", default: false, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["Visible", "SortOrderOverride"], name: "VisibleSortOrder"
-    t.index ["reserve_id", "PermitID"], name: "ReservesPermitID"
-  end
-
   create_table "ReserveQuestions", primary_key: "ResQuestionID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.column "ShowUser", "enum('Show','Hide')", null: false
@@ -656,6 +637,25 @@ ActiveRecord::Schema.define(version: 2022_01_14_153056) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["reserve_id"], name: "index_reserve_addendums_on_reserve_id"
+  end
+
+  create_table "reserve_permits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "reserve_id", null: false
+    t.integer "permit_id", null: false
+    t.text "reserve_specific_text", comment: "Instructions about this permit which are unique to this particular reserve"
+    t.integer "sort_order_override", unsigned: true
+    t.boolean "visible", default: true, null: false
+    t.boolean "collect_permit_information", default: false, null: false, comment: "Collect Permit number and Permit date Information from applicant"
+    t.integer "reserve_id_temp"
+    t.boolean "research_project", default: true, null: false
+    t.boolean "class_project", default: true, null: false
+    t.boolean "public_project", default: false, null: false
+    t.boolean "housing_only_project", default: false, null: false
+    t.boolean "conference_project", default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["reserve_id", "permit_id"], name: "ReservesPermitID"
+    t.index ["visible", "sort_order_override"], name: "VisibleSortOrder"
   end
 
   create_table "reserve_personnel", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
