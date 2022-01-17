@@ -1,0 +1,30 @@
+@import "variables";
+
+@mixin errors {
+  input.error,
+  select.error,
+  textarea.error {
+    border-color: $error-red !important;
+    border-width: 2px !important;
+  }
+
+  label.error {
+    color: $error-red !important;
+  }
+
+  span.error_messages {
+    color: $error-red !important;
+    display: inline !important;
+    font-size: inherit;
+    font-style: italic !important;
+    padding: 0 0.25rem;
+
+    &:before {
+      content: "(";
+    }
+
+    &:after {
+      content: ")";
+    }
+  }
+}

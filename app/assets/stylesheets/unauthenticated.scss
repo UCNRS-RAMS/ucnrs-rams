@@ -1,4 +1,5 @@
 @import "variables";
+@import "mixins/errors";
 
 .unauthenticated {
   height: 100%;
@@ -129,77 +130,71 @@
         margin-top: 0;
       }
 
-      .instructions {
-        font-size: 0.75rem;
-        margin-bottom: 2rem;
+      form {
+        @include errors;
 
-        a {
-          margin-left: 0.5rem;
-        }
-      }
-
-      .field {
-        label {
-          display: block;
+        .instructions {
           font-size: 0.75rem;
-          font-weight: $semi-bold;
-        }
+          margin-bottom: 2rem;
 
-        .wrapped_label {
-          padding: 0;
-          margin: 0;
-
-          label {
-            display: inline;
+          a {
+            margin-left: 0.5rem;
           }
         }
 
+        .field {
+          label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: $semi-bold;
+          }
 
-        .field_with_errors {
-          display: flex;
-          flex: 1;
+          .field_with_errors {
+            display: flex;
+            flex: 1;
+          }
+
+          em.errors {
+            color: $bluegray;
+          }
+
+          input[type="email"],
+          input[type="password"],
+          input[type="text"] {
+            border-radius: 0.3125rem;
+            border: 1px solid $gray;
+            font-size: 1rem;
+            padding: 0.25rem;
+            flex: 1;
+          }
         }
 
-        em.errors {
-          color: $bluegray;
-        }
-
-        input[type="email"],
-        input[type="password"],
-        input[type="text"] {
-          border-radius: 0.3125rem;
-          border: 1px solid $gray;
+        input[type="submit"] {
+          background-color: $active-button-fill;
+          border-radius: 25px;
+          border: 0;
+          color: $active-button-text;
+          display: block;
           font-size: 1rem;
-          padding: 0.25rem;
-          flex: 1;
+          font-weight: $semi-bold;
+          padding: 0.9375rem;
+          width: 100%;
+          -webkit-appearance: button;
         }
-      }
 
-      input[type="submit"] {
-        background-color: $active-button-fill;
-        border-radius: 25px;
-        border: 0;
-        color: $active-button-text;
-        display: block;
-        font-size: 1rem;
-        font-weight: $semi-bold;
-        padding: 0.9375rem;
-        width: 100%;
-        -webkit-appearance: button;
-      }
+        .afterword {
+          margin-top: 3.5rem;
+        }
 
-      .afterword {
-        margin-top: 3.5rem;
-      }
-
-      .extra_actions {
-        color: $form-copy-color;
-        font-size: 0.75rem;
-        margin-bottom: 2.5rem;
-
-        a {
+        .extra_actions {
           color: $form-copy-color;
           font-size: 0.75rem;
+          margin-bottom: 2.5rem;
+
+          a {
+            color: $form-copy-color;
+            font-size: 0.75rem;
+          }
         }
       }
 

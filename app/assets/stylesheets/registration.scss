@@ -1,5 +1,6 @@
 @import "variables";
 @import "mixins/icon_link";
+@import "mixins/errors";
 
 .registrations main, .users main{
   .content {
@@ -30,6 +31,7 @@
   }
 
   form {
+    @include errors;
     align-items: flex-start;
     display: flex;
     flex-direction: column;

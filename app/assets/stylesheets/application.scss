@@ -14,7 +14,6 @@
  *= require_self
  */
 
-@import "simple_calendar";
 @import "variables";
 
 body {
@@ -23,33 +22,6 @@ body {
   font-size: $base-font-size;
   margin: 0;
   padding: 0;
-
-  form {
-    label.error {
-      color: $error-red !important;
-    }
-
-    input.error,
-    textarea.error {
-      border-color: $error-red !important;
-      border-width: 2px !important;
-    }
-
-    .error_messages {
-      color: $error-red !important;
-      display: inline !important;
-      font-size: 0.8rem !important;
-      font-style: italic !important;
-  
-      &:before {
-        content: "(";
-      }
-  
-      &:after {
-        content: ")";
-      }
-    }
-  }
 
   .flash {
     margin: 0;

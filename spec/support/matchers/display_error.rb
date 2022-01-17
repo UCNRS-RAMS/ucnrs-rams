@@ -1,13 +1,11 @@
 RSpec::Matchers.define :display_error do |error|
   match do |page|
-    label = if @field_text
-              page.find("label", text: @field_text, exact_text: @boolean)
-            elsif @field_id
-              page.find("label", id: @field_id)
-            end
-    label
-      .first(:xpath, "..")
-      .find(".error_messages", text: error)
+    selector = if @field_text
+      "label:contains('#{@field_text}')"
+    elsif @field_id
+      "label##{@field_id}"
+    end
+    page.find("#{selector} .error_messages", text: error)
   end
 
   chain :for_field do |field_text|
@@ -16,9 +14,5 @@ RSpec::Matchers.define :display_error do |error|
 
   chain :for_field_with_id do |field_id|
     @field_id = field_id
-  end
-
-  chain :exact_text do |boolean|
-    @boolean = boolean == true
   end
 end

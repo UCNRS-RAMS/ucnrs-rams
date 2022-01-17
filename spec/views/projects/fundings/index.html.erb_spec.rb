@@ -86,9 +86,7 @@ RSpec.describe "app/views/projects/fundings/index.html.erb" do
 
       doc = Capybara.string(rendered)
       expect(doc).to display_error("can't be blank").for_field("Title")
-      expect(doc).to display_error("can't be blank")
-        .for_field("Principal Investigators")
-        .exact_text(true)
+      expect(doc).to display_error("can't be blank").for_field("Principal Investigators")
       expect(doc).to display_error("must be after Start date").for_field("End")
       expect(doc).to have_css("[data-value-projection-projected-value='other'] input[name='funding[sponsor_other]']")
       expect(doc).to display_error("can't be blank").for_field("Enter Funding Agency Name")

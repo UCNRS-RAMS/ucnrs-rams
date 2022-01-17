@@ -1,12 +1,11 @@
 @import "variables";
+@import "mixins/errors";
 
 @mixin form {
+  @include errors;
+
   section {
     margin-bottom: 2.5rem;
-  }
-
-  .error_messages {
-    font-size: 0.6rem;
   }
 
   .inline {
@@ -28,10 +27,6 @@
       display: inline;
       font-size: 0.625rem;
       font-weight: $bold;
-    }
-
-    .wrapped_label {
-      display: flex;
     }
 
     & > label {
@@ -60,6 +55,8 @@
       }
     }
 
+    input[type="email"],
+    input[type="password"],
     input[type="text"],
     textarea {
       border-radius: $border-radius;
@@ -67,8 +64,7 @@
       flex: 1;
       margin-right: 2rem;
       min-height: 2rem;
-      padding-left: 0.5rem;
-      padding-right: 0.5rem;
+      padding: 0.25rem 0.5rem;
 
       &:last-child {
         padding-right: 0;
