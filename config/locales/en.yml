@@ -406,6 +406,8 @@ en:
           class: "Class"
           meeting: "Meeting"
           public_use: "Public"
+    show:
+      title: "Project Summary"
     steps:
       step_1: "Project Details"
       step_2: "Team"

@@ -249,6 +249,14 @@ class CreateProjectFlow
     page.has_css?("body.fundings-index")
   end
 
+  def submit_step_four
+    page.find("form.button_to button").click
+  end
+
+  def on_project_summary_page?
+    page.has_css?("body.projects-show")
+  end
+
   private
 
   attr_reader :page
