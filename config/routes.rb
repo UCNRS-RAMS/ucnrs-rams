@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index]
 
   resources :team_memberships, only: [:edit, :update], controller: "projects/team_memberships"
-  resources :projects, only: [:index, :new, :create] do
+  resources :projects, only: [:index, :new, :create, :show] do
     resources :team_memberships, only: [:index, :create, :destroy], controller: "projects/team_memberships"
     resources :users, only: [:new, :create], controller: "projects/users"
     resources :permits, only: [:index], controller: "projects/permits"

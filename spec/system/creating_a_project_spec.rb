@@ -135,5 +135,8 @@ RSpec.describe "Creating a project", type: :system, js: true do
 
     flow.submit_step_three
     expect(flow).to be_on_project_fundings_page
+
+    flow.submit_step_four
+    expect(flow).to be_on_project_summary_page
   end
 end
