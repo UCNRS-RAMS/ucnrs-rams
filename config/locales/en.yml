@@ -601,6 +601,13 @@ en:
         next_step: "Save Project & Submit"
         alt:
           right_facing_arrow: "Right-facing arrow"
+      funding_table:
+        project_funding: "Project Funding"
+        title: "Title"
+        funding_agency: "Funding Agency"
+        award_amount: "Award Amount"
+      funding:
+        edit: "Edit"
   waivers:
     index:
       title: "Waivers"

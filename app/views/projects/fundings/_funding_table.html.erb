@@ -1,0 +1,18 @@
+<turbo-frame id="funding-table">
+  <section class="funding-table">
+    <h2><%= t(".project_funding") %></h2>
+    <table>
+      <thead>
+        <tr>
+          <th><%= t(".title") %></th>
+          <th><%= t(".funding_agency") %></th>
+          <th><%= t(".award_amount") %></th>
+          <th></th>
+        </tr>
+        <thead>
+          <tbody>
+            <%= render partial: "projects/fundings/funding", collection: presenter.fundings %>
+          </tbody>
+    </table>
+  </section>
+</turbo-frame>

@@ -9,6 +9,12 @@ class Projects::FundingsIndexPresenter
   attr_reader :form, :project
   delegate :svg, :step_class, to: :steps_presenter
 
+  def fundings
+    fundings_scope.map do |funding|
+      Projects::FundingPresenter.new(funding)
+    end
+  end
+
   def sponsor_options
     Funding.sponsors.map { |key, value| [value, key] }
   end
@@ -16,4 +22,10 @@ class Projects::FundingsIndexPresenter
   private
 
   attr_reader :steps_presenter, :current_step
+
+  def fundings_scope
+    Funding
+      .for_project(project)
+      .alphabetized
+  end
 end

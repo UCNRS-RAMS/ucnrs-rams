@@ -46,4 +46,26 @@ RSpec.describe Projects::FundingsIndexPresenter do
       ]
     end
   end
+
+  describe "#fundings" do
+    it "creates a FundingPresenter for each funding" do
+      project = create(:project)
+      create(:funding, title: "Funding C", project: project)
+      create(:funding, title: "Funding A", project: project)
+      create(:funding, title: "Funding B", project: project)
+      create(:funding)
+      presenter = Projects::FundingsIndexPresenter.new(
+        current_step: 4,
+        project: project,
+      )
+
+      results = presenter.fundings
+
+      expect(results.map(&:title)).to eq [
+        "Funding A",
+        "Funding B",
+        "Funding C",
+      ]
+    end
+  end
 end

@@ -141,11 +141,17 @@ RSpec.describe "Creating a project", type: :system, js: true do
       principal_investigators: "Avery Visage",
       funding_sponsor: "Other",
       funding_sponsor_other: "Audubon",
-      start_date: "12/31/2000",
-      end_date: "1/1/2022",
+      start_date: Date.new(2000, 12, 31),
+      end_date: Date.new(2021, 1, 1),
+      award_amount: "1000000.00",
     )
     flow.submit_new_funding
     expect(flow).to be_on_project_fundings_page
+    expect(flow).to have_funding(
+      title: "Give me money for birdwatching",
+      funding_agency: "Audubon",
+      award_amount: "$1,000,000.00"
+    )
 
     flow.submit_step_four
     expect(flow).to be_on_project_summary_page

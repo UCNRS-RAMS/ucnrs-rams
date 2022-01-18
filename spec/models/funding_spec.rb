@@ -44,4 +44,28 @@ RSpec.describe Funding, type: :model do
         other: "Other",
       ).backed_by_column_of_type(:string)
   end
+
+  describe ".for_project" do
+    it "only selects funding for the supplied project" do
+      project = create(:project)
+      relevant_funding = create(:funding, project: project)
+      other_funding = create(:funding)
+
+      result = Funding.for_project(project)
+
+      expect(result).to eq [relevant_funding]
+    end
+  end
+
+  describe ".alphabetized" do
+    it "returns all funding records ordered alphabetically by title" do
+      funding_c = create(:funding, title: "C")
+      funding_a = create(:funding, title: "A")
+      funding_b = create(:funding, title: "B")
+
+      result = Funding.alphabetized
+
+      expect(result).to eq [funding_a, funding_b, funding_c]
+    end
+  end
 end

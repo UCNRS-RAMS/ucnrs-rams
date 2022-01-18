@@ -26,4 +26,12 @@ class Funding < ApplicationRecord
     ca_dept_of_fish_and_wildlife: "California Department of Fish and Wildlife",
     other: "Other",
   }
+
+  def self.for_project(project)
+    where(project: project)
+  end
+
+  def self.alphabetized
+    order(:title)
+  end
 end

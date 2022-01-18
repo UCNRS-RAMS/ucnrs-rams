@@ -267,7 +267,8 @@ class CreateProjectFlow
     funding_sponsor:,
     funding_sponsor_other:,
     start_date:,
-    end_date:
+    end_date:,
+    award_amount:
   )
     page.check("Project is currently being supported by at least one grant or contract") if is_funded
     page.check("At least one grant or contract application has been submitted but has not yet been approved") if is_submitted
@@ -277,9 +278,16 @@ class CreateProjectFlow
     page.fill_in("Principal Investigators", with: principal_investigators, exact: true)
     page.select(funding_sponsor, from: "Funding Agency")
     page.fill_in("Enter Funding Agency Name", with: funding_sponsor_other)
+    page.fill_in("Award Amount", with: award_amount)
     page.fill_in("Start Date", with: start_date)
     page.fill_in("End Date", with: end_date)
   end
+
+  def has_funding?(title:, funding_agency:, award_amount:)
+    page.has_css?("td:nth-child(1)", text: title) &&
+      page.has_css?("td:nth-child(2)", text: funding_agency) &&
+      page.has_css?("td:nth-child(3)", text: award_amount)
+  end 
 
   def submit_new_funding
     page.find(".add-funding-form input[type='submit']").click
