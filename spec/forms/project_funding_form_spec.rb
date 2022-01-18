@@ -44,7 +44,7 @@ RSpec.describe ProjectFundingForm, type: :model do
         end_date: Date.new(2023, 1, 1),
         sponsor: :other,
         sponsor_other: "Some other sponsor",
-        award_amount: "1000000.00",
+        award_amount: "$1000000.566",
         grant_number: "G123",
         funding_opportunity_number: "FON123",
       }
@@ -84,7 +84,7 @@ RSpec.describe ProjectFundingForm, type: :model do
         end_date: Date.new(2023, 1, 1),
         sponsor: :other,
         sponsor_other: "Some other sponsor",
-        award_amount: "1000000.00",
+        award_amount: "$3,100,000.10",
         grant_number: "G123",
         funding_opportunity_number: "FON123",
       })
@@ -105,7 +105,7 @@ RSpec.describe ProjectFundingForm, type: :model do
         end_date: Date.new(2023, 1, 1),
         sponsor: "other",
         sponsor_other: "Some other sponsor",
-        award_amount: 1000000.0,
+        award_amount: 3100000.0,
         grant_number: "G123",
         funding_opportunity_number: "FON123",
         project_id: project.id,

@@ -19,6 +19,7 @@ RSpec.describe Funding, type: :model do
     it { is_expected.to validate_presence_of(:end_date) }
     it { is_expected.to validate_date(:end_date).is_after(:start_date) }
     it { is_expected.to validate_presence_of(:sponsor) }
+    it { is_expected.to validate_numericality_of(:award_amount).allow_nil }
 
     context "when sponsor is 'Other'" do
       subject { Funding.new(sponsor: "Other") }

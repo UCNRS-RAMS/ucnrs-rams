@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ProjectFundingForm
+  DECIMAL_NUMBER_PATTERN = /[^.\d]/
+
   include ActiveModel::Model
 
   def model_name
@@ -16,6 +18,10 @@ class ProjectFundingForm
     @funding = Funding.find_by(id: params[:id]) || Funding.new
     @funding.project = project
     assign(params)
+  end
+
+  def award_amount=(value)
+    funding.award_amount = award_amount_as_integer(value)
   end
 
   def is_funded=(value)
@@ -56,5 +62,9 @@ class ProjectFundingForm
     params.each do |key, value|
       self.send("#{key}=", value)
     end
+  end
+
+  def award_amount_as_integer(value)
+    value.strip.gsub(DECIMAL_NUMBER_PATTERN, "").to_i
   end
 end

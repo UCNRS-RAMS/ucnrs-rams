@@ -15,6 +15,7 @@ class Funding < ApplicationRecord
   validates :end_date, must_be_after: :start_date
   validates :sponsor, presence: true
   validates :sponsor_other, presence: true, if: :other?
+  validates :award_amount, numericality: true, allow_nil: true
 
   enum sponsor: {
     national_science_foundation: "National Science Foundation (NSF)",
