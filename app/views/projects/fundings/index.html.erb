@@ -70,14 +70,14 @@
       <div class="date-range-select">
         <div class="field">
           <%= form.label :start_date, t(".start_date") %>
-          <%= form.date_field(:start_date, min: Date.today) %>
+          <%= form.date_field(:start_date) %>
         </div>
 
         <span class="separator"></span>
 
         <div class="field">
           <%= form.label :end_date, t(".end_date") %>
-          <%= form.date_field(:end_date, min: Date.today) %>
+          <%= form.date_field(:end_date) %>
         </div>
       </div>
     </div>
@@ -86,6 +86,8 @@
     </div>
   <% end %>
 </section>
+
+<%= render partial: "projects/fundings/funding_table", locals: { presenter: @presenter } %>
 
 <section class="controls">
   <%= button_to project_path(@presenter.project), method: :get, class: "active" do %>
