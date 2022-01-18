@@ -124,6 +124,34 @@ en:
         close_modal_icon: "Close Modal Icon"
       cancel: Cancel
       save: Save
+    edit_project_funding:
+      title: "Edit %{funding_title}"
+      accessible_description: "A modal pop-up form to edit details of funding for this project."
+      remove_funding: "Remove Funding"
+      confirm_removal: "Are you sure you want to remove %{title}?"
+      is_funded: "Project is currently being supported by at least one grant or contract"
+      is_submitted: "At least one grant or contract application has been submitted but has not yet been approved"
+      will_be_submitted: "At least one grant or contract application will be submitted in the future"
+      was_denied: "Project grant or contract application was denied by the funding agency"
+      official_grant_title: "Official Grant Title"
+      funding_opportunity_number: "Funding Opportunity Number"
+      funding_opportunity_number_explanation: "Funding opportunity numbers (FON) is a number that a federal agency assigns to its grant announcement."
+      grant_number: "Grant Number"
+      grant_number_explanation: "Grant Number or Grant URL Address"
+      principal_investigators: "Principal Investigators"
+      co_principal_investigators: "Co-Principal Investigators"
+      sponsor: "Funding Agency"
+      sponsor_prompt: "Please Choose"
+      sponsor_other: "Enter Funding Agency Name"
+      sponsor_other_placeholder: "Please do not abbreviate"
+      award_amount: "Award Amount"
+      award_amount_placeholder: "$"
+      start_date: "Start Date"
+      end_date: "End Date"
+      alt:
+        close_modal_icon: "Close Modal Icon"
+      cancel: Cancel
+      save: Save
     new_user:
       title: "Create a New User"
       accessible_description: "A modal pop-up form to create a new user and add them as a team member to this project."
@@ -578,6 +606,18 @@ en:
       index:
         title: "Funding"
         add_funding_title: "Add Funding Information"
+        next_step: "Save Project & Submit"
+        add_funding_submit: "Add Funding Information"
+        alt:
+          right_facing_arrow: "Right-facing arrow"
+      funding_table:
+        project_funding: "Project Funding"
+        title: "Title"
+        funding_agency: "Funding Agency"
+        award_amount: "Award Amount"
+      funding:
+        edit: "Edit"
+      form_fields:
         is_funded: "Project is currently being supported by at least one grant or contract"
         is_submitted: "At least one grant or contract application has been submitted but has not yet been approved"
         will_be_submitted: "At least one grant or contract application will be submitted in the future"
@@ -597,17 +637,6 @@ en:
         award_amount_placeholder: "$"
         start_date: "Start Date"
         end_date: "End Date"
-        add_funding_submit: "Add Funding Information"
-        next_step: "Save Project & Submit"
-        alt:
-          right_facing_arrow: "Right-facing arrow"
-      funding_table:
-        project_funding: "Project Funding"
-        title: "Title"
-        funding_agency: "Funding Agency"
-        award_amount: "Award Amount"
-      funding:
-        edit: "Edit"
   waivers:
     index:
       title: "Waivers"

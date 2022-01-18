@@ -203,6 +203,30 @@
     }
   }
 
+  .modal-content {
+    height: 100%;
+    overflow-y: scroll;
+    padding-top: 2rem;
+
+    a {
+      color: $sky-blue;
+
+      &:visited {
+        color: $navy-blue;
+      }
+    }
+
+    form {
+      .funding-questions {
+        margin-bottom: 1rem;
+      }
+    }
+
+    .buttons {
+      margin-bottom: 1rem;
+    }
+  }
+
   .controls {
     background-color: $light-light-blue;
     display: flex;

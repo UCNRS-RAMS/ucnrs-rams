@@ -153,6 +153,12 @@ RSpec.describe "Creating a project", type: :system, js: true do
       award_amount: "$1,000,000.00"
     )
 
+    flow.edit_funding("Give me money for birdwatching")
+    expect(flow).to be_showing_popup_editing_user("Give me money for birdwatching")
+
+    flow.click_cancel
+    expect(flow).to be_not_showing_popup_editing_user("Give me money for birdwatching")
+
     flow.submit_step_four
     expect(flow).to be_on_project_summary_page
   end

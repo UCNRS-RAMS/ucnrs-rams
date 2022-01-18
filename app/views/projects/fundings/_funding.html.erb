@@ -2,5 +2,5 @@
   <td><%= funding.title %></td>
   <td><%= funding.sponsor %></td>
   <td><%= funding.award_amount %></td>
-  <td><%= link_to t(".edit"), "#" %></td>
+  <td><%= link_to t(".edit"), edit_funding_path(funding.id), data: { "turbo-frame": "modal-content" } %></td>
 </tr>

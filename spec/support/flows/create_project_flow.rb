@@ -293,6 +293,26 @@ class CreateProjectFlow
     page.find(".add-funding-form input[type='submit']").click
   end
 
+  def edit_funding(title)
+    page
+      .find("td", text: title)
+      .first(:xpath, ".//..")
+      .find("a", text: "Edit")
+      .click
+  end
+
+  def showing_popup_editing_funding?(title)
+    page.has_css?(".modal.visible h2", text: title)
+  end
+
+  def not_showing_popup_editing_funding?(title)
+    page.has_no_css?(".modal.visible h2", text: title)
+  end
+
+  def click_cancel
+    page.click_link("Cancel")
+  end
+
   private
 
   attr_reader :page
