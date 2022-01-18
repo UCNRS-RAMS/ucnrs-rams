@@ -65,6 +65,6 @@ class ProjectFundingForm
   end
 
   def award_amount_as_integer(value)
-    value.strip.gsub(DECIMAL_NUMBER_PATTERN, "").to_i
+    value.to_s.strip.gsub(DECIMAL_NUMBER_PATTERN, "").to_i
   end
 end

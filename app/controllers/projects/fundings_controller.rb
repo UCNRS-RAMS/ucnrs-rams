@@ -28,7 +28,16 @@ class Projects::FundingsController < ApplicationController
     end
   end
 
+  def edit
+    form = ProjectFundingForm.new(params: { id: funding.id })
+    @presenter = Projects::FundingEditPresenter.new(form: form)
+  end
+
   private
+
+  def funding
+    Funding.find(params[:id])
+  end
 
   def project
     Project.find(params[:project_id])
