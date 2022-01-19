@@ -121,6 +121,7 @@ class User < ApplicationRecord
           query: part
         ))
       end
+      .includes([:institution])
   end
 
   def full_name
