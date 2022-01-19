@@ -16,7 +16,7 @@ class ProjectFundingForm
 
   def initialize(project: nil, params: {})
     @funding = Funding.find_by(id: params[:id]) || Funding.new
-    @funding.project = project
+    @funding.project ||= project
     assign(params)
   end
 

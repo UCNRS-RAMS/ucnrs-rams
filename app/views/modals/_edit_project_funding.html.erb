@@ -1,6 +1,6 @@
 <turbo-frame id="modal-content" class="modal-content" role="dialog" aria-labelledby="modal-title">
   <div data-modal-target="dialog openOnLoad">
-    <%= form_with model: presenter.form, url: "#", method: "patch", id: "edit-project-funding" do |form| %>
+    <%= form_with model: presenter.form, url: funding_url(presenter.id), method: "patch", id: "edit-project-funding" do |form| %>
       <p class="screenreader-text">
         <span id="modal-title"><%= t(".title", funding_title: presenter.funding_title) %></span>
         <span id="modal-description"><%= t(".accessible_description") %></span>
@@ -8,7 +8,7 @@
       <section class="text">
         <div class="heading">
           <h2><%= t(".title", funding_title: presenter.funding_title) %></h2>
-          <%= link_to t(".remove_funding"), "#", method: :delete, data: { confirm: t(".confirm_removal", title: presenter.funding_title) } %>
+          <%= link_to t(".remove_funding"), funding_url(presenter.id), method: :delete, data: { confirm: t(".confirm_removal", title: presenter.funding_title) } %>
         </div>
         <%= render partial: "projects/fundings/form_fields", locals: { presenter: presenter, form: form } %>
     <% end %>

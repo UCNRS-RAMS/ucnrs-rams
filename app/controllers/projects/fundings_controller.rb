@@ -8,6 +8,7 @@ class Projects::FundingsController < ApplicationController
     )
     respond_to do |format|
       format.html
+      format.turbo_stream
     end
   end
 
@@ -31,6 +32,32 @@ class Projects::FundingsController < ApplicationController
   def edit
     form = ProjectFundingForm.new(params: { id: funding.id })
     @presenter = Projects::FundingEditPresenter.new(form: form)
+  end
+
+  def update
+    form = ProjectFundingForm.new(params: project_fundings_params)
+    respond_to do |format|
+      if form.save
+        format.html { redirect_to project_fundings_url(form.project_id) }
+        format.turbo_stream { redirect_to project_fundings_url(form.project_id)  }
+      else
+        @presenter = Projects::FundingEditPresenter.new(form: form)
+        format.html do
+          render template: "projects/fundings/edit",
+            status: :unprocessable_entity
+        end
+        format.turbo_stream do
+          render template: "projects/fundings/edit",
+            status: :unprocessable_entity
+        end
+      end
+    end
+  end
+
+  def destroy
+    project_id = funding.project_id
+    funding.destroy
+    redirect_to project_fundings_url(project_id: project_id)
   end
 
   private

@@ -10,9 +10,11 @@
     <h2><%= t(".add_funding_title") %></h2>
   </div>
   <%= form_with model: @presenter.form, url: project_fundings_url(@presenter.project) do |form| %>
-    <%= render partial: "projects/fundings/form_fields", locals: { presenter: @presenter, form: form } %>
+    <turbo-frame id="new-funding-form">
+      <%= render partial: "projects/fundings/form_fields", locals: { presenter: @presenter, form: form } %>
+    </turbo-frame>
     <div class="end">
-      <%= form.submit t(".add_funding_submit"), class: "button-clear" %>
+      <%= form.submit t(".add_funding_submit"), class: "button-clear", data: { disable_with: false } %>
     </div>
   <% end %>
 </section>

@@ -14,9 +14,7 @@ class Projects::TeamMembershipsController < ApplicationController
 
   def edit
     form = ProjectTeamMembershipForm.new(params: { id: project_team_membership.id })
-    @presenter = Projects::TeamMembershipEditPresenter.new(
-      form: form,
-    )
+    @presenter = Projects::TeamMembershipEditPresenter.new(form: form)
   end
 
   def create
@@ -59,10 +57,11 @@ class Projects::TeamMembershipsController < ApplicationController
   end
 
   def destroy
+    project_id = project_team_membership.project_id
     respond_to do |format|
       if project_team_membership.destroy
-        format.turbo_stream { redirect_to project_team_memberships_path(project) }
-        format.html { redirect_to project_team_memberships_path(project) }
+        format.turbo_stream { redirect_to project_team_memberships_path(project_id) }
+        format.html { redirect_to project_team_memberships_path(project_id) }
       else
         @presenter = Projects::TeamMembershipEditPresenter.new(form: form)
         format.turbo_stream do

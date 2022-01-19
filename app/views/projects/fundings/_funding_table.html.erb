@@ -9,10 +9,10 @@
           <th><%= t(".award_amount") %></th>
           <th></th>
         </tr>
-        <thead>
-          <tbody>
-            <%= render partial: "projects/fundings/funding", collection: presenter.fundings %>
-          </tbody>
+      </thead>
+      <tbody>
+        <%= render partial: "projects/fundings/funding", collection: presenter.fundings %>
+      </tbody>
     </table>
   </section>
 </turbo-frame>

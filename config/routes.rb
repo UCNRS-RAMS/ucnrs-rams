@@ -12,10 +12,10 @@ Rails.application.routes.draw do
   resources :visits, only: [:new, :create]
   resources :users, only: [:index]
 
-  resources :team_memberships, only: [:edit, :update], controller: "projects/team_memberships"
-  resources :fundings, only: [:edit, :update], controller: "projects/fundings"
+  resources :team_memberships, only: [:edit, :update, :destroy], controller: "projects/team_memberships"
+  resources :fundings, only: [:edit, :update, :destroy], controller: "projects/fundings"
   resources :projects, only: [:index, :new, :create, :show] do
-    resources :team_memberships, only: [:index, :create, :destroy], controller: "projects/team_memberships"
+    resources :team_memberships, only: [:index, :create], controller: "projects/team_memberships"
     resources :users, only: [:new, :create], controller: "projects/users"
     resources :permits, only: [:index], controller: "projects/permits"
     resources :permit_answers, only: [:create], controller: "projects/permit_answers"

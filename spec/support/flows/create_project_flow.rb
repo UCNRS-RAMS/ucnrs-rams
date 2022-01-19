@@ -1,6 +1,24 @@
 class CreateProjectFlow
   def initialize(page)
-    @page = page
+    @capybara_page = page
+    @page_scope = nil
+  end
+
+  def page
+    if @page_scope
+      capybara_page.find(@page_scope)
+    else
+      capybara_page
+    end
+  end
+
+  def within(selector, &block)
+    begin
+      @page_scope = selector
+      block.call
+    ensure
+      @page_scope = nil
+    end
   end
 
   def visit_projects_page
@@ -289,6 +307,12 @@ class CreateProjectFlow
       page.has_css?("td:nth-child(3)", text: award_amount)
   end 
 
+  def has_no_funding?(title:, funding_agency:, award_amount:)
+    page.has_no_css?("td:nth-child(1)", text: title) &&
+      page.has_no_css?("td:nth-child(2)", text: funding_agency) &&
+      page.has_no_css?("td:nth-child(3)", text: award_amount)
+  end
+
   def submit_new_funding
     page.find(".add-funding-form input[type='submit']").click
   end
@@ -309,11 +333,25 @@ class CreateProjectFlow
     page.has_no_css?(".modal.visible h2", text: title)
   end
 
+  def in_editing_modal(&block)
+    within(".modal.visible", &block)
+  end
+
+  def submit_edit_funding
+    page.find("#edit-project-funding button[type='submit']").click
+  end
+
   def click_cancel
     page.click_link("Cancel")
   end
 
+  def remove_funding
+    page.accept_confirm do
+      page.find(".modal.visible a[data-method='delete']").click
+    end
+  end
+
   private
 
-  attr_reader :page
+  attr_reader :capybara_page
 end

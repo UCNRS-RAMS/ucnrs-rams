@@ -159,6 +159,36 @@ RSpec.describe "Creating a project", type: :system, js: true do
     flow.click_cancel
     expect(flow).to be_not_showing_popup_editing_user("Give me money for birdwatching")
 
+    flow.edit_funding("Give me money for birdwatching")
+    expect(flow).to be_showing_popup_editing_user("Give me money for birdwatching")
+
+    flow.in_editing_modal do
+      flow.fill_out_fundings_form(
+        is_funded: true,
+        title: "Give me money for birdwatching, please",
+        principal_investigators: "Just me.",
+        funding_sponsor: "Other",
+        funding_sponsor_other: "Audubon Society",
+        start_date: Date.new(2000, 12, 31),
+        end_date: Date.new(2021, 1, 1),
+        award_amount: "1000000.23",
+      )
+    end
+    flow.submit_edit_funding
+    expect(flow).to have_funding(
+      title: "Give me money for birdwatching, please",
+      funding_agency: "Audubon Society",
+      award_amount: "$1,000,000.00"
+    )
+
+    flow.edit_funding("Give me money for birdwatching, please")
+    flow.remove_funding
+    expect(flow).to have_no_funding(
+      title: "Give me money for birdwatching, please",
+      funding_agency: "Audubon Society",
+      award_amount: "$1,000,000.00"
+    )
+
     flow.submit_step_four
     expect(flow).to be_on_project_summary_page
   end

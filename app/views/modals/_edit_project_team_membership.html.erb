@@ -8,7 +8,7 @@
       <section class="text">
         <div class="heading">
           <h2><%= presenter.user_full_name %></h2>
-          <%= link_to t(".remove_team_member"), project_team_membership_path(project_id: presenter.project_id, id: presenter.id), method: :delete, data: { confirm: t(".confirm_removal", name: presenter.user_full_name) } %>
+          <%= link_to t(".remove_team_member"), team_membership_path(id: presenter.id), method: :delete, data: { confirm: t(".confirm_removal", name: presenter.user_full_name) } %>
         </div>
         <%= form.hidden_field :id %>
         <div class="field autocomplete" data-controller="autocomplete" data-autocomplete-url-value="<%= institutions_path %>">

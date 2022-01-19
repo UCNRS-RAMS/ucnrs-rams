@@ -1,0 +1,21 @@
+<turbo-stream action="replace" target="modal-content">
+  <template>
+    <%= render partial: "modals/empty", formats: [:html] %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="new-funding-form">
+  <template>
+    <turbo-frame id="new-funding-form">
+      <%= fields_for @presenter.form do |form| %>
+        <%= render partial: "projects/fundings/form_fields", locals: { presenter: @presenter, form: form }, formats: [:html] %>
+      <% end %>
+    </turbo-frame>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="funding-table">
+  <template>
+    <%= render partial: "projects/fundings/funding_table", locals: { presenter: @presenter }, formats: [:html] %>
+  </template>
+</turbo-stream>
