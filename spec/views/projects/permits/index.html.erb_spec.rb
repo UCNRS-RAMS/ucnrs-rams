@@ -4,7 +4,7 @@ RSpec.describe "app/views/projects/permits/index.html.erb" do
   describe "on any render" do
     it "includes steps (on step 3)" do
       assign(:presenter, Projects::PermitsIndexPresenter.new(
-        project: build(:project),
+        project: build_stubbed(:project),
         current_step: 3,
       ))
 
@@ -15,10 +15,10 @@ RSpec.describe "app/views/projects/permits/index.html.erb" do
       expect(doc).to have_css(".progress-steps li.active:nth-child(3)")
     end
 
-    it "displays a message if there are no permits to show" do
+    it "displays a message in an empty form if there are no permits to show" do
       _unapplicable_permit = build(:permit, involves_mammals: false)
       assign(:presenter, Projects::PermitsIndexPresenter.new(
-        project: build(:project, involves_mammals: true),
+        project: build_stubbed(:project, involves_mammals: true),
         current_step: 3,
       ))
 
@@ -26,12 +26,14 @@ RSpec.describe "app/views/projects/permits/index.html.erb" do
 
       doc = Capybara.string(rendered)
       expect(doc).to have_content("There are no necessary permit questions for this project at this time.")
+      expect(doc).to have_css("form#project-permits")
+      expect(doc).to have_no_css("form#project-permits input")
     end
 
     describe "the submit button" do
       it "renders a button with the correct text for step 3" do
         assign(:presenter, Projects::PermitsIndexPresenter.new(
-          project: build(:project),
+          project: build_stubbed(:project),
           current_step: 3,
         ))
 

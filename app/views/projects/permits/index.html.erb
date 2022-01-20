@@ -5,8 +5,8 @@
   <h1><%=t(".title")%></h1>
 </section>
 
-<% if @presenter.has_permits_for_project? %>
-  <%= form_with model: @presenter.form, url: project_permit_answers_url(@presenter.project), id: "project-permits" do |form| %>
+<%= form_with model: @presenter.form, url: project_permit_answers_url(@presenter.project), id: "project-permits" do |form| %>
+  <% if @presenter.has_permits_for_project? %>
     <section class="permits">
       <% @presenter.permits_by_authority.each do |authority, permits| %>
         <div class="<%= authority %>_permits">
@@ -48,11 +48,11 @@
         </p>
       </div>
     </section>
+  <% else %>
+    <section>
+      <p><%= t(".no_permits") %></p>
+    </section>
   <% end %>
-<% else %>
-  <section>
-    <p><%= t(".no_permits") %></p>
-  </section>
 <% end %>
 
 <section class="controls">
