@@ -4,6 +4,10 @@
 .permits-index {
   @include form;
 
+  form {
+    height: 100%;
+  }
+
   section {
     color: $navy-blue;
     margin: 0;

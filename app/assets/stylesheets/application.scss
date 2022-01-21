@@ -16,10 +16,17 @@
 
 @import "variables";
 
+html {
+  height: 100%;
+}
+
 body {
   border: 0;
+  display: flex;
+  flex-direction: column;
   font-family: $sora, $sans-serif;
   font-size: $base-font-size;
+  height: 100%;
   margin: 0;
   padding: 0;
 
@@ -45,4 +52,10 @@ body {
       background-color: pink;
     }
   }
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
