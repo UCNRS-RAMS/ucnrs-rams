@@ -7,7 +7,7 @@ input[type="submit"] {
   background: $active-button-fill;
   border-radius: 2.25rem;
   border: 0;
-  color: $active-button-text;
+  color: $active-button-text !important;
   display: flex;
   flex-direction: row;
   font-size: 1rem;

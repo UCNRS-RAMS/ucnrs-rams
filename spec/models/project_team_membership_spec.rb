@@ -77,4 +77,17 @@ RSpec.describe ProjectTeamMembership, type: :model do
       ].map(&:id)
     end
   end
+
+  describe ".principal_investigators" do
+    it "returns records of team members that are principal investigators" do
+      member = create(:project_team_membership, :team_member)
+      pi = create(:project_team_membership, :principal_investigator)
+      billing = create(:project_team_membership, :billing)
+      project_manager = create(:project_team_membership, :project_manager)
+
+      members = ProjectTeamMembership.principal_investigators
+
+      expect(members).to eq [pi]
+    end
+  end
 end

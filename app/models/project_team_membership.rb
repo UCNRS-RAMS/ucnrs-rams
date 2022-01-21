@@ -54,4 +54,8 @@ class ProjectTeamMembership < ApplicationRecord
     )
       .order("project_team_memberships.active DESC, project_role_order")
   end
+
+  def self.principal_investigators
+    where(is_principal_investigator: true)
+  end
 end
