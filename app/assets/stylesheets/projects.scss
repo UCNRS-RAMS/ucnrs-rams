@@ -334,8 +334,13 @@
     width: 360px;
     padding: 3.5rem 3.50rem 1.5rem 1.25rem;
 
+    a {
+      color: $sky-blue;
+    }
+
     .main-header {
       line-height: 1.75rem;
+      margin-top: 0;
     }
 
     .information {
@@ -379,8 +384,107 @@
     background-color: $white;
     box-sizing: border-box;
     color: $navy-blue;
-    font-size: 0.8125rem;
     flex-grow: 1;
-    padding: 4.5rem 1.25rem 1.5rem 3.50rem;
+    font-size: 0.8125rem;
+    padding: 3.5rem 1.25rem 1.5rem 3.50rem;
+
+    a {
+      color: $sky-blue;
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+
+    .header {
+      margin-bottom: 3rem;
+    }
+
+    h1.main-header {
+      font-size: 2.25rem;
+      font-weight: $medium;
+      margin-bottom: .5rem;
+      margin-top: 0;
+    }
+
+    h2.main-header {
+      display: inline-block;
+      font-weight: $medium;
+      margin-right: 1rem;
+    }
+
+    h3 {
+      font-weight: $medium;
+    }
+
+    .subheader {
+      align-items: center;
+      display: flex;
+
+      span {
+        margin-right: 1.5rem;
+      }
+    }
+
+    .project-summary {
+      margin-bottom: 3rem;
+    }
+
+    .project-summary-table {
+      margin-bottom: 2rem;
+
+      td {
+        padding-bottom: 0.3rem;
+        padding-right: 2rem;
+        padding-top: 0.3rem;
+      }
+
+      td:nth-child(2) {
+        font-weight: $semi-bold;
+      }
+    }
+
+    .project-methods {
+      ul {
+        list-style: none;
+        margin-bottom: 2.25rem;
+        padding-left: 0;
+
+        li {
+          align-items: center;
+          display: flex;
+          margin: .75rem 0;
+        }
+
+        li::before {
+          background: no-repeat center/22px url(asset-path("icon-alert-circle-blue.svg"));
+          content: "";
+          flex-shrink: 0;
+          height: 22px;
+          margin-right: .5rem;
+          width: 22px;
+        }
+
+        li:empty {
+          display: none;
+        }
+      }
+
+      .project-methods-detail {
+        margin-bottom: 1.25rem;
+
+        span {
+          display: block;
+        }
+
+        span:nth-child(1) {
+          margin-bottom: .5rem;
+        }
+
+        span:nth-child(2) {
+          font-weight: $semi-bold;
+        }
+      }
+    }
   }
 }

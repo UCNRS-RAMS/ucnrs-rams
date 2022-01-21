@@ -13,5 +13,18 @@ RSpec.describe "show.html.erb" do
       expect(doc).to have_css("ul.next-steps-list")
       expect(doc).to have_css("a", text: "Schedule A Visit")
     end
+
+
+    it "includes project-summary" do
+      project = create(:project)
+      assign(:presenter, ProjectShowPresenter.new(project))
+
+      render template: "projects/show"
+
+      doc = Capybara.string(rendered)
+
+      expect(doc).to have_css("section.project-summary")
+      expect(doc).to have_css("a", text: "Edit Project")
+    end
   end
 end

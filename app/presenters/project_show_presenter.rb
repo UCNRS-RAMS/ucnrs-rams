@@ -5,10 +5,88 @@ class ProjectShowPresenter
     @project = project
   end
 
-  delegate :id,
-    to: :project, prefix: true
+  delegate_missing_to :project
+
+  def project_status
+    "#{status&.capitalize} Application"
+  end
+
+  def submitted_at
+    project.submitted_at ? I18n.l(project.submitted_at, format: :project_summary_time) : ""
+  end
+
+  def principal_investigators_list
+    principal_investigators.map{ |principal_investigator| principal_investigator.user.full_name }.to_sentence
+  end
+
+  def applicant_name
+    applicant.full_name
+  end
+
+  def project_involves
+    involves&.to_sentence
+  end
+
+  def partial_name
+    "projects/#{project_type.parameterize.underscore}_show"
+  end
+
+  def timeframe
+    if project_requires_dates?
+      DateRangePresenter.value(start_date: start_date, end_date: end_date)
+    else
+      not_applicable
+    end
+  end
+
+  def method_remove_organisms_statement
+    I18n.t("projects.show.method_remove_organisms") if method_remove_organisms
+  end
+
+  def method_transfer_organisms_statement
+    I18n.t("projects.show.method_transfer_organisms") if method_transfer_organisms
+  end
+
+  def method_chemicals_statement
+    I18n.t("projects.show.method_chemicals", chemical_list: method_chemicals_list) if method_chemicals
+  end
+
+  def method_study_non_native_species_statement
+    I18n.t("projects.show.method_study_non_native_species") if method_study_non_native_species
+  end
+
+  def method_soil_disturbance_statement
+    I18n.t("projects.show.method_soil_disturbance") if method_soil_disturbance
+  end
+
+  def method_long_term_structures_statement
+    I18n.t("projects.show.method_long_term_structures") if method_long_term_structures
+  end
 
   private
 
-  attr_reader :project 
+  attr_reader :project
+
+  delegate :team_memberships, to: :project
+
+  def project_requires_dates?
+    start_date.present? && end_date.present?
+  end
+
+  def principal_investigators
+    team_memberships.principal_investigators.includes(:user)
+  end
+
+  def involves
+    [].tap do |involves|
+      involves << I18n.t("projects.show.mammals") if involves_mammals
+      involves << I18n.t("projects.show.reptiles") if involves_reptiles
+      involves << I18n.t("projects.show.amphibians") if involves_amphibians
+      involves << I18n.t("projects.show.fish") if involves_fish
+      involves << I18n.t("projects.show.birds") if involves_birds
+      involves << I18n.t("projects.show.plants") if involves_plants_fungi_soil
+      involves << I18n.t("projects.show.fungi") if involves_plants_fungi_soil
+      involves << I18n.t("projects.show.soil") if involves_plants_fungi_soil
+    end.flatten
+  end
 end
