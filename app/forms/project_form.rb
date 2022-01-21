@@ -10,8 +10,8 @@ class ProjectForm
   def initialize(user: User.new, params: {})
     @project = Project.where(id: params[:id]).first ||
       Project.new(project_type: :research)
-    @project.applicant = user
-    @project.owner = user
+    @project.applicant ||= user
+    @project.owner ||= user
     assign(params)
   end
 
@@ -91,18 +91,18 @@ class ProjectForm
   private
 
   def project_team_membership
-    ProjectTeamMembership.new(
-      project_id: id,
-      user_id: applicant.id,
-      institution: applicant.institution,
-      active: true,
-      user_role: applicant.role,
-      is_principal_investigator: true,
-      can_edit_project: true,
-      can_add_project_user: true,
-      can_add_visit: true,
-      can_receive_invoice: true,
-    )
+    ProjectTeamMembership
+      .where(user_id: applicant.id, project_id: id)
+      .first_or_initialize(
+        institution: applicant.institution,
+        active: true,
+        user_role: applicant.role,
+        is_principal_investigator: true,
+        can_edit_project: true,
+        can_add_project_user: true,
+        can_add_visit: true,
+        can_receive_invoice: true,
+      )
   end
 
   def assign(params)

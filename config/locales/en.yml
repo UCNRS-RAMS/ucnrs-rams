@@ -397,6 +397,7 @@ en:
     create:
       reset_password_sent: "A reset password email has been sent."
   projects:
+    not_authorized: "You are not authorized to edit this project."
     index:
       title: "My Projects"
       table_headers:
@@ -417,6 +418,24 @@ en:
       not_applicable: "N/A"
       alt:
         right_facing_arrow: "A right facing arrow enclosed in a circle"
+    edit:
+      title: "Edit Project Details"
+      submit: 
+        step_1: "Next: Team"
+      alt:
+        right_facing_arrow: "A right facing arrow"
+      project_type_options:
+        title: "Project Type"
+        labels:
+          research: "Research"
+          class: "University Class"
+          meeting: "Meeting or Conference"
+          public_use: "Public Use"
+        explanation:
+          research: "Research"
+          class: "Class"
+          meeting: "Meeting"
+          public_use: "Public"
     new:
       title: "Project Details"
       submit: 

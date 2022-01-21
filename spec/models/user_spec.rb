@@ -450,4 +450,24 @@ RSpec.describe User, type: :model do
       expect(results).to eq [jane]
     end
   end
+
+  describe "#able_to_edit?" do
+    it "is true if the user has permission to edit and is active" do
+      membership = create(:project_team_membership, can_edit_project: true, active: true)
+
+      expect(membership.user).to be_able_to_edit(membership.project)
+    end
+
+    it "is false if the user does not have permission but is active" do
+      membership = create(:project_team_membership, can_edit_project: false, active: true)
+
+      expect(membership.user).to_not be_able_to_edit(membership.project)
+    end
+
+    it "is false if the user has permission but is not active" do
+      membership = create(:project_team_membership, can_edit_project: true, active: false)
+
+      expect(membership.user).to_not be_able_to_edit(membership.project)
+    end
+  end
 end

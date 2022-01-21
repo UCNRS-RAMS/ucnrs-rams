@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
   it "has the required fields in the 'Details' section" do
-    presenter = ProjectsNewPresenter.new(
+    presenter = ProjectFormPresenter.new(
       user: :fake_user,
       current_step: 1,
     )
@@ -19,7 +19,7 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
   end
 
   it "has the required fields in the 'Disciplines' section" do
-    presenter = ProjectsNewPresenter.new(
+    presenter = ProjectFormPresenter.new(
       user: :fake_user,
       current_step: 1,
     )
@@ -46,7 +46,7 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
   end
 
   it "has the required fields in the 'Involvements' section" do
-    presenter = ProjectsNewPresenter.new(
+    presenter = ProjectFormPresenter.new(
       user: :fake_user,
       current_step: 1,
     )
@@ -68,7 +68,7 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
   end
 
   it "has start and end date fields" do
-    presenter = ProjectsNewPresenter.new(
+    presenter = ProjectFormPresenter.new(
       user: :fake_user,
       current_step: 1,
     )
@@ -84,7 +84,7 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
   end
 
   it "has the required fields in the 'Keywords' section" do
-    presenter = ProjectsNewPresenter.new(
+    presenter = ProjectFormPresenter.new(
       user: :fake_user,
       current_step: 1,
     )
@@ -101,7 +101,7 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
   end
 
   it "has the required fields in the 'Methods' section" do
-    presenter = ProjectsNewPresenter.new(
+    presenter = ProjectFormPresenter.new(
       user: :fake_user,
       current_step: 1,
     )
@@ -117,7 +117,7 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
   end
 
   it "has the required fields in the 'Planning Questions' section" do
-    presenter = ProjectsNewPresenter.new(
+    presenter = ProjectFormPresenter.new(
       user: :fake_user,
       current_step: 1,
     )
@@ -161,7 +161,7 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
       user = User.new
       project_form = ProjectForm.new(params: {}, user: user)
       project_form.validate
-      presenter = ProjectsNewPresenter.new(
+      presenter = ProjectFormPresenter.new(
         user: user,
         current_step: 1,
         project_type: :research,
@@ -211,7 +211,7 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
         discipline: "Other",
       }, user: user)
       project_form.validate
-      presenter = ProjectsNewPresenter.new(
+      presenter = ProjectFormPresenter.new(
         user: user,
         current_step: 1,
         project_type: :research,

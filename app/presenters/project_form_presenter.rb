@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ProjectsNewPresenter
+class ProjectFormPresenter
   def initialize(user:, current_step:, form: nil, project_type: nil)
     @user = user
     @project_type = project_type || :research
@@ -11,6 +11,7 @@ class ProjectsNewPresenter
 
   attr_reader :form, :project_type
   delegate :svg, :step_class, to: :steps_presenter
+  delegate :id, to: :form
 
   def project_type_options
     [

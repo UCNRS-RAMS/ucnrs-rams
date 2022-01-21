@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
+  before_action :authorize_user, only: [:edit, :update]
 
   def index
     @presenter = ProjectsIndexPresenter.new(
@@ -10,7 +11,7 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @presenter = ProjectsNewPresenter.new(
+    @presenter = ProjectFormPresenter.new(
       user: current_user,
       current_step: 1,
       project_type: project_type,
@@ -22,13 +23,38 @@ class ProjectsController < ApplicationController
     if form.save
       redirect_to project_team_memberships_path(form.project, format: :html)
     else
-      @presenter = ProjectsNewPresenter.new(
+      @presenter = ProjectFormPresenter.new(
         user: current_user,
         current_step: 1,
         project_type: form.project_type,
         form: form,
       )
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    form = ProjectForm.new(user: current_user, params: { id: project.id })
+    @presenter = ProjectFormPresenter.new(
+      user: current_user,
+      current_step: 1,
+      project_type: project.project_type,
+      form: form,
+    )
+  end
+
+  def update
+    form = ProjectForm.new(user: current_user, params: project_params.merge(id: project.id))
+    if form.save
+      redirect_to project_team_memberships_path(form.project, format: :html)
+    else
+      @presenter = ProjectFormPresenter.new(
+        user: current_user,
+        current_step: 1,
+        project_type: form.project_type,
+        form: form,
+      )
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -81,5 +107,16 @@ class ProjectsController < ApplicationController
 
   def project_type
     params[:project_type]
+  end
+
+  def authorize_user
+    if !current_user.able_to_edit?(project)
+      flash[:alert] = t("projects.not_authorized")
+      redirect_to project_path(project)
+    end
+  end
+
+  def project
+    Project.find(params[:id])
   end
 end

@@ -128,6 +128,13 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def able_to_edit?(project)
+    project_team_memberships
+      .where(project: project, active: true)
+      .first
+      &.can_edit_project
+  end
+
   private
 
   def password_complexity

@@ -166,6 +166,8 @@
   }
 }
 
+.projects-edit,
+.projects-update,
 .projects-new,
 .projects-create {
   @include date_fields;

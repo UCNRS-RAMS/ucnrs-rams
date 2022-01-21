@@ -1,15 +1,16 @@
 require "rails_helper"
 
-RSpec.describe ProjectsNewPresenter do
+RSpec.describe ProjectFormPresenter do
   describe "delegations" do
-    subject { ProjectsNewPresenter.new(user: :dummy, current_step: 1) }
+    subject { ProjectFormPresenter.new(user: :dummy, current_step: 1) }
     it { is_expected.to delegate_method(:svg).to(:steps_presenter) }
     it { is_expected.to delegate_method(:step_class).to(:steps_presenter) }
+    it { is_expected.to delegate_method(:id).to(:form) }
   end
 
   describe "#partial_name" do
     it "generates the name of the partial to render from project_type" do
-      presenter = ProjectsNewPresenter.new(
+      presenter = ProjectFormPresenter.new(
         user: :dummy,
         current_step: 1,
         project_type: :meeting,
@@ -21,7 +22,7 @@ RSpec.describe ProjectsNewPresenter do
 
   describe "#project_type_options" do
     it "lists the types of projects" do
-      presenter = ProjectsNewPresenter.new(user: :dummy, current_step: 1)
+      presenter = ProjectFormPresenter.new(user: :dummy, current_step: 1)
 
       expect(presenter.project_type_options).to eq [
         :research,
@@ -33,7 +34,7 @@ RSpec.describe ProjectsNewPresenter do
 
   describe "#disciplines" do
     it "lists all of the project disciplines" do
-      presenter =  ProjectsNewPresenter.new(user: :dummy, current_step: 1)
+      presenter =  ProjectFormPresenter.new(user: :dummy, current_step: 1)
 
       expect(presenter.disciplines).to eq [
         "Agriculture",
@@ -55,13 +56,13 @@ RSpec.describe ProjectsNewPresenter do
 
   describe "other_discipline?" do
     it "is true if the supplied discipline is 'Other'" do
-      presenter =  ProjectsNewPresenter.new(user: :dummy, current_step: 1)
+      presenter =  ProjectFormPresenter.new(user: :dummy, current_step: 1)
       
       expect(presenter.other_discipline?("Other")).to eq true
     end
 
     it "is false if the supplied discipline is not 'Other'" do
-      presenter =  ProjectsNewPresenter.new(user: :dummy, current_step: 1)
+      presenter =  ProjectFormPresenter.new(user: :dummy, current_step: 1)
       
       expect(presenter.other_discipline?("Arts/Humanities")).to eq false
     end
@@ -69,7 +70,7 @@ RSpec.describe ProjectsNewPresenter do
 
   describe "#involvement_flags" do
     it "is an array containing the involvement-related attributes" do
-      presenter = ProjectsNewPresenter.new(user: :dummy, current_step: 1)
+      presenter = ProjectFormPresenter.new(user: :dummy, current_step: 1)
 
       expect(presenter.involvement_flags).to eq [
         :involves_mammals,
@@ -86,7 +87,7 @@ RSpec.describe ProjectsNewPresenter do
 
   describe "#planning_questions" do
     it "is an array containing the planning question-related attributes" do
-      presenter = ProjectsNewPresenter.new(user: :dummy, current_step: 1)
+      presenter = ProjectFormPresenter.new(user: :dummy, current_step: 1)
 
       expect(presenter.planning_questions).to eq [
         :method_remove_organisms,
@@ -102,14 +103,14 @@ RSpec.describe ProjectsNewPresenter do
   describe "chemical_question?" do
     it "is true if the supplied planning_question is :method_chemicals" do
       planning_question = :method_chemicals
-      presenter =  ProjectsNewPresenter.new(user: :dummy, current_step: 1)
+      presenter =  ProjectFormPresenter.new(user: :dummy, current_step: 1)
 
       expect(presenter.chemical_question?(planning_question)).to eq true
     end
 
     it "is false if the supplied planning_question is not method_chemicals" do
       planning_question = :method_remove_organisms
-      presenter =  ProjectsNewPresenter.new(user: :dummy, current_step: 1)
+      presenter =  ProjectFormPresenter.new(user: :dummy, current_step: 1)
 
       expect(presenter.chemical_question?(planning_question)).to eq false
     end
@@ -117,7 +118,7 @@ RSpec.describe ProjectsNewPresenter do
 
   describe "#current_step_name" do
     it "returns a dynamic I18n key based on step name" do
-      presenter =  ProjectsNewPresenter.new(user: :dummy, current_step: 1)
+      presenter =  ProjectFormPresenter.new(user: :dummy, current_step: 1)
 
       expect(presenter.current_step_name).to eq ".submit.step_1"
     end
