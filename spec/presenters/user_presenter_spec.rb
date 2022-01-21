@@ -15,14 +15,35 @@ RSpec.describe UserPresenter, type: :presenter do
 
       expect(presenter.autocomplete_description).to eq "First Last - Foo University - jxxn@doe.test"
     end
+
+    it "presents the autocomplete description without extra hyphens if there is no email" do
+      presenter = UserPresenter.new(
+        build(
+          :user,
+          first_name: "First",
+          last_name: "Last",
+          email: nil,
+          institution: build(:institution, name: "Foo University")
+        )
+      )
+
+      expect(presenter.autocomplete_description).to eq "First Last - Foo University"
+    end
   end
 
   describe "#masked_email" do
-    it "obfuscates the user portion of the email address" do
+    it "obfuscates the user portion of the email address if the user has an email" do
       user = build(:user, email: "one-two-three@numbers.test")
       presenter = UserPresenter.new(user)
 
       expect(presenter.masked_email).to eq "oxxxxxxxxxxxe@numbers.test"
+    end
+
+    it "is nil if the user does not have an email" do
+      user = build(:user, email: nil)
+      presenter = UserPresenter.new(user)
+
+      expect(presenter.masked_email).to be_nil
     end
   end
 
