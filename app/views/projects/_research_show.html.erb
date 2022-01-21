@@ -1,0 +1,56 @@
+<section class="project-summary">
+  <div class="project-summary-table">
+    <table>
+      <tr>
+        <td><%= t(".principal_investigators") %></td>
+        <td><%= presenter.principal_investigators_list %></td>
+      </tr>
+      <tr>
+        <td><%= t(".project_title") %></td>
+        <td><%= presenter.title %></td>
+      </tr>
+      <tr>
+        <td><%= t(".thesis_title") %></td>
+        <td><%= presenter.thesis_title %></td>
+      </tr>
+      <tr>
+        <td><%= t(".project_abstract") %></td>
+        <td><%= presenter.abstract %></td>
+      </tr>
+      <tr>
+        <td><%= t(".applicant") %></td>
+        <td><%= presenter.applicant_name %></td>
+      </tr>
+      <tr>
+        <td><%= t(".project_duration") %></td>
+        <td><%= presenter.timeframe %></td>
+      </tr>
+      <tr>
+        <td><%= t(".discipline") %></td>
+        <td><%= presenter.discipline %></td>
+      </tr>
+      <tr>
+        <td><%= t(".project_involves") %></td>
+        <td><%= presenter.project_involves %></td>
+      </tr>
+    </table>
+  </div>
+  <div class="project-methods">
+    <ul>
+      <li><%= presenter.method_remove_organisms_statement %></li>
+      <li><%= presenter.method_transfer_organisms_statement %></li>
+      <li><%= presenter.method_chemicals_statement&.html_safe %></li>
+      <li><%= presenter.method_study_non_native_species_statement %></li>
+      <li><%= presenter.method_soil_disturbance_statement %></li>
+      <li><%= presenter.method_long_term_structures_statement %></li>
+    </ul>
+    <div class="project-methods-detail">
+      <span><%= t(".method_description") %></span>
+      <span><%= presenter.method_description %></span>
+    </div>
+    <div class="project-methods-detail">
+      <span><%= t(".method_study_area") %></span>
+      <span><%= presenter.method_study_area %></span>
+    </div>
+  </div>
+</section>
