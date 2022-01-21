@@ -115,11 +115,11 @@ class User < ApplicationRecord
       .decode_www_form_component(query)
       .strip
       .split
-      .inject(unscoped.where("0=1")) do |scope, part|
-        scope.or(where(
+      .inject(unscoped) do |scope, part|
+        scope.where(
           "first_name REGEXP :query OR last_name REGEXP :query",
           query: part
-        ))
+        )
       end
       .includes([:institution])
   end

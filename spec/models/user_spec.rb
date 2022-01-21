@@ -430,7 +430,7 @@ RSpec.describe User, type: :model do
   end
 
   describe ".search" do
-    it "find users whose first or last name matches the given regex" do
+    it "finds users whose first or last name matches the given regex" do
       jim = create(:user, first_name: "Jim", last_name: "Timothy")
       jane = create(:user, first_name: "Jane", last_name: "Not Jim")
       pat = create(:user, first_name: "Pat", last_name: "(not shown)")
@@ -438,6 +438,16 @@ RSpec.describe User, type: :model do
       results = User.search("Jim")
 
       expect(results).to eq [jim, jane]
+    end
+
+    it "finds users whose name matches all given terms" do
+      jim = create(:user, first_name: "Jim", last_name: "Timothy")
+      jane = create(:user, first_name: "Jane", last_name: "Not Jim")
+      pat = create(:user, first_name: "Pat", last_name: "(not shown)")
+
+      results = User.search("Jim Jane")
+
+      expect(results).to eq [jane]
     end
   end
 end
