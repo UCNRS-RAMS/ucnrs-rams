@@ -1,0 +1,16 @@
+<section class="project-funding">
+  <h2 class="main-header"><%= t(".funding", size: presenter.fundings.size) %></h2>
+  <%= link_to t(".edit_funding"), project_fundings_path(presenter.project_id) %>
+  <table id="funding-summary-table" class="summary-table">
+    <thead>
+      <tr>
+        <th><%= t(".title") %></th>
+        <th><%= t(".funding_agency") %></th>
+        <th><%= t(".award_amount") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "projects/funding", collection: presenter.fundings %>
+    </tbody>
+  </table>
+</section>

@@ -9,12 +9,11 @@ RSpec.describe "show.html.erb" do
       render template: "projects/show"
 
       doc = Capybara.string(rendered)
-      
+
       expect(doc).to have_css("section.sidebar")
       expect(doc).to have_css("ul.next-steps-list")
       expect(doc).to have_css("a", text: "Schedule A Visit")
     end
-
 
     it "includes project-summary" do
       project = create(:project)
@@ -39,6 +38,19 @@ RSpec.describe "show.html.erb" do
       expect(doc).to have_css("section.project-team")
       expect(doc).to have_css("a", text: "Edit Team")
       expect(doc).to have_css("table#team-summary-table")
+    end
+
+    it "includes project funding section" do
+      project = create(:project)
+      assign(:presenter, ProjectShowPresenter.new(project))
+
+      render template: "projects/show"
+
+      doc = Capybara.string(rendered)
+
+      expect(doc).to have_css("section.project-funding")
+      expect(doc).to have_css("a", text: "Edit Funding")
+      expect(doc).to have_css("table#funding-summary-table")
     end
   end
 end

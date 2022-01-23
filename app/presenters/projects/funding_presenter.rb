@@ -24,4 +24,10 @@ class Projects::FundingPresenter
   def award_amount
     number_to_currency(funding_award_amount, precision: 2)
   end
+
+  def timeframe
+    if start_date? && end_date?
+      DateRangePresenter.value(start_date: start_date, end_date: end_date)
+    end
+  end
 end
