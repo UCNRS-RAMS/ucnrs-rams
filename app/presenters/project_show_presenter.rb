@@ -5,6 +5,8 @@ class ProjectShowPresenter
     @project = project
   end
 
+  delegate :id, to: :project, prefix: true
+
   delegate_missing_to :project
 
   def project_status
@@ -62,19 +64,28 @@ class ProjectShowPresenter
   def method_long_term_structures_statement
     I18n.t("projects.show.method_long_term_structures") if method_long_term_structures
   end
+  
+  def team_memberships
+    project_team_memberships
+      .is_active
+      .includes(:user, :institution)
+      .map do |team_membership|
+        Projects::TeamMembershipPresenter.new(team_membership)
+      end
+  end
 
   private
 
   attr_reader :project
 
-  delegate :team_memberships, to: :project
+  delegate :team_memberships, to: :project, prefix: true
 
   def project_requires_dates?
     start_date.present? && end_date.present?
   end
 
   def principal_investigators
-    team_memberships.principal_investigators.includes(:user)
+    project_team_memberships.principal_investigators.includes(:user)
   end
 
   def involves
