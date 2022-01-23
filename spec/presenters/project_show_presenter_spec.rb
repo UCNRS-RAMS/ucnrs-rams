@@ -90,4 +90,20 @@ RSpec.describe ProjectShowPresenter do
       ]
     end
   end
+
+  describe "#fundings" do
+    it "creates a FundingPresenter for each funding" do
+      project = create(:project)
+      fundings = create_list(:funding, 3, project: project)
+      presenter = ProjectShowPresenter.new(project)
+
+      results = presenter.fundings
+
+      expect(results.map(&:id)).to eq [
+        fundings[0].id,
+        fundings[1].id,
+        fundings[2].id,
+      ]
+    end
+  end
 end
