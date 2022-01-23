@@ -758,6 +758,12 @@ en:
       project_duration: "Project Duration"
       discipline: "Discipline"
       project involves: "Project Involves"
+    team_member_show_table:
+      project_team: "Project Team (%{size})"
+      edit_team: "Edit Team"
+      name: "Name"
+      institution: "Institution"
+      project_role: "Project Role"
   waivers:
     index:
       title: "Waivers"

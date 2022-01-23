@@ -27,6 +27,6 @@
         </div>
       </div>
       <%= render partial: @presenter.partial_name, locals: { presenter: @presenter } %>
-    </section>
+      <%= render partial: "projects/team_member_show_table", locals: { presenter: @presenter } %>
   </div>
 </div>
