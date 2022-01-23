@@ -74,6 +74,12 @@ class ProjectShowPresenter
       end
   end
 
+  def fundings
+    project.fundings.map do |funding|
+      Projects::FundingPresenter.new(funding)
+    end
+  end
+
   private
 
   attr_reader :project

@@ -8,9 +8,9 @@
         <th><%= t(".institution") %></th>
         <th><%= t(".project_role") %></th>
       </tr>
-      <thead>
-      <tbody>
-        <%= render partial: "projects/team_membership", collection: presenter.team_memberships %>
-      </tbody>
+    </thead>
+    <tbody>
+      <%= render partial: "projects/team_membership", collection: presenter.team_memberships %>
+    </tbody>
   </table>
 </section>

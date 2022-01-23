@@ -764,6 +764,12 @@ en:
       name: "Name"
       institution: "Institution"
       project_role: "Project Role"
+    funding_show_table:
+      edit_funding: "Edit Funding"
+      funding: "Funding (%{size})"
+      title: "Title"
+      funding_agency: "Funding Agency"
+      award_amount: "Award Amount"
   waivers:
     index:
       title: "Waivers"
