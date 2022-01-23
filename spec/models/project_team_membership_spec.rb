@@ -90,4 +90,15 @@ RSpec.describe ProjectTeamMembership, type: :model do
       expect(members).to eq [pi]
     end
   end
+  
+  describe ".is_active" do
+    it "returns only active team membership" do
+      active_member = create(:project_team_membership, active: true)
+      inactive_member = create(:project_team_membership, active: false)
+
+      members = ProjectTeamMembership.is_active
+
+      expect(members).to eq [active_member]
+    end
+  end
 end

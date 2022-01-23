@@ -58,4 +58,8 @@ class ProjectTeamMembership < ApplicationRecord
   def self.principal_investigators
     where(is_principal_investigator: true)
   end
+
+  def self.is_active
+    where(active: true)
+  end
 end
