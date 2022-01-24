@@ -90,6 +90,16 @@ class ProjectShowPresenter
       
   end
 
+  def visits
+    project
+      .visits
+      .recent_start_date_first
+      .includes(:reserve, :user_visits, :amenity_visits)
+      .map do |visit|
+        VisitPresenter.new(visit)
+    end
+  end
+
   private
 
   attr_reader :project

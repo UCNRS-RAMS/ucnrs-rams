@@ -775,6 +775,12 @@ en:
       approved_permits: "Approved Permits"
       permits: "Permits"
       approved_permits_information: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+    visit_show_table:
+      visits: "Visits (%{size})"
+      schedule_a_visit: "Schedule A Visit"
+    visit:
+      visitor: "Visitor"
+      amenity: "Amenity"
   waivers:
     index:
       title: "Waivers"
