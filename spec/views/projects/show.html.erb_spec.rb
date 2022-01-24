@@ -52,5 +52,17 @@ RSpec.describe "show.html.erb" do
       expect(doc).to have_css("a", text: "Edit Funding")
       expect(doc).to have_css("table#funding-summary-table")
     end
+    it "includes project permit section" do
+      project = create(:project)
+      assign(:presenter, ProjectShowPresenter.new(project))
+
+      render template: "projects/show"
+
+      doc = Capybara.string(rendered)
+      
+      expect(doc).to have_css("section.project-permit")
+      expect(doc).to have_css("a", text: "Edit Permits")
+      expect(doc).to have_css("div#permit-summary-list")
+    end
   end
 end
