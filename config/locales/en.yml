@@ -770,6 +770,11 @@ en:
       title: "Title"
       funding_agency: "Funding Agency"
       award_amount: "Award Amount"
+    permit_show:
+      edit_permits: "Edit Permits"
+      approved_permits: "Approved Permits"
+      permits: "Permits"
+      approved_permits_information: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
   waivers:
     index:
       title: "Waivers"
