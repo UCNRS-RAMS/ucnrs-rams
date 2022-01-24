@@ -51,6 +51,14 @@ class VisitPresenter
     ends_at&.to_date
   end
 
+  def visitor_count
+    user_visits.sum(&:count)
+  end
+
+  def amenity_count
+    amenity_visits.pluck(:amenity_id).uniq.length
+  end
+
   private
 
   attr_reader :visit
@@ -59,6 +67,8 @@ class VisitPresenter
     :reserve,
     :starts_at,
     :ends_at,
+    :user_visits,
+    :amenity_visits,
     to: :visit
 
   delegate :status,
