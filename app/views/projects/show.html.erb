@@ -18,16 +18,17 @@
       <%= link_to t(".view_our_reserves"), reserves_path %>
     </section>
     <section class="content">
-      <div class="header">
+      <header>
         <h1 class="main-header"><%= t(".project_summary") %></h1>
         <div class="subheader">
           <span><%= @presenter.project_status %></span>
           <span><%= t(".project_status_request", project_type: @presenter.project_type.capitalize) %>: <%= @presenter.submitted_at %></span>
           <span><%= link_to t(".edit_project"), "#" %></span>
         </div>
-      </div>
+      </header>
       <%= render partial: @presenter.partial_name, locals: { presenter: @presenter } %>
       <%= render partial: "projects/team_member_show_table", locals: { presenter: @presenter } %>
       <%= render partial: "projects/funding_show_table", locals: { presenter: @presenter } %>
+      <%= render partial: "projects/permit_show", locals: { presenter: @presenter } %>
   </div>
 </div>

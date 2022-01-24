@@ -106,4 +106,20 @@ RSpec.describe ProjectShowPresenter do
       ]
     end
   end
+
+  describe "#permit_answers" do
+    it "creates a ProjectPermitAnswerPresenter for each project_permit_answer" do
+      project = create(:project)
+      project_permit_answers = create_list(:project_permit_answer, 3, project: project, answer: true)
+      presenter = ProjectShowPresenter.new(project)
+
+      results = presenter.permit_answers
+
+      expect(results.values.flatten.map(&:id)).to eq [
+        project_permit_answers[0].id,
+        project_permit_answers[1].id,
+        project_permit_answers[2].id,
+      ]
+    end
+  end
 end

@@ -80,6 +80,16 @@ class ProjectShowPresenter
     end
   end
 
+  def permit_answers
+    ProjectPermitAnswer
+      .with_permits_authority_column
+      .for_project(project)
+      .for_answer(true)
+      .map{ |permit_answer| ProjectPermitAnswerPresenter.new(permit_answer) }
+      .group_by(&:authority)
+      
+  end
+
   private
 
   attr_reader :project
