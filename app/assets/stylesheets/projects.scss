@@ -338,7 +338,7 @@
       color: $sky-blue;
     }
 
-    .main-header {
+    h2.main-header {
       line-height: 1.75rem;
       margin-top: 0;
     }
@@ -346,28 +346,6 @@
     .information {
       line-height: 1.5rem;
       margin-bottom: 3rem;
-    }
-
-    .subheader {
-      font-weight: $medium;
-      margin-bottom: 0.2rem;
-    }
-
-    ul.next-steps-list {
-      list-style-type: square;
-      margin-top: 0;
-      margin-bottom: 3rem;
-      padding-left: 2rem;
-
-      li {
-        line-height: 1.5rem;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-      }
-
-      li:nth-child(1) {
-        margin-top: 0;
-      }
     }
 
     .button {
@@ -396,8 +374,17 @@
       margin-bottom: 3rem;
     }
 
-    .header {
-      margin-bottom: 3rem;
+    header {
+      margin-bottom: 2.5rem;
+
+      .subheader {
+        align-items: center;
+        display: flex;
+  
+        span {
+          margin-right: 1.5rem;
+        }
+      }
     }
 
     h1.main-header {
@@ -409,21 +396,12 @@
 
     h2.main-header {
       display: inline-block;
-      font-weight: $medium;
+      font-weight: $semi-bold;
       margin-right: 1rem;
     }
 
     h3 {
-      font-weight: $medium;
-    }
-
-    .subheader {
-      align-items: center;
-      display: flex;
-
-      span {
-        margin-right: 1.5rem;
-      }
+      font-weight: $semi-bold;
     }
 
     .project-summary {
@@ -486,6 +464,28 @@
         }
       }
     }
+  }
+}
+
+.subheader {
+  font-weight: $medium;
+  margin-bottom: 0.2rem;
+}
+
+ul.summary-list {
+  list-style-type: square;
+  margin-bottom: 2.5rem;
+  margin-top: 0;
+  padding-left: 2rem;
+
+  li {
+    line-height: 1.5rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+  }
+
+  li:nth-child(1) {
+    margin-top: 0;
   }
 }
 

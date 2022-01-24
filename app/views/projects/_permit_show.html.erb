@@ -1,0 +1,20 @@
+<section class="project-permit">
+  <header>
+    <h2 class="main-header"><%= t(".permits") %></h2>
+    <%= link_to t(".edit_permits"), project_permits_path(presenter.project_id) %>
+    <h3 class="subheader"><%= t(".approved_permits") %></h3>
+    <p><%= t(".approved_permits_information") %></p>
+  </header>
+  <div id="permit-summary-list">
+    <% presenter.permit_answers.each do |authority, permit_answers| %>
+      <div class="<%= authority %>_permits">
+        <h3 class="subheader"><%= authority %> <%= t(".permits") %></h3>
+        <ul class="summary-list">
+          <% permit_answers.each do |permit_answer| %>
+            <li><%= permit_answer.permit_statement %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+</section>
