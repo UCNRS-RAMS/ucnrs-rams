@@ -50,4 +50,28 @@ RSpec.describe VisitPresenter do
       expect(visit_presenter.requested_reserve_name).to eq "University of Worlds Best"
     end
   end
+
+  describe "#visitor_count" do
+    it "returns the number of visitors" do
+      visit = create(:visit)
+      user_visits = create_list(:user_visit, 3, visit: visit, count: 7)
+      visit_presenter = VisitPresenter.new(visit)
+
+      expect(visit_presenter.visitor_count).to eq 21
+    end
+  end
+
+  describe "#amenity_count" do
+    it "returns the number of amenities" do
+      visit = create(:visit)
+      amenity1 = create(:amenity)
+      amenity2 = create(:amenity)
+      amenity_visit1 = create(:amenity_visit, visit: visit, amenity: amenity1)
+      amenity_visit2 = create(:amenity_visit, visit: visit, amenity: amenity2)
+      amenity_visit3 = create(:amenity_visit, visit: visit, amenity: amenity1)
+      visit_presenter = VisitPresenter.new(visit)
+
+      expect(visit_presenter.amenity_count).to eq 2
+    end
+  end
 end
