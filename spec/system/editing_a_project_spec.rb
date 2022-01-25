@@ -27,6 +27,14 @@ RSpec.describe "Editing a project", type: :system, js: true do
         email: "123@456.test",
         institution: institution
       )
+      create(
+        :permit,
+        involves_fish: true,
+        question: "Fish?",
+        url1: "https://fish",
+        url1_description: "About Fish"
+      )
+      create(:permit, involves_birds: true, question: "Birds?")
       flow = EditProjectFlow.new(page)
 
       flow.visit_project_edit_page(project)
@@ -76,7 +84,7 @@ RSpec.describe "Editing a project", type: :system, js: true do
         involves_reptiles: true,
         involves_amphibians: true,
         involves_fish: true,
-        involves_birds: true,
+        involves_birds: false,
         involves_plants_fungi_soil: true,
         involves_threatened_endangered_species: true,
         involves_none: true,
@@ -130,8 +138,71 @@ RSpec.describe "Editing a project", type: :system, js: true do
 
       flow.submit_team_memberships
 
-      flow.visit_project_fundings_page(project)
+      expect(flow).to be_allowed_to_view_project_permits_page
+      expect(flow).to have_permit("Fish?")
+      expect(flow).to have_no_permits("Birds?")
+
+      flow.select_answer("Fish?", "Yes")
+      expect(flow).to have_url_for_permit("Fish?", "About Fish" => "https://fish")
+  
+      flow.submit_step_three
       expect(flow).to be_allowed_to_view_project_fundings_page
+
+      flow.fill_out_fundings_form(
+        title: "Give me money for birdwatching",
+        principal_investigators: "Avery Visage",
+        funding_sponsor: "Other",
+        funding_sponsor_other: "Audubon",
+        start_date: Date.new(2000, 12, 31),
+        end_date: Date.new(2021, 1, 1),
+        award_amount: "1000000.00",
+      )
+      flow.submit_new_funding
+      expect(flow).to be_on_project_fundings_page
+      expect(flow).to have_funding(
+        title: "Give me money for birdwatching",
+        funding_agency: "Audubon",
+        award_amount: "$1,000,000.00"
+      )
+
+      flow.edit_funding("Give me money for birdwatching")
+      expect(flow).to be_showing_popup_editing_user("Give me money for birdwatching")
+  
+      flow.click_cancel
+      expect(flow).to be_not_showing_popup_editing_user("Give me money for birdwatching")
+  
+      flow.edit_funding("Give me money for birdwatching")
+      expect(flow).to be_showing_popup_editing_user("Give me money for birdwatching")
+
+      flow.in_editing_modal do
+        flow.fill_out_fundings_form(
+          is_funded: true,
+          title: "Give me money for birdwatching, please",
+          principal_investigators: "Just me.",
+          funding_sponsor: "Other",
+          funding_sponsor_other: "Audubon Society",
+          start_date: Date.new(2000, 12, 31),
+          end_date: Date.new(2021, 1, 1),
+          award_amount: "1000000.23",
+        )
+      end
+      flow.submit_edit_funding
+      expect(flow).to have_funding(
+        title: "Give me money for birdwatching, please",
+        funding_agency: "Audubon Society",
+        award_amount: "$1,000,000.00"
+      )
+  
+      flow.edit_funding("Give me money for birdwatching, please")
+      flow.remove_funding
+      expect(flow).to have_no_funding(
+        title: "Give me money for birdwatching, please",
+        funding_agency: "Audubon Society",
+        award_amount: "$1,000,000.00"
+      )
+  
+      flow.submit_step_four
+      expect(flow).to be_on_project_summary_page
     end
   end
 end

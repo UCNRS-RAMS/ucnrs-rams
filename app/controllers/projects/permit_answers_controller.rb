@@ -1,5 +1,6 @@
 class Projects::PermitAnswersController < ApplicationController
   before_action :authenticate_user!
+  before_action :authorize_user
 
   def create
     form = ProjectPermitAnswersForm.new(
@@ -30,5 +31,12 @@ class Projects::PermitAnswersController < ApplicationController
       :approved_permits,
       answers: {},
     )
+  end
+
+  def authorize_user
+    if !current_user.able_to_edit?(project)
+      flash[:alert] = t("projects.not_authorized")
+      redirect_to project_path(project)
+    end
   end
 end

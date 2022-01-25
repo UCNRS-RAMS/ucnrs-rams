@@ -252,12 +252,128 @@ class EditProjectFlow
     page.find("form.button_to button").click
   end
 
-  def visit_project_fundings_page(project)
-    page.visit("/projects/#{project.id}/fundings")
+  def allowed_to_view_project_permits_page?
+    page.has_css?("body.permits-index")
+  end
+
+  def has_permit?(exact_title)
+    page.has_css?(".question", text: exact_title)
+  end
+
+  def has_no_permits?(exact_title)
+    page.has_no_css?(".question", text: exact_title)
+  end
+
+  def select_answer(question, answer)
+    page
+      .find(".question", text: question)
+      .find(".answers label", text: answer)
+      .click
+  end
+
+  def has_url_for_permit?(question, urls)
+    urls.all? do |text, url|
+      page
+        .find(".question", text: question)
+        .first(:xpath, ".//..")
+        .has_css?(".description a[href='#{url}']", text: text, visible: true)
+    end
+  end
+
+  def submit_step_three
+    page.find("button[form='project-permits']").click
   end
 
   def allowed_to_view_project_fundings_page?
     page.has_css?("body.fundings-index")
+  end
+
+  def submit_step_four
+    page.find("form.button_to button").click
+  end
+
+  def on_project_summary_page?
+    page.has_css?("body.projects-show")
+  end
+
+  def fill_out_fundings_form(
+    is_funded: false,
+    is_submitted: false,
+    will_be_submitted: false,
+    was_denied: false,
+    title:,
+    principal_investigators:,
+    funding_sponsor:,
+    funding_sponsor_other:,
+    start_date:,
+    end_date:,
+    award_amount:
+  )
+    page.check("Project is currently being supported by at least one grant or contract") if is_funded
+    page.check("At least one grant or contract application has been submitted but has not yet been approved") if is_submitted
+    page.check("At least one grant or contract application will be submitted in the future") if will_be_submitted
+    page.check("Project grant or contract application was denied by the funding agency") if was_denied
+    page.fill_in("Official Grant Title", with: title)
+    page.fill_in("Principal Investigators", with: principal_investigators, exact: true)
+    page.select(funding_sponsor, from: "Funding Agency")
+    page.fill_in("Enter Funding Agency Name", with: funding_sponsor_other)
+    page.fill_in("Award Amount", with: award_amount)
+    page.fill_in("Start Date", with: start_date)
+    page.fill_in("End Date", with: end_date)
+  end
+
+  def has_funding?(title:, funding_agency:, award_amount:)
+    page.has_css?("td:nth-child(1)", text: title) &&
+      page.has_css?("td:nth-child(2)", text: funding_agency) &&
+      page.has_css?("td:nth-child(3)", text: award_amount)
+  end 
+
+  def has_no_funding?(title:, funding_agency:, award_amount:)
+    page.has_no_css?("td:nth-child(1)", text: title) &&
+      page.has_no_css?("td:nth-child(2)", text: funding_agency) &&
+      page.has_no_css?("td:nth-child(3)", text: award_amount)
+  end
+
+  def submit_new_funding
+    page.find(".add-funding-form input[type='submit']").click
+  end
+
+  def on_project_fundings_page?
+    page.has_css?("body.fundings-index")
+  end
+
+  def edit_funding(title)
+    page
+      .find("td", text: title)
+      .first(:xpath, ".//..")
+      .find("a", text: "Edit")
+      .click
+  end
+
+  def showing_popup_editing_funding?(title)
+    page.has_css?(".modal.visible h2", text: title)
+  end
+
+  def not_showing_popup_editing_funding?(title)
+    page.has_no_css?(".modal.visible h2", text: title)
+  end
+
+  def in_editing_modal(&block)
+    page.within(".modal.visible", &block)
+  end
+
+  def submit_edit_funding
+    page.find("#edit-project-funding button[type='submit']").click
+  end
+
+  def click_cancel
+    page.click_link("Cancel")
+  end
+
+  def remove_funding
+    page.accept_confirm do
+      page.find(".modal.visible a[data-method='delete']").click
+    end
   end
 
   private
