@@ -5,6 +5,13 @@ RSpec.describe Projects::PermitAnswersController, type: :request do
     it "does not error when there are no permit answers" do
       user = create(:user, :confirmed)
       project = create(:project, title: "Project 1", project_type: "Research")
+      create(
+        :project_team_membership,
+        user: user,
+        project: project,
+        active: true,
+        can_edit_project: true,
+      )
       sign_in(user)
 
       post "/projects/#{project.id}/permit_answers", params: { project: { no_permits: "" } }
