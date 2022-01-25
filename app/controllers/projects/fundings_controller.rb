@@ -1,5 +1,6 @@
 class Projects::FundingsController < ApplicationController
   before_action :authenticate_user!
+  before_action :authorize_user
 
   def index
     @presenter = Projects::FundingsIndexPresenter.new(
@@ -67,7 +68,7 @@ class Projects::FundingsController < ApplicationController
   end
 
   def project
-    Project.find(params[:project_id])
+    Project.where(id: params[:project_id]).first || funding.project
   end
 
   def project_fundings_params
@@ -88,5 +89,12 @@ class Projects::FundingsController < ApplicationController
       :grant_number,
       :funding_opportunity_number,
     )
+  end
+
+  def authorize_user
+    if !current_user.able_to_edit?(project)
+      flash[:alert] = t("projects.not_authorized")
+      redirect_to project_path(project)
+    end
   end
 end

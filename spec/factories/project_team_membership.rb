@@ -6,6 +6,7 @@ FactoryBot.define do
 
     active { true }
     can_add_visit { true }
+    can_edit_project { true }
     user_role { :professional }
 
     project { build(:project, title: project_title) }

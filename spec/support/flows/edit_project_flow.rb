@@ -144,6 +144,14 @@ class EditProjectFlow
     page.has_css?("body.team_memberships-index")
   end
 
+  def visit_project_fundings_page(project)
+    page.visit("/projects/#{project.id}/fundings")
+  end
+
+  def allowed_to_view_project_fundings_page?
+    page.has_css?("body.fundings-index")
+  end
+
   private
 
   attr_reader :page

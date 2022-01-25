@@ -84,6 +84,9 @@ RSpec.describe "Editing a project", type: :system, js: true do
       )
       flow.submit_project_form
       expect(flow).to be_on_project_teams_page
+
+      flow.visit_project_fundings_page(project)
+      expect(flow).to be_allowed_to_view_project_fundings_page
     end
   end
 end
