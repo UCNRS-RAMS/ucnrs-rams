@@ -3,7 +3,7 @@ class ScopablePage
     @page = page
   end
 
-  delegate_missing_to :@page
+  delegate_missing_to :page
 
   def page
     if @page_scope
