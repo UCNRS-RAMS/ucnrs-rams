@@ -17,10 +17,12 @@ RSpec.describe "index.html.erb" do
     end
 
     it "displays a form to add a project team member" do
-      project = create(:project)
+      membership = create(:project_team_membership, :principal_investigator)
+      project = membership.project
       assign(:presenter, Projects::TeamMembershipsIndexPresenter.new(
         current_step: 2,
-        project: project,
+        project: membership.project,
+        current_user: membership.user,
       ))
 
       render template: "projects/team_memberships/index"
@@ -33,10 +35,12 @@ RSpec.describe "index.html.erb" do
     end
 
     it "includes markup for autocomplete on the user field" do
-      project = create(:project)
+      membership = create(:project_team_membership, :principal_investigator)
+      project = membership.project
       assign(:presenter, Projects::TeamMembershipsIndexPresenter.new(
         current_step: 2,
         project: project,
+        current_user: membership.user,
       ))
 
       render template: "projects/team_memberships/index"
@@ -50,7 +54,7 @@ RSpec.describe "index.html.erb" do
   end
 
   it "displays errors that are on the form object" do
-    membership = create(:project_team_membership)
+    membership = create(:project_team_membership, :principal_investigator)
     form = ProjectTeamMembershipForm.new(
       project: membership.project,
       params: membership.attributes,
@@ -58,7 +62,8 @@ RSpec.describe "index.html.erb" do
     assign(:presenter, Projects::TeamMembershipsIndexPresenter.new(
       current_step: 2,
       project: membership.project,
-      form: form
+      form: form,
+      current_user: membership.user,
     ))
     form.validate
 
@@ -69,9 +74,26 @@ RSpec.describe "index.html.erb" do
     expect(doc).to display_error("must select an option").for_field("Project Role")
   end
 
+  describe "if the user does not have can_add_project_user permission" do
+    it "does not show the add user form" do
+      membership = create(:project_team_membership, active: true, can_add_project_user: false)
+      project = membership.project
+      assign(:presenter, Projects::TeamMembershipsIndexPresenter.new(
+        current_step: 2,
+        project: membership.project,
+        current_user: membership.user,
+      ))
+
+      render template: "projects/team_memberships/index"
+
+      doc = Capybara.string(rendered)
+      expect(doc).to have_no_css("form[action='/projects/#{project.id}/team_memberships']")
+    end
+  end
+
   describe "the submit button" do
     it "renders a button with the correct text for step 2" do
-      membership = create(:project_team_membership)
+      membership = create(:project_team_membership, :principal_investigator)
       form = ProjectTeamMembershipForm.new(
         project: membership.project,
         params: membership.attributes,
@@ -79,7 +101,8 @@ RSpec.describe "index.html.erb" do
       assign(:presenter, Projects::TeamMembershipsIndexPresenter.new(
         current_step: 2,
         project: membership.project,
-        form: form
+        form: form,
+        current_user: membership.user,
       ))
 
       controller.request.path_parameters[:project_id] = membership.project.id

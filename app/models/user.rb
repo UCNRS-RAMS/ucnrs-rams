@@ -135,6 +135,13 @@ class User < ApplicationRecord
       &.can_edit_project
   end
 
+  def able_to_add_user?(project)
+    project_team_memberships
+      .where(project: project, active: true)
+      .first
+      &.can_add_project_user
+  end
+
   private
 
   def password_complexity

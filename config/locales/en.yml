@@ -398,6 +398,7 @@ en:
       reset_password_sent: "A reset password email has been sent."
   projects:
     not_authorized: "You are not authorized to edit this project."
+    cannot_add_users: "You are not authorized to add users."
     index:
       title: "My Projects"
       table_headers:
@@ -589,9 +590,6 @@ en:
         create_new_user: "Create new user"
         search_by_name: "Search by name"
         choose_role: "Choose Role"
-        next_step: "Next: Permits"
-        alt:
-          right_facing_arrow: "A right facing arrow"
       team_member_table:
         name: "Name"
         institution: "Institution"
@@ -604,6 +602,12 @@ en:
         project_team: "Project Team"
       team_membership:
         edit: "Edit"
+      finish_button:
+        complete: "Save Memberships"
+      next_step_button:
+        next_step: "Next: Permits"
+        alt:
+          right_facing_arrow: "A right facing arrow"
     permits:
       index:
         title: "Permits"

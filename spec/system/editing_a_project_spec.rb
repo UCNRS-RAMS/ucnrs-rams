@@ -14,7 +14,18 @@ RSpec.describe "Editing a project", type: :system, js: true do
         project: project,
         institution: create(:institution),
         user_role: :docent,
-        can_edit_project: true
+        can_edit_project: true,
+        can_add_project_user: true,
+      )
+      institution = create(:institution, name: "MIT")
+      another_user = create(
+        :user,
+        :confirmed,
+        first_name: "Another",
+        last_name: "User",
+        role: :docent,
+        email: "123@456.test",
+        institution: institution
       )
       flow = EditProjectFlow.new(page)
 
@@ -52,7 +63,7 @@ RSpec.describe "Editing a project", type: :system, js: true do
         recent_publications: project.recent_publications,
       )
 
-      flow.fill_out_new_project_form(
+      flow.fill_out_project_form(
         title: "Existing Project",
         thesis_title: "Projects that start out alreasdy created still exist",
         abstract: "This test, lol.",
@@ -84,6 +95,40 @@ RSpec.describe "Editing a project", type: :system, js: true do
       )
       flow.submit_project_form
       expect(flow).to be_on_project_teams_page
+
+      flow.click_create_new_user
+      expect(flow).to be_showing_popup_creating_user
+
+      flow.create_user_with_membership(
+        first_name: "First",
+        last_name: "Last",
+        institution: institution
+      )
+      flow.save_project_team_member
+      expect(flow).to be_not_showing_popup_creating_user
+      expect(flow).to have_team_member("First Last")
+
+      flow.edit_team_member("First Last")
+      flow.remove_team_member
+      expect(flow).to have_no_team_member("Another User")
+
+      flow.enter_name_into_autocomplete("Anot")
+      expect(flow).to be_showing_autocomplete_with_option("Another User - MIT - 1x3@456.test")
+
+      flow.select_autocomplete_option("Another User")
+      flow.select_project_role("Project Manager")
+      flow.add_user_to_team
+      expect(flow).to have_team_member("Another User")
+
+      flow.edit_team_member("Another User")
+      expect(flow).to be_showing_popup_editing_user("Another User")
+
+      flow.change_users_role_to("Professional")
+      flow.save_project_team_member
+      expect(flow).to be_not_showing_popup_editing_user("Another User")
+      expect(flow).to be_showing_user_role_as("Professional", for_user: "Another User")
+
+      flow.submit_team_memberships
 
       flow.visit_project_fundings_page(project)
       expect(flow).to be_allowed_to_view_project_fundings_page

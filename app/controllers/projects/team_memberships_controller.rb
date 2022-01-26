@@ -1,10 +1,14 @@
 class Projects::TeamMembershipsController < ApplicationController
   before_action :authenticate_user!
+  before_action :authorize_user, only: [:index]
+  before_action :authorize_add_user, only: [:create]
+  before_action :authorize_edit_project, only: [:edit, :update, :destroy]
 
   def index
     @presenter = Projects::TeamMembershipsIndexPresenter.new(
       current_step: 2,
       project: project,
+      current_user: current_user,
     )
     respond_to do |format|
       format.html
@@ -51,7 +55,10 @@ class Projects::TeamMembershipsController < ApplicationController
           render template: "projects/team_memberships/edit",
             status: :unprocessable_entity
         end
-        format.html { render status: :unprocessable_entity }
+        format.html do
+          render template: "projects/team_memberships/edit",
+            status: :unprocessable_entity
+        end
       end
     end
   end
@@ -75,8 +82,29 @@ class Projects::TeamMembershipsController < ApplicationController
 
   private
 
+  def authorize_user
+    if !(current_user.able_to_edit?(project) || current_user.able_to_add_user?(project))
+      flash[:alert] = t("projects.not_authorized")
+      redirect_to project_path(project)
+    end
+  end
+
+  def authorize_add_user
+    if !current_user.able_to_add_user?(project)
+      flash[:alert] = t("projects.cannot_add_users")
+      head :unauthorized
+    end
+  end
+
+  def authorize_edit_project
+    if !current_user.able_to_edit?(project)
+      flash[:alert] = t("projects.not_authorized")
+      head :unauthorized
+    end
+  end
+
   def project
-    Project.find(params[:project_id])
+    Project.where(id: params[:project_id]).first || project_team_membership.project
   end
 
   def project_team_membership

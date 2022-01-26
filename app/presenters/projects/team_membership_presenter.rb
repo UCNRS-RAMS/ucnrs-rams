@@ -8,8 +8,9 @@ class Projects::TeamMembershipPresenter
   BOOK = "Book"
   INVOICE = "Invoice"
 
-  def initialize(team_membership)
+  def initialize(team_membership, editable: false)
     @team_membership = team_membership
+    @editable = editable
   end
 
   attr_reader :team_membership
@@ -59,6 +60,10 @@ class Projects::TeamMembershipPresenter
       BOOK,
       INVOICE,
     ]
+  end
+
+  def able_to_edit?
+    @editable
   end
 
   private
