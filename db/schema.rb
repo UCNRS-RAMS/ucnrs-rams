@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_21_135131) do
+ActiveRecord::Schema.define(version: 2022_01_26_013309) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id"
@@ -184,27 +184,6 @@ ActiveRecord::Schema.define(version: 2022_01_21_135131) do
     t.index ["InvoiceID"], name: "InvoiceID"
     t.index ["reserve_id", "visit_id", "InvoiceID"], name: "ReservePlus"
     t.index ["visit_id"], name: "visit"
-  end
-
-  create_table "ReserveQuestions", primary_key: "ResQuestionID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "reserve_id", null: false
-    t.column "ShowUser", "enum('Show','Hide')", null: false
-    t.column "QuestionType", "enum('Boolean','Text')", null: false
-    t.column "QuestionLocation", "enum('Reservation','project')"
-    t.text "Question"
-    t.text "AdditionalText"
-    t.integer "SortOrder"
-    t.boolean "AnswerRequired", default: false, null: false
-    t.boolean "public_project", default: true, null: false
-    t.boolean "class_project", default: true, null: false
-    t.boolean "research_project", default: true, null: false
-    t.boolean "housing_only_project", default: true, null: false
-    t.boolean "conference_project", default: false, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["QuestionLocation", "SortOrder", "ShowUser", "QuestionType"], name: "LocationSOShowType"
-    t.index ["SortOrder"], name: "SortOrderPlain"
-    t.index ["reserve_id", "SortOrder"], name: "SortOrderByReserve"
   end
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -678,6 +657,49 @@ ActiveRecord::Schema.define(version: 2022_01_21_135131) do
     t.index ["reserve_id"], name: "reserve"
     t.index ["user_id", "reserve_id"], name: "index_reserve_personnel_on_user_id_and_reserve_id", unique: true
     t.index ["user_id"], name: "user"
+  end
+
+  create_table "reserve_questions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "reserve_id", null: false
+    t.column "question_type", "enum('Boolean','Text')", null: false
+    t.column "location", "enum('project','visit')"
+    t.text "question"
+    t.text "statement"
+    t.integer "sort_order"
+    t.boolean "answer_required", default: false, null: false
+    t.boolean "public", default: true, null: false
+    t.boolean "class", default: true, null: false
+    t.boolean "research", default: true, null: false
+    t.boolean "housing", default: true, null: false
+    t.boolean "conference", default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean "visible"
+    t.column "authority", "enum('Federal','State','Local','Institution','Reserve')"
+    t.string "description"
+    t.string "url_1"
+    t.string "url_link_text_1"
+    t.string "url_2"
+    t.string "url_link_text_2"
+    t.string "url_3"
+    t.string "url_link_text_3"
+    t.boolean "iacuc_flag"
+    t.boolean "drone_flag"
+    t.boolean "scuba_flag"
+    t.boolean "vertebrate_flag"
+    t.boolean "threatened_endangered_flag"
+    t.boolean "involves_mammals"
+    t.boolean "involves_reptiles"
+    t.boolean "involves_amphibians"
+    t.boolean "involves_fish"
+    t.boolean "involves_birds"
+    t.boolean "involves_plants_fungus_soil"
+    t.boolean "involves_none"
+    t.boolean "involves_all"
+    t.integer "state_id"
+    t.index ["location", "sort_order", "question_type"], name: "LocationSOShowType"
+    t.index ["reserve_id", "sort_order"], name: "SortOrderByReserve"
+    t.index ["sort_order"], name: "SortOrderPlain"
   end
 
   create_table "reserve_settings", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
