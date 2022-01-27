@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_26_013309) do
+ActiveRecord::Schema.define(version: 2022_01_27_193022) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id"
@@ -74,17 +74,6 @@ ActiveRecord::Schema.define(version: 2022_01_26_013309) do
     t.datetime "updated_at"
     t.index ["ResQuestionID", "visit_id"], name: "Question"
     t.index ["visit_id", "ResQuestionID"], name: "visit"
-  end
-
-  create_table "AppAnswers", primary_key: "AppAnswerID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "ResQuestionID", null: false
-    t.integer "project_id", null: false
-    t.boolean "BooleanAnswer", comment: "Boolean"
-    t.text "TextAnswer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["ResQuestionID", "project_id"], name: "Questions"
-    t.index ["project_id", "ResQuestionID"], name: "Applications"
   end
 
   create_table "Disciplines", primary_key: "DisciplineID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -502,6 +491,17 @@ ActiveRecord::Schema.define(version: 2022_01_26_013309) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["permit_id"], name: "index_project_permit_answers_on_permit_id"
     t.index ["project_id"], name: "index_project_permit_answers_on_project_id"
+  end
+
+  create_table "project_reserve_answers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "reserve_question_id", null: false
+    t.integer "project_id", null: false
+    t.boolean "boolean_answer", comment: "Boolean"
+    t.text "text_answer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["project_id", "reserve_question_id"], name: "Applications"
+    t.index ["reserve_question_id", "project_id"], name: "Questions"
   end
 
   create_table "project_team_memberships", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
