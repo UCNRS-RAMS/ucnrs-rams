@@ -1,6 +1,7 @@
 class Permit < ApplicationRecord
   belongs_to :state, optional: true
   has_many :project_permit_answers
+  has_many :projects, through: :project_permit_answers
 
   enum location: {
     visit: "visit",
@@ -43,5 +44,14 @@ class Permit < ApplicationRecord
       .or(where("(? AND involves_birds)", [project.involves_birds]))
       .or(where("(? AND involves_plants_fungi_soil)", [project.involves_plants_fungi_soil]))
       .or(where("(? AND threatened_endangered_flag)", [project.involves_threatened_endangered_species]))
+  end
+
+  def self.include_answers_for(project)
+    left_joins(:project_permit_answers)
+      .select(
+        Permit.arel_table[Arel.star],
+        ProjectPermitAnswer.arel_table[:answer],
+        ProjectPermitAnswer.arel_table[:id].as("answer_id")
+      )
   end
 end

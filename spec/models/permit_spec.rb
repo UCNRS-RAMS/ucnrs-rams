@@ -24,6 +24,7 @@ RSpec.describe Permit, type: :model do
   describe "associations" do
     it { is_expected.to belong_to(:state).optional }
     it { is_expected.to have_many(:project_permit_answers) }
+    it { is_expected.to have_many(:projects).through(:project_permit_answers) }
   end
 
   describe ".in_order" do
@@ -104,6 +105,29 @@ RSpec.describe Permit, type: :model do
       expect(Permit.involving_related(project(:involves_birds))).to eq [birds_permit]
       expect(Permit.involving_related(project(:involves_plants_fungi_soil))).to eq [plants_fungi_soil_permit]
       expect(Permit.involving_related(project(:involves_threatened_endangered_species))).to eq [endangered_permit]
+    end
+  end
+
+  describe ".include_answers_for" do
+    it "adds #answer and #answer_id in the query representing a ProjectPermitAnswer" do
+      project = create(:project, project_type: :research)
+      permit1 = create(:permit, visible: true, involves_all: true)
+      answer1 = create(:project_permit_answer, project: project, permit: permit1, answer: true)
+      permit2 = create(:permit, visible: true, involves_all: true)
+      permit3 = create(:permit, visible: true, involves_all: true)
+      answer3 = create(:project_permit_answer, project: project, permit: permit3, answer: false)
+
+      permits = Permit.include_answers_for(project).order(:id)
+
+      expect(permits[0]).to eq permit1
+      expect(permits[0].answer).to eq 1
+      expect(permits[0].answer_id).to eq answer1.id
+      expect(permits[1]).to eq permit2
+      expect(permits[1].answer).to be_nil
+      expect(permits[1].answer_id).to be_nil
+      expect(permits[2]).to eq permit3
+      expect(permits[2].answer).to eq 0
+      expect(permits[2].answer_id).to eq answer3.id
     end
   end
 end

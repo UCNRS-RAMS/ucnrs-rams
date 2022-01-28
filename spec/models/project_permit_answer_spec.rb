@@ -65,4 +65,35 @@ RSpec.describe ProjectPermitAnswer, type: :model do
       end
     end
   end
+
+  describe ".replace_all" do
+    it "does nothing if the argument is empty" do
+      existing_answer = create(:project_permit_answer, answer: false)
+      existing_answer.answer = true
+
+      ProjectPermitAnswer.replace_all([])
+
+      expect(existing_answer.reload).to eq existing_answer
+    end
+
+    it "REPLACEs the objects passed in" do
+      existing_answer = create(:project_permit_answer, answer: false)
+      project = existing_answer.project
+      existing_answer.answer = true
+      permit = create(:permit)
+      new_answer = build(:project_permit_answer, project: project, permit: permit, answer: true)
+
+      ProjectPermitAnswer.replace_all([existing_answer, new_answer])
+
+      existing_answer = ProjectPermitAnswer
+        .where(project: project, permit: existing_answer.permit)
+        .first
+      new_answer = ProjectPermitAnswer
+        .where(project: project, permit: new_answer.permit)
+        .first
+      expect(existing_answer.answer).to be true
+      expect(new_answer.answer).to be true
+      expect(new_answer).to be_persisted
+    end
+  end
 end

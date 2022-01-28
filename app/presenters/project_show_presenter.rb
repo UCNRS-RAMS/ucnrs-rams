@@ -87,7 +87,6 @@ class ProjectShowPresenter
       .for_answer(true)
       .map{ |permit_answer| ProjectPermitAnswerPresenter.new(permit_answer) }
       .group_by(&:authority)
-      
   end
 
   def visits

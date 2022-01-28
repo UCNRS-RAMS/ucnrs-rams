@@ -23,15 +23,16 @@ class ProjectPermitAnswersForm
   end
 
   def save
-    Project.transaction do
-      begin
-        save_project
-        save_project_permit_answers
-        true
-      rescue ActiveRecord::RecordInvalid => e
-        Rails.logger.error(e)
-        false
+    ProjectPermitAnswer.transaction do
+      answers = answers_params.each.map do |permit_id, answer|
+        ProjectPermitAnswer.new(
+          project_id: project.id,
+          permit_id: permit_id,
+          answer: answer[:answer],
+        )
       end
+      ProjectPermitAnswer.replace_all(answers)
+      project.save
     end
   end
 

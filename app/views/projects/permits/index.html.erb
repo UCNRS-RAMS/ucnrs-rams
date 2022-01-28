@@ -14,7 +14,7 @@
           <ul>
             <% permits.each do |permit| %>
               <%= fields_for "project[answers][#{permit.id}]", permit.form do |f| %>
-                <li data-controller="value-projection" data-value-projection-projected-value="">
+                <li data-controller="value-projection" data-value-projection-projected-value="<%= f.object.answer %>">
                   <div class="question">
                     <%= permit.question %>
                     <div class="answers">

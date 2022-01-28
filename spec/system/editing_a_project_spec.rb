@@ -145,7 +145,7 @@ RSpec.describe "Editing a project", type: :system, js: true do
       flow.select_answer("Fish?", "Yes")
       expect(flow).to have_url_for_permit("Fish?", "About Fish" => "https://fish")
   
-      flow.submit_step_three
+      flow.submit_permits
       expect(flow).to be_allowed_to_view_project_fundings_page
 
       flow.fill_out_fundings_form(
@@ -201,7 +201,7 @@ RSpec.describe "Editing a project", type: :system, js: true do
         award_amount: "$1,000,000.00"
       )
   
-      flow.submit_step_four
+      flow.submit_funding
       expect(flow).to be_on_project_summary_page
     end
   end

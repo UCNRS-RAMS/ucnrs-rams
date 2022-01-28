@@ -51,19 +51,5 @@ RSpec.describe ProjectPermitAnswersForm do
         })
       end
     end
-
-    context "when records are invalid" do
-      it "logs errors if the transaction is rolled back" do
-        project = build(:project)
-        allow(project).to receive(:save).and_raise(ActiveRecord::RecordInvalid)
-        form = ProjectPermitAnswersForm.new(project: project)
-        allow(Rails.logger).to receive(:error)
-
-        result = form.save
-
-        expect(Rails.logger).to have_received(:error)
-        expect(result).to be false
-      end
-    end
   end
 end

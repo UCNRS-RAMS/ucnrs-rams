@@ -490,6 +490,7 @@ ActiveRecord::Schema.define(version: 2022_01_27_193022) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["permit_id"], name: "index_project_permit_answers_on_permit_id"
+    t.index ["project_id", "permit_id"], name: "index_project_permit_answers_on_project_id_and_permit_id", unique: true
     t.index ["project_id"], name: "index_project_permit_answers_on_project_id"
   end
 

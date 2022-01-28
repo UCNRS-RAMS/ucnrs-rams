@@ -11,11 +11,14 @@ class ProjectPermitAnswerForm
   delegate_missing_to :permit_answer
 
   def initialize(project: nil, params: {})
-    @permit_answer = ProjectPermitAnswer.new(
-      permit_id: params[:permit_id],
-      project_id: project&.id,
-      answer: params[:answer] == "1"
-    )
+    @permit_answer = ProjectPermitAnswer
+      .where(
+        permit_id: params[:permit_id],
+        project_id: project&.id,
+      )
+      .first_or_initialize(
+        answer: params[:answer] == "1"
+      )
   end
 
   def answer

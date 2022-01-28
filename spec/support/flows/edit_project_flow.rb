@@ -280,7 +280,7 @@ class EditProjectFlow
     end
   end
 
-  def submit_step_three
+  def submit_permits
     page.find("button[form='project-permits']").click
   end
 
@@ -288,7 +288,7 @@ class EditProjectFlow
     page.has_css?("body.fundings-index")
   end
 
-  def submit_step_four
+  def submit_funding
     page.find("form.button_to button").click
   end
 

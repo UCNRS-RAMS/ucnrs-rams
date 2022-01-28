@@ -40,6 +40,21 @@ RSpec.describe Projects::PermitsIndexPresenter do
       expect(results.keys).to_not include "institution"
       expect(results.keys).to_not include "state"
     end
+
+    it "includes answers in the results" do
+      project = create(:project, involves_fish: false)
+      federal = create(:permit, authority: "Federal", involves_all: true)
+      answer = create(:project_permit_answer, answer: true, project: project, permit: federal)
+      presenter = Projects::PermitsIndexPresenter.new(current_step: 3, project: project)
+
+      results = presenter.permits_by_authority
+
+      expect(results["federal"].map(&:id)).to eq [federal.id]
+      expect(results["federal"][0]).to have_attributes({
+        answer: 1,
+        answer_id: answer.id,
+      })
+    end
   end
 
   describe "#has_permits_for_project?" do

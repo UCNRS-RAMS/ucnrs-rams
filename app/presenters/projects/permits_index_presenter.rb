@@ -31,6 +31,7 @@ class Projects::PermitsIndexPresenter
       .visible
       .matching_project_type(project.project_type)
       .involving_related(project)
+      .include_answers_for(project)
   end
 
   def wrap_permit_in_presenter(permit)
