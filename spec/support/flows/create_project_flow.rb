@@ -128,6 +128,10 @@ class CreateProjectFlow
     page.find("button[form='projects-new']").click
   end
 
+  def submit_project_edit_form
+    page.find("button[form='projects-edit']").click
+  end
+
   def on_project_teams_page?
     page.has_css?("body.team_memberships-index")
   end
@@ -227,7 +231,7 @@ class CreateProjectFlow
     page.select(project_role, from: "Project role")
   end
 
-  def submit_step_two
+  def submit_team_memberships
     page.find("form.button_to button").click
   end
 
@@ -259,7 +263,7 @@ class CreateProjectFlow
     end
   end
 
-  def submit_step_three
+  def submit_permits
     page.find("button[form='project-permits']").click
   end
 
@@ -267,7 +271,7 @@ class CreateProjectFlow
     page.has_css?("body.fundings-index")
   end
 
-  def submit_step_four
+  def submit_funding
     page.find("form.button_to button").click
   end
 
@@ -349,6 +353,12 @@ class CreateProjectFlow
     page.accept_confirm do
       page.find(".modal.visible a[data-method='delete']").click
     end
+  end
+
+  def able_to_go_back_to?(resource, project)
+    page.click_link("Go Back")
+    page.has_css?("body.#{resource}") ||
+      page.has_css?("body.projects-#{resource}")
   end
 
   private

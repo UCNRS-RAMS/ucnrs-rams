@@ -57,6 +57,10 @@
 <% end %>
 
 <section class="controls">
+  <%= link_to project_team_memberships_path(@presenter.project) do %>
+    <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t(".alt.left_facing_arrow") %>
+    <%= t(".back") %>
+  <% end %>
   <button form="project-permits" class="active" data-turbo="false">
     <%= t(".next_step") %>
     <%= image_tag "arrow-right.svg", alt: t(".alt.right_facing_arrow") %>

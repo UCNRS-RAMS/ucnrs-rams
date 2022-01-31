@@ -126,4 +126,17 @@ RSpec.describe "app/views/projects/permits/index.html.erb" do
       expect(doc).to have_no_css("div.local_permits")
     end
   end
+
+  it "renders a link to go back to the previous step (team members)" do
+    project = build_stubbed(:project)
+    assign(:presenter, Projects::PermitsIndexPresenter.new(
+      current_step: 3,
+      project: project,
+    ))
+
+    render template: "projects/permits/index"
+
+    doc = Capybara.string(rendered)
+    expect(doc).to have_css(".controls a[href='/projects/#{project.id}/team_memberships']", text: "Go Back")
+  end
 end

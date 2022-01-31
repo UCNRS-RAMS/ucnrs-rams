@@ -589,6 +589,9 @@ en:
         create_new_user: "Create new user"
         search_by_name: "Search by name"
         choose_role: "Choose Role"
+        back: "Go Back"
+        alt:
+          left_facing_arrow: "Left-facing arrow"
       team_member_table:
         name: "Name"
         institution: "Institution"
@@ -619,8 +622,10 @@ en:
         no_permits: "There are no necessary permit questions for this project at this time."
         permit_statement: "If you have any approved permits, please provide the type of permit, permit number, permit dates, and any other relevant information. You may be asked to provide a copy of the approved permit prior to or upon your arrival. If you have your IACUC permit please also state the institution name that issued that permit."
         next_step: "Next"
+        back: "Go Back"
         alt:
           right_facing_arrow: "Right-facing arrow"
+          left_facing_arrow: "Left-facing arrow"
         authority:
           federal: "Federal Permits"
           state: "State Permits"
@@ -633,8 +638,10 @@ en:
         add_funding_title: "Add Funding Information"
         next_step: "Save Project & Submit"
         add_funding_submit: "Add Funding Information"
+        back: "Go Back"
         alt:
           right_facing_arrow: "Right-facing arrow"
+          left_facing_arrow: "Left-facing arrow"
       funding_table:
         project_funding: "Project Funding"
         title: "Title"
