@@ -88,6 +88,22 @@ RSpec.describe Projects::TeamMembershipPresenter do
     end
   end
 
+  describe "permissions_icon_alt_i18n_key" do
+    it "returns the key into the translations for an allowed permission" do
+      team_membership = create(:project_team_membership, active: true, can_receive_invoice: true)
+      presenter = Projects::TeamMembershipPresenter.new(team_membership)
+
+      expect(presenter.permissions_icon_alt_i18n_key("Invoice")).to eq ".alt.allowed"
+    end
+
+    it "returns the key into the translations for an allowed permission" do
+      team_membership = create(:project_team_membership, active: false)
+      presenter = Projects::TeamMembershipPresenter.new(team_membership)
+
+      expect(presenter.permissions_icon_alt_i18n_key(:any_value)).to eq ".alt.disallowed"
+    end
+  end
+
   describe "#project_role" do
     it "is 'PI - Principal Investigator' if everything is true" do
       team_membership = build(

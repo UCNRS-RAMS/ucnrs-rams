@@ -601,6 +601,9 @@ en:
         project_team: "Project Team"
       team_membership:
         edit: "Edit"
+        alt:
+          allowed: "Allowed"
+          disallowed: "Disallowed"
       finish_button:
         complete: "Save Memberships"
       next_step_button:

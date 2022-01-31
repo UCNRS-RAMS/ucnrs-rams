@@ -103,9 +103,11 @@ RSpec.describe "Editing a project", type: :system, js: true do
       )
       flow.submit_project_form
       expect(flow).to be_on_project_teams_page
+      expect(page).to be_axe_clean
 
       flow.click_create_new_user
       expect(flow).to be_showing_popup_creating_user
+      expect(page).to be_axe_clean
 
       flow.create_user_with_membership(
         first_name: "First",
@@ -130,6 +132,7 @@ RSpec.describe "Editing a project", type: :system, js: true do
 
       flow.edit_team_member("Another User")
       expect(flow).to be_showing_popup_editing_user("Another User")
+      expect(page).to be_axe_clean
 
       flow.change_users_role_to("Professional")
       flow.save_project_team_member
@@ -138,15 +141,18 @@ RSpec.describe "Editing a project", type: :system, js: true do
 
       flow.submit_team_memberships
 
+      expect(page).to be_axe_clean
       expect(flow).to be_allowed_to_view_project_permits_page
       expect(flow).to have_permit("Fish?")
       expect(flow).to have_no_permits("Birds?")
 
       flow.select_answer("Fish?", "Yes")
       expect(flow).to have_url_for_permit("Fish?", "About Fish" => "https://fish")
+      expect(page).to be_axe_clean
   
       flow.submit_permits
       expect(flow).to be_allowed_to_view_project_fundings_page
+      expect(page).to be_axe_clean
 
       flow.fill_out_fundings_form(
         title: "Give me money for birdwatching",
@@ -159,6 +165,7 @@ RSpec.describe "Editing a project", type: :system, js: true do
       )
       flow.submit_new_funding
       expect(flow).to be_on_project_fundings_page
+      expect(page).to be_axe_clean
       expect(flow).to have_funding(
         title: "Give me money for birdwatching",
         funding_agency: "Audubon",
@@ -167,6 +174,7 @@ RSpec.describe "Editing a project", type: :system, js: true do
 
       flow.edit_funding("Give me money for birdwatching")
       expect(flow).to be_showing_popup_editing_user("Give me money for birdwatching")
+      expect(page).to be_axe_clean
   
       flow.click_cancel
       expect(flow).to be_not_showing_popup_editing_user("Give me money for birdwatching")

@@ -43,6 +43,13 @@ class Projects::TeamMembershipPresenter
     end
   end
 
+  def permissions_icon_alt_i18n_key(column)
+    {
+      ALLOWED_PERMISSIONS_ICON => ".alt.allowed",
+      DISALLOWED_PERMISSIONS_ICON => ".alt.disallowed",
+    }[permissions_icon(column)]
+  end
+
   def project_role
     project_role_name[[
       is_principal_investigator,
