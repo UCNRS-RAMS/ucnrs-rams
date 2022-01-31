@@ -186,4 +186,39 @@
       padding-left: 1rem;
     }
   }
+
+  .controls {
+    background-color: $light-light-blue;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 1.5rem $form-page-gutter;
+
+    img {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+
+    a {
+      align-items: center;
+      color: $dark-sky-blue;
+      display: flex;
+      flex-direction: row;
+      font-size: 0.875rem;
+      font-weight: $bold;
+      line-height: 1.125rem;
+      margin-right: 4.275rem;
+      text-decoration: none;
+
+      img {
+        padding-right: 0.50rem;
+      }
+    }
+
+    button {
+      color: $navy-blue;
+      font-weight: $bold;
+    }
+  }
 }

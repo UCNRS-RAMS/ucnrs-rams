@@ -103,5 +103,18 @@ RSpec.describe "app/views/projects/fundings/index.html.erb" do
       doc = Capybara.string(rendered)
       expect(doc).to have_css(".controls form[method='get']", text: "Save Project & Submit")
     end
+
+    it "renders a link to go back to the previous step (permits)" do
+      project = build_stubbed(:project)
+      assign(:presenter, Projects::FundingsIndexPresenter.new(
+        current_step: 4,
+        project: project,
+      ))
+
+      render template: "projects/fundings/index"
+
+      doc = Capybara.string(rendered)
+      expect(doc).to have_css(".controls a[href='/projects/#{project.id}/permits']", text: "Go Back")
+    end
   end
 end

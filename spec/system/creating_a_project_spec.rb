@@ -93,6 +93,11 @@ RSpec.describe "Creating a project", type: :system, js: true do
       recent_publications: nil,
     )
     flow.submit_project_form
+    project = Project.last
+    expect(flow).to be_on_project_teams_page
+    expect(flow).to be_able_to_go_back_to("edit", project)
+
+    flow.submit_project_edit_form
     expect(flow).to be_on_project_teams_page
     expect(page).to be_axe_clean
 
@@ -130,9 +135,13 @@ RSpec.describe "Creating a project", type: :system, js: true do
     flow.remove_team_member
     expect(flow).to have_no_team_member("Another User")
 
-    flow.submit_step_two
+    flow.submit_team_memberships
     expect(flow).to be_on_project_permits_page
     expect(page).to be_axe_clean
+    expect(flow).to be_able_to_go_back_to("team_memberships", project)
+
+    flow.submit_team_memberships
+    expect(flow).to be_on_project_permits_page
     expect(flow).to have_permit("Fish?")
     expect(flow).to have_no_permits("Birds?")
 
@@ -140,9 +149,13 @@ RSpec.describe "Creating a project", type: :system, js: true do
     expect(flow).to have_url_for_permit("Fish?", "About Fish" => "https://fish")
     expect(page).to be_axe_clean
 
-    flow.submit_step_three
+    flow.submit_permits
     expect(flow).to be_on_project_fundings_page
     expect(page).to be_axe_clean
+    expect(flow).to be_able_to_go_back_to("permits", project)
+
+    flow.submit_permits
+    expect(flow).to be_on_project_fundings_page
 
     flow.fill_out_fundings_form(
       title: "Give me money for birdwatching",
@@ -198,7 +211,7 @@ RSpec.describe "Creating a project", type: :system, js: true do
       award_amount: "$1,000,000.00"
     )
 
-    flow.submit_step_four
+    flow.submit_funding
     expect(flow).to be_on_project_summary_page
   end
 end

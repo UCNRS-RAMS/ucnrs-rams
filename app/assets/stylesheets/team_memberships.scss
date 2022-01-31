@@ -1,8 +1,11 @@
+@import "mixins/form";
 @import "variables";
 
 .team_memberships-index,
 .team_memberships-edit,
 .team_memberships-create {
+  @include form;
+
   .add-user-form {
     background-color: $light-light-blue;
 
@@ -123,7 +126,7 @@
           padding-left: 1.25rem;
         }
       }
-  
+
       .team-membership {
         background-color: $light-light-blue;
 
@@ -172,23 +175,6 @@
             }
           }
         }
-      }
-    }
-  }
-
-  .controls {
-    background-color: $light-light-blue;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    padding-bottom: 25px;
-    padding-top: 25px;
-
-    button {
-      img {
-        height: 1.125rem;
-        padding-left: 1rem;
-        width: 1.125rem;
       }
     }
   }

@@ -112,4 +112,19 @@ RSpec.describe "index.html.erb" do
       expect(doc).to have_css("form[method='get'][action='/projects/#{membership.project.id}/permits']", text: "Next: Permits")
     end
   end
+
+  describe "navigating to the previous page" do
+    it "renders a link to go back to the previous step (edit project)" do
+      project = build_stubbed(:project)
+      assign(:presenter, Projects::TeamMembershipsIndexPresenter.new(
+        current_step: 2,
+        project: project,
+      ))
+  
+      render template: "projects/team_memberships/index"
+  
+      doc = Capybara.string(rendered)
+      expect(doc).to have_css(".controls a[href='/projects/#{project.id}/edit']", text: "Go Back")
+    end
+  end
 end
