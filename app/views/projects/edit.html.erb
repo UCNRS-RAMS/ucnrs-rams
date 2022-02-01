@@ -6,17 +6,24 @@
   <%= form_with model: @presenter.form, url: project_url(@presenter.id), method: :put, data: { controller: "turbo-content" }, id: "projects-edit" do |form| %>
     <h2><%= t(".project_type_options.title") %></h2>
     <%= form.hidden_field :id %>
-    <section class="project-type-options" data-controller="value-projection" data-value-projection-projected-value="<%= form.object.project_type %>">
-      <% @presenter.project_type_options.each do |project_type| %>
-        <label for="project-type-<%= project_type %>">
-          <%= form.radio_button :project_type, project_type, id: "project-type-#{project_type}", data: { action: "click->turbo-content#change click->value-projection#change" }, checked: form.object.project_type.to_s == project_type.to_s %>
-          <div class="project-type-label">
-            <h3><%= t(".project_type_options.labels.#{project_type}") %></h3>
-            <p><%= t(".project_type_options.explanation.#{project_type}") %></p>
-          </div>
-        </label>
-      <% end %>
-    </section>
+    <% if @presenter.able_to_edit_project_type? %>
+      <section class="project-type-options" data-controller="value-projection" data-value-projection-projected-value="<%= form.object.project_type %>">
+        <% @presenter.project_type_options.each do |project_type| %>
+          <label for="project-type-<%= project_type %>">
+            <%= form.radio_button :project_type, project_type, id: "project-type-#{project_type}", data: { action: "click->turbo-content#change click->value-projection#change" }, checked: form.object.project_type.to_s == project_type.to_s %>
+            <div class="project-type-label">
+              <h3><%= t(".project_type_options.labels.#{project_type}") %></h3>
+              <p><%= t(".project_type_options.explanation.#{project_type}") %></p>
+            </div>
+          </label>
+        <% end %>
+      </section>
+    <% else %>
+      <section class="uneditable-project-type">
+        <h3><%= t(".project_type_options.labels.#{@presenter.project_type}") %></h3>
+        <p><%= t(".project_type_options.explanation.#{@presenter.project_type}") %></p>
+      </section>
+    <% end %>
 
     <%= turbo_frame_tag "project_type_form", data: { pattern: new_project_path(project_type: "VALUE"), "turbo-content-target": "destination" } do %>
       <section class="<%= @presenter.project_type %>">

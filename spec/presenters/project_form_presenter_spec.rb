@@ -123,4 +123,30 @@ RSpec.describe ProjectFormPresenter do
       expect(presenter.current_step_name).to eq ".submit.step_1"
     end
   end
+
+  describe "#can_edit_project_type?" do
+    it "is true if the project's status is 'incomplete'" do
+      project = create(:project, status: "incomplete")
+      form = ProjectForm.new(params: { id: project.id })
+      presenter = ProjectFormPresenter.new(
+        user: :dummy,
+        current_step: 1,
+        form: form,
+      )
+
+      expect(presenter).to be_able_to_edit_project_type
+    end
+
+    it "is false if the project's status is anything else" do
+      project = build_stubbed(:project, status: "open")
+      form = ProjectForm.new(params: { id: project.id })
+      presenter = ProjectFormPresenter.new(
+        user: :dummy,
+        current_step: 1,
+        form: form,
+      )
+
+      expect(presenter).not_to be_able_to_edit_project_type
+    end
+  end
 end

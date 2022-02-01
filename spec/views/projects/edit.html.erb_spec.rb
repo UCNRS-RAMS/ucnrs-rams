@@ -16,6 +16,45 @@ RSpec.describe "edit.html.erb" do
       expect(doc).to have_css("section.progress-steps")
       expect(doc).to have_css(".progress-steps li.active:nth-child(1)")
     end
+
+    describe "editing project type" do
+      it "displays the project type fields if the project's type can be edited" do
+        project = create(:project, status: "incomplete")
+        form = ProjectForm.new(params: { id: project.id })
+        assign(:presenter, ProjectFormPresenter.new(
+          user: :dummy,
+          current_step: 1,
+          form: form,
+        ))
+
+        render template: "projects/edit"
+
+        doc = Capybara.string(rendered)
+        expect(doc).to have_field("project-type-research", type: "radio")
+        expect(doc).to have_field("project-type-class", type: "radio")
+        expect(doc).to have_field("project-type-meeting", type: "radio")
+      end
+
+      it "displays the project type and description if the project's type cannot be edited" do
+        project = create(
+          :project,
+          status: "open",
+          project_type: "research",
+        )
+        form = ProjectForm.new(params: { id: project.id })
+        assign(:presenter, ProjectFormPresenter.new(
+          user: :dummy,
+          current_step: 1,
+          form: form,
+        ))
+
+        render template: "projects/edit"
+
+        doc = Capybara.string(rendered)
+        expect(doc).to have_css(".uneditable-project-type h3", text: "Research")
+        expect(doc).to have_css(".uneditable-project-type p", text: "Research")
+      end
+    end
   end
 
   describe "when project_type is defined" do
