@@ -66,6 +66,7 @@ RSpec.describe ProjectForm, type: :model do
         method_chemicals_list: "A list of chemicals",
         method_soil_disturbance: false,
         method_long_term_structures: false,
+        status: "incomplete",
       )
     end
 
@@ -197,6 +198,7 @@ RSpec.describe ProjectForm, type: :model do
         keywords: nil,
         taxonomic_keywords: nil,
         recent_publications: nil,
+        status: "incomplete",
       )
     end
 
@@ -252,6 +254,7 @@ RSpec.describe ProjectForm, type: :model do
         method_chemicals_list: "A list of chemicals",
         method_soil_disturbance: "No",
         method_long_term_structures: "No",
+        status: "incomplete",
       )
     end
   end
