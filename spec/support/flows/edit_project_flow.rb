@@ -376,6 +376,10 @@ class EditProjectFlow
     end
   end
 
+  def has_open_project_status?
+    page.has_css?("div.subheader span", text: "Open Application")
+  end
+
   private
 
   attr_reader :page

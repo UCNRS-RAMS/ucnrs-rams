@@ -2,7 +2,8 @@
 @import "mixins/form";
 
 .fundings-index,
-.fundings-create {
+.fundings-create,
+.complete-update {
   @include form;
 
   form {

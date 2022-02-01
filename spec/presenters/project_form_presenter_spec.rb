@@ -138,7 +138,7 @@ RSpec.describe ProjectFormPresenter do
     end
 
     it "is false if the project's status is anything else" do
-      project = build_stubbed(:project, status: "open")
+      project = create(:project, status: "open")
       form = ProjectForm.new(params: { id: project.id })
       presenter = ProjectFormPresenter.new(
         user: :dummy,

@@ -183,6 +183,12 @@ class Project < ApplicationRecord
     end
   end
 
+  def update_project_status
+    if incomplete?
+      assign_attributes(status: :open)
+    end
+  end
+
   private
 
   def other_discipline?

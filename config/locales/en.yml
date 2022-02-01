@@ -791,6 +791,8 @@ en:
     visit:
       visitor: "Visitor"
       amenity: "Amenity"
+    complete:
+      not_saved: "This project could not be saved as 'open'"
   waivers:
     index:
       title: "Waivers"

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     resources :permits, only: [:index], controller: "projects/permits"
     resources :permit_answers, only: [:create], controller: "projects/permit_answers"
     resources :fundings, only: [:index, :create], controller: "projects/fundings"
+    resource :complete, only: [:update], controller: "projects/complete"
   end
 
   resources :reserves, only: [:index, :show] do

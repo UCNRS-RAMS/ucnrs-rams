@@ -381,4 +381,22 @@ RSpec.describe Project, type: :model do
       expect(Project.of_type("foo")).to eq []
     end
   end
+
+  describe "#update_project_status" do
+    it "assigns the project's status to 'open' if the project is 'incomplete'" do
+      project = create(:project, status: :incomplete)
+
+      project.update_project_status
+
+      expect(project).to be_open
+    end
+
+    it "does nothing if the project is not 'incomplete'" do
+      project = create(:project, status: :closed)
+
+      project.update_project_status
+
+      expect(project).to be_closed
+    end
+  end
 end
