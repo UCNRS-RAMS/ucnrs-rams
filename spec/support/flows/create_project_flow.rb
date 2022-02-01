@@ -361,6 +361,10 @@ class CreateProjectFlow
       page.has_css?("body.projects-#{resource}")
   end
 
+  def has_open_project_status?
+    page.has_css?("div.subheader span", text: "Open Application")
+  end
+
   private
 
   attr_reader :capybara_page

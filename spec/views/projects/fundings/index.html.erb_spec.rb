@@ -92,16 +92,20 @@ RSpec.describe "app/views/projects/fundings/index.html.erb" do
       expect(doc).to display_error("can't be blank").for_field("Enter Funding Agency Name")
     end
 
-    it "renders a button with the correct text for step 4" do
+    it "renders a button as a form with the correct text for step 4" do
+      project = create(:project)
       assign(:presenter, Projects::FundingsIndexPresenter.new(
         current_step: 4,
-        project: build_stubbed(:project),
+        project: project,
       ))
 
       render template: "projects/fundings/index"
 
       doc = Capybara.string(rendered)
-      expect(doc).to have_css(".controls form[method='get']", text: "Save Project & Submit")
+      expect(doc).to have_css(
+        ".controls form[action='/projects/#{project.id}/complete']",
+        text: "Save Project & Submit",
+      )
     end
 
     it "renders a link to go back to the previous step (permits)" do

@@ -211,6 +211,7 @@ RSpec.describe "Editing a project", type: :system, js: true do
   
       flow.submit_funding
       expect(flow).to be_on_project_summary_page
+      expect(flow).to have_open_project_status
     end
   end
 end

@@ -14,7 +14,7 @@ class ProjectFormPresenter
   delegate :id, to: :form
 
   def able_to_edit_project_type?
-    project&.incomplete?
+    project && project.incomplete?
   end
 
   def project_type_options
