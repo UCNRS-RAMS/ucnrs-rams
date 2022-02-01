@@ -12,6 +12,7 @@ class ProjectForm
       Project.new(project_type: :research)
     @project.applicant ||= user
     @project.owner ||= user
+    @project.status ||= :incomplete
     assign(params)
   end
 
