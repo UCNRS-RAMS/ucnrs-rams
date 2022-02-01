@@ -13,6 +13,10 @@ class ProjectFormPresenter
   delegate :svg, :step_class, to: :steps_presenter
   delegate :id, to: :form
 
+  def able_to_edit_project_type?
+    project&.incomplete?
+  end
+
   def project_type_options
     [
       :research,
@@ -68,4 +72,8 @@ class ProjectFormPresenter
   private
 
   attr_reader :user, :steps_presenter, :current_step
+
+  def project
+    form.project
+  end
 end
