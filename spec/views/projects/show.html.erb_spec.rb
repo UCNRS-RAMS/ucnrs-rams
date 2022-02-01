@@ -24,7 +24,7 @@ RSpec.describe "show.html.erb" do
       doc = Capybara.string(rendered)
 
       expect(doc).to have_css("section.project-summary")
-      expect(doc).to have_css("a", text: "Edit Project")
+      expect(doc).to have_css("a[href='/projects/#{project.id}/edit']", text: "Edit Project")
     end
 
     it "includes project team section" do

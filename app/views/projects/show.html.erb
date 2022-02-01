@@ -23,7 +23,7 @@
         <div class="subheader">
           <span><%= @presenter.project_status %></span>
           <span><%= t(".project_status_request", project_type: @presenter.project_type.capitalize) %>: <%= @presenter.submitted_at %></span>
-          <span><%= link_to t(".edit_project"), "#" %></span>
+          <span><%= link_to t(".edit_project"), edit_project_path(@presenter.id) %></span>
         </div>
       </header>
       <%= render partial: @presenter.partial_name, locals: { presenter: @presenter } %>
