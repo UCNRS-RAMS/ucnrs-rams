@@ -7,7 +7,7 @@
   <td class="date-range"><%= visit.requested_date_range %></td>
   <td><%= visit.requested_reserve_name %></td>
   <td>
-    <%= link_to "#" do %>
+    <%= link_to visit_path(visit.id), target: "_top" do %>
       <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"), height: "20", width: "20" %>
     <% end %>
   </td>

@@ -15,6 +15,10 @@ class VisitsController < ApplicationController
     end
   end
 
+  def show
+    @presenter = VisitShowPresenter.new(visit)
+  end
+
   private
 
   def visit_params
@@ -41,5 +45,13 @@ class VisitsController < ApplicationController
         :number_of_people,
       ]
     )
+  end
+
+  def visit
+    Visit.find(visit_id)
+  end
+
+  def visit_id
+    params.permit(:id).require(:id)
   end
 end

@@ -1,0 +1,12 @@
+<div class="split-background-sidebar">
+  <div class="visit container">
+    <section class="sidebar">
+      <%= render partial: @presenter.sidebar_partial_name, locals: { presenter: @presenter } %>
+    </section>
+    <section class="content">
+      <header>
+        <h1 class="main-header"><%= t(".visit_summary") %></h1>
+      </header>
+    </section>
+  </div>
+</div>

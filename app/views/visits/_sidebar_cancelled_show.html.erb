@@ -1,0 +1,14 @@
+<header class="<%= presenter.status %>">
+  <h2 class="main-header"><%= t(".sidebar_title") %></h2>
+</header>
+<section class="reserve-info">
+  <hr />
+</section>
+<%= link_to new_visit_path, class: "button" do %>
+  <%= t(".schedule_a_new_visit") %>
+<% end %>
+<%= link_to t(".edit_project"), project_path(presenter.project_id), class: "button button-clear" %>
+<div>
+  <%= link_to t(".contact_us"), "#", class: "icon icon-send" %>
+  <%= link_to t(".help_topics"), "#", class: "icon icon-question-circle" %>
+</div>

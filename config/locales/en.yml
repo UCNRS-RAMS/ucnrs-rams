@@ -386,6 +386,42 @@ en:
         labels:
           special_needs: "Special Needs"
           study_area: "Study Area"
+    show:
+      visit_summary: "Visit Summary"
+    sidebar_in_review_show:
+      return_to_dashboard: "Return To Dashboard"
+      sidebar_title: "Your visit request was submitted."
+      sidebar_next_steps: "Next Steps"
+      sidebar_next_steps_1: "The reserve manager will review your request."
+      sidebar_next_steps_2: "You will receive an email notification once your request has been accepted or denied."
+      contact_us: "Contact Us"
+      help_topics: "Help Topics"
+    sidebar_approved_show:
+      sidebar_title: "Approved"
+      sidebar_next_steps: "Your visit request was approved."
+      alt_text:
+        reserve_logo: "small picture of reserve logo"
+        ucnrs_logo: "small picture of ucnrs logo"
+      get_directions: "Get Directions"
+      visit_reserve_website: "Visit Reserve Website"
+      mailing_address: "Mailing Address"
+    sidebar_denied_show:
+      sidebar_title: "Denied"
+      sidebar_next_steps: "Unfortunately, your visit request was denied."
+      reason: "Reason"
+      reason_text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent congue augue ac nisi dapibus, 
+                    non tempus tortor lacinia. Quisque sed tortor vitae arcu consequat eleifend. Donec pellentesque
+                    ornare est, eu condimentum leo sollicitudin ut. Nullam ut dui lectus."
+      edit_visit_request: "Edit Visit request."
+      edit_project: "Edit Project"
+      contact_us: "Contact Use"
+      help_topics: "Help Topics"
+    sidebar_cancelled_show:
+      sidebar_title: "Cancelled"
+      schedule_a_new_visit: "Schedule a New Visit"
+      edit_project: "Edit Project"
+      contact_us: "Contact Us"
+      help_topics: "Help Topics"
   reserve_inputs:
     show:
       labels:
@@ -849,3 +885,5 @@ en:
     calendar_icon: "calendar icon"
     news_article_image: "news article image"
     modal_image: "modal image"
+    check_circle: "circle with a checkmark"
+    x_circle: "circle with an x"
