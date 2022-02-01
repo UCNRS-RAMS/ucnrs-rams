@@ -9,7 +9,6 @@ Rails.application.routes.draw do
 
   resources :institutions, only: [:index, :new, :create]
   resources :states, only: [:index]
-  resources :visits, only: [:new, :create]
   resources :users, only: [:index]
 
   resources :team_memberships, only: [:edit, :update, :destroy], controller: "projects/team_memberships"
@@ -38,6 +37,8 @@ Rails.application.routes.draw do
     resources :projects, only: [:index]
     resources :reserves, only: [:index]
   end
+  resources :visits, only: [:new, :create, :show]
+  
   devise_scope :user do 
     resources :password, only: [:new, :create]
   end

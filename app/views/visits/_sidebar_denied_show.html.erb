@@ -1,0 +1,16 @@
+<header class="<%= presenter.status %>">
+  <%= image_tag 'icon-x-circle.svg', width: "30px", height: "30px", alt: t("alt.x_circle") %>
+  <h2 class="main-header"><%= t(".sidebar_title") %></h2>
+  <p class="information"><%= t(".sidebar_next_steps") %></p>
+</header>
+<section class="reserve-info">
+  <hr />
+  <h3><%= t(".reason") %></h3>
+  <p class="information"><%= t(".reason_text") %></p>
+</section>
+<%= link_to t(".edit_visit_request"), new_visit_path, class: "button" %>
+<%= link_to t(".edit_project"), project_path(presenter.project_id), class: "button button-clear" %>
+<div>
+  <%= link_to t(".contact_us"), "#", class: "icon icon-send" %>
+  <%= link_to t(".help_topics"), "#", class: "icon icon-question-circle" %>
+</div>

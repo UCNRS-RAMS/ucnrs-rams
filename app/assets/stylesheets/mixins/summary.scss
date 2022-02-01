@@ -1,0 +1,105 @@
+@import "../variables";
+
+@mixin summary {
+  .sidebar {
+    background-color: $light-gray;
+    box-sizing: border-box;
+    color: $navy-blue;
+    font-size: 0.825rem;
+    flex-shrink: 0;
+    padding: 3.5rem 3.50rem 1.5rem 1.25rem;
+    width: 360px;
+
+    header {
+      margin-bottom: 2.5rem;
+
+      img {
+        margin-bottom: .75rem;
+      }
+
+      p {
+        margin: 0;
+      }
+    }
+
+    a {
+      color: $sky-blue;
+    }
+
+    h2.main-header {
+      line-height: 1.75rem;
+      margin-bottom: 0.5rem;
+      margin-top: 0;
+    }
+
+    .information {
+      line-height: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .button {
+      margin-bottom: 1rem;
+      
+      img {
+        margin-left: 1rem;
+        vertical-align: middle;
+      }
+    }
+
+    a:last-of-type {
+      margin-bottom: 3rem;
+    }
+
+    a.icon {
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .content {
+    background-color: $white;
+    box-sizing: border-box;
+    color: $navy-blue;
+    flex-grow: 1;
+    font-size: 0.8125rem;
+    padding: 3.5rem 1.25rem 1.5rem 3.50rem;
+
+    a {
+      color: $sky-blue;
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+
+    header {
+      margin-bottom: 2.5rem;
+
+      .subheader {
+        align-items: center;
+        display: flex;
+  
+        span {
+          margin-right: 1.5rem;
+        }
+      }
+    }
+
+    h1.main-header {
+      font-size: 2.25rem;
+      font-weight: $medium;
+      margin-bottom: .5rem;
+      margin-top: 0;
+    }
+
+    h2.main-header {
+      display: inline-block;
+      font-weight: $semi-bold;
+      margin-right: 1rem;
+    }
+
+    h3 {
+      font-weight: $semi-bold;
+    }
+  }
+}
