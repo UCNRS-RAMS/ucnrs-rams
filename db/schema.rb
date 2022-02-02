@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_27_193022) do
+ActiveRecord::Schema.define(version: 2022_02_02_070008) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id"
@@ -669,7 +669,7 @@ ActiveRecord::Schema.define(version: 2022_01_27_193022) do
     t.integer "sort_order"
     t.boolean "answer_required", default: false, null: false
     t.boolean "public", default: true, null: false
-    t.boolean "class", default: true, null: false
+    t.boolean "university_class", default: true, null: false
     t.boolean "research", default: true, null: false
     t.boolean "housing", default: true, null: false
     t.boolean "conference", default: false, null: false
