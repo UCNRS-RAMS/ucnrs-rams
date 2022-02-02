@@ -1,63 +1,63 @@
 require "rails_helper"
 
-RSpec.describe "app/views/projects/permits/index.html.erb" do
+RSpec.describe "app/views/projects/questions/index.html.erb" do
   describe "on any render" do
     it "includes steps (on step 3)" do
-      assign(:presenter, Projects::PermitsIndexPresenter.new(
+      assign(:presenter, Projects::QuestionsIndexPresenter.new(
         project: build_stubbed(:project),
         current_step: 3,
       ))
 
-      render template: "projects/permits/index"
+      render template: "projects/questions/index"
 
       doc = Capybara.string(rendered)
       expect(doc).to have_css("section.progress-steps")
       expect(doc).to have_css(".progress-steps li.active:nth-child(3)")
     end
 
-    it "displays a message in an empty form if there are no permits to show" do
+    it "displays a message in an empty form if there are no questions to show" do
       _unapplicable_permit = build(:permit, involves_mammals: false)
-      assign(:presenter, Projects::PermitsIndexPresenter.new(
+      assign(:presenter, Projects::QuestionsIndexPresenter.new(
         project: build_stubbed(:project, involves_mammals: true),
         current_step: 3,
       ))
 
-      render template: "projects/permits/index"
+      render template: "projects/questions/index"
 
       doc = Capybara.string(rendered)
       expect(doc).to have_content("There are no necessary permit questions for this project at this time.")
-      expect(doc).to have_css("form#project-permits")
-      expect(doc).to have_no_css("form#project-permits input")
+      expect(doc).to have_css("form#questions")
+      expect(doc).to have_no_css("form#questions input")
     end
 
     describe "the submit button" do
       it "renders a button with the correct text for step 3" do
-        assign(:presenter, Projects::PermitsIndexPresenter.new(
+        assign(:presenter, Projects::QuestionsIndexPresenter.new(
           project: build_stubbed(:project),
           current_step: 3,
         ))
 
-        render template: "projects/permits/index"
+        render template: "projects/questions/index"
 
         doc = Capybara.string(rendered)
-        expect(doc).to have_css("button[form='project-permits']", text: "Next: Funding")
+        expect(doc).to have_css("button[form='questions']", text: "Next: Funding")
       end
     end
   end
 
-  describe "when there are permits to show" do
+  describe "when there are questions to show" do
     it "has an authority section for each authority" do
       project = build_stubbed(:project)
       federal = create(:permit, authority: :federal, involves_all: true)
       state = create(:permit, authority: :state, involves_all: true)
       local = create(:permit, authority: :local, involves_all: true)
       institution = create(:permit, authority: :institution, involves_all: true)
-      assign(:presenter, Projects::PermitsIndexPresenter.new(
+      assign(:presenter, Projects::QuestionsIndexPresenter.new(
         project: project,
         current_step: 3
       ))
 
-      render template: "projects/permits/index"
+      render template: "projects/questions/index"
 
       doc = Capybara.string(rendered)
       expect(doc).to have_css("h2", text: "Federal")
@@ -76,65 +76,65 @@ RSpec.describe "app/views/projects/permits/index.html.erb" do
       local_fish = create(:permit, authority: :local, involves_fish: true, question: "Fish?")
       institution_birds = create(:permit, authority: :institution, involves_birds: true, question: "Birds?")
       institution_fish = create(:permit, authority: :institution, involves_fish: true, question: "Fish?")
-      assign(:presenter, Projects::PermitsIndexPresenter.new(
+      assign(:presenter, Projects::QuestionsIndexPresenter.new(
         project: project,
         current_step: 3
       ))
 
-      render template: "projects/permits/index"
+      render template: "projects/questions/index"
 
       doc = Capybara.string(rendered)
-      expect(doc).to have_css("div.federal_permits .question", text: "Birds?")
-      expect(doc).to have_no_css("div.federal_permits .question", text: "Fish?")
-      expect(doc).to have_css("div.state_permits .question", text: "Birds?")
-      expect(doc).to have_no_css("div.state_permits .question", text: "Fish?")
-      expect(doc).to have_css("div.local_permits .question", text: "Birds?")
-      expect(doc).to have_no_css("div.local_permits .question", text: "Fish?")
-      expect(doc).to have_css("div.institution_permits .question", text: "Birds?")
-      expect(doc).to have_no_css("div.institution_permits .question", text: "Fish?")
+      expect(doc).to have_css("div.federal_questions .question", text: "Birds?")
+      expect(doc).to have_no_css("div.federal_questions .question", text: "Fish?")
+      expect(doc).to have_css("div.state_questions .question", text: "Birds?")
+      expect(doc).to have_no_css("div.state_questions .question", text: "Fish?")
+      expect(doc).to have_css("div.local_questions .question", text: "Birds?")
+      expect(doc).to have_no_css("div.local_questions .question", text: "Fish?")
+      expect(doc).to have_css("div.institution_questions .question", text: "Birds?")
+      expect(doc).to have_no_css("div.institution_questions .question", text: "Fish?")
     end
 
     it "has a Yes and No answer on each question, No is selected" do
       project = build_stubbed(:project)
       federal = create(:permit, authority: :federal, involves_all: true)
-      assign(:presenter, Projects::PermitsIndexPresenter.new(
+      assign(:presenter, Projects::QuestionsIndexPresenter.new(
         project: project,
         current_step: 3
       ))
 
-      render template: "projects/permits/index"
+      render template: "projects/questions/index"
 
       doc = Capybara.string(rendered)
       doc.has_css?("label:contains('Yes') + input[type='radio']:not([checked])")
       doc.has_css?("label:contains('No') + input[type='radio'][checked]")
     end
 
-    it "does not display authorities that do not have permits" do
+    it "does not display authorities that do not have questions" do
       project = build_stubbed(:project)
       federal = create(:permit, authority: :federal, involves_all: true)
       state = create(:permit, authority: :state, involves_all: false)
-      assign(:presenter, Projects::PermitsIndexPresenter.new(
+      assign(:presenter, Projects::QuestionsIndexPresenter.new(
         project: project,
         current_step: 3
       ))
 
-      render template: "projects/permits/index"
+      render template: "projects/questions/index"
 
       doc = Capybara.string(rendered)
-      expect(doc).to have_css("div.federal_permits")
-      expect(doc).to have_no_css("div.state_permits")
-      expect(doc).to have_no_css("div.local_permits")
+      expect(doc).to have_css("div.federal_questions")
+      expect(doc).to have_no_css("div.state_questions")
+      expect(doc).to have_no_css("div.local_questions")
     end
   end
 
   it "renders a link to go back to the previous step (team members)" do
     project = build_stubbed(:project)
-    assign(:presenter, Projects::PermitsIndexPresenter.new(
+    assign(:presenter, Projects::QuestionsIndexPresenter.new(
       current_step: 3,
       project: project,
     ))
 
-    render template: "projects/permits/index"
+    render template: "projects/questions/index"
 
     doc = Capybara.string(rendered)
     expect(doc).to have_css(".controls a[href='/projects/#{project.id}/team_memberships']", text: "Go Back")

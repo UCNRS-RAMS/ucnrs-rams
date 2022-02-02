@@ -118,7 +118,7 @@ RSpec.describe "app/views/projects/fundings/index.html.erb" do
       render template: "projects/fundings/index"
 
       doc = Capybara.string(rendered)
-      expect(doc).to have_css(".controls a[href='/projects/#{project.id}/permits']", text: "Go Back")
+      expect(doc).to have_css(".controls a[href='/projects/#{project.id}/questions']", text: "Go Back")
     end
   end
 end

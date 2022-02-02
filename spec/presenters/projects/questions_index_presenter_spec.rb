@@ -1,22 +1,22 @@
 require "rails_helper"
 
-RSpec.describe Projects::PermitsIndexPresenter do
+RSpec.describe Projects::QuestionsIndexPresenter do
   describe "delegations" do
-    subject { Projects::PermitsIndexPresenter.new(current_step: 3, project: build(:project)) }
+    subject { Projects::QuestionsIndexPresenter.new(current_step: 3, project: build(:project)) }
     it { is_expected.to delegate_method(:svg).to(:steps_presenter) }
     it { is_expected.to delegate_method(:step_class).to(:steps_presenter) }
   end
 
-  describe "#permits_by_authority" do
-    it "groups permits according to the value of the authority field" do
+  describe "#questions_by_authority" do
+    it "groups questions according to the value of the authority field" do
       federal = create(:permit, authority: "Federal", involves_all: true)
       state = create(:permit, authority: "State", involves_all: true)
       local = create(:permit, authority: "Local", involves_all: true)
       institution = create(:permit, authority: "Institution", involves_all: true)
       state2 = create(:permit, authority: "State", involves_all: true, sort_order: 9)
-      presenter = Projects::PermitsIndexPresenter.new(current_step: 3, project: build(:project))
+      presenter = Projects::QuestionsIndexPresenter.new(current_step: 3, project: build(:project))
 
-      results = presenter.permits_by_authority
+      results = presenter.questions_by_authority
 
       expect(results.keys).to eq ["federal", "state", "local", "institution"]
       results.values.flatten.each do |value|
@@ -33,9 +33,9 @@ RSpec.describe Projects::PermitsIndexPresenter do
       federal = create(:permit, authority: "Federal", involves_all: true)
       state = create(:permit, authority: "State", involves_birds: true)
       local = create(:permit, authority: "Local", involves_all: true)
-      presenter = Projects::PermitsIndexPresenter.new(current_step: 3, project: build(:project))
+      presenter = Projects::QuestionsIndexPresenter.new(current_step: 3, project: build(:project))
 
-      results = presenter.permits_by_authority
+      results = presenter.questions_by_authority
 
       expect(results.keys).to_not include "institution"
       expect(results.keys).to_not include "state"
@@ -45,9 +45,9 @@ RSpec.describe Projects::PermitsIndexPresenter do
       project = create(:project, involves_fish: false)
       federal = create(:permit, authority: "Federal", involves_all: true)
       answer = create(:project_permit_answer, answer: true, project: project, permit: federal)
-      presenter = Projects::PermitsIndexPresenter.new(current_step: 3, project: project)
+      presenter = Projects::QuestionsIndexPresenter.new(current_step: 3, project: project)
 
-      results = presenter.permits_by_authority
+      results = presenter.questions_by_authority
 
       expect(results["federal"].map(&:id)).to eq [federal.id]
       expect(results["federal"][0]).to have_attributes({
@@ -57,20 +57,20 @@ RSpec.describe Projects::PermitsIndexPresenter do
     end
   end
 
-  describe "#has_permits_for_project?" do
+  describe "#has_questions_for_project?" do
     it "is true if there are permits to be displayed for a project" do
       project = create(:project, involves_mammals: true)
       federal = create(:permit, authority: "Federal", involves_mammals: true)
-      presenter = Projects::PermitsIndexPresenter.new(current_step: 3, project: project)
+      presenter = Projects::QuestionsIndexPresenter.new(current_step: 3, project: project)
 
-      expect(presenter).to have_permits_for_project
+      expect(presenter).to have_questions_for_project
     end
 
-    it "is false if there are no permits to be displayed for a project" do
+    it "is false if there are no questions to be displayed for a project" do
       project = create(:project, involves_mammals: false)
-      presenter = Projects::PermitsIndexPresenter.new(current_step: 3, project: project)
+      presenter = Projects::QuestionsIndexPresenter.new(current_step: 3, project: project)
 
-      expect(presenter).not_to have_permits_for_project
+      expect(presenter).not_to have_questions_for_project
     end
   end
 end

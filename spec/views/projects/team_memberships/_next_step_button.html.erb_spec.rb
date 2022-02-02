@@ -8,6 +8,6 @@ RSpec.describe "app/views/projects/team_memberships/_next_step_button.html.erb" 
     render partial: "projects/team_memberships/next_step_button", locals: { presenter: presenter }
 
     doc = Capybara.string(rendered)
-    expect(doc).to have_css("form[action='/projects/#{project.id}/permits'] button", text: "Next: Permits")
+    expect(doc).to have_css("form[action='/projects/#{project.id}/questions'] button", text: "Next: Permits")
   end
 end

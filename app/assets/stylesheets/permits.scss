@@ -1,7 +1,7 @@
 @import "variables";
 @import "mixins/form";
 
-.permits-index {
+.questions-index {
   @include form;
 
   form {
@@ -21,7 +21,7 @@
     }
   }
 
-  .permits {
+  .questions {
     ul {
       list-style: none;
       padding: 0;

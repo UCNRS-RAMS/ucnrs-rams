@@ -22,7 +22,7 @@
 <%= render partial: "projects/fundings/funding_table", locals: { presenter: @presenter } %>
 
 <section class="controls">
-  <%= link_to project_permits_path(@presenter.project) do %>
+  <%= link_to project_questions_path(@presenter.project) do %>
     <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t(".alt.left_facing_arrow")  %>
     <%= t(".back") %>
   <% end %>

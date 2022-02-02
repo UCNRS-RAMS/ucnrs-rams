@@ -168,7 +168,7 @@ RSpec.describe Projects::TeamMembershipsController, type: :request do
         user: user)
       sign_in(user)
 
-      put "/team_memberships/#{membership.id}"
+      delete "/team_memberships/#{membership.id}"
 
       expect(response).to be_unauthorized
     end

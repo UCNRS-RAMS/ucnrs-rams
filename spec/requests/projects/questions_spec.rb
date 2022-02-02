@@ -1,8 +1,8 @@
 require "rails_helper"
 
-RSpec.describe Projects::PermitsController, type: :request do
-  describe "/projects/:id/permits" do
-    it "renders the permits page when the user is authorized" do
+RSpec.describe Projects::QuestionsController, type: :request do
+  describe "/projects/:id/questions" do
+    it "renders the questions page when the user is authorized" do
       user = create(:user, :confirmed)
       sign_in(user)
       project = create(:project)
@@ -14,11 +14,11 @@ RSpec.describe Projects::PermitsController, type: :request do
         can_edit_project: true,
       )
 
-      get "/projects/#{project.id}/permits"
+      get "/projects/#{project.id}/questions"
 
       doc = Capybara.string(response.body)
       expect(response).to be_ok
-      expect(doc).to have_css("body.permits-index")
+      expect(doc).to have_css("body.questions-index")
     end
 
     it "redirects to the project summary page when the user is not authorized" do
@@ -33,7 +33,7 @@ RSpec.describe Projects::PermitsController, type: :request do
         can_edit_project: false,
       )
 
-      get "/projects/#{project.id}/permits"
+      get "/projects/#{project.id}/questions"
 
       expect(response).to redirect_to(project_url(project))
     end

@@ -142,15 +142,15 @@ RSpec.describe "Editing a project", type: :system, js: true do
       flow.submit_team_memberships
 
       expect(page).to be_axe_clean
-      expect(flow).to be_allowed_to_view_project_permits_page
-      expect(flow).to have_permit("Fish?")
-      expect(flow).to have_no_permits("Birds?")
+      expect(flow).to be_allowed_to_view_questions_page
+      expect(flow).to have_question("Fish?")
+      expect(flow).to have_no_question("Birds?")
 
       flow.select_answer("Fish?", "Yes")
-      expect(flow).to have_url_for_permit("Fish?", "About Fish" => "https://fish")
+      expect(flow).to have_url_for_question("Fish?", "About Fish" => "https://fish")
       expect(page).to be_axe_clean
   
-      flow.submit_permits
+      flow.submit_answers
       expect(flow).to be_allowed_to_view_project_fundings_page
       expect(page).to be_axe_clean
 

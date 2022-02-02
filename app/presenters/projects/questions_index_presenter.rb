@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Projects::PermitsIndexPresenter
+class Projects::QuestionsIndexPresenter
   def initialize(current_step:, project:, form: nil)
     @current_step = current_step
     @steps_presenter = StepsPresenter.new(@current_step)
@@ -11,14 +11,14 @@ class Projects::PermitsIndexPresenter
   attr_reader :form, :project
   delegate :svg, :step_class, to: :steps_presenter
 
-  def permits_by_authority
+  def questions_by_authority
     permit_scope
-      .map(&method(:wrap_permit_in_presenter))
+      .map(&method(:wrap_question_in_presenter))
       .group_by(&:authority)
       .reject { |k, v| v.empty? }
   end
 
-  def has_permits_for_project?
+  def has_questions_for_project?
     permit_scope.exists?
   end
 
@@ -34,8 +34,8 @@ class Projects::PermitsIndexPresenter
       .include_answers_for(project)
   end
 
-  def wrap_permit_in_presenter(permit)
-    Projects::PermitPresenter.new(permit, form: form.answer_form(permit.id))
+  def wrap_question_in_presenter(question)
+    Projects::PermitPresenter.new(question, form: form.answer_form(question.id))
   end
 
   attr_reader :steps_presenter, :current_step

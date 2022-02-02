@@ -109,7 +109,7 @@ RSpec.describe "index.html.erb" do
       render template: "projects/team_memberships/index"
 
       doc = Capybara.string(rendered)
-      expect(doc).to have_css("form[method='get'][action='/projects/#{membership.project.id}/permits']", text: "Next: Permits")
+      expect(doc).to have_css("form[method='get'][action='/projects/#{membership.project.id}/questions']", text: "Next: Permits")
     end
   end
 

@@ -1,9 +1,9 @@
-class Projects::PermitsController < ApplicationController
+class Projects::QuestionsController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_user
 
   def index
-    @presenter = Projects::PermitsIndexPresenter.new(
+    @presenter = Projects::QuestionsIndexPresenter.new(
       current_step: 3,
       project: project,
     )

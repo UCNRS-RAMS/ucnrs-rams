@@ -5,14 +5,14 @@
   <h1><%=t(".title")%></h1>
 </section>
 
-<%= form_with model: @presenter.form, url: project_permit_answers_url(@presenter.project), id: "project-permits" do |form| %>
-  <% if @presenter.has_permits_for_project? %>
-    <section class="permits">
-      <% @presenter.permits_by_authority.each do |authority, permits| %>
-        <div class="<%= authority %>_permits">
+<%= form_with model: @presenter.form, url: project_answers_path(@presenter.project), id: "questions" do |form| %>
+  <% if @presenter.has_questions_for_project? %>
+    <section class="questions">
+      <% @presenter.questions_by_authority.each do |authority, questions| %>
+        <div class="<%= authority %>_questions">
           <h2><%= t(".authority.#{authority}") %></h2>
           <ul>
-            <% permits.each do |permit| %>
+            <% questions.each do |permit| %>
               <%= fields_for "project[answers][#{permit.id}]", permit.form do |f| %>
                 <li data-controller="value-projection" data-value-projection-projected-value="<%= f.object.answer %>">
                   <div class="question">
@@ -39,7 +39,7 @@
         </div>
       <% end %>
     </section>
-    <section class="approved_permits">
+    <section class="approved_questions">
       <div class="field">
         <%= form.label :approved_permits %>
         <p>
@@ -50,8 +50,8 @@
     </section>
   <% else %>
     <section>
-      <input name="project[no_permits]" value="" type="hidden"/>
-      <p><%= t(".no_permits") %></p>
+      <input name="project[no_questions]" value="" type="hidden"/>
+      <p><%= t(".no_questions") %></p>
     </section>
   <% end %>
 <% end %>
@@ -61,7 +61,7 @@
     <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t(".alt.left_facing_arrow") %>
     <%= t(".back") %>
   <% end %>
-  <button form="project-permits" class="active" data-turbo="false">
+  <button form="questions" class="active" data-turbo="false">
     <%= t(".next_step") %>
     <%= image_tag "arrow-right.svg", alt: t(".alt.right_facing_arrow") %>
   </button>

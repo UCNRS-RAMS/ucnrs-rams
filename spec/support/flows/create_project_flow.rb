@@ -235,15 +235,15 @@ class CreateProjectFlow
     page.find("form.button_to button").click
   end
 
-  def on_project_permits_page?
-    page.has_css?("body.permits-index")
+  def on_questions_page?
+    page.has_css?("body.questions-index")
   end
 
-  def has_permit?(exact_title)
+  def has_question?(exact_title)
     page.has_css?(".question", text: exact_title)
   end
 
-  def has_no_permits?(exact_title)
+  def has_no_question?(exact_title)
     page.has_no_css?(".question", text: exact_title)
   end
 
@@ -254,7 +254,7 @@ class CreateProjectFlow
       .click
   end
 
-  def has_url_for_permit?(question, urls)
+  def has_url_for_question?(question, urls)
     urls.all? do |text, url|
       page
         .find(".question", text: question)
@@ -263,8 +263,8 @@ class CreateProjectFlow
     end
   end
 
-  def submit_permits
-    page.find("button[form='project-permits']").click
+  def submit_answers
+    page.find("button[form='questions']").click
   end
 
   def on_project_fundings_page?

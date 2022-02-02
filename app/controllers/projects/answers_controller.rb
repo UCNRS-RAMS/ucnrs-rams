@@ -1,4 +1,4 @@
-class Projects::PermitAnswersController < ApplicationController
+class Projects::AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_user
 
@@ -11,7 +11,7 @@ class Projects::PermitAnswersController < ApplicationController
     if form.save
       redirect_to project_fundings_path(project)
     else
-      @presenter = Projects::PermitsIndexPresenter.new(
+      @presenter = Projects::QuestionsIndexPresenter.new(
         current_step: 3,
         project: project,
         form: form,
