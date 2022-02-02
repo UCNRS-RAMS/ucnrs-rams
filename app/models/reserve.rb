@@ -9,6 +9,7 @@ class Reserve < ApplicationRecord
   has_many :personnel, class_name: "ReservePersonnel"
   has_and_belongs_to_many :waivers
   has_many :fundings
+  has_many :reserve_questions
 
   def self.blank
     Reserve.new(id: -1, name: "", pulldown_name: "")

@@ -1,0 +1,19 @@
+<section class="project-reserve_question">
+  <h2 class="main-header"><%= t(".reserve_questions") %></h2>
+  <%= link_to t(".edit_reserve_questions"), project_questions_path(presenter.project_id) %>
+  <div id="reserve_question-summary-list">
+    <% presenter.reserve_answers.each do |reserve_name, reserve_answers| %>
+      <div>
+        <h3><%= reserve_name %></h3>
+        <div class="answers-list">
+          <% reserve_answers.each do |reserve_answer| %>
+            <div class="question-answer">
+              <p class="question"><%= reserve_answer.reserve_question_question %></p>
+              <p class="answer"><strong><%= reserve_answer.answer %></strong></p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

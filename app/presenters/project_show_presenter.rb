@@ -90,6 +90,15 @@ class ProjectShowPresenter
       .group_by(&:authority)
   end
 
+  def reserve_answers
+    ProjectReserveAnswer
+      .with_reserve_name_column
+      .with_affirmative_answer
+      .for_project(project)
+      .map{ |reserve_answer| ProjectReserveAnswerPresenter.new(reserve_answer) }
+      .group_by(&:reserve_name)
+  end
+
   def visits
     project
       .visits

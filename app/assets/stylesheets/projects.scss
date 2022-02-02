@@ -477,7 +477,7 @@
   margin-bottom: 0.2rem;
 }
 
-ul.summary-list {
+ul.next-steps-list {
   list-style-type: square;
   margin-bottom: 2.5rem;
   margin-top: 0;
@@ -587,5 +587,30 @@ table.visit-requests {
 
   .date-range {
     font-weight: $semi-bold;
+  }
+}
+
+div#reserve_question-summary-list {
+  h3 {
+    margin-bottom: 1.5rem;
+  }
+
+  div.answers-list {
+    border-left: 2px solid $gray;
+    padding-left: 1rem;
+    margin-bottom: 1.5rem;
+    margin-left: 2rem;
+
+    .question-answer {
+      margin-bottom: 1.5rem;
+
+      .question {
+        margin-bottom: 0;
+      }
+
+      .answer {
+        margin-top: 0;
+      }
+    }
   }
 }

@@ -786,6 +786,9 @@ en:
       approved_permits: "Approved Permits"
       permits: "Permits"
       approved_permits_information: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
+    reserve_question_show:
+      reserve_questions: "Additional Reserve Questions"
+      edit_reserve_questions: "Edit Reserve Questions"
     visit_show_table:
       visits: "Visits (%{size})"
       schedule_a_visit: "Schedule A Visit"
