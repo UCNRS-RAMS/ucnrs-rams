@@ -122,4 +122,20 @@ RSpec.describe ProjectShowPresenter do
       ]
     end
   end
+
+  describe "#reserve_answers" do
+    it "creates a ProjectReserveAnswerPresenter for each project_reserve_answer" do
+      project = create(:project)
+      project_reserve_answers = create_list(:project_reserve_answer, 3, project: project, boolean_answer: true)
+      presenter = ProjectShowPresenter.new(project)
+
+      results = presenter.reserve_answers
+
+      expect(results.values.flatten.map(&:id)).to eq [
+        project_reserve_answers[0].id,
+        project_reserve_answers[1].id,
+        project_reserve_answers[2].id,
+      ]
+    end
+  end
 end
