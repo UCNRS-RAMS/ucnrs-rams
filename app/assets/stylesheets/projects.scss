@@ -1,6 +1,7 @@
 @import "variables";
 @import "mixins/date_fields";
 @import "mixins/form";
+@import "mixins/controls";
 
 .projects-index {
   height: 100%;
@@ -317,6 +318,8 @@
     }
   }
 }
+
+@include controls;
 
 .split-background-sidebar {
   background: linear-gradient(270deg, $white 50%, $light-gray 50%);
