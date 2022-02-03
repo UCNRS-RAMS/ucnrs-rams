@@ -85,6 +85,7 @@ class ProjectShowPresenter
       .with_permits_authority_column
       .for_project(project)
       .for_answer(true)
+      .includes([:permit])
       .map{ |permit_answer| ProjectPermitAnswerPresenter.new(permit_answer) }
       .group_by(&:authority)
   end

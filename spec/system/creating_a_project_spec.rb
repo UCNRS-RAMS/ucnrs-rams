@@ -49,6 +49,13 @@ RSpec.describe "Creating a project", type: :system, js: true do
     sign_in(user)
     create(
       :permit,
+      involves_all: true,
+      question: "Anything?",
+      url1: "https://zombo.com",
+      url1_description: "You can do anything at zombocom"
+    )
+    create(
+      :permit,
       involves_fish: true,
       question: "Fish?",
       url1: "https://fish",
@@ -141,11 +148,14 @@ RSpec.describe "Creating a project", type: :system, js: true do
     expect(flow).to be_able_to_go_back_to("team_memberships", project)
 
     flow.submit_team_memberships
-    expect(flow).to be_on_questions_page
+    expect(flow).to be_on_question_page
+    expect(flow).to have_question("Anything?")
     expect(flow).to have_question("Fish?")
-    expect(flow).to have_no_question("Birds?")
+    expect(flow).to have_no_questions("Birds?")
 
+    flow.select_answer("Anything?", "Yes")
     flow.select_answer("Fish?", "Yes")
+    expect(flow).to have_url_for_question("Anything?", "You can do anything at zombocom" => "https://zombo.com")
     expect(flow).to have_url_for_question("Fish?", "About Fish" => "https://fish")
     expect(page).to be_axe_clean
 
