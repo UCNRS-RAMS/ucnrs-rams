@@ -98,8 +98,34 @@
       margin-right: 1rem;
     }
 
+    h2.timeframe {
+      font-size: 1rem;
+      margin-bottom: .55rem;
+    }
+
     h3 {
       font-weight: $semi-bold;
+    }
+
+    .information {
+      align-items: center;
+      display: flex;
+      margin-bottom: 1.5rem;
+      
+
+      span {
+        align-items: center;
+        display: flex;
+      }
+
+      span:not(:last-child)::after {
+        background: $light-bluegray;
+        content: "";
+        display: block;
+        height: 18px;
+        margin: 0 1.25rem;
+        width: 1px;
+      }
     }
   }
 }

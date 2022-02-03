@@ -1,0 +1,27 @@
+<header>
+  <h1 class="main-header"><%= t(".visit_summary") %></h1>
+  <div class="subheader">
+    <span><%= t(".request_submitted") %>: <%= presenter.submitted_at %></span>
+    <span><%= link_to t(".edit_visit"), "#" %></span>
+  </div>
+</header>
+<section class="visit-summary">
+    <table class="visit-summary-table">
+      <tr>
+        <td><%= t(".reserve") %></td>
+        <td><%= presenter.reserve_name %></td>
+      </tr>
+      <tr>
+        <td><%= t(".arrival_and_departure") %></td>
+        <td><%= presenter.timeframe %></td>
+      </tr>
+      <tr>
+        <td><%= t(".purpose") %></td>
+        <td><%= presenter.purpose_of_visit %></td>
+      </tr>
+      <tr>
+        <td><%= t(".project") %></td>
+        <td><%= presenter.project_title %></td>
+      </tr>
+    </table>
+</section>

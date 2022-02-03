@@ -46,6 +46,27 @@
     max-width: 1300px;
   
     @include summary;
+
+    .content {
+
+      .visit-summary {
+        margin-bottom: 3rem;
+      }
+  
+      .visit-summary-table {
+        margin-bottom: 2rem;
+  
+        td {
+          padding-bottom: 0.3rem;
+          padding-right: 2rem;
+          padding-top: 0.3rem;
+        }
+  
+        td:nth-child(2) {
+          font-weight: $semi-bold;
+        }
+      }
+    }
   }
 
   .reserve-personnel, .reserve-info {

@@ -1,0 +1,14 @@
+<header>
+  <h1 class="main-header"><%= t(".visit_summary") %></h1>
+  <h2 class="timeframe"><%= presenter.timeframe %></h2>
+  <div class="information">
+    <span><%= presenter.reserve_name %></span>
+    <span><%= presenter.project_type %></span>
+    <span><%= t('.visitor').pluralize presenter.visitor_count %>: <%= presenter.visitor_count %></span>
+    <span><%= t('.amenity').pluralize presenter.amenity_count %>: <%= presenter.amenity_count %></span>
+  </div>
+  <div class="subheader">
+    <span><%= link_to 'export to calendar', "#", class: "button button-clear" %></span>
+    <span><%= link_to t(".edit_visit"), "#" %></span>
+  </div>
+</header>
