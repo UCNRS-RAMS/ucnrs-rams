@@ -71,6 +71,7 @@ en:
       visit_form_output_time: "%H:%M"
       visit_form_output_time_human: "%-I:%M %p"
       project_summary_time: "%b. %d, %Y at %l:%M %p"
+      visit_summary_time: "%b. %d, %Y at %l:%M %p"
   date:
     formats:
       form_input_date: "%Y-%m-%d"
@@ -387,7 +388,6 @@ en:
           special_needs: "Special Needs"
           study_area: "Study Area"
     show:
-      visit_summary: "Visit Summary"
     sidebar_in_review_show:
       return_to_dashboard: "Return To Dashboard"
       sidebar_title: "Your visit request was submitted."
@@ -422,6 +422,19 @@ en:
       edit_project: "Edit Project"
       contact_us: "Contact Us"
       help_topics: "Help Topics"
+    content_show:
+      visit_summary: "Visit Summary"
+      edit_visit: "Edit Visit"
+      request_submitted: "Request Submitted"
+      reserve: "Reserve"
+      arrival_and_departure: "Arrival and Departure"
+      purpose: "Purpose"
+      project: "Project"
+    content_approved_show:
+      visit_summary: "Visit Summary"
+      edit_visit: "Edit Visit"
+      visitor: "Visitor"
+      amenity: "Amenity"
   reserve_inputs:
     show:
       labels:

@@ -12,6 +12,19 @@ RSpec.describe "show.html.erb" do
 
       expect(doc).to have_css("section.sidebar")
     end
+
+    it "includes content top" do
+      visit = create(:visit, status: "in_review")
+      assign(:presenter, VisitShowPresenter.new(visit))
+
+      render template: "visits/show"
+
+      doc = Capybara.string(rendered)
+
+      expect(doc).to have_css("section.content")
+      expect(doc).to have_css("table.visit-summary-table")
+      expect(doc).to have_css("a", text: "Edit Visit")
+    end
   end
 
   describe "based on visit status" do

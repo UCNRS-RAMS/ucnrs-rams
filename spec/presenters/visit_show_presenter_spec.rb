@@ -45,4 +45,24 @@ RSpec.describe VisitShowPresenter do
     end
   end
 
+  describe "#submitted_at" do
+    it "display a formatted submission datetime of the visit" do
+      travel_to Time.zone.local(2004, 11, 24, 1, 4, 44)
+      visit = create(:visit, submitted_at: Time.current)
+      presenter = VisitShowPresenter.new(visit)
+
+      expect(presenter.submitted_at).to eq "Nov. 24, 2004 at  1:04 AM"
+    end
+  end
+
+  describe "#timeframe" do
+    it "display a formatted visit summary start and end time" do
+      starts_at = Time.zone.local(2004, 11, 24, 1, 4, 44)
+      ends_at = Time.zone.local(2004, 11, 24, 1, 4, 44) + 1.day
+      visit = create(:visit, starts_at: starts_at, ends_at: ends_at )
+      presenter = VisitShowPresenter.new(visit)
+
+      expect(presenter.timeframe).to eq "Nov. 24, 2004 at  1:04 AM - Nov. 25, 2004 at  1:04 AM"
+    end
+  end
 end
