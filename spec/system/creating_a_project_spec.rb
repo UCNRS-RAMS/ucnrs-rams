@@ -148,10 +148,10 @@ RSpec.describe "Creating a project", type: :system, js: true do
     expect(flow).to be_able_to_go_back_to("team_memberships", project)
 
     flow.submit_team_memberships
-    expect(flow).to be_on_question_page
+    expect(flow).to be_on_questions_page
     expect(flow).to have_question("Anything?")
     expect(flow).to have_question("Fish?")
-    expect(flow).to have_no_questions("Birds?")
+    expect(flow).to have_no_question("Birds?")
 
     flow.select_answer("Anything?", "Yes")
     flow.select_answer("Fish?", "Yes")
