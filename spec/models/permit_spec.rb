@@ -129,5 +129,30 @@ RSpec.describe Permit, type: :model do
       expect(permits[2].answer).to eq 0
       expect(permits[2].answer_id).to eq answer3.id
     end
+
+    it "only shows answers for the given permit-project pair" do
+      project1 = create(:project, project_type: :research)
+      project2 = create(:project, project_type: :research)
+      question = create(:permit, involves_all: true)
+      answer1 = create(:project_permit_answer, project: project1, permit: question)
+      answer2 = create(:project_permit_answer, project: project2, permit: question)
+
+      permits = Permit.include_answers_for(project2)
+
+      expect(permits.length).to eq 1
+      expect(permits[0].answer_id).to eq answer2.id
+    end
+
+    it "returns permits even if there is no answer for that project yet" do
+      project1 = create(:project, project_type: :research)
+      project2 = create(:project, project_type: :research)
+      question = create(:permit, involves_all: true)
+      answer = create(:project_permit_answer, project: project1, permit: question)
+
+      permits = Permit.include_answers_for(project2)
+
+      expect(permits.length).to eq 1
+      expect(permits[0].answer_id).to be_nil
+    end
   end
 end

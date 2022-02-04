@@ -47,11 +47,15 @@ class Permit < ApplicationRecord
   end
 
   def self.include_answers_for(project)
-    left_joins(:project_permit_answers)
-      .select(
-        Permit.arel_table[Arel.star],
-        ProjectPermitAnswer.arel_table[:answer],
-        ProjectPermitAnswer.arel_table[:id].as("answer_id")
-      )
+    select(
+      Permit.arel_table[Arel.star],
+      ProjectPermitAnswer.arel_table[:answer],
+      ProjectPermitAnswer.arel_table[:id].as("answer_id"),
+    )
+      .joins(<<~end_sql)
+        LEFT OUTER JOIN project_permit_answers
+        ON permits.id = project_permit_answers.permit_id
+        AND project_permit_answers.project_id = #{project.id.to_i}
+      end_sql
   end
 end
