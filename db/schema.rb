@@ -987,7 +987,7 @@ ActiveRecord::Schema.define(version: 2022_02_11_235032) do
     t.text "purpose_of_visit"
     t.boolean "policy_agreement", default: false, comment: "Boolean"
     t.text "special_needs"
-    t.column "status", "enum('approved','in_review','cancelled','incomplete')", default: "incomplete"
+    t.column "status", "enum('approved','in_review','cancelled','incomplete','denied')", default: "incomplete"
     t.column "EMailType", "enum('Automatic','Automatic with confirmation','Compose','Silent','No selection made')", default: "No selection made", comment: "DEPRICATED"
     t.column "calendar_display", "enum('Public','Admin','Hide','No selection made','')", default: "No selection made"
     t.boolean "AddToMailingList", default: false, comment: "DEPRICATED"
