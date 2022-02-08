@@ -19,6 +19,17 @@
       font-weight: $semi-bold;
       line-height: 2.75rem;
     }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: $bold;
+      line-height: 1.75rem;
+      margin-top: 3.125rem;
+
+      &:first-of-type {
+        margin-top: 2.5rem;
+      }
+    }
   }
 
   .questions {
@@ -28,7 +39,7 @@
 
       li {
         border-bottom: 1px solid $gray;
-        padding: 1rem 0;
+        padding: 0.5rem 0;
 
         &:last-of-type {
           border-bottom: 0;
@@ -46,6 +57,11 @@
         &[data-value-projection-projected-value="1"] {
           .description {
             display: block;
+
+            p {
+              margin: 0;
+              margin-bottom: 0.5rem;
+            }
           }
         }
 
@@ -53,12 +69,21 @@
           align-items: center;
           display: flex;
           justify-content: space-between;
+
+          p {
+            font-size: 1rem;
+            font-weight: $semi-bold;
+          }
         }
 
         .answers {
           display: flex;
           flex-direction: row;
           flex-wrap: nowrap;
+
+          input[type="radio"] {
+            margin-left: 1rem;
+          }
         }
       }
     }
