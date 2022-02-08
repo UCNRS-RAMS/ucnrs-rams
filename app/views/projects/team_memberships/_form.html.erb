@@ -1,0 +1,26 @@
+<turbo-frame id="add-user-form">
+  <div class="add-user-form-header">
+    <h2><%= t(".add_team_member_title") %></h2>
+    <span>
+      <%= t(".cannot_find_them") %>
+      <%= link_to t(".create_new_user"), new_project_user_path(presenter.project), data: { "turbo-frame": "modal-content" } %>
+    </span>
+  </div>
+  <%= form_with model: presenter.form, url: project_team_memberships_path(presenter.project) do |form| %>
+    <div class="field autocomplete" data-controller="autocomplete" data-autocomplete-url-value="<%= users_path %>">
+      <%= form.label :full_name %>
+      <%= form.text_field :full_name, placeholder: t(".search_by_name"), "data-autocomplete-target": "input" %>
+      <%= form.hidden_field :user_id, "data-autocomplete-target": "hidden" %>
+      <div class="autocomplete-results-container">
+        <ul class="autocomplete-results" data-autocomplete-target="results"></ul>
+      </div>
+    </div>
+    <div class="inline">
+      <div class="field">
+        <%= form.label :project_role %>
+        <%= form.select :project_role, presenter.project_roles, prompt: t(".choose_role") %>
+      </div>
+      <%= form.submit t(".add_team_member_submit"), class: "button-clear" %>
+    </div>
+  <% end %>
+</turbo-frame>

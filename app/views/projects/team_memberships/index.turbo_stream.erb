@@ -4,6 +4,12 @@
   </template>
 </turbo-stream>
 
+<turbo-stream action="replace" target="add-user-form">
+  <template>
+    <%= render partial: "form", formats: [:html], locals: { presenter: @presenter } %>
+  </template>
+</turbo-stream>
+
 <turbo-stream action="replace" target="team-member-table">
   <template>
     <%= render partial: "projects/team_memberships/team_member_table", locals: { presenter: @presenter }, formats: [:html] %>

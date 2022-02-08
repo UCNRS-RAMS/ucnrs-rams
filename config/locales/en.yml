@@ -581,14 +581,15 @@ en:
       yes_option: "Yes"
       no_option: "No"
     team_memberships:
-      index:
-        title: "Team"
+      form:
         add_team_member_title: "Add a Team Member"
-        add_team_member_submit: "Add Team Member"
         cannot_find_them: "Can't find them?"
         create_new_user: "Create new user"
         search_by_name: "Search by name"
         choose_role: "Choose Role"
+        add_team_member_submit: "Add Team Member"
+      index:
+        title: "Team"
         back: "Go Back"
         alt:
           left_facing_arrow: "Left-facing arrow"

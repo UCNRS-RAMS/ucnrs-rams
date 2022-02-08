@@ -17,6 +17,22 @@ RSpec.describe "projects/team_memberships/index.turbo_stream.erb", type: :view d
     )
   end
 
+  it "renders the add user form" do
+    assign(:presenter, Projects::TeamMembershipsIndexPresenter.new(
+      current_step: 2,
+      project: build_stubbed(:project),
+    ))
+
+    render template: "projects/team_memberships/index", formats: [:turbo_stream]
+
+    expect(rendered).to include(
+      '<turbo-stream action="replace" target="add-user-form"'
+    )
+    expect(rendered).to include(
+      '<turbo-frame id="add-user-form"'
+    )
+  end
+
   it "renders the table of team members" do
     assign(:presenter, Projects::TeamMembershipsIndexPresenter.new(
       current_step: 2,
