@@ -59,7 +59,9 @@ class User < ApplicationRecord
   has_many :reserve_personnel
   has_many :user_visits
 
-  delegate :name, to: :institution, prefix: true
+  def institution_name
+    read_attribute(:institution_name) || institution.name
+  end
 
   enum gender_identity: {
     male: "Male",
@@ -110,7 +112,7 @@ class User < ApplicationRecord
     }
   end
 
-  def self.search(query)
+  def self.search(query, limit: 30)
     URI
       .decode_www_form_component(query)
       .strip
@@ -121,7 +123,10 @@ class User < ApplicationRecord
           query: part
         )
       end
+      .joins(:institution)
+      .select(arel_table[Arel.star], Institution.arel_table[:name].as("institution_name"))
       .includes([:institution])
+      .limit(limit)
   end
 
   def full_name
