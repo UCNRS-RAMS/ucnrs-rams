@@ -35,6 +35,8 @@
   </button>
 </section>
 
-<% content_for :modal do %>
-  <%= render partial: "modals/project" %>
+<% if @presenter.show_modal %>
+  <% content_for :modal do %>
+    <%= render partial: "modals/project" %>
+  <% end %>
 <% end %>

@@ -70,4 +70,34 @@ RSpec.describe "new.html.erb" do
       expect(doc).to have_css("button[form='projects-new']", text: "Next: Team")
     end
   end
- end
+
+  describe "the project information modal" do
+    include Devise::Test::ControllerHelpers
+
+    it "displays a modal when a modal should be shown" do
+      assign(:presenter, ProjectFormPresenter.new(
+        user: :dummy,
+        current_step: 1,
+        show_modal: true,
+      ))
+
+      render template: "projects/new", layout: "layouts/application"
+
+      doc = Capybara.string(rendered)
+      expect(doc).to have_css(".modal-content.project")
+    end
+
+    it "does not display a modal when a modal should not be shown" do
+      assign(:presenter, ProjectFormPresenter.new(
+        user: :dummy,
+        current_step: 1,
+        show_modal: false,
+      ))
+
+      render template: "projects/new", layout: "layouts/application"
+
+      doc = Capybara.string(rendered)
+      expect(doc).to have_no_css(".modal-content.project")
+    end
+  end
+end
