@@ -60,6 +60,17 @@
         width: 200px;
       }
 
+      ul.autocomplete-results {
+        flex-wrap: nowrap;
+        max-height: 500px;
+        overflow-y: scroll;
+
+        li {
+          border: 0;
+          border: 1px solid #aab7bb;
+        }
+      }
+
       .inline {
         align-items: center;
         display: flex;
