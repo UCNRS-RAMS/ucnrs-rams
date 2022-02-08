@@ -28,6 +28,7 @@ class ProjectsController < ApplicationController
         current_step: 1,
         project_type: form.project_type,
         form: form,
+        show_modal: false,
       )
       render :new, status: :unprocessable_entity
     end
