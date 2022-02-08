@@ -582,6 +582,7 @@ involvements = ["", :mammal, :reptile, :amphibian, :fish, :bird, :plant_fungus_s
       involves_birds: index == 5,
       involves_plants_fungi_soil: index == 6,
       threatened_endangered_flag: index == 7,
+      statement: "#{authority} #{involvements[index]} law is violated",
     )
   end
 end
