@@ -3,9 +3,9 @@ class Projects::AnswersController < ApplicationController
   before_action :authorize_user
 
   def create
-    form = ProjectPermitAnswersForm.new(
+    form = ProjectAnswersForm.new(
       project: project,
-      params: permit_answers_params,
+      params: answer_params,
     )
 
     if form.save
@@ -16,7 +16,7 @@ class Projects::AnswersController < ApplicationController
         project: project,
         form: form,
       )
-      render :index, status: :unprocessable_entity
+      render template: "projects/questions/index", status: :unprocessable_entity
     end
   end
 
@@ -26,10 +26,11 @@ class Projects::AnswersController < ApplicationController
     Project.find(params[:project_id])
   end
 
-  def permit_answers_params
+  def answer_params
     params.require(:project).permit(
       :approved_permits,
-      answers: {},
+      permit_answers: {},
+      reserve_answers: {},
     )
   end
 

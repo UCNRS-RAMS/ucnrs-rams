@@ -2,8 +2,8 @@
   <span class="question_text"><%= question.question %></span>
   <div class="answers">
     <%= f.radio_button :boolean_answer, "1", data: { action: "change->value-projection#change" } %>
-    <%= f.label :boolean_answer, t("projects.questions.index.yes_option"), for: "project_reserve_answers_#{question.id}_answer_1" %>
+    <%= f.label :boolean_answer, t("projects.questions.index.yes_option"), for: "project_reserve_answers_#{question.id}_boolean_answer_1" %>
     <%= f.radio_button :boolean_answer, "0", data: { action: "change->value-projection#change" } %>
-    <%= f.label :boolean_answer, t("projects.questions.index.no_option"), for: "project_reserve_answers_#{question.id}_answer_0" %>
+    <%= f.label :boolean_answer, t("projects.questions.index.no_option"), for: "project_reserve_answers_#{question.id}_boolean_answer_0" %>
   </div>
 </div>

@@ -92,6 +92,7 @@ class ProjectShowPresenter
 
   def reserve_answers
     ProjectReserveAnswer
+      .includes([reserve_question: :reserve])
       .with_reserve_name_column
       .with_affirmative_answer
       .for_project(project)

@@ -634,6 +634,8 @@ en:
         next_step: "Next: Funding"
         yes_option: "Yes"
         no_option: "No"
+      text:
+        aria_label_for: "textarea answer field for question %{question}"
     fundings:
       index:
         title: "Funding"

@@ -5,7 +5,7 @@ class Projects::QuestionsIndexPresenter
     @current_step = current_step
     @steps_presenter = StepsPresenter.new(@current_step)
     @project = project
-    @form = form || ProjectPermitAnswersForm.new(project: project)
+    @form = form || ProjectAnswersForm.new(project: project)
   end
 
   attr_reader :form, :project

@@ -380,6 +380,29 @@ class EditProjectFlow
     page.has_css?("div.subheader span", text: "Open Application")
   end
 
+  def has_reserve_questions?
+    page.has_css?("span.question_text")
+  end
+
+  def has_answered_text_question?(question:, answer:)
+    page.has_css?("span.question_text", text: question.question) &&
+      page.has_css?("textarea", text: answer)
+  end
+
+  def has_answered_boolean_question?(question:, answer:)
+    answer = answer == "Yes" ? "1" : "0"
+    page.has_css?("span.question_text", text: question.question) &&
+      page.has_field?("project_reserve_answers_#{question.id}_boolean_answer_#{answer}", checked: true)
+  end
+
+  def update_text_answer(question:, answer:)
+    page.fill_in("project_reserve_answers_#{question.id}_text_answer", with: answer)
+  end
+
+  def go_back
+    page.click_link("Go Back")
+  end
+
   private
 
   attr_reader :page

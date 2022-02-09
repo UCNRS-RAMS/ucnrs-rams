@@ -35,6 +35,12 @@ RSpec.describe "Editing a project", type: :system, js: true do
         url1_description: "About Fish"
       )
       create(:permit, involves_birds: true, question: "Birds?")
+      reserve = create(:reserve, name: "Big Horn Ranch")
+      boolean_question = create(:reserve_question, :boolean, question: "Do you like dogs?", reserve: reserve)
+      create(:project_reserve_answer, reserve_question: boolean_question, boolean_answer: true, project: project)
+      text_question = create(:reserve_question, :text, question: "How could you not?", reserve: reserve)
+      create(:project_reserve_answer, reserve_question: text_question, text_answer: "I don't know", project: project)
+
       flow = EditProjectFlow.new(page)
 
       flow.visit_project_edit_page(project)
@@ -148,11 +154,20 @@ RSpec.describe "Editing a project", type: :system, js: true do
 
       flow.select_answer("Fish?", "Yes")
       expect(flow).to have_url_for_question("Fish?", "About Fish" => "https://fish")
+
+      expect(flow).to have_reserve_questions
+      expect(flow).to have_answered_boolean_question(question: boolean_question, answer: "Yes")
+      expect(flow).to have_answered_text_question(question: text_question, answer: "I don't know")
+      flow.update_text_answer(question: text_question, answer: "You CAN'T not")
       expect(page).to be_axe_clean
-  
+
       flow.submit_answers
       expect(flow).to be_allowed_to_view_project_fundings_page
       expect(page).to be_axe_clean
+
+      flow.go_back
+      expect(flow).to have_answered_text_question(question: text_question, answer: "You CAN'T not")
+      flow.submit_answers
 
       flow.fill_out_fundings_form(
         title: "Give me money for birdwatching",
