@@ -29,7 +29,7 @@ class ProjectPermitAnswer < ApplicationRecord
     if !project_permit_answers.blank?
       rows = project_permit_answers.map do |answer|
         ActiveRecord::Base.sanitize_sql([
-          "ROW(?,?,?,NOW(),NOW())",
+          "(?,?,?,NOW(),NOW())",
           answer.project_id,
           answer.permit_id,
           answer.answer
@@ -37,7 +37,7 @@ class ProjectPermitAnswer < ApplicationRecord
       end
 
       connection.execute(<<~end_sql)
-      REPLACE #{table_name} (
+      INSERT INTO #{table_name} (
         #{arel_table[:project_id].name},
         #{arel_table[:permit_id].name},
         #{arel_table[:answer].name},
@@ -45,6 +45,10 @@ class ProjectPermitAnswer < ApplicationRecord
         #{arel_table[:updated_at].name})
       VALUES
         #{rows.join(",\n  ")}
+      AS new
+      ON DUPLICATE KEY UPDATE
+        answer = new.answer,
+        updated_at = new.updated_at
       end_sql
     end
   end

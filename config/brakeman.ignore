@@ -3,20 +3,40 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
-      "fingerprint": "9e68f1a45f916dedb3e29e6ae9386ee6b3868991b6d0b1a9769261089f8b1c2d",
+      "fingerprint": "68fbf49bf299cfe84418c5f7d53e36bf7802c3992f82f1e99334b157d444e7fd",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/project_permit_answer.rb",
-      "line": 26,
+      "line": 47,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "connection.execute(\"REPLACE #{table_name} (\\n  #{arel_table[:project_id].name},\\n  #{arel_table[:permit_id].name},\\n  #{arel_table[:answer].name},\\n  #{arel_table[:created_at].name},\\n  #{arel_table[:updated_at].name})\\nVALUES\\n  #{project_permit_answers.map do\n ActiveRecord::Base.sanitize_sql([\"ROW(?,?,?,NOW(),NOW())\", answer.project_id, answer.permit_id, answer.answer])\n end.join(\",\\n  \")}\\n\")",
+      "code": "connection.execute(\"INSERT INTO #{table_name} (\\n  #{arel_table[:project_id].name},\\n  #{arel_table[:permit_id].name},\\n  #{arel_table[:answer].name},\\n  #{arel_table[:created_at].name},\\n  #{arel_table[:updated_at].name})\\nVALUES\\n  #{project_permit_answers.map do\n ActiveRecord::Base.sanitize_sql([\"(?,?,?,NOW(),NOW())\", answer.project_id, answer.permit_id, answer.answer])\n end.join(\",\\n  \")}\\nAS new\\nON DUPLICATE KEY UPDATE\\n  answer = new.answer,\\n  updated_at = new.updated_at\\n\")",
       "render_path": null,
       "location": {
         "type": "method",
         "class": "ProjectPermitAnswer",
         "method": "ProjectPermitAnswer.replace_all"
       },
-      "user_input": "project_permit_answers.map do\n ActiveRecord::Base.sanitize_sql([\"ROW(?,?,?,NOW(),NOW())\", answer.project_id, answer.permit_id, answer.answer])\n end.join(\",\\n  \")",
+      "user_input": "project_permit_answers.map do\n ActiveRecord::Base.sanitize_sql([\"(?,?,?,NOW(),NOW())\", answer.project_id, answer.permit_id, answer.answer])\n end.join(\",\\n  \")",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "abe3ef189f8998d604a08ad5faa180bb10f91eb38648737f30be800175909dc6",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/project_reserve_answer.rb",
+      "line": 46,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "connection.execute(\"INSERT INTO #{table_name} (\\n  #{arel_table[:project_id].name},\\n  #{arel_table[:reserve_question_id].name},\\n  #{arel_table[:text_answer].name},\\n  #{arel_table[:boolean_answer].name},\\n  #{arel_table[:created_at].name},\\n  #{arel_table[:updated_at].name})\\nVALUES\\n  #{project_reserve_answers.map do\n ActiveRecord::Base.sanitize_sql([\"(?,?,?,?,?,?)\", answer.project_id, answer.reserve_question_id, answer.text_answer, answer.boolean_answer, Time.current, Time.current])\n end.join(\",\\n  \")}\\nAS new\\nON DUPLICATE KEY UPDATE\\n  text_answer = new.text_answer,\\n  boolean_answer = new.boolean_answer,\\n  updated_at = new.updated_at\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ProjectReserveAnswer",
+        "method": "ProjectReserveAnswer.replace_all"
+      },
+      "user_input": "project_reserve_answers.map do\n ActiveRecord::Base.sanitize_sql([\"(?,?,?,?,?,?)\", answer.project_id, answer.reserve_question_id, answer.text_answer, answer.boolean_answer, Time.current, Time.current])\n end.join(\",\\n  \")",
       "confidence": "Medium",
       "note": ""
     },
@@ -41,6 +61,6 @@
       "note": "Ignore role in user-related strong param assignment"
     }
   ],
-  "updated": "2022-01-28 11:14:23 -0500",
+  "updated": "2022-02-11 08:36:06 -0500",
   "brakeman_version": "5.2.0"
 }

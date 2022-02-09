@@ -58,4 +58,38 @@ RSpec.describe ProjectReserveAnswer, type: :model do
         expect(results).to eq [project_reserve_answer1, project_reserve_answer3]
       end
   end
+
+  describe ".replace_all" do
+    it "does nothing if the argument is empty" do
+      existing_answer = create(:project_reserve_answer, boolean_answer: false)
+      existing_answer.boolean_answer = true
+
+      ProjectPermitAnswer.replace_all([])
+
+      expect(existing_answer.reload).to eq existing_answer
+    end
+
+    it "INSERTs the objects passed in and UPDATES if there are conflicts" do
+      existing_answer = travel_to(1.day.ago) do
+        create(:project_reserve_answer, boolean_answer: false)
+      end
+      project = existing_answer.project
+      existing_answer.boolean_answer = true
+      reserve_question = create(:reserve_question, question_type: :boolean)
+      new_answer = build(:project_reserve_answer, project: project, reserve_question: reserve_question, boolean_answer: true)
+
+      ProjectReserveAnswer.replace_all([existing_answer, new_answer])
+
+      existing_answer = ProjectReserveAnswer
+        .where(project: project, reserve_question: existing_answer.reserve_question)
+        .first
+      new_answer = ProjectReserveAnswer
+        .where(project: project, reserve_question: new_answer.reserve_question)
+        .first
+      expect(existing_answer.boolean_answer).to be true
+      expect(new_answer.boolean_answer).to be true
+      expect(new_answer).to be_persisted
+      expect(Time.current - existing_answer.created_at).to be >= 1.day
+    end
+  end
 end

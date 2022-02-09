@@ -76,7 +76,7 @@ RSpec.describe ProjectPermitAnswer, type: :model do
       expect(existing_answer.reload).to eq existing_answer
     end
 
-    it "REPLACEs the objects passed in" do
+    it "INSERTs the objects passed in and UPDATES if there are conflicts" do
       existing_answer = create(:project_permit_answer, answer: false)
       project = existing_answer.project
       existing_answer.answer = true
