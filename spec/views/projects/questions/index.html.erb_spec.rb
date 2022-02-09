@@ -43,9 +43,22 @@ RSpec.describe "app/views/projects/questions/index.html.erb" do
         expect(doc).to have_css("button[form='questions']", text: "Next: Funding")
       end
     end
+
+    it "renders a link to go back to the previous step (team members)" do
+      project = build_stubbed(:project)
+      assign(:presenter, Projects::QuestionsIndexPresenter.new(
+        current_step: 3,
+        project: project,
+      ))
+
+      render template: "projects/questions/index"
+
+      doc = Capybara.string(rendered)
+      expect(doc).to have_css(".controls a[href='/projects/#{project.id}/team_memberships']", text: "Go Back")
+    end
   end
 
-  describe "when there are questions to show" do
+  describe "when there are permit questions to show" do
     it "has an authority section for each authority" do
       project = build_stubbed(:project)
       federal = create(:permit, authority: :federal, involves_all: true)
@@ -66,7 +79,7 @@ RSpec.describe "app/views/projects/questions/index.html.erb" do
       expect(doc).to have_css("h2", text: "Institution")
     end
 
-    it "displays relevant questions in each section" do
+    it "displays relevant permit questions in each section" do
       project = build_stubbed(:project, involves_birds: true, involves_fish: false)
       federal_birds = create(:permit, authority: :federal, involves_birds: true, question: "Birds?")
       federal_fish = create(:permit, authority: :federal, involves_fish: true, question: "Fish?")
@@ -84,14 +97,14 @@ RSpec.describe "app/views/projects/questions/index.html.erb" do
       render template: "projects/questions/index"
 
       doc = Capybara.string(rendered)
-      expect(doc).to have_css("div.federal_questions .question", text: "Birds?")
-      expect(doc).to have_no_css("div.federal_questions .question", text: "Fish?")
-      expect(doc).to have_css("div.state_questions .question", text: "Birds?")
-      expect(doc).to have_no_css("div.state_questions .question", text: "Fish?")
-      expect(doc).to have_css("div.local_questions .question", text: "Birds?")
-      expect(doc).to have_no_css("div.local_questions .question", text: "Fish?")
-      expect(doc).to have_css("div.institution_questions .question", text: "Birds?")
-      expect(doc).to have_no_css("div.institution_questions .question", text: "Fish?")
+      expect(doc).to have_css("ul.federal_permits_questions .question", text: "Birds?")
+      expect(doc).to have_no_css("ul.federal_permits_questions .question", text: "Fish?")
+      expect(doc).to have_css("ul.state_permits_questions .question", text: "Birds?")
+      expect(doc).to have_no_css("ul.state_permits_questions .question", text: "Fish?")
+      expect(doc).to have_css("ul.local_permits_questions .question", text: "Birds?")
+      expect(doc).to have_no_css("ul.local_permits_questions .question", text: "Fish?")
+      expect(doc).to have_css("ul.institution_permits_questions .question", text: "Birds?")
+      expect(doc).to have_no_css("ul.institution_permits_questions .question", text: "Fish?")
     end
 
     it "has a Yes and No answer on each question, No is selected" do
@@ -121,22 +134,76 @@ RSpec.describe "app/views/projects/questions/index.html.erb" do
       render template: "projects/questions/index"
 
       doc = Capybara.string(rendered)
-      expect(doc).to have_css("div.federal_questions")
-      expect(doc).to have_no_css("div.state_questions")
-      expect(doc).to have_no_css("div.local_questions")
+      expect(doc).to have_css("ul.federal_permits_questions")
+      expect(doc).to have_no_css("ul.state_permits_questions")
+      expect(doc).to have_no_css("ul.local_permits_questions")
     end
   end
 
-  it "renders a link to go back to the previous step (team members)" do
-    project = build_stubbed(:project)
-    assign(:presenter, Projects::QuestionsIndexPresenter.new(
-      current_step: 3,
-      project: project,
-    ))
+  describe "when there are reserve-specific questions to show" do
+    it "has a reserve section for each reserve with answers to questions" do
+      project = create(:project)
+      reserve1 = create(:reserve, name: "Reserve 1")
+      reserve2 = create(:reserve, name: "Reserve 2")
+      question1 = create(:reserve_question, reserve: reserve1)
+      create(:project_reserve_answer, reserve_question: question1, project: project)
+      question2 = create(:reserve_question, reserve: reserve2)
+      create(:project_reserve_answer, reserve_question: question2, project: project)
+      assign(:presenter, Projects::QuestionsIndexPresenter.new(
+        project: project,
+        current_step: 3
+      ))
 
-    render template: "projects/questions/index"
+      render template: "projects/questions/index"
 
-    doc = Capybara.string(rendered)
-    expect(doc).to have_css(".controls a[href='/projects/#{project.id}/team_memberships']", text: "Go Back")
+      doc = Capybara.string(rendered)
+      expect(doc).to have_css("h1", text: "Reserve-specific Questions")
+      expect(doc).to have_css("h2", text: "Reserve 1")
+      expect(doc).to have_css("h2", text: "Reserve 2")
+    end
+
+    it "displays relevant questions and answers in each section" do
+      project = create(:project)
+      reserve1 = create(:reserve, name: "Reserve 1")
+      reserve2 = create(:reserve, name: "Reserve 2")
+      question1 = create(:reserve_question, :text_question, reserve: reserve1, question: "Who?")
+      create(:project_reserve_answer, reserve_question: question1, project: project, text_answer: "You!")
+      question2 = create(:reserve_question, :text_question, reserve: reserve2, question: "Where?")
+      create(:project_reserve_answer, reserve_question: question2, project: project, text_answer: "Here!")
+      question3 = create(:reserve_question, :boolean_question, reserve: reserve2, question: "Does 2+2 = 4?")
+      create(:project_reserve_answer, reserve_question: question3, project: project, boolean_answer: true)
+      assign(:presenter, Projects::QuestionsIndexPresenter.new(
+        project: project,
+        current_step: 3
+      ))
+
+      render template: "projects/questions/index"
+
+      doc = Capybara.string(rendered)
+      expect(doc).to have_css("div.questions .question", text: "Who?")
+      expect(doc).to have_css(".answers textarea", text: "You!")
+      expect(doc).to have_css("div.questions .question", text: "Where?")
+      expect(doc).to have_css(".answers textarea", text: "Here!")
+      expect(doc).to have_css("div.questions .question", text: "Does 2+2 = 4?")
+      expect(doc).to have_field("Yes", checked: true)
+    end
+
+    it "does not display reserves that do not have questions with answers" do
+      project = create(:project)
+      reserve1 = create(:reserve, name: "Reserve 1")
+      reserve2 = create(:reserve, name: "Reserve 2")
+      question1 = create(:reserve_question, reserve: reserve1)
+      create(:project_reserve_answer, reserve_question: question1, project: project)
+      assign(:presenter, Projects::QuestionsIndexPresenter.new(
+        project: project,
+        current_step: 3
+      ))
+
+      render template: "projects/questions/index"
+
+      doc = Capybara.string(rendered)
+      expect(doc).to have_css("h2", text: "Reserve 1")
+      expect(doc).to have_no_css("h2", text: "Reserve 2")
+    end
   end
 end

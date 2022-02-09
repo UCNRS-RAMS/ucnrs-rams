@@ -6,11 +6,11 @@ RSpec.describe Projects::QuestionPresenter do
     it { is_expected.to delegate_missing_methods_to(:question) }
   end
 
-  describe "#partial" do
+  describe "#render_values" do
     it "is a hash containing a path to the partial and locals" do
       presenter = Projects::QuestionPresenter.new(build_stubbed(:permit))
 
-      expect(presenter.partial).to eq ({
+      expect(presenter.render_values).to eq ({
         partial: "projects/questions/question",
         locals: { question: presenter },
       })
@@ -68,17 +68,17 @@ RSpec.describe Projects::QuestionPresenter do
 
   describe "#answer" do
     it "returns the boolean_answer as a string if the question type is boolean" do
-      question_double = double("ReserveQuestion", boolean_answer: true, boolean?: true)
-      allow(question_double).to receive(:boolean_answer).and_return(1)
-      presenter = Projects::QuestionPresenter.new(question_double)
+      question = create(:reserve_question, question_type: :boolean)
+      mock_reserve_answer(question, boolean: true)
+      presenter = Projects::QuestionPresenter.new(question)
 
       expect(presenter.answer).to eq("1")
     end
 
     it "returns the text_answer if the question type is not boolean" do
-      question_double = double("ReserveQuestion", text_answer: "", boolean?: false)
-      allow(question_double).to receive(:text_answer).and_return("What does the fox say?")
-      presenter = Projects::QuestionPresenter.new(question_double)
+      question = create(:reserve_question, question_type: :text)
+      mock_reserve_answer(question, text: "What does the fox say?")
+      presenter = Projects::QuestionPresenter.new(question)
 
       expect(presenter.answer).to eq("What does the fox say?")
     end

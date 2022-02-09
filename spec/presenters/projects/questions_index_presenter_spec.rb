@@ -78,20 +78,37 @@ RSpec.describe Projects::QuestionsIndexPresenter do
     end
   end
 
-  describe "#has_questions_for_project?" do
+  describe "#has_permit_questions_for_project?" do
     it "is true if there are permits to be displayed for a project" do
       project = create(:project, involves_mammals: true)
       federal = create(:permit, authority: "Federal", involves_mammals: true)
       presenter = Projects::QuestionsIndexPresenter.new(current_step: 3, project: project)
 
-      expect(presenter).to have_questions_for_project
+      expect(presenter).to have_permit_questions_for_project
     end
 
     it "is false if there are no questions to be displayed for a project" do
       project = create(:project, involves_mammals: false)
       presenter = Projects::QuestionsIndexPresenter.new(current_step: 3, project: project)
 
-      expect(presenter).not_to have_questions_for_project
+      expect(presenter).not_to have_permit_questions_for_project
+    end
+  end
+
+  describe "#has_reserve_questions_for_project?" do
+    it "is true if there are permits to be displayed for a project" do
+      project = create(:project, involves_mammals: true)
+      answer = create(:project_reserve_answer, project: project)
+      presenter = Projects::QuestionsIndexPresenter.new(current_step: 3, project: project)
+
+      expect(presenter).to have_reserve_questions_for_project
+    end
+
+    it "is false if there are no questions to be displayed for a project" do
+      project = create(:project, involves_mammals: false)
+      presenter = Projects::QuestionsIndexPresenter.new(current_step: 3, project: project)
+
+      expect(presenter).not_to have_reserve_questions_for_project
     end
   end
 end

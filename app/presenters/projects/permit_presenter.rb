@@ -22,6 +22,14 @@ class Projects::PermitPresenter
     end
   end
 
+  def answer
+    if permit.respond_to?(:answer)
+      permit.answer
+    else
+      "0"
+    end
+  end
+
   def form
     self
   end
