@@ -1,10 +1,15 @@
 class Projects::PermitPresenter
-  def initialize(permit, form: nil)
+  def initialize(permit)
     @permit = permit
-    @form = form || ProjectPermitAnswerForm.new
   end
 
-  attr_reader :form
+  def render_values
+    {
+      partial: "projects/questions/permit",
+      locals: { permit: self },
+    }
+  end
+
   delegate_missing_to :permit
 
   def urls
@@ -15,6 +20,10 @@ class Projects::PermitPresenter
     }.select do |url, description|
       url.present? && description.present?
     end
+  end
+
+  def form
+    self
   end
 
   private

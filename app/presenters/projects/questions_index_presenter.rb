@@ -25,6 +25,14 @@ class Projects::QuestionsIndexPresenter
       .reject { |k, v| v.empty? }
   end
 
+  def has_permit_questions_for_project?
+    permit_scope.exists?
+  end
+
+  def has_reserve_questions_for_project?
+    reserve_question_scope.exists?
+  end
+
   private
 
   def permit_scope
@@ -47,7 +55,11 @@ class Projects::QuestionsIndexPresenter
   end
 
   def wrap_question_in_presenter(question)
-    Projects::PermitPresenter.new(question, form: form.answer_form(question.id))
+    if question.is_a?(Permit)
+      Projects::PermitPresenter.new(question)
+    else
+      Projects::QuestionPresenter.new(question)
+    end
   end
 
   attr_reader :steps_presenter, :current_step

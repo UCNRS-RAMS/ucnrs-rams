@@ -3,7 +3,18 @@ require "rails_helper"
 RSpec.describe Projects::PermitPresenter do
   describe "delegations" do
     subject { Projects::PermitPresenter.new(build(:permit)) }
-    it { is_expected.to delegate_missing_methods_to(:permit) }
+    it { is_expected.to delegate_missing_methods_to(:question) }
+  end
+
+  describe "#partial" do
+    it "is a hash containing a path to the partial and locals" do
+      presenter = Projects::PermitPresenter.new(build_stubbed(:permit))
+
+      expect(presenter.partial).to eq ({
+        partial: "projects/questions/permit",
+        locals: { permit: presenter },
+      })
+    end
   end
 
   describe "#urls" do
