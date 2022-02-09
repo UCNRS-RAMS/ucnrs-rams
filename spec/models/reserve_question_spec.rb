@@ -41,4 +41,72 @@ RSpec.describe ReserveQuestion, type: :model do
       expect(reserve_question.reserve_name).to eq "Over Under Reserve"
     end
   end
+
+  describe ".in_order" do
+    it "returns records in order of sort_order" do
+      one = create(:reserve_question, sort_order: 2)
+      two = create(:reserve_question, sort_order: 1)
+
+      results = ReserveQuestion.in_order
+
+      expect(results).to eq [two, one]
+    end
+  end
+
+  describe ".for_projects" do
+    it "only selects records with a location of 'project'" do
+      project_question = create(:reserve_question, location: :project)
+      visit_question = create(:reserve_question, location: :visit)
+
+      results = ReserveQuestion.for_projects
+
+      expect(results).to eq [project_question]
+    end
+  end
+
+  describe ".visible" do
+    it "only selects records that are visible" do
+      visible = create(:reserve_question, visible: true)
+      not_visible = create(:reserve_question, visible: false)
+
+      results = ReserveQuestion.visible
+
+      expect(results).to eq [visible]
+    end
+  end
+
+  describe ".with_answers_for_project" do
+    it "returns reserve questions with added fields for #boolean_answer and #text_answer from associated ProjectReserveAnswers" do
+      project = create(:project)
+      question1 = create(:reserve_question, :boolean_question)
+      answer1 = create(
+        :project_reserve_answer,
+        project: project,
+        reserve_question: question1,
+        boolean_answer: true,
+        text_answer: nil,
+      )
+      question2 = create(:reserve_question, :text_question)
+      answer2 = create(
+        :project_reserve_answer,
+        project: project,
+        reserve_question: question2,
+        boolean_answer: false,
+        text_answer: "Something relevant",
+      )
+      question3 = create(:reserve_question)
+
+      questions = ReserveQuestion
+        .with_answers_for_project(project)
+        .order(:id)
+
+      expect(questions.length).to eq 2
+      expect(questions[0]).to eq question1
+      expect(questions[0].text_answer).to eq nil
+      expect(questions[0].boolean_answer).to eq 1
+      expect(questions[1]).to eq question2
+      expect(questions[1].text_answer).to eq "Something relevant"
+      expect(questions[1].boolean_answer).to eq 0
+    end
+  end
 end

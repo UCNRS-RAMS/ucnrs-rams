@@ -7,6 +7,27 @@ RSpec.describe Projects::QuestionsIndexPresenter do
     it { is_expected.to delegate_method(:step_class).to(:steps_presenter) }
   end
 
+  describe "#questions_by_reserve" do
+    it "groups questions according to reserve name" do
+      project = create(:project)
+      reserve1 = create(:reserve, name: "Reserve 1")
+      reserve2 = create(:reserve, name: "Reserve 2")
+      reserve1_question1 = create(:reserve_question, reserve: reserve1)
+      reserve1_question2 = create(:reserve_question, reserve: reserve1)
+      reserve_1_answer = create(:project_reserve_answer, project: project, reserve_question: reserve1_question1)
+      reserve2_question1 = create(:reserve_question, reserve: reserve2)
+      reserve_2_answer = create(:project_reserve_answer, project: project, reserve_question: reserve2_question1)
+      presenter = Projects::QuestionsIndexPresenter.new(current_step: 3, project: project)
+
+      results = presenter.questions_by_reserve
+
+      expect(results.keys).to eq ["Reserve 1", "Reserve 2"]
+      expect(results.values.flatten).to all(be_a(Projects::QuestionPresenter))
+      expect(results["Reserve 1"].map(&:id)).to eq [reserve1_question1.id]
+      expect(results["Reserve 2"].map(&:id)).to eq [reserve2_question1.id]
+    end
+  end
+
   describe "#questions_by_authority" do
     it "groups questions according to the value of the authority field" do
       federal = create(:permit, authority: "Federal", involves_all: true)

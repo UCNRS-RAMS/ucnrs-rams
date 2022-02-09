@@ -18,8 +18,11 @@ class Projects::QuestionsIndexPresenter
       .reject { |k, v| v.empty? }
   end
 
-  def has_questions_for_project?
-    permit_scope.exists?
+  def questions_by_reserve
+    reserve_question_scope
+      .map(&method(:wrap_question_in_presenter))
+      .group_by(&:reserve_name)
+      .reject { |k, v| v.empty? }
   end
 
   private
@@ -32,6 +35,15 @@ class Projects::QuestionsIndexPresenter
       .matching_project_type(project.project_type)
       .involving_related(project)
       .include_answers_for(project)
+  end
+
+  def reserve_question_scope
+    ReserveQuestion
+      .in_order
+      .for_projects
+      .visible
+      .includes([:reserve])
+      .with_answers_for_project(project)
   end
 
   def wrap_question_in_presenter(question)

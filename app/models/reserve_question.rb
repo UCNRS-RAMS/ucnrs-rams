@@ -20,6 +20,28 @@ class ReserveQuestion < ApplicationRecord
     text: "Text",
   }
 
+  def self.in_order
+    order(:sort_order)
+  end
+
+  def self.for_projects
+    where(location: :project)
+  end
+
+  def self.visible
+    where(visible: true)
+  end
+
+  def self.with_answers_for_project(project)
+    includes(project_reserve_answers: :project)
+      .where(project: { id: project.id })
+      .select(
+        arel_table[Arel.star],
+        ProjectReserveAnswer.arel_table["text_answer"],
+        ProjectReserveAnswer.arel_table["boolean_answer"]
+      )
+  end
+
   def reserve_name
     reserve.name
   end
