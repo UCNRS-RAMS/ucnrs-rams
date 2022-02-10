@@ -88,6 +88,7 @@ class Visit < ApplicationRecord
     in_review: "in_review",
     cancelled: "cancelled",
     incomplete: "incomplete",
+    denied: "denied",
   }
 
   enum project_type: {
