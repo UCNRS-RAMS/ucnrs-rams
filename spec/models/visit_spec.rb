@@ -40,6 +40,7 @@ RSpec.describe Visit, type: :model do
         in_review: "in_review",
         cancelled: "cancelled",
         incomplete: "incomplete",
+        denied: "denied",
       }).backed_by_column_of_type(:string)
     end
 
