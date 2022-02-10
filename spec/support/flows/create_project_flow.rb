@@ -137,6 +137,7 @@ class CreateProjectFlow
   end
 
   def enter_name_into_autocomplete(text)
+    sleep(0.1) # Capybara waiting for elements gets false positives with Turbo
     page.fill_in("project_team_membership_full_name", with: text)
   end
 
