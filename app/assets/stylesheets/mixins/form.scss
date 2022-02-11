@@ -7,6 +7,10 @@
 
   section {
     margin-bottom: 2.5rem;
+
+    fieldset {
+      margin-right: 2rem;
+    }
   }
 
   .inline {
@@ -67,7 +71,7 @@
       min-height: 2rem;
       padding: 0.25rem 0.5rem;
 
-      &:last-child {
+      &:last-child-of-type {
         padding-right: 0;
         margin-right: 0;
       }
