@@ -1,6 +1,6 @@
 <div class="question">
   <span class="question_text"><%= question.question %></span>
-  <div class="answers">
+  <div class="answers field">
     <%= f.text_area :text_answer, aria: { label: t(".aria_label_for", question: question.id) } %>
   </div>
 </div>
