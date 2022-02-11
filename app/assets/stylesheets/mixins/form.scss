@@ -134,6 +134,16 @@
           margin-top: 0.25rem;
         }
       }
+
+      &.autocomplete-results {
+        flex-wrap: nowrap;
+        overflow-y: scroll;
+
+        li {
+          border: 0;
+          border: 1px solid #aab7bb;
+        }
+      }
     }
 
     .planning-question-label {
