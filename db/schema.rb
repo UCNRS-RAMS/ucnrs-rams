@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_07_201005) do
+ActiveRecord::Schema.define(version: 2022_02_11_235032) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id"
@@ -283,9 +283,9 @@ ActiveRecord::Schema.define(version: 2022_02_07_201005) do
     t.column "need_rating", "enum('Required','High','Medium','Low','NA','')"
     t.string "user_comments", limit: 80
     t.column "status", "enum('Pending approval','Approved','Cancelled','Rejected')", default: "Pending approval"
-    t.integer "manual_people", default: 0
-    t.decimal "ManualRate", precision: 10, scale: 4, default: "0.0"
-    t.decimal "manual_units", precision: 10, scale: 4, default: "0.0"
+    t.integer "count", default: 0
+    t.decimal "rate", precision: 10, scale: 4, default: "0.0"
+    t.decimal "manual_units_of_time", precision: 10, scale: 4, default: "0.0"
     t.boolean "invoice_now", default: true
     t.datetime "created_at"
     t.datetime "updated_at"
