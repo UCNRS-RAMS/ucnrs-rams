@@ -205,11 +205,11 @@ GEM
     multipart-post (2.1.1)
     mysql2 (0.5.3)
     nio4r (2.5.8)
-    nokogiri (1.12.5-arm64-darwin)
+    nokogiri (1.13.3-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.12.5-x86_64-darwin)
+    nokogiri (1.13.3-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.12.5-x86_64-linux)
+    nokogiri (1.13.3-x86_64-linux)
       racc (~> 1.4)
     octokit (4.21.0)
       faraday (>= 0.9)
@@ -438,7 +438,7 @@ DEPENDENCIES
   listen (~> 3.3)
   lol_dba
   mysql2 (~> 0.5)
-  nokogiri (~> 1.12.5)
+  nokogiri (~> 1.13.2)
   okcomputer
   pronto
   pronto-brakeman
