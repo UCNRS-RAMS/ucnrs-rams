@@ -1,27 +1,36 @@
 <header>
   <h1 class="main-header"><%= t(".visit_summary") %></h1>
   <div class="subheader">
+    <span><%= presenter.applicant_name %></span>
     <span><%= t(".request_submitted") %>: <%= presenter.submitted_at %></span>
     <span><%= link_to t(".edit_visit"), "#" %></span>
   </div>
 </header>
 <section class="visit-summary">
-    <table class="visit-summary-table">
-      <tr>
-        <td><%= t(".reserve") %></td>
-        <td><%= presenter.reserve_name %></td>
-      </tr>
-      <tr>
-        <td><%= t(".arrival_and_departure") %></td>
-        <td><%= presenter.timeframe %></td>
-      </tr>
-      <tr>
-        <td><%= t(".purpose") %></td>
-        <td><%= presenter.purpose_of_visit %></td>
-      </tr>
-      <tr>
-        <td><%= t(".project") %></td>
-        <td><%= presenter.project_title %></td>
-      </tr>
-    </table>
+  <table class="visit-summary-table">
+    <tr>
+      <td><%= t(".reserve") %></td>
+      <td><%= presenter.visit_reserve_name %></td>
+    </tr>
+    <tr>
+      <td><%= t(".arrival_and_departure") %></td>
+      <td><%= presenter.timeframe %></td>
+    </tr>
+    <tr>
+      <td><%= t(".purpose") %></td>
+      <td><%= presenter.purpose_of_visit %></td>
+    </tr>
+    <tr>
+      <td><%= t(".project") %></td>
+      <td><%= link_to presenter.project_title, project_path(presenter.project_id) %></td>
+    </tr>
+  </table>
+</section>
+<section class="visit-visitors">
+  <h2 class="main-header"><%= t(".visitors", size: presenter.visitor_count) %></h2>
+  <%= render partial: "visits/visitors_summary", locals: { presenter: presenter } %>
+</section>
+<section class="visit-amenities">
+  <h2 class="main-header"><%= t(".amenities", size: presenter.amenity_count) %></h2>
+  <%= render partial: "visits/amenities_summary", locals: { presenter: presenter } %>
 </section>

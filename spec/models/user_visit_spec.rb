@@ -4,6 +4,7 @@ RSpec.describe UserVisit, type: :model do
   describe "associations" do
     it { is_expected.to belong_to(:visit) }
     it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:institution) }
   end
 
   describe "#arrival_date" do

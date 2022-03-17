@@ -16,6 +16,11 @@ RSpec.describe VisitShowPresenter do
     it { is_expected.to delegate_method(:image_placeholder).to(:visit_reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:managing_campus).to(:visit_reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:reserve_alert_message).to(:visit_reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:rules).to(:visit_reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:rules_url).to(:visit_reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:id).to(:visit).with_prefix(true) }
+    it { is_expected.to delegate_method(:title).to(:project).with_prefix(true) }
+    it { is_expected.to delegate_method(:project_type).to(:project).with_prefix(true) }
     it { is_expected.to delegate_missing_methods_to(:visit) }
   end
 
@@ -25,6 +30,26 @@ RSpec.describe VisitShowPresenter do
       presenter = VisitShowPresenter.new(visit)
 
       expect(presenter.sidebar_partial_name).to eq "visits/sidebar_approved_show"
+    end
+  end
+
+  describe "#content_partial_name" do
+    context "when the visit status is approved" do
+      it "returns the content partial path visits/content_approved_show" do
+        visit = create(:visit, status: :approved)
+        presenter = VisitShowPresenter.new(visit)
+
+        expect(presenter.content_partial_name).to eq "visits/content_approved_show"
+      end
+    end
+
+    context "when the visit status is not approved" do
+      it "returns the content partial path visits/content_show" do
+        visit = create(:visit, status: :in_review)
+        presenter = VisitShowPresenter.new(visit)
+
+        expect(presenter.content_partial_name).to eq "visits/content_show"
+      end
     end
   end
 
@@ -42,6 +67,16 @@ RSpec.describe VisitShowPresenter do
         reserve_personnel[1].id,
         reserve_personnel[2].id,
       ]
+    end
+  end
+
+  describe "#applicant_name" do
+    it "returns the full name of the user applicant for the visit" do
+      user = create(:user, first_name: "Homer", last_name: "Simpson")
+      visit = create(:visit, user: user)
+      presenter = VisitShowPresenter.new(visit)
+
+      expect(presenter.applicant_name).to eq "Homer Simpson"
     end
   end
 
@@ -63,6 +98,103 @@ RSpec.describe VisitShowPresenter do
       presenter = VisitShowPresenter.new(visit)
 
       expect(presenter.timeframe).to eq "Nov. 24, 2004 at  1:04 AM - Nov. 25, 2004 at  1:04 AM"
+    end
+  end
+
+  describe "#project_type" do
+    it "display formated string of the visit project type" do
+      project = create(:project, project_type: :research)
+      visit = create(:visit, project: project)
+      presenter = VisitShowPresenter.new(visit)
+
+      expect(presenter.project_type).to eq "Research Project"
+    end
+  end
+
+  describe "#visitor_count" do
+    it "display the sum count of all the user_visit" do
+      visit = create(:visit)
+      create(:user_visit, visit: visit, count: 1)
+      create(:user_visit, visit: visit, count: 2)
+      create(:user_visit, visit: visit, count: 3)
+      presenter = VisitShowPresenter.new(visit)
+
+      expect(presenter.visitor_count).to eq 6
+    end
+  end
+
+  describe "#amenity_count" do
+    #visit.amenity_visits.pluck(:amenity_id).uniq.length
+    it "display the sum of all the unique amenity_visit" do
+      visit = create(:visit)
+      amenity1 = create(:amenity)
+      amenity2 = create(:amenity)
+      create(:amenity_visit, visit: visit, amenity: amenity1)
+      create(:amenity_visit, visit: visit, amenity: amenity2)
+      create(:amenity_visit, visit: visit, amenity: amenity1)
+      presenter = VisitShowPresenter.new(visit)
+
+      expect(presenter.amenity_count).to eq 2
+    end
+  end
+
+  describe "#user_visits" do
+    it "creates a UserVisitPresenter for each visit user_visit" do
+      visit = create(:visit)
+      user_visit = create_list(:user_visit, 3, visit: visit)
+      presenter = VisitShowPresenter.new(visit)
+
+      results = presenter.user_visits
+
+      expect(results.map(&:id)).to eq [
+        user_visit[0].id,
+        user_visit[1].id,
+        user_visit[2].id,
+      ]
+    end
+  end
+
+  describe "#amenity_visits" do
+    it "creates a AmenityVisitPresenter for each visit amenity_visit" do
+      visit = create(:visit)
+      amenity_visit = create_list(:amenity_visit, 3, visit: visit)
+      presenter = VisitShowPresenter.new(visit)
+
+      results = presenter.amenity_visits
+
+      expect(results.map(&:id)).to eq [
+        amenity_visit[0].id,
+        amenity_visit[1].id,
+        amenity_visit[2].id,
+      ]
+    end
+  end
+
+  describe "#reserve_waivers" do
+    it "creates a WaiverPresenter for each visit reserve waiver" do
+      reserve = create(:reserve)
+      waiver = create_list(:waiver, 3, reserves: [reserve])
+      visit = create(:visit, reserve: reserve)
+      presenter = VisitShowPresenter.new(visit)
+
+      results = presenter.reserve_waivers
+
+      expect(results.map(&:id)).to eq [
+        waiver[0].id,
+        waiver[1].id,
+        waiver[2].id,
+      ]
+    end
+  end
+
+  describe "#amenities_total" do
+    it "display the total of all the amenity_visits subtotal amount" do
+      visit = create(:visit)
+      create(:amenity_visit, visit: visit, number_of_people: 10, manual_units_of_time: 10, rate: 10)
+      create(:amenity_visit, visit: visit, number_of_people: 10, manual_units_of_time: 10, rate: 10)
+      presenter = VisitShowPresenter.new(visit)
+
+      expect(presenter.amenities_total).to eq "$2000.00"
     end
   end
 end

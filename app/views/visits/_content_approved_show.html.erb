@@ -1,14 +1,27 @@
-<header>
+<header class="<%= presenter.status %>">
   <h1 class="main-header"><%= t(".visit_summary") %></h1>
   <h2 class="timeframe"><%= presenter.timeframe %></h2>
   <div class="information">
-    <span><%= presenter.reserve_name %></span>
+    <span><%= presenter.visit_reserve_name %></span>
     <span><%= presenter.project_type %></span>
     <span><%= t('.visitor').pluralize presenter.visitor_count %>: <%= presenter.visitor_count %></span>
     <span><%= t('.amenity').pluralize presenter.amenity_count %>: <%= presenter.amenity_count %></span>
   </div>
   <div class="subheader">
-    <span><%= link_to 'export to calendar', "#", class: "button button-clear" %></span>
     <span><%= link_to t(".edit_visit"), "#" %></span>
   </div>
 </header>
+<section class="visit-waivers">
+  <h2 class="title"><%= t(".waivers") %></h2>
+  <div class="reserve-waivers">
+    <%= render partial: "reserves/waivers/waiver", collection: presenter.reserve_waivers %>
+  </div>
+</section>
+<section>
+  <h2 class="title"><%= t(".rules") %></h2>
+  <p class="description"><%= simple_format presenter.visit_reserve_rules %></p>
+  <%= link_to t(".link"), presenter.visit_reserve_rules_url.to_s %>
+</section>
+<section>
+  <h2 class="title"><%= t(".map") %></h2>
+</section>

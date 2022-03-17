@@ -1,0 +1,19 @@
+<table id="amenities-summary-table" class="summary-table">
+  <thead>
+    <tr>
+      <th><%= t(".name") %></th>
+      <th><%= t(".rate") %></th>
+      <th><%= t(".count") %></th>
+      <th><%= t(".cost") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render partial: "visits/amenity_visit", collection: presenter.amenity_visits %>
+    <tr class="amenity-total">
+      <td></td>
+      <td></td>
+      <td><%= t(".total") %></td>
+      <td><strong><%= presenter.amenities_total %></strong></td>
+    </tr>
+  </tbody>
+</table>

@@ -10,4 +10,20 @@ class AmenityVisit < ApplicationRecord
   def amenity_visit_id=(value)
     self.id = value
   end
+
+  def calc_units_of_time
+    ApplicationController.helpers.num_of_units(
+        self.arrives,
+        self.departs,
+        amenity.time_type,
+    )
+  end
+
+  def real_units_of_time
+    self.manual_units_of_time.zero? || self.manual_units_of_time.blank? ? calc_units_of_time : self.manual_units_of_time
+  end
+
+  def subtotal
+    self.number_of_people * real_units_of_time * self.rate
+  end
 end

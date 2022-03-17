@@ -3,6 +3,7 @@
   <h2 class="main-header"><%= t(".sidebar_title") %></h2>
   <p><%= t(".sidebar_next_steps") %></p>
 </header>
+<span><%= link_to 'export to calendar', "#", class: "button button-clear" %></span>
 <section class="reserve-info">
   <hr />
   <%= image_tag @presenter.visit_reserve_avatar, alt: t(".alt_text.reserve_logo") %>

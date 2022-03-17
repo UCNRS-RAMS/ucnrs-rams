@@ -13,7 +13,7 @@ RSpec.describe "show.html.erb" do
       expect(doc).to have_css("section.sidebar")
     end
 
-    it "includes content top" do
+    it "includes content" do
       visit = create(:visit, status: "in_review")
       assign(:presenter, VisitShowPresenter.new(visit))
 
@@ -22,8 +22,6 @@ RSpec.describe "show.html.erb" do
       doc = Capybara.string(rendered)
 
       expect(doc).to have_css("section.content")
-      expect(doc).to have_css("table.visit-summary-table")
-      expect(doc).to have_css("a", text: "Edit Visit")
     end
   end
 
@@ -39,6 +37,19 @@ RSpec.describe "show.html.erb" do
 
         expect(doc).to have_css("header.in_review")
       end
+
+      it "display in_review content" do
+        visit = create(:visit, status: "in_review")
+        assign(:presenter, VisitShowPresenter.new(visit))
+
+        render template: "visits/show"
+
+        doc = Capybara.string(rendered)
+
+        expect(doc).to have_css("section.visit-summary")
+        expect(doc).to have_css("section.visit-visitors")
+        expect(doc).to have_css("section.visit-amenities")
+      end
     end
 
     context "when status is approved" do
@@ -51,6 +62,17 @@ RSpec.describe "show.html.erb" do
         doc = Capybara.string(rendered)
 
         expect(doc).to have_css("header.approved")
+      end
+
+      it "display approved content" do
+        visit = create(:visit, status: "approved")
+        assign(:presenter, VisitShowPresenter.new(visit))
+
+        render template: "visits/show"
+
+        doc = Capybara.string(rendered)
+
+        expect(doc).to have_css("section.visit-waivers")
       end
     end
 
@@ -65,6 +87,19 @@ RSpec.describe "show.html.erb" do
 
         expect(doc).to have_css("header.cancelled")
       end
+
+      it "display cancelled content" do
+        visit = create(:visit, status: "cancelled")
+        assign(:presenter, VisitShowPresenter.new(visit))
+
+        render template: "visits/show"
+
+        doc = Capybara.string(rendered)
+
+        expect(doc).to have_css("section.visit-summary")
+        expect(doc).to have_css("section.visit-visitors")
+        expect(doc).to have_css("section.visit-amenities")
+      end
     end
 
     context "when status is denied" do
@@ -77,6 +112,19 @@ RSpec.describe "show.html.erb" do
         doc = Capybara.string(rendered)
 
         expect(doc).to have_css("header.denied")
+      end
+
+      it "display denied content" do
+        visit = create(:visit, status: "denied")
+        assign(:presenter, VisitShowPresenter.new(visit))
+
+        render template: "visits/show"
+
+        doc = Capybara.string(rendered)
+
+        expect(doc).to have_css("section.visit-summary")
+        expect(doc).to have_css("section.visit-visitors")
+        expect(doc).to have_css("section.visit-amenities")
       end
     end
   end
