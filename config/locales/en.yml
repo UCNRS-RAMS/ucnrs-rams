@@ -430,11 +430,27 @@ en:
       arrival_and_departure: "Arrival and Departure"
       purpose: "Purpose"
       project: "Project"
+      visitors: "Visitors (%{size})"
+      amenities: "Amenities (%{size})"
     content_approved_show:
       visit_summary: "Visit Summary"
       edit_visit: "Edit Visit"
       visitor: "Visitor"
       amenity: "Amenity"
+      waivers: "Waivers"
+      rules: "Rules"
+      map: "Map"
+      link: "Link"
+    visitors_summary:
+      name: "Name"
+      institution: "Institution"
+      project_role: "Role"
+    amenities_summary:
+      name: "Name"
+      rate: "Rate"
+      count: "Count"
+      cost: "Cost"
+      total: "Total"
   reserve_inputs:
     show:
       labels:

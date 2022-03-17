@@ -66,6 +66,18 @@
           font-weight: $semi-bold;
         }
       }
+
+      .summary-table {
+        tr.amenity-total {
+          td {
+            border-bottom: none;
+            padding-top: 1.5rem;
+          }
+          td:nth-last-child(2) {
+            text-align: right;
+          }
+        }
+      }
     }
   }
 

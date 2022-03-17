@@ -3,10 +3,10 @@ require "rails_helper"
 RSpec.describe UserVisitPresenter do
   describe "delegations" do
     subject { UserVisitPresenter.new(create(:user_visit)) }
-    it { is_expected.to delegate_method(:id).to(:user_visit) }
-    it { is_expected.to delegate_method(:status).to(:user_visit) }
-    it { is_expected.to delegate_method(:arrives_at).to(:user_visit) }
-    it { is_expected.to delegate_method(:departs_at).to(:user_visit) }
+    it { is_expected.to delegate_method(:full_name).to(:user).with_prefix(true) }
+    it { is_expected.to delegate_method(:email).to(:user).with_prefix(true) }
+    it { is_expected.to delegate_method(:name).to(:institution).with_prefix(true) }
+    it { is_expected.to delegate_missing_methods_to(:user_visit) }
   end
 
   describe "#requested_date_range" do

@@ -18,7 +18,12 @@ class VisitShowPresenter
     :image_placeholder,
     :managing_campus,
     :reserve_alert_message,
+    :rules,
+    :rules_url,
     to: :visit_reserve, prefix: true
+
+  delegate :id, to: :visit, prefix: true
+  delegate :title, :project_type, to: :project, prefix: true
 
   delegate_missing_to :visit
 
@@ -40,11 +45,9 @@ class VisitShowPresenter
     end
   end
 
-  delegate :id, to: :visit, prefix: true
-  delegate :name, to: :reserve, prefix: true
-  delegate :title, :project_type, to: :project, prefix: true
-
-  delegate_missing_to :visit
+  def applicant_name
+    user.full_name
+  end
 
   def submitted_at
     visit.submitted_at ? I18n.l(visit.submitted_at, format: :visit_summary_time) : ""
@@ -63,11 +66,33 @@ class VisitShowPresenter
   end
 
   def visitor_count
-    user_visits.sum(&:count)
+    visit.user_visits.sum(&:count)
   end
 
   def amenity_count
-    amenity_visits.pluck(:amenity_id).uniq.length
+    visit.amenity_visits.pluck(:amenity_id).uniq.length
+  end
+
+  def user_visits
+    visit.user_visits.includes([:user, :institution]).map do |user_visit|
+      UserVisitPresenter.new(user_visit)
+    end
+  end
+
+  def amenity_visits
+    visit.amenity_visits.includes([:amenity]).map do |amenity_visit|
+      AmenityVisitPresenter.new(amenity_visit)
+    end
+  end
+
+  def reserve_waivers
+    reserve.waivers.map do |waiver|
+      WaiverPresenter.new(waiver)
+    end
+  end
+
+  def amenities_total
+    "$#{value(amenity_visits.sum(&:subtotal))}"
   end
 
   private
@@ -78,11 +103,19 @@ class VisitShowPresenter
     ReservePresenter.new(reserve)
   end
 
+  def project
+    visit.project
+  end
+
   def visit_timeframe_present?
     starts_at.present? && starts_at.present?
   end
 
   def not_applicable
     I18n.t(".projects.project.not_applicable")
+  end
+
+  def value(num)
+    "%0.2f" % [num]
   end
 end

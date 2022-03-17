@@ -46,7 +46,7 @@
       }
     }
 
-    a:last-of-type {
+    .reserve-info a:last-of-type {
       margin-bottom: 3rem;
     }
 
@@ -103,6 +103,10 @@
       margin-bottom: .55rem;
     }
 
+    h2.title {
+      margin-bottom: .45rem;
+    }
+
     h3 {
       font-weight: $semi-bold;
     }
@@ -126,6 +130,14 @@
         margin: 0 1.25rem;
         width: 1px;
       }
+    }
+
+    p.description {
+      line-height: 1.5rem;
+    }
+
+    p.description:first-of-type {
+      margin-top: 0;
     }
   }
 }

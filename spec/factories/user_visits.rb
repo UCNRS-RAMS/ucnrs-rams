@@ -5,5 +5,6 @@ FactoryBot.define do
 
     association :visit
     association :user
+    association :institution
   end
 end
