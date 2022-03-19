@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_25_121657) do
+ActiveRecord::Schema.define(version: 2022_03_18_201951) do
 
   create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id"
@@ -176,8 +176,8 @@ ActiveRecord::Schema.define(version: 2022_02_25_121657) do
   end
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "name", null: false, collation: "utf8_general_ci"
-    t.string "record_type", null: false, collation: "utf8_general_ci"
+    t.string "name", null: false
+    t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
@@ -186,12 +186,12 @@ ActiveRecord::Schema.define(version: 2022_02_25_121657) do
   end
 
   create_table "active_storage_blobs", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "key", null: false, collation: "utf8_general_ci"
-    t.string "filename", null: false, collation: "utf8_general_ci"
-    t.string "content_type", collation: "utf8_general_ci"
-    t.text "metadata", collation: "utf8_general_ci"
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
     t.bigint "byte_size", null: false
-    t.string "checksum", null: false, collation: "utf8_general_ci"
+    t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
@@ -305,7 +305,7 @@ ActiveRecord::Schema.define(version: 2022_02_25_121657) do
     t.text "permit_number"
     t.date "issued_on"
     t.date "expires_on"
-    t.string "vertebrates", collation: "utf8_general_ci"
+    t.string "vertebrates"
     t.text "answer"
     t.index ["project_id", "reserve_permit_id"], name: "Applications"
     t.index ["project_id"], name: "reserve"
@@ -398,18 +398,18 @@ ActiveRecord::Schema.define(version: 2022_02_25_121657) do
   end
 
   create_table "logs", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.text "text", collation: "utf8_general_ci"
-    t.string "type", collation: "utf8_general_ci"
+    t.text "text"
+    t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "logx", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "action"
-    t.text "metadata", collation: "utf8_general_ci"
-    t.text "log", collation: "utf8_general_ci"
+    t.text "metadata"
+    t.text "log"
     t.text "comment"
-    t.string "record_type", null: false, collation: "utf8_general_ci"
+    t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "record_about_id"
     t.string "record_about_type"
@@ -485,7 +485,7 @@ ActiveRecord::Schema.define(version: 2022_02_25_121657) do
     t.index ["state_id"], name: "index_permits_on_state_id"
   end
 
-  create_table "project_permit_answers", charset: "utf8mb3", force: :cascade do |t|
+  create_table "project_permit_answers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "project_id", null: false, unsigned: true
     t.integer "permit_id", null: false, unsigned: true
     t.boolean "answer", null: false
@@ -605,11 +605,11 @@ ActiveRecord::Schema.define(version: 2022_02_25_121657) do
   end
 
   create_table "rams_options", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "option_name", collation: "utf8_general_ci"
-    t.text "option_value", collation: "utf8_general_ci"
+    t.string "option_name"
+    t.text "option_value"
   end
 
-  create_table "reserve_addendums", charset: "utf8mb3", force: :cascade do |t|
+  create_table "reserve_addendums", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "reserve_id", null: false
     t.integer "sort_order", default: 1, null: false
     t.string "url_link"
@@ -1024,8 +1024,8 @@ ActiveRecord::Schema.define(version: 2022_02_25_121657) do
 
   create_table "waivers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
-    t.text "description", collation: "utf8_general_ci"
-    t.string "url", collation: "utf8_general_ci"
+    t.text "description"
+    t.string "url"
     t.integer "years_to_expiration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
