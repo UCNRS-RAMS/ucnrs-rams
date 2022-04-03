@@ -10,76 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_18_201951) do
-
-  create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "reserve_id"
-    t.column "ReferenceType", "enum('Audiovisual Material','Book','Book Section','Computer Program','Conference Proceedings','Ecological Studies','Edited Book','Electronic Source','Generic','Journal Article','Magazine Article','Manuscript','Map','Newspaper Article','Personal Communication','Report','Thesis')"
-    t.string "Author"
-    t.string "Year"
-    t.string "Title"
-    t.string "SecondaryAuthor"
-    t.string "SecondaryTitle"
-    t.string "PlacePublished"
-    t.string "Publisher"
-    t.string "Volume"
-    t.string "NumberOfVolumes"
-    t.string "Number"
-    t.string "Pages"
-    t.string "Section"
-    t.string "Edition"
-    t.string "Date"
-    t.string "TypeOfWork"
-    t.string "ShortTitle"
-    t.string "ISBN"
-    t.string "OriginalPublication"
-    t.string "ReprintEdition"
-    t.string "ReviewedItem"
-    t.string "CallNumber"
-    t.string "AccessionNumber"
-    t.string "Keywords"
-    t.text "Abstract"
-    t.text "Notes"
-    t.string "URL"
-    t.text "AuthorAddress"
-    t.index ["reserve_id"], name: "reserve"
-  end
-
-  create_table "ARParts", primary_key: "AnnualReportID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "reserve_id", null: false
-    t.integer "Year"
-    t.column "YearOld", "enum('2000-01','2001-02','2002-03','2003-04','2004-05','2005-06','2006-07','2007-08','2008-09','2009-10','2010-11','2011-12','2012-13','2013-14','2014-15','2015-16','2016-17','2017-18','2018-19','2019-20')"
-    t.text "Part5Publications", size: :long
-    t.text "Part6Narrative", size: :long
-    t.text "Part7CampusCommittee"
-    t.boolean "ApprovedPart1", default: false, null: false, comment: "Boolean"
-    t.boolean "ApprovedPart2", default: false, null: false, comment: "Boolean"
-    t.boolean "ApprovedPart3", default: false, null: false, comment: "Boolean"
-    t.boolean "ApprovedPart4", default: false, null: false, comment: "Boolean"
-    t.boolean "ApprovedPart5", default: false, null: false, comment: "Boolean"
-    t.boolean "ApprovedPart6", default: false, null: false, comment: "Boolean"
-    t.boolean "ApprovedPart7", default: false, null: false, comment: "Boolean"
-    t.text "Part6NarrativeFile"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["reserve_id", "YearOld"], name: "reserve_year"
-  end
-
-  create_table "ActAnswers", primary_key: "ResAnswerID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "ResQuestionID", null: false
-    t.integer "visit_id", null: false
-    t.boolean "BooleanAnswer", comment: "Boolean"
-    t.text "TextAnswer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["ResQuestionID", "visit_id"], name: "Question"
-    t.index ["visit_id", "ResQuestionID"], name: "visit"
-  end
-
-  create_table "Disciplines", primary_key: "DisciplineID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "DisciplineName", limit: 50, default: "Other", null: false
-    t.string "DisciplineCategory", limit: 50, default: "Other", null: false
-  end
+ActiveRecord::Schema.define(version: 2022_04_03_032538) do
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
@@ -96,83 +27,6 @@ ActiveRecord::Schema.define(version: 2022_03_18_201951) do
     t.integer "DaysOnReserve", null: false
     t.string "DataCollectionInterval", limit: 100, null: false, comment: "How often is the data collected"
     t.date "DateOfDeployment", default: "1900-01-01", null: false
-  end
-
-  create_table "GrantPIs", primary_key: "GrantPIID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "GrantID"
-    t.integer "user_id"
-    t.integer "institution_id"
-    t.index ["GrantID"], name: "Grants"
-    t.index ["institution_id"], name: "Institution"
-    t.index ["user_id"], name: "user"
-  end
-
-  create_table "InvPayments", primary_key: "PaymentID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "InvoiceID", null: false
-    t.integer "visit_id"
-    t.integer "user_id"
-    t.decimal "Amount", precision: 10, scale: 2
-    t.date "Date"
-    t.column "PaymentType", "enum('cash','check','credit card','debit card','campus','purchase order','pay later','no charge','inter-campus recharge','no selection made','')"
-    t.string "Notes"
-    t.string "PayorName", limit: 50
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["Date"], name: "Date"
-    t.index ["InvoiceID"], name: "InvoiceID"
-  end
-
-  create_table "InvPaymentsTemp", primary_key: "InvPaymentsTempID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "visit_id"
-    t.integer "user_id"
-    t.decimal "Amount", precision: 10, scale: 2
-    t.date "Date"
-    t.string "Notes", default: ""
-    t.string "PayorName", limit: 50, default: ""
-    t.column "PaymentType", "enum('cash','check','credit card','debit card','campus','purchase order','pay later','no charge','inter-campus recharge','no selection made','')"
-    t.text "session_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "InvRecipients", primary_key: "InvRecipientID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "InvoiceID", null: false
-    t.integer "user_id", null: false
-    t.integer "visit_id"
-    t.index ["InvoiceID"], name: "Invoice"
-    t.index ["user_id"], name: "user"
-    t.index ["visit_id"], name: "visit"
-  end
-
-  create_table "InvoicesEdit", primary_key: "InvoicesEditID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "InvoiceID"
-    t.integer "EditNumber", unsigned: true
-    t.timestamp "EditDate"
-    t.text "EditReason"
-  end
-
-  create_table "InvoicesTemp", primary_key: "InvoiceTempID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "InvoiceID", null: false
-    t.integer "visit_id", null: false
-    t.integer "amenity_visit_id"
-    t.integer "InvoiceNow", default: 1
-    t.decimal "BalanceDue", precision: 10, scale: 2
-  end
-
-  create_table "InvoicesTransition", primary_key: "InvoiceID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "visit_id"
-    t.integer "reserve_id"
-    t.date "InvoiceDate"
-    t.text "Notes"
-    t.integer "Modified"
-    t.integer "Voided", limit: 1, default: 0
-    t.string "CommentReVoiding", default: "", comment: "The previous invoice with this number has been voided and should not be paid.  Please pay this replacement invoice instead."
-    t.boolean "complete", default: false, comment: "If Invoice is created and processed this is true"
-    t.integer "r2ReserveIDTemp"
-    t.decimal "RAMS1BilledAmount", precision: 10, scale: 2
-    t.index ["InvoiceID"], name: "InvoiceID"
-    t.index ["reserve_id", "visit_id", "InvoiceID"], name: "ReservePlus"
-    t.index ["visit_id"], name: "visit"
   end
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -299,6 +153,27 @@ ActiveRecord::Schema.define(version: 2022_03_18_201951) do
     t.index ["visit_id"], name: "visit"
   end
 
+  create_table "annual_reports", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", comment: "renamed from ARParts.", force: :cascade do |t|
+    t.integer "reserve_id", null: false
+    t.integer "fiscal_year_ending", null: false
+    t.column "year_old", "enum('2000-01','2001-02','2002-03','2003-04','2004-05','2005-06','2006-07','2007-08','2008-09','2009-10','2010-11','2011-12','2012-13','2013-14','2014-15','2015-16','2016-17','2017-18','2018-19','2019-20')", comment: "DEPRECATED"
+    t.text "part_5_publications", size: :long
+    t.text "part_6_narrative", size: :long
+    t.text "part_7_campus_committee"
+    t.boolean "part_1_approved", default: false, null: false, comment: "Boolean"
+    t.boolean "part_2_approved", default: false, null: false, comment: "Boolean"
+    t.boolean "part_3_approved", default: false, null: false, comment: "Boolean"
+    t.boolean "part_4_approved", default: false, null: false, comment: "Boolean"
+    t.boolean "part_5_approved", default: false, null: false, comment: "Boolean"
+    t.boolean "part_6_approved", default: false, null: false, comment: "Boolean"
+    t.boolean "part_7_approved", default: false, null: false, comment: "Boolean"
+    t.text "part_6_narrative_file"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["reserve_id", "fiscal_year_ending"], name: "unique_reserve_annual_reports", unique: true
+    t.index ["reserve_id", "year_old"], name: "reserve_year"
+  end
+
   create_table "application_permit_answers", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", comment: "Obsolete table, use project_permit_answers.", force: :cascade do |t|
     t.integer "reserve_permit_id", null: false
     t.integer "project_id"
@@ -322,6 +197,20 @@ ActiveRecord::Schema.define(version: 2022_03_18_201951) do
     t.string "code", limit: 2
     t.string "subunit", default: "-"
     t.index ["name"], name: "name"
+  end
+
+  create_table "disciplines", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name", limit: 50, default: "Other", null: false
+    t.string "category", limit: 50, default: "Other", null: false
+  end
+
+  create_table "funding_principal_investigators", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", comment: "Obsolete table.", force: :cascade do |t|
+    t.integer "funding_id"
+    t.integer "user_id"
+    t.integer "institution_id"
+    t.index ["funding_id"], name: "funding_id"
+    t.index ["institution_id"], name: "Institution"
+    t.index ["user_id"], name: "user"
   end
 
   create_table "fundings", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -377,23 +266,84 @@ ActiveRecord::Schema.define(version: 2022_03_18_201951) do
     t.index ["name"], name: "name"
   end
 
-  create_table "invoices", primary_key: "InvoiceID", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "visit_id", null: false
-    t.date "InvoiceDate"
-    t.text "Notes"
-    t.integer "Modified", default: 0, unsigned: true
-    t.boolean "Voided", default: false
-    t.string "CommentReVoiding", default: "", comment: "The previous invoice with this number has been voided and should not be paid.  Please pay this replacement invoice instead."
-    t.boolean "complete", default: false, comment: "If Invoice is created and processed this is true"
-    t.integer "r2ReserveIDTemp"
-    t.decimal "RAMS1BilledAmount", precision: 10, scale: 2
-    t.boolean "PaymentStatus", default: false, comment: "Status of Payment"
-    t.decimal "BalanceDue", precision: 10, scale: 2, comment: "This is a field that contains the balance due of the invoice. It's only purpose is to make sorting by balance due faster. Do not trust this field when calculating real balance due, calculate it from the InvAssetReservation directly. "
-    t.text "InvoiceSentNotes"
+  create_table "invoice_payments", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "invoice_id", null: false
+    t.integer "user_id"
+    t.decimal "amount", precision: 10, scale: 2
+    t.date "paid_on"
+    t.column "payment_type", "enum('cash','check','credit card','debit card','campus','purchase order','pay later','no charge','inter-campus recharge','no selection made','')"
+    t.string "notes"
+    t.string "payor", limit: 50
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["InvoiceID"], name: "InvoiceID"
-    t.index ["visit_id", "InvoiceID"], name: "ReservePlus"
+    t.index ["invoice_id"], name: "invoice_id"
+    t.index ["paid_on"], name: "Date"
+  end
+
+  create_table "invoice_payments_temporary", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "visit_id"
+    t.integer "user_id"
+    t.decimal "amount", precision: 10, scale: 2
+    t.date "paid_on"
+    t.string "notes", default: ""
+    t.string "payor", limit: 50, default: ""
+    t.column "payment_type", "enum('cash','check','credit card','debit card','campus','purchase order','pay later','no charge','inter-campus recharge','no selection made','')"
+    t.text "session_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "invoice_recipients", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "invoice_id", null: false
+    t.integer "user_id", null: false
+    t.integer "visit_id"
+    t.index ["invoice_id"], name: "invoice"
+    t.index ["user_id"], name: "user"
+    t.index ["visit_id"], name: "visit"
+  end
+
+  create_table "invoices", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "visit_id", null: false
+    t.date "invoiced_on"
+    t.text "notes"
+    t.integer "modify_number", default: 0, unsigned: true
+    t.decimal "rams1_billed_amount", precision: 10, scale: 2
+    t.decimal "balance_due", precision: 10, scale: 2, comment: "This is a field that contains the balance due of the invoice. It's only purpose is to make sorting by balance due faster. Do not trust this field when calculating real balance due, calculate it from the InvAssetReservation directly. "
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["id"], name: "InvoiceID"
+    t.index ["visit_id", "id"], name: "ReservePlus"
+    t.index ["visit_id"], name: "visit"
+  end
+
+  create_table "invoices_edit", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", comment: "Obsolete table.", force: :cascade do |t|
+    t.integer "invoice_id"
+    t.integer "edit_number", unsigned: true
+    t.timestamp "edited_on"
+    t.text "reason"
+  end
+
+  create_table "invoices_temporary", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", comment: "Obsolete table.", force: :cascade do |t|
+    t.integer "invoice_id", null: false
+    t.integer "visit_id", null: false
+    t.integer "amenity_visit_id"
+    t.integer "invoice_now", default: 1
+    t.decimal "balance_due", precision: 10, scale: 2
+  end
+
+  create_table "invoices_transition", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", comment: "Obsolete table.", force: :cascade do |t|
+    t.integer "visit_id"
+    t.integer "reserve_id"
+    t.date "InvoiceDate"
+    t.text "notes"
+    t.integer "modified"
+    t.integer "voided", limit: 1, default: 0
+    t.string "voided_comment", default: "", comment: "The previous invoice with this number has been voided and should not be paid.  Please pay this replacement invoice instead."
+    t.boolean "complete", default: false, comment: "If Invoice is created and processed this is true"
+    t.integer "r2_reserve_id_temp"
+    t.decimal "rams1_billed_amount", precision: 10, scale: 2
+    t.index ["id"], name: "InvoiceID"
+    t.index ["reserve_id", "visit_id", "id"], name: "ReservePlus"
     t.index ["visit_id"], name: "visit"
   end
 
@@ -602,6 +552,39 @@ ActiveRecord::Schema.define(version: 2022_03_18_201951) do
     t.index ["reserve_id"], name: "reserve_id"
     t.index ["start_date"], name: "project_start_date"
     t.index ["status", "reserve_id", "id"], name: "project_status"
+  end
+
+  create_table "publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", comment: "Obsolete table.", force: :cascade do |t|
+    t.integer "reserve_id"
+    t.column "ReferenceType", "enum('Audiovisual Material','Book','Book Section','Computer Program','Conference Proceedings','Ecological Studies','Edited Book','Electronic Source','Generic','Journal Article','Magazine Article','Manuscript','Map','Newspaper Article','Personal Communication','Report','Thesis')"
+    t.string "Author"
+    t.string "Year"
+    t.string "Title"
+    t.string "SecondaryAuthor"
+    t.string "SecondaryTitle"
+    t.string "PlacePublished"
+    t.string "Publisher"
+    t.string "Volume"
+    t.string "NumberOfVolumes"
+    t.string "Number"
+    t.string "Pages"
+    t.string "Section"
+    t.string "Edition"
+    t.string "Date"
+    t.string "TypeOfWork"
+    t.string "ShortTitle"
+    t.string "ISBN"
+    t.string "OriginalPublication"
+    t.string "ReprintEdition"
+    t.string "ReviewedItem"
+    t.string "CallNumber"
+    t.string "AccessionNumber"
+    t.string "Keywords"
+    t.text "Abstract"
+    t.text "Notes"
+    t.string "URL"
+    t.text "AuthorAddress"
+    t.index ["reserve_id"], name: "reserve"
   end
 
   create_table "rams_options", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -979,6 +962,18 @@ ActiveRecord::Schema.define(version: 2022_03_18_201951) do
     t.index ["last_name", "first_name", "middle_name"], name: "Name"
     t.index ["last_name", "first_name"], name: "Group"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "visit_reserve_answers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "reserve_question_id", null: false
+    t.integer "visit_id", null: false
+    t.boolean "boolean_answer", comment: "Boolean"
+    t.text "text_answer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["reserve_question_id", "visit_id"], name: "Question"
+    t.index ["visit_id", "reserve_question_id"], name: "unique_visit_reserve_answers", unique: true
+    t.index ["visit_id", "reserve_question_id"], name: "visit"
   end
 
   create_table "visits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
