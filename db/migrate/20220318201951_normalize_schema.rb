@@ -75,7 +75,7 @@ class NormalizeSchema < ActiveRecord::Migration[6.1]
     end_sql
 
     execute(<<-end_sql)
-      ALTER TABLE `ucnrs_rams_development`.`application_permit_answers` 
+      ALTER TABLE `application_permit_answers` 
       MODIFY COLUMN `vertebrates` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL AFTER `expires_on`;
     end_sql
   end
