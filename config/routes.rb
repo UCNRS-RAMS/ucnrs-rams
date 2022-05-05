@@ -38,8 +38,14 @@ Rails.application.routes.draw do
     resources :reserves, only: [:index]
   end
   resources :visits, only: [:new, :create, :show]
-  
+
   devise_scope :user do 
     resources :password, only: [:new, :create]
+  end
+
+  namespace :manager do
+    resources :reserves, only: [:show] do
+      resource :dashboard, only: [:show]
+    end
   end
 end

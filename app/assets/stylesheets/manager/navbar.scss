@@ -1,0 +1,64 @@
+@import "variables";
+
+.manager {
+  .manager-navbar.upper {
+    border-bottom: 1px solid #ccc;
+    padding: .3rem 0;
+
+    .container {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    ul.navbar-nav {
+      font-size: .75rem;
+
+      li {
+        a {
+          color: $dark-bluegray;
+          display: inline-block;
+          font-weight: $medium;
+          padding: 0;
+          text-decoration: none;
+        }
+      }
+
+      li:not(:last-child)::after {
+        background-color: #ccc;
+        content: "";
+        display: block;
+        height: 1.25rem;
+        margin: 0 1rem;
+        width: 1px;
+      }
+    }
+  }
+
+  .manager-navbar.lower {
+    padding: 1.5rem 0;
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    ul.navbar-nav {
+      li:last-child {
+        a {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .dropdown-toggle::after {
+    border-bottom: 0;
+    border-left: .3em solid transparent;
+    border-right: .3em solid transparent;
+    border-top: .3em solid;
+    content: "";
+    display: inline-block;
+    margin-left: .255em;
+    vertical-align: .255em;
+  }
+}
