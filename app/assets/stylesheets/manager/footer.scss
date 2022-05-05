@@ -1,0 +1,12 @@
+.manager {
+  footer {
+    display: unset;
+    padding-left: unset;
+    padding-right: unset;
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

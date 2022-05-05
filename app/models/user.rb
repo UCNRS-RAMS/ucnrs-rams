@@ -57,6 +57,7 @@ class User < ApplicationRecord
   has_many :project_team_memberships, class_name: "ProjectTeamMembership"
   has_many :projects, through: :project_team_memberships, class_name: "Project"
   has_many :reserve_personnel
+  has_many :managed_reserves, through: :reserve_personnel, source: :reserve
   has_many :user_visits
 
   def institution_name

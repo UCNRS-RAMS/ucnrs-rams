@@ -9,6 +9,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to belong_to(:billing_address_state).class_name("State").optional(true) }
     it { is_expected.to have_many(:project_team_memberships).class_name("ProjectTeamMembership") }
     it { is_expected.to have_many(:reserve_personnel) }
+    it { is_expected.to have_many(:managed_reserves).through(:reserve_personnel) }
   end
 
   describe "validations" do

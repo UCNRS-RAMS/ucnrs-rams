@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>UCNRS RAMS | Manager</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_pack_tag 'application' %>
+
+    <%= render partial: "layouts/fonts" %>
+  </head>
+
+  <body class="manager <%= body_class %>">
+    <header>
+      <%= render partial: 'layouts/manager_navbar', locals: { current_user: current_user } %>
+      <section role="region" aria-label="errors" class="flash">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+      </section>
+    </header>
+    <main role="main">
+      <%= yield %>
+    </main>
+    <%= render partial: "layouts/manager_footer" %>
+
+    <div id="modal" class="modal" data-controller="modal" aria-hidden="true">
+      <%= content_for?(:modal) ? yield(:modal) : render(partial: "modals/empty") %>
+    </div>
+  </body>
+</html>
