@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Manager::DashboardShowPresenter do
   describe "delegations" do
     subject { Manager::DashboardShowPresenter.new(reserve: build(:reserve)) }
+    it { is_expected.to delegate_method(:id).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:name).to(:reserve).with_prefix(true) }
   end
 

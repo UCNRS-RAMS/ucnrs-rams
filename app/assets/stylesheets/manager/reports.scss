@@ -1,0 +1,60 @@
+@import "variables";
+
+.manager.reports {
+  .content {
+    margin-top: 3rem;
+  }
+
+  .content > header {
+    font-size: 2.5rem;
+    font-weight: $light;
+    margin-bottom: 1.5rem;
+  }
+
+  .content > div {
+    display: flex;
+  }
+
+  .report-menu {
+    margin-right: 2.75rem;
+
+    .list-group {
+      align-items: stretch;
+      display: flex;
+      flex-direction: column;
+      list-style: none;
+      margin: 0;
+      max-width: 225px;
+      padding: 0;
+
+      a {
+        background-color: $light-gray;
+        border-bottom: 1px solid $gray;
+        color: $black;
+        display: block;
+        font-size: .8125rem;
+        font-weight: $medium;
+        padding: .5rem 1rem;
+        text-decoration: none;
+      }
+
+      a.active {
+        background-color: unset;
+        border-top: 1px solid $black;
+        border-bottom: 1px solid $black;
+        border-right: 8px solid $black;
+        margin-top: -1px;
+      }
+    }
+  }
+
+  .report {
+    margin-top: .25rem;
+
+    > header {
+      font-size: 1.25rem;
+      font-weight: $bold;
+      margin-bottom: 2rem;
+    }
+  }
+}

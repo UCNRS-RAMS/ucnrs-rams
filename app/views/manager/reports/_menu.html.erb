@@ -1,0 +1,12 @@
+<ul class="list-group">
+  <li class="list-item"><%= active_link_to_by_url t(".reserve_use"), report_part_1_manager_reserve_report_path(current_reserve.id, Date.current.year) %></li>
+  <li class="list-item"><%= active_link_to_by_url t(".user_affiliation"), report_part_2_manager_reserve_report_path(current_reserve.id, Date.current.year) %></li>
+  <li class="list-item"><%= active_link_to_by_url t(".use_by_instructional_groups"), report_part_3_manager_reserve_report_path(current_reserve.id, Date.current.year) %></li>
+  <li class="list-item"><%= active_link_to_by_url t(".current_research"), report_part_4_manager_reserve_report_path(current_reserve.id, Date.current.year) %></li>
+  <li class="list-item"><%= active_link_to_by_url t(".publications"), report_part_5_manager_reserve_report_path(current_reserve.id, Date.current.year) %></li>
+  <li class="list-item"><%= active_link_to_by_url t(".narrative"), report_part_6_manager_reserve_report_path(current_reserve.id, Date.current.year) %></li>
+  <li class="list-item"><%= active_link_to_by_url t(".nrs_campus_committee"), report_part_7_manager_reserve_report_path(current_reserve.id, Date.current.year) %></li>
+  <li class="list-item"><%= link_to t(".report_status"), "#" %></li>
+  <li class="list-item"><%= link_to t(".use_by_publicly_affiliated_groups"), "#" %></li>
+  <li class="list-item"><%= link_to t(".flex_report"), "#" %></li>
+</ul>

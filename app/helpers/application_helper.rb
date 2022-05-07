@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def current_reserve
+    @current_reserve ||= Reserve.eager_load(:managing_campus).find_by(id: params[:reserve_id])
+  end
+
   def body_class
     controller_name = controller.controller_name
     action_name = controller.action_name
@@ -7,6 +11,15 @@ module ApplicationHelper
 
   def active_class_for(resource)
     "active" if controller.controller_name == resource
+  end
+
+  def active_link_to_by_url(name = nil, options = nil, html_options = nil, &block)
+    if URI(options).path == request.path
+      html_options ||= {}
+      html_options[:class].nil? ? html_options[:class] ||= "active" : html_options[:class] << " active" 
+    end
+
+    link_to(name, options, html_options, &block)
   end
 
   def num_of_units(arr_time, dep_time, units_type)

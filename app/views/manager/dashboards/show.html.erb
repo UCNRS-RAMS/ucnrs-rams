@@ -1,34 +1,32 @@
 <section class="content">
-  <div class="container">
-    <header class="content-header">
-      <div>
-        <h2><%= t(".visits") %></h2>
-        <%= link_to t(".new_visit_request"), "#" %>
-      </div>
-      <ul class="link-group">
-        <li><%= link_to image_tag('icon-dash-on.svg', alt: I18n.t(".alt.icon_dash")), "#", class: "active" %></li>
-        <li><%= link_to image_tag('icon-list-off.svg', alt: I18n.t("alt.icon_list")), "#" %></li>
-        <li><%= link_to image_tag('icon-calendar-off.svg', alt: I18n.t(".alt.icon_calendar")), "#" %></li>
-      </ul>
-    </header>
-    <hr />
-    <section>
-      <h3><%= t(".todays_visit_and_resources") %></h3>
-      <div>
-        
-      </div>
-    </section>
-        <section>
-      <h3><%= t(".last_24_hours") %></h3>
-      <div>
+  <header class="content-header">
+    <div>
+      <h2><%= t(".visits") %></h2>
+      <%= link_to t(".new_visit_request"), "#" %>
+    </div>
+    <ul class="link-group">
+      <li><%= link_to image_tag('icon-dash-on.svg', alt: I18n.t(".alt.icon_dash")), "#", class: "active" %></li>
+      <li><%= link_to image_tag('icon-list-off.svg', alt: I18n.t("alt.icon_list")), "#" %></li>
+      <li><%= link_to image_tag('icon-calendar-off.svg', alt: I18n.t(".alt.icon_calendar")), "#" %></li>
+    </ul>
+  </header>
+  <hr />
+  <section>
+    <h3><%= t(".todays_visit_and_resources") %></h3>
+    <div>
+      
+    </div>
+  </section>
+  <section>
+    <h3><%= t(".last_24_hours") %></h3>
+    <div>
 
-      </div>
-    </section>
-        <section>
-      <h3><%= t(".last_7_days") %></h3>
-      <div>
+    </div>
+  </section>
+  <section>
+    <h3><%= t(".last_7_days") %></h3>
+    <div>
 
-      </div>
-    </section>
-  </div>
+    </div>
+  </section>
 </section>
