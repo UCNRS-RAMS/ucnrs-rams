@@ -883,6 +883,34 @@ en:
         todays_visit_and_resources: "Today's Visit & Resources"
         last_24_hours: "Last 24 Hours"
         last_7_days: "Last 7 Days"
+    reports:
+      header:
+        reports: "Reports"
+      menu:
+        reserve_use: "Reserve Use"
+        user_affiliation: "User Affiliation"
+        use_by_instructional_groups: "Use By Instructional Groups"
+        current_research: "Current Research"
+        publications: "Publications"
+        narrative: "Narrative"
+        nrs_campus_committee: "NRS Campus Committee"
+        report_status: "Report Status"
+        use_by_publicly_affiliated_groups: "Use By Publicly Affiliated Groups"
+        flex_report: "Flex Report"
+      report_part_1:
+        part_1_reserve_use_data: "Part 1. Reserve Use Data - Using Unique People Roles"
+      report_part_2:
+        part_2_reserve_users_affiliation: "Part 2. Reserve Users' Affiliation"
+      report_part_3:
+        part_3_use_by_instructional_groups: "Part 3. Use by Instructional Groups"
+      report_part_4:
+        part_4_current_research: "Part 4. Current Research"
+      report_part_5:
+        part_5_publications: "Part 5. Publications"
+      report_part_6:
+        part_6_narrative: "Part 6. Narrative"
+      report_part_7:
+        part_7_nrs_campus_committee: "Part 7. NRS Campus Committee Roster"
   navbar:
     alt_text:
       mobile_menu: "Mobile Menu"

@@ -3,7 +3,8 @@ class Manager::DashboardShowPresenter
     @reserve = reserve
   end
 
-  delegate :name,
+  delegate :id,
+  :name,
   to: :reserve, prefix: true
 
   private

@@ -46,6 +46,16 @@ Rails.application.routes.draw do
   namespace :manager do
     resources :reserves, only: [:show] do
       resource :dashboard, only: [:show]
+      resources :reports, only: [:show] do
+        get "report_part_1", on: :member
+        get "report_part_2", on: :member
+        get "report_part_3", on: :member
+        get "report_part_4", on: :member
+        get "report_part_5", on: :member
+        get "report_part_6", on: :member
+        get "report_part_7", on: :member
+        get "report_part_8", on: :member
+      end
     end
   end
 end
