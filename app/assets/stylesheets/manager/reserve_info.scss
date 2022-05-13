@@ -1,6 +1,8 @@
 @import "variables";
 
-.manager.reports {
+.manager.reserve_details, .manager.amenities_and_rates, .manager.waivers,
+.manager.rules_and_regulations, .manager.permits, .manager.reserve_questions,
+.manager.staff_and_notifications {
   .content {
     margin-top: 3rem;
   }
@@ -15,7 +17,7 @@
     display: flex;
   }
 
-  .report-menu {
+  .reserve-info-menu {
     margin-right: 2.75rem;
 
     .list-group {
@@ -49,7 +51,7 @@
     }
   }
 
-  .report {
+  .reserve-info {
     margin-top: .125rem;
 
     > header {

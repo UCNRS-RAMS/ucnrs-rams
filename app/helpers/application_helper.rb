@@ -1,8 +1,4 @@
 module ApplicationHelper
-  def current_reserve
-    @current_reserve ||= Reserve.eager_load(:managing_campus).find_by(id: params[:reserve_id])
-  end
-
   def body_class
     controller_name = controller.controller_name
     action_name = controller.action_name

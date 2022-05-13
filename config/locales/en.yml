@@ -911,6 +911,38 @@ en:
         part_6_narrative: "Part 6. Narrative"
       report_part_7:
         part_7_nrs_campus_committee: "Part 7. NRS Campus Committee Roster"
+    reserve_info:
+      header:
+        reserve_info: "Reserve Info"
+      menu:
+        reserve_details: "Reserve Details"
+        amenities_and_rates: "Amenities & Rates"
+        waivers: "Waivers"
+        rules_and_regulations: "Rules & Regulations"
+        permits: "Permits"
+        reserve_questions: "Reserve Questions"
+        staff_and_notifications: "Staff & Notifications"
+      reserve_details:
+        index:
+          reserve_details: "Reserve Details"
+      amenities_and_rates:
+        index:
+          amenities_and_rates: "Amenities & Rates"
+      waivers:
+        index:
+          waivers: "Waivers"
+      rules_and_regulations:
+        index:
+          rules_and_regulations: "Rules & Regulations"
+      permits:
+        index:
+          permits: "Permits"
+      reserve_questions:
+        index:
+          reserve_questions: "Reserve Questions"
+      staff_and_notifications:
+        index:
+          staff_and_notifications: "Staff & Notifications"
   navbar:
     alt_text:
       mobile_menu: "Mobile Menu"

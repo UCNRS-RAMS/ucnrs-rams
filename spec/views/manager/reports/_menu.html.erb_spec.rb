@@ -2,10 +2,9 @@ require "rails_helper"
 
 RSpec.describe "reports menu", type: :view do
   it "display the reports page menu" do
-    user = create(:user)
     reserve = create(:reserve)
 
-    render partial: "manager/reports/menu", locals: { current_user: user, current_reserve: reserve }
+    render partial: "manager/reports/menu", locals: { current_reserve: reserve }
 
     expect(rendered).to have_link(
       "Reserve Use",
