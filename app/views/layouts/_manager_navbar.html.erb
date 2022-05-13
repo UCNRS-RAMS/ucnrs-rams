@@ -22,8 +22,16 @@
           <li> <%= link_to I18n.t(".navbar.link.visits"), "#", class:"nav-link" %> </li>
           <li> <%= link_to I18n.t(".navbar.link.projects"), "#", class:"nav-link" %> </li>
           <li> <%= link_to I18n.t(".navbar.link.invoices"), "#", class:"nav-link" %> </li>
-          <li> <%= link_to I18n.t(".navbar.link.reports"), report_part_1_manager_reserve_report_path(current_reserve.id, Date.current.year), class:"nav-link #{active_class_for("reports")}" %> </li>
-          <li> <%= link_to I18n.t(".navbar.link.reserve_info"), "#", class:"nav-link" %> </li>
+          <li> 
+            <%= link_to I18n.t(".navbar.link.reports"), 
+                  report_part_1_manager_reserve_report_path(current_reserve.id, Date.current.year), 
+                  class:"nav-link #{active_class_for("reports")}" %> 
+          </li>
+          <li> 
+            <%= link_to I18n.t(".navbar.link.reserve_info"),
+                  manager_reserve_reserve_info_reserve_details_path(current_reserve),
+                  class:"nav-link #{active_class_for("reserve_details")}" %>
+          </li>
           <li> <%= link_to I18n.t(".navbar.link.users"), "#", class:"nav-link" %> </li>
           <li> <%= link_to I18n.t(".navbar.link.help"), "#", class:"nav-link" %> </li>
         </ul>

@@ -56,6 +56,15 @@ Rails.application.routes.draw do
         get "report_part_7", on: :member
         get "report_part_8", on: :member
       end
+      namespace :reserve_info do
+        resources :reserve_details, only: [:index]
+        resources :amenities_and_rates, only: [:index]
+        resources :waivers, only: [:index]
+        resources :rules_and_regulations, only: [:index]
+        resources :permits, only: [:index]
+        resources :reserve_questions, only: [:index]
+        resources :staff_and_notifications, only: [:index]
+      end
     end
   end
 end
