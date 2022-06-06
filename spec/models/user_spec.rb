@@ -471,4 +471,22 @@ RSpec.describe User, type: :model do
       expect(membership.user).to_not be_able_to_edit(membership.project)
     end
   end
+
+  describe "#manager_of_reserve?" do
+    it "is true if the user is a manager of the given reserve" do
+      reserve = create(:reserve)
+      user = create(:user)
+      create(:reserve_personnel, reserve: reserve, user: user)
+
+      expect(user.manager_of_reserve?(reserve)).to eq true
+    end
+
+    it "is false if the user is not a manager of the given reserve" do
+      reserve = create(:reserve)
+      user = create(:user)
+      create(:reserve_personnel, user: user)
+
+      expect(user.manager_of_reserve?(reserve)).to eq false
+    end
+  end
 end

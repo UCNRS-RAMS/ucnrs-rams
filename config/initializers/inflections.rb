@@ -19,4 +19,6 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.plural /^(reserve)$/i, '\1\2s'
   inflect.singular /^(reserve)s/i, '\1'
   inflect.uncountable %w( personnel reserve_personnel reserve_additional_information )
+
+  inflect.irregular "reserve", "reserves"
 end

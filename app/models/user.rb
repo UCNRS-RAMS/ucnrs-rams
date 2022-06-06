@@ -148,6 +148,10 @@ class User < ApplicationRecord
       &.can_add_project_user
   end
 
+  def manager_of_reserve?(reserve)
+    managed_reserve_ids.include?(reserve.id)
+  end
+
   private
 
   def password_complexity
