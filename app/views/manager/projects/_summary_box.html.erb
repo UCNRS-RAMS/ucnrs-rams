@@ -1,0 +1,36 @@
+<section class="project-summary-box">
+  <div class="info-block">
+    <div class="w-200">
+      <p><%= t(".number") %></p>
+      <p class="title"><%= presenter.id %></p>
+    </div>
+    <div>
+      <p><%= t(".title") %></p>
+      <p class="title"><%= presenter.title %></p>
+    </div>
+  </div>
+  <div class="info-block">
+    <div >
+      <p><%= t(".reserves") %></p>
+      <p class="title"><%= presenter.reserve_names %></p>
+    </div>
+  </div>
+  <div class="info-block">
+    <div class="w-200">
+      <p><%= t(".date_created") %></p>
+      <p class="title"><%= presenter.created_at %></p>
+    </div>
+    <div class="w-200">
+      <p><%= t(".last_edited") %></p>
+      <p class="title"><%= presenter.updated_at %></p>
+    </div>
+    <div class="w-200">
+      <p><%= t(".creator") %></p>
+      <p class="title"><%= presenter.owner_name %></p>
+    </div>
+    <div class="w-200 ">
+      <p><%= t(".visit_type") %></p>
+      <p class="title"><%= presenter.type %></p>
+    </div>
+  </div>
+</section>
