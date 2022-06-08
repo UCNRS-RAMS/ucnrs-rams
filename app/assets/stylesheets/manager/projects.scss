@@ -1,0 +1,75 @@
+@import "variables";
+@import "mixins/date_fields";
+@import "mixins/form";
+@import "mixins/controls";
+@import "mixins/summary";
+
+@include controls;
+
+.manager {
+  .container {
+    display: flex;
+    margin: 0 auto;
+    max-width: 1300px;
+
+    @include summary;
+
+    .content {
+      padding: 3.5rem;
+
+      .project-summary-box {
+        padding: 1.25rem;
+        margin-bottom: 3rem;
+        background-color: $light-gray;
+        border: 1px solid $dark-bluegray;
+
+        .info-block {
+          display: flex;
+          margin-bottom: 12px;
+          p {
+            margin: 0.5rem 0px;
+          }
+
+          .title {
+            font-weight: $semi-bold;
+          }
+
+          .w-200 {
+            width: 200px;
+          }
+        }
+        .info-block:last-child {
+          margin: 0rem;
+        }
+      }
+
+      .project-menu-bar {
+        display: flex;
+        list-style: none;
+        padding: 0px;
+        border-bottom: 2px solid $dark-bluegray;
+
+        .tab {
+          .nav-link {
+            display: block;
+            border: none;
+            border-bottom: 4px solid transparent;
+            background-color: transparent;
+            padding: 0.5rem 0px;
+            font-weight: 600;
+            font-size: 1rem;
+            color: $semidark-bluegray;
+            margin-right: 50px;
+          }
+
+          .nav-link:hover {
+            color: black;
+            cursor: pointer;
+            font-weight: 900;
+            border-bottom: 4px solid $sky-blue;
+          }
+        }
+      }
+    }
+  }
+}
