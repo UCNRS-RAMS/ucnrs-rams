@@ -62,7 +62,7 @@ RSpec.describe ProjectShowPresenter do
       project = create(:project, project_type: :research)
       presenter = ProjectShowPresenter.new(project)
 
-      expect(presenter.partial_name).to eq "projects/research_show"
+      expect(presenter.partial_name).to eq "shared/projects/research_show"
     end
   end
 

@@ -30,7 +30,7 @@ class ProjectShowPresenter
   end
 
   def partial_name
-    "projects/#{project_type.parameterize.underscore}_show"
+    "shared/projects/#{project_type.parameterize.underscore}_show"
   end
 
   def timeframe

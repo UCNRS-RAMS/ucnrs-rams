@@ -1,4 +1,4 @@
-<tr class="team-membership">
+<tr class="team-membership  <%= "inactive-user" unless team_membership.active %>">
   <td><%= team_membership.user_full_name %></td>
   <td><%= team_membership.institution_name %></td>
   <td><%= team_membership.project_role %></td>

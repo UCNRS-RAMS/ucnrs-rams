@@ -73,6 +73,10 @@ class Projects::TeamMembershipPresenter
     @editable
   end
 
+  def desc_status_asc_role
+    [active ? 0 : 1, project_role || ""]
+  end
+
   private
 
   def project_role_name
