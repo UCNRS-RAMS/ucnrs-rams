@@ -914,7 +914,7 @@ en:
         date_created: "Date Created"
         last_edited: "Last Edited"
         creator: "Creator"
-        visit_type: "Visit Type"
+        project_type: "Project Type"
       menu:
         summary: "Summary"
         visits: "Visits"

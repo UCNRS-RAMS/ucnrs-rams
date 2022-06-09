@@ -31,12 +31,12 @@ RSpec.describe Manager::ProjectShowPresenter do
     end
   end
 
-  describe "#type" do
+  describe "#project_type" do
     it "display the type of the project" do
       project = create(:project, project_type: "public_use")
       presenter = Manager::ProjectShowPresenter.new(project)
 
-      expect(presenter.type).to eq "Public Use"
+      expect(presenter.project_type).to eq "Public Use"
     end
   end
 

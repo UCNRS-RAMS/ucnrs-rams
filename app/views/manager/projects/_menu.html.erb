@@ -1,11 +1,32 @@
 <section>
   <ul class="project-menu-bar">
-    <li class="tab"><button class="nav-link"><%= t(".summary") %></button></li>
-    <li class="tab"><button class="nav-link"><%= t(".visits") %></button></li>
-    <li class="tab"><button class="nav-link"><%= t(".details") %></button></li>
-    <li class="tab"><button class="nav-link"><%= t(".team") %></button></li>
-    <li class="tab"><button class="nav-link"><%= t(".permits") %></button></li>
-    <li class="tab"><button class="nav-link"><%= t(".funding") %></button></li>
-    <li class="tab"><button class="nav-link"><%= t(".activity_and_notes") %></button></li>
+    <li ><%= link_to( t(".summary"), 
+      '#',
+      { class: "nav-link active"})%>
+    </li>
+    <li ><%= link_to( t(".visits"), 
+      '#',
+      { class: "nav-link"})%>
+    </li>
+    <li ><%= link_to( t(".details"), 
+      '#',
+      { class: "nav-link"})%>
+    </li>
+    <li ><%= link_to( t(".team"), 
+      '#',
+      { class: "nav-link"})%>
+    </li>
+    <li ><%= link_to( t(".permits"), 
+      '#',
+      { class: "nav-link"})%>
+    </li>
+    <li ><%= link_to( t(".funding"), 
+      '#',
+      { class: "nav-link"})%>
+    </li>
+    <li ><%= link_to( t(".activity_and_notes"), 
+      '#',
+      { class: "nav-link"})%>
+    </li>
   </ul>
 </section>

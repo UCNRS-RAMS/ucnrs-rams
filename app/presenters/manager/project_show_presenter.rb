@@ -21,8 +21,8 @@ class Manager::ProjectShowPresenter
     owner.full_name
   end
 
-  def type
-    project_type.titleize
+  def project_type
+    project.project_type.titleize
   end
 
   def reserve_names
