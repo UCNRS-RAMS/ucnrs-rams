@@ -326,7 +326,7 @@
   background: linear-gradient(270deg, $white 50%, $light-gray 50%);
 }
 
-.project.container {
+.container {
   display: flex;
   margin: 0 auto;
   max-width: 1300px;
@@ -439,6 +439,10 @@ table.summary-table {
     }
   }
   tbody {
+    .inactive-user {
+      color: $gray;
+    }
+    
     tr {
       td {
         border-bottom: 1px solid $gray;

@@ -2,6 +2,6 @@
   <h2 class="main-header"><%= t(".visits", size: presenter.visits.size) %></h2>
   <%= link_to t(".schedule_a_visit"), new_visit_path%>
   <table id="project-visit-requests" class="visit-requests">
-    <%= render partial: "projects/visit", collection: presenter.visits %>
+    <%= render partial: "shared/projects/visit", collection: presenter.visits %>
   </table>
 </section>

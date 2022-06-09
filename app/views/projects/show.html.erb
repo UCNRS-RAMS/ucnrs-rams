@@ -1,7 +1,8 @@
 <div class="split-background-sidebar">
   <div class="project container">
     <section class="sidebar">
-      <h2 class="main-header"><%= t(".sidebar_title").html_safe %><br /><%= t(".sidebar_subtitle").html_safe %></h2>
+      <h2 class="main-header"><%= t(".sidebar_title").html_safe %><br />
+        <%= t(".sidebar_subtitle").html_safe %></h2>
       <p class="information"><%= t(".sidebar_information") %></p>
       <h3 class="subheader"><%= t(".sidebar_next_steps") %></h3>
       <ul class="next-steps-list">
@@ -27,11 +28,11 @@
         </div>
       </header>
       <%= render partial: @presenter.partial_name, locals: { presenter: @presenter } %>
-      <%= render partial: "projects/team_member_show_table", locals: { presenter: @presenter } %>
-      <%= render partial: "projects/funding_show_table", locals: { presenter: @presenter } %>
-      <%= render partial: "projects/permit_show", locals: { presenter: @presenter } %>
-      <%= render partial: "projects/reserve_question_show", locals: { presenter: @presenter } %>
-      <%= render partial: "projects/visit_show_table", locals: { presenter: @presenter } %>
+      <%= render partial: "shared/projects/team_member_show_table", locals: { presenter: @presenter } %>
+      <%= render partial: "shared/projects/funding_show_table", locals: { presenter: @presenter } %>
+      <%= render partial: "shared/projects/permit_show", locals: { presenter: @presenter } %>
+      <%= render partial: "shared/projects/reserve_question_show", locals: { presenter: @presenter } %>
+      <%= render partial: "shared/projects/visit_show_table", locals: { presenter: @presenter } %>
     </section>
   </div>
 </div>

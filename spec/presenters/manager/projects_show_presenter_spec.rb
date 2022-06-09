@@ -1,13 +1,21 @@
 require "rails_helper"
 
-RSpec.describe Manager::ProjectShowPresenter do
+RSpec.describe ProjectShowPresenter do
   describe "#created_at" do
-    it "display a formatted creation datetime of the project" do
+    it "display a formatted creation datetime of the project with default format" do
       travel_to Time.zone.local(2004, 11, 24)
       project = create(:project, created_at: Time.current)
       presenter = Manager::ProjectShowPresenter.new(project)
 
       expect(presenter.created_at).to eq "Nov. 24, 2004"
+    end
+
+    it "display a formatted creation datetime of the project with specified format" do
+      travel_to Time.zone.local(2004, 11, 24, 1, 4, 44)
+      project = create(:project, created_at: Time.current)
+      presenter = Manager::ProjectShowPresenter.new(project)
+
+      expect(presenter.created_at(format: :project_summary_time)).to eq "Nov. 24, 2004 at  1:04 AM"
     end
   end
 
@@ -53,15 +61,40 @@ RSpec.describe Manager::ProjectShowPresenter do
     end
   end
 
-  describe "#visits" do
-    it "returns an array of Visits presenters" do
-      project = create(:project)
-      visits = create_list(:visit, 3, project: project)
+  describe "#project_info" do
+    let(:expected_info) { "Open Research Project Created: Nov. 24, 2004 at  1:04 AM" }
+
+    it "returns the project info" do
+      project = create(:project,
+        project_type: :research,
+        status: :open,
+        created_at: Time.zone.local(2004, 11, 24, 1, 4, 44))
       presenter = Manager::ProjectShowPresenter.new(project)
 
-      expected_array_ids = visits.pluck(:id)
+      expect(presenter.project_info).to eq expected_info
+    end
+  end
 
-      expect(presenter.visits.map(&:id)).to eq expected_array_ids
+  describe "#team_memberships" do
+    it "sorts the TeamMembershipPresenter array on status and role" do
+      project = create(:project)
+      active_principal_investigator = create(:project_team_membership, :principal_investigator,
+        project: project)
+      active_project_manager = create(:project_team_membership, :project_manager, project: project)
+      inactive_principal_investigator = create(:project_team_membership, :principal_investigator,
+        project: project, active: false)
+      active_principal_investigator1 = create(:project_team_membership, :principal_investigator,
+        project: project)
+      presenter = Manager::ProjectShowPresenter.new(project)
+
+      results = presenter.team_memberships.map(&:id)
+
+      expect(results).to eq [
+        active_principal_investigator.id,
+        active_principal_investigator1.id,
+        active_project_manager.id,
+        inactive_principal_investigator.id,
+      ]
     end
   end
 end

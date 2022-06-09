@@ -1,16 +1,8 @@
 # frozen_string_literal: true
 
-class Manager::ProjectShowPresenter
-  def initialize(project)
-    @project = project
-  end
-
-  delegate :id, to: :project, prefix: true
-
-  delegate_missing_to :project
-
-  def created_at
-    project.created_at ? I18n.l(project.created_at, format: :project_summary_box_time) : ""
+class Manager::ProjectShowPresenter < ProjectShowPresenter
+  def created_at(format: :project_summary_box_time)
+    project.created_at ? I18n.l(project.created_at, format: format) : ""
   end
 
   def updated_at
@@ -29,6 +21,18 @@ class Manager::ProjectShowPresenter
     visits&.map(&:requested_reserve_name)&.uniq&.join(", ")
   end
 
+  def project_info
+    "#{status.titleize} #{project_type.titleize} Project Created: #{created_at(format: :project_summary_time)}"
+  end
+
+  def team_memberships
+    project_team_memberships
+      .includes(:user, :institution)
+      .map do |team_membership|
+        Projects::TeamMembershipPresenter.new(team_membership)
+      end.sort_by(&:desc_status_asc_role)
+  end
+
   def visits
     project
       .visits
@@ -38,8 +42,4 @@ class Manager::ProjectShowPresenter
       VisitPresenter.new(visit)
     end
   end
-
-  private
-
-  attr_reader :project
 end
