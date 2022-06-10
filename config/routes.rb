@@ -44,7 +44,7 @@ Rails.application.routes.draw do
   end
 
   namespace :manager do
-    resources :reserves, only: [:show] do
+    resources :reserves do
       resource :dashboard, only: [:show]
       resources :projects, only: [:show]
       resources :reports, only: [:show] do
@@ -58,7 +58,7 @@ Rails.application.routes.draw do
         get "report_part_8", on: :member
       end
       namespace :reserve_info do
-        resources :reserve_details, only: [:index]
+        resource :reserve_details, only: [:edit, :update]
         resources :amenities_and_rates, only: [:index]
         resources :waivers, only: [:index]
         resources :rules_and_regulations, only: [:index]

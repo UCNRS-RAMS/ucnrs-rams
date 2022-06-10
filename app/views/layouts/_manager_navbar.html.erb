@@ -29,7 +29,7 @@
           </li>
           <li> 
             <%= link_to I18n.t(".navbar.link.reserve_info"),
-                  manager_reserve_reserve_info_reserve_details_path(current_reserve),
+                  edit_manager_reserve_reserve_info_reserve_details_path(current_reserve),
                   class:"nav-link #{active_class_for("reserve_details")}" %>
           </li>
           <li> <%= link_to I18n.t(".navbar.link.users"), "#", class:"nav-link" %> </li>

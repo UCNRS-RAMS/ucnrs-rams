@@ -1,0 +1,17 @@
+<section class="reserve-info">
+  <header><%= t(".waivers") %></header>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th><%= t(".name") %></th>
+          <th><%= t(".description") %></th>
+          <th><%= t(".new") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: "manager/reserve_info/waivers/waiver", collection: waivers %>
+      </tbody>
+    </table>
+  </div>
+</section>
