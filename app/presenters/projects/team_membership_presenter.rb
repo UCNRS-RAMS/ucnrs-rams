@@ -77,6 +77,10 @@ class Projects::TeamMembershipPresenter
     [active ? 0 : 1, project_role || ""]
   end
 
+  def inactive_class
+    active ? "" : "inactive-user"
+  end
+
   private
 
   def project_role_name
