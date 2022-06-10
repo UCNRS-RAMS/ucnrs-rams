@@ -1125,14 +1125,20 @@ en:
         reserve_questions: "Reserve Questions"
         staff_and_notifications: "Staff & Notifications"
       reserve_details:
-        index:
+        edit:
           reserve_details: "Reserve Details"
       amenities_and_rates:
         index:
           amenities_and_rates: "Amenities & Rates"
       waivers:
         index:
+        waivers:
           waivers: "Waivers"
+          name: "Name"
+          description: "Description"
+          new: "New"
+        waiver:
+          edit: "Edit"
       rules_and_regulations:
         index:
           rules_and_regulations: "Rules & Regulations"

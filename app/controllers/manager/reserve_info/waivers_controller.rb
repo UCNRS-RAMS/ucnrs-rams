@@ -7,7 +7,4 @@ class Manager::ReserveInfo::WaiversController < ApplicationController
       reserve: current_reserve,
     )
   end
-
-  private
-
 end

@@ -3,12 +3,19 @@ class Manager::ReserveInfo::WaiversIndexPresenter
     @reserve = reserve
   end
 
-  delegate :id,
-  to: :reserve, prefix: true
+  delegate_missing_to :waivers
+
+  def waivers
+    reserve_waivers.map do |waiver|
+      WaiverPresenter.new(waiver)
+    end
+  end
 
   private
 
-  def reserve
-    ReservePresenter.new(@reserve)
+  attr_reader :reserve
+
+  def reserve_waivers
+    reserve.waivers
   end
 end
