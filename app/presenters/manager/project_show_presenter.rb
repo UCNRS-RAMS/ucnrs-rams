@@ -5,8 +5,8 @@ class Manager::ProjectShowPresenter < ProjectShowPresenter
     project.created_at ? I18n.l(project.created_at, format: format) : ""
   end
 
-  def updated_at
-    project.updated_at ? I18n.l(project.updated_at, format: :project_summary_box_time) : ""
+  def updated_at(format: :project_summary_box_time)
+    project.updated_at ? I18n.l(project.updated_at, format: format) : ""
   end
 
   def owner_name

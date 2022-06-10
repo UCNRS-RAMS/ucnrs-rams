@@ -189,4 +189,36 @@ RSpec.describe Projects::TeamMembershipPresenter do
       ]
     end
   end
+
+  describe "#desc_status_asc_role" do
+    it "is an array with value '0' at first index for active status and project role at second index" do
+      team_membership = create(:project_team_membership, :principal_investigator)
+
+      results = Projects::TeamMembershipPresenter.new(team_membership)
+      expect(results.desc_status_asc_role).to eq [0, "PI - Principal Investigator"]
+    end
+
+    it "is an array with value '1' at first index for inactive status and '' at second index when project role is not defined" do
+      team_membership = create(:project_team_membership, active: false)
+
+      results = Projects::TeamMembershipPresenter.new(team_membership)
+      expect(results.desc_status_asc_role).to eq [1, ""]
+    end
+  end
+
+  describe "#inactive_class" do
+    it "is return inactive-user when active is false" do
+      team_membership = create(:project_team_membership, active: false)
+
+      results = Projects::TeamMembershipPresenter.new(team_membership)
+      expect(results.inactive_class).to eq "inactive-user"
+    end
+
+    it "is return empty string when active is true" do
+      team_membership = create(:project_team_membership)
+
+      results = Projects::TeamMembershipPresenter.new(team_membership)
+      expect(results.inactive_class).to eq ""
+    end
+  end
 end

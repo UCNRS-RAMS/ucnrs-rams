@@ -20,12 +20,20 @@ RSpec.describe ProjectShowPresenter do
   end
 
   describe "#updated_at" do
-    it "display a formatted updation datetime of the project" do
+    it "display a formatted updation datetime of the project with default format" do
       travel_to Time.zone.local(2004, 11, 24)
       project = create(:project, updated_at: Time.current)
       presenter = Manager::ProjectShowPresenter.new(project)
 
       expect(presenter.updated_at).to eq "Nov. 24, 2004"
+    end
+
+    it "display a formatted updation datetime of the project with specified format" do
+      travel_to Time.zone.local(2004, 11, 24, 1, 4, 44)
+      project = create(:project, updated_at: Time.current)
+      presenter = Manager::ProjectShowPresenter.new(project)
+
+      expect(presenter.updated_at(format: :project_summary_time)).to eq "Nov. 24, 2004 at  1:04 AM"
     end
   end
 
