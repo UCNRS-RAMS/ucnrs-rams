@@ -16,7 +16,7 @@ RSpec.describe ProjectFormPresenter do
         project_type: :meeting,
       )
 
-      expect(presenter.partial_name).to eq "projects/meeting_form"
+      expect(presenter.partial_name).to eq "shared/projects/meeting_form"
     end
   end
 
@@ -34,7 +34,7 @@ RSpec.describe ProjectFormPresenter do
 
   describe "#disciplines" do
     it "lists all of the project disciplines" do
-      presenter =  ProjectFormPresenter.new(user: :dummy, current_step: 1)
+      presenter = ProjectFormPresenter.new(user: :dummy, current_step: 1)
 
       expect(presenter.disciplines).to eq [
         "Agriculture",
@@ -57,13 +57,13 @@ RSpec.describe ProjectFormPresenter do
   describe "other_discipline?" do
     it "is true if the supplied discipline is 'Other'" do
       presenter =  ProjectFormPresenter.new(user: :dummy, current_step: 1)
-      
+
       expect(presenter.other_discipline?("Other")).to eq true
     end
 
     it "is false if the supplied discipline is not 'Other'" do
-      presenter =  ProjectFormPresenter.new(user: :dummy, current_step: 1)
-      
+      presenter = ProjectFormPresenter.new(user: :dummy, current_step: 1)
+
       expect(presenter.other_discipline?("Arts/Humanities")).to eq false
     end
   end
@@ -103,14 +103,14 @@ RSpec.describe ProjectFormPresenter do
   describe "chemical_question?" do
     it "is true if the supplied planning_question is :method_chemicals" do
       planning_question = :method_chemicals
-      presenter =  ProjectFormPresenter.new(user: :dummy, current_step: 1)
+      presenter = ProjectFormPresenter.new(user: :dummy, current_step: 1)
 
       expect(presenter.chemical_question?(planning_question)).to eq true
     end
 
     it "is false if the supplied planning_question is not method_chemicals" do
       planning_question = :method_remove_organisms
-      presenter =  ProjectFormPresenter.new(user: :dummy, current_step: 1)
+      presenter = ProjectFormPresenter.new(user: :dummy, current_step: 1)
 
       expect(presenter.chemical_question?(planning_question)).to eq false
     end
@@ -118,7 +118,7 @@ RSpec.describe ProjectFormPresenter do
 
   describe "#current_step_name" do
     it "returns a dynamic I18n key based on step name" do
-      presenter =  ProjectFormPresenter.new(user: :dummy, current_step: 1)
+      presenter = ProjectFormPresenter.new(user: :dummy, current_step: 1)
 
       expect(presenter.current_step_name).to eq ".submit.step_1"
     end

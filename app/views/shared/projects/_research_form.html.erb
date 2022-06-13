@@ -1,5 +1,3 @@
-<h2><%= t(".details") %></h2>
-
 <section>
   <div class="field">
     <%= form.label :title, t(".project_title.field_name") %>
@@ -8,7 +6,6 @@
       <span class="explanation"><%= t(".project_title.explanation") %></span>
     </p>
   </div>
-
   <div class="field">
     <%= form.label :thesis_title, t(".thesis_title.field_name") %>
     <p>
@@ -16,7 +13,6 @@
       <span class="explanation"><%= t(".thesis_title.explanation") %></span>
     </p>
   </div>
-
   <div class="field">
     <%= form.label :abstract, t(".abstract.field_name") %>
     <p>
@@ -25,7 +21,6 @@
     </p>
   </div>
 </section>
-
 <section>
   <div class="field">
     <%= form.label :discipline, t(".choose_discipline") %>
@@ -35,7 +30,6 @@
           <%= form.radio_button :discipline, discipline, id: "discipline-#{discipline}" %>
           <div>
             <label for="discipline-<%= discipline %>"><%= discipline %></label>
-
             <% if presenter.other_discipline?(discipline) %>
               <div class="other-discipline">
                 <%= form.text_field :discipline_other %>
@@ -48,7 +42,6 @@
     </ul>
   </div>
 </section>
-
 <section>
   <div class="field">
     <%= form.label :involvements, t(".select_involvements") %>
@@ -62,7 +55,6 @@
     </ul>
   </div>
 </section>
-
 <section>
   <div class="date-fields">
     <div class="field">
@@ -75,7 +67,6 @@
       <%= form.date_field(:end_date, value: presenter.form.end_date) %>
     </div>
   </div>
-
   <div class="field">
     <%= form.label :keywords, t(".project_keywords.field_name") %>
     <p>
@@ -83,7 +74,6 @@
       <span class="explanation"><%= t(".project_keywords.explanation") %></span>
     </p>
   </div>
-
   <div class="field">
     <%= form.label :taxonomic_keywords, t(".taxonomic_keywords.field_name") %>
     <p>
@@ -91,7 +81,6 @@
       <span class="explanation"><%= t(".taxonomic_keywords.explanation") %></span>
     </p>
   </div>
-
   <div class="field">
     <%= form.label :recent_publications, t(".recent_publications.field_name") %>
     <p>
@@ -100,10 +89,8 @@
     </p>
   </div>
 </section>
-
 <section>
   <h2><%= t(".methods") %></h2>
-
   <div class="field">
     <%= form.label :method_description, t(".method_description.field_name") %>
     <p>
@@ -111,7 +98,6 @@
       <span class="explanation"><%= t(".method_description.explanation") %></span>
     </p>
   </div>
-
   <div class="field">
     <%= form.label :method_study_area, t(".method_study_area.field_name") %>
     <p>
@@ -120,21 +106,17 @@
     </p>
   </div>
 </section>
-
 <section>
   <h2><%= t(".planning") %></h2>
-
   <% presenter.planning_questions.each do |planning_question| %>
     <div class="field" data-controller="value-projection" data-value-projection-projected-value="<%= form.object.send(planning_question) %>">
       <%= form.label planning_question, t(".planning_questions.#{planning_question}"), class: "planning-question-label" %>
-
       <div class="yes-no-options">
         <%= form.radio_button planning_question, t(".yes_option"), data: { action: "click->value-projection#change" } %>
         <%= form.label "#{planning_question}_yes".to_sym, t(".yes_option") %>
         <%= form.radio_button planning_question, t(".no_option"), data: { action: "click->value-projection#change" } %>
         <%= form.label "#{planning_question}_no".to_sym, t(".no_option") %>
       </div>
-
       <% if presenter.chemical_question?(planning_question) %>
         <div class="additional-question">
           <%= form.text_field :method_chemicals_list %>

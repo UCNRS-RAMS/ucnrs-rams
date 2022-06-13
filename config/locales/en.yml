@@ -191,7 +191,7 @@ en:
         close_modal_icon: "Cancel Editing and Close Modal"
   reserves:
     personnel_card:
-      alt_text: 
+      alt_text:
         personnel_picture: "picture of reserve personnel"
       email: "Email"
     reserve:
@@ -247,8 +247,8 @@ en:
         title: "Waivers"
       waivers:
         direction_title: "All visitors must sign and return a waiver agreement prior to visiting a reserve."
-        direction_body: "If your application is approved, the group leader (person who is listed as contact for the requested activity) will be responsible 
-                        for ensuring that all necessary waivers are submitted to reserve staff prior to the proposed visit. Waiver agreements for minors 
+        direction_body: "If your application is approved, the group leader (person who is listed as contact for the requested activity) will be responsible
+                        for ensuring that all necessary waivers are submitted to reserve staff prior to the proposed visit. Waiver agreements for minors
                         must be signed by the parent or legal guardian."
       waiver:
         download_pdf: "Download PDF"
@@ -410,7 +410,7 @@ en:
       sidebar_title: "Denied"
       sidebar_next_steps: "Unfortunately, your visit request was denied."
       reason: "Reason"
-      reason_text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent congue augue ac nisi dapibus, 
+      reason_text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent congue augue ac nisi dapibus,
                     non tempus tortor lacinia. Quisque sed tortor vitae arcu consequat eleifend. Donec pellentesque
                     ornare est, eu condimentum leo sollicitudin ut. Nullam ut dui lectus."
       edit_visit_request: "Edit Visit request."
@@ -488,7 +488,7 @@ en:
         right_facing_arrow: "A right facing arrow enclosed in a circle"
     edit:
       title: "Edit Project Details"
-      submit: 
+      submit:
         step_1: "Next: Team"
       alt:
         right_facing_arrow: "A right facing arrow"
@@ -506,7 +506,7 @@ en:
           public_use: "Public"
     new:
       title: "Project Details"
-      submit: 
+      submit:
         step_1: "Next: Team"
       alt:
         right_facing_arrow: "A right facing arrow"
@@ -830,14 +830,14 @@ en:
       applicant: "Applicant"
       project_duration: "Project Duration"
       discipline: "Discipline"
-      project involves: "Project Involves"
+      project_involves: "Project Involves"
     housing_show:
       event_title: "Event Title"
       event_description: "Event Description"
       applicant: "Applicant"
       project_duration: "Project Duration"
       discipline: "Discipline"
-      project involves: "Project Involves"
+      project_involves: "Project Involves"
     team_member_show_table:
       project_team: "Project Team (%{size})"
       edit_team: "Edit Team"
@@ -871,8 +871,8 @@ en:
       title: "Waivers"
     waivers:
       direction_title: "All visitors must sign and return a waiver agreement prior to visiting a reserve."
-      direction_body: "If your application is approved, the group leader (person who is listed as contact for the requested activity) will be responsible 
-                      for ensuring that all necessary waivers are submitted to reserve staff prior to the proposed visit. Waiver agreements for minors 
+      direction_body: "If your application is approved, the group leader (person who is listed as contact for the requested activity) will be responsible
+                      for ensuring that all necessary waivers are submitted to reserve staff prior to the proposed visit. Waiver agreements for minors
                       must be signed by the parent or legal guardian."
     waiver:
       download_pdf: "Download PDF"
@@ -903,6 +903,20 @@ en:
           create_a_new_project: "Create A New Project"
         alt:
           help_icon: "A question mark endclosed in a circle"
+      detail:
+       details:
+        research: "Research"
+        meeting: "Meeting"
+        class: "Class"
+        meeting_tag_line: "Field or lab base meeting in any discipline"
+        class_tag_line: "Field or lab base class in any discipline"
+        research_tag_line: "Field or lab base research in any discipline"
+        project_type: "Project Type"
+        save_changes: "Save Changes"
+        right_facing_arrow: "A right facing arrow"
+      show:
+        research: "Research"
+        right_facing_arrow: "A right facing arrow"
       project:
         not_applicable: "N/A"
         alt:
@@ -925,7 +939,7 @@ en:
         activity_and_notes: "Activity & Notes"
       edit:
         title: "Edit Project Details"
-        submit: 
+        submit:
           step_1: "Next: Team"
         alt:
           right_facing_arrow: "A right facing arrow"
@@ -943,7 +957,7 @@ en:
             public_use: "Public"
       new:
         title: "Project Details"
-        submit: 
+        submit:
           step_1: "Next: Team"
         alt:
           right_facing_arrow: "A right facing arrow"
@@ -1084,7 +1098,7 @@ en:
         yes_option: "Yes"
         no_option: "No"
       complete:
-        not_saved: "This project could not be saved as 'open'"   
+        not_saved: "This project could not be saved as 'open'"
     reports:
       header:
         reports: "Reports"
@@ -1201,6 +1215,10 @@ en:
   shared:
     projects:
       show:
+        research: "Research"
+        save_changes: "Save Changes"
+        alt:
+          right_facing_arrow: "A right facing arrow"
         schedule_a_visit: "Schedule A Visit"
         view_our_reserves: "View Our Reserves"
         sidebar_title: "Eureka!"
@@ -1287,14 +1305,14 @@ en:
         applicant: "Applicant"
         project_duration: "Project Duration"
         discipline: "Discipline"
-        project involves: "Project Involves"
+        project_involves: "Project Involves"
       housing_show:
         event_title: "Event Title"
         event_description: "Event Description"
         applicant: "Applicant"
         project_duration: "Project Duration"
         discipline: "Discipline"
-        project involves: "Project Involves"
+        project_involves: "Project Involves"
       team_member_show_table:
         project_team: "Project Team (%{size})"
         edit_team: "Edit Team"
@@ -1321,4 +1339,237 @@ en:
       visit:
         visitor: "Visitor"
         amenity: "Amenity"
-      
+      complete:
+        not_saved: "This project could not be saved as 'open'"
+      research_form:
+        details: "Details"
+        choose_discipline: "Choose a discipline that best describes your project"
+        methods: "Methods"
+        planning: "Are you planning to..."
+        project_title:
+          field_name: "Project or Event Title"
+          explanation: "Enter a short descriptive title to uniquely identify your application."
+        thesis_title:
+          field_name: "Thesis Title"
+          explanation: "Please provide the most complete version of your thesis title."
+        abstract:
+          field_name: "Project Abstract"
+          explanation: "Enter a short summary of your project."
+        project_keywords:
+          field_name: "Project Keywords (Optional)"
+          explanation: "Please separate keywords/phrases with commas."
+          placeholder: "Ex: Earthquakes,Weather"
+        taxonomic_keywords:
+          field_name: "Taxonomic Keywords (Optional)"
+          explanation: "Please provide taxonomic names for any species involved in your project."
+          placeholder: "Ex: Quercus lobata,Picoides nuttallii"
+        recent_publications:
+          field_name: "Recent Publications (Optional)"
+          explanation: "Enter recent publications that resulted from research done on the reserve."
+          placeholder: "DOI (Digital Object Identifier)"
+        method_description:
+          field_name: "Environmental Manipulations Needed"
+          explanation: "Include objects or organisms to be collected, animal and plant populations that may be affected, disturbances of cultural resources, introductions of any species or genotypes, etc."
+        method_study_area:
+          field_name: "Describe where you will be working on the reserve."
+          explanation: "A general description of the geographic area from which you will be collecting data for the project. Could be a place name or a detailed list of sites."
+        start_date: "Start Date"
+        end_date: "End Date"
+        select_involvements: "Will your project involve any of the following?"
+        all_that_apply: "Select all that apply."
+        involvement_flags:
+          involves_mammals: "Mammals"
+          involves_reptiles: "Reptiles"
+          involves_amphibians: "Amphibians"
+          involves_fish: "Fish"
+          involves_birds: "Birds"
+          involves_plants_fungi_soil: "Plants, Fungi, or Soils"
+          involves_none: "None of the Above"
+          involves_threatened_endangered_species: "Threatened, Endangered, or Species of Special Concern"
+        planning_questions:
+          method_remove_organisms: "Remove organisms or materials from the reserve?"
+          method_transfer_organisms: "Transfer animals and plants from outside the reserve to within the reserve, or between different parts of the reserve?"
+          method_study_non_native_species: "Study or manipulate non-native species?"
+          method_chemicals: "Use radioactive isotopes or other chemicals? (e.g., pesticides, herbicides, fertilizers, tracers)"
+          method_soil_disturbance: "Disturb the soil?"
+          method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
+        yes_option: "Yes"
+        no_option: "No"
+      meeting_form:
+        details: "Details"
+        choose_discipline: "Choose a discipline that best describes your meeting or conference."
+        event_title:
+          field_name: "Event Title"
+          explanation: "Enter a short descriptive title to uniquely identify your application."
+        event_description:
+          field_name: "Event Description"
+          explanation: "Enter a short description describing the purpose of your meeting or conference."
+        start_date: "Start Date"
+        end_date: "End Date"
+      class_form:
+        details: "Details"
+        choose_discipline: "Choose a discipline that best describes your project"
+        class_activities: "Class Activities"
+        planning: "Are you planning to..."
+        project_title:
+          field_name: "Project or Event Title"
+          explanation: "Enter a short descriptive title to uniquely identify your application."
+        course_title:
+          field_name: "Course Title"
+          explanation: "Please provide the complete course name as described by your university."
+        course_number:
+          field_name: "Course Number"
+          explanation: "Offical course number as described by your university."
+        project_keywords:
+          field_name: "Project Keywords (Optional)"
+          explanation: "Please separate keywords/phrases with commas."
+          placeholder: "Ex: Earthquakes,Weather"
+        taxonomic_keywords:
+          field_name: "Taxonomic Keywords (Optional)"
+          explanation: "Please provide taxonomic names for any species involved in your project."
+          placeholder: "Ex: Quercus lobata,Picoides nuttallii"
+        recent_publications:
+          field_name: "Recent Publications (Optional)"
+          explanation: "Enter recent publications that resulted from research done on the reserve."
+          placeholder: "DOI (Digital Object Identifier)"
+        method_description:
+          field_name: "Environmental Manipulations Needed"
+          explanation: "Include objects or organisms to be collected, animal and plant populations that may be affected, disturbances of cultural resources, introductions of any species or genotypes, etc."
+        method_study_area:
+          field_name: "Describe where you will be working on the reserve."
+          explanation: "A general description of the geographic area from which you will be collecting data for the project. Could be a place name or a detailed list of sites."
+        start_date: "Start Date"
+        end_date: "End Date"
+        select_involvements: "Will your project involve any of the following?"
+        all_that_apply: "Select all that apply."
+        involvement_flags:
+          involves_mammals: "Mammals"
+          involves_reptiles: "Reptiles"
+          involves_amphibians: "Amphibians"
+          involves_fish: "Fish"
+          involves_birds: "Birds"
+          involves_plants_fungi_soil: "Plants, Fungi, or Soils"
+          involves_none: "None of the Above"
+          involves_threatened_endangered_species: "Threatened, Endangered, or Species of Special Concern"
+        planning_questions:
+          method_remove_organisms: "Remove organisms or materials from the reserve?"
+          method_transfer_organisms: "Transfer animals and plants from outside the reserve to within the reserve, or between different parts of the reserve?"
+          method_study_non_native_species: "Study or manipulate non-native species?"
+          method_chemicals: "Use radioactive isotopes or other chemicals? (e.g., pesticides, herbicides, fertilizers, tracers)"
+          method_soil_disturbance: "Disturb the soil?"
+          method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
+        yes_option: "Yes"
+        no_option: "No"
+    reports:
+      header:
+        reports: "Reports"
+      menu:
+        reserve_use: "Reserve Use"
+        user_affiliation: "User Affiliation"
+        use_by_instructional_groups: "Use By Instructional Groups"
+        current_research: "Current Research"
+        publications: "Publications"
+        narrative: "Narrative"
+        nrs_campus_committee: "NRS Campus Committee"
+        report_status: "Report Status"
+        use_by_publicly_affiliated_groups: "Use By Publicly Affiliated Groups"
+        flex_report: "Flex Report"
+      report_part_1:
+        part_1_reserve_use_data: "Part 1. Reserve Use Data - Using Unique People Roles"
+      report_part_2:
+        part_2_reserve_users_affiliation: "Part 2. Reserve Users' Affiliation"
+      report_part_3:
+        part_3_use_by_instructional_groups: "Part 3. Use by Instructional Groups"
+      report_part_4:
+        part_4_current_research: "Part 4. Current Research"
+      report_part_5:
+        part_5_publications: "Part 5. Publications"
+      report_part_6:
+        part_6_narrative: "Part 6. Narrative"
+      report_part_7:
+        part_7_nrs_campus_committee: "Part 7. NRS Campus Committee Roster"
+    reserve_info:
+      header:
+        reserve_info: "Reserve Info"
+      menu:
+        reserve_details: "Reserve Details"
+        amenities_and_rates: "Amenities & Rates"
+        waivers: "Waivers"
+        rules_and_regulations: "Rules & Regulations"
+        permits: "Permits"
+        reserve_questions: "Reserve Questions"
+        staff_and_notifications: "Staff & Notifications"
+      reserve_details:
+        index:
+          reserve_details: "Reserve Details"
+      amenities_and_rates:
+        index:
+          amenities_and_rates: "Amenities & Rates"
+      waivers:
+        index:
+          waivers: "Waivers"
+      rules_and_regulations:
+        index:
+          rules_and_regulations: "Rules & Regulations"
+      permits:
+        index:
+          permits: "Permits"
+      reserve_questions:
+        index:
+          reserve_questions: "Reserve Questions"
+      staff_and_notifications:
+        index:
+          staff_and_notifications: "Staff & Notifications"
+  navbar:
+    alt_text:
+      mobile_menu: "Mobile Menu"
+      icon_user: "user icon"
+      icon_sign_out: "sign out icon"
+    link:
+      visits: "Visits"
+      reserves: "Reserves"
+      my_projects: "My Projects"
+      help: "Help"
+      account: "Account"
+      schedule_visit: "Schedule a Visit"
+      sign_out: "Sign Out"
+      project_search: "Project Search"
+      projects: "Projects"
+      invoices: "Invoices"
+      reports: "Reports"
+      reserve_info: "Reserve info"
+      users: "Users"
+      manager_view: "Manager view"
+      welcome_back: "Welcome back, %{name}"
+  footer:
+    link:
+      all_rights: "© 2021 UCNRS. All rights reserved."
+      sign_up_newsletter: "Sign Up for the Newsletter"
+      terms_of_use: "Terms of Use"
+      privacy_policy: "Privacy Policy"
+      privacy_policy_short: "Privacy"
+  layouts:
+    unauthenticated:
+      alt-text:
+        logo: "Swirling UCNRS Logo"
+      hero:
+        title: "Plan Your Visit"
+        emphasized: "The University of California Natural Reserve System is the world’s largest network of university-administered field stations and protected lands."
+        explanation1: "Our library of ecosystems includes examples of most major state habitats. We offer outdoor laboratories to field scientists, classrooms without walls for students, and nature’s inspiration to all."
+        explanation2: "Reserves are available for teaching, research, and public service, but not general recreation. Access is by permission only."
+        more_information: "For more UCNRS information, visit <a href='https://ucnrs.org'>UCNRS.ORG</a>"
+        public_information: "For RAMS public information, %{reserves_info_link} %{project_search_link}"
+        reserves_info: "Reserves Info"
+        project_search: "Project Search"
+  alt:
+    right_facing_arrow: "right facing arrow"
+    left_facing_arrow: "left facing arrow"
+    list_icon: "list icon"
+    calendar_icon: "calendar icon"
+    news_article_image: "news article image"
+    modal_image: "modal image"
+    check_circle: "circle with a checkmark"
+    x_circle: "circle with an x"
+    icon_dash: "dashboard icon"
+    icon_list: "list Icon"
+    icon_calendar: "calendar icon"

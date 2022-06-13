@@ -8,7 +8,7 @@ RSpec.describe "app/views/projects/_class_form.html.erb", type: :view do
     )
 
     FakeForm.fields_for(ProjectForm.new) do |form|
-      render partial: "projects/class_form",
+      render partial: "shared/projects/class_form",
         locals: { presenter: presenter, form: form }
     end
 
@@ -25,7 +25,7 @@ RSpec.describe "app/views/projects/_class_form.html.erb", type: :view do
     )
 
     FakeForm.fields_for(ProjectForm.new) do |form|
-      render partial: "projects/class_form",
+      render partial: "shared/projects/class_form",
         locals: { presenter: presenter, form: form }
     end
 
@@ -52,7 +52,7 @@ RSpec.describe "app/views/projects/_class_form.html.erb", type: :view do
     )
 
     FakeForm.fields_for(ProjectForm.new) do |form|
-      render partial: "projects/class_form",
+      render partial: "shared/projects/class_form",
         locals: { presenter: presenter, form: form }
     end
 
@@ -74,7 +74,7 @@ RSpec.describe "app/views/projects/_class_form.html.erb", type: :view do
     )
 
     FakeForm.fields_for(ProjectForm.new) do |form|
-      render partial: "projects/class_form",
+      render partial: "shared/projects/class_form",
         locals: { presenter: presenter, form: form }
     end
 
@@ -90,7 +90,7 @@ RSpec.describe "app/views/projects/_class_form.html.erb", type: :view do
     )
 
     FakeForm.fields_for(ProjectForm.new) do |form|
-      render partial: "projects/class_form",
+      render partial: "shared/projects/class_form",
         locals: { presenter: presenter, form: form }
     end
 
@@ -107,7 +107,7 @@ RSpec.describe "app/views/projects/_class_form.html.erb", type: :view do
     )
 
     FakeForm.fields_for(ProjectForm.new) do |form|
-      render partial: "projects/class_form",
+      render partial: "shared/projects/class_form",
         locals: { presenter: presenter, form: form }
     end
 
@@ -123,7 +123,7 @@ RSpec.describe "app/views/projects/_class_form.html.erb", type: :view do
     )
 
     FakeForm.fields_for(ProjectForm.new) do |form|
-      render partial: "projects/class_form",
+      render partial: "shared/projects/class_form",
         locals: { presenter: presenter, form: form }
     end
 
@@ -162,7 +162,7 @@ RSpec.describe "app/views/projects/_class_form.html.erb", type: :view do
       )
 
       FakeForm.fields_for(project_form) do |form|
-        render partial: "projects/class_form",
+        render partial: "shared/projects/class_form",
           locals: { presenter: presenter, form: form }
       end
 
@@ -215,7 +215,7 @@ RSpec.describe "app/views/projects/_class_form.html.erb", type: :view do
       project_form.validate
 
       FakeForm.fields_for(project_form) do |form|
-        render partial: "projects/class_form",
+        render partial: "shared/projects/class_form",
           locals: { presenter: presenter, form: form }
       end
 
