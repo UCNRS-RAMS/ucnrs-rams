@@ -15,7 +15,7 @@
     @include summary;
 
     .content {
-      padding: 3.5rem;
+      padding: 3.5rem 3.5rem 0rem 3.5rem;
 
       .project-summary-box {
         background-color: $light-gray;
@@ -68,6 +68,16 @@
             }
           }
         }
+      }
+
+      .project-form{
+        margin-bottom: 0rem;
+        padding: 0rem;
+      }
+
+      .controls {
+        margin-bottom: 0rem;
+        padding: 1.5rem;
       }
     }
   }

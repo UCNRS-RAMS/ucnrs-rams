@@ -27,7 +27,7 @@ class ProjectFormPresenter
   end
 
   def partial_name
-    "projects/#{project_type}_form"
+    "shared/projects/#{project_type}_form"
   end
 
   def disciplines

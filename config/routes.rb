@@ -39,14 +39,17 @@ Rails.application.routes.draw do
   end
   resources :visits, only: [:new, :create, :show]
 
-  devise_scope :user do 
+  devise_scope :user do
     resources :password, only: [:new, :create]
   end
 
   namespace :manager do
     resources :reserves do
       resource :dashboard, only: [:show]
-      resources :projects, only: [:show]
+      resources :projects, only: [:show] do
+        resource :summary, only: [:show], controller: "projects/summary"
+        resource :detail, only: [:edit, :update], controller: "projects/detail"
+      end
       resources :reports, only: [:show] do
         get "report_part_1", on: :member
         get "report_part_2", on: :member

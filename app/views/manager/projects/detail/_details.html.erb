@@ -1,0 +1,20 @@
+<section class="project-form">
+  <section>
+    <h2><%= t(".project_type") %></h2>
+    <h3><%= t(".#{presenter.project_type}") %></h3>
+    <p><%= t(".#{presenter.project_type}_tag_line") %></p>
+  </section>
+  <section>
+    <%= form_with model: presenter.form, url: manager_reserve_project_detail_url(@presenter.id), method: :put, data: { controller: "turbo-content" }, id: "projects-edit" do |form| %>
+      <%= render partial: "shared/projects/project_type_form", locals: {
+      form: form,
+      presenter: @presenter
+    } %>
+    <% end %>
+  </section>
+</section>
+<section class="controls">
+  <button form="projects-edit" class="active">
+    <%= t(".save_changes") %>
+  </button>
+</section>

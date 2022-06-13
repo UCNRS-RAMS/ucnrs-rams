@@ -1,6 +1,5 @@
 <% content_for(:title) { t(".title") } %>
 <%= render partial: "projects/steps", locals: { presenter: @presenter } %>
-
 <section class="project-form">
   <h1><%= t(".title") %></h1>
   <%= form_with model: @presenter.form, url: project_url(@presenter.id), method: :put, data: { controller: "turbo-content" }, id: "projects-edit" do |form| %>
@@ -24,25 +23,18 @@
         <p><%= t(".project_type_options.explanation.#{@presenter.project_type}") %></p>
       </section>
     <% end %>
-
-    <%= turbo_frame_tag "project_type_form", data: { pattern: new_project_path(project_type: "VALUE"), "turbo-content-target": "destination" } do %>
-      <section class="<%= @presenter.project_type %>">
-        <%= render partial: @presenter.partial_name, locals: {
-          form: form,
-          presenter: @presenter
-        } %>
-      </section>
-    <% end %>
+    <%= render partial: "shared/projects/project_type_form", locals: {
+      form: form,
+      presenter: @presenter
+    } %>
   <% end %>
 </section>
-
 <section class="controls">
   <button form="projects-edit" class="active">
     <%= t(@presenter.current_step_name) %>
     <%= image_tag "arrow-right.svg", alt: t(".alt.right_facing_arrow") %>
   </button>
 </section>
-
 <% content_for :modal do %>
   <%= render partial: "modals/empty" %>
 <% end %>
