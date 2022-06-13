@@ -15,7 +15,7 @@ RSpec.describe ProjectShowPresenter do
       project = create(:project, created_at: Time.current)
       presenter = Manager::ProjectShowPresenter.new(project)
 
-      expect(presenter.created_at(format: :project_summary_time)).to eq "Nov. 24, 2004 at  1:04 AM"
+      expect(presenter.created_at(format: :project_summary_date_time)).to eq "Nov. 24, 2004 at  1:04 AM"
     end
   end
 
@@ -33,7 +33,7 @@ RSpec.describe ProjectShowPresenter do
       project = create(:project, updated_at: Time.current)
       presenter = Manager::ProjectShowPresenter.new(project)
 
-      expect(presenter.updated_at(format: :project_summary_time)).to eq "Nov. 24, 2004 at  1:04 AM"
+      expect(presenter.updated_at(format: :project_summary_date_time)).to eq "Nov. 24, 2004 at  1:04 AM"
     end
   end
 

@@ -14,7 +14,7 @@ class ProjectShowPresenter
   end
 
   def submitted_at
-    project.submitted_at ? I18n.l(project.submitted_at, format: :project_summary_time) : ""
+    project.submitted_at ? I18n.l(project.submitted_at, format: :project_summary_date_time) : ""
   end
 
   def principal_investigators_list

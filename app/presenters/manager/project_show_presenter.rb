@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class Manager::ProjectShowPresenter < ProjectShowPresenter
-  def created_at(format: :project_summary_box_time)
+  def created_at(format: :project_summary_date)
     project.created_at ? I18n.l(project.created_at, format: format) : ""
   end
 
-  def updated_at(format: :project_summary_box_time)
+  def updated_at(format: :project_summary_date)
     project.updated_at ? I18n.l(project.updated_at, format: format) : ""
   end
 
@@ -22,7 +22,7 @@ class Manager::ProjectShowPresenter < ProjectShowPresenter
   end
 
   def project_info
-    "#{status.titleize} #{project_type.titleize} Project Created: #{created_at(format: :project_summary_time)}"
+    "#{status.titleize} #{project_type.titleize} Project Created: #{created_at(format: :project_summary_date_time)}"
   end
 
   def team_memberships
