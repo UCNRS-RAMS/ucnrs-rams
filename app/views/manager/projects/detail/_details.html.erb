@@ -7,9 +7,9 @@
   <section>
     <%= form_with model: presenter.form, url: manager_reserve_project_detail_url(@presenter.id), method: :put, data: { controller: "turbo-content" }, id: "projects-edit" do |form| %>
       <%= render partial: "shared/projects/project_type_form", locals: {
-      form: form,
-      presenter: @presenter
-    } %>
+        form: form,
+        presenter: @presenter
+      } %>
     <% end %>
   </section>
 </section>
