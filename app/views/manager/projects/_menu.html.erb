@@ -7,32 +7,17 @@
         data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "project-details" }
       })%>
     </li>
-    <li><%= link_to( t(".visits"),
-      '#',
-      { class: "nav-link"})%>
-    </li>
+    <li><%= link_to( t(".visits"), '#', class: "nav-link")%></li>
     <li><%= link_to( t(".details"),
-     edit_manager_reserve_project_detail_path(@presenter.reserve_id, @presenter.id),
+      edit_manager_reserve_project_detail_path(@presenter.reserve_id, @presenter.id),
       { class: "nav-link",
         id: "details",
         data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "project-details" }
       })%>
     </li>
-    <li><%= link_to( t(".team"),
-      '#',
-      { class: "nav-link"})%>
-    </li>
-    <li><%= link_to( t(".permits"),
-      '#',
-      { class: "nav-link"})%>
-    </li>
-    <li><%= link_to( t(".funding"),
-      '#',
-      { class: "nav-link"})%>
-    </li>
-    <li><%= link_to( t(".activity_and_notes"),
-      '#',
-      { class: "nav-link"})%>
-    </li>
+    <li><%= link_to( t(".team"), '#', class: "nav-link")%></li>
+    <li><%= link_to( t(".permits"), '#', class: "nav-link")%></li>
+    <li><%= link_to( t(".funding"), '#', class: "nav-link")%></li>
+    <li><%= link_to( t(".activity_and_notes"), '#', class: "nav-link")%></li>
   </ul>
 </section>

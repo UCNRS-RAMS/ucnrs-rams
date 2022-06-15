@@ -12,8 +12,8 @@ RSpec.describe "Manager Project Show" do
 
       flow.visit_show_page
 
-      expect(page).to have_css(".project-summary-box")
-      expect(page).to have_css(".project-menu-bar")
+      expect(flow).to be_showing_summary_box
+      expect(flow).to be_showing_menu_bar
     end
   end
 
@@ -30,10 +30,10 @@ RSpec.describe "Manager Project Show" do
       flow.visit_show_page
       flow.click_on_summary
 
-      expect(page).to have_css("section.project-team")
-      expect(page).to have_css("a", text: "Edit Team")
-      expect(page).to have_css("table#team-summary-table")
-      expect(page).to_not have_css(".inactive-user")
+      expect(flow).to have_section("project-team")
+      expect(flow).to have_navigation_link("Edit Team")
+      expect(flow).to be_showing_summary_table
+      expect(flow).to have_no_inactive_user
     end
 
     it "includes inactive user class" do
@@ -48,7 +48,7 @@ RSpec.describe "Manager Project Show" do
       flow.visit_show_page
       flow.click_on_summary
 
-      expect(page).to have_css(".inactive-user")
+      expect(flow).to have_inactive_user
     end
   end
 
@@ -62,9 +62,9 @@ RSpec.describe "Manager Project Show" do
     flow.visit_show_page
     flow.click_on_summary
 
-    expect(page).to have_css("section.project-funding")
-    expect(page).to have_css("a", text: "Edit Funding")
-    expect(page).to have_css("table#funding-summary-table")
+    expect(flow).to have_section("project-funding")
+    expect(flow).to have_navigation_link("Edit Funding")
+    expect(flow).to be_showing_funding_summary_table
   end
 
   it "includes project permit section" do
@@ -77,9 +77,9 @@ RSpec.describe "Manager Project Show" do
     flow.visit_show_page
     flow.click_on_summary
 
-    expect(page).to have_css("section.project-permit")
-    expect(page).to have_css("a", text: "Edit Permits")
-    expect(page).to have_css("div#permit-summary-list")
+    expect(flow).to have_section("project-permit")
+    expect(flow).to have_navigation_link("Edit Permits")
+    expect(flow).to be_showing_permit_summary_list
   end
 
   it "includes project short info" do
@@ -97,7 +97,7 @@ RSpec.describe "Manager Project Show" do
     flow.click_on_summary
 
     expected_info = "Incomplete Research Project Created: Nov. 24, 2004 at 1:04 AM"
-    expect(page).to have_css("p", text: expected_info)
+    expect(flow).to be_showing_text(expected_info)
   end
 
   describe "it displays manager's project detail section in show page" do
@@ -111,11 +111,11 @@ RSpec.describe "Manager Project Show" do
 
       flow.visit_show_page
 
-      expect(page).to_not have_css(".research")
+      expect(flow).to be_not_showing_form(".research")
       flow.click_on_details
-      expect(page).to have_css("p", text: "Field or lab base research in any discipline")
-      expect(page).to have_css("h3", text: "Research")
-      expect(page).to have_css(".research")
+      expect(flow).to be_showing_text("Field or lab base research in any discipline")
+      expect(flow).to have_heading("Research")
+      expect(flow).to be_showing_form(".research")
     end
 
     it "renders meeting form", js: true do
@@ -128,11 +128,11 @@ RSpec.describe "Manager Project Show" do
 
       flow.visit_show_page
 
-      expect(page).to_not have_css(".meeting")
+      expect(flow).to be_not_showing_form(".meeting")
       flow.click_on_details
-      expect(page).to have_css("p", text: "Field or lab base meeting in any discipline")
-      expect(page).to have_css("h3", text: "Meeting")
-      expect(page).to have_css(".meeting")
+      expect(flow).to be_showing_text("Field or lab base meeting in any discipline")
+      expect(flow).to have_heading("Meeting")
+      expect(flow).to be_showing_form(".meeting")
     end
 
     it "renders class form", js: true do
@@ -145,11 +145,11 @@ RSpec.describe "Manager Project Show" do
 
       flow.visit_show_page
 
-      expect(page).to_not have_css(".class")
+      expect(flow).to be_not_showing_form(".class")
       flow.click_on_details
-      expect(page).to have_css("p", text: "Field or lab base class in any discipline")
-      expect(page).to have_css("h3", text: "Class")
-      expect(page).to have_css(".class")
+      expect(flow).to be_showing_text("Field or lab base class in any discipline")
+      expect(flow).to have_heading("Class")
+      expect(flow).to be_showing_form(".class")
     end
   end
 end
