@@ -3,9 +3,14 @@ class Reserve < ApplicationRecord
 
   has_one_attached :reserve_avatar
   has_rich_text :rules_and_regulations
+  has_one_attached :large_hero_photo
+  has_one_attached :listing_photo
 
   belongs_to :managing_campus, class_name: "Institution", optional: true
-  belongs_to :address_state, class_name: "State"
+  belongs_to :address_country, class_name: "Country"
+  belongs_to :billing_address_country, class_name: "Country", optional: true
+  belongs_to :address_state, class_name: "State", optional: true
+  belongs_to :billing_address_state, class_name: "State", optional: true
   has_many :amenities
   has_many :personnel, class_name: "ReservePersonnel"
   has_and_belongs_to_many :waivers
