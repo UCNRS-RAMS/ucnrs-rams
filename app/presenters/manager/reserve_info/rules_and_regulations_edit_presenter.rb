@@ -5,6 +5,7 @@ class Manager::ReserveInfo::RulesAndRegulationsEditPresenter
   end
 
   attr_reader :form
+
   delegate :id, :errors, to: :form
 
   private

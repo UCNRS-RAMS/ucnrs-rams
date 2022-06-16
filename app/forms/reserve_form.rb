@@ -5,8 +5,8 @@ class ReserveForm
     ActiveModel::Name.new(Reserve)
   end
 
-  def initialize(params: {})
-    @reserve = Reserve.find_by(id: params[:id]) || Reserve.new
+  def initialize(reserve: nil, params: {})
+    @reserve = reserve || Reserve.new
     assign(params)
   end
 

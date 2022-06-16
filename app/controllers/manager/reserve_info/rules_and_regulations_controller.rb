@@ -3,14 +3,15 @@ class Manager::ReserveInfo::RulesAndRegulationsController < ApplicationControlle
   before_action :authenticate_user!
 
   def edit
-    form = ReserveForm.new(params: { id: current_reserve.id })
+    form = ReserveForm.new(reserve: current_reserve)
     @presenter = Manager::ReserveInfo::RulesAndRegulationsEditPresenter.new(reserve: current_reserve, form: form)
   end
 
   def update
-    form = ReserveForm.new(params: rules_and_regulations_params.merge(id: current_reserve.id))
+    form = ReserveForm.new(reserve: current_reserve, params: rules_and_regulations_params)
     @presenter = Manager::ReserveInfo::RulesAndRegulationsEditPresenter.new(reserve: current_reserve, form: form)
     if form.save
+      flash.now[:notice] = "Update success."
       render :edit
     else
       render :edit, status: :unprocessable_entity
