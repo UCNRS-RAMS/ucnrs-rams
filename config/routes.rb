@@ -51,6 +51,7 @@ Rails.application.routes.draw do
         resource :detail, only: [:edit, :update], controller: "projects/detail"
         resource :permit, only: [:edit, :create], controller: "projects/permit"
         resources :fundings, except: [:show], controller: "projects/fundings"
+        resources :visits, only: [:index], controller: "projects/visits"
       end
       resources :reports, only: [:show] do
         get "report_part_1", on: :member

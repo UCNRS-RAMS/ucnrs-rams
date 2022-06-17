@@ -69,6 +69,9 @@ class VisitPresenter
     :ends_at,
     :user_visits,
     :amenity_visits,
+    :reserve_short_name,
+    :start_date,
+    :end_date,
     to: :visit
 
   delegate :status,
