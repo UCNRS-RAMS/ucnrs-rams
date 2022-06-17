@@ -212,4 +212,62 @@ RSpec.describe "Manager Project Show" do
       expect(flow).to be_showing_questions
     end
   end
+
+  describe "it displays manager's project team section in show page" do
+    it "displays a form to add a project team member" do
+      user = create(:user, :confirmed)
+      reserve = create(:reserve)
+      project = create(:project, owner: user)
+      team_membership = create(:project_team_membership, :principal_investigator, project: project,
+        user: user)
+
+      sign_in(user)
+      flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
+
+      flow.visit_show_page
+
+      expect(flow).to be_not_showing_form("#add-user-form")
+      flow.click_on_team
+      expect(flow).to have_text_field("project_team_membership_full_name")
+      expect(flow).to have_hidden_field("project_team_membership_user_id")
+      expect(flow).to have_select_field("Project Role")
+      expect(flow).to have_section("team-member-table")
+      expect(flow).to have_team_membership_edit_link(team_membership.id)
+    end
+
+    it "displays a team member table" do
+      user = create(:user, :confirmed)
+      reserve = create(:reserve)
+      project = create(:project, owner: user)
+      team_membership = create(:project_team_membership, :principal_investigator, project: project,
+        user: user)
+
+      sign_in(user)
+      flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
+
+      flow.visit_show_page
+
+      expect(flow).to be_not_showing_form(".team-member-table")
+      flow.click_on_team
+      expect(flow).to be_showing_form(".team-member-table")
+      expect(flow).to have_team_membership_edit_link(team_membership.id)
+    end
+
+    describe "if the user does not have can_add_project_user permission" do
+      it "does not show the add user form" do
+        user = create(:user, :confirmed)
+        reserve = create(:reserve)
+        project = create(:project, owner: user)
+        create(:project_team_membership, :team_member, project: project)
+
+        sign_in(user)
+        flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
+
+        flow.visit_show_page
+        flow.click_on_team
+        expect(flow).to be_not_showing_form("#add-user-form")
+        expect(flow).to be_not_showing_section("team-member-table")
+      end
+    end
+  end
 end

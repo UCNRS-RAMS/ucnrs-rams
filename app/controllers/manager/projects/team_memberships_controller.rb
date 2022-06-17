@@ -1,12 +1,11 @@
-class Projects::TeamMembershipsController < ApplicationController
+class Manager::Projects::TeamMembershipsController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_user, only: [:index]
   before_action :authorize_add_user, only: [:create]
   before_action :authorize_edit_project, only: [:edit, :update, :destroy]
 
   def index
-    @presenter = Projects::TeamMembershipsIndexPresenter.new(
-      current_step: 2,
+    @presenter = Manager::Projects::TeamMembershipsIndexPresenter.new(
       project: project,
       current_user: current_user,
     )
@@ -18,7 +17,7 @@ class Projects::TeamMembershipsController < ApplicationController
 
   def edit
     form = ProjectTeamMembershipForm.new(params: { id: project_team_membership.id })
-    @presenter = Projects::TeamMembershipEditPresenter.new(form: form)
+    @presenter = Manager::Projects::TeamMembershipEditPresenter.new(form: form, user: current_user)
   end
 
   def create
@@ -28,10 +27,9 @@ class Projects::TeamMembershipsController < ApplicationController
     )
 
     if form.save
-      redirect_to project_team_memberships_path(project)
+      redirect_to manager_reserve_project_team_memberships_path(project.reserve, project)
     else
-      @presenter = Projects::TeamMembershipsIndexPresenter.new(
-        current_step: 2,
+      @presenter = Manager::Projects::TeamMembershipsIndexPresenter.new(
         project: project,
         form: form,
       )
@@ -47,10 +45,10 @@ class Projects::TeamMembershipsController < ApplicationController
     respond_to do |format|
       if form.save
         project = project_team_membership.project
-        format.turbo_stream { redirect_to project_team_memberships_path(project) }
-        format.html { redirect_to project_team_memberships_path(project) }
+        format.turbo_stream { redirect_to manager_reserve_project_team_memberships_path(project.reserve, project) }
+        format.html { redirect_to manager_reserve_project_team_memberships_path(project.reserve, project) }
       else
-        @presenter = Projects::TeamMembershipEditPresenter.new(form: form)
+        @presenter = Manager::Projects::TeamMembershipEditPresenter.new(form: form)
         format.turbo_stream do
           render template: "shared/projects/team_memberships/edit",
             status: :unprocessable_entity
@@ -64,13 +62,13 @@ class Projects::TeamMembershipsController < ApplicationController
   end
 
   def destroy
-    project_id = project_team_membership.project_id
     respond_to do |format|
+      project = project_team_membership.project
       if project_team_membership.destroy
-        format.turbo_stream { redirect_to project_team_memberships_path(project_id) }
-        format.html { redirect_to project_team_memberships_path(project_id) }
+        format.turbo_stream { redirect_to manager_reserve_project_team_memberships_path(project.reserve_id, project) }
+        format.html { redirect_to manager_reserve_project_team_memberships_path(project.reserve_id, project) }
       else
-        @presenter = Projects::TeamMembershipEditPresenter.new(form: form)
+        @presenter = Manager::Projects::TeamMembershipEditPresenter.new(form: form)
         format.turbo_stream do
           render template: "shared/projects/team_memberships/edit",
             status: :unprocessable_entity
@@ -83,21 +81,21 @@ class Projects::TeamMembershipsController < ApplicationController
   private
 
   def authorize_user
-    if !(current_user.able_to_edit?(project) || current_user.able_to_add_user?(project))
+    unless (current_user.able_to_edit?(project) || current_user.able_to_add_user?(project))
       flash[:alert] = t("projects.not_authorized")
       redirect_to project_path(project)
     end
   end
 
   def authorize_add_user
-    if !current_user.able_to_add_user?(project)
+    unless current_user.able_to_add_user?(project)
       flash[:alert] = t("projects.cannot_add_users")
       head :unauthorized
     end
   end
 
   def authorize_edit_project
-    if !current_user.able_to_edit?(project)
+    unless current_user.able_to_edit?(project)
       flash[:alert] = t("projects.not_authorized")
       head :unauthorized
     end
@@ -127,6 +125,7 @@ class Projects::TeamMembershipsController < ApplicationController
       :can_add_visit,
       :can_receive_invoice,
       :active,
+      :assigned_owner,
     )
   end
 end

@@ -1,18 +1,14 @@
 <% content_for(:title) { t(".title") } %>
 <%= render partial: "projects/steps", locals: { presenter: @presenter } %>
-
 <section>
   <h1><%= t(".title") %></h1>
 </section>
-
 <section class="add-user-form">
   <% if @presenter.able_to_add_user? %>
-    <%= render partial: "projects/team_memberships/form", locals: { presenter: @presenter } %>
+    <%= render partial: "shared/projects/team_memberships/form", locals: { presenter: @presenter } %>
   <% end %>
 </section>
-
-<%= render partial: "projects/team_memberships/team_member_table", locals: { presenter: @presenter } %>
-
+<%= render partial: "shared/projects/team_memberships/team_member_table", locals: { presenter: @presenter } %>
 <section class="controls">
   <%= link_to edit_project_path(@presenter.project) do %>
     <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t(".alt.left_facing_arrow")  %>

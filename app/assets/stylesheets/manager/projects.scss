@@ -70,9 +70,21 @@
         }
       }
 
-      .project-form{
+      .project-form {
         margin-bottom: 0rem;
         padding: 0rem;
+      }
+
+      .team_memberships-index {
+        margin-bottom: 0rem;
+
+        section {
+          padding: 0rem 3rem;
+        }
+        section:last-child {
+          margin-bottom: 0rem;
+          padding: 1.5rem;
+        }
       }
 
       .controls {

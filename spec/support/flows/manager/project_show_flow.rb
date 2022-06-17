@@ -19,6 +19,9 @@ class ProjectShowFlow
 
   def click_on_fundings
     page.click_link("funding")
+
+  def click_on_team
+    page.click_link("team_memberships")
   end
 
   def click_on_visits
@@ -41,8 +44,16 @@ class ProjectShowFlow
     page.has_css?("section.#{section}")
   end
 
+  def not_showing_section?(section)
+    page.has_no_css?("section.#{section}")
+  end
+
   def has_navigation_link?(text)
     page.has_css?("a", text: text)
+  end
+
+  def has_team_membership_edit_link?(team_membership_id)
+    page.has_css?("a[href='/manager/team_memberships/#{team_membership_id}/edit']")
   end
 
   def showing_summary_table?
@@ -104,6 +115,19 @@ class ProjectShowFlow
   def showing_funding_edit_modal?
     page.has_css?("section.text")
   end
+  
+  def has_text_field?(value)
+    page.has_field?(value, type: "text")
+  end
+
+  def has_hidden_field?(value)
+    page.has_field?(value, type: "hidden")
+  end
+
+  def has_select_field?(value)
+    page.has_field?(value, type: "select")
+  end
+
 
   def has_n_table_rows?(css_class:, count:)
     page.all("#{css_class} tr").count.eql? count

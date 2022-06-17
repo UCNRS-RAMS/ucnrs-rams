@@ -20,6 +20,8 @@ RSpec.describe Projects::TeamMembershipsIndexPresenter do
         team_memberships[1].id,
         team_memberships[2].id,
       ]
+
+      expect(results.map(&:class).uniq).to eq [Projects::TeamMembershipPresenter]
     end
   end
 
@@ -36,6 +38,31 @@ RSpec.describe Projects::TeamMembershipsIndexPresenter do
         "Team Member",
         "Billing",
       ]
+    end
+  end
+
+  describe "#team_memberships_form_path" do
+    it "returns the path for team membership" do
+      project = create(:project)
+      presenter = Projects::TeamMembershipsIndexPresenter.new(
+        current_step: 2,
+        project: project,
+      )
+
+      expected_value = "/projects/#{project.id}/team_memberships"
+      expect(presenter.team_memberships_form_path).to eq expected_value
+    end
+  end
+
+  describe "#user_form_path" do
+    it "returns the path for user" do
+      project = create(:project)
+      presenter = Projects::TeamMembershipsIndexPresenter.new(
+        current_step: 2,
+        project: project,
+      )
+      expected_value = "/projects/#{project.id}/users/new"
+      expect(presenter.user_form_path).to eq expected_value
     end
   end
 end

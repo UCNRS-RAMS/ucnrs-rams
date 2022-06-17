@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Projects::TeamMembershipEditPresenter
+  include Rails.application.routes.url_helpers
+  
   def initialize(form:)
     @form = form
   end
@@ -30,5 +32,13 @@ class Projects::TeamMembershipEditPresenter
     User.roles.except(:no_selection).map do |key, value|
       [value, key]
     end
+  end
+
+  def able_to_change_owner?
+    false
+  end
+
+  def team_memberships_form_path
+    team_membership_path(id)
   end
 end

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Projects::TeamMembershipsIndexPresenter
+  include Rails.application.routes.url_helpers
+  
   def initialize(current_step:, project: nil, form: nil, current_user: nil)
     @project = project
     @current_step = current_step
@@ -41,11 +43,19 @@ class Projects::TeamMembershipsIndexPresenter
     current_user&.able_to_add_user?(project)
   end
 
+  def team_memberships_form_path
+    project_team_memberships_path(project)
+  end
+
+  def user_form_path
+    new_project_user_path(project)
+  end
+
   def continue_button
     if able_to_edit?
-      { partial: "projects/team_memberships/next_step_button", locals: { presenter: self } }
+      { partial: "shared/projects/team_memberships/next_step_button", locals: { presenter: self } }
     else
-      { partial: "projects/team_memberships/finish_button", locals: { presenter: self } }
+      { partial: "shared/projects/team_memberships/finish_button", locals: { presenter: self } }
     end
   end
 
