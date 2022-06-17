@@ -856,6 +856,9 @@ en:
     projects:
       not_authorized: "You are not authorized to edit this project."
       cannot_add_users: "You are not authorized to add users."
+      permit:
+        edit:
+          save_changes: "Save Changes"
       index:
         title: "My Projects"
         table_headers:
@@ -1199,6 +1202,20 @@ en:
     icon_calendar: "calendar icon"
   shared:
     projects:
+      permit_questions:
+        reserve_section_title: "Reserve-specific Questions"
+        no_questions: "There are no necessary permit questions for this project at this time."
+        permit_statement: "If you have any approved permits, please provide the type of permit, permit number, permit dates, and any other relevant information. You may be asked to provide a copy of the approved permit prior to or upon your arrival. If you have your IACUC permit please also state the institution name that issued that permit."
+        authority:
+          federal: "Federal Permits"
+          state: "State Permits"
+          local: "Local Permits"
+          institution: "Institution Permits"
+      edit:
+        federal: "Federal Permits"
+        state: "State Permits"
+        local: "Local Permits"
+        institution: "Institution Permits"
       show:
         research: "Research"
         save_changes: "Save Changes"

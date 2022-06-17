@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Projects::QuestionsIndexPresenter
+  include Rails.application.routes.url_helpers
+
   def initialize(current_step:, project:, form: nil)
     @current_step = current_step
     @steps_presenter = StepsPresenter.new(@current_step)
@@ -31,6 +33,10 @@ class Projects::QuestionsIndexPresenter
 
   def has_reserve_questions_for_project?
     reserve_question_scope.exists?
+  end
+
+  def form_url
+    project_answers_path(project.id)
   end
 
   private

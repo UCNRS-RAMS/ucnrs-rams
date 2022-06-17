@@ -49,6 +49,7 @@ Rails.application.routes.draw do
       resources :projects, only: [:show] do
         resource :summary, only: [:show], controller: "projects/summary"
         resource :detail, only: [:edit, :update], controller: "projects/detail"
+        resource :permit, only: [:edit, :create], controller: "projects/permit"
         resources :fundings, except: [:show], controller: "projects/fundings"
       end
       resources :reports, only: [:show] do
