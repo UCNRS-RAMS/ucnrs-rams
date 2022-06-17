@@ -186,5 +186,21 @@ RSpec.describe "Manager Project Show" do
         expect(flow).to be_showing_funding_edit_modal
       end
     end
+
+    it "renders permit questions partial", js: true do
+      user = create(:user, :confirmed)
+      reserve = create(:reserve)
+      project = create(:project, involves_mammals: true)
+      permit = create(:permit, involves_all: true)
+
+      sign_in(user)
+      flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
+
+      flow.visit_show_page
+
+      expect(flow).to be_not_showing_questions
+      flow.click_on_permits
+      expect(flow).to be_showing_questions
+    end
   end
 end

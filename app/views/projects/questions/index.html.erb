@@ -5,37 +5,7 @@
   <h1><%=t(".title")%></h1>
 </section>
 
-<%= form_with model: @presenter.form, url: project_answers_path(@presenter.project), id: "questions" do |form| %>
-  <% if @presenter.has_permit_questions_for_project? %>
-    <section class="questions">
-      <% @presenter.questions_by_authority.each do |authority, questions| %>
-        <%= render partial: "projects/questions/group", locals: { title: t(".authority.#{authority}"), questions: questions } %>
-      <% end %>
-    </section>
-    <section class="approved_questions">
-      <div class="field">
-        <%= form.label :approved_permits %>
-        <p>
-        <%= form.text_area :approved_permits %>
-        <span class="explanation"><%= t(".permit_statement") %></span>
-        </p>
-      </div>
-    </section>
-  <% else %>
-    <section>
-      <input name="project[no_questions]" value="" type="hidden"/>
-      <p><%= t(".no_questions") %></p>
-    </section>
-  <% end %>
-  <% if @presenter.has_reserve_questions_for_project? %>
-    <section class="questions">
-      <h1><%= t(".reserve_section_title") %></h1>
-      <% @presenter.questions_by_reserve.each do |reserve, questions| %>
-        <%= render partial:  "projects/questions/group", locals: { title: reserve, questions: questions } %>
-      <% end %>
-    </section>
-  <% end %>
-<% end %>
+<%= render partial: "shared/projects/permit_questions", locals: {presenter: @presenter} %>
 
 <section class="controls">
   <%= link_to project_team_memberships_path(@presenter.project) do %>

@@ -1,0 +1,8 @@
+<turbo-frame id="project-details">
+  <%= render partial: "shared/projects/permit_questions", locals: {presenter: @presenter} %>
+  <section class="controls">
+    <button form="questions" class="active" data-turbo="false">
+      <%= t(".save_changes") %>
+    </button>
+  </section>
+</turbo-frame>

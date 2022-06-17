@@ -21,6 +21,10 @@ class ProjectShowFlow
     page.click_link("funding")
   end
 
+  def click_on_permits
+    page.click_link("permits")
+  end
+
   def showing_summary_box?
     page.has_css?(".project-summary-box")
   end
@@ -67,6 +71,14 @@ class ProjectShowFlow
 
   def not_showing_form?(form)
     page.has_no_css?(form)
+  end
+
+  def not_showing_questions?
+    page.has_no_css?(".questions-index")
+  end
+
+  def showing_questions?
+    page.has_css?(".questions-index")
   end
 
   def has_heading?(heading)
