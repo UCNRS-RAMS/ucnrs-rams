@@ -44,7 +44,8 @@ Rails.application.routes.draw do
   end
 
   namespace :manager do
-    resources :reserves do
+    resources :team_memberships, only: [:edit, :update, :destroy], controller: "projects/team_memberships"
+    resources :reserves, only: [:show] do
       resource :dashboard, only: [:show]
       resources :projects, only: [:show] do
         resource :summary, only: [:show], controller: "projects/summary"
@@ -52,6 +53,8 @@ Rails.application.routes.draw do
         resource :permit, only: [:edit, :create], controller: "projects/permit"
         resources :fundings, except: [:show], controller: "projects/fundings"
         resources :visits, only: [:index], controller: "projects/visits"
+        resources :team_memberships, only: [:index, :create], controller: "projects/team_memberships"
+        resources :users, only: [:new, :create], controller: "projects/users"
       end
       resources :reports, only: [:show] do
         get "report_part_1", on: :member

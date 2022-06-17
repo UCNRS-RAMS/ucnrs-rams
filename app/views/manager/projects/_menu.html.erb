@@ -21,7 +21,13 @@
         data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "project-details" }
       })%>
     </li>
-    <li><%= link_to( t(".team"), '#', class: "nav-link")%></li>
+    <li><%= link_to( t(".team"),
+      manager_reserve_project_team_memberships_path(@presenter.reserve_id, @presenter.id),
+      { class: "nav-link",
+        id: "team_memberships",
+        data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "project-details" }
+      })%>
+    </li>
     <li><%= link_to( t(".permits"),
       edit_manager_reserve_project_permit_path(@presenter.reserve_id, @presenter.id),
       { class: "nav-link",

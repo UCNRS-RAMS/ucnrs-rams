@@ -1,0 +1,10 @@
+<turbo-frame id="project-details">
+  <section class="team_memberships-index">
+    <section class="add-user-form">
+      <% if @presenter.able_to_add_user? %>
+        <%= render partial: "shared/projects/team_memberships/form", locals: { presenter: @presenter } %>
+      <% end %>
+    </section>
+    <%= render partial: "shared/projects/team_memberships/team_member_table", locals: { presenter: @presenter } %>
+  </section>
+</turbo-frame>

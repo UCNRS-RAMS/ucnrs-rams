@@ -79,4 +79,24 @@ RSpec.describe Projects::TeamMembershipEditPresenter do
       ]
     end
   end
+
+  describe "#able_to_change_owner?" do
+    it "returns false for edit team membership" do
+      membership = create(:project_team_membership)
+      form = ProjectTeamMembershipForm.new(params: { id: membership.id })
+      presenter = Projects::TeamMembershipEditPresenter.new(form: form)
+
+      expect(presenter.able_to_change_owner?).to eq false
+    end
+  end
+
+  describe "#team_memberships_form_path" do
+    it "returns the path for team membership" do
+      membership = create(:project_team_membership)
+      form = ProjectTeamMembershipForm.new(params: { id: membership.id })
+      presenter = Projects::TeamMembershipEditPresenter.new(form: form)
+
+      expect(presenter.team_memberships_form_path).to eq "/team_memberships/#{membership.id}"
+    end
+  end
 end

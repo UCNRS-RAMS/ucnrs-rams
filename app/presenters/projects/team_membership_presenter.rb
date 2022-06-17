@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Projects::TeamMembershipPresenter
+  include Rails.application.routes.url_helpers
+
   ALLOWED_PERMISSIONS_ICON = "check.svg"
   DISALLOWED_PERMISSIONS_ICON = "dot.svg"
   ACTIVE = "Active"
@@ -79,6 +81,14 @@ class Projects::TeamMembershipPresenter
 
   def inactive_class
     active ? "" : "inactive-user"
+  end
+
+  def project_owner?
+    project.user_id == user_id
+  end
+
+  def edit_team_memberships_form_path
+    edit_team_membership_path(id)
   end
 
   private

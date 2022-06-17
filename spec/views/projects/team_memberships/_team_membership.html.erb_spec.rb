@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "app/views/projects/team_memberships/_team_memberships.html.erb", type: :view do
+RSpec.describe "app/views/shared/projects/team_memberships/_team_memberships.html.erb", type: :view do
   describe "viewing a team membership row" do
     it "has the correct values and permissions for the columns" do
       membership = create(
@@ -23,17 +23,18 @@ RSpec.describe "app/views/projects/team_memberships/_team_memberships.html.erb",
       )
       presenter = Projects::TeamMembershipPresenter.new(membership)
 
-      render partial: "projects/team_memberships/team_membership", locals: { team_membership: presenter }
+      render partial: "shared/projects/team_memberships/team_membership", locals: { team_membership: presenter }
 
       doc = Capybara.string(rendered)
-      expect(doc).to have_css("td:nth-child(1)", text: "Mx. Nobody")
-      expect(doc).to have_css("td:nth-child(2)", text: "Some Other School")
-      expect(doc).to have_css("td:nth-child(3)", text: "Faculty")
-      expect(doc).to have_css("td:nth-child(4)", text: "Team Member")
-      expect(doc).to have_css("td:nth-child(5) img[src*='check']")
-      expect(doc).to have_css("td:nth-child(6) img[src*='dot']")
-      expect(doc).to have_css("td:nth-child(7) img[src*='check']")
-      expect(doc).to have_css("td:nth-child(8) img[src*='dot']")
+      expect(doc).to have_css("td:nth-child(1)", text: "")
+      expect(doc).to have_css("td:nth-child(2)", text: "Mx. Nobody")
+      expect(doc).to have_css("td:nth-child(3)", text: "Some Other School")
+      expect(doc).to have_css("td:nth-child(4)", text: "Faculty")
+      expect(doc).to have_css("td:nth-child(5)", text: "Team Member")
+      expect(doc).to have_css("td:nth-child(6) img[src*='check']")
+      expect(doc).to have_css("td:nth-child(7) img[src*='dot']")
+      expect(doc).to have_css("td:nth-child(8) img[src*='check']")
+      expect(doc).to have_css("td:nth-child(9) img[src*='dot']")
     end
   end
 end

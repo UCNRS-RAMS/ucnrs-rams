@@ -4,6 +4,7 @@
     <table>
       <thead>
         <tr>
+          <th></th>
           <th><%= t(".name") %></th>
           <th><%= t(".institution") %></th>
           <th><%= t(".role") %></th>
@@ -14,10 +15,10 @@
           <th><%= t(".invoice") %></th>
           <th></th>
         </tr>
-        <thead>
-          <tbody>
-            <%= render partial: "projects/team_memberships/team_membership", collection: presenter.team_memberships %>
-          </tbody>
+      </thead>
+      <tbody>
+        <%= render partial: "shared/projects/team_memberships/team_membership", collection: presenter.team_memberships %>
+      </tbody>
     </table>
   </section>
 </turbo-frame>

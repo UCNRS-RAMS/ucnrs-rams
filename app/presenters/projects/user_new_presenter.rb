@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Projects::UserNewPresenter
+  include Rails.application.routes.url_helpers
+
   def initialize(form:, project:)
     @form = form
     @project = project
@@ -16,5 +18,9 @@ class Projects::UserNewPresenter
 
   def project_role_options
     ProjectTeamMembership::PROJECT_ROLES
+  end
+
+  def user_form_path
+    project_users_path(project)
   end
 end

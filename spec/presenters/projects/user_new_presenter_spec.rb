@@ -51,4 +51,17 @@ RSpec.describe Projects::UserNewPresenter do
       ]
     end
   end
+
+  describe "#user_form_path" do
+    it "returns the path for project users" do
+      project = create(:project)
+      presenter = Projects::UserNewPresenter.new(
+        form: :fake_form,
+        project: project,
+      )
+
+      expected_value = "/projects/#{project.id}/users"
+      expect(presenter.user_form_path).to eq expected_value
+    end
+  end
 end

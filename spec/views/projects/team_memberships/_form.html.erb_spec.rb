@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "projects/team_memberships/_form.html.erb", type: :view do
+RSpec.describe "shared/projects/team_memberships/_form.html.erb", type: :view do
   it "displays a form to add a project team member" do
     membership = create(:project_team_membership, :principal_investigator)
     project = membership.project
@@ -10,7 +10,7 @@ RSpec.describe "projects/team_memberships/_form.html.erb", type: :view do
       current_user: membership.user,
     )
 
-    render partial: "projects/team_memberships/form", locals: { presenter: presenter }
+    render partial: "shared/projects/team_memberships/form", locals: { presenter: presenter }
 
     doc = Capybara.string(rendered)
     expect(doc).to have_css("form[action='/projects/#{project.id}/team_memberships']")
@@ -28,7 +28,7 @@ RSpec.describe "projects/team_memberships/_form.html.erb", type: :view do
       current_user: membership.user,
     )
 
-    render partial: "projects/team_memberships/form", locals: { presenter: presenter }
+    render partial: "shared/projects/team_memberships/form", locals: { presenter: presenter }
 
     doc = Capybara.string(rendered)
     field = doc.find(".field.autocomplete[data-controller='autocomplete']")
@@ -51,7 +51,7 @@ RSpec.describe "projects/team_memberships/_form.html.erb", type: :view do
     )
     form.validate
 
-    render partial: "projects/team_memberships/form", locals: { presenter: presenter }
+    render partial: "shared/projects/team_memberships/form", locals: { presenter: presenter }
 
     doc = Capybara.string(rendered)
     expect(doc).to display_error("already on this team").for_field("Full Name")

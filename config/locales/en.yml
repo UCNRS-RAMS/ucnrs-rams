@@ -129,6 +129,9 @@ en:
         close_modal_icon: "Close Modal Icon"
       cancel: Cancel
       save: Save
+      ownership: Ownership
+      permissions: Permissions
+      assigned_owner: "Change this user to this project's owner"
     edit_project_funding:
       title: "Edit %{funding_title}"
       accessible_description: "A modal pop-up form to edit details of funding for this project."
@@ -1355,6 +1358,40 @@ en:
       visit:
         visitor: "Visitor"
         amenity: "Amenity"
+      team_memberships:
+        form:
+          add_team_member_title: "Add a Team Member"
+          cannot_find_them: "Can't find them?"
+          create_new_user: "Create new user"
+          search_by_name: "Search by name"
+          choose_role: "Choose Role"
+          add_team_member_submit: "Add Team Member"
+        index:
+          title: "Team"
+          back: "Go Back"
+          alt:
+            left_facing_arrow: "Left-facing arrow"
+        team_member_table:
+          name: "Name"
+          institution: "Institution"
+          role: "Role"
+          project_role: "Project Role"
+          active: "Active"
+          edit: "Edit"
+          book: "Book"
+          invoice: "Invoice"
+          project_team: "Project Team"
+        team_membership:
+          edit: "Edit"
+          alt:
+            allowed: "Allowed"
+            disallowed: "Disallowed"
+        finish_button:
+          complete: "Save Memberships"
+        next_step_button:
+          next_step: "Next: Permits"
+          alt:
+            right_facing_arrow: "A right facing arrow"
       complete:
         not_saved: "This project could not be saved as 'open'"
       research_form:

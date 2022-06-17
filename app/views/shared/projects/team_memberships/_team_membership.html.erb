@@ -1,4 +1,5 @@
 <tr class="team-membership">
+  <td><%= image_tag "star.svg", height: "168px", width: "173px",class:".star-icon", alt: 't(".alt-text.logo")'  if team_membership.project_owner? %></td>
   <td><%= team_membership.user_full_name %></td>
   <td><%= team_membership.institution_name %></td>
   <td><%= team_membership.user_role %></td>
@@ -8,7 +9,7 @@
   <% end %>
   <td>
     <% if team_membership.able_to_edit? %>
-      <%= link_to t(".edit"), edit_team_membership_path(team_membership.id), data: { "turbo-frame": "modal-content" } %>
+      <%= link_to t(".edit"), team_membership.edit_team_memberships_form_path, data: { "turbo-frame": "modal-content" } %>
     <% end %>
   </td>
 </tr>

@@ -65,6 +65,14 @@ class ProjectTeamMembershipForm
     end
   end
 
+  def assigned_owner=(value)
+    project.owner = user if value == "1"
+  end
+
+  def assigned_owner
+    project.user_id == user_id
+  end
+
   alias_method :validate_form, :validate
   alias_method :valid_form?, :valid?
   def validate
@@ -76,7 +84,10 @@ class ProjectTeamMembershipForm
   alias_method :valid?, :validate
 
   def save
-    validate && project_team_membership.save
+    ActiveRecord::Base.transaction do
+      project.save if project.changed?
+      validate && project_team_membership.save
+    end
   end
 
   private

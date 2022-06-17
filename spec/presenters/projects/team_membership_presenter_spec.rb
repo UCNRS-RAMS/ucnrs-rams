@@ -221,4 +221,31 @@ RSpec.describe Projects::TeamMembershipPresenter do
       expect(results.inactive_class).to eq ""
     end
   end
+
+  describe "#project_owner?" do
+    it "returns false when team member is not project owner" do
+      team_membership = create(:project_team_membership)
+      presenter = Projects::TeamMembershipPresenter.new(team_membership)
+
+      expect(presenter.project_owner?).to eq false
+    end
+
+    it "returns true when team member is project owner" do
+      user = create(:user)
+      project = create(:project, owner: user)
+      team_membership = create(:project_team_membership, project: project, user: user)
+      presenter = Projects::TeamMembershipPresenter.new(team_membership)
+
+      expect(presenter.project_owner?).to eq true
+    end
+  end
+
+  describe "#edit_team_memberships_form_path" do
+    it "returns the path for edit team membership" do
+      team_membership = create(:project_team_membership)
+      presenter = Projects::TeamMembershipPresenter.new(team_membership)
+
+      expect(presenter.edit_team_memberships_form_path).to eq "/team_memberships/#{team_membership.id}/edit"
+    end
+  end
 end

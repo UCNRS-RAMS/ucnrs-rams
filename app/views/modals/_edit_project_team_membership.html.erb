@@ -1,6 +1,6 @@
 <turbo-frame id="modal-content" class="modal-content" role="dialog" aria-labelledby="modal-title">
   <div data-modal-target="dialog openOnLoad">
-    <%= form_with model: presenter.form, url: team_membership_path(presenter.id), method: "patch" do |form| %>
+    <%= form_with model: presenter.form, url: presenter.team_memberships_form_path, method: "patch" do |form| %>
       <p class="screenreader-text">
         <span id="modal-title"><%= t(".title") %></span>
         <span id="modal-description"><%= t(".accessible_description") %></span>
@@ -8,7 +8,7 @@
       <section class="text">
         <div class="heading">
           <h2><%= presenter.user_full_name %></h2>
-          <%= link_to t(".remove_team_member"), team_membership_path(id: presenter.id), method: :delete, data: { confirm: t(".confirm_removal", name: presenter.user_full_name) } %>
+          <%= link_to t(".remove_team_member"), presenter.team_memberships_form_path, method: :delete, data: { confirm: t(".confirm_removal", name: presenter.user_full_name) } %>
         </div>
         <%= form.hidden_field :id %>
         <div class="field autocomplete" data-controller="autocomplete" data-autocomplete-url-value="<%= institutions_path %>">
@@ -24,7 +24,7 @@
           <%= form.select :user_role, presenter.user_role_options %>
         </div>
         <fieldset>
-          <legend>Permissions</legend>
+          <legend><%= t(".permissions") %></legend>
           <div class="field checkbox">
             <%= form.label :active %>
             <%= form.check_box :active %>
@@ -50,6 +50,15 @@
             <%= form.check_box :can_receive_invoice %>
           </div>
         </fieldset>
+        <% if presenter.able_to_change_owner? %>
+          <fieldset>
+            <legend><%= t(".ownership") %></legend>
+            <div class="field checkbox">
+              <%= form.label :assigned_owner, t(".assigned_owner") %>
+              <%= form.check_box :assigned_owner %>
+            </div>
+          </fieldset>
+        <% end %>
       </section>
       <section class="buttons">
         <div class="close">
