@@ -15,6 +15,22 @@ RSpec.describe "Manager Project Show" do
       expect(flow).to be_showing_summary_box
       expect(flow).to be_showing_menu_bar
     end
+
+    describe "it displays visits page" do
+      it "includes summary box and menu bar", js: true do
+        user = create(:user, :confirmed)
+        reserve = create(:reserve)
+        project = create(:project, reserve: reserve)
+
+        sign_in(user)
+        flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
+
+        flow.visit_show_page
+        flow.click_on_visits
+
+        expect(flow).to have_section("project-visits")
+      end
+    end
   end
 
   describe "includes project team section" do

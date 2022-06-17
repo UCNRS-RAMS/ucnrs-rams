@@ -20,6 +20,10 @@ class ProjectShowFlow
   def click_on_fundings
     page.click_link("funding")
   end
+  
+  def click_on_visits
+    page.click_link("visits")
+  end
 
   def click_on_permits
     page.click_link("permits")

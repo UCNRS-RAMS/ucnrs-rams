@@ -73,6 +73,8 @@ en:
       project_summary_date_time: "%b. %d, %Y at %l:%M %p"
       project_summary_date: "%b. %d, %Y"
       visit_summary_time: "%b. %d, %Y at %l:%M %p"
+      date_range:
+        month_name: "%b"
   date:
     formats:
       form_input_date: "%Y-%m-%d"
@@ -1081,6 +1083,13 @@ en:
         no_option: "No"
       complete:
         not_saved: "This project could not be saved as 'open'"
+      visits:
+        visit_show_table:
+          visits: "Visits (%{size})"
+          schedule_a_visit: "Schedule A Visit"
+        visit:
+          visitor: "Visitor"
+          amenity: "Amenity"
     reports:
       header:
         reports: "Reports"
@@ -1597,6 +1606,9 @@ en:
         project_search: "Project Search"
   alt:
     right_facing_arrow: "right facing arrow"
+    trash_icon: "a trash icon"
+    dollar_sign: "dollar icon"
+    pencil_sign: "a pencil icon"
     left_facing_arrow: "left facing arrow"
     list_icon: "list icon"
     calendar_icon: "calendar icon"

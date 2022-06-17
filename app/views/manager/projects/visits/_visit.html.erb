@@ -1,0 +1,30 @@
+<tr class="visit <%= visit.status_class %>">
+  <td>
+    <span class="<%= visit.status_class %> pill">
+      <%= visit.status %>
+    </span>
+  </td>
+  <td class="date-range"><%= visit.requested_date_range %></td>
+  <td><%= visit.requested_reserve_name %></td>
+  <td><%= "#{pluralize(visit.visitor_count, t('.visitor'))}, #{pluralize(visit.amenity_count, t('.amenity'))}" %></td>
+  <td>
+    <%= link_to "#", data: { confirm: "Are you sure?" } do %>
+      <%= image_tag "delete_icon.svg", alt: t("alt.trash_icon"), height: "18", width: "18" %>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to "#" do %>
+      <%= image_tag "dollar_icon.svg", alt: t("alt.dollar_sign"), height: "18", width: "18" %>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to "#" do %>
+      <%= image_tag "edit_icon.svg", alt: t("alt.pencil_sign"), height: "18", width: "18" %>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to visit_path(visit.id) do %>
+      <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"), height: "18", width: "18" %>
+    <% end %>
+  </td>
+</tr>
