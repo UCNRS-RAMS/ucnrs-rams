@@ -5,7 +5,7 @@
   <h1><%=t(".title")%></h1>
 </section>
 
-<%= render partial: "shared/projects/permit_questions", locals: {presenter: @presenter} %>
+<%= render partial: "shared/projects/permit_questions", locals: { presenter: @presenter } %>
 
 <section class="controls">
   <%= link_to project_team_memberships_path(@presenter.project) do %>

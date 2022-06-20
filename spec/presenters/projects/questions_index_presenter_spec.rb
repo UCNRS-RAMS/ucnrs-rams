@@ -1,5 +1,4 @@
 require "rails_helper"
-
 RSpec.describe Projects::QuestionsIndexPresenter do
   describe "delegations" do
     subject { Projects::QuestionsIndexPresenter.new(current_step: 3, project: build(:project)) }
@@ -111,4 +110,14 @@ RSpec.describe Projects::QuestionsIndexPresenter do
       expect(presenter).not_to have_reserve_questions_for_project
     end
   end
+
+  describe "#form_url" do
+    it "it returns permit url to project namespace" do
+      project = create(:project)
+      presenter = Projects::QuestionsIndexPresenter.new(project: project, current_step: 2)
+
+      expect(presenter.form_url).to eq("/projects/#{project.id}/answers")
+    end
+  end
+
 end
