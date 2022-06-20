@@ -18,8 +18,8 @@ class VisitPresenter
   end
 
   def requested_date_range
-    if start_date.present? && end_date.present?
-      DateRangePresenter.value(start_date: start_date, end_date: end_date)
+    if starts_at.present? && ends_at.present?
+      DateRangePresenter.value(start_date: starts_at.to_date, end_date: ends_at.to_date)
     end
   end
 
@@ -69,9 +69,6 @@ class VisitPresenter
     :ends_at,
     :user_visits,
     :amenity_visits,
-    :reserve_short_name,
-    :start_date,
-    :end_date,
     to: :visit
 
   delegate :status,
