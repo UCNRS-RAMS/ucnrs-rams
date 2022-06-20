@@ -190,7 +190,7 @@ RSpec.describe "Manager Project Show" do
     it "renders permit questions partial", js: true do
       user = create(:user, :confirmed)
       reserve = create(:reserve)
-      project = create(:project, involves_mammals: true)
+      project = create(:project, involves_mammals: true, reserve: reserve)
       permit = create(:permit, involves_all: true)
 
       sign_in(user)
