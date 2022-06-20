@@ -6,6 +6,6 @@ class Manager::Projects::VisitsController < ApplicationController
   private
 
   def project
-    @project ||= Project.find(params[:project_id])
+    Project.find(params[:project_id])
   end
 end
