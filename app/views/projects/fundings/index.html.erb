@@ -11,7 +11,7 @@
   </div>
   <%= form_with model: @presenter.form, url: project_fundings_url(@presenter.project), namespace: "new" do |form| %>
     <turbo-frame id="new-funding-form">
-      <%= render partial: "projects/fundings/form_fields", locals: { presenter: @presenter, form: form } %>
+      <%= render partial: "shared/projects/fundings/form_fields", locals: { presenter: @presenter, form: form } %>
     </turbo-frame>
     <div class="end">
       <%= form.submit t(".add_funding_submit"), class: "button-clear", data: { disable_with: false } %>
@@ -19,7 +19,7 @@
   <% end %>
 </section>
 
-<%= render partial: "projects/fundings/funding_table", locals: { presenter: @presenter } %>
+<%= render partial: "shared/projects/fundings/funding_table", locals: { presenter: @presenter } %>
 
 <section class="controls">
   <%= link_to project_questions_path(@presenter.project) do %>

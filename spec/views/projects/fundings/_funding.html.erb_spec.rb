@@ -13,7 +13,7 @@ RSpec.describe "app/views/projects/fundings/_funding.html.erb", type: :view do
       )
       presenter = Projects::FundingPresenter.new(funding)
 
-      render partial: "projects/fundings/funding", locals: { funding: presenter }
+      render partial: "shared/projects/fundings/funding", locals: { funding: presenter }
 
       doc = Capybara.string(rendered)
       expect(doc).to have_css("td:nth-child(1)", text: "Ca$h")

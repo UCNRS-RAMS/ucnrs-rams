@@ -1,0 +1,94 @@
+class Manager::Projects::FundingsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :confirm_manager!
+
+  def index
+    @presenter = Manager::Projects::FundingsIndexPresenter.new(
+      project: project,
+    )
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
+  end
+
+  def edit
+    form = ProjectFundingForm.new(params: { id: funding.id })
+    @presenter = Manager::Projects::FundingEditPresenter.new(form: form)
+  end
+
+  def create
+    form = ProjectFundingForm.new(
+      project: project,
+      params: project_fundings_params,
+    )
+    if form.save
+      redirect_to manager_reserve_project_fundings_path(params[:reserve_id], project.id)
+    else
+      @presenter = Manager::Projects::FundingsIndexPresenter.new(
+        project: project,
+        form: form,
+      )
+      render :index, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    form = ProjectFundingForm.new(params: project_fundings_params)
+    respond_to do |format|
+      if form.save
+        format.html { redirect_to manager_reserve_project_fundings_path(params[:reserve_id], form.project_id) }
+        format.turbo_stream { redirect_to manager_reserve_project_fundings_path(params[:reserve_id], form.project_id) }
+      else
+        @presenter = Manager::Projects::FundingsIndexPresenter.new(project)
+        format.html do
+          render template: "manager/projects/fundings/edit",
+            status: :unprocessable_entity
+        end
+        format.turbo_stream do
+          render template: "manager/projects/fundings/edit",
+            status: :unprocessable_entity
+        end
+      end
+    end
+  end
+
+  def destroy
+    funding.destroy
+    redirect_to manager_reserve_project_fundings_path(params[:reserve_id], project.id)
+  end
+
+  private
+
+  def project
+    Project.find(project_id)
+  end
+
+  def project_id
+    params.permit(:project_id).require(:project_id)
+  end
+
+  def funding
+    Funding.find(params[:id])
+  end
+
+  def project_fundings_params
+    params.require(:funding).permit(
+      :id,
+      :title,
+      :is_funded,
+      :is_submitted,
+      :will_be_submitted,
+      :was_denied,
+      :principal_investigators,
+      :co_principal_investigators,
+      :start_date,
+      :end_date,
+      :sponsor,
+      :sponsor_other,
+      :award_amount,
+      :grant_number,
+      :funding_opportunity_number,
+    )
+  end
+end

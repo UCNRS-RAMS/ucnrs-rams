@@ -34,10 +34,18 @@ class Manager::ProjectsController < ApplicationController
   private
 
   def project
-    Project.find(project_id)
+    @project ||= Project.find_by(id: project_id, reserve_id: reserve_id)
+    return @project if @project
+
+    flash[:alert] = "Cannot find that project."
+    redirect_to root_path
   end
 
   def project_id
     params.permit(:id).require(:id)
+  end
+
+  def reserve_id
+    params.permit(:reserve_id).require(:reserve_id)
   end
 end

@@ -17,6 +17,10 @@ class ProjectShowFlow
     page.click_link("details")
   end
 
+  def click_on_fundings
+    page.click_link("funding")
+  end
+
   def showing_summary_box?
     page.has_css?(".project-summary-box")
   end
@@ -67,6 +71,22 @@ class ProjectShowFlow
 
   def has_heading?(heading)
     page.has_css?("h3", text: heading)
+  end
+
+  def not_showing_fundings?
+    page.has_no_css?(".fundings-index")
+  end
+
+  def showing_fundings?
+    page.has_css?(".fundings-index")
+  end
+
+  def click_on_funding_edit
+    page.find("a", text: "Edit").click
+  end
+
+  def showing_funding_edit_modal?
+    page.has_css?("section.text")
   end
 
   private
