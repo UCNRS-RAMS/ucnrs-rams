@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_03_032538) do
+ActiveRecord::Schema.define(version: 2022_06_21_183216) do
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
@@ -603,6 +603,20 @@ ActiveRecord::Schema.define(version: 2022_04_03_032538) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["reserve_id"], name: "index_reserve_addendums_on_reserve_id"
+  end
+
+  create_table "reserve_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.text "note"
+    t.string "action", default: "reserve note"
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "reserve_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["record_type", "record_id"], name: "index_reserve_notes_on_record"
+    t.index ["reserve_id"], name: "index_reserve_notes_on_reserve_id"
+    t.index ["user_id"], name: "index_reserve_notes_on_user_id"
   end
 
   create_table "reserve_permits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
