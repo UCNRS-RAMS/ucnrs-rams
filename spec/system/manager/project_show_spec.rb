@@ -1,12 +1,12 @@
 require "rails_helper"
 
 RSpec.describe "Manager Project Show" do
+  let(:user)    { create(:user, :confirmed) }
+  let(:reserve) { create(:reserve, name: "Test Reserve") }
+  let(:project) { create(:project, reserve: reserve) }
+
   describe "it displays project show page" do
     it "includes summary box and menu bar", js: true do
-      user = create(:user, :confirmed)
-      reserve = create(:reserve)
-      project = create(:project, reserve: reserve)
-
       sign_in(user)
       flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
 
@@ -15,29 +15,38 @@ RSpec.describe "Manager Project Show" do
       expect(flow).to be_showing_summary_box
       expect(flow).to be_showing_menu_bar
     end
+  end
 
-    describe "it displays visits page" do
-      it "includes summary box and menu bar", js: true do
-        user = create(:user, :confirmed)
-        reserve = create(:reserve)
-        project = create(:project, reserve: reserve)
+  describe "it includes project visits section" do
+    it "includes rows in project visits table", js: true do
+      create_list(:visit, 3, project: project)
+      sign_in(user)
+      flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
 
-        sign_in(user)
-        flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
+      flow.visit_show_page
+      flow.click_on_visits
 
-        flow.visit_show_page
-        flow.click_on_visits
+      expect(flow).to have_section("project-visits")
+      expect(flow).to have_n_table_rows(css_class: ".project-visits", count: 3)
+    end
 
-        expect(flow).to have_section("project-visits")
+    it "includes visit values in table row", js: true do
+      create(:visit, project: project, reserve: reserve)
+      sign_in(user)
+      flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
+
+      flow.visit_show_page
+      flow.click_on_visits
+
+      flow.in_visits_section do
+        expect(flow).to have_table_data_text(child: 1, text: "INCOMPLETE")
+        expect(flow).to have_table_data_text(child: 3, text: "Test Reserve")
       end
     end
   end
 
   describe "includes project team section" do
     it "has team summary table" do
-      user = create(:user, :confirmed)
-      reserve = create(:reserve)
-      project = create(:project, reserve: reserve)
       create_list(:project_team_membership, 3, project: project)
 
       sign_in(user)
@@ -53,9 +62,6 @@ RSpec.describe "Manager Project Show" do
     end
 
     it "includes inactive user class" do
-      user = create(:user, :confirmed)
-      reserve = create(:reserve)
-      project = create(:project, reserve: reserve)
       create(:project_team_membership, project: project, active: false)
 
       sign_in(user)
@@ -69,12 +75,9 @@ RSpec.describe "Manager Project Show" do
   end
 
   it "includes project funding section" do
-    user = create(:user, :confirmed)
-    reserve = create(:reserve)
-    project = create(:project, reserve: reserve)
-
     sign_in(user)
     flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
+    
     flow.visit_show_page
     flow.click_on_summary
 
@@ -84,12 +87,9 @@ RSpec.describe "Manager Project Show" do
   end
 
   it "includes project permit section" do
-    user = create(:user, :confirmed)
-    reserve = create(:reserve)
-    project = create(:project, reserve: reserve)
-
     sign_in(user)
     flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
+
     flow.visit_show_page
     flow.click_on_summary
 
@@ -99,10 +99,9 @@ RSpec.describe "Manager Project Show" do
   end
 
   it "includes project short info" do
-    user = create(:user, :confirmed)
-    reserve = create(:reserve)
     project = create(
       :project,
+      reserve: reserve,
       project_type: :research,
       status: :incomplete,
       created_at: Time.zone.local(2004, 11, 24, 1, 4, 44),
@@ -119,9 +118,7 @@ RSpec.describe "Manager Project Show" do
 
   describe "it displays manager's project detail section in show page" do
     it "renders research form", js: true do
-      user = create(:user, :confirmed)
-      reserve = create(:reserve)
-      project = create(:project, project_type: "research", reserve: reserve)
+      project = create(:project, reserve: reserve, project_type: "research")
 
       sign_in(user)
       flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
@@ -136,9 +133,7 @@ RSpec.describe "Manager Project Show" do
     end
 
     it "renders meeting form", js: true do
-      user = create(:user, :confirmed)
-      reserve = create(:reserve)
-      project = create(:project, project_type: "meeting", reserve: reserve)
+      project = create(:project, reserve: reserve, project_type: "meeting")
 
       sign_in(user)
       flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
@@ -153,9 +148,7 @@ RSpec.describe "Manager Project Show" do
     end
 
     it "renders class form", js: true do
-      user = create(:user, :confirmed)
-      reserve = create(:reserve)
-      project = create(:project, project_type: "class", reserve: reserve)
+      project = create(:project, reserve: reserve, project_type: "class")
 
       sign_in(user)
       flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
