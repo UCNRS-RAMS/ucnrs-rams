@@ -9,6 +9,7 @@ RSpec.describe Visit, type: :model do
     it { is_expected.to have_many(:amenities).through(:amenity_visits) }
     it { is_expected.to have_many(:user_visits) }
     it { is_expected.to have_many(:visitors).through(:user_visits).source(:user) }
+    it { is_expected.to have_many(:reserve_notes) }
   end
 
   describe "validations" do

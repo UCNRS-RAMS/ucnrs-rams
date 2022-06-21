@@ -10,6 +10,7 @@ RSpec.describe Project, type: :model do
     it { is_expected.to have_many(:team_members).class_name("User") }
     it { is_expected.to have_many(:project_permit_answers) }
     it { is_expected.to have_many(:fundings) }
+    it { is_expected.to have_many(:reserve_notes) }
   end
 
   describe "validations" do

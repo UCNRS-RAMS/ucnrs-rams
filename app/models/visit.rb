@@ -16,6 +16,7 @@ class Visit < ApplicationRecord
   has_many :amenities, through: :amenity_visits
   has_many :user_visits
   has_many :visitors, through: :user_visits, source: :user
+  has_many :reserve_notes, as: :record
 
   validates :purpose_of_visit, presence: true
   validates :project_type, presence: true

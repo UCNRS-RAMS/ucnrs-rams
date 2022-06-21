@@ -38,6 +38,7 @@ class Project < ApplicationRecord
   has_many :project_permit_answers
   has_many :fundings
   has_many :project_reserve_answers
+  has_many :reserve_notes, as: :record
 
   with_options(if: :research?) do
     validates :title, presence: true
