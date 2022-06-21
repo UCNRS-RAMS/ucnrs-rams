@@ -866,6 +866,7 @@ en:
     projects:
       not_authorized: "You are not authorized to edit this project."
       cannot_add_users: "You are not authorized to add users."
+      cannot_find_project: "Cannot find that project."
       permit:
         edit:
           save_changes: "Save Changes"
@@ -1386,6 +1387,8 @@ en:
           alt:
             allowed: "Allowed"
             disallowed: "Disallowed"
+          alt-text:
+            logo: "star-icon"
         finish_button:
           complete: "Save Memberships"
         next_step_button:

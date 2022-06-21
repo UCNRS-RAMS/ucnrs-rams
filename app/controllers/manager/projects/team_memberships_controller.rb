@@ -1,8 +1,6 @@
 class Manager::Projects::TeamMembershipsController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_user, only: [:index]
-  before_action :authorize_add_user, only: [:create]
-  before_action :authorize_edit_project, only: [:edit, :update, :destroy]
+  before_action :confirm_manager!
 
   def index
     @presenter = Manager::Projects::TeamMembershipsIndexPresenter.new(
@@ -17,7 +15,7 @@ class Manager::Projects::TeamMembershipsController < ApplicationController
 
   def edit
     form = ProjectTeamMembershipForm.new(params: { id: project_team_membership.id })
-    @presenter = Manager::Projects::TeamMembershipEditPresenter.new(form: form, user: current_user)
+    @presenter = Manager::Projects::TeamMembershipEditPresenter.new(form: form)
   end
 
   def create
@@ -80,29 +78,20 @@ class Manager::Projects::TeamMembershipsController < ApplicationController
 
   private
 
-  def authorize_user
-    unless (current_user.able_to_edit?(project) || current_user.able_to_add_user?(project))
-      flash[:alert] = t("projects.not_authorized")
-      redirect_to project_path(project)
-    end
-  end
-
-  def authorize_add_user
-    unless current_user.able_to_add_user?(project)
-      flash[:alert] = t("projects.cannot_add_users")
-      head :unauthorized
-    end
-  end
-
-  def authorize_edit_project
-    unless current_user.able_to_edit?(project)
-      flash[:alert] = t("projects.not_authorized")
-      head :unauthorized
-    end
-  end
-
   def project
-    Project.where(id: params[:project_id]).first || project_team_membership.project
+    @project ||= Project.find_by(id: project_id, reserve_id: reserve_id) || project_team_membership.project
+    return @project if @project
+
+    flash[:alert] = "Cannot find that project."
+    redirect_to root_path
+  end
+
+  def project_id
+    params.permit(:project_id).require(:project_id)
+  end
+
+  def reserve_id
+    params.permit(:reserve_id).require(:reserve_id)
   end
 
   def project_team_membership

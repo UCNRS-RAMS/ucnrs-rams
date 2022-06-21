@@ -1,5 +1,6 @@
 class Manager::ProjectsController < ApplicationController
   before_action :authenticate_user!
+  before_action :confirm_manager!
   layout "manager"
 
   def show
@@ -33,11 +34,46 @@ class Manager::ProjectsController < ApplicationController
 
   private
 
+  def project_params
+    params.require(:project).permit(
+      :reserve_id,
+      :title,
+      :thesis_title,
+      :abstract,
+      :start_date,
+      :end_date,
+      :discipline,
+      :discipline_other,
+      :involves_mammals,
+      :involves_reptiles,
+      :involves_amphibians,
+      :involves_fish,
+      :involves_birds,
+      :involves_plants_fungi_soil,
+      :involves_threatened_endangered_species,
+      :involves_none,
+      :method_description,
+      :method_study_area,
+      :method_remove_organisms,
+      :method_transfer_organisms,
+      :method_study_non_native_species,
+      :method_chemicals,
+      :method_chemicals_list,
+      :method_soil_disturbance,
+      :method_long_term_structures,
+      :course_title,
+      :course_number,
+      :keywords,
+      :taxonomic_keywords,
+      :recent_publications,
+    )
+  end
+
   def project
     @project ||= Project.find_by(id: project_id, reserve_id: reserve_id)
     return @project if @project
 
-    flash[:alert] = "Cannot find that project."
+    flash[:alert] = I18n.t(".manager.projects.cannot_find_project")
     redirect_to root_path
   end
 

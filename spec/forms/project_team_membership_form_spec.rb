@@ -157,4 +157,42 @@ RSpec.describe ProjectTeamMembershipForm, type: :model do
       expect(presenter.can_receive_invoice).to be false
     end
   end
+
+  describe "#save" do
+    describe "change project owner" do
+      it "updates the project's owner when assigned_owner is checked" do
+        current_owner = create(:user, :confirmed)
+        new_owner = create(:user, :confirmed)
+        project = create(:project, owner: current_owner)
+        create(:project_team_membership, project: project, user: current_owner)
+        new_owner_membership = create(:project_team_membership, project: project, user: new_owner)
+
+        form = ProjectTeamMembershipForm.new(project: project, params: {
+          id: new_owner_membership.id,
+          assigned_owner: "1",
+        })
+
+        form.save
+
+        expect(form.project.user_id).to eq new_owner.id
+      end
+
+      it "does not updates the project's owner when assigned_owner is not checked" do
+        current_owner = create(:user, :confirmed)
+        new_owner = create(:user, :confirmed)
+        project = create(:project, owner: current_owner)
+        create(:project_team_membership, project: project, user: current_owner)
+        new_owner_membership = create(:project_team_membership, project: project, user: new_owner)
+
+        form = ProjectTeamMembershipForm.new(project: project, params: {
+          id: new_owner_membership.id,
+          assigned_owner: "0",
+        })
+
+        form.save
+
+        expect(form.project.user_id).to eq current_owner.id
+      end
+    end
+  end
 end
