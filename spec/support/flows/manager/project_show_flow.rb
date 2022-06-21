@@ -20,7 +20,7 @@ class ProjectShowFlow
   def click_on_fundings
     page.click_link("funding")
   end
-  
+
   def click_on_visits
     page.click_link("visits")
   end
@@ -103,6 +103,18 @@ class ProjectShowFlow
 
   def showing_funding_edit_modal?
     page.has_css?("section.text")
+  end
+
+  def has_n_table_rows?(css_class:, count:)
+    page.all("#{css_class} tr").count.eql? count
+  end
+
+  def in_visits_section(&block)
+    page.within(".project-visits", &block)
+  end
+
+  def has_table_data_text?(child:, text:)
+    page.has_css?("td:nth-child(#{child})", text: text)
   end
 
   private
