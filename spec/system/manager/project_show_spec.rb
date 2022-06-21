@@ -5,7 +5,7 @@ RSpec.describe "Manager Project Show" do
     it "includes summary box and menu bar", js: true do
       user = create(:user, :confirmed)
       reserve = create(:reserve)
-      project = create(:project)
+      project = create(:project, reserve: reserve)
 
       sign_in(user)
       flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
@@ -21,7 +21,7 @@ RSpec.describe "Manager Project Show" do
     it "has team summary table" do
       user = create(:user, :confirmed)
       reserve = create(:reserve)
-      project = create(:project)
+      project = create(:project, reserve: reserve)
       create_list(:project_team_membership, 3, project: project)
 
       sign_in(user)
@@ -39,7 +39,7 @@ RSpec.describe "Manager Project Show" do
     it "includes inactive user class" do
       user = create(:user, :confirmed)
       reserve = create(:reserve)
-      project = create(:project)
+      project = create(:project, reserve: reserve)
       create(:project_team_membership, project: project, active: false)
 
       sign_in(user)
@@ -55,7 +55,7 @@ RSpec.describe "Manager Project Show" do
   it "includes project funding section" do
     user = create(:user, :confirmed)
     reserve = create(:reserve)
-    project = create(:project)
+    project = create(:project, reserve: reserve)
 
     sign_in(user)
     flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
@@ -70,7 +70,7 @@ RSpec.describe "Manager Project Show" do
   it "includes project permit section" do
     user = create(:user, :confirmed)
     reserve = create(:reserve)
-    project = create(:project)
+    project = create(:project, reserve: reserve)
 
     sign_in(user)
     flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
@@ -90,6 +90,7 @@ RSpec.describe "Manager Project Show" do
       project_type: :research,
       status: :incomplete,
       created_at: Time.zone.local(2004, 11, 24, 1, 4, 44),
+      reserve: reserve,
     )
     sign_in(user)
     flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
@@ -104,7 +105,7 @@ RSpec.describe "Manager Project Show" do
     it "renders research form", js: true do
       user = create(:user, :confirmed)
       reserve = create(:reserve)
-      project = create(:project, project_type: "research")
+      project = create(:project, project_type: "research", reserve: reserve)
 
       sign_in(user)
       flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
@@ -121,7 +122,7 @@ RSpec.describe "Manager Project Show" do
     it "renders meeting form", js: true do
       user = create(:user, :confirmed)
       reserve = create(:reserve)
-      project = create(:project, project_type: "meeting")
+      project = create(:project, project_type: "meeting", reserve: reserve)
 
       sign_in(user)
       flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
@@ -138,7 +139,7 @@ RSpec.describe "Manager Project Show" do
     it "renders class form", js: true do
       user = create(:user, :confirmed)
       reserve = create(:reserve)
-      project = create(:project, project_type: "class")
+      project = create(:project, project_type: "class", reserve: reserve)
 
       sign_in(user)
       flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
@@ -150,6 +151,40 @@ RSpec.describe "Manager Project Show" do
       expect(flow).to be_showing_text("Field or lab base class in any discipline")
       expect(flow).to have_heading("Class")
       expect(flow).to be_showing_form(".class")
+    end
+
+    describe "it includes fundings section", js: true do
+      let(:user) { create(:user, :confirmed) }
+      let(:reserve) { create(:reserve) }
+      let(:project) { create(:project, reserve: reserve) }
+
+      it "renders fundings partial" do
+        create(:reserve_personnel, user: user, reserve: reserve)
+        sign_in(user)
+        flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
+
+        flow.visit_show_page
+
+        expect(flow).to be_not_showing_fundings
+        flow.click_on_fundings
+        expect(flow).to be_showing_fundings
+      end
+
+      it "displays a form to edit a funding" do
+        create(:reserve_personnel, user: user, reserve: reserve)
+        create(:funding, project: project)
+
+        sign_in(user)
+        flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
+
+        flow.visit_show_page
+        flow.click_on_fundings
+
+        within(".funding-table") do
+          flow.click_on_funding_edit
+        end
+        expect(flow).to be_showing_funding_edit_modal
+      end
     end
   end
 end

@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 class Projects::FundingEditPresenter
+  include Rails.application.routes.url_helpers
+
   def initialize(form:)
     @form = form
   end
 
   attr_reader :form
-  delegate :id, :errors, to: :form
+  delegate :id, :errors, :project, to: :form
 
   def project_id
     editing_funding.project_id
@@ -32,5 +34,9 @@ class Projects::FundingEditPresenter
     else
       Funding.sponsors[funding_sponsor]
     end
+  end
+
+  def funding_form_url
+    funding_path(id)
   end
 end

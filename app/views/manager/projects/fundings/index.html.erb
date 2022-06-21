@@ -1,0 +1,18 @@
+<turbo-frame id="project-details">
+  <section class="fundings-index">
+    <section class="add-funding-form">
+      <div class="add-funding-form-header">
+        <h2><%= t(".add_funding_title") %></h2>
+      </div>
+      <%= form_with model: @presenter.form, url: manager_reserve_project_fundings_url(@presenter.project.reserve_id, @presenter.project), namespace: "new" do |form| %>
+        <turbo-frame id="new-funding-form">
+          <%= render partial: "shared/projects/fundings/form_fields", locals: { presenter: @presenter, form: form } %>
+        </turbo-frame>
+        <div class="end">
+          <%= form.submit t(".add_funding_submit"), class: "button-clear", data: { disable_with: false } %>
+        </div>
+      <% end %>
+    </section>
+    <%= render partial: "shared/projects/fundings/funding_table", locals: { presenter: @presenter } %>
+  </section>
+</turbo-frame>

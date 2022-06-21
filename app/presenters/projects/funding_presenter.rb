@@ -2,6 +2,7 @@
 
 class Projects::FundingPresenter
   include ActionView::Helpers::NumberHelper
+  include Rails.application.routes.url_helpers
 
   def initialize(funding)
     @funding = funding
@@ -29,5 +30,9 @@ class Projects::FundingPresenter
     if start_date? && end_date?
       DateRangePresenter.value(start_date: start_date, end_date: end_date)
     end
+  end
+
+  def edit_funding_form_path
+    edit_funding_path(id)
   end
 end

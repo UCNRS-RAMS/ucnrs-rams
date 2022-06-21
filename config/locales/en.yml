@@ -712,37 +712,6 @@ en:
         alt:
           right_facing_arrow: "Right-facing arrow"
           left_facing_arrow: "Left-facing arrow"
-      funding_table:
-        project_funding: "Project Funding"
-        title: "Title"
-        funding_agency: "Funding Agency"
-        award_amount: "Award Amount"
-      funding:
-        edit: "Edit"
-      form_fields:
-        is_funded: "Project is currently being supported by at least one grant or contract"
-        is_submitted: "At least one grant or contract application has been submitted but has not yet been approved"
-        will_be_submitted: "At least one grant or contract application will be submitted in the future"
-        was_denied: "Project grant or contract application was denied by the funding agency"
-        official_grant_title: "Official Grant Title"
-        funding_opportunity_number: "Funding Opportunity Number"
-        funding_opportunity_number_explanation: "Funding opportunity numbers (FON) is a number that a federal agency assigns to its grant announcement."
-        grant_number: "Grant Number"
-        grant_number_explanation: "Grant Number or Grant URL Address"
-        principal_investigators: "Principal Investigators"
-        co_principal_investigators: "Co-Principal Investigators"
-        sponsor: "Funding Agency"
-        sponsor_prompt: "Please Choose"
-        sponsor_other: "Enter Funding Agency Name"
-        sponsor_other_placeholder: "Please do not abbreviate"
-        award_amount: "Award Amount"
-        award_amount_placeholder: "$"
-        start_date: "Start Date"
-        end_date: "End Date"
-        add_funding_submit: "Add Funding Information"
-        next_step: "Save Project & Submit"
-        alt:
-          right_facing_arrow: "Right-facing arrow"
     show:
       schedule_a_visit: "Schedule A Visit"
       view_our_reserves: "View Our Reserves"
@@ -914,6 +883,16 @@ en:
         project_type: "Project Type"
         save_changes: "Save Changes"
         right_facing_arrow: "A right facing arrow"
+      fundings:
+        index:
+          title: "Funding"
+          add_funding_title: "Add Funding Information"
+          next_step: "Save Project & Submit"
+          add_funding_submit: "Add Funding Information"
+          back: "Go Back"
+          alt:
+            right_facing_arrow: "Right-facing arrow"
+            left_facing_arrow: "Left-facing arrow"
       show:
         research: "Research"
         right_facing_arrow: "A right facing arrow"
@@ -1466,6 +1445,38 @@ en:
           method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
         yes_option: "Yes"
         no_option: "No"
+      fundings:
+        form_fields:
+          is_funded: "Project is currently being supported by at least one grant or contract"
+          is_submitted: "At least one grant or contract application has been submitted but has not yet been approved"
+          will_be_submitted: "At least one grant or contract application will be submitted in the future"
+          was_denied: "Project grant or contract application was denied by the funding agency"
+          official_grant_title: "Official Grant Title"
+          funding_opportunity_number: "Funding Opportunity Number"
+          funding_opportunity_number_explanation: "Funding opportunity numbers (FON) is a number that a federal agency assigns to its grant announcement."
+          grant_number: "Grant Number"
+          grant_number_explanation: "Grant Number or Grant URL Address"
+          principal_investigators: "Principal Investigators"
+          co_principal_investigators: "Co-Principal Investigators"
+          sponsor: "Funding Agency"
+          sponsor_prompt: "Please Choose"
+          sponsor_other: "Enter Funding Agency Name"
+          sponsor_other_placeholder: "Please do not abbreviate"
+          award_amount: "Award Amount"
+          award_amount_placeholder: "$"
+          start_date: "Start Date"
+          end_date: "End Date"
+          add_funding_submit: "Add Funding Information"
+          next_step: "Save Project & Submit"
+          alt:
+            right_facing_arrow: "Right-facing arrow"
+        funding_table:
+          project_funding: "Project Funding"
+          title: "Title"
+          funding_agency: "Funding Agency"
+          award_amount: "Award Amount"
+        funding:
+          edit: "Edit"
     reports:
       header:
         reports: "Reports"

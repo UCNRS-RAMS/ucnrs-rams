@@ -38,4 +38,13 @@ RSpec.describe Projects::FundingPresenter do
       expect(presenter.award_amount).to eq("$1,000,000.59")
     end
   end
+
+  describe "#edit_funding_form_path" do
+    it "returns the edit path for funding form" do
+      funding = create(:funding)
+      presenter = Projects::FundingPresenter.new(funding)
+
+      expect(presenter.edit_funding_form_path).to eq("/fundings/#{funding.id}/edit")
+    end
+  end
 end
