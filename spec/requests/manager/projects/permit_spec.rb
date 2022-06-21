@@ -4,8 +4,9 @@ RSpec.describe Manager::Projects::PermitController, type: :request do
   describe "/manager/reserves/:reserve_id/projects/:project_id/permit" do
     it "does not return error when there are no permit" do
       user = create(:user, :confirmed)
-      project = create(:project, involves_mammals: true)
       reserve = create(:reserve)
+      project = create(:project, involves_mammals: true, reserve: reserve)
+      create(:reserve_personnel, user: user, reserve: reserve)
       sign_in(user)
 
       post "/manager/reserves/#{reserve.id}/projects/#{project.id}/permit", params: { project: { no_permits: "" } }

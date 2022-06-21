@@ -2,6 +2,6 @@
 
 class Manager::Projects::TeamMembershipPresenter < Projects::TeamMembershipPresenter
   def edit_team_memberships_form_path
-    edit_manager_team_membership_path(id)
+    edit_manager_reserve_team_membership_path(project.reserve_id, id)
   end
 end

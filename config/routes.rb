@@ -44,8 +44,8 @@ Rails.application.routes.draw do
   end
 
   namespace :manager do
-    resources :team_memberships, only: [:edit, :update, :destroy], controller: "projects/team_memberships"
     resources :reserves, only: [:show] do
+      resources :team_memberships, only: [:edit, :update, :destroy], controller: "projects/team_memberships"
       resource :dashboard, only: [:show]
       resources :projects, only: [:show] do
         resource :summary, only: [:show], controller: "projects/summary"

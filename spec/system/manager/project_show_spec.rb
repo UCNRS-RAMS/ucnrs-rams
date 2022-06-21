@@ -1,8 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "Manager Project Show" do
-  let(:user)    { create(:user, :confirmed) }
+  let(:user) { create(:user, :confirmed) }
   let(:reserve) { create(:reserve, name: "Test Reserve") }
+  let!(:reserve_personnel) { create(:reserve_personnel, user: user, reserve: reserve) }
   let(:project) { create(:project, reserve: reserve) }
 
   describe "it displays project show page" do
@@ -77,7 +78,7 @@ RSpec.describe "Manager Project Show" do
   it "includes project funding section" do
     sign_in(user)
     flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
-    
+
     flow.visit_show_page
     flow.click_on_summary
 
@@ -163,12 +164,7 @@ RSpec.describe "Manager Project Show" do
     end
 
     describe "it includes fundings section", js: true do
-      let(:user) { create(:user, :confirmed) }
-      let(:reserve) { create(:reserve) }
-      let(:project) { create(:project, reserve: reserve) }
-
       it "renders fundings partial" do
-        create(:reserve_personnel, user: user, reserve: reserve)
         sign_in(user)
         flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
 
@@ -180,7 +176,6 @@ RSpec.describe "Manager Project Show" do
       end
 
       it "displays a form to edit a funding" do
-        create(:reserve_personnel, user: user, reserve: reserve)
         create(:funding, project: project)
 
         sign_in(user)
@@ -197,8 +192,6 @@ RSpec.describe "Manager Project Show" do
     end
 
     it "renders permit questions partial", js: true do
-      user = create(:user, :confirmed)
-      reserve = create(:reserve)
       project = create(:project, involves_mammals: true, reserve: reserve)
       permit = create(:permit, involves_all: true)
 
@@ -215,9 +208,7 @@ RSpec.describe "Manager Project Show" do
 
   describe "it displays manager's project team section in show page" do
     it "displays a form to add a project team member" do
-      user = create(:user, :confirmed)
-      reserve = create(:reserve)
-      project = create(:project, owner: user)
+      project = create(:project, reserve: reserve, owner: user)
       team_membership = create(:project_team_membership, :principal_investigator, project: project,
         user: user)
 
@@ -232,13 +223,11 @@ RSpec.describe "Manager Project Show" do
       expect(flow).to have_hidden_field("project_team_membership_user_id")
       expect(flow).to have_select_field("Project Role")
       expect(flow).to have_section("team-member-table")
-      expect(flow).to have_team_membership_edit_link(team_membership.id)
+      expect(flow).to have_team_membership_edit_link(team_membership)
     end
 
     it "displays a team member table" do
-      user = create(:user, :confirmed)
-      reserve = create(:reserve)
-      project = create(:project, owner: user)
+      project = create(:project, reserve: reserve, owner: user)
       team_membership = create(:project_team_membership, :principal_investigator, project: project,
         user: user)
 
@@ -250,24 +239,7 @@ RSpec.describe "Manager Project Show" do
       expect(flow).to be_not_showing_form(".team-member-table")
       flow.click_on_team
       expect(flow).to be_showing_form(".team-member-table")
-      expect(flow).to have_team_membership_edit_link(team_membership.id)
-    end
-
-    describe "if the user does not have can_add_project_user permission" do
-      it "does not show the add user form" do
-        user = create(:user, :confirmed)
-        reserve = create(:reserve)
-        project = create(:project, owner: user)
-        create(:project_team_membership, :team_member, project: project)
-
-        sign_in(user)
-        flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
-
-        flow.visit_show_page
-        flow.click_on_team
-        expect(flow).to be_not_showing_form("#add-user-form")
-        expect(flow).to be_not_showing_section("team-member-table")
-      end
+      expect(flow).to have_team_membership_edit_link(team_membership)
     end
   end
 end

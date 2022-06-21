@@ -1,17 +1,16 @@
 # frozen_string_literal: true
 
 class Manager::Projects::TeamMembershipEditPresenter < Projects::TeamMembershipEditPresenter
-  def initialize(form:, user:)
-    @user = user
+  def initialize(form:)
     super(form: form)
   end
 
   def able_to_change_owner?
-    user&.manager_of_reserve?(form.project.reserve)
+    true
   end
 
   def team_memberships_form_path
-    manager_team_membership_path(id)
+    manager_reserve_team_membership_path(form.project.reserve_id, id)
   end
 
   private

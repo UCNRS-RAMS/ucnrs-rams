@@ -14,11 +14,10 @@ RSpec.describe Manager::Projects::TeamMembershipsIndexPresenter do
         team_memberships[1].id,
         team_memberships[2].id,
       ]
-
       expect(results.map(&:class).uniq).to eq [Manager::Projects::TeamMembershipPresenter]
     end
   end
-  
+
   describe "#team_memberships_form_path" do
     it "returns the path for manager reserve project team membership" do
       reserve = create(:reserve)
@@ -39,6 +38,7 @@ RSpec.describe Manager::Projects::TeamMembershipsIndexPresenter do
       presenter = Manager::Projects::TeamMembershipsIndexPresenter.new(
         project: project,
       )
+
       expected_value = "/manager/reserves/#{reserve.id}/projects/#{project.id}/users/new"
       expect(presenter.user_form_path).to eq expected_value
     end

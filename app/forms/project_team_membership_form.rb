@@ -85,7 +85,7 @@ class ProjectTeamMembershipForm
 
   def save
     ActiveRecord::Base.transaction do
-      project.save if project.changed?
+      project.save if project.user_id_changed?
       validate && project_team_membership.save
     end
   end
