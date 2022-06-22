@@ -14,9 +14,9 @@ RSpec.describe Manager::Projects::FundingEditPresenter do
     end
   end
 
-  describe "#funding_form_url" do
+  describe "#funding_form_path" do
     it "should returns the form action url in manager namespace" do
-      url = presenter.funding_form_url
+      url = presenter.funding_form_path
 
       expect(url).to eq("/manager/reserves/#{reserve.id}/projects/#{project.id}/fundings/#{funding.id}")
     end

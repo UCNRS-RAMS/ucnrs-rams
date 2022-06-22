@@ -7,7 +7,7 @@ class Manager::Projects::FundingEditPresenter < Projects::FundingEditPresenter
     )
   end
 
-  def funding_form_url
+  def funding_form_path
     manager_reserve_project_funding_path(project.reserve_id, project.id, id)
   end
 end
