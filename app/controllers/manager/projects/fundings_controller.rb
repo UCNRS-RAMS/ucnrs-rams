@@ -61,7 +61,7 @@ class Manager::Projects::FundingsController < ApplicationController
   private
 
   def project
-    Project.find(project_id)
+    @project ||= Project.find(project_id)
   end
 
   def project_id
@@ -69,7 +69,7 @@ class Manager::Projects::FundingsController < ApplicationController
   end
 
   def funding
-    Funding.find(params[:id])
+    @funding ||= Funding.find(params[:id])
   end
 
   def project_fundings_params

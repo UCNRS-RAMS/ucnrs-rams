@@ -36,7 +36,7 @@ class Projects::FundingEditPresenter
     end
   end
 
-  def funding_form_url
+  def funding_form_path
     funding_path(id)
   end
 end
