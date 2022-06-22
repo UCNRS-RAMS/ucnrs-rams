@@ -1,11 +1,14 @@
 class VisitsFormPresenter
   HOURS_PER_DAY = 24
-  def initialize(user:, form: nil)
+  def initialize(user:, current_step: 1, form: nil)
     @user = user
+    @current_step = current_step
     @form = form || VisitForm.new(user: user)
+    @steps_presenter = StepsPresenter.new(@current_step)
   end
 
-  attr_reader :form
+  attr_reader :steps_presenter, :form
+  delegate :svg, :step_class, to: :steps_presenter
 
   delegate :visit,
     :start_date,
