@@ -454,6 +454,11 @@ en:
       count: "Count"
       cost: "Cost"
       total: "Total"
+    steps:
+      step_1: "Visit Details"
+      step_2: "Visitors"
+      step_3: "Reserve Info"
+      step_4: "Waivers & Policies"
   reserve_inputs:
     show:
       labels:
