@@ -55,6 +55,7 @@ Rails.application.routes.draw do
         resources :visits, only: [:index], controller: "projects/visits"
         resources :team_memberships, only: [:index, :create], controller: "projects/team_memberships"
         resources :users, only: [:new, :create], controller: "projects/users"
+        resources :activity_and_notes, only: [:index, :create, :show], controller: "projects/activity_and_notes"
       end
       resources :reports, only: [:show] do
         get "report_part_1", on: :member
