@@ -3,6 +3,13 @@ class Manager::ProjectsController < ApplicationController
   before_action :confirm_manager!
   layout "manager"
 
+  def index
+    @presenter = Manager::ProjectsIndexPresenter.new(
+      reserve: current_reserve,
+      page: page_number,
+    )
+  end
+
   def show
     @presenter = Manager::ProjectShowPresenter.new(project: project, reserve: current_reserve)
   end
@@ -33,6 +40,10 @@ class Manager::ProjectsController < ApplicationController
   end
 
   private
+ 
+  def page_number
+    params[:page]
+  end
 
   def project_params
     params.require(:project).permit(

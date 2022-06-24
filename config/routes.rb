@@ -47,7 +47,7 @@ Rails.application.routes.draw do
     resources :reserves, only: [:show] do
       resources :team_memberships, only: [:edit, :update, :destroy], controller: "projects/team_memberships"
       resource :dashboard, only: [:show]
-      resources :projects, only: [:show] do
+      resources :projects, only: [:index, :show] do
         resource :summary, only: [:show], controller: "projects/summary"
         resource :detail, only: [:edit, :update], controller: "projects/detail"
         resource :permit, only: [:edit, :create], controller: "projects/permit"

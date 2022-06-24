@@ -16,6 +16,9 @@
 
 @import "variables";
 @import "mixins/dropdown";
+@import "mixins/tables";
+
+@include tables;
 
 html {
   height: 100%;

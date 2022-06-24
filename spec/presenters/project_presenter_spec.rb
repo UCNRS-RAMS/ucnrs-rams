@@ -6,6 +6,9 @@ RSpec.describe ProjectPresenter do
     it { is_expected.to delegate_method(:id).to(:project) }
     it { is_expected.to delegate_method(:visits_count).to(:project) }
     it { is_expected.to delegate_method(:title).to(:project) }
+    it { is_expected.to delegate_method(:applicant).to(:project) }
+    it { is_expected.to delegate_method(:to_key).to(:project) }
+    it { is_expected.to delegate_method(:model_name).to(:project) }
   end
 
   describe "#project_type" do
@@ -97,6 +100,17 @@ RSpec.describe ProjectPresenter do
 
         expect(project_presenter.recent_visit_reserve).to eq "N/A"
       end
+    end
+  end
+
+  describe "#applicant_name" do
+    it "returns the project applicant full name" do
+      user = create(:user, first_name: "Scrooge", last_name: "McDuck")
+      project  = create(:project, applicant: user)
+
+      project_presenter = ProjectPresenter.new(project: project)
+
+      expect(project_presenter.applicant_name).to eq "Scrooge McDuck"
     end
   end
 end

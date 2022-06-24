@@ -1,0 +1,78 @@
+<section class="content full">
+  <header data-controller="toggle">
+    <h1><%= t(".projects") %></h1>
+    <hr />
+    <form method="get">
+      <div class="search-primary">
+        <div class="first">
+          <div class="row">
+            <div class="row-medium input-with-buttons search">
+              <input type="text" name="project_search" placeholder="Search"/>
+            </div>
+            <div class="row-auto">
+              <%= link_to t(".show_options"), "#",
+                "data-action": "click->toggle#toggle", "data-toggle-target": "toggle", "data-toggle-class": "show",
+                class: "button button-inline button-clear show", id: "show_button"
+              %>
+              <%= link_to t(".hide_options"), "#",
+                "data-action": "click->toggle#toggle", "data-toggle-target": "toggle", "data-toggle-class": "show",
+                class: "button button-inline button-clear loadhide", id: "hide_button"
+              %>
+            </div>
+          </div>
+        </div>
+        <div class="second">
+          <select id="search_show" name="show" aria-label="show" onchange="this.form.requestSubmit()">
+            <%= options_for_select(@presenter.show_options) %>
+          </select>
+          <select id="search_sort_by" name="sort_by" aria-label="sort_by" onchange="this.form.requestSubmit()">
+            <%= options_for_select(@presenter.sort_by_options) %>
+          </select>
+        </div>
+      </div>
+      <div class="search-secondary" data-toggle-target="toggle" data-toggle-class="show">
+        <div class="row">
+          <div class="row-medium">
+            <label for="project_type"><%= t(".project_type") %></label>
+            <select id="status" name="project_type" aria-label="project_type" onchange="this.form.requestSubmit()">
+              <%= options_for_select @presenter.project_type_options %>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-medium">
+            <label for="date_ranges"><%= t(".show_date_ranges") %></label>
+            <select name="date_ranges" aria-label="date_ranges" onchange="this.form.requestSubmit()">
+              <%= options_for_select(@presenter.show_date_range_options) %>
+            </select>
+          </div>
+          <div class="row-auto">
+            <label for="date_begin"></label>
+            <div class="input-with-buttons calendar">
+              <input type="date" name="date_begin">
+            </div>
+          </div>
+          <div class="row-auto">
+            <label for="date_end"></label>
+            <div class="input-with-buttons calendar">
+              <input type="date" name="date_end">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-medium">
+            <label for="reserve"><%= t(".reserve") %></label>
+            <select name="reserve" aria-label="reserve" onchange="this.form.requestSubmit()">
+              <%= options_for_select(@presenter.reserve_options) %>
+            </select>
+          </div>
+        </div>
+        <div><%= t(".clear_all_and_start_over") %></div>
+      </div>
+    </form>
+  </header>
+  <table class="projects rams-table1">
+    <%= render partial: "projects_table", locals: { presenter: @presenter } %>
+  </table>
+  <%= paginate @presenter.project_scope %>
+</section>

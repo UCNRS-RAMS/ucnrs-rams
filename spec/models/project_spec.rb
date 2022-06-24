@@ -279,6 +279,18 @@ RSpec.describe Project, type: :model do
     end
   end
 
+  describe ".submitted_recent_first" do
+    it "returns records that have been submitted in reverse chro" do
+      project_not_submitted = create(:project, submitted_at: nil)
+      project_submitted_yesterday = create(:project, submitted_at: Date.yesterday)
+      project_submitted_tomorrow = create(:project, submitted_at: Date.tomorrow)
+
+      results = Project.submitted_recent_first
+
+      expect(results).to eq([project_submitted_tomorrow, project_submitted_yesterday])
+    end
+  end
+
   describe ".ordered_by_visit_date" do
     it "orders the project records by the associated visits start_dates" do
       project1 = create(:project, title: "P1")
@@ -398,6 +410,21 @@ RSpec.describe Project, type: :model do
       project.update_project_status
 
       expect(project).to be_closed
+    end
+  end
+
+  describe ".with_visits_at_reserve" do
+    it "returns projects that have visits on the given reserve" do
+      reserve1 = create(:reserve)
+      reserve2 = create(:reserve)
+      project1 = create(:project)
+      project2 = create(:project)
+      visit1 = create(:visit, reserve: reserve1, project: project1)
+      visit2 = create(:visit, reserve: reserve2, project: project2)
+      
+      results = Project.with_visits_at_reserve(reserve1)
+
+      expect(results).to eq [project1]
     end
   end
 end
