@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_21_183216) do
+ActiveRecord::Schema.define(version: 2022_06_23_123232) do
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
@@ -348,13 +348,6 @@ ActiveRecord::Schema.define(version: 2022_06_21_183216) do
   end
 
   create_table "logs", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.text "text"
-    t.string "type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "logx", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "action"
     t.text "metadata"
     t.text "log"
@@ -369,12 +362,19 @@ ActiveRecord::Schema.define(version: 2022_06_21_183216) do
     t.bigint "invoice_id"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
-    t.index ["invoice_id"], name: "index_logx_on_invoice_id"
-    t.index ["project_id"], name: "index_logx_on_project_id"
-    t.index ["record_about_type", "record_about_id"], name: "index_logx_on_record_about_type_and_record_about_id"
-    t.index ["reservation_id"], name: "index_logx_on_reservation_id"
-    t.index ["reserve_id"], name: "index_logx_on_reserve_id"
-    t.index ["user_id"], name: "index_logx_on_user_id"
+    t.index ["invoice_id"], name: "index_logs_on_invoice_id"
+    t.index ["project_id"], name: "index_logs_on_project_id"
+    t.index ["record_about_type", "record_about_id"], name: "index_logs_on_record_about_type_and_record_about_id"
+    t.index ["reservation_id"], name: "index_logs_on_reservation_id"
+    t.index ["reserve_id"], name: "index_logs_on_reserve_id"
+    t.index ["user_id"], name: "index_logs_on_user_id"
+  end
+
+  create_table "logs-old", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.text "text"
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "old_waivers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -605,7 +605,7 @@ ActiveRecord::Schema.define(version: 2022_06_21_183216) do
     t.index ["reserve_id"], name: "index_reserve_addendums_on_reserve_id"
   end
 
-  create_table "reserve_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "reserve_notes", charset: "utf8mb3", force: :cascade do |t|
     t.text "note"
     t.string "action", default: "reserve note"
     t.string "record_type", null: false
@@ -978,7 +978,7 @@ ActiveRecord::Schema.define(version: 2022_06_21_183216) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "visit_reserve_answers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "visit_reserve_answers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", comment: "renamed from ActAnswers.", force: :cascade do |t|
     t.integer "reserve_question_id", null: false
     t.integer "visit_id", null: false
     t.boolean "boolean_answer", comment: "Boolean"

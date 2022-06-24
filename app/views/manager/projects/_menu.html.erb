@@ -42,6 +42,12 @@
         data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "project-details" }
       })%>
     </li>
-    <li><%= link_to( t(".activity_and_notes"), '#', class: "nav-link")%></li>
+   <li><%= link_to( t(".activity_and_notes"),
+      manager_reserve_project_activity_and_notes_path(@presenter.reserve_id, @presenter.id),
+      { class: "nav-link",
+        id: "activity_and_notes",
+        data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "project-details" }
+      })%>
+    </li>
   </ul>
 </section>

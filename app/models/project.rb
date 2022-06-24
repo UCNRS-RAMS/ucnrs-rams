@@ -39,6 +39,7 @@ class Project < ApplicationRecord
   has_many :fundings
   has_many :project_reserve_answers
   has_many :reserve_notes, as: :record
+  has_many :logs, as: :record
 
   with_options(if: :research?) do
     validates :title, presence: true
@@ -189,6 +190,15 @@ class Project < ApplicationRecord
     if incomplete?
       assign_attributes(status: :open)
     end
+  end
+
+  def self.log_entries(project)
+    Log.where(record_type: "project", record_id: project.id)
+      .or(Log.where(record_type: "visit", record_id: project.visits.ids))
+  end
+
+  def self.reserve_notes(reserve_id)
+    ReserveNote.where(reserve_id: reserve_id)
   end
 
   private

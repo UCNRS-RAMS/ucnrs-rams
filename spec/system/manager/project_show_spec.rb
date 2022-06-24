@@ -204,6 +204,24 @@ RSpec.describe "Manager Project Show" do
       flow.click_on_permits
       expect(flow).to be_showing_questions
     end
+
+    describe "#activity_and_notes", js: true do
+      let(:user) { create(:user, :confirmed) }
+      let(:reserve) { create(:reserve) }
+      let(:project) { create(:project, reserve: reserve, owner: user) }
+      
+      it "renders activity partial" do
+        create(:reserve_personnel, user: user, reserve: reserve)
+        sign_in(user)
+        flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
+
+        flow.visit_show_page
+
+        expect(flow).to be_not_showing_activity_and_notes
+        flow.click_on_activity_and_notes
+        expect(flow).to be_showing_activity_and_notes
+      end
+    end
   end
 
   describe "it displays manager's project team section in show page" do

@@ -194,6 +194,18 @@ en:
       search_by_name: "Search by name"
       alt:
         close_modal_icon: "Cancel Editing and Close Modal"
+    activity:
+      log: "Log"
+      time: "Time:"
+      action: "Action:"
+      details: "Details:"
+      id: "Id:"
+      by: "By:"
+      log_changes: "Log Changes"
+      field: "Field:"
+      status: "Status"
+      old_value: "Old value:"
+      new_value: "New value:"
   reserves:
     personnel_card:
       alt_text:
@@ -1099,6 +1111,18 @@ en:
         visit:
           visitor: "Visitor"
           amenity: "Amenity"
+      activity_and_notes:
+        activity_table:
+          title: "Activtiy"
+          name: "Name"
+          date_and_time: "Date & Time"
+          details: "Details"
+          user_or_admin: "User/Admin"
+        reserve_notes:
+          title: "Notes"
+          name: "Name"
+          date_and_time: "Date & Time"
+          user_or_admin: "User/Admin"
     reports:
       header:
         reports: "Reports"

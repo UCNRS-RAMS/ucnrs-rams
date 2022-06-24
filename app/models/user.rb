@@ -59,6 +59,7 @@ class User < ApplicationRecord
   has_many :reserve_personnel
   has_many :managed_reserves, through: :reserve_personnel, source: :reserve
   has_many :user_visits
+  has_many :logs
 
   def institution_name
     read_attribute(:institution_name) || institution.name

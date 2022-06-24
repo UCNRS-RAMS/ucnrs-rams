@@ -1,0 +1,60 @@
+<turbo-frame id="modal-content"
+             class="modal-content"
+             role="dialog"
+             aria-labelledby="modal-title"
+             aria-describedby="modal-description"
+>
+  <div data-modal-target="dialog openOnLoad" class="text">
+    <div class="heading">
+      <h3><%= t(".log") %></h3>
+      <div class="close">
+        <%= image_tag "x.svg", height: "16px", width: "16px", data: { action: "click->modal#close" } %>
+      </div>
+    </div>
+    <hr>
+    <section class="log">
+      <table>
+        <tr>
+          <td><%= t(".log") %></td>
+          <td><%= presenter.date %></td>
+        </tr>
+        <tr>
+          <td><%= t(".action") %></td>
+          <td><%= presenter.action %></td>
+        </tr>
+        <tr>
+          <td><%= t(".details") %></td>
+          <td><%= presenter.details %></td>
+        </tr>
+        <tr>
+          <td><%= t(".id") %></td>
+          <td>Reservatoin # <%= presenter.id %></td>
+        </tr>
+        <tr>
+          <td><%= t(".by") %></td>
+          <td><%= presenter.user_name %></td>
+        </tr>
+      </table>
+    </section>
+    <section class="log-changes">
+      <p><%= t(".log_changes") %></p>
+      <hr>
+      <table>
+        <thead>
+          <tr>
+            <td><%= t(".field") %></td>
+            <td><%= t(".old_value") %></td>
+            <td><%= t(".new_value") %></td>
+          </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><%= t(".status") %></td>
+          <td class="highlight"><%= presenter.old_value %></td>
+          <td class="highlight"><%= presenter.new_value %></td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</turbo-frame>

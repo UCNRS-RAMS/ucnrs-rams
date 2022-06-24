@@ -33,6 +33,10 @@ class ProjectShowFlow
     page.click_link("permits")
   end
 
+  def click_on_activity_and_notes
+    page.click_link("Activity & Notes")
+  end
+
   def showing_summary_box?
     page.has_css?(".project-summary-box")
   end
@@ -139,6 +143,14 @@ class ProjectShowFlow
 
   def has_table_data_text?(child:, text:)
     page.has_css?("td:nth-child(#{child})", text: text)
+  end
+
+  def not_showing_activity_and_notes?
+    page.has_no_css?("section.activity-and-notes")
+  end
+
+  def showing_activity_and_notes?
+    page.has_css?("section.activity-and-notes")
   end
 
   private
