@@ -1,7 +1,8 @@
 require "rails_helper"
 
-RSpec.describe Visit, type: :model do
+RSpec.describe ReserveNote, type: :model do
   describe "associations" do
+    it { is_expected.to belong_to(:record) }
     it { is_expected.to belong_to(:user) }
     it { is_expected.to belong_to(:reserve) }
   end
