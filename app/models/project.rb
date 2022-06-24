@@ -145,6 +145,12 @@ class Project < ApplicationRecord
     order(created_at: :desc)
   end
 
+  def self.submitted_recent_first
+    where
+    .not(submitted_at: nil)
+    .order(submitted_at: :desc)
+  end
+
   def self.ordered_by_visit_date
     date = Date.current.strftime("MAKEDATE(%Y, %j)")
     left_outer_joins(:visits)
@@ -190,6 +196,11 @@ class Project < ApplicationRecord
     if incomplete?
       assign_attributes(status: :open)
     end
+  end
+
+  def self.with_visits_at_reserve(reserve)
+    left_outer_joins(:visits)
+      .where(visits: { reserve_id: reserve.id })
   end
 
   private

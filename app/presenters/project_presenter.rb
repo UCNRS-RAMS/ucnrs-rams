@@ -11,6 +11,9 @@ class ProjectPresenter
   delegate :id,
     :visits_count,
     :title,
+    :applicant,
+    :to_key,
+    :model_name,
     :total_pages, to: :project
   delegate :start_date,
     :end_date,
@@ -43,6 +46,10 @@ class ProjectPresenter
 
   def project_type
     project.project_type.titleize
+  end
+
+  def applicant_name
+    applicant.full_name
   end
 
   private

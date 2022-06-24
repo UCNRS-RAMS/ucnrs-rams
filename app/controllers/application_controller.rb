@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_reserve
 
   def current_reserve
-    @current_reserve ||= Reserve.select(:id, :name, :managing_campus_id).eager_load(:managing_campus).find_by(id: params[:reserve_id])
+    @current_reserve ||= Reserve.find_by(id: params[:reserve_id])
   end
 
   def confirm_manager!

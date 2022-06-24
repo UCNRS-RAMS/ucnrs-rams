@@ -8,6 +8,7 @@ RSpec.describe "Manager Project Show" do
 
   describe "it displays project show page" do
     it "includes summary box and menu bar", js: true do
+
       sign_in(user)
       flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
 
@@ -21,6 +22,7 @@ RSpec.describe "Manager Project Show" do
   describe "it includes project visits section" do
     it "includes rows in project visits table", js: true do
       create_list(:visit, 3, project: project)
+
       sign_in(user)
       flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
 
@@ -33,6 +35,7 @@ RSpec.describe "Manager Project Show" do
 
     it "includes visit values in table row", js: true do
       create(:visit, project: project, reserve: reserve)
+
       sign_in(user)
       flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
 
@@ -109,6 +112,7 @@ RSpec.describe "Manager Project Show" do
       reserve: reserve,
     )
     sign_in(user)
+    
     flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
     flow.visit_show_page
     flow.click_on_summary
@@ -119,7 +123,7 @@ RSpec.describe "Manager Project Show" do
 
   describe "it displays manager's project detail section in show page" do
     it "renders research form", js: true do
-      project = create(:project, reserve: reserve, project_type: "research")
+      project = create(:project, project_type: "research", reserve: reserve)
 
       sign_in(user)
       flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
@@ -134,7 +138,7 @@ RSpec.describe "Manager Project Show" do
     end
 
     it "renders meeting form", js: true do
-      project = create(:project, reserve: reserve, project_type: "meeting")
+      project = create(:project, project_type: "meeting", reserve: reserve)
 
       sign_in(user)
       flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
@@ -149,7 +153,7 @@ RSpec.describe "Manager Project Show" do
     end
 
     it "renders class form", js: true do
-      project = create(:project, reserve: reserve, project_type: "class")
+      project = create(:project, project_type: "class", reserve: reserve)
 
       sign_in(user)
       flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)

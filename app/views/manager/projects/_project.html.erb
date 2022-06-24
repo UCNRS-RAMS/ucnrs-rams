@@ -1,0 +1,12 @@
+<tr id="<%= dom_id project %>" class="project">
+  <td><%= truncate(project.title, length: 50) %></td>
+  <td><%= project.applicant_name %></td>
+  <td><%= project.recent_visit_date %></td>
+  <td><%= project.project_type %></td>
+  <td><%= pluralize(project.visits_count, "visit") %></td>
+  <td>
+    <%= link_to manager_reserve_project_path(current_reserve, project.id), target: "_top" do %>
+      <%= image_tag "arrow-circle-right-heavy-light.svg", height: "20px", width: "20px", alt: t(".alt.right_facing_arrow") %>
+    <% end %>
+  </td>
+</tr>
