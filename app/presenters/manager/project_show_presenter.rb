@@ -29,7 +29,7 @@ class Manager::ProjectShowPresenter < ProjectShowPresenter
     project_team_memberships
       .includes(:user, :institution)
       .map do |team_membership|
-        Projects::TeamMembershipPresenter.new(team_membership)
+        Manager::Projects::TeamMembershipPresenter.new(team_membership)
       end.sort_by(&:desc_status_asc_role)
   end
 
