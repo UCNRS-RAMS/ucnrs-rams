@@ -82,10 +82,9 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     flow.submit_visit_request
 
     expect(flow).to be_on_new_visit_page
-    expect(flow).to have_error_on("Project type", "can't be blank")
     expect(flow).to have_error_on("What do you plan to do on this visit?", "can't be blank")
     expect(flow).to have_error_on("Research Project", "must exist")
-    expect(flow).to have_error_on("Reserve", "must exist")
+    expect(flow).to have_error_on("Which reserve you like to visits?", "must exist")
 
     flow.select_project_type("University Class")
     flow.select_reserve("Silver Lake Area")
@@ -99,7 +98,7 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
       expect(flow).to have_error_on("Departure", "must be after start date")
     end
     flow.inside_amenity(amenity) do
-      expect(flow).to have_error_on("Departure", "must be after start date")
+      expect(flow).to have_error_on("Departs on", "must be after start date")
       expect(flow).to have_error_on("No. of People", "must be a number greater than 0")
     end
   end
@@ -150,20 +149,21 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     flow.select_project("Fun")
     flow.select_reserve("Silver Lake Area")
     flow.set_purpose("To swim")
-    flow.set_usage_dates(
+    flow.select_amenity("Beach Access")
+    flow.set_amenity_usage_dates(
+      id: amenity.id,
       arrival: now + 1.day,
       departure: now + 2.days,
     )
     flow.set_special_needs("None")
 
-    flow.select_amenity("Beach Access")
     expect(flow).to have_amenity_usage_dates(
       "Beach Access",
       arrival: now + 1.day,
       departure: now + 2.days,
     )
 
-    flow.set_number_of_people_for_amenity("Beach Access", 2)
+    flow.set_number_of_people_for_amenity(amenity.id, 2)
     flow.submit_visit_request
 
     expect(flow).to be_on_select_team_form

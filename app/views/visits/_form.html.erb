@@ -1,83 +1,86 @@
 <section data-controller="turbo-content copy-first copy-second">
-  <fieldset data-controller="value-projection" data-value-projection-projected-value="<%= form.object.project_type %>">
-    <legend><%= t(".titles.purpose") %></legend>
 
-    <fieldset data-purpose="project_type">
-      <%= form.label :project_type %>
-      <% @presenter.project_type_options.each do |value|%>
-        <label for="project-type-<%= value %>">
-          <%= form.radio_button :project_type, value, id: "project-type-#{value}", data: { action: "click->value-projection#change click->turbo-content#change" }, checked: form.object.project_type == value %>
-          <span><%= t(".project_type_options.labels.#{value}") %></span>
-          <span><%= t(".project_type_options.explanation.#{value}") %></span>
-        </label>
-      <% end %>
-    </fieldset>
-
-    <div class="field project_select">
-      <% @presenter.project_type_options.each do |type| %>
-        <div id="project-label-<%= type %>" class="label_container">
-          <%= form.label :project, "#{t(".project_type_options.labels.#{type}")} Project", for: "visit_project_id" %>
+  <section class="visit-form">
+    <h3><%= t(".titles.purpose") %></h3>
+    <div class="project-type-options"  data-purpose="project_type" data-controller="value-projection" data-value-projection-projected-value="<%= form.object.project_type %>">
+      <div class="row">
+        <% @presenter.project_type_options.each do |value|%>
+          <label for="project-type-<%= value %>">
+            <%= form.radio_button :project_type, value, id: "project-type-#{value}", data: { action: "click->value-projection#change click->turbo-content#change" }, checked: form.object.project_type == value %>
+            <div class="project-type-label">
+              <h3><%= t(".project_type_options.labels.#{value}") %></h3>
+              <p><%= t(".project_type_options.explanation.#{value}") %></p>
+            </div>
+          </label>
+        <% end %>
+      </div>
+      <div class="field project_select">
+      <div class="select_or_new">
+        <div class="display-column-flex">
+          <% @presenter.project_type_options.each do |type| %>
+            <div id="project-label-<%= type %>" class="label_container">
+              <%= form.label :project, "#{t(".project_type_options.labels.#{type}")} Project", for: "visit_project_id" %>
+            </div>
+          <% end %>
+          <%= render partial: "visits/projects/projects_select", locals: { presenter: @presenter.projects } %>
         </div>
-      <% end %>
-      <%= render partial: "visits/projects/projects_select", locals: { presenter: @presenter.projects } %>
-      <%= link_to t(".links.create_a_new_project"), "/projects/new" %>
+        <%= link_to t(".links.create_a_new_project"), "/projects/new" %>
+      </div>
+      </div>
     </div>
-
-    <%= form.label :purpose_of_visit, t(".labels.purpose_of_visit") %>
-    <%= form.text_area :purpose_of_visit %>
-  </fieldset>
+    <div class="text-area">
+      <div><%= form.label :purpose_of_visit, t(".labels.purpose_of_visit") %></div>
+      <%= form.text_area :purpose_of_visit %>
+    </div>
+  </section>
 
   <span data-controller="followup-content">
-    <fieldset class="reserve-info">
-      <legend><%= t(".titles.reserve") %> <%= link_to t(".links.browse_reserves"), "#" %></legend>
-
-      <div class="field">
-        <%= form.label :reserve, t(".labels.reserve"), for: "visit_reserve_id" %>
-        <%= render partial: "visits/reserves/reserves_select", locals: { presenter: @presenter.reserves } %>
-      </div>
-
-      <div class="date-range-select">
+    <section class="reserve-info progress-steps">
+      <div><h3><%= t(".titles.reserve") %> <%= link_to t(".links.browse_reserves"), "#" %></h3></div>
+      <div class="display-row-flex">
         <div class="field">
-          <%= form.label :start_date, t(".labels.arrival") %>
-          <div class="date-time-select">
-            <%= form.date_field(:start_date, value: @presenter.start_date, min: Date.today, data: { action: "change->copy-first#copy" }) %>
-            <%= form.collection_select(:start_time, @presenter.time_options, :value, :human, aria: { label: t(".aria.arrival_time") }) %>
-          </div>
+          <%= form.label :reserve, t(".labels.reserve"), for: "visit_reserve_id" %>
+          <%= render partial: "visits/reserves/reserves_select", locals: { presenter: @presenter.reserves } %>
         </div>
-
-        <span class="separator"></span>
-
-        <div class="field">
-          <%= form.label :end_date, t(".labels.departure") %>
-          <div class="date-time-select">
-            <%= form.date_field(:end_date, value: @presenter.end_date, min: Date.today, data: { action: "change->copy-second#copy" }) %>
-            <%= form.collection_select(:end_time, @presenter.time_options, :value, :human, aria: { label: t(".aria.departure_time") }) %>
+        <div class="date-range-select">
+          <div class="field">
+            <%= form.label :start_date, t(".labels.arrival"), class:"reserve-lable" %>
+            <div class="date-time-select">
+              <%= form.date_field(:start_date, value: @presenter.start_date, min: Date.today, data: { action: "change->copy-first#copy" }) %>
+              <%= form.collection_select(:start_time, @presenter.time_options, :value, :human, aria: { label: t(".aria.arrival_time") }) %>
+            </div>
+          </div>
+          <span class="separator"></span>
+          <div class="field">
+            <%= form.label :end_date, t(".labels.departure") %>
+            <div class="date-time-select">
+              <%= form.date_field(:end_date, value: @presenter.end_date, min: Date.today, data: { action: "change->copy-second#copy" }) %>
+              <%= form.collection_select(:end_time, @presenter.time_options, :value, :human, aria: { label: t(".aria.departure_time") }) %>
+            </div>
           </div>
         </div>
       </div>
-
-      <div class="flex-break"></div>
-
       <div data-followup-content-target="destination" data-followup-content-url-value="<%= visits_reserve_input_url("VALUE") %>" class="reserve-specific-fields">
         <%= render partial: "visits/reserve_inputs/fields", locals: { form_values: @presenter.form, presenter: @presenter } %>
       </div>
-    </fieldset>
-
-    <fieldset class="amenities">
-      <legend><%= t(".titles.amenities") %><span><%= t(".titles.amenities_subtitle") %></span></legend>
-      <section class="amenity-options" data-followup-content-target="destination" data-followup-content-url-value="<%= visits_amenities_url(reserve_id: "VALUE") %>">
+    </section>
+    <section class="amenities visit-form" data-followup-content-target="destination" data-followup-content-url-value="<%= visits_amenities_url(reserve_id: "VALUE") %>">
+      <section class="amenity-options" >
         <% @presenter.amenities_by_group_label.each do |group_label, amenities| %>
           <%= render partial: "visits/amenities/amenities", locals: { group_label: group_label, amenities: amenities } %>
         <% end %>
       </section>
-    </fieldset>
+    </section>
   </span>
 
-  <fieldset>
+  <section class="visit-form footer progress-steps">
     <%= link_to  "#" do %>
       <%= image_tag "arrow-left.svg", height: "24px", width: "24px", alt: t(".alt_text.left_arrow") %>
       <%= t(".links.go_back") %>
     <% end %>
-    <%= form.submit(t(".labels.next_page.visitors")) %>
-  </fieldset>
+    <%= button_tag class: "active" do %>
+      <%= t(".labels.next_page.visitors") %>
+      <%= image_tag "arrow-right.svg", alt: t(".alt_text.right_arrow") %>
+    <% end %>
+  </section>
 </section>

@@ -1,75 +1,168 @@
 @import "variables";
 
-.amenity {
-  input[type="checkbox"] {
-    left: -9999px;
-    position: absolute;
+.amenity_group{
+  margin: 0px 0px 30px 0px;
+
+  h3 {
+    color: $dark-bluegray;
+    margin: 0px;
   }
 
-  label {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin: 0.5rem 0;
-
-    img {
-      border: 1px dotted black;
-      height: 89px;
-      width: 146px;
+  .amenity {
+    input[type="radio"] {
+      margin: 15px 0px 0px 10px;
+      position: absolute;
     }
 
-    .content {
-      flex: 1;
-      margin: 0 1rem;
+    .amenity-padding {
+      display: flex;
+      padding: 10px 20px;
 
       h3 {
-        margin: 0;
+        color: $black;
       }
 
-      a {
-        display: none;
+      p.description {
+        font-size: small;
+        margin: 3px;
+      }
 
-        &.showing {
-          display: initial;
+      img {
+        margin-left: 10px;
+      }
+    }
+
+    label {
+      align-items: flex-start;
+      border: 1px solid $black;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin: 0.5rem 0;
+
+      img {
+        border: 1px dotted black;
+        height: 89px;
+        width: 146px;
+      }
+
+      .content {
+        flex: 1;
+        margin: 0 1rem;
+
+        h3 {
+          margin: 0;
+        }
+
+        a {
+          display: none;
+
+          &.showing {
+            color: $dark-bluegray;
+            display: initial;
+            font-size: small;
+          }
+        }
+
+        .comment-and-rates {
+          display: none;
+
+          &.showing {
+            display: initial;
+          }
         }
       }
 
-      .comment-and-rates {
-        display: none;
+      .bookings {
+        background: lighten($bluegray, 30%);
+        width: 100%;
 
-        &.showing {
-          display: initial;
+        img {
+          border: 0px;
+          height: 30px;
+          width: 50px;
+        }
+
+        .booking {
+          display: none;
+          flex-basis: 100%;
+          flex-direction: column;
+
+          .booking-card {
+            background-color: $white;
+            border: 1px solid;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 30px 0px 30px;
+            padding: 20px;
+
+            .flex-row-field {
+              align-items: flex-end;
+              display: flex;
+              flex-direction: row;
+              flex-wrap: nowrap;
+              position: relative;
+
+              button {
+                background-color: transparent;
+                border: none;
+                margin: 0;
+                padding: 0;
+
+                img {
+                  border: 0px;
+                  height: 40px;
+                  width: 50px;
+                }
+              }
+
+              .flex-column-field {
+                display: flex;
+                flex-direction: column;
+              }
+
+              .counter {
+                width: 20px;
+              }
+
+              input {
+                align-items: center;
+                border-radius: 5px;
+                margin: 0px 3px;
+                padding: 10px;
+              }
+
+              select {
+                padding: 10px;
+              }
+
+              label {
+                flex-basis: 100%;
+              }
+            }
+          }
+
+          .add-booking-card {
+            align-items: center;
+            display: flex;
+            padding: 10px 0px 10px 20px;
+          }
         }
       }
     }
 
-    .booking {
-      display: none;
-      flex-basis: 100%;
-      flex-direction: row;
-      justify-content: space-between;
+    input:checked + label {
+      background: lighten($bluegray, 35%);
+      border: 2px solid $black;
 
-      .field {
-        align-items: flex-end;
+      .booking {
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        position: relative;
 
         label {
-          flex-basis: 100%;
+          border: 0px;
         }
       }
-    } 
-  }
-
-  input:checked + label {
-    background: lighten($bluegray, 30%);
-    border: 1px dotted $dark-bluegray;
-
-    .booking {
-      display: flex;
     }
   }
 }

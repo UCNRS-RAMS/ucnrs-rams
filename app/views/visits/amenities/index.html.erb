@@ -1,3 +1,4 @@
+<h2><%= t(".select_amenities") %><span><%= t(".optional")%></span></h2>
 <% @presenter.amenities_by_group_label.each do |group_label, amenities| %>
   <%= render partial: "visits/amenities/amenities", locals: { group_label: group_label, amenities: amenities } %>
 <% end %>

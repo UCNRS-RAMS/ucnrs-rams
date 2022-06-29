@@ -38,7 +38,7 @@ class RequestVisitFlow
   end
 
   def on_select_team_form?
-    page.has_css?("body.home-index") # Temporary: To show movement
+    page.has_css?("body.visits.visits-create") # Temporary: To show movement
   end
 
   def has_a_project_type_selected?
@@ -84,15 +84,15 @@ class RequestVisitFlow
   end
 
   def select_reserve(name)
-    page.select name, from: "Reserve"
+    page.select name, from: "visit_reserve_id"
   end
 
   def select_project_type(type)
-    page.find("label span", text: type).click
+    page.find("label .project-type-label h3", text: type).click
   end
 
   def has_project_type?(type)
-    page.has_css?("input:checked + span", text: type)
+    page.has_css?("input:checked + div h3", text: type)
   end
 
   def select_project(name)
@@ -114,17 +114,17 @@ class RequestVisitFlow
     page.find("#visit_end_time").set(departure.strftime("%I:%M%p"))
   end
 
+  def set_amenity_usage_dates(id:, arrival:, departure:)
+    page.find("#visit_amenities_#{id}_arrives_on").set(arrival.strftime("%m/%d/%Y"))
+    page.find("#visit_amenities_#{id}_arrives_at").set(arrival.strftime("%I:%M%p"))
+    page.find("#visit_amenities_#{id}_departs_on").set(departure.strftime("%m/%d/%Y"))
+    page.find("#visit_amenities_#{id}_departs_at").set(departure.strftime("%I:%M%p"))
+  end
+
   def inside_amenity_labeled(title, &block)
     amenity_title = page.find(".amenity h3", text: title)
     section = amenity_title.first(:xpath, ".//../..")
     block.call(section)
-  end
-
-  def set_amenity_usage_dates(title, arrival:, departure:)
-    inside_amenity_labeled(title) do |section|
-      section.find("label", text: "Arrival").set(arrival.strftime("%m/%d/%Y"))
-      section.find("label", text: "Departure").set(departure.strftime("%m/%d/%Y"))
-    end
   end
 
   def has_amenity_usage_dates?(title, arrival:, departure:)
@@ -134,10 +134,8 @@ class RequestVisitFlow
     end
   end
 
-  def set_number_of_people_for_amenity(title, number)
-    inside_amenity_labeled(title) do |section|
-      section.fill_in "No. of People", with: number
-    end
+  def set_number_of_people_for_amenity(id, number)
+    page.fill_in "visit_amenities_#{id}_number_of_people", with: number
   end
 
   def has_usage_dates?(arrival:, departure:)
@@ -172,7 +170,7 @@ class RequestVisitFlow
   end
 
   def submit_visit_request
-    page.find("input[type='submit']").click
+    page.find("button[type='submit']").click
   end
 
   def has_error_on?(label, message)
