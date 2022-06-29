@@ -131,7 +131,7 @@ en:
       save: Save
       ownership: Ownership
       permissions: Permissions
-      assigned_owner: "Change this user to this project's owner"
+      assigned_as_project_owner: "Change ownership of the project to this user"
     edit_project_funding:
       title: "Edit %{funding_title}"
       accessible_description: "A modal pop-up form to edit details of funding for this project."
@@ -866,7 +866,7 @@ en:
     projects:
       not_authorized: "You are not authorized to edit this project."
       cannot_add_users: "You are not authorized to add users."
-      cannot_find_project: "Cannot find that project."
+      cannot_find_project: "Project not found"
       permit:
         edit:
           save_changes: "Save Changes"

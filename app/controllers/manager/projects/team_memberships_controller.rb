@@ -79,7 +79,7 @@ class Manager::Projects::TeamMembershipsController < ApplicationController
   private
 
   def project
-    @project ||= Project.find_by(id: project_id, reserve_id: reserve_id) || project_team_membership.project
+    @project ||= Project.find_by(id: project_id) || project_team_membership.project
     return @project if @project
 
     flash[:alert] = "Cannot find that project."
@@ -88,10 +88,6 @@ class Manager::Projects::TeamMembershipsController < ApplicationController
 
   def project_id
     params.permit(:project_id).require(:project_id)
-  end
-
-  def reserve_id
-    params.permit(:reserve_id).require(:reserve_id)
   end
 
   def project_team_membership
@@ -114,7 +110,7 @@ class Manager::Projects::TeamMembershipsController < ApplicationController
       :can_add_visit,
       :can_receive_invoice,
       :active,
-      :assigned_owner,
+      :assigned_as_project_owner,
     )
   end
 end

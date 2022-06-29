@@ -5,6 +5,10 @@ class Manager::Projects::TeamMembershipsIndexPresenter < Projects::TeamMembershi
     super(current_step: 0, project: project, form: form, current_user: current_user)
   end
 
+  def able_to_add_user?
+    true
+  end
+
   def team_memberships
     project
       .team_memberships
@@ -12,8 +16,7 @@ class Manager::Projects::TeamMembershipsIndexPresenter < Projects::TeamMembershi
       .by_project_role
       .map do |team_membership|
       Manager::Projects::TeamMembershipPresenter.new(
-        team_membership,
-        editable: current_user&.able_to_edit?(project),
+        team_membership
       )
     end
   end

@@ -54,8 +54,8 @@
           <fieldset>
             <legend><%= t(".ownership") %></legend>
             <div class="field checkbox">
-              <%= form.label :assigned_owner, t(".assigned_owner") %>
-              <%= form.check_box :assigned_owner %>
+              <%= form.label :assigned_as_project_owner?, t(".assigned_as_project_owner") %>
+              <%= form.check_box :assigned_as_project_owner?, {}, true, false %>
             </div>
           </fieldset>
         <% end %>

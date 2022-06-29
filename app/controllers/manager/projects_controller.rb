@@ -70,7 +70,7 @@ class Manager::ProjectsController < ApplicationController
   end
 
   def project
-    @project ||= Project.find_by(id: project_id, reserve_id: reserve_id)
+    @project ||= Project.find_by(id: project_id)
     return @project if @project
 
     flash[:alert] = I18n.t(".manager.projects.cannot_find_project")
@@ -79,9 +79,5 @@ class Manager::ProjectsController < ApplicationController
 
   def project_id
     params.permit(:id).require(:id)
-  end
-
-  def reserve_id
-    params.permit(:reserve_id).require(:reserve_id)
   end
 end

@@ -65,11 +65,11 @@ class ProjectTeamMembershipForm
     end
   end
 
-  def assigned_owner=(value)
-    project.owner = user if value == "1"
+  def assigned_as_project_owner=(value)
+    project.owner = user if value == "true"
   end
 
-  def assigned_owner
+  def assigned_as_project_owner?
     project.user_id == user_id
   end
 
