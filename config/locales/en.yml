@@ -228,7 +228,7 @@ en:
     amenities:
       amenity:
         link: "Amenity Link"
-        more_info: "Learn More"
+        more_info: "Show More"
         dates_of_use: "Dates of Use"
         rate: "Rate"
         rate_period: "(per %{unit} per %{period})"
@@ -261,7 +261,7 @@ en:
         per: "per"
       amenity:
         link: "Amenity Link"
-        more_info: "Show More"
+        more_info: "Learn More"
         less_info: "Show Less"
         dates_of_use: "Dates of Use"
         rate: "Rate"
@@ -328,15 +328,19 @@ en:
       title: "Visit Requests"
       most_recent_filter: "Most recent"
     amenities:
+      index:
+        select_amenities: "Select Amenities"
+        optional: "(Optional)"
       amenity:
-        more_info: "Show More"
+        more_info: "Learn More"
         less_info: "Show Less"
-        date_of_arrival: "Arrival Date"
-        date_of_departure: "Departure Date"
+        date_of_use: "Dates of Use"
+        time_of_use: "Time of Use"
         rate: "Rate"
         rate_period: "(per %{unit} per %{period})"
         number_of_people: "No. of People"
         subtotal: "Subtotal"
+        add_another: "Add Another Date Range"
         aria:
           time_of_arrival: "Arrival Time"
           time_of_departure: "Departure Time"
@@ -354,14 +358,16 @@ en:
       labels:
         public_use_category: "Choose a category that best describes your visit"
         purpose_of_visit: "What do you plan to do on this visit?"
-        reserve: "Reserve"
+        select_project: "Select Project"
+        reserve: "Which reserve you like to visits?"
         arrival: "Arrival"
         departure: "Departure"
         next_page:
-          visitors: "Next Page: Visitors"
+          visitors: "Next: Visitors"
       alt_text:
         calendar: "Calendar Icon"
         left_arrow: "Left Arrow to Go Back"
+        right_arrow: "Right Arrow"
       links:
         go_back: "Go Back"
         create_a_new_project: "or Create a new Project"
@@ -381,10 +387,10 @@ en:
           meeting_or_conference: "Meeting or Conference"
           public_use: "Public Use"
         explanation:
-          research: "Research"
-          university_class: "Class"
-          meeting_or_conference: "Meeting"
-          public_use: "Public"
+          research: "Field or lab-based research in any discipline"
+          university_class: "University or college course or class"
+          meeting_or_conference: "Symposia, lab retreates, and academic meetings"
+          public_use: "Community events, fundraising, K-12, or other classes, volunteer use"
     reserve_inputs:
       fields:
         labels:

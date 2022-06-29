@@ -1,12 +1,93 @@
 @import "variables";
 @import "mixins/summary";
+@import "mixins/date_fields";
+@import "mixins/form";
+@import "mixins/controls";
 
 .visits-new,
 .visits-create {
-  .reserve-info {
+  .footer {
+    align-items: center;
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
+    padding: 30px 281px !important;
+
+    input {
+      margin-left: 20px;
+      padding: 20px;
+    }
+
+    button {
+      margin-left: 100px;
+    }
+
+    a {
+      align-items: center;
+      color: #556b72;
+      display: flex;
+      text-decoration: none;
+
+      img {
+        margin-right: 7px;
+      }
+    }
+  }
+
+  .reserve-info {
+    display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+
+    .reserve-field {
+      border-radius: 0.5rem;
+      min-width: 23rem;
+    }
+
+    .display-row-flex {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    label {
+      color: #556b72;
+      display: inline;
+      font-size: 0.625rem;
+      font-weight: 700;
+    }
+    
+    .error {
+      color: $red;
+    }
+
+    select {
+      background-color: white;
+      border: 1px solid;
+      border-radius: 0rem 0.5rem 0.5rem 0rem;
+      padding: 0.6rem;
+    }
+
+    input {
+      border: 1px solid;
+      border-radius: 0.5rem 0rem 0rem 0.5rem;
+      padding: 0.61rem;
+    }
+  }
+
+  .amenities {
+
+    h2 {
+      margin-bottom: 40px;
+
+      span {
+        color: $dark-bluegray;
+        font-size: medium;
+        margin-left: 30px;
+      }
+    }
   }
 
   .flex-break {
@@ -36,6 +117,199 @@
 
   .special-needs-statement:empty {
     display: none;
+  }
+
+  .visit-form {
+    color: $navy-blue;
+    padding: 0 $form-page-gutter;
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: $semi-bold;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: $bold;
+    }
+
+    .project-type-options {
+      
+      .row {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 3rem;
+        
+        &[data-value-projection-projected-value="research"] {
+          label[for="project-type-research"] {
+            background-color: $light-light-blue;
+            border: 2px solid $navy-blue;
+            padding: 1rem;
+          }
+        }
+
+        &[data-value-projection-projected-value="university_class"] {
+          label[for="project-type-university_class"] {
+            background-color: $light-light-blue;
+            border: 2px solid $navy-blue;
+            padding: 1rem;
+          }
+        }
+
+        &[data-value-projection-projected-value="meeting_or_conference"] {
+          label[for="project-type-meeting_or_conference"] {
+            background-color: $light-light-blue;
+            border: 2px solid $navy-blue;
+            padding: 1rem;
+          }
+        }
+
+        &[data-value-projection-projected-value="public_use"] {
+          label[for="project-type-public_use"] {
+            background-color: $light-light-blue;
+            border: 2px solid $navy-blue;
+            padding: 1rem;
+          }
+        }
+
+        label {
+          align-items: flex-start;
+          background-color: transparent;
+          border: 1px solid $gray;
+          display: flex;
+          flex-direction: row;
+          flex: 1;
+          margin-right: 10px;
+          padding: calc(1rem + 1px);
+
+          &:last-child {
+            margin-right: 0;
+          }
+
+          input {
+            margin-right: 0.5rem;
+          }
+
+          .project-type-label {
+            align-content: flex-start;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+
+            h3 {
+              font-size: 1rem;
+              font-weight: $bold;
+              margin: 0;
+              margin-bottom: 0.5rem;
+              padding: 0;
+            }
+
+            p {
+              font-size: 0.625rem;
+              font-weight: $normal;
+              margin: 0;
+              padding: 0;
+            }
+          }
+        }
+      }
+    }
+    .text-area {
+      margin-bottom: 3rem;
+
+      textarea {
+        border-radius: 0.5rem;
+        font-family: "Sora";
+        font-size: 0.6875rem;
+        height: 6.675rem;
+        padding: 0.5rem;
+        width: 100%;
+      }
+
+      label {
+        color: #556b72;
+        display: inline;
+        font-size: 0.625rem;
+        font-weight: 700;
+      }
+      
+      .error {
+        color: $red;
+        font-size: small;
+      }
+    }
+
+    .project_select {
+      
+      .select_or_new{ 
+        display: flex;
+        align-items: center;
+        
+        .display-column-flex {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 1px;
+        }
+  
+        a {
+          padding: 0.5rem 0rem 0.5rem 4rem;
+        }
+  
+        label {
+          color: #556b72;
+          display: inline;
+          font-size: 0.625rem;
+          font-weight: 700;
+        }
+        
+        .error {
+          color: $red;
+        }
+  
+        select {
+          background-color: white;
+          border: 1px solid;
+          border-radius: 0.5rem;
+          min-width: 35rem;
+          padding: 0.6rem;
+        }
+      
+      }
+  
+      .uneditable-project-type {
+        border-left: 3px solid $navy-blue;
+        margin-bottom: 2rem;
+        padding-left: 1rem;
+  
+        h3 {
+          font-size: 1rem;
+          font-weight: $bold;
+          margin-bottom: 0;
+        }
+  
+        p {
+          font-size: 0.625rem;
+          font-weight: $normal;
+          margin-top: 0.5rem;
+        }
+      }
+  
+      section.research,
+      section.class,
+      section.meeting {
+        @include form;
+      }
+    }
+  }
+  
+  .error {
+    border-color: $red;
+    border-width: 2px !important;
+    color: $red;
+    font-size: small;
+    .error_messages { 
+      margin-left: 5px;
+    }
   }
 }
 

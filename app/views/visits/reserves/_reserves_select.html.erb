@@ -1,5 +1,5 @@
 <turbo-frame id="reserves_select" data-pattern="<%= visits_reserves_path(project_type: "VALUE", reserve_id: presenter.reserve_id) %>" data-turbo-content-target="destination">
-  <select id="visit_reserve_id" name="visit[reserve_id]" data-action="change->followup-content#change">
+  <select id="visit_reserve_id" name="visit[reserve_id]" data-action="change->followup-content#change" class="reserve-field">
     <% presenter.reserves.each do |reserve| %>
       <option value="<%= reserve.id %>" <%= presenter.selected_reserve(reserve) %> ><%= reserve.pulldown_name %></option>
     <% end %>
