@@ -6,6 +6,7 @@ class Manager::Projects::UsersController < ApplicationController
     @presenter = Manager::Projects::UserNewPresenter.new(
       form: form,
       project: project,
+      reserve: current_reserve,
     )
   end
 
@@ -18,19 +19,23 @@ class Manager::Projects::UsersController < ApplicationController
 
     respond_to do |format|
       if form.save
-        format.turbo_stream { redirect_to manager_reserve_project_team_memberships_path(project.reserve_id, project) }
-        format.html { redirect_to manager_reserve_project_team_memberships_path(project.reserve_id, project) }
+        format.turbo_stream { redirect_to manager_reserve_project_team_memberships_path(current_reserve, project) }
+        format.html { redirect_to manager_reserve_project_team_memberships_path(current_reserve, project) }
       else
         @presenter = Manager::Projects::UserNewPresenter.new(
           form: form,
           project: project,
+          reserve: current_reserve,
         )
 
         format.turbo_stream do
           render template: "manager/projects/users/new",
             status: :unprocessable_entity
         end
-        format.html { render status: :unprocessable_entity }
+        format.html do
+          render template: "manager/projects/users/new",
+            status: :unprocessable_entity
+        end
       end
     end
   end

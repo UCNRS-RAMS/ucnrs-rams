@@ -5,7 +5,7 @@
     <p><%= t(".#{presenter.project_type}_tag_line") %></p>
   </section>
   <section>
-    <%= form_with model: presenter.form, url: manager_reserve_project_detail_url(@presenter.id), method: :put, data: { controller: "turbo-content" }, id: "projects-edit" do |form| %>
+    <%= form_with model: presenter.form, url: manager_reserve_project_detail_url(current_reserve.id, @presenter.id), method: :put, data: { controller: "turbo-content" }, id: "projects-edit" do |form| %>
       <%= render partial: "shared/projects/project_type_form", locals: {
         form: form,
         presenter: @presenter

@@ -3,9 +3,13 @@ require "rails_helper"
 RSpec.describe Manager::Projects::TeamMembershipsIndexPresenter do
   describe "#team_memberships" do
     it "creates a Manager::Projects::TeamMembershipPresenter for each team_membership" do
-      project = create(:project)
+      reserve = create(:reserve)
+      project = create(:project, reserve: reserve)
       team_memberships = create_list(:project_team_membership, 3, project: project)
-      presenter = Manager::Projects::TeamMembershipsIndexPresenter.new(project: project)
+      presenter = Manager::Projects::TeamMembershipsIndexPresenter.new(
+        project: project,
+        reserve: reserve,
+      )
 
       results = presenter.team_memberships
 
@@ -24,6 +28,7 @@ RSpec.describe Manager::Projects::TeamMembershipsIndexPresenter do
       project = create(:project, reserve: reserve)
       presenter = Manager::Projects::TeamMembershipsIndexPresenter.new(
         project: project,
+        reserve: reserve,
       )
 
       expected_value = "/manager/reserves/#{reserve.id}/projects/#{project.id}/team_memberships"
@@ -37,6 +42,7 @@ RSpec.describe Manager::Projects::TeamMembershipsIndexPresenter do
       project = create(:project, reserve: reserve)
       presenter = Manager::Projects::TeamMembershipsIndexPresenter.new(
         project: project,
+        reserve: reserve,
       )
 
       expected_value = "/manager/reserves/#{reserve.id}/projects/#{project.id}/users/new"

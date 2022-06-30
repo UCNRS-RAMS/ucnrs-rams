@@ -1,11 +1,14 @@
 class Manager::Projects::FundingsIndexPresenter < Projects::FundingsIndexPresenter
-  def initialize(project:, form: nil)
+  def initialize(project:, reserve:, form: nil)
     super(current_step: 0, project: project, form: form)
+    @reserve = reserve
   end
+
+  attr_reader :reserve
 
   def fundings
     fundings_scope.map do |funding|
-      Manager::Projects::FundingPresenter.new(funding)
+      Manager::Projects::FundingPresenter.new(funding: funding, reserve: reserve)
     end
   end
 
@@ -14,7 +17,6 @@ class Manager::Projects::FundingsIndexPresenter < Projects::FundingsIndexPresent
   def fundings_scope
     Funding
       .for_project(project)
-      .includes(:project)
       .alphabetized
   end
 end

@@ -1,4 +1,7 @@
 class Manager::Projects::DetailController < ApplicationController
+  before_action :authenticate_user!
+  before_action :confirm_manager!
+
   def edit
     @presenter = ProjectFormPresenter.new(
       user: current_user,
@@ -11,7 +14,7 @@ class Manager::Projects::DetailController < ApplicationController
   def update
     form = ProjectForm.new(user: current_user, params: project_params.merge(id: project.id))
     if form.save
-      redirect_to manager_reserve_project_path(project.reserve_id, project.id)
+      redirect_to manager_reserve_project_path(current_reserve, project)
     else
       @presenter = ProjectFormPresenter.new(
         user: current_user,

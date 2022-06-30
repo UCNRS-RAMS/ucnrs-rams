@@ -6,6 +6,7 @@ class Manager::Projects::TeamMembershipsController < ApplicationController
     @presenter = Manager::Projects::TeamMembershipsIndexPresenter.new(
       project: project,
       current_user: current_user,
+      reserve: current_reserve,
     )
     respond_to do |format|
       format.html
@@ -15,7 +16,7 @@ class Manager::Projects::TeamMembershipsController < ApplicationController
 
   def edit
     form = ProjectTeamMembershipForm.new(params: { id: project_team_membership.id })
-    @presenter = Manager::Projects::TeamMembershipEditPresenter.new(form: form)
+    @presenter = Manager::Projects::TeamMembershipEditPresenter.new(form: form, reserve: current_reserve)
   end
 
   def create
@@ -25,11 +26,12 @@ class Manager::Projects::TeamMembershipsController < ApplicationController
     )
 
     if form.save
-      redirect_to manager_reserve_project_team_memberships_path(project.reserve, project)
+      redirect_to manager_reserve_project_team_memberships_path(current_reserve, project)
     else
       @presenter = Manager::Projects::TeamMembershipsIndexPresenter.new(
         project: project,
         form: form,
+        reserve: current_reserve,
       )
       render :index, status: :unprocessable_entity
     end
@@ -43,10 +45,10 @@ class Manager::Projects::TeamMembershipsController < ApplicationController
     respond_to do |format|
       if form.save
         project = project_team_membership.project
-        format.turbo_stream { redirect_to manager_reserve_project_team_memberships_path(project.reserve, project) }
-        format.html { redirect_to manager_reserve_project_team_memberships_path(project.reserve, project) }
+        format.turbo_stream { redirect_to manager_reserve_project_team_memberships_path(current_reserve, project) }
+        format.html { redirect_to manager_reserve_project_team_memberships_path(current_reserve, project) }
       else
-        @presenter = Manager::Projects::TeamMembershipEditPresenter.new(form: form)
+        @presenter = Manager::Projects::TeamMembershipEditPresenter.new(form: form, reserve: current_reserve)
         format.turbo_stream do
           render template: "shared/projects/team_memberships/edit",
             status: :unprocessable_entity
@@ -63,15 +65,18 @@ class Manager::Projects::TeamMembershipsController < ApplicationController
     respond_to do |format|
       project = project_team_membership.project
       if project_team_membership.destroy
-        format.turbo_stream { redirect_to manager_reserve_project_team_memberships_path(project.reserve_id, project) }
-        format.html { redirect_to manager_reserve_project_team_memberships_path(project.reserve_id, project) }
+        format.turbo_stream { redirect_to manager_reserve_project_team_memberships_path(current_reserve, project) }
+        format.html { redirect_to manager_reserve_project_team_memberships_path(current_reserve, project) }
       else
-        @presenter = Manager::Projects::TeamMembershipEditPresenter.new(form: form)
+        @presenter = Manager::Projects::TeamMembershipEditPresenter.new(form: form, reserve: current_reserve)
         format.turbo_stream do
           render template: "shared/projects/team_memberships/edit",
             status: :unprocessable_entity
         end
-        format.html { render status: :unprocessable_entity }
+        format.html do
+          render template: "shared/projects/team_memberships/edit",
+            status: :unprocessable_entity 
+        end
       end
     end
   end
@@ -82,8 +87,8 @@ class Manager::Projects::TeamMembershipsController < ApplicationController
     @project ||= Project.find_by(id: project_id) || project_team_membership.project
     return @project if @project
 
-    flash[:alert] = "Cannot find that project."
-    redirect_to root_path
+    flash[:alert] = I18n.t(".manager.projects.cannot_find_project")
+    redirect_to root_path and return false
   end
 
   def project_id
