@@ -2,12 +2,10 @@ require "rails_helper"
 
 RSpec.describe "manager navbar", type: :view do
   it "display the manager navbar" do
-    user = FactoryBot.create(:user)
+    user = create(:user)
     reserve = create(:reserve)
 
     render partial: "layouts/manager_navbar", locals: { current_user: user, current_reserve: reserve }
-
-    expect(rendered).to have_link("", href: "/users/sign_out")
 
     expect(rendered).to have_link("Visits", href: "#")
     expect(rendered).to have_link("Projects", href: "#")
