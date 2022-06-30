@@ -1,39 +1,6 @@
 @import "variables";
 
 .manager {
-  .manager-navbar.upper {
-    border-bottom: 1px solid #ccc;
-    padding: .3rem 0;
-
-    .container {
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    ul.navbar-nav {
-      font-size: .75rem;
-
-      li {
-        a {
-          color: $dark-bluegray;
-          display: inline-block;
-          font-weight: $medium;
-          padding: 0;
-          text-decoration: none;
-        }
-      }
-
-      li:not(:last-child)::after {
-        background-color: #ccc;
-        content: "";
-        display: block;
-        height: 1.25rem;
-        margin: 0 1rem;
-        width: 1px;
-      }
-    }
-  }
-
   .manager-navbar.lower {
     padding: 1.5rem 0;
 
@@ -60,5 +27,48 @@
     display: inline-block;
     margin-left: .255em;
     vertical-align: .255em;
+  }
+}
+
+.manager-navbar.upper {
+  border-bottom: 1px solid #ccc;
+  color: $navy-blue;
+  font-weight: $normal;
+  padding: .3rem 0;
+
+  .container {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  ul.navbar-nav {
+    display: flex;
+    font-size: .75rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      display: flex;
+
+      a {
+        color: $navy-blue;
+        text-decoration: none;
+
+        &.active {
+          border-bottom: 6px solid $sky-blue;
+          color: $navy-blue;
+        }
+      }
+    }
+
+    li:not(:last-child)::after {
+      background-color: #ccc;
+      content: "";
+      display: block;
+      height: 1.25rem;
+      margin: 0 1rem;
+      width: 1px;
+    }
   }
 }

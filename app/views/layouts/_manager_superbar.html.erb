@@ -1,0 +1,28 @@
+<div class="manager-navbar upper">
+  <div class="container">
+    <ul class="navbar-nav">
+      <li><%= I18n.t(".navbar.link.welcome_back", name: current_user.full_name) %></li>
+      <% if current_reserve.present? %>
+        <li class="dropdown" data-controller="toggle">
+          <%= link_to current_reserve.name, "#", class: "dropdown-toggle", "data-action": "click->toggle#toggle" %>
+          <div class="dropdown-menu" data-toggle-class="show" data-toggle-target= "toggle">
+            <header>Your Managed Reserves</header>
+            <hr />
+            <% current_user.managed_reserves.each do |reserve| %>
+              <%= link_to reserve.name, manager_reserve_dashboard_path(reserve), class: "dropdown-item" %>
+            <% end%>
+          </div>
+        </li>
+      <% end %>
+      <li class="dropdown" data-controller="toggle">
+        <%= link_to I18n.t(".navbar.link.manager_view"), "#", class: "dropdown-toggle", "data-action": "click->toggle#toggle" %>
+        <div class="dropdown-menu" data-toggle-class="show" data-toggle-target= "toggle">
+          <%= link_to "Go to: Public interface", root_path, class: "dropdown-item" %>
+          <%= link_to "Go to: Manager interface", manager_reserve_dashboard_path(current_user.managed_reserve_ids.first), class: "dropdown-item" %>
+        </div>
+      </li>
+      <li><%= link_to image_tag("icon-user-navbar.svg", alt: I18n.t(".navbar.alt_text.icon_user")), "#", class: "icon-only" %></li>
+      <li><%= link_to image_tag("icon-sign-out-navbar.svg", alt: I18n.t(".navbar.alt_text.icon_sign_out")), destroy_user_session_path, class: "icon-only" %> </li>
+    </ul>
+  </div>
+</div>

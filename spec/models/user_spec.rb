@@ -489,4 +489,21 @@ RSpec.describe User, type: :model do
       expect(user.manager_of_reserve?(reserve)).to eq false
     end
   end
+
+  describe "#is_manager?" do
+    it "is true if user is a manager of any reserve" do
+      reserve = create(:reserve)
+      user = create(:user)
+      create(:reserve_personnel, reserve: reserve, user: user)
+
+      expect(user.is_manager?).to eq true
+    end
+
+    it "is false if user is not a manager of any reserve" do
+      reserve = create(:reserve)
+      user = create(:user)
+
+      expect(user.is_manager?).to eq false
+    end
+  end
 end

@@ -152,6 +152,10 @@ class User < ApplicationRecord
     managed_reserve_ids.include?(reserve.id)
   end
 
+  def is_manager?
+    managed_reserve_ids.present?
+  end
+
   private
 
   def password_complexity

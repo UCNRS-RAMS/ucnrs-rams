@@ -15,12 +15,15 @@
  */
 
 @import "variables";
+@import "mixins/dropdown";
 
 html {
   height: 100%;
 }
 
 body {
+  @include dropdown;
+  
   border: 0;
   display: flex;
   flex-direction: column;

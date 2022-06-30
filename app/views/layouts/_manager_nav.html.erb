@@ -1,0 +1,4 @@
+<nav class="navbar" role="navigation">
+  <%= render(partial: "layouts/manager_superbar", locals: { current_user: current_user, current_reserve: current_reserve }) if current_user&.is_manager? %>
+  <%= render(partial: "layouts/manager_navbar", locals: { current_user: current_user, current_reserve: current_reserve }) %>
+</nav>
