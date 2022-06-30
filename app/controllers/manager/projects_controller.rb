@@ -7,6 +7,7 @@ class Manager::ProjectsController < ApplicationController
     @presenter = Manager::ProjectsIndexPresenter.new(
       reserve: current_reserve,
       page: page_number,
+      filter: filter,
     )
   end
 
@@ -90,5 +91,24 @@ class Manager::ProjectsController < ApplicationController
 
   def project_id
     params.permit(:id).require(:id)
+  end
+
+  def reserve_id
+    params.permit(:reserve_id).require(:reserve_id)
+  end
+
+  def filter
+    if params[:filter].present?
+      params.require(:filter).permit(
+        :project_search,
+        :project_status,
+        :sort_by,
+        :project_type,
+        :date_range_type,
+        :date_begin,
+        :date_end,
+        :reserve,
+      )
+    end
   end
 end

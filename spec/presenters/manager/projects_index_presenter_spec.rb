@@ -60,15 +60,18 @@ RSpec.describe Manager::ProjectsIndexPresenter do
     end
   end
 
-  describe "#show_options" do
-    it "is an array of show options" do
+  describe "#project_status_options" do
+    it "is an array of project status options" do
       reserve = create(:reserve)
       presenter = Manager::ProjectsIndexPresenter.new(reserve: reserve, page: 1)
 
-      show_options = presenter.show_options
+      project_status_options = presenter.project_status_options
 
-      expect(show_options.to_a).to match_array [
-        [I18n.t("manager.projects.index.all"), :all]
+      expect(project_status_options.to_a).to match_array [
+        ["All", Project::ALL_FILTER],
+        ["Open", Project::ACTIVE_FILTER],
+        ["Closed", Project::INACTIVE_FILTER],
+        ["Incomplete", Project::INCOMPLETE_FILTER],
       ]
     end
   end
@@ -81,9 +84,9 @@ RSpec.describe Manager::ProjectsIndexPresenter do
       sort_by_options = presenter.sort_by_options
 
       expect(sort_by_options.to_a).to match_array [
-        [I18n.t("manager.projects.index.date_submitted"), :date_submitted],
-        [I18n.t("manager.projects.index.project_title"), :project_title],
-        [I18n.t("manager.projects.index.owner_last_name"), :owner_last_name],
+        [I18n.t("manager.projects.index.date_submitted"), :submitted_recent_first],
+        [I18n.t("manager.projects.index.project_title"), :sort_by_project_title],
+        [I18n.t("manager.projects.index.owner_last_name"), :sort_by_owner_last_name],
       ]
     end
   end
@@ -96,11 +99,11 @@ RSpec.describe Manager::ProjectsIndexPresenter do
       project_type_options = presenter.project_type_options
 
       expect(project_type_options.to_a).to match_array [
-        ["Research", "research"],
-        ["Class", "class"],
-        ["Meeting", "meeting"],
-        ["Public Use", "public_use"],
-        ["Housing", "housing"],
+        ["All", :all],
+        ["Research", :research],
+        ["University Class", :university_class],
+        ["Meeting or Conference", :meeting_or_conference],
+        ["Public Use", :public_use],
       ]
     end
   end
@@ -113,7 +116,7 @@ RSpec.describe Manager::ProjectsIndexPresenter do
       show_date_range_options = presenter.show_date_range_options
 
       expect(show_date_range_options.to_a).to match_array [
-        [I18n.t("manager.projects.index.date_project_submitted"), :date_project_submitted],
+        [I18n.t("manager.projects.index.date_project_submitted"), :project_submitted_date_range],
         [I18n.t("manager.projects.index.project_date_range"), :project_date_range],
         [I18n.t("manager.projects.index.visit_date_range"), :visit_date_range],
         [I18n.t("manager.projects.index.invoice_created_at_date_range"), :invoice_created_at_date_range],
@@ -128,7 +131,123 @@ RSpec.describe Manager::ProjectsIndexPresenter do
 
       reserve_options = presenter.reserve_options
 
-      expect(reserve_options.to_a).to match_array Reserve.find_each.map { |r| [r.name, r.id] }
+      expect(reserve_options.to_a).to match_array Reserve.find_each.map { |r| [r.name, r.id] }.prepend(["All", nil])
+    end
+  end
+
+  describe "#project_search_filter" do
+    it "returns the filter[:project_search] if present" do
+      reserve = create(:reserve)
+      filter = { project_search: "search_this" }
+      presenter = Manager::ProjectsIndexPresenter.new(reserve: reserve, filter: filter)
+
+      project_search_filter = presenter.project_search_filter
+
+      expect(project_search_filter).to eq "search_this"
+    end
+  end
+
+  describe "#sort_by_filter" do
+    it "returns filter[:search] if present" do
+      reserve = create(:reserve)
+      filter = { sort_by: "sort_by_this" }
+      presenter = Manager::ProjectsIndexPresenter.new(reserve: reserve, filter: filter)
+
+      sort_by_filter = presenter.sort_by_filter
+
+      expect(sort_by_filter).to eq "sort_by_this"
+    end
+
+    it "returns the 'submitted_recent_first' if not present" do
+      reserve = create(:reserve)
+      filter = { sort_by: "" }
+      presenter = Manager::ProjectsIndexPresenter.new(reserve: reserve, filter: filter)
+
+      sort_by_filter = presenter.sort_by_filter
+
+      expect(sort_by_filter).to eq "submitted_recent_first"
+    end
+  end
+
+  describe "#reserve_filter" do
+    it "returns filter[:reserve] if present" do
+      reserve = create(:reserve)
+      filter = { reserve: 1 }
+      presenter = Manager::ProjectsIndexPresenter.new(reserve: reserve, filter: filter)
+
+      reserve_filter = presenter.reserve_filter
+
+      expect(reserve_filter).to eq 1
+    end
+
+    it "returns @reserve.id if nil" do
+      reserve = create(:reserve)
+      filter = { reserve: nil }
+      presenter = Manager::ProjectsIndexPresenter.new(reserve: reserve, filter: filter)
+
+      reserve_filter = presenter.reserve_filter
+
+      expect(reserve_filter).to eq reserve.id
+    end
+  end
+
+  describe "#date_range_type_filter" do
+    it "returns filter[:date_range_type]" do
+      reserve = create(:reserve)
+      filter = { date_range_type: "this range type" }
+      presenter = Manager::ProjectsIndexPresenter.new(reserve: reserve, filter: filter)
+
+      date_range_type_filter = presenter.date_range_type_filter
+
+      expect(date_range_type_filter).to eq "this range type"
+    end
+  end
+
+  describe "#project_type_filter" do
+    it "returns filter[:project_type] if present" do
+      reserve = create(:reserve)
+      filter = { project_type: "researching" }
+      presenter = Manager::ProjectsIndexPresenter.new(reserve: reserve, filter: filter)
+
+      project_type = presenter.project_type_filter
+
+      expect(project_type).to eq "researching"
+    end
+
+    it "returns 'all' if not present" do
+      reserve = create(:reserve)
+      filter = { project_type: "" }
+      presenter = Manager::ProjectsIndexPresenter.new(reserve: reserve, filter: filter)
+
+      project_type = presenter.project_type_filter
+
+      expect(project_type).to eq "all"
+    end
+  end
+
+  describe "#date_begin_filter" do
+    it "returns filter[:date_begin]" do
+      reserve = create(:reserve)
+      date1 = Date.new(1944, 6, 6)
+      filter = { date_begin: date1 }
+      presenter = Manager::ProjectsIndexPresenter.new(reserve: reserve, filter: filter)
+
+      date_begin = presenter.date_begin_filter
+
+      expect(date_begin).to eq date1
+    end
+  end
+
+  describe "#date_end_filter" do
+    it "returns filter[:date_end]" do
+      reserve = create(:reserve)
+      date1 = Date.new(1944, 6, 6)
+      filter = { date_end: date1 }
+      presenter = Manager::ProjectsIndexPresenter.new(reserve: reserve, filter: filter)
+
+      date_end = presenter.date_end_filter
+
+      expect(date_end).to eq date1
     end
   end
 end

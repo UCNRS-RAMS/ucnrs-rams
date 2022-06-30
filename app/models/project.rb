@@ -1,6 +1,7 @@
 #frozen_string_literal: true
 
 class Project < ApplicationRecord
+  NUMERIC_SEARCH_PATTERN = /\A\d+\z/
   ALL_FILTER = "All Projects"
   ACTIVE_FILTER = "Active Projects"
   INCOMPLETE_FILTER = "Incomplete Projects"
@@ -193,6 +194,7 @@ class Project < ApplicationRecord
 
   def self.of_type(project_type)
     case project_type
+    when "all" then all
     when "research" then where(project_type: "Research")
     when "university_class" then where(project_type: "Class")
     when "meeting_or_conference" then where(project_type: "Meeting")
@@ -208,9 +210,103 @@ class Project < ApplicationRecord
     end
   end
 
+  def self.having_between_time_for(date_range_option: nil, date_start: nil, date_end: nil)
+    case date_range_option
+    when :project_submitted_date_range
+      DateQuery.call(
+        self, date_start_type: :submitted_at, date_start: date_start, date_end_type: :submitted_at, date_end: date_end
+      )
+    when :project_date_range
+      DateQuery.call(
+        self, date_start_type: :end_date, date_start: date_start, date_end_type: :start_date, date_end: date_end
+      )
+    when :visit_date_range
+      having_visit_end_date_after(date_start).having_visit_start_date_before(date_end)
+    when :invoice_created_at_date_range
+      having_invoice_created_start_date_after(date_start).having_invoice_created_end_date_before(date_end)
+    else
+      all
+    end
+  end
+
   def self.with_visits_at_reserve(reserve)
-    left_outer_joins(:visits)
-      .where(visits: { reserve_id: reserve.id })
+    if reserve.present? && reserve != 'all'
+      joins(:visits)
+        .where(visits: { reserve: reserve })
+        .group(:id)
+    else
+      all
+    end
+  end
+
+  def self.having_visit_end_date_after(date_var)
+    if date_var.present?
+      left_outer_joins(:visits)
+        .where(Visit.arel_table[:ends_at].gteq(date_var))
+        .group(:id)
+    else
+      all
+    end
+  end
+
+  def self.having_visit_start_date_before(date_var)
+    if date_var.present?
+      left_outer_joins(:visits)
+        .where(Visit.arel_table[:starts_at].lteq(date_var))
+        .group(:id)
+    else
+      all
+    end
+  end
+
+  def self.having_invoice_created_start_date_after(date_start)
+    # todo: after invoice is added
+    all
+  end
+
+  def self.having_invoice_created_end_date_before(date_end)
+    # todo: after invoice is added
+    all
+  end
+
+  def self.sort_using(sort_option = nil)
+    case sort_option.to_s
+    when "submitted_recent_first" then submitted_recent_first
+    when "sort_by_project_title" then sort_by_project_title
+    when "sort_by_owner_last_name" then sort_by_owner_last_name
+    else
+      all
+    end
+  end
+
+  def self.sort_by_project_title
+    order(title: :asc)
+  end
+
+  def self.sort_by_owner_last_name
+    joins(:owner)
+      .order(User.arel_table[:last_name])
+  end
+
+  def self.searching_term(search_filter)
+    if search_filter.present? && NUMERIC_SEARCH_PATTERN === search_filter
+      where(id: search_filter)
+    elsif search_filter.present?
+      left_joins(:team_members)
+        .where(
+          Arel.sql(<<-end_sql)
+          projects.title LIKE "%#{search_filter}%" OR
+          projects.thesis_title LIKE "%#{search_filter}%" OR
+          projects.course_title LIKE "%#{search_filter}%" OR
+          users.first_name LIKE "%#{search_filter}%" OR
+          users.last_name LIKE "%#{search_filter}%" OR
+          users.email LIKE "%#{search_filter}%"
+          end_sql
+        )
+        .group(:id)
+    else
+      all
+    end
   end
 
   private

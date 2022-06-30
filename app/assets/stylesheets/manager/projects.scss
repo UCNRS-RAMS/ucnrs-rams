@@ -240,7 +240,7 @@
   }
 
   .row-medium, .row-auto {
-    padding-right: 1rem;
+    margin-right: 1rem;
 
     > * {
       width: 100%;
@@ -249,6 +249,21 @@
 
   .row-medium {
     width: 423px;
+  }
+
+  #horizontal-line {
+    margin-right: 2rem;
+    position: relative;
+  }
+
+  #horizontal-line::after {
+    border-top: 3px solid;
+    content: "";
+    display: block;
+    position: absolute;
+    right: -1.5rem;
+    top: 2rem;
+    width: 1rem;
   }
 }
 
