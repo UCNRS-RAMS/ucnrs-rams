@@ -376,6 +376,17 @@ RSpec.describe Project, type: :model do
   end
 
   describe ".of_type" do
+    it "returns all projects when the supplied type is 'all'" do
+      research_project = create(:project, project_type: "Research")
+      class_project = create(:project, project_type: "Class")
+      meeting_project = create(:project, project_type: "Meeting")
+      public_project = create(:project, project_type: "Public Use")
+
+      results = Project.of_type("all")
+
+      expect(results).to eq [research_project, class_project, meeting_project, public_project]
+    end
+
     it "returns research projects when the supplied type is 'research'" do
       research_project = create(:project, project_type: "Research")
       non_research_project = create(:project, project_type: "Public Use")
@@ -435,6 +446,77 @@ RSpec.describe Project, type: :model do
     end
   end
 
+  describe ".having_between_time_for" do
+    it "calls the DateQuery.having_between_time_for when supplied date_range_option: is ':project_submitted_date_range'" do
+      date1 = Date.new(1969, 7, 20)
+      date2 = Date.new(1980, 7, 31)
+
+      allow(DateQuery).to receive(:call)
+
+      Project.having_between_time_for(date_range_option: :project_submitted_date_range, date_start: date1, date_end: date2)
+
+      expect(DateQuery).to have_received(:call).with(
+        Project,
+        date_start_type: :submitted_at,
+        date_start: date1,
+        date_end_type: :submitted_at,
+        date_end: date2
+      )
+    end
+
+    it "calls the DateQuery.having_between_time_for when supplied date_range_option: is ':project_date_range'" do
+      date1 = Date.new(1969, 7, 20)
+      date2 = Date.new(1980, 7, 31)
+
+      allow(DateQuery).to receive(:call)
+
+      Project.having_between_time_for(date_range_option: :project_date_range, date_start: date1, date_end: date2)
+
+      expect(DateQuery).to have_received(:call).with(
+        Project,
+        date_start_type: :end_date,
+        date_start: date1,
+        date_end_type: :start_date,
+        date_end: date2
+      )
+    end
+
+    it "calls the .having_visit_end_date_after and .having_visit_start_date_before when supplied date_range_option is ':visit_date_range'" do
+      date1 = Date.new(1969, 7, 20)
+      date2 = Date.new(1980, 7, 31)
+
+      expect(Project).to receive(:having_between_time_for).with({
+          date_range_option: :visit_date_range, 
+          date_start: date1,
+          date_end: date2,
+        }).and_return(Project.having_visit_end_date_after(date1).having_visit_start_date_before(date2))
+
+      Project.having_between_time_for(date_range_option: :visit_date_range, date_start: date1, date_end: date2)
+    end
+
+    it "calls the .having_invoice_created_start_date_after and .having_invoice_created_end_date_before when supplied date_range_option is ':invoice_created_at_date_range'" do
+      date1 = Date.new(1969, 7, 20)
+      date2 = Date.new(1980, 7, 31)
+
+      expect(Project).to receive(:having_between_time_for).with({
+          date_range_option: :invoice_created_at_date_range, 
+          date_start: date1,
+          date_end: date2,
+        }).and_return(Project.having_invoice_created_start_date_after(date1).having_invoice_created_end_date_before(date2))
+
+      Project.having_between_time_for(date_range_option: :invoice_created_at_date_range, date_start: date1, date_end: date2)
+    end
+
+    it "returns self.all when supplied date_range_option doesn't match any case" do
+      date1 = Date.new(1969, 7, 20)
+      date2 = Date.new(1980, 7, 31)
+
+      results = Project.having_between_time_for(date_range_option: :non_existent_case, date_start: date1, date_end: date2)
+
+      expect(results).to eq Project.all
+    end
+  end
+
   describe ".with_visits_at_reserve" do
     it "returns projects that have visits on the given reserve" do
       reserve1 = create(:reserve)
@@ -443,10 +525,184 @@ RSpec.describe Project, type: :model do
       project2 = create(:project)
       visit1 = create(:visit, reserve: reserve1, project: project1)
       visit2 = create(:visit, reserve: reserve2, project: project2)
+      visit3 = create(:visit, reserve: reserve1, project: project1)
       
       results = Project.with_visits_at_reserve(reserve1)
 
       expect(results).to eq [project1]
+    end
+  end
+
+  describe ".having_visit_end_date_after" do
+    context "when 'date_var' is present" do
+      it "returns projects that have visits with ends_at after the given 'date_var'" do
+        project1 = create :project
+        project2 = create :project
+        create :visit, project: project1, starts_at: Time.current.yesterday, ends_at: Time.current.yesterday
+        create :visit, project: project2, starts_at: Time.current.tomorrow, ends_at: Time.current.tomorrow
+
+        results = Project.having_visit_end_date_after(Date.current)
+
+        expect(results).to eq [project2]
+      end
+    end
+
+    context "when 'date_var' is not present" do
+      it "returns all projects" do
+        project1 = create :project
+        project2 = create :project
+        create :visit, project: project1, starts_at: Time.current.yesterday, ends_at: Time.current.yesterday
+        create :visit, project: project2, starts_at: Time.current.tomorrow, ends_at: Time.current.tomorrow
+
+        results = Project.having_visit_end_date_after(nil)
+
+        expect(results).to eq [project1, project2]
+      end
+    end
+  end
+
+  describe ".having_visit_start_date_before" do
+    context "when 'date_var' is present" do
+      it "returns projects that have visits with start_date before the given 'date_var'" do
+        project1 = create :project
+        project2 = create :project
+        create :visit, project: project1, starts_at: Time.current.yesterday, ends_at: Time.current.yesterday
+        create :visit, project: project2, starts_at: Time.current.tomorrow, ends_at: Time.current.tomorrow
+
+        results = Project.having_visit_start_date_before(Date.current)
+
+        expect(results).to eq [project1]
+      end
+    end
+
+    context "when 'date_var' is not present" do
+      it "returns all projects" do
+        project1 = create :project
+        project2 = create :project
+        create :visit, project: project1, starts_at: Time.current.yesterday, ends_at: Time.current.yesterday
+        create :visit, project: project2, starts_at: Time.current.tomorrow, ends_at: Time.current.tomorrow
+
+        results = Project.having_visit_start_date_before(nil)
+
+        expect(results).to eq [project1, project2]
+      end
+    end
+  end
+
+  describe ".sort_using" do
+    it "calls the submitted_recent_first when supplied sort_option is 'submitted_recent_first'" do
+      expect(Project).to receive(:sort_using).with("submitted_recent_first").and_return(Project.submitted_recent_first)
+
+      Project.sort_using "submitted_recent_first"
+    end
+
+    it "calls the sort_by_project_title when supplied sort_option is 'project_title'" do
+      expect(Project).to receive(:sort_using).with("project_title").and_return(Project.sort_by_project_title)
+
+      Project.sort_using "project_title"
+    end
+
+    it "calls the sort_by_owner_last_name when supplied sort_option is 'owner_last_name'" do
+      expect(Project).to receive(:sort_using).with("owner_last_name").and_return(Project.sort_by_owner_last_name)
+
+      Project.sort_using "owner_last_name"
+    end
+
+    it "returns all when supplied sort_option is not present" do
+      expect(Project).to receive(:sort_using).and_return(Project.all)
+
+      Project.sort_using
+    end
+  end
+
+  describe ".sort_by_project_title" do
+    it "return projects sorted by title alphabetically" do
+      project1 = create :project, title: "Observing woodpecker"
+      project2 = create :project, title: "Swim with otters"
+      project3 = create :project, title: "Capture red crabs"
+
+      results = Project.sort_by_project_title
+
+      expect(results).to eq [project3, project1, project2]
+    end
+  end
+
+  describe ".sort_by_owner_last_name" do
+    it "return projects sorted by owner last name alphabetically" do
+      user1 = create :user, last_name: "Potter"
+      user2 = create :user, last_name: "Weasley"
+      user3 = create :user, last_name: "Granger"
+      project1 = create :project, owner: user1
+      project2 = create :project, owner: user2
+      project3 = create :project, owner: user3
+
+      results = Project.sort_by_owner_last_name
+
+      expect(results).to eq [project3, project1, project2]
+    end
+  end
+
+  describe ".searching_term" do
+    context "when search_filter contain only numbers" do
+      it "search project id" do
+        project = create(:project)
+
+        results = Project.searching_term(project.id.to_s)
+
+        expect(results).to eq [project]
+      end
+    end
+
+    context "when search_filter contain not only numbers" do
+      let(:user) { create(:user, last_name: "Vil", first_name: "Cruella", email: "ceo@house.of.vil") }
+      let(:project) do
+        create :project,
+          title: "Observing kangaroo mouse.",
+          thesis_title: "Trap lots of animals, and experiment on them.",
+          course_title: "Advanced Animals Trapping 401"
+      end
+
+      it "search project title" do
+        results = Project.searching_term("kangaroo")
+
+        expect(results).to eq [project]
+      end
+
+      it "search project thesis_title" do
+        results = Project.searching_term("Trap lots of animals")
+
+        expect(results).to eq [project]
+      end
+
+      it "search project course_title" do
+        results = Project.searching_term("Trapping 401")
+
+        expect(results).to eq [project]
+      end
+
+      it "search project team members last_name" do
+        create(:project_team_membership, project: project, user: user)
+
+        results = Project.searching_term("Vil")
+
+        expect(results).to eq [project]
+      end
+
+      it "search project team members first_name" do
+        create(:project_team_membership, project: project, user: user)
+
+        results = Project.searching_term("Cruella")
+
+        expect(results).to eq [project]
+      end
+
+      it "search project team members email" do
+        create(:project_team_membership, project: project, user: user)
+
+        results = Project.searching_term("@house.of.vil")
+
+        expect(results).to eq [project]
+      end
     end
   end
 end
