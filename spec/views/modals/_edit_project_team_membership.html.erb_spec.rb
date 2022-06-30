@@ -61,8 +61,9 @@ RSpec.describe "modals/_edit_project_team_membership.html.erb", type: :view do
 
   it "renders a form with the right fields for a membership in manager view when user is project owner" do
     user = create(:user, :confirmed)
-    reserve_personnel = create(:reserve_personnel, user: user)
-    project = create(:project, owner: user, reserve: reserve_personnel.reserve)
+    reserve = create(:reserve)
+    create(:reserve_personnel, user: user, reserve: reserve)
+    project = create(:project, owner: user, reserve: reserve)
 
     form = ProjectTeamMembershipForm.new(
       params: create(
@@ -79,7 +80,7 @@ RSpec.describe "modals/_edit_project_team_membership.html.erb", type: :view do
         can_receive_invoice: false
       ).attributes
     )
-    presenter = Manager::Projects::TeamMembershipEditPresenter.new(form: form)
+    presenter = Manager::Projects::TeamMembershipEditPresenter.new(form: form, reserve: reserve)
 
     render partial: "modals/edit_project_team_membership", locals: { presenter: presenter }
 
@@ -99,8 +100,9 @@ RSpec.describe "modals/_edit_project_team_membership.html.erb", type: :view do
 
   it "renders a form with the right fields for a membership in view when user is not reserve manager" do
     user = create(:user, :confirmed)
-    reserve_personnel = create(:reserve_personnel)
-    project = create(:project, reserve: reserve_personnel.reserve)
+    reserve = create(:reserve)
+    create(:reserve_personnel, user: user, reserve: reserve)
+    project = create(:project, owner: user, reserve: reserve)
 
     form = ProjectTeamMembershipForm.new(
       params: create(

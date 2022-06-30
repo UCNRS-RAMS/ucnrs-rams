@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class Manager::Projects::TeamMembershipEditPresenter < Projects::TeamMembershipEditPresenter
-  def initialize(form:)
+  def initialize(form:, reserve:)
     super(form: form)
+    @reserve = reserve
   end
 
   def able_to_change_owner?
@@ -10,10 +11,10 @@ class Manager::Projects::TeamMembershipEditPresenter < Projects::TeamMembershipE
   end
 
   def team_memberships_form_path
-    manager_reserve_team_membership_path(form.project.reserve_id, id)
+    manager_reserve_team_membership_path(reserve.id, id)
   end
 
   private
 
-  attr_reader :user
+  attr_reader :user, :reserve
 end

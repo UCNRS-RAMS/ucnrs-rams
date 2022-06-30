@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 class Manager::ProjectShowPresenter < ProjectShowPresenter
+  def initialize(project:, reserve:)
+    super(project)
+    @reserve = reserve
+  end
+
+  attr_reader :reserve
+
   def created_at(format: :project_summary_date)
     project.created_at ? I18n.l(project.created_at, format: format) : ""
   end
@@ -29,7 +36,7 @@ class Manager::ProjectShowPresenter < ProjectShowPresenter
     project_team_memberships
       .includes(:user, :institution)
       .map do |team_membership|
-        Manager::Projects::TeamMembershipPresenter.new(team_membership)
+        Manager::Projects::TeamMembershipPresenter.new(team_membership, reserve: reserve)
       end.sort_by(&:desc_status_asc_role)
   end
 

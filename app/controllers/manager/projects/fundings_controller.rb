@@ -5,6 +5,7 @@ class Manager::Projects::FundingsController < ApplicationController
   def index
     @presenter = Manager::Projects::FundingsIndexPresenter.new(
       project: project,
+      reserve: current_reserve,
     )
     respond_to do |format|
       format.html
@@ -14,7 +15,7 @@ class Manager::Projects::FundingsController < ApplicationController
 
   def edit
     form = ProjectFundingForm.new(params: { id: funding.id })
-    @presenter = Manager::Projects::FundingEditPresenter.new(form: form)
+    @presenter = Manager::Projects::FundingEditPresenter.new(form: form, reserve: current_reserve)
   end
 
   def create
@@ -23,11 +24,12 @@ class Manager::Projects::FundingsController < ApplicationController
       params: project_fundings_params,
     )
     if form.save
-      redirect_to manager_reserve_project_fundings_path(params[:reserve_id], project.id)
+      redirect_to manager_reserve_project_fundings_path(current_reserve, project.id)
     else
       @presenter = Manager::Projects::FundingsIndexPresenter.new(
         project: project,
         form: form,
+        reserve: current_reserve,
       )
       render :index, status: :unprocessable_entity
     end
@@ -37,10 +39,13 @@ class Manager::Projects::FundingsController < ApplicationController
     form = ProjectFundingForm.new(params: project_fundings_params)
     respond_to do |format|
       if form.save
-        format.html { redirect_to manager_reserve_project_fundings_path(params[:reserve_id], form.project_id) }
-        format.turbo_stream { redirect_to manager_reserve_project_fundings_path(params[:reserve_id], form.project_id) }
+        format.html { redirect_to manager_reserve_project_fundings_path(current_reserve, form.project_id) }
+        format.turbo_stream { redirect_to manager_reserve_project_fundings_path(current_reserve, form.project_id) }
       else
-        @presenter = Manager::Projects::FundingsIndexPresenter.new(project)
+        @presenter = Manager::Projects::FundingsIndexPresenter.new(
+          project: project,
+          reserve: current_reserve,
+        )
         format.html do
           render template: "manager/projects/fundings/edit",
             status: :unprocessable_entity
@@ -55,7 +60,7 @@ class Manager::Projects::FundingsController < ApplicationController
 
   def destroy
     funding.destroy
-    redirect_to manager_reserve_project_fundings_path(params[:reserve_id], project.id)
+    redirect_to manager_reserve_project_fundings_path(current_reserve, project.id)
   end
 
   private

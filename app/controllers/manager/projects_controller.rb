@@ -4,7 +4,7 @@ class Manager::ProjectsController < ApplicationController
   layout "manager"
 
   def show
-    @presenter = Manager::ProjectShowPresenter.new(project)
+    @presenter = Manager::ProjectShowPresenter.new(project: project, reserve: current_reserve)
   end
 
   def edit
@@ -74,7 +74,7 @@ class Manager::ProjectsController < ApplicationController
     return @project if @project
 
     flash[:alert] = I18n.t(".manager.projects.cannot_find_project")
-    redirect_to root_path
+    redirect_to root_path and return false
   end
 
   def project_id

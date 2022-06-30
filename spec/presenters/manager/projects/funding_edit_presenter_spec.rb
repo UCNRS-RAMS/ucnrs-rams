@@ -5,7 +5,7 @@ RSpec.describe Manager::Projects::FundingEditPresenter do
   let(:project) { create(:project, reserve: reserve) }
   let(:funding) { create(:funding, project: project) }
   let(:form) { ProjectFundingForm.new(params: { id: funding.id }) }
-  let(:presenter) { Manager::Projects::FundingEditPresenter.new(form: form) }
+  let(:presenter) { Manager::Projects::FundingEditPresenter.new(form: form, reserve: reserve) }
 
   describe "#editing_funding" do
     it "should return the funding presenter object for manager" do

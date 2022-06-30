@@ -1,7 +1,11 @@
 class Manager::Projects::PermitController < ApplicationController
+  before_action :authenticate_user!
+  before_action :confirm_manager!
+
   def edit
     @presenter = Manager::Projects::QuestionsIndexPresenter.new(
       project: project,
+      reserve: current_reserve,
     )
   end
 
@@ -12,7 +16,7 @@ class Manager::Projects::PermitController < ApplicationController
     )
 
     if form.save
-      redirect_to manager_reserve_project_path(project.reserve_id, project.id)
+      redirect_to manager_reserve_project_path(current_reserve, project.id)
     else
       @presenter = Projects::QuestionsIndexPresenter.new(
         current_step: 3,

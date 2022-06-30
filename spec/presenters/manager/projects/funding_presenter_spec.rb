@@ -6,7 +6,7 @@ RSpec.describe Manager::Projects::FundingPresenter do
       reserve = create(:reserve)
       project = create(:project, reserve: reserve)
       funding = create(:funding, project: project)
-      presenter = Manager::Projects::FundingPresenter.new(funding)
+      presenter = Manager::Projects::FundingPresenter.new(funding: funding, reserve: reserve)
 
       expect(presenter.edit_funding_form_path).to eq("/manager/reserves/#{reserve.id}/projects/#{project.id}/fundings/#{funding.id}/edit")
     end

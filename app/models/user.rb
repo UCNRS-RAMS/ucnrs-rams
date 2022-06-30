@@ -149,7 +149,7 @@ class User < ApplicationRecord
   end
 
   def manager_of_reserve?(reserve)
-    managed_reserve_ids.include?(reserve.id)
+    managed_reserve_ids.include?(reserve&.id)
   end
 
   def is_manager?
