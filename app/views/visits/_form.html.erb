@@ -4,7 +4,7 @@
     <h3><%= t(".titles.purpose") %></h3>
     <div class="project-type-options"  data-purpose="project_type" data-controller="value-projection" data-value-projection-projected-value="<%= form.object.project_type %>">
       <div class="row">
-        <% @presenter.project_type_options.each do |value|%>
+        <% @presenter.project_type_options.each do |value| %>
           <label for="project-type-<%= value %>">
             <%= form.radio_button :project_type, value, id: "project-type-#{value}", data: { action: "click->value-projection#change click->turbo-content#change" }, checked: form.object.project_type == value %>
             <div class="project-type-label">
@@ -15,17 +15,17 @@
         <% end %>
       </div>
       <div class="field project_select">
-      <div class="select_or_new">
-        <div class="display-column-flex">
-          <% @presenter.project_type_options.each do |type| %>
-            <div id="project-label-<%= type %>" class="label_container">
-              <%= form.label :project, "#{t(".project_type_options.labels.#{type}")} Project", for: "visit_project_id" %>
-            </div>
-          <% end %>
-          <%= render partial: "visits/projects/projects_select", locals: { presenter: @presenter.projects } %>
+        <div class="select_or_new">
+          <div class="display-column-flex">
+            <% @presenter.project_type_options.each do |type| %>
+              <div id="project-label-<%= type %>" class="label_container">
+                <%= form.label :project, "#{t(".project_type_options.labels.#{type}")} Project", for: "visit_project_id" %>
+              </div>
+            <% end %>
+            <%= render partial: "visits/projects/projects_select", locals: { presenter: @presenter.projects } %>
+          </div>
+          <%= link_to t(".links.create_a_new_project"), new_project_path %>
         </div>
-        <%= link_to t(".links.create_a_new_project"), "/projects/new" %>
-      </div>
       </div>
     </div>
     <div class="text-area">
