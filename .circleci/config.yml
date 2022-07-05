@@ -2,10 +2,10 @@ version: 2.0
 jobs:
   build:
     docker:
-      - image: circleci/ruby:3.0.2-node-browsers
+      - image: cimg/ruby:3.0.2-browsers
         environment:
           RAILS_ENV: test
-      - image: circleci/mysql:8.0-ram
+      - image: cimg/mysql:8.0
     steps:
       - checkout
 
@@ -17,6 +17,13 @@ jobs:
       - run:
           name: Install cmake
           command: sudo apt-get -y -qq update && sudo apt-get -y -qq install cmake
+
+      # Install Chrome needed for tests
+      - run: 
+          name: Setup Chrome
+          command: |
+            wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+            sudo apt install ./google-chrome-stable_current_amd64.deb
 
       # Bundle install dependencies
       - run:
