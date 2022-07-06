@@ -2,6 +2,7 @@
 
 class Manager::Projects::ActivityAndNotesIndexPresenter
   DEFAULT_PAGE_LIMIT = 10
+
   def initialize(project:, logs_page: 1, notes_page: 1)
     @project = project
     @logs_page = logs_page
@@ -24,16 +25,16 @@ class Manager::Projects::ActivityAndNotesIndexPresenter
   end
 
   def logs_scope
-    Project
-      .log_entries(project)
+    project
+      .logs
       .includes(:user)
       .page(logs_page)
       .per(DEFAULT_PAGE_LIMIT)
   end
 
   def notes_scope
-    Project
-      .reserve_notes(reserve_id)
+    project
+      .reserve_notes
       .includes(:user)
       .page(notes_page)
       .per(DEFAULT_PAGE_LIMIT)

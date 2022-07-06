@@ -1,5 +1,5 @@
-@import "./variables.scss";
-@import "./mixins/form.scss";
+@import "variables";
+@import "mixins/form";
 
 .activity-table {
   margin-bottom: 3.1875rem;
@@ -117,7 +117,7 @@
     table {
       font-family: Arial, Helvetica, sans-serif;
       td {
-        font-size: 14px;
+        font-size: 0.875rem;
         padding-right: 3rem;
         padding-bottom: 0.5rem;
       }

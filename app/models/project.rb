@@ -192,15 +192,6 @@ class Project < ApplicationRecord
     end
   end
 
-  def self.log_entries(project)
-    Log.where(record_type: "project", record_id: project.id)
-      .or(Log.where(record_type: "visit", record_id: project.visits.ids))
-  end
-
-  def self.reserve_notes(reserve_id)
-    ReserveNote.where(reserve_id: reserve_id)
-  end
-
   private
 
   def other_discipline?
