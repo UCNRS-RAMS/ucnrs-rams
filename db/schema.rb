@@ -370,7 +370,7 @@ ActiveRecord::Schema.define(version: 2022_06_23_123232) do
     t.index ["user_id"], name: "index_logs_on_user_id"
   end
 
-  create_table "logs-old", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "logs-old", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", comment: "DEPRECATED", force: :cascade do |t|
     t.text "text"
     t.string "type"
     t.datetime "created_at", null: false
@@ -605,7 +605,7 @@ ActiveRecord::Schema.define(version: 2022_06_23_123232) do
     t.index ["reserve_id"], name: "index_reserve_addendums_on_reserve_id"
   end
 
-  create_table "reserve_notes", charset: "utf8mb3", force: :cascade do |t|
+  create_table "reserve_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.text "note"
     t.string "action", default: "reserve note"
     t.string "record_type", null: false

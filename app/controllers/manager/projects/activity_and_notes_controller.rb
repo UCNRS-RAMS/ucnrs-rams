@@ -1,5 +1,6 @@
 class Manager::Projects::ActivityAndNotesController < ApplicationController
   before_action :authenticate_user!
+  before_action :confirm_manager!
   before_action :project, only: [:index, :create]
 
   def index
@@ -34,7 +35,7 @@ class Manager::Projects::ActivityAndNotesController < ApplicationController
   def note_params
     params.require(:reserve_note).permit(:note).tap do |note_params|
       note_params[:user_id] = current_user.id
-      note_params[:reserve_id] = params[:reserve_id]
+      note_params[:reserve_id] = current_reserve.id
     end
   end
 end

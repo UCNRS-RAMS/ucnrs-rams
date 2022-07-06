@@ -206,12 +206,7 @@ RSpec.describe "Manager Project Show" do
     end
 
     describe "#activity_and_notes", js: true do
-      let(:user) { create(:user, :confirmed) }
-      let(:reserve) { create(:reserve) }
-      let(:project) { create(:project, reserve: reserve, owner: user) }
-      
       it "renders activity partial" do
-        create(:reserve_personnel, user: user, reserve: reserve)
         sign_in(user)
         flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
 
