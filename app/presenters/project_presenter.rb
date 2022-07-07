@@ -29,7 +29,7 @@ class ProjectPresenter
   end
 
   def recent_visit_date
-    if visits.exists?
+    if visits.exists? && most_recent_visit.start_date.present?
       I18n.l(most_recent_visit.start_date, format: :project_visit_start_date)
     else
       not_applicable
