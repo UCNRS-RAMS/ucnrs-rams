@@ -90,4 +90,17 @@ class Visits::AmenityPresenter
       rate_string
     end
   end
+
+  def selected_rate_in_number
+    rate = rates.find { |rate| rate.id == selected_amenity_rate_id }
+    rate_string = "#{rate&.amount}"
+    rate_string.delete! "$"
+  end
+
+  def selected_rate_description
+    rate = rates.find { |rate| rate.id == selected_amenity_rate_id }
+    rate_string = "#{rate&.amount} per #{unit}"
+    rate_string << "/per #{period}" if period != "each"
+    rate_string
+  end
 end

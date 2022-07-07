@@ -16,7 +16,8 @@
 
     .amenity-padding {
       display: flex;
-      padding: 10px 20px;
+      padding: 15px 20px;
+      width: -webkit-fill-available;
 
       h3 {
         color: $black;
@@ -30,6 +31,20 @@
       img {
         margin-left: 10px;
       }
+      
+      .bold {
+        font-size: small;
+        font-weight: 700;
+      }
+      
+      .rate {
+        display: none;
+      }
+      
+      .rates-dropdown {
+        display: none;
+      }
+
     }
 
     label {
@@ -104,6 +119,20 @@
               flex-wrap: nowrap;
               position: relative;
 
+              .field {
+                
+                span {
+                  text-align: center;
+                }
+              }
+              
+              .cross-icon{
+                
+                img {
+                 margin: 0px 0px 20px 40px;
+                }
+              }
+              
               button {
                 background-color: transparent;
                 border: none;
@@ -141,6 +170,16 @@
                 flex-basis: 100%;
               }
             }
+            .cross-icon {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              
+              button {
+                background-color: transparent;
+                border: 0px;
+              }
+            }
           }
 
           .add-booking-card {
@@ -155,6 +194,25 @@
     input:checked + label {
       background: lighten($bluegray, 35%);
       border: 2px solid $black;
+      
+      .rates {
+        display: none;
+      }
+      
+      .rate {
+        display: block;
+      }
+      
+      .rates-dropdown {
+        display: block;
+        
+        select {
+          background-color: white;
+          border-radius: 10px;
+          margin-top: 10px;
+          padding: 10px;
+        }
+      }
 
       .booking {
         display: flex;

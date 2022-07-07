@@ -207,4 +207,34 @@ RSpec.describe Visits::AmenityPresenter do
       expect(selected_amenity_rate_id).to eq expected_rate.id
     end
   end
+
+  describe "#Checking right format for" do
+    it "selected rate description method" do
+      visit = create(:visit)
+      amenity = create(:amenity, units_type: :use, time_type: :four_hours)
+      selected_rate = create(:amenity_rate, amenity: amenity, rate: "12.34")
+      just_a_rate = create(:amenity_rate, amenity: amenity, rate: "0.01")
+      amenity_visit = create(:amenity_visit, visit: visit, amenity: amenity, amenity_rate_id: selected_rate.id)
+      amenity_form = AmenityForm.new(params: { amenity_visit_id: amenity_visit.id })
+      presenter = Visits::AmenityPresenter.new(amenity, form: amenity_form)
+
+      rate = presenter.selected_rate_description
+
+      expect(rate).to eq("$12.34 per use/per four_hours")
+    end
+
+    it "selected rate number method" do
+      visit = create(:visit)
+      amenity = create(:amenity, units_type: :use, time_type: :four_hours)
+      selected_rate = create(:amenity_rate, amenity: amenity, rate: "12.34")
+      just_a_rate = create(:amenity_rate, amenity: amenity, rate: "0.01")
+      amenity_visit = create(:amenity_visit, visit: visit, amenity: amenity, amenity_rate_id: selected_rate.id)
+      amenity_form = AmenityForm.new(params: { amenity_visit_id: amenity_visit.id })
+      presenter = Visits::AmenityPresenter.new(amenity, form: amenity_form)
+
+      rate = presenter.selected_rate_in_number
+
+      expect(rate).to eq("12.34")
+    end
+  end
 end

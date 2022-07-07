@@ -2,10 +2,11 @@ require "rails_helper"
 
 RSpec.describe "app/views/visits/amenities/_amenity.html.erb", type: :view do
   it "shows comments and rates in a 'learn more' section" do
+    user = create(:user, :confirmed)
     amenity = create(:amenity, comment: "This is a comment")
     rate1 = create(:amenity_rate, amenity: amenity, rate: 0.01)
     rate2 = create(:amenity_rate, amenity: amenity, rate: 12.50)
-    presenter = Visits::AmenityPresenter.new(amenity)
+    presenter = Visits::AmenityPresenter.new(amenity, user: user)
 
     FakeForm.fields_for(AmenityForm.new) do |form|
       render partial: "visits/amenities/amenity",

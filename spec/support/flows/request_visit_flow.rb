@@ -181,6 +181,10 @@ class RequestVisitFlow
       .has_css?("span", text: message, visible: false)
   end
 
+  def has_rates_dropdown?
+    page.has_css?(".rates-dropdown", visible: false)
+  end
+
   private
 
   attr_reader :capybara_page
