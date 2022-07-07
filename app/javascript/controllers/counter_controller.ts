@@ -13,7 +13,7 @@ export default class extends Controller {
   }
 
   change(amount: number) {
-    const current = parseInt(this.outputTarget.value) || 1
+    const current = parseInt(this.outputTarget.value) || 0
     this.outputTarget.value = Math.max(current + amount, 1).toString();
   }
 }
