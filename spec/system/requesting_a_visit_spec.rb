@@ -99,7 +99,6 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     end
     flow.inside_amenity(amenity) do
       expect(flow).to have_error_on("Departs on", "must be after start date")
-      expect(flow).to have_error_on("No. of People", "must be a number greater than 0")
     end
   end
 
@@ -168,4 +167,27 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
 
     expect(flow).to be_on_select_team_form
   end
+
+  it "close the amenity after clicking on cross button in date range" do
+      reserve = create(:reserve, name: "Silver Lake Area")
+      project = create(:project, reserve: reserve)
+      amenity = create(:amenity, reserve: reserve, title: "title 1")
+      create(:amenity_rate, amenity: amenity)
+      user = create(:user, :confirmed)
+      create(:reserve_personnel, user: user, reserve: reserve)
+
+      sign_in(user)
+
+      flow = RequestVisitFlow.new(page)
+      flow.visit_new_visit_page
+      flow.select_project_type("Research")
+      flow.select_reserve("Silver Lake Area")
+      flow.select_amenity("title 1")
+
+      flow.inside_amenity(amenity) do
+        expect(page.find("#amenity-#{amenity.id}")).to be_checked
+        page.find(".cross-icon button").click
+        expect(page.find("#amenity-#{amenity.id}")).not_to be_checked
+      end
+    end
 end

@@ -53,7 +53,7 @@ describe("CounterController", () => {
 
       down.click()
 
-      expect(output.value).toEqual("0")
+      expect(output.value).toEqual("1")
     })
   })
 })

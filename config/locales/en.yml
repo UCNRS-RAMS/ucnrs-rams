@@ -353,7 +353,7 @@ en:
         time_of_use: "Time of Use"
         rate: "Rate"
         rate_period: "(per %{unit} per %{period})"
-        number_of_people: "No. of People"
+        number_of_people: "Count"
         subtotal: "Subtotal"
         add_another: "Add Another Date Range"
         aria:
