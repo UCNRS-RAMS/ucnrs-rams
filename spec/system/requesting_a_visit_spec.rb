@@ -167,45 +167,4 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
 
     expect(flow).to be_on_select_team_form
   end
-
-  it "should display rates dropdown for manager" do
-    reserve = create(:reserve, name: "Silver Lake Area",)
-    project = create(:project, reserve: reserve)
-    amenity = create(:amenity, reserve: reserve, title: "title 1")
-    create(:amenity_rate, amenity: amenity)
-    user = create(:user, :confirmed)
-    create(:reserve_personnel, user: user, reserve: reserve)
-
-    sign_in(user)
-    flow = RequestVisitFlow.new(page)
-
-    flow.visit_new_visit_page
-    flow.select_project_type("Research")
-    flow.select_reserve("Silver Lake Area")
-    flow.select_amenity("title 1")
-
-    flow.inside_amenity(amenity) do
-      expect(flow).to have_rates_dropdown
-    end
-  end
-  
-  it "should not display rates dropdown if not manager" do
-    reserve = create(:reserve, name: "Silver Lake Area",)
-    project = create(:project, reserve: reserve)
-    amenity = create(:amenity, reserve: reserve, title: "title 1")
-    create(:amenity_rate, amenity: amenity)
-    user = create(:user, :confirmed)
-
-    sign_in(user)
-    flow = RequestVisitFlow.new(page)
-
-    flow.visit_new_visit_page
-    flow.select_project_type("Research")
-    flow.select_reserve("Silver Lake Area")
-    flow.select_amenity("title 1")
-
-    flow.inside_amenity(amenity) do
-      expect(flow).to_not have_rates_dropdown
-    end
-  end
 end

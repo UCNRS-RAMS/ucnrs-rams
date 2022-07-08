@@ -91,6 +91,18 @@ class Visits::AmenityPresenter
     end
   end
 
+  def per_sentence
+    if period == "each"
+      "#{per} #{unit}"
+    else
+      "#{per} #{unit}/#{per} #{period}"
+    end
+  end
+
+  def per
+    I18n.t(".amenities.units.per")
+  end
+
   def selected_rate_in_number
     rate = rates.find { |rate| rate.id == selected_amenity_rate_id }
     rate_string = "#{rate&.amount}"
@@ -99,8 +111,6 @@ class Visits::AmenityPresenter
 
   def selected_rate_description
     rate = rates.find { |rate| rate.id == selected_amenity_rate_id }
-    rate_string = "#{rate&.amount} per #{unit}"
-    rate_string << "/per #{period}" if period != "each"
-    rate_string
+    "#{rate&.amount} " << per_sentence
   end
 end

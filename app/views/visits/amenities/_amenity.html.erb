@@ -19,19 +19,6 @@
       <div class="rates">
         <p class="bold" ><%= presenter.selected_rate_description %></p>
       </div>
-      <% if presenter.user.is_manager? %>
-        <div class="rates-dropdown">
-          <select id="reserve_amenity_<%= presenter.amenity_id %>" name="visit[amenity_rate_id]">
-            <% presenter.rate_descriptions.each do |rate| %>
-              <option value="<%= rate %>" <%= presenter.rate_descriptions.first %> ><%= rate %></option>
-            <% end %>
-          </select>
-        </div>
-      <% else %>
-        <div class="rate" >
-          <p class="bold" ><%= presenter.selected_rate_description %></p>
-        </div>
-      <% end %>
     </div>
     <div class="bookings">
       <div class="booking">
@@ -42,8 +29,8 @@
               <%= form.label :departs_on %>
             </div>
             <div class="flex-row-field">
-              <%= form.date_field :arrives_on, value: '30 sep 2020'.to_date.strftime("%Y-%m-%d"), "data-copy-first-target": "destination" %>
-              <%= form.date_field :departs_on, value: '07 oct 2020'.to_date.strftime("%Y-%m-%d"), "data-copy-second-target": "destination" %>
+              <%= form.date_field :arrives_on, value: form.object.arrives_on, "data-copy-first-target": "destination" %>
+              <%= form.date_field :departs_on, value: form.object.departs_on, "data-copy-second-target": "destination" %>
             </div>
           </div>
           <div class="flex-column-field">
