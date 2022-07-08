@@ -16,7 +16,8 @@
 
     .amenity-padding {
       display: flex;
-      padding: 10px 20px;
+      padding: 15px 20px;
+      width: -webkit-fill-available;
 
       h3 {
         color: $black;
@@ -29,6 +30,11 @@
 
       img {
         margin-left: 10px;
+      }
+
+      .bold {
+        font-size: small;
+        font-weight: $bold;
       }
     }
 
@@ -104,6 +110,18 @@
               flex-wrap: nowrap;
               position: relative;
 
+              .field {
+                span {
+                  text-align: center;
+                }
+              }
+
+              .cross-icon {
+                img {
+                 margin: 0px 0px 20px 40px;
+                }
+              }
+
               button {
                 background-color: transparent;
                 border: none;
@@ -120,6 +138,11 @@
               .flex-column-field {
                 display: flex;
                 flex-direction: column;
+              }
+
+              label {
+                display: block;
+                text-align: center;
               }
 
               .counter {
@@ -139,6 +162,17 @@
 
               label {
                 flex-basis: 100%;
+              }
+            }
+
+            .cross-icon {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+
+              button {
+                background-color: transparent;
+                border: none;
               }
             }
           }

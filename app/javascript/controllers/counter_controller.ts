@@ -1,3 +1,4 @@
+import { Binding } from "@babel/traverse"
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
@@ -14,6 +15,6 @@ export default class extends Controller {
 
   change(amount: number) {
     const current = parseInt(this.outputTarget.value) || 0
-    this.outputTarget.value = Math.max(current + amount, 0).toString();
+    this.outputTarget.value = Math.max(current + amount, 1).toString();
   }
 }
