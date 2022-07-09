@@ -3,7 +3,10 @@ require "rails_helper"
 RSpec.describe AmenityRatePresenter do
   describe "delegations" do
     subject { AmenityRatePresenter.new(build(:amenity_rate)) }
-    it { is_expected.to delegate_method(:id).to(:amenity_rate) }
+    it { is_expected.to delegate_method(:amenity_rate_category).to(:amenity_rate) }
+    it { is_expected.to delegate_method(:description).to(:amenity_rate_category) }
+    it { is_expected.to delegate_method(:per_sentence).to(:amenity) }
+    it { is_expected.to delegate_missing_methods_to(:amenity_rate) }
   end
 
   describe "#amount" do
