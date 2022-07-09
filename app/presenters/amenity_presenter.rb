@@ -5,12 +5,7 @@ class AmenityPresenter
 
   attr_reader :amenity
 
-  delegate :id,
-    :title,
-    :comment,
-    :description,
-    :image_url,
-    to: :amenity
+  delegate_missing_to :amenity
 
   def rates
     amenity

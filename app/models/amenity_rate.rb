@@ -3,7 +3,9 @@ class AmenityRate < ApplicationRecord
   belongs_to :amenity_rate_category
 
   def self.in_order
-    joins(:amenity_rate_category).order("amenity_rate_categories.sort_order")
+    joins(:amenity_rate_category)
+      .order(AmenityRateCategory.arel_table[:sort_order])
+      .order(:amenity_rate_category_id)
   end
 
   def self.visible
@@ -31,5 +33,19 @@ class AmenityRate < ApplicationRecord
         ELSE false
         END) AS default_for_user
     end_sql
+  end
+
+  def self.with_amenity_title_column
+    select("amenity_rates.*, amenities.title AS amenity_title")
+      .left_joins(:amenity)
+  end
+
+  def self.for_reserve(reserve)
+    if reserve.present?
+      joins(:amenity)
+        .where(amenities: { reserve_id: reserve })
+    else
+      all
+    end
   end
 end

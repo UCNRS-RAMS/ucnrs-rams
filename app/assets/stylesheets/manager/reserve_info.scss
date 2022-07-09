@@ -61,9 +61,23 @@
       font-weight: $light;
       margin-bottom: 2rem;
     }
+
   }
 
-  table.waivers-table {
+  .reserve-info-subsection {
+    margin-bottom: 4rem !important;
+
+    header {
+      font-size: 1rem;
+      margin-bottom: .5rem;
+    }
+
+    > p:last-of-type {
+      margin-bottom: 1.75rem;
+    }
+  }
+
+  table.waivers-table, table.amenity-rates-table, table.amenity-rate-categories-table, table.amenities-table {
     @include table-style1;
   }
 }

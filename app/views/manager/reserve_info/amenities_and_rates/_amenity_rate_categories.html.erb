@@ -1,0 +1,26 @@
+<table class="amenity-rate-categories-table">
+  <thead>
+    <tr>
+      <th><%= t(".order") %></th>
+      <th><%= t(".category") %></th>
+      <th><%= t(".univ_of_ca") %></th>
+      <th><%= t(".ca_state_univ") %></th>
+      <th><%= t(".ca_community_college") %></th>
+      <th><%= t(".ca_other") %></th>
+      <th><%= t(".us_other") %></th>
+      <th><%= t(".international") %></th>
+      <th><%= t(".k12_edu") %></th>
+      <th><%= t(".non_profit") %></th>
+      <th><%= t(".gov_agency") %></th>
+      <th><%= t(".business") %></th>
+      <th><%= t(".individual") %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% amenity_rate_categories.each do |visibility, amenity_rate_categories| %>
+      <tr><td colspan="14"><%= visibility %></td></tr>
+      <%= render partial: "amenity_rate_category", collection: amenity_rate_categories %>
+    <% end %>
+  </tbody>
+</table>

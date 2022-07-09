@@ -1191,6 +1191,41 @@ en:
       amenities_and_rates:
         index:
           amenities_and_rates: "Amenities & Rates"
+          about_amenities: "About Amenities"
+          about_amenities_paragraph1: "A reserve amenity can be anything that you wish to charge for or to keep track of it's use. Some common examples are lodging, vehicles, services, people's time/assistance. They can be visible or invisible to the user, but all will remain visible to the manager - for invoicing or management purposes."
+          about_amenities_paragraph2: "You have the option to have a resource selected by default for a user e.g. day use only. You can also retire a resource, which preserves the record of the resource use in the database for past visits, but it will not show up in the system. Any retired amenity can be un-retired through editing the amenity information."
+          about_amenity_categories: "About Amenity Categories"
+          about_amenity_categories_paragraph1: "For invoicing purposes a specific rate category for an asset will be chosen based on the applicant's institution type. These rate categories can be specified here, a standard break down is UC, Non UC Academic, and Other."
+          about_amenity_rates: "About Amenity Rates"
+          about_amenity_rates_paragraph1: "For each rate category you can specify the amount charged for each amenity. You can edit these amounts directly on an invoice if you would like to make an adjustment. In the case of amenities that either have no charge, or that you would like to enter in manually, please enter in the rate as 0."
+        amenities:
+          order: "Order"
+          name: "Name"
+          capacity: "Capacity"
+          units_time: "units/time"
+        amenity:
+          edit: "Edit"
+        amenity_rate_categories:
+          active_categories: "Active Categories"
+          disabled_categories: "Disabled Categories"
+          order: "Order"
+          category: "Category"
+          univ_of_ca: "Univ of CA"
+          ca_state_univ: "CA State Univ"
+          ca_community_college: "CA Community College"
+          ca_other: "CA Other"
+          us_other: "US Other"
+          international: "International"
+          k12_edu: "K-12 Edu"
+          non_profit: "Non-Profit"
+          gov_agency: "Gov agency"
+          business: "Business"
+          individual: "Individual"
+        amenity_rate_category:
+          edit: "Edit"
+        amenity_rates:
+          amenity_name: "Amenity Name"
+          edit: "Edit"
       waivers:
         index:
           waivers: "Waivers"
@@ -1713,3 +1748,6 @@ en:
     icon_list: "list Icon"
     icon_calendar: "calendar icon"
     ucnrs_logo: "UCNRS logo"
+    checked: "checkmark icon"
+    unchecked: "uncheckmark icon"
+  edit: "Edit"

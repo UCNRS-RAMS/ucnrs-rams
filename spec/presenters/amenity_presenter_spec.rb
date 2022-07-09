@@ -3,9 +3,7 @@ require "rails_helper"
 RSpec.describe AmenityPresenter do
   describe "delegations" do
     subject { AmenityPresenter.new(build(:amenity)) }
-    it { is_expected.to delegate_method(:id).to(:amenity) }
-    it { is_expected.to delegate_method(:title).to(:amenity) }
-    it { is_expected.to delegate_method(:image_url).to(:amenity) }
+    it { is_expected.to delegate_missing_methods_to(:amenity) }
     it { is_expected.to delegate_method(:unit).to(:amenity).as(:units_type) }
     it { is_expected.to delegate_method(:period).to(:amenity).as(:time_type) }
   end

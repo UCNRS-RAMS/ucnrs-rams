@@ -5,9 +5,7 @@ class AmenityRatePresenter
 
   attr_reader :amenity_rate
 
-  delegate :id,
-    :rate,
-    :amenity_rate_category,
+  delegate :amenity_rate_category,
     to: :amenity_rate
 
   delegate :description,
@@ -15,6 +13,8 @@ class AmenityRatePresenter
 
   delegate :per_sentence,
     to: :amenity
+
+  delegate_missing_to :amenity_rate
 
   def amount
     "$#{value}"
