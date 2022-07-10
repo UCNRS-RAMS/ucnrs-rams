@@ -4,6 +4,9 @@
     <section class="reserve-info-menu">
       <%= render partial: 'manager/reserve_info/menu' %>
     </section>
-    <%= render partial: "waivers", locals: { waivers: @presenter.waivers } %>
+    <section class="reserve-info">
+      <header><%= t(".waivers") %></header>
+      <%= render partial: "waivers", locals: { waivers: @presenter.waivers } %>
+    </section>
   </div>
 </section>

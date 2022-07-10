@@ -1191,8 +1191,8 @@ en:
           amenities_and_rates: "Amenities & Rates"
       waivers:
         index:
-        waivers:
           waivers: "Waivers"
+        waivers:
           name: "Name"
           description: "Description"
           new: "New"
