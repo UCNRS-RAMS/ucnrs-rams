@@ -71,7 +71,7 @@ Rails.application.routes.draw do
         resource :reserve_details, only: [:edit, :update]
         resources :amenities_and_rates, only: [:index]
         resources :waivers, only: [:index]
-        resources :rules_and_regulations, only: [:index]
+        resource :rules_and_regulations, only: [:edit, :update]
         resources :permits, only: [:index]
         resources :reserve_questions, only: [:index]
         resources :staff_and_notifications, only: [:index]

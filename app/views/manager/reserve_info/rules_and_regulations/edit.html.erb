@@ -1,0 +1,28 @@
+<section class="content">
+  <%= render partial: 'manager/reserve_info/header' %>
+  <div>
+    <section class="reserve-info-menu">
+      <%= render partial: 'manager/reserve_info/menu' %>
+    </section>
+    <section class="reserve-info">
+      <header><%= t(".rules_and_regulations") %></header>
+      <section>
+        <%= form_with model: @presenter.form, url: manager_reserve_reserve_info_rules_and_regulations_path(current_reserve), method: :patch do |form| %>
+          <div class="field">
+            <%= form.label :rules_url %>
+            <%= form.text_field :rules_url %>
+          </div>
+          <div class="field">
+            <%= form.label :code_of_conduct_url %>
+            <%= form.text_field :code_of_conduct_url %>
+          </div>
+          <div class="field">
+            <%= form.label :rules_and_regulations %>
+            <%= form.rich_text_area :rules_and_regulations %>
+          </div>
+          <%= form.button t(".save_changes") %>
+        <% end %>
+      </section>
+    </section>
+  </div>
+</section>

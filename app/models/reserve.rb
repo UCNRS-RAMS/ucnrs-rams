@@ -2,6 +2,7 @@ class Reserve < ApplicationRecord
   IMAGE_PLACEHOLDER = "reserve_placeholder.jpg".freeze
 
   has_one_attached :reserve_avatar
+  has_rich_text :rules_and_regulations
 
   belongs_to :managing_campus, class_name: "Institution", optional: true
   belongs_to :address_state, class_name: "State"
@@ -10,12 +11,11 @@ class Reserve < ApplicationRecord
   has_and_belongs_to_many :waivers
   has_many :fundings
   has_many :reserve_questions
+  has_many :addendums, class_name: "ReserveAddendum"
 
   def self.blank
     Reserve.new(id: -1, name: "", pulldown_name: "")
   end
-  has_many :additional_information, class_name: "ReserveAdditionalInformation"
-  has_many :addendums, class_name: "ReserveAddendum"
 
   def self.alphabetized
     order(:pulldown_name)

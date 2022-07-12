@@ -2,12 +2,17 @@ require "rails_helper"
 
 RSpec.describe Reserve, type: :model do
   describe "associations" do
+    it { should have_rich_text(:rules_and_regulations) }
+    it { should have_one_attached(:reserve_avatar) }
+
     it { is_expected.to belong_to(:managing_campus).class_name("Institution").optional(true) }
-    it { is_expected.to have_many(:amenities) }
     it { is_expected.to belong_to(:address_state) }
+    it { is_expected.to have_many(:amenities) }
     it { is_expected.to have_many(:personnel).class_name("ReservePersonnel") }
     it { is_expected.to have_and_belong_to_many(:waivers) }
     it { is_expected.to have_many(:fundings) }
+    it { is_expected.to have_many(:reserve_questions) }
+    it { is_expected.to have_many(:addendums).class_name("ReserveAddendum") }
   end
 
   describe ".with_accepted_project_type" do

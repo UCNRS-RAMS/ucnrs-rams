@@ -1199,8 +1199,9 @@ en:
         waiver:
           edit: "Edit"
       rules_and_regulations:
-        index:
+        edit:
           rules_and_regulations: "Rules & Regulations"
+          save_changes: "Save Changes"
       permits:
         index:
           permits: "Permits"
