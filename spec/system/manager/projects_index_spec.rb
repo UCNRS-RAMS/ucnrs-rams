@@ -25,7 +25,7 @@ RSpec.describe "Manager Projects Index" do
       expect(flow).to have_page_number_link(3)
       expect(page).to be_axe_clean
 
-      flow.go_to_page(3)
+      flow.go_to_last_page
       expect(flow).to have_displayed_projects(5)
       expect(flow).to have_pagination_link("first")
       expect(flow).to have_pagination_link("prev")

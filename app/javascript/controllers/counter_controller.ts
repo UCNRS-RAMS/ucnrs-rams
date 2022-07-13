@@ -1,4 +1,3 @@
-import { Binding } from "@babel/traverse"
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {

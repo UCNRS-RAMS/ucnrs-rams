@@ -31,6 +31,14 @@ class Visits::AmenityPresenter
     form.id
   end
 
+  def default_arrive_at
+    "30 sep 2020".to_date.strftime("%Y-%m-%d")
+  end
+
+  def default_depart_at
+    "07 oct 2020".to_date.strftime("%Y-%m-%d")
+  end
+
   def selected_amenity_rate_id
     if form&.amenity_rate_id.nil?
       rates.detect{ |r| r.default_for_user == 1 }&.id
@@ -83,7 +91,7 @@ class Visits::AmenityPresenter
 
   def rate_descriptions
     rates.map do |rate|
-      rate_string = "#{rate&.amount} per #{unit}"
+      rate_string = "#{rate.amount} per #{unit}"
       if period != "each"
         rate_string << "/per #{period}"
       end
@@ -105,11 +113,11 @@ class Visits::AmenityPresenter
 
   def selected_rate_in_number
     rate = rates.find { |rate| rate.id == selected_amenity_rate_id }
-    rate_string = "#{rate&.amount}".delete! "$"
+    rate_string = "#{rate.amount}".delete!("$")
   end
 
   def selected_rate_description
     rate = rates.find { |rate| rate.id == selected_amenity_rate_id }
-    "#{rate&.amount} " << per_sentence
+    "#{rate.amount} " << per_sentence
   end
 end
