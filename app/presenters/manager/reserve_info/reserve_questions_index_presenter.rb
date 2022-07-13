@@ -3,12 +3,20 @@ class Manager::ReserveInfo::ReserveQuestionsIndexPresenter
     @reserve = reserve
   end
 
-  delegate :id,
-  to: :reserve, prefix: true
+  def reserve_questions
+    reserve_questions_scope.map do |reserve_question|
+      ReserveQuestionPresenter.new(reserve_question)
+    end
+  end
+
+  def reserve_questions_scope
+    reserve
+      .reserve_questions
+      .by_location
+      .in_order
+  end
 
   private
 
-  def reserve
-    ReservePresenter.new(@reserve)
-  end
+  attr_reader :reserve
 end

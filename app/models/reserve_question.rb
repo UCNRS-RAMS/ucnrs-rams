@@ -45,4 +45,8 @@ class ReserveQuestion < ApplicationRecord
   def reserve_name
     reserve.name
   end
+
+  def self.by_location
+    order(:location)
+  end
 end

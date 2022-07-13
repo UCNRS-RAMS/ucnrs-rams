@@ -6,6 +6,11 @@
     </section>
     <section class="reserve-info">
       <header><%= t(".reserve_questions") %></header>
+      <section class="reserve-info-subsection">
+        <header><%= t(".about_questions") %></header>
+        <p><%= t(".about_questions_paragraph1") %></p>
+        <%= render partial: "reserve_questions_table", locals: { reserve_questions: @presenter.reserve_questions} %>
+      </section>
     </section>
   </div>
 </section>
