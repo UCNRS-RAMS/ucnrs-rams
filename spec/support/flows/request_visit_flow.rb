@@ -104,8 +104,7 @@ class RequestVisitFlow
   end
 
   def has_purpose?(purpose)
-    # page.has_css?("textarea[name='visit[purpose_of_visit]']", text: purpose)
-    page.find("textarea[name='visit[purpose_of_visit]']").value == purpose
+    page.has_field?("visit[purpose_of_visit]", with: purpose)
   end
 
   def set_usage_dates(arrival:, departure:)

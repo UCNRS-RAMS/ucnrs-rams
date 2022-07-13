@@ -12,7 +12,8 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
       amenity_group_label_1: "Fun Things"
     )
     amenity = create(:amenity, title: "Beach Access", reserve: reserve, group_number: "1")
-    amenity_rate = create(:amenity_rate, rate: 0, amenity: amenity, sort_order: 1)
+    amenity_rate_category = create(:amenity_rate_category, reserve: reserve, state_university: true)
+    amenity_rate = create(:amenity_rate, rate: 0, amenity: amenity, sort_order: 1, amenity_rate_category: amenity_rate_category)
     user = create(:user, :confirmed)
     sign_in(user)
     now = Time.current
@@ -70,7 +71,8 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
       amenity_group_label_1: "Fun Things"
     )
     amenity = create(:amenity, title: "Beach Access", reserve: reserve, group_number: "1")
-    amenity_rate = create(:amenity_rate, rate: 0, amenity: amenity, sort_order: 1)
+    amenity_rate_category = create(:amenity_rate_category, reserve: reserve, state_university: true)
+    amenity_rate = create(:amenity_rate, rate: 0, amenity: amenity, sort_order: 1, amenity_rate_category: amenity_rate_category)
     user = create(:user, :confirmed)
     sign_in(user)
     now = Time.current
@@ -172,7 +174,8 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
       reserve = create(:reserve, name: "Silver Lake Area")
       project = create(:project, reserve: reserve)
       amenity = create(:amenity, reserve: reserve, title: "title 1")
-      create(:amenity_rate, amenity: amenity)
+      amenity_rate_category = create(:amenity_rate_category, reserve: reserve, state_university: true)
+      amenity_rate = create(:amenity_rate, amenity: amenity, amenity_rate_category: amenity_rate_category)
       user = create(:user, :confirmed)
       create(:reserve_personnel, user: user, reserve: reserve)
 
