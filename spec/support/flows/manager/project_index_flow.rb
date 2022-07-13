@@ -66,7 +66,7 @@ class Manager::ProjectIndexFlow
     page.find("a", text: page_number).click
   end
 
-  def go_to_last
+  def go_to_last_page
     resize_window
     page.find("span.last a").click
   end

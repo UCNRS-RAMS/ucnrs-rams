@@ -208,8 +208,8 @@ RSpec.describe Visits::AmenityPresenter do
     end
   end
 
-  describe "#Checking right format for" do
-    it "selected rate description method" do
+  describe "Selected rate description" do
+    it "is formatted correctly" do
       visit = create(:visit)
       amenity = create(:amenity, units_type: :use, time_type: :four_hours)
       selected_rate = create(:amenity_rate, amenity: amenity, rate: "12.34")
@@ -222,8 +222,10 @@ RSpec.describe Visits::AmenityPresenter do
 
       expect(rate).to eq("$12.34 per use/per four_hours")
     end
+  end
 
-    it "selected rate number method" do
+  describe "Selected rate number" do
+    it "is formatted correctly" do
       visit = create(:visit)
       amenity = create(:amenity, units_type: :use, time_type: :four_hours)
       selected_rate = create(:amenity_rate, amenity: amenity, rate: "12.34")
