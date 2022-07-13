@@ -109,4 +109,16 @@ RSpec.describe ReserveQuestion, type: :model do
       expect(questions[1].boolean_answer).to eq 0
     end
   end
+
+  describe ".by_location" do
+    it "returns records in order alphabetically by location" do
+      reserve_question1 = create(:reserve_question, location: "project")
+      reserve_question2 = create(:reserve_question, location: "visit")
+      reserve_question3 = create(:reserve_question, location: "project")
+
+      results = ReserveQuestion.by_location
+
+      expect(results).to eq [reserve_question1, reserve_question3, reserve_question2]
+    end
+  end
 end

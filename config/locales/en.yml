@@ -1245,6 +1245,21 @@ en:
       reserve_questions:
         index:
           reserve_questions: "Reserve Questions"
+          about_questions: "About Questions"
+          about_questions_paragraph1: "Add additional questions to projects visits specific for your reserve. They can be yes/no questions or text based answer."
+        reserve_questions_table:
+          location: "Location"
+          order: "Order"
+          type: "Type"
+          question: "Question"
+          status: "Status"
+          new: "New"
+        reserve_question_row:
+          enabled: "Enabled"
+          disabled: "Disabled"
+          optional: "Optional"
+          required: "Required"
+          edit: "Edit"
       staff_and_notifications:
         index:
           staff_and_notifications: "Staff & Notifications"
@@ -1751,3 +1766,10 @@ en:
     checked: "checkmark icon"
     unchecked: "uncheckmark icon"
   edit: "Edit"
+  research: "Research"
+  university_class: "University Class"
+  public_use: "Public Use"
+  housing: "Housing"
+  conference: "Conference"
+  text: "Text"
+  yes_no: "Yes/No"
