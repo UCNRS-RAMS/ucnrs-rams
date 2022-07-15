@@ -889,6 +889,8 @@ en:
         edit:
           save_changes: "Save Changes"
       index:
+        arrival_date: "Enter Arrival Date"
+        departure_date: "Enter Departs Date"
         title: "My Projects"
         projects: "Projects"
         show_options: "Show Options"

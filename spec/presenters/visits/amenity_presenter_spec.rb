@@ -207,4 +207,14 @@ RSpec.describe Visits::AmenityPresenter do
       expect(selected_amenity_rate_id).to eq expected_rate.id
     end
   end
+
+  describe "#default_date" do
+    it "should return current date formatted correctly" do
+      amenity = create(:amenity, units_type: :use, time_type: :four_hours)
+      presenter = Visits::AmenityPresenter.new(amenity)
+      travel_to Time.zone.local(2004, 11, 24)
+
+      expect(presenter.default_date).to eq("2004-11-24")
+    end
+  end
 end
