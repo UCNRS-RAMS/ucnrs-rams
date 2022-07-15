@@ -22,53 +22,55 @@
     </div>
     <div class="bookings">
       <div class="booking">
-        <div class="booking-card">
-          <div class="flex-column-field">
-            <div class="flex-row-field">
-              <%= form.label :arrives_on %>
-              <%= form.label :departs_on %>
+        <div class="booking-cards" data-amenity-booking-target = "bookingCards">
+          <div class="booking-card" data-amenity-booking-target = "bookingCard">
+            <div class="flex-column-field">
+              <div class="flex-row-field">
+                <%= form.label :arrives_on %>
+                <%= form.label :departs_on %>
+              </div>
+              <div class="flex-row-field">
+                <%= form.date_field :arrives_on, value: presenter.default_date, "data-copy-first-target": "destination", data: { "amenity-booking-target": "arriveOn" } %>
+                <%= form.date_field :departs_on, value: presenter.default_date, "data-copy-second-target": "destination", data: { "amenity-booking-target": "departsOn" } %>
+              </div>
             </div>
-            <div class="flex-row-field">
-              <%= form.date_field :arrives_on, value: presenter.default_date, "data-copy-first-target": "destination", data: { "amenity-booking-target": "arriveOn" } %>
-              <%= form.date_field :departs_on, value: presenter.default_date, "data-copy-second-target": "destination", data: { "amenity-booking-target": "departsOn" } %>
+            <div class="flex-column-field">
+              <%= form.label :arrives_at, t(".time_of_use") %>
+              <div class="flex-row-field">
+                <%= form.collection_select(:arrives_at, presenter.time_options, :value, :human, { selected: form.object.arrives_at }, data: { "amenity-booking-target": "arriveAt" }) %>
+                <%= form.collection_select(:departs_at, presenter.time_options, :value, :human, { selected: form.object.departs_at }, data: { "amenity-booking-target": "departsAt" } ) %>
+              </div>
             </div>
-          </div>
-          <div class="flex-column-field">
-            <%= form.label :arrives_at, t(".time_of_use") %>
-            <div class="flex-row-field">
-              <%= form.collection_select(:arrives_at, presenter.time_options, :value, :human, { selected: form.object.arrives_at }, data: { "amenity-booking-target": "arriveAt" }) %>
-              <%= form.collection_select(:departs_at, presenter.time_options, :value, :human, { selected: form.object.departs_at }, data: { "amenity-booking-target": "departsAt" } ) %>
-            </div>
-          </div>
-          <div data-controller="counter subtotal">
-            <div class="flex-row-field">
-              <div class="flex-column-filed">
-                <%= form.label :number_of_people, t(".number_of_people") %>
-                <div class="flex-row-field">
+            <div data-controller="counter subtotal">
+              <div class="flex-row-field">
+                <div class="flex-column-filed">
+                  <%= form.label :number_of_people, t(".number_of_people") %>
+                  <div class="flex-row-field">
+                    <%= button_tag type: "button" do %>
+                      <%= image_tag "icon-minus.svg", data: { action: "click->counter#decrement click->subtotal#calculateSubtotal" } %>
+                    <% end %>
+                    <%= form.text_field :number_of_people, value: '1',data: { "counter-target": "output", "subtotal-target": "count", "amenity-booking-target": "count", action: "input->subtotal#calculateSubtotal" }, class:"counter" %>
+                    <%= button_tag type: "button" do %>
+                      <%= image_tag "icon-plus.svg", data: { action: "click->counter#increment click->subtotal#calculateSubtotal" } %>
+                    <% end %>
+                  </div>
+                </div>
+                <div class="field">
+                  <label><%= t(".subtotal") %></label>
+                  <p data-subtotal-target = "initialVal", data-amenity-booking-target = "initialVal" hidden> <%= presenter.selected_rate_in_number %></p>
+                  <span data-subtotal-target = "subtotal", data-amenity-booking-target = "subtotal" ><%= presenter.selected_rate_in_number %></span>
+                </div>
+                <div class="cross-icon">
                   <%= button_tag type: "button" do %>
-                    <%= image_tag "icon-minus.svg", data: { action: "click->counter#decrement click->subtotal#calculateSubtotal" } %>
-                  <% end %>
-                  <%= form.text_field :number_of_people, value: '1',data: { "counter-target": "output", "subtotal-target": "count", "amenity-booking-target": "count", action: "input->subtotal#calculateSubtotal" }, class:"counter" %>
-                  <%= button_tag type: "button" do %>
-                    <%= image_tag "icon-plus.svg", data: { action: "click->counter#increment click->subtotal#calculateSubtotal" } %>
+                    <%= image_tag "cross.svg", data: { action: "click->amenity-booking#removeAmenityBooking"} %>
                   <% end %>
                 </div>
-              </div>
-              <div class="field">
-                <label><%= t(".subtotal") %></label>
-                <p data-subtotal-target = "initialVal", data-amenity-booking-target = "initialVal" hidden> <%= presenter.selected_rate_in_number %></p>
-                <span data-subtotal-target = "subtotal", data-amenity-booking-target = "subtotal" ><%= presenter.selected_rate_in_number %></span>
-              </div>
-              <div class="cross-icon">
-                <%= button_tag type: "button" do %>
-                  <%= image_tag "cross.svg", data: { action: "click->amenity-booking#removeAmenity"} %>
-                <% end %>
               </div>
             </div>
           </div>
         </div>
         <div class="add-booking-card">
-          <%= image_tag "icon-plus.svg" %> <span><%= t(".add_another") %></span>
+          <%= image_tag "icon-plus.svg", data: { action: "click->amenity-booking#addAmenityBooking"} %> <span><%= t(".add_another") %></span>
         </div>
       </div>
     </div>
