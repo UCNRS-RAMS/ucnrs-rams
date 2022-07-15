@@ -29,8 +29,8 @@
               <%= form.label :departs_on %>
             </div>
             <div class="flex-row-field">
-              <%= form.date_field :arrives_on, value: presenter.default_arrive_at, "data-copy-first-target": "destination", data: { "amenity-booking-target": "arriveOn" } %>
-              <%= form.date_field :departs_on, value: presenter.default_depart_at, "data-copy-second-target": "destination", data: { "amenity-booking-target": "departsOn" } %>
+              <%= form.date_field :arrives_on, value: presenter.default_date, "data-copy-first-target": "destination", data: { "amenity-booking-target": "arriveOn" } %>
+              <%= form.date_field :departs_on, value: presenter.default_date, "data-copy-second-target": "destination", data: { "amenity-booking-target": "departsOn" } %>
             </div>
           </div>
           <div class="flex-column-field">

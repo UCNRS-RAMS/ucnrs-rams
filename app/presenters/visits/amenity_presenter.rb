@@ -31,12 +31,8 @@ class Visits::AmenityPresenter
     form.id
   end
 
-  def default_arrive_at
-    "30 sep 2020".to_date.strftime("%Y-%m-%d")
-  end
-
-  def default_depart_at
-    "07 oct 2020".to_date.strftime("%Y-%m-%d")
+  def default_date
+    Time.current.strftime("%Y-%m-%d")
   end
 
   def selected_amenity_rate_id
