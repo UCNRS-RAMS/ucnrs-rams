@@ -1246,6 +1246,12 @@ en:
       permits:
         index:
           permits: "Permits"
+          about_permits: "About Permits"
+          about_permits_paragraph: "This page shows which permits are displayed for your reserve, you can hide permits that are not relevant to you e.g. marine mammals for a desert reserve, You can also choose to collect permit number and date from the applicant. If you would like additional permits added to the system, please contact the RAMS IT help desk at ramshelp@ucner.org or add the permit in the questions section."
+        reserve_permits:
+          question: "Question"
+          visible: "Visible"
+          ask_for_permit: "Ask for permit"
       reserve_questions:
         index:
           reserve_questions: "Reserve Questions"

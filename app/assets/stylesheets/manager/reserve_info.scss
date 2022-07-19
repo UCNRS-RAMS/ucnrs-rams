@@ -53,6 +53,7 @@
   }
 
   .reserve-info {
+    flex-grow: 1;
     margin-top: .125rem;
 
     > header {
@@ -64,7 +65,7 @@
   }
 
   .reserve-info-subsection {
-    margin-bottom: 4rem !important;
+    margin-bottom: 4rem;
 
     header {
       font-size: 1rem;
@@ -90,6 +91,12 @@
 
 .manager.staff_and_notifications {
   table.personnel-table {
+    @include table-style1;
+  }
+}
+
+.manager.permits {
+  table.reserve_permits-table {
     @include table-style1;
   }
 }

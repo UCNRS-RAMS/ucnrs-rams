@@ -1,0 +1,12 @@
+<tr>
+  <td>
+    <%= reserve_permit.sort_order_override %>
+    |
+    <strong><%= reserve_permit.permit_question %></strong>
+    <br />
+    <%= reserve_permit.permit_description %>
+  </td>
+  <td><%= image_tag reserve_permit.icon(reserve_permit.visible), alt: t(reserve_permit.icon_alt_i18n_key(reserve_permit.visible)) %></td>
+  <td><%= image_tag reserve_permit.icon(reserve_permit.collect_permit_information), alt: t(reserve_permit.icon_alt_i18n_key(reserve_permit.collect_permit_information)) %></td>
+  <td><%= t("edit") %></td>
+</tr>
