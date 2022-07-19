@@ -12,6 +12,9 @@ class Reserve < ApplicationRecord
   has_many :fundings
   has_many :reserve_questions
   has_many :addendums, class_name: "ReserveAddendum"
+  has_many :reserve_permits
+  has_many :permits, through: :reserve_permits
+
 
   def self.blank
     Reserve.new(id: -1, name: "", pulldown_name: "")

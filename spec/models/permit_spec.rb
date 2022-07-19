@@ -25,6 +25,8 @@ RSpec.describe Permit, type: :model do
     it { is_expected.to belong_to(:state).optional }
     it { is_expected.to have_many(:project_permit_answers) }
     it { is_expected.to have_many(:projects).through(:project_permit_answers) }
+    it { is_expected.to have_many(:reserve_permits) }
+    it { is_expected.to have_many(:reserves).through(:reserve_permits) }
   end
 
   describe ".in_order" do

@@ -58,6 +58,10 @@
     }
   }
 
+  tr.header > td {
+    background-color: $light-bluegray;
+  }
+
   img[alt="checked icon"], img[alt="unchecked icon"] {
     height: 1.125rem;
     vertical-align: middle;

@@ -1,0 +1,16 @@
+<table class="reserve_permits-table">
+  <thead>
+    <tr>
+      <th><%= t(".question") %></th>
+      <th width="15"><%= t(".visible") %></th>
+      <th width="15"><%= t(".ask_for_permit") %></th>
+      <th width="20"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% reserve_permits.each do |permit_authority, reserve_permits| %>
+      <tr class="header"><td colspan="5"><strong><%= permit_authority %></strong></td></tr>
+      <%= render partial: "reserve_permit", collection: reserve_permits %>
+    <% end %>
+  </tbody>
+</table>
