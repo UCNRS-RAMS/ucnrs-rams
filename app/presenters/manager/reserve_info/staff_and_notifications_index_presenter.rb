@@ -3,12 +3,17 @@ class Manager::ReserveInfo::StaffAndNotificationsIndexPresenter
     @reserve = reserve
   end
 
-  delegate :id,
-  to: :reserve, prefix: true
+  def personnel
+    personnel_scope
+      .map { |personnel| PersonnelPresenter.new(personnel) }
+  end
+
+  def personnel_scope
+    reserve.personnel
+  end
 
   private
 
-  def reserve
-    ReservePresenter.new(@reserve)
-  end
+  attr_reader :reserve
+  
 end

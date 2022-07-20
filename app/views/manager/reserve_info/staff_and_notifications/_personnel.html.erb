@@ -1,0 +1,11 @@
+<tr>
+  <td><%= personnel.user_full_name %><small><%= personnel.email %></small></td>
+  <td><%= image_tag personnel.icon(personnel.receive_new_visit_email), alt: t(personnel.icon_alt_i18n_key(personnel.receive_new_visit_email)) %></td>
+  <td><%= image_tag personnel.icon(personnel.receive_incomplete_visit_email), alt: t(personnel.icon_alt_i18n_key(personnel.receive_incomplete_visit_email)) %></td>
+  <td><%= image_tag personnel.icon(personnel.receive_update_email), alt: t(personnel.icon_alt_i18n_key(personnel.receive_update_email)) %></td>
+  <td><%= image_tag personnel.icon(personnel.receive_approval_email), alt: t(personnel.icon_alt_i18n_key(personnel.receive_approval_email)) %></td>
+  <td><%= image_tag personnel.icon(personnel.receive_iacuc_email), alt: t(personnel.icon_alt_i18n_key(personnel.receive_iacuc_email)) %></td>
+  <td><%= image_tag personnel.icon(personnel.receive_drone_email), alt: t(personnel.icon_alt_i18n_key(personnel.receive_drone_email)) %></td>
+  <td><%= image_tag personnel.icon(personnel.receive_scuba_email), alt: t(personnel.icon_alt_i18n_key(personnel.receive_scuba_email)) %></td>
+  <td><%= t("edit") %></td>
+</tr>

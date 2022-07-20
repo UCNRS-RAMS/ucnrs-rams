@@ -1267,6 +1267,16 @@ en:
       staff_and_notifications:
         index:
           staff_and_notifications: "Staff & Notifications"
+        personnels:
+          email_settings_for_reserve_personnel: "Email settings for reserve personnel"
+          name: "Name"
+          receive_new_visit: "Receive new visit"
+          receive_visit_update: "Receive visit update"
+          receive_incomplete_visit: "Receive incomplete visit"
+          receive_approval_only: "Receive approval only"
+          receive_iacuc: "Receive IACUC"
+          receive_drone: "Receive drone"
+          receive_scuba: "Receive scuba"
   shared:
     projects:
       permit_questions:
@@ -1714,8 +1724,8 @@ en:
     dollar_sign: "dollar icon"
     pencil_sign: "a pencil icon"
     ucnrs_logo: "UCNRS logo"
-    checked: "checkmark icon"
-    unchecked: "uncheckmark icon"
+    checked: "checked icon"
+    unchecked: "unckecked icon"
   edit: "Edit"
   research: "Research"
   university_class: "University Class"
@@ -1724,3 +1734,5 @@ en:
   conference: "Conference"
   text: "Text"
   yes_no: "Yes/No"
+  checked: "checked icon"
+  unchecked: "unchecked icon"
