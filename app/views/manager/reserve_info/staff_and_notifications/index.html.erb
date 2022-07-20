@@ -6,6 +6,9 @@
     </section>
     <section class="reserve-info">
       <header><%= t(".staff_and_notifications") %></header>
+      <section class="reserve-info-subsection">
+        <%= render partial: "personnels", locals: { personnels: @presenter.personnel } %>
+      </section>
     </section>
   </div>
 </section>

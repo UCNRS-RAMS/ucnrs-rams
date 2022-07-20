@@ -57,4 +57,10 @@
       font-weight: $bold;
     }
   }
+
+  img[alt="checked icon"], img[alt="unchecked icon"] {
+    height: 1.125rem;
+    vertical-align: middle;
+    width: 1.125rem;
+  }
 }

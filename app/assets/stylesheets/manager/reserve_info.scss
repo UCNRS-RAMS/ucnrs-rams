@@ -61,7 +61,6 @@
       font-weight: $light;
       margin-bottom: 2rem;
     }
-
   }
 
   .reserve-info-subsection {
@@ -77,24 +76,20 @@
     }
   }
 
-  table.waivers-table, table.amenity-rates-table, table.amenity-rate-categories-table, table.amenities-table {
+  table.amenity-rates-table, table.amenity-rate-categories-table, table.amenities-table,
+  table.reserve_questions_table  {
     @include table-style1;
   }
+}
 
-  .reserve-info-subsection {
-    margin-bottom: 4rem !important;
-
-    header {
-      font-size: 1rem;
-      margin-bottom: .5rem;
-    }
-
-    > p:last-of-type {
-      margin-bottom: 1.75rem;
-    }
+.manager.waivers {
+  table.waivers-table {
+    @include table-style1;
   }
+}
 
-  table.reserve_questions_table {
+.manager.staff_and_notifications {
+  table.personnel-table {
     @include table-style1;
   }
 }
