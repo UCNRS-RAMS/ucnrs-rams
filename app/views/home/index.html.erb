@@ -54,6 +54,8 @@
   </section>
 </section>
 
-<% content_for :modal do %>
-  <%= render partial: "modals/welcome" %>
+<% if session[:welcome].nil? && session[:welcome] = true %>
+  <% content_for :modal do %>
+    <%= render partial: "modals/welcome" %>
+  <% end %>
 <% end %>

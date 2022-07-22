@@ -35,4 +35,19 @@ RSpec.describe "Home Index" do
       expect(flow).to have_selected_page_number_link(3)
     end
   end
+
+  describe "welcome modal" do
+    it "should display on login only", js: true do
+      user = create(:user, :confirmed)
+
+      flow = HomeIndexFlow.new(page)
+      sign_in(user)
+
+      flow.visit_home_index_page
+      expect(flow).to have_welcome_modal
+
+      flow.visit_home_index_page
+      expect(flow).not_to have_welcome_modal
+    end
+  end
 end
