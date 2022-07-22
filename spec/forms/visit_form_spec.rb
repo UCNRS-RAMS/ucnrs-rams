@@ -75,16 +75,36 @@ RSpec.describe VisitForm, type: :model do
     it "returns an AmenityForm for each amenity_id" do
       params = {
         amenities: {
-          1 => {amenity_id: 1},
-          101 => {amenity_id: 101},
-        }
+          1 => {
+            amenity_id: 1,
+            amenity_visits: {
+              1 => {
+                arrives_on: nil,
+                departs_on: nil,
+                number_of_people: nil,
+                amenity_rate_id: 1,
+              },
+            },
+          },
+          101 => {
+            amenity_id: 101,
+            amenity_visits: {
+              1 => {
+                arrives_on: nil,
+                departs_on: nil,
+                number_of_people: nil,
+                amenity_rate_id: 1,
+              },
+            },
+          },
+        },
       }
       form = VisitForm.new(user: build(:user), params: params)
 
-      expect(form.amenity_form("1")).to be_a(AmenityForm)
-      expect(form.amenity_form("1").amenity_id).to eq 1
-      expect(form.amenity_form("101")).to be_a(AmenityForm)
-      expect(form.amenity_form("101").amenity_id).to eq 101
+      expect(form.amenity_form("1").first).to be_a(AmenityForm)
+      expect(form.amenity_form("1").first.amenity_id).to eq 1
+      expect(form.amenity_form("101").first).to be_a(AmenityForm)
+      expect(form.amenity_form("101").first.amenity_id).to eq 101
     end
   end
 
@@ -124,11 +144,15 @@ RSpec.describe VisitForm, type: :model do
         amenities: {
           one.id.to_s => {
             amenity_id: one.id,
-            arrives_on: nil,
-            departs_on: nil,
-            number_of_people: nil,
+            amenity_visits: {
+              "1": {
+                arrives_on: nil,
+                departs_on: nil,
+                number_of_people: nil,
+                amenity_rate_id: one.amenity_rates.first.id,
+              },
+            },
           },
-          two.id.to_s => {}
         }
       })
 
@@ -152,8 +176,8 @@ RSpec.describe VisitForm, type: :model do
       one, two = reserve.amenities
       user = create(:user)
       form = VisitForm.new(user: user, params: {
-        project: project,
-        reserve: reserve,
+        project_id: project.id,
+        reserve_id: reserve.id,
         purpose_of_visit: "Nothing",
         project_type: "research",
         start_date: 1.week.from_now.strftime("%Y-%m-%d"),
@@ -162,18 +186,21 @@ RSpec.describe VisitForm, type: :model do
         end_time: "16:00",
         amenities: {
           one.id.to_s => {
-            amenity_id: one.id,
-            arrives_on: 1.week.from_now.strftime("%Y-%m-%d"),
-            departs_on: 2.weeks.from_now.strftime("%Y-%m-%d"),
-            number_of_people: 2,
+            amenity_id: one.id.to_s,
             amenity_rate_id: one.amenity_rates.first.id,
+            amenity_visits: {
+              "1": {
+                arrives_on: 1.weeks.from_now.strftime("%Y-%m-%d"),
+                departs_on: 2.week.from_now.strftime("%Y-%m-%d"),
+                number_of_people: 2,
+                amenity_rate_id: one.amenity_rates.first.id,
+              },
+            },
           },
-          two.id.to_s => {}
-        }
+        },
       })
 
       result = form.save
-
       expect(result).to be_truthy
       expect(form.visit).to be_persisted
       form.visit.amenity_visits.each do |amenity_visit|
@@ -187,22 +214,25 @@ RSpec.describe VisitForm, type: :model do
       one, two = reserve.amenities
       user = create(:user)
       form = VisitForm.new(user: user, params: {
-        project: project,
-        reserve: reserve,
+        project_id: project.id,
+        reserve_id: reserve.id,
         purpose_of_visit: nil,
         project_type: "research",
         start_date: 1.week.from_now.strftime("%Y-%m-%d"),
         end_date: 2.weeks.from_now.strftime("%Y-%m-%d"),
         amenities: {
           one.id.to_s => {
-            amenity_id: one.id,
-            arrives_on: 2.weeks.from_now.strftime("%Y-%m-%d"),
-            departs_on: 1.week.from_now.strftime("%Y-%m-%d"),
-            number_of_people: 2,
-            amenity_rate_id: one.amenity_rates.first.id,
+            amenity_id: one.id.to_s,
+            amenity_visits: {
+              "1": {
+                arrives_on: 2.weeks.from_now.strftime("%Y-%m-%d"),
+                departs_on: 1.week.from_now.strftime("%Y-%m-%d"),
+                number_of_people: 2,
+                amenity_rate_id: one.amenity_rates.first.id,
+              },
+            },
           },
-          two.id.to_s => {}
-        }
+        },
       })
 
       result = form.save
@@ -210,7 +240,7 @@ RSpec.describe VisitForm, type: :model do
       expect(result).to be_falsy
       expect(form.visit).to_not be_persisted
       expect(form.errors).to be_present
-      expect(form.amenity_form(one.id.to_s).errors).to be_present
+      expect(form.amenity_form(one.id.to_s).first.errors).to be_present
     end
   end
 

@@ -343,6 +343,11 @@ en:
       title: "Visit Requests"
       most_recent_filter: "Most recent"
     amenities:
+      amenity_booking:
+         time_of_use: "Time of use"
+         number_of_people: "Count"
+         subtotal: "Subtotal"
+         add_another: "Add Another Date Range"
       index:
         select_amenities: "Select Amenities"
         optional: "(Optional)"

@@ -37,13 +37,15 @@ class VisitsController < ApplicationController
       amenities: [
         :amenity_id,
         :amenity_visit_id,
-        :arrives_on,
-        :arrives_at,
-        :departs_on,
-        :departs_at,
         :amenity_rate_id,
-        :number_of_people,
-      ]
+        amenity_visits: [
+          :arrives_on,
+          :arrives_at,
+          :departs_on,
+          :departs_at,
+          :number_of_people,
+        ],
+      ],
     )
   end
 

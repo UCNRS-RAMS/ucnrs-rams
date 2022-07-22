@@ -101,9 +101,11 @@ class VisitForm
   end
 
   def validate_amenities
-    amenity_forms.each do |key, amenity|
-      amenity.visit_id = visit.id
-      amenity.validate
+    amenity_forms.each do |key, amenity_visits|
+      amenity_visits.each do |amenity_visit|
+        amenity_visit.visit_id = visit.id
+        amenity_visit.validate
+      end
     end
   end
 
@@ -116,9 +118,11 @@ class VisitForm
   end
 
   def save_amenities!
-    amenity_forms.each do |key, amenity|
-      amenity.visit_id = visit.id
-      amenity.save!
+    amenity_forms.each do |key, amenity_visits|
+      amenity_visits.each do |amenity_visit|
+        amenity_visit.visit_id = visit.id
+        amenity_visit.save!
+      end
     end
   end
 
@@ -156,10 +160,15 @@ class VisitForm
     @amenity_forms ||= @amenities_params.values.each_with_object({}) do |params, forms|
       amenity_id = params[:amenity_id].to_s
       next if amenity_id.blank?
-      forms[amenity_id] = AmenityForm.new(
-        user: user,
-        params: params,
-      )
+
+      forms["#{amenity_id}"] = params[:amenity_visits].values.map do |amenity_visit_params|
+        amenity_visit_params[:amenity_id] = params[:amenity_id]
+        amenity_visit_params[:amenity_rate_id] = params[:amenity_rate_id]
+        AmenityForm.new(
+          user: user,
+          params: amenity_visit_params,
+        )
+      end
     end
   end
 
