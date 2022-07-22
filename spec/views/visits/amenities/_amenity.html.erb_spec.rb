@@ -8,10 +8,11 @@ RSpec.describe "app/views/visits/amenities/_amenity.html.erb", type: :view do
     rate = create(:amenity_rate, amenity: amenity, rate: 0.01, amenity_rate_category: amenity_rate_category)
     selected_rate = create(:amenity_rate, amenity: amenity, rate: 12.50,  amenity_rate_category: amenity_rate_category)
     form = AmenityForm.new(params: { amenity_rate_id: selected_rate.id })
-    presenter = Visits::AmenityPresenter.new(amenity, form: form)
+    presenter = Visits::AmenityPresenter.new(amenity, form: [form])
 
 
     FakeForm.fields_for(form) do |form|
+      form.object = [form.object]
       render partial: "visits/amenities/amenity",
         locals: { presenter: presenter, form: form, group_label: "Home" }
     end

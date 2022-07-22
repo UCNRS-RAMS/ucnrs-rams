@@ -38,7 +38,7 @@ class RequestVisitFlow
   end
 
   def on_select_team_form?
-    page.has_css?("body.visits.visits-create") # Temporary: To show movement
+    page.has_css?("body.home.home-index")
   end
 
   def has_a_project_type_selected?

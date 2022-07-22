@@ -39,24 +39,25 @@ export default class extends Controller {
 
   bookingCard(){
     const id = this.bookingCardsTarget.children.length + 1
+    const amenity_id = this.amenityRadioBtnTarget.value
     return `<div class="booking-card" data-amenity-booking-target="bookingCard">
       <div class="flex-column-field">
         <div class="flex-row-field">
-          <label for="visit_amenities_6_arrives_on_${id}">Arrives on</label>
-          <label for="visit_amenities_6_departs_on_${id}">Departs on</label>
+          <label for="visit_amenities_${amenity_id}_${id}_arrives_on">Arrives on</label>
+          <label for="visit_amenities_${amenity_id}_${id}_departs_on">Departs on</label>
         </div>
         <div class="flex-row-field">
           <input value="2020-09-30" data-copy-first-target="destination" data-amenity-booking-target="arriveOn"
-            type="date" name="visit[amenities][6][arrives_on_${id}]" id="visit_amenities_6_arrives_on_${id}">
+            type="date" name="visit[amenities][${amenity_id}][amenity_visits]][${id}][arrives_on]" id="visit_amenities_${amenity_id}_${id}_arrives_on">
           <input value="2020-10-07" data-copy-second-target="destination" data-amenity-booking-target="departsOn"
-            type="date" name="visit[amenities][6][departs_on_${id}]" id="visit_amenities_6_departs_on_${id}">
+            type="date" name="visit[amenities][${amenity_id}][amenity_visits]][${id}][departs_on]" id="visit_amenities_${amenity_id}_${id}_departs_on">
         </div>
       </div>
       <div class="flex-column-field">
-        <label for="visit_amenities_6_arrives_at_${id}">Time of Use</label>
+        <label for="visit_amenities_${amenity_id}_${id}_arrives_at">Time of Use</label>
         <div class="flex-row-field">
-          <select data-amenity-booking-target="arriveAt" name="visit[amenities][6][arrives_at_${id}]"
-            id="visit_amenities_6_arrives_at">
+          <select data-amenity-booking-target="arriveAt" name="visit[amenities][${amenity_id}][amenity_visits]][${id}][arrives_at]"
+            id="visit_amenities_${amenity_id}_arrives_at">
             <option value="00:00">12:00 AM</option>
             <option value="01:00">1:00 AM</option>
             <option value="02:00">2:00 AM</option>
@@ -82,8 +83,8 @@ export default class extends Controller {
             <option value="22:00">10:00 PM</option>
             <option value="23:00">11:00 PM</option>
           </select>
-          <select data-amenity-booking-target="departsAt" name="visit[amenities][6][departs_at_${id}]"
-            id="visit_amenities_6_departs_at">
+          <select data-amenity-booking-target="departsAt" name="visit[amenities][${amenity_id}][amenity_visits]][${id}][departs_at]"
+            id="visit_amenities_${amenity_id}_departs_at">
             <option value="00:00">12:00 AM</option>
             <option value="01:00">1:00 AM</option>
             <option value="02:00">2:00 AM</option>
@@ -114,14 +115,14 @@ export default class extends Controller {
       <div data-controller="counter subtotal">
         <div class="flex-row-field">
           <div class="flex-column-filed">
-            <label for="visit_amenities_6_number_of_people_${id}">Count</label>
+            <label for="visit_amenities_${amenity_id}_${id}_number_of_people">Count</label>
             <div class="flex-row-field">
               <button name="button" type="button">
                 <img data-action="click->counter#decrement click->subtotal#calculateSubtotal"
                   src="/assets/icon-minus-17425e804ec745badb1514351fdb3cd954d1ef7e5afa9859edc401f9356fea14.svg">
               </button> <input value="1" data-counter-target="output" data-subtotal-target="count"
                 data-amenity-booking-target="count" data-action="input->subtotal#calculateSubtotal" class="counter"
-                type="text" name="visit[amenities][6][number_of_people_${id}]" id="visit_amenities_6_number_of_people_${id}">
+                type="text" name="visit[amenities][${amenity_id}][amenity_visits]][${id}][number_of_people]" id="visit_amenities_${amenity_id}_${id}_number_of_people">
               <button name="button" type="button">
                 <img data-action="click->counter#increment click->subtotal#calculateSubtotal"
                   src="/assets/icon-plus-d5bab8cd2b36a96d1a7767b0879164c016ac71ea8151d22362734be264880ced.svg">

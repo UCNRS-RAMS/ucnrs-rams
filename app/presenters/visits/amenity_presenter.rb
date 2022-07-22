@@ -1,7 +1,7 @@
 class Visits::AmenityPresenter
   def initialize(amenity, form: nil, user: nil)
     @amenity = amenity
-    @form = form || AmenityForm.new
+    @form = form || [AmenityForm.new]
     @user = user
   end
 
@@ -36,10 +36,10 @@ class Visits::AmenityPresenter
   end
 
   def selected_amenity_rate_id
-    if form&.amenity_rate_id.nil?
+    if form.first.amenity_rate_id.nil?
       rates.detect{ |r| r.default_for_user == 1 }&.id
     else
-      form.amenity_rate_id
+      form.first.amenity_rate_id
     end
   end
 

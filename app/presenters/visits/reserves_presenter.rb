@@ -14,7 +14,7 @@ class Visits::ReservesPresenter
   end
 
   def selected_reserve(reserve)
-    if reserve.id.to_s == reserve_id
+    if reserve.id.to_s == reserve_id.to_s
       "selected"
     else
       nil

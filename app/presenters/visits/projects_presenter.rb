@@ -23,7 +23,7 @@ class Visits::ProjectsPresenter
   end
 
   def selected_project(project)
-    if project.id.to_s == project_id
+    if project.id.to_s == project_id.to_s
       "selected"
     else
       nil

@@ -199,7 +199,7 @@ RSpec.describe Visits::AmenityPresenter do
       ])
       selected_rate = amenity.amenity_rates[1]
       expected_rate = amenity.amenity_rates[1]
-      form = AmenityForm.new(params: { amenity_rate_id: selected_rate.id })
+      form = [AmenityForm.new(params: { amenity_rate_id: selected_rate.id })]
       presenter = Visits::AmenityPresenter.new(amenity, user: user, form: form)
 
       selected_amenity_rate_id = presenter.selected_amenity_rate_id
