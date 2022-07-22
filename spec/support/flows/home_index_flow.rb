@@ -7,6 +7,10 @@ class HomeIndexFlow
     page.visit("/")
   end
 
+  def has_welcome_modal?
+    page.has_css?(".modal h1#modal-title", text: "Welcome to RAMS")
+  end
+
   def dismiss_modal
     page.find(".modal button.active", text: "Let's go!").click
   end
