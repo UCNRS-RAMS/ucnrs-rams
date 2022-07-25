@@ -13,6 +13,7 @@ class AmenityForm
       id: params[:amenity_visit_id]
     ).first || AmenityVisit.new
     @amenity_visit.user = user
+    assain_dates(params)
     assign(params)
   end
 
@@ -25,6 +26,11 @@ class AmenityForm
 
   def amenity_visit_id
     amenity_visit.id
+  end
+
+  def assain_dates(params)
+    params[:arrives] = "#{params[:arrives_on]} #{params[:arrives_at]}"
+    params[:departs] = "#{params[:departs_on]} #{params[:departs_at]}"
   end
 
   def checked
