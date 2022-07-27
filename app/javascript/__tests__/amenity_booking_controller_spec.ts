@@ -137,6 +137,16 @@ describe("AmenityBookingController", () => {
   })
 
   describe("#removeAmenityBooking", () => {
+    it("checks if the amenity booking is removed", () => {
+      const bookingCards = document.getElementById("bookingCards")
+
+      expect(bookingCards.childElementCount).toEqual(2)
+
+      document.getElementById("close-btn-2").click()
+
+      expect(bookingCards.childElementCount).toEqual(1)
+    })
+
     it("reset the values when click on cross-icon-btn", () => {
       const count = document.getElementById("count-1")
       const subtotal = document.getElementById("subtotal-1")
@@ -145,13 +155,7 @@ describe("AmenityBookingController", () => {
       const departsOn = document.getElementById("departs-on-1")
       const departsAt = document.getElementById("departs-at-1")
       const arriveAt = document.getElementById("arrive-at-1")
-      const crossbtn1 = document.getElementById("close-btn-1")
-      const bookingCards = document.getElementById("bookingCards")
 
-      expect(bookingCards.childElementCount).toEqual(2)
-      const crossbtn2 = document.getElementById("close-btn-2")
-      crossbtn2.click()
-      expect(bookingCards.childElementCount).toEqual(1)
       count.value = "2"
       subtotal.textContent = "4"
       initailVal.textContent = "2"
@@ -160,7 +164,9 @@ describe("AmenityBookingController", () => {
       departsOn.value = "1999-10-05"
       arriveOn.value = "1999-10-02"
 
-      crossbtn1.click()
+      document.getElementById("close-btn-2").click()
+      document.getElementById("close-btn-1").click()
+
       expect(subtotal.textContent).toEqual("2")
       expect(count.value).toEqual("1")
       expect(departsOn.value).toEqual("")
