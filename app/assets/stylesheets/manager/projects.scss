@@ -3,6 +3,7 @@
 @import "mixins/form";
 @import "mixins/controls";
 @import "mixins/summary";
+@import "mixins/tables";
 
 @include controls;
 
@@ -248,5 +249,13 @@
 
   .row-medium {
     width: 423px;
+  }
+}
+
+table.projects-table {
+  @include table-style1;
+
+  td > img {
+    vertical-align: middle;
   }
 }
