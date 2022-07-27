@@ -1,3 +1,6 @@
-<tbody>
-  <%= render partial: "project", collection: presenter.projects %>
-</tbody>
+<table class="projects-table">
+  <tbody>
+    <%= render partial: "project", collection: presenter.projects %>
+  </tbody>
+</table>
+<%= paginate presenter.project_scope %>

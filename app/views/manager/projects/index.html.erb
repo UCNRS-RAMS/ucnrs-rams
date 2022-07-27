@@ -71,8 +71,7 @@
       </div>
     </form>
   </header>
-  <table class="projects rams-table1">
+  <section class="reserve-info-subsection">
     <%= render partial: "projects_table", locals: { presenter: @presenter } %>
-  </table>
-  <%= paginate @presenter.project_scope %>
+  </section>
 </section>
