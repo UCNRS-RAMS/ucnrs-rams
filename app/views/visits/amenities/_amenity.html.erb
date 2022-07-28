@@ -1,5 +1,5 @@
-<div class="amenity" data-controller="amenity-booking">
-  <%= radio_button_tag "#{form.object_name}[amenity_id]", presenter.amenity_id, form.object.first.checked, id: presenter.checkbox_id, data: { "amenity-booking-target": "amenityRadioBtn" } %>
+<div class="amenity" data-controller = "amenity-booking">
+  <%= radio_button_tag "#{form.object_name}[amenity_id]", presenter.amenity_id, form.object.first.checked, id: presenter.checkbox_id, data: { "amenity-booking-target": "amenityRadioBtn", "amenity-category-target": "amenityRadioBtn" } %>
   <label for="<%= presenter.checkbox_id %>">
     <div class="amenity-padding">
       <img src="<%= presenter.image_url %>"/>
