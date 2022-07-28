@@ -41,6 +41,7 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     expect(flow).to have_special_needs_section("Tell us!")
     expect(flow).to have_study_area_section
     expect(flow).to have_alert_section("Alert!")
+    click_on("Fun Things")
     expect(flow).to have_amenities("Beach Access")
 
     flow.select_amenity("Beach Access")
@@ -90,6 +91,7 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
 
     flow.select_project_type("University Class")
     flow.select_reserve("Silver Lake Area")
+    click_on("Fun Things")
     flow.select_amenity("Beach Access")
     flow.set_usage_dates(
       arrival: now + 1.week,
@@ -150,6 +152,7 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     flow.select_project("Fun")
     flow.select_reserve("Silver Lake Area")
     flow.set_purpose("To swim")
+    click_on("Fun Things")
     flow.select_amenity("Beach Access")
     flow.set_amenity_usage_dates(
       id: amenity.id,
@@ -185,6 +188,7 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     flow.visit_new_visit_page
     flow.select_project_type("Research")
     flow.select_reserve("Silver Lake Area")
+    click_on("Label 1")
     flow.select_amenity("title 1")
 
     flow.inside_amenity(amenity) do
@@ -209,6 +213,7 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     flow.visit_new_visit_page
     flow.select_project_type("Research")
     flow.select_reserve("Silver Lake Area")
+    click_on("Label 1")
     flow.select_amenity("title 1")
 
     flow.inside_amenity(amenity) do

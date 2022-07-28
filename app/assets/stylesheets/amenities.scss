@@ -5,7 +5,15 @@
 
   h3 {
     color: $dark-bluegray;
-    margin: 0px;
+    display: flex;
+  }
+  
+  .group_label {
+    margin-left: 15px;
+  }
+  
+  a {
+    text-decoration: none;
   }
 
   .amenity {
