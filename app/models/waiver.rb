@@ -1,4 +1,6 @@
 class Waiver < ApplicationRecord
+  validates :name, presence: true
+
   has_and_belongs_to_many :reserves
 
   def self.for_reserve(reserve)

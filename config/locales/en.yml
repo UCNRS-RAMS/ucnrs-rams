@@ -218,6 +218,10 @@ en:
       edit_reserve_personnel:
         title: "Edit Reserve Personnel"
         accessible_description: A modal pop-up form to edit details of reserve personnel.
+    waivers:
+      edit_waiver:
+        title: "Edit Waiver"
+        accessible_description: "A modal pop-up form to edit waiver for this reserve."
   reserves:
     personnel_card:
       alt_text:
@@ -1358,6 +1362,11 @@ en:
           new: "New"
         waiver:
           edit: "Edit"
+        waiver_field:
+          waiver_name: "Waiver Name"
+          waiver_description: "Waiver Description"
+          url_of_the_waiver: "URL of the Waiver"
+          description_helper_text: "Typically used to clarify information about this waiver."
       rules_and_regulations:
         edit:
           rules_and_regulations: "Rules & Regulations"

@@ -1,14 +1,16 @@
-<section class="reserve-info-subsection">
-  <table class="waivers-table">
-    <thead>
-      <tr>
-        <th><%= t(".name") %></th>
-        <th><%= t(".description") %></th>
-        <th><%= t(".new") %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <%= render partial: "manager/reserve_info/waivers/waiver", collection: waivers %>
-    </tbody>
-  </table>
-</section>
+<turbo-frame id="waivers-table">
+  <section class="reserve-info-subsection">
+    <table class="waivers-table">
+      <thead>
+        <tr>
+          <th><%= t(".name") %></th>
+          <th><%= t(".description") %></th>
+          <th><%= t(".new") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: "manager/reserve_info/waivers/waiver", collection: waivers %>
+      </tbody>
+    </table>
+  </section>
+</turbo-frame>
