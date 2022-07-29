@@ -5,6 +5,10 @@ RSpec.describe Waiver, type: :model do
     it { is_expected.to have_and_belong_to_many(:reserves) }
   end
 
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:name) }
+  end
+
   describe ".for_reserve" do
     context "when a reserve passed in is nil" do
       it "returns all waivers records" do

@@ -1,5 +1,5 @@
 <tr>
   <td><%= waiver.name %></td>
   <td><%= waiver.description %></td>
-  <td><%= t(".edit") %></td>
+  <td><%= link_to t("edit"), edit_manager_reserve_reserve_info_waiver_path(current_reserve, waiver.id), data: { "turbo-frame": "modal-content" } %></td>
 </tr>

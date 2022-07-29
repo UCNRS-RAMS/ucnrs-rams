@@ -1,0 +1,11 @@
+<turbo-stream action="replace" target="modal-content">
+  <template>
+    <%= render partial: "modals/empty", formats: [:html] %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="waivers-table">
+  <template>
+    <%= render partial: "waivers", formats: [:html], locals: { waivers: @presenter.waivers } %>
+  </template>
+</turbo-stream>

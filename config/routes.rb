@@ -75,7 +75,7 @@ Rails.application.routes.draw do
         resources :amenities_and_rates, only: [:index]
         resources :amenities, only: [:edit, :update], controller: "amenities_and_rates/amenities"
         resources :amenity_rate_categories, only: [:edit, :update], controller: "amenities_and_rates/amenity_rate_categories"
-        resources :waivers, only: [:index]
+        resources :waivers, only: [:index, :edit, :update]
         resource :rules_and_regulations, only: [:edit, :update]
         resources :permits, only: [:index]
         resources :reserve_questions, only: [:index]

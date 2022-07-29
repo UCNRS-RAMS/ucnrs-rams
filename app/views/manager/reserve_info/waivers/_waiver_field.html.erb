@@ -1,0 +1,15 @@
+<div>
+  <div class="form-group">
+    <%= form.label :name, t(".waiver_name"), class: "form-label" %>
+    <%= form.text_field :name, class: "form-input" %>
+  </div>
+  <div class="form-group">
+    <%= form.label :description, t(".waiver_description"), class: "form-label" %>
+    <%= form.text_area :description, class: "form-input" %>
+    <small><%=t(".description_helper_text")%></small>
+  </div>
+  <div class="form-group">
+    <%= form.label :url, t(".url_of_the_waiver"), class: "form-label" %>
+    <%= form.text_field :url, class: "form-input" %>
+  </div>
+</div>
