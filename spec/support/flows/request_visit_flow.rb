@@ -181,6 +181,14 @@ class RequestVisitFlow
       .has_css?("span", text: message, visible: false)
   end
 
+  def has_date_ranges?(count)
+    page.find_all(".booking-card").length == count
+  end
+
+  def click_on_add_another_date_range
+    page.find(".add-booking-card").click
+  end
+
   private
 
   attr_reader :capybara_page

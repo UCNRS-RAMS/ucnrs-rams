@@ -37,7 +37,9 @@ Rails.application.routes.draw do
     resources :projects, only: [:index]
     resources :reserves, only: [:index]
   end
-  resources :visits, only: [:new, :create, :show]
+  resources :visits, only: [:new, :create, :show] do
+    get :amenity_booking, on: :new
+  end
 
   devise_scope :user do
     resources :password, only: [:new, :create]

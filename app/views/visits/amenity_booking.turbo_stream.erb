@@ -1,0 +1,7 @@
+<turbo-stream action="append" target=<%= dom_id(@presenter.amenity) %>>
+  <template>
+    <% @presenter.form.each do |amenity| %>
+      <%= render partial: 'visits/amenities/amenity_booking', locals: { amenity: amenity, presenter: @presenter }, formats: [:html] %>
+    <% end %>
+  </template>
+</turbo-stream>

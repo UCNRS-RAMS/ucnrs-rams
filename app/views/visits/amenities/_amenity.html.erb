@@ -1,4 +1,4 @@
-<div class="amenity" data-controller = "amenity-booking">
+<div class="amenity" data-controller="amenity-booking">
   <%= radio_button_tag "#{form.object_name}[amenity_id]", presenter.amenity_id, form.object.first.checked, id: presenter.checkbox_id, data: { "amenity-booking-target": "amenityRadioBtn" } %>
   <label for="<%= presenter.checkbox_id %>">
     <div class="amenity-padding">
@@ -22,16 +22,15 @@
     </div>
     <div class="bookings">
       <div class="booking">
-        <div class="booking-cards" data-amenity-booking-target = "bookingCards">
-          <% form.object.each_with_index do |amenity_form, index| %>
-            <% new_form = form %>
-            <% new_form.object = amenity_form %>
-            <%= render partial: 'visits/amenities/amenity_booking', locals: { form: new_form, presenter: presenter, index: index } %>
+        <%= turbo_frame_tag dom_id(presenter.amenity) do %>
+          <% form.object.each do |amenity| %>
+            <%= render partial: 'visits/amenities/amenity_booking', locals: { amenity: amenity, presenter: presenter } %>
           <% end %>
-        </div>
-        <div class="add-booking-card">
-          <%= image_tag "icon-plus.svg", data: { action: "click->amenity-booking#addAmenityBooking"} %> <span><%= t(".add_another") %></span>
-        </div>
+        <% end %>
+        <%= link_to amenity_booking_new_visit_path(amenity_id: presenter.amenity_id), method: :get, class: "add-booking-card" do %>
+          <%= image_tag "icon-plus.svg" %>
+          <span><%= t(".add_another") %></span>
+        <% end %>
       </div>
     </div>
   </label>

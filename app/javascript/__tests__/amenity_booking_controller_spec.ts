@@ -131,7 +131,6 @@ describe("AmenityBookingController", () => {
             <option value="23:00">11:00 PM</option>
           </select>
           <input type="button" id="close-btn-2" data-action="click->amenity-booking#removeAmenityBooking">
-          <input type="button" id="add-btn" data-action="click->amenity-booking#addAmenityBooking">
         </section>
       </section>`)
   })
@@ -173,19 +172,6 @@ describe("AmenityBookingController", () => {
       expect(arriveOn.value).toEqual("")
       expect(arriveAt.value).toEqual("12:00")
       expect(arriveAt.value).toEqual("12:00")
-    })
-  })
-
-  describe("#addAmenityBooking", () => {
-    it("add amenity card when click on add-icon-btn", () => {
-      const bookingCards = document.getElementsByClassName("booking-card")
-      const addbtn = document.getElementById("add-btn")
-
-      expect(bookingCards.length).toEqual(2)
-      addbtn.click()
-      expect(bookingCards.length).toEqual(3)
-      addbtn.click()
-      expect(bookingCards.length).toEqual(4)
     })
   })
 })
