@@ -19,7 +19,15 @@ class VisitsController < ApplicationController
     @presenter = VisitShowPresenter.new(visit)
   end
 
+  def amenity_booking
+    @presenter = Visits::AmenityPresenter.new(amenity, user: current_user)
+  end
+
   private
+
+  def amenity
+    @amenity ||= Amenity.find_by(id: params[:amenity_id])
+  end
 
   def visit_params
     params.require(:visit).permit(
@@ -38,13 +46,7 @@ class VisitsController < ApplicationController
         :amenity_id,
         :amenity_visit_id,
         :amenity_rate_id,
-        amenity_visits: [
-          :arrives_on,
-          :arrives_at,
-          :departs_on,
-          :departs_at,
-          :number_of_people,
-        ],
+        { amenity_visits: {} },
       ],
     )
   end

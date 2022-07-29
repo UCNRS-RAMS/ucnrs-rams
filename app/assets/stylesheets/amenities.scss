@@ -179,8 +179,11 @@
 
           .add-booking-card {
             align-items: center;
+            color: $black;
             display: flex;
             padding: 10px 0px 10px 20px;
+            text-decoration: none;
+            width: fit-content;
           }
         }
       }

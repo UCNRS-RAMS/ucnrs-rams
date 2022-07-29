@@ -171,26 +171,51 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
   end
 
   it "close the amenity after clicking on cross button in date range" do
-      reserve = create(:reserve, name: "Silver Lake Area")
-      project = create(:project, reserve: reserve)
-      amenity = create(:amenity, reserve: reserve, title: "title 1")
-      amenity_rate_category = create(:amenity_rate_category, reserve: reserve, state_university: true)
-      amenity_rate = create(:amenity_rate, amenity: amenity, amenity_rate_category: amenity_rate_category)
-      user = create(:user, :confirmed)
-      create(:reserve_personnel, user: user, reserve: reserve)
+    reserve = create(:reserve, name: "Silver Lake Area")
+    project = create(:project, reserve: reserve)
+    amenity = create(:amenity, reserve: reserve, title: "title 1")
+    amenity_rate_category = create(:amenity_rate_category, reserve: reserve, state_university: true)
+    amenity_rate = create(:amenity_rate, amenity: amenity, amenity_rate_category: amenity_rate_category)
+    user = create(:user, :confirmed)
+    create(:reserve_personnel, user: user, reserve: reserve)
 
-      sign_in(user)
+    sign_in(user)
 
-      flow = RequestVisitFlow.new(page)
-      flow.visit_new_visit_page
-      flow.select_project_type("Research")
-      flow.select_reserve("Silver Lake Area")
-      flow.select_amenity("title 1")
+    flow = RequestVisitFlow.new(page)
+    flow.visit_new_visit_page
+    flow.select_project_type("Research")
+    flow.select_reserve("Silver Lake Area")
+    flow.select_amenity("title 1")
 
-      flow.inside_amenity(amenity) do
-        expect(page.find("#amenity-#{amenity.id}")).to be_checked
-        page.find(".cross-icon button").click
-        expect(page.find("#amenity-#{amenity.id}")).not_to be_checked
-      end
+    flow.inside_amenity(amenity) do
+      expect(page.find("#amenity-#{amenity.id}")).to be_checked
+      page.find(".cross-icon button").click
+      expect(page.find("#amenity-#{amenity.id}")).not_to be_checked
     end
+  end
+
+  it "adds another date range card on clicking the add another date range button " do
+    reserve = create(:reserve, name: "Silver Lake Area")
+    create(:project, reserve: reserve)
+    amenity = create(:amenity, reserve: reserve, title: "title 1")
+    amenity_rate_category = create(:amenity_rate_category, reserve: reserve, state_university: true)
+    create(:amenity_rate, amenity: amenity, amenity_rate_category: amenity_rate_category)
+    user = create(:user, :confirmed)
+    create(:reserve_personnel, user: user, reserve: reserve)
+
+    sign_in(user)
+
+    flow = RequestVisitFlow.new(page)
+    flow.visit_new_visit_page
+    flow.select_project_type("Research")
+    flow.select_reserve("Silver Lake Area")
+    flow.select_amenity("title 1")
+
+    flow.inside_amenity(amenity) do
+      expect(flow).to have_date_ranges(1)
+      flow.click_on_add_another_date_range
+      sleep(0.1)
+      expect(flow).to have_date_ranges(2)
+    end
+  end
 end
