@@ -6,21 +6,23 @@
     </section>
     <section class="reserve-info">
       <header><%= t(".rules_and_regulations") %></header>
-      <section>
+      <section class="reserve-info-subsection">
         <%= form_with model: @presenter.form, url: manager_reserve_reserve_info_rules_and_regulations_path(current_reserve), method: :patch do |form| %>
-          <div class="field">
-            <%= form.label :rules_url %>
-            <%= form.text_field :rules_url %>
+          <div class="form-group">
+            <%= form.label :rules_url, class: "form-label" %>
+            <%= form.text_field :rules_url, class: "form-input" %>
           </div>
-          <div class="field">
-            <%= form.label :code_of_conduct_url %>
-            <%= form.text_field :code_of_conduct_url %>
+          <div class="form-group">
+            <%= form.label :code_of_conduct_url, class: "form-label" %>
+            <%= form.text_field :code_of_conduct_url, class: "form-input" %>
           </div>
-          <div class="field">
-            <%= form.label :rules_and_regulations %>
-            <%= form.rich_text_area :rules_and_regulations %>
+          <div class="form-group">
+            <%= form.label :rules_and_regulations, class: "form-label" %>
+            <%= form.rich_text_area :rules_and_regulations, class: "form-input" %>
           </div>
-          <%= form.button t(".save_changes") %>
+          <div class="with-form-group-pad">
+            <%= form.button t(".save_changes") %>
+          </div>
         <% end %>
       </section>
     </section>
