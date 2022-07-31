@@ -7,7 +7,7 @@
     <section class="reserve-info">
       <header><%= t(".reserve_details") %></header>
       <%= form_with model: @presenter.form_reserve, url: manager_reserve_reserve_info_reserve_details_path(current_reserve) do |f| %>
-        <section class="reserve-info-subsection2">
+        <section class="reserve-info-subsection">
           <header class="with-form-group-pad">
             <%= t(".alert_message") %>
             <small><%= t(".alert_message_subheader") %></small>
@@ -30,7 +30,7 @@
             <button><%= t(".save_changes") %></button>
           </div>
         </section>
-        <section class="reserve-info-subsection2">
+        <section class="reserve-info-subsection">
           <header class="with-form-group-pad"><%= t(".general_information") %></header> 
           <div class="input-group">
             <div class="form-group">
@@ -149,7 +149,7 @@
             <button><%= t(".save_changes") %></button>
           </div>
         </section>
-        <section class="reserve-info-subsection2">
+        <section class="reserve-info-subsection">
           <header class="with-form-group-pad"><%= t(".billing_information") %></header>
           <div data-controller="followup-content" class="row input-group">
             <div class="col-50">
@@ -217,7 +217,7 @@
             <button><%= t(".save_changes") %></button>
           </div>
         </section>
-        <section class="reserve-info-subsection2">
+        <section class="reserve-info-subsection">
           <header class="with-form-group-pad"><%= t(".site_content") %></header>
           <div class="row">
             <div class="col form-group">
@@ -249,7 +249,7 @@
             <button><%= t(".save_changes") %></button>
           </div>
         </section>
-        <section class="reserve-info-subsection2">
+        <section class="reserve-info-subsection">
           <header class="with-form-group-pad"><%= t(".directions") %></header>
           <div>
             <div class="form-group">
@@ -265,7 +265,7 @@
             <button><%= t(".save_changes") %></button>
           </div>
         </section>
-        <section class="reserve-info-subsection2">
+        <section class="reserve-info-subsection">
           <header class="with-form-group-pad"><%= t(".location") %></header>
           <div class="row">
             <div class="col form-group">

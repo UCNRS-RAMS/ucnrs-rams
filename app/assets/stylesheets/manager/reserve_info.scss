@@ -77,116 +77,8 @@
     }
   }
 
-  .reserve-info-subsection2 {
-    background-color: $light-gray;
-    margin-bottom: 2rem;
-    padding: 2rem 1.5rem;
-  
-    header {
-      font-size: 1rem;
-      font-weight: $semi-bold;
-      margin-bottom: 1.5rem;
-  
-      small {
-        display: block;
-        font-size: .75rem;
-        font-weight: $light;
-      }
-    }
-  
-    > p:last-of-type {
-      margin-bottom: 1.75rem;
-    }
-  
-    .input-group {
-      margin-bottom: 2rem;
-    }
-  
-    .form-group {
-      margin-bottom: 1rem;
-    }
-  
-    .form-group, .with-form-group-pad {
-      padding: 0 .5rem;
-    }
-  
-    .form-label {
-      color: $dark-bluegray;
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: $normal;
-      margin-bottom: 0.15rem;
-    }
-  
-    .form-textarea {
-      background-color: $white;
-      border: 1px solid $darker-gray;
-      border-radius: 3px;
-      box-sizing: border-box;
-      min-height: 6rem;
-      padding: .625rem;
-      width: 100%;
-    }
-  
-    .form-input {
-      background-color: $white;
-      border: 1px solid $darker-gray;
-      border-radius: 3px;
-      box-sizing: border-box;
-      display: block;
-      padding: .625rem;
-      width: 100%;
-    }
-  
-    .form-input:disabled {
-      background-color: #eee;
-    }
-  
-    .row {
-      display: flex;
-  
-      .col {
-        flex: 1 0 0%;
-      }
-  
-      .col-25 {
-        box-sizing: border-box;
-        flex: 0 0 auto;
-        width: 25%;
-      }
-  
-      .col-33 {
-        box-sizing: border-box;
-        flex: 0 0 auto;
-        width: 33%;
-      }
-  
-      .col-50 {
-        box-sizing: border-box;
-        flex: 0 0 auto;
-        width: 50%;
-      }
-    }
-  
-    .row-medium, .row-auto {
-      padding-right: 1rem;
-  
-      > * {
-        width: 100%;
-      }
-    }
-  
-    .row-medium {
-      width: 423px;
-    }
-  
-    button {
-      background-color: $white;
-      border: 1px solid $darker-gray;
-      border-radius: 3px;
-      font-weight: $medium;
-      padding: .625rem;
-    }
+  table.waivers-table, table.amenity-rates-table, table.amenity-rate-categories-table, table.amenities-table {
+    @include table-style1;
   }
 
   .reserve-pictures {
@@ -208,7 +100,132 @@
     }
   }
 
-  table.amenity-rates-table, table.amenity-rate-categories-table, table.amenities-table,
+  trix-editor#reserve_rules_and_regulations {
+    height: 500px;
+  }
+}
+
+.manager.reserve_details, .manager.rules_and_regulations {
+  section.reserve-info-subsection {
+    background-color: $light-gray;
+    margin-bottom: 2rem;
+    padding: 2rem 1.5rem;
+
+    header {
+      font-size: 1rem;
+      font-weight: $semi-bold;
+      margin-bottom: 1.5rem;
+
+      small {
+        display: block;
+        font-size: .75rem;
+        font-weight: $light;
+      }
+    }
+  
+    > p:last-of-type {
+      margin-bottom: 1.75rem;
+    }
+
+    .input-group {
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group, .with-form-group-pad {
+      padding: 0 .5rem;
+    }
+
+    .form-label {
+      color: $dark-bluegray;
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: $normal;
+      margin-bottom: 0.15rem;
+    }
+
+    .form-textarea {
+      background-color: $white;
+      border: 1px solid $darker-gray;
+      border-radius: 3px;
+      box-sizing: border-box;
+      min-height: 6rem;
+      padding: .625rem;
+      width: 100%;
+    }
+
+    .form-input {
+      background-color: $white;
+      border: 1px solid $darker-gray;
+      border-radius: 3px;
+      box-sizing: border-box;
+      display: block;
+      padding: .625rem;
+      width: 100%;
+    }
+
+    .form-input:disabled {
+      background-color: #eee;
+    }
+
+    .row {
+      display: flex;
+
+      .col {
+        flex: 1 0 0%;
+      }
+
+      .col-25 {
+        box-sizing: border-box;
+        flex: 0 0 auto;
+        width: 25%;
+      }
+
+      .col-33 {
+        box-sizing: border-box;
+        flex: 0 0 auto;
+        width: 33%;
+      }
+
+      .col-50 {
+        box-sizing: border-box;
+        flex: 0 0 auto;
+        width: 50%;
+      }
+    }
+
+    .row-medium, .row-auto {
+      padding-right: 1rem;
+  
+      > * {
+        width: 100%;
+      }
+    }
+
+    .row-medium {
+      width: 423px;
+    }
+
+    button {
+      background-color: $white;
+      border: 1px solid $darker-gray;
+      border-radius: 3px;
+      font-weight: $medium;
+      padding: .625rem;
+    }
+  }
+}
+
+.manager.amenities_and_rates {
+  table.amenity-rates-table, table.amenity-rate-categories-table, table.amenities-table {
+    @include table-style1;
+  }
+}
+
+.manager.reserve_questions {
   table.reserve_questions_table {
     @include table-style1;
   }
