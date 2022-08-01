@@ -9,23 +9,25 @@ export default class extends Controller {
   declare amenityRadioBtnTargets: any
 
   connect(): void {
-      const checked = this.isChecked()
-      this.amenitiesDivTarget.style.display = checked ? "block" : "none"
-      this.minImageTarget.style.display = checked ? "block" : "none"
-      this.maxImageTarget.style.display = checked ? "none" : "block"
-    }
-    
-    toggle(){
-      const display = this.amenitiesDivTarget.style.display
-      if(!this.isChecked()) {
-        this.amenitiesDivTarget.style.display = display === "none" ? "block" : "none";
-        this.minImageTarget.style.display = this.amenitiesDivTarget.style.display;
-        this.maxImageTarget.style.display = display;
-      }
-    }
-    
-    isChecked(){
-      return this.amenityRadioBtnTargets.some((target: HTMLInputElement) => target.checked )
+    const checked = this.isChecked()
+    this.amenitiesDivTarget.style.display = checked ? "block" : "none"
+    this.minImageTarget.style.display = checked ? "block" : "none"
+    this.maxImageTarget.style.display = checked ? "none" : "block"
+  }
+
+  toggle() {
+    const display = this.amenitiesDivTarget.style.display
+    if (!this.isChecked()) {
+      this.amenitiesDivTarget.style.display =
+        display === "none" ? "block" : "none"
+      this.minImageTarget.style.display = this.amenitiesDivTarget.style.display
+      this.maxImageTarget.style.display = display
     }
   }
-  
+
+  isChecked() {
+    return this.amenityRadioBtnTargets.some(
+      (target: HTMLInputElement) => target.checked
+    )
+  }
+}
