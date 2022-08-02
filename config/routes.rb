@@ -33,7 +33,9 @@ Rails.application.routes.draw do
 
   namespace :visits do
     resources :reserve_inputs, only: [:show]
-    resources :amenities, only: [:index]
+    resources :amenities, only: [:index] do
+      get :subtotal, on: :collection
+    end
     resources :projects, only: [:index]
     resources :reserves, only: [:index]
   end

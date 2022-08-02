@@ -73,8 +73,8 @@ RSpec.describe Visits::AmenityPresenter do
       rate_descriptions = presenter.rate_descriptions
 
       expect(rate_descriptions).to eq [
-        "$12.34 per use/per four_hours",
-        "$0.01 per use/per four_hours",
+        "$12.34 per use/per 4 hours",
+        "$0.01 per use/per 4 hours",
       ]
     end
 

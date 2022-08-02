@@ -62,11 +62,11 @@ class Visits::AmenityPresenter
   end
 
   def unit
-    amenity.units_type
+    Amenity.units_types[amenity.units_type]
   end
 
   def period
-    amenity.time_type
+    Amenity.time_types[amenity.time_type]
   end
 
   def time_options
