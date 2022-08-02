@@ -218,4 +218,30 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
       expect(flow).to have_date_ranges(2)
     end
   end
+
+  it "re-calculates the subtotal on changing the fields in date range" do
+    reserve = create(:reserve, name: "Silver Lake Area")
+    create(:project, reserve: reserve)
+    amenity = create(:amenity, reserve: reserve, title: "title 1")
+    amenity_rate_category = create(:amenity_rate_category, reserve: reserve, state_university: true)
+    create(:amenity_rate, amenity: amenity, amenity_rate_category: amenity_rate_category)
+    user = create(:user, :confirmed)
+
+    sign_in(user)
+
+    flow = RequestVisitFlow.new(page)
+    flow.visit_new_visit_page
+    flow.select_project_type("Research")
+    flow.select_reserve("Silver Lake Area")
+    flow.select_amenity("title 1")
+
+    flow.inside_amenity(amenity) do
+      flow.increment_count
+      sleep(0.1)
+      expect(flow).to have_subtotal("25.00")
+      flow.decrement_count
+      sleep(0.1)
+      expect(flow).to have_subtotal("12.50")
+    end
+  end
 end
