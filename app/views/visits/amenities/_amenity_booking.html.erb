@@ -1,5 +1,5 @@
 <%= fields_for "visit[amenities][#{presenter.amenity_id}][amenity_visits][#{SecureRandom.hex}]", amenity do |form| %>
-  <div class="booking-card" data-amenity-booking-target="bookingCard">
+  <div class="booking-card" data-amenity-booking-target="bookingCard" data-controller="subtotal">
     <div class="flex-column-field">
       <div class="flex-row-field">
         <%= form.label :arrives_on %>
@@ -13,20 +13,20 @@
     <div class="flex-column-field">
       <%= form.label :arrive_at, t(".time_of_use") %>
       <div class="flex-row-field">
-        <%= form.collection_select(:arrives_at, presenter.time_options, :value, :human, { selected: form.object.arrives_at }, data: { "amenity-booking-target": "arriveAt" }, id: "visit_amenities_#{presenter.amenity_id}_arrives_at") %>
-        <%= form.collection_select(:departs_at, presenter.time_options, :value, :human, { selected: form.object.departs_at }, data: { "amenity-booking-target": "departsAt" }, id: "visit_amenities_#{presenter.amenity_id}_departs_at") %>
+        <%= form.collection_select(:arrives_at, presenter.time_options, :value, :human, { selected: form.object.arrives_at }, data: { "amenity-booking-target": "arriveAt", "subtotal-target": "arriveAt", action: "change->subtotal#calculateSubtotal" }, id: "visit_amenities_#{presenter.amenity_id}_arrives_at") %>
+        <%= form.collection_select(:departs_at, presenter.time_options, :value, :human, { selected: form.object.departs_at }, data: { "amenity-booking-target": "departsAt", "subtotal-target": "departsAt", action: "change->subtotal#calculateSubtotal" }, id: "visit_amenities_#{presenter.amenity_id}_departs_at") %>
       </div>
     </div>
-    <div data-controller="counter subtotal">
+    <div data-controller="counter">
       <div class="flex-row-field">
         <div class="flex-column-filed">
           <%= form.label :number_of_people, t(".number_of_people") %>
           <div class="flex-row-field">
-            <%= button_tag type: "button" do %>
+            <%= button_tag type: "button", class: "less" do %>
               <%= image_tag "icon-minus.svg", data: { action: "click->counter#decrement click->subtotal#calculateSubtotal" } %>
             <% end %>
-            <%= form.text_field :number_of_people, value: '1', data: { "counter-target": "output", "subtotal-target": "count", "amenity-booking-target": "count", action: "input->subtotal#calculateSubtotal" }, class:"counter", id: "visit_amenities_#{presenter.amenity_id}_number_of_people" %>
-            <%= button_tag type: "button" do %>
+            <%= form.text_field :number_of_people, value: "1", data: { "counter-target": "output", "subtotal-target": "count", "amenity-booking-target": "count", action: "input->subtotal#calculateSubtotal" }, class:"counter", id: "visit_amenities_#{presenter.amenity_id}_number_of_people" %>
+            <%= button_tag type: "button", class: "more" do %>
               <%= image_tag "icon-plus.svg", data: { action: "click->counter#increment click->subtotal#calculateSubtotal" } %>
             <% end %>
           </div>
@@ -34,7 +34,8 @@
         <div class="field">
           <label><%= t(".subtotal") %></label>
           <p data-subtotal-target = "initialVal", data-amenity-booking-target = "initialVal" hidden> <%= presenter.selected_rate_in_number %></p>
-          <span data-subtotal-target = "subtotal", data-amenity-booking-target = "subtotal" ><%= presenter.selected_rate_in_number %></span>
+          <p data-subtotal-target = "unitType" hidden> <%= presenter.period %></p>
+          <span class="subtotal" data-subtotal-target="subtotal", data-amenity-booking-target="subtotal" ><%= num_of_units(presenter.default_date.to_time, presenter.default_date.to_time, presenter.period) %></span>
         </div>
         <div class="cross-icon">
           <%= button_tag type: "button" do %>

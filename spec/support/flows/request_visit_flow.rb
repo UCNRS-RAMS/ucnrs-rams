@@ -189,6 +189,18 @@ class RequestVisitFlow
     page.find(".add-booking-card").click
   end
 
+  def increment_count
+    page.find(".more").click
+  end
+
+  def decrement_count
+    page.find(".less").click
+  end
+
+  def has_subtotal?(text)
+    page.has_css?(".subtotal", text: text)
+  end
+
   private
 
   attr_reader :capybara_page
