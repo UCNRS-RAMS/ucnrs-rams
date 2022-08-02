@@ -24,7 +24,7 @@ module ApplicationHelper
       num_units               = 1
 
     when "hour"
-      num_units               = (arr_time - arr_time) / 1.hour
+      num_units               = (dep_time - arr_time) / 1.hour
 
     when "day"
       num_units               = (dep_time.to_date - arr_time.to_date).to_i + 1

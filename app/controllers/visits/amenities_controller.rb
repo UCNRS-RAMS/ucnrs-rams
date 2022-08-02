@@ -1,4 +1,5 @@
 class Visits::AmenitiesController < ApplicationController
+  include ApplicationHelper
   before_action :authenticate_user!
   layout false
 
@@ -7,6 +8,10 @@ class Visits::AmenitiesController < ApplicationController
       reserve_id: reserve_id,
       user: current_user,
     )
+  end
+
+  def subtotal
+    render json: { data: num_of_units(params[:arrive].to_time, params[:departs].to_time, params[:unit].strip) }, status: :ok 
   end
 
   private
