@@ -22,6 +22,10 @@
     <%= reserve_question_row.answer_required ? t(".required") : t(".optional") %>
   </td>
   <td>
-    <%= t(".edit") %>
+    <%= link_to(
+      t("edit"), 
+      edit_manager_reserve_reserve_info_reserve_question_path(current_reserve, reserve_question_row.id),
+      data: { "turbo-frame": "modal-content" }
+    ) %>
   </td>
 </tr>

@@ -7,6 +7,8 @@ RSpec.describe ReserveQuestion, type: :model do
 
   describe "validations" do
     it { is_expected.to validate_presence_of(:question_type) }
+    it { is_expected.to validate_presence_of(:question) }
+    it { is_expected.to validate_presence_of(:location) }
     it { is_expected.to validate_booleanish_values(:answer_required) }
     it { is_expected.to validate_booleanish_values(:public_use) }
     it { is_expected.to validate_booleanish_values(:university_class) }

@@ -221,6 +221,10 @@ en:
       edit_waiver:
         title: "Edit Waiver"
         accessible_description: "A modal pop-up form to edit waiver for this reserve."
+    reserve_questions:
+      edit_reserve_question:
+        title: "Edit Reserve Question"
+        accessible_description: "A modal pop-up form to edit details of a reserve question."
   reserves:
     personnel_card:
       alt_text:
@@ -1384,6 +1388,11 @@ en:
           reserve_questions: "Reserve Questions"
           about_questions: "About Questions"
           about_questions_paragraph1: "Add additional questions to projects visits specific for your reserve. They can be yes/no questions or text based answer."
+        edit:
+          visit: "Visits"
+          project: "Projects"
+          boolean: "Yes/No"
+          text: "Text"
         reserve_questions_table:
           location: "Location"
           order: "Order"
@@ -1397,6 +1406,37 @@ en:
           optional: "Optional"
           required: "Required"
           edit: "Edit"
+        reserve_question_field:
+          sort_order: "Sort Order"
+          question_location: "Question Location"
+          question_type: "Question Type"
+          reserve_question: "Reserve question"
+          additional_information: "Additional Information"
+          description_helper_text: "helper text"
+          answer_required: "Answer Required?"
+          project_type_location: "Project type location"
+          research_project: "Research Project"
+          class_project: "Class Project"
+          public_use_project: "Public Use Project"
+          conference_project: "Conference Project"
+          housing_project: "Housing Project"
+          flag: "Flag"
+          iacuc: "IACUC"
+          drone: "Drone"
+          scuba: "Scuba"
+          vertebrate: "Vertebrate"
+          threatened: "Threatened"
+          required: "Required"
+          optional: "Optional"
+          does_this_question_involves: "Does this question involves?"
+          mammals: "Mammals"
+          reptiles: "Reptiles"
+          amphibians: "Amphibians"
+          fish: "Fish"
+          birds: "Birds"
+          plants_fungus_soil: "Plants, Fungus, Soil"
+          enabled: "Enabled"
+          disabled: "Disabled"
       staff_and_notifications:
         index:
           staff_and_notifications: "Staff & Notifications"
