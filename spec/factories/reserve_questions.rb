@@ -3,6 +3,7 @@ FactoryBot.define do
     visible { true }
     location { :project }
     question_type { :boolean }
+    sequence(:question) { |n| "Question #{n}" }
     association :reserve
     answer_required { false }
     public_use { true }

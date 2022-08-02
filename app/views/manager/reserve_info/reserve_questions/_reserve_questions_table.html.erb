@@ -1,15 +1,17 @@
-<table class="reserve_questions_table">
-  <thead>
-    <tr>
-      <th><%= t(".location") %></th>
-      <th><%= t(".order") %></th>
-      <th><%= t(".type") %></th>
-      <th><%= t(".question") %></th>
-      <th><%= t(".status") %></th>
-      <th><%= t(".new") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render partial: "reserve_question_row", collection: reserve_questions %>
-  </tbody>
-</table>
+<turbo-frame id="reserve_questions-table">
+  <table class="reserve_questions_table">
+    <thead>
+      <tr>
+        <th><%= t(".location") %></th>
+        <th><%= t(".order") %></th>
+        <th><%= t(".type") %></th>
+        <th><%= t(".question") %></th>
+        <th><%= t(".status") %></th>
+        <th><%= t(".new") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "reserve_question_row", collection: reserve_questions %>
+    </tbody>
+  </table>
+</turbo-frame>
