@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe AmenityForm, type: :model do
+RSpec.describe Visits::AmenityForm, type: :model do
   describe "validations" do
     it { is_expected.to validate_presence_of(:amenity_id) }
     it { is_expected.to validate_presence_of(:arrives_on) }
@@ -14,7 +14,7 @@ RSpec.describe AmenityForm, type: :model do
       params = {
         amenity_id: amenity.id,
       }
-      form = AmenityForm.new(params: params, user: user)
+      form = Visits::AmenityForm.new(params: params, user: user)
 
       expect(form.amenity_visit).to have_attributes(
         amenity_id: amenity.id,
@@ -29,7 +29,7 @@ RSpec.describe AmenityForm, type: :model do
         arrives_on: arrival_time,
         departs_on: departure_time,
       }
-      form = AmenityForm.new(params: params)
+      form = Visits::AmenityForm.new(params: params)
 
       expect(form.amenity_visit).to have_attributes(
         arrives_on: Date.new(2020, 10, 13),
@@ -46,7 +46,7 @@ RSpec.describe AmenityForm, type: :model do
         arrives_on: arrival,
         departs_on: departure,
       }
-      form = AmenityForm.new(params: params)
+      form = Visits::AmenityForm.new(params: params)
 
       expect(form.arrives_on).to eq "2020-10-13"
       expect(form.departs_on).to eq "2021-01-02"
@@ -55,13 +55,13 @@ RSpec.describe AmenityForm, type: :model do
 
   describe "#checked" do
     it "is 'checked' if there is an amenity_id" do
-      form = AmenityForm.new(params: { amenity_id: 1 })
+      form = Visits::AmenityForm.new(params: { amenity_id: 1 })
 
       expect(form.checked).to eq "checked"
     end
 
     it "is nil if there is no amenity_id" do
-      form = AmenityForm.new
+      form = Visits::AmenityForm.new
 
       expect(form.checked).to be_nil
     end
@@ -70,7 +70,7 @@ RSpec.describe AmenityForm, type: :model do
   describe "#validate" do
     it "has no errors if everything passes validation" do
       amenity = create(:amenity, rates: [12.34])
-      form = AmenityForm.new(params: {
+      form = Visits::AmenityForm.new(params: {
         amenity_id: amenity.id,
         amenity_rate_id: amenity.amenity_rates.first.id,
         arrives_on: 1.day.from_now.strftime("%Y-%m-%d"),
@@ -86,7 +86,7 @@ RSpec.describe AmenityForm, type: :model do
     end
 
     it "validates the form and the model and gathers errors" do
-      form = AmenityForm.new
+      form = Visits::AmenityForm.new
 
       form.validate
 
@@ -103,16 +103,16 @@ RSpec.describe AmenityForm, type: :model do
   end
 
   describe "aliases" do
-    it "aliases AmenityForm#validate to AmenityForm#valid?" do
-      validate = AmenityForm.instance_method(:validate)
-      expect(AmenityForm.instance_method(:valid?)).to eq validate
+    it "aliases Visits::AmenityForm#validate to Visits::AmenityForm#valid?" do
+      validate = Visits::AmenityForm.instance_method(:validate)
+      expect(Visits::AmenityForm.instance_method(:valid?)).to eq validate
     end
   end
 
   describe "#save" do
     it "persists a valid AmenityVisit to the database" do
       amenity = create(:amenity, rates: [12.34])
-      form = AmenityForm.new(params: {
+      form = Visits::AmenityForm.new(params: {
         amenity_id: amenity.id,
         amenity_rate_id: amenity.amenity_rates.first.id,
         arrives_on: 1.day.from_now.strftime("%Y-%m-%d"),
@@ -130,7 +130,7 @@ RSpec.describe AmenityForm, type: :model do
 
   describe "#parse_date (implicitly through setters)" do
     it "parses a date in %Y-%m-%d format" do
-      form = AmenityForm.new
+      form = Visits::AmenityForm.new
 
       form.arrives_on = "1999-2-1"
 
@@ -141,7 +141,7 @@ RSpec.describe AmenityForm, type: :model do
     end
 
     it "returns nil if there is an error in parsing the date" do
-      form = AmenityForm.new
+      form = Visits::AmenityForm.new
 
       form.arrives_on = "CHRISTMAS!"
 
@@ -152,7 +152,7 @@ RSpec.describe AmenityForm, type: :model do
 
   describe "#parse_time (implicitly through setters)" do
     it "parses a time in %H:%M format" do
-      form = AmenityForm.new
+      form = Visits::AmenityForm.new
 
       form.arrives_at = "15:51"
 
@@ -162,7 +162,7 @@ RSpec.describe AmenityForm, type: :model do
     end
 
     it "returns nil if there is an error in parsing the time" do
-      form = AmenityForm.new
+      form = Visits::AmenityForm.new
 
       form.arrives_at = "Midnight"
 

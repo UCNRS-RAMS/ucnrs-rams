@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AmenityForm
+class Visits::AmenityForm
   include ActiveModel::Model
   DEFAULT_TIME = "12:00"
 

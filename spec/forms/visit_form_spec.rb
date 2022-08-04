@@ -72,7 +72,7 @@ RSpec.describe VisitForm, type: :model do
   end
 
   describe "assigning amenities" do
-    it "returns an AmenityForm for each amenity_id" do
+    it "returns an Visits::AmenityForm for each amenity_id" do
       params = {
         amenities: {
           1 => {
@@ -101,9 +101,9 @@ RSpec.describe VisitForm, type: :model do
       }
       form = VisitForm.new(user: build(:user), params: params)
 
-      expect(form.amenity_form("1").first).to be_a(AmenityForm)
+      expect(form.amenity_form("1").first).to be_a(Visits::AmenityForm)
       expect(form.amenity_form("1").first.amenity_id).to eq 1
-      expect(form.amenity_form("101").first).to be_a(AmenityForm)
+      expect(form.amenity_form("101").first).to be_a(Visits::AmenityForm)
       expect(form.amenity_form("101").first.amenity_id).to eq 101
     end
   end

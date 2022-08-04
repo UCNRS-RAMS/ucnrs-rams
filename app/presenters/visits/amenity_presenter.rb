@@ -1,7 +1,7 @@
 class Visits::AmenityPresenter
   def initialize(amenity, form: nil, user: nil)
     @amenity = amenity
-    @form = form || [AmenityForm.new]
+    @form = form || [Visits::AmenityForm.new]
     @user = user
   end
 
