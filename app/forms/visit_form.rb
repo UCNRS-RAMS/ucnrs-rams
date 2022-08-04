@@ -164,7 +164,7 @@ class VisitForm
       forms["#{amenity_id}"] = params[:amenity_visits].values.map do |amenity_visit_params|
         amenity_visit_params[:amenity_id] = params[:amenity_id]
         amenity_visit_params[:amenity_rate_id] = params[:amenity_rate_id]
-        AmenityForm.new(
+        Visits::AmenityForm.new(
           user: user,
           params: amenity_visit_params,
         )

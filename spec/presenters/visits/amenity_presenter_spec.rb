@@ -13,7 +13,7 @@ RSpec.describe Visits::AmenityPresenter do
   end
 
   describe "delegations to form" do
-    subject { Visits::AmenityPresenter.new(nil, form: AmenityForm.new) }
+    subject { Visits::AmenityPresenter.new(nil, form: Visits::AmenityForm.new) }
     it { is_expected.to delegate_method(:arrives_on).to(:form) }
     it { is_expected.to delegate_method(:departs_on).to(:form) }
     it { is_expected.to delegate_method(:number_of_people).to(:form) }
@@ -199,7 +199,7 @@ RSpec.describe Visits::AmenityPresenter do
       ])
       selected_rate = amenity.amenity_rates[1]
       expected_rate = amenity.amenity_rates[1]
-      form = [AmenityForm.new(params: { amenity_rate_id: selected_rate.id })]
+      form = [Visits::AmenityForm.new(params: { amenity_rate_id: selected_rate.id })]
       presenter = Visits::AmenityPresenter.new(amenity, user: user, form: form)
 
       selected_amenity_rate_id = presenter.selected_amenity_rate_id

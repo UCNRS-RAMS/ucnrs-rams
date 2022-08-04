@@ -7,7 +7,7 @@ RSpec.describe "app/views/visits/amenities/_amenity.html.erb", type: :view do
     amenity_rate_category = create(:amenity_rate_category, state_university: true)
     rate = create(:amenity_rate, amenity: amenity, rate: 0.01, amenity_rate_category: amenity_rate_category)
     selected_rate = create(:amenity_rate, amenity: amenity, rate: 12.50,  amenity_rate_category: amenity_rate_category)
-    form = AmenityForm.new(params: { amenity_rate_id: selected_rate.id })
+    form = Visits::AmenityForm.new(params: { amenity_rate_id: selected_rate.id })
     presenter = Visits::AmenityPresenter.new(amenity, form: [form])
 
 
