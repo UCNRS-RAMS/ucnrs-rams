@@ -19,7 +19,7 @@ module ApplicationHelper
   end
 
   def num_of_units(arr_time, dep_time, units_type)
-    case units_type.downcase
+    case units_type&.downcase
     when "each", "use", "session", "person", "facility", "unit", "mile"
       num_units               = 1
 

@@ -10,10 +10,8 @@ global.fetch = jest.fn(() =>
   })
 )
 
-const allowFetchToResolve = (timeout = 1) =>
+const allowFetchToResolveAfter = (timeout = 1) =>
   new Promise((r) => setTimeout(r, timeout))
-
-
 
 describe("SubtotalController", () => {
   beforeAll(() => {
@@ -93,23 +91,23 @@ describe("SubtotalController", () => {
     it("calculates the subtotal based on the count of people", async () => {
       const count = document.getElementById("count")
       const subtotal = document.getElementById("subtotal")
-      const initailVal = document.getElementById("initialVal")
-      const arriveOn = document.getElementById("arrive-on")
+      const initialVal = document.getElementById("initialVal")
+      const arrivesOn = document.getElementById("arrive-on")
       const departsOn = document.getElementById("departs-on")
       const unit = document.getElementById("unit")
 
       count.value = "1"
-      initailVal.textContent = "5"
-      arriveOn.value = '2022-12-12'
+      initialVal.textContent = "5"
+      arrivesOn.value = '2022-12-12'
       departsOn.value = '2022-12-13'
       unit.innerText = "night"
 
       const up = document.getElementById("up")
 
       up.click()
-      await allowFetchToResolve(10)
+      await allowFetchToResolveAfter()
 
-      expect(fetch).toHaveBeenCalledWith( "/visits/amenities/subtotal?arrive=2022-12-12 12:00&departs=2022-12-13 12:00&unit=night", {"headers": {"Content-Type": "application/json"}})
+      expect(fetch).toHaveBeenCalledWith( `/visits/units?arrive=${encodeURIComponent('2022-12-12 12:00')}&departs=${encodeURIComponent('2022-12-13 12:00')}&unit=night`, {"headers": {"Content-Type": "application/json"}})
       expect(subtotal.innerText).toEqual("50.00")
     })
   })

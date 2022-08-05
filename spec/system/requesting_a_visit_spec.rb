@@ -229,7 +229,7 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     create(:project, reserve: reserve)
     amenity = create(:amenity, reserve: reserve, title: "title 1")
     amenity_rate_category = create(:amenity_rate_category, reserve: reserve, state_university: true)
-    create(:amenity_rate, amenity: amenity, amenity_rate_category: amenity_rate_category)
+    create(:amenity_rate, amenity: amenity, amenity_rate_category: amenity_rate_category, rate: 10)
     user = create(:user, :confirmed)
 
     sign_in(user)
@@ -242,11 +242,9 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
 
     flow.inside_amenity(amenity) do
       flow.increment_count
-      sleep(0.1)
-      expect(flow).to have_subtotal("25.00")
+      expect(flow).to have_subtotal("20.00")
       flow.decrement_count
-      sleep(0.1)
-      expect(flow).to have_subtotal("12.50")
+      expect(flow).to have_subtotal("10.00")
     end
   end
 end
