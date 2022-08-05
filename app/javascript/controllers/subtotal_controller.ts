@@ -21,7 +21,7 @@ export default class extends Controller {
   async getSubtotal(){
     const arrive = `${this.arriveOnTarget.value} ${this.arriveAtTarget.value}`
     const departs = `${this.departsOnTarget.value} ${this.departsAtTarget.value}`
-    const url = `/visits/amenities/subtotal?arrive=${arrive}&departs=${departs}&unit=${this.unitTypeTarget.innerText.trim()}`
+    const url = `/visits/units?arrive=${encodeURIComponent(arrive)}&departs=${encodeURIComponent(departs)}&unit=${this.unitTypeTarget.innerText.trim()}`
     return fetch(url,
       { 
         headers: {
