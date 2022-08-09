@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_10_054834) do
+ActiveRecord::Schema.define(version: 2022_08_08_235509) do
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 2022_07_10_054834) do
     t.string "title", limit: 200, default: ""
     t.string "comment", default: ""
     t.integer "total_capacity", limit: 2, default: 0, null: false
-    t.column "units_type", "enum('hour','day','night','week','month','quarter','semi-annual','year','session','use','4 hours','8 hours','person','mile','square foot','unit','facility','')", comment: "Units for this Asset"
+    t.column "units_type", "enum('session','use','person','mile','square foot','unit','facility')"
     t.column "time_type", "enum('hour','day','night','week','month','quarter','semi-annual','year','4 hours','8 hours','each')", default: "day"
     t.integer "sort_order", limit: 3, default: 255, null: false, unsigned: true
     t.boolean "visible", default: true, null: false, comment: "Visable to Admin and User (1) or just Admin (0)"
