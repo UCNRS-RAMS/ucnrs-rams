@@ -56,6 +56,12 @@ en:
               must_be_in_country: "must exist as a state, province, or territory of the address country"
             billing_address_state_id:
               must_be_in_country: "must exist as a state, province, or territory of the billing address country"
+        user_visit:
+          attributes:
+            arrives_at:
+              must_be_after_visit_start_date: "must be after visit start date"
+            departs_at:
+              must_be_before_visit_end_date: "must be before visit end date"
   activemodel:
     <<: *errors
   time:
@@ -82,6 +88,7 @@ en:
       visit_form_input_date: "%Y-%m-%d"
       visit_form_output_date: "%Y-%m-%d"
       project_visit_start_date: "%b %d, %Y"
+      user_visit_date: "%m/%d/%Y"
       date_range:
         month_name: "%b"
   date_range:
@@ -228,6 +235,14 @@ en:
       new_reserve_question:
         title: "New Reserve Question"
         accessible_description: "A modal pop-up form to create a reserve question."
+    edit_user_visit:
+      title: "Change Date Range"
+      name: "Name"
+      institution: "Institution"
+      role: "Role"
+      save: "Save"
+      cancel: "Cancel"
+      accessible_description: A modal pop-up form to edit details of a visitor.
   reserves:
     personnel_card:
       alt_text:
@@ -364,6 +379,39 @@ en:
     index:
       title: "Visit Requests"
       most_recent_filter: "Most recent"
+    user_visits:
+      index:
+        title: "Who are you bringing with you?"
+        reserve: "Reserve"
+        arrive_departs_date: "Arrival & Departure"
+        next_step: "Next: Reserve Info"
+        back: Go Back
+      user_visits_table:
+        visitor_table: "Visitor List"
+      user_visit:
+        change: "Change"
+        confirm_removal: "Are you sure you want to remove %{name}?"
+      links:
+        add_team_member: Add Team Member
+        add_guest: Add Guest
+        add_group: Add Group
+      team_member:
+        add_to_visitor: Add To Visitor List
+      guest:
+        visitor_name: Visitor Name
+        role: Role
+        search_by_name: Search by name
+        select_user_role: "- Select Role -"
+        add_visitor: Add Visitor
+        cannot_find_them: Can't find them?
+        create_new_user: Create new user
+      group:
+        number_in_group: Number in Group
+        instituation_name: Institution Name
+        role: Role
+        select_user_role: "- Select Role -"
+        add_group: Add Group
+        search_by_name: Search by name
     amenities:
       amenity_booking:
          time_of_use: "Time of use"
@@ -507,6 +555,9 @@ en:
       step_2: "Visitors"
       step_3: "Reserve Info"
       step_4: "Waivers & Policies"
+  user_visits:
+    user_visit:
+      group_name: "Group of %{count}"
   reserve_inputs:
     show:
       labels:

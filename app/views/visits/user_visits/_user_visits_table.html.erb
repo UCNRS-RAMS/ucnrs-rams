@@ -1,0 +1,10 @@
+<turbo-frame id="user-visits-table">
+  <section class="user-visits-table">
+    <h2><%= t(".visitor_table") %></h2>
+    <table>
+      <tbody>
+        <%= render partial: "/visits/user_visits/user_visit", collection: presenter.user_visits %>
+      </tbody>
+    </table>
+  </section>
+</turbo-frame>

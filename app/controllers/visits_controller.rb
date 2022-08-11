@@ -8,7 +8,7 @@ class VisitsController < ApplicationController
   def create
     @form = VisitForm.new(user: current_user, params: visit_params)
     if @form.save
-      redirect_to root_url
+      redirect_to visit_user_visits_path(@form.visit, format: :html)
     else
       @presenter = VisitsFormPresenter.new(user: current_user, form: @form)
       render :new, status: :unprocessable_entity

@@ -151,6 +151,10 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     flow.select_project_type("University Class")
     flow.select_project("Fun")
     flow.select_reserve("Silver Lake Area")
+    flow.set_usage_dates(
+      arrival: now + 1.day,
+      departure: now + 5.days,
+    )
     flow.set_purpose("To swim")
     click_on("Fun Things")
     flow.select_amenity("Beach Access")
