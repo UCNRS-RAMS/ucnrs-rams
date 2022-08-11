@@ -12,6 +12,7 @@ class Reserve < ApplicationRecord
   belongs_to :address_state, class_name: "State", optional: true
   belongs_to :billing_address_state, class_name: "State", optional: true
   has_many :amenities
+  has_many :amenity_rate_categories
   has_many :personnel, class_name: "ReservePersonnel"
   has_and_belongs_to_many :waivers
   has_many :fundings

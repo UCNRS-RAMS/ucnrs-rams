@@ -25,7 +25,7 @@ RSpec.describe Manager::ReserveInfo::AmenitiesAndRatesIndexPresenter, type: :pre
       amenity_rate_category3 = create(:amenity_rate_category, reserve: reserve, sort_order: 3, visible: true)
       amenity_rate_category4 = create(:amenity_rate_category, reserve: reserve, sort_order: 4, visible: false)
       amenity_rate_category5 = create(:amenity_rate_category, reserve: reserve, sort_order: 1, visible: false)
-      amenity_rate_category6 = create(:amenity_rate_category, sort_order: 1, visible: false)
+      amenity_rate_category6 = create(:amenity_rate_category, sort_order: 6, visible: false)
       presenter = Manager::ReserveInfo::AmenitiesAndRatesIndexPresenter.new(reserve: reserve)
 
       results = presenter.amenity_rate_categories
@@ -53,7 +53,7 @@ RSpec.describe Manager::ReserveInfo::AmenitiesAndRatesIndexPresenter, type: :pre
 
       results = presenter.amenity_rates
 
-      expect(results.keys).to eq ["amenity a", "amenity b"]
+      expect(results.keys).to match_array ["amenity a", "amenity b"]
       expect(results.values.flatten).to all(be_a(AmenityRatePresenter))
       expect(results["amenity a"].map(&:id)).to eq [amenity_rate3.id, amenity_rate1.id]
       expect(results["amenity b"].map(&:id)).to eq [amenity_rate2.id, amenity_rate4.id]
