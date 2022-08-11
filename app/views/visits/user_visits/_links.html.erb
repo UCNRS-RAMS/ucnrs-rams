@@ -1,0 +1,8 @@
+<div class="toolbar-button">
+  <%= link_to t(".add_team_member"), @presenter.new_user_visit_path("team_member"), 
+      class: @presenter.add_visitor_link_class("team_member"), method: :get %>
+  <%= link_to t(".add_guest"), @presenter.new_user_visit_path("guest"),
+      class: @presenter.add_visitor_link_class("guest"), method: :get %>
+  <%= link_to t(".add_group"), @presenter.new_user_visit_path("group"),
+      class: @presenter.add_visitor_link_class("group"), method: :get %>
+</div>

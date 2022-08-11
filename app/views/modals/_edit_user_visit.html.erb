@@ -1,0 +1,57 @@
+<turbo-frame id="modal-content" class="modal-content" role="dialog" aria-labelledby="modal-title">
+  <div data-modal-target="dialog openOnLoad">
+    <%= form_with model: presenter.form, url: presenter.user_visit_form_path, method: "patch" do |form| %>
+      <%= form.hidden_field :id %>
+      <p class="screenreader-text">
+        <span id="modal-title"><%= t(".title") %></span>
+        <span id="modal-description"><%= t(".accessible_description") %></span>
+      </p>
+      <section class="text">
+        <h2><%= t(".title") %></h2>
+        <table>
+          <tr>
+            <td><label><%= t(".name") %></label></td>
+            <td>
+              <span><%= presenter.user_full_name %></span>
+            </td>
+          </tr>
+          <tr>
+            <td><label><%= t(".institution") %></label></td>
+            <td>
+              <span><%= presenter.institution_name %></span>
+            </td>
+          </tr>
+          <tr>
+            <td><label><%= t(".role") %></label></td>
+            <td>
+              <span><%= presenter.role %></span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <div class="date-range-select">
+                <div class="field">
+                  <%= form.label :arrives_at %>
+                  <%= form.date_field :arrives_at %>
+                </div>
+                <span class="separator"></span>
+                <div class="field">
+                  <%= form.label :departs_at %>
+                  <%= form.date_field :departs_at %>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </section>
+      <section class="buttons">
+        <div class="close">
+          <%= link_to t(".cancel"), "#", data: { action: "click->modal#close" } %>
+        </div>
+        <button class="active" type="submit">
+          <%= t(".save") %>
+        </button>
+      </section>
+    <% end %>
+  </div>
+</turbo-frame>

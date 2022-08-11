@@ -1,0 +1,18 @@
+<%= render partial: 'visits/user_visits/links' %>
+<section id="add-guest">
+  <div class="flex-row">
+    <div class="field visitor-name">
+      <label><%= t(".visitor_name") %></label>
+      <%= text_field_tag :visitor_name, nil,placeholder: t(".search_by_name") %>
+    </div>
+    <div class="field role">
+      <label><%= t(".role") %></label>
+      <%= select_tag :role, options_for_select(@presenter.user_role_options), prompt: t(".select_user_role") %>
+    </div>
+    <button><%=t(".add_visitor") %></button>
+  </div>
+  <span>
+    <%= t(".cannot_find_them") %>
+    <%= link_to t(".create_new_user"), "./asd", data: { "turbo-frame": "modal-content" } %>
+  </span>
+</section>

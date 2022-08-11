@@ -32,6 +32,7 @@ RSpec.describe Visit, type: :model do
 
   describe "delegations" do
     it { is_expected.to delegate_method(:short_name).to(:reserve).with_prefix }
+    it { is_expected.to delegate_method(:name).to(:reserve).with_prefix }
   end
 
   describe "enums" do
@@ -80,9 +81,9 @@ RSpec.describe Visit, type: :model do
 
   describe ".ordered_by_visit_date" do
     it "returns records in reverse chronological order by user_visits earliest arrival" do
-      visit1 = create(:visit)
+      visit1 = create(:visit, start_date: 3.months.ago, end_date: Date.current)
       visitor1 = create(:user_visit, visit: visit1, arrives_at: 2.months.ago, departs_at: 1.month.ago)
-      visit2 = create(:visit)
+      visit2 = create(:visit, start_date: 3.months.ago, end_date: Date.current)
       visitor2 = create(:user_visit, visit: visit2, arrives_at: 2.weeks.ago, departs_at: 1.week.ago)
 
       results = Visit.ordered_by_visit_date

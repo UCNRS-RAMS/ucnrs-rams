@@ -1,0 +1,14 @@
+<tr class="user-visit" id=<%= dom_id(user_visit) %>>
+  <td><%= user_visit.user_visit_type %></td>
+  <td><strong><%= user_visit.user_full_name %></strong></td>
+  <td><%= user_visit.role %></td>
+  <td><%= user_visit.institution_name %></td>
+  <td><%= user_visit.date_range %></td>
+  <td>
+    <%= link_to t(".change"), user_visit.edit_user_visit_form_path, data: { "turbo-frame": "modal-content" } %>
+  </td>
+  <td>
+    <%= link_to image_tag("cross.svg"), user_visit.user_visit_form_path, method: :delete, 
+        data: { confirm: t(".confirm_removal", name: user_visit.user_full_name) } %>
+  </td>
+</tr>

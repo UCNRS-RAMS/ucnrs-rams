@@ -1,0 +1,30 @@
+<%= render partial: "visits/steps", locals: { presenter: @presenter } %>
+<section class="visit-info">
+  <h1><%= t(".title")%></h1>
+  <table>
+    <tr>
+      <td><%= t(".reserve") %></td>
+      <td><%= @presenter.visit_reserve_name %></td>
+    </tr>
+    <tr>
+      <td><%= t(".arrive_departs_date") %></td>
+      <td><%= @presenter.visit_date_range %></td>
+    </tr>
+  </table>
+</section>
+<section class="add-visitor">
+  <turbo-frame id="add-visitor">
+    <%= render partial: "visits/user_visits/team_member" %>
+  </turbo-frame>
+</section>
+<%= render partial: "visits/user_visits/user_visits_table", locals: { presenter: @presenter } %>
+<section class="controls">
+  <%= link_to "/" do %>
+    <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t("alt.left_facing_arrow")  %>
+    <%= t(".back") %>
+  <% end %>
+  <%= button_tag class: "active" do %>
+    <%= t(".next_step") %>
+    <%= image_tag "arrow-right.svg", alt: t("alt.right_facing_arrow") %>
+  <% end %>
+</section>

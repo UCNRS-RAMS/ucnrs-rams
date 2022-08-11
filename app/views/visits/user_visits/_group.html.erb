@@ -1,0 +1,20 @@
+<%= render partial: 'visits/user_visits/links' %>
+<section id="add-group">
+  <div class="flex-row">
+    <div class="field number-in-group">
+      <label><%= t(".number_in_group") %></label>
+      <%= text_field_tag :number_in_group, nil %>
+    </div>
+    <div class="field instituation-name">
+      <label><%= t(".instituation_name") %></label>
+      <%= text_field_tag :number_in_group, nil ,placeholder: t(".search_by_name") %>
+    </div>
+    <div class="field role">
+      <label><%= t(".role") %></label>
+      <%= select_tag :role, options_for_select(@presenter.user_role_options), prompt: t(".select_user_role") %>
+    </div>
+    <div class="add-group">
+      <button><%= t(".add_group") %></button>
+    </div>
+  </div>
+</section>
