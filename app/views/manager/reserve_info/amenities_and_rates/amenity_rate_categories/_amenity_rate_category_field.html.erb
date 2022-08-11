@@ -1,0 +1,68 @@
+<div>
+  <div>
+    <%= form.radio_button(:visible, true) %>
+    <%= form.label(:visible_true, t("enabled")) %>
+  </div>
+  <div>
+    <%= form.radio_button(:visible, false) %>
+    <%= form.label(:visible_false, t("disabled")) %>
+  </div>
+  <div>
+    <%= form.label :sort_order, t(".sort_order") %>
+    <%= form.number_field :sort_order %>
+  </div>
+
+  <hr />
+
+  <div>
+    <%= form.label :description, t(".name_of_rate_category") %>
+    <%= form.text_field :description %>
+  </div>
+  <div>
+    <div class="form-label"><%= t(".default_for_institution_type") %></div>
+  </div>
+  <div>
+    <%= form.check_box(:state_university) %>
+    <%= form.label(:state_university, t(".university_of_california")) %>
+  </div>
+  <div>
+    <%= form.check_box(:state_college) %>
+    <%= form.label(:state_college, t(".california_state_university")) %>
+  </div>
+  <div>
+    <%= form.check_box(:community_college) %>
+    <%= form.label(:community_college, t(".california_community_college")) %>
+  </div>
+  <div>
+    <%= form.check_box(:other_state_institution) %>
+    <%= form.label(:other_state_institution, t(".california_other_university_or_college")) %>
+  </div>
+  <div>
+    <%= form.check_box(:outside_state) %>
+    <%= form.label(:outside_state, t(".us_university_or_college_outside_california")) %>
+  </div>
+  <div>
+    <%= form.check_box(:international) %>
+    <%= form.label(:international, t(".international_university_or_college")) %>
+  </div>
+  <div>
+    <%= form.check_box(:K12) %>
+    <%= form.label(:K12, t(".k12_education")) %>
+  </div>
+  <div>
+    <%= form.check_box(:nongovernmental) %>
+    <%= form.label(:nongovernmental, t(".non_profit_or_non_govermental")) %>
+  </div>
+  <div>
+    <%= form.check_box(:governmental) %>
+    <%= form.label(:governmental, t(".governmental_agency_or_entity")) %>
+  </div>
+  <div>
+    <%= form.check_box(:business) %>
+    <%= form.label(:business, t(".business_entity")) %>
+  </div>
+  <div>
+    <%= form.check_box(:other) %>
+    <%= form.label(:other, t(".individual_or_other_entity")) %>
+  </div>
+</div>

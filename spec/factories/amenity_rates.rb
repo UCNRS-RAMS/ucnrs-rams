@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :amenity_rate do
     transient do
       description { "Normal Price" }
-      sort_order { 1 }
+      sequence(:sort_order) { |n| n }
       visible { true }
       state_university { false }
       state_college { false }

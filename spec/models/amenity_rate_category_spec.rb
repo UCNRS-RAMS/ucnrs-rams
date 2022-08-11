@@ -5,6 +5,25 @@ RSpec.describe AmenityRateCategory, type: :model do
     it { is_expected.to belong_to(:reserve) }
   end
 
+  describe "validations" do
+    subject { create(:amenity_rate_category) }
+
+    it { is_expected.to validate_uniqueness_of(:sort_order).scoped_to(:visible) }
+    it { is_expected.to validate_presence_of(:description) }
+    it { is_expected.to validate_booleanish_values(:visible) }
+    it { is_expected.to validate_booleanish_values(:state_university) }
+    it { is_expected.to validate_booleanish_values(:state_college) }
+    it { is_expected.to validate_booleanish_values(:community_college) }
+    it { is_expected.to validate_booleanish_values(:other_state_institution) }
+    it { is_expected.to validate_booleanish_values(:outside_state) }
+    it { is_expected.to validate_booleanish_values(:international) }
+    it { is_expected.to validate_booleanish_values(:K12) }
+    it { is_expected.to validate_booleanish_values(:nongovernmental) }
+    it { is_expected.to validate_booleanish_values(:governmental) }
+    it { is_expected.to validate_booleanish_values(:business) }
+    it { is_expected.to validate_booleanish_values(:other) }
+  end
+
   describe ".for_reserve" do
     it "returns records for given reserve" do
       reserve = create(:reserve)

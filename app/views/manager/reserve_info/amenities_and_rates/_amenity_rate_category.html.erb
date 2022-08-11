@@ -12,5 +12,5 @@
   <td><%= image_tag amenity_rate_category.category_icon(amenity_rate_category.governmental), alt: t(amenity_rate_category.category_icon_alt_i18n_key(amenity_rate_category.governmental)), width: 14, height: 14 %></td>
   <td><%= image_tag amenity_rate_category.category_icon(amenity_rate_category.business), alt: t(amenity_rate_category.category_icon_alt_i18n_key(amenity_rate_category.business)), width: 14, height: 14 %></td>
   <td><%= image_tag amenity_rate_category.category_icon(amenity_rate_category.other), alt: t(amenity_rate_category.category_icon_alt_i18n_key(amenity_rate_category.other)), width: 14, height: 14 %></td>
-  <td><%= t("edit") %></td>
+  <td><%= link_to t("edit"), edit_manager_reserve_reserve_info_amenity_rate_category_path(current_reserve, amenity_rate_category.id), data: { "turbo-frame": "modal-content" } %></td>
 </tr>

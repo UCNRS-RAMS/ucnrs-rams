@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :amenity_rate_category do
     reserve
     description { "Normal Price" }
+    sequence(:sort_order) { |n| n }
     visible { true }
     state_university { false }
     state_college { false }

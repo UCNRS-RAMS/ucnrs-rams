@@ -12,7 +12,7 @@ RSpec.describe AmenityRate, type: :model do
       amenity2 = create(:amenity, sort_order: 1)
       amenity_rate_category1 = create(:amenity_rate_category, sort_order: 2)
       amenity_rate_category2 = create(:amenity_rate_category, sort_order: 1)
-      amenity_rate_category3 = create(:amenity_rate_category, sort_order: 2)
+      amenity_rate_category3 = create(:amenity_rate_category, sort_order: 3)
       amenity_rate1 = create(:amenity_rate, amenity: amenity1, amenity_rate_category: amenity_rate_category1)
       amenity_rate2 = create(:amenity_rate, amenity: amenity1, amenity_rate_category: amenity_rate_category2)
       amenity_rate3 = create(:amenity_rate, amenity: amenity1, amenity_rate_category: amenity_rate_category3)
