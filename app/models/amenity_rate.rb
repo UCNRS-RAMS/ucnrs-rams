@@ -3,7 +3,8 @@ class AmenityRate < ApplicationRecord
   belongs_to :amenity_rate_category
 
   def self.in_order
-    joins(:amenity_rate_category)
+    joins(:amenity_rate_category, :amenity)
+      .order(Amenity.arel_table[:sort_order])
       .order(AmenityRateCategory.arel_table[:sort_order])
       .order(:amenity_rate_category_id)
   end

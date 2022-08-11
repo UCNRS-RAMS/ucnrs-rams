@@ -40,8 +40,8 @@ RSpec.describe Manager::ReserveInfo::AmenitiesAndRatesIndexPresenter, type: :pre
   describe "#amenity_rates" do
     it "returns given reserve amenity_rates in order, grouped according to amenity" do
       reserve = create(:reserve)
-      amenity_a = create(:amenity, reserve: reserve, title: "amenity a")
-      amenity_b = create(:amenity, reserve: reserve, title: "amenity b")
+      amenity_a = create(:amenity, reserve: reserve, title: "amenity a", sort_order: 1)
+      amenity_b = create(:amenity, reserve: reserve, title: "amenity b", sort_order: 2)
       amenity_rate_category1 = create(:amenity_rate_category, reserve: reserve, sort_order: 1)
       amenity_rate_category2 = create(:amenity_rate_category, reserve: reserve, sort_order: 2)
       amenity_rate1 = create(:amenity_rate, amenity: amenity_a, amenity_rate_category: amenity_rate_category2)
