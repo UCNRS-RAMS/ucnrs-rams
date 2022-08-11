@@ -7,17 +7,22 @@ RSpec.describe AmenityRate, type: :model do
   end
 
   describe ".in_order" do
-    it "returns records in order by amenity_rate_category sort_order first then in order by amenity_rate_category_id" do
+    it "returns records in order by first amenity sort_order, second amenity_rate_category sort_order, third in order by amenity_rate_category_id" do
+      amenity1 = create(:amenity, sort_order: 2)
+      amenity2 = create(:amenity, sort_order: 1)
       amenity_rate_category1 = create(:amenity_rate_category, sort_order: 2)
       amenity_rate_category2 = create(:amenity_rate_category, sort_order: 1)
       amenity_rate_category3 = create(:amenity_rate_category, sort_order: 2)
-      amenity_rate1 = create(:amenity_rate, amenity_rate_category: amenity_rate_category1)
-      amenity_rate2 = create(:amenity_rate, amenity_rate_category: amenity_rate_category2)
-      amenity_rate3 = create(:amenity_rate, amenity_rate_category: amenity_rate_category3)
+      amenity_rate1 = create(:amenity_rate, amenity: amenity1, amenity_rate_category: amenity_rate_category1)
+      amenity_rate2 = create(:amenity_rate, amenity: amenity1, amenity_rate_category: amenity_rate_category2)
+      amenity_rate3 = create(:amenity_rate, amenity: amenity1, amenity_rate_category: amenity_rate_category3)
+      amenity_rate4 = create(:amenity_rate, amenity: amenity2, amenity_rate_category: amenity_rate_category1)
+      amenity_rate5 = create(:amenity_rate, amenity: amenity2, amenity_rate_category: amenity_rate_category2)
+      amenity_rate6 = create(:amenity_rate, amenity: amenity2, amenity_rate_category: amenity_rate_category3)
 
       results = AmenityRate.in_order
 
-      expect(results).to eq [amenity_rate2, amenity_rate1, amenity_rate3]
+      expect(results).to eq [amenity_rate5, amenity_rate4, amenity_rate6, amenity_rate2, amenity_rate1, amenity_rate3]
     end
   end
 
