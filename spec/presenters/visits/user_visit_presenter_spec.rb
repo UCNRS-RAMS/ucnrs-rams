@@ -82,6 +82,14 @@ RSpec.describe Visits::UserVisitPresenter do
     end
   end
 
+  describe "#user_role" do
+    it "return user role as in user_visit" do
+      user_visit = create(:user_visit)
+      presenter = Visits::UserVisitPresenter.new(user_visit)
+      expect(presenter.user_role).to eq "Faculty"
+    end
+  end
+
   describe "#edit_user_visit_form_path" do
     it "returns edit_user_visit_path" do
       user_visit = create(:user_visit)

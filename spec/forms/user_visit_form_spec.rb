@@ -3,12 +3,10 @@ require "rails_helper"
 RSpec.describe UserVisitForm, type: :model do
   describe "validations" do
     describe "edit" do
-      let(:user_visit) { create(:user_visit) }
+      let(:visit) { create(:visit, start_date: 3.months.ago) }
+      let(:user_visit) { create(:user_visit, visit: visit) }
       subject { UserVisitForm.new(params: { id: user_visit.id }) }
 
-      it { is_expected.to validate_numericality_of(:institution_id) }
-      it { is_expected.to validate_numericality_of(:visit_id) }
-      it { is_expected.to validate_numericality_of(:user_id) }
       it { is_expected.to validate_presence_of(:arrives_at) }
       it { is_expected.to validate_presence_of(:departs_at) }
     end
@@ -21,7 +19,7 @@ RSpec.describe UserVisitForm, type: :model do
 
       form.validate
 
-      expect(form.errors[:institution_id]).to eq ["can't be blank", "is not a number"]
+      expect(form.errors[:institution_id]).to eq ["can't be blank"]
       expect(form.errors[:arrives_at]).to eq ["can't be blank"]
     end
 
@@ -96,7 +94,7 @@ RSpec.describe UserVisitForm, type: :model do
   describe "#arrives_at=" do
     it "sets arrives_at after adding visit start_time to it as default" do
       form = UserVisitForm.new(params: { id: create(:user_visit).id })
-      visit_start_time = Time.current.change({ sec: 0 })
+      visit_start_time = Time.current
       arrives_at = Date.current
       form.arrives_at = arrives_at
 
@@ -115,7 +113,7 @@ RSpec.describe UserVisitForm, type: :model do
   describe "#departs_at=" do
     it "sets departs_at after adding visit end_time to it as default" do
       form = UserVisitForm.new(params: { id: create(:user_visit).id })
-      visit_end_time = Time.current.change({ sec: 0 })
+      visit_end_time = Time.current
       departs_at = Date.current
       form.departs_at = departs_at
 
@@ -141,6 +139,7 @@ RSpec.describe UserVisitForm, type: :model do
             arrives_at: Date.current,
             departs_at: Date.current + 2.days,
             role: "Other",
+            count: 1,
           },
         )
 

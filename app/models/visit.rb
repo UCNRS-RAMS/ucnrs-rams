@@ -85,6 +85,14 @@ class Visit < ApplicationRecord
       .map(&:id)
   end
 
+  def starts_at
+    "#{start_date} #{start_time.to_s[10..]}".to_datetime
+  end
+
+  def ends_at
+    "#{end_date} #{end_time.to_s[10..]}".to_datetime
+  end
+
   enum status: {
     approved: "approved",
     in_review: "in_review",

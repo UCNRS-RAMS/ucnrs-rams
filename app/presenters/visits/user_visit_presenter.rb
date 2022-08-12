@@ -17,13 +17,25 @@ class Visits::UserVisitPresenter
       Projects::TeamMembershipPresenter.new(
         user_team_membership,
       ).project_role
+    elsif group_user?
+      ActionController::Base.helpers.image_tag "icon-users"
     else
-      ActionController::Base.helpers.image_tag visitor_icon
+      ActionController::Base.helpers.image_tag "icon-user-navbar"
     end
   end
 
+  def user_role
+    UserVisit.roles[role]
+  end
+
   def user_full_name
-    group_user? ? I18n.t(".user_visits.user_visit.group_name", count: count) : user.full_name
+    if guest_user?
+      guest_name
+    elsif group_user?
+      I18n.t(".user_visits.user_visit.group_name", count: count)
+    else
+      user.full_name
+    end
   end
 
   def date_range
@@ -38,6 +50,10 @@ class Visits::UserVisitPresenter
     user_visit_path(id)
   end
 
+  def visit_user_visit_form_path
+    visit_user_visit_path(visit.id, id)
+  end
+
   private
 
   def visitor_icon
@@ -49,7 +65,11 @@ class Visits::UserVisitPresenter
   end
 
   def group_user?
-    user.id == 1
+    user.id == 1 && guest_name.blank?
+  end
+
+  def guest_user?
+    user.id == 1 && guest_name.present?
   end
 
   def formatted_date(datetime)

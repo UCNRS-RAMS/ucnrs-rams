@@ -39,10 +39,10 @@ Rails.application.routes.draw do
     resources :reserves, only: [:index]
   end
 
-  resources :user_visits, only: [:edit, :update, :destroy], controller: "visits/user_visits"
+  resources :user_visits, only: [:edit, :update], controller: "visits/user_visits"
   resources :visits, only: [:new, :create, :show] do
     get :amenity_booking, on: :new
-    resources :user_visits, only: [:new, :index], controller: "visits/user_visits"
+    resources :user_visits, only: [:new, :index, :create, :destroy], controller: "visits/user_visits"
   end
 
   devise_scope :user do

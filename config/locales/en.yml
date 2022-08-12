@@ -79,6 +79,7 @@ en:
       project_summary_date_time: "%b. %d, %Y at %l:%M %p"
       project_summary_date: "%b. %d, %Y"
       visit_summary_time: "%b. %d, %Y at %l:%M %p"
+      hours_minutes_seconds: "%H:%M:%S"
       date_range:
         month_name: "%b"
   date:
@@ -250,6 +251,18 @@ en:
       save: "Save"
       cancel: "Cancel"
       accessible_description: A modal pop-up form to edit details of a visitor.
+    new_user_visit:
+      title: Add Guest
+      accessible_description: A modal pop-up form to add new guest as visitor on this project.
+      subtitle: You are adding a Guest. Please add the following information
+      institution_name: Institution Name
+      select_user_role: "- Select Role -"
+      select_institution: "- Select Institution -"
+      role: Role
+      alt:
+        close_modal_icon: "Close Modal Icon"
+      cancel: Cancel
+      save: Save
   reserves:
     personnel_card:
       alt_text:
@@ -405,7 +418,7 @@ en:
       team_member:
         add_to_visitor: Add To Visitor List
       guest:
-        visitor_name: Visitor Name
+        guest_name: Visitor Name
         role: Role
         search_by_name: Search by name
         select_user_role: "- Select Role -"
@@ -414,11 +427,12 @@ en:
         create_new_user: Create new user
       group:
         number_in_group: Number in Group
-        instituation_name: Institution Name
+        institution_name: Institution Name
         role: Role
         select_user_role: "- Select Role -"
         add_group: Add Group
         search_by_name: Search by name
+        select_institution: "- Select Institution -"
     amenities:
       amenity_booking:
          time_of_use: "Time of use"

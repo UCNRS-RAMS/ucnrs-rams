@@ -29,7 +29,7 @@ RSpec.describe VisitPresenter do
     it "generates a date range for the visit" do
       start_datetime = Time.current.round
       end_datetime = Time.current.round + 1.day
-      visit = create(:visit, starts_at: start_datetime, ends_at: end_datetime)
+      visit = create(:visit, start_date: start_datetime, end_date: end_datetime)
       visit_presenter = VisitPresenter.new(visit)
 
       allow(DateRangePresenter).to receive(:value)

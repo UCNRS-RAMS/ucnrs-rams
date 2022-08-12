@@ -3,18 +3,20 @@
 class Visits::UserVisitsIndexPresenter
   include Rails.application.routes.url_helpers
 
-  def initialize(current_step:, visit:, add_visitor_partial: nil, current_user: nil)
+  def initialize(current_step:, current_user:, visit:)
     @visit = visit
     @current_step = current_step
-    @steps_presenter = StepsPresenter.new(@current_step)
-    @add_visitor_partial = add_visitor_partial || "team_member"
     @current_user = current_user
+    @steps_presenter = StepsPresenter.new(@current_step)
+    @form_presenter = initialize_form_presenter
   end
 
-  attr_reader :current_user, :visit, :add_visitor_partial
+  attr_reader :visit, :form_presenter, :steps_presenter, :current_step, :current_user
 
   delegate :svg, :step_class, to: :steps_presenter
   delegate :reserve_name, to: :visit, prefix: true
+
+  delegate_missing_to :form_presenter
 
   def user_visits
     visit.user_visits.includes([:user, :institution])
@@ -48,5 +50,13 @@ class Visits::UserVisitsIndexPresenter
 
   private
 
-  attr_reader :steps_presenter, :current_step
+  def initialize_form_presenter
+    form = UserVisitForm.new(params: { visit_id: visit.id })
+    Visits::UserVisitFormPresenter.new(
+      current_user: current_user,
+      add_visitor_partial: "team_members",
+      show_add_guest_modal: false,
+      form: form,
+    )
+  end
 end

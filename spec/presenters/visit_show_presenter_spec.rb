@@ -94,7 +94,7 @@ RSpec.describe VisitShowPresenter do
     it "display a formatted visit summary start and end time" do
       starts_at = Time.zone.local(2004, 11, 24, 1, 4, 44)
       ends_at = Time.zone.local(2004, 11, 24, 1, 4, 44) + 1.day
-      visit = create(:visit, starts_at: starts_at, ends_at: ends_at )
+      visit = create(:visit, start_time: starts_at, end_time: ends_at, start_date: starts_at.to_date, end_date: ends_at.to_date)
       presenter = VisitShowPresenter.new(visit)
 
       expect(presenter.timeframe).to eq "Nov. 24, 2004 at  1:04 AM - Nov. 25, 2004 at  1:04 AM"

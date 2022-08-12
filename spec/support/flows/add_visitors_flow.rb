@@ -60,6 +60,10 @@ class AddVisitorsFlow
     page.has_css?(css)
   end
 
+  def has_css?(css_class)
+    page.has_css?(css_class)
+  end
+
   def click_on_change(user_visit)
     within "#user_visit_#{user_visit.id}" do
       page.click_link "Change"

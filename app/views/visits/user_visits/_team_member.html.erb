@@ -1,13 +1,9 @@
-<%= render partial: 'visits/user_visits/links' %>
-<section id="add-team-member">
-  <table class="user-visits-table">
-    <tbody>
-      <tr class="user-visit">
-        <td>User Full Name</td>
-        <td>Company Name</td>
-        <td>Project Role</td>
-        <td><button><%= t(".add_to_visitor") %></button></td>
-      </tr>
-    </tbody>
-  </table>
-</section>
+<% team_members.each do |team_membership| %>
+  <tr class="user-visit <%= presenter.team_member_class(team_membership.user) %>">
+    <td><%= team_membership.user_full_name %></td>
+    <td><%= team_membership.institution_name %></td>
+    <td><%= team_membership.project_role %></td>
+    <td><%= button_to t(".add_to_visitor"), @presenter.user_visit_form_path, 
+              params: @presenter.add_team_member_params(team_membership) unless presenter.visitor?(team_membership.user) %></td>
+  </tr>
+<% end %>
