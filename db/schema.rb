@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_08_235509) do
+ActiveRecord::Schema.define(version: 2022_08_17_094014) do
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
@@ -913,6 +913,7 @@ ActiveRecord::Schema.define(version: 2022_08_08_235509) do
     t.datetime "updated_at"
     t.datetime "arrives_at"
     t.datetime "departs_at"
+    t.string "guest_name"
     t.index ["ArrivalDate"], name: "ArrivalDate"
     t.index ["DepartureDate"], name: "DepartureDate"
     t.index ["reserve_id", "ArrivalDate", "visit_id"], name: "reserve"

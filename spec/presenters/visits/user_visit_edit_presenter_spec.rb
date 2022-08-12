@@ -14,6 +14,7 @@ RSpec.describe Visits::UserVisitEditPresenter do
 
   describe "#editing_user_visit" do
     it "return Visits::UserVisitPresenter" do
+      create(:visit)
       form = UserVisitForm.new(params: { id: create(:user_visit).id })
       presenter = Visits::UserVisitEditPresenter.new(form: form)
 
@@ -23,7 +24,7 @@ RSpec.describe Visits::UserVisitEditPresenter do
 
   describe "#user_visit_form_path" do
     it "returns user_visit_path" do
-      user_visit = create(:user_visit)
+      user_visit = create(:user_visit, visit: create(:visit))
       form = UserVisitForm.new(params: { id: user_visit.id })
       presenter = Visits::UserVisitEditPresenter.new(form: form)
 

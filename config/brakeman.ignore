@@ -1,6 +1,29 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "2423bef4a65bd98c5d6b6d0941226b6a6e395677479363294ed7a708a71641c8",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/visits/user_visits_controller.rb",
+      "line": 83,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:user_visit).permit(:id, :arrives_at, :departs_at, :count, :role, :institution_id, :user_id, :visit_id, :guest_name)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Visits::UserVisitsController",
+        "method": "user_visit_params"
+      },
+      "user_input": ":role",
+      "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
+      "note": "Ignore role in user-visit related strong param assignment"
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "68fbf49bf299cfe84418c5f7d53e36bf7802c3992f82f1e99334b157d444e7fd",
@@ -18,6 +41,9 @@
       },
       "user_input": "project_permit_answers.map do\n ActiveRecord::Base.sanitize_sql([\"(?,?,?,NOW(),NOW())\", answer.project_id, answer.permit_id, answer.answer])\n end.join(\",\\n  \")",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -38,6 +64,9 @@
       },
       "user_input": "project_reserve_answers.map do\n ActiveRecord::Base.sanitize_sql([\"(?,?,?,?,?,?)\", answer.project_id, answer.reserve_question_id, answer.text_answer, answer.boolean_answer, Time.current, Time.current])\n end.join(\",\\n  \")",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -58,9 +87,12 @@
       },
       "user_input": ":role",
       "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
       "note": "Ignore role in user-related strong param assignment"
     }
   ],
-  "updated": "2022-02-11 08:36:06 -0500",
-  "brakeman_version": "5.2.0"
+  "updated": "2022-08-23 12:13:12 -0700",
+  "brakeman_version": "5.3.1"
 }

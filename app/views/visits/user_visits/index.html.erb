@@ -13,9 +13,7 @@
   </table>
 </section>
 <section class="add-visitor">
-  <turbo-frame id="add-visitor">
-    <%= render partial: "visits/user_visits/team_member" %>
-  </turbo-frame>
+  <%= render partial: "visits/user_visits/#{@presenter.add_visitor_partial}", locals: { presenter: @presenter } %>
 </section>
 <%= render partial: "visits/user_visits/user_visits_table", locals: { presenter: @presenter } %>
 <section class="controls">

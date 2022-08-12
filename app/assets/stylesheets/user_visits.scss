@@ -83,14 +83,24 @@
     table {
       @include table-style1;
 
+      tbody tr {
+        background-color: $table-row-even-background-neutral;
+      }
+
+      .visitor {
+        background-color: $light-gray;
+      }
+
       td:last-child {
         text-align: right;
       }
 
-      button {
+      a {
         border: 1px solid $dark-bluegray;
         border-radius: 1.5rem;
+        color: $dark-bluegray;
         padding: 0.2rem 1.5rem;
+        text-decoration: none;
       }
     }
 
@@ -137,6 +147,7 @@
 
       .field {
         input[type="text"],
+        input[type="number"],
         select {
           border: 1px solid $dark-bluegray;
           border-radius: 0.3125rem;
@@ -153,6 +164,10 @@
         border-radius: 1.5rem;
         padding: 0.2rem 1.5rem;
         width: 8rem;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
 
       .visitor-name {
@@ -171,7 +186,7 @@
         flex: 1;
       }
 
-      .instituation-name {
+      .institution-id {
         flex: 4;
       }
     }
@@ -182,8 +197,17 @@
       line-height: 1.25rem;
     }
 
-    a {
+    input[type="submit"] {
+      background-color: transparent;
+      border: 1px solid #556b72;
+      border-radius: 1.5rem;
       color: $sky-blue;
+      font-size: 0.75rem;
+      padding: 0.2rem 1.5rem;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 
