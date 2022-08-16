@@ -7,5 +7,5 @@
   <td><%= image_tag personnel.icon(personnel.receive_iacuc_email), alt: t(personnel.icon_alt_i18n_key(personnel.receive_iacuc_email)) %></td>
   <td><%= image_tag personnel.icon(personnel.receive_drone_email), alt: t(personnel.icon_alt_i18n_key(personnel.receive_drone_email)) %></td>
   <td><%= image_tag personnel.icon(personnel.receive_scuba_email), alt: t(personnel.icon_alt_i18n_key(personnel.receive_scuba_email)) %></td>
-  <td><%= t("edit") %></td>
+  <td><%= link_to t("edit"), edit_manager_reserve_reserve_info_staff_and_notification_path(current_reserve, personnel.id), data: { "turbo-frame": "modal-content" } %></td>
 </tr>

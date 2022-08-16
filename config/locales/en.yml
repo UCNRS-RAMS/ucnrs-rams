@@ -214,6 +214,10 @@ en:
       edit_amenity:
         title: "Edit Amenity"
         accessible_description: "A modal pop-up form to edit details of an amenity of this reserve."
+    staff_and_notifications:
+      edit_reserve_personnel:
+        title: "Edit Reserve Personnel"
+        accessible_description: A modal pop-up form to edit details of reserve personnel.
   reserves:
     personnel_card:
       alt_text:
@@ -1398,6 +1402,16 @@ en:
           receive_iacuc: "Receive IACUC"
           receive_drone: "Receive drone"
           receive_scuba: "Receive scuba"
+        reserve_personnel_field:
+          email: "Email"
+          phone_number: "Phone Number"
+          receive_new_visit_email: "New Visit"
+          receive_incomplete_visit_email: "Incomplete visit"
+          receive_update_email: "Visit Updates"
+          receive_approval_email: "Visit Approval"
+          receive_iacuc_email: "IACUC"
+          receive_drone_email: "Drone"
+          receive_scuba_email: "Scuba"
   shared:
     projects:
       permit_questions:
