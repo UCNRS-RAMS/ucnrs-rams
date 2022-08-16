@@ -48,7 +48,6 @@ RSpec.describe Manager::ReserveInfo::AmenitiesAndRatesIndexPresenter, type: :pre
       amenity_rate2 = create(:amenity_rate, amenity: amenity_b, amenity_rate_category: amenity_rate_category1)
       amenity_rate3 = create(:amenity_rate, amenity: amenity_a, amenity_rate_category: amenity_rate_category1)
       amenity_rate4 = create(:amenity_rate, amenity: amenity_b, amenity_rate_category: amenity_rate_category2)
-      amenity_rate5 = create(:amenity_rate)
       presenter = Manager::ReserveInfo::AmenitiesAndRatesIndexPresenter.new(reserve: reserve)
 
       results = presenter.amenity_rates
