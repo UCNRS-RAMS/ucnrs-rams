@@ -1,5 +1,5 @@
 <tr>
-  <td><%= personnel.user_full_name %><small><%= personnel.email %></small></td>
+  <td><%= personnel.user_full_name %><br /><small><%= personnel.email %></small><br /><small><%= personnel.phone_number %></small></td>
   <td><%= image_tag personnel.icon(personnel.receive_new_visit_email), alt: t(personnel.icon_alt_i18n_key(personnel.receive_new_visit_email)) %></td>
   <td><%= image_tag personnel.icon(personnel.receive_incomplete_visit_email), alt: t(personnel.icon_alt_i18n_key(personnel.receive_incomplete_visit_email)) %></td>
   <td><%= image_tag personnel.icon(personnel.receive_update_email), alt: t(personnel.icon_alt_i18n_key(personnel.receive_update_email)) %></td>
@@ -7,5 +7,8 @@
   <td><%= image_tag personnel.icon(personnel.receive_iacuc_email), alt: t(personnel.icon_alt_i18n_key(personnel.receive_iacuc_email)) %></td>
   <td><%= image_tag personnel.icon(personnel.receive_drone_email), alt: t(personnel.icon_alt_i18n_key(personnel.receive_drone_email)) %></td>
   <td><%= image_tag personnel.icon(personnel.receive_scuba_email), alt: t(personnel.icon_alt_i18n_key(personnel.receive_scuba_email)) %></td>
-  <td><%= link_to t("edit"), edit_manager_reserve_reserve_info_staff_and_notification_path(current_reserve, personnel.id), data: { "turbo-frame": "modal-content" } %></td>
+  <td>
+    <%= link_to t("edit"), edit_manager_reserve_reserve_info_staff_and_notification_path(current_reserve, personnel.id), data: { "turbo-frame": "modal-content" } %>
+    <%= link_to t("delete"), manager_reserve_reserve_info_staff_and_notification_path(current_reserve, personnel.id), method: :delete, data: { confirm: t("confirm_removal", name: personnel.user_full_name) } %>
+  </td>
 </tr>

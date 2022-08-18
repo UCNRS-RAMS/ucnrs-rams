@@ -9,6 +9,22 @@ class Manager::ReserveInfo::StaffAndNotificationsController < ApplicationControl
     )
   end
 
+  def new
+    form = ReservePersonnelForm.new
+    @presenter = Manager::ReserveInfo::StaffAndNotificationNewPresenter.new(form: form)
+  end
+
+  def create
+    form = ReservePersonnelForm.new(params: reserve_personnel_params.merge(reserve_id: current_reserve.id))
+
+    if form.save
+      redirect_to manager_reserve_reserve_info_staff_and_notifications_path(current_reserve)
+    else
+      @presenter = Manager::ReserveInfo::StaffAndNotificationNewPresenter.new(form: form)
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def edit
     form = ReservePersonnelForm.new(reserve_personnel: reserve_personnel)
     @presenter = Manager::ReserveInfo::StaffAndNotificationEditPresenter.new(form: form)
@@ -25,6 +41,15 @@ class Manager::ReserveInfo::StaffAndNotificationsController < ApplicationControl
     end
   end
 
+  def destroy
+
+    if reserve_personnel.destroy
+      redirect_to manager_reserve_reserve_info_staff_and_notifications_path(current_reserve)
+    else
+      redirect_to manager_reserve_reserve_info_staff_and_notifications_path(current_reserve), status: :unprocessable_entity
+    end
+  end
+
   private
 
   def reserve_personnel
@@ -33,8 +58,6 @@ class Manager::ReserveInfo::StaffAndNotificationsController < ApplicationControl
 
   def reserve_personnel_params
     params.require(:reserve_personnel).permit(
-      :id,
-      :reserve_id,
       :user_id,
       :supervisor_name,
       :receive_project_email,
