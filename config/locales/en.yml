@@ -225,6 +225,9 @@ en:
       edit_reserve_question:
         title: "Edit Reserve Question"
         accessible_description: "A modal pop-up form to edit details of a reserve question."
+      new_reserve_question:
+        title: "New Reserve Question"
+        accessible_description: "A modal pop-up form to create a reserve question."
   reserves:
     personnel_card:
       alt_text:
@@ -1388,6 +1391,11 @@ en:
           reserve_questions: "Reserve Questions"
           about_questions: "About Questions"
           about_questions_paragraph1: "Add additional questions to projects visits specific for your reserve. They can be yes/no questions or text based answer."
+        new:
+          visit: "Visits"
+          project: "Projects"
+          boolean: "Yes/No"
+          text: "Text"
         edit:
           visit: "Visits"
           project: "Projects"

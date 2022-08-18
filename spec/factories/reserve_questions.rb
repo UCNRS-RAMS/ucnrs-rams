@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :reserve_question do
     visible { true }
     location { :project }
+    sequence(:sort_order) { |n| n }
     question_type { :boolean }
     sequence(:question) { |n| "Question #{n}" }
     association :reserve

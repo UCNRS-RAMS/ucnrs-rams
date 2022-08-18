@@ -1,16 +1,11 @@
 <tr>
   <td>
-    <strong><%= reserve_question_row.location.capitalize %></strong>
     <% reserve_question_row.location_project_types.each do |project_type| %>
       <li><%= project_type %></li>
     <% end %>
   </td>
-  <td>
-    <%= reserve_question_row.sort_order %>
-  </td>
-  <td>
-    <%= reserve_question_row.type %>
-  </td>
+  <td><%= reserve_question_row.sort_order %></td>
+  <td><%= reserve_question_row.type %></td>
   <td>
     <strong><%= reserve_question_row.question %></strong>
     <br />
