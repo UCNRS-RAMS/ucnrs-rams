@@ -21,6 +21,7 @@ class ReservePersonnelForm
       reserve_personnel.save!
       true
     rescue ActiveRecord::RecordInvalid => e
+      copy_errors_to_self
       Rails.logger.error(e)
       false
     end
@@ -32,5 +33,9 @@ class ReservePersonnelForm
     params.each do |key, value|
       self.send("#{key}=", value)
     end
+  end
+
+  def copy_errors_to_self
+    errors[:user].each { |error| errors.add(:full_name, error) }
   end
 end

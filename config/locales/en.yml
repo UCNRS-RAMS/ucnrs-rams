@@ -217,6 +217,10 @@ en:
       edit_reserve_personnel:
         title: "Edit Reserve Personnel"
         accessible_description: A modal pop-up form to edit details of reserve personnel.
+      new_reserve_personnel:
+        title: "New Reserve Personnel"
+        accessible_description: A modal pop-up form to new details of reserve personnel.
+        search_by_name: "Name"
     waivers:
       edit_waiver:
         title: "Edit Waiver"
@@ -1933,3 +1937,7 @@ en:
   update: "Update"
   enabled: "Enabled"
   disabled: "Disabled"
+  new: "New"
+  create: "Create"
+  delete: "Delete"
+  confirm_removal: "Are you sure you want to remove %{name}?"
