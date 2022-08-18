@@ -4,6 +4,8 @@ class ReserveQuestion < ApplicationRecord
   validates :question_type, presence: true
   validates :question, presence: true
   validates :location, presence: true
+  validates :sort_order, uniqueness: { scope: [:reserve_id, :location] }
+  validates :visible, inclusion: [true, false]
   validates :answer_required, inclusion: [true, false]
   validates :public_use, inclusion: [true, false]
   validates :university_class, inclusion: [true, false]

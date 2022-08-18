@@ -78,7 +78,7 @@ Rails.application.routes.draw do
         resources :waivers, only: [:index, :edit, :update]
         resource :rules_and_regulations, only: [:edit, :update]
         resources :permits, only: [:index]
-        resources :reserve_questions, only: [:index, :edit, :update]
+        resources :reserve_questions, only: [:index, :new, :create, :edit, :update]
         resources :staff_and_notifications, only: [:index, :edit, :update]
       end
     end

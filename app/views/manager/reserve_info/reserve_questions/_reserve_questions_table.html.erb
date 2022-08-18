@@ -7,11 +7,20 @@
         <th><%= t(".type") %></th>
         <th><%= t(".question") %></th>
         <th><%= t(".status") %></th>
-        <th><%= t(".new") %></th>
+        <th>
+          <%= link_to(
+            t(".new"),
+            new_manager_reserve_reserve_info_reserve_question_path(current_reserve),
+            data: { "turbo-frame": "modal-content" }
+          ) %>
+        </th>
       </tr>
     </thead>
     <tbody>
-      <%= render partial: "reserve_question_row", collection: reserve_questions %>
+      <% reserve_questions.each do |location, reserve_questions | %>
+        <tr><td colspan="6"><%= location.capitalize %></td></tr>
+        <%= render partial: "reserve_question_row", collection: reserve_questions %>
+      <% end %>
     </tbody>
   </table>
 </turbo-frame>

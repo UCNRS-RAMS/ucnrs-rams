@@ -4,15 +4,17 @@ RSpec.describe Manager::ReserveInfo::ReserveQuestionsIndexPresenter do
   describe "#reserve_questions" do
     it "creates a ReserveQuestionPresenter for each reserve_question" do
       reserve = create(:reserve)
-      reserve_question1 = create(:reserve_question, reserve: reserve)
+      reserve_question1 = create(:reserve_question, reserve: reserve, location: "visit")
       reserve_question2 = create(:reserve_question)
-      reserve_question3 = create(:reserve_question, reserve: reserve)
+      reserve_question3 = create(:reserve_question, reserve: reserve, location: "project")
       presenter = Manager::ReserveInfo::ReserveQuestionsIndexPresenter.new(reserve: reserve)
 
       results = presenter.reserve_questions
 
-      expect(results).to all(be_a(ReserveQuestionPresenter))
-      expect(results.map(&:id)).to eq [reserve_question1.id, reserve_question3.id]
+      expect(results.keys).to eq ["project", "visit"]
+      expect(results.values.flatten).to all(be_a(ReserveQuestionPresenter))
+      expect(results["project"].map(&:id)).to eq [reserve_question3.id]
+      expect(results["visit"].map(&:id)).to eq [reserve_question1.id]
     end
   end
 

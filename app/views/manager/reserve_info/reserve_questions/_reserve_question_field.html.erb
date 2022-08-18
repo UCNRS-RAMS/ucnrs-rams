@@ -1,5 +1,6 @@
 <div>
-  <div>
+  <%= form.label(:visible) do %>
+    <div>
       <%= form.radio_button(:visible, true) %>
       <%= form.label(:visible_true, t(".enabled")) %>
     </div>
@@ -7,13 +8,14 @@
       <%= form.radio_button(:visible, false) %>
       <%= form.label(:visible_false, t(".disabled")) %>
     </div>
+  <% end %>
   <div>
     <%= form.label :sort_order, t(".sort_order") %>
     <%= form.number_field :sort_order %>
   </div>
   <div>
     <%= form.label :location, t(".question_location") %>
-    <%= form.select :location, presenter.location_options, {include_blank: "Select one"} %>
+    <%= form.select :location, presenter.location_options, { include_blank: "Select one" } %>
   </div>
 
   <hr />
@@ -32,7 +34,7 @@
     <small><%=t(".description_helper_text")%></small>
   </div>
   <div>
-    <div><%= t(".answer_required") %></div>
+    <div><%= form.label(:answer_required, t(".answer_required")) %></div>
     <div>
       <%= form.radio_button(:answer_required, true) %>
       <%= form.label(:answer_required_true, t(".required")) %>

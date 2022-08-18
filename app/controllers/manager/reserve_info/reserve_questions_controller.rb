@@ -9,6 +9,22 @@ class Manager::ReserveInfo::ReserveQuestionsController < ApplicationController
     )
   end
 
+  def new
+    form = ReserveQuestionForm.new
+    @presenter = Manager::ReserveInfo::ReserveQuestionNewPresenter.new(form: form)
+  end
+
+  def create
+    form = ReserveQuestionForm.new(params: reserve_question_params.merge(reserve_id: current_reserve.id))
+    
+    if form.save
+      redirect_to manager_reserve_reserve_info_reserve_questions_path(current_reserve)
+    else
+      @presenter = Manager::ReserveInfo::ReserveQuestionNewPresenter.new(form: form)
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def edit
     form = ReserveQuestionForm.new(reserve_question: reserve_question)
     @presenter = Manager::ReserveInfo::ReserveQuestionEditPresenter.new(form: form)

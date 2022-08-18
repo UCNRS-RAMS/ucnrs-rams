@@ -4,9 +4,9 @@ class Manager::ReserveInfo::ReserveQuestionsIndexPresenter
   end
 
   def reserve_questions
-    reserve_questions_scope.map do |reserve_question|
-      ReserveQuestionPresenter.new(reserve_question)
-    end
+    reserve_questions_scope
+      .map{ |reserve_question| ReserveQuestionPresenter.new(reserve_question) }
+      .group_by(&:location)
   end
 
   def reserve_questions_scope
