@@ -11,8 +11,6 @@ RSpec.describe "manager superbar", type: :view do
     render partial: "layouts/manager_superbar", locals: { current_user: user, current_reserve: reserve1 }
 
     expect(rendered).to have_link("", href: "/users/sign_out")
-    expect(rendered).to have_link("Go to: Public interface", href: "/")
-    expect(rendered).to have_link("Go to: Manager interface", href: "/manager/reserves/#{reserve1.id}/dashboard")
     expect(rendered).to have_link(reserve1.name, href: "/manager/reserves/#{reserve1.id}/dashboard")
     expect(rendered).to have_link(reserve2.name, href: "/manager/reserves/#{reserve2.id}/dashboard")
   end
