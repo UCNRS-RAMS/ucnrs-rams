@@ -1968,7 +1968,11 @@ en:
       reserve_info: "Reserve info"
       users: "Users"
       manager_view: "Manager view"
+      public_view: "Public view"
+      go_to_manager_view: "Go To: Manager View"
+      go_to_public_view: "Go To: Public View"
       welcome_back: "Welcome back, %{name}"
+      your_managed_reserves: "Your Managed Reserves"
   footer:
     link:
       all_rights: "© 2021 UCNRS. All rights reserved."
