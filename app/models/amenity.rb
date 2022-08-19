@@ -2,11 +2,14 @@ class Amenity < ApplicationRecord
   validates :title, presence: true
   validates :units_type, presence: true
   validates :time_type, presence: true
+  validates :sort_order, uniqueness: { scope: [:disable, :reserve_id] }
 
   belongs_to :reserve
   has_many :amenity_visits
   has_many :visits, through: :amenity_visits
   has_many :amenity_rates
+
+  after_create :create_rates_for_each_categories
 
   def self.visible
     where(visible: true)
@@ -53,4 +56,18 @@ class Amenity < ApplicationRecord
     vehicles_and_boats: "Vehicles & Boats",
     other_amenity: "Other Amenity",
   }
+
+  private
+
+  def create_rates_for_each_categories
+    AmenityRateCategory.where(reserve_id: self.reserve_id).each do |category|
+      next if rate_with_category_exist?(category)
+
+      AmenityRate.create(amenity_id: self.id, amenity_rate_category_id: category.id, rate: 0.0)
+    end
+  end
+
+  def rate_with_category_exist?(category)
+    self.amenity_rates.find_by(amenity_rate_category_id: category.id).present?
+  end
 end

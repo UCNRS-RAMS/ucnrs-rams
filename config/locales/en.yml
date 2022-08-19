@@ -208,6 +208,9 @@ en:
       edit_amenity:
         title: "Edit Amenity"
         accessible_description: "A modal pop-up form to edit details of an amenity of this reserve."
+      new_amenity:
+        title: "New Amenity"
+        accessible_description: "A modal pop-up form to create amenity for this reserve."
     activity:
       log: "Log"
       time: "Time:"
@@ -1332,6 +1335,8 @@ en:
           name: "Name"
           capacity: "Capacity"
           units_time: "units/time"
+          current_active_amenities: "Current Active Amenities"
+          retired_amenities: "Retired Amenities"
           amenity_field:
             select_one: "Select One"
             enabled: "Enabled"
