@@ -2,9 +2,12 @@ require "rails_helper"
 
 RSpec.describe Amenity do
   describe "validations" do
+    subject { build(:amenity) }
+
     it { is_expected.to validate_presence_of(:title) }
     it { is_expected.to validate_presence_of(:units_type) }
     it { is_expected.to validate_presence_of(:time_type) }
+    it { is_expected.to validate_uniqueness_of(:sort_order).scoped_to([:disable, :reserve_id]) }
   end
 
   describe "associations" do
@@ -12,6 +15,22 @@ RSpec.describe Amenity do
     it { is_expected.to have_many(:amenity_rates) }
     it { is_expected.to have_many(:amenity_visits) }
     it { is_expected.to have_many(:visits).through(:amenity_visits) }
+  end
+
+  describe "after_create :create_rates_for_each_categories" do
+    it "create amenity_rates for each of the newly created amenity reserve's amenity_rate_categories" do
+      reserve = create(:reserve)
+      amenity_rate_category1 = create(:amenity_rate_category, reserve: reserve)
+      amenity_rate_category2 = create(:amenity_rate_category, reserve: reserve)
+      amenity = create(:amenity, reserve: reserve)
+
+      amenity.reload
+
+      expect(amenity.amenity_rates.map(&:amenity_rate_category_id)).to match_array [
+        amenity_rate_category1.id,
+        amenity_rate_category2.id,
+      ]
+    end
   end
 
   describe ".in_sort_order" do

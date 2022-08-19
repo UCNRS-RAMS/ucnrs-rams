@@ -6,6 +6,22 @@ module Manager
         before_action :authenticate_user!
         before_action :confirm_manager!
 
+        def new
+          form = AmenityForm.new
+          @presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityNewPresenter.new(form: form)
+        end
+
+        def create
+          form = AmenityForm.new(params: amenity_params.merge(reserve_id: current_reserve.id))
+          
+          if form.save
+            redirect_to manager_reserve_reserve_info_amenities_and_rates_path(current_reserve)
+          else
+            @presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityNewPresenter.new(form: form)
+            render :new, status: :unprocessable_entity
+          end
+        end
+
         def edit
           form = AmenityForm.new(amenity: amenity)
           @presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter.new(form: form)
@@ -14,22 +30,11 @@ module Manager
         def update
           form = AmenityForm.new(amenity: amenity, params: amenity_params)
           
-          respond_to do |format|
-            if form.save
-              format.turbo_stream { redirect_to manager_reserve_reserve_info_amenities_and_rates_path(current_reserve) }
-              format.html { redirect_to manager_reserve_reserve_info_amenities_and_rates_path(current_reserve) }
-            else
-              @presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter.new(form: form)
-
-              format.turbo_stream { render turbo_stream: turbo_stream.replace(
-                  "modal-content",
-                  partial: "modals/amenities/edit_amenity",
-                  locals: { presenter: @presenter },
-                ),
-                status: :unprocessable_entity
-              }
-              format.html { render template: "edit", status: :unprocessable_entity }
-            end
+          if form.save
+            redirect_to manager_reserve_reserve_info_amenities_and_rates_path(current_reserve)
+          else
+            @presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter.new(form: form)
+            render :edit, status: :unprocessable_entity
           end
         end
 

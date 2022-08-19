@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :amenity do
+    sequence(:sort_order)
     sequence(:title) { |n| "Amenity #{n}" }
     description { "Description" }
     time_type { "day" }
