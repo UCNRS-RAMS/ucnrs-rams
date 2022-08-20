@@ -1,4 +1,4 @@
-<tr>
+<tr id="<%= dom_id reserve_permit %>" class="<%= reserve_permit.enabled_disabled_class %>">
   <td>
     <%= reserve_permit.sort_order_override %>
     |
@@ -7,6 +7,5 @@
     <%= reserve_permit.permit_description %>
   </td>
   <td><%= image_tag reserve_permit.icon(reserve_permit.visible), alt: t(reserve_permit.icon_alt_i18n_key(reserve_permit.visible)) %></td>
-  <td><%= image_tag reserve_permit.icon(reserve_permit.collect_permit_information), alt: t(reserve_permit.icon_alt_i18n_key(reserve_permit.collect_permit_information)) %></td>
-  <td><%= t("edit") %></td>
+  <td><%= link_to t("edit"), edit_manager_reserve_reserve_info_permit_path(current_reserve, reserve_permit.id), data: { "turbo-frame": "modal-content" } %></td>
 </tr>

@@ -1,12 +1,17 @@
 # frozen_string_literal: true
 
 class ReservePermitPresenter
-  CHECK_ICON = "check.svg".freeze
-  UNCHECK_ICON = "dot.svg".freeze
+  CHECK_ICON = "check.svg"
+  UNCHECK_ICON = "dot.svg"
   ICON_TO_ALT = {
       CHECK_ICON => "alt.checked",
       UNCHECK_ICON => "alt.unchecked",
-    }.freeze
+    }
+
+  ENABLED_DISABLED_CLASS = {
+      true => "enabled",
+      false => "disabled",
+    }
 
   def initialize(reserve_permit)
     @reserve_permit = reserve_permit
@@ -32,8 +37,11 @@ class ReservePermitPresenter
     ICON_TO_ALT[icon(for_column)]
   end
 
+  def enabled_disabled_class
+    ENABLED_DISABLED_CLASS[visible?]
+  end
+
   private
 
   attr_reader :reserve_permit
-  
 end
