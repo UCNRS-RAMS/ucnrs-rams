@@ -243,6 +243,10 @@ en:
       new_reserve_question:
         title: "New Reserve Question"
         accessible_description: "A modal pop-up form to create a reserve question."
+    reserve_permits:
+      edit_reserve_permit:
+        title: "Edit Permit"
+        accessible_description: "A modal pop-up form to edit details of a permit to this reserve."
     edit_user_visit:
       create_new_institution: "Create New Institution"
       search_by_name: "Search by Name"
@@ -1464,8 +1468,17 @@ en:
           about_permits_paragraph: "This page shows which permits are displayed for your reserve, you can hide permits that are not relevant to you e.g. marine mammals for a desert reserve, You can also choose to collect permit number and date from the applicant. If you would like additional permits added to the system, please contact the RAMS IT help desk at ramshelp@ucner.org or add the permit in the questions section."
         reserve_permits:
           question: "Question"
-          visible: "Visible"
+          enabled: "Enabled"
           ask_for_permit: "Ask for permit"
+        reserve_permit_field:
+          sort_order: "Sort order"
+          reserve_specific_text: "Guidance specific to this reserve"
+          where_permit_is_displayed: "Where this permit will be displayed"
+          research_project: "Research Project"
+          class_project: "Class Project"
+          public_project: "Public project"
+          housing_only_project: "Housing Only project"
+          conference_project: "Conference Project"
       reserve_questions:
         index:
           reserve_questions: "Reserve Questions"

@@ -1,0 +1,11 @@
+<turbo-stream action="replace" target="modal-content">
+  <template>
+    <%= render partial: "modals/empty", formats: [:html] %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="reserve_permits-table">
+  <template>
+    <%= render partial: "reserve_permits", locals: { reserve_permits: @presenter.reserve_permits }, formats: [:html] %>
+  </template>
+</turbo-stream>

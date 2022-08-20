@@ -14,6 +14,7 @@ class Manager::ReserveInfo::PermitsIndexPresenter
       .with_permit_authority_column
       .includes([:permit])
       .order_by_permit_authority
+      .order(visible: :desc)
       .order(:sort_order_override)
   end
 

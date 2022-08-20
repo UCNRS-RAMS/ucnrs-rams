@@ -1,0 +1,44 @@
+<div>
+  <div>
+    <%= form.radio_button(:visible, true) %>
+    <%= form.label(:visible_true, t("enabled")) %>
+  </div>
+  <div>
+    <%= form.radio_button(:visible, false) %>
+    <%= form.label(:visible_false, t("disabled")) %>
+  </div>
+  <div>
+    <%= form.label :sort_order_override, t(".sort_order") %>
+    <%= form.number_field :sort_order_override, class: "form-input" %>
+  </div>
+
+  <hr />
+  
+  <div>
+    <%= form.label :reserve_specific_text, t(".reserve_specific_text") %>
+    <%= form.text_area :reserve_specific_text, class: "form-input" %>
+  </div>
+  <div>
+    <%= t('.where_permit_is_displayed') %>
+    <div>
+      <%= form.check_box(:research_project) %>
+      <%= form.label(:research_project, t(".research_project")) %>
+    </div>
+    <div>
+      <%= form.check_box(:class_project) %>
+      <%= form.label(:class_project, t(".class_project")) %>
+    </div>
+    <div>
+      <%= form.check_box(:public_project) %>
+      <%= form.label(:public_project, t(".public_project")) %>
+    </div>
+    <div>
+      <%= form.check_box(:housing_only_project) %>
+      <%= form.label(:housing_only_project, t(".housing_only_project")) %>
+    </div>
+    <div>
+      <%= form.check_box(:conference_project) %>
+      <%= form.label(:conference_project, t(".conference_project")) %>
+    </div>
+  </div>
+</div>
