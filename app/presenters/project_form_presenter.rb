@@ -23,6 +23,7 @@ class ProjectFormPresenter
       :research,
       :class,
       :meeting,
+      :public_use,
     ]
   end
 

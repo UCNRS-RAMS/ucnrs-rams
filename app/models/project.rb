@@ -108,6 +108,16 @@ class Project < ApplicationRecord
     validates :end_date, must_be_after: :start_date
   end
 
+  with_options(if: :public_use?) do
+    validates :title, presence: true
+    validates :abstract, presence: true
+    validates :discipline, presence: true
+    validates :discipline_other, presence: true, if: :other_discipline?
+    validates :start_date, presence: true
+    validates :end_date, presence: true
+    validates :end_date, must_be_after: :start_date
+  end
+
   enum status: {
     open: "Open",
     closed: "Closed",

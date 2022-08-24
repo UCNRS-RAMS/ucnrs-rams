@@ -1772,6 +1772,17 @@ en:
           explanation: "Enter a short description describing the purpose of your meeting or conference."
         start_date: "Start Date"
         end_date: "End Date"
+      public_use_form:
+        details: "Details"
+        choose_discipline: "Choose a discipline that best describes your public use."
+        event_title:
+          field_name: "Event Title"
+          explanation: "Enter a short descriptive title to uniquely identify your application."
+        event_description:
+          field_name: "Event Description"
+          explanation: "Enter a short description describing the purpose of your public use."
+        start_date: "Start Date"
+        end_date: "End Date"
       class_form:
         details: "Details"
         choose_discipline: "Choose a discipline that best describes your project"
