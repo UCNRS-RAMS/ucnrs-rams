@@ -28,6 +28,7 @@ RSpec.describe ProjectFormPresenter do
         :research,
         :class,
         :meeting,
+        :public_use,
       ]
     end
   end
