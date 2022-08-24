@@ -8,18 +8,10 @@ class Visits::ProjectsPresenter
   attr_reader :project_type, :project_id
 
   def projects
-    projects_scope = Project
-      .of_type(project_type)
-      .alphabetized
-
-    if project_type == "public_use"
-      [Project.blank, *projects_scope]
-    else
-      [
-        Project.blank,
-        *projects_scope.with_active_team_member(user: user, can_add_visit: true)
-      ]
-    end
+    [
+      Project.blank,
+      *projects_scope
+    ]
   end
 
   def selected_project(project)
@@ -31,6 +23,13 @@ class Visits::ProjectsPresenter
   end
 
   private
+
+  def projects_scope 
+    Project
+      .of_type(project_type)
+      .alphabetized
+      .with_active_team_member(user: user, can_add_visit: true)
+  end
 
   attr_reader :user
 end

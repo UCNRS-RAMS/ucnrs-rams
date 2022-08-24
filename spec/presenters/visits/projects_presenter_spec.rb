@@ -32,18 +32,5 @@ RSpec.describe Visits::ProjectsPresenter do
 
       expect(projects.map(&:title)).to eq ["", "Project A", "Project B", "Project C"]
     end
-
-    it "is the alphabetized public projects, independent of the user" do
-      user = create(:user)
-      public_project_b = create(:project, title: "Public Project B", project_type: :public_use)
-      public_project_a = create(:project, title: "Public Project A", project_type: :public_use)
-      research_project = create(:project, project_type: :research)
-      presenter = Visits::ProjectsPresenter.new(user: user, project_type: "public_use", project_id: nil)
-
-      projects = presenter.projects
-
-      expect(projects.length).to eq 3
-      expect(projects.map(&:id)).to match_array [Project.blank.id, public_project_a.id, public_project_b.id]
-    end
   end
 end
