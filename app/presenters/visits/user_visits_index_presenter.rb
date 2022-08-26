@@ -31,8 +31,8 @@ class Visits::UserVisitsIndexPresenter
     DateRangePresenter.value(start_date: visit.start_date, end_date: visit.end_date)
   end
 
-  def new_user_visit_path(partial_name)
-    new_visit_user_visit_path(visit.id, add_visitor_partial: partial_name)
+  def new_user_visit_path(params)
+    new_visit_user_visit_path(visit.id, params)
   end
 
   def user_role_options
@@ -41,10 +41,6 @@ class Visits::UserVisitsIndexPresenter
 
   def add_visitor_link_class(partial_name)
     partial_name == add_visitor_partial ? "selected" : ""
-  end
-
-  def add_visitor_partial_path
-    "visits/user_visits/#{add_visitor_partial}"
   end
 
   private

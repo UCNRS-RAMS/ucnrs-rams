@@ -19,6 +19,17 @@
     }
   }
 
+  .d-flex {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .link {
+    font-size: small;
+    padding-top: 10px;
+  }
+
   .modal {
     .date-range-select {
       align-items: center;

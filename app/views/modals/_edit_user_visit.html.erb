@@ -8,40 +8,46 @@
       </p>
       <section class="text">
         <h2><%= t(".title") %></h2>
+        <div class="field">
+          <%= form.label :role %>
+          <%= form.select :role, presenter.user_role_options %>
+        </div>
+        <% if presenter.guest_name.present? %>
+          <div class="field">
+            <%= form.label :guest_name %>
+            <%= form.text_field :guest_name %>
+          </div>
+        <% else %>
+          <div class="field">
+            <%= form.label :count %>
+            <%= form.text_field :count %>
+          </div>
+        <% end %>
+        <div class="field autocomplete" data-controller="autocomplete" data-autocomplete-url-value="<%= institutions_path %>">
+          <%= form.label :institution_name %>
+          <%= form.text_field :institution_name, placeholder: t(".search_by_name"), value: presenter.institution_name, data: { "autocomplete-target": "input" } %>
+          <%= form.hidden_field :institution_id, data: { "autocomplete-target": "hidden" } %>
+          <div class="autocomplete-results-container">
+            <ul class="autocomplete-results" data-autocomplete-target="results"></ul>
+          </div>
+          <div class="link">
+            <%= link_to t(".create_new_institution"), new_institution_path, target: "_blank" %>
+          </div>
+        </div>
         <table>
-          <tr>
-            <td><label><%= t(".name") %></label></td>
-            <td>
-              <span><%= presenter.user_full_name %></span>
-            </td>
-          </tr>
-          <tr>
-            <td><label><%= t(".institution") %></label></td>
-            <td>
-              <span><%= presenter.institution_name %></span>
-            </td>
-          </tr>
-          <tr>
-            <td><label><%= t(".role") %></label></td>
-            <td>
-              <span><%= presenter.role %></span>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <div class="date-range-select">
-                <div class="field">
-                  <%= form.label :arrives_at %>
-                  <%= form.date_field :arrives_at %>
-                </div>
-                <span class="separator"></span>
-                <div class="field">
-                  <%= form.label :departs_at %>
-                  <%= form.date_field :departs_at %>
-                </div>
+          <td colspan="2">
+            <div class="date-range-select">
+              <div class="field">
+                <%= form.label :arrives_at %>
+                <%= form.date_field :arrives_at %>
               </div>
-            </td>
-          </tr>
+              <span class="separator"></span>
+              <div class="field">
+                <%= form.label :departs_at %>
+                <%= form.date_field :departs_at %>
+              </div>
+            </div>
+          </td>
         </table>
       </section>
       <section class="buttons">

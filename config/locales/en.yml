@@ -237,6 +237,8 @@ en:
         title: "New Reserve Question"
         accessible_description: "A modal pop-up form to create a reserve question."
     edit_user_visit:
+      create_new_institution: "Create New Institution"
+      search_by_name: "Search by Name"
       title: "Change Date Range"
       name: "Name"
       institution: "Institution"
@@ -393,6 +395,8 @@ en:
       title: "Visit Requests"
       most_recent_filter: "Most recent"
     user_visits:
+      team_members:
+        new_team_member: "Add New Team Member"
       index:
         title: "Who are you bringing with you?"
         reserve: "Reserve"
@@ -416,7 +420,8 @@ en:
         search_by_name: "Search by name"
         select_user_role: "- Select Role -"
         add_visitor: "Add Visitor"
-        cannot_find_them: "Can't find them?"
+        cannot_find_them: "Can't find then in database?"
+        new_team_member: "Create a New Team Member"
         create_new_user: "Create new user"
       group:
         number_in_group: "Number in Group"

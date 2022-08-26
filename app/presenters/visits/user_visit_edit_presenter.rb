@@ -19,6 +19,10 @@ class Visits::UserVisitEditPresenter
     )
   end
 
+  def user_role_options
+    UserVisit.roles.map { |key, value| [value, key] }
+  end
+
   def user_visit_form_path
     user_visit_path(id)
   end

@@ -50,6 +50,18 @@ RSpec.describe Visits::UserVisitFormPresenter do
     end
   end
 
+  describe "#add_visitor_partial_path" do
+    it "returns add_visitor_partial_path" do
+      add_visitor_partial = "group"
+      visit = create(:visit)
+      params = { visit_id: visit.id }
+      presenter = Visits::UserVisitFormPresenter.new(current_user: create(:user), add_visitor_partial: add_visitor_partial, form: UserVisitForm.new(params: params))
+
+      expected_value = "visits/user_visits/#{add_visitor_partial}"
+      expect(presenter.add_visitor_partial_path).to eq expected_value
+    end
+  end
+
   describe "#user_role_options" do
     it "returns an array for user role options" do
       a = [

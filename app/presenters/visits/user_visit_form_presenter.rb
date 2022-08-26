@@ -49,6 +49,14 @@ def initialize(current_user:, add_visitor_partial:, show_add_guest_modal: false,
     end
   end
 
+  def can_add_project_user?
+    visit.project.team_memberships.find_by(user_id: current_user.id)&.can_add_project_user
+  end
+
+  def add_visitor_partial_path
+    "visits/user_visits/#{add_visitor_partial}"
+  end
+
   def user_visits
     visit.user_visits.includes([:user, :institution])
       .map do |user_visit|
