@@ -43,10 +43,10 @@ class UserVisit < ApplicationRecord
   def date_range_within_visit_range
     return unless dates_present? && visit.present?
 
-    if arrives_at < visit.start_date
+    if arrives_at < visit.starts_at
       errors.add(:arrives_at, :must_be_after_visit_start_date)
     end
-    if departs_at > visit.end_date
+    if departs_at > visit.ends_at
       errors.add(:departs_at, :must_be_before_visit_end_date)
     end
   end

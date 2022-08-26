@@ -47,18 +47,6 @@ RSpec.describe Visits::UserVisitsIndexPresenter do
     end
   end
 
-  describe "#add_visitor_partial_path" do
-    it "returns add_visitor_partial_path" do
-      add_visitor_partial = "group"
-      visit = create(:visit)
-      presenter = Visits::UserVisitsIndexPresenter.new(current_step: 2, visit: visit,
-        add_visitor_partial: add_visitor_partial)
-
-      expected_value = "visits/user_visits/#{add_visitor_partial}"
-      expect(presenter.add_visitor_partial_path).to eq expected_value
-    end
-  end
-
   describe "#user_role_options" do
     it "returns user role options array" do
       presenter = Visits::UserVisitsIndexPresenter.new(current_step: 2, current_user: create(:user), visit: create(:visit))
