@@ -1,5 +1,7 @@
 class Institution < ApplicationRecord
   DEFAULT_LIMIT_FOR_INDEX = 15.freeze
+  UC_IDS = 1..11
+  GENERIC_INSTITUTION_IDS = 2367..2377
 
   validates :name, presence: true
   validates :name, uniqueness: { scope: :city, case_sensitive: false }

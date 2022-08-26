@@ -166,8 +166,8 @@ en:
       end_date: "End Date"
       alt:
         close_modal_icon: "Close Modal Icon"
-      cancel: Cancel
-      save: Save
+      cancel: "Cancel"
+      save: "Save"
     new_user:
       title: "Create a New User"
       accessible_description: "A modal pop-up form to create a new user and add them as a team member to this project."
@@ -180,13 +180,13 @@ en:
       cancel: "Cancel"
       save: "Save"
     welcome:
-      title: Welcome to RAMS
-      content: Here you can learn about natural reserves and field stations, request dates and accommodations for your visit, submit project descriptions and permits, and sign any necessary waivers or other permissions.
-      continue: Let's go!
-      accessible_description: This is a dialog that welcomes you to RAMS. Press the Let's Go button to continue.
+      title: "Welcome to RAMS"
+      content: "Here you can learn about natural reserves and field stations, request dates and accommodations for your visit, submit project descriptions and permits, and sign any necessary waivers or other permissions."
+      continue: "Let's go!"
+      accessible_description: "This is a dialog that welcomes you to RAMS. Press the Let's Go button to continue."
     project:
       title: "How we use project information"
-      accessible_description: This is a dialog that explains why project information is collected and how it is used. Press the Okay, Got it button to continue.
+      accessible_description: "This is a dialog that explains why project information is collected and how it is used. Press the Okay, Got it button to continue."
       content_first: "Project information allows site managers to assess the suitability of proposed activities and better meet the needs of users. It is used to measure site success, demonstrate demand for reserves, and validate the need for financial and staffing support."
       content_middle: "If you have a research project, the California Digital Library Data Management Plan (DMP) Tool can help you complete your data management plan. RAMS has an active connection to the DMP Tool, which allows real-time tracking of data and journal publications."
       content_last: "The information entered may be included in reports and other communications, and shared with the public."
@@ -250,19 +250,19 @@ en:
       role: "Role"
       save: "Save"
       cancel: "Cancel"
-      accessible_description: A modal pop-up form to edit details of a visitor.
+      accessible_description: "A modal pop-up form to edit details of a visitor."
     new_user_visit:
-      title: Add Guest
-      accessible_description: A modal pop-up form to add new guest as visitor on this project.
-      subtitle: You are adding a Guest. Please add the following information
-      institution_name: Institution Name
+      title: "Add Guest"
+      accessible_description: "A modal pop-up form to add new guest as visitor on this project."
+      subtitle: "You are adding a Guest. Please add the following information"
+      institution_name: "Institution Name"
       select_user_role: "- Select Role -"
       select_institution: "- Select Institution -"
-      role: Role
+      role: "Role"
       alt:
         close_modal_icon: "Close Modal Icon"
-      cancel: Cancel
-      save: Save
+      cancel: "Cancel"
+      save: "Save"
   reserves:
     personnel_card:
       alt_text:
@@ -405,33 +405,33 @@ en:
         reserve: "Reserve"
         arrive_departs_date: "Arrival & Departure"
         next_step: "Next: Reserve Info"
-        back: Go Back
+        back: "Go Back"
       user_visits_table:
         visitor_table: "Visitor List"
       user_visit:
         change: "Change"
         confirm_removal: "Are you sure you want to remove %{name}?"
       links:
-        add_team_member: Add Team Member
-        add_guest: Add Guest
-        add_group: Add Group
+        add_team_member: "Add Team Member"
+        add_guest: "Add Guest"
+        add_group: "Add Group"
       team_member:
-        add_to_visitor: Add To Visitor List
+        add_to_visitor: "Add To Visitor List"
       guest:
-        guest_name: Visitor Name
-        role: Role
-        search_by_name: Search by name
+        guest_name: "Visitor Name"
+        role: "Role"
+        search_by_name: "Search by name"
         select_user_role: "- Select Role -"
-        add_visitor: Add Visitor
-        cannot_find_them: Can't find them?
-        create_new_user: Create new user
+        add_visitor: "Add Visitor"
+        cannot_find_them: "Can't find them?"
+        create_new_user: "Create new user"
       group:
-        number_in_group: Number in Group
-        institution_name: Institution Name
-        role: Role
+        number_in_group: "Number in Group"
+        institution_name: "Institution Name"
+        role: "Role"
         select_user_role: "- Select Role -"
-        add_group: Add Group
-        search_by_name: Search by name
+        add_group: "Add Group"
+        search_by_name: "Search by name"
         select_institution: "- Select Institution -"
     amenities:
       amenity_booking:
@@ -1980,7 +1980,7 @@ en:
         emphasized: "The University of California Natural Reserve System is the world’s largest network of university-administered field stations and protected lands."
         explanation1: "Our library of ecosystems includes examples of most major state habitats. We offer outdoor laboratories to field scientists, classrooms without walls for students, and nature’s inspiration to all."
         explanation2: "Reserves are available for teaching, research, and public service, but not general recreation. Access is by permission only."
-        more_information: 'For more UCNRS information, visit <a href="https://ucnrs.org">UCNRS.ORG</a>'
+        more_information: "For more UCNRS information, visit <a href='https://ucnrs.org'>UCNRS.ORG</a>"
         public_information: "For RAMS public information, %{reserves_info_link} %{project_search_link}"
         reserves_info: "Reserves Info"
         project_search: "Project Search"

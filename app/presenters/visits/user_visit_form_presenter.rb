@@ -3,10 +3,7 @@
 class Visits::UserVisitFormPresenter
   include Rails.application.routes.url_helpers
 
-  UC_IDS = 1..11
-  GENERIC_INSTITUTION_IDS = 2367..2377
-
-  def initialize(current_user:, add_visitor_partial:, show_add_guest_modal: false, form: nil)
+def initialize(current_user:, add_visitor_partial:, show_add_guest_modal: false, form: nil)
     @form = form || UserVisitForm.new
     @current_user = current_user
     @add_visitor_partial = add_visitor_partial
@@ -36,18 +33,18 @@ class Visits::UserVisitFormPresenter
   end
 
   def user_role_options
-    User.roles.except(:no_selection).map { |key, value| [value, key] }
+    UserVisit.roles.map { |key, value| [value, key] }
   end
 
   def institution_options
-    Institution.where(id: [*UC_IDS, *GENERIC_INSTITUTION_IDS]).pluck(:name, :id)
+    Institution.where(id: [*Institution::UC_IDS, *Institution::GENERIC_INSTITUTION_IDS]).pluck(:name, :id)
   end
 
   def default_institution
     if institution_options.map(&:second).include? current_user.institution.id
       current_user.institution.id
     else
-      Institution.find_by(id: GENERIC_INSTITUTION_IDS,
+      Institution.find_by(id: Institution::GENERIC_INSTITUTION_IDS,
         institution_type: current_user.institution.institution_type).id
     end
   end

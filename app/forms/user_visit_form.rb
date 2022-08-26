@@ -12,7 +12,7 @@ class UserVisitForm
     @user = User.find_by(id: params[:user_id])
     @user_visit = UserVisit.find_by(id: params[:id]) || UserVisit.new(new_user_visit_params)
     assign(params)
-    assign_guest_values if adding_user_as_guest_visitor?
+    assign_guest_values if adding_guest_visitor?
   end
 
   delegate :name, to: :institution, prefix: true, allow_nil: true
@@ -56,9 +56,16 @@ class UserVisitForm
     user_visit.guest_name.present? && user.present? && user.id != 1
   end
 
+  def adding_guest_visitor?
+    user_visit.guest_name.present?
+  end
+
   def assign_guest_values
-    user_visit.institution_id = user.institution_id
-    user_visit.role = user.role || "no_selection"
+    user_visit.count = 1
+    if adding_user_as_guest_visitor?
+      user_visit.institution_id = user.institution_id
+      user_visit.role = user.role || "other"
+    end
   end
 
   def new_user_visit_params
@@ -76,12 +83,6 @@ class UserVisitForm
 
   def validate_user_visit
     user_visit.validate
-  end
-
-  def default_institution(params)
-    return if institution_id.present?
-
-    user_visit.institution_id = User.find_by(id: params[:user_id])&.institution_id
   end
 
   def copy_errors_to_self

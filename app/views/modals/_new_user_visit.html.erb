@@ -10,8 +10,7 @@
         <h5><%= t(".subtitle") %></h5>
         <%= hidden_field_tag :show_add_guest_modal, true %>
         <%= form.hidden_field :user_id, value: 1 %>
-        <%= form.hidden_field :visit_id, value: @presenter.visit.id %>
-        <%= form.hidden_field :count, value: 1 %>
+        <%= form.hidden_field :visit_id, value: @presenter.visit_id %>
         <div class="field">
           <%= form.label :guest_name %>
           <%= form.text_field :guest_name %>

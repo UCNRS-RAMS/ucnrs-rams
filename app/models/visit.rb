@@ -86,11 +86,11 @@ class Visit < ApplicationRecord
   end
 
   def starts_at
-    "#{start_date} #{start_time.to_s[10..]}".to_datetime
+    start_time.change(year: start_date.year, month: start_date.month, day: start_date.day)
   end
 
   def ends_at
-    "#{end_date} #{end_time.to_s[10..]}".to_datetime
+    end_time.change(year: end_date.year, month: end_date.month, day: end_date.day)
   end
 
   enum status: {
