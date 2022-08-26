@@ -18,7 +18,7 @@ class Visits::UserVisitsController < ApplicationController
     @presenter = initialize_form_presenter(user_visit_params)
     if @presenter.form.save
       @presenter = initialize_form_presenter({ visit_id: params[:visit_id] })
-      render template: "visits/user_visits/_tables", status: :ok
+      render template: "visits/user_visits/_tables"
     elsif @presenter.add_visitor_partial == "guest" && @presenter.user_id.blank?
       redirect_to @presenter.new_user_visit_path({ add_visitor_partial: params[:add_visitor_partial], guest_name: @presenter.guest_name, show_add_guest_modal: true })
     else
@@ -40,7 +40,7 @@ class Visits::UserVisitsController < ApplicationController
   def destroy
     @presenter = user_visit_index_presenter
     if user_visit.destroy
-      render template: "visits/user_visits/_tables", status: :ok
+      render template: "visits/user_visits/_tables"
     else
       render template: "visits/user_visits/index", status: :unprocessable_entity
     end

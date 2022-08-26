@@ -12,7 +12,6 @@ class UserVisit < ApplicationRecord
   validates :role, presence: true
 
   enum role: {
-    no_selection: "No selection",
     faculty: "Faculty",
     research_scientist: "Research Scientist/Post Doc",
     research_assistant: "Research Assistant (non-student/faculty/postdoc)",

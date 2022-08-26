@@ -3,7 +3,6 @@
   <section id="add-guest">
     <%= form_with model: @presenter.form, url: @presenter.user_visit_form_path do |form|%>
       <%= form.hidden_field :visit_id, value: @presenter.visit_id %>
-      <%= form.hidden_field :count, value: 1 %>
       <div class="flex-row">
         <div class="field autocomplete visitor-name" data-controller="autocomplete" data-autocomplete-url-value="<%= users_path %>">
           <%= form.label :guest_name, t(".guest_name") %>
