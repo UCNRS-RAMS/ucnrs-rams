@@ -238,6 +238,7 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     flow.visit_new_visit_page
     flow.select_project_type("Research")
     flow.select_reserve("Silver Lake Area")
+    click_on("Label 1")
     flow.select_amenity("title 1")
 
     flow.inside_amenity(amenity) do
