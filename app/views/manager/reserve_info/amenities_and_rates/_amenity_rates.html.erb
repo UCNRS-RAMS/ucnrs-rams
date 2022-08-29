@@ -1,18 +1,20 @@
-<table class="amenity-rates-table">
-  <thead>
-    <tr>
-      <th><%= t(".amenity_name") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% amenity_rates.each do |amenity_name, amenity_rates| %>
+<turbo-frame id="amenity-rates-table">
+  <table class="amenity-rates-table">
+    <thead>
       <tr>
-        <td><%= amenity_name %></td>
-        <% amenity_rates.each do |amenity_rate| %>
-          <td><%= amenity_rate.amount %></td>
-        <% end %>
-        <td><%= t("edit") %></td>
+        <th><%= t(".amenity_name") %></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% amenity_rates.each do |amenity_name, amenity_rates| %>
+        <tr>
+          <td><%= amenity_name %></td>
+          <% amenity_rates.each do |amenity_rate| %>
+            <td><%= amenity_rate.amount %></td>
+          <% end %>
+          <td><%= t("edit") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</turbo-frames>

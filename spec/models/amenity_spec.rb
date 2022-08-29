@@ -1,6 +1,12 @@
 require "rails_helper"
 
 RSpec.describe Amenity do
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:title) }
+    it { is_expected.to validate_presence_of(:units_type) }
+    it { is_expected.to validate_presence_of(:time_type) }
+  end
+
   describe "associations" do
     it { is_expected.to belong_to(:reserve) }
     it { is_expected.to have_many(:amenity_rates) }
@@ -57,24 +63,13 @@ RSpec.describe Amenity do
     it do
       is_expected.to define_enum_for(:units_type)
         .with_values(
-          hour: "hour",
-          day: "day",
-          night: "night",
-          week: "week",
-          month: "month",
-          quarter: "quarter",
-          semi_annual: "semi-annual",
-          year: "year",
+          unit: "unit",
           session: "session",
           use: "use",
-          four_hours: "4 hours",
-          eight_hours: "8 hours",
           person: "person",
           mile: "mile",
           square_foot: "square foot",
-          unit: "unit",
-          facility: "facility",
-          empty: ""
+          facility: "facility"
         )
           .backed_by_column_of_type(:string)
           .with_prefix(:unit)
@@ -97,6 +92,18 @@ RSpec.describe Amenity do
         )
           .backed_by_column_of_type(:string)
           .with_prefix(:time)
+    end
+
+    it do
+      is_expected.to define_enum_for(:amenities_type)
+        .with_values(
+          housing_and_camping: "Housing & Camping",
+          classroom_and_meeting_space: "Classroom & Meeting Space",
+          laboratory_and_storage_space: "Laboratory & Storage Space",
+          vehicles_and_boats: "Vehicles & Boats",
+          other_amenity: "Other Amenity"
+        )
+        .backed_by_column_of_type(:string)
     end
   end
 end

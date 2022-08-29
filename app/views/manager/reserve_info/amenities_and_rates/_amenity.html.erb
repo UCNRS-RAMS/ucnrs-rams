@@ -3,5 +3,5 @@
   <td><%= amenity.title %></td>
   <td><%= amenity.total_capacity %></td>
   <td><%= amenity.per_sentence %></td>
-  <td><%= t("edit") %></td>
+  <td><%= link_to t("edit"), edit_manager_reserve_reserve_info_amenity_path(current_reserve, amenity.id), data: { "turbo-frame": "modal-content" } %></td>
 </tr>

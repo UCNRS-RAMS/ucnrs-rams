@@ -73,6 +73,7 @@ Rails.application.routes.draw do
       namespace :reserve_info do
         resource :reserve_details, only: [:edit, :update]
         resources :amenities_and_rates, only: [:index]
+        resources :amenities, only: [:edit, :update], controller: "amenities_and_rates/amenities"
         resources :waivers, only: [:index]
         resource :rules_and_regulations, only: [:edit, :update]
         resources :permits, only: [:index]
