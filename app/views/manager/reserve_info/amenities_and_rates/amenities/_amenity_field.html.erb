@@ -1,0 +1,80 @@
+<div>
+  <div>
+    <%= form.radio_button(:disable, false) %>
+    <%= form.label(:disable_false, t(".enabled")) %>
+  </div>
+  <div>
+    <%= form.radio_button(:disable, true) %>
+    <%= form.label(:disable_true, t(".disabled")) %>
+  </div>
+  <div>
+    <%= form.label :sort_order, t(".sort_order") %>
+    <%= form.number_field :sort_order %>
+  </div>
+  <div>
+    <div class="form-label"><%= t(".selected_at_default") %></div>
+    <div>
+      <%= form.radio_button(:default_select, true) %>
+      <%= form.label(:default_select_true, t("yes")) %>
+    </div>
+    <div>
+      <%= form.radio_button(:default_select, false) %>
+      <%= form.label(:default_select_false, t("no")) %>
+    </div>
+  </div>
+
+  <hr />
+
+  <div>
+    <%= form.label :amenities_type, t(".amenity_type") %>
+    <%= form.select :amenities_type, presenter.amenities_type_options, { include_blank: t(".select_one") } %>
+    <small><%=t(".description_amenity_type_text")%></small>
+  </div>
+  <div>
+    <%= form.label :title, t(".name_of_amenity") %>
+    <%= form.text_field :title %>
+  </div>
+  <div>
+    <%= form.label :comment, t(".description_of_amenity") %>
+    <%= form.text_area :comment %>
+    <small><%=t(".description_helper_text")%></small>
+  </div>
+  <div>
+    <%= form.label :total_capacity, t(".maximum_capacity") %>
+    <%= form.number_field :total_capacity %>
+    <small><%=t(".description_capacity_text")%></small>
+  </div>
+  <div>
+    <%= form.label :units_type, t(".amenity_units_type") %>
+    <%= form.select :units_type, presenter.units_type_options, { include_blank: t(".select_one") } %>
+    <small><%=t(".description_units_type_text")%></small>
+  </div>
+  <div>
+    <%= form.label :time_type, t(".amenity_time_interval") %>
+    <%= form.select :time_type, presenter.time_type_options, { include_blank: t(".select_one") } %>
+    <small><%=t(".description_time_type_text")%></small>
+  </div>
+  <div>
+    <div class="form-label"><%= t(".visible") %></div>
+    <div>
+      <%= form.radio_button(:visible, true) %>
+      <%= form.label(:visible_true, t("yes")) %>
+    </div>
+    <div>
+      <%= form.radio_button(:visible, false) %>
+      <%= form.label(:visible_false, t("no")) %>
+    </div>
+  </div>
+    <div>
+    <div class="form-label"><%= t(".invoiceable") %></div>
+    <div>
+      <%= form.radio_button(:show_on_invoice, true) %>
+      <%= form.label(:show_on_invoice_true, t("yes")) %>
+    </div>
+    <div>
+      <%= form.radio_button(:show_on_invoice, false) %>
+      <%= form.label(:show_on_invoice_false, t("no")) %>
+    </div>
+    <small><%=t(".description_invoiceable_text")%></small>
+  </div>
+</div>

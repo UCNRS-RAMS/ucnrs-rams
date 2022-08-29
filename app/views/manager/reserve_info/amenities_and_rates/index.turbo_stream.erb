@@ -1,0 +1,23 @@
+<turbo-stream action="replace" target="modal-content">
+  <template>
+    <%= render partial: "modals/empty", formats: [:html] %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="amenities-table">
+  <template>
+    <%= render partial: "amenities", formats: [:html], locals: { amenities: @presenter.amenities } %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="amenity-rate-categories-table">
+  <template>
+    <%= render partial: "amenity_rate_categories", formats: [:html], locals: { amenity_rate_categories: @presenter.amenity_rate_categories } %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="amenity-rates-table">
+  <template>
+    <%= render partial: "amenity_rates", formats: [:html], locals: { amenity_rates: @presenter.amenity_rates } %>
+  </template>
+</turbo-stream>

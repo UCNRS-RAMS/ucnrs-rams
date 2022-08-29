@@ -1,14 +1,16 @@
-<table class="amenities-table">
-  <thead>
-    <tr>
-      <th><%= t(".order") %></th>
-      <th><%= t(".name") %></th>
-      <th><%= t(".capacity") %></th>
-      <th><%= t(".units_time") %></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render partial: "amenity", collection: amenities %>
-  </tbody>
-</table>
+<turbo-frame id="amenities-table">
+  <table class="amenities-table">
+    <thead>
+      <tr>
+        <th><%= t(".order") %></th>
+        <th><%= t(".name") %></th>
+        <th><%= t(".capacity") %></th>
+        <th><%= t(".units_time") %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "amenity", collection: amenities %>
+    </tbody>
+  </table>
+</turbo-frame>
