@@ -198,6 +198,9 @@ en:
       edit_amenity_rate_category:
         title: "Edit Rate Category"
         accessible_description: "A modal pop-up form to edit rate category of an amenity for this reserve."
+      edit_amenity:
+        title: "Edit Amenity"
+        accessible_description: "A modal pop-up form to edit details of an amenity of this reserve."
     activity:
       log: "Log"
       time: "Time:"
@@ -210,10 +213,6 @@ en:
       status: "Status"
       old_value: "Old value:"
       new_value: "New value:"
-    amenities:
-      edit_amenity:
-        title: "Edit Amenity"
-        accessible_description: "A modal pop-up form to edit details of an amenity of this reserve."
     staff_and_notifications:
       edit_reserve_personnel:
         title: "Edit Reserve Personnel"
