@@ -223,6 +223,9 @@ en:
       new_amenity:
         title: "New Amenity"
         accessible_description: "A modal pop-up form to create amenity for this reserve."
+      edit_amenity_rates:
+        title: "Edit Amenity Rates"
+        accessible_description: A modal pop-up form to edit amenity rates of an amenity.
     activity:
       log: "Log"
       time: "Time:"

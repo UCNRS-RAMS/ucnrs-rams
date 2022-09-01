@@ -6,11 +6,15 @@ RSpec.describe AmenityRate, type: :model do
     it { is_expected.to belong_to(:amenity_rate_category) }
   end
 
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:rate)  }
+  end
+
   describe ".in_order" do
-    it "returns records in order by first amenity sort_order, second amenity_rate_category sort_order, third in order by amenity_rate_category_id" do
-      amenity1 = create(:amenity, sort_order: 2)
-      amenity2 = create(:amenity, sort_order: 1)
-      amenity_rate_category1 = create(:amenity_rate_category, sort_order: 2)
+    it "returns records in order by category.visible -> category.sort_order -> category.id -> amenity.sort" do
+      amenity1 = create(:amenity, sort_order: 1)
+      amenity2 = create(:amenity, sort_order: 2)
+      amenity_rate_category1 = create(:amenity_rate_category, sort_order: 2, visible: false)
       amenity_rate_category2 = create(:amenity_rate_category, sort_order: 1)
       amenity_rate_category3 = create(:amenity_rate_category, sort_order: 3)
       amenity_rate1 = create(:amenity_rate, amenity: amenity1, amenity_rate_category: amenity_rate_category1)
@@ -22,7 +26,14 @@ RSpec.describe AmenityRate, type: :model do
 
       results = AmenityRate.in_order
 
-      expect(results).to eq [amenity_rate5, amenity_rate4, amenity_rate6, amenity_rate2, amenity_rate1, amenity_rate3]
+      expect(results).to eq [
+        amenity_rate2,
+        amenity_rate5,
+        amenity_rate3,
+        amenity_rate6,
+        amenity_rate1,
+        amenity_rate4,
+      ]
     end
   end
 

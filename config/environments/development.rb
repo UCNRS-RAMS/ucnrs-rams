@@ -79,7 +79,7 @@ Rails.application.configure do
   config.after_initialize do
     Bullet.enable = true
     Bullet.rails_logger = true
-    Bullet.raise = true
+    Bullet.raise = false
     Bullet.skip_html_injection = false
     Bullet.console = true
   end

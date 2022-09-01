@@ -15,6 +15,7 @@ RSpec.describe Amenity do
     it { is_expected.to have_many(:amenity_rates) }
     it { is_expected.to have_many(:amenity_visits) }
     it { is_expected.to have_many(:visits).through(:amenity_visits) }
+    it { is_expected.to accept_nested_attributes_for(:amenity_rates) }
   end
 
   describe "after_create :create_rates_for_each_categories" do

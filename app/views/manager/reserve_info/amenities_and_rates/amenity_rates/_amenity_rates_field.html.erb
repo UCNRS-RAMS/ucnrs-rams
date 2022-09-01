@@ -1,0 +1,9 @@
+<div>
+  <%= presenter.amenity_name %>
+
+  <% presenter.amenity_rates.each do |amenity_rate| %>
+    <%= form.fields_for :amenity_rates, amenity_rate do |amenity_rate_form| %>
+      <%= render partial: "amenity_rate_field", locals: { form: amenity_rate_form, presenter: amenity_rate } %>
+    <% end %>
+  <% end %>
+</div>
