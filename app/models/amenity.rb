@@ -7,7 +7,8 @@ class Amenity < ApplicationRecord
   belongs_to :reserve
   has_many :amenity_visits
   has_many :visits, through: :amenity_visits
-  has_many :amenity_rates
+  has_many :amenity_rates, -> { in_order }
+  accepts_nested_attributes_for :amenity_rates
 
   after_create :create_rates_for_each_categories
 

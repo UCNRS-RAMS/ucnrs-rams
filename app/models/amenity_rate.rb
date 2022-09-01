@@ -2,11 +2,14 @@ class AmenityRate < ApplicationRecord
   belongs_to :amenity
   belongs_to :amenity_rate_category
 
+  validates :rate, presence: true
+
   def self.in_order
     joins(:amenity_rate_category, :amenity)
-      .order(Amenity.arel_table[:sort_order])
+      .order(AmenityRateCategory.arel_table[:visible].desc)
       .order(AmenityRateCategory.arel_table[:sort_order])
       .order(:amenity_rate_category_id)
+      .order(Amenity.arel_table[:sort_order])
   end
 
   def self.visible

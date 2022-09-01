@@ -12,9 +12,9 @@
           <% amenity_rates.each do |amenity_rate| %>
             <td><%= amenity_rate.amount %></td>
           <% end %>
-          <td><%= t("edit") %></td>
+          <td><%= link_to t("edit"), edit_manager_reserve_reserve_info_amenity_rate_path(current_reserve, amenity_rates.first.amenity_id), data: { "turbo-frame": "modal-content" } %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
-</turbo-frames>
+</turbo-frame>
