@@ -54,6 +54,15 @@ class Visits::UserVisitPresenter
     visit_user_visit_path(visit.id, id)
   end
 
+  def guest_user?
+    user.id == 1 && guest_name.present?
+  end
+
+  def group_user?
+    user.id == 1 && guest_name.blank?
+  end
+
+
   private
 
   def visitor_icon
@@ -62,14 +71,6 @@ class Visits::UserVisitPresenter
 
   def user_team_membership
     @user_team_membership ||= visit.project.team_memberships.find_by(user_id: user_id)
-  end
-
-  def group_user?
-    user.id == 1 && guest_name.blank?
-  end
-
-  def guest_user?
-    user.id == 1 && guest_name.present?
   end
 
   def formatted_date(datetime)
