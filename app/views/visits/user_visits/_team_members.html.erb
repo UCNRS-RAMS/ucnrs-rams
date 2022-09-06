@@ -2,8 +2,8 @@
   <div class="d-flex">
     <%= render partial: 'visits/user_visits/links' %>
     <% if presenter.can_add_project_user? %>
-      <%= link_to t(".new_team_member"), project_team_memberships_path(presenter.visit.project.id), target: "_blank" %>
-    <%end%>  
+      <%= link_to t(".new_team_member"), project_team_memberships_path(presenter.visit_project_id), target: "_blank" %>
+    <% end %>
   </div>
   <section id="add-team-member">
     <table class="user-visits-table">

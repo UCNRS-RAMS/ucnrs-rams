@@ -107,4 +107,56 @@ RSpec.describe Visits::UserVisitPresenter do
       expect(presenter.user_visit_form_path).to eq "/user_visits/#{user_visit.id}"
     end
   end
+
+  describe "#guest_user?" do
+    it "returns true if the user_id is 1 and guest_name is present" do
+      user = create(:user, id: 1)
+      user_visit = create(:user_visit, user: user, guest_name: "Guest name")
+      presenter = Visits::UserVisitPresenter.new(user_visit)
+
+      expect(presenter.guest_user?).to be_truthy
+    end
+
+    it "returns false if guest_name is not present" do
+      user = create(:user, id: 1)
+      user_visit = create(:user_visit, user: user, guest_name: nil)
+      presenter = Visits::UserVisitPresenter.new(user_visit)
+
+      expect(presenter.guest_user?).to be_falsey
+    end
+
+    it "returns false if user_id is not 1" do
+      user = create(:user, id: 2)
+      user_visit = create(:user_visit, user: user, guest_name: "Guest Name")
+      presenter = Visits::UserVisitPresenter.new(user_visit)
+
+      expect(presenter.guest_user?).to be_falsey
+    end
+  end
+
+  describe "#group_user?" do
+    it "returns true if the user_id is 1 and guest_name is blank" do
+      user = create(:user, id: 1)
+      user_visit = create(:user_visit, user: user, guest_name: nil)
+      presenter = Visits::UserVisitPresenter.new(user_visit)
+
+      expect(presenter.group_user?).to be_truthy
+    end
+
+    it "returns false if guest_name is present" do
+      user = create(:user, id: 1)
+      user_visit = create(:user_visit, user: user, guest_name: "Guest name")
+      presenter = Visits::UserVisitPresenter.new(user_visit)
+
+      expect(presenter.group_user?).to be_falsey
+    end
+
+    it "returns false if user_id is not 1" do
+      user = create(:user, id: 2)
+      user_visit = create(:user_visit, user: user)
+      presenter = Visits::UserVisitPresenter.new(user_visit)
+
+      expect(presenter.group_user?).to be_falsey
+    end
+  end
 end

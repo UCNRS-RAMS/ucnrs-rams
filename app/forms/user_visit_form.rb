@@ -15,7 +15,7 @@ class UserVisitForm
     assign_guest_values if adding_guest_visitor?
   end
 
-  delegate :name, to: :institution, prefix: true, allow_nil: true
+  delegate :project_id, to: :visit, prefix: true
   delegate_missing_to :user_visit
 
   validates :visit_id, presence: true
@@ -65,6 +65,7 @@ class UserVisitForm
     if adding_user_as_guest_visitor?
       user_visit.institution_id = user.institution_id
       user_visit.role = user.role || "other"
+      user_visit.guest_name = nil
     end
   end
 

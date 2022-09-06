@@ -88,6 +88,7 @@ RSpec.describe UserVisitForm, type: :model do
 
   describe "delegations" do
     subject { UserVisitForm.new(params: { id: build(:user_visit).id }) }
+    it { is_expected.to delegate_method(:project_id).to(:visit).with_prefix }
     it { is_expected.to delegate_missing_methods_to(:user_visit) }
   end
 

@@ -12,12 +12,12 @@
           <%= form.label :role %>
           <%= form.select :role, presenter.user_role_options %>
         </div>
-        <% if presenter.guest_name.present? %>
+        <% if presenter.guest_user? %>
           <div class="field">
             <%= form.label :guest_name %>
             <%= form.text_field :guest_name %>
           </div>
-        <% else %>
+        <% elsif presenter.group_user? %>
           <div class="field">
             <%= form.label :count %>
             <%= form.text_field :count %>
@@ -35,19 +35,21 @@
           </div>
         </div>
         <table>
-          <td colspan="2">
-            <div class="date-range-select">
-              <div class="field">
-                <%= form.label :arrives_at %>
-                <%= form.date_field :arrives_at %>
+          <tr>
+            <td colspan="2">
+              <div class="date-range-select">
+                <div class="field">
+                  <%= form.label :arrives_at %>
+                  <%= form.date_field :arrives_at %>
+                </div>
+                <span class="separator"></span>
+                <div class="field">
+                  <%= form.label :departs_at %>
+                  <%= form.date_field :departs_at %>
+                </div>
               </div>
-              <span class="separator"></span>
-              <div class="field">
-                <%= form.label :departs_at %>
-                <%= form.date_field :departs_at %>
-              </div>
-            </div>
-          </td>
+            </td>
+          </tr>
         </table>
       </section>
       <section class="buttons">
