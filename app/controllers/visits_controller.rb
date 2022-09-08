@@ -5,6 +5,21 @@ class VisitsController < ApplicationController
     @presenter = VisitsFormPresenter.new(user: current_user)
   end
 
+  def update
+    @form = VisitForm.new(user: current_user, params: visit_params)
+    if @form.save
+      redirect_to visit_user_visits_path(@form.visit, format: :html)
+    else
+      @presenter = VisitsFormPresenter.new(user: current_user, form: @form)
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @form = VisitForm.new(user: current_user, params: { id: visit.id })
+    @presenter = VisitsFormPresenter.new(user: current_user, form: @form)
+  end
+
   def create
     @form = VisitForm.new(user: current_user, params: visit_params)
     if @form.save
@@ -31,6 +46,7 @@ class VisitsController < ApplicationController
 
   def visit_params
     params.require(:visit).permit(
+      :id,
       :project_id,
       :project_type,
       :public_use_category,

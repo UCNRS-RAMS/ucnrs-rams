@@ -1,0 +1,10 @@
+<% content_for(:title) { t(".title") } %>
+<%= render partial: "visits/steps", locals: { presenter: @presenter } %>
+<section>
+  <header class="visit-form">
+    <h1><%= t(".title") %></h1>
+  </header>
+  <%= form_with model: @presenter.form, url: visit_path, method: :put do |form| %>
+    <%= render partial: "visits/form", locals: { presenter: @presenter, form: form } %>
+  <% end %>
+</section>

@@ -398,6 +398,8 @@ en:
         ucnrs_newsletter: "NRS Newsletter."
         terms_of_use: "Terms of Use"
   visits:
+    edit:
+      title: "Visit Details"
     index:
       title: "Visit Requests"
       most_recent_filter: "Most recent"

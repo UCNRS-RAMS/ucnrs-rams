@@ -214,7 +214,7 @@ RSpec.describe Visits::AmenityPresenter do
       presenter = Visits::AmenityPresenter.new(amenity)
       travel_to Time.zone.local(2004, 11, 24)
 
-      expect(presenter.default_date).to eq("2004-11-24")
+      expect(presenter.default_date(nil)).to eq("2004-11-24")
     end
   end
 end
