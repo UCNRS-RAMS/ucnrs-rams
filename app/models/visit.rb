@@ -12,9 +12,9 @@ class Visit < ApplicationRecord
   belongs_to :user
   belongs_to :project
   belongs_to :reserve
-  has_many :amenity_visits
+  has_many :amenity_visits, dependent: :destroy
   has_many :amenities, through: :amenity_visits
-  has_many :user_visits
+  has_many :user_visits, dependent: :destroy
   has_many :visitors, through: :user_visits, source: :user
   has_many :reserve_notes, as: :record
   has_many :logs, as: :record
@@ -27,6 +27,8 @@ class Visit < ApplicationRecord
   validates :public_use_category, presence: true, if: :public_use?
 
   delegate :short_name, :name, to: :reserve, prefix: true
+  delegate :title, to: :project, prefix: true
+  delegate :full_name, to: :user, prefix: true
 
   def self.recent_start_date_first
     order(start_date: :desc)

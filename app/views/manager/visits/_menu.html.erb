@@ -1,0 +1,53 @@
+<section>
+  <ul class="visit-menu-bar" data-controller="tab-bar">
+    <li><%= link_to(t('.summary'),
+      manager_reserve_visit_summary_path(visit_id: @presenter.visit.id),
+      { class: "nav-link active",
+        id: "summary",
+        data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "visit-details" }
+      })%>
+    </li>
+    <li><%= link_to(t('.details'),
+      "#",
+      { class: "nav-link",
+        id: "details",
+        data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "visit-details" }
+      })%>
+    </li>
+    <li><%= link_to(t('.visitors'),
+      "#",
+      { class: "nav-link",
+        id: "visitors",
+        data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "visit-details" }
+      })%>
+    </li>
+    <li><%= link_to(t('.reserve_info'),
+      "#",
+      { class: "nav-link",
+        id: "reserve_info",
+        data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "visit-details" }
+      })%>
+    </li>
+    <li><%= link_to(t('.policies'),
+      "#",
+      { class: "nav-link",
+        id: "policies",
+        data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "visit-details" }
+      })%>
+    </li>
+    <li><%= link_to(t('.activity'),
+      "#",
+      { class: "nav-link",
+        id: "activity",
+        data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "visit-details" }
+      })%>
+    </li>
+   <li><%= link_to(t('.invoices'),
+      "#",
+      { class: "nav-link",
+        id: "invoices",
+        data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "visit-details" }
+      })%>
+    </li>
+  </ul>
+</section>

@@ -74,4 +74,13 @@ RSpec.describe VisitPresenter do
       expect(visit_presenter.amenity_count).to eq 2
     end
   end
+
+  describe "#submitted_date" do
+    it "returns visit created date" do
+      visit = create(:visit, created_at: "20 sep 2022")
+      visit_presenter = VisitPresenter.new(visit)
+
+      expect(visit_presenter.submitted_date).to eq "Sep, 20, 2022"
+    end
+  end
 end

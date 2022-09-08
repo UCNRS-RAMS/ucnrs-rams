@@ -1,0 +1,66 @@
+<section class="visit-summary-box">
+  <div class="display-flex">
+    <div class="info-block">
+      <div class="w-200">
+        <p><%= t(".number") %></p>
+        <p class="title"><%= presenter.id %></p>
+      </div>
+      <div>
+        <p> <%= t('.reserve') %></p>
+        <p class="title"><%= presenter.requested_reserve_name %></p>
+      </div>
+    </div>
+    <% if presenter.staff_member? %>
+      <div class="info-block" id="status_and_trash_btn">
+        <%= link_to manager_reserve_visit_path, method: :delete, data: {confirm: "Are you sure?"}, id: "trash-icon" do %>
+          <%= image_tag "icons-trash-can.svg", height: "24px", width: "24px"%>
+        <% end %>
+        <%= link_to manager_reserve_visit_summary_path(visit_id: @presenter.id), { class: "btn-status #{@presenter.text_color}", id: "summary", data: { controller: "tab-bar", action: "click->tab-bar#selectSummaryTab", "tab-bar-target": "tab", "turbo-frame": "visit-details" } } do %>
+          <%= presenter.status %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="info-block display-flex">
+    <div >
+      <p><%= t('.project_title') %></p>
+      <p class="title"><%= presenter.project_title %></p>
+    </div>
+    <div >
+      <p class="text-center"><%= t('.visit_dates') %></p>
+      <p class="title">
+        <%= presenter.visit_date_range %>
+      </p>
+    </div>
+    <div>
+      <%= link_to "#" do %>
+        <%= image_tag "calendar.svg", height: "24px", width: "24px"%>
+      <% end %>
+      <%= link_to "#" do %>
+        <%= image_tag "ical.svg", height: "24px", width: "24px"%>
+      <% end %>
+    </div>
+  </div>
+  <div class="info-block">
+    <div class="w-200">
+      <p><%= t('.date_submitted') %></p>
+      <p class="title"><%= presenter.submitted_date %></p>
+    </div>
+    <div class="w-200">
+      <p><%= t('.applicant') %></p>
+      <p class="title"><%= presenter.user_full_name %></p>
+    </div>
+    <div class="w-200">
+      <p><%= t('.visit_type') %></p>
+      <p class="title"><%= presenter.project_type %></p>
+    </div>
+    <div class="w-200">
+      <p><%= t('.visitors') %></p>
+      <p class="title"><%= presenter.visitor_count %></p>
+    </div>
+    <div class="w-200 ">
+      <p><%= t('.amenities') %></p>
+      <p class="title"><%= presenter.amenity_count %></p>
+    </div>
+  </div>
+</section>

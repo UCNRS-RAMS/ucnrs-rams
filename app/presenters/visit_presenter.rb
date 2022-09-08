@@ -17,6 +17,10 @@ class VisitPresenter
     visit_status.humanize
   end
 
+  def submitted_date
+    I18n.l(created_at, format: :visit_submitted_date)
+  end
+
   def requested_date_range
     if starts_at.present? && ends_at.present?
       DateRangePresenter.value(start_date: starts_at.to_date, end_date: ends_at.to_date)
@@ -66,9 +70,15 @@ class VisitPresenter
   delegate :user_visits,
     :reserve,
     :starts_at,
+    :created_at,
     :ends_at,
     :user_visits,
     :amenity_visits,
+    :project_title,
+    :project_type,
+    :user_full_name,
+    :reserve_id,
+    :user,
     to: :visit
 
   delegate :status,

@@ -16,4 +16,9 @@ export default class extends Controller {
       currentTarget.classList.add("active")
     }
   }
+  
+  selectSummaryTab() {
+    document.querySelector('.visit-menu-bar>li>.nav-link.active').classList.remove('active')
+    document.querySelector('.visit-menu-bar>li>.nav-link').classList.add('active')
+  }
 }

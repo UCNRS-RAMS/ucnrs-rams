@@ -5,6 +5,7 @@ FactoryBot.define do
     association :reserve
     association :user
     project_type { :research }
+    created_at { Time.zone.today }
     purpose_of_visit do
       "Same thing we do every night. Try to take over the world!"
     end

@@ -63,6 +63,9 @@ Rails.application.routes.draw do
         resources :users, only: [:new, :create], controller: "projects/users"
         resources :activity_and_notes, only: [:index, :create, :show], controller: "projects/activity_and_notes"
       end
+      resources :visits, only: [:show, :destroy] do
+        resource :summary, only: [:show], controller: "visits/summary"
+      end
       resources :reports, only: [:show] do
         get "report_part_1", on: :member
         get "report_part_2", on: :member

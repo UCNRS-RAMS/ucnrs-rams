@@ -15,8 +15,8 @@ class DateRangePresenter
     @end_date = end_date
   end
 
-  def value
-    I18n.t(range_i18n_key, **start_set, **end_set)
+  def value(format = range_i18n_key)
+    I18n.t(format, **start_set, **end_set)
   end
 
   private
