@@ -2,6 +2,7 @@
 
   <section class="visit-form">
     <h3><%= t(".titles.purpose") %></h3>
+    <%= form.hidden_field :id, value: params[:id] %>
     <div class="project-type-options"  data-purpose="project_type" data-controller="value-projection" data-value-projection-projected-value="<%= form.object.project_type %>">
       <div class="row">
         <% @presenter.project_type_options.each do |value| %>

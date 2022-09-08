@@ -31,8 +31,12 @@ class Visits::AmenityPresenter
     form.id
   end
 
-  def default_date
-    Time.current.strftime("%Y-%m-%d")
+  def default_count(count)
+    count.present? ? count : "1"
+  end
+
+  def default_date(date)
+    date.present? ? date.strftime("%Y-%m-%d") : Time.current.strftime("%Y-%m-%d")
   end
 
   def selected_amenity_rate_id

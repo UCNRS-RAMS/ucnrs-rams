@@ -157,17 +157,24 @@ class VisitForm
   end
 
   def amenity_forms
-    @amenity_forms ||= @amenities_params.values.each_with_object({}) do |params, forms|
-      amenity_id = params[:amenity_id].to_s
-      next if amenity_id.blank?
+    @amenity_forms ||= if @amenities_params.blank?
+      @visit.amenities.each_with_object({}) do |amenity, forms|
+        forms["#{amenity.id}"] = AmenityVisit.where(visit_id: @visit.id, amenity_id: amenity.id).pluck(:id).map {|a| Visits::AmenityForm.new(user: User.first, params: {amenity_visit_id: a})}
+      end
+    else
+      @amenities_params.values.each_with_object({}) do |params, forms|
+        amenity_id = params[:amenity_id].to_s
+        next if amenity_id.blank?
 
-      forms["#{amenity_id}"] = params[:amenity_visits].values.map do |amenity_visit_params|
-        amenity_visit_params[:amenity_id] = params[:amenity_id]
-        amenity_visit_params[:amenity_rate_id] = params[:amenity_rate_id]
-        Visits::AmenityForm.new(
-          user: user,
-          params: amenity_visit_params,
-        )
+        forms["#{amenity_id}"] = params[:amenity_visits].values.map do |amenity_visit_params|
+          amenity_visit_params[:amenity_visit_id] = amenity_visit_params[:id]
+          amenity_visit_params[:amenity_id] = params[:amenity_id]
+          amenity_visit_params[:amenity_rate_id] = params[:amenity_rate_id]
+          Visits::AmenityForm.new(
+            user: user,
+            params: amenity_visit_params,
+          )
+        end
       end
     end
   end
