@@ -7,9 +7,7 @@ class VisitPresenter
     @visit = visit
   end
 
-  delegate :id,
-    :total_pages,
-    to: :visit
+  delegate_missing_to :visit
 
   def status_class
     visit_status
@@ -72,20 +70,6 @@ class VisitPresenter
   private
 
   attr_reader :visit
-
-  delegate :user_visits,
-    :reserve,
-    :starts_at,
-    :created_at,
-    :ends_at,
-    :user_visits,
-    :amenity_visits,
-    :project_title,
-    :project_type,
-    :user_full_name,
-    :reserve_id,
-    :user,
-    to: :visit
 
   delegate :status,
     to: :visit,

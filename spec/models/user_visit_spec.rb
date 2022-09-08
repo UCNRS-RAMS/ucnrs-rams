@@ -7,6 +7,10 @@ RSpec.describe UserVisit, type: :model do
     it { is_expected.to belong_to(:institution) }
   end
 
+  describe "delegations" do
+    it { is_expected.to delegate_method(:full_name).to(:user).with_prefix }
+  end
+
   describe "validations" do
     it { is_expected.to validate_presence_of(:arrives_at) }
     it { is_expected.to validate_presence_of(:departs_at) }

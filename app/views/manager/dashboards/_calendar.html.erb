@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "dashboard-content" do %>
+  <section class="calendar-container">
+    <%= turbo_frame_tag 'calendar', src: manager_reserve_dashboard_calendar_path(start_date: Date.current)  %>
+  </section>
+<% end %>

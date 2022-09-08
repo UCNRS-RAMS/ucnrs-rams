@@ -22,7 +22,6 @@ class Reserve < ApplicationRecord
   has_many :permits, through: :reserve_permits
   has_many :visits
 
-
   def self.blank
     Reserve.new(id: -1, name: "", pulldown_name: "")
   end

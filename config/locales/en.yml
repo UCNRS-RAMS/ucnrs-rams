@@ -1,4 +1,9 @@
 en:
+  simple_calendar:
+    month_calendar:
+      alt:
+        right_facing_arrow: "Right facing Arrow"
+        left_facing_arrow: "Left facing Arrow"
   activerecord: &errors
     attributes:
       visit:
@@ -91,6 +96,7 @@ en:
       visit_submitted_date: "%b, %d, %Y"
       visit_summary_time: "%b. %d, %Y at %l:%M %p"
       hours_minutes_seconds: "%H:%M:%S"
+      date_month_hour: "%d %b, %I %p"
       date_range:
         month_name: "%b"
   date:
@@ -138,6 +144,11 @@ en:
       country: "Country"
       state: "State"
   modals:
+    calendar_visit_modal:
+      reservation_member: "Reservation Members(s)"
+      reserve_Resource: "Reserve Resources(s) | "
+      create_invoice: "Create Invoice"
+      close: "Close"
     edit_project_team_membership:
       title: "Edit Team Member"
       accessible_description: "A modal pop-up form to edit details of a team member on this project."
@@ -1036,12 +1047,27 @@ en:
         amenities: "Amenities"
         confirm_removal: "Are you sure you want to delete visit number %{visit_id}"
     dashboards:
-      show:
-        new_visit_request: "New Visit Request"
-        visits: "Visits"
+      dashboard:
         todays_visit_and_resources: "Today's Visit & Resources"
         last_24_hours: "Last 24 Hours"
         last_7_days: "Last 7 Days"
+      list:
+        title: "List"
+      calendar:
+        title: "Visits and Amenities"
+        visits_and_amenities: "Visits and Amenities"
+        visits_only: "Visits Only"
+        amenities_only: "Amenities Only"
+        all: "All"
+        approved: "Approved"
+        in_review: "Pending approval"
+        incomplete: "Incomplete"
+        cancelled: "Cancelled"
+        denied: "Declined"
+      show:
+        dashboard: "dashboard"
+        new_visit_request: "New Visit Request"
+        visits: "Visits"
     projects:
       not_authorized: "You are not authorized to edit this project."
       cannot_add_users: "You are not authorized to add users."

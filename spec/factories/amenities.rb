@@ -6,6 +6,7 @@ FactoryBot.define do
     time_type { "day" }
     units_type { "facility" }
     group_number { "1" }
+    amenities_type { "vehicles_and_boats" }
     reserve
 
     transient do

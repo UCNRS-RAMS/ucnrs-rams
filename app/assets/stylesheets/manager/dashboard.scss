@@ -11,7 +11,7 @@
 
       a {
         border: 1px solid $gray;
-        padding: .4375rem .625rem;
+        padding: 0.4375rem 0.625rem;
 
         img {
           vertical-align: middle;
@@ -20,6 +20,9 @@
 
       a.active {
         background-color: $gray;
+        .tab-icon {
+          filter: brightness(0) invert(1);
+        }
       }
     }
 
@@ -57,7 +60,7 @@
 
     a {
       color: $sky-blue;
-      font-size: .75rem;
+      font-size: 0.75rem;
       vertical-align: middle;
     }
   }
@@ -67,12 +70,160 @@
     border-left: 0;
     border-right: 0;
     border-top: 2px solid $gray;
-    margin-bottom: 3rem;
-    margin-top: .25rem;
+    margin-bottom: 0rem;
+    margin-top: 0.25rem;
   }
 
   h3 {
     font-size: 1rem;
     font-weight: $medium;
+  }
+
+  .calendar-container {
+    .pulldowns {
+      background-color: $light-light-blue;
+      display: flex;
+      justify-content: end;
+      margin-bottom: 3rem;
+      padding: 1.5rem;
+    }
+
+    .simple-calendar {
+      .calendar-heading {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        margin: 2rem;
+      }
+
+      .calendar-title {
+        border: none;
+        margin: 0px 70px 0px 70px;
+      }
+
+      text-align: center;
+
+      .table {
+        border: 0px;
+        td {
+          border: 0px;
+          color: $semidark-bluegray;
+          padding-left: 0px;
+          padding-right: 0px;
+        }
+
+        th {
+          border: 0px;
+          color: $semidark-bluegray;
+          font-size: 0.8rem;
+          font-weight: $medium;
+          text-align: center;
+        }
+      }
+
+      .day {
+        div:first-child {
+          margin-top: 1.5rem;
+        }
+
+        div:last-child {
+          margin-bottom: 1.5rem;
+        }
+      }
+
+      .prev-month {
+        background: $light-light-blue;
+      }
+
+      .next-month {
+        background: $light-light-blue;
+      }
+
+      .date-text {
+        font-size: 0.65rem;
+      }
+
+      .visitor-count {
+        background-color: #002045;
+        font-size: 0.7rem;
+        height: 25px;
+        margin: 0.5rem 0px;
+        position: relative;
+      }
+
+      .amenity-count {
+        background-color: #1295d8;
+        font-size: 0.7rem;
+        height: 25px;
+        margin: 5px 0px;
+        position: relative;
+      }
+
+      .left-radius {
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+      }
+
+      .right-radius {
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+      }
+
+      .bars-text {
+        background-color: transparent;
+        color: white;
+        left: 20px;
+        margin-top: 0.3rem;
+        position: absolute;
+        white-space: nowrap;
+        z-index: 1;
+      }
+    }
+  }
+
+  .modal {
+    .clr-gray {
+      color: $dark-bluegray;
+    }
+
+    .clr-blue {
+      color: $cornflower;
+    }
+
+    .calendar-modal {
+      p {
+        margin: 0px;
+      }
+    }
+
+    .vertical-padding {
+      padding: 8px 0px;
+    }
+
+    .black-btn {
+      background-color: $dark-bluegray;
+      border-radius: 4px;
+      color: #fff !important;
+    }
+
+    .display-flex {
+      border-bottom: 2px solid $dark-bluegray;
+      border-left: 10px solid $lightgreen;
+      display: flex;
+      justify-content: space-between;
+      padding: 0px 10px;
+
+      p {
+        margin: 0px;
+      }
+
+      p:last-child {
+        padding-right: 7rem;
+      }
+    }
+
+    .text {
+      padding: 2.25rem;
+    }
   }
 }

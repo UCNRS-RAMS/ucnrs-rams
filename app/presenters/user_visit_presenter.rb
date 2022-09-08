@@ -16,6 +16,10 @@ class UserVisitPresenter
     DateRangePresenter.value(start_date: arrives_at.to_date, end_date: departs_at.to_date)
   end
 
+  def timeframe(format = :visit_summary_time)
+    "#{I18n.l(arrives_at, format: format)} - #{I18n.l(departs_at, format: format)}"
+  end
+
   private
 
   attr_reader :user_visit

@@ -19,5 +19,6 @@ RSpec.describe ReservePresenter do
     it { is_expected.to delegate_method(:image_placeholder).to(:reserve) }
     it { is_expected.to delegate_method(:managing_campus).to(:reserve) }
     it { is_expected.to delegate_method(:description).to(:reserve) }
+    it { is_expected.to delegate_method(:visits).to(:reserve) }
   end
 end

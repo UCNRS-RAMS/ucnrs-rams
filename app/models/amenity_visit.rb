@@ -6,8 +6,14 @@ class AmenityVisit < ApplicationRecord
 
   validates :departs_on, must_be_after: :arrives_on
   validates :number_of_people, numericality: { greater_than: 0 }
-
   validate :date_range_within_visit_range
+
+  enum status: {
+    approved: "Approved",
+    in_review: "Pending approval",
+    cancelled: "Cancelled",
+    denied: "Rejected",
+  }
 
   def amenity_visit_id=(value)
     self.id = value

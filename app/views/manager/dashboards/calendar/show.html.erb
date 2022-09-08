@@ -1,0 +1,45 @@
+  <%= turbo_frame_tag 'calendar' do %>
+    <div class="pulldowns">
+      <%= form_with url: manager_reserve_dashboard_calendar_path, method: :get do |f|  %>
+        <%= hidden_field_tag 'start_date', @presenter.start_date  %>
+        <%= hidden_field_tag 'partial_name', "calendar" %>
+        <%= f.select :type, options_for_select(@presenter.type_options, @presenter.type), {}, onchange: "this.form.requestSubmit();" %>
+        <%= f.select :status,  options_for_select(@presenter.status_options, @presenter.status), {}, onchange: "this.form.requestSubmit();" %>
+      <% end %>
+    </div>
+
+    <%= month_calendar @presenter.calendar_params do |date, visits| %>
+      <% @presenter.add_date_visits(date: date, visits: visits) %>
+      <span class="date-text" ><%= date.day %></span>
+      <% @presenter.current_date_visits.each do  |visit| %>
+
+        <% if @presenter.display_visitors?(visit) %>
+          <%= link_to manager_reserve_dashboard_calendar_path(visit_id: visit.id), method: :get do %>
+            <div class="<%= visit.visitor_counts_bg  %>" >
+              <% if visit.display_visitors_text?(@presenter.prev_date_visits)  %>
+                <span class="bars-text" >
+                  <%= "#{visit.user_visits_count} Visitors" %>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+
+        <% if @presenter.display_amenities? %>
+          <% visit.amenity_visits.includes([:amenity]).each do  |amenity_visit| %>
+            <% if @presenter.display_amenity?(amenity_visit)  %>
+              <%= link_to manager_reserve_dashboard_calendar_path(visit_id: amenity_visit.visit_id), method: :get do %>
+                <div class="<%= visit.amentities_counts_bg %>" >
+                  <% if visit.display_amenities_text? %>
+                    <span class="bars-text">
+                      <%= "#{amenity_visit.amenity.title} (#{amenity_visit.number_of_people} visitors)"  %></span>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</section>

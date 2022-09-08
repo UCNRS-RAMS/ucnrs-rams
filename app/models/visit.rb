@@ -1,5 +1,5 @@
 class Visit < ApplicationRecord
-  DEFAULT_LIMIT_FOR_INDEX = 10.freeze
+  DEFAULT_LIMIT_FOR_INDEX = 10
 
   STATUS_FILTERS = {
     "visit_date" => nil,
