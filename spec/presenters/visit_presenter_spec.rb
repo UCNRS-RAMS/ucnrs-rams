@@ -3,10 +3,8 @@ require "rails_helper"
 RSpec.describe VisitPresenter do
   describe "delegations" do
     subject { VisitPresenter.new(create(:visit)) }
-    it { is_expected.to delegate_method(:id).to(:visit) }
-    it { is_expected.to delegate_method(:user_visits).to(:visit) }
-    it { is_expected.to delegate_method(:reserve).to(:visit) }
-    it { is_expected.to delegate_method(:total_pages).to(:visit) }
+    it { is_expected.to delegate_method(:status).to(:visit).with_prefix }
+    it { is_expected.to delegate_missing_methods_to(:visit) }
   end
 
   describe "#status_class" do

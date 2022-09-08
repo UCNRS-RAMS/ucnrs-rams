@@ -55,6 +55,16 @@ RSpec.describe AmenityVisit do
     end
   end
 
+  it do
+    is_expected.to define_enum_for(:status)
+      .with_values(
+        approved: "Approved",
+        in_review: "Pending approval",
+        cancelled: "Cancelled",
+        denied: "Rejected",
+      ).backed_by_column_of_type(:string)
+  end
+
   describe "#subtotal" do
     it "multiplies and return number_of_people * real_units_of_time * rate" do
       amenity_visit = create(:amenity_visit, number_of_people: 10, manual_units_of_time: 10, rate: 10)

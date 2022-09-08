@@ -53,9 +53,9 @@ class VisitShowPresenter
     visit.submitted_at ? I18n.l(visit.submitted_at, format: :visit_summary_time) : ""
   end
 
-  def timeframe
+  def timeframe(format = :visit_summary_time)
     if visit_timeframe_present?
-      "#{I18n.l(starts_at, format: :visit_summary_time)} - #{I18n.l(ends_at, format: :visit_summary_time)}"
+      "#{I18n.l(starts_at, format: format)} - #{I18n.l(ends_at, format: format)}"
     else
       not_applicable
     end
@@ -73,8 +73,12 @@ class VisitShowPresenter
     visit.amenity_visits.pluck(:amenity_id).uniq.length
   end
 
-  def user_visits
-    visit.user_visits.includes([:user, :institution]).map do |user_visit|
+  def user_visits?
+    visit.user_visits.present?
+  end
+
+  def user_visits(includes = [:user, :institution])
+    visit.user_visits.includes(includes).map do |user_visit|
       UserVisitPresenter.new(user_visit)
     end
   end
@@ -108,7 +112,7 @@ class VisitShowPresenter
   end
 
   def visit_timeframe_present?
-    starts_at.present? && starts_at.present?
+    starts_at.present? && ends_at.present?
   end
 
   def not_applicable

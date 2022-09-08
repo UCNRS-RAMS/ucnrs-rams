@@ -1,5 +1,5 @@
 <div class="toolbar-button">
-  <%= link_to t(".add_team_member"), @presenter.new_user_visit_path(add_visitor_partial: "team_members"), 
+  <%= link_to t(".add_team_member"), @presenter.new_user_visit_path(add_visitor_partial: "team_members"),
       class: @presenter.add_visitor_link_class("team_members"), method: :get %>
   <%= link_to t(".add_guest"), @presenter.new_user_visit_path(add_visitor_partial: "guest"),
       class: @presenter.add_visitor_link_class("guest"), method: :get %>

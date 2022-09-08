@@ -12,10 +12,12 @@
  *
  *= require_tree .
  *= require_self
+ *= require simple_calendar
  */
 
 @import "variables";
 @import "mixins/dropdown";
+@import "simple_calendar";
 
 html {
   height: 100%;

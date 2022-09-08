@@ -11,6 +11,8 @@ class UserVisit < ApplicationRecord
   validate :date_range_within_visit_range
   validates :role, presence: true
 
+  delegate :full_name, to: :user, prefix: true
+
   enum role: {
     faculty: "Faculty",
     research_scientist: "Research Scientist/Post Doc",

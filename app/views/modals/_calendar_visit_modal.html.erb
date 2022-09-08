@@ -1,0 +1,35 @@
+<turbo-frame class="modal-content" data-modal-target="dialog openOnLoad" >
+  <section class="text calendar-modal">
+    <div class="close">
+      <%= image_tag "x.svg", height: "16px", width: "16px", data: { action: "click->modal#close" } %>
+    </div>
+    <div class="vertical-padding">
+      <p class="clr-blue"><%= @presenter.purpose_of_visit %></p>
+      <p class="clr-gray"><em>Reservation # <%= @presenter.id %> @ <%= @presenter.visit_reserve_name %></em></p>
+    </div>
+    <hr>
+    <div class="vertical-padding">
+      <p class="clr-gray"><em>Under application # <%= @presenter.project_id %> | <%= @presenter.project_type %></em></p>
+      <p class="clr-blue"><%= @presenter.project_title %></p>
+      <p class="clr-gray"><em><%= @presenter.user_full_name %> - <%= @presenter.user.institution_name %></em></p>
+    </div>
+    <hr>
+    <h5><%= t(".reservation_member") %></h5>
+    <% @presenter.user_visits? && @presenter.user_visits([:user]).each  do |user_visit| %>
+      <div class="display-flex">
+        <p><%= user_visit.user_full_name %></p>
+        <p><%= user_visit.timeframe(:date_month_hour) %></p>
+      </div>
+    <% end %>
+    <h5><%= t(".reserve_Resource") %> <%= t(".create_invoice")%></h5>
+    <div class="display-flex">
+      <p><%= @presenter.reserve_name %></p>
+      <p><%= @presenter.timeframe(:date_month_hour) %></p>
+    </div>
+  </section>
+  <section class="buttons">
+    <button class="active black-btn" data-action="click->modal#close">
+      <%= t('.close') %>
+    </button>
+  </section>
+</turbo-frame>
