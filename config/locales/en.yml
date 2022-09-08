@@ -78,6 +78,7 @@ en:
       visit_form_output_time_human: "%-I:%M %p"
       project_summary_date_time: "%b. %d, %Y at %l:%M %p"
       project_summary_date: "%b. %d, %Y"
+      visit_submitted_date: "%b, %d, %Y"
       visit_summary_time: "%b. %d, %Y at %l:%M %p"
       hours_minutes_seconds: "%H:%M:%S"
       date_range:
@@ -983,6 +984,28 @@ en:
     waiver:
       download_pdf: "Download PDF"
   manager:
+    visits:
+      summary:
+        show:
+          summary: "Summary"
+      menu:
+        summary: "Summary"
+        details: "Details"
+        visitors: "Visitors"
+        reserve_info: "Reserve Info"
+        policies: "Waivers & Policies"
+        activity: "Activity & Notes"
+        invoices: "Invoices"
+      summary_box:
+        visit_dates: "Visit Dates"
+        number: "Visits Number"
+        reserve: "Reserve"
+        project_title: "Project Title"
+        date_submitted: "Date_submitted"
+        applicant: "Applicant"
+        visit_type: "Visit Type"
+        visitors: "Visitors"
+        amenities: "Amenities"
     dashboards:
       show:
         new_visit_request: "New Visit Request"

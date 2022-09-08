@@ -20,6 +20,7 @@ class Reserve < ApplicationRecord
   has_many :addendums, class_name: "ReserveAddendum"
   has_many :reserve_permits
   has_many :permits, through: :reserve_permits
+  has_many :visits
 
 
   def self.blank
