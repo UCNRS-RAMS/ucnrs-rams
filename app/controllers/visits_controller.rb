@@ -35,7 +35,8 @@ class VisitsController < ApplicationController
   end
 
   def amenity_booking
-    @presenter = Visits::AmenityPresenter.new(amenity, user: current_user)
+    form = Visits::AmenityForm.new(params: amenity_booking_params)
+    @presenter = Visits::AmenityPresenter.new(amenity, user: current_user, form: [form])
   end
 
   private
@@ -73,5 +74,9 @@ class VisitsController < ApplicationController
 
   def visit_id
     params.permit(:id).require(:id)
+  end
+
+  def amenity_booking_params
+    params.permit(:amenity_id, :amenity_rate_id)
   end
 end

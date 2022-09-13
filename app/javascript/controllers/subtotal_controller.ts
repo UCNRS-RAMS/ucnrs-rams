@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["initialVal", "subtotal", "count", "arriveOn", "departsOn", "arriveAt", "departsAt", "unitType"]
+  static targets = ["initialVal", "subtotal", "rate",  "count", "arriveOn", "departsOn", "arriveAt", "departsAt", "unitType"]
   declare countTarget: HTMLInputElement
   declare subtotalTarget: HTMLInputElement
   declare initialValTarget: HTMLInputElement
@@ -21,6 +21,11 @@ export default class extends Controller {
       this.countTarget.value = '1'
     this.subtotalTarget.innerText = (parseFloat(this.countTarget.value) * parseFloat(this.initialValTarget.textContent) * parseFloat(units)).toFixed(2)
   }
+
+  setRate(rateValue){
+    this.initialValTarget.innerText = rateValue
+    this.calculateSubtotal()
+ }
 
   async getSubtotal(){
     const arrive = `${this.arriveOnTarget.value} ${this.arriveAtTarget.value}`

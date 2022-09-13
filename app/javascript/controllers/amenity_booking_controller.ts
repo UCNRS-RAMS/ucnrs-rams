@@ -1,9 +1,10 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["initialVal", "subtotal", "count" , "amenityRadioBtn", "arriveOn", "departsOn", "arriveAt", "departsAt", "bookingCards", "bookingCard"]
+  static targets = ["initialVal", "subtotal", "rate", "count" , "amenityRadioBtn", "arriveOn", "departsOn", "arriveAt", "departsAt", "bookingCards", "bookingCard"]
   declare countTarget: HTMLInputElement
   declare subtotalTarget: HTMLInputElement
+  declare rateTarget: HTMLSelectElement
   declare initialValTarget: HTMLInputElement
   declare amenityRadioBtnTarget: HTMLInputElement
   declare arriveOnTarget: HTMLInputElement
@@ -20,6 +21,11 @@ export default class extends Controller {
     } else {
       this.resetFields()
     }
+  }
+
+  calculateSubtotal() {
+    const rate = this.rateTarget.options[this.rateTarget.selectedIndex].innerText.match(/\d+/)[0]
+    this.bookingCardTargets.forEach(target => this.application.getControllerForElementAndIdentifier(target, "subtotal").setRate(rate))
   }
 
   resetFields(){

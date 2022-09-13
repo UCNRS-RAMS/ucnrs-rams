@@ -8,8 +8,8 @@
   <% end %>
   <div data-amenity-category-target = "amenitiesDiv" >
     <% amenities.each do |amenity| %>
-      <%= fields_for "visit[amenities][#{ amenity.amenity_id }]", amenity.form do |form| %>
-        <%= render partial: "visits/amenities/amenity", locals: { form: form, presenter: amenity, group_label: group_label } %>
+      <%= fields_for "visit[amenities][#{ amenity.amenity_id }]", amenity.form.first do |form| %>
+        <%= render partial: "visits/amenities/amenity", locals: { form: form, presenter: amenity, group_label: group_label, forms: amenity.form } %>
       <% end %>
     <% end %>
   </div>

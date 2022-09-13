@@ -32,4 +32,21 @@ RSpec.describe Manager::Visits::VisitsFormPresenter do
       expect(presenter.show_browse_reserve_link).to eq false
     end
   end
+
+  describe "#amenities_by_group_label" do
+    it "should return amenity group labels as keys" do
+      reserve = create(:reserve)
+      create(:amenity, reserve: reserve, group_number: "1")
+      create(:amenity, reserve: reserve, group_number: "2")
+
+      visit = create(:visit, reserve: reserve)
+      user = create(:user)
+      form = VisitForm.new(user: user, params: {
+        id: visit.id,
+      })
+      presenter = Manager::Visits::VisitsFormPresenter.new(user: build(:user), form: form)
+
+      expect(presenter.amenities_by_group_label.keys).to eq ["Label 1", "2"]
+    end
+  end
 end

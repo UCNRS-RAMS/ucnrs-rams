@@ -108,6 +108,20 @@ class Visits::AmenityPresenter
     end
   end
 
+  def amenity_rate_options
+    rates.map do |rate|
+      rate_string = "#{rate.amount} per #{unit}"
+      if period != "each"
+        rate_string << "/per #{period}"
+      end
+      [rate_string, rate.id]
+    end
+  end
+
+  def amenity_rate_partial_path
+    "visits/amenities/amenity_rate"
+  end
+
   def per
     I18n.t(".amenities.units.per")
   end
