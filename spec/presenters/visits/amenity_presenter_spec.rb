@@ -351,4 +351,29 @@ RSpec.describe Visits::AmenityPresenter do
       expect(presenter.selected_rate_description).to eq("#{rate.amount} #{presenter.per_sentence}")
     end
   end
+  
+  describe "#amenity_rate_options" do
+    it "should return array pair of rate_string and rate id for select options" do
+      user = create(:user, institution: build(
+        :institution, institution_type: :k_12_education
+      ))
+
+      amenity = create(:amenity, amenity_rates: [
+        create(:amenity_rate, k12: false),
+        create(:amenity_rate, k12: true),
+      ])
+
+      presenter = Visits::AmenityPresenter.new(amenity)
+
+      expected_result = presenter.rates.map do |rate|
+        rate_string = "#{rate.amount} per #{presenter.unit}"
+        if presenter.period != "each"
+          rate_string << "/per #{presenter.period}"
+        end
+        [rate_string, rate.id]
+      end
+
+      expect(presenter.amenity_rate_options).to eq expected_result
+    end
+  end
 end

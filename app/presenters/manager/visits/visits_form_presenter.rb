@@ -1,5 +1,4 @@
 class Manager::Visits::VisitsFormPresenter < VisitsFormPresenter
-
   def project_type_partial_path
     "manager/visits/detail/project_type"
   end
@@ -18,5 +17,15 @@ class Manager::Visits::VisitsFormPresenter < VisitsFormPresenter
 
   def save_partial_path
     "manager/visits/detail/save"
+  end
+
+  private
+
+  def wrap_amenity_in_presenter(amenity)
+    Manager::Visits::AmenityPresenter.new(
+      amenity,
+      form: form.amenity_form(amenity.id.to_s),
+      user: @user,
+    )
   end
 end

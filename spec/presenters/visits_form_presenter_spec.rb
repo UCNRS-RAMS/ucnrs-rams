@@ -12,6 +12,9 @@ RSpec.describe VisitsFormPresenter do
     let(:form) { VisitForm.new(params: { reserve_id: create(:reserve).id }) }
     subject { VisitsFormPresenter.new(user: user) }
 
+    it { is_expected.to delegate_method(:project_title).to(:form) }
+    it { is_expected.to delegate_method(:reserve_name).to(:form) }
+    it { is_expected.to delegate_method(:id).to(:form) }
     it { is_expected.to delegate_method(:visit).to(:form) }
     it { is_expected.to delegate_method(:start_date).to(:form) }
     it { is_expected.to delegate_method(:end_date).to(:form) }
