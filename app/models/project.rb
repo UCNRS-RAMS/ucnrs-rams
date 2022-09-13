@@ -207,7 +207,9 @@ class Project < ApplicationRecord
     when "all" then all
     when "research" then where(project_type: "Research")
     when "university_class" then where(project_type: "Class")
+    when "class" then where(project_type: "Class")
     when "meeting_or_conference" then where(project_type: "Meeting")
+    when "meeting" then where(project_type: "Meeting")
     when "public_use" then where(project_type: "Public Use")
     else
       none

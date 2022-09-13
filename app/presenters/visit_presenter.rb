@@ -31,6 +31,21 @@ class VisitPresenter
     reserve.name
   end
 
+  def applicant_name
+    user.full_name
+  end
+
+  def submitted_at
+    if visit.submitted_at.present?
+      DateRangePresenter.value(
+        start_date: visit.submitted_at,
+        end_date: visit.submitted_at
+      )
+    else
+      not_applicable
+    end
+  end
+
   def earliest_arrival
     user_visits.min_by(&:arrives_at) if user_visits.present?
   end
@@ -74,4 +89,8 @@ class VisitPresenter
   delegate :status,
     to: :visit,
     prefix: true
+
+  def not_applicable
+    I18n.t(".visits.visit.not_applicable")
+  end
 end

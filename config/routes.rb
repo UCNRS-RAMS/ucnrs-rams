@@ -52,11 +52,14 @@ Rails.application.routes.draw do
   end
 
   namespace :manager do
+    resources :amenities, only: [:index]
+    
     resources :reserves, only: [:show] do
       resources :team_memberships, only: [:edit, :update, :destroy], controller: "projects/team_memberships"
-      resource :dashboard, only: [:show] do
-        resource :calendar, only: [:show], controller: "dashboards/calendar" do
-          resources :visits, only: [:show], controller: "dashboards/calendar/visits"
+      resource :dashboard, only: [:show], controller: "dashboard" do
+        resources :visits, only: [:index], controller: "dashboard/visits"
+        resource :calendar, only: [:show], controller: "dashboard/calendar" do
+          resources :visits, only: [:show], controller: "dashboard/calendar/visits"
         end
       end
       resources :projects, only: [:index, :show] do

@@ -1,0 +1,129 @@
+@import "../variables";
+
+@mixin search-subsection {
+  .search-subsection {
+    .search-primary, .search-secondary {
+      background-color: $light-light-blue;
+      color: $navy-blue;
+      padding: 1.5rem;
+    }
+
+    .search-primary {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .search-primary > div:first-child > * {
+      margin-right: .5rem;
+    }
+
+    .search-primary > div:last-child > * {
+      margin-left: .5rem;
+    }
+    
+    .search-secondary {
+      background-color: $light-light-blue;
+      border-top: 1px solid $gray;
+      display: none;
+    }
+
+    .search-secondary.show {
+      display: block;
+    }
+
+    #show_button, #hide_button {
+      display: none;
+    }
+
+    #show_button.show, #hide_button.show {
+      box-sizing: border-box;
+      display: flex;
+      height: 100%
+    }
+
+    input {
+      border: 1px solid $gray;
+      border-radius: .3125rem;
+      box-sizing: border-box;
+      padding: .5rem;
+    }
+
+    select {
+      background-color: $white;
+      border: 1px solid $gray;
+      border-radius: .3125rem;
+      box-sizing: border-box;
+      padding: .5rem;
+    }
+
+    .input-with-buttons {
+      position: relative;
+  
+      > input {
+        padding: 0.5rem 1.875rem;
+      }
+    }
+
+    .input-with-buttons::before {
+      content: "";
+      display: block;
+      height: 1rem;
+      left: 0.725rem;
+      position: absolute;
+      top: 0.5875rem;
+      width: 1rem;
+    }
+  
+    .input-with-buttons.search::before {
+      background: no-repeat center/12px url(asset-path("icon-search.svg"));
+    }
+
+    .input-with-buttons.calendar::before {
+      background: no-repeat center/14px url(asset-path("icon-calendar.svg"));
+    }
+
+    #horizontal-line {
+      margin-right: 2rem;
+      position: relative;
+    }
+  
+    #horizontal-line::after {
+      border-top: 3px solid;
+      content: "";
+      display: block;
+      position: absolute;
+      right: -1.5rem;
+      top: 2rem;
+      width: 1rem;
+    }
+
+    .row {
+      display: flex;
+      margin-bottom: 1rem;
+  
+      label {
+        color: $dark-bluegray;
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: $medium;
+        margin-bottom: 0.15rem;
+      }
+    }
+
+    .row.mb-0 {
+      margin-bottom: 0;
+    }
+  
+    .row-medium, .row-auto {
+      margin-right: 1rem;
+  
+      > * {
+        width: 100%;
+      }
+    }
+  
+    .row-medium {
+      width: 423px;
+    }
+  }
+}

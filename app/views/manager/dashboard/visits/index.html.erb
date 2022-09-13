@@ -1,0 +1,18 @@
+<%= turbo_frame_tag 'visits-index' do %>
+  <section class="content full">
+    <header>
+      <h1><%= t(".visits") %></h1>
+    </header>
+    <hr />
+    <%= turbo_frame_tag 'dashboard-content' do %>
+      <section class="visits-search-list">
+        <section class="search-subsection">
+        <%= render partial: "search", locals: { presenter: @presenter } %>
+        </section>
+        <section class="reserve-info-subsection">
+          <%= render partial: "visits", locals: { presenter: @presenter } %>
+        </section>
+      </section>
+    <% end %>
+  </section>
+<% end %>

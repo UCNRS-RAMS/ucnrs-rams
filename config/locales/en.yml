@@ -429,6 +429,8 @@ en:
         ucnrs_newsletter: "NRS Newsletter."
         terms_of_use: "Terms of Use"
   visits:
+    visit:
+      not_applicable: "Not Applicable"
     save:
       alt_text:
         right_arrow: "Right Arrow"
@@ -1049,12 +1051,6 @@ en:
         amenities: "Amenities"
         confirm_removal: "Are you sure you want to delete visit number %{visit_id}"
     dashboards:
-      dashboard:
-        todays_visit_and_resources: "Today's Visit & Resources"
-        last_24_hours: "Last 24 Hours"
-        last_7_days: "Last 7 Days"
-      list:
-        title: "List"
       calendar:
         title: "Visits and Amenities"
         visits_and_amenities: "Visits and Amenities"
@@ -1066,10 +1062,33 @@ en:
         incomplete: "Incomplete"
         cancelled: "Cancelled"
         denied: "Declined"
+    dashboard:
+      dashboard:
+        todays_visit_and_resources: "Today's Visit & Resources"
+        last_24_hours: "Last 24 Hours"
+        last_7_days: "Last 7 Days"
+      list:
+        title: "List"
       show:
-        dashboard: "dashboard"
         new_visit_request: "New Visit Request"
         visits: "Visits"
+      visits:
+        index:
+          visits: "Visits"
+          date_submitted: "Date Submitted"
+          visit_start_date: "Visit Start Date"
+        search:
+          show_options: "Show Options"
+          hide_options: "Hide Options"
+          visit_status: "Visit Status"
+          report_access: "Annual Report Access"
+          earliest_arrival_date: "Visit On or After"
+          latest_departure_date: "Visit On or Before"
+          reserve: "Reserve"
+          amenity_requested: "Amenity Requested"
+          clear_all_and_start_over: "Clear All and Start Over"
+          search_for_incomplete_visits: "Search for Incomplete Visits"
+        visit:
     projects:
       not_authorized: "You are not authorized to edit this project."
       cannot_add_users: "You are not authorized to add users."
@@ -2153,6 +2172,21 @@ en:
     ucnrs_logo: "UCNRS logo"
     checked: "checked icon"
     unchecked: "unckecked icon"
+  universal:
+    project:
+      project_types:
+        research: "Research"
+        class: "Class"
+        meeting: "Meeting or Conference"
+        public_use: "Public Use"
+        housing: "Housing"
+    visit:
+      statuses:
+        approved: "Approved"
+        in_review: "In Review"
+        cancelled: "Cancelled"
+        incomplete: "Incomplete"
+        denied: "Denied"
   edit: "Edit"
   research: "Research"
   university_class: "University Class"

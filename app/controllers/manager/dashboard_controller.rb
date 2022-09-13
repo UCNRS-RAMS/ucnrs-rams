@@ -1,4 +1,4 @@
-class Manager::DashboardsController < ApplicationController
+class Manager::DashboardController < ApplicationController
   layout "manager"
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!

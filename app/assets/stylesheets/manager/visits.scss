@@ -4,8 +4,33 @@
 @import "mixins/controls";
 @import "mixins/summary";
 @import "mixins/tables";
+@import "mixins/search";
+@import "mixins/pagination";
 
 @include controls;
+
+.manager.visits-index {
+  section.content {
+    header{
+      h1 {
+        font-size: 1.85rem;
+        font-weight: $medium;
+        margin: .5rem 0;
+      }
+    }
+
+    hr {
+      border-bottom: 2px solid $gray;
+      border-left: 0;
+      border-right: 0;
+      border-top: 0;
+      margin: 0;
+    }
+
+    @include search-subsection;
+    @include pagination;
+  }
+}
 
 .visits-show {
   .container {
