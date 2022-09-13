@@ -8,11 +8,10 @@
   height: 100%;
 
   main {
-    min-height: 100vh;
-
     .content {
       color: $navy-blue;
       display: flex;
+      height: 100%;
       width: 100vw;
 
       .left {
@@ -116,7 +115,6 @@
 
       .right {
         background-color: $light-light-blue;
-        min-height: 100vh;
         width: 405px;
 
         div {
