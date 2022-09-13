@@ -1,4 +1,5 @@
 @import "variables";
+@import "mixins/search";
 
 .manager {
   .link-group {
@@ -42,16 +43,17 @@
   }
 }
 
-.manager.dashboards {
+.manager.dashboard {
   header.content-header {
     align-items: center;
     display: flex;
     justify-content: space-between;
-    margin-top: 5rem;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
 
     h2 {
       display: inline-block;
-      font-size: 2rem;
+      font-size: 1.85rem;
       font-weight: $medium;
       margin-bottom: 0;
       margin-top: 0;
@@ -70,14 +72,15 @@
     border-left: 0;
     border-right: 0;
     border-top: 2px solid $gray;
-    margin-bottom: 0rem;
-    margin-top: 0.25rem;
+    margin: 0;
   }
 
   h3 {
     font-size: 1rem;
     font-weight: $medium;
   }
+
+  @include search-subsection;
 
   .calendar-container {
     .pulldowns {

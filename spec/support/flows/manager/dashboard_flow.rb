@@ -19,7 +19,7 @@ class Manager::DashboardFlow
   end
 
   def list_partial?
-    page.has_text?("List")
+    page.has_css?(".visits-search-list")
   end
 
   def calendar_partial?

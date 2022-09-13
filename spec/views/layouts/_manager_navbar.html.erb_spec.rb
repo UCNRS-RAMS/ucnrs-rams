@@ -7,7 +7,7 @@ RSpec.describe "manager navbar", type: :view do
 
     render partial: "layouts/manager_navbar", locals: { current_user: user, current_reserve: reserve }
 
-    expect(rendered).to have_link("Visits", href: "#")
+    expect(rendered).to have_link("Visits", href: "/manager/reserves/#{reserve.id}/dashboard")
     expect(rendered).to have_link("Projects", href: "/manager/reserves/#{reserve.id}/projects")
     expect(rendered).to have_link("Invoices", href: "#")
     expect(rendered).to have_link(

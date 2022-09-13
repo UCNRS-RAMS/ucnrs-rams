@@ -8,7 +8,7 @@ class ConfirmManagerFlow
   end
 
   def on_manager_reserve_dashboard?
-    page.has_css?("body.manager.dashboards")
+    page.has_css?("body.manager.dashboard")
   end
 
   def on_root_home_page?

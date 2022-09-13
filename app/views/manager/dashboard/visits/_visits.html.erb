@@ -1,0 +1,8 @@
+<turbo-frame id="visit-requests">
+  <table class="visit-requests">
+    <tbody>
+      <%= render partial: "visit", collection: presenter.visits %>
+    <tbody>
+  </table>
+  <%= paginate presenter.visit_scope %>
+</turbo-frame>

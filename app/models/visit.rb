@@ -1,3 +1,5 @@
+#frozen_string_literal: true
+
 class Visit < ApplicationRecord
   DEFAULT_LIMIT_FOR_INDEX = 10
 
@@ -52,17 +54,17 @@ class Visit < ApplicationRecord
       .order("ordered_visits DESC")
   end
 
-  def self.for_status(status_filter)
-    if status_filter.present?
-      where(status: status_filter)
+  def self.for_status(status)
+    if status.present?
+      where(status: status)
     else
       all
     end
   end
 
-  def self.by_reserve(reserve_id)
-    if reserve_id
-      where(reserve_id: reserve_id)
+  def self.by_reserve(reserve)
+    if reserve.present?
+      where(reserve: reserve)
     else
       all
     end
@@ -95,6 +97,71 @@ class Visit < ApplicationRecord
 
   def ends_at
     change_date_for_datetime(end_time, end_date)
+  end
+
+  def self.searching_term(search_term)
+    if search_term.present? && NUMERIC_SEARCH_PATTERN === search_term
+      where(id: search_term)
+    elsif search_term.present?
+      left_joins(:user)
+        .where(
+          Arel.sql(<<-end_sql)
+            visits.purpose_of_visit LIKE "%#{search_term}%" OR
+            users.first_name LIKE "%#{search_term}%" OR
+            users.last_name LIKE "%#{search_term}%" OR
+            users.email LIKE "%#{search_term}%"
+          end_sql
+        )
+        .group(:id)
+    else
+      all
+    end
+  end
+
+  def self.of_project_type(project_type)
+    if project_type.present?
+      joins(:project).merge(Project.of_type(project_type))
+    else
+      all
+    end
+  end
+
+  def self.sort_using(sort_option = nil)
+    case sort_option.to_s
+    when "submitted_recent_first" then submitted_recent_first
+    when "recent_start_date_first" then recent_start_date_first
+    else
+      all
+    end
+  end
+
+  def self.with_report_access(status)
+    where(report_access: status)
+  end
+
+  def self.using_amenity(amenity)
+    if amenity.present? && amenity != 'all'
+      left_joins(:amenities)
+        .merge(Amenity.where(id: amenity))
+        .group(:id)
+    else
+      all
+    end
+  end
+
+  def self.having_between_time_for(date_range_option: nil, date_start: nil, date_end: nil)
+    case date_range_option
+    when :visit_date_range
+      DateQuery.call(
+        self, date_start_type: :ends_at, date_start: date_start, date_end_type: :starts_at, date_end: date_end
+      )
+    else
+      all
+    end
+  end
+
+  def self.submitted_recent_first
+    order(submitted_at: :desc)
   end
 
   enum status: {

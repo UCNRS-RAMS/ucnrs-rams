@@ -70,10 +70,10 @@ RSpec.describe Visit, type: :model do
   end
 
   describe ".recent_start_date_first" do
-    it "returns records in reverse chronological order by start_date" do
-      one = travel_to(1.week.ago) { create(:visit, start_date: Date.current) }
-      two = travel_to(1.month.ago) { create(:visit, start_date: Date.current) }
-      three = create(:visit, start_date: Date.current)
+    it "returns records in reverse chronological order by starts_at date" do
+      one = travel_to(1.week.ago) { create(:visit, starts_at: Date.current) }
+      two = travel_to(1.month.ago) { create(:visit, starts_at: Date.current) }
+      three = create(:visit, starts_at: Date.current)
 
       results = Visit.recent_start_date_first
 
@@ -95,7 +95,7 @@ RSpec.describe Visit, type: :model do
   end
 
   describe ".by_reserve" do
-    context "when a reserve id passed in is nil" do
+    context "when not present? is passed in" do
       it "returns all visit records" do
         reserve = create(:reserve)
         visit1 = create(:visit, reserve: reserve)
@@ -108,14 +108,14 @@ RSpec.describe Visit, type: :model do
       end
     end
 
-    context "when a reserve id is passed in" do
+    context "when a reserve is passed in" do
       it "returns all visit records for that reserve" do
         reserve = create(:reserve)
         visit1 = create(:visit, reserve: reserve)
         visit2 = create(:visit, reserve: reserve)
         visit3 = create(:visit)
 
-        results = Visit.by_reserve(reserve.id)
+        results = Visit.by_reserve(reserve)
 
         expect(results).to eq [visit1, visit2]
       end
@@ -123,7 +123,7 @@ RSpec.describe Visit, type: :model do
   end
 
   describe ".for_status" do
-    context "when status filter passed in is nil" do
+    context "when not present? is passed in" do
       it "returns all visit records" do
         visit1 = create(:visit, status: "approved")
         visit2 = create(:visit, status: "in_review")
@@ -137,7 +137,7 @@ RSpec.describe Visit, type: :model do
       end
     end
 
-    context "when status filter passed" do
+    context "when 'status' is passed in" do
       it "returns all visit records with the given status" do
         visit1 = create(:visit, status: "approved")
         visit2 = create(:visit, status: "in_review")
@@ -218,6 +218,205 @@ RSpec.describe Visit, type: :model do
       results = Visit.applicant_visit_ids(user)
 
       expect(results).to eq [visit1.id, visit2.id]
+    end
+  end
+
+  describe ".searching_term" do
+    context "when search_filter contain only numbers" do
+      it "search visit id" do
+        visit = create(:visit)
+
+        results = Visit.searching_term(visit.id.to_s)
+
+        expect(results).to eq [visit]
+      end
+    end
+
+    context "when search_filter contain not only numbers" do
+      let(:user) { create(:user, last_name: "McDuck", first_name: "Scrooge", email: "s.mcd@email.me") }
+      let(:visit) do
+        create :visit,
+          user: user,
+          purpose_of_visit: "Walk around the reserve."
+      end
+
+      it "search statement of purpose" do
+        results = Visit.searching_term("around the reserve")
+
+        expect(results).to eq [visit]
+      end
+
+      it "search visit applicant last_name" do
+        results = Visit.searching_term("Mcduck")
+
+        expect(results).to eq [visit]
+      end
+
+      it "search visit applicant first_name" do
+        results = Visit.searching_term("Scrooge")
+
+        expect(results).to eq [visit]
+      end
+
+      it "search visit applicant email" do
+        results = Visit.searching_term("s.mcd")
+
+        expect(results).to eq [visit]
+      end
+    end
+  end
+
+  describe ".of_project_type" do
+    context "when not present? is passed in" do
+      it "returns all visit records" do
+        project_research = create(:project, project_type: "Research")
+        project_class = create(:project, project_type: "Class")
+        visit1 = create(:visit, status: "approved", project: project_research)
+        visit2 = create(:visit, status: "in_review", project: project_class)
+        visit3 = create(:visit, status: "cancelled", project: project_research)
+        visit4 = create(:visit, status: "incomplete", project: project_class)
+        visit5 = create(:visit, status: "approved", project: project_research)
+
+        results = Visit.of_project_type(nil)
+
+        expect(results).to eq [visit1, visit2, visit3, visit4, visit5]
+      end
+    end
+
+    context "when 'project_type' is passed in" do
+      it "returns all visit records with the given 'project_type'" do
+        project_research = create(:project, project_type: "Research")
+        project_class = create(:project, project_type: "Class")
+        visit1 = create(:visit, status: "approved", project: project_research)
+        visit2 = create(:visit, status: "in_review", project: project_class)
+        visit3 = create(:visit, status: "cancelled", project: project_research)
+        visit4 = create(:visit, status: "incomplete", project: project_class)
+        visit5 = create(:visit, status: "approved", project: project_research)
+
+        results = Visit.of_project_type("research")
+
+        expect(results).to eq [visit1, visit3, visit5]
+      end
+    end
+  end
+
+  describe ".sort_using" do
+    it "calls the submitted_recent_first when supplied sort_option is 'submitted_recent_first'" do
+      expect(Visit).to receive(:sort_using).with("submitted_recent_first").and_return(Visit.submitted_recent_first)
+
+      Visit.sort_using "submitted_recent_first"
+    end
+
+    it "calls the recent_start_date_first when supplied sort_option is 'recent_start_date_first'" do
+      expect(Visit).to receive(:sort_using).with("recent_start_date_first").and_return(Visit.recent_start_date_first)
+
+      Visit.sort_using "recent_start_date_first"
+    end
+
+    it "returns all when supplied sort_option is not present" do
+      expect(Visit).to receive(:sort_using).and_return(Visit.all)
+
+      Visit.sort_using ""
+    end
+  end
+
+  describe ".with_report_access" do
+    context "when the passed status category is 1" do
+      it "returns visit with report_access of 1" do
+        visit1 = create(:visit, report_access: 1)
+        visit2 = create(:visit, report_access: 0)
+        visit3 = create(:visit, report_access: 1)
+        visit4 = create(:visit, report_access: 0)
+
+        results = Visit.with_report_access 1
+
+        expect(results).to eq [visit1, visit3]
+      end
+    end
+
+    context "when the passed status category is 0" do
+      it "returns visit with report_access of 0" do
+        visit1 = create(:visit, report_access: 1)
+        visit2 = create(:visit, report_access: 0)
+        visit3 = create(:visit, report_access: 1)
+        visit4 = create(:visit, report_access: 0)
+
+        results = Visit.with_report_access 0
+
+        expect(results).to eq [visit2, visit4]
+      end
+    end
+  end
+
+  describe ".using_amenity" do
+    context "when the input is not 'present?'" do
+      it "returns all visit records" do
+        amenity = create(:amenity)
+        visit1 = create(:visit, report_access: 1)
+        visit2 = create(:visit, report_access: 0)
+        amenity_visit = create(:amenity_visit, amenity: amenity, visit: visit1)
+
+        results = Visit.using_amenity nil
+
+        expect(results).to eq [visit1, visit2]
+      end
+    end
+
+    context "when an amenity is passed in" do
+      it "returns visit using the amenity" do
+        amenity = create(:amenity)
+        visit1 = create(:visit, report_access: 1)
+        visit2 = create(:visit, report_access: 0)
+        amenity_visit = create(:amenity_visit, amenity: amenity, visit: visit1)
+
+        results = Visit.using_amenity amenity
+
+        expect(results).to eq [visit1]
+      end
+    end
+  end
+
+  describe ".having_between_time_for" do
+    context "when the supplied date_range_option: is ':visit_date_range'" do
+      it "calls the DateQuery.having_between_time_for with types :ends_at and :starts_at" do
+        date1 = Date.new(1969, 7, 20)
+        date2 = Date.new(1980, 7, 31)
+
+        allow(DateQuery).to receive(:call)
+
+        Visit.having_between_time_for(date_range_option: :visit_date_range, date_start: date1, date_end: date2)
+
+        expect(DateQuery).to have_received(:call).with(
+          Visit,
+          date_start_type: :ends_at,
+          date_start: date1,
+          date_end_type: :starts_at,
+          date_end: date2
+        )
+      end
+    end
+
+    context "when supplied date_range_option doesn't match any case" do
+      it "returns all visits" do
+        date1 = Date.new(1969, 7, 20)
+        date2 = Date.new(1980, 7, 31)
+  
+        results = Visit.having_between_time_for(date_range_option: :non_existent_case, date_start: date1, date_end: date2)
+  
+        expect(results).to eq Visit.all
+      end
+    end
+  end
+
+  describe ".submitted_recent_first" do
+    it "returns records in reverse chronological order by submitted_at date" do
+      visit1 = travel_to(1.week.ago) { create(:visit, submitted_at: Date.current) }
+      visit2 = travel_to(1.month.ago) { create(:visit, submitted_at: Date.current) }
+      visit3 = create(:visit, submitted_at: Date.current)
+
+      results = Visit.submitted_recent_first
+
+      expect(results).to eq [visit3, visit1, visit2]
     end
   end
 end

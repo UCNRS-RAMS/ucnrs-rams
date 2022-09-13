@@ -7,7 +7,10 @@
     </div>
     <div class="right-side">
       <ul class="navbar-nav">
-        <li> <%= link_to I18n.t(".navbar.link.visits"), "#", class:"nav-link" %> </li>
+        <li> <%= link_to I18n.t(".navbar.link.visits"),
+                manager_reserve_dashboard_path(current_reserve),
+                class:"nav-link #{active_class_for("dashboard")}" %>
+        </li>
         <li> <%= link_to I18n.t(".navbar.link.projects"),
                 manager_reserve_projects_path(current_reserve),
                 class:"nav-link #{active_class_for("projects")}" %>
