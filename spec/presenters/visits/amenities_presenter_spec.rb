@@ -18,8 +18,8 @@ RSpec.describe Visits::AmenitiesPresenter do
         create(:amenity, reserve: reserve, group_number: "2", sort_order: 2).id,
       ]
       threes = [
-        create(:amenity, reserve: reserve, group_number: "3").id,
-        create(:amenity, reserve: reserve, group_number: "3").id,
+        create(:amenity, reserve: reserve, group_number: "3", sort_order: 8).id,
+        create(:amenity, reserve: reserve, group_number: "3", sort_order: 10).id,
       ]
       presenter = Visits::AmenitiesPresenter.new(reserve_id: reserve.id)
 
