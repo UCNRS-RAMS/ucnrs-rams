@@ -6,6 +6,6 @@
     <h1><%= t(".title") %></h1>
   </header>
   <%= form_with model: @presenter.form, url: visits_path do |form| %>
-    <%= render partial: "visits/form", locals: { presenter: @presenter, form: form } %>
+    <%= render partial: "shared/visits/form", locals: { presenter: @presenter, form: form } %>
   <% end %>
 </section>

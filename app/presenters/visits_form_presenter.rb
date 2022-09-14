@@ -15,9 +15,11 @@ class VisitsFormPresenter
     :start_time,
     :end_date,
     :end_time,
+    :project_title,
+    :reserve_name,
     to: :form
 
-  delegate :reserve, to: :visit
+  delegate :reserve, :project, to: :visit
 
   def amenities_by_group_label
     amenity_scope
@@ -52,6 +54,26 @@ class VisitsFormPresenter
     lambda do |key|
       I18n.t("visits.form#{context}.#{key.tr("-", "_")}")
     end
+  end
+
+  def project_type_partail_path
+    "visits/project_type"
+  end
+
+  def project_partail_path
+    "visits/project"
+  end
+
+  def reserve_partail_path
+    "visits/reserve"
+  end
+
+  def save_partail_path
+    "visits/save"
+  end
+
+  def show_browse_reserve_link
+    true
   end
 
   def time_options

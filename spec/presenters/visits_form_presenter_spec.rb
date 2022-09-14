@@ -128,4 +128,44 @@ RSpec.describe VisitsFormPresenter do
       ]
     end
   end
+
+  describe "#project_type_partail_path" do
+    it "should return project_options_partial_path" do
+      presenter = VisitsFormPresenter.new(user: build(:user))
+
+      expect(presenter.project_type_partail_path).to eq "visits/project_type"
+    end
+  end
+
+  describe "#project_partail_path" do
+    it "should return project_partial_path" do
+      presenter = VisitsFormPresenter.new(user: build(:user))
+
+      expect(presenter.project_partail_path).to eq "visits/project"
+    end
+  end
+
+  describe "#save_partail_path" do
+    it "should return save_partail_path" do
+      presenter = VisitsFormPresenter.new(user: build(:user))
+
+      expect(presenter.save_partail_path).to eq "visits/save"
+    end
+  end
+
+  describe "#reserve_partail_path" do
+    it "should return reserve_partail_path" do
+      presenter = VisitsFormPresenter.new(user: build(:user))
+
+      expect(presenter.reserve_partail_path).to eq "visits/reserve"
+    end
+  end
+
+  describe "#show_browse_reserve_link" do
+    it "should return true to display show browse link" do
+      presenter = VisitsFormPresenter.new(user: build(:user))
+
+      expect(presenter.show_browse_reserve_link).to eq true
+    end
+  end
 end

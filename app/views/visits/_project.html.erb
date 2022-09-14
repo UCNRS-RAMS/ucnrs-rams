@@ -1,0 +1,11 @@
+<div class="select_or_new">
+  <div class="display-column-flex">
+    <% presenter.project_type_options.each do |type| %>
+      <div id="project-label-<%= type %>" class="label_container">
+        <%= form.label :project, "#{t(".project_type_options.labels.#{type}")} Project", for: "visit_project_id" %>
+      </div>
+    <% end %>
+    <%= render partial: "visits/projects/projects_select", locals: { presenter: presenter.projects } %>
+  </div>
+  <%= link_to t(".links.create_a_new_project"), new_project_path %>
+</div>

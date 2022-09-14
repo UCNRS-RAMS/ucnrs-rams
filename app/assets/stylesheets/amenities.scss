@@ -44,6 +44,11 @@
         font-size: small;
         font-weight: $bold;
       }
+
+      .content {
+        background-color: lighten($bluegray, 35%);
+        padding: 0px;
+      }
     }
 
     label {

@@ -403,6 +403,36 @@ en:
         ucnrs_newsletter: "NRS Newsletter."
         terms_of_use: "Terms of Use"
   visits:
+    save:
+      alt_text:
+        right_arrow: "Right Arrow"
+      labels:
+        next_page:
+          visitors: "Next: Visitors"
+    reserve:
+      labels:
+        reserve: "Which reserve you like to visits?"
+    project:
+      links:
+        create_a_new_project: "Create A New Project"
+      project_type_options:
+        labels:
+          research: "Research"
+          university_class: "University Class"
+          meeting_or_conference: "Meeting or Conference"
+          public_use: "Public Use"
+    project_type:
+      project_type_options:
+        labels:
+          research: "Research"
+          university_class: "University Class"
+          meeting_or_conference: "Meeting or Conference"
+          public_use: "Public Use"
+        explanation:
+          research: "Field or lab-based research in any discipline"
+          university_class: "University or college course or class"
+          meeting_or_conference: "Symposia, lab retreates, and academic meetings"
+          public_use: "Community events, fundraising, K-12, or other classes, volunteer use"
     edit:
       title: "Visit Details"
     index:
@@ -469,51 +499,6 @@ en:
           time_of_departure: "Departure Time"
     new:
       title: "Visit Details"
-    form:
-      aria:
-        arrival_time: "Arrival Time"
-        departure_time: "Departure Time"
-      titles:
-        amenities: "Select Amenities"
-        amenities_subtitle: "(Optional)"
-        purpose: "Purpose of Visit"
-        reserve: "Reserves"
-      labels:
-        public_use_category: "Choose a category that best describes your visit"
-        purpose_of_visit: "What do you plan to do on this visit?"
-        select_project: "Select Project"
-        reserve: "Which reserve you like to visits?"
-        arrival: "Arrival"
-        departure: "Departure"
-        next_page:
-          visitors: "Next: Visitors"
-      alt_text:
-        calendar: "Calendar Icon"
-        left_arrow: "Left Arrow to Go Back"
-        right_arrow: "Right Arrow"
-      links:
-        go_back: "Go Back"
-        create_a_new_project: "or Create a new Project"
-        browse_reserves: "Browse Our Reserves"
-      public_use_options:
-        labels:
-          general_use: "General Use"
-          community_event: "Community Event"
-          fundraiser: "Fundraiser"
-          k_12_class: "K-12 Class"
-          private_class: "Private Class (Not University or K-12)"
-          volunteer: "Volunteer Event"
-      project_type_options:
-        labels:
-          research: "Research"
-          university_class: "University Class"
-          meeting_or_conference: "Meeting or Conference"
-          public_use: "Public Use"
-        explanation:
-          research: "Field or lab-based research in any discipline"
-          university_class: "University or college course or class"
-          meeting_or_conference: "Symposia, lab retreates, and academic meetings"
-          public_use: "Community events, fundraising, K-12, or other classes, volunteer use"
     reserve_inputs:
       fields:
         labels:
@@ -990,6 +975,27 @@ en:
       cannot_find_visit: "Visit not found"
       successfully_deleted_visit: "Successfully deleted visit"
       cannot_delete_visit: "Not able to delete visit"
+      detail:
+        save:
+          alt_text:
+            right_arrow: "Right Arrow"
+          labels:
+            next_page:
+              save: "Save Changes"
+        project:
+          project_title: "Project Title"
+        project_type:
+          project_type_options:
+            labels:
+              research: "Research"
+              university_class: "University Class"
+              meeting_or_conference: "Meeting or Conference"
+              public_use: "Public Use"
+            explanation:
+              research: "Field or lab-based research in any discipline"
+              university_class: "University or college course or class"
+              meeting_or_conference: "Symposia, lab retreates, and academic meetings"
+              public_use: "Community events, fundraising, K-12, or other classes, volunteer use"
       summary:
         show:
           summary: "Summary"
@@ -1593,6 +1599,52 @@ en:
           receive_drone_email: "Drone"
           receive_scuba_email: "Scuba"
   shared:
+    visits:
+      form:
+        aria:
+          arrival_time: "Arrival Time"
+          departure_time: "Departure Time"
+        titles:
+          amenities: "Select Amenities"
+          amenities_subtitle: "(Optional)"
+          purpose: "Purpose of Visit"
+          reserve: "Reserves"
+        labels:
+          public_use_category: "Choose a category that best describes your visit"
+          purpose_of_visit: "What do you plan to do on this visit?"
+          select_project: "Select Project"
+          reserve: "Which reserve you like to visits?"
+          arrival: "Arrival"
+          departure: "Departure"
+          next_page:
+            visitors: "Next: Visitors"
+        alt_text:
+          calendar: "Calendar Icon"
+          left_arrow: "Left Arrow to Go Back"
+          right_arrow: "Right Arrow"
+        links:
+          go_back: "Go Back"
+          create_a_new_project: "or Create a new Project"
+          browse_reserves: "Browse Our Reserves"
+        public_use_options:
+          labels:
+            general_use: "General Use"
+            community_event: "Community Event"
+            fundraiser: "Fundraiser"
+            k_12_class: "K-12 Class"
+            private_class: "Private Class (Not University or K-12)"
+            volunteer: "Volunteer Event"
+        project_type_options:
+          labels:
+            research: "Research"
+            university_class: "University Class"
+            meeting_or_conference: "Meeting or Conference"
+            public_use: "Public Use"
+          explanation:
+            research: "Field or lab-based research in any discipline"
+            university_class: "University or college course or class"
+            meeting_or_conference: "Symposia, lab retreates, and academic meetings"
+            public_use: "Community events, fundraising, K-12, or other classes, volunteer use"
     projects:
       permit_questions:
         reserve_section_title: "Reserve-specific Questions"

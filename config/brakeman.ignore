@@ -47,6 +47,94 @@
       "note": ""
     },
     {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "6f067a35523e5f7b3ab4282e0e6201a2be22089808ff396e106d01fbb81e7d90",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/shared/visits/_form.html.erb",
+      "line": 11,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(partial => Manager::Visits::VisitsFormPresenter.new(:user => current_user, :form => VisitForm.new(:user => current_user, :params => ({ :id => params[:visit_id] }))).project_partail_path, { :locals => ({ :presenter => Manager::Visits::VisitsFormPresenter.new(:user => current_user, :form => VisitForm.new(:user => current_user, :params => ({ :id => params[:visit_id] }))), :form => form }) })",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Manager::Visits::DetailController",
+          "method": "edit",
+          "line": 8,
+          "file": "app/controllers/manager/visits/detail_controller.rb",
+          "rendered": {
+            "name": "manager/visits/detail/edit",
+            "file": "app/views/manager/visits/detail/edit.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "manager/visits/detail/edit",
+          "line": 6,
+          "file": "app/views/manager/visits/detail/edit.html.erb",
+          "rendered": {
+            "name": "shared/visits/_form",
+            "file": "app/views/shared/visits/_form.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "shared/visits/_form"
+      },
+      "user_input": "params[:visit_id]",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": "False positive"
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "8f345b3e8f2191c3fdf981fabe158816f5437b971a59d4362319539e0ff24ced",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/shared/visits/_form.html.erb",
+      "line": 59,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => Manager::Visits::VisitsFormPresenter.new(:user => current_user, :form => VisitForm.new(:user => current_user, :params => ({ :id => params[:visit_id] }))).save_partail_path, {})",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Manager::Visits::DetailController",
+          "method": "edit",
+          "line": 8,
+          "file": "app/controllers/manager/visits/detail_controller.rb",
+          "rendered": {
+            "name": "manager/visits/detail/edit",
+            "file": "app/views/manager/visits/detail/edit.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "manager/visits/detail/edit",
+          "line": 6,
+          "file": "app/views/manager/visits/detail/edit.html.erb",
+          "rendered": {
+            "name": "shared/visits/_form",
+            "file": "app/views/shared/visits/_form.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "shared/visits/_form"
+      },
+      "user_input": "params[:visit_id]",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": "False positive"
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "abe3ef189f8998d604a08ad5faa180bb10f91eb38648737f30be800175909dc6",
@@ -91,8 +179,96 @@
         915
       ],
       "note": "Ignore role in user-related strong param assignment"
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "e42ead47680defd35fce5c61e9c71b9dde684e414752dfd1b62bb1cf1ce74fb9",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/shared/visits/_form.html.erb",
+      "line": 25,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(partial => Manager::Visits::VisitsFormPresenter.new(:user => current_user, :form => VisitForm.new(:user => current_user, :params => ({ :id => params[:visit_id] }))).reserve_partail_path, { :locals => ({ :presenter => Manager::Visits::VisitsFormPresenter.new(:user => current_user, :form => VisitForm.new(:user => current_user, :params => ({ :id => params[:visit_id] }))), :form => form }) })",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Manager::Visits::DetailController",
+          "method": "edit",
+          "line": 8,
+          "file": "app/controllers/manager/visits/detail_controller.rb",
+          "rendered": {
+            "name": "manager/visits/detail/edit",
+            "file": "app/views/manager/visits/detail/edit.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "manager/visits/detail/edit",
+          "line": 6,
+          "file": "app/views/manager/visits/detail/edit.html.erb",
+          "rendered": {
+            "name": "shared/visits/_form",
+            "file": "app/views/shared/visits/_form.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "shared/visits/_form"
+      },
+      "user_input": "params[:visit_id]",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": "False positive"
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "f136a5b02160dc60880ea80697dfb9e2da56289d59db90b7dda5c2657946b76a",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/shared/visits/_form.html.erb",
+      "line": 8,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(partial => Manager::Visits::VisitsFormPresenter.new(:user => current_user, :form => VisitForm.new(:user => current_user, :params => ({ :id => params[:visit_id] }))).project_type_partail_path, { :locals => ({ :presenter => Manager::Visits::VisitsFormPresenter.new(:user => current_user, :form => VisitForm.new(:user => current_user, :params => ({ :id => params[:visit_id] }))), :form => form }) })",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Manager::Visits::DetailController",
+          "method": "edit",
+          "line": 8,
+          "file": "app/controllers/manager/visits/detail_controller.rb",
+          "rendered": {
+            "name": "manager/visits/detail/edit",
+            "file": "app/views/manager/visits/detail/edit.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "manager/visits/detail/edit",
+          "line": 6,
+          "file": "app/views/manager/visits/detail/edit.html.erb",
+          "rendered": {
+            "name": "shared/visits/_form",
+            "file": "app/views/shared/visits/_form.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "shared/visits/_form"
+      },
+      "user_input": "params[:visit_id]",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": "False positive"
     }
   ],
-  "updated": "2022-08-23 12:13:12 -0700",
+  "updated": "2022-09-16 08:33:04 -0700",
   "brakeman_version": "5.3.1"
 }

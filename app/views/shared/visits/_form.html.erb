@@ -5,28 +5,10 @@
     <%= form.hidden_field :id, value: params[:id] %>
     <div class="project-type-options"  data-purpose="project_type" data-controller="value-projection" data-value-projection-projected-value="<%= form.object.project_type %>">
       <div class="row">
-        <% @presenter.project_type_options.each do |value| %>
-          <label for="project-type-<%= value %>">
-            <%= form.radio_button :project_type, value, id: "project-type-#{value}", data: { action: "click->value-projection#change click->turbo-content#change" }, checked: form.object.project_type == value %>
-            <div class="project-type-label">
-              <h3><%= t(".project_type_options.labels.#{value}") %></h3>
-              <p><%= t(".project_type_options.explanation.#{value}") %></p>
-            </div>
-          </label>
-        <% end %>
+        <%= render partial: @presenter.project_type_partail_path, locals: { presenter: @presenter, form: form} %>
       </div>
       <div class="field project_select">
-        <div class="select_or_new">
-          <div class="display-column-flex">
-            <% @presenter.project_type_options.each do |type| %>
-              <div id="project-label-<%= type %>" class="label_container">
-                <%= form.label :project, "#{t(".project_type_options.labels.#{type}")} Project", for: "visit_project_id" %>
-              </div>
-            <% end %>
-            <%= render partial: "visits/projects/projects_select", locals: { presenter: @presenter.projects } %>
-          </div>
-          <%= link_to t(".links.create_a_new_project"), new_project_path %>
-        </div>
+        <%= render partial: @presenter.project_partail_path, locals: { presenter: @presenter, form: form} %>
       </div>
     </div>
     <div class="text-area">
@@ -37,11 +19,10 @@
 
   <span data-controller="followup-content">
     <section class="reserve-info progress-steps">
-      <div><h3><%= t(".titles.reserve") %> <%= link_to t(".links.browse_reserves"), "#" %></h3></div>
+      <div><h3><%= t(".titles.reserve") %><% if @presenter.show_browse_reserve_link %> <%= link_to t(".links.browse_reserves"), "#" %><% end %></h3></div>
       <div class="display-row-flex">
         <div class="field">
-          <%= form.label :reserve, t(".labels.reserve"), for: "visit_reserve_id" %>
-          <%= render partial: "visits/reserves/reserves_select", locals: { presenter: @presenter.reserves } %>
+         <%= render partial: @presenter.reserve_partail_path, locals: { presenter: @presenter, form: form} %>
         </div>
         <div class="date-range-select">
           <div class="field">
@@ -75,13 +56,6 @@
   </span>
 
   <section class="visit-form footer progress-steps">
-    <%= link_to  "#" do %>
-      <%= image_tag "arrow-left.svg", height: "24px", width: "24px", alt: t(".alt_text.left_arrow") %>
-      <%= t(".links.go_back") %>
-    <% end %>
-    <%= button_tag class: "active" do %>
-      <%= t(".labels.next_page.visitors") %>
-      <%= image_tag "arrow-right.svg", alt: t(".alt_text.right_arrow") %>
-    <% end %>
+    <%= render @presenter.save_partail_path %>
   </section>
 </section>
