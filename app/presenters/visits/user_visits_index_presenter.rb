@@ -28,7 +28,7 @@ class Visits::UserVisitsIndexPresenter
   end
 
   def visit_date_range
-    DateRangePresenter.value(start_date: visit.start_date, end_date: visit.end_date)
+    DateRangePresenter.value(start_date: visit.starts_at.to_date, end_date: visit.ends_at.to_date)
   end
 
   def new_user_visit_path(params)

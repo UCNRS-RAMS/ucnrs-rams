@@ -16,6 +16,7 @@ RSpec.describe Reserve, type: :model do
     it { is_expected.to have_many(:addendums).class_name("ReserveAddendum") }
     it { is_expected.to have_many(:reserve_permits) }
     it { is_expected.to have_many(:permits).through(:reserve_permits) }
+    it { is_expected.to have_many(:visits) }
   end
 
   describe ".with_accepted_project_type" do

@@ -981,6 +981,9 @@ en:
       download_pdf: "Download PDF"
   manager:
     visits:
+      cannot_find_visit: "Visit not found"
+      successfully_deleted_visit: "Successfully deleted visit"
+      cannot_delete_visit: "Not able to delete visit"
       summary:
         show:
           summary: "Summary"
@@ -1002,6 +1005,7 @@ en:
         visit_type: "Visit Type"
         visitors: "Visitors"
         amenities: "Amenities"
+        confirm_removal: "Are you sure you want to delete visit number %{visit_id}"
     dashboards:
       show:
         new_visit_request: "New Visit Request"
