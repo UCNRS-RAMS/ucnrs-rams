@@ -6,6 +6,7 @@ class ProjectShowPresenter
   end
 
   delegate :id, to: :project, prefix: true
+  delegate :id, to: :reserve, prefix: true
 
   delegate_missing_to :project
 

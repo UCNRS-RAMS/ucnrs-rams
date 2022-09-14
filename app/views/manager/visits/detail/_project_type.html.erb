@@ -1,0 +1,10 @@
+<% @presenter.project_type_options.each do |value| %>
+  <% if form.object.project_type == value %>
+    <label for="project-type-<%= value %>">
+      <div class="project-type-label">
+        <h3><%= t(".project_type_options.labels.#{value}") %></h3>
+        <p><%= t(".project_type_options.explanation.#{value}") %></p>
+      </div>
+    </label>
+  <% end %>
+<% end %>

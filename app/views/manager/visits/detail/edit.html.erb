@@ -1,0 +1,9 @@
+<turbo-frame id="visit-details">
+  <section class="visits-edit">
+    <header class="visit-form">
+    </header>
+    <%= form_with model: @presenter.form, url: visit_path(id: @presenter.visit.id), method: :put do |form| %>
+      <%= render partial: "shared/visits/form", locals: { presenter: @presenter, form: form } %>
+    <% end %>
+  </section>
+</turbo-frame>

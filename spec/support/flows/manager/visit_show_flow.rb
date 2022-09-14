@@ -35,6 +35,22 @@ class VisitShowFlow
     end
   end
 
+  def click_on_details_btn
+    page.find("#details").click
+  end
+
+  def showing_purpose_of_visit?
+    page.has_css?("#project-type-research")
+  end
+
+  def showing_project_dropdown?
+    page.has_css?("#visit_project_id")
+  end
+
+  def showing_project_link?
+    page.has_css?(".display-link")
+  end
+
   private
 
   attr_reader :page, :reserve_id, :visit_id

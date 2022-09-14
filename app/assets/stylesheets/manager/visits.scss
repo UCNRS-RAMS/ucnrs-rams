@@ -93,7 +93,15 @@
       .reserve-info {
         padding: 1.625rem 3rem;
       }
-
+      
+      .display-link {
+        display: block;
+      }
+      
+      .clear-padding {
+        padding-left: 0px !important;
+      }
+      
       .btn-status {
         align-items: center;
         border: 1px solid $dark-bluegray;

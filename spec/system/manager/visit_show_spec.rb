@@ -53,4 +53,29 @@ RSpec.describe "Manager Visit Show" do
       Visit.find_by(id: visit.id).nil?
     end
   end
+
+  describe "when click on details button" do
+    it "should not show radio button for project type", js: true do
+      sign_in(user)
+      flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
+
+      flow.visit_show_page
+
+      flow.click_on_details_btn
+
+      expect(flow.showing_purpose_of_visit?).to eq false
+    end
+
+    it "should not show project_types and show project link", js: true do
+      sign_in(user)
+      flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
+
+      flow.visit_show_page
+
+      flow.click_on_details_btn
+
+      expect(flow.showing_project_dropdown?).to eq false
+      expect(flow.showing_project_link?).to eq true
+    end
+  end
 end
