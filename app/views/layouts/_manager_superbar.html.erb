@@ -26,7 +26,7 @@
           end %>
         </div>
       </li>
-      <li><%= link_to image_tag("icon-user-navbar.svg", alt: I18n.t(".navbar.alt_text.icon_user")), "#", class: "icon-only" %></li>
+      <li><%= link_to image_tag("icon-user-navbar.svg", alt: I18n.t(".navbar.alt_text.icon_user")), edit_user_registration_path, class: "icon-only" %></li>
       <li><%= link_to image_tag("icon-sign-out-navbar.svg", alt: I18n.t(".navbar.alt_text.icon_sign_out")), destroy_user_session_path, class: "icon-only" %> </li>
     </ul>
   </div>
