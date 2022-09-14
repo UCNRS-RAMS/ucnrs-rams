@@ -88,11 +88,11 @@ class Visit < ApplicationRecord
   end
 
   def starts_at
-    start_time.change(year: start_date.year, month: start_date.month, day: start_date.day)
+    change_date_for_datetime(start_time, start_date)
   end
 
   def ends_at
-    end_time.change(year: end_date.year, month: end_date.month, day: end_date.day)
+    change_date_for_datetime(end_time, end_date)
   end
 
   enum status: {
@@ -118,4 +118,10 @@ class Visit < ApplicationRecord
     private_class: "private-class",
     volunteer: "volunteer",
   }
+
+  private
+
+  def change_date_for_datetime(datetime, date)
+    date.blank? ? datetime : datetime&.change(year: date.year, month: date.month, day: date.day)
+  end
 end

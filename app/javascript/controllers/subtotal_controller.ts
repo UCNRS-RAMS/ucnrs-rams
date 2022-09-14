@@ -10,6 +10,10 @@ export default class extends Controller {
   declare departsAtTarget: HTMLInputElement
   declare departsOnTarget: HTMLInputElement
   declare unitTypeTarget: HTMLInputElement
+  
+  connect() {
+    this.calculateSubtotal()
+  }
 
   async calculateSubtotal(){
     const units = Math.max(await this.getSubtotal(), 0)
@@ -21,7 +25,7 @@ export default class extends Controller {
   async getSubtotal(){
     const arrive = `${this.arriveOnTarget.value} ${this.arriveAtTarget.value}`
     const departs = `${this.departsOnTarget.value} ${this.departsAtTarget.value}`
-    const url = `/visits/units?arrive=${encodeURIComponent(arrive)}&departs=${encodeURIComponent(departs)}&unit=${this.unitTypeTarget.innerText.trim()}`
+    const url = `/visits/units?arrive=${encodeURIComponent(arrive)}&departs=${encodeURIComponent(departs)}&unit=${this.unitTypeTarget.textContent.trim()}`
     return fetch(url,
       { 
         headers: {

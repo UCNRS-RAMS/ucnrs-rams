@@ -36,7 +36,8 @@ class Visits::AmenityPresenter
   end
 
   def default_date(date)
-    date.present? ? date.strftime("%Y-%m-%d") : Time.current.strftime("%Y-%m-%d")
+    date = Date.current if date.blank?
+    I18n.l(date, format: :form_input_date)
   end
 
   def selected_amenity_rate_id

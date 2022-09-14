@@ -12,7 +12,7 @@
     </div>
     <% if presenter.staff_member? %>
       <div class="info-block" id="status_and_trash_btn">
-        <%= link_to manager_reserve_visit_path, method: :delete, data: {confirm: "Are you sure?"}, id: "trash-icon" do %>
+        <%= link_to manager_reserve_visit_path, method: :delete, data: { confirm: t(".confirm_removal", visit_id: @presenter.id) }, id: "trash-icon" do %>
           <%= image_tag "icons-trash-can.svg", height: "24px", width: "24px"%>
         <% end %>
         <%= link_to manager_reserve_visit_summary_path(visit_id: @presenter.id), { class: "btn-status #{@presenter.text_color}", id: "summary", data: { controller: "tab-bar", action: "click->tab-bar#selectSummaryTab", "tab-bar-target": "tab", "turbo-frame": "visit-details" } } do %>

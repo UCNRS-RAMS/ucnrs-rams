@@ -1,21 +1,27 @@
 class Manager::VisitsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :confirm_manager!, only: [:destroy]
 
   def show
     @presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: current_user)
   end
 
   def destroy
-    visit.destroy
-    redirect_to root_path
+    if visit.destroy
+      flash[:notice] = I18n.t("manager.visits.successfully_deleted_visit")
+      redirect_to manager_reserve_dashboard_path
+    else
+      flash[:alert] = I18n.t("manager.visits.cannot_delete_visit")
+      redirect_to manager_reserve_visit_path
+    end
   end
 
   private
 
   def visit
-    reserve.visits.find(params[:id])
-  end
-
-  def reserve
-    Reserve.find(params[:reserve_id])
+    current_reserve.visits.find(params[:id])
+  rescue ActiveRecord::RecordNotFound => e
+    flash[:alert] = I18n.t("manager.visits.cannot_find_visit")
+    redirect_to manager_reserve_dashboard_path
   end
 end

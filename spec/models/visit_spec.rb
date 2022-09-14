@@ -5,9 +5,9 @@ RSpec.describe Visit, type: :model do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to belong_to(:project) }
     it { is_expected.to belong_to(:reserve) }
-    it { is_expected.to have_many(:amenity_visits) }
+    it { is_expected.to have_many(:amenity_visits).dependent(:destroy) }
     it { is_expected.to have_many(:amenities).through(:amenity_visits) }
-    it { is_expected.to have_many(:user_visits) }
+    it { is_expected.to have_many(:user_visits).dependent(:destroy) }
     it { is_expected.to have_many(:visitors).through(:user_visits).source(:user) }
     it { is_expected.to have_many(:reserve_notes) }
   end
@@ -33,6 +33,8 @@ RSpec.describe Visit, type: :model do
   describe "delegations" do
     it { is_expected.to delegate_method(:short_name).to(:reserve).with_prefix }
     it { is_expected.to delegate_method(:name).to(:reserve).with_prefix }
+    it { is_expected.to delegate_method(:title).to(:project).with_prefix }
+    it { is_expected.to delegate_method(:full_name).to(:user).with_prefix }
   end
 
   describe "enums" do

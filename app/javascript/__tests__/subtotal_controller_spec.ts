@@ -23,14 +23,19 @@ describe("SubtotalController", () => {
   afterEach(() => clearDOM())
 
   beforeEach(() => {
+    const count = 1
+    const initialVal = 5
+    const arrivesOn = "2022-12-12"
+    const departsOn = "2022-12-12"
+    const unit = "night"
     renderDOM(`
       <section data-controller="subtotal counter">
-      <input id="count" data-subtotal-target="count" data-counter-target="output" value="NaN"/>
+      <input id="count" data-subtotal-target="count" data-counter-target="output" value="${count}"/>
       <span id="subtotal" data-subtotal-target="subtotal"></span>
-      <p id="initialVal" data-subtotal-target="initialVal" hidden></p>
-      <p id="unit" data-subtotal-target="unitType"></p>
-      <input type="date" id="arrive-on" data-subtotal-target="arriveOn"/>
-      <input type="date" id="departs-on" data-subtotal-target="departsOn"/>
+      <p id="initialVal" data-subtotal-target="initialVal" hidden>${initialVal}</p>
+      <p id="unit" data-subtotal-target="unitType">${unit}</p>
+      <input type="date" id="arrivesOn" data-subtotal-target="arriveOn" value="${arrivesOn}"/>
+      <input type="date" id="departsOn" data-subtotal-target="departsOn"value="${departsOn}"/>
       <select type="select" id="departs-at" data-subtotal-target="departsAt">
         <option value="01:00">1:00 AM</option>
         <option value="02:00">2:00 AM</option>
@@ -92,23 +97,36 @@ describe("SubtotalController", () => {
       const count = document.getElementById("count")
       const subtotal = document.getElementById("subtotal")
       const initialVal = document.getElementById("initialVal")
-      const arrivesOn = document.getElementById("arrive-on")
-      const departsOn = document.getElementById("departs-on")
+      const arrivesOn = document.getElementById("arrivesOn")
+      const departsOn = document.getElementById("departsOn")
       const unit = document.getElementById("unit")
 
-      count.value = "1"
-      initialVal.textContent = "5"
-      arrivesOn.value = '2022-12-12'
-      departsOn.value = '2022-12-13'
+      count.value = "12"
+      initialVal.textContent = "2"
+      arrivesOn.value = "2022-12-16"
+      departsOn.value = "2022-12-20"
       unit.innerText = "night"
 
       const up = document.getElementById("up")
 
+      expect(fetch).toHaveBeenCalledWith(
+        `/visits/units?arrive=${encodeURIComponent(
+          "2022-12-12 12:00"
+        )}&departs=${encodeURIComponent("2022-12-12 12:00")}&unit=night`,
+        { headers: { "Content-Type": "application/json" } }
+      )
+      expect(subtotal.innerText).toEqual("25.00")
+
       up.click()
       await allowFetchToResolveAfter()
 
-      expect(fetch).toHaveBeenCalledWith( `/visits/units?arrive=${encodeURIComponent('2022-12-12 12:00')}&departs=${encodeURIComponent('2022-12-13 12:00')}&unit=night`, {"headers": {"Content-Type": "application/json"}})
-      expect(subtotal.innerText).toEqual("50.00")
+      expect(fetch).toHaveBeenCalledWith(
+        `/visits/units?arrive=${encodeURIComponent(
+          "2022-12-16 12:00"
+        )}&departs=${encodeURIComponent("2022-12-20 12:00")}&unit=night`,
+        { headers: { "Content-Type": "application/json" } }
+      )
+      expect(subtotal.innerText).toEqual("130.00")
     })
   })
 })
