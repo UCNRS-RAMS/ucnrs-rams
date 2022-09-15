@@ -45,6 +45,8 @@ Rails.application.routes.draw do
     resources :user_visits, only: [:new, :index, :create, :destroy], controller: "visits/user_visits"
   end
 
+  resource :helps , only: [:show]
+
   devise_scope :user do
     resources :password, only: [:new, :create]
   end
