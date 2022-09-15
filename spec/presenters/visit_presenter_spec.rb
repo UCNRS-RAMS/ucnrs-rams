@@ -75,6 +75,22 @@ RSpec.describe VisitPresenter do
     end
   end
 
+  describe "#visit_route" do
+    it "should return visit_path if status is not incomplete" do
+      visit = create(:visit, status: :approved)
+      visit_presenter = VisitPresenter.new(visit)
+      
+      expect(visit_presenter.visit_route) .to eq "/visits/#{visit.id}"
+    end
+
+    it "should return edit_visit_path if status is incomplete" do
+      visit = create(:visit)
+      visit_presenter = VisitPresenter.new(visit)
+      
+      expect(visit_presenter.visit_route) .to eq "/visits/#{visit.id}/edit"
+    end
+  end
+
   describe "#submitted_date" do
     it "returns visit created date" do
       visit = create(:visit, created_at: "20 sep 2022")

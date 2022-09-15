@@ -7,9 +7,11 @@ class ProjectAnswersForm
     ActiveModel::Name.new(Project)
   end
 
+  delegate :approved_permits, to: :project
+  
   def initialize(project: nil, params: {})
     @project = project
-    @project.approved_permits = params[:approved_permits]
+    @project.approved_permits = params[:approved_permits] unless params[:approved_permits].nil?
     @permit_answers_params = params[:permit_answers] || {}
     @reserve_answers_params = params[:reserve_answers] || {}
   end
