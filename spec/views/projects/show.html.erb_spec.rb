@@ -12,7 +12,7 @@ RSpec.describe "show.html.erb" do
 
       expect(doc).to have_css("section.sidebar")
       expect(doc).to have_css("ul.next-steps-list")
-      expect(doc).to have_css("a", text: "Schedule A Visit")
+      expect(doc).to have_css("a", text: "Schedule a Visit")
     end
 
     it "includes project-summary" do
@@ -75,7 +75,7 @@ RSpec.describe "show.html.erb" do
       doc = Capybara.string(rendered)
       
       expect(doc).to have_css("section.project-visits")
-      expect(doc).to have_css(".content a", text: "Schedule A Visit")
+      expect(doc).to have_css(".content a", text: "Schedule a Visit")
       expect(doc).to have_css("table#project-visit-requests")
     end
   end

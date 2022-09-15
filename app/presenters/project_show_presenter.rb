@@ -30,6 +30,10 @@ class ProjectShowPresenter
     involves&.to_sentence
   end
 
+  def display_approved_permits?
+    approved_permits.present?
+  end
+
   def partial_name
     "shared/projects/#{project_type.parameterize.underscore}_show"
   end
@@ -135,6 +139,9 @@ class ProjectShowPresenter
       involves << I18n.t("projects.show.plants") if involves_plants_fungi_soil
       involves << I18n.t("projects.show.fungi") if involves_plants_fungi_soil
       involves << I18n.t("projects.show.soil") if involves_plants_fungi_soil
+      involves << I18n.t("projects.show.threatened") if involves_threatened_endangered_species
+      involves << I18n.t("projects.show.endangered") if involves_threatened_endangered_species
+      involves << I18n.t("projects.show.species_of_special_concern") if involves_threatened_endangered_species
     end.flatten
   end
 end

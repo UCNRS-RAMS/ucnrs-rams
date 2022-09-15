@@ -847,7 +847,7 @@ en:
           right_facing_arrow: "Right-facing arrow"
           left_facing_arrow: "Left-facing arrow"
     show:
-      schedule_a_visit: "Schedule A Visit"
+      schedule_a_visit: "Schedule a Visit"
       view_our_reserves: "View Our Reserves"
       sidebar_title: "Eureka!"
       sidebar_subtitle: "Congratulations on successfully creating your project."
@@ -871,6 +871,9 @@ en:
       plants: "Plants"
       fungi: "Fungi"
       soil: "Soil"
+      threatened: "Threatened"
+      endangered: "Endangered"
+      species_of_special_concern: "Species of Special Concern"
       method_remove_organisms: "Remove organisms or materials from the reserve"
       method_transfer_organisms: "Involves the transfer of animals, plants, and/or microorganisms from outside
                                   the reserve to within the reserve, or between different parts of the reserve."
@@ -963,7 +966,7 @@ en:
       edit_reserve_questions: "Edit Reserve Questions"
     visit_show_table:
       visits: "Visits (%{size})"
-      schedule_a_visit: "Schedule A Visit"
+      schedule_a_visit: "Schedule a Visit"
     visit:
       visitor: "Visitor"
       amenity: "Amenity"
@@ -1286,7 +1289,7 @@ en:
       visits:
         visit_show_table:
           visits: "Visits (%{size})"
-          schedule_a_visit: "Schedule A Visit"
+          schedule_a_visit: "Schedule a Visit"
         visit:
           visitor: "Visitor"
           amenity: "Amenity"
@@ -1676,7 +1679,7 @@ en:
         save_changes: "Save Changes"
         alt:
           right_facing_arrow: "A right facing arrow"
-        schedule_a_visit: "Schedule A Visit"
+        schedule_a_visit: "Schedule a Visit"
         view_our_reserves: "View Our Reserves"
         sidebar_title: "Eureka!"
         sidebar_subtitle: "Congratulations on successfully creating your project."
@@ -1792,7 +1795,7 @@ en:
         edit_reserve_questions: "Edit Reserve Questions"
       visit_show_table:
         visits: "Visits (%{size})"
-        schedule_a_visit: "Schedule A Visit"
+        schedule_a_visit: "Schedule a Visit"
       visit:
         visitor: "Visitor"
         amenity: "Amenity"

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class VisitPresenter
+  include Rails.application.routes.url_helpers
+
   def initialize(visit)
     @visit = visit
   end
@@ -61,6 +63,10 @@ class VisitPresenter
 
   def amenity_count
     amenity_visits.pluck(:amenity_id).uniq.length
+  end
+
+  def visit_route
+    visit.incomplete? ? edit_visit_path(visit) : visit_path(visit)
   end
 
   private

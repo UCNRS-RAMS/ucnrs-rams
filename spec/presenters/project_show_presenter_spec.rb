@@ -91,6 +91,22 @@ RSpec.describe ProjectShowPresenter do
     end
   end
 
+  describe "#display_approved_permits?" do
+    it "return true when approved_permit is present" do
+      project = create(:project, approved_permits: "lorem ipsum")
+      presenter = ProjectShowPresenter.new(project)
+
+      expect(presenter.display_approved_permits?).to eq true
+    end
+
+    it "return false when approved_permit is not present" do
+      project = create(:project, approved_permits: "")
+      presenter = ProjectShowPresenter.new(project)
+
+      expect(presenter.display_approved_permits?).to eq false
+    end
+  end
+
   describe "#fundings" do
     it "creates a FundingPresenter for each funding" do
       project = create(:project)

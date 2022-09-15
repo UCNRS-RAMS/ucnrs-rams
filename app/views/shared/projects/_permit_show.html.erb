@@ -2,8 +2,10 @@
   <header>
     <h2 class="main-header"><%= t(".permits") %></h2>
     <%= link_to t(".edit_permits"), project_questions_path(presenter.project_id) %>
-    <h3 class="subheader"><%= t(".approved_permits") %></h3>
-    <p><%= t(".approved_permits_information") %></p>
+    <% if presenter.display_approved_permits? %>
+      <h3 class="subheader"><%= t(".approved_permits") %></h3>
+      <p><%= presenter.approved_permits %></p>
+    <% end %>
   </header>
   <div id="permit-summary-list">
     <% presenter.permit_answers.each do |authority, permit_answers| %>
