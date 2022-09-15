@@ -106,6 +106,13 @@
         padding-left: 0px !important;
       }
       
+      p.notice {
+        background-color: $gold;
+        border-radius: 10px;
+        padding: 10px;
+        text-align: center;
+      }
+
       .btn-status {
         align-items: center;
         border: 1px solid $dark-bluegray;

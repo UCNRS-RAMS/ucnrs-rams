@@ -67,7 +67,7 @@ Rails.application.routes.draw do
       end
       resources :visits, only: [:show, :destroy] do
         resource :summary, only: [:show], controller: "visits/summary"
-        resource :detail, only: [:edit], controller: "visits/detail"
+        resource :detail, only: [:edit, :update], controller: "visits/detail"
       end
       resources :reports, only: [:show] do
         get "report_part_1", on: :member
