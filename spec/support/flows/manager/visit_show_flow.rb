@@ -25,6 +25,42 @@ class VisitShowFlow
     page.find(".btn-status").click
   end
 
+  def click_on_details_link
+    page.find("#details").click
+  end
+
+  def change_purpose_of_visit
+    page.find("#visit_purpose_of_visit").set("changed")
+  end
+
+  def change_visit_start_date
+    page.fill_in("visit_start_date", with: Time.zone.today)
+  end
+
+  def change_visit_end_date
+    page.fill_in("visit_end_date", with: Time.zone.today + 2)
+  end
+
+  def change_visit_start_time
+    page.find("#visit_start_time").select("1:00 AM")
+  end
+
+  def change_visit_end_time
+    page.find("#visit_end_time").select("2:00 AM")
+  end
+
+  def showing_flash_message?
+    page.has_css?(".notice")
+  end
+
+  def click_on_save_btn
+    page.click_on("Save Changes")
+  end
+
+  def record_updated?
+    page.find("#visit_purpose_of_visit").value == "changed"
+  end
+
   def showing_summary_partial?
     page.has_css?(".summary")
   end

@@ -11,7 +11,7 @@ class VisitsController < ApplicationController
       redirect_to visit_user_visits_path(@form.visit, format: :html)
     else
       @presenter = VisitsFormPresenter.new(user: current_user, form: @form)
-      render :new, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 
