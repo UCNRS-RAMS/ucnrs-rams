@@ -66,46 +66,49 @@
         padding: 0px 30px;
       }
       
-      .text-approved {
-        color: $green;
+      .bg-approved {
+        background-color: $green;
       }
-      
-      .text-in_review {
-        color: $yellow;
+
+      .bg-in_review {
+        background-color: $yellow;
       }
-      
-      .text-cancelled {
-        color: $pink;
+
+      .bg-cancelled {
+        background-color: $pink;
       }
-      
-      .text-denied {
-        color: $red;
+
+      .bg-denied {
+        background-color: $red;
       }
-      
+
       .visit-form {
         padding: 0px;
       }
-      
+
       .text-center {
         text-align: center;
       }
-      
+
       .reserve-info {
         padding: 1.625rem 3rem;
       }
-      
+
       .btn-status {
-          border: 1px solid $dark-bluegray;
-          border-radius: 1.5rem;
-          height: 20px;
-          padding: 0.2rem 1rem;
-          text-align: center;
-          text-decoration-line: none;
-          width: 8rem;
-  
-          &:hover {
-            cursor: pointer;
-          }
+        align-items: center;
+        border: 1px solid $dark-bluegray;
+        border-radius: 1.5rem;
+        color: black;
+        display: flex;
+        height: 20px;
+        justify-content: center;
+        padding: 0.2rem 1rem;
+        text-decoration-line: none;
+        width: 8rem;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
 
       ul.visit-menu-bar {
@@ -136,4 +139,4 @@
       }
     }
   }
- }
+}
