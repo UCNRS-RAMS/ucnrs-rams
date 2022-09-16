@@ -23,7 +23,7 @@ RSpec.describe VisitShowPresenter do
     end
   end
 
-  describe "#text_color" do
+  describe "#status_bg" do
     it "display status text color based on status value" do
       user = create(:user, :confirmed)
       pending_visit = create(:visit, status: "in_review")
@@ -36,10 +36,10 @@ RSpec.describe VisitShowPresenter do
       cancelled_show_presenter = Manager::VisitShowPresenter.new(visit: cancelled_visit, current_user: user)
       denied_show_presenter = Manager::VisitShowPresenter.new(visit: denied_visit, current_user: user)
 
-      expect(pending_show_presenter.text_color).to eq "text-in_review"
-      expect(approved_show_presenter.text_color).to eq "text-approved"
-      expect(cancelled_show_presenter.text_color).to eq "text-cancelled"
-      expect(denied_show_presenter.text_color).to eq "text-denied"
+      expect(pending_show_presenter.status_bg).to eq "bg-in_review"
+      expect(approved_show_presenter.status_bg).to eq "bg-approved"
+      expect(cancelled_show_presenter.status_bg).to eq "bg-cancelled"
+      expect(denied_show_presenter.status_bg).to eq "bg-denied"
     end
   end
 end
