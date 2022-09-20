@@ -54,8 +54,10 @@ RSpec.describe VisitForm, type: :model do
         reserve_id: 102,
         start_date: "2021-07-07",
         start_time: "14:00",
+        starts_at: "2021-07-07 14:00".to_datetime,
         end_date: "2021-10-26",
         end_time: "15:30",
+        ends_at: "2021-10-26 15:30".to_datetime,
         special_needs: "A teddy bear",
       )
     end
