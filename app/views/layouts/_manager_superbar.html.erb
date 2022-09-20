@@ -3,9 +3,9 @@
     <ul class="navbar-nav">
       <li><%= I18n.t(".navbar.link.welcome_back", name: current_user.full_name) %></li>
       <% if current_reserve.present? %>
-        <li class="dropdown" data-controller="toggle">
-          <%= link_to current_reserve.name, "#", class: "dropdown-toggle", "data-action": "click->toggle#toggle" %>
-          <div class="dropdown-menu" data-toggle-class="show" data-toggle-target= "toggle">
+        <li class="dropdown" data-controller="dropdown">
+          <%= link_to current_reserve.name, "#", class: "dropdown-toggle", data: { action: "click->dropdown#toggle click@window->dropdown#hide"} %>
+          <div class="dropdown-menu" data-dropdown-class="show" data-dropdown-target= "dropdown">
             <header><%= I18n.t(".navbar.link.your_managed_reserves") %></header>
             <hr />
             <% current_user.managed_reserves.each do |reserve| %>
@@ -14,11 +14,11 @@
           </div>
         </li>
       <% end %>
-      <li class="dropdown" data-controller="toggle">
-        <%= link_to("#", class: "dropdown-toggle", "data-action": "click->toggle#toggle") do %>
+      <li class="dropdown" data-controller="dropdown">
+        <%= link_to("#", class: "dropdown-toggle", data: { action: "click->dropdown#toggle click@window->dropdown#hide"}) do %>
           <%= manager_namespace? ? I18n.t(".navbar.link.manager_view") : I18n.t(".navbar.link.public_view") %>
         <% end %>
-        <div class="dropdown-menu" data-toggle-class="show" data-toggle-target= "toggle">
+        <div class="dropdown-menu" data-dropdown-class="show" data-dropdown-target= "dropdown">
           <%= if manager_namespace?
             link_to I18n.t(".navbar.link.go_to_public_view"), root_path, class: "dropdown-item"
           else

@@ -15,6 +15,14 @@
       vertical-align: .255em;
     }
 
+    button.dropdown-toggle {
+      background-color: $white;
+      border: 1px solid $gray;
+      border-radius: 6px;
+      padding: .5rem;
+      margin: 0;
+    }
+
     .dropdown-menu {
       background-clip: padding-box;
       background-color: $white;
@@ -26,7 +34,9 @@
       left: 0;
       list-style: none;
       margin: .125rem 0 0;
+      max-height: 14rem;
       min-width: 10rem;
+      overflow: scroll;
       padding: .5rem 0;
       position: absolute;
       text-align: left;
@@ -52,6 +62,11 @@
         border: 0;
         display: block !important;
         padding: .5rem .85rem
+      }
+
+      a.dropdown-item {
+        color: $navy-blue;
+        text-decoration: none;
       }
 
       .dropdown-item:hover {

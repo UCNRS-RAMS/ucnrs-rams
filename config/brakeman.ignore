@@ -1,6 +1,106 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "0f832c296802513fcd105def1c1878a8064b902c6105c5e9b9518e826263ab25",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_queries.rb",
+      "line": 21,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"CREATE TEMPORARY TABLE\\n  temptableuserscount#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nSELECT\\n  user_visits.user_id                     AS user_id,\\n  user_visits.role                        AS role,\\n  projects.project_type,\\n  fUserCountUCHome(\\n    institutions.institution_type,\\n    user_visits.count,\\n    institutions.managing_institution_id,\\n    #{reserve.managing_campus.id}\\n  )                                       AS UCHomeCount,\\n  fUserCountUCAway(\\n    institutions.institution_type,\\n    user_visits.count,\\n    institutions.managing_institution_id,\\n    #{reserve.managing_campus.id}\\n  )                                       AS UCAwayCount,\\n  fUserCountCSU(\\n    institutions.institution_type,\\n    user_visits.count\\n  )                                       AS CSUCount,\\n  fUserCountComCol(\\n    institutions.institution_type,\\n    user_visits.count\\n  )                                       AS ComColCount,\\n  fUserCountOthCA(\\n    institutions.institution_type,\\n    user_visits.count\\n  )                                       AS OthCACount,\\n  fUserCountOthUS(\\n    institutions.institution_type,\\n    user_visits.count\\n  )                                       AS OthUSCount,\\n  fUserCountIntl(\\n    institutions.institution_type,\\n    user_visits.count\\n  )                                       AS IntlCount,\\n  fUserCountK12(\\n    institutions.institution_type,\\n    user_visits.count\\n  )                                       AS K12Count,\\n  fUserCountNGO(\\n    institutions.institution_type,\\n    user_visits.count\\n  )                                       AS NGOCount,\\n  fUserCountGov(\\n    institutions.institution_type,\\n    user_visits.count\\n  )                                       AS GovCount,\\n  fUserCountBus(\\n    institutions.institution_type,\\n    user_visits.count\\n  )                                       AS BusCount,\\n  fUserCountOthers(\\n    institutions.institution_type,\\n    user_visits.count\\n  )                                       AS OthersCount,\\n  user_visits.count                       AS Count,\\n  0                                       AS UCHomeDays,\\n  0                                       AS UCAwayDays,\\n  0                                       AS CSUDays,\\n  0                                       AS ComColDays,\\n  0                                       AS OthCADays,\\n  0                                       AS OthUSDays,\\n  0                                       AS IntlDays,\\n  0                                       AS K12Days,\\n  0                                       AS NGODays,\\n  0                                       AS GovDays,\\n  0                                       AS BusDays,\\n  0                                       AS OtherDays,\\n  0                                       AS All1\\nFROM\\n  user_visits\\n  INNER JOIN institutions   ON user_visits.institution_id = institutions.id\\n  INNER JOIN visits         ON user_visits.visit_id       = visits.id\\n  INNER JOIN projects       ON visits.project_id          = projects.id\\nWHERE\\n  user_visits.`status`        = 'Approved'\\n  AND (\\n    visits.`status`           = 'approved'\\n    OR visits.`status`        = 'in_review'\\n  )\\n  AND visits.report_access    = 1\\n  AND user_visits.departs_at  >= '#{ActiveRecord::Base.sanitize_sql(begin_date)}'\\n  AND user_visits.arrives_at  <= '#{ActiveRecord::Base.sanitize_sql(end_date)}'\\n  AND visits.reserve_id       = #{reserve.id};\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportQueries",
+        "method": "query_part_1"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "1045da211e2ea02f4acc570627b22e56d89ecaa6ef2e0c7e8c77876d25afa0b8",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_queries.rb",
+      "line": 15,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS temptableusersdays#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportQueries",
+        "method": "query_part_1"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "1045da211e2ea02f4acc570627b22e56d89ecaa6ef2e0c7e8c77876d25afa0b8",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_queries.rb",
+      "line": 423,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS temptableusersdays#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportQueries",
+        "method": "query_part_1"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "18de4b7e03850682fee412ca8991aecb9662d6daf098ba65eea05a8750d8468b",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_queries.rb",
+      "line": 16,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS MergedTables1#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportQueries",
+        "method": "query_part_1"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "18de4b7e03850682fee412ca8991aecb9662d6daf098ba65eea05a8750d8468b",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_queries.rb",
+      "line": 424,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS MergedTables1#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportQueries",
+        "method": "query_part_1"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
       "warning_type": "Mass Assignment",
       "warning_code": 105,
       "fingerprint": "2423bef4a65bd98c5d6b6d0941226b6a6e395677479363294ed7a708a71641c8",
@@ -23,11 +123,71 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "39e41d5d1f47be64e90c8a741fbb111f94c3e4b8c514343991f0bcf5b5c495f1",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_queries.rb",
+      "line": 143,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"CREATE TEMPORARY TABLE\\n  temptableusersdays#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nSELECT\\n  user_visits.user_id                     AS user_id,\\n  user_visits.role                        AS role,\\n  projects.project_type,\\n  0                                       AS UCHomeCount,\\n  0                                       AS UCAwayCount,\\n  0                                       AS CSUCount,\\n  0                                       AS ComColCount,\\n  0                                       AS OthCACount,\\n  0                                       AS OthUSCount,\\n  0                                       AS IntlCount,\\n  0                                       AS K12Count,\\n  0                                       AS NGOCount,\\n  0                                       AS GovCount,\\n  0                                       AS BusCount,\\n  0                                       AS OthersCount,\\n  0                                       AS Count,\\n  fUserDaysUCHome(\\n    institutions.institution_type,\\n    get_visit_days_in_period(\\n      user_visits.arrives_at,\\n      user_visits.departs_at,\\n      '#{ActiveRecord::Base.sanitize_sql(begin_date)}',\\n      '#{ActiveRecord::Base.sanitize_sql(end_date)}',\\n      user_visits.count,\\n      user_visits.actual_days\\n    ),\\n    institutions.managing_institution_id,\\n    #{reserve.managing_campus.id}\\n  )                                        AS UCHomeDays,\\n  fUserDaysUCAway(\\n    institutions.institution_type,\\n    get_visit_days_in_period(\\n      user_visits.arrives_at,\\n      user_visits.departs_at,\\n      '#{ActiveRecord::Base.sanitize_sql(begin_date)}',\\n      '#{ActiveRecord::Base.sanitize_sql(end_date)}',\\n      user_visits.count,\\n      user_visits.actual_days\\n    ),\\n    institutions.managing_institution_id,\\n    #{reserve.managing_campus.id}\\n  )                                        AS UCAwayDays,\\n  fUserDaysCSU(\\n    institutions.institution_type,\\n    get_visit_days_in_period(\\n      user_visits.arrives_at,\\n      user_visits.departs_at,\\n      '#{ActiveRecord::Base.sanitize_sql(begin_date)}',\\n      '#{ActiveRecord::Base.sanitize_sql(end_date)}',\\n      user_visits.count,\\n      user_visits.actual_days\\n    )\\n  )                                        AS CSUDays,\\n  fUserDaysComCol(\\n    institutions.institution_type,\\n    get_visit_days_in_period(\\n      user_visits.arrives_at,\\n      user_visits.departs_at,\\n      '#{ActiveRecord::Base.sanitize_sql(begin_date)}',\\n      '#{ActiveRecord::Base.sanitize_sql(end_date)}',\\n      user_visits.count,\\n      user_visits.actual_days\\n    )\\n  )                                        AS ComColDays,\\n  fUserDaysOthCA(\\n    institutions.institution_type,\\n    get_visit_days_in_period(\\n      user_visits.arrives_at,\\n      user_visits.departs_at,\\n      '#{ActiveRecord::Base.sanitize_sql(begin_date)}',\\n      '#{ActiveRecord::Base.sanitize_sql(end_date)}',\\n      user_visits.count,\\n      user_visits.actual_days\\n    )\\n  )                                        AS OthCADays,\\n  fUserDaysOthUS(\\n    institutions.institution_type,\\n    get_visit_days_in_period(\\n      user_visits.arrives_at,\\n      user_visits.departs_at,\\n      '#{ActiveRecord::Base.sanitize_sql(begin_date)}',\\n      '#{ActiveRecord::Base.sanitize_sql(end_date)}',\\n      user_visits.count,\\n      user_visits.actual_days\\n    )\\n  )                                        AS OthUSDays,\\n  fUserDaysIntl(\\n    institutions.institution_type,\\n    get_visit_days_in_period(\\n      user_visits.arrives_at,\\n      user_visits.departs_at,\\n      '#{ActiveRecord::Base.sanitize_sql(begin_date)}',\\n      '#{ActiveRecord::Base.sanitize_sql(end_date)}',\\n      user_visits.count,\\n      user_visits.actual_days\\n    )\\n  )                                        AS IntlDays,\\n  fUserDaysK12(\\n    institutions.institution_type,\\n    get_visit_days_in_period(\\n      user_visits.arrives_at,\\n      user_visits.departs_at,\\n      '#{ActiveRecord::Base.sanitize_sql(begin_date)}',\\n      '#{ActiveRecord::Base.sanitize_sql(end_date)}',\\n      user_visits.count,\\n      user_visits.actual_days\\n    )\\n  )                                        AS K12Days,\\n  fUserDaysNGO(\\n    institutions.institution_type,\\n    get_visit_days_in_period(\\n      user_visits.arrives_at,\\n      user_visits.departs_at,\\n      '#{ActiveRecord::Base.sanitize_sql(begin_date)}',\\n      '#{ActiveRecord::Base.sanitize_sql(end_date)}',\\n      user_visits.count,\\n      user_visits.actual_days\\n    )\\n  )                                        AS NGODays,\\n  fUserDaysGov(\\n    institutions.institution_type,\\n    get_visit_days_in_period(\\n      user_visits.arrives_at,\\n      user_visits.departs_at,\\n      '#{ActiveRecord::Base.sanitize_sql(begin_date)}',\\n      '#{ActiveRecord::Base.sanitize_sql(end_date)}',\\n      user_visits.count,\\n      user_visits.actual_days\\n    )\\n  )                                        AS GovDays,\\n  fUserDaysBus(\\n    institutions.institution_type,\\n    get_visit_days_in_period(\\n      user_visits.arrives_at,\\n      user_visits.departs_at,\\n      '#{ActiveRecord::Base.sanitize_sql(begin_date)}',\\n      '#{ActiveRecord::Base.sanitize_sql(end_date)}',\\n      user_visits.count,\\n      user_visits.actual_days\\n    )\\n  )                                        AS BusDays,\\n  fUserDaysOther(\\n    institutions.institution_type,\\n    get_visit_days_in_period(\\n      user_visits.arrives_at,\\n      user_visits.departs_at,\\n      '#{ActiveRecord::Base.sanitize_sql(begin_date)}',\\n      '#{ActiveRecord::Base.sanitize_sql(end_date)}',\\n      user_visits.count,\\n      user_visits.actual_days\\n    )\\n  )                                        AS OtherDays,\\n  get_visit_days_in_period(\\n    user_visits.arrives_at,\\n    user_visits.departs_at,\\n    '#{ActiveRecord::Base.sanitize_sql(begin_date)}',\\n    '#{ActiveRecord::Base.sanitize_sql(end_date)}',\\n    user_visits.count,\\n    user_visits.actual_days\\n  )                                        AS All1\\nFROM\\n  user_visits\\n  INNER JOIN institutions   ON user_visits.institution_id = institutions.id\\n  INNER JOIN visits         ON user_visits.visit_id       = visits.id\\n  INNER JOIN projects       ON visits.project_id          = projects.id\\nWHERE\\n  user_visits.`status`        = 'Approved'\\n  AND (\\n    visits.`status`           = 'approved'\\n    OR visits.`status`        = 'in_review'\\n  )\\n  AND visits.report_access    = 1\\n  AND user_visits.departs_at  >= '#{ActiveRecord::Base.sanitize_sql(begin_date)}'\\n  AND user_visits.arrives_at  <= '#{ActiveRecord::Base.sanitize_sql(end_date)}'\\n  AND visits.reserve_id       = #{reserve.id};\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportQueries",
+        "method": "query_part_1"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "64e4e84bd7f68ca32279b6613cfae5bb7483aacddb96cc4d6da0c7c5d3cb87ce",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_queries.rb",
+      "line": 14,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS tempusercounttable2#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportQueries",
+        "method": "query_part_1"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "64e4e84bd7f68ca32279b6613cfae5bb7483aacddb96cc4d6da0c7c5d3cb87ce",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_queries.rb",
+      "line": 422,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS tempusercounttable2#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportQueries",
+        "method": "query_part_1"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "68fbf49bf299cfe84418c5f7d53e36bf7802c3992f82f1e99334b157d444e7fd",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/project_permit_answer.rb",
-      "line": 46,
+      "line": 47,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "connection.execute(\"INSERT INTO #{table_name} (\\n  #{arel_table[:project_id].name},\\n  #{arel_table[:permit_id].name},\\n  #{arel_table[:answer].name},\\n  #{arel_table[:created_at].name},\\n  #{arel_table[:updated_at].name})\\nVALUES\\n  #{project_permit_answers.map do\n ActiveRecord::Base.sanitize_sql([\"(?,?,?,NOW(),NOW())\", answer.project_id, answer.permit_id, answer.answer])\n end.join(\",\\n  \")}\\nAS new\\nON DUPLICATE KEY UPDATE\\n  answer = new.answer,\\n  updated_at = new.updated_at\\n\")",
       "render_path": null,
@@ -79,7 +239,87 @@
       },
       "user_input": "params[:visit_id]",
       "confidence": "Weak",
-      "note": "False Positive"
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "77c24bc8d2f0c7414a12b2e8993496337612916d0701f772d0613658dbb21232",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_queries.rb",
+      "line": 17,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS ResultsTable#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportQueries",
+        "method": "query_part_1"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "77c24bc8d2f0c7414a12b2e8993496337612916d0701f772d0613658dbb21232",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_queries.rb",
+      "line": 425,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS ResultsTable#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportQueries",
+        "method": "query_part_1"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "853b18358ee3f30b3b3f0f73db6c4e634cbd435b6d5b817959781d990215c416",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_queries.rb",
+      "line": 12,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS temptableuserscount#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportQueries",
+        "method": "query_part_1"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "853b18358ee3f30b3b3f0f73db6c4e634cbd435b6d5b817959781d990215c416",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_queries.rb",
+      "line": 420,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS temptableuserscount#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportQueries",
+        "method": "query_part_1"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "note": ""
     },
     {
       "warning_type": "Dynamic Render Path",
@@ -120,7 +360,27 @@
       },
       "user_input": "params[:visit_id]",
       "confidence": "Weak",
-      "note": "False Positive"
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "9be5ffe98c87f3f062270eef52cb62e7a03db49493e19eaccf87ca4fa28eacdb",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_queries.rb",
+      "line": 373,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"SELECT\\n  *\\nFROM\\n  ResultsTable#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nORDER BY\\n  FIELD(\\n    project_type,\\n    'Research',\\n    'Class',\\n    'Public Use',\\n    'Housing',\\n    \\n    'TOTAL'\\n  ),\\n\\n  FIELD(\\n    role,\\n    '',\\n    'No selection',\\n    'Research Faculty',\\n    'Faculty',\\n    'Research Scientist',\\n    'Research Scientist/Post Doc',\\n    'Research Assistant',\\n    'Research Assistant - Non Academic',\\n    'Research Assistant (non-student/faculty/postdoc)',\\n    'Graduate Student',\\n    'Graduate Student Researcher',\\n    'Undergraduate Student Researcher',\\n    'Undergraduate Student',\\n    'College Class Instructor',\\n    'College Class Student',\\n    'College Class Graduate Student',\\n    'College Class Undergraduate Student',\\n    'K-12 Instructor',\\n    'K-12 Student',\\n    'Arts or Humanities',\\n    'Arts or Humanities - Non Academic',\\n    'Arts/Humanities (non-student/faculty/postdoc)' ,\\n    'Professional',\\n    'Other',\\n    'Docent',\\n    'Volunteer',\\n\\n    'SUBTOTAL'\\n  ),\\n\\n  role;\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportQueries",
+        "method": "query_part_1"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "note": ""
     },
     {
       "warning_type": "SQL Injection",
@@ -129,7 +389,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/project_reserve_answer.rb",
-      "line": 45,
+      "line": 46,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "connection.execute(\"INSERT INTO #{table_name} (\\n  #{arel_table[:project_id].name},\\n  #{arel_table[:reserve_question_id].name},\\n  #{arel_table[:text_answer].name},\\n  #{arel_table[:boolean_answer].name},\\n  #{arel_table[:created_at].name},\\n  #{arel_table[:updated_at].name})\\nVALUES\\n  #{project_reserve_answers.map do\n ActiveRecord::Base.sanitize_sql([\"(?,?,?,?,?,?)\", answer.project_id, answer.reserve_question_id, answer.text_answer, answer.boolean_answer, Time.current, Time.current])\n end.join(\",\\n  \")}\\nAS new\\nON DUPLICATE KEY UPDATE\\n  text_answer = new.text_answer,\\n  boolean_answer = new.boolean_answer,\\n  updated_at = new.updated_at\\n\")",
       "render_path": null,
@@ -181,7 +441,87 @@
       },
       "user_input": "params[:visit_id]",
       "confidence": "Weak",
-      "note": "False Positive"
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "c3e3390724bc7054901286c52cf6410ab87e0cd072d1afe81a1e7ab63f839d16",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_queries.rb",
+      "line": 13,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS tempusercounttable1#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportQueries",
+        "method": "query_part_1"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "c3e3390724bc7054901286c52cf6410ab87e0cd072d1afe81a1e7ab63f839d16",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_queries.rb",
+      "line": 421,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS tempusercounttable1#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportQueries",
+        "method": "query_part_1"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "cef64ce1c30fa0b7db86e3b774f2d76b92e4f2019283a64c20fc50ef4e6b9112",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_queries.rb",
+      "line": 332,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"CREATE TEMPORARY TABLE\\n  ResultsTable#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)} AS\\n    SELECT\\n      IFNULL(project_type,'TOTAL' )      AS project_type,\\n      IFNULL(role,'SUBTOTAL' )           AS role,\\n      SUM(UCHomeCount)                   AS CountUCHome,\\n      SUM(UCHomeDays)                    AS DaysUCHome,\\n      SUM(UCAwayCount)                   AS CountUCAway,\\n      SUM(UCAwayDays)                    AS DaysUCAway,\\n      SUM(CSUCount)                      AS CountCSU,\\n      SUM(CSUDays)                       AS DaysCSU,\\n      SUM(ComColCount)                   AS CountComCol,\\n      SUM(ComColDays)                    AS DaysComCol,\\n      SUM(OthCACount)                    AS CountOthCA,\\n      SUM(OthCADays)                     AS DaysOthCA,\\n      SUM(OthUSCount)                    AS CountOthUS,\\n      SUM(OthUSDays)                     AS DaysOthUS,\\n      SUM(IntlCount)                     AS CountIntl,\\n      SUM(IntlDays)                      AS DaysIntl,\\n      SUM(K12Count)                      AS CountK12,\\n      SUM(K12Days)                       AS DaysK12,\\n      SUM(NGOCount)                      AS CountNGO,\\n      SUM(NGODays)                       AS DaysNGO,\\n      SUM(GovCount)                      AS CountGov,\\n      SUM(GovDays)                       AS DaysGov,\\n      SUM(BusCount)                      AS CountBus,\\n      SUM(BusDays)                       AS DaysBus,\\n      SUM(OthersCount)                   AS CountOthers,\\n      SUM(OtherDays)                     AS DaysOther,\\n      SUM(Count)                         AS CountAll,\\n      SUM(All1)                          AS DaysAll\\n    FROM\\n      MergedTables1#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\n    GROUP BY\\n      project_type,\\n      role                               WITH ROLLUP;\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportQueries",
+        "method": "query_part_1"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "d5e33bd9d89b22891f7971d5e6c06f6160bb2257c1fccdf88e4ff7485dc56b9f",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_queries.rb",
+      "line": 111,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"CREATE TEMPORARY TABLE\\n  tempusercounttable1#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nSELECT\\n  *\\nFROM\\n  temptableuserscount#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nWHERE\\n  user_id != 1\\nGROUP BY\\n  project_type,\\n  user_id,\\n  role,\\n  UCHomeCount, UCAwayCount, CSUCount, ComColCount, OthCACount, OthUSCount, IntlCount, K12Count, NGOCount, GovCount, BusCount, OthersCount, Count,\\n  UCHomeDays, UCAwayDays, CSUDays, ComColDays, OthCADays, OthUSDays, IntlDays, K12Days, NGODays, GovDays, BusDays, OtherDays, All1 ;\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportQueries",
+        "method": "query_part_1"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "note": ""
     },
     {
       "warning_type": "Mass Assignment",
@@ -202,6 +542,26 @@
       "user_input": ":role",
       "confidence": "Medium",
       "note": "Ignore role in user-related strong param assignment"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "e17c5d359e0adffb9e651c0358ad21214ee0421f4280cb4f42f80d3febdfdf56",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_queries.rb",
+      "line": 128,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"CREATE TEMPORARY TABLE\\n  tempusercounttable2#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nSELECT\\n  *\\nFROM\\n  temptableuserscount#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nWHERE\\n  user_id = 1\\nORDER BY\\n  project_type ASC,\\n  user_id ASC,\\n  role ASC;\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportQueries",
+        "method": "query_part_1"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "note": ""
     },
     {
       "warning_type": "Dynamic Render Path",
@@ -243,8 +603,28 @@
       "user_input": "params[:visit_id]",
       "confidence": "Weak",
       "note": "False Positive"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "fd192b11c691de9705eda00e1dbc0f95e5f9bdddb6e84c8d1589bf87af4601fb",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_queries.rb",
+      "line": 324,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"CREATE TEMPORARY TABLE\\n  MergedTables1#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nSELECT * FROM tempusercounttable1#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nUNION ALL SELECT * FROM tempusercounttable2#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nUNION ALL SELECT * FROM temptableusersdays#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportQueries",
+        "method": "query_part_1"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "note": ""
     }
   ],
-  "updated": "2022-09-28 13:11:33 -0700",
-  "brakeman_version": "5.1.1"
+  "updated": "2022-10-03 19:53:28 -0700",
+  "brakeman_version": "5.2.3"
 }

@@ -41,9 +41,9 @@
 
       a.active {
         background-color: unset;
-        border-top: 1px solid $black;
         border-bottom: 1px solid $black;
         border-right: 8px solid $black;
+        border-top: 1px solid $black;
         margin-top: -1px;
       }
     }
@@ -58,5 +58,94 @@
       font-weight: $light;
       margin-bottom: 2rem;
     }
+
+    .fiscal-year-select {
+      align-items: center;
+      display: flex;
+      gap: .5rem;
+      margin-bottom: 1rem;
+    }
+
+    #review {
+      align-items: center;
+      background-color: $light-gray;
+      border: 1px solid $gray;
+      border-radius: 3px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      padding: .75rem;
+    }
+
+    button {
+      background-color: $white;
+      border: 1px solid $gray;
+      border-radius: 3px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      margin: 0;
+      padding: .625rem;
+    }
+  }
+}
+
+table.annual-report {
+  border-collapse: collapse;
+  border-width: 1px;
+  font-size: 10px;
+  margin-bottom: 3rem;
+  table-layout:fixed;
+  width: 100%;
+
+  col.first-col {
+    width: 100px;
+  }
+
+  col.subtotal-col {
+    background: $light-gray;
+  }
+
+  th {
+    background: $light-gray;
+    border: 1px solid $gray;
+    font-weight: $medium;
+    padding: 8px 0px;
+    text-align: center;
+  }
+
+  tr {
+    height: 30px;
+
+    &.row-subtotal, &.row-total {
+      background: $gold;
+      padding: 0 0.5em;
+      text-align: center;
+    }
+
+    &.row-total {
+      font-weight: $medium;
+    }
+
+    &.group-header th{
+      padding: 0 0.5em;
+      text-align: left;
+    }
+  }
+
+  td {
+    border-color: $gray;
+    border-style: solid;
+    border-width: 1px;
+    padding: 4px;
+    text-align: center;
+
+    &.col-1 {
+      font-weight: $medium;
+      text-align: left;
+    }
+  }
+
+  .spacer td {
+    border:none;
   }
 }
