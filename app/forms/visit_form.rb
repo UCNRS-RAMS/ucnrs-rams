@@ -74,18 +74,22 @@ class VisitForm
 
   def start_date=(date)
     visit.start_date = parse_date(date)
+    assign_starts_at
   end
 
   def start_time=(time)
     visit.start_time = parse_time(time)
+    assign_starts_at
   end
 
   def end_date=(date)
     visit.end_date = parse_date(date)
+    assign_ends_at
   end
 
   def end_time=(time)
     visit.end_time = parse_time(time)
+    assign_ends_at
   end
 
   private
@@ -163,6 +167,18 @@ class VisitForm
   end
 
   private :valid_form?, :validate_form
+
+  def assign_starts_at
+    visit.starts_at = change_date_for_datetime(start_time.to_datetime, start_date.to_date)
+  end
+
+  def assign_ends_at
+    visit.ends_at = change_date_for_datetime(end_time.to_datetime, end_date.to_date)
+  end
+
+  def change_date_for_datetime(datetime, date)
+    date.blank? ? datetime : datetime&.change(year: date.year, month: date.month, day: date.day)
+  end
 
   def amenities_params
     params = @amenities_params&.values&.select do |amenity_params|
