@@ -1337,6 +1337,10 @@ en:
           date_and_time: "Date & Time"
           user_or_admin: "User/Admin"
     reports:
+      update:
+        flash:
+          report_updated_success: "Report Updated successfully"
+          cannot_update_report: "Cannot Update Report"
       header:
         reports: "Reports"
       menu:
@@ -1351,7 +1355,25 @@ en:
         use_by_publicly_affiliated_groups: "Use By Publicly Affiliated Groups"
         flex_report: "Flex Report"
       report_part_1:
+        fiscal_year: "Fiscal year"
         part_1_reserve_use_data: "Part 1. Reserve Use Data - Using Unique People Roles"
+        report_has_been_reviewed: "This page of the report has been reviewed and is ready for UCOP."
+      report_part_1_table:
+        uc_home: "UC Home"
+        uc_other: "UC Other"
+        csu_system: "CSU System"
+        ca_community_college: "CA Comm College"
+        ca_other_college: "Other CA College"
+        out_of_state_college: "Out of State College"
+        international_university: "Int. University"
+        government: "Government"
+        ngo_non_profit: "NGO/Non-Profit"
+        business_entity: "Business Entity"
+        k12_school: "K-12 School"
+        other: "Other"
+        total: "Total"
+        users: "Users"
+        user_days: "UDs"
       report_part_2:
         part_2_reserve_users_affiliation: "Part 2. Reserve Users' Affiliation"
       report_part_3:
@@ -2165,6 +2187,7 @@ en:
   unchecked: "unchecked icon"
   'yes': "Yes"
   'no': "No"
+  submit: "Submit"
   cancel: "Cancel"
   update: "Update"
   enabled: "Enabled"

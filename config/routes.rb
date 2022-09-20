@@ -73,7 +73,7 @@ Rails.application.routes.draw do
         resource :summary, only: [:show], controller: "visits/summary"
         resource :detail, only: [:edit, :update], controller: "visits/detail"
       end
-      resources :reports, only: [:show] do
+      resources :reports, only: [:show, :update] do
         get "report_part_1", on: :member
         get "report_part_2", on: :member
         get "report_part_3", on: :member

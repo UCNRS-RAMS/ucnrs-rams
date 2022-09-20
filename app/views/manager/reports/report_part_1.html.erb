@@ -6,6 +6,34 @@
     </section>
     <section class="report">
       <header><%= t(".part_1_reserve_use_data") %></header>
+      <div class="fiscal-year-select">
+        <%= t(".fiscal_year") %>:
+        <%= tag.div class: "dropdown", data: { controller: "dropdown" } do %>
+          <%= tag.button @presenter.fiscal_year,
+            class: "dropdown-toggle",
+            data: { action: "click->dropdown#toggle click@window->dropdown#hide" }
+          %>
+          <%= tag.div class: "dropdown-menu", data: { "dropdown-class": "show", "dropdown-target": "dropdown" } do %>
+            <% @presenter.fiscal_year_ending_options.each do |fiscal, year_ending| %>
+              <%= link_to fiscal, report_part_1_manager_reserve_report_path(current_reserve, year_ending), class: "dropdown-item" %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+      <%= render partial: 'report_part_1_table', locals: { presenter: @presenter } %>
+
+      <%= form_with model: @presenter.form, url: manager_reserve_report_path, method: :patch do |form| %>
+        <div id="review">
+          <%= tag.div t(".report_has_been_reviewed") %>
+          <%= tag.div do %>
+            <%= form.label :part_1_approved do %>
+              <%= form.check_box :part_1_approved %>
+              <%= t("yes") %>
+            <% end %>
+          <% end %>
+        </div>
+        <%= form.button t("submit") %>
+      <% end %>
     </section>
   </div>
 </section>
