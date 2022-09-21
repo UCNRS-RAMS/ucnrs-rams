@@ -33,7 +33,7 @@ def initialize(current_user:, add_visitor_partial:, show_add_guest_modal: false,
   end
 
   def user_role_options
-    UserVisit.roles.map { |key, value| [value, key] }
+    UserVisit.roles.except(:staff).map { |key, value| [value, key] }
   end
 
   def institution_options
