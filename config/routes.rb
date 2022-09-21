@@ -55,7 +55,9 @@ Rails.application.routes.draw do
     resources :reserves, only: [:show] do
       resources :team_memberships, only: [:edit, :update, :destroy], controller: "projects/team_memberships"
       resource :dashboard, only: [:show] do
-        resource :calendar, only: [:show], controller: "dashboards/calendar"
+        resource :calendar, only: [:show], controller: "dashboards/calendar" do
+          resources :visits, only: [:show], controller: "dashboards/calendar/visits"
+        end
       end
       resources :projects, only: [:index, :show] do
         resource :summary, only: [:show], controller: "projects/summary"

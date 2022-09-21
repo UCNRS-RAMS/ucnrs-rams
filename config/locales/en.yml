@@ -145,6 +145,8 @@ en:
       state: "State"
   modals:
     calendar_visit_modal:
+      visit: "Visit # %{id} @ %{reserve_name}"
+      project: "Under Project # %{id} | %{project_type}"
       reservation_member: "Reservation Members(s)"
       reserve_Resource: "Reserve Resources(s) | "
       create_invoice: "Create Invoice"

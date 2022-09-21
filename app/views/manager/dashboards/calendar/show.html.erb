@@ -14,7 +14,7 @@
       <% @presenter.current_date_visits.each do  |visit| %>
 
         <% if @presenter.display_visitors?(visit) %>
-          <%= link_to manager_reserve_dashboard_calendar_path(visit_id: visit.id), method: :get do %>
+          <%= link_to manager_reserve_dashboard_calendar_visit_path(current_reserve.id, visit.id), method: :get do %>
             <div class="<%= visit.visitor_counts_bg  %>" >
               <% if visit.display_visitors_text?(@presenter.prev_date_visits)  %>
                 <span class="bars-text" >
@@ -28,7 +28,7 @@
         <% if @presenter.display_amenities? %>
           <% visit.amenity_visits.includes([:amenity]).each do  |amenity_visit| %>
             <% if @presenter.display_amenity?(amenity_visit)  %>
-              <%= link_to manager_reserve_dashboard_calendar_path(visit_id: amenity_visit.visit_id), method: :get do %>
+              <%= link_to manager_reserve_dashboard_calendar_visit_path(current_reserve.id, amenity_visit.visit_id), method: :get do %>
                 <div class="<%= visit.amentities_counts_bg %>" >
                   <% if visit.display_amenities_text? %>
                     <span class="bars-text">
