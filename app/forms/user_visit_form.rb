@@ -37,6 +37,10 @@ class UserVisitForm
     user_visit.departs_at = date
   end
 
+  def role=(role)
+    user_visit.role = UserVisit.roles[role] || "other"
+  end
+
   def validate
     validate_form
     validate_user_visit
@@ -64,7 +68,7 @@ class UserVisitForm
     user_visit.count = 1
     if adding_user_as_guest_visitor?
       user_visit.institution_id = user.institution_id
-      user_visit.role = user.role || "other"
+      self.role = user.role
       user_visit.guest_name = nil
     end
   end
