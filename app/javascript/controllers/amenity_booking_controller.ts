@@ -34,7 +34,5 @@ export default class extends Controller {
     this.countTarget.value = '1'
     this.arriveAtTarget.value = '12:00'
     this.departsAtTarget.value = '12:00'
-    this.arriveOnTarget.value = ''
-    this.departsOnTarget.value = ''
   }
 }
