@@ -1,6 +1,12 @@
 require "rails_helper"
 
 RSpec.describe Visits::AmenitiesPresenter do
+  describe "delegation to user" do
+    let(:reserve) { create(:reserve) }
+    subject { Visits::AmenitiesPresenter.new(reserve_id: reserve.id) }
+    it { is_expected.to delegate_method(:institution_name).to(:user) }
+  end
+
   describe "#amenities_by_group_label" do
     it "presents the relevant amenities in order grouped by label" do
       reserve = create(

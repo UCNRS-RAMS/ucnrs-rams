@@ -121,6 +121,11 @@
     display: none;
   }
 
+  .amenities-header {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .visit-form {
     color: $navy-blue;
     padding: 0 $form-page-gutter;

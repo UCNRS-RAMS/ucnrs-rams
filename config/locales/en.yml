@@ -484,6 +484,7 @@ en:
       index:
         select_amenities: "Select Amenities"
         optional: "(Optional)"
+        rate_determined: "Rate determined automatically from your Institution (%{institution})"
       amenity:
         more_info: "Learn More"
         less_info: "Show Less"
