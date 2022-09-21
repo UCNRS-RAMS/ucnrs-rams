@@ -168,8 +168,6 @@ describe("AmenityBookingController", () => {
 
       expect(subtotal.textContent).toEqual("2")
       expect(count.value).toEqual("1")
-      expect(departsOn.value).toEqual("")
-      expect(arriveOn.value).toEqual("")
       expect(arriveAt.value).toEqual("12:00")
       expect(arriveAt.value).toEqual("12:00")
     })
