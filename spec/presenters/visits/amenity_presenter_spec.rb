@@ -5,7 +5,6 @@ RSpec.describe Visits::AmenityPresenter do
     subject { Visits::AmenityPresenter.new(build(:amenity)) }
     it { is_expected.to delegate_method(:group_number).to(:amenity) }
     it { is_expected.to delegate_method(:description).to(:amenity) }
-    it { is_expected.to delegate_method(:image_url).to(:amenity) }
     it { is_expected.to delegate_method(:reserve).to(:amenity) }
     it { is_expected.to delegate_method(:comment).to(:amenity) }
     it { is_expected.to delegate_method(:unit).to(:amenity).as(:units_type) }
@@ -169,6 +168,22 @@ RSpec.describe Visits::AmenityPresenter do
       presenter = Visits::AmenityPresenter.new(amenity)
 
       expect(presenter.group_label).to eq "2"
+    end
+  end
+
+  describe "#image" do
+    it "is 'amenity_placeholder.jpg' when image_url is not set" do
+      amenity = create(:amenity)
+      presenter = Visits::AmenityPresenter.new(amenity)
+      
+      expect(presenter.image).to eq "amenity_placeholder.jpg"
+    end
+
+    it "is equal to image_url when it is set" do
+      amenity = create(:amenity, image_url: "https://apod.nasa.gov/apod/image/2202/AuroraPillars_Correia_960.jpg")
+      presenter = Visits::AmenityPresenter.new(amenity)
+      
+      expect(presenter.image).to eq "https://apod.nasa.gov/apod/image/2202/AuroraPillars_Correia_960.jpg"
     end
   end
 

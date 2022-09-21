@@ -9,7 +9,6 @@ class Visits::AmenityPresenter
 
   delegate :title,
     :description,
-    :image_url,
     :group_number,
     :reserve,
     :comment,
@@ -23,6 +22,10 @@ class Visits::AmenityPresenter
     :checked,
     to: :form
 
+  def image
+    amenity.image_url || "amenity_placeholder.jpg"
+  end
+  
   def amenity_id
     amenity.id
   end
