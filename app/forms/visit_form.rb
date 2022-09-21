@@ -122,6 +122,7 @@ class VisitForm
   end
 
   def save_amenities!
+    destroy_removed_amenity_visits
     amenity_forms.each do |key, amenity_visits|
       amenity_visits.each do |amenity_visit|
         amenity_visit.visit_id = visit.id
@@ -208,5 +209,13 @@ class VisitForm
       amenity_id: amenity_params[:amenity_id],
       amenity_rate_id: amenity_params[:amenity_rate_id],
     })
+  end
+
+  def destroy_removed_amenity_visits
+    amenity_visits.where(id: removed_amenity_visit_ids).destroy_all
+  end
+
+  def removed_amenity_visit_ids
+    amenity_visit_ids - amenity_forms.values.flatten.map(&:id)
   end
 end
