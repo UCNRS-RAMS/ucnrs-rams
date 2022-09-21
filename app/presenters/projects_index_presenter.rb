@@ -10,7 +10,7 @@ class ProjectsIndexPresenter
   attr_reader :status_filter, :user, :page
 
   def projects
-    project_scope.map do |project|
+    project_scope.uniq.map do |project|
       ProjectPresenter.new(project: project, status_filter: status_filter)
     end
   end
