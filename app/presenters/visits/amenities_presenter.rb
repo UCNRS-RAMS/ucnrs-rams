@@ -4,6 +4,10 @@ class Visits::AmenitiesPresenter
     @user = user
   end
 
+  attr_reader :user
+
+  delegate :institution_name, to: :user
+
   def amenities_by_group_label
     Amenity
       .where(reserve_id: @reserve_id)
