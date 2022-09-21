@@ -5,11 +5,11 @@
     </div>
     <div class="vertical-padding">
       <p class="clr-blue"><%= @presenter.purpose_of_visit %></p>
-      <p class="clr-gray"><em>Reservation # <%= @presenter.id %> @ <%= @presenter.visit_reserve_name %></em></p>
+      <p class="clr-gray"><em><%= t(".visit", id: @presenter.id, reserve_name: @presenter.visit_reserve_name ) %></em></p>
     </div>
     <hr>
     <div class="vertical-padding">
-      <p class="clr-gray"><em>Under application # <%= @presenter.project_id %> | <%= @presenter.project_type %></em></p>
+      <p class="clr-gray"><em><%= t(".project", id: @presenter.project_id, project_type: @presenter.project_type ) %></em></p>
       <p class="clr-blue"><%= @presenter.project_title %></p>
       <p class="clr-gray"><em><%= @presenter.user_full_name %> - <%= @presenter.user.institution_name %></em></p>
     </div>

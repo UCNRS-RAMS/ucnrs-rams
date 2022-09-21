@@ -3,10 +3,7 @@ class Manager::Dashboards::CalendarController < ApplicationController
   before_action :confirm_manager!
 
   def show
-    respond_to do |format|
-      format.html { @presenter = initialize_calendar_presenter }
-      format.turbo_stream { @presenter = initialize_visit_presenter }
-    end
+    @presenter = initialize_calendar_presenter
   end
 
   private
@@ -19,10 +16,6 @@ class Manager::Dashboards::CalendarController < ApplicationController
       type: params[:type],
       status: params[:status],
     )
-  end
-
-  def initialize_visit_presenter
-    VisitShowPresenter.new(Visit.find_by(id: params[:visit_id]))
   end
 
   def date_from_month_str(date_str)
