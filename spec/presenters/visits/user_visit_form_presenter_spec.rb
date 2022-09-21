@@ -76,7 +76,6 @@ RSpec.describe Visits::UserVisitFormPresenter do
         ["Other", "other"],
         ["Docent", "docent"],
         ["Volunteer", "volunteer"],
-        ["Staff", "staff"]
       ]
       presenter = Visits::UserVisitFormPresenter.new(current_user: create(:user), add_visitor_partial: "team_membership")
 
