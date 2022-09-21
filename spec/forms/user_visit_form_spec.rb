@@ -132,6 +132,20 @@ RSpec.describe UserVisitForm, type: :model do
     end
   end
 
+  describe "#role=" do
+    it "sets user role 'other' when role is not valid" do
+      form = UserVisitForm.new(params: { id: create(:user_visit).id, role: "random"})
+
+      expect(form.role).to eq("other")
+    end
+
+    it "sets user role as it is when the role is valid" do
+      form = UserVisitForm.new(params: { id: create(:user_visit).id })
+      
+      expect(form.role).to eq("faculty")
+    end
+  end
+
   describe "#save" do
     it "saves the user visit if there are no errors" do
       form = UserVisitForm.new(
