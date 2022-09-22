@@ -16,6 +16,7 @@ class VisitsFormPresenter
     :end_date,
     :end_time,
     :project_title,
+    :reserve_id,
     :reserve_name,
     :id,
     to: :form
