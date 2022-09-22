@@ -5,7 +5,7 @@
     <% if notice.present? %>
       <p class="notice"><%= notice %></p>
     <% end %>
-    <%= form_with model: @presenter.form, url: manager_reserve_visit_detail_path(@presenter.reserve.id, @presenter.visit.id), method: :put do |form| %>
+    <%= form_with model: @presenter.form, url: manager_reserve_visit_detail_path(@presenter.reserve.id, @presenter.id), method: :put do |form| %>
       <%= render partial: "shared/visits/form", locals: { presenter: @presenter, form: form } %>
     <% end %>
   </section>

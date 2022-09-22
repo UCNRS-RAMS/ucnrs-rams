@@ -8,13 +8,12 @@ class Manager::Visits::DetailController < ApplicationController
   end
 
   def update
+    @presenter = Manager::Visits::VisitsFormPresenter.new(user: current_user, form: @form)
     @form = VisitForm.new(user: current_user, params: visit_params)
     if @form.save
-      @presenter = Manager::Visits::VisitsFormPresenter.new(user: current_user, form: @form)
       flash.now[:notice] = "Updates were successfully made."
       render :edit
     else
-      @presenter = Manager::Visits::VisitsFormPresenter.new(user: current_user, form: @form)
       render :edit, status: :unprocessable_entity
     end
   end
