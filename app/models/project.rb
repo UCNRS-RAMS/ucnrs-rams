@@ -177,7 +177,7 @@ class Project < ApplicationRecord
       .select(
         Arel.sql(<<-end_sql)
         projects.*,
-        (CASE
+        MIN(CASE
             WHEN(visits.start_date IS NULL) THEN CONCAT('1-', DATE_FORMAT(visits.created_at, '%Y-%m-%d'))
             WHEN(#{date} BETWEEN visits.start_date AND visits.end_date) THEN CONCAT('2-', DATE_FORMAT(visits.start_date, '%Y-%m-%d'))
             WHEN(visits.start_date > #{date}) THEN CONCAT('3-', DATE_FORMAT(visits.start_date, '%Y-%m-%d'))
@@ -186,6 +186,7 @@ class Project < ApplicationRecord
         END) as ordered_visits
         end_sql
       )
+      .group(:id)
       .order("ordered_visits")
   end
 

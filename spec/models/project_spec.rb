@@ -369,16 +369,17 @@ RSpec.describe Project, type: :model do
       future_visit = create(:visit, project: project4, start_date: Date.current + 1.year, end_date: Date.current + 2.years)
       other_null_start_date = create(:visit, project: project5, start_date: nil, end_date: nil)
       other_ongoing_visit = create(:visit, project: project6, start_date: Date.current - 3.days, end_date: Date.current + 3.days)
+      other_null_start_date2 = create(:visit, project: project1, start_date: nil, end_date: nil)
 
       results = Project.ordered_by_visit_date
 
       expect(results.map(&:title)).to eq [
+        "P1",
         "P3",
         "P5",
         "P6",
         "P2",
         "P4",
-        "P1",
       ]
     end
   end
