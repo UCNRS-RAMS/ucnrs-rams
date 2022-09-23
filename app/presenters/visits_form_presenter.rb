@@ -56,19 +56,19 @@ class VisitsFormPresenter
     end
   end
 
-  def project_type_partail_path
+  def project_type_partial_path
     "visits/project_type"
   end
 
-  def project_partail_path
+  def project_partial_path
     "visits/project"
   end
 
-  def reserve_partail_path
+  def reserve_partial_path
     "visits/reserve"
   end
 
-  def save_partail_path
+  def save_partial_path
     "visits/save"
   end
 

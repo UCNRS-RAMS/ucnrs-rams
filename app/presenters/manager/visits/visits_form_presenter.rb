@@ -1,14 +1,14 @@
 class Manager::Visits::VisitsFormPresenter < VisitsFormPresenter
 
-  def project_type_partail_path
+  def project_type_partial_path
     "manager/visits/detail/project_type"
   end
 
-  def project_partail_path
+  def project_partial_path
     "manager/visits/detail/project"
   end
 
-  def reserve_partail_path
+  def reserve_partial_path
     "manager/visits/detail/reserve"
   end
 
@@ -16,7 +16,7 @@ class Manager::Visits::VisitsFormPresenter < VisitsFormPresenter
     false
   end
 
-  def save_partail_path
+  def save_partial_path
     "manager/visits/detail/save"
   end
 end

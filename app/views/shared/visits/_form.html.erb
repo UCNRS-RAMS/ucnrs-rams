@@ -5,10 +5,10 @@
     <%= form.hidden_field :id, value: params[:id] %>
     <div class="project-type-options"  data-purpose="project_type" data-controller="value-projection" data-value-projection-projected-value="<%= form.object.project_type %>">
       <div class="row">
-        <%= render partial: @presenter.project_type_partail_path, locals: { presenter: @presenter, form: form} %>
+        <%= render partial: presenter.project_type_partial_path, locals: { presenter: presenter, form: form} %>
       </div>
       <div class="field project_select">
-        <%= render partial: @presenter.project_partail_path, locals: { presenter: @presenter, form: form} %>
+        <%= render partial: presenter.project_partial_path, locals: { presenter: presenter, form: form} %>
       </div>
     </div>
     <div class="text-area">
@@ -19,36 +19,36 @@
 
   <span data-controller="followup-content">
     <section class="reserve-info progress-steps">
-      <div><h3><%= t(".titles.reserve") %><% if @presenter.show_browse_reserve_link %> <%= link_to t(".links.browse_reserves"), "#" %><% end %></h3></div>
+      <div><h3><%= t(".titles.reserve") %><% if presenter.show_browse_reserve_link %> <%= link_to t(".links.browse_reserves"), "#" %><% end %></h3></div>
       <div class="display-row-flex">
         <div class="field">
-         <%= render partial: @presenter.reserve_partail_path, locals: { presenter: @presenter, form: form} %>
+         <%= render partial: presenter.reserve_partial_path, locals: { presenter: presenter, form: form} %>
         </div>
         <div class="date-range-select">
           <div class="field">
             <%= form.label :start_date, t(".labels.arrival"), class:"reserve-lable" %>
             <div class="date-time-select">
-              <%= form.date_field(:start_date, value: @presenter.start_date, min: Date.today, data: { action: "change->copy-first#copy" }) %>
-              <%= form.collection_select(:start_time, @presenter.time_options, :value, :human, aria: { label: t(".aria.arrival_time") }) %>
+              <%= form.date_field(:start_date, value: presenter.start_date, min: Date.today, data: { action: "change->copy-first#copy" }) %>
+              <%= form.collection_select(:start_time, presenter.time_options, :value, :human, aria: { label: t(".aria.arrival_time") }) %>
             </div>
           </div>
           <span class="separator"></span>
           <div class="field">
             <%= form.label :end_date, t(".labels.departure") %>
             <div class="date-time-select">
-              <%= form.date_field(:end_date, value: @presenter.end_date, min: Date.today, data: { action: "change->copy-second#copy" }) %>
-              <%= form.collection_select(:end_time, @presenter.time_options, :value, :human, aria: { label: t(".aria.departure_time") }) %>
+              <%= form.date_field(:end_date, value: presenter.end_date, min: Date.today, data: { action: "change->copy-second#copy" }) %>
+              <%= form.collection_select(:end_time, presenter.time_options, :value, :human, aria: { label: t(".aria.departure_time") }) %>
             </div>
           </div>
         </div>
       </div>
       <div data-followup-content-target="destination" data-followup-content-url-value="<%= visits_reserve_input_url("VALUE") %>" class="reserve-specific-fields">
-        <%= render partial: "visits/reserve_inputs/fields", locals: { form_values: @presenter.form, presenter: @presenter } %>
+        <%= render partial: "visits/reserve_inputs/fields", locals: { form_values: presenter.form, presenter: presenter } %>
       </div>
     </section>
     <section class="amenities visit-form" data-followup-content-target="destination" data-followup-content-url-value="<%= visits_amenities_url(reserve_id: "VALUE") %>">
       <section class="amenity-options" >
-        <% @presenter.amenities_by_group_label.each do |group_label, amenities| %>
+        <% presenter.amenities_by_group_label.each do |group_label, amenities| %>
           <%= render partial: "visits/amenities/amenities", locals: { group_label: group_label, amenities: amenities } %>
         <% end %>
       </section>
@@ -56,6 +56,6 @@
   </span>
 
   <section class="visit-form footer progress-steps">
-    <%= render @presenter.save_partail_path %>
+    <%= render presenter.save_partial_path %>
   </section>
 </section>
