@@ -98,7 +98,6 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
       departure: now + 1.day,
     )
     flow.submit_visit_request
-    sleep(0.1)
     flow.inside_reserve_section do
       expect(flow).to have_error_on("Departure", "must be after start date")
     end

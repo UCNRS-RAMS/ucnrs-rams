@@ -15,7 +15,7 @@
         <%= link_to manager_reserve_visit_path, method: :delete, data: { confirm: t(".confirm_removal", visit_id: @presenter.id) }, id: "trash-icon" do %>
           <%= image_tag "icons-trash-can.svg", height: "24px", width: "24px"%>
         <% end %>
-        <%= link_to manager_reserve_visit_summary_path(visit_id: @presenter.id), { class: "btn-status #{@presenter.status_bg}", id: "summary", data: { controller: "tab-bar", action: "click->tab-bar#selectSummaryTab", "tab-bar-target": "tab", "turbo-frame": "visit-details" } } do %>
+        <%= link_to manager_reserve_visit_summary_path(visit_id: @presenter.id), { class: "btn-status #{@presenter.status_classes}", id: "summary", data: { controller: "tab-bar", action: "click->tab-bar#selectSummaryTab", "tab-bar-target": "tab", "turbo-frame": "visit-details" } } do %>
           <%= presenter.status %>
         <% end %>
       </div>
@@ -33,12 +33,8 @@
       </p>
     </div>
     <div>
-      <%= link_to "#" do %>
-        <%= image_tag "calendar.svg", height: "24px", width: "24px"%>
-      <% end %>
-      <%= link_to "#" do %>
-        <%= image_tag "ical.svg", height: "24px", width: "24px"%>
-      <% end %>
+      <%= render partial: "icon_links", locals: { path: "#", icon_name: "calendar.svg" } %>
+      <%= render partial: "icon_links", locals: { path: "#", icon_name: "ical.svg" } %>
     </div>
   </div>
   <div class="info-block">

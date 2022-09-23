@@ -94,8 +94,9 @@ RSpec.describe UserVisitForm, type: :model do
 
   describe "#arrives_at=" do
     it "sets arrives_at after adding visit start_time to it as default" do
-      form = UserVisitForm.new(params: { id: create(:user_visit).id })
-      visit_start_time = Time.current
+      user_visit = create(:user_visit)
+      form = UserVisitForm.new(params: { id: user_visit.id })
+      visit_start_time = user_visit.visit.start_time
       arrives_at = Date.current
       form.arrives_at = arrives_at
 
@@ -113,8 +114,9 @@ RSpec.describe UserVisitForm, type: :model do
 
   describe "#departs_at=" do
     it "sets departs_at after adding visit end_time to it as default" do
-      form = UserVisitForm.new(params: { id: create(:user_visit).id })
-      visit_end_time = Time.current
+      user_visit = create(:user_visit)
+      form = UserVisitForm.new(params: { id: user_visit.id })
+      visit_end_time = user_visit.visit.end_time
       departs_at = Date.current
       form.departs_at = departs_at
 

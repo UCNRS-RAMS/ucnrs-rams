@@ -10,7 +10,7 @@ class Manager::VisitShowPresenter
 
   attr_reader :visit, :user
 
-  def status_bg
+  def status_classes
     "bg-#{status_class}"
   end
 
