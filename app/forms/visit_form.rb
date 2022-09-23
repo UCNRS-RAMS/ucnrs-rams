@@ -9,15 +9,16 @@ class VisitForm
     ActiveModel::Name.new(Visit)
   end
 
-  def initialize(user: User.new, params: {})
+  def initialize(user: User.new, params: {}, editing: false )
     @visit = Visit.where(id: params[:id]).first || Visit.new
     @visit.user = user
     @visit.sign_token = SecureRandom.urlsafe_base64(48)
     @amenities_params = params.delete(:amenities) || {}
+    @editing = editing
     assign(params)
   end
 
-  attr_reader :visit
+  attr_reader :visit, :editing
 
   delegate_missing_to :visit
 
@@ -182,10 +183,11 @@ class VisitForm
   end
 
   def amenities_params
-    params = @amenities_params&.values&.select do |amenity_params|
+    return amenities.ids.map { |id| { amenity_id: id } } if editing
+
+    @amenities_params&.values&.select do |amenity_params|
       amenity_params[:amenity_id].present?
     end
-    params.presence || amenities.ids.map { |id| { amenity_id: id } }
   end
 
   def amenity_visit_forms(amenity_params)

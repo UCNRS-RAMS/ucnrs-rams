@@ -16,7 +16,7 @@ class VisitsController < ApplicationController
   end
 
   def edit
-    @form = VisitForm.new(user: current_user, params: { id: visit.id })
+    @form = VisitForm.new(user: current_user, params: { id: visit.id }, editing: true)
     @presenter = VisitsFormPresenter.new(user: current_user, form: @form)
   end
 
