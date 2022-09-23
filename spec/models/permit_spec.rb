@@ -72,7 +72,7 @@ RSpec.describe Permit, type: :model do
       expect(Permit.matching_project_type("rEsearch")).to eq [research_permit]
       expect(Permit.matching_project_type("CLASS")).to eq [class_permit]
       expect(Permit.matching_project_type("meeting")).to eq [conference_permit]
-      expect(Permit.matching_project_type("PuBlIc UsE")).to eq [public_permit]
+      expect(Permit.matching_project_type("PuBlIc_UsE")).to eq [public_permit]
       expect(Permit.matching_project_type("Housing")).to eq [housing_permit]
     end
   end
