@@ -1,13 +1,13 @@
 <%= fields_for "visit[amenities][#{presenter.amenity_id}][amenity_visits][#{SecureRandom.hex}]", amenity do |form| %>
   <div class="booking-card" data-amenity-booking-target="bookingCard" data-controller="subtotal amenity-visit">
      <%= form.hidden_field :id %>
-    <div class="flex-column-field">
-      <div class="flex-row-field">
-        <%= form.label :arrives_on %>
-        <%= form.label :departs_on %>
-      </div>
-      <div class="flex-row-field">
+    <div class="flex-row-field">
+      <div class="flex-column-field">
+        <%= form.label :arrives_on, class: "label-error" %>
         <%= form.date_field :arrives_on, value: presenter.default_date(form.object.amenity_visit.arrives_on), "data-copy-first-target": "destination", data: { "amenity-booking-target": "arriveOn", "amenity-visit-target": "arriveOn", "subtotal-target": "arriveOn", action: "change->subtotal#calculateSubtotal" }, id: "visit_amenities_#{presenter.amenity_id}_arrives_on" %>
+      </div>
+      <div class="flex-column-field">
+        <%= form.label :departs_on, class: "label-error" %>
         <%= form.date_field :departs_on, value: presenter.default_date(form.object.amenity_visit.departs_on), "data-copy-second-target": "destination", data: { "amenity-booking-target": "departsOn", "amenity-visit-target": "departsOn", "subtotal-target": "departsOn", action: "change->subtotal#calculateSubtotal" }, id: "visit_amenities_#{presenter.amenity_id}_departs_on" %>
       </div>
     </div>

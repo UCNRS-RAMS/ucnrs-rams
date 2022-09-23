@@ -7,6 +7,8 @@ class AmenityVisit < ApplicationRecord
   validates :departs_on, must_be_after: :arrives_on
   validates :number_of_people, numericality: { greater_than: 0 }
 
+  validate :date_range_within_visit_range
+
   def amenity_visit_id=(value)
     self.id = value
   end
@@ -25,5 +27,18 @@ class AmenityVisit < ApplicationRecord
 
   def subtotal
     self.number_of_people * real_units_of_time * self.rate
+  end
+
+  private
+
+  def date_range_within_visit_range
+    return if visit.blank?
+
+    if arrives < visit.starts_at
+      errors.add(:arrives_on, :must_be_after_visit_start_date)
+    end
+    if departs > visit.ends_at
+      errors.add(:departs_on, :must_be_before_visit_end_date)
+    end
   end
 end

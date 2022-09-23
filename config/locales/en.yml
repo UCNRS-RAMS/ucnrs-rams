@@ -14,8 +14,18 @@ en:
         must_be_after: "must be after %{attribute}"
         must_select_at_least_one: "must select at least one"
       models:
+        visit:
+          attributes:
+            start_date: 
+              must_be_before_user_visits_arrives_at: "must be before visitor arrival"
+            end_date:
+              must_be_after_user_visits_departs_at: "must be after visitor departure"
         amenity_visit:
           attributes:
+            arrives_on:
+              must_be_after_visit_start_date: "must be after visit start date"
+            departs_on:
+              must_be_before_visit_end_date: "must be before visit end date"
             number_of_people:
               greater_than: "must be a number greater than %{count}"
               not_a_number: "must be a number greater than 0"

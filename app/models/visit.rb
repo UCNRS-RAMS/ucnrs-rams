@@ -25,6 +25,8 @@ class Visit < ApplicationRecord
   validates :end_time, presence: true
   validates :end_date, must_be_after: :start_date
   validates :public_use_category, presence: true, if: :public_use?
+  
+  validate :user_visits_ranges_within_date_range
 
   delegate :short_name, :name, to: :reserve, prefix: true
   delegate :title, to: :project, prefix: true
@@ -123,5 +125,15 @@ class Visit < ApplicationRecord
 
   def change_date_for_datetime(datetime, date)
     date.blank? ? datetime : datetime&.change(year: date.year, month: date.month, day: date.day)
+  end
+
+  def user_visits_ranges_within_date_range
+    if user_visits.where("arrives_at < ?", starts_at).present?
+      errors.add(:start_date, :must_be_before_user_visits_arrives_at)
+    end
+
+    if user_visits.where("departs_at > ?", ends_at).present?
+      errors.add(:end_date, :must_be_after_user_visits_departs_at)
+    end
   end
 end
