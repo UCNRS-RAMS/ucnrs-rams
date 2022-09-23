@@ -991,7 +991,7 @@ en:
       summary:
         show:
           summary: "Summary"
-      menu:
+      menu_link:
         summary: "Summary"
         details: "Details"
         visitors: "Visitors"

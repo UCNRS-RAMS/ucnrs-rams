@@ -11,7 +11,7 @@ RSpec.describe VisitShowPresenter do
     end
   end
 
-  describe "#staff_member" do
+  describe "#staff_member?" do
     it "return true if current user is a staff member of reserve" do
       user = create(:user, :confirmed)
       reserve = create(:reserve)
@@ -21,9 +21,17 @@ RSpec.describe VisitShowPresenter do
 
       expect(show_presenter.staff_member?).to eq true
     end
+    it "return false if current user is not a staff member of reserve" do
+      user = create(:user, :confirmed)
+      reserve = create(:reserve)
+      visit = create(:visit, user: user, reserve: reserve)
+      show_presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: user)
+
+      expect(show_presenter.staff_member?).to eq false
+    end
   end
 
-  describe "#status_bg" do
+  describe "#status_classes" do
     it "display status text color based on status value" do
       user = create(:user, :confirmed)
       pending_visit = create(:visit, status: "in_review")
@@ -36,10 +44,10 @@ RSpec.describe VisitShowPresenter do
       cancelled_show_presenter = Manager::VisitShowPresenter.new(visit: cancelled_visit, current_user: user)
       denied_show_presenter = Manager::VisitShowPresenter.new(visit: denied_visit, current_user: user)
 
-      expect(pending_show_presenter.status_bg).to eq "bg-in_review"
-      expect(approved_show_presenter.status_bg).to eq "bg-approved"
-      expect(cancelled_show_presenter.status_bg).to eq "bg-cancelled"
-      expect(denied_show_presenter.status_bg).to eq "bg-denied"
+      expect(pending_show_presenter.status_classes).to eq "bg-in_review"
+      expect(approved_show_presenter.status_classes).to eq "bg-approved"
+      expect(cancelled_show_presenter.status_classes).to eq "bg-cancelled"
+      expect(denied_show_presenter.status_classes).to eq "bg-denied"
     end
   end
 end
