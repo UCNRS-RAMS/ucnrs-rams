@@ -14,5 +14,8 @@ FactoryBot.define do
 
     start_date { Date.current - 5.day }
     end_date { Date.current + 5.days }
+
+    starts_at { Time.current - 5.day }
+    ends_at { Time.current + 5.days }
   end
 end

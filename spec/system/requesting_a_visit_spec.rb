@@ -158,10 +158,6 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     flow.set_purpose("To swim")
     click_on("Fun Things")
     flow.select_amenity("Beach Access")
-    flow.set_usage_dates(
-      arrival: now + 1.hour,
-      departure: now + 2.hours,
-    )
     flow.set_amenity_usage_dates(
       id: amenity.id,
       arrival: now + 1.day,

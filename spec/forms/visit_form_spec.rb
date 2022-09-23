@@ -194,6 +194,8 @@ RSpec.describe VisitForm, type: :model do
               "1": {
                 arrives_on: 1.weeks.from_now.strftime("%Y-%m-%d"),
                 departs_on: 2.week.from_now.strftime("%Y-%m-%d"),
+                arrives_at: "15:00",
+                departs_at: "16:00",
                 number_of_people: 2,
                 amenity_rate_id: one.amenity_rates.first.id,
               },
