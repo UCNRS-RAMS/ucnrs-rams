@@ -30,11 +30,26 @@ class Permit < ApplicationRecord
   end
 
   def self.matching_project_type(project_type)
-    where("(LOWER(?) = 'Research' AND permits.research = 1)", [project_type])
-      .or(where("(LOWER(?) = LOWER('Class') AND permits.university_class = 1)", [project_type]))
-      .or(where("(LOWER(?) = LOWER('Meeting') AND permits.conference = 1)", [project_type]))
-      .or(where("(LOWER(?) = LOWER('Public Use') AND permits.public = 1)", [project_type]))
-      .or(where("(LOWER(?) = LOWER('Housing') AND permits.housing = 1)", [project_type]))
+    where(
+        "(LOWER(?) = LOWER('Research') AND permits.research = 1)",
+        [Project.project_types[project_type.downcase]]
+      )
+      .or(where(
+        "(LOWER(?) = LOWER('Class') AND permits.university_class = 1)",
+        [Project.project_types[project_type.downcase]]
+      ))
+      .or(where(
+        "(LOWER(?) = LOWER('Meeting') AND permits.conference = 1)",
+        [Project.project_types[project_type.downcase]]
+      ))
+      .or(where(
+        "(LOWER(?) = LOWER('Public Use') AND permits.public = 1)",
+        [Project.project_types[project_type.downcase]]
+      ))
+      .or(where(
+        "(LOWER(?) = LOWER('Housing') AND permits.housing = 1)",
+        [Project.project_types[project_type.downcase]]
+      ))
   end
 
   def self.involving_related(project)
