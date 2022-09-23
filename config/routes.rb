@@ -82,7 +82,7 @@ Rails.application.routes.draw do
         resource :rules_and_regulations, only: [:edit, :update]
         resources :permits, only: [:index, :edit, :update]
         resources :reserve_questions, only: [:index, :new, :create, :edit, :update]
-        resources :staff_and_notifications, only: [:index, :edit, :update]
+        resources :staff_and_notifications
       end
     end
   end
