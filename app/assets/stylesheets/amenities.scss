@@ -46,7 +46,6 @@
       }
 
       .content {
-        background-color: lighten($bluegray, 35%);
         padding: 0px;
       }
     }
@@ -206,6 +205,9 @@
       background: lighten($bluegray, 35%);
       border: 2px solid $black;
 
+      .content {
+        background: lighten($bluegray, 35%);
+      }
       .booking {
         display: flex;
 

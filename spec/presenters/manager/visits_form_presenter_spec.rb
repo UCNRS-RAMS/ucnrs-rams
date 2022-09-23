@@ -3,27 +3,27 @@ require "rails_helper"
 RSpec.describe Manager::Visits::VisitsFormPresenter do
   let(:presenter) { Manager::Visits::VisitsFormPresenter.new(user: build(:user)) }
 
-  describe "#project_type_partail_path" do
-    it "should return project_type_partail_path" do
-      expect(presenter.project_type_partail_path).to eq "manager/visits/detail/project_type"
+  describe "#project_type_partial_path" do
+    it "should return project_type_partial_path" do
+      expect(presenter.project_type_partial_path).to eq "manager/visits/detail/project_type"
     end
   end
 
-  describe "#project_partail_path" do
-    it "should return project_partail_path" do
-      expect(presenter.project_partail_path).to eq "manager/visits/detail/project"
+  describe "#project_partial_path" do
+    it "should return project_partial_path" do
+      expect(presenter.project_partial_path).to eq "manager/visits/detail/project"
     end
   end
 
-  describe "#save_partail_path" do
-    it "should return save_partail_path" do
-      expect(presenter.save_partail_path).to eq "manager/visits/detail/save"
+  describe "#save_partial_path" do
+    it "should return save_partial_path" do
+      expect(presenter.save_partial_path).to eq "manager/visits/detail/save"
     end
   end
 
-  describe "#reserve_partail_path" do
+  describe "#reserve_partial_path" do
     it "should return reserve_select_field_partial_path" do
-      expect(presenter.reserve_partail_path).to eq "manager/visits/detail/reserve"
+      expect(presenter.reserve_partial_path).to eq "manager/visits/detail/reserve"
     end
   end
 
