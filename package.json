@@ -12,6 +12,8 @@
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.4.0",
+    "chart.js": "^3.9.1",
+    "chartkick": "^4.2.0",
     "stimulus-autocomplete": "^3.0.0-rc.5",
     "trix": "^1.2.0",
     "typescript": "^4.4.2",

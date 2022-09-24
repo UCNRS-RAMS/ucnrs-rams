@@ -36,6 +36,21 @@ class UserVisit < ApplicationRecord
     departs_at.to_date
   end
 
+  def self.at_reserve(reserve)
+    joins(:visit)
+      .merge(Visit.by_reserve(reserve))
+  end
+
+  def self.on_date(date)
+    DateQuery.call(
+      self,
+      date_start_type: :departs_at,
+      date_start: date&.to_date,
+      date_end_type: :arrives_at,
+      date_end: date&.to_date&.tomorrow
+    )
+  end
+
   private
 
   def dates_present?

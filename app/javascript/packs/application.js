@@ -8,6 +8,7 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import { Turbo } from "@hotwired/turbo-rails"
 import "@hotwired/stimulus"
+import "chartkick/chart.js"
 
 Rails.start()
 ActiveStorage.start()

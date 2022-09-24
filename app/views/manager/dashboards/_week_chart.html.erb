@@ -1,0 +1,8 @@
+<%= area_chart( 
+  chart_data,
+  colors: ["#1395D8", "#7EB525"],
+  height: "250px",
+  library: { animation: { easing: 'easeOutQuad', duration:1000 },
+  legend: { 'position'=> 'top' },
+  tooltips: { 'mode'=> 'nearest', axis: 'xy', intersect:false, cornerRadius: 3, animationDuration:2000} }
+) %>

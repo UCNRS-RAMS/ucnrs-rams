@@ -20,6 +20,14 @@ class UserVisitPresenter
     "#{I18n.l(arrives_at, format: format)} - #{I18n.l(departs_at, format: format)}"
   end
 
+  def to_model
+    self
+  end
+
+  def to_partial_path
+    "user_visit"
+  end
+
   private
 
   attr_reader :user_visit

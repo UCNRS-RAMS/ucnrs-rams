@@ -18,6 +18,10 @@ gem 'turbo-rails', '~> 1.1.0'
 gem 'view_component', require: 'view_component/engine'
 gem 'webpacker', '~> 5.0'
 
+# charting
+gem "chartkick"
+gem "groupdate"
+
 group :development, :test do
   gem 'axe-core-capybara'
   gem 'axe-core-rspec'

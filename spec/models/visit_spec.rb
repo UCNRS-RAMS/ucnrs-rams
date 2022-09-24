@@ -83,9 +83,9 @@ RSpec.describe Visit, type: :model do
 
   describe ".ordered_by_visit_date" do
     it "returns records in reverse chronological order by user_visits earliest arrival" do
-      visit1 = create(:visit, start_date: 3.months.ago, end_date: Date.current)
+      visit1 = create(:visit, starts_at: 3.months.ago, ends_at: Date.current)
       visitor1 = create(:user_visit, visit: visit1, arrives_at: 2.months.ago, departs_at: 1.month.ago)
-      visit2 = create(:visit, start_date: 3.months.ago, end_date: Date.current)
+      visit2 = create(:visit, starts_at: 3.months.ago, ends_at: Date.current)
       visitor2 = create(:user_visit, visit: visit2, arrives_at: 2.weeks.ago, departs_at: 1.week.ago)
 
       results = Visit.ordered_by_visit_date
@@ -417,6 +417,56 @@ RSpec.describe Visit, type: :model do
       results = Visit.submitted_recent_first
 
       expect(results).to eq [visit3, visit1, visit2]
+    end
+  end
+
+  describe "#starts_at" do
+    context "when attribute starts_at is present" do
+      it "returns datetime from the attribute starts_at" do
+        time = 1.month.ago.round
+        visit = create(:visit, starts_at: time)
+
+        results = visit.starts_at
+
+        expect(results).to eq time
+      end
+    end
+
+    context "when attribute starts_at is not present" do
+      it "returns datetime from the attributes start_date + start_time" do
+        date = 1.week.ago.to_date
+        time = Time.current.round
+        visit = create(:visit, starts_at: nil, start_date: date, start_time: time)
+
+        results = visit.starts_at
+
+        expect(results).to eq time.change(year: date.year, month: date.month, day: date.day)
+      end
+    end
+  end
+
+  describe "#ends_at" do
+    context "when attribute ends_at is present" do
+      it "returns datetime from the attribute ends_at" do
+        time = 1.month.ago.round
+        visit = create(:visit, ends_at: time)
+
+        results = visit.ends_at
+
+        expect(results).to eq time
+      end
+    end
+
+    context "when attribute ends_at is not present" do
+      it "returns datetime from the attributes end_date + end_time" do
+        date = 1.week.ago.to_date
+        time = Time.current.round
+        visit = create(:visit, ends_at: nil, start_date: 2.week.ago.to_date, end_time: Time.current, end_date: date, end_time: time)
+
+        results = visit.ends_at
+
+        expect(results).to eq time.change(year: date.year, month: date.month, day: date.day)
+      end
     end
   end
 end

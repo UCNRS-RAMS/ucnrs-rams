@@ -1,5 +1,6 @@
 @import "variables";
 @import "mixins/search";
+@import "mixins/tables";
 
 .manager {
   .link-group {
@@ -44,6 +45,10 @@
 }
 
 .manager.dashboard {
+  .content {
+    padding: 3.5rem 1.25rem 1.25rem 1.25rem;
+  }
+
   header.content-header {
     align-items: center;
     display: flex;
@@ -78,6 +83,68 @@
   h3 {
     font-size: 1rem;
     font-weight: $medium;
+    margin: .5rem 0;
+  }
+
+  .info-block {
+    background-color: $light-gray;
+    margin-bottom: 3rem;
+
+    > *:not(:last-child) {
+      border-bottom: 1px solid $gray
+    }
+
+    .dash-cards {
+      display: flex;
+      flex-flow: row;
+
+      .dash-card {
+        padding: 1.5rem;
+
+        h4 {
+          display: inline-block;
+          font-size: 2rem;
+          font-weight: $medium;
+          margin: 0 .75rem 0 0;
+        }
+
+        img {
+          margin: 0 .4rem
+        }
+      }
+    }
+
+    .dash-table {
+      padding-bottom: .75rem;
+
+      small.user-role {
+        display: block;
+        color: $semidark-bluegray;
+      }
+    }
+
+    .dash-chart {
+      padding: 1.5rem;
+    }
+
+    table.card-table {
+      @include card-table;
+    }
+
+    table.card-table:not(:last-of-type) {
+      border-bottom: 1px solid $gray;
+
+      td {
+        padding-bottom: .75rem;
+      }
+    }
+
+    .visit-day-list-empty {
+      color: $semidark-bluegray;
+      font-size: 1rem;
+      padding: 2rem;
+      text-align: center;
+    }
   }
 
   @include search-subsection;

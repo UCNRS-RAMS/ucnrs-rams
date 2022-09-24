@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe UserVisitForm, type: :model do
   describe "validations" do
     describe "edit" do
-      let(:visit) { create(:visit, start_date: 3.months.ago) }
+      let(:visit) { create(:visit, starts_at: 3.months.ago) }
       let(:user_visit) { create(:user_visit, visit: visit) }
       subject { UserVisitForm.new(params: { id: user_visit.id }) }
 

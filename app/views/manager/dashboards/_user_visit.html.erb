@@ -1,0 +1,19 @@
+<tr>
+  <td class="card-name">
+    <div class="status-container">
+      <%= tag.div class: "status #{user_visit.status.downcase}" %>
+      <div>
+        <%= user_visit.user_full_name %>
+        <small class="user-role"><%= user_visit.role %></small>
+      </div>
+    </div>
+  </td>
+  <td class="card-date">
+    <% if user_visit.arrives_at.to_date == Time.zone.today %>
+      <%= tag.span "from #{user_visit.arrives_at.to_s(:time)}", class: "text-nowrap" %>
+    <% end %>
+    <% if user_visit.departs_at.to_date == Time.zone.today %>
+      <%= tag.span "until #{user_visit.departs_at.to_s(:time)}", class: "text-nowrap" %>
+    <% end %>
+  </td>
+</tr>

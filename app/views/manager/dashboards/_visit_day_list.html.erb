@@ -1,0 +1,12 @@
+<% visit_day_list.each do |visit, details| %>
+  <table class="card-table">
+    <tr class="todays-card-title">
+        <td colspan="2"><%= link_to visit.purpose_of_visit, "#" %></td>
+    </tr>
+    <%= render details %>
+  </table>
+<% end.empty? and begin %>
+  <div class="visit-day-list-empty">
+    <%= t(".no_visitors_amenities_day") %>
+  </div>
+<% end %>
