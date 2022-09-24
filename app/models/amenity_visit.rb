@@ -35,6 +35,21 @@ class AmenityVisit < ApplicationRecord
     self.number_of_people * real_units_of_time * self.rate
   end
 
+  def self.at_reserve(reserve)
+    joins(:visit)
+      .merge(Visit.by_reserve(reserve))
+  end
+
+  def self.on_date(date)
+    DateQuery.call(
+      self,
+      date_start_type: :departs,
+      date_start: date.to_date,
+      date_end_type: :arrives,
+      date_end: date&.to_date&.tomorrow
+    )
+  end
+
   private
 
   def date_range_within_visit_range

@@ -8,7 +8,7 @@ RSpec.describe Manager::VisitShowPresenter do
 
   describe "#visit_date_range" do
     it "return visit overall date range" do
-      visit = create(:visit, start_date: "20 sep 2022", end_date: "22 sep 2022")
+      visit = create(:visit, starts_at: "20 sep 2022", ends_at: "22 sep 2022")
       user = create(:user, :confirmed)
       show_presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: user)
 

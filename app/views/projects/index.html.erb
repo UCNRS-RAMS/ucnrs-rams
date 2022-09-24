@@ -27,7 +27,7 @@
         <thead>
         <%= render partial: "table", locals: { presenter: @presenter } %>
       </table>
-      <%= paginate @presenter.project_scope %>
+      <%= paginate @presenter.project_scope, data: { "turbo-action": "advance" } %>
     </turbo-frame>
   </section>
   <section class="right">

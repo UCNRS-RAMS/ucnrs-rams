@@ -92,11 +92,19 @@ class Visit < ApplicationRecord
   end
 
   def starts_at
-    change_date_for_datetime(start_time, start_date)
+    if read_attribute(:starts_at).present?
+      read_attribute(:starts_at)
+    else
+      change_date_for_datetime(start_time, start_date)
+    end
   end
 
   def ends_at
-    change_date_for_datetime(end_time, end_date)
+    if read_attribute(:ends_at).present?
+      read_attribute(:ends_at)
+    else
+      change_date_for_datetime(end_time, end_date)
+    end
   end
 
   def self.searching_term(search_term)

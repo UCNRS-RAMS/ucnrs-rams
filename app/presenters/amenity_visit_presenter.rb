@@ -22,6 +22,14 @@ class AmenityVisitPresenter
   def cost_in_dollar
     "$#{value(subtotal)}"
   end
+
+  def to_model
+    self
+  end
+
+  def to_partial_path
+    "amenity_visit"
+  end
   
   private
 

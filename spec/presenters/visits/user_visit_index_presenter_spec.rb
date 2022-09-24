@@ -28,7 +28,7 @@ RSpec.describe Visits::UserVisitsIndexPresenter do
 
   describe "#visit_date_range" do
     it "returns a date range" do
-      visit = create(:visit, start_date: "2022-10-1", end_date: "2022-10-22")
+      visit = create(:visit, starts_at: "2022-10-1", ends_at: "2022-10-22")
       presenter = Visits::UserVisitsIndexPresenter.new(current_step: 2, current_user: create(:user), visit: visit)
 
       expect(presenter.visit_date_range).to eq "Oct 1 - 22, 2022"

@@ -1072,6 +1072,15 @@ en:
       show:
         new_visit_request: "New Visit Request"
         visits: "Visits"
+        todays_visit_and_resources: "Today's Visit & Resources"
+        visitor: "Visitor"
+        amenity: "Amenity"
+        last_24_hours: "Last 24 Hours"
+        visit_request: "Visit Request"
+        booked_visit: "Booked Visit"
+        last_7_days: "Last 7 Days"
+      visit_day_list:
+        no_visitors_amenities_day: "No visitors or amenities for the day."
       visits:
         index:
           visits: "Visits"
@@ -1986,6 +1995,17 @@ en:
           explanation: "Enter a short description describing the purpose of your public use."
         start_date: "Start Date"
         end_date: "End Date"
+        select_involvements: "Will your project involve any of the following?"
+        all_that_apply: "Select all that apply."
+        involvement_flags:
+          involves_mammals: "Mammals"
+          involves_reptiles: "Reptiles"
+          involves_amphibians: "Amphibians"
+          involves_fish: "Fish"
+          involves_birds: "Birds"
+          involves_plants_fungi_soil: "Plants, Fungi, or Soils"
+          involves_none: "None of the Above"
+          involves_threatened_endangered_species: "Threatened, Endangered, or Species of Special Concern"
       class_form:
         details: "Details"
         choose_discipline: "Choose a discipline that best describes your project"

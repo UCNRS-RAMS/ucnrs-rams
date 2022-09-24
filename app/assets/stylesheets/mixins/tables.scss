@@ -72,3 +72,51 @@
     width: 1.125rem;
   }
 }
+
+@mixin card-table {
+  width: 100%;
+
+  tr {
+    td:first-child {
+      padding-left: 1.25rem;
+    }
+
+    td {
+      padding-bottom: .35rem;
+      padding-top: .35rem;
+
+      div.status-container {
+        display: flex;
+
+        div.status {
+          display: inline-block;
+          width: 5px;
+          border-radius: 3px;
+          margin-right: .25rem;
+          background: $gold;
+        }
+      }
+    }
+
+    td:last-child {
+      padding-right: 1.25rem;
+    }
+
+    td.card-name, td.card-date {
+      width: 50%;
+    }
+
+    td.card-date {
+      text-align: right;
+    }
+  }
+
+  tr.todays-card-title > td {
+    padding-bottom: .55rem;
+    padding-top: .55rem;
+
+    a {
+      text-decoration: none;
+    }
+  }
+}

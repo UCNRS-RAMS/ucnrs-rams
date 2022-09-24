@@ -40,7 +40,6 @@
         <li>
           <%= form.radio_button :discipline, discipline, id: "discipline-#{discipline}" %>
           <div>
-
             <label for="discipline-<%= discipline %>"><%= discipline %></label>
             <% if presenter.other_discipline?(discipline) %>
               <div class="other-discipline">
@@ -49,6 +48,20 @@
               </div>
             <% end %>
           </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="field">
+    <%= form.label :involvements, t(".select_involvements") %>
+    <ul>
+      <% presenter.involvement_flags.each do |involvement_flag| %>
+        <li>
+          <%= form.check_box involvement_flag %>
+          <%= form.label involvement_flag, t(".involvement_flags.#{involvement_flag}") %>
         </li>
       <% end %>
     </ul>
