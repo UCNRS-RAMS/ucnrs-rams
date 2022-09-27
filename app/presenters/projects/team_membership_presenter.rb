@@ -17,6 +17,7 @@ class Projects::TeamMembershipPresenter
 
   attr_reader :team_membership
 
+  delegate :user_role, to: :team_membership, prefix: true
   delegate_missing_to :team_membership
 
   delegate :user, :institution, to: :team_membership

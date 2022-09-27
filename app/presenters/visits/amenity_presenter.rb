@@ -1,4 +1,5 @@
 class Visits::AmenityPresenter
+  AMENITY_PLACEHOLDER = "amenity_placeholder.jpg".freeze
   def initialize(amenity, form: nil, user: nil)
     @amenity = amenity
     @form = form || [Visits::AmenityForm.new]
@@ -23,7 +24,7 @@ class Visits::AmenityPresenter
     to: :form
 
   def image
-    amenity.image_url || "amenity_placeholder.jpg"
+    amenity.image_url || AMENITY_PLACEHOLDER
   end
   
   def amenity_id
