@@ -4,7 +4,7 @@ module Manager
       class AmenitiesController < ApplicationController
         layout "manager"
         before_action :authenticate_user!
-        before_action :confirm_manager!
+        before_action :confirm_reserve_manager!
 
         def new
           form = AmenityForm.new

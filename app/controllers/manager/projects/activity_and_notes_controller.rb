@@ -1,6 +1,6 @@
 class Manager::Projects::ActivityAndNotesController < ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_manager!
+  before_action :confirm_reserve_manager!
   before_action :project, only: [:index, :create]
 
   def index

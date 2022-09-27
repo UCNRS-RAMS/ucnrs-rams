@@ -1,7 +1,7 @@
 class Manager::ReserveInfo::StaffAndNotificationsController < ApplicationController
   layout "manager"
   before_action :authenticate_user!
-  before_action :confirm_manager!
+  before_action :confirm_reserve_manager!
 
   def index
     @presenter = Manager::ReserveInfo::StaffAndNotificationsIndexPresenter.new(
