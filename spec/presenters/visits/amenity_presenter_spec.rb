@@ -217,4 +217,138 @@ RSpec.describe Visits::AmenityPresenter do
       expect(presenter.default_date(nil)).to eq("2004-11-24")
     end
   end
+
+  describe "#period" do
+    it "should return amenity time type" do
+      amenity = create(:amenity)
+      presenter = Visits::AmenityPresenter.new(amenity)
+      expect(presenter.period).to eq(Amenity.time_types[amenity.time_type])
+    end
+  end
+    
+  describe "#unit" do
+    it "should return amenity unit type" do
+      amenity = create(:amenity)
+      presenter = Visits::AmenityPresenter.new(amenity)
+      expect(presenter.unit).to eq(Amenity.units_types[amenity.units_type])
+    end
+  end
+
+  describe "#default_count" do
+    COUNT = 10
+    it "should return given count when count is present" do
+      amenity = create(:amenity)
+      presenter = Visits::AmenityPresenter.new(amenity)
+      expect(presenter.default_count(COUNT)).to eq(COUNT)
+    end
+
+    it "should return 1 when count is not present" do
+      amenity = create(:amenity)
+      presenter = Visits::AmenityPresenter.new(amenity)
+      expect(presenter.default_count(nil)).to eq("1")
+    end
+  end
+
+  describe "#per_sentence" do
+    it "should return 'per {unit}' when time type is 'each'" do
+      amenity = create(:amenity, time_type: :each)
+      presenter = Visits::AmenityPresenter.new(amenity)
+      expect(presenter.per_sentence).to eq("per #{presenter.unit}")
+    end
+
+    it "should return 'per {unit}/per {period}' when time type is not 'each'" do
+      amenity = create(:amenity)
+      presenter = Visits::AmenityPresenter.new(amenity)
+      expect(presenter.per_sentence).to eq("per #{presenter.unit}/per #{presenter.period}")
+    end
+  end
+
+  describe "#per" do
+    it "should return 'per'" do
+      amenity = create(:amenity)
+      presenter = Visits::AmenityPresenter.new(amenity)
+      
+      expect(presenter.per).to eq("per")
+    end
+  end
+
+  describe "#selected_rate_in_number" do
+    it "should return rate in number" do
+      insitiution = create(:institution, institution_type: :k_12_education )
+      user = create(:user, institution: insitiution)
+      presenter = Visits::AmenityPresenter.new(create(:amenity), user: user)
+      rates = [
+        create(
+          :amenity_rate,
+          amenity: presenter.amenity,
+          sort_order: 1,
+          visible: true,
+          k12: true,
+        ),
+        create(
+          :amenity_rate,
+          amenity: presenter.amenity,
+          sort_order: 4,
+          visible: true,
+          business: true,
+        ),
+        create(
+          :amenity_rate,
+          amenity: presenter.amenity,
+          sort_order: 2,
+          visible: false,
+          k12: true
+        ),
+        create(
+          :amenity_rate,
+          amenity: presenter.amenity,
+          sort_order: 3,
+          visible: true,
+          k12: true,
+        ),
+      ]
+      rate = presenter.rates.find { |rate| rate.id == presenter.selected_amenity_rate_id }
+      expect(presenter.selected_rate_in_number).to eq("#{rate.amount}".delete!("$"))
+    end
+  end
+
+  describe "#selected_rate_description" do
+    it "should return rate with description" do
+      insitiution = create(:institution, institution_type: :k_12_education )
+      user = create(:user, institution: insitiution)
+      presenter = Visits::AmenityPresenter.new(create(:amenity), user: user)
+      rates = [
+        create(
+          :amenity_rate,
+          amenity: presenter.amenity,
+          sort_order: 1,
+          visible: true,
+          k12: true,
+        ),
+        create(
+          :amenity_rate,
+          amenity: presenter.amenity,
+          sort_order: 4,
+          visible: true,
+          business: true,
+        ),
+        create(
+          :amenity_rate,
+          amenity: presenter.amenity,
+          sort_order: 2,
+          visible: false,
+          k12: true
+        ),
+        create(
+          :amenity_rate,
+          amenity: presenter.amenity,
+          sort_order: 3,
+          visible: true,
+          k12: true,
+        ),
+      ]
+      rate = presenter.rates.find { |rate| rate.id == presenter.selected_amenity_rate_id }
+      expect(presenter.selected_rate_description).to eq("#{rate.amount} #{presenter.per_sentence}")
+    end
+  end
 end
