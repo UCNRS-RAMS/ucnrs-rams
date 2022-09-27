@@ -83,7 +83,7 @@ def initialize(current_user:, add_visitor_partial:, show_add_guest_modal: false,
       user_id: team_membership.user_id,
       visit_id: visit_id,
       institution_id: team_membership.institution_id,
-      role: team_membership.user_role,
+      role: team_membership.team_membership_user_role,
       count: 1,
     } }
   end

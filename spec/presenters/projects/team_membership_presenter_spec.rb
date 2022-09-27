@@ -4,6 +4,7 @@ RSpec.describe Projects::TeamMembershipPresenter do
   describe "delegations" do
     subject { Projects::TeamMembershipPresenter.new(build(:project_team_membership)) }
     it { is_expected.to delegate_method(:full_name).to(:user).with_prefix }
+    it { is_expected.to delegate_method(:user_role).to(:team_membership).with_prefix }
     it { is_expected.to delegate_method(:name).to(:institution).with_prefix }
   end
 
