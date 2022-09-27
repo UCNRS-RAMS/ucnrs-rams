@@ -8,8 +8,8 @@ class Manager::Visits::DetailController < ApplicationController
   end
 
   def update
-    @presenter = Manager::Visits::VisitsFormPresenter.new(user: current_user, form: @form)
     @form = VisitForm.new(user: current_user, params: visit_params)
+    @presenter = Manager::Visits::VisitsFormPresenter.new(user: current_user, form: @form)
     if @form.save
       flash.now[:notice] = "Updates were successfully made."
       render :edit
