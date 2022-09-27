@@ -1,18 +1,38 @@
 <section>
-  <ul class="visit-menu-bar" data-controller="tab-bar">
-    <%= render partial: "menu_link",
-      locals: { id: "summary", path: manager_reserve_visit_summary_path(visit_id: @presenter.visit.id), classes: "active" } %>
-    <%= render partial: "menu_link",
-       locals: { id: "details", path: "#", classes: ""  } %>
-    <%= render partial: "menu_link",
-      locals: { id: "visitors", path: "#", classes: "" } %>
-    <%= render partial: "menu_link",
-      locals: { id: "reserve_info", path: "#", classes: "" } %>
-    <%= render partial: "menu_link",
-      locals: { id: "policies", path: "#", classes: "" } %>
-    <%= render partial: "menu_link",
-      locals: { id: "activity", path: "#", classes: "" } %>
-    <%= render partial: "menu_link",
-      locals: { id: "invoices", path: "#", classes: "" } %>
+  <ul class="visit-menu-bar">
+    <li>
+      <%= render partial: "tab",
+        locals: @presenter.tab_params(path: manager_reserve_visit_summary_path(visit_id: @presenter.visit.id), classes: "active") %>
+    </li>
+
+    <li>
+      <%= render partial: "tab",
+        locals: @presenter.tab_params(id: "details") %>
+    </li>
+
+    <li>
+      <%= render partial: "tab",
+        locals: @presenter.tab_params(id: "visitors") %>
+    </li>
+
+    <li>
+      <%= render partial: "tab",
+        locals: @presenter.tab_params(id: "reserve_info") %>
+    </li>
+
+    <li>
+      <%= render partial: "tab",
+        locals: @presenter.tab_params(id: "policies") %>
+    </li>
+
+    <li>
+      <%= render partial: "tab",
+        locals: @presenter.tab_params(id: "activity") %>
+    </li>
+
+    <li>
+      <%= render partial: "tab",
+        locals: @presenter.tab_params(id: "invoices") %>
+    </li>
   </ul>
 </section>

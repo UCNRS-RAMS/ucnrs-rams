@@ -11,11 +11,21 @@ class Manager::VisitShowPresenter
   attr_reader :visit, :user
 
   def status_classes
-    "bg-#{status_class}"
+    "btn-status bg-#{status_class}"
+  end
+
+  def tab_params(id: "summary", path: "#", classes: "", action_method: "changeTab", name: nil )
+    {
+      id: id,
+      name: name || I18n.translate("manager.visits.tab.#{id}"),
+      path: path,
+      classes: "nav-link #{classes}",
+      action_method: action_method
+    }
   end
 
   def staff_member?
-    user.reserve_personnel.find_by(reserve_id: reserve_id).present?
+    user.manager_of_reserve?(reserve)
   end
 
   def visit_date_range

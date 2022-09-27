@@ -1,0 +1,5 @@
+<%= link_to(name, path,
+      { class: classes,
+        id: id,
+        data: { action: "click->tab-bar##{action_method}", "tab-bar-target": "tab", "turbo-frame": "visit-details" }
+      }) %>

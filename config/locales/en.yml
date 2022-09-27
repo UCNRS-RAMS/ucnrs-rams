@@ -987,7 +987,7 @@ en:
       summary:
         show:
           summary: "Summary"
-      menu_link:
+      tab:
         summary: "Summary"
         details: "Details"
         visitors: "Visitors"
