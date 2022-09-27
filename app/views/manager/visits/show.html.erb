@@ -1,5 +1,5 @@
 <section class="container">
-  <section class="content">
+  <section class="content" data-controller="tab-bar">
     <%= render partial: "manager/visits/summary_box", locals: { presenter: @presenter } %>
     <% if @presenter.staff_member? %>
       <%= render "manager/visits/menu" %>
