@@ -1,6 +1,6 @@
 class Manager::ProjectsController < ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_manager!
+  before_action :confirm_reserve_manager!
   layout "manager"
 
   def index

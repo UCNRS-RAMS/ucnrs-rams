@@ -984,6 +984,8 @@ en:
     waiver:
       download_pdf: "Download PDF"
   manager:
+    not_a_manager: "You are not a manager"
+    not_a_manager_of_reserve: "You are not a manager of the reserve."
     visits:
       cannot_find_visit: "Visit not found"
       successfully_deleted_visit: "Successfully deleted visit"

@@ -1,6 +1,6 @@
 class Manager::Projects::FundingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_manager!
+  before_action :confirm_reserve_manager!
 
   def index
     @presenter = Manager::Projects::FundingsIndexPresenter.new(

@@ -1,7 +1,7 @@
 class Manager::ReserveInfo::WaiversController < ApplicationController
   layout "manager"
   before_action :authenticate_user!
-  before_action :confirm_manager!
+  before_action :confirm_reserve_manager!
 
   def index
     @presenter = Manager::ReserveInfo::WaiversIndexPresenter.new(

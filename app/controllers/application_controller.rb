@@ -6,10 +6,17 @@ class ApplicationController < ActionController::Base
     @current_reserve ||= Reserve.find_by(id: params[:reserve_id])
   end
 
-  def confirm_manager!
+  def confirm_reserve_manager!
     return true if current_user.manager_of_reserve?(current_reserve)
 
-    flash[:notice] = "You are not a manager of the reserve."
+    flash[:notice] = I18n.translate("manager.not_a_manager_of_reserve")
+    redirect_to root_url and return false
+  end
+
+  def confirm_manager!
+    return true if current_user.is_manager?
+
+    flash[:notice] = I18n.translate("manager.not_a_manager")
     redirect_to root_url and return false
   end
 

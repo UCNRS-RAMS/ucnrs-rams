@@ -1,6 +1,6 @@
 class Manager::Projects::SummaryController < ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_manager!
+  before_action :confirm_reserve_manager!
 
   def show
     @presenter = Manager::ProjectShowPresenter.new(project: project, reserve: current_reserve)
