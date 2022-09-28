@@ -28,7 +28,7 @@
           <div class="field">
             <%= form.label :start_date, t(".labels.arrival"), class:"reserve-lable" %>
             <div class="date-time-select">
-              <%= form.date_field(:start_date, value: presenter.start_date, min: Date.today, data: { action: "change->copy-first#copy" }) %>
+              <%= form.date_field(:start_date, value: presenter.start_date, data: { action: "change->copy-first#copy" }) %>
               <%= form.collection_select(:start_time, presenter.time_options, :value, :human, aria: { label: t(".aria.arrival_time") }) %>
             </div>
           </div>
@@ -36,7 +36,7 @@
           <div class="field">
             <%= form.label :end_date, t(".labels.departure") %>
             <div class="date-time-select">
-              <%= form.date_field(:end_date, value: presenter.end_date, min: Date.today, data: { action: "change->copy-second#copy" }) %>
+              <%= form.date_field(:end_date, value: presenter.end_date, data: { action: "change->copy-second#copy" }) %>
               <%= form.collection_select(:end_time, presenter.time_options, :value, :human, aria: { label: t(".aria.departure_time") }) %>
             </div>
           </div>

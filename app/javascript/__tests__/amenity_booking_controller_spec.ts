@@ -166,7 +166,6 @@ describe("AmenityBookingController", () => {
       document.getElementById("close-btn-2").click()
       document.getElementById("close-btn-1").click()
 
-      expect(subtotal.textContent).toEqual("2")
       expect(count.value).toEqual("1")
       expect(arriveAt.value).toEqual("12:00")
       expect(arriveAt.value).toEqual("12:00")
