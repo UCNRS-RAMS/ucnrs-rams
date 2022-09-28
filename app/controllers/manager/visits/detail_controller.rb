@@ -3,7 +3,7 @@ class Manager::Visits::DetailController < ApplicationController
   before_action :confirm_manager!
 
   def edit
-    @form = VisitForm.new(user: current_user, params: { id: params[:visit_id] })
+    @form = VisitForm.new(user: current_user, params: { id: params[:visit_id] }, editing: true)
     @presenter = Manager::Visits::VisitsFormPresenter.new(user: current_user, form: @form)
   end
 

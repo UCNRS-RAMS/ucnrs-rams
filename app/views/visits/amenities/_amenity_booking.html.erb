@@ -36,7 +36,7 @@
           <label><%= t(".subtotal") %></label>
           <p data-subtotal-target = "initialVal", data-amenity-booking-target = "initialVal" hidden> <%= presenter.selected_rate_in_number %></p>
           <p data-subtotal-target = "unitType" hidden> <%= presenter.period %></p>
-          <span class="subtotal" data-subtotal-target="subtotal", data-amenity-booking-target="subtotal" ><%= num_of_units(presenter.default_date(form.object.amenity_visit.arrives_on).to_time, presenter.default_date(form.object.amenity_visit.arrives_on).to_time, presenter.period) %></span>
+          <span class="subtotal" data-subtotal-target="subtotal", data-amenity-booking-target="subtotal" ></span>
         </div>
         <div class="cross-icon">
           <%= button_tag type: "button" do %>

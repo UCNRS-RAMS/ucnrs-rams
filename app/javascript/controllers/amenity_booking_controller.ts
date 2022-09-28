@@ -30,7 +30,6 @@ export default class extends Controller {
 
   resetFields(){
     this.amenityRadioBtnTarget.checked = false
-    this.subtotalTarget.textContent = this.initialValTarget.textContent
     this.countTarget.value = '1'
     this.arriveAtTarget.value = '12:00'
     this.departsAtTarget.value = '12:00'

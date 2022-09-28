@@ -40,7 +40,8 @@ class Visits::AmenityPresenter
   end
 
   def default_date(date)
-    date = Date.current if date.blank?
+    return "" if date.blank?
+
     I18n.l(date, format: :form_input_date)
   end
 
