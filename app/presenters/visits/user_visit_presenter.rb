@@ -18,9 +18,9 @@ class Visits::UserVisitPresenter
         user_team_membership,
       ).project_role
     elsif group_user?
-      ActionController::Base.helpers.image_tag "icon-users"
+      ActionController::Base.helpers.image_tag "icon-users.svg"
     else
-      ActionController::Base.helpers.image_tag "icon-user-navbar"
+      ActionController::Base.helpers.image_tag "icon-user-navbar.svg"
     end
   end
 
