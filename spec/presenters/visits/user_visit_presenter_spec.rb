@@ -24,6 +24,7 @@ RSpec.describe Visits::UserVisitPresenter do
         presenter = Visits::UserVisitPresenter.new(user_visit)
 
         expect(presenter.user_visit_type).to include "icon-user-navbar"
+        expect(presenter.user_visit_type).to include ".svg"
       end
     end
 
@@ -33,6 +34,7 @@ RSpec.describe Visits::UserVisitPresenter do
         presenter = Visits::UserVisitPresenter.new(user_visit)
 
         expect(presenter.user_visit_type).to include "icon-users"
+        expect(presenter.user_visit_type).to include ".svg"
       end
     end
   end
