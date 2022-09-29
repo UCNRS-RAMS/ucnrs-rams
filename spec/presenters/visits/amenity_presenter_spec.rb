@@ -65,29 +65,29 @@ RSpec.describe Visits::AmenityPresenter do
   describe "#rate_descriptions" do
     it "generates the right descriptions for time-period-based rates" do
       amenity = create(:amenity, units_type: :use, time_type: :four_hours)
-      create(:amenity_rate, amenity: amenity, rate: "12.34")
-      create(:amenity_rate, amenity: amenity, rate: "0.01")
+      create(:amenity_rate, amenity: amenity, rate: "12.34", description: "Rate 1")
+      create(:amenity_rate, amenity: amenity, rate: "0.01", description: "Rate 2")
       presenter = Visits::AmenityPresenter.new(amenity)
 
       rate_descriptions = presenter.rate_descriptions
 
       expect(rate_descriptions).to eq [
-        "$12.34 per use/per 4 hours",
-        "$0.01 per use/per 4 hours",
+        "Rate 1 - $12.34 per use/per 4 hours",
+        "Rate 2 - $0.01 per use/per 4 hours",
       ]
     end
 
     it "generates the right descriptions for individual rates" do
       amenity = create(:amenity, units_type: :use, time_type: :each)
-      create(:amenity_rate, amenity: amenity, rate: "12.34")
-      create(:amenity_rate, amenity: amenity, rate: "0.01")
+      create(:amenity_rate, amenity: amenity, rate: "12.34", description: "Rate 1")
+      create(:amenity_rate, amenity: amenity, rate: "0.01", description: "Rate 2")
       presenter = Visits::AmenityPresenter.new(amenity)
 
       rate_descriptions = presenter.rate_descriptions
 
       expect(rate_descriptions).to eq [
-        "$12.34 per use",
-        "$0.01 per use",
+        "Rate 1 - $12.34 per use",
+        "Rate 2 - $0.01 per use",
       ]
     end
   end

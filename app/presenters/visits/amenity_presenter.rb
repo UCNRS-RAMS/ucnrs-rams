@@ -97,7 +97,7 @@ class Visits::AmenityPresenter
 
   def rate_descriptions
     rates.map do |rate|
-      rate_string = "#{rate.amount} per #{unit}"
+      rate_string = "#{rate.description} - #{rate.amount} per #{unit}"
       if period != "each"
         rate_string << "/per #{period}"
       end
