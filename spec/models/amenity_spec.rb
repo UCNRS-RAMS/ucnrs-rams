@@ -50,6 +50,17 @@ RSpec.describe Amenity do
     end
   end
 
+  describe ".not_disable" do
+    it "orders via the `sort_order` attribute" do
+      create_list(:amenity, 3, disable: true)
+      disabled_amenities = create_list(:amenity, 3, disable: false)
+
+      amenities = Amenity.not_disable
+
+      expect(amenities).to match_array disabled_amenities
+    end
+  end
+
   describe ".by_group_number" do
     it "orders via the `group_number` and then `sort_order` attributes" do
       amenity1 = create(:amenity, sort_order: 3, group_number: 2)
