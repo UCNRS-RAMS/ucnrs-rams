@@ -14,6 +14,7 @@ class Visits::AmenitiesPresenter
       .includes([:reserve])
       .by_group_number
       .not_disable
+      .visible
       .map { |amenity| Visits::AmenityPresenter.new(amenity, user: @user) }
       .group_by(&:group_label)
   end
