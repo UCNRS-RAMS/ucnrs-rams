@@ -36,5 +36,17 @@ RSpec.describe Visits::AmenitiesPresenter do
       expect(amenities["Another First"].map(&:amenity_id)).to eq [twos[0], twos[2], twos[1]]
       expect(amenities["Third?"].map(&:amenity_id)).to eq threes
     end
+
+    it "presents the relevant amenities where disable is false" do
+      reserve = create(:reserve, amenity_group_label_1: "Label 1")
+      create(:amenity, reserve: reserve, group_number: "1", disable: true)
+      amenity_not_disable = create(:amenity, reserve: reserve, group_number: "1", disable: false)
+
+      presenter = Visits::AmenitiesPresenter.new(reserve_id: reserve.id)
+      amenities = presenter.amenities_by_group_label
+
+      expect(amenities.keys).to eq ["Label 1"]
+      expect(amenities["Label 1"].map(&:amenity_id)).to eq [amenity_not_disable.id]
+    end
   end
 end

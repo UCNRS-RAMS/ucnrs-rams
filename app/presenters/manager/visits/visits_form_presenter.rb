@@ -21,6 +21,13 @@ class Manager::Visits::VisitsFormPresenter < VisitsFormPresenter
 
   private
 
+  def amenity_scope
+    (reserve&.amenities || Amenity.none)
+      .visible
+      .not_disable
+      .by_group_number
+  end
+
   def wrap_amenity_in_presenter(amenity)
     Manager::Visits::AmenityPresenter.new(
       amenity,

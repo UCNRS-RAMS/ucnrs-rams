@@ -34,19 +34,30 @@ RSpec.describe Manager::Visits::VisitsFormPresenter do
   end
 
   describe "#amenities_by_group_label" do
+    let(:reserve) { create(:reserve, amenity_group_label_1: "Label 1", amenity_group_label_2: "Label 2") }
+    let(:visit) { create(:visit, reserve: reserve) }
+    let(:user) { create(:user) }
+
     it "should return amenity group labels as keys" do
-      reserve = create(:reserve)
       create(:amenity, reserve: reserve, group_number: "1")
       create(:amenity, reserve: reserve, group_number: "2")
 
-      visit = create(:visit, reserve: reserve)
-      user = create(:user)
+      form = VisitForm.new(user: user, params: { id: visit.id })
+      presenter = Manager::Visits::VisitsFormPresenter.new(user: user, form: form)
+
+      expect(presenter.amenities_by_group_label.keys).to eq ["Label 1", "Label 2"]
+    end
+
+    it "should return amenity group labels for amenities which are not disabled as keys" do
+      create(:amenity, reserve: reserve, group_number: "1", disable: true)
+      create(:amenity, reserve: reserve, group_number: "2", disable: false)
+
       form = VisitForm.new(user: user, params: {
         id: visit.id,
       })
-      presenter = Manager::Visits::VisitsFormPresenter.new(user: build(:user), form: form)
+      presenter = Manager::Visits::VisitsFormPresenter.new(user: user, form: form)
 
-      expect(presenter.amenities_by_group_label.keys).to eq ["Label 1", "2"]
+      expect(presenter.amenities_by_group_label.keys).to eq ["Label 2"]
     end
   end
 end

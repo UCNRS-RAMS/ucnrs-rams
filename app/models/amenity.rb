@@ -20,6 +20,10 @@ class Amenity < ApplicationRecord
     order(:sort_order)
   end
 
+  def self.not_disable
+    where(disable: false)
+  end
+
   def self.by_group_number
     reorder(:group_number, :sort_order)
   end
