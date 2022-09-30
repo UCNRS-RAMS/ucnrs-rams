@@ -48,5 +48,17 @@ RSpec.describe Visits::AmenitiesPresenter do
       expect(amenities.keys).to eq ["Label 1"]
       expect(amenities["Label 1"].map(&:amenity_id)).to eq [amenity_not_disable.id]
     end
+
+    it "presents the relevant amenities where visible is true" do
+      reserve = create(:reserve, amenity_group_label_1: "Label 1")
+      visible_amenity = create(:amenity, reserve: reserve, group_number: "1", visible: true)
+      create(:amenity, reserve: reserve, visible: false)
+      presenter = Visits::AmenitiesPresenter.new(reserve_id: reserve.id)
+
+      amenities = presenter.amenities_by_group_label
+
+      expect(amenities.keys).to eq ["Label 1"]
+      expect(amenities["Label 1"].map(&:amenity_id)).to eq [visible_amenity.id]
+    end
   end
 end

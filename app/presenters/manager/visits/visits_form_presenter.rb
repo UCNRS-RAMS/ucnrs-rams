@@ -23,7 +23,6 @@ class Manager::Visits::VisitsFormPresenter < VisitsFormPresenter
 
   def amenity_scope
     (reserve&.amenities || Amenity.none)
-      .visible
       .not_disable
       .by_group_number
   end
