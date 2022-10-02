@@ -3,11 +3,19 @@ class InstitutionPresenter
     @institution = institution
   end
 
+  attr_reader :institution
+
+  delegate :id, :name, :city, :state, :country, :institution_type, to: :institution
+
   def country_name
     country.name
   end
 
-  attr_reader :institution
+  def state_name
+    state.name
+  end
 
-  delegate :id, :name, :city, :country, to: :institution
+  def address_line_3
+    "#{city},#{" #{state_name}," if state.present?} #{country_name}".squish
+  end
 end

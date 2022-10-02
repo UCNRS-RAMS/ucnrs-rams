@@ -1,5 +1,5 @@
 class Institution < ApplicationRecord
-  DEFAULT_LIMIT_FOR_INDEX = 15.freeze
+  DEFAULT_LIMIT_FOR_INDEX = 15
   UC_IDS = 1..11
   GENERIC_INSTITUTION_IDS = 2367..2377
 
@@ -13,7 +13,8 @@ class Institution < ApplicationRecord
   belongs_to :country
   belongs_to :state, optional: true
   has_many :users, inverse_of: :institution, dependent: :restrict_with_error
-  has_many :project_team_memberships
+  has_many :project_team_memberships, inverse_of: :institution, dependent: :restrict_with_error
+  has_many :user_visits, inverse_of: :institution, dependent: :restrict_with_error
 
   enum institution_type: {
     university_of_california: "University of California",

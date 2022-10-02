@@ -2,10 +2,12 @@
   <header>Reports</header>
   <div>
     <section class="report-menu">
-      <%= render partial: 'menu' %>
+      <%= render partial: 'menu', locals: { presenter: @presenter } %>
     </section>
     <section class="report">
       <header><%= t(".part_2_reserve_users_affiliation") %></header>
-    </section>
+      <%= render partial: 'fiscal_year_select', locals: { presenter: @presenter } %>
+      <%= render partial: 'report_part_2_table', locals: { presenter: @presenter } %>
+      <%= render partial: 'report_approval_form', locals: { presenter: @presenter, form: @presenter.form } %>
   </div>
 </section>

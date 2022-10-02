@@ -1,0 +1,14 @@
+<div class="fiscal-year-select">
+  <%= t(".fiscal_year") %>:
+  <%= tag.div class: "dropdown", data: { controller: "dropdown" } do %>
+    <%= tag.button presenter.fiscal_year,
+      class: "dropdown-toggle",
+      data: { action: "click->dropdown#toggle click@window->dropdown#hide" }
+    %>
+    <%= tag.div class: "dropdown-menu", data: { "dropdown-class": "show", "dropdown-target": "dropdown" } do %>
+      <% presenter.fiscal_year_ending_options.each do |fiscal, year_ending| %>
+        <%= link_to fiscal, public_send(presenter.fiscal_year_select_path, current_reserve, year_ending), class: "dropdown-item" %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

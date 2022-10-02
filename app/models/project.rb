@@ -42,7 +42,7 @@ class Project < ApplicationRecord
   has_many :reserve_notes, as: :record
   has_many :logs, as: :record
 
-  with_options(if: :research?) do
+  with_options(if: :project_type_research?) do
     validates :title, presence: true
     validates :abstract, presence: true
     validates :discipline, presence: true
@@ -70,7 +70,7 @@ class Project < ApplicationRecord
       must_select_at_least_one: { report_to: :involvements }
   end
 
-  with_options(if: :class?) do
+  with_options(if: :project_type_class?) do
     validates :title, presence: true
     validates :course_title, presence: true
     validates :course_number, presence: true
@@ -99,7 +99,7 @@ class Project < ApplicationRecord
       must_select_at_least_one: { report_to: :involvements }
   end
 
-  with_options(if: :meeting?) do
+  with_options(if: :project_type_meeting?) do
     validates :title, presence: true
     validates :abstract, presence: true
     validates :discipline, presence: true
@@ -109,7 +109,7 @@ class Project < ApplicationRecord
     validates :end_date, must_be_after: :start_date
   end
 
-  with_options(if: :public_use?) do
+  with_options(if: :project_type_public_use?) do
     validates :title, presence: true
     validates :abstract, presence: true
     validates :discipline, presence: true
@@ -140,7 +140,7 @@ class Project < ApplicationRecord
     meeting: "Meeting",
     public_use: "Public Use",
     housing: "Housing",
-  }
+  }, _prefix: true
 
   def self.blank
     Project.new(id: -1, title: "")

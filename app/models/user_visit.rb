@@ -30,10 +30,10 @@ class UserVisit < ApplicationRecord
 
   enum status: {
     approved: "Approved",
-    cancelled: "Cancelled",
-    denied: "Rejected",
     in_review: "Pending approval",
-  }
+    cancelled: "Cancelled",
+    declined: "Rejected",
+  }, _suffix: true
 
   def arrival_date
     arrives_at.to_date
@@ -55,6 +55,14 @@ class UserVisit < ApplicationRecord
       date_start: date&.to_date&.beginning_of_day,
       date_end_type: :arrives_at,
       date_end: date&.to_date&.end_of_day
+    )
+  end
+
+  def self.having_between_time(date_start: nil, date_end: nil)
+    DateQuery.call(
+      self,
+      date_start_type: :departs_at, date_start: date_start,
+      date_end_type: :arrives_at, date_end: date_end&.tomorrow
     )
   end
 

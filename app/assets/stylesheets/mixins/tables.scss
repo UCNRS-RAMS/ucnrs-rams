@@ -120,3 +120,32 @@
     }
   }
 }
+
+@mixin rams-2-list-table {
+  border-collapse: collapse;
+  margin: 0 auto 50px auto;
+  width: 100%;
+
+  thead tr {
+    background-color: $dark-bluegray;
+    color: $white;
+  }
+
+  tbody tr, tfoot tr {
+    border-top: .5px solid $dark-bluegray;
+    height: 30px;
+  }
+
+  tr.subheader {
+    background-color: $gray;
+  }
+  
+  th {
+    padding: 8px;
+    text-align: left;
+  }
+  
+  td {
+    padding: 4px 4px 4px 8px;
+  }
+}
