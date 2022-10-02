@@ -12,8 +12,11 @@ RSpec.describe UserVisit, type: :model do
   end
 
   describe "validations" do
+    it { is_expected.to validate_numericality_of(:count).is_greater_than_or_equal_to(1) }
     it { is_expected.to validate_presence_of(:arrives_at) }
     it { is_expected.to validate_presence_of(:departs_at) }
+    it { is_expected.to validate_date(:departs_at).is_after(:arrives_at) }
+    it { is_expected.to validate_presence_of(:role) }
 
     describe "arrives_at_before_departs_at" do
       context "when the arrives_at is after departs_at" do
@@ -94,12 +97,13 @@ RSpec.describe UserVisit, type: :model do
     is_expected.to define_enum_for(:status)
       .with_values(
         approved: "Approved",
-        cancelled: "Cancelled",
-        denied: "Rejected",
         in_review: "Pending approval",
+        cancelled: "Cancelled",
+        declined: "Rejected",
       ).backed_by_column_of_type(:string)
+      .with_suffix(true)
   end
-  
+
   describe "#arrival_date" do
     it "returns the date of visit request arrival" do
       arrives_at = Time.current
@@ -121,18 +125,30 @@ RSpec.describe UserVisit, type: :model do
   end
 
   describe ".at_reserve" do
-    it "returns user visits from the given reserve" do
-      reserve1 = create(:reserve)
-      reserve2 = create(:reserve)
-      visit1 = create(:visit, reserve: reserve1)
-      visit2 = create(:visit, reserve: reserve2)
-      user_visit1 = create(:user_visit, visit: visit1)
-      user_visit2 = create(:user_visit, visit: visit2)
-      user_visit3 = create(:user_visit, visit: visit1)
+    context "when given reserve record or reserve id" do
+      it "returns user_visits that belongs to the given reserve through visit" do
+        reserve = create(:reserve)
+        visit = create(:visit, reserve: reserve)
+        user_visit1 = create(:user_visit, visit: visit)
+        user_visit2 = create(:user_visit, visit: create(:visit))
 
-      results = UserVisit.at_reserve(reserve1)
+        results = UserVisit.at_reserve(reserve)
 
-      expect(results).to eq [user_visit1, user_visit3]
+        expect(results.map(&:id)).to eq [user_visit1.id]
+      end
+    end
+
+    context "when not given reserve record or reserve id" do
+      it "returns all user_visits" do
+        reserve = create(:reserve)
+        visit = create(:visit, reserve: reserve)
+        user_visit1 = create(:user_visit, visit: visit)
+        user_visit2 = create(:user_visit, visit: create(:visit))
+
+        results = UserVisit.at_reserve(nil)
+
+        expect(results.map(&:id)).to eq [user_visit1.id, user_visit2.id]
+      end
     end
   end
 
@@ -148,6 +164,40 @@ RSpec.describe UserVisit, type: :model do
       results = UserVisit.on_date(Date.current)
 
       expect(results).to eq [user_visit1, user_visit2, user_visit3, user_visit4]
+    end
+  end
+
+  describe ".having_between_time_for" do
+    context "when supplied date_start: and date_end: is present" do
+      it "returns user_visits that start and end date within its arrival and departure" do
+        time = Time.current
+        user_visit1 = create(:user_visit, arrives_at: time, departs_at: time)
+        user_visit2 = create(:user_visit, arrives_at: time.yesterday, departs_at: time.yesterday)
+        user_visit3 = create(:user_visit, arrives_at: time.yesterday, departs_at: time.tomorrow)
+        user_visit4 = create(:user_visit, arrives_at: time.tomorrow, departs_at: time.tomorrow)
+        user_visit5 = create(:user_visit, arrives_at: time, departs_at: time.tomorrow)
+        user_visit6 = create(:user_visit, arrives_at: time.yesterday, departs_at: time)
+
+        results = UserVisit.having_between_time(date_start: time.to_date, date_end: time.to_date)
+
+        expect(results.to_a).to eq [user_visit1, user_visit3, user_visit5, user_visit6]
+      end
+    end
+
+    context "when supplied date_start: and date_end: is NOT present" do
+      it "returns all" do
+        time = Time.current
+        user_visit1 = create(:user_visit, arrives_at: time.to_date, departs_at: time.to_date)
+        user_visit2 = create(:user_visit, arrives_at: time.yesterday.to_date, departs_at: time.yesterday.to_date)
+        user_visit3 = create(:user_visit, arrives_at: time.yesterday.to_date, departs_at: time.tomorrow.to_date)
+        user_visit4 = create(:user_visit, arrives_at: time.tomorrow.to_date, departs_at: time.tomorrow.to_date)
+        user_visit5 = create(:user_visit, arrives_at: time.to_date, departs_at: time.tomorrow.to_date)
+        user_visit6 = create(:user_visit, arrives_at: time.yesterday.to_date, departs_at: time.to_date)
+
+        results = UserVisit.having_between_time(date_start: nil, date_end: nil)
+
+        expect(results).to eq UserVisit.all
+      end
     end
   end
 end

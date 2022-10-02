@@ -19,8 +19,10 @@ class Manager::ReportsController < ApplicationController
   end
 
   def report_part_2
-    @presenter = Manager::ReportsReportPart2Presenter.new(
-      report: report,
+    form = AnnualReportForm.new(annual_report: annual_report)
+    @presenter = Manager::Reports::ReportPart2Presenter.new(
+      form: form,
+      reserve: current_reserve,
     )
   end
 
@@ -75,7 +77,7 @@ class Manager::ReportsController < ApplicationController
   private
 
   def annual_report
-    AnnualReport.where(reserve: current_reserve, fiscal_year_ending: fiscal_year_end).first
+    AnnualReport.where(reserve: current_reserve, fiscal_year_ending: fiscal_year_end).first_or_initialize
   end
 
   def fiscal_year_end

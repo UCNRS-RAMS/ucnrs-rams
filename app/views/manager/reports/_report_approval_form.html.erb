@@ -1,0 +1,12 @@
+<%= form_with model: form, url: manager_reserve_report_path, method: :patch do |form| %>
+  <div id="review">
+    <%= tag.div t(".report_has_been_reviewed") %>
+    <%= tag.div do %>
+      <%= form.label presenter.annual_report_column do %>
+        <%= form.check_box presenter.annual_report_column %>
+        <%= t("yes") %>
+      <% end %>
+    <% end %>
+  </div>
+  <%= form.button t("submit") %>
+<% end %>

@@ -108,7 +108,7 @@ RSpec.describe Visit, type: :model do
       end
     end
 
-    context "when a reserve is passed in" do
+    context "when a reserve is given" do
       it "returns all visit records for that reserve" do
         reserve = create(:reserve)
         visit1 = create(:visit, reserve: reserve)

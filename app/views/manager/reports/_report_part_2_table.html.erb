@@ -1,0 +1,21 @@
+<table class="report-part-2-table" >
+  <thead>
+    <tr>
+      <th><%= t(".institution_name") %></th>
+      <th><%= t(".location") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% presenter.report_part2_data.each do |institution_type, institutions| %>
+      <tr class="subheader">
+          <td colspan="2"><%= t("universal.institution_type.#{institution_type}") %></td>
+      </tr>
+      <% institutions.each do |institution|  %>
+        <tr class="text-muted">
+          <td><%= institution.name %></td>
+          <td><%= institution.address_line_3 %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

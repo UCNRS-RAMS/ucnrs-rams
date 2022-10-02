@@ -1,4 +1,5 @@
 @import "variables";
+@import "mixins/tables";
 
 .manager.reports {
   .content {
@@ -51,6 +52,7 @@
 
   .report {
     margin-top: .125rem;
+    width: 100%;
 
     > header {
       font-size: 1.5rem;
@@ -148,4 +150,8 @@ table.annual-report {
   .spacer td {
     border:none;
   }
+}
+
+table.report-part-2-table {
+  @include rams-2-list-table;
 }
