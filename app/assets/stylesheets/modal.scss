@@ -10,6 +10,15 @@
   right: 0;
   top: 0;
   z-index: 2;
+  overflow: hidden;
+
+  .modal-container {
+    align-items: center;
+    display: flex;
+    margin: 2rem auto;
+    max-width: 800px;
+    min-height: calc(100% - 4rem);
+  }
 
   @include form;
 
@@ -35,9 +44,9 @@
   }
 
   &.visible {
-    align-items: center;
-    display: flex;
-    justify-content: center;
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   .modal-content {
@@ -46,9 +55,7 @@
     border: 1px solid #808080;
     display: flex;
     flex-direction: column;
-    margin: auto;
-    min-width: 768px;
-    width: 50%;
+    width: 100%;
   }
 
   img.main-image {
