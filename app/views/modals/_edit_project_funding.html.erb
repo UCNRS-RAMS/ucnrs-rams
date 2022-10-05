@@ -1,5 +1,5 @@
 <turbo-frame id="modal-content" class="modal-content" role="dialog" aria-labelledby="modal-title">
-  <div data-modal-target="dialog openOnLoad">
+  <div data-modal-target="dialog openOnLoad" data-action="click@window->modal#closeBackground">
     <%= form_with model: presenter.form, url: presenter.funding_form_path, method: "patch", id: "edit-project-funding", namespace: "edit" do |form| %>
       <p class="screenreader-text">
         <span id="modal-title"><%= t(".title", funding_title: presenter.funding_title) %></span>
@@ -11,14 +11,15 @@
           <%= link_to t(".remove_funding"), presenter.funding_form_path, method: :delete, data: { confirm: t(".confirm_removal", title: presenter.funding_title) } %>
         </div>
         <%= render partial: "shared/projects/fundings/form_fields", locals: { presenter: presenter, form: form } %>
+      </section>
+      <section class="buttons">
+        <div class="close">
+          <%= link_to t(".cancel"), "#", data: { action: "click->modal#close" } %>
+        </div>
+        <button form="edit-project-funding" class="active" type="submit">
+          <%= t(".save") %>
+        </button>
+      </section>
     <% end %>
-    <section class="buttons">
-      <div class="close">
-        <%= link_to t(".cancel"), "#", data: { action: "click->modal#close" } %>
-      </div>
-      <button form="edit-project-funding" class="active" type="submit">
-        <%= t(".save") %>
-      </button>
-    </section>
   </div>
 </turbo-frame>

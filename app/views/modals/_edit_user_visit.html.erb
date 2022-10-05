@@ -1,5 +1,5 @@
 <turbo-frame id="modal-content" class="modal-content" role="dialog" aria-labelledby="modal-title">
-  <div data-modal-target="dialog openOnLoad">
+  <div data-modal-target="dialog openOnLoad" data-action="click@window->modal#closeBackground">
     <%= form_with model: presenter.form, url: presenter.user_visit_form_path, method: "patch" do |form| %>
       <%= form.hidden_field :id %>
       <p class="screenreader-text">
