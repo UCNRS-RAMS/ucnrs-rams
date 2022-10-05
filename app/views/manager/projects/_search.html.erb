@@ -1,0 +1,75 @@
+<form method="get" data-controller="toggle" data-turbo-action="advance">
+  <div class="search-primary">
+    <div class="first">
+      <div class="row mb-0">
+        <div class="row-medium input-with-buttons search">
+          <input type="text" name="filter[project_search]" value="<%= @presenter.project_search_filter %>" placeholder="Search"/>
+        </div>
+        <div class="row-auto">
+          <%= link_to t(".show_options"), "#",
+            "data-action": "click->toggle#toggle", "data-toggle-target": "toggle", "data-toggle-class": "show",
+            class: "button button-inline button-clear #{ @presenter.filter_present? ? "loadhide" : "show" }",
+            id: "show_button"
+          %>
+          <%= link_to t(".hide_options"), "#",
+            "data-action": "click->toggle#toggle", "data-toggle-target": "toggle", "data-toggle-class": "show",
+            class: "button button-inline button-clear #{ @presenter.filter_present? ? "show" : "loadhide" }",
+            id: "hide_button"
+          %>
+        </div>
+      </div>
+    </div>
+    <div class="second">
+      <select id="status" name="filter[project_type]" aria-label="project_type" onchange="this.form.requestSubmit()">
+        <%= options_for_select @presenter.project_type_options, @presenter.project_type_filter %>
+      </select>
+      <select id="search_sort_by" name="filter[sort_by]" aria-label="sort_by" onchange="this.form.requestSubmit()">
+        <%= options_for_select(@presenter.sort_by_options, @presenter.sort_by_filter) %>
+      </select>
+    </div>
+  </div>
+  <div class="search-secondary <%= "show" if @presenter.filter_present? %>" data-toggle-target="toggle" data-toggle-class="show">
+    <div class="row">
+      <div class="row-medium">
+        <label for="project_status"><%= t(".project_status") %></label>
+        <select id="project_status" name="filter[project_status]" aria-label="show" onchange="this.form.requestSubmit()">
+          <%= options_for_select(@presenter.project_status_options, @presenter.project_status_filter) %>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-medium">
+        <label for="date_range_type"><%= t(".show_date_ranges") %></label>
+        <select name="filter[date_range_type]" aria-label="date_range_type" onchange="this.form.requestSubmit()">
+          <%= options_for_select(@presenter.show_date_range_options, @presenter.date_range_type_filter) %>
+        </select>
+      </div>
+      <div class="row-auto" id="horizontal-line">
+        <label for="date_begin"></label>
+        <div class="input-with-buttons calendar">
+          <input type="date" name="filter[date_begin]" value="<%= @presenter.date_begin_filter %>" onchange="this.form.requestSubmit()">
+        </div>
+      </div>
+      <div class="row-auto">
+        <label for="date_end"></label>
+        <div class="input-with-buttons calendar">
+          <input type="date" name="filter[date_end]" value="<%= @presenter.date_end_filter %>" onchange="this.form.requestSubmit()">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-medium">
+        <label for="reserve"><%= t(".reserve") %></label>
+        <select name="filter[reserve]" aria-label="reserve" onchange="this.form.requestSubmit()">
+          <%= options_for_select(@presenter.reserve_options, @presenter.reserve_filter) %>
+        </select>
+      </div>
+    </div>
+    <div>
+      <%= link_to t(".clear_all_and_start_over"), manager_reserve_projects_path(current_reserve, filter: { project_search: nil }) %>
+      |
+      <%= link_to t(".search_for_incomplete_projects"),
+            manager_reserve_projects_path(current_reserve, filter: { project_status: "Incomplete Projects", reserve: "", sort_by: "sort_by_project_title" })%>
+    </div>
+  </div>
+</form>

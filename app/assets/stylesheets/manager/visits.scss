@@ -11,7 +11,11 @@
 
 .manager.visits-index {
   section.content {
+    display: block;
+    
     header{
+      margin: .5rem 0;
+      
       h1 {
         font-size: 1.85rem;
         font-weight: $medium;
