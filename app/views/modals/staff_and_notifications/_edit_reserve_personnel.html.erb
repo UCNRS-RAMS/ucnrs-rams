@@ -1,5 +1,5 @@
 <turbo-frame id="modal-content" class="modal-content" role="dialog" aria-labelledby="modal-title">
-  <div data-modal-target="dialog openOnLoad">
+  <div data-modal-target="dialog openOnLoad" data-action="click@window->modal#closeBackground">
     <%= form_with model: presenter.form, url: manager_reserve_reserve_info_staff_and_notification_path(current_reserve, presenter.reserve_personnel_id), method: :patch do |form| %>
       <p class="screenreader-text">
         <span id="modal-title"><%= t(".title") %></span>
