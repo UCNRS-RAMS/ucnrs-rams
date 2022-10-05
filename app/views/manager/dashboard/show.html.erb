@@ -15,7 +15,13 @@
       <li id="list">
         <%= link_to image_tag('icon-list-off.svg', alt: I18n.t("alt.icon_list"), class: "tab-icon"),
           manager_reserve_dashboard_visits_path(current_reserve),
-          data: { "turbo-frame": "dashboard-content", "active-tab-target": "tab", index: 1, action: "click->active-tab#activeCalendar" }
+          data: {
+            "turbo-frame": "dashboard-content",
+            "turbo-action": "replace",
+            "active-tab-target": "tab",
+            index: 1,
+            action: "click->active-tab#activeCalendar"
+          }
         %>
       </li>
       <li id="calendar">

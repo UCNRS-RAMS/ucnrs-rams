@@ -1,4 +1,4 @@
-<form method="get" data-controller="toggle">
+<form method="get" data-controller="toggle" data-turbo-action="advance">
   <div class="search-primary">
     <div class="first">
       <div class="row mb-0">
@@ -20,10 +20,10 @@
       </div>
     </div>
     <div class="second">
-      <select id="status" name="filter[visit_project_type]" aria-label="visit_project_type" onchange="this.form.submit()">
+      <select id="status" name="filter[visit_project_type]" aria-label="visit_project_type" onchange="this.form.requestSubmit()">
         <%= options_for_select presenter.visit_project_type_options, presenter.visit_project_type_filter %>
       </select>
-      <select id="search_sort_by" name="filter[sort_by]" aria-label="sort_by" onchange="this.form.submit()">
+      <select id="search_sort_by" name="filter[sort_by]" aria-label="sort_by" onchange="this.form.requestSubmit()">
         <%= options_for_select(presenter.sort_by_options, presenter.sort_by_filter) %>
       </select>
     </div>
@@ -32,13 +32,13 @@
     <div class="row">
       <div class="row-medium">
         <label for="visit_status"><%= t(".visit_status") %></label>
-        <select id="visit_status" name="filter[visit_status]" aria-label="show" onchange="this.form.submit()">
+        <select id="visit_status" name="filter[visit_status]" aria-label="show" onchange="this.form.requestSubmit()">
           <%= options_for_select(presenter.visit_status_options, presenter.visit_status_filter) %>
         </select>
       </div>
       <div class="row-auto">
         <label for="report_access"><%= t(".report_access") %></label>
-        <select id="report_access" name="filter[report_access]" aria-label="show" onchange="this.form.submit()">
+        <select id="report_access" name="filter[report_access]" aria-label="show" onchange="this.form.requestSubmit()">
           <%= options_for_select(presenter.report_access_options, presenter.report_access_filter) %>
         </select>
       </div>
@@ -46,27 +46,27 @@
     <div class="row">
       <div class="row-medium">
         <label for="reserve"><%= t(".reserve") %></label>
-        <select name="filter[reserve]" aria-label="reserve" onchange="this.form.submit()">
+        <select name="filter[reserve]" aria-label="reserve" onchange="this.form.requestSubmit()">
           <%= options_for_select(presenter.reserve_options, presenter.reserve_filter) %>
         </select>
       </div>
       <div class="row-auto" id="horizontal-line">
         <label for="date_begin"><%= t(".earliest_arrival_date") %></label>
         <div class="input-with-buttons calendar">
-          <input type="date" name="filter[date_begin]" value="<%= presenter.date_begin_filter %>" onchange="this.form.submit()">
+          <input type="date" name="filter[date_begin]" value="<%= presenter.date_begin_filter %>" onchange="this.form.requestSubmit()">
         </div>
       </div>
       <div class="row-auto">
         <label for="date_end"><%= t(".latest_departure_date") %></label>
         <div class="input-with-buttons calendar">
-          <input type="date" name="filter[date_end]" value="<%= presenter.date_end_filter %>" onchange="this.form.submit()">
+          <input type="date" name="filter[date_end]" value="<%= presenter.date_end_filter %>" onchange="this.form.requestSubmit()">
         </div>
       </div>
     </div>
     <div class="row">
       <div class="row-medium">
         <label for="amenity"><%= t(".amenity_requested") %></label>
-        <select name="filter[amenity]" aria-label="amenity" onchange="this.form.submit()">
+        <select name="filter[amenity]" aria-label="amenity" onchange="this.form.requestSubmit()">
           <%= options_for_select(presenter.amenity_options, presenter.amenity_filter) %>
         </select>
       </div>

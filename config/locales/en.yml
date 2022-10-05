@@ -1101,15 +1101,8 @@ en:
         departure_date: "Enter Departs Date"
         title: "My Projects"
         projects: "Projects"
-        show_options: "Show Options"
-        hide_options: "Hide Options"
-        project_status: "Project Status"
-        show_date_ranges: "Show Date Ranges"
-        reserve: "Reserve"
-        clear_all_and_start_over: "Clear All & Start Over"
-        search_for_incomplete_projects: "Search for Incomplete Projects"
-        all: "All"
         date_submitted: "Date Submitted"
+        all: "All"
         project_title: "Project Title"
         owner_last_name: "Owner Last Name"
         date_project_submitted: "Date Project Submitted"
@@ -1130,6 +1123,14 @@ en:
           create_a_new_project: "Create A New Project"
         alt:
           help_icon: "A question mark endclosed in a circle"
+      search:
+        show_options: "Show Options"
+        hide_options: "Hide Options"
+        project_status: "Project Status"
+        show_date_ranges: "Show Date Ranges"
+        reserve: "Reserve"
+        clear_all_and_start_over: "Clear All & Start Over"
+        search_for_incomplete_projects: "Search for Incomplete Projects"
       detail:
        details:
         research: "Research"
