@@ -1,5 +1,5 @@
 <turbo-frame id="add-visitor">
-  <%= render partial: 'visits/user_visits/links' %>
+  <%= render partial: 'shared/visits/user_visits/links' %>
   <section id="add-guest">
     <%= form_with model: @presenter.form, url: @presenter.user_visit_form_path do |form|%>
       <%= form.hidden_field :visit_id, value: @presenter.visit_id %>
@@ -12,12 +12,12 @@
             <ul class="autocomplete-results" data-autocomplete-target="results"></ul>
           </div>
         </div>
-        <button><%=t(".add_visitor") %></button>
+        <button><%= t(".add_visitor") %></button>
       </div>
       <span>
         <%= t(".cannot_find_them") %>
         <% if @presenter.can_add_project_user? %>
-            <%= link_to t(".new_team_member"), project_team_memberships_path(presenter.visit.project.id), target: "_blank" %>
+          <%= link_to t(".new_team_member"), project_team_memberships_path(presenter.visit.project.id), target: "_blank" %>
         <% else %>
           <%= link_to t(".create_new_user"), @presenter.new_user_visit_path({ add_visitor_partial: params[:add_visitor_partial], guest_name: @presenter.guest_name, show_add_guest_modal: true }), method: :get %>
         <% end %>

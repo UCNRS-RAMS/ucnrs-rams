@@ -57,7 +57,7 @@ RSpec.describe Visits::UserVisitFormPresenter do
       params = { visit_id: visit.id }
       presenter = Visits::UserVisitFormPresenter.new(current_user: create(:user), add_visitor_partial: add_visitor_partial, form: UserVisitForm.new(params: params))
 
-      expected_value = "visits/user_visits/#{add_visitor_partial}"
+      expected_value = "shared/visits/user_visits/#{add_visitor_partial}"
       expect(presenter.add_visitor_partial_path).to eq expected_value
     end
   end

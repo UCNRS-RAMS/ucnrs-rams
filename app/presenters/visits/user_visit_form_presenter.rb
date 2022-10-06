@@ -54,7 +54,7 @@ def initialize(current_user:, add_visitor_partial:, show_add_guest_modal: false,
   end
 
   def add_visitor_partial_path
-    "visits/user_visits/#{add_visitor_partial}"
+    "shared/visits/user_visits/#{add_visitor_partial}"
   end
 
   def user_visits
