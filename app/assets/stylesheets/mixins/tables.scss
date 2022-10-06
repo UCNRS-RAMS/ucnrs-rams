@@ -89,11 +89,11 @@
         display: flex;
 
         div.status {
-          display: inline-block;
-          width: 5px;
-          border-radius: 3px;
-          margin-right: .25rem;
           background: $gold;
+          border-radius: 3px;
+          display: inline-block;
+          margin-right: .25rem;
+          width: 5px;
         }
       }
     }

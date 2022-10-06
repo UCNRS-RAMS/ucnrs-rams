@@ -1,0 +1,12 @@
+<tr>
+  <td class="card-name">
+    <div class="status-container">
+      <%= tag.div class: "status #{amenity_visit.status.downcase}" %>
+      <div><%= amenity_visit.amenity_title %></div>
+    </div>
+  </td>
+  <td class="card-date">
+    <%= tag.span t(".from", time: amenity_visit.arrives.to_s(:time)), class: "text-nowrap" if amenity_visit.arrives_today? %>
+    <%= tag.span t(".until", time: amenity_visit.departs.to_s(:time)), class: "text-nowrap" if amenity_visit.departs_today? %>
+  </td>
+</tr>

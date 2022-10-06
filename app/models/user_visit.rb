@@ -28,6 +28,13 @@ class UserVisit < ApplicationRecord
     staff: "Staff",
   }
 
+  enum status: {
+    approved: "Approved",
+    cancelled: "Cancelled",
+    denied: "Rejected",
+    in_review: "Pending approval",
+  }
+
   def arrival_date
     arrives_at.to_date
   end
@@ -45,9 +52,9 @@ class UserVisit < ApplicationRecord
     DateQuery.call(
       self,
       date_start_type: :departs_at,
-      date_start: date&.to_date,
+      date_start: date&.to_date&.beginning_of_day,
       date_end_type: :arrives_at,
-      date_end: date&.to_date&.tomorrow
+      date_end: date&.to_date&.end_of_day
     )
   end
 

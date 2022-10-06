@@ -13,6 +13,16 @@ RSpec.describe AmenityVisit do
     it {is_expected.to belong_to(:visit) }
   end
 
+  it do 
+    is_expected.to define_enum_for(:status)
+      .with_values(
+        approved: "Approved",
+        cancelled: "Cancelled",
+        denied: "Rejected",
+        in_review: "Pending approval",
+      ).backed_by_column_of_type(:string)
+  end
+
   describe "#amenity_visit_id=" do
     it "sets the `id`" do
       amenity_visit = AmenityVisit.new

@@ -20,6 +20,14 @@ class UserVisitPresenter
     "#{I18n.l(arrives_at, format: format)} - #{I18n.l(departs_at, format: format)}"
   end
 
+  def arrives_today?
+    arrives_at.to_date == Time.zone.today
+  end
+
+  def departs_today?
+    departs_at.to_date == Time.zone.today
+  end
+
   def to_model
     self
   end

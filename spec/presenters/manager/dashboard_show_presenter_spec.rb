@@ -247,10 +247,10 @@ RSpec.describe Manager::DashboardShowPresenter do
   describe "#chart_data" do
     it "returns data from #visit_week_perday and #visit_booked_week_perday in correct format for charting" do
       allow(I18n).to receive(:t)
-        .with("manager.dashboards.show.visit_request")
+        .with("manager.dashboard.show.visit_request")
         .and_return("visit_request_translate")
       allow(I18n).to receive(:t)
-        .with("manager.dashboards.show.booked_visit")
+        .with("manager.dashboard.show.booked_visit")
         .and_return("booked_visit_translate")
       visit_week_perday = "visit week data".freeze
       visit_booked_week_perday = "booked visit week data".freeze

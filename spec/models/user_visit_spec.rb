@@ -90,6 +90,16 @@ RSpec.describe UserVisit, type: :model do
     end
   end
 
+  it do 
+    is_expected.to define_enum_for(:status)
+      .with_values(
+        approved: "Approved",
+        cancelled: "Cancelled",
+        denied: "Rejected",
+        in_review: "Pending approval",
+      ).backed_by_column_of_type(:string)
+  end
+  
   describe "#arrival_date" do
     it "returns the date of visit request arrival" do
       arrives_at = Time.current

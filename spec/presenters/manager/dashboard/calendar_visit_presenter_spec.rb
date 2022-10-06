@@ -6,8 +6,8 @@ RSpec.describe Manager::Dashboard::CalendarVisitPresenter do
 
   let!(:reserve) { create(:reserve) }
   let!(:visit) do
-    create(:visit, reserve: reserve, start_date: start_date,
-      end_date: end_date)
+    create(:visit, reserve: reserve, starts_at: start_date,
+      ends_at: end_date)
   end
 
   describe "#display_amenities_text?" do
