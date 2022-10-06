@@ -5,11 +5,11 @@
 </turbo-stream>
 <turbo-stream action="replace" target="add-visitor">
   <template>
-    <%= render partial: "visits/user_visits/#{@presenter.add_visitor_partial}", locals: { presenter: @presenter } %>
+    <%= render partial: "shared/visits/user_visits/#{@presenter.add_visitor_partial}", locals: { presenter: @presenter } %>
   </template>
 </turbo-stream>
 <turbo-stream action="replace" target="user-visits-table">
   <template>
-    <%= render partial: "visits/user_visits/user_visits_table", locals: { presenter: @presenter }, formats: [:html] %>
+    <%= render partial: "shared/visits/user_visits/user_visits_table", locals: { presenter: @presenter }, formats: [:html] %>
   </template>
 </turbo-stream>

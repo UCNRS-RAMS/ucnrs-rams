@@ -508,42 +508,12 @@ en:
         data_management_agreement: "Data Management Agreement"
         policy_agreement_error: "Must agree the policy agreement"
     user_visits:
-      team_members:
-        new_team_member: "Add New Team Member"
       index:
         title: "Who are you bringing with you?"
         reserve: "Reserve"
         arrive_departs_date: "Arrival & Departure"
         next_step: "Next: Reserve Info"
         back: "Go Back"
-      user_visits_table:
-        visitor_table: "Visitor List"
-      user_visit:
-        change: "Change"
-        confirm_removal: "Are you sure you want to remove %{name}?"
-      links:
-        add_team_member: "Add Team Member"
-        add_guest: "Add Guest"
-        add_group: "Add Group"
-      team_member:
-        add_to_visitor: "Add To Visitor List"
-      guest:
-        guest_name: "Visitor Name"
-        role: "Role"
-        search_by_name: "Search by name"
-        select_user_role: "- Select Role -"
-        add_visitor: "Add Visitor"
-        cannot_find_them: "Can't find then in database?"
-        new_team_member: "Create a New Team Member"
-        create_new_user: "Create new user"
-      group:
-        number_in_group: "Number in Group"
-        institution_name: "Institution Name"
-        role: "Role"
-        select_user_role: "- Select Role -"
-        add_group: "Add Group"
-        search_by_name: "Search by name"
-        select_institution: "- Select Institution -"
     amenities:
       amenity_booking:
          time_of_use: "Time of use"
@@ -1745,6 +1715,37 @@ en:
     visits:
       project:
         project_title: "Project Title"
+      user_visits:
+        team_member:
+          add_to_visitor: "Add To Visitor List"
+        guest:
+          guest_name: "Visitor Name"
+          role: "Role"
+          search_by_name: "Search by name"
+          select_user_role: "- Select Role -"
+          add_visitor: "Add Visitor"
+          cannot_find_them: "Can't find then in database?"
+          new_team_member: "Create a New Team Member"
+          create_new_user: "Create new user"
+        group:
+          number_in_group: "Number in Group"
+          institution_name: "Institution Name"
+          role: "Role"
+          select_user_role: "- Select Role -"
+          add_group: "Add Group"
+          search_by_name: "Search by name"
+          select_institution: "- Select Institution -"
+        user_visit:
+          change: "Change"
+          confirm_removal: "Are you sure you want to remove %{name}?"
+        user_visits_table:
+          visitor_table: "Visitor List"
+        team_members:
+          new_team_member: "Add New Team Member"
+        links:
+          add_team_member: "Add Team Member"
+          add_guest: "Add Guest"
+          add_group: "Add Group"
       form:
         aria:
           arrival_time: "Arrival Time"
