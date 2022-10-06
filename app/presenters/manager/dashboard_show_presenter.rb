@@ -38,7 +38,7 @@ class Manager::DashboardShowPresenter
   def visit_week_perday
     @visit_week_perday ||= Visit
       .by_reserve(reserve)
-      .group_by_day(:submitted_at, range: 6.day.ago.midnight..Time.zone.now)
+      .group_by_day(:submitted_at, range: 6.day.ago.beginning_of_day..Time.current)
       .count
   end
 
@@ -46,14 +46,14 @@ class Manager::DashboardShowPresenter
     @visit_booked_week_perday ||= Visit
       .by_reserve(reserve)
       .approved
-      .group_by_day(:submitted_at, range: 6.day.ago.midnight..Time.zone.now)
+      .group_by_day(:submitted_at, range: 6.day.ago.beginning_of_day..Time.current)
       .count
   end
 
   def chart_data 
     [
-      { name: I18n.t("manager.dashboards.show.visit_request"), data: visit_week_perday },
-      { name: I18n.t("manager.dashboards.show.booked_visit"), data: visit_booked_week_perday },
+      { name: I18n.t("manager.dashboard.show.visit_request"), data: visit_week_perday },
+      { name: I18n.t("manager.dashboard.show.booked_visit"), data: visit_booked_week_perday },
     ]
   end
 
@@ -81,6 +81,6 @@ class Manager::DashboardShowPresenter
 
   def visit_request_today
     @visit_request_today ||= Visit
-      .where(submitted_at: Time.zone.today.midnight..Time.zone.tomorrow.midnight)
+      .where(submitted_at: Time.current.beginning_of_day..Time.current.end_of_day)
   end
 end

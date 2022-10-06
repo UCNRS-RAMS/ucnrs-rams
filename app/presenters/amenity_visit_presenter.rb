@@ -23,6 +23,14 @@ class AmenityVisitPresenter
     "$#{value(subtotal)}"
   end
 
+  def arrives_today?
+    arrives.to_date == Time.zone.today
+  end
+
+  def departs_today?
+    departs.to_date == Time.zone.today
+  end
+
   def to_model
     self
   end

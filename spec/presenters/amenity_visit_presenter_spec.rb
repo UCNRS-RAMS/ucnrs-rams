@@ -43,4 +43,68 @@ RSpec.describe AmenityVisitPresenter do
       expect(presenter.cost_in_dollar).to eq "$1000.00"
     end
   end
+
+  describe "#arrives_today?" do
+    context "when arrives datetime is within 24 hours of today" do
+      it "returns true" do
+        presenter = AmenityVisitPresenter.new(
+          create(:amenity_visit, arrives: Time.current)
+        )
+
+        expect(presenter.arrives_today?).to eq true
+      end
+    end
+
+    context "when arrives datetime is NOT within 24 hours of today" do
+      it "returns false" do
+        presenter = AmenityVisitPresenter.new(
+          create(:amenity_visit, arrives: 1.day.from_now)
+        )
+
+        expect(presenter.arrives_today?).to eq false
+      end
+    end
+  end
+
+  describe "#departs_today?" do
+    context "when departs datetime is within 24 hours of today" do
+      it "returns true" do
+        presenter = AmenityVisitPresenter.new(
+          create(:amenity_visit, departs: Time.current)
+        )
+
+        expect(presenter.departs_today?).to eq true
+      end
+    end
+
+    context "when departs datetime is NOT within 24 hours of today" do
+      it "returns false" do
+        presenter = AmenityVisitPresenter.new(
+          create(:amenity_visit, departs: 1.day.from_now)
+        )
+
+        expect(presenter.departs_today?).to eq false
+      end
+    end
+  end
+
+  describe "#to_model" do
+    it "returns self" do
+      presenter = AmenityVisitPresenter.new(
+        create(:amenity_visit)
+      )
+
+      expect(presenter.to_model).to eq presenter
+    end
+  end
+
+  describe "#to_partial_path" do
+    it "returns 'amenity_visit'" do
+      presenter = AmenityVisitPresenter.new(
+        create(:amenity_visit)
+      )
+
+      expect(presenter.to_partial_path).to eq 'amenity_visit'
+    end
+  end
 end

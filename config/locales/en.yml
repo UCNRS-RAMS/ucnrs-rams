@@ -1081,6 +1081,12 @@ en:
         last_7_days: "Last 7 Days"
       visit_day_list:
         no_visitors_amenities_day: "No visitors or amenities for the day."
+      user_visit:
+        from: "from %{time}"
+        until: "until %{time}"
+      amenity_visit:
+        from: "from %{time}"
+        until: "until %{time}"
       visits:
         index:
           visits: "Visits"
