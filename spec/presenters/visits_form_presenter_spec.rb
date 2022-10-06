@@ -23,6 +23,7 @@ RSpec.describe VisitsFormPresenter do
     it { is_expected.to delegate_method(:reserve).to(:visit) }
     it { is_expected.to delegate_method(:special_needs_statement).to(:reserve) }
     it { is_expected.to delegate_method(:special_needs_statement).to(:reserve) }
+    it { is_expected.to delegate_method(:editing).to(:form) }
   end
 
   describe "project_type_options" do
@@ -141,8 +142,16 @@ RSpec.describe VisitsFormPresenter do
   end
 
   describe "#project_partial_path" do
-    it "should return project_partial_path" do
-      presenter = VisitsFormPresenter.new(user: build(:user))
+    it "should return 'shared/visits/project' when editing" do
+      form = VisitForm.new(params: { reserve_id: create(:reserve).id }, editing: true)
+      presenter = VisitsFormPresenter.new(user: build(:user), form: form)
+      
+      expect(presenter.project_partial_path).to eq "shared/visits/project"
+    end
+
+    it "should return 'visits/project' when not editing" do
+      form = VisitForm.new(params: { reserve_id: create(:reserve).id }, editing: false)
+      presenter = VisitsFormPresenter.new(user: build(:user), form: form)
 
       expect(presenter.project_partial_path).to eq "visits/project"
     end
@@ -157,10 +166,29 @@ RSpec.describe VisitsFormPresenter do
   end
 
   describe "#reserve_partial_path" do
-    it "should return reserve_partial_path" do
-      presenter = VisitsFormPresenter.new(user: build(:user))
+    it "should return 'shared/visits/reserve' when editing" do
+      form = VisitForm.new(params: { reserve_id: create(:reserve).id }, editing: true)
+      presenter = VisitsFormPresenter.new(user: build(:user), form: form)
+
+      expect(presenter.reserve_partial_path).to eq "shared/visits/reserve"
+    end
+
+    it "should return 'visits/reserve' when not editing" do
+      form = VisitForm.new(params: { reserve_id: create(:reserve).id }, editing: false)
+      presenter = VisitsFormPresenter.new(user: build(:user), form: form)
 
       expect(presenter.reserve_partial_path).to eq "visits/reserve"
+    end
+  end
+
+  describe "#project_summary_path" do
+    it "should return project_path" do
+      form = VisitForm.new(params: { project_id: create(:project).id })
+      presenter = VisitsFormPresenter.new(user: build(:user), form: form)
+
+      result = "/projects/#{form.project_id}"
+      
+      expect(presenter.project_summary_path).to eq result
     end
   end
 
