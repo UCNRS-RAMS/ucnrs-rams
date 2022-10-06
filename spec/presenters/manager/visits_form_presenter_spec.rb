@@ -11,7 +11,7 @@ RSpec.describe Manager::Visits::VisitsFormPresenter do
 
   describe "#project_partial_path" do
     it "should return project_partial_path" do
-      expect(presenter.project_partial_path).to eq "manager/visits/detail/project"
+      expect(presenter.project_partial_path).to eq "shared/visits/project"
     end
   end
 
@@ -23,13 +23,24 @@ RSpec.describe Manager::Visits::VisitsFormPresenter do
 
   describe "#reserve_partial_path" do
     it "should return reserve_select_field_partial_path" do
-      expect(presenter.reserve_partial_path).to eq "manager/visits/detail/reserve"
+      expect(presenter.reserve_partial_path).to eq "shared/visits/reserve"
     end
   end
 
   describe "#show_browse_reserve_link" do
     it "should return false to hide browse reserve link" do
       expect(presenter.show_browse_reserve_link).to eq false
+    end
+  end
+
+  describe "#project_summary_path" do
+    it "should return manager_reserve_project_path" do
+      form = VisitForm.new(params: { reserve_id: create(:reserve).id, project_id: create(:project).id })
+      presenter = Manager::Visits::VisitsFormPresenter.new(user: build(:user), form: form)
+
+      result = "/manager/reserves/#{form.reserve_id}/projects/#{form.project_id}"
+
+      expect(presenter.project_summary_path).to eq result
     end
   end
 

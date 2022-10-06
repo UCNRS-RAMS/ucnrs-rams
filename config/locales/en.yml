@@ -1014,8 +1014,6 @@ en:
           labels:
             next_page:
               save: "Save Changes"
-        project:
-          project_title: "Project Title"
         project_type:
           project_type_options:
             labels:
@@ -1687,6 +1685,8 @@ en:
           receive_scuba_email: "Scuba"
   shared:
     visits:
+      project:
+        project_title: "Project Title"
       form:
         aria:
           arrival_time: "Arrival Time"

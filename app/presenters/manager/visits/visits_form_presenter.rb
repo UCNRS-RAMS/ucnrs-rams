@@ -1,14 +1,20 @@
 class Manager::Visits::VisitsFormPresenter < VisitsFormPresenter
+  include Rails.application.routes.url_helpers
+
   def project_type_partial_path
     "manager/visits/detail/project_type"
   end
 
+  def project_summary_path
+    manager_reserve_project_path(reserve_id: reserve.id, id: project.id)
+  end
+  
   def project_partial_path
-    "manager/visits/detail/project"
+    "shared/visits/project"
   end
 
   def reserve_partial_path
-    "manager/visits/detail/reserve"
+    "shared/visits/reserve"
   end
 
   def show_browse_reserve_link

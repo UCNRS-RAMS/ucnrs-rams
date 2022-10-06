@@ -1,4 +1,6 @@
 class VisitsFormPresenter
+  include Rails.application.routes.url_helpers
+
   HOURS_PER_DAY = 24
   def initialize(user:, current_step: 1, form: nil)
     @user = user
@@ -9,6 +11,7 @@ class VisitsFormPresenter
 
   attr_reader :steps_presenter, :form
   delegate :svg, :step_class, to: :steps_presenter
+  delegate :editing, to: :form
 
   delegate :visit,
     :start_date,
@@ -62,12 +65,16 @@ class VisitsFormPresenter
     "visits/project_type"
   end
 
+  def project_summary_path
+    project_path(id: project.id)
+  end
+
   def project_partial_path
-    "visits/project"
+    editing ?  "shared/visits/project" : "visits/project"
   end
 
   def reserve_partial_path
-    "visits/reserve"
+    editing ?  "shared/visits/reserve" : "visits/reserve"
   end
 
   def save_partial_path
