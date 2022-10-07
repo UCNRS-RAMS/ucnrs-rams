@@ -80,6 +80,7 @@ Rails.application.routes.draw do
         resource :summary, only: [:show], controller: "visits/summary"
         resources :user_visits, only: [:new, :index, :create, :destroy], controller: "visits/user_visits"
         resource :detail, only: [:edit, :update], controller: "visits/detail"
+        resources :activity_and_notes, only: [:index, :create, :show], controller: "visits/activity_and_notes"
       end
       resources :reports, only: [:show, :update] do
         get "report_part_1", on: :member

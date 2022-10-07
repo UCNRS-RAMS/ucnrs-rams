@@ -1,0 +1,17 @@
+<section class="activity-table">
+  <h2><%= t(".title") %></h2>
+  <table>
+    <thead>
+      <tr>
+        <th><%= t(".name") %></th>
+        <th><%= t(".date_and_time") %></th>
+        <th><%= t(".details") %></th>
+        <th><%= t(".user_or_admin") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "manager/projects/activity_and_notes/activity", collection: presenter.logs %>
+      <%= paginate presenter.logs_scope, param_name: :logs_page %>
+    </tbody>
+  </table>
+</section>
