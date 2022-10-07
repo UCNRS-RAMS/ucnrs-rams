@@ -1,8 +1,8 @@
 require "rails_helper"
 
-RSpec.describe Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter do
+RSpec.describe Manager::ReserveInfo::AmenitiesAndRates::AmenityNewPresenter do
   describe "delegations" do
-    subject { Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter.new(form: :form) }
+    subject { Manager::ReserveInfo::AmenitiesAndRates::AmenityNewPresenter.new(form: :form) }
     it { is_expected.to delegate_method(:amenity).to(:form).with_prefix(true) }
   end
 
@@ -10,7 +10,7 @@ RSpec.describe Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter do
     it "presents AmenityForm through the presenter" do
       amenity = create(:amenity)
       form = AmenityForm.new(amenity: amenity)
-      presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter.new(form: form)
+      presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityNewPresenter.new(form: form)
 
       expect(presenter.form).to be_a AmenityForm
     end
@@ -31,7 +31,7 @@ RSpec.describe Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter do
         .with("universal.amenity.units_types.units_type_2_key")
         .and_return("units_type_2_key_translate")
       form = AmenityForm.new
-      presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter.new(form: form)
+      presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityNewPresenter.new(form: form)
 
       units_type_options = presenter.units_type_options
 
@@ -57,7 +57,7 @@ RSpec.describe Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter do
         .with("universal.amenity.time_types.time_type_2_key")
         .and_return("time_type_2_key_translate")
       form = AmenityForm.new
-      presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter.new(form: form)
+      presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityNewPresenter.new(form: form)
 
       time_type_options = presenter.time_type_options
 
@@ -77,9 +77,8 @@ RSpec.describe Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter do
         amenity_group_label_4: "Label 4",
         amenity_group_label_5: "Label 5"
       )
-      amenity = create(:amenity, reserve: reserve)
-      form = AmenityForm.new(amenity: amenity)
-      presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter.new(form: form)
+      form = AmenityForm.new(params: {reserve_id: reserve.id})
+      presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityNewPresenter.new(form: form)
 
       time_type_options = presenter.amenities_group_options
 

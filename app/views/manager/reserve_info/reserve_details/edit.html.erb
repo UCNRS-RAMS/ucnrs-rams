@@ -315,6 +315,37 @@
             <button><%= t(".save_changes") %></button>
           </div>
         </section>
+        <section class="reserve-info-subsection">
+          <header class="with-form-group-pad">
+            <%= t(".amenities") %>
+            <small>
+              <%= t(".amenities_small_info") %>
+            </small>
+          </header>
+          <div class="col form-group">
+            <%= f.label :amenity_group_label_1, t(".amenity_group_name_1"), class: "form-label" %>
+            <%= f.text_field :amenity_group_label_1, class: "form-input" %>
+          </div>
+          <div class="col form-group">
+            <%= f.label :amenity_group_label_2, t(".amenity_group_name_2"), class: "form-label" %>
+            <%= f.text_field :amenity_group_label_2, class: "form-input" %>
+          </div>
+          <div class="col form-group">
+            <%= f.label :amenity_group_label_3, t(".amenity_group_name_3"), class: "form-label" %>
+            <%= f.text_field :amenity_group_label_3, class: "form-input" %>
+          </div>
+          <div class="col form-group">
+            <%= f.label :amenity_group_label_4, t(".amenity_group_name_4"), class: "form-label" %>
+            <%= f.text_field :amenity_group_label_4, class: "form-input" %>
+          </div>
+          <div class="col form-group">
+            <%= f.label :amenity_group_label_5, t(".amenity_group_name_5"), class: "form-label" %>
+            <%= f.text_field :amenity_group_label_5, class: "form-input" %>
+          </div>
+          <div class="with-form-group-pad">
+            <button><%= t(".save_changes") %></button>
+          </div>
+        </section>
       <% end %>
     </section>
   </div>

@@ -26,8 +26,8 @@
   <hr />
 
   <div>
-    <%= form.label :amenities_type, t(".amenity_type") %>
-    <%= form.select :amenities_type, presenter.amenities_type_options, { include_blank: t(".select_one") } %>
+    <%= form.label :group_number, t(".amenity_group") %>
+    <%= form.select :group_number, presenter.amenities_group_options, { include_blank: t(".select_one") } %>
     <small><%=t(".description_amenity_type_text")%></small>
   </div>
   <div>
