@@ -43,6 +43,8 @@ Rails.application.routes.draw do
   resources :visits, only: [:new, :create, :show, :edit, :update] do
     get :amenity_booking, on: :new
     resources :user_visits, only: [:new, :index, :create, :destroy], controller: "visits/user_visits"
+    resources :questions, only: [:index], controller: "visits/questions"
+    resources :answers, only: [:create], controller: "visits/answers"
   end
 
   resource :helps , only: [:show]

@@ -1,0 +1,45 @@
+<%= form_with model: presenter.form, url: presenter.form_url, id: "questions", class: "d-flex-col" do |form| %>
+  <% if presenter.has_reserve_questions_for_visit? %>
+    <section class="questions">
+      <h1><%= t(".reserve_section_title") %></h1>
+      <% presenter.reserve_questions_by_authority.each do |reserve, questions| %>
+        <%= render partial:  "visits/questions/group", locals: { title: reserve, questions: questions } %>
+      <% end %>
+    </section>
+  <% else %>
+  <section>
+    <h1>This reserve has no additional questions at this time.</h1>
+  </section>
+  <% end %>
+  <% if presenter.has_permit_questions_for_project? %>
+    <section class="questions questions-index">
+      <% presenter.permit_questions_by_authority.each do |authority, questions| %>
+        <%= render partial: "projects/questions/group", locals: { title: t(".authority.#{authority}"), questions: questions } %>
+      <% end %>
+    </section>
+    <section class="approved_questions questions-index">
+      <div class="field">
+        <%= form.label :approved_permits %>
+        <p>
+        <%= form.text_area :approved_permits %>
+        <span class="explanation"><%= t(".permit_statement") %></span>
+        </p>
+      </div>
+    </section>
+  <% else %>
+    <section>
+      <input name="project[no_questions]" value="" type="hidden"/>
+      <p><%= t(".no_questions") %></p>
+    </section>
+  <% end %>
+  <section class="controls">
+    <%= link_to visit_user_visits_path do %>
+      <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t("alt.left_facing_arrow") %>
+      <%= t(".back") %>
+    <% end %>
+    <%= button_to '#', method: :get, class: "active" do %>
+      <%= t(".next_step") %>
+      <%= image_tag "arrow-right.svg", alt: t("alt.right_facing_arrow") %>
+    <% end %>
+  </section>
+<% end %>

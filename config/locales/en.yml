@@ -429,8 +429,36 @@ en:
         ucnrs_newsletter: "NRS Newsletter."
         terms_of_use: "Terms of Use"
   visits:
-    visit:
-      not_applicable: "Not Applicable"
+    questions:
+      permit_questions:
+        reserve_section_title: "Reserve-specific Questions"
+        no_questions: "There are no necessary permit questions for this project at this time."
+        permit_statement: "If you have any approved permits, please provide the type of permit, permit number, permit dates, and any other relevant information. You may be asked to provide a copy of the approved permit prior to or upon your arrival. If you have your IACUC permit please also state the institution name that issued that permit."
+        authority:
+          federal: "Federal Permits"
+          state: "State Permits"
+          local: "Local Permits"
+          institution: "Institution Permits"
+        back: "Go Back"
+        alt:
+          right_facing_arrow: "Right-facing arrow"
+          left_facing_arrow: "Left-facing arrow"
+        next_step: "Next: Waivers & Policies"
+      index:
+        title: "Permits"
+        reserve_section_title: "Reserve-specific Questions"
+        authority:
+          federal: "Federal Permits"
+          state: "State Permits"
+          local: "Local Permits"
+          institution: "Institution Permits"
+        permit_information: "Permit Information"
+        no_questions: "There are no necessary permit questions for this project at this time."
+        permit_statement: "If you have any approved permits, please provide the type of permit, permit number, permit dates, and any other relevant information. You may be asked to provide a copy of the approved permit prior to or upon your arrival. If you have your IACUC permit please also state the institution name that issued that permit."
+        yes_option: "Yes"
+        no_option: "No"
+      text:
+        aria_label_for: "textarea answer field for question %{question}"
     save:
       alt_text:
         right_arrow: "Right Arrow"

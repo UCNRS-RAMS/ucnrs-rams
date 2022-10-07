@@ -15,10 +15,19 @@ class ReserveQuestion < ApplicationRecord
 
   belongs_to :reserve
   has_many :project_reserve_answers
+  has_many :visit_reserve_answers
 
   enum location: {
     visit: "visit",
     project: "project",
+  }
+
+  enum authority: {
+    federal: "Federal",
+    state: "State",
+    local: "Local",
+    institution: "Institution",
+    reserve: "Reserve",
   }
 
   enum question_type: {
@@ -34,8 +43,16 @@ class ReserveQuestion < ApplicationRecord
     where(location: :project)
   end
 
+  def self.for_visits # todo move in concern and use extend
+    where(location: :visit)
+  end
+
   def self.visible
     where(visible: true)
+  end
+
+  def self.sort_by_authority
+    order(:authority)
   end
 
   def self.with_answers_for_project(project)
@@ -46,6 +63,28 @@ class ReserveQuestion < ApplicationRecord
         ProjectReserveAnswer.arel_table["text_answer"],
         ProjectReserveAnswer.arel_table["boolean_answer"]
       )
+  end
+
+  def self.include_answers_for(visit)
+    select(
+      arel_table[Arel.star],
+      VisitReserveAnswer.arel_table["text_answer"],
+      VisitReserveAnswer.arel_table["boolean_answer"],
+      VisitReserveAnswer.arel_table[:id].as("answer_id"),
+    )
+      .joins(<<~end_sql)
+        LEFT OUTER JOIN visit_reserve_answers
+        ON reserve_questions.id = visit_reserve_answers.reserve_question_id
+        AND visit_reserve_answers.visit_id = #{visit.id.to_i}
+      end_sql
+  end
+
+  def self.answers_for_visit(visit)
+    includes(visit_reserve_answers: :visit).pluck(:id).each do |id|
+      if VisitReserveAnswer.find_by(reserve_question_id: id).nil?
+        VisitReserveAnswer.create(reserve_question_id: id, visit_id: visit.id)
+      end
+    end
   end
 
   def reserve_name

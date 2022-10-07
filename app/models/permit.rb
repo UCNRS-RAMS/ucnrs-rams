@@ -25,6 +25,10 @@ class Permit < ApplicationRecord
     where(location: "project")
   end
 
+  def self.for_visits
+    where(location: "visit")
+  end
+
   def self.visible
     where(visible: true)
   end

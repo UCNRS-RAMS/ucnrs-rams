@@ -21,7 +21,7 @@
     <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t("alt.left_facing_arrow")  %>
     <%= t(".back") %>
   <% end %>
-  <%= button_tag class: "active" do %>
+  <%= button_to visit_questions_path(visit_id: params[:visit_id]),method: :get, class: "active" do %>
     <%= t(".next_step") %>
     <%= image_tag "arrow-right.svg", alt: t("alt.right_facing_arrow") %>
   <% end %>
