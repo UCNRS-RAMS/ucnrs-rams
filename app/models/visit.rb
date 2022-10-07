@@ -20,6 +20,7 @@ class Visit < ApplicationRecord
   has_many :visitors, through: :user_visits, source: :user
   has_many :reserve_notes, as: :record
   has_many :logs, as: :record
+  has_many :visit_reserve_answers, dependent: :destroy
 
   validates :purpose_of_visit, presence: true
   validates :project_type, presence: true

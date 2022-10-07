@@ -1,0 +1,34 @@
+@import "variables";
+@import "mixins/summary";
+@import "mixins/date_fields";
+@import "mixins/form";
+@import "mixins/controls";
+
+.questions-index {
+  
+  .d-flex {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .d-flex-end {
+    display: flex;
+    justify-content: end;
+  }
+  
+  .clr-red {
+    color: $red;
+  }
+  
+  .d-flex-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  
+  
+  .text-area {
+    width: 100%;
+  }
+}

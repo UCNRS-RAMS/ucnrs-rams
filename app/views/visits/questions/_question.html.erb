@@ -1,0 +1,11 @@
+<%= fields_for "visit[reserve_answers][#{question.id}]", question.form do |f| %>
+    <%= render partial: "visits/questions/#{question.question_type}", locals: { question: question, f: f } %>
+    <div class="description">
+      <%= question.description %>
+      <ul>
+        <% question.urls.each do |url, description| %>
+          <li><%= link_to description, url, target: "_blank" %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>

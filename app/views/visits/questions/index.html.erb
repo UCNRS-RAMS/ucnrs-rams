@@ -1,0 +1,3 @@
+<% content_for(:title) { t(".title") } %>
+<%= render partial: "visits/steps", locals: { presenter: @presenter } %>
+<%= render partial: "visits/questions/permit_questions", locals: { presenter: @presenter } %>

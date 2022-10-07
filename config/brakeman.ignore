@@ -18,6 +18,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -38,6 +41,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -58,6 +64,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -78,6 +87,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -98,6 +110,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -118,6 +133,9 @@
       },
       "user_input": ":role",
       "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
       "note": "Ignore role in user-visit related strong param assignment"
     },
     {
@@ -138,6 +156,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -158,6 +179,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -178,6 +202,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -198,6 +225,9 @@
       },
       "user_input": "project_permit_answers.map do\n ActiveRecord::Base.sanitize_sql([\"(?,?,?,NOW(),NOW())\", answer.project_id, answer.permit_id, answer.answer])\n end.join(\",\\n  \")",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -239,6 +269,9 @@
       },
       "user_input": "params[:visit_id]",
       "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
       "note": ""
     },
     {
@@ -259,6 +292,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -279,6 +315,32 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "7b97d09ede49e8f8ca62248d02df61a772e5aa7bc0c581654a13f04331e2ba27",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/visit_reserve_answer.rb",
+      "line": 30,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "connection.execute(\"INSERT INTO #{table_name} (\\n  #{arel_table[:visit_id].name},\\n  #{arel_table[:reserve_question_id].name},\\n  #{arel_table[:text_answer].name},\\n  #{arel_table[:boolean_answer].name},\\n  #{arel_table[:created_at].name},\\n  #{arel_table[:updated_at].name})\\nVALUES\\n  #{visit_reserve_answers.map do\n ActiveRecord::Base.sanitize_sql([\"(?,?,?,?,?,?)\", answer.visit_id, answer.reserve_question_id, answer.text_answer, answer.boolean_answer, Time.current, Time.current])\n end.join(\",\\n  \")}\\nAS new\\nON DUPLICATE KEY UPDATE\\n  text_answer = new.text_answer,\\n  boolean_answer = new.boolean_answer,\\n  updated_at = new.updated_at\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "VisitReserveAnswer",
+        "method": "VisitReserveAnswer.replace_all"
+      },
+      "user_input": "visit_reserve_answers.map do\n ActiveRecord::Base.sanitize_sql([\"(?,?,?,?,?,?)\", answer.visit_id, answer.reserve_question_id, answer.text_answer, answer.boolean_answer, Time.current, Time.current])\n end.join(\",\\n  \")",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -299,6 +361,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -319,6 +384,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -360,6 +428,9 @@
       },
       "user_input": "params[:visit_id]",
       "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
       "note": ""
     },
     {
@@ -380,6 +451,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -400,6 +474,9 @@
       },
       "user_input": "project_reserve_answers.map do\n ActiveRecord::Base.sanitize_sql([\"(?,?,?,?,?,?)\", answer.project_id, answer.reserve_question_id, answer.text_answer, answer.boolean_answer, Time.current, Time.current])\n end.join(\",\\n  \")",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -441,6 +518,9 @@
       },
       "user_input": "params[:visit_id]",
       "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
       "note": ""
     },
     {
@@ -461,6 +541,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -481,6 +564,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -501,6 +587,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -521,6 +610,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -541,6 +633,9 @@
       },
       "user_input": ":role",
       "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
       "note": "Ignore role in user-related strong param assignment"
     },
     {
@@ -561,6 +656,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -602,6 +700,9 @@
       },
       "user_input": "params[:visit_id]",
       "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
       "note": "False Positive"
     },
     {
@@ -622,9 +723,12 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     }
   ],
-  "updated": "2022-10-03 19:53:28 -0700",
-  "brakeman_version": "5.2.3"
+  "updated": "2022-10-07 10:24:48 -0700",
+  "brakeman_version": "5.3.1"
 }
