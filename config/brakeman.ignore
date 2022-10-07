@@ -480,6 +480,72 @@
       "note": ""
     },
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "ae3d8732965f9c1f87fbfb727ecc089dacc0b8b81400ae0556734f26e7f6320b",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/reserves/waivers/_waiver.html.erb",
+      "line": 4,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(t(\".download_pdf\"), (Unresolved Model).new.url, :class => \"icon-document-a\", :target => :blank)",
+      "render_path": [
+        {
+          "type": "template",
+          "name": "reserves/waivers/_waivers",
+          "line": 5,
+          "file": "app/views/reserves/waivers/_waivers.html.erb",
+          "rendered": {
+            "name": "reserves/waivers/_waiver",
+            "file": "app/views/reserves/waivers/_waiver.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "reserves/waivers/_waiver"
+      },
+      "user_input": "(Unresolved Model).new.url",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": "Todo"
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "bc20510a2335da65305653d789e01df10445055c7d4a43194514b962dbb73532",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/visits/waivers_policies/_policy_agreement.html.erb",
+      "line": 4,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to((Unresolved Model).new.policy_url, :class => \"policy-link\", :target => :blank)",
+      "render_path": [
+        {
+          "type": "template",
+          "name": "visits/waivers_policies/_agreements",
+          "line": 2,
+          "file": "app/views/visits/waivers_policies/_agreements.html.erb",
+          "rendered": {
+            "name": "visits/waivers_policies/_policy_agreement",
+            "file": "app/views/visits/waivers_policies/_policy_agreement.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "visits/waivers_policies/_policy_agreement"
+      },
+      "user_input": "(Unresolved Model).new.policy_url",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": "Todo"
+    },
+    {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
       "fingerprint": "bc248bf968dc0c70d4edd0145a688a77ba6b026b8462420600c147079ba489c0",
@@ -729,6 +795,6 @@
       "note": ""
     }
   ],
-  "updated": "2022-10-07 10:24:48 -0700",
+  "updated": "2022-10-07 20:00:38 -0700",
   "brakeman_version": "5.3.1"
 }

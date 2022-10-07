@@ -93,6 +93,10 @@ class VisitForm
     assign_ends_at
   end
 
+  def policy_agreement=(policy_agreement)
+    visit.policy_agreement = policy_agreement if policy_agreement == "1"
+  end
+
   private
 
   def assign(params)

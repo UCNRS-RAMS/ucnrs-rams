@@ -1,0 +1,44 @@
+<%= render partial: "visits/steps", locals: { presenter: @presenter } %>
+
+<%= form_with model: @form, url: visit_waivers_policies_path, method: :put do |form| %>
+  <section class="agreement-info" data-controller="waivers-policies">
+    <h1><%= t(".title")%></h1>
+    <p><%= t(".note") %></p>
+    <%= link_to "Waivers", reserve_waivers_path(@form.reserve.id), class: "policy-link" %>
+
+    <%= render partial: "agreements", locals: { policy_agreements: @presenter.reserve_use_agreements, title: t(".reserve_use_agreement") } %>
+    <%= render partial: "checkbox", locals: { check: @form.policy_agreement, id: "reserveUseAgreement" } %>
+    
+    <%= render partial: "agreements", locals: { policy_agreements: @presenter.code_of_conduct_agreements, title: t(".code_of_conduct_agreement") } %>
+    <%= render partial: "checkbox", locals: { check: @form.policy_agreement, id: "codeOfConductAgreement" } %>
+
+    <%= render partial: "agreements", locals: { policy_agreements: @presenter.data_management_agreements, title: t(".data_management_agreement") } %>
+    <%= render partial: "checkbox", locals: { check: @form.policy_agreement, id: "dataManagementAgreement" } %>
+
+    <%= form.hidden_field :status, value: :in_review %>
+    <%= form.hidden_field :id, value: @form.id %>
+
+
+    <div class="agree-all">
+      <h3><%= t(".agree") %></h3>
+      <div class="checkbox">
+        <%= form.check_box :policy_agreement, id: "policyAgreement", data: { action: "click->waivers-policies#signatureHandler", 'waivers-policies-target': 'signature' } %> 
+        <label for="policyAgreement"><%= t(".check_button") %></label>
+      </div>
+    </div>
+    <div class="signature">
+      <%= t(".signature") %>
+    </div>
+  </section>
+
+  <section class="controls">
+    <%= link_to edit_visit_path(@form.id) do %>
+      <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t("alt.left_facing_arrow")  %>
+      <%= t(".back") %>
+    <% end %>
+    <%= button_tag class: "active" do %>
+      <%= t(".submit") %>
+      <%= image_tag "arrow-right.svg", alt: t("alt.right_facing_arrow") %>
+    <% end %>
+  </section>
+<% end %>
