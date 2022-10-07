@@ -1514,6 +1514,14 @@ en:
           hide: "Hide"
           message: "Message"
           please_select: "Please Select"
+          amenities: "Amenities"
+          amenities_small_info: "Amenities can be put into 1 of 5 group to better manage them. While the group name is determined here, putting amenities into the group is set in the Amenities & Rates page."
+          amenities_and_rates: "Amenities & Rates"
+          amenity_group_name_1: "Amenity Group Name 1"
+          amenity_group_name_2: "Amenity Group Name 2"
+          amenity_group_name_3: "Amenity Group Name 3"
+          amenity_group_name_4: "Amenity Group Name 4"
+          amenity_group_name_5: "Amenity Group Name 5"
           save_changes: "Save Changes"
       amenities_and_rates:
         index:
@@ -1538,7 +1546,7 @@ en:
             disabled: "Disabled"
             sort_order: "Sort Order"
             selected_at_default: "Selected at Default?"
-            amenity_type: "Amenity Type"
+            amenity_group: "Amenity Group"
             description_amenity_type_text: "This will be used to group amenities in visit creation."
             name_of_amenity: "Name of amenity"
             description_of_amenity: "Description of Amenity"
@@ -1552,30 +1560,6 @@ en:
             visible: "Visible"
             invoiceable: "Invoiceable"
             description_invoiceable_text: "Determines if amenity will show on invoice."
-            hour: "Per Hours"
-            day: "Per Day"
-            night: "Per Night"
-            week: "Per Week"
-            month: "Per Month"
-            quarter: "Per Quarter"
-            semi_annual: "Semi-Annual"
-            year: "Per Year"
-            session: "Per Session"
-            use: "Per Use"
-            four_hours: "Per Four Hours"
-            eight_hours: "Per Eight Hours"
-            person: "Per Person"
-            mile: "Per Mile"
-            square_foot: "Per Square Foot"
-            unit: "Per Unit"
-            facility: "Per Facility"
-            empty: "Empty"
-            each: "Each"
-            housing_and_camping: "Housing & Camping"
-            classroom_and_meeting_space: "Classroom & Meeting Space"
-            laboratory_and_storage_space: "Laboratory & Storage Space"
-            vehicles_and_boats: "Vehicles & Boats"
-            other_amenity: "Other Amenity"
         amenity:
           edit: "Edit"
         amenity_rate_categories:
@@ -2191,38 +2175,6 @@ en:
         part_6_narrative: "Part 6. Narrative"
       report_part_7:
         part_7_nrs_campus_committee: "Part 7. NRS Campus Committee Roster"
-    reserve_info:
-      header:
-        reserve_info: "Reserve Info"
-      menu:
-        reserve_details: "Reserve Details"
-        amenities_and_rates: "Amenities & Rates"
-        waivers: "Waivers"
-        rules_and_regulations: "Rules & Regulations"
-        permits: "Permits"
-        reserve_questions: "Reserve Questions"
-        staff_and_notifications: "Staff & Notifications"
-      reserve_details:
-        index:
-          reserve_details: "Reserve Details"
-      amenities_and_rates:
-        index:
-          amenities_and_rates: "Amenities & Rates"
-      waivers:
-        index:
-          waivers: "Waivers"
-      rules_and_regulations:
-        index:
-          rules_and_regulations: "Rules & Regulations"
-      permits:
-        index:
-          permits: "Permits"
-      reserve_questions:
-        index:
-          reserve_questions: "Reserve Questions"
-      staff_and_notifications:
-        index:
-          staff_and_notifications: "Staff & Notifications"
   navbar:
     alt_text:
       mobile_menu: "Mobile Menu"
@@ -2301,6 +2253,28 @@ en:
         cancelled: "Cancelled"
         incomplete: "Incomplete"
         denied: "Denied"
+    amenity:
+      time_types:
+        hour: "Per Hours"
+        day: "Per Day"
+        night: "Per Night"
+        week: "Per Week"
+        month: "Per Month"
+        quarter: "Per Quarter"
+        semi_annual: "Semi-Annual"
+        year: "Per Year"
+        four_hours: "Per Four Hours"
+        eight_hours: "Per Eight Hours"
+        empty: "Empty"
+        each: "Each"
+      units_types:
+        unit: "Per Unit"
+        session: "Per Session"
+        use: "Per Use"
+        person: "Per Person"
+        mile: "Per Mile"
+        square_foot: "Per Square Foot"
+        facility: "Per Facility"
   edit: "Edit"
   research: "Research"
   university_class: "University Class"

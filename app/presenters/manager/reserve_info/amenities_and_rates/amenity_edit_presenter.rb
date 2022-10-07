@@ -10,20 +10,21 @@ class Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter
   delegate :amenity, to: :form, prefix: true
 
   def units_type_options
-    Amenity.units_types.map { |key, value| [translate(key), key] }
+    Amenity.units_types.map { |key, value| [translate(:units_types, key), key] }
   end
 
   def time_type_options
-    Amenity.time_types.map { |key, value| [translate(key), key] }
+    Amenity.time_types.map { |key, value| [translate(:time_types, key), key] }
   end
 
-  def amenities_type_options
-    Amenity.amenities_types.map { |key, value| [translate(key), key] }
+  def amenities_group_options
+    reserve = Reserve.find_by_id(form_amenity.reserve)
+    (1..5).map { |i| [reserve&.public_send("amenity_group_label_#{i}"), i.to_s] }
   end
 
   private
 
-  def translate(key)
-    I18n.t("manager.reserve_info.amenities_and_rates.amenities.amenity_field.#{key}")
+  def translate(column, key)
+    I18n.t("universal.amenity.#{column}.#{key}")
   end
 end

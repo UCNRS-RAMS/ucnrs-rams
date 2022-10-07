@@ -7,7 +7,7 @@ module Manager
         before_action :confirm_reserve_manager!
 
         def new
-          form = AmenityForm.new
+          form = AmenityForm.new(params: { reserve_id: current_reserve.id })
           @presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityNewPresenter.new(form: form)
         end
 
