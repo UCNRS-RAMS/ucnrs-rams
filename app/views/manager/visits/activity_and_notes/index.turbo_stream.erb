@@ -1,0 +1,15 @@
+<turbo-stream action="replace" target="visit_notes">
+  <template>
+    <turbo-frame id="visit_notes">
+      <%= render partial: "visit_notes", locals: { presenter: @presenter } %>
+    </turbo-frame>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="activity_logs">
+  <template>
+    <turbo-frame id="activity_logs">
+      <%= render partial: "activity_table", locals: { presenter: @presenter } %>
+    </turbo-frame>
+  </template>
+</turbo-stream>

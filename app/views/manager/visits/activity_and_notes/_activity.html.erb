@@ -1,0 +1,6 @@
+<tr class="activity">
+  <td><%= link_to activity.action_name, manager_reserve_project_activity_and_note_path(activity.reserve_id, activity.project_id, activity.id), data: { "turbo-frame": "modal-content" } %></td>
+  <td><%= activity.date %></td>
+  <td><%= activity.details %></td>
+  <td><%= activity.user_name %></td>
+</tr>
