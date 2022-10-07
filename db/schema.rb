@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_17_094014) do
+ActiveRecord::Schema.define(version: 2022_10_04_125103) do
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
@@ -923,6 +923,17 @@ ActiveRecord::Schema.define(version: 2022_08_17_094014) do
     t.index ["visit_id", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "visit_arrival_date"
     t.index ["visit_id", "DepartureDate", "DepartureTime"], name: "visit_departure_date"
     t.index ["visit_id"], name: "visit_id"
+  end
+
+  create_table "use_policies", charset: "utf8mb4", force: :cascade do |t|
+    t.text "title"
+    t.text "description"
+    t.text "policy_link_text"
+    t.column "agreement_type", "enum('Reserve Use Agreement','Code of Conduct Agreement','Data Management Agreement')"
+    t.text "image_url"
+    t.integer "sort_order"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
