@@ -1,7 +1,8 @@
 <turbo-frame id="modal-content" class="modal-content" role="dialog" aria-labelledby="modal-title">
-  <div data-modal-target="dialog openOnLoad" data-action="click@window->modal#closeBackground">
+  <div data-modal-target="dialog openOnLoad" data-action="click@window->modal#closeBackground" data-controller="user-days">
     <%= form_with model: presenter.form, url: presenter.user_visit_form_path, method: "patch" do |form| %>
       <%= form.hidden_field :id %>
+      <%= form.hidden_field :count, data: { "user-days-target": "count" } %>
       <p class="screenreader-text">
         <span id="modal-title"><%= t(".title") %></span>
         <span id="modal-description"><%= t(".accessible_description") %></span>
@@ -20,7 +21,7 @@
         <% elsif presenter.group_user? %>
           <div class="field">
             <%= form.label :count %>
-            <%= form.text_field :count %>
+            <%= form.text_field :count, data: { "user-days-target": "count", action: "input->user-days#countChange"} %>
           </div>
         <% end %>
         <div class="field autocomplete" data-controller="autocomplete" data-autocomplete-url-value="<%= institutions_path %>">
@@ -40,17 +41,18 @@
               <div class="date-range-select">
                 <div class="field">
                   <%= form.label :arrives_at %>
-                  <%= form.date_field :arrives_at %>
+                  <%= form.date_field :arrives_at, data: {"user-days-target": "arrivesAt", action: "input->user-days#calculate" } %>
                 </div>
                 <span class="separator"></span>
                 <div class="field">
                   <%= form.label :departs_at %>
-                  <%= form.date_field :departs_at %>
+                  <%= form.date_field :departs_at, data: {"user-days-target": "departsAt", action: "input->user-days#calculate"} %>
                 </div>
               </div>
             </td>
           </tr>
         </table>
+        <%= render partial: presenter.user_days_partial, locals: { presenter: presenter, form: form } %>
       </section>
       <section class="buttons">
         <div class="close">

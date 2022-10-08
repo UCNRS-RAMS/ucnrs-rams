@@ -1059,6 +1059,12 @@ en:
         visitors: "Visitors"
         amenities: "Amenities"
         confirm_removal: "Are you sure you want to delete visit number %{visit_id}"
+      user_visits:
+        total_days: " (%{total_days} days)"
+        user_days_description: "%{total_days} days x %{count} users = %{user_days} userdays"
+        user_days:
+          use_arrival_and_departure: "Use Arrival and Departure datetime:"
+          manual_userdays: "Manual enter number of userdays:"
     dashboards:
       calendar:
         title: "Visits and Amenities"

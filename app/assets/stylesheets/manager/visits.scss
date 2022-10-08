@@ -37,6 +37,10 @@
 }
 
 .visits-show {
+  .m-top-3 {
+    margin-top: 2rem;
+  }
+
   .container {
     display: flex;
     margin: 0 auto;
@@ -87,14 +91,14 @@
           margin: 0rem;
         }
       }
-      
+
       .status {
         border-radius: 20px;
         height: 30px;
         margin: 0px 20px 0px 5px;
         padding: 0px 30px;
       }
-      
+
       .bg-approved {
         background-color: $green;
       }
@@ -110,10 +114,6 @@
       .bg-denied {
         background-color: $red;
       }
-      
-      .apply-padding {
-        padding: 10px;
-      }
 
       .visit-form {
         padding: 0px;
@@ -126,7 +126,7 @@
       .reserve-info {
         padding: 1.625rem 3rem;
       }
-      
+
       .display-link {
         display: block;
       }

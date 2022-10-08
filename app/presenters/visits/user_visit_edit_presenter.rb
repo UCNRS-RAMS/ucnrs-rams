@@ -14,9 +14,13 @@ class Visits::UserVisitEditPresenter
   delegate_missing_to :editing_user_visit
 
   def editing_user_visit
-    Visits::UserVisitPresenter.new(
-      UserVisit.find(id),
+    @editing_user_visit ||= Visits::UserVisitPresenter.new(
+      form.user_visit,
     )
+  end
+
+  def user_days_partial
+    "/shared/empty"
   end
 
   def user_role_options

@@ -12,7 +12,7 @@
 
     <li>
       <%= render partial: "tab",
-        locals: @presenter.tab_params(id: "visitors") %>
+        locals: @presenter.tab_params(id: "visitors", path: manager_reserve_visit_user_visits_path(visit_id: @presenter.id, reserve_id: @presenter.reserve_id)) %>
     </li>
 
     <li>

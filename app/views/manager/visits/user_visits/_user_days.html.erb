@@ -1,0 +1,20 @@
+<div class="user-days">
+  <div class="d-flex">
+    <div>
+      <%= form.radio_button :userdays, :auto_calculate, id: "user_visit_auto-calculate", checked: presenter.manual_days_same_as_calculated?,  data: { action: "input->user-days#disable input->user-days#calculate" } %>
+      <%= form.label :auto_calculate, t(".use_arrival_and_departure") %>
+    </div>
+    <div>
+      <span data-user-days-target="output"><%= presenter.user_days_description %></span>
+    </div>
+  </div>
+  <div class="d-flex">
+    <div>
+      <%= form.radio_button :userdays, :manual, id: "user_visit_manual", checked: !presenter.manual_days_same_as_calculated?, data: { action: "input->user-days#enable" } %>
+      <%= form.label :manual, t(".manual_userdays") %>
+    </div>
+    <div>
+      <%= form.number_field :actual_days, min: 1, step: 1, data: {"user-days-target": "outputVal"}, readonly: presenter.manual_days_same_as_calculated?, class: "m-rights apply-padding" %>
+    </div>
+  </div>
+</div>

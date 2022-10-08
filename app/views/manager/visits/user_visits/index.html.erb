@@ -1,0 +1,8 @@
+<%= turbo_frame_tag "visit-details" do%>
+  <div class="user_visits user_visits-index m-top-3">
+    <section class="add-visitor">
+      <%= render partial: "shared/visits/user_visits/#{@presenter.add_visitor_partial}", locals: { presenter: @presenter } %>
+    </section>
+    <%= render partial: "shared/visits/user_visits/user_visits_table", locals: { presenter: @presenter } %>
+  </div>
+<% end %>
