@@ -22,6 +22,15 @@ RSpec.describe Visits::UserVisitEditPresenter do
     end
   end
 
+  describe "#user_days_partial" do
+    it "returns empty partial path from shared directory" do
+      form = UserVisitForm.new(params: { id: create(:user_visit).id })
+      presenter = Visits::UserVisitEditPresenter.new(form: form)
+
+      expect(presenter.user_days_partial).to eq "/shared/empty"
+    end
+  end
+
   describe "#user_visit_form_path" do
     it "returns user_visit_path" do
       user_visit = create(:user_visit, visit: create(:visit))

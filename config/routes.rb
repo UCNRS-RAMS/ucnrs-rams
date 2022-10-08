@@ -75,8 +75,10 @@ Rails.application.routes.draw do
         resources :users, only: [:new, :create], controller: "projects/users"
         resources :activity_and_notes, only: [:index, :create, :show], controller: "projects/activity_and_notes"
       end
+      resources :user_visits, only: [:edit, :update], controller: "visits/user_visits"
       resources :visits, only: [:show, :destroy] do
         resource :summary, only: [:show], controller: "visits/summary"
+        resources :user_visits, only: [:new, :index, :create, :destroy], controller: "visits/user_visits"
         resource :detail, only: [:edit, :update], controller: "visits/detail"
       end
       resources :reports, only: [:show, :update] do

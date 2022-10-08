@@ -1,0 +1,254 @@
+@import "variables";
+@import "mixins/summary";
+@import "mixins/date_fields";
+@import "mixins/form";
+@import "mixins/controls";
+@import "mixins/tables";
+
+.manager {
+  .user_visits-index {
+    @include form;
+
+    section {
+      color: $navy-blue;
+      padding: 3rem;
+    }
+
+    .d-flex {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .add-visitor {
+      background-color: $light-gray;
+      padding-bottom: 2rem;
+      padding-top: 2rem;
+
+      table {
+        @include table-style1;
+
+        tbody tr {
+          background-color: $table-row-even-background-neutral;
+        }
+
+        .visitor {
+          background-color: $light-gray;
+        }
+
+        td:last-child {
+          text-align: right;
+        }
+
+        a {
+          border: 1px solid $dark-bluegray;
+          border-radius: 1.5rem;
+          color: $dark-bluegray;
+          padding: 0.2rem 1.5rem;
+          text-decoration: none;
+        }
+      }
+
+      .toolbar-button {
+        display: flex;
+        font-size: 0.75rem;
+
+        a {
+          background: $buttonset-background;
+          border: 1px solid $dark-bluegray;
+          color: $dark-bluegray;
+          font-weight: $bold;
+          margin: 0;
+          margin-left: -1px;
+          padding: 0.6rem;
+          text-decoration: none;
+
+          &.selected {
+            background: $dark-bluegray;
+            color: $buttonset-foreground-selected;
+          }
+        }
+
+        a:first-child {
+          border-radius: 1rem 0 0 1rem;
+          margin-left: 0;
+          padding-left: 1rem;
+        }
+
+        a:last-child {
+          border-radius: 0 1rem 1rem 0;
+          padding-right: 1rem;
+        }
+      }
+
+      section {
+        margin: 0;
+        padding: 2rem 0 0 0;
+      }
+
+      .flex-row {
+        align-items: center;
+        display: flex;
+
+        .field {
+          input[type="text"],
+          input[type="number"],
+          select {
+            border: 1px solid $dark-bluegray;
+            border-radius: 0.3125rem;
+            box-sizing: border-box;
+            width: 100%;
+          }
+
+          margin-right: 1rem;
+          width: 100%;
+        }
+
+        button {
+          border: 1px solid $dark-bluegray;
+          border-radius: 1.5rem;
+          padding: 0.2rem 1.5rem;
+          width: 8rem;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        .visitor-name {
+          flex: 4;
+        }
+
+        .role {
+          flex: 2;
+        }
+
+        .add-visitor {
+          flex: 1;
+        }
+
+        .number-in-group {
+          flex: 1;
+        }
+
+        .institution-id {
+          flex: 4;
+        }
+      }
+
+      span {
+        font-size: 0.75rem;
+        font-weight: $normal;
+        line-height: 1.25rem;
+      }
+
+      input[type="submit"] {
+        background-color: transparent;
+        border: 1px solid $dark-bluegray;
+        border-radius: 1.5rem;
+        color: $sky-blue;
+        font-size: 0.75rem;
+        padding: 0.2rem 1.5rem;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .user-visits-table > table {
+      @include table-style1;
+
+      a {
+        color: $dark-bluegray;
+      }
+
+      img {
+        height: 1.2rem;
+        vertical-align: middle;
+        width: 1.2rem;
+      }
+    }
+
+    label {
+      color: $dark-bluegray;
+      display: inline;
+      font-size: 0.625rem;
+      font-weight: $bold;
+    }
+  }
+
+  .modal {
+    .field {
+      input[type="text"],
+      input[type="number"],
+      select {
+        border: 1px solid $dark-bluegray;
+        border-radius: 0.3125rem;
+        box-sizing: border-box;
+        width: 100%;
+      }
+
+      margin-right: 1rem;
+      width: 100%;
+    }
+
+    .date-range-select {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      padding-top: 2rem;
+
+      .separator {
+        border: 1px solid $black;
+        font-size: 0;
+        height: 0;
+        margin: 0.5rem;
+        width: 0.8rem;
+      }
+    }
+
+    .d-flex {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .field {
+      width: 100%;
+    }
+
+    .link {
+      font-size: small;
+      padding-top: 1rem;
+      text-align: right;
+    }
+
+    .user-days {
+      font-size: small;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      > * {
+        margin-bottom: 1rem;
+      }
+
+      > *:last-child {
+        margin-bottom: 0rem;
+      }
+    }
+
+    table {
+      width: 100%;
+
+      td {
+        span {
+          font-size: 0.8rem;
+          font-weight: $bold;
+        }
+      }
+    }
+  }
+}

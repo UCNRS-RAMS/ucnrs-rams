@@ -28,12 +28,12 @@ class UserVisitForm
   alias valid_form? valid?
 
   def arrives_at=(date)
-    date = add_default_time(date&.to_date, user_visit.visit.start_time)
+    date = add_default_time(date&.to_date, user_visit.visit.starts_at)
     user_visit.arrives_at = date
   end
 
   def departs_at=(date)
-    date = add_default_time(date&.to_date, user_visit.visit.end_time)
+    date = add_default_time(date&.to_date, user_visit.visit.ends_at)
     user_visit.departs_at = date
   end
 

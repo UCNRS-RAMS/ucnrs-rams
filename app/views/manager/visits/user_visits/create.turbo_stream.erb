@@ -1,0 +1,13 @@
+<turbo-stream action="replace" target="add-visitor">
+  <template>
+    <%= render  partial: "shared/visits/user_visits/#{@presenter.add_visitor_partial}", formats: [:html], locals: { presenter: @presenter } %>
+  </template>
+</turbo-stream>
+
+<% if @presenter.show_add_guest_modal %>
+  <turbo-stream action="replace" target="modal-content">
+    <template>
+      <%= render partial: "modals/new_user_visit", formats: [:html], locals: { presenter: @presenter } %>
+    </template>
+  </turbo-stream>
+<% end %>
