@@ -10,7 +10,6 @@
 @include controls;
 
 .visits-show {
-  
   .d-flex {
     align-items: center;
     display: flex;
@@ -30,7 +29,7 @@
     color: $dark-bluegray;
     display: inline;
     font-size: 0.625rem;
-    font-weight: 700;
+    font-weight: $bold;
   }
   
   .left-spacer {

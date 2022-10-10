@@ -41,7 +41,7 @@ RSpec.describe "Manager Visit Show" do
     end
   end
 
-  describe "it delete visit and its associated records" do
+  describe "it delete visit and its associated records", js: true do
     it "when click on trash icon", js: true do
       sign_in(user)
       flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)

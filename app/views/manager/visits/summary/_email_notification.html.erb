@@ -21,7 +21,7 @@
       <span><%= link_to t(".clear_message"), "#", id: "clear_btn", remote: true, data: {action: "click->summary-tab#clearField"} %></span>
       <span class="label left-spacer"><%= t(".message_field_label") %></span>
     </div>
-    <h3><%= t(".email_recipiant") %></h3>
+    <h3><%= t(".email_recipient") %></h3>
     <% presenter.project_team_members.each do |team_member| %>
       <div class="team-member d-flex">
         <div> <span><%= form.check_box t(".recipient_email"), checked: team_member.is_principal_investigator? %></span><b class="left-spacer"><%= team_member.user.full_name %></b> </div>
@@ -44,6 +44,6 @@
 </div>
 
 <div>
-  <%= form.check_box t(".cc_reciepents_box"), checked: true %>
-  <label for="cc_reciepents"><%= t(".cc_reciepents") %></label>
+  <%= form.check_box t(".cc_recipients_box"), checked: true %>
+  <label for="cc_recipients"><%= t(".cc_recipients") %></label>
 </div>
