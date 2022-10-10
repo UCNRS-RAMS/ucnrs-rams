@@ -87,6 +87,18 @@ class VisitShowFlow
     page.has_css?(".display-link")
   end
 
+  def selected_incomplete?
+    page.find("#incomplete", visible: false).selected?
+  end
+
+  def clickable_status_bar?
+    page.find("#approved", visible: false).selected?
+  end
+
+  def showing_text_area?
+    page.has_css?(".email-message")
+  end
+
   private
 
   attr_reader :page, :reserve_id, :visit_id

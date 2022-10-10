@@ -1,0 +1,9 @@
+<div class="visit-status">
+  <%= form.radio_button :status, "incomplete", id: "incomplete", class: "h-input", data: {action: "click->summary-tab#clearField"} %>
+  <label for="incomplete" class="tab">
+    <div class="d-flex">
+      <%= image_tag "minus-circle.svg", height: "24px", width: "24px", alt: "x-icon" %>
+      <span class="left-spacer"> <%= t(".incomplete") %> </span>
+    </div>
+  </label>
+</div>

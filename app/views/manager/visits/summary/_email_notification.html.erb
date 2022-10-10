@@ -1,0 +1,49 @@
+<h2 class="p-bottom"><%= t(".notification") %></h2>
+<div>
+  <div class="d-flex">
+    <div class="field">
+      <label for="email-notification-method" class="label"><%= t(".notification_method") %></label>
+      <%= form.select t(".email-notification-method"), options_for_select(presenter.email_options), { }, class: "email-notification-method", data: {"summary-tab-target": "selectField", action: "change->summary-tab#toggleEmailDiv"} %>
+    </div>
+    <div>
+      <%= form.check_box :report_access, checked: false %>
+      <label for="remove_visit_from_annual_report"><%= t(".annual_report") %></label>
+    </div>
+  </div>
+  <div class="email" data-summary-tab-target="emailDiv" >
+    <div class="field">
+      <label for="email-message" class="label"><%= t(".email_message") %></label>
+      <%= form.text_area :approval_message, rows: 15 , data: { "summary-tab-target": "textArea" }, value: presenter.message_text, class:"email-message" %>
+      <%= hidden_field_tag :approval_message, presenter.reserve.approval_message , data: { "summary-tab-target": "approvalMessage" } %>
+    </div>
+    
+    <div class="p-bottom">
+      <span><%= link_to t(".clear_message"), "#", id: "clear_btn", remote: true, data: {action: "click->summary-tab#clearField"} %></span>
+      <span class="label left-spacer"><%= t(".message_field_label") %></span>
+    </div>
+    <h3><%= t(".email_recipiant") %></h3>
+    <% presenter.project_team_members.each do |team_member| %>
+      <div class="team-member d-flex">
+        <div> <span><%= form.check_box t(".recipient_email"), checked: team_member.is_principal_investigator? %></span><b class="left-spacer"><%= team_member.user.full_name %></b> </div>
+        <div><%= team_member.institution.name %></div>
+        <div><%= team_member.project_role %></div>
+      </div>
+    <% end %>
+  </div>
+  
+  <div class="check-box" data-summary-tab-target="checkBoxDiv" >
+    <div>
+      <%= form.check_box t(".email_applicant_and_staff") %>
+      <label for="email_applicant_and_staff"><%= t(".email_applicant") %></label>
+    </div>
+    <div>
+      <%= form.check_box t(".email_staff_only") %>
+      <label for="email_staff_only"><%= t(".email_staff") %></label>
+    </div>
+  </div>
+</div>
+
+<div>
+  <%= form.check_box t(".cc_reciepents_box"), checked: true %>
+  <label for="cc_reciepents"><%= t(".cc_reciepents") %></label>
+</div>

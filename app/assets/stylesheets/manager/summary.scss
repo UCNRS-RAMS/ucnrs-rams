@@ -1,0 +1,103 @@
+@import "variables";
+@import "mixins/date_fields";
+@import "mixins/form";
+@import "mixins/controls";
+@import "mixins/summary";
+@import "mixins/tables";
+@import "mixins/search";
+@import "mixins/pagination";
+
+@include controls;
+
+.visits-show {
+  
+  .d-flex {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .d-flex-end {
+    display: flex;
+    justify-content: end;
+  }
+  
+  .p-bottom {
+    padding: 0px 0px 25px 0px;
+  }
+  
+  .label {
+    color: $dark-bluegray;
+    display: inline;
+    font-size: 0.625rem;
+    font-weight: 700;
+  }
+  
+  .left-spacer {
+    padding-left: 10px;
+  }
+
+  .summary {
+    background-color: lighten($bluegray, 35%);
+    padding: 30px ;
+    
+    .visit-status {
+      border-radius: 20px;
+      display: flex;
+      
+      label:nth-child(2) {
+        border-bottom-left-radius: 20px;
+        border-top-left-radius: 20px;
+      }
+      
+      label:last-child {
+        border-bottom-right-radius: 20px;
+        border-top-right-radius: 20px;
+      }
+      
+      .h-input {
+        display: none;
+      }
+      
+      .tab {
+        border: solid 1px $black;
+        padding: 10px 30px;
+  
+      }
+      
+      .h-input:checked + .tab {
+        background-color: $black;
+        color: $white;
+        
+        img {
+          filter: invert(100%);
+        }
+      }
+    }
+    
+    .email-notification-method {
+      background-color: $white;
+      border-radius: 5px;
+      font-weight: $bold;
+      padding: 10px;
+      width: 40rem;
+    }
+    
+    .email-message {
+      border-radius: 5px;
+      padding: 10px;
+    }
+    
+    .team-member {
+      background-color: $white;
+      border: 1px solid;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 10px;
+    }
+    
+    .check-box {
+      display: none;
+    }
+  }
+}
