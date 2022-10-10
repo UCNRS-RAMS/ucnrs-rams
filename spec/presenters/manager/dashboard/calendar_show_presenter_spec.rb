@@ -173,8 +173,8 @@ RSpec.describe Manager::Dashboard::CalendarShowPresenter do
       expected_value = {
         "All" => :all,
         "Approved" => :approved,
-        "Pending approval" => :in_review,
         "Incomplete" => :incomplete,
+        "In Review" => :in_review,
         "Cancelled" => :cancelled,
         "Declined" => :denied,
       }

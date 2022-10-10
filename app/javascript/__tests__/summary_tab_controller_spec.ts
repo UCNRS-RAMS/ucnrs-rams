@@ -124,8 +124,8 @@ describe("SummaryTabController", () => {
           </div>
         </div>
         <div>
-          <input name="visit[cc_reciepents]" type="hidden" value="0" autocomplete="off"><input type="checkbox" value="1" checked="checked" name="visit[cc_reciepents]" id="visit_cc_reciepents">
-          <label for="cc_reciepents">CC Reserve Personal(Staff signed up to be notified of status changes)</label>
+          <input name="visit[cc_recipients]" type="hidden" value="0" autocomplete="off"><input type="checkbox" value="1" checked="checked" name="visit[cc_recipients]" id="cc_recipients">
+          <label for="cc_recipients">CC Reserve Personal(Staff signed up to be notified of status changes)</label>
         </div>
         <div class="d-flex-end">
           <input type="submit" name="commit" value="Update Status">
