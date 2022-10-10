@@ -77,8 +77,8 @@ Rails.application.routes.draw do
       end
       resources :user_visits, only: [:edit, :update], controller: "visits/user_visits"
       resources :visits, only: [:show, :destroy] do
-        resource :summary, only: [:show], controller: "visits/summary"
         resources :user_visits, only: [:new, :index, :create, :destroy], controller: "visits/user_visits"
+        resource :summary, only: [:edit, :update, :show], controller: "visits/summary"
         resource :detail, only: [:edit, :update], controller: "visits/detail"
         resources :activity_and_notes, only: [:index, :create, :show], controller: "visits/activity_and_notes"
       end

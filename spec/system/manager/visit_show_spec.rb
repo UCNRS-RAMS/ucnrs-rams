@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Manager Visit Show" do
   let(:user) { create(:user, :confirmed) }
-  let(:reserve) { create(:reserve, name: "Test Reserve") }
+  let!(:reserve) { create(:reserve, name: "Test Reserve") }
   let!(:reserve_personnel) { create(:reserve_personnel, user: user, reserve: reserve) }
   let(:visit) { create(:visit, reserve: reserve) }
 
@@ -30,7 +30,7 @@ RSpec.describe "Manager Visit Show" do
       expect(flow).not_to be_showing_menu_bar
     end
 
-    it "render summary partial when click on status button", js:true do
+    it "render summary partial when click on status button", js: true do
       sign_in(user)
       flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
@@ -272,6 +272,41 @@ RSpec.describe "Manager Visit Show" do
       flow.click_save_btn
 
       expect(page).to have_css(".user-visit")
+    end
+  end
+  
+  describe "when visit status is incomplete" do
+    it "status bar will disable", js: true do
+      sign_in(user)
+      flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
+
+      flow.visit_show_page
+      expect(flow).to be_selected_incomplete
+
+      expect(flow).not_to be_clickable_status_bar
+    end
+  end
+
+  describe "when visit status is not incomplete" do
+    it "status bar will not disable", js: true do
+      sign_in(user)
+      approved_visit = create(:visit, reserve: reserve, status: "approved")
+      flow = VisitShowFlow.new(page: page, visit_id: approved_visit.id, reserve_id: reserve.id)
+
+      flow.visit_show_page
+
+      expect(flow).to be_clickable_status_bar
+    end
+  end
+
+  describe "when email option is default" do
+    it "it display text box to compose email", js: true do
+      sign_in(user)
+      approved_visit = create(:visit, reserve: reserve, status: "approved")
+      flow = VisitShowFlow.new(page: page, visit_id: approved_visit.id, reserve_id: reserve.id)
+
+      flow.visit_show_page
+      expect(flow).to be_showing_text_area
     end
   end
 end

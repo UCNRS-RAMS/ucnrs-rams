@@ -3,7 +3,7 @@
     <%= render partial: "manager/visits/summary_box", locals: { presenter: @presenter } %>
     <% if @presenter.staff_member? %>
       <%= render "manager/visits/menu" %>
-      <%= turbo_frame_tag "visit-details", src: manager_reserve_visit_summary_path(visit_id: @presenter.id) %>
+      <%= turbo_frame_tag "visit-details", src: edit_manager_reserve_visit_summary_path(visit_id: @presenter.id) %>
     <% end %>
   </section>
 </section>

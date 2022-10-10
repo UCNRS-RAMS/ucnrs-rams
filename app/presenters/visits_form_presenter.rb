@@ -21,6 +21,7 @@ class VisitsFormPresenter
     :project_title,
     :reserve_id,
     :reserve_name,
+    :status,
     :id,
     to: :form
 

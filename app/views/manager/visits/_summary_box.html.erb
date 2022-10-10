@@ -16,7 +16,7 @@
           <%= image_tag "icons-trash-can.svg", height: "24px", width: "24px"%>
         <% end %>
         <%= render partial: "tab",
-          locals: @presenter.tab_params(path: manager_reserve_visit_summary_path(visit_id: @presenter.id), classes: @presenter.status_classes, action_method: "selectSummaryTab", name: @presenter.status) %>
+          locals: @presenter.tab_params(path: edit_manager_reserve_visit_summary_path(visit_id: @presenter.id), classes: @presenter.status_classes, action_method: "selectSummaryTab", name: @presenter.status) %>
       </div>
     <% end %>
   </div>

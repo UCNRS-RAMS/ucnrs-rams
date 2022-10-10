@@ -2,7 +2,7 @@
   <ul class="visit-menu-bar">
     <li>
       <%= render partial: "tab",
-        locals: @presenter.tab_params(path: manager_reserve_visit_summary_path(visit_id: @presenter.visit.id), classes: "active") %>
+        locals: @presenter.tab_params(path: edit_manager_reserve_visit_summary_path(visit_id: @presenter.id), classes: "active") %>
     </li>
 
     <li>

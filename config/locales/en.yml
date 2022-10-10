@@ -1053,8 +1053,37 @@ en:
               meeting_or_conference: "Symposia, lab retreates, and academic meetings"
               public_use: "Community events, fundraising, K-12, or other classes, volunteer use"
       summary:
-        show:
-          summary: "Summary"
+        presenter:
+          composed_email: "Send applicants a composed email"
+          update_silently: "Silently update status"
+        status_btn:
+          approved: "Approve"
+          in_review: "Pending Approval"
+          cancelled: "Cancelled by Applicant"
+          denied: "Deny"
+          incomplete: "Incomplete"
+        update:
+          flash_message: "Updates were successfully made."
+        update_btn:
+          incomplete: "Incomplete"
+        email_notification:
+          email_message: "Email Message"
+          notification: "Notification Email"
+          email-notification-method: "email-notification-method"
+          clear_message: "Clear message field"
+          recipient_email: "recipient_email"
+          email_applicant_and_staff: "email_applicant_and_staff"
+          email_staff_only: "email_staff_only"
+          cc_reciepents_box: "cc_reciepents_box"
+          notification_method: "Email Notification Method"
+          annual_report: "Remove Visit From Anuual Report"
+          message_field_label: "This message is displayed in the visit page in the summary page in the public interface"
+          email_recipiant: "Email Reciepents"
+          email_applicant: "Email Applicant and Staff"
+          email_staff: "Email Staff Only"
+          cc_reciepents: "CC Reserve Personal(Staff signed up to be notified of status changes)"
+        edit:
+          update_status: "Update Status"
       tab:
         summary: "Summary"
         details: "Details"
