@@ -8,7 +8,7 @@ class Visits::AnswersController < ApplicationController
     )
 
     if form.save
-      redirect_to '#'
+      redirect_to visit_waivers_policies_path
     else
       redirect_to visit_questions_path(visit), alert: "Required fields are missing"
     end
