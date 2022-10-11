@@ -32,7 +32,7 @@
   </section>
 
   <section class="controls">
-    <%= link_to edit_visit_path(@form.id) do %>
+    <%= link_to visit_questions_path(@form.id) do %>
       <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t("alt.left_facing_arrow")  %>
       <%= t(".back") %>
     <% end %>

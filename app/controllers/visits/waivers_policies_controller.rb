@@ -25,6 +25,8 @@ class Visits::WaiversPoliciesController < ApplicationController
   end
 
   def visit_update_params
-    params.require(:visit).permit(:policy_agreement, :status, :id)
+    params.require(:visit).permit(:policy_agreement, :status, :id).tap do |param|
+      param[:submitted_at] = Time.current
+    end
   end
 end
