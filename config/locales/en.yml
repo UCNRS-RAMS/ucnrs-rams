@@ -430,7 +430,8 @@ en:
         terms_of_use: "Terms of Use"
   visits:
     questions:
-      permit_questions:
+      questions:
+        no_reserve_questions: "This reserve has no additional questions at this time."
         reserve_section_title: "Reserve-specific Questions"
         no_questions: "There are no necessary permit questions for this project at this time."
         permit_statement: "If you have any approved permits, please provide the type of permit, permit number, permit dates, and any other relevant information. You may be asked to provide a copy of the approved permit prior to or upon your arrival. If you have your IACUC permit please also state the institution name that issued that permit."
@@ -440,9 +441,6 @@ en:
           local: "Local Permits"
           institution: "Institution Permits"
         back: "Go Back"
-        alt:
-          right_facing_arrow: "Right-facing arrow"
-          left_facing_arrow: "Left-facing arrow"
         next_step: "Next: Waivers & Policies"
       index:
         title: "Permits"

@@ -3,6 +3,7 @@ class VisitReserveAnswer < ApplicationRecord
   belongs_to :reserve_question
 
   validates :text_answer, presence: true, if: :required_text_question
+  validates :boolean_answer, inclusion: { in: [true, false] }, if: :required_boolean_question
 
   def self.replace_all(visit_reserve_answers)
     if !visit_reserve_answers.blank?
@@ -37,7 +38,13 @@ class VisitReserveAnswer < ApplicationRecord
     end
   end
 
+  private
+
   def required_text_question
     reserve_question.answer_required && reserve_question.question_type == "text"
+  end
+
+  def required_boolean_question
+    reserve_question.answer_required && reserve_question.question_type == "boolean"
   end
 end

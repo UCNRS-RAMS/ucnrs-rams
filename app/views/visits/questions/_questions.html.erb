@@ -8,7 +8,7 @@
     </section>
   <% else %>
   <section>
-    <h1>This reserve has no additional questions at this time.</h1>
+    <h1><%= t(".no_reserve_questions") %></h1>
   </section>
   <% end %>
   <% if presenter.has_permit_questions_for_project? %>

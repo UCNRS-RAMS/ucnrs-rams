@@ -30,14 +30,14 @@ RSpec.describe Visits::QuestionsIndexPresenter do
 
       results = presenter.permit_questions_by_authority
 
-      expect(results.keys).to eq %w[federal state local institution]
+      expect(results.keys).to eq [["federal", "visit"], ["state", "visit"], ["local", "visit"], ["institution", "visit"]]
       results.values.flatten.each do |value|
         expect(value).to be_a(Visits::PermitPresenter)
       end
-      expect(results["federal"].map(&:id)).to eq [federal.id]
-      expect(results["state"].map(&:id)).to eq [state.id, state2.id]
-      expect(results["local"].map(&:id)).to eq [local.id]
-      expect(results["institution"].map(&:id)).to eq [institution.id]
+      expect(results[["federal", "visit"]].map(&:id)).to eq [federal.id]
+      expect(results[["state", "visit"]].map(&:id)).to eq [state.id, state2.id]
+      expect(results[["local", "visit"]].map(&:id)).to eq [local.id]
+      expect(results[["institution", "visit"]].map(&:id)).to eq [institution.id]
     end
 
     it "excludes authorities lacking permits" do
@@ -73,7 +73,7 @@ RSpec.describe Visits::QuestionsIndexPresenter do
   end
 
   describe "#has_reserve_questions_for_visit?" do
-    it "is true if there are permits to be displayed for a visit" do
+    it "is true if there are reserve_questions to be displayed for a visit" do
       reserve = create(:reserve)
       visit = create(:visit, reserve_id: reserve.id)
       reserve_question = create(:reserve_question, reserve: reserve, location: "visit")
