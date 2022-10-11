@@ -16,7 +16,7 @@ class Visits::QuestionsIndexPresenter
   def permit_questions_by_authority
     permit_scope
       .map(&method(:wrap_question_in_presenter))
-      .group_by(&:authority)
+      .group_by{ |question| [question.authority, question.location] }
       .reject { |_k, v| v.empty? }
   end
 

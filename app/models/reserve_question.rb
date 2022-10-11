@@ -43,7 +43,7 @@ class ReserveQuestion < ApplicationRecord
     where(location: :project)
   end
 
-  def self.for_visits # todo move in concern and use extend
+  def self.for_visits
     where(location: :visit)
   end
 
@@ -80,11 +80,7 @@ class ReserveQuestion < ApplicationRecord
   end
 
   def self.answers_for_visit(visit)
-    includes(visit_reserve_answers: :visit).pluck(:id).each do |id|
-      if VisitReserveAnswer.find_by(reserve_question_id: id).nil?
-        VisitReserveAnswer.create(reserve_question_id: id, visit_id: visit.id)
-      end
-    end
+    left_joins(:visit_reserve_answers).where(visit_reserve_answers: { visit: visit })
   end
 
   def reserve_name

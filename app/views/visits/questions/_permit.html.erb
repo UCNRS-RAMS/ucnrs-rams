@@ -4,9 +4,9 @@
       <%= permit.question %>
       <div class="answers">
         <%= f.radio_button :answer, "1", data: { action: "change->value-projection#change" } %>
-        <%= f.label :answer, t("projects.questions.index.yes_option"), for: "project_permit_answers_#{permit.id}_answer_1" %>
+        <%= f.label :answer, t("visits.questions.index.yes_option"), for: "project_permit_answers_#{permit.id}_answer_1" %>
         <%= f.radio_button :answer, "0", data: { action: "change->value-projection#change" } %>
-        <%= f.label :answer, t("projects.questions.index.no_option"), for: "project_permit_answers_#{permit.id}_answer_0" %>
+        <%= f.label :answer, t("visits.questions.index.no_option"), for: "project_permit_answers_#{permit.id}_answer_0" %>
       </div>
     </div>
     <div class="description">
