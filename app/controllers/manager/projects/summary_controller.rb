@@ -3,7 +3,7 @@ class Manager::Projects::SummaryController < ApplicationController
   before_action :confirm_reserve_manager!
 
   def show
-    @presenter = Manager::ProjectShowPresenter.new(project: project, reserve: current_reserve)
+    @presenter = Manager::ProjectShowPresenter.new(project: project, reserve: current_reserve, current_user: current_user)
   end
 
   private

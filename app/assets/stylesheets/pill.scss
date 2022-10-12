@@ -23,15 +23,15 @@
 
   &.denied {
     background-color: $pill-background-active;
-    background-image: url(asset-path("x.svg"));
+    background-image: url(asset-path("x-circle.svg"));
     border-color: $pill-border-active;
   }
 
   &.incomplete {
-    background-image: url(asset-path("x-circle.svg"));
+    background-image: url(asset-path("icon-minus.svg"));
   }
 
   &.cancelled {
-    background-image: url(asset-path("slash.svg"));
+    background-image: url(asset-path("x.svg"));
   }
 }

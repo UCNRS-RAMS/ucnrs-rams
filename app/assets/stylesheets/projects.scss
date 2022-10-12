@@ -475,6 +475,22 @@ table.visit-requests {
     }
   }
 
+  .bg-approved {
+    background-color: $green;
+  }
+
+  .bg-in_review {
+    background-color: $yellow;
+  }
+
+  .bg-cancelled {
+    background-color: $pink;
+  }
+
+  .bg-denied {
+    background-color: $red;
+  }
+
   td {
     border-bottom: 1px solid $gray;
     border-top: 1px solid $gray;

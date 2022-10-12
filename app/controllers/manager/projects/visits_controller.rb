@@ -1,6 +1,6 @@
 class Manager::Projects::VisitsController < ApplicationController
   def index
-    @presenter = ProjectShowPresenter.new(project)
+    @presenter = Manager::ProjectShowPresenter.new(project: project, reserve: current_reserve, current_user: current_user)
   end
 
   private
