@@ -2,6 +2,8 @@ class Manager::VisitsController < ApplicationController
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!, only: [:destroy]
   before_action :confirm_manager!, only: [:show]
+  
+  layout "manager"
 
   def show
     @presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: current_user)
