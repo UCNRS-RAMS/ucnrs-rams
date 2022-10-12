@@ -1,6 +1,6 @@
-<tr class="visit <%= visit.status_class %>">
+<tr class="visit ">
   <td>
-    <span class="<%= visit.status_class %> pill">
+    <span class="<%= visit.status_classes %> pill">
       <%= visit.status %>
     </span>
   </td>
@@ -23,7 +23,7 @@
     <% end %>
   </td>
   <td>
-    <%= link_to visit_path(visit.id) do %>
+    <%= link_to manager_reserve_visit_path(id: visit.id, reserve_id: visit.reserve_id) do %>
       <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"), height: "18", width: "18" %>
     <% end %>
   </td>

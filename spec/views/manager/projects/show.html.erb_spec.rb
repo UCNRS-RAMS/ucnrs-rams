@@ -1,11 +1,13 @@
 require "rails_helper"
 
 RSpec.describe "show.html.erb" do
+  let!(:user) { create(:user) }
+  
   describe "on any render" do
     it "includes summary box" do
       reserve = create(:reserve)
       project = create(:project)
-      assign(:presenter, Manager::ProjectShowPresenter.new(project: project, reserve: reserve))
+      assign(:presenter, Manager::ProjectShowPresenter.new(project: project, reserve: reserve, current_user: user))
 
       render template: "manager/projects/show"
 
@@ -27,7 +29,7 @@ RSpec.describe "show.html.erb" do
       it "includes links" do
         reserve = create(:reserve)
         project = create(:project)
-        assign(:presenter, Manager::ProjectShowPresenter.new(project: project, reserve: reserve))
+        assign(:presenter, Manager::ProjectShowPresenter.new(project: project, reserve: reserve, current_user: user))
 
         render template: "manager/projects/show"
 
@@ -47,7 +49,7 @@ RSpec.describe "show.html.erb" do
       it "select summary by default" do
         reserve = create(:reserve)
         project = create(:project)
-        assign(:presenter, Manager::ProjectShowPresenter.new(project: project, reserve: reserve))
+        assign(:presenter, Manager::ProjectShowPresenter.new(project: project, reserve: reserve, current_user: user))
 
         render template: "manager/projects/show"
 

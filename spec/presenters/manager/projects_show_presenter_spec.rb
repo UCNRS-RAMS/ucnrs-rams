@@ -1,12 +1,14 @@
 require "rails_helper"
 
 RSpec.describe ProjectShowPresenter do
+  let!(:user) { create(:user) }
+
   describe "#created_at" do
     it "display a formatted creation datetime of the project with default format" do
       travel_to Time.zone.local(2004, 11, 24)
       project = create(:project, created_at: Time.current)
       reserve = create(:reserve)
-      presenter = Manager::ProjectShowPresenter.new(project: project, reserve: reserve)
+      presenter = Manager::ProjectShowPresenter.new(project: project, reserve: reserve, current_user: user) 
 
       expect(presenter.created_at).to eq "Nov. 24, 2004"
     end
@@ -15,7 +17,7 @@ RSpec.describe ProjectShowPresenter do
       travel_to Time.zone.local(2004, 11, 24, 1, 4, 44)
       project = create(:project, created_at: Time.current)
       reserve = create(:reserve)
-      presenter = Manager::ProjectShowPresenter.new(project: project, reserve: reserve)
+      presenter = Manager::ProjectShowPresenter.new(project: project, reserve: reserve, current_user: user)
 
       expect(presenter.created_at(format: :project_summary_date_time)).to eq "Nov. 24, 2004 at  1:04 AM"
     end
@@ -26,7 +28,7 @@ RSpec.describe ProjectShowPresenter do
       travel_to Time.zone.local(2004, 11, 24)
       project = create(:project, updated_at: Time.current)
       reserve = create(:reserve)
-      presenter = Manager::ProjectShowPresenter.new(project: project, reserve: reserve)
+      presenter = Manager::ProjectShowPresenter.new(project: project, reserve: reserve, current_user: user)
 
       expect(presenter.updated_at).to eq "Nov. 24, 2004"
     end
@@ -35,7 +37,7 @@ RSpec.describe ProjectShowPresenter do
       travel_to Time.zone.local(2004, 11, 24, 1, 4, 44)
       project = create(:project, updated_at: Time.current)
       reserve = create(:reserve)
-      presenter = Manager::ProjectShowPresenter.new(project: project, reserve: reserve)
+      presenter = Manager::ProjectShowPresenter.new(project: project, reserve: reserve, current_user: user)
 
       expect(presenter.updated_at(format: :project_summary_date_time)).to eq "Nov. 24, 2004 at  1:04 AM"
     end
@@ -46,7 +48,7 @@ RSpec.describe ProjectShowPresenter do
       user1 = create(:user, first_name: "user", last_name: "one")
       project = create(:project, owner: user1)
       reserve = create(:reserve)
-      presenter = Manager::ProjectShowPresenter.new(project: project, reserve: reserve)
+      presenter = Manager::ProjectShowPresenter.new(project: project, reserve: reserve, current_user: user)
 
       expect(presenter.owner_name).to eq "user one"
     end
@@ -56,7 +58,7 @@ RSpec.describe ProjectShowPresenter do
     it "display the type of the project" do
       project = create(:project, project_type: "public_use")
       reserve = create(:reserve)
-      presenter = Manager::ProjectShowPresenter.new(project: project, reserve: reserve)
+      presenter = Manager::ProjectShowPresenter.new(project: project, reserve: reserve, current_user: user)
 
       expect(presenter.project_type).to eq "Public Use"
     end
@@ -70,7 +72,7 @@ RSpec.describe ProjectShowPresenter do
       create(:visit, project: project, reserve: reserve1)
       create(:visit, project: project, reserve: reserve2)
       reserve = create(:reserve)
-      presenter = Manager::ProjectShowPresenter.new(project: project, reserve: reserve)
+      presenter = Manager::ProjectShowPresenter.new(project: project, reserve: reserve, current_user: user)
 
       expect(presenter.reserve_names).to eq "Test Reserve 1, Test Reserve 2"
     end
@@ -85,7 +87,7 @@ RSpec.describe ProjectShowPresenter do
         status: :open,
         created_at: Time.zone.local(2004, 11, 24, 1, 4, 44))
       reserve = create(:reserve)
-      presenter = Manager::ProjectShowPresenter.new(project: project, reserve: reserve)
+      presenter = Manager::ProjectShowPresenter.new(project: project, reserve: reserve, current_user: user)
 
       expect(presenter.project_info).to eq expected_info
     end
@@ -102,7 +104,7 @@ RSpec.describe ProjectShowPresenter do
       active_principal_investigator1 = create(:project_team_membership, :principal_investigator,
         project: project)
       reserve = create(:reserve)
-      presenter = Manager::ProjectShowPresenter.new(project: project, reserve: reserve)
+      presenter = Manager::ProjectShowPresenter.new(project: project, reserve: reserve, current_user: user)
 
       results = presenter.team_memberships.map(&:id)
 

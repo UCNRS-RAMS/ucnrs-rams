@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class Manager::ProjectShowPresenter < ProjectShowPresenter
-  def initialize(project:, reserve:)
+  def initialize(project:, reserve:, current_user:)
     super(project)
     @reserve = reserve
+    @current_user = current_user
   end
 
-  attr_reader :reserve
+  attr_reader :reserve, :current_user
 
   def created_at(format: :project_summary_date)
     project.created_at ? I18n.l(project.created_at, format: format) : ""
@@ -46,7 +47,7 @@ class Manager::ProjectShowPresenter < ProjectShowPresenter
       .recent_start_date_first
       .includes(:reserve)
       .map do |visit|
-      VisitPresenter.new(visit)
+        Manager::VisitShowPresenter.new(visit: visit, current_user: current_user)
     end
   end
 end
