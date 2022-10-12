@@ -8,7 +8,7 @@ class Manager::Visits::ActivityAndNotesController < ApplicationController
   end
 
   def show
-    @presenter = Manager::Visits::ActivityPresenter.new(record: Log.find(params[:id]))
+    @presenter = Manager::Visits::LogPresenter.new(record: log)
   end
 
   def create
@@ -36,5 +36,9 @@ class Manager::Visits::ActivityAndNotesController < ApplicationController
       note_params[:user_id] = current_user.id
       note_params[:reserve_id] = current_reserve.id
     end
+  end
+
+  def log
+    @log ||= Log.find(params[:id])
   end
 end

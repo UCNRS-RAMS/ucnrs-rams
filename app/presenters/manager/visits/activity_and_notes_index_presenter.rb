@@ -14,7 +14,7 @@ class Manager::Visits::ActivityAndNotesIndexPresenter
 
   def logs
     logs_scope.map do |record|
-      Manager::Visits::ActivityPresenter.new(record: record)
+      Manager::Visits::LogPresenter.new(record: record)
     end
   end
 

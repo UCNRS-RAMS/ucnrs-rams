@@ -4,7 +4,7 @@
     <%= form_with model: ReserveNote.new, url: manager_reserve_visit_activity_and_notes_path(reserve_id: presenter.reserve_id, visit_id: presenter.id) do |f| %>
       <div class="inline">
         <%= f.text_field :note, class: "field", required: true %>
-        <%= f.button "Post Note" , type: "submit" ,class: "submit-btn" %>
+        <%= f.button t(".post_note") , type: "submit" ,class: "submit-btn" %>
       </div>
     <% end %>
   </section>

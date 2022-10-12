@@ -1004,6 +1004,8 @@ en:
     not_a_manager: "You are not a manager"
     not_a_manager_of_reserve: "You are not a manager of the reserve."
     visits:
+      log:
+        system: "System"
       activity_and_notes:
         activity_table:
           title: "Activtiy"
@@ -1016,6 +1018,7 @@ en:
           name: "Name"
           date_and_time: "Date & Time"
           user_or_admin: "User/Admin"
+          post_note: "Post Note"
       cannot_find_visit: "Visit not found"
       successfully_deleted_visit: "Successfully deleted visit"
       cannot_delete_visit: "Not able to delete visit"

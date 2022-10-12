@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Manager::Visits::ActivityPresenter
+class Manager::Visits::LogPresenter
   def initialize(record:)
     @record = record
   end
@@ -8,7 +8,6 @@ class Manager::Visits::ActivityPresenter
   delegate_missing_to :record
 
   def action_name
-    data = JSON.parse(metadata)
     if data["about"]
       "#{data["about"]} #{data["about_id"]} #{data["action"]}"
     else
@@ -25,20 +24,22 @@ class Manager::Visits::ActivityPresenter
   end
 
   def user_name
-    user ? user.full_name : "System"
+    user ? user.full_name : I18n.t("manager.visits.log.system")
   end
 
   def old_value
-    data = JSON.parse(metadata)
     data["changes"]["ApplicationStatus"].first
   end
 
   def new_value
-    data = JSON.parse(metadata)
     data["changes"]["ApplicationStatus"].last
   end
 
   private
 
   attr_reader :record
+
+  def data
+    @data ||= JSON.parse(metadata)
+  end
 end

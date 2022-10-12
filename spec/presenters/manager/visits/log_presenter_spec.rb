@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Manager::Visits::ActivityPresenter do
+RSpec.describe Manager::Visits::LogPresenter do
   let(:user) { create(:user, :confirmed) }
   let(:reserve) { create(:reserve) }
   let(:project) { create(:project, reserve: reserve) }
@@ -16,11 +16,12 @@ RSpec.describe Manager::Visits::ActivityPresenter do
           "submitted_at"=>[nil, "2020-05-23T16:03:56.000-07:00"]
         }
       }
-      log1 = project.logs.create(user: user, reserve_id: reserve.id, metadata: metadata.to_json)
+
+      log1 = Log.new(metadata: metadata.to_json)
       metadata["about"] = "test"
-      log2 = project.logs.create(user: user, reserve_id: reserve.id, metadata: metadata.to_json)
-      presenter1 = Manager::Visits::ActivityPresenter.new(record: log1)
-      presenter2 = Manager::Visits::ActivityPresenter.new(record: log2)
+      log2 = Log.new(metadata: metadata.to_json)
+      presenter1 = Manager::Visits::LogPresenter.new(record: log1)
+      presenter2 = Manager::Visits::LogPresenter.new(record: log2)
 
       expect(presenter1.action_name).to eq("application submitted 45075")
       expect(presenter2.action_name).to eq("test 45075 application submitted")
@@ -30,8 +31,8 @@ RSpec.describe Manager::Visits::ActivityPresenter do
   describe "#date" do
     it "should return the formatted date with time" do
       travel_to Time.zone.local(2004, 11, 24, 1, 4, 44)
-      log = project.logs.create(user: user, reserve_id: reserve.id, created_at: Time.current)
-      presenter = Manager::Visits::ActivityPresenter.new(record: log)
+      log = Log.new( created_at: Time.current)
+      presenter = Manager::Visits::LogPresenter.new(record: log)
 
       expect(presenter.date).to eq("Nov. 24, 2004 at  1:04 AM")
     end
@@ -39,8 +40,8 @@ RSpec.describe Manager::Visits::ActivityPresenter do
 
   describe "#details" do
     it "should return the log details" do
-      log = project.logs.create(user: user, reserve_id: reserve.id, log: "test log details")
-      presenter = Manager::Visits::ActivityPresenter.new(record: log)
+      log = Log.new(log: "test log details")
+      presenter = Manager::Visits::LogPresenter.new(record: log)
 
       expect(presenter.details).to eq("test log details")
     end
@@ -48,8 +49,8 @@ RSpec.describe Manager::Visits::ActivityPresenter do
 
   describe "#user_name" do
     it "should return the full name of the user" do
-      log = project.logs.create(user: user, reserve_id: reserve.id)
-      presenter = Manager::Visits::ActivityPresenter.new(record: log)
+      log = Log.new(user_id: user.id)
+      presenter = Manager::Visits::LogPresenter.new(record: log)
 
       expect(presenter.user_name).to eq(user.full_name)
     end
