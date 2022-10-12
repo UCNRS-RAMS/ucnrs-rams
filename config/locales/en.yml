@@ -1065,18 +1065,20 @@ en:
         todays_visit_and_resources: "Today's Visit & Resources"
         last_24_hours: "Last 24 Hours"
         last_7_days: "Last 7 Days"
+        visitor: "Visitor"
+        amenity: "Amenity"
+        visit_request: "Visit Request"
+        booked_visit: "Booked Visit"
       list:
         title: "List"
       show:
         new_visit_request: "New Visit Request"
         visits: "Visits"
         todays_visit_and_resources: "Today's Visit & Resources"
-        visitor: "Visitor"
-        amenity: "Amenity"
         last_24_hours: "Last 24 Hours"
+        last_7_days: "Last 7 Days"
         visit_request: "Visit Request"
         booked_visit: "Booked Visit"
-        last_7_days: "Last 7 Days"
       visit_day_list:
         no_visitors_amenities_day: "No visitors or amenities for the day."
       user_visit:

@@ -38,66 +38,6 @@
   </header>
   <hr />
   <%= turbo_frame_tag "dashboard-content" do %>
-    <section class="dashboard-content">
-      <section id="todays-visit-resources">
-        <h3><%= t(".todays_visit_and_resources") %></h3>
-        <div class="info-block">
-          <div class="dash-cards">
-            <div class="dash-card">
-              <%= tag.h4 @presenter.visitors_today.map(&:count).sum %>
-              <%= image_tag "icon-users-blue.svg" %>
-              <%= tag.span t(".visitor").pluralize(@presenter.visitors_today.map(&:count).sum, I18n.locale) %>
-            </div>
-            <div class="dash-card">
-              <%= tag.h4 @presenter.amenities_today.size %>
-              <%= image_tag "icon-wrench.svg" %>
-              <%= tag.span t(".amenity").pluralize(@presenter.amenities_today.size, I18n.locale) %>
-            </div>
-          </div>
-          <div class="dash-table">
-            <%= render partial: "visit_day_list", locals: { visit_day_list: @presenter.visit_day_list } %>
-          </div>
-        </div>
-      </section>
-
-      <section id="last-24-hours">
-        <h3><%= t(".last_24_hours") %></h3>
-        <div class="info-block">
-          <div class="dash-cards">
-            <div class="dash-card">
-              <%= tag.h4 @presenter.visit_request_day_count %>
-              <%= image_tag "icon-wrench.svg" %>
-              <%= tag.span t(".visit_request").pluralize(@presenter.visit_request_day_count, I18n.locale) %>
-            </div>
-            <div class="dash-card">
-              <%= tag.h4 @presenter.visit_booked_day_count %>
-              <%= image_tag "icon-calendar-green.svg" %>
-              <%= tag.span t(".booked_visit").pluralize(@presenter.visit_booked_day_count, I18n.locale) %>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="last-7-days">
-        <h3><%= t(".last_7_days") %></h3>
-        <div class="info-block">
-          <div class="dash-cards">
-            <div class="dash-card">
-              <%= tag.h4 @presenter.visit_request_week_count %>
-              <%= image_tag "icon-wrench.svg" %>
-              <%= tag.span t(".visit_request").pluralize(@presenter.visit_request_week_count, I18n.locale) %>
-            </div>
-            <div class="dash-card">
-              <%= tag.h4 @presenter.visit_booked_week_count %>
-              <%= image_tag "icon-calendar-green.svg" %>
-              <%= tag.span t(".booked_visit").pluralize(@presenter.visit_booked_week_count, I18n.locale)  %>
-            </div>
-          </div>
-          <div class="dash-chart">
-            <%= render partial: "week_chart", locals: { chart_data: @presenter.chart_data} %>
-          </div>
-        </div>
-      </section>
-    </section>
+    <%= render partial: "dashboard", locals: { presenter: @presenter } %>
   <% end %>
 </section>
