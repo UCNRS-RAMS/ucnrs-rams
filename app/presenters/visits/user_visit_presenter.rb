@@ -62,6 +62,17 @@ class Visits::UserVisitPresenter
     user.id == 1 && guest_name.blank?
   end
 
+  def actual_user?
+    user.id > 1
+  end
+
+  def project_role
+    Projects::TeamMembershipPresenter.new(user_team_membership).project_role if user_team_membership
+  end
+
+  def date_of_use
+    DateRangePresenter.new(start_date: arrives_at, end_date: departs_at).value("date_range.different_years")
+  end
 
   private
 

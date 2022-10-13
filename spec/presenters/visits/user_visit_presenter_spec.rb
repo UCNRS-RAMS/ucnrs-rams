@@ -161,4 +161,27 @@ RSpec.describe Visits::UserVisitPresenter do
       expect(presenter.group_user?).to be_falsey
     end
   end
+
+  describe "#project_role" do
+    context "when user is a team member" do
+      it "returns the users' project role" do
+        team_membership = create(:project_team_membership, :project_manager, active: true)
+        visit = create(:visit, project_id: team_membership.project_id)
+        user_visit = create(:user_visit, user_id: team_membership.user_id, visit_id: visit.id)
+        presenter = Visits::UserVisitPresenter.new(user_visit)
+
+        expect(presenter.user_visit_type).to eq "Project Manager"
+      end
+    end
+  end
+
+  describe "#date_of_use" do
+    it "return visit overall date range" do
+      visit = create(:visit, starts_at: "20 sep 2022", ends_at: "22 sep 2022")
+      user = create(:user, :confirmed)
+      show_presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: user)
+
+      expect(show_presenter.visit_date_range).to eq "Sep 20, 2022 - Sep 22, 2022"
+    end
+  end
 end

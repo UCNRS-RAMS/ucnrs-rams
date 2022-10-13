@@ -30,6 +30,7 @@
             <%= button_tag type: "button", class: "more" do %>
               <%= image_tag "icon-plus.svg", data: { action: "click->counter#increment click->subtotal#calculateSubtotal" } %>
             <% end %>
+            <%= form.hidden_field :rate, value: presenter.selected_rate_in_number %>
           </div>
         </div>
         <div class="field">

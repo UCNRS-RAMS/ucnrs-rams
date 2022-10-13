@@ -5,6 +5,7 @@ RSpec.describe AmenityVisitPresenter do
     subject { AmenityVisitPresenter.new(create(:amenity_visit)) }
     it { is_expected.to delegate_method(:title).to(:amenity).with_prefix(true) }
     it { is_expected.to delegate_method(:per_sentence).to(:amenity) }
+    it { is_expected.to delegate_method(:unit).to(:amenity) }
     it { is_expected.to delegate_missing_methods_to(:amenity_visit) }
   end
 
@@ -13,14 +14,14 @@ RSpec.describe AmenityVisitPresenter do
       arrives = Time.current.round
       departs = Time.current.round + 1.day
       presenter = AmenityVisitPresenter.new(
-        create(:amenity_visit, arrives: arrives, departs: departs)
+        create(:amenity_visit, arrives: arrives, departs: departs),
       )
       allow(DateRangePresenter).to receive(:value)
 
       presenter.requested_date_range
 
       expect(DateRangePresenter).to have_received(:value)
-        .with(start_date: arrives, end_date: departs)
+        .with(start_date: arrives, end_date: departs, format: nil)
     end
   end
 

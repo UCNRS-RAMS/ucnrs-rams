@@ -1,0 +1,18 @@
+<section class="project-team p-bottom">
+  <h2 class="main-header"><%= t(".user_visits", size: presenter.user_visits.sum(&:count)) %></h2>
+  <%= link_to t(".edit_visitor"), visit_user_visits_path(presenter.id) %>
+  <table id="team-summary-table" class="summary-table">
+    <thead>
+      <tr>
+        <th><%= t(".name") %></th>
+        <th><%= t(".institution") %></th>
+        <th><%= t(".role") %></th>
+        <th><%= t(".project_role") %></th>
+        <th><%= t(".dates_of_use") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "manager/visits/summary/user_visits", collection: presenter.user_visits %>
+    </tbody>
+  </table>
+</section>
