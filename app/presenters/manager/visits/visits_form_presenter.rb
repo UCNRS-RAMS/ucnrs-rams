@@ -27,6 +27,22 @@ class Manager::Visits::VisitsFormPresenter < VisitsFormPresenter
     false
   end
 
+  def user_visits
+    visit.user_visits.includes([:user, :institution]).map do |user_visit|
+      Visits::UserVisitPresenter.new(user_visit)
+    end
+  end
+
+  def amenity_visits
+    visit.amenity_visits.includes([:amenity]).map do |amenity_visit|
+      AmenityVisitPresenter.new(amenity_visit)
+    end
+  end
+
+  def amenities_total
+    "$#{value(amenity_visits.sum(&:subtotal))}"
+  end
+
   def save_partial_path
     "manager/visits/detail/save"
   end
@@ -58,12 +74,24 @@ class Manager::Visits::VisitsFormPresenter < VisitsFormPresenter
     ).team_memberships
   end
 
+  def visit_date_range
+    Manager::VisitShowPresenter.new(visit: visit, current_user: @user).visit_date_range
+  end
+
+  def submitted_date
+    I18n.l(visit.created_at, format: :submitted_date)
+  end
+
   private
 
   def amenity_scope
     (reserve&.amenities || Amenity.none)
       .not_disable
       .by_group_number
+  end
+
+  def value(num)
+    "%0.2f" % [num]
   end
 
   def wrap_amenity_in_presenter(amenity)

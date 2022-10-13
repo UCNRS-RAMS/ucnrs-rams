@@ -6,8 +6,8 @@ class DateRangePresenter
   DIFFERENT_MONTHS_SAME_YEAR = "date_range.different_months_same_year"
   DIFFERENT_YEARS = "date_range.different_years"
 
-  def self.value(start_date:, end_date:)
-    new(start_date: start_date, end_date: end_date).value
+  def self.value(start_date:, end_date:, format: nil)
+    new(start_date: start_date, end_date: end_date).value(format)
   end
 
   def initialize(start_date:, end_date:)
@@ -15,7 +15,8 @@ class DateRangePresenter
     @end_date = end_date
   end
 
-  def value(format = range_i18n_key)
+  def value(format)
+    format ||= range_i18n_key
     I18n.t(format, **start_set, **end_set)
   end
 

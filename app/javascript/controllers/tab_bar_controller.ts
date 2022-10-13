@@ -17,8 +17,8 @@ export default class extends Controller {
     }
   }
   
-  selectSummaryTab() {
-    document.querySelector('.visit-menu-bar>li>.nav-link.active').classList.remove('active')
-    document.querySelector('.visit-menu-bar>li>.nav-link').classList.add('active')
+  selectTab({params}) {
+    document.querySelector('.visit-menu-bar>li>.active').classList.remove('active')
+    document.getElementById(params.id).classList.add('active')
   }
 }

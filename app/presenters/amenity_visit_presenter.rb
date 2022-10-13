@@ -8,11 +8,11 @@ class AmenityVisitPresenter
   delegate :title,
     to: :amenity, prefix: true
 
-  delegate :per_sentence,
+  delegate :per_sentence, :unit,
     to: :amenity
 
-  def requested_date_range
-    DateRangePresenter.value(start_date: arrives, end_date: departs)
+  def requested_date_range(format = nil)
+    DateRangePresenter.value(start_date: arrives, end_date: departs, format: format)
   end
 
   def rate_in_dollar

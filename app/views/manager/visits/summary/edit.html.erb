@@ -1,5 +1,5 @@
 <turbo-frame id="visit-details">
-  <div class="summary"  data-controller="summary-tab">
+  <div class="summary section-spacing" data-controller="summary-tab">
     <% if notice.present? %>
       <p class="notice"><%= notice %></p>
     <% end %>
@@ -11,4 +11,12 @@
       </div>
     <% end %>
   </div>
+    <div>
+      <div class="p-bottom">
+        <h4><%= t(".submit_date") %>&nbsp<%= @presenter.submitted_date %></h4>
+        <h4><%= t(".overall_date") %>&nbsp<%= @presenter.visit_date_range %></h4>
+      </div>
+      <%= render partial: "manager/visits/summary/user_visits_show_table", locals: { presenter: @presenter } %>
+      <%= render partial: "manager/visits/summary/amenity_visits_show_table", locals: { presenter: @presenter } %>
+    </div>
 </turbo-frame>
