@@ -93,14 +93,14 @@ RSpec.describe UserVisitForm, type: :model do
   end
 
   describe "#arrives_at=" do
-    it "sets arrives_at after adding visit start_time to it as default" do
+    it "sets arrives_at after adding visit starts_at to it as default" do
       user_visit = create(:user_visit)
       form = UserVisitForm.new(params: { id: user_visit.id })
-      visit_start_time = user_visit.visit.start_time
+      visit_starts_at = user_visit.visit.starts_at
       arrives_at = Date.current
       form.arrives_at = arrives_at
 
-      expect(form.arrives_at.to_s).to eq("#{arrives_at}#{visit_start_time.to_s[10..]}")
+      expect(form.arrives_at.to_s).to eq("#{arrives_at}#{visit_starts_at.to_s[10..]}")
     end
 
     it "sets arrives_at nil when nil date is set" do
