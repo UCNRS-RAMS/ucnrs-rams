@@ -10,7 +10,7 @@ export default class extends Controller {
   declare outputTarget: HTMLFormElement
   
   calculate(){
-    let userDays = this.days() * parseInt(this.countTarget.value)
+    const userDays = this.days() * parseInt(this.countTarget.value)
     this.outputValTarget.value = userDays.toString()
     this.outputTarget.innerText = `${this.days()} days x ${this.countTarget.value} users = ${userDays} userdays`
   }

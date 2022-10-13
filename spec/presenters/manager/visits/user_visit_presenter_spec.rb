@@ -24,7 +24,7 @@ RSpec.describe Visits::UserVisitPresenter do
   end
 
   describe "#date_range" do
-    it "return date range for with totol number for days" do
+    it "return date range for with total number for days" do
       date = Date.current
       after_date = date + 2.days
       user_visit = create(:user_visit, arrives_at: date, departs_at: after_date)
