@@ -38,7 +38,7 @@ RSpec.describe DateRangePresenter do
       expect(date_range).to eq "Dec 31, 2020 - Jan 1, 2021"
     end
 
-    it "returns a year range if start and end are not in the same year" do
+    it "returns year range according to given format'" do
       start_date = Date.new(2020, 12, 31)
       end_date = Date.new(2021, 1, 1)
       format = "date_range.different_years"

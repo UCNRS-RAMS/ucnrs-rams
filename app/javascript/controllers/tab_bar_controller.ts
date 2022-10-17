@@ -19,6 +19,6 @@ export default class extends Controller {
   
   selectTab({params}) {
     document.querySelector('.visit-menu-bar>li>.active').classList.remove('active')
-    document.getElementById(params.id).classList.add('active')
+    document.querySelector(`.visit-menu-bar>li>#${params.id}`).classList.add('active')
   }
 }

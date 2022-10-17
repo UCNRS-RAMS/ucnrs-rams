@@ -1,11 +1,14 @@
 class Manager::DashboardShowPresenter
-  def initialize(reserve: nil)
+  def initialize(reserve: nil, partial_name: :dashboard)
     @reserve = reserve
+    @partial_name = partial_name
   end
 
   delegate :id,
     :name,
     to: :reserve, prefix: true
+
+  attr_reader :partial_name
 
   def visitors_today
     @visitors_today ||= UserVisit

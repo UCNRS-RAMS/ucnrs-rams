@@ -6,6 +6,7 @@ class Manager::DashboardController < ApplicationController
   def show
     @presenter = Manager::DashboardShowPresenter.new(
       reserve: current_reserve,
+      partial_name: params[:partial_name]
     )
   end
 end
