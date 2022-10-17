@@ -20,7 +20,7 @@ class Manager::VisitShowPresenter
       name: name || I18n.translate("manager.visits.tab.#{id}"),
       path: path,
       classes: "nav-link #{classes}",
-      action_method: action_method
+      action_method: action_method,
     }
   end
 

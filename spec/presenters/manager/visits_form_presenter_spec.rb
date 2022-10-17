@@ -124,28 +124,6 @@ RSpec.describe Manager::Visits::VisitsFormPresenter do
     end
   end
 
-  describe "#project_team_members" do
-    it "return project_team_members" do
-      user = create(:user, :confirmed)
-      project = create(:project)
-      team_members = create_list(:project_team_membership, 3, project: project)
-      visit_approved = create(:visit, project: project, status: "approved")
-
-      form = VisitForm.new(user: user, params: { id: visit_approved.id })
-      presenter = Manager::Visits::VisitsFormPresenter.new(user: user, form: form)
-
-      results = presenter.project_team_members
-
-      expect(results.map(&:id)).to eq [
-        team_members[0].id,
-        team_members[1].id,
-        team_members[2].id,
-      ]
-
-      expect(results).to all(be_instance_of Manager::Projects::TeamMembershipPresenter)
-    end
-  end
-
   describe "#message_text" do
     it "it return visits_reserve_approval_mesage text if visit_status is approved otherwise return nil" do
       user = create(:user, :confirmed)
@@ -199,7 +177,7 @@ RSpec.describe Manager::Visits::VisitsFormPresenter do
   end
 
   describe "#project_team_members" do
-    it "return project_team_members" do
+    it "return project_team_members for the visit's project" do
       user = create(:user, :confirmed)
       project = create(:project)
       team_members = create_list(:project_team_membership, 3, project: project)
@@ -217,55 +195,6 @@ RSpec.describe Manager::Visits::VisitsFormPresenter do
       ]
 
       expect(results).to all(be_instance_of Manager::Projects::TeamMembershipPresenter)
-    end
-  end
-
-  describe "#amenities_total" do
-    it "display the total of all the amenity_visits subtotal amount" do
-      visit = create(:visit)
-      user = create(:user, :confirmed)
-      create(:amenity_visit, visit: visit, number_of_people: 10, manual_units_of_time: 10, rate: 10)
-      create(:amenity_visit, visit: visit, number_of_people: 10, manual_units_of_time: 10, rate: 10)
-      form = VisitForm.new(user: user, params: { id: visit.id })
-      presenter = Manager::Visits::VisitsFormPresenter.new(user: user, form: form)
-
-      expect(presenter.amenities_total).to eq "$2000.00"
-    end
-  end
-
-  describe "#amenity_visits" do
-    it "creates a AmenityVisitPresenter for each visit amenity_visit" do
-      user = create(:user, :confirmed)
-      visit = create(:visit)
-      amenity_visit = create_list(:amenity_visit, 3, visit: visit)
-      form = VisitForm.new(user: user, params: { id: visit.id })
-      presenter = Manager::Visits::VisitsFormPresenter.new(user: user, form: form)
-
-      results = presenter.amenity_visits
-
-      expect(results.map(&:id)).to eq [
-        amenity_visit[0].id,
-        amenity_visit[1].id,
-        amenity_visit[2].id,
-      ]
-    end
-  end
-
-  describe "#user_visits" do
-    it "creates a UserVisitPresenter for each visit user_visit" do
-      user = create(:user, :confirmed)
-      visit = create(:visit)
-      user_visit = create_list(:user_visit, 3, visit: visit)
-      form = VisitForm.new(user: user, params: { id: visit.id })
-      presenter = Manager::Visits::VisitsFormPresenter.new(user: user, form: form)
-
-      results = presenter.user_visits
-
-      expect(results.map(&:id)).to eq [
-        user_visit[0].id,
-        user_visit[1].id,
-        user_visit[2].id,
-      ]
     end
   end
 end

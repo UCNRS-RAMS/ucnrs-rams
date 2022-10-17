@@ -1,0 +1,11 @@
+<tr class="team-membership">
+  <% if user_visit.actual_user? %>
+    <td> <%= link_to user_visit.user_full_name, "#" %> </td>
+  <% else %>
+    <td> <%= user_visit.user_full_name %> </td>
+  <% end %>
+  <td> <%= user_visit.institution_name %> </td>
+  <td> <%= user_visit.user_role %> </td>
+  <td> <%= user_visit.project_role %> </td>
+  <td> <%= user_visit.date_of_use %> </td>
+</tr>

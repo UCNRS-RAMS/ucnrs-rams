@@ -184,4 +184,20 @@ RSpec.describe Visits::UserVisitPresenter do
       expect(show_presenter.visit_date_range).to eq "Sep 20, 2022 - Sep 22, 2022"
     end
   end
+
+  describe "#actual_user?" do
+    it "return true if user_id is greater then 1" do
+      user_visit = create(:user_visit, user_id: create(:user, id: 2).id)
+      presenter = Visits::UserVisitPresenter.new(user_visit)
+
+      expect(presenter.actual_user?).to eql true
+    end
+
+    it "return false if user_id not greater then 1" do
+      user_visit = create(:user_visit, user_id: create(:user, id: 1).id)
+      presenter = Visits::UserVisitPresenter.new(user_visit)
+
+      expect(presenter.actual_user?).to eql false
+    end
+  end
 end

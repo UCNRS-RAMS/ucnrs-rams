@@ -1,0 +1,11 @@
+<turbo-frame id="visit-details">
+  <%= turbo_frame_tag "visit-summary-edit", src: edit_manager_reserve_visit_summary_path(visit_id: @presenter.id) %>
+  <div>
+    <div class="p-bottom">
+      <h4><%= t(".submit_date") %>&nbsp<%= @presenter.submitted_date %></h4>
+      <h4><%= t(".overall_date") %>&nbsp<%= @presenter.visit_date_range %></h4>
+    </div>
+    <%= render partial: "manager/visits/summary/user_visits_show_table", locals: { presenter: @presenter } %>
+    <%= render partial: "manager/visits/summary/amenity_visits_show_table", locals: { presenter: @presenter } %>
+  </div>
+</turbo-frame>

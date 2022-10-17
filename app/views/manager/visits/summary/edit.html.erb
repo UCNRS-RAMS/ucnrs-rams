@@ -1,8 +1,5 @@
-<turbo-frame id="visit-details">
+<turbo-frame id="visit-summary-edit">
   <div class="summary section-spacing" data-controller="summary-tab">
-    <% if notice.present? %>
-      <p class="notice"><%= notice %></p>
-    <% end %>
     <%= form_with model: @presenter.form, url: manager_reserve_visit_summary_path(@presenter.reserve.id, @presenter.visit.id), method: :put do |form| %>
       <%= render partial: "status_bar", locals: { form: form, presenter: @presenter } %>
       <%= render partial: "email_notification", locals: { form: form, presenter: @presenter } %>
@@ -11,12 +8,5 @@
       </div>
     <% end %>
   </div>
-    <div>
-      <div class="p-bottom">
-        <h4><%= t(".submit_date") %>&nbsp<%= @presenter.submitted_date %></h4>
-        <h4><%= t(".overall_date") %>&nbsp<%= @presenter.visit_date_range %></h4>
-      </div>
-      <%= render partial: "manager/visits/summary/user_visits_show_table", locals: { presenter: @presenter } %>
-      <%= render partial: "manager/visits/summary/amenity_visits_show_table", locals: { presenter: @presenter } %>
-    </div>
 </turbo-frame>
+
