@@ -1,13 +1,13 @@
 <%= form_with model: presenter.form, url: presenter.form_url, id: "questions", class: "d-flex-col" do |form| %>
   <% if presenter.has_reserve_questions_for_visit? %>
     <section class="questions">
-      <h1><%= t(".reserve_section_title") %></h1>
+      <h2><%= t(".reserve_section_title") %></h2>
       <% presenter.reserve_questions_by_authority.each do |reserve, questions| %>
-        <%= render partial:  "visits/questions/group", locals: { title: reserve, questions: questions } %>
+        <%= render partial:  "shared/visits/questions/group", locals: { title: reserve, questions: questions } %>
       <% end %>
     </section>
   <% else %>
-  <section>
+  <section id="no_questions">
     <h1><%= t(".no_reserve_questions") %></h1>
   </section>
   <% end %>
@@ -33,13 +33,6 @@
     </section>
   <% end %>
   <section class="controls">
-    <%= link_to visit_user_visits_path do %>
-      <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t("alt.left_facing_arrow") %>
-      <%= t(".back") %>
-    <% end %>
-    <%= button_to '#', method: :get, class: "active" do %>
-      <%= t(".next_step") %>
-      <%= image_tag "arrow-right.svg", alt: t("alt.right_facing_arrow") %>
-    <% end %>
+    <%= render presenter.save_btn_partial_path %>
   </section>
 <% end %>
