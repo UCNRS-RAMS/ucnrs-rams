@@ -3,12 +3,9 @@ class Manager::ReportsReportPart7Presenter
     @report = report
   end
 
-  delegate :id,
-  to: :report, prefix: true
+  delegate :fiscal_year_ending, to: :report
 
   private
-
-  def report
-    AnnualReportPresenter.new(@report)
-  end
+  
+  attr_reader :report
 end

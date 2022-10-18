@@ -28,37 +28,37 @@ class Manager::ReportsController < ApplicationController
 
   def report_part_3
     @presenter = Manager::ReportsReportPart3Presenter.new(
-      report: report,
+      report: annual_report,
     )
   end
 
   def report_part_4
     @presenter = Manager::ReportsReportPart4Presenter.new(
-      report: report,
+      report: annual_report,
     )
   end
 
   def report_part_5
     @presenter = Manager::ReportsReportPart5Presenter.new(
-      report: report,
+      report: annual_report,
     )
   end
 
   def report_part_6
     @presenter = Manager::ReportsReportPart6Presenter.new(
-      report: report,
+      report: annual_report,
     )
   end
 
   def report_part_7
     @presenter = Manager::ReportsReportPart7Presenter.new(
-      report: report,
+      report: annual_report,
     )
   end
 
   def report_part_8
     @presenter = Manager::ReportsReportPart8Presenter.new(
-      report: report,
+      report: annual_report,
     )
   end
 
