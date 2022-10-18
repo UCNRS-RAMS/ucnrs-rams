@@ -2,7 +2,7 @@
   <header>Reports</header>
   <div>
     <section class="report-menu">
-      <%= render partial: 'menu' %>
+      <%= render partial: 'menu', locals: { presenter: @presenter } %>
     </section>
     <section class="report">
       <header><%= t(".part_7_nrs_campus_committee") %></header>
