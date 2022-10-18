@@ -113,4 +113,36 @@ RSpec.describe AmenityVisit do
       expect(results).to eq [amenity_visit1, amenity_visit2, amenity_visit3, amenity_visit4]
     end
   end
+
+  describe ".with_visit_status" do
+    context "when given status is present" do
+      it "returns amenity visits associated with visit with the given status" do
+        visit1 = create(:visit, status: :approved)
+        visit2 = create(:visit, status: :incomplete)
+        amenity_visit1 = create(:amenity_visit, visit: visit1)
+        amenity_visit2 = create(:amenity_visit, visit: visit2)
+        amenity_visit3 = create(:amenity_visit, visit: visit1)
+
+        results1 = AmenityVisit.with_visit_status(:approved)
+        results2 = AmenityVisit.with_visit_status(:incomplete)
+
+        expect(results1).to eq [amenity_visit1, amenity_visit3]
+        expect(results2).to eq [amenity_visit2]
+      end
+    end
+
+    context "when given status is NOT present" do
+      it "returns all amenity visits" do
+        visit1 = create(:visit, status: :approved)
+        visit2 = create(:visit, status: :incomplete)
+        amenity_visit1 = create(:amenity_visit, visit: visit1)
+        amenity_visit2 = create(:amenity_visit, visit: visit2)
+        amenity_visit3 = create(:amenity_visit, visit: visit1)
+
+        results = AmenityVisit.with_visit_status(nil)
+
+        expect(results).to eq [amenity_visit1, amenity_visit2, amenity_visit3]
+      end
+    end
+  end
 end

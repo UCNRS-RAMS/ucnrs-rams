@@ -50,6 +50,15 @@ class AmenityVisit < ApplicationRecord
     )
   end
 
+  def self.with_visit_status(status)
+    if status.present?
+      joins(:visit)
+        .merge(Visit.for_status(status))
+    else
+      all
+    end
+  end
+
   private
 
   def date_range_within_visit_range

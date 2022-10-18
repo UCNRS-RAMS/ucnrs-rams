@@ -15,6 +15,7 @@ class Manager::DashboardShowPresenter
       .includes(:user)
       .at_reserve(reserve)
       .on_date(Date.current)
+      .with_visit_status(:approved)
       .order(:arrives_at)
       .map { |user_visit| UserVisitPresenter.new(user_visit) }
   end
@@ -24,6 +25,7 @@ class Manager::DashboardShowPresenter
       .includes([:amenity])
       .at_reserve(reserve)
       .on_date(Date.current)
+      .with_visit_status(:approved)
       .order(:arrives)
       .map { |amenity_visit| AmenityVisitPresenter.new(amenity_visit) }
   end
