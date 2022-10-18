@@ -1,7 +1,12 @@
 <% visit_day_list.each do |visit, details| %>
   <table class="card-table">
     <tr class="todays-card-title">
-        <td colspan="2"><%= link_to visit.purpose_of_visit, "#" %></td>
+        <td colspan="2">
+          <%= link_to visit.purpose_of_visit,
+            manager_reserve_visit_path(current_reserve, visit),
+            data: { "turbo-frame" => "_top" } 
+          %>
+        </td>
     </tr>
     <%= render details %>
   </table>

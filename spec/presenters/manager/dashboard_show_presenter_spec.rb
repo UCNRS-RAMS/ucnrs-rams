@@ -21,9 +21,9 @@ RSpec.describe Manager::DashboardShowPresenter do
     it "returns user_visits at given reserve" do
       reserve1 = create(:reserve)
       reserve2 = create(:reserve)
-      visit1 = create(:visit, reserve: reserve1, starts_at: 3.week.ago, ends_at: 3.week.from_now)
-      visit2 = create(:visit, reserve: reserve2, starts_at: 3.week.ago, ends_at: 3.week.from_now)
-      visit3 = create(:visit, reserve: reserve1, starts_at: 3.week.ago, ends_at: 3.week.from_now)
+      visit1 = create(:visit, reserve: reserve1, starts_at: 3.week.ago, ends_at: 3.week.from_now, status: :approved)
+      visit2 = create(:visit, reserve: reserve2, starts_at: 3.week.ago, ends_at: 3.week.from_now, status: :approved)
+      visit3 = create(:visit, reserve: reserve1, starts_at: 3.week.ago, ends_at: 3.week.from_now, status: :approved)
       user_visit1 = create(:user_visit, visit: visit1, arrives_at: 1.week.ago, departs_at: 1.week.from_now)
       user_visit2 = create(:user_visit, visit: visit2, arrives_at: 1.week.ago, departs_at: 1.week.from_now)
       user_visit3 = create(:user_visit, visit: visit1, arrives_at: 1.week.ago, departs_at: 1.week.from_now)
@@ -37,7 +37,7 @@ RSpec.describe Manager::DashboardShowPresenter do
 
     it "returns user visits where today is between the arrives_at and departs_at dates" do
       reserve = create(:reserve)
-      visit = create(:visit, reserve: reserve, starts_at: 3.week.ago, ends_at: 3.week.from_now)
+      visit = create(:visit, reserve: reserve, starts_at: 3.week.ago, ends_at: 3.week.from_now, status: :approved)
       user_visit1 = create(:user_visit, visit: visit, arrives_at: 1.week.ago, departs_at: 1.week.from_now)
       user_visit2 = create(:user_visit, visit: visit, arrives_at: Time.current, departs_at: Time.current)
       user_visit3 = create(:user_visit, visit: visit, arrives_at: 1.week.ago, departs_at: Time.current)
@@ -50,9 +50,25 @@ RSpec.describe Manager::DashboardShowPresenter do
       expect(results.map(&:id)).to match_array [user_visit1.id, user_visit2.id, user_visit3.id, user_visit4.id]
     end
 
+    it "returns only user visits that is associated with an approved visit" do
+      reserve = create(:reserve)
+      visit1 = create(:visit, reserve: reserve, starts_at: 3.week.ago, ends_at: 3.week.from_now, status: :incomplete)
+      visit2 = create(:visit, reserve: reserve, starts_at: 3.week.ago, ends_at: 3.week.from_now, status: :approved)
+      visit3 = create(:visit, reserve: reserve, starts_at: 3.week.ago, ends_at: 3.week.from_now, status: :in_review)
+      user_visit1 = create(:user_visit, visit: visit1, arrives_at: 1.week.ago, departs_at: 1.week.from_now)
+      user_visit2 = create(:user_visit, visit: visit2, arrives_at: 1.week.ago, departs_at: 1.week.from_now)
+      user_visit3 = create(:user_visit, visit: visit1, arrives_at: 1.week.ago, departs_at: 1.week.from_now)
+      user_visit4 = create(:user_visit, visit: visit3, arrives_at: 1.week.ago, departs_at: 1.week.from_now)
+      presenter = Manager::DashboardShowPresenter.new(reserve: reserve)
+
+      results = presenter.visitors_today
+
+      expect(results.map(&:id)).to match_array [user_visit2.id]
+    end
+
     it "returns user visits ordered by earliest arrives_at first" do
       reserve = create(:reserve)
-      visit = create(:visit, reserve: reserve, starts_at: 3.month.ago, ends_at: 3.month.from_now)
+      visit = create(:visit, reserve: reserve, starts_at: 3.month.ago, ends_at: 3.month.from_now, status: :approved)
       user_visit1 = create(:user_visit, visit: visit, arrives_at: 1.week.ago, departs_at: 1.week.from_now)
       user_visit2 = create(:user_visit, visit: visit, arrives_at: Time.current, departs_at: Time.current)
       user_visit3 = create(:user_visit, visit: visit, arrives_at: 3.week.ago, departs_at: Time.current)
@@ -66,7 +82,7 @@ RSpec.describe Manager::DashboardShowPresenter do
 
     it "returns user visits wrapped in UserVisitPresenter" do
       reserve = create(:reserve)
-      visit = create(:visit, reserve: reserve, starts_at: 3.month.ago, ends_at: 3.month.from_now)
+      visit = create(:visit, reserve: reserve, starts_at: 3.month.ago, ends_at: 3.month.from_now, status: :approved)
       user_visit1 = create(:user_visit, visit: visit, arrives_at: 1.week.ago, departs_at: 1.week.from_now)
       user_visit2 = create(:user_visit, visit: visit, arrives_at: Time.current, departs_at: Time.current)
       user_visit3 = create(:user_visit, visit: visit, arrives_at: 3.week.ago, departs_at: Time.current)
@@ -83,9 +99,9 @@ RSpec.describe Manager::DashboardShowPresenter do
     it "returns amenity_visits at given reserve" do
       reserve1 = create(:reserve)
       reserve2 = create(:reserve)
-      visit1 = create(:visit, reserve: reserve1, starts_at: 3.week.ago, ends_at: 3.week.from_now)
-      visit2 = create(:visit, reserve: reserve2, starts_at: 3.week.ago, ends_at: 3.week.from_now)
-      visit3 = create(:visit, reserve: reserve1, starts_at: 3.week.ago, ends_at: 3.week.from_now)
+      visit1 = create(:visit, reserve: reserve1, starts_at: 3.week.ago, ends_at: 3.week.from_now, status: :approved)
+      visit2 = create(:visit, reserve: reserve2, starts_at: 3.week.ago, ends_at: 3.week.from_now, status: :approved)
+      visit3 = create(:visit, reserve: reserve1, starts_at: 3.week.ago, ends_at: 3.week.from_now, status: :approved)
       amenity_visit1 = create(:amenity_visit, visit: visit1, arrives: 1.week.ago, departs: 1.week.from_now)
       amenity_visit2 = create(:amenity_visit, visit: visit2, arrives: 1.week.ago, departs: 1.week.from_now)
       amenity_visit3 = create(:amenity_visit, visit: visit1, arrives: 1.week.ago, departs: 1.week.from_now)
@@ -99,7 +115,7 @@ RSpec.describe Manager::DashboardShowPresenter do
 
     it "returns amenity_visits where today is between the arrives_at and departs_at dates" do
       reserve = create(:reserve)
-      visit = create(:visit, reserve: reserve, starts_at: 3.week.ago, ends_at: 3.week.from_now)
+      visit = create(:visit, reserve: reserve, starts_at: 3.week.ago, ends_at: 3.week.from_now, status: :approved)
       amenity_visit1 = create(:amenity_visit, visit: visit, arrives: 1.week.ago, departs: 1.week.from_now)
       amenity_visit2 = create(:amenity_visit, visit: visit, arrives: Time.current, departs: Time.current)
       amenity_visit3 = create(:amenity_visit, visit: visit, arrives: 1.week.ago, departs: Time.current)
@@ -112,9 +128,25 @@ RSpec.describe Manager::DashboardShowPresenter do
       expect(results.map(&:id)).to match_array [amenity_visit1.id, amenity_visit2.id, amenity_visit3.id, amenity_visit4.id]
     end
 
+    it "returns only user visits that is associated with an approved visit" do
+      reserve = create(:reserve)
+      visit1 = create(:visit, reserve: reserve, starts_at: 3.week.ago, ends_at: 3.week.from_now, status: :incomplete)
+      visit2 = create(:visit, reserve: reserve, starts_at: 3.week.ago, ends_at: 3.week.from_now, status: :approved)
+      visit3 = create(:visit, reserve: reserve, starts_at: 3.week.ago, ends_at: 3.week.from_now, status: :in_review)
+      amenity_visit1 = create(:amenity_visit, visit: visit1, arrives_at: 1.week.ago, departs_at: 1.week.from_now)
+      amenity_visit2 = create(:amenity_visit, visit: visit2, arrives_at: 1.week.ago, departs_at: 1.week.from_now)
+      amenity_visit3 = create(:amenity_visit, visit: visit1, arrives_at: 1.week.ago, departs_at: 1.week.from_now)
+      amenity_visit4 = create(:amenity_visit, visit: visit3, arrives_at: 1.week.ago, departs_at: 1.week.from_now)
+      presenter = Manager::DashboardShowPresenter.new(reserve: reserve)
+
+      results = presenter.amenities_today
+
+      expect(results.map(&:id)).to match_array [amenity_visit2.id]
+    end
+
     it "returns amenity_visits ordered by earliest arrives_at first" do
       reserve = create(:reserve)
-      visit = create(:visit, reserve: reserve, starts_at: 3.month.ago, ends_at: 3.month.from_now)
+      visit = create(:visit, reserve: reserve, starts_at: 3.month.ago, ends_at: 3.month.from_now, status: :approved)
       amenity_visit1 = create(:amenity_visit, visit: visit, arrives: 1.week.ago, departs: 1.week.from_now)
       amenity_visit2 = create(:amenity_visit, visit: visit, arrives: Time.current, departs: Time.current)
       amenity_visit3 = create(:amenity_visit, visit: visit, arrives: 3.week.ago, departs: Time.current)
@@ -128,7 +160,7 @@ RSpec.describe Manager::DashboardShowPresenter do
 
     it "returns amenity_visits wrapped in AmenityVisitPresenter" do
       reserve = create(:reserve)
-      visit = create(:visit, reserve: reserve, starts_at: 3.month.ago, ends_at: 3.month.from_now)
+      visit = create(:visit, reserve: reserve, starts_at: 3.month.ago, ends_at: 3.month.from_now, status: :approved)
       amenity_visit1 = create(:amenity_visit, visit: visit, arrives: 1.week.ago, departs: 1.week.from_now)
       amenity_visit2 = create(:amenity_visit, visit: visit, arrives: Time.current, departs: Time.current)
       amenity_visit3 = create(:amenity_visit, visit: visit, arrives: 3.week.ago, departs: Time.current)

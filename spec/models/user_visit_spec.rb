@@ -200,4 +200,36 @@ RSpec.describe UserVisit, type: :model do
       end
     end
   end
+
+  describe ".with_visit_status" do
+    context "when given status is present" do
+      it "returns user visits associated with visit with the given status" do
+        visit1 = create(:visit, status: :approved)
+        visit2 = create(:visit, status: :incomplete)
+        user_visit1 = create(:user_visit, visit: visit1)
+        user_visit2 = create(:user_visit, visit: visit2)
+        user_visit3 = create(:user_visit, visit: visit1)
+
+        results1 = UserVisit.with_visit_status(:approved)
+        results2 = UserVisit.with_visit_status(:incomplete)
+
+        expect(results1).to eq [user_visit1, user_visit3]
+        expect(results2).to eq [user_visit2]
+      end
+    end
+
+    context "when given status is NOT present" do
+      it "returns all user visits" do
+        visit1 = create(:visit, status: :approved)
+        visit2 = create(:visit, status: :incomplete)
+        user_visit1 = create(:user_visit, visit: visit1)
+        user_visit2 = create(:user_visit, visit: visit2)
+        user_visit3 = create(:user_visit, visit: visit1)
+
+        results = UserVisit.with_visit_status(nil)
+
+        expect(results).to eq [user_visit1, user_visit2, user_visit3]
+      end
+    end
+  end
 end
