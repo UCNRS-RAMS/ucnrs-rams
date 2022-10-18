@@ -112,7 +112,11 @@
       }
 
       .bg-denied {
-        background-color: $red;
+        background-color: $blue;
+      }
+
+      .bg-incomplete {
+        background-color: $red-alert;
       }
 
       .visit-form {
