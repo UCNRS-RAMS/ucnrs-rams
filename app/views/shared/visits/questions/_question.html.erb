@@ -1,5 +1,5 @@
 <%= fields_for "visit[reserve_answers][#{question.id}]", question.form do |f| %>
-    <%= render partial: "visits/questions/#{question.question_type}", locals: { question: question, f: f } %>
+    <%= render partial: "shared/visits/questions/#{question.question_type}", locals: { question: question, f: f } %>
     <div class="description">
       <%= question.description %>
       <ul>

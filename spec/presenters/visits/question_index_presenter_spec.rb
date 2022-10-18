@@ -93,9 +93,18 @@ RSpec.describe Visits::QuestionsIndexPresenter do
   describe "#form_url" do
     it "it returns permit url to visit namespace" do
       visit = create(:visit)
-      presenter = Visits::QuestionsIndexPresenter.new(visit: visit, current_step: 2)
+      presenter = Visits::QuestionsIndexPresenter.new(visit: visit, current_step: 3)
 
       expect(presenter.form_url).to eq("/visits/#{visit.id}/answers")
+    end
+  end
+
+  describe "#save_btn_partial_path" do
+    it "return save btn partial path" do
+      visit = create(:visit)
+      presenter = Visits::QuestionsIndexPresenter.new(visit: visit, current_step: 3)
+
+      expect(presenter.save_btn_partial_path).to eq("visits/questions/save_btn")
     end
   end
 end

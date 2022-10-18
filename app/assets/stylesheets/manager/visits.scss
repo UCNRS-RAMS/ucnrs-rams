@@ -123,6 +123,10 @@
         text-align: center;
       }
 
+      .text-end {
+        text-align: end;
+      }
+
       .reserve-info {
         padding: 1.625rem 3rem;
       }
@@ -137,6 +141,13 @@
       
       p.notice {
         background-color: $gold;
+        border-radius: 10px;
+        padding: 10px;
+        text-align: center;
+      }
+
+      p.alert {
+        background-color: $pink;
         border-radius: 10px;
         padding: 10px;
         text-align: center;

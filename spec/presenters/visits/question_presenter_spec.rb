@@ -11,7 +11,7 @@ RSpec.describe Visits::QuestionPresenter do
       presenter = Visits::QuestionPresenter.new(build_stubbed(:permit))
 
       expect(presenter.render_values).to eq({
-        partial: "visits/questions/question",
+        partial: "shared/visits/questions/question",
         locals: { question: presenter },
       })
     end

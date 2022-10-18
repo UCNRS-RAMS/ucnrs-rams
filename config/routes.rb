@@ -77,6 +77,7 @@ Rails.application.routes.draw do
       resources :visits, only: [:show, :destroy] do
         resource :summary, only: [:show], controller: "visits/summary"
         resource :detail, only: [:edit, :update], controller: "visits/detail"
+        resources :reserve_info, only: [:index, :create], controller: "visits/reserve_info"
       end
       resources :reports, only: [:show, :update] do
         get "report_part_1", on: :member
