@@ -4,7 +4,8 @@
 @import "mixins/form";
 @import "mixins/controls";
 
-.questions-index {
+.questions-index,
+.questions {
   
   .d-flex {
     display: flex;
@@ -25,8 +26,6 @@
     flex-direction: column;
     justify-content: space-between;
   }
-  
-  
   
   .text-area {
     width: 100%;

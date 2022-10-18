@@ -5,7 +5,7 @@ class Visits::PermitPresenter
 
   def render_values
     {
-      partial: "visits/questions/permit",
+      partial: "shared/visits/questions/permit",
       locals: { permit: self },
     }
   end

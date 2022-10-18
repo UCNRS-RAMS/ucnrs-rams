@@ -39,6 +39,10 @@ class Visits::QuestionsIndexPresenter
     visit_answers_path(visit.id)
   end
 
+  def save_btn_partial_path
+    "visits/questions/save_btn"
+  end
+
   private
 
   def permit_scope

@@ -75,8 +75,32 @@ class VisitShowFlow
     page.find("#details").click
   end
 
+  def click_on_reserve_info_btn
+    page.find("#reserve_info").click
+  end
+
+  def click_on_submit_btn
+    page.find("button.active").click
+  end
+
   def showing_purpose_of_visit?
     page.has_css?("#project-type-research")
+  end
+
+  def showing_reserve_specific_questions?
+    page.has_css?(".questions")
+  end
+
+  def success_message?
+    page.has_css?(".notice")
+  end
+
+  def error_message?
+    page.has_css?(".alert")
+  end
+
+  def no_question_message?
+    page.has_css?("#no_questions")
   end
 
   def showing_project_dropdown?

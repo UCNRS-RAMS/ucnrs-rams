@@ -5,7 +5,7 @@ class Visits::QuestionPresenter
 
   def render_values
     {
-      partial: "visits/questions/question",
+      partial: "shared/visits/questions/question",
       locals: { question: self },
     }
   end

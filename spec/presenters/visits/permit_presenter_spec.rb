@@ -11,7 +11,7 @@ RSpec.describe Visits::PermitPresenter do
       presenter = Visits::PermitPresenter.new(build_stubbed(:permit))
 
       expect(presenter.render_values).to eq ({
-        partial: "visits/questions/permit",
+        partial: "shared/visits/questions/permit",
         locals: { permit: presenter },
       })
     end
