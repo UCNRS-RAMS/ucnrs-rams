@@ -286,6 +286,10 @@
                   <%= f.label :latitude_seconds, t(".seconds"), class: "form-label" %>
                   <%= f.text_field :latitude_seconds, class: "form-input", disabled: "disabled" %>
                 </div>
+                <div class="col form-group">
+                  <%= f.label :latitude_hemisphere, t(".hemisphere"), class: "form-label" %>
+                  <%= f.text_field :latitude_hemisphere, class: "form-input", disabled: "disabled" %>
+                </div>
               </div>
             </div>
           </div>
@@ -307,6 +311,10 @@
                 <div class="col form-group">
                   <%= f.label :longitude_seconds, t(".seconds"), class: "form-label" %>
                   <%= f.text_field :longitude_seconds, class: "form-input", disabled: "disabled" %>
+                </div>
+                <div class="col form-group">
+                  <%= f.label :longitude_hemisphere, t(".hemisphere"), class: "form-label" %>
+                  <%= f.text_field :longitude_hemisphere, class: "form-input", disabled: "disabled" %>
                 </div>
               </div>
             </div>
