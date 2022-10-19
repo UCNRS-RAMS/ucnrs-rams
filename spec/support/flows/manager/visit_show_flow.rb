@@ -100,7 +100,7 @@ class VisitShowFlow
   end
 
   def no_question_message?
-    page.has_css?("#no_questions")
+    page.has_css?("#no-questions", text: "This reserve has no additional questions at this time.")
   end
 
   def showing_project_dropdown?

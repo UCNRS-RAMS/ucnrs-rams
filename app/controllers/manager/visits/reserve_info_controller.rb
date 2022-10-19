@@ -1,12 +1,17 @@
 class Manager::Visits::ReserveInfoController < ApplicationController
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!
-  before_action :presenter
 
   def index
+    @presenter = Manager::Visits::QuestionsIndexPresenter.new(
+      visit: visit,
+    )
   end
 
   def create
+    @presenter = Manager::Visits::QuestionsIndexPresenter.new(
+      visit: visit,
+    )
     @form = Visits::VisitAnswersForm.new(
       visit: visit,
       params: answer_params,
@@ -24,12 +29,6 @@ class Manager::Visits::ReserveInfoController < ApplicationController
 
   def visit
     @visit ||= Visit.find(params[:visit_id])
-  end
-
-  def presenter
-    @presenter = Manager::Visits::QuestionsIndexPresenter.new(
-      visit: visit,
-    )
   end
 
   def answer_params
