@@ -100,7 +100,7 @@ RSpec.describe Visits::QuestionsIndexPresenter do
   end
 
   describe "#save_btn_partial_path" do
-    it "return save btn partial path" do
+    it "returns the path to the save_button partial" do
       visit = create(:visit)
       presenter = Visits::QuestionsIndexPresenter.new(visit: visit, current_step: 3)
 
