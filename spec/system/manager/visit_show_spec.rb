@@ -276,54 +276,55 @@ RSpec.describe "Manager Visit Show" do
   end
 
   describe "when click on reserve_info tab" do
-    it "should not show reserve specific questions", js: true do
-      sign_in(user)
-      flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
-
-      flow.visit_show_page
-
-      flow.click_on_reserve_info_btn
-
-      expect(flow.showing_reserve_specific_questions?).to eq false
-    end
-  end
-
-  describe "when no reserve_questions are present" do
-    it "should display a message for no questions", js: true do
-      sign_in(user)
-      flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
-
-      flow.visit_show_page
-
-      flow.click_on_reserve_info_btn
-
-      expect(flow.no_question_message?).to eq true
-    end
-  end
-
-  describe "when click on update button" do
-    it "should display success flash message for sucessfull updation", js: true do
+    it "should display reserve specific questions", js: true do
       create(:reserve_question, reserve_id: reserve.id)
       sign_in(user)
       flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
-      flow.visit_show_page
-      flow.click_on_reserve_info_btn
-      flow.click_on_submit_btn
 
-      expect(flow.success_message?).to eq true
+      flow.visit_show_page
+
+      flow.click_on_reserve_info_btn
+
+      expect(flow.showing_reserve_specific_questions?).to eq true
     end
 
-    it "should display error flash message for un-sucessfull updation", js: true do
-      create(:reserve_question, reserve_id: reserve.id, question_type: "text",
-        answer_required: true)
-      sign_in(user)
-      flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
+    context "when there is no reserve_questions for the visit's reserve" do
+      it "should display a text 'This reserve has no additional questions at this time.'", js: true do
+        sign_in(user)
+        flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
-      flow.visit_show_page
-      flow.click_on_reserve_info_btn
-      flow.click_on_submit_btn
+        flow.visit_show_page
 
-      expect(flow.error_message?).to eq true
+        flow.click_on_reserve_info_btn
+
+        expect(flow.no_question_message?).to eq true
+      end
+    end
+
+    describe "when click on update button" do
+      it "should display success flash message for successful update", js: true do
+        create(:reserve_question, reserve_id: reserve.id)
+        sign_in(user)
+        flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
+        flow.visit_show_page
+        flow.click_on_reserve_info_btn
+        flow.click_on_submit_btn
+
+        expect(flow.success_message?).to eq true
+      end
+
+      it "should display error flash message for unsucessfull update", js: true do
+        create(:reserve_question, reserve_id: reserve.id, question_type: "text",
+          answer_required: true)
+        sign_in(user)
+        flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
+
+        flow.visit_show_page
+        flow.click_on_reserve_info_btn
+        flow.click_on_submit_btn
+
+        expect(flow.error_message?).to eq true
+      end
     end
   end
 
