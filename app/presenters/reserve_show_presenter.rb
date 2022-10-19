@@ -1,4 +1,6 @@
 class ReserveShowPresenter
+  include ActionView::Helpers::TextHelper
+
   def initialize(reserve:)
     @reserve = reserve
   end
@@ -15,8 +17,6 @@ class ReserveShowPresenter
     :avatar,
     :image_placeholder,
     :managing_campus,
-    :reserve_alert_message,
-    :directions,
     :description,
     to: :reserve, prefix: true
 
@@ -24,6 +24,14 @@ class ReserveShowPresenter
     @reserve.personnel.map do |personnel|
       ReservePersonnelPresenter.new(personnel)
     end
+  end
+
+  def reserve_alert_message
+    simple_format reserve.reserve_alert_message if reserve.reserve_alert_message.present?
+  end
+
+  def reserve_description
+    simple_format reserve.description if reserve.description.present?
   end
 
   private

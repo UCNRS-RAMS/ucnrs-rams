@@ -14,8 +14,6 @@ RSpec.describe ReserveShowPresenter do
     it { is_expected.to delegate_method(:avatar).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:image_placeholder).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:managing_campus).to(:reserve).with_prefix(true) }
-    it { is_expected.to delegate_method(:reserve_alert_message).to(:reserve).with_prefix(true) }
-    it { is_expected.to delegate_method(:directions).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:description).to(:reserve).with_prefix(true) }
   end
 
@@ -42,6 +40,54 @@ RSpec.describe ReserveShowPresenter do
       expect(show_presenter.reserve_personnel.first).to have_attributes(id: 1, email: "t.kirk@enterprise.uss")
       expect(show_presenter.reserve_personnel.second).to have_attributes(id: 2, email: "spock@enterprise.uss")
       expect(show_presenter.reserve_personnel.third).to have_attributes(id: 3, email: "McCoy@enterprise.uss")
+    end
+  end
+
+  describe "#reserve_alert_message" do
+    context "when reserve alert_message is present" do
+      it "returns reserve_alert_message correctly by calling simple_format through the presenter" do
+        reserve = create(:reserve, reserve_alert_message: "achtung!")
+        show_presenter = ReserveShowPresenter.new(reserve: reserve)
+
+        reserve_alert_message = show_presenter.reserve_alert_message
+
+        expect(reserve_alert_message).to eq "<p>achtung!</p>"
+      end
+    end
+
+    context "when reserve alert_message is NOT present" do
+      it "returns nil and not call simple_format through the presenter" do
+        reserve = create(:reserve, reserve_alert_message: "")
+        show_presenter = ReserveShowPresenter.new(reserve: reserve)
+
+        reserve_alert_message = show_presenter.reserve_alert_message
+
+        expect(reserve_alert_message).to eq nil
+      end
+    end
+  end
+
+  describe "#reserve_description" do
+    context "when reserve description is present" do
+      it "presents description correctly by calling simple_format through the presenter" do
+        reserve = create(:reserve, description: "achtung!")
+        show_presenter = ReserveShowPresenter.new(reserve: reserve)
+
+        reserve_description = show_presenter.reserve_description
+
+        expect(reserve_description).to eq "<p>achtung!</p>"
+      end
+    end
+
+    context "when reserve description is NOT present" do
+      it "returns nil and not call simple_format through the presenter" do
+        reserve = create(:reserve, description: "")
+        show_presenter = ReserveShowPresenter.new(reserve: reserve)
+
+        reserve_description = show_presenter.reserve_description
+
+        expect(reserve_description).to eq nil
+      end
     end
   end
 end
