@@ -1578,6 +1578,7 @@ en:
           degrees: "Degrees"
           minutes: "Minutes"
           seconds: "Seconds"
+          hemisphere: "Hemisphere"
           show: "Show"
           hide: "Hide"
           message: "Message"
