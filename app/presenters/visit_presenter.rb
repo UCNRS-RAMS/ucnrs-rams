@@ -91,6 +91,6 @@ class VisitPresenter
     prefix: true
 
   def not_applicable
-    I18n.t(".visits.visit.not_applicable")
+    I18n.t("not_applicable")
   end
 end
