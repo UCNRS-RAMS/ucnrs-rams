@@ -3,8 +3,8 @@
 <%= form_with model: @form, url: visit_waivers_policies_path, method: :put do |form| %>
   <section class="agreement-info" data-controller="waivers-policies">
     <h1><%= t(".title")%></h1>
+    <%= turbo_frame_tag 'policy-waivers', src: reserve_waivers_path(@form.reserve.id) %>
     <p><%= t(".note") %></p>
-    <%= link_to "Waivers", reserve_waivers_path(@form.reserve.id), class: "policy-link" %>
 
     <%= render partial: "agreements", locals: { policy_agreements: @presenter.reserve_use_agreements, title: t(".reserve_use_agreement") } %>
     <%= render partial: "checkbox", locals: { check: @form.policy_agreement, id: "reserveUseAgreement" } %>

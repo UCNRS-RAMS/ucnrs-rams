@@ -237,7 +237,7 @@
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/modals/_edit_user_visit.html.erb",
-      "line": 53,
+      "line": 55,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(partial => Manager::Visits::UserVisitEditPresenter.new(:form => UserVisitForm.new(:params => ({ :id => params[:id] }))).user_days_partial, { :locals => ({ :presenter => Manager::Visits::UserVisitEditPresenter.new(:form => UserVisitForm.new(:params => ({ :id => params[:id] }))), :form => form }) })",
       "render_path": [
@@ -371,7 +371,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/visit_reserve_answer.rb",
-      "line": 30,
+      "line": 31,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "connection.execute(\"INSERT INTO #{table_name} (\\n  #{arel_table[:visit_id].name},\\n  #{arel_table[:reserve_question_id].name},\\n  #{arel_table[:text_answer].name},\\n  #{arel_table[:boolean_answer].name},\\n  #{arel_table[:created_at].name},\\n  #{arel_table[:updated_at].name})\\nVALUES\\n  #{visit_reserve_answers.map do\n ActiveRecord::Base.sanitize_sql([\"(?,?,?,?,?,?)\", answer.visit_id, answer.reserve_question_id, answer.text_answer, answer.boolean_answer, Time.current, Time.current])\n end.join(\",\\n  \")}\\nAS new\\nON DUPLICATE KEY UPDATE\\n  text_answer = new.text_answer,\\n  boolean_answer = new.boolean_answer,\\n  updated_at = new.updated_at\\n\")",
       "render_path": null,
@@ -549,44 +549,11 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
-      "fingerprint": "ae3d8732965f9c1f87fbfb727ecc089dacc0b8b81400ae0556734f26e7f6320b",
-      "check_name": "LinkToHref",
-      "message": "Potentially unsafe model attribute in `link_to` href",
-      "file": "app/views/reserves/waivers/_waiver.html.erb",
-      "line": 4,
-      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to(t(\".download_pdf\"), (Unresolved Model).new.url, :class => \"icon-document-a\", :target => :blank)",
-      "render_path": [
-        {
-          "type": "template",
-          "name": "reserves/waivers/_waivers",
-          "line": 5,
-          "file": "app/views/reserves/waivers/_waivers.html.erb",
-          "rendered": {
-            "name": "reserves/waivers/_waiver",
-            "file": "app/views/reserves/waivers/_waiver.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "reserves/waivers/_waiver"
-      },
-      "user_input": "(Unresolved Model).new.url",
-      "confidence": "Weak",
-      "cwe_id": [
-        79
-      ],
-      "note": "Todo"
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 4,
       "fingerprint": "bc20510a2335da65305653d789e01df10445055c7d4a43194514b962dbb73532",
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/visits/waivers_policies/_policy_agreement.html.erb",
-      "line": 4,
+      "line": 8,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
       "code": "link_to((Unresolved Model).new.policy_url, :class => \"policy-link\", :target => :blank)",
       "render_path": [
@@ -795,6 +762,39 @@
       "note": ""
     },
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "ead743118209e5758832fa5358ee77720430ac02453aca1ba9e4abf5dc35f7dd",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/reserves/waivers/_waiver.html.erb",
+      "line": 4,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to((Unresolved Model).new.link_text, (Unresolved Model).new.url, :class => (Unresolved Model).new.link_class, :target => :blank)",
+      "render_path": [
+        {
+          "type": "template",
+          "name": "reserves/waivers/_waivers",
+          "line": 6,
+          "file": "app/views/reserves/waivers/_waivers.html.erb",
+          "rendered": {
+            "name": "reserves/waivers/_waiver",
+            "file": "app/views/reserves/waivers/_waiver.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "reserves/waivers/_waiver"
+      },
+      "user_input": "(Unresolved Model).new.url",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": "Todo"
+    },
+    {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
       "fingerprint": "ee80856a01523c2642d042e72d0f3ba83e6fc12277a8f4895494657f1f0f8b25",
@@ -862,6 +862,6 @@
       "note": ""
     }
   ],
-  "updated": "2022-10-07 20:00:38 -0700",
+  "updated": "2022-10-21 13:05:27 -0700",
   "brakeman_version": "5.3.1"
 }

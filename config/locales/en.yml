@@ -360,6 +360,7 @@ en:
                         must be signed by the parent or legal guardian."
       waiver:
         download_pdf: "Download PDF"
+        show_more: "Show more information"
   amenities:
       alt_text:
         amenity_picture: "picture of a reserve amenity"

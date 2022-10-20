@@ -1,7 +1,9 @@
 <section class="<%= body_class %>">
-  <p><%= t(".direction_title") %></p>
-  <p><%= t(".direction_body") %></p>
-  <section class="reserve-waivers">
-    <%= render partial: "reserves/waivers/waiver", collection: waivers %>
-  </section>
+  <%= turbo_frame_tag "policy-waivers" do %>
+    <p><%= t(".direction_title") %></p>
+    <p><%= t(".direction_body") %></p>
+    <div class="reserve-waivers">
+      <%= render partial: "reserves/waivers/waiver", collection: waivers %>
+    </div>
+  <% end %>
 </section>

@@ -3,10 +3,18 @@ class WaiverPresenter
     @waiver = waiver
   end
 
-  delegate :id, :name, :description, :url, to: :waiver
+  delegate :id, :name, :description, :url, :url_type, to: :waiver
 
-  def pdf_link
-    url
+  def url?
+    url.present?
+  end
+
+  def link_text
+    url_type == "link" ? I18n.t(".reserves.waivers.waiver.show_more") : I18n.t(".reserves.waivers.waiver.download_pdf")
+  end
+
+  def link_class
+    url_type == "link" ? "icon-external-link" : "icon-document-a"
   end
 
   private
