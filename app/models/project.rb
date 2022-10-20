@@ -219,6 +219,7 @@ class Project < ApplicationRecord
   def update_project_status
     if incomplete?
       assign_attributes(status: :open)
+      assign_attributes(submitted_at: Time.current)
     end
   end
 

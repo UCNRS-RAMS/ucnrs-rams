@@ -481,6 +481,15 @@ RSpec.describe Project, type: :model do
       expect(project).to be_open
     end
 
+    it "assigns the project's submitted_at field to current date and time if the project is 'incomplete'" do
+      project = create(:project, status: :incomplete)
+
+      freeze_time
+      project.update_project_status
+
+      expect(project.submitted_at).to eq Time.current
+    end
+
     it "does nothing if the project is not 'incomplete'" do
       project = create(:project, status: :closed)
 
