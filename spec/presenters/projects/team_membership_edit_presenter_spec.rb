@@ -75,7 +75,7 @@ RSpec.describe Projects::TeamMembershipEditPresenter do
         ["Other", "other"],
         ["Docent", "docent"],
         ["Volunteer", "volunteer"],
-        ["Staff", "staff"],
+        ["Reserve Staff", "reserve_staff"],
       ]
     end
   end

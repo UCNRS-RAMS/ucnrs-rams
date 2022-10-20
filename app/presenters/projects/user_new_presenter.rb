@@ -13,7 +13,9 @@ class Projects::UserNewPresenter
   delegate :institution_name, to: :form
 
   def user_role_options
-    UserVisit.roles.except(:no_selection).map { |key, value| [value, key] }
+    UserVisit.roles.except(:no_selection).map do |key, value|
+      [I18n.t("universal.role.#{key}"), key]
+    end
   end
 
   def project_role_options

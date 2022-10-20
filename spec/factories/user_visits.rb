@@ -3,7 +3,7 @@ FactoryBot.define do
     arrives_at { Time.current }
     departs_at { Time.current + 1.day }
     count { 1 }
-    role { "Faculty" }
+    role { :faculty }
 
     association :visit
     association :user

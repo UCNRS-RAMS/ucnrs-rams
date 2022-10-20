@@ -74,7 +74,7 @@
         <div class="field">
           <h2><%= t(".titles.role") %></h2>
           <div class="radio-buttons role">
-            <% @presenter.role_options.each do |(value, label)| %>
+            <% @presenter.role_options.each do |(label, value)| %>
               <span class="radio-button">
                 <%= f.radio_button :role, value %>
                 <%= f.label :role, label, value: value %>

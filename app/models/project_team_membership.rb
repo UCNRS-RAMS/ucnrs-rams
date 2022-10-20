@@ -36,7 +36,7 @@ class ProjectTeamMembership < ApplicationRecord
     other: "Other",
     docent: "Docent",
     volunteer: "Volunteer",
-    staff: "Staff",
+    reserve_staff: "Staff",
   }
 
   def self.by_project_role

@@ -48,18 +48,18 @@ RSpec.describe RegistrationFormPresenter do
       role_options = presenter.role_options
 
       expect(role_options).to match_array [
-        ["faculty", "Faculty"],
-        ["research_scientist", "Research Scientist/Post Doc"],
-        ["research_assistant", "Research Assistant (non-student/faculty/postdoc)"],
-        ["graduate_student", "Graduate Student"],
-        ["undergraduate_student", "Undergraduate Student"],
-        ["k_12_instructor", "K-12 Instructor"],
-        ["k_12_student", "K-12 Student"],
-        ["professional", "Professional"],
-        ["other", "Other"],
-        ["docent", "Docent"],
-        ["volunteer", "Volunteer"],
-        ["staff", "Staff"],
+        ["Faculty", "faculty"],
+        ["Research Scientist/Post Doc", "research_scientist"],
+        ["Research Assistant (non-student/faculty/postdoc)", "research_assistant"],
+        ["Graduate Student", "graduate_student"],
+        ["Undergraduate Student", "undergraduate_student"],
+        ["K-12 Instructor", "k_12_instructor"],
+        ["K-12 Student", "k_12_student"],
+        ["Professional", "professional"],
+        ["Other", "other"],
+        ["Docent", "docent"],
+        ["Volunteer", "volunteer"],
+        ["Reserve Staff", "reserve_staff"],
       ]
     end
   end

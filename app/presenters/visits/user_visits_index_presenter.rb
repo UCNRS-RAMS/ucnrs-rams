@@ -36,7 +36,9 @@ class Visits::UserVisitsIndexPresenter
   end
 
   def user_role_options
-    User.roles.except(:no_selection).map { |key, value| [value, key] }
+    User.roles.except(:no_selection).map do |key, value|
+      [I18n.t("universal.role.#{key}"), key]
+    end
   end
 
   def add_visitor_link_class(partial_name)

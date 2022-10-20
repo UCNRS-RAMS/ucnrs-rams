@@ -25,7 +25,7 @@ class UserVisit < ApplicationRecord
     other: "Other",
     docent: "Docent",
     volunteer: "Volunteer",
-    staff: "Staff",
+    reserve_staff: "Staff",
   }
 
   enum status: {

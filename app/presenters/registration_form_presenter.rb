@@ -23,7 +23,9 @@ class RegistrationFormPresenter
   end
 
   def role_options
-    User.roles.except(:no_selection).map {|key, value| [key, value]}
+    User.roles.except(:no_selection).map do |key, value|
+      [I18n.t("universal.role.#{key}"), key]
+    end
   end
 
   def default_country_option
