@@ -36,6 +36,10 @@ class UserVisitPresenter
     "user_visit"
   end
 
+  def role
+    I18n.t("universal.role.#{user_visit.role}")
+  end
+
   private
 
   attr_reader :user_visit

@@ -17,8 +17,10 @@ RSpec.describe Manager::Reports::ReportPart1Presenter do
 
       result = presenter.report_part1
 
-      expect(result["one"]).to eq [{"data"=>1, "project_type"=>"one"}]
-      expect(result["two"]).to eq [{"data"=>2, "project_type"=>"two"}]
+      expect(result["one"]).to all(be_a(Manager::Reports::ReportPart1RowPresenter))
+      expect(result["two"]).to all(be_a(Manager::Reports::ReportPart1RowPresenter))
+      expect(result["one"][0]['data']).to eq 1
+      expect(result["two"][0]['data']).to eq 2
     end
   end
 

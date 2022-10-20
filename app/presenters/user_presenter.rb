@@ -21,6 +21,10 @@ class UserPresenter
     end
   end
 
+  def role
+    I18n.t("universal.role.#{user.role}")
+  end
+
   private
 
   attr_accessor :user

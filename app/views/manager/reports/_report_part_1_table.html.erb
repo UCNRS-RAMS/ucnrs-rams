@@ -34,8 +34,8 @@
     </thead>
     <tbody>
       <% rows.each do | row | %>
-        <%= tag.tr class: ("row-subtotal" if row['role'].downcase == "subtotal") do %>
-          <%= tag.td row['role'], class: "col-1" %>
+        <%= tag.tr class: ("row-subtotal" if row.role.downcase == "subtotal") do %>
+          <%= tag.td row.role, class: "col-1" %>
           <% presenter.report_part1_columns.each do |column| %>
             <%= tag.td row[column] %>
           <% end %>

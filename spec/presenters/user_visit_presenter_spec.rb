@@ -88,4 +88,18 @@ RSpec.describe UserVisitPresenter do
       expect(presenter.to_partial_path).to eq 'user_visit'
     end
   end
+
+  describe "#role" do
+    it "is the user visit role translated" do
+      user_visit = create(:user_visit, role: :docent)
+      presenter = UserVisitPresenter.new(user_visit)
+      allow(I18n).to receive(:t)
+        .with("universal.role.docent")
+        .and_return("docent translated")
+
+      role = presenter.role
+
+      expect(role).to eq "docent translated"
+    end
+  end
 end

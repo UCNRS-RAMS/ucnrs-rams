@@ -30,7 +30,7 @@ class Projects::TeamMembershipEditPresenter
 
   def user_role_options
     User.roles.except(:no_selection).map do |key, value|
-      [value, key]
+      [I18n.t("universal.role.#{key}"), key]
     end
   end
 

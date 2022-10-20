@@ -63,7 +63,7 @@ RSpec.describe Visits::UserVisitsIndexPresenter do
         %w[Other other],
         %w[Docent docent],
         %w[Volunteer volunteer],
-        %w[Staff staff],
+        ["Reserve Staff", "reserve_staff"],
       ]
 
       expect(presenter.user_role_options).to eq expected_value

@@ -2340,6 +2340,21 @@ en:
       governmental_organization_or_entity: "Governmental Agency or Entity"
       business_entity: "Business Entity"
       individual_or_other_entity: "Individual or Other Entity"
+    role:
+      faculty: "Faculty"
+      research_scientist: "Research Scientist/Post Doc"
+      research_assistant: "Research Assistant (non-student/faculty/postdoc)"
+      graduate_student: "Graduate Student"
+      undergraduate_student: "Undergraduate Student"
+      k_12_instructor: "K-12 Instructor"
+      k_12_student: "K-12 Student"
+      professional: "Professional"
+      other: "Other"
+      docent: "Docent"
+      volunteer: "Volunteer"
+      reserve_staff: "Reserve Staff"
+      staff: "Reserve Staff"
+      subtotal: "Subtotal"
     project:
       project_types:
         research: "Research"

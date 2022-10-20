@@ -9,7 +9,9 @@ class Manager::Reports::ReportPart1Presenter
   delegate :fiscal_year_ending, to: :form_annual_report
 
   def report_part1
-    @report_part1 ||= report_part1_data.group_by { |row| row["project_type"] }
+    @report_part1 ||= report_part1_data
+      .map{ |row| Manager::Reports::ReportPart1RowPresenter.new(row) }
+      .group_by { |row| row["project_type"] }
   end
 
   def row_total
@@ -29,5 +31,4 @@ class Manager::Reports::ReportPart1Presenter
   end
 
   attr_reader :report_part1_data, :form
-
 end
