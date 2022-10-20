@@ -10,10 +10,10 @@
   <td><%= visit.applicant_name %></td>
   <td><%= visit.submitted_at %></td>
   <td>
-    <%= link_to visit_path(visit.id) do %>
+    <%= link_to manager_reserve_visit_path(current_reserve, visit.id) do %>
       <%= image_tag "icon-trash.svg", alt: t("alt.right_facing_arrow"), height: "20", width: "20" %>
     <% end %>
-    <%= link_to visit_path(visit.id) do %>
+    <%= link_to manager_reserve_visit_path(current_reserve, visit.id) do %>
       <%= image_tag "dollar_icon.svg", alt: t("alt.dollar_sign"), height: "20", width: "20" %>
     <% end %>
     <%= link_to edit_manager_reserve_visit_detail_path(current_reserve, visit.id), data: { "turbo-frame" => "_top" } do %>

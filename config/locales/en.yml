@@ -2397,3 +2397,4 @@ en:
   create: "Create"
   delete: "Delete"
   confirm_removal: "Are you sure you want to remove %{name}?"
+  not_applicable: "N/A"
