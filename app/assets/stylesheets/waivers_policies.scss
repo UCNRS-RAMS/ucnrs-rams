@@ -25,6 +25,13 @@
   }
 
   .agreement-info {
+    .reserve-waivers {
+      h2 {
+        font-size: 0.9375rem;
+        font-weight: $semi-bold;
+        margin: 0;
+      }
+    }
     .agree-all {
       background: $gold;
       display: flex;
