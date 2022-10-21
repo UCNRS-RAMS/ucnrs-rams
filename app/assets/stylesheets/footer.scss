@@ -7,10 +7,14 @@
 footer {
   background-color: $footer-background-color;
   color: $footer-color;
-  display:flex;
   font-size: .75rem;
-  justify-content: space-between;
-  padding: 1.75rem 6.25rem;
+
+  .footer-content {
+    display:flex;
+    justify-content: space-between;
+    padding: 1.75rem 1rem;
+    width: 100%;
+  }
 
   a {
     color: $footer-color;

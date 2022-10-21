@@ -1,33 +1,37 @@
 <footer>
-  <div class="left-side">
-      <%= image_tag "footer-logo.svg", height: "38px", width: "38px", alt: "rams footer logo", id: "footer-rams-logo" %>
-      <div class="social">
-        <%= link_to "Facebook", href: "https://www.facebook.com/ucnrs/", target: "_blank", aria: { label: "Facebook" } do %>
-          <%= image_tag "social-facebook@2x.png", width: "20px", alt: "facebook logo" %>
-        <% end %>
-        <%= link_to "Instagram", href: "https://www.instagram.com/explore/tags/ucnrs/", target: "_blank", aria: { label: "Instagram" } do %>
-          <%= image_tag "social-instagram@2x.png", width: "20px", alt: "instagram logo" %>
-        <% end %>
-        <%= link_to "YouTube", href: "https://www.youtube.com/user/UCNRS", target: "_blank", aria: { label: "YouTube" } do %>
-          <%= image_tag "social-youtube@2x.png", width: "20px", alt: "youtube logo" %>
-        <% end %>
+  <div class="container">
+    <div class="footer-content">
+      <div class="left-side">
+          <%= image_tag "footer-logo.svg", height: "38px", width: "38px", alt: "rams footer logo", id: "footer-rams-logo" %>
+          <div class="social">
+            <%= link_to "Facebook", href: "https://www.facebook.com/ucnrs/", target: "_blank", aria: { label: "Facebook" } do %>
+              <%= image_tag "social-facebook@2x.png", width: "20px", alt: "facebook logo" %>
+            <% end %>
+            <%= link_to "Instagram", href: "https://www.instagram.com/explore/tags/ucnrs/", target: "_blank", aria: { label: "Instagram" } do %>
+              <%= image_tag "social-instagram@2x.png", width: "20px", alt: "instagram logo" %>
+            <% end %>
+            <%= link_to "YouTube", href: "https://www.youtube.com/user/UCNRS", target: "_blank", aria: { label: "YouTube" } do %>
+              <%= image_tag "social-youtube@2x.png", width: "20px", alt: "youtube logo" %>
+            <% end %>
+          </div>
+          <span class="hide-765">
+            <%= link_to "UCNRS.ORG", "https://ucnrs.org", target: "_blank" %>
+          </span>
+          <span>
+            <%= link_to I18n.t(".footer.link.sign_up_newsletter"), "https://ucnrs.org/information/nrs-newsletter-archives/",
+                  target: "_blank", id: "newsletter-link" %>
+          </span>
       </div>
-      <span class="hide-765">
-        <%= link_to "UCNRS.ORG", "https://ucnrs.org", target: "_blank" %>
-      </span>
-      <span>
-        <%= link_to I18n.t(".footer.link.sign_up_newsletter"), "https://ucnrs.org/information/nrs-newsletter-archives/",
-              target: "_blank", id: "newsletter-link" %>
-      </span>
-  </div>
-  <div class="right-side">
-    <span><%= I18n.t(".footer.link.all_rights") %></span>
-    <span><%= link_to I18n.t(".footer.link.terms_of_use"), "https://ucnrs.org/ucnrs-websites-terms-of-use/", target: "_blank" %></span>
-    <span>
-      <%= link_to I18n.t(".footer.link.privacy_policy_short"), href: "https://ucnrs.org/rams-privacy-statement/", target: "_blank" do %>
-        <span id="privacy-long" class="hide-765"><%= I18n.t(".footer.link.privacy_policy") %></span>
-        <span id="privacy-short" class="display-none show-765"><%= I18n.t(".footer.link.privacy_policy_short") %></span>
-      <% end %>
-    </span>
+      <div class="right-side">
+        <span><%= I18n.t(".footer.link.all_rights") %></span>
+        <span><%= link_to I18n.t(".footer.link.terms_of_use"), "https://ucnrs.org/ucnrs-websites-terms-of-use/", target: "_blank" %></span>
+        <span>
+          <%= link_to I18n.t(".footer.link.privacy_policy_short"), href: "https://ucnrs.org/rams-privacy-statement/", target: "_blank" do %>
+            <span id="privacy-long" class="hide-765"><%= I18n.t(".footer.link.privacy_policy") %></span>
+            <span id="privacy-short" class="display-none show-765"><%= I18n.t(".footer.link.privacy_policy_short") %></span>
+          <% end %>
+        </span>
+      </div>
+    </div>
   </div>
 </footer>

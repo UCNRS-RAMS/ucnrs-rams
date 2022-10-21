@@ -1,31 +1,35 @@
-<div class="navbar-container container">
-  <div class="left-side">
-    <%= image_tag "navbar-logo.svg", alt: t("alt.ucnrs_logo"), height: "57px", class: "logo" %>
-    <h1 class="title">RAMS</h1>
-    <small id="title-extra">University of California<br />Natural Reserve System</small>
-  </div>
-  <% if current_user.present? %>
-    <div class="right-side">
-      <ul class="navbar-nav">
-        <li> <%= link_to I18n.t(".navbar.link.visits"), root_path, class:"nav-link #{active_class_for("visits")} #{active_class_for("home")}" %> </li>
-        <li> <%= link_to I18n.t(".navbar.link.reserves"), reserves_path, class:"nav-link #{active_class_for("reserves")}" %> </li>
-        <li> <%= link_to I18n.t(".navbar.link.my_projects"), projects_path, class:"nav-link #{active_class_for("projects")}" %> </li>
-        <li> <%= link_to I18n.t(".navbar.link.help"), helps_path, class:"nav-link #{active_class_for("helps")}" %> </li>
-        <li> <%= link_to I18n.t(".navbar.link.account"), edit_user_registration_path, class:"nav-link #{active_class_for("registrations")}" %> </li>
-        <li> <%= link_to I18n.t(".navbar.link.sign_out"), destroy_user_session_path, class:"nav-link #{active_class_for("sessions")}", data: { turbo: false } %> </li>
-        <li> <%= link_to I18n.t(".navbar.link.schedule_visit"), new_visit_path, class:"nav-link schedule #{active_class_for("visits")}" %></li>
-      </ul>
+<div class="navbar">
+  <div class="container">
+    <div class="navbar-content">
+      <div class="left-side">
+        <%= image_tag "navbar-logo.svg", alt: t("alt.ucnrs_logo"), height: "57px", class: "logo" %>
+        <h1 class="title">RAMS</h1>
+        <small id="title-extra">University of California<br />Natural Reserve System</small>
+      </div>
+      <% if current_user.present? %>
+        <div class="right-side">
+          <ul class="navbar-nav">
+            <li> <%= link_to I18n.t(".navbar.link.visits"), root_path, class:"nav-link #{active_class_for("visits")} #{active_class_for("home")}" %> </li>
+            <li> <%= link_to I18n.t(".navbar.link.reserves"), reserves_path, class:"nav-link #{active_class_for("reserves")}" %> </li>
+            <li> <%= link_to I18n.t(".navbar.link.my_projects"), projects_path, class:"nav-link #{active_class_for("projects")}" %> </li>
+            <li> <%= link_to I18n.t(".navbar.link.help"), helps_path, class:"nav-link #{active_class_for("helps")}" %> </li>
+            <li> <%= link_to I18n.t(".navbar.link.account"), edit_user_registration_path, class:"nav-link #{active_class_for("registrations")}" %> </li>
+            <li> <%= link_to I18n.t(".navbar.link.sign_out"), destroy_user_session_path, class:"nav-link #{active_class_for("sessions")}", data: { turbo: false } %> </li>
+            <li> <%= link_to I18n.t(".navbar.link.schedule_visit"), new_visit_path, class:"nav-link schedule #{active_class_for("visits")}" %></li>
+          </ul>
 
-      <%= image_tag 'hamburger.svg', alt: I18n.t(".navbar.alt_text.mobile_menu"), class: "navbar-hamburger display-none" %>
+          <%= image_tag 'hamburger.svg', alt: I18n.t(".navbar.alt_text.mobile_menu"), class: "navbar-hamburger display-none" %>
+        </div>
+      <% else %>
+        <div class="right-side">
+          <ul class="navbar-nav">
+            <li> <%= link_to I18n.t(".navbar.link.reserves"), reserves_path, class:"nav-link #{active_class_for("reserves")}" %> </li>
+            <li> <%= link_to I18n.t(".navbar.link.project_search"), "#", class:"nav-link #{active_class_for("project_search")}" %> </li>
+            <li> <%= link_to I18n.t(".navbar.link.schedule_visit"), new_visit_path, class:"nav-link schedule #{active_class_for("visits")}" %></li>
+          </ul>
+          <%= image_tag "hamburger.svg", alt: I18n.t(".navbar.alt_text.mobile_menu"), class: "navbar-hamburger display-none" %>
+        </div>
+      <% end %>
     </div>
-  <% else %>
-    <div class="right-side">
-      <ul class="navbar-nav">
-        <li> <%= link_to I18n.t(".navbar.link.reserves"), reserves_path, class:"nav-link #{active_class_for("reserves")}" %> </li>
-        <li> <%= link_to I18n.t(".navbar.link.project_search"), "#", class:"nav-link #{active_class_for("project_search")}" %> </li>
-        <li> <%= link_to I18n.t(".navbar.link.schedule_visit"), new_visit_path, class:"nav-link schedule #{active_class_for("visits")}" %></li>
-      </ul>
-      <%= image_tag "hamburger.svg", alt: I18n.t(".navbar.alt_text.mobile_menu"), class: "navbar-hamburger display-none" %>
-    </div>
-  <% end %>
+  </div>
 </div>
