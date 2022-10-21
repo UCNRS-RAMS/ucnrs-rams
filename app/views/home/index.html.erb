@@ -5,7 +5,7 @@
         <em>
           <%= t(".visits.title") %>
         </em>
-        <%= form_with url: root_path, method: :get, data: { "turbo-frame": "visits" } do %>
+        <%= form_with url: root_path, method: :get, data: { "turbo-frame": "visits", "turbo-action": "advance" } do %>
           <select id="status" name="visit_filter" aria-label="visit_filter" onchange="this.form.requestSubmit()">
             <optgroup label="<%= t(".labels.by") %>">
               <% @presenter.filter_options.each do |key, value| %>
@@ -27,7 +27,7 @@
       <table class="visit-requests">
         <%= render partial: "visit", collection: @presenter.visits %>
       </table>
-      <%= paginate @presenter.visit_scope, param_name: :visit_page %>
+      <%= paginate @presenter.visit_scope, param_name: :visit_page, data: { "turbo-action": "advance" } %>
     </section>
   <% end %>
   <section class="invoices">

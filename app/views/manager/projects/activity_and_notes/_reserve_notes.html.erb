@@ -9,5 +9,5 @@
     <% end %>
   </section>
   <%= render partial: "manager/projects/activity_and_notes/note", collection: presenter.notes %>
-  <%= paginate presenter.notes_scope, param_name: :notes_page %>
+  <%= paginate presenter.notes_scope, param_name: :notes_page, data: { "turbo-action": "advance" } %>
 </section>

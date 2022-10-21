@@ -3,4 +3,4 @@
     <%= render partial: "project", collection: presenter.projects %>
   </tbody>
 </table>
-<%= paginate presenter.project_scope %>
+<%= paginate presenter.project_scope, data: { "turbo-action": "advance" } %>
