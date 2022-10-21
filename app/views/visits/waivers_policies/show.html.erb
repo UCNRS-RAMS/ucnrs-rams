@@ -15,7 +15,6 @@
     <%= render partial: "agreements", locals: { policy_agreements: @presenter.data_management_agreements, title: t(".data_management_agreement") } %>
     <%= render partial: "checkbox", locals: { check: @form.policy_agreement, id: "dataManagementAgreement" } %>
 
-    <%= form.hidden_field :status, value: :in_review %>
     <%= form.hidden_field :id, value: @form.id %>
 
 

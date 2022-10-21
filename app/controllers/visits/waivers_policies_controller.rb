@@ -2,19 +2,19 @@ class Visits::WaiversPoliciesController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @form = VisitForm.new(user: current_user, params: { id: visit.id })
+    @form = VisitCompleteForm.new(params: { id: visit.id })
     @presenter = Visits::UsePolicyPresenter.new(current_user: current_user, current_step: 4, visit: visit)
   end
 
   def update
-    @form = VisitForm.new(user: current_user, params: visit_update_params)
+    @form = VisitCompleteForm.new(params: { id: visit.id })
 
-    if @form.save && visit_update_params[:policy_agreement] == "1"
+    if visit_update_params[:policy_agreement] == "1" && @form.save
       redirect_to @form.visit
     else
       @presenter = Visits::UsePolicyPresenter.new(current_user: current_user, current_step: 4, visit: visit)
       flash.now[:alert] = I18n.t(".visits.waivers_policies.show.policy_agreement_error")
-      render :show , status: :unprocessable_entity
+      render :show, status: :unprocessable_entity
     end
   end
 
@@ -25,8 +25,6 @@ class Visits::WaiversPoliciesController < ApplicationController
   end
 
   def visit_update_params
-    params.require(:visit).permit(:policy_agreement, :status, :id).tap do |param|
-      param[:submitted_at] = Time.current
-    end
+    params.require(:visit).permit(:policy_agreement, :id)
   end
 end
