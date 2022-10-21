@@ -108,6 +108,14 @@ class Visit < ApplicationRecord
     end
   end
 
+  def update_visit_status
+    if incomplete?
+      assign_attributes(status: :in_review)
+      assign_attributes(submitted_at: Time.current)
+      assign_attributes(policy_agreement: true)
+    end
+  end
+
   def self.searching_term(search_term)
     if search_term.present? && NUMERIC_SEARCH_PATTERN === search_term
       where(id: search_term)
