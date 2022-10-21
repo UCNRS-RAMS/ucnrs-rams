@@ -4,14 +4,15 @@
   display: none;
 }
 
-.navbar-container {
+.navbar-content {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  padding: 1.5rem 6.25rem;
+  padding: 1.5rem 1rem;
+  width: 100%;
 }
 
-.navbar {
+nav.main-navigation {
   color: $navbar-link-color;
   font-size: 1rem;
 
@@ -92,7 +93,7 @@
   }
 }
 
-.navbar::after {
+nav.main-navigation::after {
   background: linear-gradient(180deg, $navbar-shadow-gradient-start, $navbar-shadow-gradient-end);
   content: "";
   display: block;
@@ -102,7 +103,7 @@
 }
 
 @media screen and (max-width: 1280px) {
-  .navbar {
+  nav.main-navigation {
     #title-extra {
       display: none;
     }
@@ -116,7 +117,7 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .navbar {
+  nav.main-navigation {
     font-size: .875rem;
     transition: all .15s ease-in-out;
 
@@ -148,7 +149,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .navbar {
+  nav.main-navigation {
     #title-extra {
       display: unset;
       width: 100px;

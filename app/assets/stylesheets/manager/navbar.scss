@@ -2,13 +2,6 @@
 
 .manager {
   .manager-navbar.lower {
-    padding: 1.5rem 0;
-
-    .container {
-      display: flex;
-      justify-content: space-between;
-    }
-
     ul.navbar-nav {
       li:last-child {
         a {
@@ -34,7 +27,6 @@
   border-bottom: 1px solid #ccc;
   color: $navy-blue;
   font-weight: $normal;
-  padding: .3rem 0;
 
   .container {
     display: flex;
@@ -46,7 +38,7 @@
     font-size: .75rem;
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: .3rem 1rem;
 
     li {
       display: flex;
