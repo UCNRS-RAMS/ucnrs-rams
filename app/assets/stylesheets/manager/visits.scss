@@ -12,10 +12,10 @@
 .manager.visits-index {
   section.content {
     display: block;
-    
+
     header{
       margin: .5rem 0;
-      
+
       h1 {
         font-size: 1.85rem;
         font-weight: $medium;
@@ -50,7 +50,7 @@
 
     .content {
       padding: 3.5rem 3.5rem 0rem 3.5rem;
-      
+
       section {
         margin-bottom: 0px;
       }
@@ -201,5 +201,11 @@
         }
       }
     }
+  }
+}
+
+.manager {
+  .visits-search-list {
+    @include pagination;
   }
 }
