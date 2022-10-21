@@ -39,9 +39,11 @@
           padding: 0.75rem 0;
           width: 100%;
 
-          em {
+          h1 {
             flex: 1;
             font-style: normal;
+            font-weight: $semi-bold;
+            margin: 0;
             white-space: nowrap;
           }
 
