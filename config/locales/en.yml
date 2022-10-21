@@ -2328,6 +2328,9 @@ en:
     ucnrs_logo: "UCNRS logo"
     checked: "checked icon"
     unchecked: "unckecked icon"
+    facebook_logo: "facebook logo"
+    instagram_logo: "instagram logo"
+    youtube_logo: "youtube logo"
   universal:
     institution_type:
       university_of_california: "University of California"
