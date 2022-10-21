@@ -1,5 +1,8 @@
 <h4><%= policy_agreement.title %></h4>
-<%= policy_agreement.description %>
+<div class="policy">
+  <%= policy_agreement.description %> 
+  <%= image_tag(policy_agreement.image_url, class: "agreement-logo") if policy_agreement.image_url.present? %>
+</div>
 
 <% if policy_agreement.policy_url.present? %>
   <%= link_to policy_agreement.policy_url, class: "policy-link", target: :blank do %>

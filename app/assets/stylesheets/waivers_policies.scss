@@ -32,6 +32,17 @@
         margin: 0;
       }
     }
+
+    .policy {
+      display: flex;
+      justify-content: space-between;
+      
+      .agreement-logo {
+        max-width: 250px;
+        max-height: 200px;
+      }
+    }
+
     .agree-all {
       background: $gold;
       display: flex;
