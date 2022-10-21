@@ -2,9 +2,9 @@
   <%= turbo_frame_tag "visits" do %>
     <section class="visits">
       <header>
-        <em>
+        <h1>
           <%= t(".visits.title") %>
-        </em>
+        </h1>
         <%= form_with url: root_path, method: :get, data: { "turbo-frame": "visits", "turbo-action": "advance" } do %>
           <select id="status" name="visit_filter" aria-label="visit_filter" onchange="this.form.requestSubmit()">
             <optgroup label="<%= t(".labels.by") %>">
@@ -32,7 +32,7 @@
   <% end %>
   <section class="invoices">
     <header>
-      <em><%= t(".invoices.title") %></em>
+      <h1><%= t(".invoices.title") %></h1>
       <select name="invoice_filter" aria-label="invoice filter">
         <option value="recent">Most Recent</option>
       </select>
