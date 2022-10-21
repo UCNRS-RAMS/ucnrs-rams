@@ -11,7 +11,7 @@
     </thead>
     <tbody>
       <%= render partial: "manager/projects/activity_and_notes/activity", collection: presenter.logs %>
-      <%= paginate presenter.logs_scope, param_name: :logs_page %>
+      <%= paginate presenter.logs_scope, param_name: :logs_page, data: { "turbo-action": "advance" } %>
     </tbody>
   </table>
 </section>

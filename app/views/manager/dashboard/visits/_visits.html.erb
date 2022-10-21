@@ -4,5 +4,5 @@
       <%= render partial: "visit", collection: presenter.visits %>
     <tbody>
   </table>
-  <%= paginate presenter.visit_scope %>
+  <%= paginate presenter.visit_scope, data: { "turbo-action": "advance" } %>
 </turbo-frame>
