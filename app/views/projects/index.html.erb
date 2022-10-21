@@ -4,7 +4,7 @@
   <section class="left">
     <turbo-frame id="projects-table">
       <header>
-        <h1><%= t(".title") %></h1>
+        <em><%= t(".title") %></em>
         <form method="get">
           <select id="status" name="status" aria-label="status" onchange="this.form.requestSubmit()">
             <% @presenter.filter_options.each do |option| %>
