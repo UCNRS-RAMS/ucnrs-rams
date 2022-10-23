@@ -9,6 +9,7 @@
   tbody tr {
     background-color: $light-light-blue;
     text-align: left;
+    transition: all .25s ease-in-out;
   }
 
   th {
@@ -22,46 +23,112 @@
     &:first-of-type {
       padding-left: 1.25rem;
     }
-  }
-
-  td {
-    border-bottom: 1px solid $gray;
-    border-top: 1px solid $gray;
-    font-size: 0.75rem;
-    font-weight: $normal;
-    line-height: 1.25rem;
-    padding-bottom: 0.625rem;
-    padding-right: 0.5rem;
-    padding-top: 0.625rem;
-
-    &:first-of-type {
-      border-bottom-left-radius: 0.313rem;
-      border-left: 1px solid $gray;
-      border-top-left-radius: 0.313rem;
-      max-width: 150px;
-      padding-left: 1.2rem;
-      padding-right: 1rem;
-    }
 
     &:last-of-type {
-      border-bottom-right-radius: 0.313rem;
-      border-right: 1px solid $gray;
-      border-top-right-radius: 0.313rem;
-      padding-right: 1.2rem;
+      padding-right: 1.25rem;
       text-align: right;
-    }
-
-    &.title {
-      font-weight: $bold;
     }
   }
 
-  tr.header > td {
-    background-color: $light-bluegray;
+  tbody {
+    td, th {
+      border-bottom: 1px solid $gray;
+      border-top: 1px solid $gray;
+      font-size: 0.75rem;
+      font-weight: $normal;
+      line-height: 1.25rem;
+      padding-bottom: 0.625rem;
+      padding-right: 0.5rem;
+      padding-top: 0.625rem;
+
+      &:first-of-type {
+        border-bottom-left-radius: 0.313rem;
+        border-left: 1px solid $gray;
+        border-top-left-radius: 0.313rem;
+        max-width: 150px;
+        padding-left: 1.25rem;
+        padding-right: 1rem;
+      }
+
+      &:last-of-type {
+        border-bottom-right-radius: 0.313rem;
+        border-right: 1px solid $gray;
+        border-top-right-radius: 0.313rem;
+        padding-right: 1.25rem;
+        text-align: right;
+      }
+
+      &.title {
+        font-weight: $bold;
+      }
+    }
+  }
+
+  tr.header {
+    background-color: $extra-light-bluegray;
+
+    td, th {
+      color: $navy-blue;
+      font-weight: $semi-bold;
+      text-align: left;
+    }
   }
 
   tr.disabled {
     color: $bluegray;
+  }
+
+  tbody {
+    tr:not(.header):hover {
+      background-color: $light-gold;
+      transition: all .25s ease-in-out;
+
+      td {
+        border-bottom: 2px solid $gold;
+        border-top: 2px solid $gold;
+        padding-bottom: 0.5625rem;
+        padding-top: 0.5625rem;
+
+        &:first-of-type {
+          border-left: 2px solid $gold;
+          padding-left: 1.1875rem;
+        }
+
+        &:last-of-type {
+          border-right: 2px solid $gold;
+          padding-right: 1.1875rem;
+        }
+      }
+
+      .pill {
+        transition: all .25s ease-in-out;
+
+        &.approved {
+          border-color: transparent;
+          background-color: $green;
+        }
+
+        &.in_review {
+          border-color: transparent;
+          background-color: $yellow;
+        }
+
+        &.denied {
+          border-color: transparent;
+          background-color: $blue;
+        }
+
+        &.incomplete {
+          border-color: transparent;
+          background-color: $red-alert;
+        }
+
+        &.cancelled {
+          border-color: transparent;
+          background-color: $pink;
+        }
+      }
+    }
   }
 
   img[alt="checked icon"], img[alt="unchecked icon"] {
@@ -161,12 +228,12 @@
   tr.subheader {
     background-color: $gray;
   }
-  
+
   th {
     padding: 8px;
     text-align: left;
   }
-  
+
   td {
     padding: 4px 4px 4px 8px;
   }
