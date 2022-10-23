@@ -20,7 +20,7 @@
     </thead>
     <tbody>
       <% amenity_rate_categories.each do |visibility, amenity_rate_categories| %>
-        <tr><td colspan="14"><%= visibility %></td></tr>
+        <tr class="header"><th colspan="14"><%= visibility %></th></tr>
         <%= render partial: "amenity_rate_category", collection: amenity_rate_categories %>
       <% end %>
     </tbody>
