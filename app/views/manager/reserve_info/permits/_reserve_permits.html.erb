@@ -9,7 +9,7 @@
     </thead>
     <tbody>
       <% reserve_permits.each do |permit_authority, reserve_permits| %>
-        <tr class="header"><td colspan="5"><strong><%= permit_authority %></strong></td></tr>
+        <tr class="header"><th colspan="5"><%= permit_authority %></th></tr>
         <%= render partial: "reserve_permit", collection: reserve_permits %>
       <% end %>
     </tbody>
