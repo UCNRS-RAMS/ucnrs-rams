@@ -1,4 +1,8 @@
-<div class="form-group">
-  <%= form.label :rate, presenter.description, class: "form-label" %>
-  <%= form.text_field :rate, class: "form-input" %>
+<div class="row form-group">
+  <div class="col-33">
+    <%= form.label :rate, presenter.description, class: "form-inline-label" %>
+  </div>
+  <div class="col">
+    <%= form.text_field :rate, class: "form-input" %>
+  </div>
 </div>

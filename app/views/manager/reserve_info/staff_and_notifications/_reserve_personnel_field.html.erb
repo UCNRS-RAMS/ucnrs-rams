@@ -1,38 +1,43 @@
 <div>
-  <div>
-    <%= form.label :email, t(".email") %>
-    <%= form.text_field :email, class: "form-input" %>
+  <div class="row">
+    <div class="form-group col">
+      <%= form.label :email, t(".email"), class: "form-label" %>
+      <%= form.text_field :email, class: "form-input" %>
+    </div>
+    <div class="form-group col">
+      <%= form.label :phone_number, t(".phone_number"), class: "form-label" %>
+      <%= form.text_field :phone_number, class: "form-input" %>
+    </div>
   </div>
-  <div>
-    <%= form.label :phone_number, t(".phone_number") %>
-    <%= form.text_field :phone_number, class: "form-input" %>
-  </div>
-  <div>
-    <%= form.check_box(:receive_new_visit_email) %>
-    <%= form.label(:receive_new_visit_email, t(".receive_new_visit_email")) %>
-  </div>
-  <div>
-    <%= form.check_box(:receive_incomplete_visit_email) %>
-    <%= form.label(:receive_incomplete_visit_email, t(".receive_incomplete_visit_email")) %>
-  </div>
-  <div>
-    <%= form.check_box(:receive_update_email) %>
-    <%= form.label(:receive_update_email, t(".receive_update_email")) %>
-  </div>
-  <div>
-    <%= form.check_box(:receive_approval_email) %>
-    <%= form.label(:receive_approval_email, t(".receive_approval_email")) %>
-  </div>
-  <div>
-    <%= form.check_box(:receive_iacuc_email) %>
-    <%= form.label(:receive_iacuc_email, t(".receive_iacuc_email")) %>
-  </div>
-  <div>
-    <%= form.check_box(:receive_drone_email) %>
-    <%= form.label(:receive_drone_email, t(".receive_drone_email")) %>
-  </div>
-  <div>
-    <%= form.check_box(:receive_scuba_email) %>
-    <%= form.label(:receive_scuba_email, t(".receive_scuba_email")) %>
+  <div class="form-group">
+    <div class="form-label"><%= t(".email_notifications") %></div>
+    <div>
+      <%= form.check_box(:receive_new_visit_email) %>
+      <%= form.label(:receive_new_visit_email, t(".receive_new_visit_email"), class: "form-inline-label") %>
+    </div>
+    <div>
+      <%= form.check_box(:receive_incomplete_visit_email) %>
+      <%= form.label(:receive_incomplete_visit_email, t(".receive_incomplete_visit_email"), class: "form-inline-label") %>
+    </div>
+    <div>
+      <%= form.check_box(:receive_update_email) %>
+      <%= form.label(:receive_update_email, t(".receive_update_email"), class: "form-inline-label") %>
+    </div>
+    <div>
+      <%= form.check_box(:receive_approval_email) %>
+      <%= form.label(:receive_approval_email, t(".receive_approval_email"), class: "form-inline-label") %>
+    </div>
+    <div>
+      <%= form.check_box(:receive_iacuc_email) %>
+      <%= form.label(:receive_iacuc_email, t(".receive_iacuc_email"), class: "form-inline-label") %>
+    </div>
+    <div>
+      <%= form.check_box(:receive_drone_email) %>
+      <%= form.label(:receive_drone_email, t(".receive_drone_email"), class: "form-inline-label") %>
+    </div>
+    <div>
+      <%= form.check_box(:receive_scuba_email) %>
+      <%= form.label(:receive_scuba_email, t(".receive_scuba_email"), class: "form-inline-label") %>
+    </div>
   </div>
 </div>

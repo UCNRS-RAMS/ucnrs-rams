@@ -1762,6 +1762,7 @@ en:
           plants_fungus_soil: "Plants, Fungus, Soil"
           enabled: "Enabled"
           disabled: "Disabled"
+          visible: "Visible"
       staff_and_notifications:
         index:
           staff_and_notifications: "Staff & Notifications"
@@ -1778,6 +1779,7 @@ en:
         reserve_personnel_field:
           email: "Email"
           phone_number: "Phone Number"
+          email_notifications: "Email Notifications"
           receive_new_visit_email: "New Visit"
           receive_incomplete_visit_email: "Incomplete visit"
           receive_update_email: "Visit Updates"
