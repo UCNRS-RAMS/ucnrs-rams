@@ -1,122 +1,130 @@
 <div>
-  <%= form.label(:visible) do %>
-    <div>
-      <%= form.radio_button(:visible, true) %>
-      <%= form.label(:visible_true, t(".enabled")) %>
+  <div class="row">
+    <div class="form-group col-25">
+      <%= form.label :sort_order, t(".sort_order"), class: "form-label" %>
+      <%= form.number_field :sort_order, class: "form-input" %>
     </div>
+  </div>
+  <div class="form-group">
+    <div class="form-label"><%= t(".visible") %></div>
     <div>
-      <%= form.radio_button(:visible, false) %>
-      <%= form.label(:visible_false, t(".disabled")) %>
+      <div class="form-inline">
+        <%= form.radio_button(:visible, true) %>
+        <%= form.label(:visible_true, t(".enabled"), class: "form-inline-label") %>
+      </div>
+      <div class="form-inline">
+        <%= form.radio_button(:visible, false) %>
+        <%= form.label(:visible_false, t(".disabled"), class: "form-inline-label") %>
+      </div>
     </div>
-  <% end %>
-  <div>
-    <%= form.label :sort_order, t(".sort_order") %>
-    <%= form.number_field :sort_order %>
   </div>
-  <div>
-    <%= form.label :location, t(".question_location") %>
-    <%= form.select :location, presenter.location_options, { include_blank: "Select one" } %>
-  </div>
-
   <hr />
-  
-  <div>
-    <%= form.label :question_type, t(".question_type") %>
-    <%= form.select :question_type, presenter.question_type_options, {include_blank: "Select one"} %>
+  <div class="row">
+    <div class="form-group col-50">
+      <%= form.label :location, t(".question_location"), class: "form-label" %>
+      <%= form.select :location, presenter.location_options, { include_blank: "Select one" }, class: "form-input" %>
+    </div>
   </div>
-  <div>
-    <%= form.label :question, t(".reserve_question") %>
-    <%= form.text_area :question %>
+  <hr />
+  <div class="row">
+    <div class="form-group col-50">
+      <%= form.label :question_type, t(".question_type"), class: "form-label" %>
+      <%= form.select :question_type, presenter.question_type_options, {include_blank: "Select one"}, class: "form-input" %>
+    </div>
   </div>
-  <div>
-    <%= form.label :statement, t(".additional_information") %>
-    <%= form.text_area :statement %>
+  <div class="form-group">
+    <%= form.label :question, t(".reserve_question"), class: "form-label" %>
+    <%= form.text_area :question, class: "form-textarea" %>
+  </div>
+  <div class="form-group">
+    <%= form.label :statement, t(".additional_information"), class: "form-label" %>
+    <%= form.text_area :statement, class: "form-textarea" %>
     <small><%=t(".description_helper_text")%></small>
   </div>
-  <div>
-    <div><%= form.label(:answer_required, t(".answer_required")) %></div>
+  <div class="form-group">
+    <div class="form-label"><%= t(".answer_required") %></div>
     <div>
-      <%= form.radio_button(:answer_required, true) %>
-      <%= form.label(:answer_required_true, t(".required")) %>
-    </div>
-    <div>
-      <%= form.radio_button(:answer_required, false) %>
-      <%= form.label(:answer_required_false, t(".optional")) %>
+      <div class="form-inline">
+        <%= form.radio_button(:answer_required, true) %>
+        <%= form.label(:answer_required_true, t(".required"), class: "form-inline-label") %>
+      </div>
+      <div class="form-inline">
+        <%= form.radio_button(:answer_required, false) %>
+        <%= form.label(:answer_required_false, t(".optional"), class: "form-inline-label") %>
+      </div>
     </div>
   </div>
-  <div>
-    <%= t('.project_type_location') %>
+  <div class="form-group">
+    <div class="form-label"><%= t('.project_type_location') %></div>
     <div>
-      <div>
-        <%= form.check_box(:research, {class:""}, 'true', 'false') %>
-        <%= form.label(:research, t(".research_project")) %>
-      </div>
-      <div>
-        <%= form.check_box(:university_class, {class:""}, 'true', 'false') %>
-        <%= form.label(:university_class, t(".class_project")) %>
-      </div>
-      <div>
-        <%= form.check_box(:public_use, {class:""}, 'true', 'false') %>
-        <%= form.label(:public_use, t(".public_use_project")) %>
-      </div>
-      <div>
-        <%= form.check_box(:conference, {class:""}, 'true', 'false') %>
-        <%= form.label(:conference, t(".conference_project")) %>
-      </div>
-      <div>
-        <%= form.check_box(:housing, {class:""}, 'true', 'false') %>
-        <%= form.label(:housing, t(".housing_project")) %>
-      </div>
+      <%= form.check_box(:research, {}, 'true', 'false') %>
+      <%= form.label(:research, t(".research_project"), class: "form-inline-label") %>
     </div>
     <div>
-      <%= t('.flag') %>
-      <div>
-        <%= form.check_box(:iacuc_flag, {class:""}, 'true', 'false') %>
-        <%= form.label(:iacuc_flag, t(".iacuc")) %>
-      </div>
-      <div>
-        <%= form.check_box(:drone_flag, {class:""}, 'true', 'false') %>
-        <%= form.label(:drone_flag, t(".drone")) %>
-      </div>
-      <div>
-        <%= form.check_box(:scuba_flag, {class:""}, 'true', 'false') %>
-        <%= form.label(:scuba_flag, t(".scuba")) %>
-      </div>
-      <div>
-        <%= form.check_box(:vertebrate_flag, {class:""}, 'true', 'false') %>
-        <%= form.label(:vertebrate_flag, t(".vertebrate")) %>
-      </div>
-      <div>
-        <%= form.check_box(:threatened_endangered_flag, {class:""}, 'true', 'false') %>
-        <%= form.label(:threatened_endangered_flag, t(".threatened")) %>
-      </div>
+      <%= form.check_box(:university_class, {}, 'true', 'false') %>
+      <%= form.label(:university_class, t(".class_project"), class: "form-inline-label") %>
     </div>
     <div>
-      <%= t('.does_this_question_involves') %>
-      <div>
-        <%= form.check_box(:involves_mammals, {class:""}, 'true', 'false') %>
-        <%= form.label(:involves_mammals, t(".mammals")) %>
-      </div>
-      <div>
-        <%= form.check_box(:involves_reptiles, {class:""}, 'true', 'false') %>
-        <%= form.label(:involves_reptiles, t(".reptiles")) %>
-      </div>
-      <div>
-        <%= form.check_box(:involves_amphibians, {class:""}, 'true', 'false') %>
-        <%= form.label(:involves_amphibians, t(".amphibians")) %>
-      </div>
-      <div>
-        <%= form.check_box(:involves_fish, {class:""}, 'true', 'false') %>
-        <%= form.label(:involves_fish, t(".fish")) %>
-      </div>
-      <div>
-        <%= form.check_box(:involves_birds, {class:""}, 'true', 'false') %>
-        <%= form.label(:involves_birds, t(".birds")) %>
-      </div>
-      <div>
-        <%= form.check_box(:involves_plants_fungus_soil, {class:""}, 'true', 'false') %>
-        <%= form.label(:involves_plants_fungus_soil, t(".plants_fungus_soil")) %>
-      </div>
+      <%= form.check_box(:public_use, {}, 'true', 'false') %>
+      <%= form.label(:public_use, t(".public_use_project"), class: "form-inline-label") %>
+    </div>
+    <div>
+      <%= form.check_box(:conference, {}, 'true', 'false') %>
+      <%= form.label(:conference, t(".conference_project"), class: "form-inline-label") %>
+    </div>
+    <div>
+      <%= form.check_box(:housing, {}, 'true', 'false') %>
+      <%= form.label(:housing, t(".housing_project"), class: "form-inline-label") %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="form-label"><%= t('.flag') %></div>
+    <div>
+      <%= form.check_box(:iacuc_flag, {}, 'true', 'false') %>
+      <%= form.label(:iacuc_flag, t(".iacuc"), class: "form-inline-label") %>
+    </div>
+    <div>
+      <%= form.check_box(:drone_flag, {}, 'true', 'false') %>
+      <%= form.label(:drone_flag, t(".drone"), class: "form-inline-label") %>
+    </div>
+    <div>
+      <%= form.check_box(:scuba_flag, {}, 'true', 'false') %>
+      <%= form.label(:scuba_flag, t(".scuba"), class: "form-inline-label") %>
+    </div>
+    <div>
+      <%= form.check_box(:vertebrate_flag, {}, 'true', 'false') %>
+      <%= form.label(:vertebrate_flag, t(".vertebrate"), class: "form-inline-label") %>
+    </div>
+    <div>
+      <%= form.check_box(:threatened_endangered_flag, {}, 'true', 'false') %>
+      <%= form.label(:threatened_endangered_flag, t(".threatened"), class: "form-inline-label") %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="form-label"><%= t('.does_this_question_involves') %></div>
+    <div>
+      <%= form.check_box(:involves_mammals, {}, 'true', 'false') %>
+      <%= form.label(:involves_mammals, t(".mammals"), class: "form-inline-label") %>
+    </div>
+    <div>
+      <%= form.check_box(:involves_reptiles, {}, 'true', 'false') %>
+      <%= form.label(:involves_reptiles, t(".reptiles"), class: "form-inline-label") %>
+    </div>
+    <div>
+      <%= form.check_box(:involves_amphibians, {}, 'true', 'false') %>
+      <%= form.label(:involves_amphibians, t(".amphibians"), class: "form-inline-label") %>
+    </div>
+    <div>
+      <%= form.check_box(:involves_fish, {}, 'true', 'false') %>
+      <%= form.label(:involves_fish, t(".fish"), class: "form-inline-label") %>
+    </div>
+    <div>
+      <%= form.check_box(:involves_birds, {}, 'true', 'false') %>
+      <%= form.label(:involves_birds, t(".birds"), class: "form-inline-label") %>
+    </div>
+    <div>
+      <%= form.check_box(:involves_plants_fungus_soil, {}, 'true', 'false') %>
+      <%= form.label(:involves_plants_fungus_soil, t(".plants_fungus_soil"), class: "form-inline-label") %>
     </div>
   </div>
 </div>

@@ -7,9 +7,9 @@
       </p>
       <section class="text">
         <h2><%= t(".title") %></h2>
-        <div class="field autocomplete" data-controller="autocomplete" data-autocomplete-url-value="<%= users_path %>">
-          <%= form.label :full_name %>
-          <%= form.text_field :full_name, placeholder: t(".search_by_name"), "data-autocomplete-target": "input" %>
+        <div class="autocomplete form-group" data-controller="autocomplete" data-autocomplete-url-value="<%= users_path %>">
+          <%= form.label :full_name, class:"form-label" %>
+          <%= form.text_field :full_name, placeholder: t(".search_by_name"), "data-autocomplete-target": "input", class: "form-input" %>
           <%= form.hidden_field :user_id, "data-autocomplete-target": "hidden" %>
           <div class="autocomplete-results-container">
             <ul class="autocomplete-results" data-autocomplete-target="results"></ul>

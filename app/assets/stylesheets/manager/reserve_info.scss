@@ -44,8 +44,8 @@
 
       a.active {
         background-color: unset;
-        border-top: 1px solid $black;
         border-bottom: 1px solid $black;
+        border-top: 1px solid $black;
         border-right: 8px solid $black;
         margin-top: -1px;
       }
@@ -95,7 +95,7 @@
     border-width: 2px !important;
     color: $red !important;
     font-size: small;
-    .error_messages { 
+    .error_messages {
       margin-left: 5px;
     }
   }
@@ -122,7 +122,7 @@
         font-weight: $light;
       }
     }
-  
+
     > p:last-of-type {
       margin-bottom: 1.75rem;
     }
@@ -199,7 +199,7 @@
 
     .row-medium, .row-auto {
       padding-right: 1rem;
-  
+
       > * {
         width: 100%;
       }
@@ -246,5 +246,131 @@
 .manager.permits {
   table.reserve_permits-table {
     @include table-style1;
+  }
+}
+
+.manager.amenities_and_rates, .manager.reserve_questions, .manager.waivers,
+.manager.staff_and_notifications {
+  .modal form{
+    h2 {
+      font-weight: $semi-bold;
+      margin-top: 0;
+    }
+
+    input, textarea, select {
+      font-size: .85rem;
+    }
+
+    small {
+      display: block;
+      font-size: .75rem;
+      font-weight: $light;
+      margin-top: .25rem;
+    }
+
+    hr {
+      border-bottom: 1px;
+      border-color: $gray;
+      border-style: solid;
+      border-top: 0;
+      margin: 1rem 0;
+    }
+
+    .input-group {
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group, .with-form-group-pad {
+      padding: 0 .5rem;
+    }
+
+    .form-label {
+      color: $dark-bluegray;
+      display: inline-block;
+      font-size: 0.8125rem;
+      font-weight: $semi-bold;
+      margin-bottom: 0.15rem;
+    }
+
+    .form-inline-label {
+      color: $dark-bluegray;
+      display: inline-block;
+      font-size: 0.8125rem;
+      font-weight: $normal;
+      margin-bottom: 0.15rem;
+    }
+
+    .form-textarea {
+      background-color: $white;
+      border: 1px solid $gray;
+      border-radius: 0.3125rem;
+      box-sizing: border-box;
+      min-height: 6rem;
+      padding: .625rem;
+      resize: vertical;
+      width: 100%;
+    }
+
+    .form-input {
+      background-color: $white;
+      border: 1px solid $gray;
+      border-radius: 0.3125rem;
+      box-sizing: border-box;
+      display: block;
+      padding: .625rem;
+      width: 100%;
+    }
+
+    .form-input:disabled {
+      background-color: #eee;
+    }
+
+    .form-inline {
+      display: inline-block;
+      margin-right: .5rem;
+    }
+
+    .row {
+      align-items: center;
+      display: flex;
+
+      .col {
+        flex: 1 0 0%;
+      }
+
+      .col-25 {
+        box-sizing: border-box;
+        flex: 0 0 auto;
+        width: 25%;
+      }
+
+      .col-33 {
+        box-sizing: border-box;
+        flex: 0 0 auto;
+        width: 33%;
+      }
+
+      .col-50 {
+        box-sizing: border-box;
+        flex: 0 0 auto;
+        width: 50%;
+      }
+    }
+
+    .row-medium, .row-auto {
+      padding-right: 1rem;
+
+      > * {
+        width: 100%;
+      }
+    }
+
+    .row-medium {
+      width: 423px;
+    }
   }
 }
