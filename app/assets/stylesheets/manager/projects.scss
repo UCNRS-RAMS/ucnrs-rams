@@ -11,10 +11,6 @@
 
 .manager.projects-show {
   .container {
-    display: flex;
-    margin: 0 auto;
-    max-width: 1300px;
-
     @include summary;
 
     .content {
