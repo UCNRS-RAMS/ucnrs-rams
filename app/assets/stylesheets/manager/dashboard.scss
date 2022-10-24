@@ -12,12 +12,12 @@
       list-style: none;
 
       a {
+        align-items: center;
         border: 1px solid $gray;
-        padding: 0.4375rem 0.625rem;
-
-        img {
-          vertical-align: middle;
-        }
+        display: flex;
+        height: 30px;
+        justify-content: center;
+        width: 35px;
       }
 
       a.active {
