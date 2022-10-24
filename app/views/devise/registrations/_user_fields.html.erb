@@ -65,12 +65,12 @@
   </section>
 </div>
 <div class="section-container blue-bg">
-  <section class="role" data-controller="copy">
+  <section class="role" data-controller="copy role">
     <div class="field">
       <h2><%= t(".titles.role") %></h2>
       <div class="radio-buttons role">
         <% presenter.role_options.each do |(label, value)| %>
-          <span class="radio-button">
+          <span class="radio-button" data-action="click->role#showAdvisorField">
             <%= f.radio_button :role, value %>
             <%= f.label :role, label, value: value %>
           </span>
@@ -112,7 +112,7 @@
         </div>
       </div>
     </div>
-    <div class="field large">
+    <div class="no-field large" data-role-target="advisor" >
       <%= f.label :advisor, t(".labels.advisor_name") %>
       <%= f.text_field :advisor %>
     </div>
