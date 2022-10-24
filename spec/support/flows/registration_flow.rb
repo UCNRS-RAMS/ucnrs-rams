@@ -140,7 +140,7 @@ class RegistrationFlow
     page.choose(role)
     page.fill_in("Institution, Organization, or Agency", with: institution)
     page.fill_in("ORCID (Optional)", with: orcid)
-    page.fill_in("Advisor/Supervisor Name", with: advisor)
+
     page.fill_in("Full Name", with: emergency_contact_full_name)
     page.fill_in("Phone Number", id: "user_emergency_contact_phone_number", with: emergency_contact_phone_number)
     page.fill_in("Address", id: "user_address_line_1", with: address_line_1)
