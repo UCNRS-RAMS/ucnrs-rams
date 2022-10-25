@@ -1,6 +1,6 @@
 class Manager::Visits::SummaryController < ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_reserve_manager!
+  before_action :confirm_manager!
 
   def show
     @presenter = Manager::Visits::SummaryPresenter.new(visit: visit, current_user: current_user)

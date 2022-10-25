@@ -14,18 +14,23 @@ class Manager::VisitShowPresenter
     "btn-status bg-#{status_class}"
   end
 
-  def tab_params(id: "summary", path: "#", classes: "", action_method: "changeTab", name: nil )
+  def tab_params(id: "summary", path: "#", classes: "", action_method: "changeTab", name: nil, clickable: true )
     {
       id: id,
       name: name || I18n.translate("manager.visits.tab.#{id}"),
       path: path,
-      classes: "nav-link #{classes}",
+      classes: "nav-link #{classes}#{" disabled-link" unless clickable}",
       action_method: action_method,
+      clickable: clickable
     }
   end
 
   def staff_member?
     user.manager_of_reserve?(reserve)
+  end
+
+  def btn_class
+    "disabled-link" unless staff_member?
   end
 
   def visit_date_range

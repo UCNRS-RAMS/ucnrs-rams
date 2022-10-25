@@ -422,6 +422,66 @@ table.visit-requests {
   .bg-incomplete {
     background-color: $red-alert;
   }
+  
+  td {
+    border-bottom: 1px solid $gray;
+    border-top: 1px solid $gray;
+    font-size: 0.75rem;
+    font-weight: $normal;
+    line-height: 1.25rem;
+    padding-bottom: 0.625rem;
+    padding-top: 0.625rem;
+
+    .disabled-link {
+      filter: invert(50%);
+      pointer-events: none;
+    }
+    
+    &:first-of-type {
+      border-bottom-left-radius: 0.313rem;
+      border-left: 1px solid $gray;
+      border-top-left-radius: 0.313rem;
+      padding-left: 1.2rem;
+      padding-right: 1rem;
+      width: 115px;
+    }
+
+    &:last-of-type {
+      border-bottom-right-radius: 0.313rem;
+      border-right: 1px solid $gray;
+      border-top-right-radius: 0.313rem;
+      padding-right: 1.2rem;
+      text-align: right;
+    }
+
+    &.title {
+      font-weight: $bold;
+    }
+  }
+
+  a:not(:last-of-type) {
+    display: inline-block;
+    margin-right: .5rem;
+
+    &.text-icon {
+      color: $navy-blue;
+      font-size: 1.2rem;
+      text-decoration: none;
+      vertical-align: top;
+    }
+  }
+
+  a img {
+    vertical-align: middle;
+  }
+
+  .pill {
+    display: flex;
+  }
+
+  .date-range {
+    font-weight: $semi-bold;
+  }
 }
 
 div#reserve_question-summary-list {

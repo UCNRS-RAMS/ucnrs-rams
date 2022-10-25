@@ -16,6 +16,10 @@ class Manager::Visits::SummaryPresenter
     end
   end
 
+  def staff_member?
+    user.manager_of_reserve?(visit.reserve)
+  end
+
   def submitted_date
     I18n.l(created_at, format: :visit_submitted_date)
   end

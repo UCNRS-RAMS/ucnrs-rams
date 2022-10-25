@@ -1,5 +1,5 @@
 <turbo-frame id="visit-details">
-  <%= turbo_frame_tag "visit-summary-edit", src: edit_manager_reserve_visit_summary_path(visit_id: @presenter.id) %>
+  <%= turbo_frame_tag "visit-summary-edit", src: edit_manager_reserve_visit_summary_path(visit_id: @presenter.id) if @presenter.staff_member? %>
   <div>
     <div class="p-bottom">
       <h4><%= t(".submit_date") %>&nbsp<%= @presenter.submitted_date %></h4>

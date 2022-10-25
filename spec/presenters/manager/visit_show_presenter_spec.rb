@@ -41,21 +41,46 @@ RSpec.describe Manager::VisitShowPresenter do
     let(:show_presenter) { Manager::VisitShowPresenter.new(visit: create(:visit), current_user: create(:user, :confirmed)) }
 
     it "return default hash when arguments not given" do
-      expected_output = {id: "summary", name: "Summary", path: "#", classes: "nav-link ", action_method: "changeTab"}
+      expected_output = {id: "summary", name: "Summary", path: "#", classes: "nav-link ", action_method: "changeTab", clickable: true}
 
       expect(show_presenter.tab_params).to eq(expected_output)
     end
 
     it "return hash with given values" do
-      expected_output = {id: "summary", name: show_presenter.status, path: "/visits", classes: "nav-link #{show_presenter.status_classes}", action_method: "changeTab"}
+      expected_output = {id: "summary", name: show_presenter.status, path: "/visits", classes: "nav-link #{show_presenter.status_classes}", action_method: "changeTab", clickable: true }
 
       expect(show_presenter.tab_params(id: "summary", name: show_presenter.status, path: "/visits", classes: show_presenter.status_classes, action_method: "changeTab")).to eq(expected_output)
     end
 
     it "return hash having same values for id and name when name is not given" do
-      expected_output = {id: "summary", name: "Summary", path: "#", classes: "nav-link ", action_method: "changeTab"}
+      expected_output = {id: "summary", name: "Summary", path: "#", classes: "nav-link ", action_method: "changeTab", clickable: true}
 
       expect(show_presenter.tab_params(id: "summary")).to eq(expected_output)
+    end
+  end
+
+  describe "#btn_class" do
+    it "return 'disabled-link' if not staff_member" do
+      user = create(:user, :confirmed)
+      reserve = create(:reserve)
+      visit = create(:visit, user: user, reserve: reserve)
+      show_presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: user)
+
+      expected_output = "disabled-link"
+
+      expect(show_presenter.btn_class).to eq(expected_output)
+    end
+
+    it "return 'disabled-link' if not staff_member" do
+      user = create(:user, :confirmed)
+      reserve = create(:reserve)
+      visit = create(:visit, user: user, reserve: reserve)
+      create(:reserve_personnel, user: user, reserve: reserve)
+      show_presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: user)
+
+      expected_output = nil
+
+      expect(show_presenter.btn_class).to eq(expected_output)
     end
   end
 
