@@ -1,7 +1,7 @@
 <section class="project-team p-bottom">
   <h2 class="main-header"><%= t(".user_visits", size: presenter.user_visits.sum(&:count)) %></h2>
     <%= link_to t(".edit_visitor"), manager_reserve_visit_user_visits_path(visit_id: presenter.id, reserve_id: presenter.reserve_id),
-        data: { controller: "tab-bar", action: "click->tab-bar#selectTab", "tab-bar-id-param": "visitors", } %>
+        data: { controller: "tab-bar", action: "click->tab-bar#selectTab", "tab-bar-id-param": "visitors", } if presenter.staff_member? %>
   <table id="team-summary-table" class="summary-table">
     <thead>
       <tr>

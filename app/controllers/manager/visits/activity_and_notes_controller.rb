@@ -1,6 +1,6 @@
 class Manager::Visits::ActivityAndNotesController < ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_reserve_manager!
+  before_action :confirm_manager!
 
   def index
     @presenter = Manager::Visits::ActivityAndNotesIndexPresenter.new(

@@ -181,6 +181,10 @@
           display: flex;
           margin-right: 2.5rem;
 
+          a.disabled-link {
+            color: $light-bluegray !important;
+          }
+
           a.nav-link {
             color: $dark-bluegray;
             display: inline-block;

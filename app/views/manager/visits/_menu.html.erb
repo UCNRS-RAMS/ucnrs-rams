@@ -7,22 +7,22 @@
 
     <li>
       <%= render partial: "tab",
-        locals: @presenter.tab_params(id: "details", path: edit_manager_reserve_visit_detail_path(visit_id: @presenter.id)) %>
+        locals: @presenter.tab_params(id: "details", path: edit_manager_reserve_visit_detail_path(visit_id: @presenter.id), clickable: @presenter.staff_member?) %>
     </li>
 
     <li>
       <%= render partial: "tab",
-        locals: @presenter.tab_params(id: "visitors", path: manager_reserve_visit_user_visits_path(visit_id: @presenter.id, reserve_id: @presenter.reserve_id)) %>
+        locals: @presenter.tab_params(id: "visitors", path: manager_reserve_visit_user_visits_path(visit_id: @presenter.id, reserve_id: @presenter.reserve_id), clickable: @presenter.staff_member?) %>
     </li>
 
     <li>
       <%= render partial: "tab",
-        locals: @presenter.tab_params(id: "reserve_info", path: manager_reserve_visit_reserve_info_index_path(visit_id: @presenter.id)) %>
+        locals: @presenter.tab_params(id: "reserve_info", path: manager_reserve_visit_reserve_info_index_path(visit_id: @presenter.id), clickable: @presenter.staff_member?) %>
     </li>
 
     <li>
       <%= render partial: "tab",
-        locals: @presenter.tab_params(id: "policies") %>
+        locals: @presenter.tab_params(id: "policies", clickable: @presenter.staff_member?) %>
     </li>
 
     <li>
@@ -32,7 +32,7 @@
 
     <li>
       <%= render partial: "tab",
-        locals: @presenter.tab_params(id: "invoices") %>
+        locals: @presenter.tab_params(id: "invoices", clickable: @presenter.staff_member?) %>
     </li>
   </ul>
 </section>

@@ -1,9 +1,7 @@
 <section class="container">
   <section class="content" data-controller="tab-bar">
     <%= render partial: "manager/visits/summary_box", locals: { presenter: @presenter } %>
-    <% if @presenter.staff_member? %>
       <%= render "manager/visits/menu" %>
       <%= turbo_frame_tag "visit-details", src: manager_reserve_visit_summary_path(visit_id: @presenter.id) %>
-    <% end %>
   </section>
 </section>

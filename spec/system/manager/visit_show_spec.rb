@@ -26,8 +26,8 @@ RSpec.describe "Manager Visit Show" do
       flow.visit_show_page
 
       expect(flow).to be_showing_summary_box
-      expect(flow).not_to be_showing_trash_and_status_btn
-      expect(flow).not_to be_showing_menu_bar
+      expect(flow).to be_showing_trash_and_status_btn
+      expect(flow).to be_showing_menu_bar
     end
 
     it "render summary partial when click on status button", js: true do
