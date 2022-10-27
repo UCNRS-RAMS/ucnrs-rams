@@ -13,6 +13,7 @@ class Visits::AmenityPresenter
     :group_number,
     :reserve,
     :comment,
+    :visit_id,
     to: :amenity
 
   delegate :arrives_on,

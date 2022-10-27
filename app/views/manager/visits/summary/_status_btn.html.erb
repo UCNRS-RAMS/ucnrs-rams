@@ -1,7 +1,4 @@
 <%= form.radio_button :status, context, id: context, class: "h-input" , disabled: presenter.status_bar_disabled?, data: { action: action } %>
 <label for=<%= context %> class="tab">
-  <div class="d-flex">
-    <%= image_tag img, height: "24px", width: "24px", alt: "check icon" %>
-    <span class="left-spacer"> <%= t(".#{context}") %> </span>
-  </div>
+  <%= render partial: "shared/visits/status", locals: {context: context, img: img} %>
 </label>

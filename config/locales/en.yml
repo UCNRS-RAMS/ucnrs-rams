@@ -149,13 +149,17 @@ en:
       institution_search_field:
         create_new_institution: "Create New Institution"
         search_by_name: "Search by Name"
+    calendar:
+      visit:
+          id_with_reserve_name: "Visit # %{id} @ %{reserve_name}"
+          project: "Under Project # %{id} | %{project_type}"
     calendar_visit_modal:
-      visit: "Visit # %{id} @ %{reserve_name}"
-      project: "Under Project # %{id} | %{project_type}"
+      visit: "Visit"
       reservation_member: "Reservation Members(s)"
       reserve_Resource: "Reserve Resources(s) | "
       create_invoice: "Create Invoice"
       close: "Close"
+      project: "Under Project # %{id} | %{project_type}"
     edit_project_team_membership:
       title: "Edit Team Member"
       accessible_description: "A modal pop-up form to edit details of a team member on this project."
@@ -1094,12 +1098,6 @@ en:
         presenter:
           composed_email: "Send applicants a composed email"
           update_silently: "Silently update status"
-        status_btn:
-          approved: "Approve"
-          in_review: "In Review"
-          cancelled: "Cancelled by Applicant"
-          denied: "Deny"
-          incomplete: "Incomplete"
         update:
           flash_message: "Updates were successfully made."
         update_btn:
@@ -1794,6 +1792,12 @@ en:
           receive_scuba_email: "Scuba"
   shared:
     visits:
+      status:
+        approved: "Approve"
+        in_review: "In Review"
+        cancelled: "Cancelled by Applicant"
+        denied: "Deny"
+        incomplete: "Incomplete"
       project:
         project_title: "Project Title"
       user_visits:
@@ -2443,6 +2447,12 @@ en:
         cancelled: "Cancelled"
         incomplete: "Incomplete"
         denied: "Denied"
+      icons:
+        in_review: "clock.svg"
+        approved: "check.svg"
+        cancelled: "x-circle.svg"
+        denied: "x.svg"
+        incomplete: "icon-minus.svg"
     amenity:
       time_types:
         hour: "Per Hours"

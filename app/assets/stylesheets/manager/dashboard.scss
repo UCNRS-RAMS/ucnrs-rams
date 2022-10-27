@@ -154,12 +154,28 @@
   @include search-subsection;
 
   .calendar-container {
+    .display-none {
+      display: none;
+    }
+
     .pulldowns {
       background-color: $light-light-blue;
       display: flex;
       justify-content: end;
       margin-bottom: 3rem;
       padding: 1.5rem;
+
+      select {
+        background-color: $buttonset-background;
+        border: 1px solid $buttonset-border;
+        border-radius: 0.325rem;
+        color: $navy-blue;
+        flex: none;
+        font-weight: $bold;
+        height: 2rem;
+        margin-right: 0.5rem;
+        padding: 0.25rem 0.75rem;
+      }
     }
 
     .simple-calendar {
@@ -197,11 +213,11 @@
 
       .day {
         div:first-child {
-          margin-top: 1.5rem;
+          margin-top: 0.3rem;
         }
 
         div:last-child {
-          margin-bottom: 1.5rem;
+          margin-bottom: 0.3rem;
         }
       }
 
@@ -217,20 +233,19 @@
         font-size: 0.65rem;
       }
 
-      .visitor-count {
-        background-color: #002045;
+      .bar {
         font-size: 0.7rem;
         height: 25px;
-        margin: 0.5rem 0px;
+        margin: 0.4rem 0rem;
         position: relative;
+      }
+
+      .visitor-count {
+        background-color: #002045;
       }
 
       .amenity-count {
         background-color: #1295d8;
-        font-size: 0.7rem;
-        height: 25px;
-        margin: 5px 0px;
-        position: relative;
       }
 
       .left-radius {
@@ -241,6 +256,12 @@
       .right-radius {
         border-top-right-radius: 15px;
         border-bottom-right-radius: 15px;
+      }
+
+      .disable-link {
+        opacity: 0;
+        pointer-events: none;
+        cursor: default;
       }
 
       .bars-text {
@@ -262,12 +283,58 @@
 
     .clr-blue {
       color: $cornflower;
+      text-decoration: none;
     }
 
     .calendar-modal {
+      .container {
+        display: flex;
+        justify-content: space-between;
+
+        .align-right{
+          text-align: right ;
+        }
+
+        .left-spacer {
+          padding-left: 10px;
+        }
+      }
       p {
         margin: 0px;
       }
+    }
+
+    .bg-approved {
+      background-color: $green;
+    }
+
+    .bg-in_review {
+      background-color: $yellow;
+    }
+
+    .bg-cancelled {
+      background-color: $pink;
+    }
+
+    .bg-denied {
+      background-color: $blue;
+    }
+
+    .bg-incomplete {
+      background-color: $red-alert;
+    }
+
+    .btn-status {
+      align-items: center;
+      border: 1px solid $dark-bluegray;
+      border-radius: 1.5rem;
+      color: black;
+      display: flex;
+      height: 20px;
+      justify-content: center;
+      padding: 0.2rem 1rem;
+      text-decoration-line: none;
+      width: 8rem;
     }
 
     .vertical-padding {
@@ -278,6 +345,14 @@
       background-color: $dark-bluegray;
       border-radius: 4px;
       color: $white !important;
+    }
+
+    .header {
+      border-bottom: 2px solid $dark-bluegray;
+      
+      display: flex;
+      justify-content: space-between;
+      
     }
 
     .display-flex {

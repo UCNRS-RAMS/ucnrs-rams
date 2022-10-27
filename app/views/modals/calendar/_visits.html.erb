@@ -1,0 +1,5 @@
+<div class="close">
+  <%= image_tag "x.svg", height: "16px", width: "16px", data: { action: "click->modal#close" } %>
+</div>
+<%= render partial: "modals/calendar/visit", collection: presenter.visits, spacer_template: "shared/divider" %>
+<%= paginate presenter.visit_scope %>

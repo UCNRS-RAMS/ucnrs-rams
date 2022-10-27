@@ -17,6 +17,10 @@ class VisitPresenter
     visit_status.humanize
   end
 
+  def status_icon
+    I18n.t(".universal.visit.icons.#{visit_status}")
+  end
+
   def submitted_date
     I18n.l(created_at, format: :visit_submitted_date)
   end
@@ -73,6 +77,10 @@ class VisitPresenter
   def visitor_count
     user_visits.sum(&:count)
   end
+
+  def visitor_count_on_date(date)
+    user_visits.on_date(date).sum(&:count)
+  end 
 
   def amenity_count
     amenity_visits.pluck(:amenity_id).uniq.length
