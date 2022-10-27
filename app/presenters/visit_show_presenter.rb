@@ -39,6 +39,14 @@ class VisitShowPresenter
     end
   end
 
+  def status_classes
+    "btn-status bg-#{status}"
+  end
+
+  def status_text
+    status.humanize
+  end
+
   def visit_reserve_personnel
     reserve.personnel.includes([:avatar_attachment]).map do |personnel|
       ReservePersonnelPresenter.new(personnel)

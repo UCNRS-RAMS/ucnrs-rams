@@ -49,6 +49,36 @@ RSpec.describe VisitPresenter do
     end
   end
 
+  describe "#status_icon" do
+    it "returns 'icon-minus.svg' if the visit status is icomplete" do
+      visit = create(:visit)
+      visit_presenter = VisitPresenter.new(visit)
+
+      expect(visit_presenter.status_icon).to eq "icon-minus.svg"
+    end
+
+    it "returns 'clock.svg' if the visit status is in_review" do
+      visit = create(:visit, status: :in_review)
+      visit_presenter = VisitPresenter.new(visit)
+
+      expect(visit_presenter.status_icon).to eq "clock.svg"
+    end
+
+    it "returns 'x-circle.svg' if the visit status is cancelled" do
+      visit = create(:visit, status: :cancelled)
+      visit_presenter = VisitPresenter.new(visit)
+
+      expect(visit_presenter.status_icon).to eq "x-circle.svg"
+    end
+
+    it "returns 'x.svg' if the visit status is denied" do
+      visit = create(:visit, status: :denied)
+      visit_presenter = VisitPresenter.new(visit)
+
+      expect(visit_presenter.status_icon).to eq "x.svg"
+    end
+  end
+
   describe "#visitor_count" do
     it "returns the number of visitors" do
       visit = create(:visit)

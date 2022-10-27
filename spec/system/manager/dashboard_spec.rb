@@ -56,8 +56,8 @@ RSpec.describe "Manager Dashboard" do
       flow.visit_manager_dashboard
       page.find("#calendar").click
 
-      expect(flow).to have_visit_visitor
-      expect(flow).to have_one_visitor
+      expect(flow).to have_visit_visitor("1")
+      expect(flow).to have_visitor_bar(visit.starts_at.strftime("%Y-%m-%d"))
     end
 
     it "display amenity_visit for a visit", js: true do
@@ -89,7 +89,7 @@ RSpec.describe "Manager Dashboard" do
       page.first(".visitor-count").click
       expect(flow).to have_modal
 
-      page.click_on("Close")
+      page.click_on("Cancel")
       expect(flow).not_to have_modal
 
       page.first(".amenity-count").click
@@ -102,7 +102,8 @@ RSpec.describe "Manager Dashboard" do
 
   describe "dashboard calendar filters" do
     it "display data on calendar after filtering type", js: true do
-      visit = create(:visit, reserve: reserve)
+      visit = create(:visit, reserve: reserve, starts_at: Time.current.beginning_of_month, ends_at: Time.current.end_of_week)
+
       create(:user_visit, visit: visit, arrives_at: visit.starts_at, departs_at: visit.ends_at)
       create(:amenity_visit, visit: visit)
       sign_in(user)
@@ -116,12 +117,14 @@ RSpec.describe "Manager Dashboard" do
       expect(flow).to have_one_amenity_visitor
 
       page.find("#type").select("Visits Only")
-      expect(flow).to have_visit_visitor
-      expect(flow).to have_one_visitor
+      sleep(0.1)
+      expect(flow).to have_visit_visitor("1")
+      expect(flow).to have_visitor_bar(visit.starts_at.strftime("%Y-%m-%d"))
 
       page.find("#type").select("Visits and Amenities")
-      expect(flow).to have_visit_visitor
-      expect(flow).to have_one_visitor
+      sleep(0.1)
+      expect(flow).to have_visit_visitor("1")
+      expect(flow).to have_visitor_bar(visit.starts_at.strftime("%Y-%m-%d"))
       expect(flow).to have_amenity_visitor
       expect(flow).to have_one_amenity_visitor
     end
@@ -141,16 +144,30 @@ RSpec.describe "Manager Dashboard" do
       page.find("#status").select("Approved")
       sleep(0.1)
 
-      expect(flow).not_to have_one_visitor
-      expect(flow).to have_amenity_visitor
-      expect(flow).to have_one_amenity_visitor
+      expect(flow).not_to have_visit_visitor("1")
+      expect(flow).not_to have_amenity_visitor
 
       page.find("#status").select("All")
+      sleep(0.1)
 
-      expect(flow).to have_visit_visitor
-      expect(flow).to have_one_visitor
+      expect(flow).to have_visit_visitor("1")
       expect(flow).to have_amenity_visitor
       expect(flow).to have_one_amenity_visitor
+    end
+
+    it "display only one visitor bar for all visits", js: true do
+      visit_one = create(:visit, reserve: reserve)
+      visit_two = create(:visit, reserve: reserve)
+      arr = [create(:user_visit, visit: visit_one, arrives_at: visit_one.starts_at, departs_at: visit_one.ends_at),
+      create(:user_visit, visit: visit_two, arrives_at: visit_one.starts_at, departs_at: visit_one.ends_at)]
+
+      sign_in(user)
+      flow = Manager::DashboardFlow.new(page, reserve, user)
+
+      flow.visit_manager_dashboard
+      page.find("#calendar").click
+
+      expect(flow).to have_visitor_bar(visit_one.starts_at.strftime("%Y-%m-%d"), arr.count)
     end
   end
 end

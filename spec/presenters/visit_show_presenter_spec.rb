@@ -53,6 +53,34 @@ RSpec.describe VisitShowPresenter do
     end
   end
 
+  describe "#status_classes" do
+    it "display status text color based on status value" do
+      user = create(:user, :confirmed)
+      pending_visit = create(:visit, status: "in_review")
+      approved_visit = create(:visit, status: "approved")
+      cancelled_visit = create(:visit, status: "cancelled")
+      denied_visit = create(:visit, status: "denied")
+
+      pending_show_presenter = VisitShowPresenter.new(pending_visit)
+      approved_show_presenter = VisitShowPresenter.new(approved_visit)
+      cancelled_show_presenter = VisitShowPresenter.new(cancelled_visit)
+      denied_show_presenter = VisitShowPresenter.new(denied_visit)
+
+      expect(pending_show_presenter.status_classes).to eq "btn-status bg-in_review"
+      expect(approved_show_presenter.status_classes).to eq "btn-status bg-approved"
+      expect(cancelled_show_presenter.status_classes).to eq "btn-status bg-cancelled"
+      expect(denied_show_presenter.status_classes).to eq "btn-status bg-denied"
+    end
+  end
+
+  describe "#status_text" do
+    it "converts underscores in the visit status to spaces and capitalizes the first letter word" do
+      visit_presenter = VisitShowPresenter.new(create(:visit, status: :in_review))
+
+      expect(visit_presenter.status_text).to eq "In review"
+    end
+  end
+
   describe "#visit_reserve_personnel" do
     it "creates a ReservePersonnelPresenter for each visit reserve personnel" do
       reserve = create(:reserve)

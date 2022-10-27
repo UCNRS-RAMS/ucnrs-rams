@@ -62,7 +62,7 @@ Rails.application.routes.draw do
       resource :dashboard, only: [:show], controller: "dashboard" do
         resources :visits, only: [:index], controller: "dashboard/visits"
         resource :calendar, only: [:show], controller: "dashboard/calendar" do
-          resources :visits, only: [:show], controller: "dashboard/calendar/visits"
+          resources :visits, only: [:index, :show], controller: "dashboard/calendar/visits"
         end
       end
       resources :projects, only: [:index, :show] do

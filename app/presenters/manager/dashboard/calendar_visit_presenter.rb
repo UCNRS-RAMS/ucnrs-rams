@@ -1,28 +1,13 @@
 class Manager::Dashboard::CalendarVisitPresenter < VisitPresenter
-  def initialize(visit:, date: Date.current)
+  def initialize(visit:, type: nil, status: nil, date: Date.current)
     super(visit)
     @date = date
+    @type = type
+    @status = status
   end
 
+  attr_reader :type, :status
   attr_accessor :date
-
-  def display_amenities_text?
-    date.monday? || date == starts_at.to_date
-  end
-
-  def display_visitors_text?(previous_date_visits = [])
-    prev_day_count = previous_date_visits.find { |v| v.id == id }&.user_visits_count(date.yesterday)
-
-    date.monday? || date == starts_at.to_date || prev_day_count != user_visits_count
-  end
-
-  def visitor_counts_bg
-    border_radius_classes("visitor-count")
-  end
-
-  def amentities_counts_bg
-    border_radius_classes("amenity-count")
-  end
 
   def user_visits_count(for_date = date)
     user_visits.pluck(:arrives_at, :departs_at, :count).select do |r|
@@ -30,11 +15,25 @@ class Manager::Dashboard::CalendarVisitPresenter < VisitPresenter
     end.sum(&:third)
   end
 
+  def display_visit?
+    status.in?(["all", visit_status])
+  end
+
+  def amenities
+    amenities_scope.map do |amenity|
+      Manager::Dashboard::CalendarAmenityPresenter.new(
+        amenity: amenity, visit: visit, date: date,
+      )
+    end
+  end
+
   private
 
-  def border_radius_classes(css_class)
-    css_class += " left-radius" if date == starts_at.to_date
-    css_class += " right-radius" if date == ends_at.to_date
-    css_class
+  def display_amenity?(amenity)
+    type.in?(["visits_and_amenities", "amenities_only", amenity.amenities_type])
+  end
+
+  def amenities_scope
+    visit.amenities.distinct.select { |amenity| display_amenity?(amenity) }
   end
 end

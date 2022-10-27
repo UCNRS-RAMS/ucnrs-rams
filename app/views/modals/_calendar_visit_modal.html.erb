@@ -3,14 +3,23 @@
     <div class="close">
       <%= image_tag "x.svg", height: "16px", width: "16px", data: { action: "click->modal#close" } %>
     </div>
-    <div class="vertical-padding">
-      <p class="clr-blue"><%= @presenter.purpose_of_visit %></p>
-      <p class="clr-gray"><em><%= t(".visit", id: @presenter.id, reserve_name: @presenter.visit_reserve_name ) %></em></p>
+    <div class="header">
+      <h3><%= @presenter.reserve_name %></h3>
+      <h3><%= @presenter.timeframe(:date_month_hour) %></h3>
+    </div>
+    <div class="vertical-padding d-flex">
+      <div>
+        <%= link_to @presenter.purpose_of_visit, manager_reserve_visit_path(reserve_id: @presenter.reserve_id, id: @presenter.id), class: "clr-blue", data: { turbo: "false" } %>
+        <p class="clr-gray"><em><%= t(".visit", id: @presenter.id, reserve_name: @presenter.visit_reserve_name ) %></em></p>
+      </div>
+      <div>
+        <p class="<%= @presenter.status_classes%>"><%= @presenter.status_text %></p>
+      </div>
     </div>
     <hr>
     <div class="vertical-padding">
       <p class="clr-gray"><em><%= t(".project", id: @presenter.project_id, project_type: @presenter.project_type ) %></em></p>
-      <p class="clr-blue"><%= @presenter.project_title %></p>
+      <%= link_to @presenter.project_title, manager_reserve_project_path(reserve_id: @presenter.reserve_id, id: @presenter.project_id), class: "clr-blue", data: { turbo: "false" } %>
       <p class="clr-gray"><em><%= @presenter.user_full_name %> - <%= @presenter.user.institution_name %></em></p>
     </div>
     <hr>
@@ -22,10 +31,12 @@
       </div>
     <% end %>
     <h5><%= t(".reserve_Resource") %> <%= t(".create_invoice")%></h5>
-    <div class="display-flex">
-      <p><%= @presenter.reserve_name %></p>
-      <p><%= @presenter.timeframe(:date_month_hour) %></p>
-    </div>
+    <% @presenter.amenity_visits.each  do |amenity_visit| %>
+      <div class="display-flex">
+        <p><%= amenity_visit.amenity_title %></p>
+        <p><%= amenity_visit.requested_date_range %></p>
+      </div>
+    <% end %>
   </section>
   <section class="buttons">
     <button class="active black-btn" data-action="click->modal#close">
