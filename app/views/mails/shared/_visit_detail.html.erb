@@ -1,0 +1,33 @@
+<header style="margin-bottom: 3em;">
+  <h2 class="main-header" style="font-size: 1.5em; font-weight: 500;">
+    <%= t(".visit_summary") %>
+  </h2>
+  <div class="subheader" style="align-items: center; display: flex; font-weight: 600;">
+    <span style="margin-right: 1.5em;"><%= visit.applicant_name %></span>
+    <span><%= t(".request_submitted") %>: <%= visit.submitted_at %></span>
+  </div>
+</header>
+<section class="visit-summary" style="margin-bottom: 3em;">
+  <table class="visit-summary-table">
+    <tr>
+      <td style="padding-bottom: 0.3em; padding-right: 2em; padding-top: 0.3em;"><%= t(".arrival_and_departure") %></td>
+      <td style="padding-bottom: 0.3em; padding-top: 0.3em; font-weight: 600;"><%= visit.timeframe %></td>
+    </tr>
+    <tr>
+      <td style="padding-bottom: 0.3em; padding-right: 2em; padding-top: 0.3em;"><%= t(".purpose") %></td>
+      <td style="padding-bottom: 0.3em; padding-top: 0.3em; font-weight: 600;"><%= visit.purpose_of_visit %></td>
+    </tr>
+    <tr>
+      <td style="padding-bottom: 0.3em; padding-right: 2em; padding-top: 0.3em;"><%= t(".project") %></td>
+      <td style="padding-bottom: 0.3em; padding-top: 0.3em; font-weight: 600;"><%= visit.project_title %></td>
+    </tr>
+  </table>
+</section>
+<section class="visit-visitors" style="margin-bottom: 3em;">
+  <h2 class="main-header" style="font-size: 1.5em; font-weight: 500;"><%= t(".visitors", size: visit.visitor_count) %></h2>
+  <%= render partial: "shared/user_visits", locals: { visit: visit } %>
+</section>
+<section class="visit-amenities" style="margin-bottom: 3em;">
+  <h2 class="main-header" style="font-size: 1.5em; font-weight: 500;"><%= t(".amenities", size: visit.amenity_count) %></h2>
+  <%= render partial: "shared/amenity_visits", locals: { visit: visit } %>
+</section>

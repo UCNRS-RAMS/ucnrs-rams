@@ -1,0 +1,16 @@
+<div style="display: inline-block; padding-bottom: 20px; width: 100%">
+  <div style="float: left;">
+    <div style="font-size: 1.8em; font-weight: bold;">
+      <%= presenter.visit_reserve_name %><br />
+      <%= presenter.visit_reserve_managing_campus_name %>
+    </div>
+  </div>
+  <div style="float: right; text-align: right; font-size: 1em; padding-top: 5px; line-height: 1.25em">
+    <span><%= presenter.visit_reserve_address_line_1 %></span><br />
+    <span><%= presenter.visit_reserve_address_line_2 %></span><br />
+    <span><%= presenter.visit_reserve_address_line_3 %></span><br />
+    <span><%= presenter.visit_reserve_country %></span><br />
+    <span><%= t(".phone") %> <%= presenter.visit_reserve_phone_number %></span><br />
+    <span><%= presenter.visit_reserve_email_address %></span>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<div style="max-width: 800px; margin: 0 auto; color: #002045; font-size: 14px; font-family: 'Sora', sans-serif" >
+  <%= render partial: "shared/header_manager", locals: { presenter: @presenter } %>
+  <%= link_to t(".login_and_view_visit"), manager_reserve_visit_url(@presenter.reserve, @presenter.id) %>
+  <hr style="border-top: none; border-bottom: 2px solid #002045; margin-top: 1em; margin-bottom: 2.5em;" />
+  <%= render partial: "shared/visit_detail", locals: { visit: @presenter.visit } %>
+  <%= render partial: "shared/project_brief", locals: { project: @presenter.visit_project } %>
+</div>

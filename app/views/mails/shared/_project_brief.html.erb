@@ -1,0 +1,91 @@
+<section class="visit-visitors" style="margin-bottom: 3em;">
+  <h2 class="main-header" style="font-size: 1.5em; font-weight: 500;">
+    <%= t(".brief_project_info") %>
+  </h2>
+  <div class="project-summary-table">
+    <table>
+      <tr>
+        <td style="padding-bottom: 0.3em; padding-right: 2em; padding-top: 0.3em;">
+          <%= t(".principal_investigators") %>
+        </td>
+        <td style="padding-bottom: 0.3em; padding-top: 0.3em; font-weight: 600;">
+          <%= project.principal_investigators_list %>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-bottom: 0.3em; padding-right: 2em; padding-top: 0.3em;">
+          <%= t(".project_title") %>
+        </td>
+        <td style="padding-bottom: 0.3em; padding-top: 0.3em; font-weight: 600;">
+          <%= project.title %>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-bottom: 0.3em; padding-right: 2em; padding-top: 0.3em;">
+          <%= t(".thesis_title") %>
+        </td>
+        <td style="padding-bottom: 0.3em; padding-top: 0.3em; font-weight: 600;">
+          <%= project.thesis_title %>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-bottom: 0.3em; padding-right: 2em; padding-top: 0.3em;">
+          <%= t(".project_abstract") %>
+        </td>
+        <td style="padding-bottom: 0.3em; padding-top: 0.3em; font-weight: 600;">
+          <%= project.abstract %>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-bottom: 0.3em; padding-right: 2em; padding-top: 0.3em;">
+          <%= t(".applicant") %>
+        </td>
+        <td style="padding-bottom: 0.3em; padding-top: 0.3em; font-weight: 600;">
+          <%= project.applicant_name %>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-bottom: 0.3em; padding-right: 2em; padding-top: 0.3em;">
+          <%= t(".project_duration") %>
+        </td>
+        <td style="padding-bottom: 0.3em; padding-top: 0.3em; font-weight: 600;">
+          <%= project.timeframe %>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-bottom: 0.3em; padding-right: 2em; padding-top: 0.3em;">
+          <%= t(".discipline") %>
+          </td>
+        <td style="padding-bottom: 0.3em; padding-top: 0.3em; font-weight: 600;">
+          <%= project.discipline %>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-bottom: 0.3em; padding-right: 2em; padding-top: 0.3em;">
+          <%= t(".project_involves") %>
+          </td>
+        <td style="padding-bottom: 0.3em; padding-top: 0.3em; font-weight: 600;">
+          <%= project.project_involves %>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div>
+    <ul style="list-style: none; margin-bottom: 2.25em; padding-left: 0;">
+      <li style="margin: 0.5em 0; font-weight: 600;"><%= project.method_remove_organisms_statement %></li>
+      <li style="margin: 0.5em 0; font-weight: 600;"><%= project.method_transfer_organisms_statement %></li>
+      <li style="margin: 0.5em 0; font-weight: 600;"><%= project.method_chemicals_statement&.html_safe %></li>
+      <li style="margin: 0.5em 0; font-weight: 600;"><%= project.method_study_non_native_species_statement %></li>
+      <li style="margin: 0.5em 0; font-weight: 600;"><%= project.method_soil_disturbance_statement %></li>
+      <li style="margin: 0.5em 0; font-weight: 600;"><%= project.method_long_term_structures_statement %></li>
+    </ul>
+    <div class="project-methods-detail" style="margin-bottom: 1.25em;">
+      <span style="display:block; margin-bottom: 0.5em;"><%= t(".method_description") %></span>
+      <span style="display:block; margin-bottom: 0.5em; font-weight: 600;"><%= project.method_description %></span>
+    </div>
+    <div class="project-methods-detail" style="margin-bottom: 1.25em;">
+      <span style="display:block; margin-bottom: 0.5em;"><%= t(".method_study_area") %></span>
+      <span style="display:block; margin-bottom: 0.5em; font-weight: 600;"><%= project.method_study_area %></span>
+    </div>
+  </div>
+</section>

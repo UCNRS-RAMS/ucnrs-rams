@@ -20,4 +20,17 @@ RSpec.describe ReservePersonnel, type: :model do
     it { is_expected.to belong_to(:reserve) }
     it { is_expected.to belong_to(:user) }
   end
+
+  describe ".receiving_new_visit_email" do
+    it "returns all reserve personnel records with receive_new_visit_email set to true" do
+      personnel1 = create(:reserve_personnel, receive_new_visit_email: false)
+      personnel2 = create(:reserve_personnel, receive_new_visit_email: true)
+      personnel3 = create(:reserve_personnel, receive_new_visit_email: false)
+      personnel4 = create(:reserve_personnel, receive_new_visit_email: true)
+
+      results = ReservePersonnel.receiving_new_visit_email
+
+      expect(results).to match_array [personnel2, personnel4]
+    end
+  end
 end
