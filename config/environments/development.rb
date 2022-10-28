@@ -40,6 +40,17 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: ENV["DEV_SMTP_HOST"],
+    port: ENV["DEV_SMTP_PORT"],
+    domain: ENV["DEV_SMTP_DOMAIN"],
+    user_name: ENV["DEV_SMTP_USERNAME"],
+    password: ENV["DEV_SMTP_PASSWORD"],
+    authentication: :login,
+    enable_starttls_auto: true  
+  }
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

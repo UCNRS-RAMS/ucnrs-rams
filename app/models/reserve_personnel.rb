@@ -14,4 +14,8 @@ class ReservePersonnel < ApplicationRecord
 
   belongs_to :reserve
   belongs_to :user
+
+  def self.receiving_new_visit_email
+    where(receive_new_visit_email: true)
+  end
 end

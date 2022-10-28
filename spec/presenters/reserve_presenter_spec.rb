@@ -3,22 +3,44 @@ require "rails_helper"
 RSpec.describe ReservePresenter do
   describe "delegations" do
     subject { ReservePresenter.new(build(:reserve)) }
-    it { is_expected.to delegate_method(:id).to(:reserve) }
-    it { is_expected.to delegate_method(:name).to(:reserve) }
-    it { is_expected.to delegate_method(:reserve_alert_message).to(:reserve) }
-    it { is_expected.to delegate_method(:directions).to(:reserve) }
-    it { is_expected.to delegate_method(:rules).to(:reserve) }
-    it { is_expected.to delegate_method(:rules_url).to(:reserve) }
-    it { is_expected.to delegate_method(:address_line_1).to(:reserve) }
-    it { is_expected.to delegate_method(:address_line_2).to(:reserve) }
-    it { is_expected.to delegate_method(:address_city).to(:reserve) }
-    it { is_expected.to delegate_method(:address_postal_code).to(:reserve) }
-    it { is_expected.to delegate_method(:State).to(:reserve) }
-    it { is_expected.to delegate_method(:Country).to(:reserve) }
-    it { is_expected.to delegate_method(:reserve_avatar).to(:reserve) }
-    it { is_expected.to delegate_method(:image_placeholder).to(:reserve) }
-    it { is_expected.to delegate_method(:managing_campus).to(:reserve) }
-    it { is_expected.to delegate_method(:description).to(:reserve) }
-    it { is_expected.to delegate_method(:visits).to(:reserve) }
+    it { is_expected.to delegate_missing_methods_to(:reserve) }
+  end
+
+  describe "address_line_3" do
+    it "presents reserve address line 3" do
+      state = create(:state, name: "state1")
+      reserve = create(:reserve,
+          address_city: "city1", address_postal_code: "12345", address_state: state
+      )
+      presenter = ReservePresenter.new(reserve)
+
+      address_line_3 = presenter.address_line_3
+
+      expect(address_line_3).to eq "city1, state1 12345"
+    end
+  end
+
+  describe "state" do
+    it "presents reserve state name" do
+      state = create(:state, name: "state1")
+      reserve = create(:reserve, address_state: state)
+      presenter = ReservePresenter.new(reserve)
+
+      state = presenter.state
+
+      expect(state).to eq "state1"
+    end
+  end
+
+  describe "country" do
+    it "presents reserve country name" do
+      country = create(:country, name: "country1")
+      reserve = create(:reserve, address_country: country)
+      presenter = ReservePresenter.new(reserve)
+
+      country = presenter.country
+
+      expect(country).to eq "country1"
+    end
   end
 end

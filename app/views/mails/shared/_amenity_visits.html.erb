@@ -1,0 +1,21 @@
+<table id="amenities-summary-table" class="summary-table" style="border-collapse: collapse; width: 100%">
+  <thead style="color: #5D747C;">
+    <tr style="font-size: 0.75rem; font-weight:400;">
+      <th style="border-bottom: 2px solid #aab7bb; padding:0.25rem 0.25rem 0.25rem 0; text-align: left"><%= t(".name") %></th>
+      <th style="border-bottom: 2px solid #aab7bb; padding:0.25rem 0.25rem 0.25rem 0; text-align: left"></th>
+      <th style="border-bottom: 2px solid #aab7bb; padding:0.25rem 0.25rem 0.25rem 0; text-align: left"><%= t(".rate") %></th>
+      <th style="border-bottom: 2px solid #aab7bb; padding:0.25rem 0.25rem 0.25rem 0; text-align: left"><%= t(".count") %></th>
+      <th style="border-bottom: 2px solid #aab7bb; padding:0.25rem 0.25rem 0.25rem 0; text-align: left"><%= t(".cost") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render partial: "shared/amenity_visit", collection: visit.amenity_visits %>
+    <tr class="amenity-total">
+      <td style="border-bottom: 1px solid #aab7bb; padding: .75rem .75rem .75rem 0;"></td>
+      <td style="border-bottom: 1px solid #aab7bb; padding: .75rem .75rem .75rem 0;"></td>
+      <td style="border-bottom: 1px solid #aab7bb; padding: .75rem .75rem .75rem 0;"></td>
+      <td style="border-bottom: 1px solid #aab7bb; padding: .75rem .75rem .75rem 0;"><%= t(".total") %></td>
+      <td style="border-bottom: 1px solid #aab7bb; padding: .75rem .75rem .75rem 0;"><strong><%= visit.amenities_total %></strong></td>
+    </tr>
+  </tbody>
+</table>

@@ -9,24 +9,7 @@ class ReservePresenter
 
   attr_reader :reserve
 
-  delegate :id,
-    :name,
-    :reserve_alert_message,
-    :directions,
-    :rules,
-    :rules_url,
-    :address_line_1,
-    :address_line_2,
-    :address_city,
-    :address_postal_code,
-    :State,
-    :Country,
-    :reserve_avatar,
-    :image_placeholder,
-    :managing_campus,
-    :description,
-    :visits,
-    to: :reserve
+  delegate_missing_to :reserve
 
   def has_avatar?
     reserve_avatar.attached?
@@ -41,14 +24,14 @@ class ReservePresenter
   end
 
   def address_line_3
-    "#{address_city}, #{state} #{address_postal_code}"
+    "#{address_city}, #{state} #{address_postal_code}".squish
   end
 
   def state
-    State
+    address_state&.name
   end
 
   def country
-    Country
+    address_country&.name
   end
 end
