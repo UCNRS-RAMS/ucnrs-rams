@@ -70,6 +70,21 @@ class AddVisitorsFlow
     end
   end
 
+  def click_on_new_institution_link
+    page.click_link "Create New Institution"
+  end
+
+  def fill_form_for_institution
+    page.find("#user_visit_institution_name").set("university-abc")
+    page.find("#user_visit_institution_institution_type").select("California State University System")
+    page.find("#user_visit_institution_city").set("houstan")
+    page.find("#user_visit_institution_country_id").find(:xpath, "option[4]").select_option
+  end
+
+  def click_on_save_btn
+    page.click_on("Save")
+  end
+
   def change_user_visit_dates(arrives_at:, departs_at:)
     page.fill_in("user_visit_arrives_at", with: arrives_at)
     page.fill_in("user_visit_departs_at", with: departs_at)

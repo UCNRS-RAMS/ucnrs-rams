@@ -3,15 +3,28 @@
 class Visits::UserVisitEditPresenter
   include Rails.application.routes.url_helpers
 
-  def initialize(form:)
+  def initialize(form:, display_institution_form: false)
     @form = form
+    @display_institution_form = display_institution_form
   end
 
-  attr_reader :form
+  attr_reader :form, :display_institution_form
 
   delegate :id, :errors, to: :form
 
   delegate_missing_to :editing_user_visit
+
+  def institution_form_presenter
+    InstitutionFormPresenter.new(@form.institution_form)
+  end
+
+  def institution_fields_path
+    if display_institution_form
+      "modals/institution_fields/institution_fields"
+    else
+      "modals/institution_fields/institution_search_field"
+    end
+  end
 
   def editing_user_visit
     @editing_user_visit ||= Visits::UserVisitPresenter.new(

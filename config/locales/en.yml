@@ -145,6 +145,10 @@ en:
       country: "Country"
       state: "State"
   modals:
+    institution_fields:
+      institution_search_field:
+        create_new_institution: "Create New Institution"
+        search_by_name: "Search by Name"
     calendar_visit_modal:
       visit: "Visit # %{id} @ %{reserve_name}"
       project: "Under Project # %{id} | %{project_type}"

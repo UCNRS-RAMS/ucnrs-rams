@@ -1,15 +1,15 @@
-<section data-controller="followup-content">
+<div id="institution-fields" data-controller="followup-content">
   <div class="field">
     <%= f.label :name, I18n.t(".institutions.labels.name") %>
-    <%= f.text_field :name, placeholder: @presenter.name_placeholder, required: true %> 
+    <%= f.text_field :name, placeholder: presenter.name_placeholder, required: true %>
   </div>
   <div class="field">
     <%= f.label :institution_type, I18n.t(".institutions.labels.institution_type") %>
-    <%= f.select :institution_type, @presenter.institution_type_options, { prompt: I18n.t(".forms.select_one") }, required: true %>
+    <%= f.select :institution_type, presenter.institution_type_options, { prompt: I18n.t(".forms.select_one") }, required: true %>
   </div>
   <div class="field">
     <%= f.label :city, I18n.t(".institutions.labels.city") %>
-    <%= f.text_field :city, class: "form-control form-control-sm", placeholder: @presenter.city_placeholder, required: true %> 
+    <%= f.text_field :city, class: "form-control form-control-sm", placeholder: presenter.city_placeholder, required: true %>
   </div>
   <div class="field" >
     <%= f.label :country_id, I18n.t(".institutions.labels.country") %>
@@ -19,4 +19,4 @@
     <%= f.label :state_id, I18n.t(".institutions.labels.state") %>
     <%= f.collection_select(:state_id, State.alphabetical_by_name, :id, :name, { prompt: I18n.t(".forms.select_one") }, { data: { followup_content_target: "destination", "followup-content-url-value": states_url(country_id: "VALUE") } } ) %>
   </div>
-</section>
+</div>

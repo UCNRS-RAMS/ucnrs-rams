@@ -2,12 +2,12 @@ class InstitutionForm
   attr_reader :institution
 
   def initialize(params = {})
-    @institution = Institution.new(
-      params
+    @institution = Institution.find_by(id: params[:id]) || Institution.new(
+      params,
     )
   end
 
-  delegate :errors, to: :institution
+  delegate :errors, :valid?, :id, to: :institution
 
   def submit
     return unless institution.valid?

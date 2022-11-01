@@ -169,4 +169,64 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
       expect(page).to have_css(".user-visit")
     end
   end
+
+  describe "when click on new_institution link of edit user_visit modal" do
+    it "previous form will swap with another form to create institute" do
+      visitor = create(:user, :confirmed, first_name: "user1", last_name: "test1")
+      user_visit = create(:user_visit, visit: visit, user: visitor, role: "Other")
+
+      sign_in(user)
+      flow = AddVisitorsFlow.new(page)
+
+      flow.visit_add_visitors_page(visit.id)
+
+      flow.click_on_change(user_visit)
+      flow.click_on_new_institution_link
+
+      expect(page).to have_css("#institution-fields")
+    end
+
+    context "if instituion name field is dublicate" do
+      it "display error" do
+        visitor = create(:user, :confirmed, first_name: "user1", last_name: "test1")
+        institution = create(:institution, name: "university-abc", city: "houstan")
+        user_visit = create(:user_visit, visit: visit, user: visitor, institution: institution, role: "Other")
+
+        sign_in(user)
+        flow = AddVisitorsFlow.new(page)
+
+        flow.visit_add_visitors_page(visit.id)
+
+        flow.click_on_change(user_visit)
+        flow.click_on_new_institution_link
+
+        flow.fill_form_for_institution
+
+        flow.click_on_save_btn
+
+        expect(page).to have_css(".error_messages")
+      end
+    end
+
+    context "previous form will swap with another form" do
+      it "it will create new institution and associate it with user_visit" do
+        visitor = create(:user, :confirmed, first_name: "user1", last_name: "test1")
+        institution = create(:institution, name: "university-xyz")
+        user_visit = create(:user_visit, visit: visit, user: visitor, institution: institution, role: "Other")
+
+        sign_in(user)
+        flow = AddVisitorsFlow.new(page)
+
+        flow.visit_add_visitors_page(visit.id)
+
+        flow.click_on_change(user_visit)
+        flow.click_on_new_institution_link
+        flow.fill_form_for_institution
+
+        flow.click_on_save_btn
+
+        expect(page).to have_css("td", text: "university-abc")
+      end
+    end
+  end
 end

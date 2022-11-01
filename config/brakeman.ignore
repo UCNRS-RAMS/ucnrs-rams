@@ -116,29 +116,6 @@
       "note": ""
     },
     {
-      "warning_type": "Mass Assignment",
-      "warning_code": 105,
-      "fingerprint": "2423bef4a65bd98c5d6b6d0941226b6a6e395677479363294ed7a708a71641c8",
-      "check_name": "PermitAttributes",
-      "message": "Potentially dangerous key allowed for mass assignment",
-      "file": "app/controllers/visits/user_visits_controller.rb",
-      "line": 83,
-      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
-      "code": "params.require(:user_visit).permit(:id, :arrives_at, :departs_at, :count, :role, :institution_id, :user_id, :visit_id, :guest_name)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Visits::UserVisitsController",
-        "method": "user_visit_params"
-      },
-      "user_input": ":role",
-      "confidence": "Medium",
-      "cwe_id": [
-        915
-      ],
-      "note": "Ignore role in user-visit related strong param assignment"
-    },
-    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "39e41d5d1f47be64e90c8a741fbb111f94c3e4b8c514343991f0bcf5b5c495f1",
@@ -160,6 +137,29 @@
         89
       ],
       "note": ""
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "54b87c0786df42a24be0d878c07eaca8bd6386040829dcf2be6691265fdc3b50",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/manager/visits/user_visits_controller.rb",
+      "line": 62,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:user_visit).permit(:id, :arrives_at, :departs_at, :count, :role, :actual_days, :institution_id, :user_id, :visit_id, :guest_name, :institution => ([:id, :name, :city, :country_id, :state_id, :institution_type]))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Manager::Visits::UserVisitsController",
+        "method": "user_visit_params"
+      },
+      "user_input": ":role",
+      "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
+      "note": "Ignore role in user-visit related strong params assignment"
     },
     {
       "warning_type": "SQL Injection",
@@ -229,50 +229,6 @@
         89
       ],
       "note": ""
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "6d7a0d05d6ef34e21e6eac4466caafb96cca25082a6b7d513c6b37de1b63b3c1",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/modals/_edit_user_visit.html.erb",
-      "line": 55,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(partial => Manager::Visits::UserVisitEditPresenter.new(:form => UserVisitForm.new(:params => ({ :id => params[:id] }))).user_days_partial, { :locals => ({ :presenter => Manager::Visits::UserVisitEditPresenter.new(:form => UserVisitForm.new(:params => ({ :id => params[:id] }))), :form => form }) })",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Manager::Visits::UserVisitsController",
-          "method": "edit",
-          "line": 12,
-          "file": "app/controllers/manager/visits/user_visits_controller.rb",
-          "rendered": {
-            "name": "manager/visits/user_visits/edit",
-            "file": "app/views/manager/visits/user_visits/edit.html.erb"
-          }
-        },
-        {
-          "type": "template",
-          "name": "manager/visits/user_visits/edit",
-          "line": 1,
-          "file": "app/views/manager/visits/user_visits/edit.html.erb",
-          "rendered": {
-            "name": "modals/_edit_user_visit",
-            "file": "app/views/modals/_edit_user_visit.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "modals/_edit_user_visit"
-      },
-      "user_input": "params[:id]",
-      "confidence": "Weak",
-      "cwe_id": [
-        22
-      ],
-      "note": "False Positive"
     },
     {
       "warning_type": "Dynamic Render Path",
@@ -388,6 +344,29 @@
       "note": ""
     },
     {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "7bbd5038f33ab00c13212490cad9957b2ff0080c607b5b01145471067e4cae3d",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/visits/user_visits_controller.rb",
+      "line": 89,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:user_visit).permit(:id, :arrives_at, :departs_at, :count, :role, :institution_id, :user_id, :visit_id, :guest_name, :institution => ([:id, :name, :city, :country_id, :state_id, :institution_type]))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Visits::UserVisitsController",
+        "method": "user_visit_params"
+      },
+      "user_input": ":role",
+      "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
+      "note": "Ignore role in user-visit related strong params assignment"
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "853b18358ee3f30b3b3f0f73db6c4e634cbd435b6d5b817959781d990215c416",
@@ -501,29 +480,6 @@
       "note": ""
     },
     {
-      "warning_type": "Mass Assignment",
-      "warning_code": 105,
-      "fingerprint": "a7dbe6070df9897dc22e1b43485b6f63df3f1f09e2977857f8e662f2042a0725",
-      "check_name": "PermitAttributes",
-      "message": "Potentially dangerous key allowed for mass assignment",
-      "file": "app/controllers/manager/visits/user_visits_controller.rb",
-      "line": 56,
-      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
-      "code": "params.require(:user_visit).permit(:id, :arrives_at, :departs_at, :count, :role, :actual_days, :institution_id, :user_id, :visit_id, :guest_name)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Manager::Visits::UserVisitsController",
-        "method": "user_visit_params"
-      },
-      "user_input": ":role",
-      "confidence": "Medium",
-      "cwe_id": [
-        915
-      ],
-      "note": "Ignore role in user-visit related strong param assignment"
-    },
-    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "abe3ef189f8998d604a08ad5faa180bb10f91eb38648737f30be800175909dc6",
@@ -553,7 +509,7 @@
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/visits/waivers_policies/_policy_agreement.html.erb",
-      "line": 8,
+      "line": 5,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
       "code": "link_to((Unresolved Model).new.policy_url, :class => \"policy-link\", :target => :blank)",
       "render_path": [
@@ -862,6 +818,6 @@
       "note": ""
     }
   ],
-  "updated": "2022-10-21 13:05:27 -0700",
+  "updated": "2022-11-01 12:12:15 -0700",
   "brakeman_version": "5.3.1"
 }
