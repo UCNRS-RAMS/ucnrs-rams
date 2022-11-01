@@ -8,7 +8,10 @@ class Manager::Visits::UserVisitsController < ApplicationController
 
   def edit
     form = UserVisitForm.new(params: { id: params[:id] })
-    @presenter = Manager::Visits::UserVisitEditPresenter.new(form: form)
+    @presenter = Manager::Visits::UserVisitEditPresenter.new(
+      form: form,
+      display_institution_form: params[:display_institution_form].present?,
+    )
   end
 
   def update
@@ -16,7 +19,10 @@ class Manager::Visits::UserVisitsController < ApplicationController
     if form.save
       redirect_to manager_reserve_visit_user_visits_path(params[:reserve_id], user_visit.visit_id)
     else
-      @presenter = Manager::Visits::UserVisitEditPresenter.new(form: form)
+      @presenter = Manager::Visits::UserVisitEditPresenter.new(
+        form: form,
+        display_institution_form: params[:display_institution_form].present?,
+      )
       render template: "manager/visits/user_visits/edit", status: :unprocessable_entity
     end
   end
@@ -59,6 +65,14 @@ class Manager::Visits::UserVisitsController < ApplicationController
       :user_id,
       :visit_id,
       :guest_name,
+      institution: [
+        :id,
+        :name,
+        :city,
+        :country_id,
+        :state_id,
+        :institution_type,
+      ],
     )
   end
 end

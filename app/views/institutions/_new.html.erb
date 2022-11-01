@@ -5,8 +5,10 @@
   
     <%= render partial: "layouts/flash" %>
 
-    <%= form_with model: @presenter.form_institution, url: institutions_path, local: false, data: { turbo: false }, html: { class: "needs-validation" } do |f| %> 
-      <%= render partial: "institution_field", locals: { f: f } %>
+    <%= form_with model: presenter.form_institution, url: institutions_path, local: false, data: { turbo: false }, html: { class: "needs-validation" } do |f| %>
+      <turbo-frame id="institution" >
+        <%= render partial: "institutions/institution_field", locals: { f: f, presenter: presenter } %>
+      </turbo-frame>
       <hr />
       <div class="buttons">
         <%= link_to I18n.t(".institutions.new.cancel"), new_institution_path, { class: "button-medium", data: { action: "click->modal#close" } } %>

@@ -40,4 +40,33 @@ RSpec.describe Visits::UserVisitEditPresenter do
       expect(presenter.user_visit_form_path).to eq "/user_visits/#{user_visit.id}"
     end
   end
+
+  describe "#institution_form_presenter" do
+    it "returns InstitutionFormPresenter object" do
+      user_visit = create(:user_visit, visit: create(:visit))
+      form = UserVisitForm.new(params: { id: user_visit.id })
+      presenter = Visits::UserVisitEditPresenter.new(form: form)
+      institution_form_presenter = InstitutionFormPresenter.new(form.institution_form)
+
+      expect(presenter.institution_form_presenter.form).to eq institution_form_presenter.form
+    end
+  end
+
+  describe "#institution_fields_path" do
+    it "returns 'modals/institution_fields/institution_fields' when display_institution_form is true" do
+      user_visit = create(:user_visit, visit: create(:visit))
+      form = UserVisitForm.new(params: { id: user_visit.id })
+      presenter = Visits::UserVisitEditPresenter.new(form: form, display_institution_form: true)
+
+      expect(presenter.institution_fields_path).to eq "modals/institution_fields/institution_fields"
+    end
+
+    it "returns 'modals/institution_fields/institution_search_field' when display_institution_form is false" do
+      user_visit = create(:user_visit, visit: create(:visit))
+      form = UserVisitForm.new(params: { id: user_visit.id })
+      presenter = Visits::UserVisitEditPresenter.new(form: form, display_institution_form: false)
+
+      expect(presenter.institution_fields_path).to eq "modals/institution_fields/institution_search_field"
+    end
+  end
 end

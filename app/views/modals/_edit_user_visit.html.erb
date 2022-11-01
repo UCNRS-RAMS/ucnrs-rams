@@ -24,17 +24,7 @@
             <%= form.text_field :count, data: { "user-days-target": "count", action: "input->user-days#countChange"} %>
           </div>
         <% end %>
-        <div class="field autocomplete" data-controller="autocomplete" data-autocomplete-url-value="<%= institutions_path %>">
-          <%= form.label :institution_name %>
-          <%= form.text_field :institution_name, placeholder: t(".search_by_name"), value: presenter.institution_name, data: { "autocomplete-target": "input" } %>
-          <%= form.hidden_field :institution_id, data: { "autocomplete-target": "hidden" } %>
-          <div class="autocomplete-results-container">
-            <ul class="autocomplete-results" data-autocomplete-target="results"></ul>
-          </div>
-          <div class="link">
-            <%= link_to t(".create_new_institution"), new_institution_path, target: "_blank" %>
-          </div>
-        </div>
+        <%= render partial: presenter.institution_fields_path, locals: { presenter: presenter, form: form }%>
         <table>
           <tr>
             <td colspan="2">

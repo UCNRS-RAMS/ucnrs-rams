@@ -11,8 +11,9 @@ class UserVisitForm
     @visit = Visit.find_by(id: params[:visit_id])
     @user = User.find_by(id: params[:user_id])
     @user_visit = UserVisit.find_by(id: params[:id]) || UserVisit.new(new_user_visit_params)
-    assign(params)
+    assign(params.except(:institution))
     assign_guest_values if adding_guest_visitor?
+    @institution_form = InstitutionForm.new(institution_form_params(params))
   end
 
   delegate :project_id, to: :visit, prefix: true
@@ -22,7 +23,7 @@ class UserVisitForm
   validates :user_id, presence: true
   validates :institution_id, presence: true
 
-  attr_reader :user_visit, :visit, :user
+  attr_reader :user_visit, :visit, :user, :institution_form
 
   alias validate_form validate
   alias valid_form? valid?
@@ -44,6 +45,7 @@ class UserVisitForm
   def validate
     validate_form
     validate_user_visit
+    validate_institution
     copy_errors_to_self
     errors.empty?
   end
@@ -51,10 +53,20 @@ class UserVisitForm
   alias valid? validate
 
   def save
-    validate && user_visit.save
+    if validate
+      ActiveRecord::Base.transaction do
+        institution_form.submit
+        user_visit.institution_id = institution_form.id
+        user_visit.save
+      end
+    end
   end
 
   private
+
+  def institution_form_params(params)
+    params.delete(:institution) || { id: user_visit.institution_id }
+  end
 
   def adding_user_as_guest_visitor?
     user_visit.guest_name.present? && user.present? && user.id != 1
@@ -90,8 +102,13 @@ class UserVisitForm
     user_visit.validate
   end
 
+  def validate_institution
+    institution_form.valid?
+  end
+
   def copy_errors_to_self
     errors.merge!(user_visit.errors)
+    errors.merge!(institution_form.errors)
   end
 
   def assign(params)
