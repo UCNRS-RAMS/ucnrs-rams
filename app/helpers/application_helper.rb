@@ -3,6 +3,16 @@
 module ApplicationHelper
   MANAGER_NAMESPACE = "manager"
 
+  def reserve_hero_image
+    request_path = request.path
+    display_hero_image = request_path.match(/^(\/reserves\/)\d+$/)
+
+    if display_hero_image
+      reserve = Reserve.find(request.path.split("/").last)
+      "background: no-repeat center/cover url(#{reserve.large_hero_photo_url});"
+    end
+  end
+
   def body_class
     controller_name = controller.controller_name
     action_name = controller.action_name
@@ -16,7 +26,7 @@ module ApplicationHelper
   def active_link_to_by_url(name = nil, options = nil, html_options = nil, &block)
     if URI(options).path == request.path
       html_options ||= {}
-      html_options[:class].nil? ? html_options[:class] ||= "active" : html_options[:class] << " active" 
+      html_options[:class].nil? ? html_options[:class] ||= "active" : html_options[:class] << " active"
     end
 
     link_to(name, options, html_options, &block)
