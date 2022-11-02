@@ -45,6 +45,24 @@ class Manager::ReserveInfo::ReserveDetailsFlow
     page.find("select#amenity_group_number").all("option").map(&:text).drop(1) == array
   end
 
+    def on_manager_reserve_info_edit_page?
+    page.has_css?("body.manager.reserve_details.reserve_details-edit")
+  end
+
+  def select_photo_to_upload(photo_type)
+    page.attach_file("reserve[#{photo_type}_photo]", Rails.root.join("spec", "support", "assets", "test-image.jpeg"))
+  end
+
+  def click_save_changes_button
+    page.within(".site-content") do
+      page.click_button("Save Changes")
+    end
+  end
+
+  def has_flash_message?(text)
+    page.has_css?(".notice", text: text)
+  end
+
   private
 
   attr_reader :page

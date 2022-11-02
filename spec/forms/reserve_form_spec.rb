@@ -96,10 +96,13 @@ RSpec.describe ReserveForm, type: :model do
         longitude_seconds: nil,
         longitude_hemisphere: nil,
         description: nil,
+        large_hero_photo_url: a_string_matching(/\/assets\/reserve_placeholder/),
+        listing_photo_url: a_string_matching(/\/assets\/reserve_placeholder/),
       )
     end
 
     it "makes a new ReserveForm from params" do
+      image = File.open(Rails.root.join('spec', 'support', 'assets', 'test-image.jpeg'))
       params = {
         id: 5,
         name: "reserve1",
@@ -184,6 +187,8 @@ RSpec.describe ReserveForm, type: :model do
         longitude_seconds: 1.0,
         longitude_hemisphere: "longitude_hemisphere",
         description: "description",
+        listing_photo: image,
+        large_hero_photo: image,
       }
       form = ReserveForm.new(params: params)
 
@@ -271,12 +276,15 @@ RSpec.describe ReserveForm, type: :model do
         longitude_seconds: 1.0,
         longitude_hemisphere: "longitude_hemisphere",
         description: "description",
+        large_hero_photo_url: a_string_matching(/\/tmp\/ucnrs-test\/cache\/reserve_id_5\/\S+\/test-image.jpeg/),
+        listing_photo_url: a_string_matching(/\/tmp\/ucnrs-test\/cache\/reserve_id_5\/\S+\/test-image.jpeg/),
       )
     end
   end
 
   describe "#save" do
     it "update the given reserve if there are no errors" do
+      image = File.open(Rails.root.join('spec', 'support', 'assets', 'test-image.jpeg'))
       reserve = create(:reserve)
       country = create(:country)
       state = create(:state, country: country)
@@ -355,6 +363,8 @@ RSpec.describe ReserveForm, type: :model do
         billing_address_state_id: 4,
         billing_address_country_id: 4,
         description: "description",
+        listing_photo: image,
+        large_hero_photo: image,
       })
 
       result = form.save
@@ -437,10 +447,13 @@ RSpec.describe ReserveForm, type: :model do
         billing_address_state_id: 4,
         billing_address_country_id: 4,
         description: "description",
+        listing_photo_url: a_string_matching(/\/tmp\/ucnrs-test\/reserve_id_#{reserve.id}\/test-image.jpeg/),
+        large_hero_photo_url: a_string_matching(/\/tmp\/ucnrs-test\/reserve_id_#{reserve.id}\/test-image.jpeg/),
       )
     end
 
     it "creates new reserve if there are no errors" do
+      image = File.open(Rails.root.join('spec', 'support', 'assets', 'test-image.jpeg'))
       country = create(:country)
       state = create(:state, country: country)
       form = ReserveForm.new(params: {
@@ -518,6 +531,8 @@ RSpec.describe ReserveForm, type: :model do
         billing_address_state_id: 4,
         billing_address_country_id: 4,
         description: "description",
+        listing_photo: image,
+        large_hero_photo: image,
       })
 
       result = form.save
@@ -599,6 +614,8 @@ RSpec.describe ReserveForm, type: :model do
         billing_address_state_id: 4,
         billing_address_country_id: 4,
         description: "description",
+        listing_photo_url: a_string_matching(/\/tmp\/ucnrs-test\/reserve_id_#{form.reserve.id}\/test-image.jpeg/),
+        large_hero_photo_url: a_string_matching(/\/tmp\/ucnrs-test\/reserve_id_#{form.reserve.id}\/test-image.jpeg/),
       )
     end
 

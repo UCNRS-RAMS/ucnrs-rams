@@ -50,4 +50,26 @@ RSpec.describe "Manager - Reserve Info" do
       )
     end
   end
+
+  describe "uploading reserve images" do
+    it "can attach large hero and listing images to a reserve" do
+      user = create(:user, :confirmed)
+      reserve = create(:reserve)
+      create(:reserve_personnel, user: user, reserve: reserve)
+      flow = Manager::ReserveInfo::ReserveDetailsFlow.new(page, reserve, user)
+
+      sign_in(user)
+      flow.visit_manager_reserve_info_reserve_details_edit_page(reserve)
+      expect(flow).to be_on_manager_reserve_info_reserve_details_edit_page
+
+      flow.select_photo_to_upload("large_hero")
+      flow.select_photo_to_upload("listing")
+      flow.click_save_changes_button
+      expect(flow).to have_flash_message("Update success.")
+
+      reserve.reload
+      expect(reserve.listing_photo_url).to match(/\/ucnrs-test\/reserve_id_#{reserve.id}\/test-image.jpeg/)
+      expect(reserve.large_hero_photo_url).to match(/\/ucnrs-test\/reserve_id_#{reserve.id}\/test-image.jpeg/)
+    end
+  end
 end

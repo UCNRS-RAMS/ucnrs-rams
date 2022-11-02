@@ -80,6 +80,13 @@ RSpec.configure do |config|
       Bullet.end_request
     end
   end
+
+  # Remove images generated during test runs
+  config.after(:all) do
+    if Rails.env.test?
+      FileUtils.rm_rf(Dir["#{Rails.root}/tmp/ucnrs-test"])
+    end
+  end
 end
 
 Capybara.default_max_wait_time = 3

@@ -3,8 +3,9 @@ class Reserve < ApplicationRecord
 
   has_one_attached :reserve_avatar
   has_rich_text :rules_and_regulations
-  has_one_attached :large_hero_photo
-  has_one_attached :listing_photo
+
+  mount_uploader :listing_photo, ReserveUploader
+  mount_uploader :large_hero_photo, ReserveUploader
 
   belongs_to :managing_campus, class_name: "Institution", optional: true
   belongs_to :address_country, class_name: "Country"

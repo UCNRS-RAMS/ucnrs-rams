@@ -107,6 +107,8 @@ class Manager::ReserveInfo::ReserveDetailsController < ApplicationController
       :longitude_seconds,
       :longitude_hemisphere,
       :description,
+      :listing_photo,
+      :large_hero_photo,
     )
   end
 end
