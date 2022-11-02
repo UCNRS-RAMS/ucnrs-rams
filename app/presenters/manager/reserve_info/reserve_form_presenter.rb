@@ -33,19 +33,11 @@ class Manager::ReserveInfo::ReserveFormPresenter
   end
 
   def hero_photo
-    if form_reserve.large_hero_photo.attached?
-      Rails.application.routes.url_helpers.rails_blob_path(form_reserve.large_hero_photo, only_path: true)
-    else
-      HERO_PLACEHOLDER
-    end
+    form_reserve.large_hero_photo_url || HERO_PLACEHOLDER
   end
 
   def listing_photo
-    if form_reserve.listing_photo.attached?
-      Rails.application.routes.url_helpers.rails_blob_path(form_reserve.listing_photo, only_path: true)
-    else
-      LISTING_PLACEHOLDER
-    end
+    form_reserve.listing_photo_url || LISTING_PLACEHOLDER
   end
 
   private

@@ -31,7 +31,7 @@
           </div>
         </section>
         <section class="reserve-info-subsection">
-          <header class="with-form-group-pad"><%= t(".general_information") %></header> 
+          <header class="with-form-group-pad"><%= t(".general_information") %></header>
           <div class="input-group">
             <div class="form-group">
               <%= f.label :reserve_name, t(".reserve_name"), class: "form-label" %>
@@ -217,23 +217,21 @@
             <button><%= t(".save_changes") %></button>
           </div>
         </section>
-        <section class="reserve-info-subsection">
+        <section class="reserve-info-subsection site-content">
           <header class="with-form-group-pad"><%= t(".site_content") %></header>
           <div class="row">
             <div class="col form-group">
               <span class="form-label"><%= t(".large_hero_photo") %></span>
               <div class="reserve-pictures">
-                <%= image_tag @presenter.hero_photo, height: "80" %>
-                <button><%= t(".browse") %></button>
-                <button><%= t(".upload") %></button>
+                <%= image_tag @presenter.hero_photo, height: "100" %>
+                <%= f.file_field :large_hero_photo %>
               </div>
             </div>
             <div class="col form-group">
               <span class="form-label"><%= t(".listing_photo") %></span>
               <div class="reserve-pictures">
                 <%= image_tag @presenter.listing_photo, height: "100" %>
-                <button><%= t(".browse") %></button>
-                <button><%= t(".upload") %></button>
+                <%= f.file_field :listing_photo %>
               </div>
             </div>
           </div>
@@ -244,7 +242,7 @@
           <div class="form-group">
             Tags
           </div>
-          
+
           <div class="with-form-group-pad">
             <button><%= t(".save_changes") %></button>
           </div>

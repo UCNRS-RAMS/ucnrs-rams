@@ -74,7 +74,7 @@ RSpec.describe Manager::ReserveInfo::ReserveFormPresenter do
 
         expect(presenter.billing_address_state_options).to eq []
       end
-    end 
+    end
   end
 
 
@@ -84,33 +84,33 @@ RSpec.describe Manager::ReserveInfo::ReserveFormPresenter do
       form = ReserveForm.new(reserve: reserve)
       presenter = Manager::ReserveInfo::ReserveFormPresenter.new(form)
 
-      expect(presenter.hero_photo).to eq Manager::ReserveInfo::ReserveFormPresenter::HERO_PLACEHOLDER
+      expect(presenter.hero_photo).to match(/\/assets\/reserve_placeholder/)
     end
 
     it "presents the correct avatar path if large_hero_photo is attached" do
-      reserve = build(:reserve, :with_hero_photo)
+      reserve = create(:reserve, :with_hero_photo)
       form = ReserveForm.new(reserve: reserve)
       presenter = Manager::ReserveInfo::ReserveFormPresenter.new(form)
-      
-      expect(presenter.hero_photo).to eq Rails.application.routes.url_helpers.rails_blob_path(reserve.large_hero_photo, only_path: true)
+
+      expect(presenter.hero_photo).to match(/\/tmp\/ucnrs-test\/reserve_id_#{reserve.id}\/test-image.jpeg/)
     end
   end
 
   describe "#listing_photo" do
     it "presents placeholder image if no listing_photo is attached" do
-      reserve = build(:reserve)
+      reserve = create(:reserve)
       form = ReserveForm.new(reserve: reserve)
       presenter = Manager::ReserveInfo::ReserveFormPresenter.new(form)
 
-      expect(presenter.listing_photo).to eq Manager::ReserveInfo::ReserveFormPresenter::LISTING_PLACEHOLDER
+      expect(presenter.listing_photo).to match(/\/assets\/reserve_placeholder/)
     end
 
     it "presents the correct avatar path if listing_photo is attached" do
-      reserve = build(:reserve, :with_listing_photo)
+      reserve = create(:reserve, :with_listing_photo)
       form = ReserveForm.new(reserve: reserve)
       presenter = Manager::ReserveInfo::ReserveFormPresenter.new(form)
-      
-      expect(presenter.listing_photo).to eq Rails.application.routes.url_helpers.rails_blob_path(reserve.listing_photo, only_path: true)
+
+      expect(presenter.listing_photo).to match(/\/tmp\/ucnrs-test\/reserve_id_#{reserve.id}\/test-image.jpeg/)
     end
   end
 end

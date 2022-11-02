@@ -20,21 +20,17 @@ FactoryBot.define do
 
     trait :with_hero_photo do
       after(:build) do |reserve|
-        reserve.large_hero_photo.attach(
-          io: File.open(Rails.root.join('spec', 'support', 'assets', 'test-image.jpeg')),
-          filename: 'test-image.jpeg',
-          content_type: 'image/jpeg'
-        )
+        File.open(Rails.root.join('spec', 'support', 'assets', 'test-image.jpeg')) do |f|
+          reserve.large_hero_photo = f
+        end
       end
     end
 
     trait :with_listing_photo do
       after(:build) do |reserve|
-        reserve.listing_photo.attach(
-          io: File.open(Rails.root.join('spec', 'support', 'assets', 'test-image.jpeg')),
-          filename: 'test-image.jpeg',
-          content_type: 'image/jpeg'
-        )
+        File.open(Rails.root.join('spec', 'support', 'assets', 'test-image.jpeg')) do |f|
+          reserve.listing_photo = f
+        end
       end
     end
   end
