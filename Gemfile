@@ -6,6 +6,7 @@ ruby '3.0.2'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'carrierwave'
 gem "devise", '~> 4.8'
+gem 'faraday-retry'
 gem 'fog-aws'
 gem 'foreman'
 gem 'jbuilder', '~> 2.7'
@@ -17,7 +18,6 @@ gem 'rails', '~> 6.1.4'
 gem 'sass-rails', '>= 6'
 gem 'simple_calendar', '~> 2.4'
 gem 'turbo-rails', '~> 1.1.0'
-gem 'view_component', require: 'view_component/engine'
 gem 'webpacker', '~> 5.0'
 
 # charting
