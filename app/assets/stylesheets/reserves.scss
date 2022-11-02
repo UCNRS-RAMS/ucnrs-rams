@@ -16,7 +16,7 @@ main {
         color: $dark-bluegray;
         display: inline-block;
         font-weight: $medium;
-        padding-bottom: .25rem;
+        padding-bottom: 0.25rem;
         text-decoration: none;
 
         &.active {
@@ -31,18 +31,17 @@ main {
 
 .reserves-show {
   nav {
-    background: no-repeat center/cover url(asset-path("reserve-hero-placeholder.jpg"));
     color: $white;
     height: 450px;
 
     .navbar-nav {
       .nav-link {
         color: $white;
-      
+
         &.schedule {
           border-color: $white;
         }
-  
+
         &:hover {
           color: $gold;
         }
@@ -73,7 +72,8 @@ main {
 .reserves-list {
   display: flex;
 
-  span, p {
+  span,
+  p {
     line-height: 1.25rem;
   }
 
@@ -115,7 +115,7 @@ main {
     color: $navy-blue;
     flex-grow: 1;
     font-size: 0.875rem;
-    padding: 3.5rem 3.50rem 1.5rem 1.25rem;
+    padding: 3.5rem 3.5rem 1.5rem 1.25rem;
 
     h1 {
       color: $navy-blue;
@@ -178,7 +178,7 @@ main {
     color: $navy-blue;
     font-size: 0.8125rem;
     min-width: 360px;
-    padding: 4.5rem 1.25rem 1.5rem 3.50rem;
+    padding: 4.5rem 1.25rem 1.5rem 3.5rem;
 
     .search input {
       background-color: $white;
@@ -219,14 +219,16 @@ main {
       margin: 2rem auto;
     }
 
-    section, .reserve-cards {
+    section,
+    .reserve-cards {
       margin: 2.5rem auto;
 
       h2 {
-        margin: .5rem 0;
+        margin: 0.5rem 0;
       }
 
-      span, a {
+      span,
+      a {
         display: block;
       }
 
@@ -243,7 +245,8 @@ main {
   }
 }
 
-.reserve-cards, .amenity-cards {
+.reserve-cards,
+.amenity-cards {
   display: flex;
   flex-wrap: wrap;
   gap: 0.625rem 1.625rem;
@@ -253,10 +256,10 @@ main {
   .card {
     color: $navy-blue;
     flex-basis: 15%;
-    margin: 0 0 .75rem 0;
+    margin: 0 0 0.75rem 0;
     min-height: 230px;
     min-width: 270px;
-    
+
     .image img {
       height: 100%;
       width: 100%;
@@ -273,11 +276,11 @@ main {
       margin-bottom: 0.3125rem;
     }
 
-    .card-body { 
+    .card-body {
       font-size: 0.75rem;
       font-weight: normal;
       line-height: 1.25rem;
-      margin: .5rem 0;
+      margin: 0.5rem 0;
 
       a {
         color: $dark-bluegray;
@@ -371,8 +374,8 @@ main {
 
 @media screen and (max-width: 1024px) {
   .reserves-list {
-
-    .left-side, .right-side {
+    .left-side,
+    .right-side {
       padding-left: 1.25rem;
       padding-right: 1.25rem;
     }
@@ -397,7 +400,7 @@ main {
 
     .reserve-name {
       top: 125px;
-      
+
       h1 {
         font-size: 1.625rem;
       }
@@ -434,7 +437,8 @@ main {
     }
   }
 
-  .reserve-cards, .amenity-cards {
+  .reserve-cards,
+  .amenity-cards {
     gap: 0.625rem;
 
     .card {
@@ -445,14 +449,14 @@ main {
       h2 {
         font-size: 0.75rem;
       }
-  
-      .card-body { 
+
+      .card-body {
         font-size: 0.6875rem;
 
         a {
           font-size: 0.8125rem;
         }
-  
+
         .rates > span:first-of-type {
           font-size: 0.75rem;
         }
@@ -460,7 +464,10 @@ main {
     }
   }
 
-  .reserve-waivers, .reserve-personnel, .reserve-info, .reserve-search {
+  .reserve-waivers,
+  .reserve-personnel,
+  .reserve-info,
+  .reserve-search {
     h2 {
       font-size: 0.8125rem;
     }
@@ -480,7 +487,8 @@ main {
     }
 
     a.icon-external-link::before {
-      background: no-repeat center/14px url(asset-path("icon-external-link.svg"));
+      background: no-repeat center/14px
+        url(asset-path("icon-external-link.svg"));
     }
 
     a.icon-email::before {
@@ -542,7 +550,7 @@ main {
       font-weight: $semi-bold;
       margin-top: 0;
     }
-    
+
     p {
       font-size: 0.75rem;
     }
