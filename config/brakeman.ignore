@@ -1,6 +1,50 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "01f782403953177859620cc6d9e3ec67226e78d4f19ee9f0190f596fe4da8776",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/modals/_edit_user_visit.html.erb",
+      "line": 27,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(partial => Manager::Visits::UserVisitEditPresenter.new(:form => UserVisitForm.new(:params => ({ :id => params[:id] })), :display_institution_form => display_institution_form?).institution_fields_path, { :locals => ({ :presenter => Manager::Visits::UserVisitEditPresenter.new(:form => UserVisitForm.new(:params => ({ :id => params[:id] })), :display_institution_form => display_institution_form?), :form => form }) })",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Manager::Visits::UserVisitsController",
+          "method": "edit",
+          "line": 12,
+          "file": "app/controllers/manager/visits/user_visits_controller.rb",
+          "rendered": {
+            "name": "manager/visits/user_visits/edit",
+            "file": "app/views/manager/visits/user_visits/edit.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "manager/visits/user_visits/edit",
+          "line": 1,
+          "file": "app/views/manager/visits/user_visits/edit.html.erb",
+          "rendered": {
+            "name": "modals/_edit_user_visit",
+            "file": "app/views/modals/_edit_user_visit.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "modals/_edit_user_visit"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": "Dynamic Render Path"
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "0f832c296802513fcd105def1c1878a8064b902c6105c5e9b9518e826263ab25",
@@ -139,13 +183,57 @@
       "note": ""
     },
     {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "54b6afd25f88e8916d9b7857dd2fad433e7a4501484fc4fc15bc755aa3a812f0",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/modals/_edit_user_visit.html.erb",
+      "line": 45,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(partial => Manager::Visits::UserVisitEditPresenter.new(:form => UserVisitForm.new(:params => ({ :id => params[:id] })), :display_institution_form => display_institution_form?).user_days_partial, { :locals => ({ :presenter => Manager::Visits::UserVisitEditPresenter.new(:form => UserVisitForm.new(:params => ({ :id => params[:id] })), :display_institution_form => display_institution_form?), :form => form }) })",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Manager::Visits::UserVisitsController",
+          "method": "edit",
+          "line": 12,
+          "file": "app/controllers/manager/visits/user_visits_controller.rb",
+          "rendered": {
+            "name": "manager/visits/user_visits/edit",
+            "file": "app/views/manager/visits/user_visits/edit.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "manager/visits/user_visits/edit",
+          "line": 1,
+          "file": "app/views/manager/visits/user_visits/edit.html.erb",
+          "rendered": {
+            "name": "modals/_edit_user_visit",
+            "file": "app/views/modals/_edit_user_visit.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "modals/_edit_user_visit"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": "Dynamic Render Path"
+    },
+    {
       "warning_type": "Mass Assignment",
       "warning_code": 105,
       "fingerprint": "54b87c0786df42a24be0d878c07eaca8bd6386040829dcf2be6691265fdc3b50",
       "check_name": "PermitAttributes",
       "message": "Potentially dangerous key allowed for mass assignment",
       "file": "app/controllers/manager/visits/user_visits_controller.rb",
-      "line": 62,
+      "line": 66,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "params.require(:user_visit).permit(:id, :arrives_at, :departs_at, :count, :role, :actual_days, :institution_id, :user_id, :visit_id, :guest_name, :institution => ([:id, :name, :city, :country_id, :state_id, :institution_type]))",
       "render_path": null,
@@ -350,7 +438,7 @@
       "check_name": "PermitAttributes",
       "message": "Potentially dangerous key allowed for mass assignment",
       "file": "app/controllers/visits/user_visits_controller.rb",
-      "line": 89,
+      "line": 93,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "params.require(:user_visit).permit(:id, :arrives_at, :departs_at, :count, :role, :institution_id, :user_id, :visit_id, :guest_name, :institution => ([:id, :name, :city, :country_id, :state_id, :institution_type]))",
       "render_path": null,
@@ -509,7 +597,7 @@
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/visits/waivers_policies/_policy_agreement.html.erb",
-      "line": 5,
+      "line": 8,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
       "code": "link_to((Unresolved Model).new.policy_url, :class => \"policy-link\", :target => :blank)",
       "render_path": [
@@ -818,6 +906,6 @@
       "note": ""
     }
   ],
-  "updated": "2022-11-01 12:12:15 -0700",
+  "updated": "2022-11-03 10:35:37 -0700",
   "brakeman_version": "5.3.1"
 }
