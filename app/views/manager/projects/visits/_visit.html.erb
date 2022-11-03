@@ -8,7 +8,7 @@
   <td><%= visit.requested_reserve_name %></td>
   <td><%= "#{pluralize(visit.visitor_count, t('.visitor'))}, #{pluralize(visit.amenity_count, t('.amenity'))}" %></td>
   <td>
-    <%= link_to_if visit.staff_member?, image_tag("dollar_icon.svg", alt: t("alt.dollar_sign"), height: "18", width: "18"), "#" do %>
+    <%= link_to_if visit.reserve_manager?, image_tag("dollar_icon.svg", alt: t("alt.dollar_sign"), height: "18", width: "18"), "#" do %>
       <%= image_tag "dollar_icon.svg", alt: t("alt.dollar_sign"), height: "18", width: "18", class: "disabled-link" %>
     <% end %>
   </td>
@@ -18,7 +18,7 @@
     <% end %>
   </td>
   <td>
-    <%= link_to manager_reserve_visit_path(id: visit.id, reserve_id: visit.reserve_id) do %>
+    <%= link_to manager_reserve_visit_path(id: visit.id, reserve_id: current_reserve.id) do %>
       <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"), height: "18", width: "18" %>
     <% end %>
   </td>

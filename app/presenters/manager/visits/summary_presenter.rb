@@ -16,7 +16,7 @@ class Manager::Visits::SummaryPresenter
     end
   end
 
-  def staff_member?
+  def reserve_manager?
     user.manager_of_reserve?(visit.reserve)
   end
 

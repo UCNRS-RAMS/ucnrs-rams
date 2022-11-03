@@ -16,7 +16,7 @@ RSpec.describe Manager::VisitShowPresenter do
     end
   end
 
-  describe "#staff_member?" do
+  describe "#reserve_manager?" do
     it "return true if current user is a staff member of reserve" do
       user = create(:user, :confirmed)
       reserve = create(:reserve)
@@ -24,7 +24,7 @@ RSpec.describe Manager::VisitShowPresenter do
       create(:reserve_personnel, user: user, reserve: reserve)
       show_presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: user)
 
-      expect(show_presenter.staff_member?).to eq true
+      expect(show_presenter.reserve_manager?).to eq true
     end
     
     it "return false if current user is not a staff member of reserve" do
@@ -33,7 +33,7 @@ RSpec.describe Manager::VisitShowPresenter do
       visit = create(:visit, user: user, reserve: reserve)
       show_presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: user)
 
-      expect(show_presenter.staff_member?).to eq false
+      expect(show_presenter.reserve_manager?).to eq false
     end
   end
 

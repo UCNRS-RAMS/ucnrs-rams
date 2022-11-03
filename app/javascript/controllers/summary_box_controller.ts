@@ -1,7 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  
   alertMessage(event: Event) {
     const { staffMember, visitId } = event.params
     let preventDefault = false;

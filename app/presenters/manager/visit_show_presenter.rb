@@ -25,12 +25,12 @@ class Manager::VisitShowPresenter
     }
   end
 
-  def staff_member?
+  def reserve_manager?
     user.manager_of_reserve?(reserve)
   end
 
   def btn_class
-    "disabled-link" unless staff_member?
+    "disabled-link" unless reserve_manager?
   end
 
   def visit_date_range
