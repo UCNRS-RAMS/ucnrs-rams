@@ -244,8 +244,8 @@ RSpec.describe Manager::DashboardShowPresenter do
       create_list(:visit, 1, submitted_at: 3.day.ago, reserve: reserve)
       create_list(:visit, 2, submitted_at: 2.day.ago, reserve: reserve)
       create_list(:visit, 4, submitted_at: 1.day.ago, reserve: reserve)
-      create_list(:visit, 1, submitted_at: 1.hour.ago, reserve: reserve)
-      create(:visit, submitted_at: 1.hour.ago, status: :incomplete, reserve: reserve)
+      create_list(:visit, 1, submitted_at: Time.current, reserve: reserve)
+      create(:visit, submitted_at: Time.current, status: :incomplete, reserve: reserve)
       presenter = Manager::DashboardShowPresenter.new(reserve: reserve)
 
       results = presenter.visit_week_perday
@@ -265,8 +265,8 @@ RSpec.describe Manager::DashboardShowPresenter do
       create_list(:visit, 1, submitted_at: 3.day.ago, status: :approved, reserve: reserve)
       create_list(:visit, 2, submitted_at: 2.day.ago, status: :approved, reserve: reserve)
       create_list(:visit, 4, submitted_at: 1.day.ago, status: :approved, reserve: reserve)
-      create_list(:visit, 1, submitted_at: 1.hour.ago, status: :approved, reserve: reserve)
-      create(:visit, submitted_at: 1.hour.ago, status: :incomplete, reserve: reserve)
+      create_list(:visit, 1, submitted_at: Time.current, status: :approved, reserve: reserve)
+      create(:visit, submitted_at: Time.current, status: :incomplete, reserve: reserve)
       presenter = Manager::DashboardShowPresenter.new(reserve: reserve)
 
       results = presenter.visit_booked_week_perday
@@ -303,7 +303,7 @@ RSpec.describe Manager::DashboardShowPresenter do
     it "returns the number of visits submitted today" do
       reserve = create(:reserve)
       create_list(:visit, 3, submitted_at: Time.current, status: :approved, reserve: reserve)
-      create_list(:visit, 2, submitted_at: 1.hour.ago, status: :in_review, reserve: reserve)
+      create_list(:visit, 2, submitted_at: Time.current, status: :in_review, reserve: reserve)
       presenter = Manager::DashboardShowPresenter.new(reserve: reserve)
 
       results = presenter.visit_request_day_count
@@ -316,7 +316,7 @@ RSpec.describe Manager::DashboardShowPresenter do
     it "returns the number of visits submitted today for given reserve" do
       reserve = create(:reserve)
       create_list(:visit, 3, submitted_at: Time.current, status: :approved, reserve: reserve)
-      create_list(:visit, 2, submitted_at: 1.hour.ago, status: :in_review, reserve: reserve)
+      create_list(:visit, 2, submitted_at: Time.current, status: :in_review, reserve: reserve)
       presenter = Manager::DashboardShowPresenter.new(reserve: reserve)
 
       results = presenter.visit_request_day_count
@@ -329,7 +329,7 @@ RSpec.describe Manager::DashboardShowPresenter do
     it "returns the number of approved visits submitted today for given reserve" do
       reserve = create(:reserve)
       create_list(:visit, 3, submitted_at: Time.current, status: :approved, reserve: reserve)
-      create_list(:visit, 2, submitted_at: 1.hour.ago, status: :in_review, reserve: reserve)
+      create_list(:visit, 2, submitted_at: Time.current, status: :in_review, reserve: reserve)
       presenter = Manager::DashboardShowPresenter.new(reserve: reserve)
 
       results = presenter.visit_booked_day_count
@@ -347,7 +347,7 @@ RSpec.describe Manager::DashboardShowPresenter do
       create(:visit, submitted_at: 3.day.ago, status: :approved, reserve: reserve)
       create(:visit, submitted_at: 2.day.ago, status: :in_review, reserve: reserve)
       create(:visit, submitted_at: 1.day.ago, status: :approved, reserve: reserve)
-      create(:visit, submitted_at: 1.hour.ago, status: :in_review, reserve: reserve)
+      create(:visit, submitted_at: Time.current, status: :in_review, reserve: reserve)
       presenter = Manager::DashboardShowPresenter.new(reserve: reserve)
 
       results = presenter.visit_request_week_count
@@ -365,7 +365,7 @@ RSpec.describe Manager::DashboardShowPresenter do
       create(:visit, submitted_at: 3.day.ago, status: :approved, reserve: reserve)
       create(:visit, submitted_at: 2.day.ago, status: :in_review, reserve: reserve)
       create(:visit, submitted_at: 1.day.ago, status: :approved, reserve: reserve)
-      create(:visit, submitted_at: 1.hour.ago, status: :in_review, reserve: reserve)
+      create(:visit, submitted_at: Time.current, status: :in_review, reserve: reserve)
       presenter = Manager::DashboardShowPresenter.new(reserve: reserve)
 
       results = presenter.visit_booked_week_count
