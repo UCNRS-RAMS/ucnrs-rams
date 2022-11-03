@@ -13,7 +13,7 @@ class Visits::UserVisitsController < ApplicationController
     form = UserVisitForm.new(params: { id: params[:id] })
     @presenter = Visits::UserVisitEditPresenter.new(
       form: form,
-      display_institution_form: params[:display_institution_form].present?,
+      display_institution_form: display_institution_form?,
     )
   end
 
@@ -37,7 +37,7 @@ class Visits::UserVisitsController < ApplicationController
     else
       @presenter = Visits::UserVisitEditPresenter.new(
         form: form,
-        display_institution_form: params[:display_institution_form].present?,
+        display_institution_form: display_institution_form?,
       )
       render template: "visits/user_visits/edit", status: :unprocessable_entity
     end
@@ -78,6 +78,10 @@ class Visits::UserVisitsController < ApplicationController
 
   def user_visit
     @user_visit ||= UserVisit.find(params[:id])
+  end
+
+  def display_institution_form?
+    params[:display_institution_form].present?
   end
 
   def user_visit_params
