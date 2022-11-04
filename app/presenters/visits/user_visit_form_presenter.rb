@@ -34,7 +34,7 @@ def initialize(current_user:, add_visitor_partial:, show_add_guest_modal: false,
 
   def user_role_options
     UserVisit.roles.except(:reserve_staff).map do |key, value|
-      [I18n.t("universal.role.#{key}"), key]
+      [I18n.t("universal.roles.#{key}"), key]
     end
   end
 

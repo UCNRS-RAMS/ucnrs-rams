@@ -21,7 +21,7 @@ en:
       models:
         visit:
           attributes:
-            start_date: 
+            start_date:
               must_be_before_user_visits_arrives_at: "must be before visitor arrival"
             end_date:
               must_be_after_user_visits_departs_at: "must be after visitor departure"
@@ -1791,6 +1791,25 @@ en:
           receive_iacuc_email: "IACUC"
           receive_drone_email: "Drone"
           receive_scuba_email: "Scuba"
+    users:
+      index:
+        users: "Users"
+      search:
+        search: "Search"
+        show_options: "Show Options"
+        hide_options: "Hide Options"
+        clear: "Clear"
+        role: "Role"
+        institution_type: "Institution Type"
+        last_name: "Last Name"
+        user_id: "User id"
+        created_at: "Created At"
+      users:
+        name: "Name"
+        institution: "Institution"
+        role: "Role"
+        projects: "Projects"
+        visits: "Visits"
   shared:
     visits:
       status:
@@ -2407,7 +2426,7 @@ en:
     instagram_logo: "instagram logo"
     youtube_logo: "youtube logo"
   universal:
-    institution_type:
+    institution_types:
       university_of_california: "University of California"
       california_state_university_system: "California State University System"
       california_community_college: "California Community College"
@@ -2419,7 +2438,7 @@ en:
       governmental_organization_or_entity: "Governmental Agency or Entity"
       business_entity: "Business Entity"
       individual_or_other_entity: "Individual or Other Entity"
-    role:
+    roles:
       faculty: "Faculty"
       research_scientist: "Research Scientist/Post Doc"
       research_assistant: "Research Assistant (non-student/faculty/postdoc)"
@@ -2433,6 +2452,8 @@ en:
       volunteer: "Volunteer"
       reserve_staff: "Reserve Staff"
       staff: "Reserve Staff"
+      no_selection: "No Selection"
+      '': "Not Available"
       subtotal: "Subtotal"
     project:
       project_types:
@@ -2498,3 +2519,4 @@ en:
   delete: "Delete"
   confirm_removal: "Are you sure you want to remove %{name}?"
   not_applicable: "N/A"
+  all: "All"

@@ -1,0 +1,49 @@
+<form method="get" data-controller="toggle" data-turbo-action="advance">
+  <div class="search-primary">
+    <div class="first">
+      <div class="row mb-0">
+        <div class="row-medium input-with-buttons search">
+          <input type="text" name="filter[user_search]" value="<%= presenter.user_search_filter %>" placeholder="<%= t(".search") %>"/>
+        </div>
+        <div class="row-auto">
+          <%= link_to t(".show_options"), "#",
+            "data-action": "click->toggle#toggle", "data-toggle-target": "toggle", "data-toggle-class": "show",
+            class: "button button-inline button-clear #{ presenter.show_options_class }",
+            id: "show_button"
+          %>
+          <%= link_to t(".hide_options"), "#",
+            "data-action": "click->toggle#toggle", "data-toggle-target": "toggle", "data-toggle-class": "show",
+            class: "button button-inline button-clear #{ presenter.hide_options_class }",
+            id: "hide_button"
+          %>
+        </div>
+      </div>
+    </div>
+    <div class="second">
+      <select id="search_sort_by" name="filter[sort_by]" aria-label="sort_by" onchange="this.form.requestSubmit()">
+        <%= options_for_select presenter.sort_by_options, presenter.sort_by_filter %>
+      </select>
+    </div>
+  </div>
+  <div class="search-secondary <%= "show" if presenter.filter_present? %>" data-toggle-target="toggle" data-toggle-class="show">
+    <div class="row">
+      <div class="row-medium">
+        <label for="user_role"><%= t(".role") %></label>
+        <select id="user_role" name="filter[user_role]" aria-label="show" onchange="this.form.requestSubmit()">
+          <%= options_for_select(presenter.user_role_options, presenter.user_role_filter) %>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-medium">
+        <label for="user_institution_type"><%= t(".institution_type") %></label>
+        <select name="filter[user_institution_type]" aria-label="user_institution_type" onchange="this.form.requestSubmit()">
+          <%= options_for_select(presenter.user_institution_type_options, presenter.user_institution_type_filter) %>
+        </select>
+      </div>
+    </div>
+    <div>
+      <%= link_to t(".clear"), manager_reserve_users_path(current_reserve) %>
+    </div>
+  </div>
+</form>

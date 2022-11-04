@@ -37,7 +37,7 @@ class Visits::UserVisitsIndexPresenter
 
   def user_role_options
     User.roles.except(:no_selection).map do |key, value|
-      [I18n.t("universal.role.#{key}"), key]
+      [I18n.t("universal.roles.#{key}"), key]
     end
   end
 

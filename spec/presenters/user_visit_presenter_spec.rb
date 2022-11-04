@@ -94,7 +94,7 @@ RSpec.describe UserVisitPresenter do
       user_visit = create(:user_visit, role: :docent)
       presenter = UserVisitPresenter.new(user_visit)
       allow(I18n).to receive(:t)
-        .with("universal.role.docent")
+        .with("universal.roles.docent")
         .and_return("docent translated")
 
       role = presenter.role

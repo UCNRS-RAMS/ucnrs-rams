@@ -82,9 +82,9 @@ RSpec.describe User, type: :model do
             other_country = create(:country, name: "Other Country")
             state = create(:state, country: other_country)
             user = build(:user, address_country: country, address_state: state)
-  
+
             user.save
-  
+
             expect(user).not_to be_valid
             expect(user.errors.messages[:address_state_id]).to include("must exist as a state, province, or territory of the address country")
           end
@@ -95,9 +95,9 @@ RSpec.describe User, type: :model do
             country = create(:country, name: "Country")
             state = create(:state, country: country)
             user = build(:user, address_country: country, address_state: state)
-  
+
             user.save
-  
+
             expect(user).to be_valid
             expect(user.errors.messages[:address_state_id]).to be_empty
           end
@@ -109,9 +109,9 @@ RSpec.describe User, type: :model do
           it "does not add an error message" do
             country = create(:country, name: "Country")
             user = build(:user, address_country: country, address_state: nil)
-  
+
             user.save
-  
+
             expect(user).to be_valid
             expect(user.errors.messages[:address_state_id]).to be_empty
           end
@@ -140,9 +140,9 @@ RSpec.describe User, type: :model do
             other_country = create(:country, name: "Other Country")
             state = create(:state, country: other_country)
             user = build(:user, billing_address_country: country, billing_address_state: state)
-  
+
             user.save
-  
+
             expect(user).not_to be_valid
             expect(user.errors.messages[:billing_address_state_id]).to include("must exist as a state, province, or territory of the billing address country")
           end
@@ -153,9 +153,9 @@ RSpec.describe User, type: :model do
             country = create(:country, name: "Country")
             state = create(:state, country: country)
             user = build(:user, billing_address_country: country, billing_address_state: state)
-  
+
             user.save
-  
+
             expect(user).to be_valid
             expect(user.errors.messages[:billing_address_state_id]).to be_empty
           end
@@ -167,9 +167,9 @@ RSpec.describe User, type: :model do
           it "does not add an error message" do
             country = create(:country, name: "Country")
             user = build(:user, billing_address_country: country, billing_address_state: nil)
-  
+
             user.save
-  
+
             expect(user).to be_valid
             expect(user.errors.messages[:billing_address_state_id]).to be_empty
           end
@@ -382,7 +382,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to delegate_method(:name).to(:institution).with_prefix }
   end
 
-  it do 
+  it do
     is_expected.to define_enum_for(:role)
       .with_values(
         no_selection: "No selection",
@@ -401,7 +401,7 @@ RSpec.describe User, type: :model do
       ).backed_by_column_of_type(:string)
   end
 
-  it do 
+  it do
     is_expected.to define_enum_for(:gender_identity)
       .with_values(
         male: "Male",
@@ -412,7 +412,7 @@ RSpec.describe User, type: :model do
       ).backed_by_column_of_type(:string)
   end
 
-  it do 
+  it do
     is_expected.to define_enum_for(:age_range)
       .with_values(
         one_to_seventeen: "1-17",
@@ -504,6 +504,167 @@ RSpec.describe User, type: :model do
       user = create(:user)
 
       expect(user.is_manager?).to eq false
+    end
+  end
+
+  describe ".non_group_users" do
+    it "only returns user records of users that are not group" do
+      create(:user, :non_group_user) unless User.where(id: 1).present?
+      user1 = create(:user)
+      user2 = create(:user)
+
+      results = User.non_group_users
+
+      expect(results).to match_array [user1, user2]
+    end
+  end
+
+  describe ".with_role" do
+    let(:user1) { create(:user, role: "faculty") }
+    let(:user2) { create(:user, role: "research_scientist") }
+    let(:user3) { create(:user, role: "other") }
+    let(:user4) { create(:user, role: "faculty") }
+
+    context "when given role is present" do
+      it "returns only users with the given role" do
+        results = User.with_role("faculty")
+
+        expect(results).to match_array [user1, user4]
+      end
+    end
+
+    context "when given role is NOT present" do
+      it "returns all users" do
+        results = User.with_role(nil)
+
+        expect(results).to match_array [user1, user2, user3, user4]
+      end
+    end
+  end
+
+  describe ".search_institution" do
+    let(:user1) { create(:user, institution:
+      create(:institution, name: "the institution1", acronym: "acronym1", city: "city1")
+    ) }
+    let(:user2) { create(:user, institution:
+      create(:institution, name: "institution2", acronym: "the a", city: "city2")
+    ) }
+    let(:user3) { create(:user, institution:
+      create(:institution, name: "institution3", acronym: "acronym3", city: "the city3")
+    ) }
+    let(:user4) { create(:user, institution:
+      create(:institution, name: "University of Coruscant", acronym: "UC", city: "Imperial City")
+    ) }
+
+    context "when given query is present" do
+      describe ".search_institution" do
+        it "returns all institutions where the name, city, acronym is similar
+        to the passed value" do
+          results = User.search_institution("the")
+
+          expect(results).to match_array [user1, user2, user3]
+        end
+
+        it "returns an empty array if there are no institutions where the name is similar
+        to the passed value" do
+          results = User.search_institution("xyz")
+
+          expect(results).to be_empty
+        end
+      end
+    end
+
+    context "when given query is NOT present" do
+      it "returns all users" do
+        results = User.search_institution(nil)
+
+        expect(results).to match_array [user1, user2, user3, user4]
+      end
+    end
+  end
+
+  describe ".with_institution_type" do
+    let(:user1) { create(
+      :user, institution: create(:institution, institution_type: "university_of_california")
+    ) }
+    let(:user2) { create(
+      :user, institution: create(:institution, institution_type: "k_12_education")
+    ) }
+    let(:user3) { create(
+      :user, institution: create(:institution, institution_type: "business_entity")
+    ) }
+    let(:user4) { create(
+      :user, institution: create(:institution, institution_type: "university_of_california")
+    ) }
+
+    context "when given institution_type is present" do
+      it "returns only users with the given institution_type" do
+        results = User.with_institution_type("university_of_california")
+
+        expect(results).to match_array [user1, user4]
+      end
+    end
+
+    context "when given institution_type is NOT present" do
+      it "returns all users" do
+        results = User.with_institution_type(nil)
+
+        expect(results).to match_array [user1, user2, user3, user4]
+      end
+    end
+  end
+
+  describe ".sort_using" do
+    context "when given sort_option is 'user_id'" do
+      it "returns users sorted by higher user id first" do
+        user1 = create(:user)
+        user2 = create(:user)
+        user3 = create(:user)
+        user4 = create(:user)
+
+        results = User.sort_using("user_id")
+
+        expect(results).to eq [user4, user3, user2, user1]
+      end
+    end
+
+    context "when given sort_option is 'last_name'" do
+      it "returns users sorted by higher user id first" do
+        user1 = create(:user, last_name: "d")
+        user2 = create(:user, last_name: "a")
+        user3 = create(:user, last_name: "z")
+        user4 = create(:user, last_name: "y")
+
+        results = User.sort_using("last_name")
+
+        expect(results).to eq [user2, user1, user4, user3]
+      end
+    end
+
+    context "when given sort_option is 'created_at'" do
+      it "returns users sorted by higher user id first" do
+        user1 = create(:user, created_at: 2.year.ago)
+        user2 = create(:user, created_at: 3.year.ago)
+        user3 = create(:user, created_at: 1.year.ago)
+        user4 = create(:user, created_at: 4.year.ago)
+
+        results = User.sort_using("created_at")
+
+        expect(results).to eq [user3, user1, user2, user4]
+      end
+    end
+
+    context "when given sort_option is NOT present" do
+      it "returns all users unsorted" do
+        user1 = create(:user)
+        user2 = create(:user)
+        user3 = create(:user)
+        user4 = create(:user)
+
+        results = User.sort_using(nil)
+
+        expect(results).to eq [user1, user2, user3, user4]
+      end
     end
   end
 end

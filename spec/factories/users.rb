@@ -19,5 +19,9 @@ FactoryBot.define do
     trait :confirmed do
       confirmed_at { 1.minute.ago }
     end
+
+    trait :non_group_user do
+      id { 1 }
+    end
   end
 end
