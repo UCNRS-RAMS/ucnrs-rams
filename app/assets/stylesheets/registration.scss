@@ -2,7 +2,7 @@
 @import "mixins/icon_link";
 @import "mixins/errors";
 
-.registrations main, .users main{
+.registrations main {
   .content {
     align-items: center;
     color: $form-title-color;

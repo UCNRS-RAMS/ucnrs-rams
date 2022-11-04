@@ -5,7 +5,13 @@ class InstitutionPresenter
 
   attr_reader :institution
 
-  delegate :id, :name, :city, :state, :country, :institution_type, to: :institution
+  delegate :id,
+    :name,
+    :city,
+    :state,
+    :country,
+    :institution_type,
+    to: :institution
 
   def country_name
     country.name

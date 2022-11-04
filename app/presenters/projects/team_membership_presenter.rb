@@ -25,7 +25,7 @@ class Projects::TeamMembershipPresenter
   delegate :name, to: :institution, prefix: true, allow_nil: true
 
   def user_role
-    I18n.t("universal.role.#{team_membership.user_role}")
+    I18n.t("universal.roles.#{team_membership.user_role}")
   end
 
   def permissions_icon(column)

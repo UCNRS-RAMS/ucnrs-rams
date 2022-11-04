@@ -119,7 +119,7 @@ class User < ApplicationRecord
       .decode_www_form_component(query)
       .strip
       .split
-      .inject(unscoped) do |scope, part|
+      .inject(self) do |scope, part|
         scope.where(
           "first_name REGEXP :query OR last_name REGEXP :query",
           query: part
@@ -155,6 +155,38 @@ class User < ApplicationRecord
 
   def is_manager?
     managed_reserve_ids.present?
+  end
+
+  def self.non_group_users
+    where.not(id: 1)
+  end
+
+  def self.with_role(role)
+    if role.present?
+      where(role: role)
+    else
+      all
+    end
+  end
+
+  def self.search_institution(query)
+    joins(:institution)
+      .merge(Institution.search(query))
+  end
+
+  def self.with_institution_type(institution_type)
+    joins(:institution)
+      .merge(Institution.with_institution_type(institution_type))
+  end
+
+  def self.sort_using(sort_option = nil)
+    case sort_option.to_s
+    when "user_id" then order(id: :desc)
+    when "last_name" then order(:last_name)
+    when "created_at" then order(created_at: :desc)
+    else
+      all
+    end
   end
 
   private

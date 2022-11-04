@@ -39,21 +39,30 @@ class Institution < ApplicationRecord
   end
 
   def self.search(query)
-    full_text_query_array = tokenize(query)
+    if query
+      found_institutions = left_joins(:country)
 
-    @found_institutions = select(arel_table[Arel.star]).left_joins(:country)
-    
-    full_text_query_array.each do |partial|
-      @found_institutions = @found_institutions.where(
-                                "institutions.`name` REGEXP :match 
-                                OR city REGEXP :match
-                                OR acronym REGEXP :match
-                                OR countries.`name` REGEXP :match",
-                                { match: partial }
-                            )
+      tokenize(query).each do |partial|
+        found_institutions = found_institutions.where(
+          "institutions.`name` REGEXP :match
+          OR city REGEXP :match
+          OR acronym REGEXP :match
+          OR countries.`name` REGEXP :match",
+          { match: partial }
+        )
+      end
+      found_institutions
+    else
+      all
     end
+  end
 
-    @found_institutions
+  def self.with_institution_type(institution_type)
+    if institution_type
+      where(institution_type: institution_type)
+    else
+      all
+    end
   end
 
   private

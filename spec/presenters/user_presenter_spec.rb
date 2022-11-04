@@ -51,18 +51,4 @@ RSpec.describe UserPresenter, type: :presenter do
     subject { UserPresenter.new(build(:user)) }
     it { is_expected.to delegate_missing_methods_to(:user) }
   end
-
-  describe "#role" do
-    it "is the user role translated" do
-      user = create(:user, role: :docent)
-      presenter = UserPresenter.new(user)
-      allow(I18n).to receive(:t)
-        .with("universal.role.docent")
-        .and_return("docent translated")
-
-      role = presenter.role
-
-      expect(role).to eq "docent translated"
-    end
-  end
 end

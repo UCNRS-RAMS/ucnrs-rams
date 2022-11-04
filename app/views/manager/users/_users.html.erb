@@ -1,0 +1,18 @@
+<turbo-frame id="users-table">
+  <table class="users-table">
+    <thead>
+      <tr>
+        <th><%= t(".name") %></th>
+        <th><%= t(".institution") %></th>
+        <th><%= t(".role") %></th>
+        <th><%= t(".projects") %></th>
+        <th><%= t(".visits") %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "user", collection: presenter.users %>
+    <tbody>
+  </table>
+  <%= paginate presenter.user_scope, data: { "turbo-action": "advance" } %>
+</turbo-frame>

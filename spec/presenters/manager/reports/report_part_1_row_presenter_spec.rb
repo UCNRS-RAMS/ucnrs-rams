@@ -12,7 +12,7 @@ RSpec.describe Manager::Reports::ReportPart1RowPresenter do
         "key1" => "value1",
       })
       allow(I18n).to receive(:t)
-        .with("universal.role.key1")
+        .with("universal.roles.key1")
         .and_return("role_key1_translate")
       row = { "role" => "value1" }
       presenter = Manager::Reports::ReportPart1RowPresenter.new(row)

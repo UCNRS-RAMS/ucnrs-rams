@@ -65,4 +65,60 @@ RSpec.describe Institution, type: :model do
       expect(results).to be_empty
     end
   end
+
+  describe ".search" do
+    let(:institution1) { create(:institution, name: "the institution1", acronym: "acronym1", city: "city1") }
+    let(:institution2) { create(:institution, name: "institution2", acronym: "the a", city: "city2") }
+    let(:institution3) { create(:institution, name: "institution3", acronym: "acronym3", city: "the city3") }
+    let(:institution4) { create(:institution, name: "University of Coruscant", acronym: "UC", city: "Imperial City") }
+
+    context "when given query is present" do
+      describe ".search" do
+        it "returns all institutions where the name, city, acronym is similar
+        to the passed value" do
+          results = Institution.search("the")
+
+          expect(results).to match_array [institution1, institution2, institution3]
+        end
+
+        it "returns an empty array if there are no institutions where the name is similar
+        to the passed value" do
+          results = Institution.search("xyz")
+
+          expect(results).to be_empty
+        end
+      end
+    end
+
+    context "when given query is NOT present" do
+      it "returns all institutions" do
+        results = Institution.search(nil)
+
+        expect(results).to match_array [institution1, institution2, institution3, institution4]
+      end
+    end
+  end
+
+  describe ".with_institution_type" do
+    let(:institution1) { create(:institution, institution_type: "university_of_california") }
+    let(:institution2) { create(:institution, institution_type: "k_12_education") }
+    let(:institution3) { create(:institution, institution_type: "business_entity") }
+    let(:institution4) { create(:institution, institution_type: "university_of_california") }
+
+    context "when given institution_type is present" do
+      it "returns only institutions with the given institution type" do
+        results = Institution.with_institution_type("university_of_california")
+
+        expect(results).to match_array [institution1, institution4]
+      end
+    end
+
+    context "when given institution_type is NOT present" do
+      it "returns all institutions" do
+        results = Institution.with_institution_type(nil)
+
+        expect(results).to match_array [institution1, institution2, institution3, institution4]
+      end
+    end
+  end
 end

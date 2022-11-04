@@ -37,7 +37,7 @@ class UserVisitPresenter
   end
 
   def role
-    I18n.t("universal.role.#{user_visit.role}")
+    I18n.t("universal.roles.#{user_visit.role}")
   end
 
   private
