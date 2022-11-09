@@ -10,7 +10,7 @@
     </div>
     <%= month_calendar @presenter.calendar_params do |date, visits| %>
       <% @presenter.add_date_visits(date: date, visits: visits) %>
-      <span class="date-text" ><%= date.day %></span>
+      <span class="date-text" ><strong><%= date.day %></strong></span>
       <%= render partial: "bar", object: @presenter.visits_link_params %>
       <%= render partial: "bar", collection: @presenter.amenities_link_params %>
     <% end %>

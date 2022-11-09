@@ -196,7 +196,7 @@
       .table {
         border: 0px;
         td {
-          border: 0px;
+          border: 1px solid $dark-bluegray;
           color: $semidark-bluegray;
           padding-left: 0px;
           padding-right: 0px;
@@ -259,9 +259,9 @@
       }
 
       .disable-link {
-        opacity: 0;
         pointer-events: none;
         cursor: default;
+        opacity: 0;
       }
 
       .bars-text {
@@ -349,7 +349,6 @@
 
     .header {
       border-bottom: 2px solid $dark-bluegray;
-      
       display: flex;
       justify-content: space-between;
       

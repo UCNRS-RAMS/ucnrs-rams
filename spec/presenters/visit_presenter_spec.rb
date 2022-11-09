@@ -23,6 +23,29 @@ RSpec.describe VisitPresenter do
     end
   end
 
+  describe "institution_name" do
+    it "returns institution name of project team_member" do
+      user = create(:user, :confirmed)
+      project = create(:project, title: "Project 1", project_type: "Research")
+      create(:project_team_membership, user: user, project: project)
+      visit = create(:visit, project: project, user: user)
+      visit_presenter = VisitPresenter.new(visit)
+
+      output = visit.project.team_members.find_by(id: user.id).institution_name
+      
+      expect(visit_presenter.institution_name).to eq output
+    end
+
+    it "returns institution name of visit user" do
+      visit = create(:visit)
+      visit_presenter = VisitPresenter.new(visit)
+
+      output = visit.user.institution_name
+      
+      expect(visit_presenter.institution_name).to eq output
+    end
+  end
+
   describe "#requested_date_range" do
     it "generates a date range for the visit" do
       start_datetime = Time.current.round

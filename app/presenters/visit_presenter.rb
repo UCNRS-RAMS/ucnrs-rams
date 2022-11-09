@@ -13,6 +13,15 @@ class VisitPresenter
     visit_status
   end
 
+  def institution_name
+    team_member = visit.project.team_members.find_by(id: user.id)
+    if team_member.present?
+      team_member.institution.name
+    else
+      user.institution_name
+    end
+  end
+
   def status
     visit_status.humanize
   end

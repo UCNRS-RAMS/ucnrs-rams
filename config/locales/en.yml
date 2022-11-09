@@ -151,6 +151,7 @@ en:
         search_by_name: "Search by Name"
     calendar:
       visit:
+          visitors: "(%{count}) visitors"
           id_with_reserve_name: "Visit # %{id} @ %{reserve_name}"
           project: "Under Project # %{id} | %{project_type}"
     calendar_visit_modal:

@@ -43,11 +43,12 @@ RSpec.describe Manager::Dashboard::CalendarShowPresenter do
   describe "#amenities_link_params" do
     it "updates the current date visit and amenities" do
       visit = create(:visit)
-      create(:amenity_visit, visit: visit)
-      date = visit.amenity_visits.first.arrives_at
+      amenity = create(:amenity)
+      create(:amenity_visit, visit: visit, amenity: amenity, arrives: visit.starts_at, departs: visit.ends_at)
+      date = visit.amenity_visits.first.arrives
 
-      visit = Manager::Dashboard::CalendarVisitPresenter.new(visit: visit, status: "all", type: "visits_and_amenities")
-      show_presenter = Manager::Dashboard::CalendarShowPresenter.new(reserve: reserve, status: "all")
+      visit = Manager::Dashboard::CalendarVisitPresenter.new(visit: visit, status: "all", type: "visits_and_amenities", date: visit.starts_at)
+      show_presenter = Manager::Dashboard::CalendarShowPresenter.new(reserve: reserve, status: "all", start_date: visit.starts_at)
       show_presenter.add_date_visits(date: date, visits: [visit])
 
       expect(show_presenter.amenities_link_params[1]).to eq show_presenter.month_amenities[date.to_s].first.visit_link_params
