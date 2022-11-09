@@ -1,4 +1,6 @@
 class ReserveUploader < CarrierWave::Uploader::Base
+  include CarrierWave::MiniMagick
+
   def store_dir
     [
       ("uploads" if Rails.env.development?),
@@ -23,5 +25,13 @@ class ReserveUploader < CarrierWave::Uploader::Base
 
   def content_type_allowlist
     [/image\//]
+  end
+
+  version :medium do
+    process resize_to_fill: [270,165]
+  end
+
+  version :small, from: :medium do
+    process resize_to_fill: [150,100]
   end
 end

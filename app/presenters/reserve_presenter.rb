@@ -34,4 +34,8 @@ class ReservePresenter
   def country
     address_country&.name
   end
+
+  def listing_photo_src
+    listing_photo.url(:medium)
+  end
 end
