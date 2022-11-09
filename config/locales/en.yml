@@ -1568,6 +1568,7 @@ en:
           tax_id_number: "Tax ID Number"
           invoice_payment_directions: "Invoice Payment Directions"
           site_content: "Site Content"
+          upload_support_text: Please upload photos in landscape orientation only.
           large_hero_photo: "Large Hero Photo (Reserve Detail Page)"
           listing_photo: "Listing Photo (Reserve Listing Page)"
           browse: "Browse"

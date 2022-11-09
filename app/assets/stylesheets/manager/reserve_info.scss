@@ -1,8 +1,12 @@
 @import "variables";
 @import "mixins/tables";
 
-.manager.reserve_details, .manager.amenities_and_rates, .manager.waivers,
-.manager.rules_and_regulations, .manager.permits, .manager.reserve_questions,
+.manager.reserve_details,
+.manager.amenities_and_rates,
+.manager.waivers,
+.manager.rules_and_regulations,
+.manager.permits,
+.manager.reserve_questions,
 .manager.staff_and_notifications {
   .content {
     margin-top: 3rem;
@@ -36,9 +40,9 @@
         border-bottom: 1px solid $gray;
         color: $black;
         display: block;
-        font-size: .8125rem;
+        font-size: 0.8125rem;
         font-weight: $medium;
-        padding: .5rem 1rem;
+        padding: 0.5rem 1rem;
         text-decoration: none;
       }
 
@@ -54,7 +58,7 @@
 
   .reserve-info {
     flex-grow: 1;
-    margin-top: .125rem;
+    margin-top: 0.125rem;
 
     > header {
       font-size: 1.5rem;
@@ -69,7 +73,7 @@
 
     header {
       font-size: 1rem;
-      margin-bottom: .5rem;
+      margin-bottom: 0.5rem;
     }
 
     > p:last-of-type {
@@ -77,7 +81,10 @@
     }
   }
 
-  table.waivers-table, table.amenity-rates-table, table.amenity-rate-categories-table, table.amenities-table {
+  table.waivers-table,
+  table.amenity-rates-table,
+  table.amenity-rate-categories-table,
+  table.amenities-table {
     @include table-style1;
   }
 
@@ -86,7 +93,7 @@
     align-items: flex-start;
 
     > * {
-      margin-right: .75rem;
+      margin-right: 0.75rem;
     }
   }
 
@@ -103,9 +110,23 @@
   trix-editor#reserve_rules_and_regulations {
     height: 500px;
   }
+
+  .site-content {
+    h1 {
+      margin-bottom: 0;
+    }
+
+    .support-text {
+      font-weight: normal;
+      font-size: 0.66rem;
+      margin-top: 0;
+      color: $dark-bluegray;
+    }
+  }
 }
 
-.manager.reserve_details, .manager.rules_and_regulations {
+.manager.reserve_details,
+.manager.rules_and_regulations {
   section.reserve-info-subsection {
     background-color: $light-gray;
     margin-bottom: 2rem;
@@ -118,7 +139,7 @@
 
       small {
         display: block;
-        font-size: .75rem;
+        font-size: 0.75rem;
         font-weight: $light;
       }
     }
@@ -135,8 +156,9 @@
       margin-bottom: 1rem;
     }
 
-    .form-group, .with-form-group-pad {
-      padding: 0 .5rem;
+    .form-group,
+    .with-form-group-pad {
+      padding: 0 0.5rem;
     }
 
     .form-label {
@@ -153,7 +175,7 @@
       border-radius: 3px;
       box-sizing: border-box;
       min-height: 6rem;
-      padding: .625rem;
+      padding: 0.625rem;
       width: 100%;
     }
 
@@ -163,7 +185,7 @@
       border-radius: 3px;
       box-sizing: border-box;
       display: block;
-      padding: .625rem;
+      padding: 0.625rem;
       width: 100%;
     }
 
@@ -197,7 +219,8 @@
       }
     }
 
-    .row-medium, .row-auto {
+    .row-medium,
+    .row-auto {
       padding-right: 1rem;
 
       > * {
@@ -214,13 +237,15 @@
       border: 1px solid $darker-gray;
       border-radius: 3px;
       font-weight: $medium;
-      padding: .625rem;
+      padding: 0.625rem;
     }
   }
 }
 
 .manager.amenities_and_rates {
-  table.amenity-rates-table, table.amenity-rate-categories-table, table.amenities-table {
+  table.amenity-rates-table,
+  table.amenity-rate-categories-table,
+  table.amenities-table {
     @include table-style1;
   }
 }
@@ -249,23 +274,27 @@
   }
 }
 
-.manager.amenities_and_rates, .manager.reserve_questions, .manager.waivers,
+.manager.amenities_and_rates,
+.manager.reserve_questions,
+.manager.waivers,
 .manager.staff_and_notifications {
-  .modal form{
+  .modal form {
     h2 {
       font-weight: $semi-bold;
       margin-top: 0;
     }
 
-    input, textarea, select {
-      font-size: .85rem;
+    input,
+    textarea,
+    select {
+      font-size: 0.85rem;
     }
 
     small {
       display: block;
-      font-size: .75rem;
+      font-size: 0.75rem;
       font-weight: $light;
-      margin-top: .25rem;
+      margin-top: 0.25rem;
     }
 
     hr {
@@ -284,8 +313,9 @@
       margin-bottom: 1rem;
     }
 
-    .form-group, .with-form-group-pad {
-      padding: 0 .5rem;
+    .form-group,
+    .with-form-group-pad {
+      padding: 0 0.5rem;
     }
 
     .form-label {
@@ -310,7 +340,7 @@
       border-radius: 0.3125rem;
       box-sizing: border-box;
       min-height: 6rem;
-      padding: .625rem;
+      padding: 0.625rem;
       resize: vertical;
       width: 100%;
     }
@@ -321,7 +351,7 @@
       border-radius: 0.3125rem;
       box-sizing: border-box;
       display: block;
-      padding: .625rem;
+      padding: 0.625rem;
       width: 100%;
     }
 
@@ -331,7 +361,7 @@
 
     .form-inline {
       display: inline-block;
-      margin-right: .5rem;
+      margin-right: 0.5rem;
     }
 
     .row {
@@ -361,7 +391,8 @@
       }
     }
 
-    .row-medium, .row-auto {
+    .row-medium,
+    .row-auto {
       padding-right: 1rem;
 
       > * {
