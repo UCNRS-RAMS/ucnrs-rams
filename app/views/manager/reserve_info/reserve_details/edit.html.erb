@@ -224,14 +224,14 @@
           </header>
           <div class="row">
             <div class="col form-group">
-              <span class="form-label"><%= t(".large_hero_photo") %></span>
+              <%= f.label :large_hero_photo, t(".large_hero_photo"), class: "form-label" %>
               <div class="reserve-pictures">
                 <%= image_tag @presenter.hero_photo, height: "100", width: "150" %>
                 <%= f.file_field :large_hero_photo %>
               </div>
             </div>
             <div class="col form-group">
-              <span class="form-label"><%= t(".listing_photo") %></span>
+              <%= f.label :listing_photo, t(".listing_photo"), class: "form-label" %>
               <div class="reserve-pictures">
                 <%= image_tag @presenter.listing_photo, height: "100", width: "150" %>
                 <%= f.file_field :listing_photo %>

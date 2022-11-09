@@ -33,5 +33,14 @@ FactoryBot.define do
         end
       end
     end
+
+    trait :with_invalid_file_format do
+      after(:build) do |reserve|
+        File.open(Rails.root.join("spec", "support", "assets", "test-file.pdf")) do |f|
+          reserve.listing_photo = f
+          reserve.large_hero_photo = f
+        end
+      end
+    end
   end
 end
