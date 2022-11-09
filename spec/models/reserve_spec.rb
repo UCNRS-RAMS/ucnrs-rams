@@ -19,6 +19,56 @@ RSpec.describe Reserve, type: :model do
     it { is_expected.to have_many(:visits) }
   end
 
+  describe "validations" do
+    describe "listing_photo" do
+      context "when the listing photo is in a valid format" do
+        it "is valid" do
+          reserve = build(:reserve, :with_listing_photo)
+
+          reserve.save
+
+          expect(reserve).to be_valid
+          expect(reserve.listing_photo_url).to be_present
+        end
+      end
+
+      context "when the listing photo is in an invalid format (non-image)" do
+        it "is not valid" do
+          reserve = build(:reserve, :with_invalid_file_format)
+
+          reserve.save
+
+          expect(reserve).not_to be_valid
+          expect(reserve.errors.full_messages).to include("Listing photo You are not allowed to upload \"pdf\" files, allowed types: jpg, jpeg, gif, png")
+        end
+      end
+    end
+
+    describe "large_hero_photo" do
+      context "when the large hero photo is in a valid format" do
+        it "is valid" do
+          reserve = build(:reserve, :with_hero_photo)
+
+          reserve.save
+
+          expect(reserve).to be_valid
+          expect(reserve.large_hero_photo_url).to be_present
+        end
+      end
+
+      context "when the large hero photo is in an invalid format (non-image)" do
+        it "is not valid" do
+          reserve = build(:reserve, :with_invalid_file_format)
+
+          reserve.save
+
+          expect(reserve).not_to be_valid
+          expect(reserve.errors.full_messages).to include("Large hero photo You are not allowed to upload \"pdf\" files, allowed types: jpg, jpeg, gif, png")
+        end
+      end
+    end
+  end
+
   describe ".with_accepted_project_type" do
     it "returns reserves that accept projects of type 'research'" do
       research_reserve = create(:reserve, research_projects_accepted: true)
