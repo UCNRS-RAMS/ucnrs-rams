@@ -1,4 +1,6 @@
 class ReservesController < ApplicationController
+  layout "with_reserve_hero_nav", only: :show
+
   def index
     @presenter = ReservesIndexPresenter.new
   end

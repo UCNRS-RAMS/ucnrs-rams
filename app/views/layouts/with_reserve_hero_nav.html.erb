@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>UCNRS RAMS</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_pack_tag 'application' %>
+
+    <%= render partial: "layouts/fonts" %>
+  </head>
+
+  <body class="<%= body_class %>">
+    <header>
+      <%= render partial: 'layouts/reserve_hero_nav', locals: { current_user: current_user } %>
+      <section role="region" aria-label="errors" class="flash">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+      </section>
+    </header>
+    <main role="main">
+      <%= yield %>
+    </main>
+    <%= render partial: "layouts/footer" %>
+
+    <div id="modal" class="modal" data-controller="modal" aria-hidden="true">
+      <div class="modal-container">
+        <%= content_for?(:modal) ? yield(:modal) : render(partial: "modals/empty") %>
+      </div>
+    </div>
+  </body>
+</html>

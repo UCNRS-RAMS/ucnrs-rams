@@ -3,16 +3,6 @@
 module ApplicationHelper
   MANAGER_NAMESPACE = "manager"
 
-  def reserve_hero_image
-    request_path = request.path
-    display_hero_image = request_path.match(/^(\/reserves\/)\d+$/)
-
-    if display_hero_image
-      reserve = Reserve.find(request.path.split("/").last)
-      "background: no-repeat center/cover url(#{reserve.large_hero_photo_url});"
-    end
-  end
-
   def body_class
     controller_name = controller.controller_name
     action_name = controller.action_name
