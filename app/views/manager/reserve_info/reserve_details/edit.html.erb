@@ -226,14 +226,14 @@
             <div class="col form-group">
               <span class="form-label"><%= t(".large_hero_photo") %></span>
               <div class="reserve-pictures">
-                <%= image_tag @presenter.hero_photo, height: "100" %>
+                <%= image_tag @presenter.hero_photo, height: "100", width: "150" %>
                 <%= f.file_field :large_hero_photo %>
               </div>
             </div>
             <div class="col form-group">
               <span class="form-label"><%= t(".listing_photo") %></span>
               <div class="reserve-pictures">
-                <%= image_tag @presenter.listing_photo, height: "100" %>
+                <%= image_tag @presenter.listing_photo, height: "100", width: "150" %>
                 <%= f.file_field :listing_photo %>
               </div>
             </div>

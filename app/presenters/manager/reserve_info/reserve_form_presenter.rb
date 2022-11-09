@@ -33,11 +33,11 @@ class Manager::ReserveInfo::ReserveFormPresenter
   end
 
   def hero_photo
-    form_reserve.large_hero_photo_url || HERO_PLACEHOLDER
+    form_reserve.large_hero_photo.url(:small) || HERO_PLACEHOLDER
   end
 
   def listing_photo
-    form_reserve.listing_photo_url || LISTING_PLACEHOLDER
+    form_reserve.listing_photo.url(:small) || LISTING_PLACEHOLDER
   end
 
   private
