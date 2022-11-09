@@ -109,6 +109,8 @@ class Manager::ReserveInfo::ReserveDetailsController < ApplicationController
       :description,
       :listing_photo,
       :large_hero_photo,
+      :listing_photo_cache,
+      :large_hero_photo_cache,
     )
   end
 end

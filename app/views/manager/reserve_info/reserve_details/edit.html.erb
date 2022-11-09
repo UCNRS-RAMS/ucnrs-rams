@@ -228,6 +228,7 @@
               <div class="reserve-pictures">
                 <%= image_tag @presenter.hero_photo, height: "100", width: "150" %>
                 <%= f.file_field :large_hero_photo %>
+                <%= f.hidden_field :large_hero_photo_cache %>
               </div>
             </div>
             <div class="col form-group">
@@ -235,6 +236,7 @@
               <div class="reserve-pictures">
                 <%= image_tag @presenter.listing_photo, height: "100", width: "150" %>
                 <%= f.file_field :listing_photo %>
+                <%= f.hidden_field :listing_photo_cache %>
               </div>
             </div>
           </div>
