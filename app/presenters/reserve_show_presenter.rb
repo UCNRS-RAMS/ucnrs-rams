@@ -18,6 +18,7 @@ class ReserveShowPresenter
     :image_placeholder,
     :managing_campus,
     :description,
+    :large_hero_photo_url,
     to: :reserve, prefix: true
 
   def reserve_personnel

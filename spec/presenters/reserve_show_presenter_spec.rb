@@ -14,6 +14,7 @@ RSpec.describe ReserveShowPresenter do
     it { is_expected.to delegate_method(:avatar).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:managing_campus).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:description).to(:reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:large_hero_photo_url).to(:reserve).with_prefix(true) }
   end
 
   describe "#reserve" do
