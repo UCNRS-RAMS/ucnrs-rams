@@ -43,7 +43,7 @@ class Manager::Dashboard::CalendarShowPresenter
 
   def amenities_link_params
     params = Array.new((1..(month_amenities[current_date.to_s].map(&:position).max || -1)).size, hidden_link_params)
-    month_amenities[current_date.to_s].each { |a| params[a.position] = a.visit_link_params }
+    month_amenities[current_date.to_s].each { |a| params[a.position] = a.visit_link_params if a.has_amenities_visitors?}
     params
   end
 

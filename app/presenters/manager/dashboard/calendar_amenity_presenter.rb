@@ -20,6 +20,10 @@ class Manager::Dashboard::CalendarAmenityPresenter < AmenityPresenter
     )
   end
 
+  def has_amenities_visitors?
+    amenities_people_count.positive?
+  end
+
   private
 
   attr_accessor :date
@@ -41,12 +45,16 @@ class Manager::Dashboard::CalendarAmenityPresenter < AmenityPresenter
   end
 
   def border_radius_classes(css_class)
-    css_class += " left-radius" if date == visit.starts_at.to_date
-    css_class += " right-radius" if date == visit.ends_at.to_date
+    css_class += " left-radius" if date == amenity_visit(:arrives).arrives.to_date
+    css_class += " right-radius" if date == amenity_visit(departs: :desc).departs.to_date
     css_class
   end
 
   def display_amenities_text?
     date.monday? || date == visit.starts_at.to_date || (amenities_people_count(on_date = date.yesterday) != amenities_people_count)
+  end
+
+  def amenity_visit(order)
+    visit.amenity_visits.where(amenity_id: amenity.id).order(order).first
   end
 end

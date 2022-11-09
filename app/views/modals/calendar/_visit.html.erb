@@ -4,11 +4,11 @@
     <p class="clr-gray"><em><%= t(".id_with_reserve_name", id: visit.id, reserve_name: visit.reserve_name ) %></em></p>
     <p class="clr-gray"><em><%= t(".project", id: visit.project_id, project_type: visit.project_type ) %></em></p>
     <%= link_to truncate(visit.project_title, length: 50), manager_reserve_project_path(reserve_id: visit.reserve_id, id: visit.project_id), class: "clr-blue", data: { turbo: "false" }%>
-    <p class="clr-gray"><em><%= visit.user_full_name %> - <%= visit.user.institution_name %></em></p>
+    <p class="clr-gray"><em><%= visit.user_full_name %> - <%= visit.institution_name %></em></p>
   </div>
 
   <div class="align-right ">
-    <span> <%= visit.visitor_count_on_date(@presenter.date_begin_filter) %> visitors</span>
+    <span> <%= t(".visitors", count: visit.visitor_count_on_date(@presenter.date_begin_filter)) %></span>
     <%= render partial: "shared/visits/status", locals: {context: visit.status_class, img: visit.status_icon} %>
   </div>
 </div>
