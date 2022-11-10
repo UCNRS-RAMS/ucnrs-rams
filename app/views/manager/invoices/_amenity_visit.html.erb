@@ -11,13 +11,13 @@
     <div class="d-flex">
       <div class="d-flex text-field-div right-spacer">
         <div class="d-flex-column">
-          <%= f.label :arrives, for: "arrives#{amenity_visit.id}", class: "text-center" %>
-          <%= f.date_field :arrives, id: "arrives#{amenity_visit.id}", class: "select-field", onclick: "showPicker()", data: { action: "change->subtotal#calculateSubtotal change->invoices#days", "subtotal-target": "arriveOn", "invoices-target": "arriveOn" } %>
+          <%= f.label :arrives_on, for: "arrives#{amenity_visit.id}", class: "text-center" %>
+          <%= f.date_field :arrives_on, value: presenter.default_date(f.object.amenity_visit.arrives_on), id: "arrives#{amenity_visit.id}", class: "select-field", onclick: "showPicker()", data: { action: "change->subtotal#calculateSubtotal change->invoices#days", "subtotal-target": "arriveOn", "invoices-target": "arriveOn" } %>
         </div>
         <%= t(".spacer") %>
         <div class="d-flex-column">
-          <%= f.label :departs, for: "departs#{amenity_visit.id}", class: "text-center" %>
-          <%= f.date_field :departs, id: "departs#{amenity_visit.id}", class: "select-field", onclick: "showPicker()", data: { action: "change->subtotal#calculateSubtotal change->invoices#days", "subtotal-target": "departsOn", "invoices-target": "departsOn" } %>
+          <%= f.label :departs_on, for: "departs#{amenity_visit.id}", class: "text-center" %>
+          <%= f.date_field :departs_on, value: presenter.default_date(f.object.amenity_visit.departs_on), id: "departs#{amenity_visit.id}", class: "select-field", onclick: "showPicker()", data: { action: "change->subtotal#calculateSubtotal change->invoices#days", "subtotal-target": "departsOn", "invoices-target": "departsOn" } %>
         </div>
         <div class="days">
           <strong class="left-spacer right-spacer"><%= t(".left_bracket") %>
