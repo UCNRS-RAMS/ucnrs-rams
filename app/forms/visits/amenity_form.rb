@@ -13,7 +13,6 @@ class Visits::AmenityForm
       id: params[:amenity_visit_id]
     ).first || AmenityVisit.new
     @amenity_visit.user = user
-    assign_dates(params)
     assign(params)
   end
 
@@ -23,13 +22,6 @@ class Visits::AmenityForm
   validates :amenity_id, presence: true
   validates :arrives_on, presence: true
   validates :departs_on, presence: true
-
-  def assign_dates(params)
-    if params[:arrives_on].present?
-      params[:arrives] = "#{params[:arrives_on]} #{params[:arrives_at]}"
-      params[:departs] = "#{params[:departs_on]} #{params[:departs_at]}"
-    end
-  end
 
   def checked
     if amenity_id.present?
@@ -55,18 +47,22 @@ class Visits::AmenityForm
 
   def arrives_on=(date)
     amenity_visit.arrives_on = parse_date(date)
+    assign_arrives
   end
 
   def arrives_at=(time)
     amenity_visit.arrives_at = parse_time(time)
+    assign_arrives
   end
 
   def departs_on=(date)
     amenity_visit.departs_on = parse_date(date)
+    assign_departs
   end
 
   def departs_at=(time)
     amenity_visit.departs_at = parse_time(time)
+    assign_departs
   end
 
   alias_method :validate_form, :validate
@@ -133,4 +129,16 @@ class Visits::AmenityForm
   end
 
   private :valid_form?, :validate_form
+
+  def assign_arrives
+    amenity_visit.arrives = change_date_for_datetime(amenity_visit.arrives_at, amenity_visit.arrives_on.to_date) unless amenity_visit.arrives_on.nil? || amenity_visit.arrives_at.nil?
+  end
+
+  def assign_departs
+    amenity_visit.departs = change_date_for_datetime(amenity_visit.departs_at, amenity_visit.departs_on.to_date) unless amenity_visit.arrives_on.nil? || amenity_visit.arrives_at.nil?
+  end
+
+  def change_date_for_datetime(datetime, date)
+    date.blank? ? datetime : datetime&.change(year: date.year, month: date.month, day: date.day)
+  end
 end
