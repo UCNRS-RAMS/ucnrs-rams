@@ -5,6 +5,7 @@ class AmenityVisit < ApplicationRecord
   belongs_to :visit
 
   validates :departs_on, must_be_after: :arrives_on
+  validates :departs, must_be_after: :arrives
   validates :number_of_people, numericality: { greater_than: 0 }
   validate :date_range_within_visit_range
 

@@ -59,6 +59,10 @@ class ProjectTeamMembership < ApplicationRecord
     where(is_principal_investigator: true)
   end
 
+  def self.can_receive_invoice
+    where(can_receive_invoice: true)
+  end
+
   def self.is_active
     where(active: true)
   end

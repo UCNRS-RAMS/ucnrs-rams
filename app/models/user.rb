@@ -60,6 +60,8 @@ class User < ApplicationRecord
   has_many :managed_reserves, through: :reserve_personnel, source: :reserve
   has_many :user_visits
   has_many :logs
+  has_many :invoice_recipients
+  has_many :invoices, through: :invoice_recipients
 
   def institution_name
     read_attribute(:institution_name) || institution.name

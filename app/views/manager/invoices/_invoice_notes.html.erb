@@ -1,0 +1,9 @@
+<section class="invoice-notes">
+  <h2><%= t(".title") %><span>(<%= t(".optional") %>)</span></h2>
+  <section class="note-form">
+      <div class="field">
+        <label for="notes-message" class="label"><%= t(".invoice_notes_instructions") %></label>
+        <%= form.text_area :notes, rows: 4, class:"note" %>
+      </div>
+  </section>
+</section>

@@ -1,0 +1,11 @@
+<div class="invoice-amenity-visits">
+  <h3><%= t(".amenities") %></h3>
+  <div data-controller="invoice-amenity-visits">
+    <% forms.amenity_visits.each do |amenity_visit| %>
+      <%= render partial: 'amenity_visit', locals: { amenity_visit: amenity_visit, presenter: presenter.amenity_presenter(amenity_visit.amenity, amenity_visit) } %>
+    <% end %>
+    <div class="d-flex-right">
+      <span class="margin-right"><%= t(".total") %><strong class="left-spacer" id="total"><%= presenter.amenities_total %></strong></span>
+    </div>
+  </div>
+</div>
