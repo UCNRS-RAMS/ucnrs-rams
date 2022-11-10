@@ -1021,6 +1021,32 @@ en:
     waiver:
       download_pdf: "Download PDF"
   manager:
+    invoices:
+      invoice_notes:
+        title: "Notes"
+        invoice_notes_instructions: "Invoice Notes/Special Institutions"
+        optional: "Optional"
+      visit_info:
+        reserve: "Reserve"
+        date_of_use: "Date of Use"
+        project: "Project"
+        visit: "Visit"
+      project_team_members:
+        bill_to: "Bill To"
+        recipient_email: "recipient_email"
+      new:
+        new_invoice: "New Invoice"
+      amenity_visit:
+        dollar: "$ "
+        left_bracket: "("
+        right_bracket: ")"
+        spacer: "-"
+      submit:
+        back: "Cancel & Go Back"
+        submit: "Create Invoice"
+      amenity_visits:
+        amenities: "Amenities"
+        total: "Total"
     not_a_manager: "You are not a manager"
     not_a_manager_of_reserve: "You are not a manager of the reserve."
     update_message: "Updates were successfully made."

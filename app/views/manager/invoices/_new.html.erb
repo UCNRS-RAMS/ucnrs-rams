@@ -1,0 +1,14 @@
+<turbo-frame id="amenity-visits">
+  <div class="container">
+    <header>
+      <h1><%= t(".new_invoice") %></h1>
+    </header>
+    <%= render partial: "visit_info", locals: { presenter: @presenter } %>
+    <%= form_with model: @presenter.form, url: manager_reserve_visit_invoices_path, method: :post do |form| %>
+      <%= render partial: "project_team_members", locals: { team_members: @presenter.project_team_members} %>
+      <%= render partial: "amenity_visits", locals: { presenter: @presenter, forms: @form } %>
+      <%= render partial: "invoice_notes", locals: { form: form } %>
+      <%= render partial: "submit" %>
+    <% end %>
+  </div>
+</turbo-frame>
