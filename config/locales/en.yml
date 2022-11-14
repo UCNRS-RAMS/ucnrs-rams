@@ -1027,6 +1027,25 @@ en:
       download_pdf: "Download PDF"
   manager:
     invoices:
+      amenity_visits_table:
+        amenities: "Amenities"
+        amenity_name: "Amenity Name"
+        start_end: "Start - End"
+        units: "Units"
+        count: "Count"
+        rate: "Rate"
+        subtotal: "Subtotal"
+        total: "Total"
+      invoice_recipients_table:
+        bill_to: "Bill to"
+        name: "Name"
+        institution: "Institution"
+        email: "Email"
+        project_role: "Project Role"
+      show:
+        invoice: "Invoice %{id}-%{version}"
+      notes:
+        notes: "Notes"
       invoice_notes:
         title: "Notes"
         invoice_notes_instructions: "Invoice Notes/Special Institutions"
@@ -1041,7 +1060,7 @@ en:
         recipient_email: "recipient_email"
       new:
         new_invoice: "New Invoice"
-      amenity_visit:
+      amenity_visit_form:
         dollar: "$ "
         left_bracket: "("
         right_bracket: ")"
@@ -1049,7 +1068,7 @@ en:
       submit:
         back: "Cancel & Go Back"
         submit: "Create Invoice"
-      amenity_visits:
+      amenity_visit_forms:
         amenities: "Amenities"
         total: "Total"
     not_a_manager: "You are not a manager"

@@ -1,0 +1,41 @@
+<%= fields_for "amenity_visit[#{amenity_visit.id}]", amenity_visit do |f| %>
+  <div class="table-row d-flex" data-controller="subtotal invoices">
+    <div class="right-spacer">
+      <%= f.check_box "checked", checked: true, data: { action: "change->subtotal#calculateSubtotal change->subtotal#toggle", "subtotal-target": "checkBox" } %>
+      <strong><%= presenter.title %></strong>
+    </div>
+    <%= f.hidden_field "amenity_visit_id", value: amenity_visit.id %>
+    <%= f.hidden_field :arrives_at, value: amenity_visit.arrives_at, data: { "subtotal-target": "arriveAt" } %>
+    <%= f.hidden_field :departs_at, value: amenity_visit.departs_at, data: { "subtotal-target": "departsAt" } %>
+    <%= f.hidden_field :status, value: "approved" %>
+    <div class="d-flex">
+      <div class="d-flex text-field-div right-spacer">
+        <div class="d-flex-column">
+          <%= f.label :arrives_on, for: "arrives#{amenity_visit.id}", class: "text-center" %>
+          <%= f.date_field :arrives_on, value: presenter.default_date(f.object.amenity_visit.arrives_on), id: "arrives#{amenity_visit.id}", class: "select-field", onclick: "showPicker()", data: { action: "change->subtotal#calculateSubtotal change->invoices#days", "subtotal-target": "arriveOn", "invoices-target": "arriveOn" } %>
+        </div>
+        <%= t(".spacer") %>
+        <div class="d-flex-column">
+          <%= f.label :departs_on, for: "departs#{amenity_visit.id}", class: "text-center" %>
+          <%= f.date_field :departs_on, value: presenter.default_date(f.object.amenity_visit.departs_on), id: "departs#{amenity_visit.id}", class: "select-field", onclick: "showPicker()", data: { action: "change->subtotal#calculateSubtotal change->invoices#days", "subtotal-target": "departsOn", "invoices-target": "departsOn" } %>
+        </div>
+        <div class="days">
+          <strong class="left-spacer right-spacer"><%= t(".left_bracket") %>
+            <span data-subtotal-target="unitType"><%= presenter.period.humanize %></span>
+            <span data-invoices-target="days"></span>
+            <%= t(".right_bracket") %></strong>
+        </div>
+      </div>
+      <div class="d-flex right-spacer">
+      </div>
+      <div class="d-flex text-field-div right-spacer">
+        <%= f.label presenter.unit, for: "number_of_people#{amenity_visit.id}" %>
+        <%= f.number_field :number_of_people, min: 1, id: "number_of_people#{amenity_visit.id}", data: { action: "input->subtotal#calculateSubtotal", "subtotal-target": "count" }, class: "input-field" %>
+      </div>
+      <div class="text-field-div"><%= f.select :amenity_rate_id, options_for_select(presenter.amenity_rate_options, presenter.selected_amenity_rate_id), {}, class: "select-field", "data-subtotal-target": "initialVal",  "data-action": "change->subtotal#calculateSubtotal" %></div>
+    </div>
+    <div class="text-center">
+      <strong><%= t(".dollar") %> <span data-subtotal-target="subtotal" class="subtotal"></span></strong>
+    </div>
+  </div>
+<% end %>

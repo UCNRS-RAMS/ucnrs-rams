@@ -8,15 +8,16 @@ class Visits::AmenityForm
     ActiveModel::Name.new(Amenity)
   end
 
-  def initialize(user: User.new, params: {})
+  def initialize(user: User.new, params: {}, create_invoice: false)
     @amenity_visit = AmenityVisit.where(
       id: params[:amenity_visit_id]
     ).first || AmenityVisit.new
     @amenity_visit.user = user
+    @create_invoice = create_invoice 
     assign(params)
   end
 
-  attr_reader :amenity_visit
+  attr_reader :amenity_visit, :create_invoice
   delegate_missing_to :amenity_visit
 
   validates :amenity_id, presence: true
@@ -63,6 +64,10 @@ class Visits::AmenityForm
   def departs_at=(time)
     amenity_visit.departs_at = parse_time(time)
     assign_departs
+  end
+
+  def invoice_id=(id)
+    amenity_visit.invoice_id = id if create_invoice
   end
 
   alias_method :validate_form, :validate

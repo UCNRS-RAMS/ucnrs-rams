@@ -7,11 +7,15 @@ class Manager::InvoicesController < ApplicationController
   def create
     @form = InvoiceForm.new(invoice: invoice, params: params)
     if @form.save
-      redirect_to "#"
+      redirect_to manager_reserve_visit_invoice_path(id: @form.invoice_id)
     else
       @presenter = Manager::Invoices::InvoicesFormPresenter.new(visit: visit, form: @form)
       render :new
     end
+  end
+
+  def show
+    @presenter = Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: current_user)
   end
 
   private
@@ -21,7 +25,7 @@ class Manager::InvoicesController < ApplicationController
   end
 
   def invoice_params
-    params.require(:invoice).permit(:notes).merge({
+    params.require(:invoice).permit(:notes, :balance_due).merge({
       visit_id: params[:visit_id],
     })
   end

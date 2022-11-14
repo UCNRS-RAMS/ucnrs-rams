@@ -12,6 +12,7 @@ RSpec.describe AmenityVisit do
     it {is_expected.to belong_to(:amenity_rate) }
     it {is_expected.to belong_to(:user) }
     it {is_expected.to belong_to(:visit) }
+    it { should belong_to(:invoice).optional }
   end
 
   it do 

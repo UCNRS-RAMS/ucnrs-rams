@@ -6,6 +6,7 @@ RSpec.describe AmenityVisitPresenter do
     it { is_expected.to delegate_method(:title).to(:amenity).with_prefix(true) }
     it { is_expected.to delegate_method(:per_sentence).to(:amenity) }
     it { is_expected.to delegate_method(:unit).to(:amenity) }
+    it { is_expected.to delegate_method(:period).to(:amenity) }
     it { is_expected.to delegate_missing_methods_to(:amenity_visit) }
   end
 
@@ -22,6 +23,19 @@ RSpec.describe AmenityVisitPresenter do
 
       expect(DateRangePresenter).to have_received(:value)
         .with(start_date: arrives, end_date: departs, format: nil)
+    end
+  end
+
+  describe "#total_days" do
+    it "return total days of amenity_visit" do
+      arrives = Time.current
+      departs = arrives + 1.day
+      presenter = AmenityVisitPresenter.new(
+        create(:amenity_visit, arrives: arrives, departs: departs),
+      )
+      output = ((departs.to_date + 1.day) - arrives.to_date).to_i
+      
+      expect(presenter.total_days).to eq output
     end
   end
 

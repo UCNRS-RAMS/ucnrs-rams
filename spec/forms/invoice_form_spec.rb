@@ -1,6 +1,11 @@
 require "rails_helper"
 
 RSpec.describe InvoiceForm, type: :model do
+  let(:visit) { create(:visit) }
+  describe "delegations" do
+    subject { InvoiceForm.new(params: {visit_id: visit.id}) }
+    it { is_expected.to delegate_method(:id).to(:invoice).with_prefix(true).allow_nil }
+  end
 
   describe "initializing" do
     it "makes amenity_visit, visit object and an empty invoice object" do

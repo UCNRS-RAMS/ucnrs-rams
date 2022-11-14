@@ -1,0 +1,23 @@
+<section class="amenity-visits p-bottom">
+  <h2 class="main-header"><%= t(".amenities") %></h2>
+  <table id="amenities-summary-table" class="summary-table">
+    <thead>
+      <tr>
+        <th><%= t(".amenity_name") %></th>
+        <th><%= t(".start_end") %></th>
+        <th><%= t(".units") %></th>
+        <th><%= t(".count") %></th>
+        <th><%= t(".rate") %></th>
+        <th><%= t(".subtotal") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "amenity_visit", collection: presenter.amenity_visit_presenters, as: :amenity_visit %>
+      <tr class="amenity-total">
+        <td colspan=4></td>
+        <td><%= t(".total") %></td>
+        <td><strong><%= presenter.amenities_total %></strong></td>
+      </tr>
+    </tbody>
+  </table>
+</section>

@@ -1,0 +1,72 @@
+require "rails_helper"
+
+RSpec.describe Manager::Invoices::InvoiceShowPresenter do
+  let(:project) { create(:project) }
+  let(:reserve) { create(:reserve) }
+  let(:visit) { create(:visit, reserve: reserve, project: project) }
+  let(:invoice) { create(:invoice, visit: visit) }
+  let(:user) { create(:user, :confirmed) }
+
+
+
+  describe "delegations" do
+    subject { Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: user) }
+    it { is_expected.to delegate_method(:name).to(:reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:title).to(:project).with_prefix(true) }
+    it { is_expected.to delegate_method(:purpose_of_visit).to(:visit) }
+    it { is_expected.to delegate_method(:notes).to(:invoice) }
+  end
+
+  describe "#title" do
+    it "return invoice title with invoice id and version" do
+      presenter = Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: user)
+      output = "Invoice #{invoice.id}-#{invoice.modify_number}"
+
+      expect(presenter.title).to eq output
+    end
+  end
+
+  describe "#amenities_total" do
+    it "return amenity_visits total of invoice" do
+      amenity_visit = create(:amenity_visit, invoice_id: invoice.id, rate: 10)
+      presenter = Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: user)
+      output =  "$%0.2f" % [amenity_visit.subtotal]
+
+      expect(presenter.amenities_total).to eq output
+    end
+  end
+
+  describe "#visit_date_range" do
+    it "return date range of visit" do
+      presenter = Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: user)
+      output = Manager::VisitShowPresenter.new(visit: visit, current_user: user).visit_date_range
+
+      expect(presenter.visit_date_range).to eq output
+    end
+  end
+
+  describe "#amenity_visit_presenters" do
+    it "return array of amenity_visit_presenters of invoice" do
+      amenity_visit_one = create(:amenity_visit, invoice_id: invoice.id)
+      amenity_visit_two = create(:amenity_visit, invoice_id: invoice.id)
+
+      presenter = Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: user)
+      output = [AmenityVisitPresenter.new(amenity_visit_one), AmenityVisitPresenter.new(amenity_visit_two)]
+
+      expect(presenter.amenity_visit_presenters.pluck(:id)).to eq output.pluck(:id)
+    end
+  end
+
+  describe "#recipients" do
+    it "return invoice_recipient's team_memberships of invoice" do
+      team_membership = create(:project_team_membership, :principal_investigator, user: user, project: project)
+      invoice_recipient = create(:invoice_recipient, user_id: team_membership.user_id, invoice_id: invoice.id)
+
+      presenter = Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: user)
+
+      output = [ Projects::TeamMembershipPresenter.new(ProjectTeamMembership.find_by(user_id: invoice_recipient.user_id, project_id: project.id)).id ]
+
+      expect(presenter.recipients.pluck(:id)).to eq output
+    end
+  end
+end

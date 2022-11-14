@@ -3,6 +3,7 @@ class AmenityVisit < ApplicationRecord
   belongs_to :amenity_rate
   belongs_to :user
   belongs_to :visit
+  belongs_to :invoice, optional: true
 
   validates :departs_on, must_be_after: :arrives_on
   validates :departs, must_be_after: :arrives
