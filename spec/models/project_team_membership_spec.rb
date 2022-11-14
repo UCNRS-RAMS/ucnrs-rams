@@ -90,7 +90,18 @@ RSpec.describe ProjectTeamMembership, type: :model do
       expect(members).to eq [pi]
     end
   end
-  
+
+  describe ".can_receive_invoice" do
+    it "returns records of team members that have can recieve invoice" do
+      reciever = create(:project_team_membership, can_receive_invoice: true)
+      create(:project_team_membership, can_receive_invoice: false)
+
+      members = ProjectTeamMembership.can_receive_invoice
+
+      expect(members).to eq [reciever]
+    end
+  end
+
   describe ".is_active" do
     it "returns only active team membership" do
       active_member = create(:project_team_membership, active: true)

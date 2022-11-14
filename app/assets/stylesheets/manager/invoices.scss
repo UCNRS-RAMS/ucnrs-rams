@@ -3,6 +3,7 @@
 @import "mixins/date_fields";
 @import "mixins/form";
 @import "mixins/controls";
+@import "mixins/flex";
 
 .invoices-new {
   .container {
@@ -23,20 +24,15 @@
     }
 
     .d-flex {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
+      @include flex(row, space-between, center)
     }
 
     .d-flex-column {
-      display: flex;
-      flex-direction: column;
+      @include flex(column);
     }
 
     .d-flex-right {
-      align-items: right;
-      display: flex;
-      justify-content: end;
+      @include flex(row, end, right);
 
       .total {
         flex: 2.5;
