@@ -1,0 +1,17 @@
+<section class="project-team">
+  <h2 class="main-header"><%= t(".bill_to") %></h2>
+  
+  <table id="team-summary-table" class="summary-table">
+    <thead>
+      <tr>
+        <th><%= t(".name") %></th>
+        <th><%= t(".institution") %></th>
+        <th><%= t(".email") %></th>
+        <th><%= t(".project_role") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "invoice_recipient", collection: presenter.recipients %>
+    </tbody>
+  </table>
+</section>

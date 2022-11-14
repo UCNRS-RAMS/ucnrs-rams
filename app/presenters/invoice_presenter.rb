@@ -7,7 +7,11 @@ class InvoicePresenter
 
   attr_reader :invoice
 
-  delegate :id, :status, to: :invoice
+  delegate :id, :status, :amenity_visits, to: :invoice
+
+  def amenities_total
+    "$#{value(amenity_visits.sum(&:subtotal))}"
+  end
 
   def requested_reserve_name
     invoice.name
@@ -15,5 +19,11 @@ class InvoicePresenter
 
   def amount
     number_to_currency(invoice.amount / 100.0)
+  end
+
+  private
+
+  def value(num)
+    "%0.2f" % [num]
   end
 end

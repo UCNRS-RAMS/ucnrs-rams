@@ -1,8 +1,9 @@
 require "rails_helper"
 
 RSpec.describe Manager::Invoices::InvoicesFormPresenter do
+  let(:visit) { create(:visit) }
   describe "delegations" do
-    subject { Manager::Invoices::InvoicesFormPresenter.new(visit: create(:visit)) }
+    subject { Manager::Invoices::InvoicesFormPresenter.new(visit: visit, form: InvoiceForm.new(params: {visit_id: visit.id})) }
     it { is_expected.to delegate_missing_methods_to(:visit) }
   end
 

@@ -5,7 +5,9 @@
 @import "mixins/controls";
 @import "mixins/flex";
 
-.invoices-new {
+.invoices-new,
+.invoices-show,
+.invoices-create {
   .container {
     display: block;
     margin: 0;
@@ -40,7 +42,7 @@
       }
 
       .margin-right {
-        margin-right: 20px ;
+        margin-right: 20px;
       }
     }
 

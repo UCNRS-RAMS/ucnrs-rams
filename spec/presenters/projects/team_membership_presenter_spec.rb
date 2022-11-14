@@ -6,6 +6,7 @@ RSpec.describe Projects::TeamMembershipPresenter do
     it { is_expected.to delegate_method(:full_name).to(:user).with_prefix }
     it { is_expected.to delegate_method(:user_role).to(:team_membership).with_prefix }
     it { is_expected.to delegate_method(:name).to(:institution).with_prefix }
+    it { is_expected.to delegate_method(:email).to(:user) }
   end
 
   describe "#user_role" do

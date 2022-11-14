@@ -1,6 +1,7 @@
 class Invoice < ApplicationRecord
   has_many :invoice_recipients
   has_many :users, through: :invoice_recipients
+  has_many :amenity_visits
   belongs_to :visit
 
   FakeInvoice = Struct.new(:id, :status, :name, :amount)

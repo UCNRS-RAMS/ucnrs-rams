@@ -12,16 +12,18 @@ class InvoiceForm
     @invoice = invoice || Invoice.new
     @visit = Visit.where(id: params[:visit_id]).first
     @amenity_visit_params = params.delete(:amenity_visit) || {}
-    @amenity_visits ||= @visit&.amenity_visits&.map(&method(:wrap_amenity_in_presenter))
+    @amenity_visits ||= filtered_amenity_visits&.map(&method(:wrap_amenity_in_presenter))
   end
 
+  delegate :id, to: :invoice, prefix: true, allow_nil: true
+  
   attr_reader :amenity_visits, :visit, :amenity_visit_params, :params, :invoice
 
   def save
     begin
       ActiveRecord::Base.transaction do
-        save_amenities!
         invoice.save!
+        save_amenities!
         save_invoice_recipients
         true
       end
@@ -40,7 +42,10 @@ class InvoiceForm
   end
 
   def save_amenities!
-    amenity_visits.all?(&:save!)
+    amenity_visits.each do |amenity_visit|
+      amenity_visit.invoice_id = invoice.id
+      amenity_visit.save!
+    end
   end
 
   def validate_amenity_visit
@@ -52,6 +57,11 @@ class InvoiceForm
     Visits::AmenityForm.new(
       user: amenity_visit.user,
       params: checked == "1" ? amenity_visit_params[amenity_visit.id.to_s] : { amenity_visit_id: amenity_visit.id },
+      create_invoice: (checked == "1")
     )
+  end
+
+  def filtered_amenity_visits
+    visit.amenity_visits.where.not(invoice_id: visit.invoice_ids)
   end
 end

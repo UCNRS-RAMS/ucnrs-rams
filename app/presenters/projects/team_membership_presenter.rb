@@ -22,6 +22,7 @@ class Projects::TeamMembershipPresenter
 
   delegate :user, :institution, to: :team_membership
   delegate :full_name, to: :user, prefix: true
+  delegate :email, to: :user
   delegate :name, to: :institution, prefix: true, allow_nil: true
 
   def user_role
