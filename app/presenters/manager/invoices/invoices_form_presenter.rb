@@ -7,6 +7,7 @@ class Manager::Invoices::InvoicesFormPresenter
   end
 
   attr_reader :form, :visit
+  delegate_missing_to :visit
 
   def amenity_presenter(amenity, amenity_visit)
     Visits::AmenityPresenter.new(amenity, form: [amenity_visit])
@@ -33,8 +34,6 @@ class Manager::Invoices::InvoicesFormPresenter
   def amenities_total
     "$#{value(amenity_visits.sum(&:subtotal))}"
   end
-
-  delegate_missing_to :visit
 
   private
 

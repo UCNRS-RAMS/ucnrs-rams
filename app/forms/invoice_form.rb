@@ -12,16 +12,16 @@ class InvoiceForm
     @invoice = invoice || Invoice.new
     @visit = Visit.where(id: params[:visit_id]).first
     @amenity_visit_params = params.delete(:amenity_visit) || {}
-    @amenity_visits ||= @visit.amenity_visits.map(&method(:wrap_amenity_in_presenter))
+    @amenity_visits ||= @visit&.amenity_visits&.map(&method(:wrap_amenity_in_presenter))
   end
 
-  attr_reader :amenity_visits, :visit, :amenity_visit_params, :params
+  attr_reader :amenity_visits, :visit, :amenity_visit_params, :params, :invoice
 
   def save
     begin
       ActiveRecord::Base.transaction do
         save_amenities!
-        @invoice.save!
+        invoice.save!
         save_invoice_recipients
         true
       end
@@ -35,7 +35,7 @@ class InvoiceForm
 
   def save_invoice_recipients
     params[:project_team_members].each_value do |invoice_recipient_params|
-      @invoice.invoice_recipients.create(user_id: invoice_recipient_params[:user_id]) if invoice_recipient_params[:check] == "1"
+      invoice.invoice_recipients.create(user_id: invoice_recipient_params[:user_id]) if invoice_recipient_params[:check] == "1"
     end
   end
 

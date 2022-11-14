@@ -24,22 +24,6 @@ class Visits::AmenityForm
   validates :arrives_on, presence: true
   validates :departs_on, presence: true
 
-  def amenity_visit_id
-    amenity_visit.id
-  end
-
-  def date_range
-    DateRangePresenter.value(start_date: amenity_visit.arrives_on, end_date: amenity_visit.departs_on)
-  end
-
-  def total_days
-    ((amenity_visit.departs.to_date + 1.day) - amenity_visit.arrives.to_date).to_i
-  end
-
-  def total
-    amenity_visit.subtotal
-  end
-
   def assign_dates(params)
     if params[:arrives_on].present?
       params[:arrives] = "#{params[:arrives_on]} #{params[:arrives_at]}"
