@@ -57,6 +57,32 @@ class Institution < ApplicationRecord
     end
   end
 
+  def self.sorted_using(sort_option = nil)
+    case sort_option.to_s
+    when "name" then order(:name)
+    when "created_at" then order(created_at: :desc)
+    else
+      all
+    end
+  end
+
+  def self.in_country(country)
+    if country.present?
+      where(country: country)
+    else
+      all
+    end
+  end
+
+  def self.sorted_using(sort_option = nil)
+    case sort_option.to_s
+    when "name" then order(:name)
+    when "created_at" then order(created_at: :desc)
+    else
+      all
+    end
+  end
+
   def self.with_institution_type(institution_type)
     if institution_type
       where(institution_type: institution_type)

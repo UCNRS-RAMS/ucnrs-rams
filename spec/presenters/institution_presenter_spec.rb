@@ -3,11 +3,7 @@ require "rails_helper"
 RSpec.describe InstitutionPresenter do
   describe "delegations" do
     subject { InstitutionPresenter.new(build(:institution)) }
-    it { is_expected.to delegate_method(:id).to(:institution) }
-    it { is_expected.to delegate_method(:name).to(:institution) }
-    it { is_expected.to delegate_method(:city).to(:institution) }
-    it { is_expected.to delegate_method(:country).to(:institution) }
-    it { is_expected.to delegate_method(:institution_type).to(:institution) }
+    it { is_expected.to delegate_missing_methods_to(:institution) }
   end
 
   describe "#country_name" do

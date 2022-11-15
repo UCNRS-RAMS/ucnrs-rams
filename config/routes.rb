@@ -56,7 +56,7 @@ Rails.application.routes.draw do
 
   namespace :manager do
     resources :amenities, only: [:index]
-    
+
     resources :reserves, only: [:show] do
       resources :team_memberships, only: [:edit, :update, :destroy], controller: "projects/team_memberships"
       resource :dashboard, only: [:show], controller: "dashboard" do
@@ -107,6 +107,7 @@ Rails.application.routes.draw do
         resources :staff_and_notifications
       end
       resources :users, only: [:index]
+      resources :institutions, only: [:index]
     end
   end
 end
