@@ -110,4 +110,20 @@ RSpec.describe Reserve, type: :model do
       expect(Reserve.with_accepted_project_type("foo")).to eq []
     end
   end
+
+  describe "#listing_photo_placeholder" do
+    it "is the file name of the listing photo placeholder image" do
+      reserve = build(:reserve)
+
+      expect(reserve.listing_photo_placeholder).to eq("reserve_placeholder.jpg")
+    end
+  end
+
+  describe "#large_hero_photo_placeholder" do
+    it "is the file name of the large hero photo placeholder image" do
+      reserve = build(:reserve)
+
+      expect(reserve.large_hero_photo_placeholder).to eq("reserve-hero-placeholder.jpg")
+    end
+  end
 end

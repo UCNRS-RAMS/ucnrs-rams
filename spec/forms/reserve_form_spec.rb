@@ -96,8 +96,8 @@ RSpec.describe ReserveForm, type: :model do
         longitude_seconds: nil,
         longitude_hemisphere: nil,
         description: nil,
-        large_hero_photo_url: a_string_matching(/\/assets\/reserve_placeholder/),
-        listing_photo_url: a_string_matching(/\/assets\/reserve_placeholder/),
+        large_hero_photo_url: nil,
+        listing_photo_url: nil,
       )
     end
 

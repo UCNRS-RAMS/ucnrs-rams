@@ -15,10 +15,6 @@ class ReserveUploader < CarrierWave::Uploader::Base
     ].join("/")
   end
 
-  def default_url(*args)
-    ActionController::Base.helpers.asset_path("reserve_placeholder.jpg")
-  end
-
   def extension_allowlist
     %w(jpg jpeg gif png)
   end

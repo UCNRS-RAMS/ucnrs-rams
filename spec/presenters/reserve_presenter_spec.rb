@@ -45,11 +45,22 @@ RSpec.describe ReservePresenter do
   end
 
   describe "#listing_photo_src" do
-    it "is the medium version of the listing_photo" do
-      reserve = create(:reserve, :with_listing_photo)
-      presenter = ReservePresenter.new(reserve)
+    context "when there is a listing photo uploaded" do
+      it "is the medium version of the listing_photo" do
+        reserve = create(:reserve, :with_listing_photo)
+        presenter = ReservePresenter.new(reserve)
 
-      expect(presenter.listing_photo_src).to match(/reserve_id_#{reserve.id}\/medium_test-image.jpeg/)
+        expect(presenter.listing_photo_src).to match(/reserve_id_#{reserve.id}\/medium_test-image.jpeg/)
+      end
+    end
+
+    context "when there is no listing photo uploaded" do
+      it "is reserve's listing photo placeholder" do
+        reserve = build(:reserve)
+        presenter = ReservePresenter.new(reserve)
+
+        expect(presenter.listing_photo_src).to eq("reserve_placeholder.jpg")
+      end
     end
   end
 end

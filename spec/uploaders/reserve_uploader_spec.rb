@@ -31,14 +31,6 @@ RSpec.describe ReserveUploader do
     end
   end
 
-  describe "#default_url" do
-    it "is the correct default url" do
-      uploader = described_class.new
-
-      expect(uploader.default_url).to match(/assets\/reserve_placeholder/)
-    end
-  end
-
   describe "#extension_allowlist" do
     it "returns an array of image extensions" do
       expect(uploader.extension_allowlist).to eq(%w[jpg jpeg gif png])

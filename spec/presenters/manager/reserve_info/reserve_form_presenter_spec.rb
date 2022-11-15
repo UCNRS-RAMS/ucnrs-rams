@@ -84,7 +84,7 @@ RSpec.describe Manager::ReserveInfo::ReserveFormPresenter do
       form = ReserveForm.new(reserve: reserve)
       presenter = Manager::ReserveInfo::ReserveFormPresenter.new(form)
 
-      expect(presenter.hero_photo).to match(/\/assets\/reserve_placeholder/)
+      expect(presenter.hero_photo).to eq("reserve-hero-placeholder.jpg")
     end
 
     it "presents the correct avatar path if large_hero_photo is attached" do
@@ -102,7 +102,7 @@ RSpec.describe Manager::ReserveInfo::ReserveFormPresenter do
       form = ReserveForm.new(reserve: reserve)
       presenter = Manager::ReserveInfo::ReserveFormPresenter.new(form)
 
-      expect(presenter.listing_photo).to match(/\/assets\/reserve_placeholder/)
+      expect(presenter.listing_photo).to eq("reserve_placeholder.jpg")
     end
 
     it "presents the correct avatar path if listing_photo is attached" do
