@@ -1810,6 +1810,22 @@ en:
         role: "Role"
         projects: "Projects"
         visits: "Visits"
+    institutions:
+      index:
+        institutions: "Institutions"
+      institutions:
+        name: "Name"
+        type: "Type"
+        city_and_state: "City & State"
+        country: "Country"
+      search:
+        show_options: "Show Options"
+        hide_options: "Hide Options"
+        clear: "Clear"
+        country: "Country"
+        institution_type: "Institution Type"
+        name: "Name"
+        date_created: "Date Created"
   shared:
     visits:
       status:

@@ -1,0 +1,39 @@
+@import "variables";
+@import "mixins/tables";
+@import "mixins/search";
+@import "mixins/pagination";
+
+.manager.institutions-index {
+  section.content {
+    display: block;
+
+    header{
+      margin: .5rem 0;
+
+      h1 {
+        font-size: 1.85rem;
+        font-weight: $medium;
+        margin: .5rem 0;
+      }
+    }
+
+    hr {
+      border-bottom: 2px solid $gray;
+      border-left: 0;
+      border-right: 0;
+      border-top: 0;
+      margin: 0;
+    }
+
+    @include search-subsection;
+    @include pagination;
+  }
+
+  table.institutions-table {
+    @include table-style1;
+  
+    td > img {
+      vertical-align: middle;
+    }
+  }
+}

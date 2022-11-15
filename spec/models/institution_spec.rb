@@ -66,6 +66,66 @@ RSpec.describe Institution, type: :model do
     end
   end
 
+  describe ".with_institution_type" do
+    let(:institution1) { create(:institution, institution_type: "university_of_california") }
+    let(:institution2) { create(:institution, institution_type: "k_12_education") }
+    let(:institution3) { create(:institution, institution_type: "business_entity") }
+    let(:institution4) { create(:institution, institution_type: "university_of_california") }
+
+    context "when given institution_type is present" do
+      it "returns only institutions with the given institution type" do
+        results = Institution.with_institution_type("university_of_california")
+
+        expect(results).to match_array [institution1, institution4]
+      end
+    end
+
+    context "when given institution_type is NOT present" do
+      it "returns all institutions" do
+        results = Institution.with_institution_type(nil)
+
+        expect(results).to match_array [institution1, institution2, institution3, institution4]
+      end
+    end
+  end
+
+  describe ".sorted_using" do
+    let(:institution1) { create(:institution, name: "institution a", created_at: 3.month.ago) }
+    let(:institution2) { create(:institution, name: "institution t", created_at: 1.month.ago) }
+    let(:institution3) { create(:institution, name: "institution o", created_at: 2.month.ago) }
+    let(:institution4) { create(:institution, name: "institution z", created_at: 4.month.ago) }
+
+    context "when given sort_option name" do
+      it "return records sorted alphabetically" do
+        results = Institution.sorted_using(:name)
+
+        expect(results).to eq [institution1, institution3, institution2, institution4]
+      end
+    end
+    context "when given sort_option created_at" do
+      it "return records sorted by latest created_at date first" do
+        results = Institution.sorted_using(:created_at)
+
+        expect(results).to eq [institution2, institution3, institution1, institution4]
+      end
+    end
+  end
+
+  describe ".in_country" do
+    it "return only returns institution records with given country" do
+      country = create(:country)
+      institution1 = create(:institution, country: country)
+      institution2 = create(:institution, country: country)
+      create(:institution, country: create(:country))
+      create(:institution, country: create(:country))
+      create(:institution, country: create(:country))
+
+      results = Institution.in_country(country)
+
+      expect(results).to match_array [institution1, institution2]
+    end
+  end
+
   describe ".search" do
     let(:institution1) { create(:institution, name: "the institution1", acronym: "acronym1", city: "city1") }
     let(:institution2) { create(:institution, name: "institution2", acronym: "the a", city: "city2") }
@@ -93,29 +153,6 @@ RSpec.describe Institution, type: :model do
     context "when given query is NOT present" do
       it "returns all institutions" do
         results = Institution.search(nil)
-
-        expect(results).to match_array [institution1, institution2, institution3, institution4]
-      end
-    end
-  end
-
-  describe ".with_institution_type" do
-    let(:institution1) { create(:institution, institution_type: "university_of_california") }
-    let(:institution2) { create(:institution, institution_type: "k_12_education") }
-    let(:institution3) { create(:institution, institution_type: "business_entity") }
-    let(:institution4) { create(:institution, institution_type: "university_of_california") }
-
-    context "when given institution_type is present" do
-      it "returns only institutions with the given institution type" do
-        results = Institution.with_institution_type("university_of_california")
-
-        expect(results).to match_array [institution1, institution4]
-      end
-    end
-
-    context "when given institution_type is NOT present" do
-      it "returns all institutions" do
-        results = Institution.with_institution_type(nil)
 
         expect(results).to match_array [institution1, institution2, institution3, institution4]
       end

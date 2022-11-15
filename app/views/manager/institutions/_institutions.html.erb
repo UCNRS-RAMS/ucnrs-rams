@@ -1,0 +1,17 @@
+<turbo-frame id="institutions-table">
+  <table class="institutions-table">
+    <thead>
+      <tr>
+        <th><%= t(".name") %></th>
+        <th><%= t(".type") %></th>
+        <th><%= t(".city_and_state") %></th>
+        <th><%= t(".country") %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "institution", collection: presenter.institutions %>
+    <tbody>
+  </table>
+  <%= paginate presenter.institution_scope, data: { "turbo-action": "advance" } %>
+</turbo-frame>
