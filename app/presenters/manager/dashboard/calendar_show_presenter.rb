@@ -43,7 +43,7 @@ class Manager::Dashboard::CalendarShowPresenter
 
   def amenities_link_params
     params = Array.new((1..(month_amenities[current_date.to_s].map(&:position).max || -1)).size, hidden_link_params)
-    month_amenities[current_date.to_s].each { |a| params[a.position] = a.visit_link_params if a.has_amenities_visitors?}
+    month_amenities[current_date.to_s].each { |a| params[a.position] = a.visit_link_params }
     params
   end
 
@@ -102,6 +102,7 @@ class Manager::Dashboard::CalendarShowPresenter
   end
 
   def lowest_available(arr)
+    arr = arr.select { |num| !num.negative? }
     arr.sort.find.with_index { |element, index| break index if index != element } || arr.length
   end
 
@@ -110,13 +111,16 @@ class Manager::Dashboard::CalendarShowPresenter
   end
 
   def filtered_visits_amentities
-    filtered_visits.map(&:amenities).flatten
+    filtered_visits.map(&:amenities).flatten.select {|a| a.has_amenities_visitors? }
   end
 
   def positioned_amenities
-    filtered_visits_amentities.each_with_object([]).with_index do |(amenity, amenities), index|
+    amenities = filtered_visits_amentities.each_with_object([]).with_index do |(amenity, amenities), index|
       amenity.position = amenity_position(amenity, amenities, index)
       amenities << amenity
+    end
+    amenities.each do |amenity|
+      amenity.position = lowest_available(amenities.map(&:position)) if amenity.position == -1
     end
   end
 
@@ -125,11 +129,11 @@ class Manager::Dashboard::CalendarShowPresenter
   end
 
   def amenity_position(amenity, amenities, index)
-    return index + 1 if reset_positions_with_index?
+    return index if reset_positions_with_index?
 
     prev_date_amenities.find do |prev_date_amenity|
       prev_date_amenity.id == amenity.id && prev_date_amenity.visit.id == amenity.visit.id
-    end&.position || lowest_available(amenities.map(&:position))
+    end&.position || -1
   end
 
 
