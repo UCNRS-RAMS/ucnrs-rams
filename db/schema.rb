@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_02_135956) do
+ActiveRecord::Schema.define(version: 2022_11_09_000100) do
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
@@ -272,6 +272,8 @@ ActiveRecord::Schema.define(version: 2022_11_02_135956) do
     t.column "institution_type", "enum('University of California','California State University System','California Community College','California - Other University or College','U.S. - University or College Outside of California','International University or College','K-12 Education','Non-Governmental Organization or Non-Profit Entity','Governmental Agency or Entity','Business Entity','Individual or Other Entity')"
     t.string "acronym", limit: 10
     t.string "doi", limit: 25, default: "0000", comment: "Unique ID"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["institution_type", "name"], name: "institution_type"
     t.index ["name"], name: "name"
   end
