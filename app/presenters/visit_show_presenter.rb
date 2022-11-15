@@ -15,7 +15,7 @@ class VisitShowPresenter
     :state,
     :country,
     :avatar,
-    :image_placeholder,
+    :listing_photo_placeholder,
     :managing_campus,
     :reserve_alert_message,
     :rules,

@@ -1,5 +1,6 @@
 class Reserve < ApplicationRecord
-  IMAGE_PLACEHOLDER = "reserve_placeholder.jpg".freeze
+  LISTING_PHOTO_PLACEHOLDER = "reserve_placeholder.jpg".freeze
+  LARGE_HERO_PHOTO_PLACEHOLDER = "reserve-hero-placeholder.jpg".freeze
 
   has_one_attached :reserve_avatar
   has_rich_text :rules_and_regulations
@@ -42,7 +43,11 @@ class Reserve < ApplicationRecord
     end
   end
 
-  def image_placeholder
-    IMAGE_PLACEHOLDER
+  def listing_photo_placeholder
+    LISTING_PHOTO_PLACEHOLDER
+  end
+
+  def large_hero_photo_placeholder
+    LARGE_HERO_PHOTO_PLACEHOLDER
   end
 end

@@ -15,6 +15,8 @@ RSpec.describe ReserveShowPresenter do
     it { is_expected.to delegate_method(:managing_campus).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:description).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:large_hero_photo_url).to(:reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:large_hero_photo_placeholder).to(:reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:listing_photo_placeholder).to(:reserve).with_prefix(true) }
   end
 
   describe "#reserve" do
@@ -87,6 +89,26 @@ RSpec.describe ReserveShowPresenter do
         reserve_description = show_presenter.reserve_description
 
         expect(reserve_description).to eq nil
+      end
+    end
+  end
+
+  describe "#large_hero_photo_src" do
+    context "when a large hero photo is uploaded" do
+      it "is the large hero photo's url" do
+        reserve = create(:reserve, :with_hero_photo)
+        presenter = ReserveShowPresenter.new(reserve: reserve)
+
+        expect(presenter.large_hero_photo_src).to match(/\/tmp\/ucnrs-test\/reserve_id_#{reserve.id}\/test-image.jpeg/)
+      end
+    end
+
+    context "when there is no uploaded large hero photo" do
+      it "is the path of the large hero photo placeholder" do
+        reserve = build(:reserve)
+        presenter = ReserveShowPresenter.new(reserve: reserve)
+
+        expect(presenter.large_hero_photo_src).to eq("/assets/reserve-hero-placeholder.jpg")
       end
     end
   end

@@ -36,6 +36,6 @@ class ReservePresenter
   end
 
   def listing_photo_src
-    listing_photo.url(:medium)
+    listing_photo.url(:medium) || listing_photo_placeholder
   end
 end

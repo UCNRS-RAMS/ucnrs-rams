@@ -15,10 +15,11 @@ class ReserveShowPresenter
     :state,
     :country,
     :avatar,
-    :image_placeholder,
+    :listing_photo_placeholder,
     :managing_campus,
     :description,
     :large_hero_photo_url,
+    :large_hero_photo_placeholder,
     to: :reserve, prefix: true
 
   def reserve_personnel
@@ -33,6 +34,10 @@ class ReserveShowPresenter
 
   def reserve_description
     simple_format reserve.description if reserve.description.present?
+  end
+
+  def large_hero_photo_src
+    reserve_large_hero_photo_url || "/assets/#{reserve_large_hero_photo_placeholder}"
   end
 
   private

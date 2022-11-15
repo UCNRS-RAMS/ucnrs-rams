@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 class Manager::ReserveInfo::ReserveFormPresenter
-  HERO_PLACEHOLDER = "reserve-hero-placeholder.jpg"
-  LISTING_PLACEHOLDER = "reserve_placeholder.jpg"
-
   attr_reader :form
 
   delegate :reserve, to: :form, prefix: true
@@ -33,11 +30,11 @@ class Manager::ReserveInfo::ReserveFormPresenter
   end
 
   def hero_photo
-    form_reserve.large_hero_photo.url(:small) || HERO_PLACEHOLDER
+    form_reserve.large_hero_photo.url(:small) || form_reserve.large_hero_photo_placeholder
   end
 
   def listing_photo
-    form_reserve.listing_photo.url(:small) || LISTING_PLACEHOLDER
+    form_reserve.listing_photo.url(:small) || form_reserve.listing_photo_placeholder
   end
 
   private
