@@ -51,7 +51,7 @@ RSpec.describe Manager::Dashboard::CalendarShowPresenter do
       show_presenter = Manager::Dashboard::CalendarShowPresenter.new(reserve: reserve, status: "all", start_date: visit.starts_at)
       show_presenter.add_date_visits(date: date, visits: [visit])
 
-      expect(show_presenter.amenities_link_params[1]).to eq show_presenter.month_amenities[date.to_s].first.visit_link_params
+      expect(show_presenter.amenities_link_params.first).to eq show_presenter.month_amenities[date.to_s].first.visit_link_params
     end    
   end
 
