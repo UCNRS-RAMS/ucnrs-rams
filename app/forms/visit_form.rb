@@ -97,6 +97,10 @@ class VisitForm
     visit.submitted_at = submitted_at if policy_agreement
   end
 
+  def update_status
+    visit.save
+  end
+
   private
 
   def assign(params)
