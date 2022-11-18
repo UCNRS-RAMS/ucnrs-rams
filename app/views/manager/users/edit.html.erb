@@ -1,0 +1,30 @@
+<section class="content">
+  <header>
+    <div class="header-title">
+      <h1><%= @presenter.user_full_name %></h1>
+      <small><%= @presenter.user_institution_name %></small>
+    </div>
+    <div class="header-links">
+      <%= link_to t(".delete_user"), "#" %>
+      <%= link_to t(".submit_visit_request_for_user"), "#" %>
+    </div>
+  </header>
+
+  <ul class="navbar-nav">
+    <li>
+      <%= link_to t(".account_details"),
+        edit_manager_reserve_user_path(current_reserve, @presenter.user_id),
+        class: "active",
+        data: { "turbo-frame": "user-details"} %>
+    </li>
+    <li>
+      <%= link_to t(".activity"), "#", data: { "turbo-frame": "user-details"} %>
+    </li>
+  </ul>
+
+  <turbo-frame id="user-details">
+    <turbo-frame id="user-edit-form">
+      <%= render partial: "user_form", locals: { presenter: @presenter } %>
+    </turbo-frame>
+  </turbo-frame>
+</section>

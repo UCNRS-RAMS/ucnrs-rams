@@ -1,0 +1,10 @@
+<%= form_with model: presenter.form_user, url: manager_reserve_user_path(current_reserve, presenter.user_id), method: :patch do |f| %>
+  <%= render partial: "/devise/registrations/user_fields", locals: { f: f, presenter: presenter } %>
+  <div class="section-container blue-bg">
+    <section class="actions blue-bg">
+      <div class="actions">
+        <%= f.button t("submit", icon: image_tag("arrow-right.svg", alt: t("alt.right_facing_arrow"))).html_safe, type: :submit, class: "active" %>
+      <div>
+    </section>
+  </div>
+<% end %>

@@ -5,7 +5,7 @@
   <td><%= user.number_of_project_members %></td>
   <td><%= user.number_of_visits %></td>
   <td>
-    <%= link_to "#" do %>
+    <%= link_to edit_manager_reserve_user_path(current_reserve, user.id), data: { "turbo-frame" => "_top" } do %>
       <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"), height: "20", width: "20" %>
     <% end %>
   </td>

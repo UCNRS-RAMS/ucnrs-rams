@@ -106,7 +106,7 @@ Rails.application.routes.draw do
         resources :reserve_questions, only: [:index, :new, :create, :edit, :update]
         resources :staff_and_notifications
       end
-      resources :users, only: [:index]
+      resources :users, only: [:index, :edit, :update]
       resources :institutions, only: [:index, :edit, :update]
     end
   end
