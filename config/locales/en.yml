@@ -1839,6 +1839,11 @@ en:
     users:
       index:
         users: "Users"
+      edit:
+        delete_user: "Delete User"
+        submit_visit_request_for_user: "Submit Visit Request for User"
+        account_details: "Account Details"
+        activity: "Activity"
       search:
         search: "Search"
         show_options: "Show Options"
