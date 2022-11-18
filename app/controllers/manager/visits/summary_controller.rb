@@ -13,8 +13,7 @@ class Manager::Visits::SummaryController < ApplicationController
 
   def update
     @form = VisitForm.new(user: current_user, params: visit_params)
-
-    if @form.save
+    if @form.update_status
       flash.now[:notice] = I18n.t("manager.visits.summary.update.flash_message")
       @presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: current_user)
     else

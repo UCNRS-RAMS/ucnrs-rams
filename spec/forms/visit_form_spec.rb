@@ -290,4 +290,19 @@ RSpec.describe VisitForm, type: :model do
       expect(visit_start_time).to be_nil
     end
   end
+
+  describe "#update_status" do
+    it "will update visit status" do
+      visit = create(:visit, status: "cancelled")
+      params = {
+        id: visit.id,
+        status: "incomplete",
+      }
+
+      form = VisitForm.new(params: params)
+
+      expect(form.update_status).to eq true
+      expect(form.visit.status).to eq "incomplete"
+    end
+  end
 end
