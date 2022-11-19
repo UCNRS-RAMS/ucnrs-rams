@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InstitutionsController < ApplicationController
   def index
     @presenter = InstitutionsIndexPresenter.new(query: query)

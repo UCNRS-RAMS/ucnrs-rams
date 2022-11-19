@@ -1,6 +1,13 @@
 require "rails_helper"
 
 RSpec.describe InstitutionForm do
+  describe "delegations" do
+    it { is_expected.to delegate_method(:valid?).to(:institution)}
+    it { is_expected.to delegate_method(:id).to(:institution)}
+    it { is_expected.to delegate_method(:errors).to(:institution)}
+    it { is_expected.to delegate_missing_methods_to(:institution)}
+  end
+
   describe "initializing an institution" do
     it "inititalizes a new institution from params" do
       new_institution_params = {

@@ -4,7 +4,7 @@
   <td><%= institution.city %>, <%= institution.state_name %></td>
   <td><%= institution.country_name %></td>
   <td>
-    <%= link_to "#" do %>
+    <%= link_to edit_manager_reserve_institution_path(current_reserve, institution.id), data: { "turbo-frame" => "_top" } do %>
       <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"), height: "20", width: "20" %>
     <% end %>
   </td>
