@@ -107,7 +107,7 @@ Rails.application.routes.draw do
         resources :staff_and_notifications
       end
       resources :users, only: [:index]
-      resources :institutions, only: [:index]
+      resources :institutions, only: [:index, :edit, :update]
     end
   end
 end

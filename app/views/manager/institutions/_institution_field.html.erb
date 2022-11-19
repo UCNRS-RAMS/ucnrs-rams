@@ -1,0 +1,49 @@
+<div id="institution-fields" data-controller="followup-content" class="row">
+  <div class="col-66">
+    <div class="form-group">
+      <%= form.label :name, t("institutions.labels.name"), class: "form-label" %>
+      <%= form.text_field :name, class: "form-input" %>
+    </div>
+    <div class="row">
+      <div class="form-group col-66">
+        <%= form.label :institution_type,
+          t("institutions.labels.institution_type"),
+          class: "form-label"
+        %>
+        <%= form.select :institution_type,
+          presenter.institution_type_options,
+          { prompt: t("forms.select_one") },
+          { class: "form-input" }
+        %>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <%= form.label :city, t("institutions.labels.city"), class: "form-label" %>
+      <%= form.text_field :city, class: "form-input" %>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <%= form.label :country_id, t("institutions.labels.country"), class: "form-label" %>
+        <%= form.select :country_id, presenter.institution_country_options,
+          { prompt: t("forms.select_one") },
+          { class: "form-input", data: { action: "change->followup-content#change" } }
+        %>
+      </div>
+      <div class="form-group">
+        <%= form.label :state_id, I18n.t("institutions.labels.state"), class: "form-label" %>
+        <%= form.select :state_id,
+          presenter.institution_state_options,
+          { prompt: t("forms.select_one") },
+          { class: "form-input",
+            data: {
+              followup_content_target: "destination",
+              "followup-content-url-value": states_url(country_id: "VALUE")
+            }
+          }
+        %>
+      </div>
+    </div>
+  </div>
+</div>

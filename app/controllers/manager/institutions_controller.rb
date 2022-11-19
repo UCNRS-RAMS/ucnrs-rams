@@ -10,8 +10,38 @@ class Manager::InstitutionsController < ApplicationController
     )
   end
 
+  def edit
+    form = InstitutionEditForm.new(institution: institution)
+    @presenter = Manager::InstitutionEditPresenter.new(form: form)
+  end
+
+  def update
+    form = InstitutionEditForm.new(institution: institution, params: institution_params)
+    @presenter = Manager::InstitutionEditPresenter.new(form: form)
+
+    if form.submit
+      render :edit
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
- 
+
+  def institution
+    @institution ||= Institution.find(params[:id])
+  end
+
+  def institution_params
+    params.require(:institution).permit(
+      :name,
+      :city,
+      :country_id,
+      :state_id,
+      :institution_type,
+    )
+  end
+
   def page_number
     params[:page]
   end
