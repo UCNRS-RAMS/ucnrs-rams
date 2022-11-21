@@ -2,9 +2,13 @@ require "rails_helper"
 
 RSpec.describe Manager::Invoices::InvoicesFormPresenter do
   let(:visit) { create(:visit) }
+  let(:invoice) { create(:invoice, visit: visit) }
+
   describe "delegations" do
-    subject { Manager::Invoices::InvoicesFormPresenter.new(visit: visit, form: InvoiceForm.new(params: {visit_id: visit.id})) }
+    subject { Manager::Invoices::InvoicesFormPresenter.new(visit: visit, form: InvoiceForm.new(invoice: invoice, params: { visit_id: visit.id })) }
     it { is_expected.to delegate_missing_methods_to(:visit) }
+    it { is_expected.to delegate_method(:amenities_total).to(:form) }
+    it { is_expected.to delegate_method(:id).to(:form) }
   end
 
   describe "#amenity_presenter" do
@@ -47,18 +51,6 @@ RSpec.describe Manager::Invoices::InvoicesFormPresenter do
       presenter = Manager::Invoices::InvoicesFormPresenter.new(visit: visit, form: form)
 
       expect(presenter.project_team_members).to all(be_instance_of Manager::Projects::TeamMembershipPresenter)
-    end
-  end
-
-  describe "#amenities_total" do
-    it "display the total of all the amenity_visits subtotal amount" do
-      visit = create(:visit)
-      create(:amenity_visit, visit: visit, number_of_people: 10, manual_units_of_time: 10, rate: 10)
-      create(:amenity_visit, visit: visit, number_of_people: 10, manual_units_of_time: 10, rate: 10)
-      form = InvoiceForm.new(params: {visit_id: visit.id})
-      presenter = Manager::Invoices::InvoicesFormPresenter.new(visit: visit, form: form)
-
-      expect(presenter.amenities_total).to eq "$2000.00"
     end
   end
 end

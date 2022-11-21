@@ -7,11 +7,23 @@
 
 .invoices-new,
 .invoices-show,
-.invoices-create {
+.invoices-create,
+.invoices-edit,
+.invoices-update {
   .container {
     display: block;
     margin: 0;
     padding: 0 $form-page-gutter;
+
+    .balance {
+      color: $red;
+      font-size: $small-heading-size;
+    }
+
+    .balance-title {
+      font-size: $base-font-size;
+      text-align: right;
+    }
 
     .controls {
       padding-right: 100px;

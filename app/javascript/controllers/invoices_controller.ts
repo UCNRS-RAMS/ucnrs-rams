@@ -1,14 +1,23 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["arriveOn", "departsOn", "days"]
+  static targets = ["arriveOn", "departsOn", "days", "checkBox", "subtotal"]
 
   declare daysTarget: HTMLInputElement
   declare arriveOnTarget: HTMLInputElement
   declare departsOnTarget: HTMLInputElement
+  declare checkBoxTarget: HTMLInputElement
+  declare subtotalTarget: HTMLInputElement
 
   connect(): void {
     this.days()
+    this.check()
+  }
+
+  check() {
+    if (!this.checkBoxTarget.checked){
+      this.subtotalTarget.removeAttribute('class')
+    }
   }
 
   days() {

@@ -4,8 +4,8 @@
   </header>
   <%= render partial: "visit_info", locals: { presenter: @presenter } %>
   <%= form_with model: @presenter.form, url: manager_reserve_visit_invoices_path, method: :post, data: {turbo: false} do |form| %>
-    <%= render partial: "project_team_members", locals: { team_members: @presenter.project_team_members} %>
-    <%= render partial: "amenity_visit_forms", locals: { presenter: @presenter, forms: @form } %>
+    <%= render partial: "project_team_members", locals: { team_members: @presenter.project_team_members, form: @presenter.form} %>
+    <%= render partial: "amenity_visit_forms", locals: { presenter: @presenter, forms: @presenter.form } %>
     <%= render partial: "invoice_notes", locals: { presenter: @presenter , form: form} %>
     <%= render partial: "submit", locals: { presenter: @presenter } %>
   <% end %>

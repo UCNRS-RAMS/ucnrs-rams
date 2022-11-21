@@ -1,0 +1,13 @@
+<div class="container">
+  <header>
+    <h1 class="invoice-title"><%= @presenter.title %></h1>
+  </header>
+  <%= render partial: "visit_info", locals: { presenter: @presenter } %>
+  <%= form_with model: @presenter.form, url: manager_reserve_visit_invoice_path(id: @presenter.invoice_id), method: :put, data: {turbo: false} do |form| %>
+    <%= render partial: "project_team_members", locals: { team_members: @presenter.project_team_members, form: @presenter.form } %>
+    <%= render partial: "amenity_visit_forms", locals: { presenter: @presenter, forms: @presenter.form } %>
+    <%= render partial: "invoice_payment_table", locals: { invoice_payments: @presenter.invoice_payments }%>
+    <%= render partial: "invoice_notes", locals: { form: form } %>
+    <%= render partial: "submit" %>
+  <% end %>
+</div>

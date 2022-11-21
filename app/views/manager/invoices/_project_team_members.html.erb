@@ -4,7 +4,10 @@
     <%= fields_for "project_team_members[#{team_member.id}]", team_member do |f| %>
       <div class="table-row d-flex">
         <%= f.hidden_field "user_id", value: team_member.user_id %>
-        <div> <span><%= f.check_box "check", checked: true %></span><b class="left-spacer"><%= team_member.user.full_name %></b> </div>
+        <div>
+          <span><%= f.check_box "check", checked: form.is_recipient_checked?(team_member.user_id) %></span>
+          <strong class="left-spacer"><%= team_member.user.full_name %></strong>
+        </div>
         <div><%= team_member.institution.name %></div>
         <div><%= team_member.user.email %></div>
         <div><%= team_member.project_role %></div>

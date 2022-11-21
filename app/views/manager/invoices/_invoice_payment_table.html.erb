@@ -1,0 +1,20 @@
+<div class="bill-to">
+  <h3><%= t(".payments") %></h3>
+  <table id="team-summary-table" class="summary-table">
+    <thead>
+      <tr>
+        <th><%= t(".payment") %></th>
+        <th><%= t(".note") %></th>
+        <th><%= t(".subtotal") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "manager/invoices/invoice_payment", collection: invoice_payments %>
+      <tr class="payment-total">
+        <td></td>
+        <td class="balance-title"><%= t(".balance") %></td>
+        <td class="balance"><strong><%= @presenter.balance %></strong></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -5,6 +5,7 @@
         <label for="notes-message" class="label"><%= t(".invoice_notes_instructions") %></label>
         <%= form.text_area :notes, rows: 4, class:"note" %>
         <%= form.hidden_field :balance_due, value: 0, id: "balance_due" %>
+        <%= form.hidden_field :modify_number %>
       </div>
   </section>
 </section>

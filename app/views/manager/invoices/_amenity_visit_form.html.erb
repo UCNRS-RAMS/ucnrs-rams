@@ -1,7 +1,7 @@
 <%= fields_for "amenity_visit[#{amenity_visit.id}]", amenity_visit do |f| %>
   <div class="table-row d-flex" data-controller="subtotal invoices">
     <div class="right-spacer">
-      <%= f.check_box "checked", checked: true, data: { action: "change->subtotal#calculateSubtotal change->subtotal#toggle", "subtotal-target": "checkBox" } %>
+      <%= f.check_box "checked", checked: form.amenity_visit_checked?(amenity_visit.invoiced?), data: { action: "change->subtotal#calculateSubtotal change->subtotal#toggle", "subtotal-target": "checkBox" , "invoices-target": "checkBox" } %>
       <strong><%= presenter.title %></strong>
     </div>
     <%= f.hidden_field "amenity_visit_id", value: amenity_visit.id %>
@@ -35,7 +35,7 @@
       <div class="text-field-div"><%= f.select :amenity_rate_id, options_for_select(presenter.amenity_rate_options, presenter.selected_amenity_rate_id), {}, class: "select-field", "data-subtotal-target": "initialVal",  "data-action": "change->subtotal#calculateSubtotal" %></div>
     </div>
     <div class="text-center">
-      <strong><%= t(".dollar") %> <span data-subtotal-target="subtotal" class="subtotal"></span></strong>
+      <strong><%= t(".dollar") %> <span data-subtotal-target="subtotal" data-invoices-target="subtotal" class="subtotal"></span></strong>
     </div>
   </div>
 <% end %>
