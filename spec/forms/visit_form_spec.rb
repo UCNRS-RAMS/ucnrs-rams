@@ -302,7 +302,8 @@ RSpec.describe VisitForm, type: :model do
       form = VisitForm.new(params: params)
 
       expect(form.update_status).to eq true
-      expect(form.visit.status).to eq "incomplete"
+      visit.reload
+      expect(visit.status).to eq "incomplete"
     end
   end
 end
