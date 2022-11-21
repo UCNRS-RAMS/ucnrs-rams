@@ -1,6 +1,6 @@
 <div class="container">
   <header>
-    <h1><%= @presenter.title %></h1>
+    <h1 class="invoice-title"><%= @presenter.title %></h1>
   </header>
   <%= render partial: "visit_info", locals: { presenter: @presenter } %>
   <%= render partial: "invoice_recipients_table", locals: { presenter: @presenter } %>
