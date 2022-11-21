@@ -16,7 +16,10 @@ class Manager::Invoices::InvoiceShowPresenter
   end
 
   def visit_date_range
-    Manager::VisitShowPresenter.new(visit: visit, current_user: @current_user).visit_date_range
+    DateRangePresenter.new(
+      start_date: visit.starts_at,
+      end_date: visit.ends_at,
+    ).value("date_range.different_years")
   end
 
   def recipients

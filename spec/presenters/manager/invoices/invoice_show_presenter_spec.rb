@@ -49,11 +49,9 @@ RSpec.describe Manager::Invoices::InvoiceShowPresenter do
     it "return array of amenity_visit_presenters of invoice" do
       amenity_visit_one = create(:amenity_visit, invoice_id: invoice.id)
       amenity_visit_two = create(:amenity_visit, invoice_id: invoice.id)
-
       presenter = Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: user)
-      output = [AmenityVisitPresenter.new(amenity_visit_one), AmenityVisitPresenter.new(amenity_visit_two)]
 
-      expect(presenter.amenity_visit_presenters.pluck(:id)).to eq output.pluck(:id)
+      expect(presenter.amenity_visit_presenters).to all(be_instance_of AmenityVisitPresenter)
     end
   end
 
@@ -64,7 +62,7 @@ RSpec.describe Manager::Invoices::InvoiceShowPresenter do
 
       presenter = Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: user)
 
-      output = [ Projects::TeamMembershipPresenter.new(ProjectTeamMembership.find_by(user_id: invoice_recipient.user_id, project_id: project.id)).id ]
+      output = [team_membership.id]
 
       expect(presenter.recipients.pluck(:id)).to eq output
     end
