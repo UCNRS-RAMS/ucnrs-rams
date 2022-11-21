@@ -1,12 +1,17 @@
 class Manager::InvoiceFLow
-  def initialize(page:, visit_id:, reserve_id:)
+  def initialize(page:, visit_id:, reserve_id:, invoice_id: nil)
     @page = page
     @visit_id = visit_id
     @reserve_id = reserve_id
+    @invoice_id = invoice_id
   end
 
   def visit_manager_projects_invoice_new_page
     page.visit("/manager/reserves/#{reserve_id}/visits/#{visit_id}/invoices/new")
+  end
+
+  def visit_manager_projects_invoice_detail_page
+    page.visit("/manager/reserves/#{reserve_id}/visits/#{visit_id}/invoices/#{invoice_id}")
   end
 
   def showing_visit_info?
@@ -21,12 +26,24 @@ class Manager::InvoiceFLow
     page.has_css?(".bill-to")
   end
 
+  def showing_bill_to_table?
+    page.has_css?("#team-summary-table")
+  end
+
+  def showing_amenity_visit_table?
+    page.has_css?("#amenities-summary-table")
+  end
+
   def showing_amenity_visits?
     page.has_css?(".invoice-amenity-visits")
   end
 
   def showing_invoice_notes?
     page.has_css?(".invoice-notes")
+  end
+
+  def showing_saved_note?
+    page.has_css?(".saved-note")
   end
 
   def showing_notes_field?
@@ -55,5 +72,5 @@ class Manager::InvoiceFLow
 
   private
 
-  attr_reader :page, :reserve_id, :visit_id
+  attr_reader :page, :reserve_id, :visit_id, :invoice_id
 end
