@@ -7,6 +7,7 @@ class Manager::Invoices::InvoicesFormPresenter
   end
 
   attr_reader :form, :visit
+  delegate :amenities_total, :id, to: :form
   delegate_missing_to :visit
 
   def amenity_presenter(amenity, amenity_visit)
@@ -29,15 +30,5 @@ class Manager::Invoices::InvoicesFormPresenter
         reserve: reserve,
       )
     end
-  end
-
-  def amenities_total
-    "$#{value(amenity_visits.sum(&:subtotal))}"
-  end
-
-  private
-
-  def value(num)
-    format("%0.2f", num)
   end
 end

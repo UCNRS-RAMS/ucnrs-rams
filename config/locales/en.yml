@@ -1056,6 +1056,12 @@ en:
         email_icon: "icon-email.svg"
         printer_icon: "printer.svg"
         edit_icon: "edit_icon.svg"
+      invoice_payment_table:
+        payments: "Total Payment(s) & Credits"
+        payment: "Payment"
+        note: "Note"
+        subtotal: "Subtotal"
+        balance: "Balance"
       amenity_visits_table:
         amenities: "Amenities"
         amenity_name: "Amenity Name"
@@ -1073,6 +1079,9 @@ en:
         project_role: "Project Role"
       show:
         invoice: "Invoice %{id}-%{version}"
+      edit:
+        invoice: "Edit Invoice %{id}-%{version}"
+        balance: "-$ %{balance}"
       notes:
         notes: "Notes"
       invoice_notes:

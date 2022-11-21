@@ -170,4 +170,23 @@ RSpec.describe Visits::AmenityForm, type: :model do
       expect(amenity_visit_arrives_at).to be_nil
     end
   end
+
+  describe "invoiced?" do
+    it "return true if invoice_id is assigned" do
+      visit = create(:visit)
+      invoice = create(:invoice)
+      amenity_visit = create(:amenity_visit, visit: visit, invoice: invoice)
+      form = Visits::AmenityForm.new(params: { amenity_visit_id: amenity_visit.id })
+
+      expect(form.invoiced?).to be_truthy
+    end
+
+    it "return false if invoice_id not assigned" do
+      visit = create(:visit)
+      amenity_visit = create(:amenity_visit, visit: visit)
+      form = Visits::AmenityForm.new(params: { amenity_visit_id: amenity_visit.id })
+
+      expect(form.invoiced?).to be_falsy
+    end
+  end
 end

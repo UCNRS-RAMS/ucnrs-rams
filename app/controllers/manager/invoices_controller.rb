@@ -17,6 +17,21 @@ class Manager::InvoicesController < ApplicationController
     end
   end
 
+  def edit
+    form = InvoiceForm.new(invoice: invoice, params: { visit_id: params[:visit_id] }, editing: true)
+    @presenter = Manager::Invoices::InvoiceEditPresenter.new(visit: visit, invoice: invoice, form: form)
+  end
+
+  def update
+    @form = InvoiceForm.new(invoice: invoice, params: params, editing: true)    
+    if @form.save
+      redirect_to manager_reserve_visit_invoice_path(id: @form.invoice_id)
+    else
+      @presenter = Manager::Invoices::InvoiceEditPresenter.new(visit: visit, invoice: invoice, form: @form)
+      render :edit
+    end
+  end
+
   def show
     @presenter = Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: current_user)
   end
@@ -30,13 +45,7 @@ class Manager::InvoicesController < ApplicationController
   private
 
   def invoice
-    Invoice.find_by(id: params[:id]) || Invoice.new(invoice_params)
-  end
-
-  def invoice_params
-    params.require(:invoice).permit(:notes, :balance_due).merge({
-      visit_id: params[:visit_id],
-    })
+    visit.invoices.find_by(id: params[:id])
   end
 
   def visit

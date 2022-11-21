@@ -5,6 +5,7 @@ RSpec.describe InvoiceForm, type: :model do
   describe "delegations" do
     subject { InvoiceForm.new(params: {visit_id: visit.id}) }
     it { is_expected.to delegate_method(:id).to(:invoice).with_prefix(true).allow_nil }
+    it { is_expected.to delegate_missing_methods_to(:invoice) }
   end
 
   describe "initializing" do
@@ -23,6 +24,7 @@ RSpec.describe InvoiceForm, type: :model do
         balance_due: nil,
         created_at: nil,
         updated_at: nil,
+        visit_id: visit.id
       )
 
       expect(form.visit).to have_attributes(
@@ -39,6 +41,68 @@ RSpec.describe InvoiceForm, type: :model do
     end
   end
 
+  describe "modify_number" do
+    it "return same 'modify_number' if editing is 'false'" do
+      visit = create(:visit)
+      invoice = create(:invoice)
+      form = InvoiceForm.new(params: { visit_id: visit.id }, editing: false)
+
+      expect(form.modify_number).to eq invoice.modify_number
+    end
+
+    it "return 'modify_number' with increment if editing is 'true'" do
+      visit = create(:visit)
+      invoice = create(:invoice)
+      form = InvoiceForm.new(params: { visit_id: visit.id }, editing: true)
+      output  = invoice.modify_number + 1
+
+      expect(form.modify_number).to eq output
+    end
+  end
+
+  describe "#amenities_total" do
+    it "display the total of all the amenity_visits subtotal amount" do
+      visit = create(:visit)
+      create(:amenity_visit, visit: visit, number_of_people: 10, manual_units_of_time: 10, rate: 10)
+      create(:amenity_visit, visit: visit, number_of_people: 10, manual_units_of_time: 10, rate: 10)
+      form = InvoiceForm.new(params: {visit_id: visit.id})
+
+      expect(form.amenities_total).to eq "$2000.00"
+    end
+  end
+
+  describe "#recipient_checked" do
+    let(:user) { create(:user, :confirmed) }
+    it "return true if recipient is present and 'editing' is true" do
+      visit = create(:visit)
+      invoice = create(:invoice)
+      create(:invoice_recipient, user: user, invoice: invoice)
+      form = InvoiceForm.new(invoice: invoice, params: { visit_id: visit.id }, editing: true)
+
+      expect(form.is_recipient_checked?(user.id)).to be_truthy
+    end
+
+    it "return false if recipient is not present and 'editing' is true" do
+      visit = create(:visit)
+      invoice = create(:invoice)
+      create(:invoice_recipient, user: user, invoice: invoice)
+      form = InvoiceForm.new(invoice: invoice, params: { visit_id: visit.id }, editing: true)
+      random_id = 10
+
+      expect(form.is_recipient_checked?(random_id)).to be_falsy
+    end
+
+    it "return true 'editing' is false" do
+      visit = create(:visit)
+      invoice = create(:invoice)
+      create(:invoice_recipient, user: user, invoice: invoice)
+      form = InvoiceForm.new(invoice: invoice, params: { visit_id: visit.id }, editing: false)
+      random_id = 10
+
+      expect(form.is_recipient_checked?(random_id)).to be_truthy
+    end
+  end
+
   describe "#save" do
     it "saves both the amenity_visits, invoice and invoice_recipients if there are no errors" do
       visit = create(:visit)
@@ -46,14 +110,14 @@ RSpec.describe InvoiceForm, type: :model do
       user = create(:user)
 
       project_team_members = create(:project_team_membership)
-      form = InvoiceForm.new(invoice: Invoice.new({ notes: "hello", visit_id: visit.id }), params: {
+      form = InvoiceForm.new(params: {
         project_team_members: {
           project_team_members.id.to_s => {
             user_id: user.id.to_s,
             check: "1",
           },
         },
-        amenity_visit => {
+        amenity_visit: {
           amenity_visit.id.to_s => {
             checked: "1",
             amenity_visit_id: amenity_visit.id,
@@ -67,6 +131,7 @@ RSpec.describe InvoiceForm, type: :model do
         invoice: {
           notes: "hello",
           visit_id: visit.id,
+          modify_number: 0
         },
         visit_id: visit.id.to_s,
       })
@@ -80,14 +145,14 @@ RSpec.describe InvoiceForm, type: :model do
       user = create(:user)
 
       project_team_members = create(:project_team_membership)
-      form = InvoiceForm.new(invoice: Invoice.new({ notes: "hello", visit_id: visit.id }), params: {
+      form = InvoiceForm.new( params: {
         project_team_members: {
           project_team_members.id.to_s => {
             user_id: user.id.to_s,
             check: "1",
           },
         },
-        amenity_visit => {
+        amenity_visit: {
           amenity_visit.id.to_s => {
             checked: "1",
             amenity_visit_id: amenity_visit.id,
@@ -101,6 +166,7 @@ RSpec.describe InvoiceForm, type: :model do
         invoice: {
           notes: "hello",
           visit_id: visit.id,
+          modify_number: 0
         },
         visit_id: visit.id.to_s,
       })

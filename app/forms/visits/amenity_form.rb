@@ -30,6 +30,10 @@ class Visits::AmenityForm
     end
   end
 
+  def invoiced?
+    amenity_visit.invoice_id.positive?
+  end
+
   def arrives_on
     display_date(amenity_visit.arrives_on)
   end
@@ -67,7 +71,7 @@ class Visits::AmenityForm
   end
 
   def invoice_id=(id)
-    amenity_visit.invoice_id = id if create_invoice
+    amenity_visit.invoice_id = create_invoice ? id : 0   
   end
 
   alias_method :validate_form, :validate

@@ -14,6 +14,10 @@ class Manager::InvoiceFLow
     page.visit("/manager/reserves/#{reserve_id}/visits/#{visit_id}/invoices/#{invoice_id}")
   end
 
+  def visit_manager_projects_invoice_edit_page
+    page.visit("/manager/reserves/#{reserve_id}/visits/#{visit_id}/invoices/#{invoice_id}/edit")
+  end
+
   def showing_visit_info?
     page.has_css?(".visit-info")
   end
