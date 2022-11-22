@@ -7,12 +7,11 @@ RSpec.describe Manager::Invoices::InvoiceShowPresenter do
   let(:invoice) { create(:invoice, visit: visit) }
   let(:user) { create(:user, :confirmed) }
 
-
-
   describe "delegations" do
     subject { Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: user) }
     it { is_expected.to delegate_method(:name).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:title).to(:project).with_prefix(true) }
+    it { is_expected.to delegate_method(:id).to(:invoice).with_prefix(true) }
     it { is_expected.to delegate_method(:purpose_of_visit).to(:visit) }
     it { is_expected.to delegate_method(:notes).to(:invoice) }
   end
@@ -65,6 +64,16 @@ RSpec.describe Manager::Invoices::InvoiceShowPresenter do
       output = [team_membership.id]
 
       expect(presenter.recipients.pluck(:id)).to eq output
+    end
+  end
+
+  describe "#link_params" do
+    it "return hash of params" do
+      presenter = Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: user)
+
+      output = { classes: nil, path: "xyz", method: nil, data: nil, icon: "delete-icon", icon_alt: nil }
+
+      expect(presenter.link_params(path: "xyz", icon: "delete-icon")).to eq output
     end
   end
 end

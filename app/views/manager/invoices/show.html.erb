@@ -1,6 +1,7 @@
 <div class="container">
-  <header>
+  <header class="d-flex">
     <h1 class="invoice-title"><%= @presenter.title %></h1>
+    <%= render partial: "manager/invoices/action_buttons", locals: { presenter: @presenter } %>
   </header>
   <%= render partial: "visit_info", locals: { presenter: @presenter } %>
   <%= render partial: "invoice_recipients_table", locals: { presenter: @presenter } %>

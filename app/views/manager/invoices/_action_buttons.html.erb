@@ -1,0 +1,15 @@
+<div class="d-flex">
+  <%= render partial: "manager/invoices/link_icon",
+    locals: presenter.link_params(path: manager_reserve_visit_invoice_path(id: presenter.invoice_id),
+    method: :delete, data: {confirm: t(".confirmation_message")},
+    icon: t(".delete_icon"), icon_alt: t(".delete_alt"), classes: "delete") %>
+  <%= render partial: "manager/invoices/link_icon",
+    locals: presenter.link_params(icon: t(".email_icon"), icon_alt: t(".email_alt")) %>
+  <%= render partial: "manager/invoices/link_icon",
+   locals: presenter.link_params(icon: t(".printer_icon"), icon_alt: t(".printer_alt")) %>
+  <%= render partial: "manager/invoices/link_icon",
+   locals: presenter.link_params(path: edit_manager_reserve_visit_invoice_path(presenter.invoice_id),
+    icon: t(".edit_icon"), icon_alt: t(".edit_alt"), classes: "edit") %>
+  <%= link_to t(".record_payment"), new_manager_reserve_visit_invoice_payment_path(invoice_id: @presenter.invoice_id),
+   data: { turbo_frame: "modal-content" }, method: :get, class: "payment-btn" %>
+</div>

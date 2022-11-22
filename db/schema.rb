@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(version: 2022_11_09_000100) do
     t.integer "visit_id", null: false
     t.integer "amenity_rate_id", null: false
     t.integer "user_id"
-    t.bigint "invoice_id", default: 0
+    t.bigint "invoice_id"
     t.integer "rate_category_id", comment: "Rate Category that is selected from INVRateCategories for that reserve"
     t.date "arrives_on"
     t.time "arrives_at", default: "2000-01-01 12:00:00"
