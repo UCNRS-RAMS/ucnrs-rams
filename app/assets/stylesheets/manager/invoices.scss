@@ -25,6 +25,18 @@
       }
     }
 
+    .payment-btn {
+      border: 1px solid $black;
+      border-radius: 50px;
+      color: $black;
+      font-size: .8125rem;
+      font-weight: $normal;
+      margin-left: 1.25rem;
+      margin-right: 0;
+      padding: 0.5rem 1.25rem;
+      text-decoration: none;
+    }
+
     .d-flex {
       @include flex(row, space-between, center)
     }

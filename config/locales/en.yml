@@ -145,6 +145,20 @@ en:
       country: "Country"
       state: "State"
   modals:
+    invoices:
+      record_payment:
+        record_payment: "Record Payment"
+        invoice: "Invoice"
+        visit_date: "Visit Dates"
+        project_title: "Project Title"
+        payment_date: "Payment Date"
+        payment_amount: "Payment Amount"
+        amount_for: "invoice_payment_amount"
+        paid_on_for: "invoice_payment_paid_on"
+        notes:  "Notes(Optional)"
+        notes_for: "invoice_payment_notes"
+        save: "Save"
+        cancel: "Cancel"
     institution_fields:
       institution_search_field:
         create_new_institution: "Create New Institution"
@@ -1027,6 +1041,17 @@ en:
       download_pdf: "Download PDF"
   manager:
     invoices:
+      action_buttons:
+        confirmation_message: "Are you sure you want to delete this?"
+        delete_alt: "delete icon"
+        email_alt: "email icon"
+        printer_alt: "printer icon"
+        edit_alt: "edit icon"
+        record_payment: "Record Payment"
+        delete_icon: "delete_icon.svg"
+        email_icon: "icon-email.svg"
+        printer_icon: "printer.svg"
+        edit_icon: "edit_icon.svg"
       amenity_visits_table:
         amenities: "Amenities"
         amenity_name: "Amenity Name"

@@ -1,4 +1,7 @@
 class Manager::InvoicesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :confirm_reserve_manager!
+
   def new
     @form = InvoiceForm.new(params: { visit_id: params[:visit_id] })
     @presenter = Manager::Invoices::InvoicesFormPresenter.new(visit: visit, form: @form)
@@ -16,6 +19,12 @@ class Manager::InvoicesController < ApplicationController
 
   def show
     @presenter = Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: current_user)
+  end
+
+  def destroy
+    if invoice.destroy
+      redirect_to new_manager_reserve_visit_invoice_path
+    end
   end
 
   private

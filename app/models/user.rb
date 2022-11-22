@@ -61,6 +61,7 @@ class User < ApplicationRecord
   has_many :user_visits
   has_many :logs
   has_many :invoice_recipients
+  has_many :invoice_payments
   has_many :invoices, through: :invoice_recipients
 
   def institution_name

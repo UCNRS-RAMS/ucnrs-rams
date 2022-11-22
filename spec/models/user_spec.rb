@@ -11,6 +11,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:reserve_personnel) }
     it { is_expected.to have_many(:managed_reserves).through(:reserve_personnel) }
     it { is_expected.to have_many(:invoice_recipients) }
+    it { is_expected.to have_many(:invoice_payments) }
     it { is_expected.to have_many(:invoices).through(:invoice_recipients) }
   end
 

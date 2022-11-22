@@ -46,6 +46,37 @@ class Manager::InvoiceFLow
     page.has_css?(".saved-note")
   end
 
+  def click_trash_icon
+    page.accept_confirm do
+      page.find(".delete").click
+    end
+  end
+
+  def click_payment_btn
+    page.find(".payment-btn").click
+  end
+
+  def click_save_btn
+    page.click_on("Save")
+  end
+
+  def showing_errors?
+    page.has_css?(".error")
+  end
+
+  def showing_payment_madal?
+    page.has_css?(".modal-content")
+  end
+
+  def fill_payment_form
+    page.find("#invoice_payment_paid_on").set(20-10-2022)
+    page.find("#invoice_payment_amount").set(8)
+  end
+
+  def deleted_invoice?
+    Invoice.find_by(id: invoice_id).nil?
+  end
+
   def showing_notes_field?
     page.has_css?("textarea#invoice_notes")
   end

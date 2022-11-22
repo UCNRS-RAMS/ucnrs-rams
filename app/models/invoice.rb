@@ -1,7 +1,8 @@
 class Invoice < ApplicationRecord
-  has_many :invoice_recipients
+  has_many :invoice_recipients, dependent: :destroy
   has_many :users, through: :invoice_recipients
-  has_many :amenity_visits
+  has_many :invoice_payments, dependent: :destroy
+  has_many :amenity_visits, dependent: :nullify
   belongs_to :visit
 
   FakeInvoice = Struct.new(:id, :status, :name, :amount)
