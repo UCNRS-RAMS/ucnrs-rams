@@ -28,6 +28,7 @@ class InvoiceForm
         invoice.save!
         save_amenities!
         save_invoice_recipients
+        invoice.updated_balance
         true
       end
     rescue ActiveRecord::RecordInvalid => e

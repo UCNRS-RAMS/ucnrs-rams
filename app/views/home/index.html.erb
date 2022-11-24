@@ -6,15 +6,15 @@
           <%= t(".visits.title") %>
         </h1>
         <%= form_with url: root_path, method: :get, data: { "turbo-frame": "visits", "turbo-action": "advance" } do %>
-          <select id="status" name="visit_filter" aria-label="visit_filter" onchange="this.form.requestSubmit()">
+          <select id="visit_status" name="visit_filter" aria-label="visit_filter" onchange="this.form.requestSubmit()">
             <optgroup label="<%= t(".labels.by") %>">
-              <% @presenter.filter_options.each do |key, value| %>
-                <option <%= @presenter.selected?(value) %> value="<%= value %>"><%= key.humanize %></option>
+              <% @presenter.visit_filter_options.each do |key, value| %>
+                <option <%= @presenter.visit_selected(value) %> value="<%= value %>"><%= key.humanize %></option>
               <% end %>
             </optgroup>
             <optgroup label="<%= t(".labels.by_reserve") %>">
               <% @presenter.visits_reserve_list.each do |key, value| %>
-                <option <%= @presenter.selected?("reserve_#{value}") %> value="reserve_<%= value %>"><%= key %></option>
+                <option <%= @presenter.visit_selected("reserve_#{value}") %> value="reserve_<%= value %>"><%= key %></option>
               <% end %>
             </optgroup>
           </select>
@@ -30,17 +30,32 @@
       <%= paginate @presenter.visit_scope, param_name: :visit_page, data: { "turbo-action": "advance" } %>
     </section>
   <% end %>
-  <section class="invoices">
-    <header>
-      <h1><%= t(".invoices.title") %></h1>
-      <select name="invoice_filter" aria-label="invoice filter">
-        <option value="recent">Most Recent</option>
-      </select>
-    </header>
-    <table class="invoices">
-      <%= render partial: "invoice", collection: @presenter.invoices %>
-    </table>
-  </section>
+  <%= turbo_frame_tag "invoice" do %>
+    <section class="invoices">
+      <header>
+        <h1><%= t(".invoices.title") %></h1>
+        <%= form_with url: root_path, method: :get, data: { "turbo-frame": "invoice", "turbo-action": "advance" } do %>
+          <select id="invoice_status" name="invoice_filter" aria-label="invoice_filter" onchange="this.form.requestSubmit()">
+            <optgroup label="<%= t(".labels.by") %>">
+              <% @presenter.invoice_filter_options.each do |key, value| %>
+                <option <%= @presenter.invoice_selected(value) %> value="<%= value %>"><%= key.humanize %></option>
+              <% end %>
+            </optgroup>
+            <optgroup label="<%= t(".labels.by_reserve") %>">
+              <% @presenter.invoice_reserve_list.each do |key, value| %>
+                <option <%= @presenter.invoice_selected("reserve_#{value}") %> value="reserve_<%= value %>"><%= key %></option>
+              <% end %>
+            </optgroup>
+          </select>
+        <% end %>
+      </header>
+      <table class="invoices">
+        <%= render partial: "invoice", collection: @presenter.invoices %>
+      </table>
+      <%= paginate @presenter.invoice_scope, param_name: :invoice_page, data: { "turbo-action": "advance" } %>
+    </section>
+  <% end %>
+
 </section>
 
 <section class="news">
