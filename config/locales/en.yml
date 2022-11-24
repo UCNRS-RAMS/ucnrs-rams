@@ -131,6 +131,9 @@ en:
         title: "Visit Requests"
       latest_news: "Latest News"
       view_all: "View All"
+  invoices:
+    show:
+      invoice: "Invoice %{id}-%{version}"
   institutions:
     index:
       no_results: "<strong>No</strong> Results Found."

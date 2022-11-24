@@ -3,11 +3,12 @@ class HomeController < ApplicationController
 
   def index
     @presenter = HomeIndexPresenter.new(
-      invoices: Invoice.fake,
       news_articles: NewsArticle.fake,
       user: current_user,
       visit_filter: visit_filter,
       visit_page: visit_page_number,
+      invoice_filter: invoice_filter,
+      invoice_page: invoice_page_number
     )
   end
 
@@ -19,5 +20,13 @@ class HomeController < ApplicationController
 
   def visit_page_number
     params[:visit_page]
+  end
+
+  def invoice_filter
+    params[:invoice_filter]
+  end
+
+  def invoice_page_number
+    params[:invoice_page]
   end
 end

@@ -4,10 +4,10 @@
       <%= invoice.status %>
     </span>
   </td>
-  <td><%= invoice.requested_reserve_name %></td>
+  <td><%= invoice.reserve_name %></td>
   <td><%= invoice.amount %></td>
   <td>
-    <%= link_to "#" do %>
+    <%= link_to invoice_path(invoice.id), data: { turbo_frame: "_top" } do %>
       <%= image_tag "arrow-right-circle-light.svg", height: "16", width: "16", alt: t("alt.right_facing_arrow") %>
     <% end %>
   </td>

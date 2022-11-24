@@ -54,6 +54,8 @@ Rails.application.routes.draw do
     resources :password, only: [:new, :create]
   end
 
+  resources :invoices, only: [:show]
+
   namespace :manager do
     resources :amenities, only: [:index]
 
