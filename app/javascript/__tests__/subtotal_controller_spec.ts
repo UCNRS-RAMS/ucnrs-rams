@@ -86,6 +86,8 @@ describe("SubtotalController", () => {
         <option value="22:00">10:00 PM</option>
         <option value="23:00">11:00 PM</option>
       </select>
+       <strong class="left-spacer" id="total">$72.00</strong>
+       <input value="72.00" id="balance_due" autocomplete="off" type="hidden" name="invoice[balance_due]">
        <input type="button" id="down" data-action="click->counter#decrement click->subtotal#calculateSubtotal"/>
         <input type="button" id="up" data-action="click->counter#increment click->subtotal#calculateSubtotal"/>
       <input type="button" id="close-btn" data-action="click->amenity-booking#removeAmenityBooking">
