@@ -15,7 +15,6 @@
     </div>
     <%= form_with model: @form.invoice_payment, url: manager_reserve_visit_invoice_payments_path do |f| %>
       <div class="d-flex spacer-y">
-        <%= f.hidden_field :user_id, value: @presenter.current_user.id %>
         <%= f.hidden_field :invoice_id, value: @presenter.invoice_id %>
         <div class="d-flex-column spacer-y">
           <%= f.label :paid_on, t(".payment_date"), for: t(".paid_on_for"), class: "label" %>

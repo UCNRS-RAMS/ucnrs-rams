@@ -10,6 +10,7 @@ class Manager::Invoices::PaymentsController < ApplicationController
   def create
     @form = InvoicePaymentForm.new(params: invoice_payment_params)
     if @form.save
+      invoice.updated_balance
       redirect_to manager_reserve_visit_invoice_path(id: @form.invoice_id)
     else
       @presenter = Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: current_user)
@@ -32,6 +33,6 @@ class Manager::Invoices::PaymentsController < ApplicationController
       :payment_type,
       :notes,
       :payor,
-    )
+    ).merge(user_id: current_user.id)
   end
 end

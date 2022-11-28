@@ -14,4 +14,19 @@ class Invoice < ApplicationRecord
       FakeInvoice.new(3, :paid, "Sedgwick Reserve", 100012),
     ]
   end
+
+  def updated_balance
+    self.balance_due = invoice_total - payments_amount_total
+    self.save!
+  end
+
+  private
+
+  def payments_amount_total
+    self.invoice_payments.sum(&:amount)
+  end
+
+  def invoice_total
+    self.amenity_visits.sum(&:subtotal)
+  end
 end

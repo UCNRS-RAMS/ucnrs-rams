@@ -224,6 +224,7 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
         flow.fill_form_for_institution
 
         flow.click_on_save_btn
+        sleep(0.1)
 
         expect(page).to have_css("td", text: "university-abc")
       end
