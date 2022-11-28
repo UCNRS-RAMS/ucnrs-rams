@@ -12,7 +12,7 @@ class InvoiceForm
     @invoice = invoice || Invoice.new
     @visit = Visit.where(id: params[:visit_id]).first
     @amenity_visit_params = params.delete(:amenity_visit) || {}
-    @amenity_visits ||= filtered_amenity_visits&.map(&method(:wrap_amenity_in_presenter))
+    @amenity_visits ||= filtered_amenity_visits&.map(&method(:wrap_amenity_in_form))
   end
 
   delegate :id, to: :invoice, prefix: true, allow_nil: true
@@ -52,7 +52,7 @@ class InvoiceForm
     amenity_visits.each(&:valid?)
   end
 
-  def wrap_amenity_in_presenter(amenity_visit)
+  def wrap_amenity_in_form(amenity_visit)
     checked = amenity_visit_params[amenity_visit.id.to_s]&.delete("checked")
     Visits::AmenityForm.new(
       user: amenity_visit.user,
