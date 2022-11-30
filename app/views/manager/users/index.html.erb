@@ -1,18 +1,3 @@
-<%= turbo_frame_tag "users-index" do %>
-  <section class="content full">
-    <header>
-      <h1><%= t(".users") %></h1>
-    </header>
-    <hr />
-    <%= turbo_frame_tag "dashboard-content" do %>
-      <section class="visits-search-list">
-        <section class="search-subsection">
-        <%= render partial: "search", locals: { presenter: @presenter } %>
-        </section>
-        <section class="reserve-info-subsection">
-          <%= render partial: "users", locals: { presenter: @presenter } %>
-        </section>
-      </section>
-    <% end %>
-  </section>
-<% end %>
+<%= render partial: "shared/manager/users_and_institutions_index",
+  locals: { presenter: @presenter, frame_id: "users-index", partial: "users" }
+%>

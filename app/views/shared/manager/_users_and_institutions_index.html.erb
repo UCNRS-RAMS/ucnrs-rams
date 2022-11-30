@@ -1,0 +1,20 @@
+<%= turbo_frame_tag "content" do %>
+  <%= turbo_frame_tag frame_id do %>
+    <section class="content full">
+      <header class="header-with-links">
+        <%= render partial: "shared/manager/users_and_institutions_submenu" %>
+      </header>
+      <hr />
+      <%= turbo_frame_tag "dashboard-content" do %>
+        <section class="visits-search-list">
+          <section class="search-subsection">
+            <%= render partial: "search", locals: { presenter: presenter } %>
+          </section>
+          <section class="reserve-info-subsection">
+            <%= render partial: partial, locals: { presenter: presenter } %>
+          </section>
+        </section>
+      <% end %>
+    </section>
+  <% end %>
+<% end %>

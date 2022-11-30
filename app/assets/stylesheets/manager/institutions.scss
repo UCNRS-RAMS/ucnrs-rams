@@ -9,13 +9,31 @@
   section.content {
     display: block;
 
-    header{
-      margin: .5rem 0;
+    header.header-with-links {
+      display: flex;
+      gap: 2rem;
+      margin: .75rem 0 0 0;
 
       h1 {
-        font-size: 1.85rem;
+        display: flex;
+        font-size: 1.5rem;
         font-weight: $medium;
-        margin: .5rem 0;
+        margin: 0;
+      }
+
+      a {
+        border-bottom: 0 solid $gray;
+        color: $navy-blue;
+        text-decoration: none;
+        transition: all .15s ease-in-out;
+      }
+
+      a:hover {
+        border-bottom: 3px solid $gray;
+      }
+
+      a.active {
+        border-bottom: 3px solid $gray;
       }
     }
 
@@ -31,7 +49,7 @@
     @include pagination;
   }
 
-  table.institutions-table {
+  table.table-style1 {
     @include table-style1;
 
     td > img {
