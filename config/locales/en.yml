@@ -1933,13 +1933,12 @@ en:
           name: "Name"
           description_helper_text: ""
     users:
-      index:
-        users: "Users"
       edit:
         delete_user: "Delete User"
         submit_visit_request_for_user: "Submit Visit Request for User"
         account_details: "Account Details"
         activity: "Activity"
+        institutions: "Institutions"
       search:
         search: "Search"
         show_options: "Show Options"
@@ -1957,8 +1956,6 @@ en:
         projects: "Projects"
         visits: "Visits"
     institutions:
-      index:
-        institutions: "Institutions"
       edit:
         cancel_go_back: "Cancel, go back"
         save_changes: "Save Changes"
@@ -1976,6 +1973,10 @@ en:
         name: "Name"
         date_created: "Date Created"
   shared:
+    manager:
+      users_and_institutions_submenu:
+        users: "Users"
+        institutions: "Institutions"
     visits:
       status:
         approved: "Approve"

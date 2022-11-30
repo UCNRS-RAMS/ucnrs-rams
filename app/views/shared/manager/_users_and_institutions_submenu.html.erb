@@ -1,0 +1,10 @@
+<%= tag.h1 active_link_to_by_url(
+  t(".users"),
+  manager_reserve_users_path(current_reserve),
+  data: { "turbo-action": "advance", "turbo-frame": "content" }
+) %>
+<%= tag.h1 active_link_to_by_url(
+  t(".institutions"),
+  manager_reserve_institutions_path(current_reserve),
+  data: { "turbo-action": "advance", "turbo-frame": "content" }
+) %>
