@@ -6,6 +6,11 @@ class Invoice < ApplicationRecord
   }.freeze
 
   has_many :invoice_recipients, dependent: :destroy
+  OPTIONS_FILTERS = {
+    "visit_invoices" => "visit_invoices",
+    "project_invoices" => "project_invoices"
+  }.freeze
+
   has_many :users, through: :invoice_recipients
   has_many :invoice_payments, dependent: :destroy
   has_many :amenity_visits, dependent: :nullify
@@ -14,6 +19,14 @@ class Invoice < ApplicationRecord
 
   def self.recent_first
     order(created_at: :desc)
+  end
+
+  def self.by_project(project_id)
+    if project_id.present?
+      joins(:visit).where(visits: { project_id: project_id })
+    else
+      all
+    end
   end
 
   def self.by_reserve(reserve_id)

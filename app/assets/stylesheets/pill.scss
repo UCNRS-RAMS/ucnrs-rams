@@ -34,4 +34,8 @@
   &.cancelled {
     background-image: url(asset-path("x.svg"));
   }
+
+  &.pending {
+    background-image: url(asset-path("minus.svg"));
+  }
 }

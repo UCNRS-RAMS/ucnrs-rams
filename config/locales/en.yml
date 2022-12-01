@@ -1083,6 +1083,34 @@ en:
         institution: "Institution"
         email: "Email"
         project_role: "Project Role"
+      index:
+        invoices: "Invoices"
+        status: "Status"
+        invoice_id: "Invoice ID"
+        invoice_date: "Invoice Date"
+        amenity_visit_date: "Amenity Visit Date"
+        balance: "Balance"
+        project_invoices: "Project Invoices"
+      invoice_amenity_visit_table_row:
+        yes_opt: "yes"
+        no_opt: "no"
+      totals:
+        visit_total: "Visit Total"
+        invoiced: "Invoiced"
+        paid: "Paid"
+        total_balance: "Total Balance"
+        create: "Create An Invoice"
+      invoice_amenity_visits_table:
+        create_amenity: "Generate An Invoice"
+        amenities: "Amenities"
+        invoice: "Invoice"
+        status: "Status"
+        amenity_name: "Amenity Name"
+        units: "Units"
+        count: "Count"
+        rate: "Rate"
+        subtotal: "Subtotal"
+        total: "Total"
       show:
         invoice: "Invoice %{id}-%{version}"
       edit:

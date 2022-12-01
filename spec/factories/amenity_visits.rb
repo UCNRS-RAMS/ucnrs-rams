@@ -7,7 +7,7 @@ FactoryBot.define do
     departs { Time.current + 1.day }
 
     number_of_people { 1 }
-    invoice_id { 0 }
+    invoice_id { 1 }
     association :visit
     association :amenity
     association :amenity_rate

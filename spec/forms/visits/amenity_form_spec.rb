@@ -183,7 +183,7 @@ RSpec.describe Visits::AmenityForm, type: :model do
 
     it "return false if invoice_id not assigned" do
       visit = create(:visit)
-      amenity_visit = create(:amenity_visit, visit: visit)
+      amenity_visit = create(:amenity_visit, visit: visit, invoice_id: nil)
       form = Visits::AmenityForm.new(params: { amenity_visit_id: amenity_visit.id })
 
       expect(form.invoiced?).to be_falsy

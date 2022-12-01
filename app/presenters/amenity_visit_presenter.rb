@@ -42,6 +42,30 @@ class AmenityVisitPresenter
   def to_partial_path
     "amenity_visit"
   end
+
+  def status_class
+    if status == "INVOICED"
+      "invoiced amenity-status"
+    elsif status == "NEVER INVOICED"
+      "amenity-status"
+    end
+  end
+
+  def disable
+    "disable" if status == "INVOICED"
+  end
+
+  def status
+    if (invoiced? && invoice_now)
+      "INVOICED"
+    elsif (!invoiced? && !invoice_now)
+      "NEVER INVOICED"
+    end
+  end
+
+  def invoiced?
+    Visits::AmenityForm.new(params: { amenity_visit_id: amenity_visit.id }).invoiced?
+  end
   
   private
 

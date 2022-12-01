@@ -101,6 +101,28 @@ RSpec.describe AmenityVisit do
     end
   end
 
+  describe ".earliest_arrives_date" do
+    it "returns earliest arrives date between amenity visits" do
+      visit = create(:visit, starts_at: 3.week.ago, ends_at: 3.week.from_now)
+      amenity_visit1 = create(:amenity_visit, visit: visit, arrives_on: 1.week.ago, departs_on: 1.week.from_now)
+      amenity_visit2 = create(:amenity_visit, visit: visit, arrives_on: Time.current, departs_on:Time.current)
+      results = AmenityVisit.earliest_arrives_date
+
+      expect(results).to eq amenity_visit1.arrives_on
+    end
+  end
+
+  describe ".latest_departs_date" do
+    it "returns latest departs date amenity visits" do
+      visit = create(:visit, starts_at: 3.week.ago, ends_at: 3.week.from_now)
+      amenity_visit1 = create(:amenity_visit, visit: visit, arrives_on: 1.week.ago, departs_on: 1.week.from_now)
+      amenity_visit2 = create(:amenity_visit, visit: visit, arrives_on: Time.current, departs_on: 2.week.from_now)
+      results = AmenityVisit.latest_departs_date
+
+      expect(results).to eq amenity_visit2.departs_on
+    end
+  end
+
   describe ".on_date" do
     it "returns amenity visits with a given date on/or between the arrives_at and departs_at dates" do
       visit = create(:visit, starts_at: 3.week.ago, ends_at: 3.week.from_now)

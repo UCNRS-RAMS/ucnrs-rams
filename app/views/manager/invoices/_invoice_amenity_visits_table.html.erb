@@ -1,0 +1,30 @@
+<turbo-frame id="amenity-visit">
+  <section class="amenity-visits p-bottom">
+    <h2 class="main-header">
+      <%= t(".amenities") %>
+      <%= link_to t(".create_amenity"), edit_manager_reserve_visit_detail_path(visit_id: @presenter.id),
+        data: { turbo_frame: "visit-details", controller: "tab-bar", action: "click->tab-bar#selectTab", "tab-bar-id-param": "details"}, class: "amenity_link" %>
+    </h2>
+    <table id="amenities-summary-table" class="summary-table">
+      <thead>
+        <tr>
+          <th><%= t(".invoice") %></th>
+          <th><%= t(".status") %></th>
+          <th><%= t(".amenity_name") %></th>
+          <th><%= t(".units") %></th>
+          <th><%= t(".count") %></th>
+          <th><%= t(".rate") %></th>
+          <th><%= t(".subtotal") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: "manager/invoices/invoice_amenity_visit_table_row", collection: presenter.amenity_visit_presenters, as: :amenity_visit %>
+        <tr class="amenity-total">
+          <td colspan=5></td>
+          <td><%= t(".total") %></td>
+          <td><strong><%= @form.amenities_total %></strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</turbo-frame>
