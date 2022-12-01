@@ -38,6 +38,22 @@ RSpec.describe AmenityVisitPresenter do
       expect(presenter.total_days).to eq output
     end
   end
+  
+  describe "#requested_date_time_range" do
+    it "generates a date time range" do
+      arrives = Time.current.round
+      departs = Time.current.round + 1.day
+      presenter = AmenityVisitPresenter.new(
+        create(:amenity_visit, arrives: arrives, departs: departs),
+      )
+      allow(DateTimeRangePresenter).to receive(:value)
+
+      presenter.requested_date_time_range
+
+      expect(DateTimeRangePresenter).to have_received(:value)
+        .with(start_datetime: arrives, end_datetime: departs, format: nil)
+    end
+  end
 
   describe "#rate_in_dollar" do
     it "converts rate into a string with 2 decimal places and $ sign at the beginning" do

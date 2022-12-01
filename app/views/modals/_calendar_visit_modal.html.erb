@@ -24,17 +24,18 @@
     </div>
     <hr>
     <h5><%= t(".reservation_member") %></h5>
-    <% @presenter.user_visits? && @presenter.user_visits([:user]).each  do |user_visit| %>
+    <% @presenter.user_visits? && @presenter.user_visits.each  do |user_visit| %>
       <div class="display-flex">
-        <p><%= user_visit.user_full_name %></p>
-        <p><%= user_visit.timeframe(:date_month_hour) %></p>
+        <p><%= user_visit.user_full_name(with_role: true) %></p>
+        <p><%= user_visit.date_range %></p>
       </div>
     <% end %>
     <h5><%= t(".reserve_Resource") %> <%= t(".create_invoice")%></h5>
     <% @presenter.amenity_visits.each  do |amenity_visit| %>
       <div class="display-flex">
         <p><%= amenity_visit.amenity_title %></p>
-        <p><%= amenity_visit.requested_date_range %></p>
+        <p><%= amenity_visit.number_of_people %></p>
+        <p><%= amenity_visit.requested_date_time_range %></p>
       </div>
     <% end %>
   </section>

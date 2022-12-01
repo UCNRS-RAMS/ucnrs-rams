@@ -28,18 +28,25 @@ class Visits::UserVisitPresenter
     UserVisit.roles[role]
   end
 
-  def user_full_name
+  def user_full_name(with_role: false)
     if guest_user?
       guest_name
     elsif group_user?
-      I18n.t(".user_visits.user_visit.group_name", count: count)
+      if with_role
+        I18n.t(".user_visits.user_visit.group_name_and_user_role", count: count, user_role: user_role)
+      else
+        I18n.t(".user_visits.user_visit.group_name", count: count)
+      end
     else
       user.full_name
     end
   end
 
   def date_range
-    "#{formatted_date(arrives_at)} - #{formatted_date(departs_at)}"
+    DateRangePresenter.value(
+      start_date: arrives_at.to_date,
+      end_date: departs_at.to_date,
+    )
   end
 
   def edit_user_visit_form_path
