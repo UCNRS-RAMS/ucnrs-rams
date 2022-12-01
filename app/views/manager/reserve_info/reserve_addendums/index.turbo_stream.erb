@@ -1,0 +1,11 @@
+<turbo-stream action="replace" target="modal-content">
+  <template>
+    <%= render partial: "modals/empty", formats: [:html] %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="reserve-addendums-table">
+  <template>
+    <%= render partial: "reserve_addendums", locals: { reserve_addendums: @presenter.reserve_addendums } %>
+  </template>
+</turbo-stream>

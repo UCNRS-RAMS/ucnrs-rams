@@ -5,11 +5,8 @@ class ReserveAddendumPresenter
 
   delegate :id,
     :sort_order,
-    :url_link,
-    :url_text,
-    :subject,
-    :info_text,
-    :info_format,
+    :name,
+    :content,
     to: :reserve_addendum
 
   private

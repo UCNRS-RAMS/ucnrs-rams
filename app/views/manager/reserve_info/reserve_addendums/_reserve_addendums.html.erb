@@ -1,0 +1,14 @@
+<turbo-frame id="reserve-addendums-table">
+  <table class="table-style1">
+    <thead>
+      <tr>
+        <th><%= t(".sort_order") %></th>
+        <th><%= t(".name") %></th>
+        <th><%= link_to t("new"), new_manager_reserve_reserve_info_reserve_addendum_path(current_reserve), data: { "turbo-frame": "modal-content" } %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "reserve_addendum", collection: reserve_addendums %>
+    </tbody>
+  </table>
+</turbo-frame>

@@ -294,6 +294,10 @@ en:
       new_reserve_question:
         title: "New Reserve Question"
         accessible_description: "A modal pop-up form to create a reserve question."
+    reserve_addendums:
+      new_reserve_addendum:
+        title: "New Reserve Addendum"
+        accessible_description: "A modal pop-up form to create a reserve addendum."
     reserve_permits:
       edit_reserve_permit:
         title: "Edit Permit"
@@ -1605,6 +1609,7 @@ en:
         permits: "Permits"
         reserve_questions: "Reserve Questions"
         staff_and_notifications: "Staff & Notifications"
+        reserve_addendums: "Reserve Addendums"
       reserve_details:
         edit:
           reserve_details: "Reserve Details"
@@ -1861,6 +1866,18 @@ en:
           receive_iacuc_email: "IACUC"
           receive_drone_email: "Drone"
           receive_scuba_email: "Scuba"
+      reserve_addendums:
+        index:
+          reserve_addendums: "Reserve Addendums"
+          about_addendums: "About Addendums"
+          about_addendums_paragraph1: ""
+        reserve_addendums:
+          sort_order: "Sort Order"
+          name: "Name"
+        reserve_addendum_field:
+          sort_order: "Sort Order"
+          name: "Name"
+          description_helper_text: ""
     users:
       index:
         users: "Users"
