@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_22_134724) do
+ActiveRecord::Schema.define(version: 2022_12_01_041123) do
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
@@ -607,11 +607,7 @@ ActiveRecord::Schema.define(version: 2022_11_22_134724) do
   create_table "reserve_addendums", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "reserve_id", null: false
     t.integer "sort_order", default: 1, null: false
-    t.string "url_link"
-    t.string "url_text"
-    t.string "subject"
-    t.text "info_text"
-    t.column "info_format", "enum('text','html','embed_code','image')", default: "text", null: false
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["reserve_id"], name: "index_reserve_addendums_on_reserve_id"
