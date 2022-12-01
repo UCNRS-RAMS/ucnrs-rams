@@ -31,7 +31,7 @@ class Visits::AmenityForm
   end
 
   def invoiced?
-    amenity_visit.invoice_id.positive?
+    amenity_visit.invoice_id.present?
   end
 
   def arrives_on

@@ -1,0 +1,31 @@
+<turbo-frame id="visit-details">
+  <%= render partial: "totals", locals: { presenter: @presenter } %>
+  <%= turbo_frame_tag "invoice" do %>
+    <section class="invoices">
+      <header class="invoice-list">
+        <h2 class="main-header"><%= t(".invoices") %></h2>
+        <%= form_with url: manager_reserve_visit_invoices_path, method: :get, data: { "turbo-frame": "invoice", "turbo-action": "advance" } do %>
+          <select id="invoice_status" class="invoice-select" name="invoice_filter" aria-label="invoice_filter" onchange="this.form.requestSubmit()">
+            <% @presenter.invoice_filter_options.each do |key, value| %>
+                <option <%= @presenter.invoice_selected(value) %> value="<%= value %>"><%= key.humanize %></option>
+              <% end %>
+          </select>
+        <% end %>
+      </header>
+      <table class="invoices">
+        <thead>
+          <tr>
+            <th><%= t(".status") %></th>
+            <th><%= t(".invoice_id") %></th>
+            <th><%= t(".invoice_date") %></th>
+            <th><%= t(".amenity_visit_date") %></th>
+            <th><%= t(".balance") %></th>
+            <th></th>
+          </tr>
+        </thead>
+        <%= render partial: "invoice", collection: @presenter.selected_invoices %>
+      </table>
+    </section>
+  <% end %>
+  <%= render partial: "invoice_amenity_visits_table", locals: { presenter: @presenter } %>
+</turbo-frame>

@@ -83,6 +83,7 @@ Rails.application.routes.draw do
         resources :invoices do
           resources :payments, controller: "invoices/payments"
         end
+        resource :amenity_visits, only: [:update], controller: "visits/amenity_visits"
         resource :summary, only: [:edit, :update, :show], controller: "visits/summary"
         resource :detail, only: [:edit, :update], controller: "visits/detail"
         resources :activity_and_notes, only: [:index, :create, :show], controller: "visits/activity_and_notes"

@@ -1,0 +1,16 @@
+<tr class="invoice <%= invoice.invoice_status %>">
+  <td>
+    <span class="<%= invoice.invoice_status %> pill">
+      <%= invoice.invoice_status %>
+    </span>
+  </td>
+  <td><%= invoice.invoice_id %></td>
+  <td><%= invoice.invoiced_on %></td>
+  <td><%= invoice.amenity_visit_dates %></td>
+  <td><%= invoice.amount %></td>
+  <td>
+    <%= link_to_if @presenter.reserve_manager?(invoice.reserve), image_tag("arrow-right-circle.svg", height: "18", width: "18"), invoice.manager_show_path, data: { turbo_frame: "_top" } do %>
+      <%= image_tag "arrow-right-circle.svg", height: "18", width: "18", class: "disabled-link" %>
+    <% end %>
+  </td>
+</tr>

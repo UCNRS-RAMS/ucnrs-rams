@@ -42,6 +42,14 @@ class AmenityVisit < ApplicationRecord
       .merge(Visit.by_reserve(reserve))
   end
 
+  def self.earliest_arrives_date
+    order(arrives_on: :desc).last&.arrives_on
+  end
+
+  def self.latest_departs_date
+    order(arrives_on: :desc).first&.departs_on
+  end
+
   def self.on_date(date)
     DateQuery.call(
       self,

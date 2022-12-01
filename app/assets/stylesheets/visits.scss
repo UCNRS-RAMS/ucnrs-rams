@@ -3,6 +3,8 @@
 @import "mixins/date_fields";
 @import "mixins/form";
 @import "mixins/controls";
+@import "mixins/tables";
+@import "mixins/flex";
 
 .visits-new,
 .visits-edit,
@@ -418,5 +420,78 @@
     hr:last-of-type {
       display: none;
     }
+  }
+
+  .invoice-totals {
+    border-collapse: collapse;
+    height: 129px;
+    margin-top: 60px;
+    width: 233px;
+
+    td:nth-child(1) {
+      text-align: left;
+    }
+
+    td:nth-child(2) {
+      font-weight: $semi-bold;
+      text-align: right;
+    }
+
+    tr.invoice-total td {
+      border-top: 1px solid $black;
+    }
+  }
+
+  .invoices {
+    @include table-style1;
+
+    td:nth-child(1) {
+      span {
+        padding-right: 1rem;
+        width: fit-content;
+      }
+    }
+
+    td:nth-child(2) {
+      font-weight: $semi-bold;
+    }
+  }
+
+  .invoice-select {
+    border-radius: 0.3125rem;
+    border: 1px solid $dark-bluegray;
+    font-family: $sora, $sans-serif;
+    height: 34px;
+    padding-left: 10px;
+  }
+
+  .invoice-list {
+    @include flex(row, space-between);
+    margin-top: 60px;
+    margin-bottom: 0 !important;
+  }
+
+  .disabled-link {
+    filter: invert(50%);
+    pointer-events: none;
+  }
+
+  .create-invoice {
+    border: 1px solid $navbar-link-color;
+    border-radius: 50px;
+    color: $navbar-link-color !important;
+    font-size: .8125rem;
+    font-weight: $normal;
+    height: fit-content;
+    margin-left: 1.25rem;
+    margin-right: 0;
+    padding: 0.5rem 1.25rem;
+    text-decoration: none;
+    transition: all .15s ease-in-out;
+  }
+
+  .create-invoice:hover {
+    background: $navbar-link-schedule-hover-background-color;
+    border: 1px solid $navbar-link-schedule-hover-border-color;
   }
 }

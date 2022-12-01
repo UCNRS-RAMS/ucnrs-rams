@@ -79,6 +79,22 @@ class VisitShowFlow
     page.find("#reserve_info").click
   end
 
+  def click_on_invoices_btn
+    page.find("#invoices").click
+  end
+
+  def showing_invoice_info?
+    page.has_css?(".invoice-list")
+  end
+
+  def showing_invoices?
+    page.has_css?(".invoices")
+  end
+
+  def showing_amenitiy_visits?
+    page.has_css?(".amenity-visits")
+  end
+
   def click_on_submit_btn
     page.find("button.active").click
   end

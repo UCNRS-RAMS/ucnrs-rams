@@ -328,6 +328,22 @@ RSpec.describe "Manager Visit Show" do
     end
   end
 
+  describe "when click on invoices tab" do
+    it "should display invoices information", js: true do
+      create(:reserve_question, reserve_id: reserve.id)
+      sign_in(user)
+      flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
+
+      flow.visit_show_page
+
+      flow.click_on_invoices_btn
+
+      expect(flow.showing_invoice_info?).to eq true
+      expect(flow.showing_invoices?).to eq true
+      expect(flow.showing_amenitiy_visits?).to eq true
+    end
+  end
+
   describe "when visit status is incomplete" do
     it "status bar will disable", js: true do
       sign_in(user)

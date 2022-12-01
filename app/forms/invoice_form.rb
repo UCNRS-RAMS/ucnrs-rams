@@ -7,7 +7,8 @@ class InvoiceForm
     ActiveModel::Name.new(Invoice)
   end
 
-  def initialize(invoice: nil, params: {}, editing: false)
+  def initialize(invoice: nil, params: {}, editing: false, remove_filter: false)
+    @remove_filter = remove_filter
     @editing = editing
     @params = params
     @visit = Visit.where(id: params[:visit_id]).first
@@ -20,7 +21,7 @@ class InvoiceForm
   delegate :id, to: :invoice, prefix: true, allow_nil: true
   delegate_missing_to :invoice
 
-  attr_reader :amenity_visits, :visit, :amenity_visit_params, :params, :invoice, :editing
+  attr_reader :amenity_visits, :visit, :amenity_visit_params, :params, :invoice, :editing, :remove_filter
 
   def save
     begin
@@ -61,6 +62,10 @@ class InvoiceForm
     end
   end
 
+  def invoiced_on=(value)
+    invoice.invoiced_on = Date.today unless editing
+  end
+
   def save_invoice_recipients
     params[:project_team_members].each_value do |invoice_recipient_params|
       recipient = invoice_recipient(invoice_recipient_params[:user_id])
@@ -95,6 +100,8 @@ class InvoiceForm
   def filtered_amenity_visits
     if editing
       unchecked_amenity_visits.or(invoice.amenity_visits)
+    elsif remove_filter
+      visit.amenity_visits.order( invoice_now: :desc, invoice_id: :asc)
     else
       unchecked_amenity_visits
     end

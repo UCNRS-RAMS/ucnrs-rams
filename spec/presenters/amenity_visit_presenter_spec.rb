@@ -113,6 +113,86 @@ RSpec.describe AmenityVisitPresenter do
     end
   end
 
+  describe "#status_class" do
+    it "returns 'invoiced amenity-status' css classes if amenity_visit status id 'INVOICED'" do
+      presenter = AmenityVisitPresenter.new(
+        create(:amenity_visit)
+      )
+
+      expect(presenter.status_class).to eq "invoiced amenity-status"
+    end
+
+    it "returns 'amenity-status' css classes if amenity_visit status id 'NEVER INVOICED'" do
+      presenter = AmenityVisitPresenter.new(
+        create(:amenity_visit, invoice_id: nil, invoice_now: false)
+      )
+
+      expect(presenter.status_class).to eq "amenity-status"
+    end
+  end
+
+  describe "#disable" do
+    it "returns 'disable' if amenity_visit status is 'INVOICED'" do
+      presenter = AmenityVisitPresenter.new(
+        create(:amenity_visit)
+      )
+
+      expect(presenter.disable).to eq "disable"
+    end
+
+    it "returns nil if amenity_visit status is not 'INVOICED'" do
+      presenter = AmenityVisitPresenter.new(
+        create(:amenity_visit, invoice_id: nil)
+      )
+
+      expect(presenter.disable).to eq nil
+    end
+  end
+
+  describe "#status" do
+    it "returns 'INVOICED' if amenity_visit is invoiced and invoice_now is true" do
+      presenter = AmenityVisitPresenter.new(
+        create(:amenity_visit)
+      )
+
+      expect(presenter.status).to eq "INVOICED"
+    end
+
+    it "returns nil if amenity_visit is not invoiced and invoice_now is true" do
+      presenter = AmenityVisitPresenter.new(
+        create(:amenity_visit, invoice_id: nil)
+      )
+
+      expect(presenter.status).to eq nil
+    end
+
+    it "returns nil if amenity_visit is not invoiced and invoice_now is true" do
+      presenter = AmenityVisitPresenter.new(
+        create(:amenity_visit, invoice_id: nil, invoice_now: false)
+      )
+
+      expect(presenter.status).to eq "NEVER INVOICED"
+    end
+  end
+
+  describe "#invoiced?" do
+    it "returns true if amenity visit is invoiced" do
+      presenter = AmenityVisitPresenter.new(
+        create(:amenity_visit)
+      )
+
+      expect(presenter.invoiced?).to eq true
+    end
+
+    it "returns false if amenity visit is not invoiced" do
+      presenter = AmenityVisitPresenter.new(
+        create(:amenity_visit, invoice_id: nil)
+      )
+
+      expect(presenter.invoiced?).to eq false
+    end
+  end
+
   describe "#to_partial_path" do
     it "returns 'amenity_visit'" do
       presenter = AmenityVisitPresenter.new(

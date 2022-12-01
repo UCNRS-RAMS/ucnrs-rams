@@ -32,7 +32,7 @@
 
     <li>
       <%= render partial: "tab",
-        locals: @presenter.tab_params(id: "invoices", clickable: @presenter.reserve_manager?) %>
+        locals: @presenter.tab_params(id: "invoices", path: manager_reserve_visit_invoices_path(visit_id: @presenter.id, reserve_id: @presenter.reserve_id), clickable: @presenter.reserve_manager?) %>
     </li>
   </ul>
 </section>
