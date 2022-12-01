@@ -7,7 +7,8 @@
 .manager.rules_and_regulations,
 .manager.permits,
 .manager.reserve_questions,
-.manager.staff_and_notifications {
+.manager.staff_and_notifications,
+.manager.reserve_addendums {
   .content {
     margin-top: 3rem;
   }
@@ -274,10 +275,17 @@
   }
 }
 
+.manager.reserve_addendums {
+  table.table-style1 {
+    @include table-style1;
+  }
+}
+
 .manager.amenities_and_rates,
 .manager.reserve_questions,
 .manager.waivers,
-.manager.staff_and_notifications {
+.manager.staff_and_notifications,
+.manager.reserve_addendums {
   .modal form {
     h2 {
       font-weight: $semi-bold;

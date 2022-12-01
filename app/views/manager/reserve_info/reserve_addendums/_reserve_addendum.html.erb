@@ -1,0 +1,14 @@
+<tr>
+  <td><%= reserve_addendum.sort_order %></td>
+  <td><%= reserve_addendum.name %></td>
+  <td>
+    <%= link_to t("edit"),
+      "#",
+      data: { "turbo-frame": "modal-content" }
+    %>
+    <%= link_to t("delete"),
+      "#",
+      data: { "turbo-frame": "modal-content" }
+    %>
+  </td>
+</tr>

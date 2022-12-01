@@ -1,0 +1,16 @@
+<section class="content">
+  <%= render partial: 'manager/reserve_info/header' %>
+  <div>
+    <section class="reserve-info-menu">
+      <%= render partial: 'manager/reserve_info/menu' %>
+    </section>
+    <section class="reserve-info">
+      <header><%= t(".reserve_addendums") %></header>
+      <section class="reserve-info-subsection">
+        <header><%= t(".about_addendums") %></header>
+        <p><%= t(".about_addendums_paragraph1") %></p>
+        <%= render partial: "reserve_addendums", locals: { reserve_addendums: @presenter.reserve_addendums } %>
+      </section>
+    </section>
+  </div>
+</section>

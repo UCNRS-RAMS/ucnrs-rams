@@ -107,6 +107,7 @@ Rails.application.routes.draw do
         resources :permits, only: [:index, :edit, :update]
         resources :reserve_questions, only: [:index, :new, :create, :edit, :update]
         resources :staff_and_notifications
+        resources :reserve_addendums, only: [:index, :new, :create]
       end
       resources :users, only: [:index, :edit, :update]
       resources :institutions, only: [:index, :edit, :update]
