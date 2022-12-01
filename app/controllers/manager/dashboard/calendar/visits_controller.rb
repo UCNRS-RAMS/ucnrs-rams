@@ -11,7 +11,7 @@ class Manager::Dashboard::Calendar::VisitsController < ApplicationController
   end
 
   def show
-    @presenter = VisitShowPresenter.new(visit)
+    @presenter = Manager::Dashboard::CalendarVisitShowPresenter.new(visit: visit)
   end
 
   private

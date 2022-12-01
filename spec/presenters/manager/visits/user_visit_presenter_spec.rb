@@ -31,7 +31,7 @@ RSpec.describe Visits::UserVisitPresenter do
 
       presenter = Manager::Visits::UserVisitPresenter.new(user_visit)
 
-      expected_value = "#{date.strftime('%m/%d/%Y')} - #{after_date.strftime('%m/%d/%Y')} (3 days)"
+      expected_value = "#{DateRangePresenter.value(start_date: date, end_date: after_date)} (3 days)"
       expect(presenter.date_range).to eq expected_value
     end
   end

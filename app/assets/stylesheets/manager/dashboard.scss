@@ -365,8 +365,9 @@
         margin: 0px;
       }
 
-      p:last-child {
-        padding-right: 7rem;
+      p:first-child, p:last-child {
+        min-width: 150px;
+        max-width: 300px;
       }
     }
 

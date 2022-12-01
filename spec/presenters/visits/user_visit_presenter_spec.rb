@@ -70,6 +70,13 @@ RSpec.describe Visits::UserVisitPresenter do
 
         expect(presenter.user_full_name).to eq "Group of 10"
       end
+
+      it "returns group count and user role if 'with_role' is true" do
+        user_visit = create(:user_visit, user: create(:user, id: 1), role: :faculty, count: 10)
+        presenter = Visits::UserVisitPresenter.new(user_visit)
+
+        expect(presenter.user_full_name(with_role: true)).to eq "Group of 10 Faculty"
+      end
     end
   end
 
@@ -79,8 +86,12 @@ RSpec.describe Visits::UserVisitPresenter do
       departs_at = Time.current + 1.day
       presenter = Visits::UserVisitPresenter.new(create(:user_visit, arrives_at: arrives_at,
         departs_at: departs_at))
+      output = DateRangePresenter.value(
+        start_date: arrives_at.to_date,
+        end_date: departs_at.to_date,
+      )
 
-      expect(presenter.date_range).to eq "#{arrives_at.strftime('%m/%d/%Y')} - #{departs_at.strftime('%m/%d/%Y')}"
+      expect(presenter.date_range).to eq output
     end
   end
 

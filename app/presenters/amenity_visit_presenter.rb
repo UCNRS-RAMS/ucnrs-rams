@@ -18,6 +18,10 @@ class AmenityVisitPresenter
   def total_days
     ((departs.to_date + 1.day) - arrives.to_date).to_i
   end
+  
+  def requested_date_time_range(format: nil)
+    DateTimeRangePresenter.value(start_datetime: arrives, end_datetime: departs, format: format)
+  end
 
   def rate_in_dollar
     "$#{value(rate)}"

@@ -29,7 +29,7 @@ class VisitShowVisitorTabFlow
   def has_a_visitor?(visitor, user_visit)
     within("#user_visit_#{user_visit.id}") do
       page.has_css?("td:nth-child(2)", text: "#{visitor.first_name} #{visitor.last_name}")
-      page.has_css?("td:nth-child(5)", text: "#{user_visit.arrives_at.strftime('%m/%d/%Y')} - #{user_visit.departs_at.strftime('%m/%d/%Y')}")
+      page.has_css?("td:nth-child(5)", text: DateRangePresenter.value(start_date: user_visit.arrives_at, end_date: user_visit.departs_at))
     end
   end
 

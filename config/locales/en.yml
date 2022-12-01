@@ -115,6 +115,7 @@ en:
     different_days_same_month: "%{start_month} %{start_day} - %{end_day}, %{start_year}"
     different_months_same_year: "%{start_month} %{start_day} - %{end_month} %{end_day}, %{start_year}"
     different_years: "%{start_month} %{start_day}, %{start_year} - %{end_month} %{end_day}, %{end_year}"
+    same_day_hour_difference: "%{start_month} %{start_day} (%{hours} hours)"
   forms:
     select_one: "Please Select One"
   home:
@@ -630,6 +631,7 @@ en:
   user_visits:
     user_visit:
       group_name: "Group of %{count}"
+      group_name_and_user_role: "Group of %{count} %{user_role}"
   reserve_inputs:
     show:
       labels:

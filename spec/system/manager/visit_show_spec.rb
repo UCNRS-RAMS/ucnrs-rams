@@ -154,7 +154,13 @@ RSpec.describe "Manager Visit Show" do
 
       flow.click_on_change
       flow.change_user_visit_dates(arrives_at: user_visit.arrives_at + 1.day, departs_at: user_visit.departs_at)
-      expect(flow).to have_visitor_dates(user_visit, "#{(user_visit.arrives_at + 1.day).strftime('%m/%d/%Y')} - #{user_visit.departs_at.strftime('%m/%d/%Y')}")
+      
+      expect(flow).to have_visitor_dates(user_visit, 
+        DateRangePresenter.value(
+          start_date: user_visit.arrives_at + 1.day,
+          end_date: user_visit.departs_at
+        )
+      )
     end
 
     it "should return an error if the visitors date is out of the visit date range", js: true do
