@@ -123,6 +123,30 @@ RSpec.describe AmenityVisit do
     end
   end
 
+  describe ".can_invoice_now" do
+    it "returns amenity visits where 'invoice_now' is true" do
+      amenity_visit1 = create(:amenity_visit, invoice_now: true)
+      amenity_visit2 = create(:amenity_visit, invoice_now: false)
+      amenity_visit3 = create(:amenity_visit, invoice_now: true)
+
+      results = AmenityVisit.can_invoice_now(false)
+
+      expect(results).to eq [amenity_visit1, amenity_visit3]
+    end
+  end
+
+  describe ".not_invoiced" do
+    it "returns amenity visits which are not invoiced" do
+      amenity_visit1 = create(:amenity_visit, invoice_id: create(:invoice).id)
+      amenity_visit2 = create(:amenity_visit, invoice_id: nil)
+      amenity_visit3 = create(:amenity_visit, invoice_id: create(:invoice).id)
+
+      results = AmenityVisit.not_invoiced
+
+      expect(results).to eq [amenity_visit2]
+    end
+  end
+
   describe ".on_date" do
     it "returns amenity visits with a given date on/or between the arrives_at and departs_at dates" do
       visit = create(:visit, starts_at: 3.week.ago, ends_at: 3.week.from_now)

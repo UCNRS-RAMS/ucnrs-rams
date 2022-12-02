@@ -11,7 +11,7 @@ RSpec.describe InvoiceForm, type: :model do
   describe "initializing" do
     it "makes amenity_visit, visit object and an empty invoice object" do
       visit = create(:visit)
-      amenity_visit = create(:amenity_visit, visit: visit)
+      amenity_visit = create(:amenity_visit, visit: visit, invoice_id: nil)
       form = InvoiceForm.new(params: { visit_id: visit.id })
 
       expect(form.invoice).to have_attributes(
@@ -63,8 +63,8 @@ RSpec.describe InvoiceForm, type: :model do
   describe "#amenities_total" do
     it "display the total of all the amenity_visits subtotal amount" do
       visit = create(:visit)
-      create(:amenity_visit, visit: visit, number_of_people: 10, manual_units_of_time: 10, rate: 10)
-      create(:amenity_visit, visit: visit, number_of_people: 10, manual_units_of_time: 10, rate: 10)
+      create(:amenity_visit, visit: visit, number_of_people: 10, manual_units_of_time: 10, rate: 10, invoice_id: nil)
+      create(:amenity_visit, visit: visit, number_of_people: 10, manual_units_of_time: 10, rate: 10, invoice_id: nil)
       form = InvoiceForm.new(params: {visit_id: visit.id})
 
       expect(form.amenities_total).to eq "$2000.00"
@@ -106,7 +106,7 @@ RSpec.describe InvoiceForm, type: :model do
   describe "#save" do
     it "saves both the amenity_visits, invoice and invoice_recipients if there are no errors" do
       visit = create(:visit)
-      amenity_visit = create(:amenity_visit, visit: visit)
+      amenity_visit = create(:amenity_visit, visit: visit, invoice_id: nil)
       user = create(:user)
 
       project_team_members = create(:project_team_membership)
@@ -141,7 +141,7 @@ RSpec.describe InvoiceForm, type: :model do
 
     it "makes sure all errors are visible when save fails" do
       visit = create(:visit)
-      amenity_visit = create(:amenity_visit, visit: visit)
+      amenity_visit = create(:amenity_visit, visit: visit, invoice_id: nil)
       user = create(:user)
 
       project_team_members = create(:project_team_membership)

@@ -71,7 +71,7 @@ class Visits::AmenityForm
   end
 
   def invoice_id=(id)
-    amenity_visit.invoice_id = create_invoice ? id : 0   
+    amenity_visit.invoice_id = create_invoice ? id : nil
   end
 
   alias_method :validate_form, :validate

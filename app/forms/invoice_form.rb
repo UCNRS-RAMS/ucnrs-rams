@@ -14,7 +14,7 @@ class InvoiceForm
     @visit = Visit.where(id: params[:visit_id]).first
     @invoice = invoice || @visit.invoices.new
     @amenity_visit_params = params.delete(:amenity_visit) || {}
-    @amenity_visits ||= filtered_amenity_visits&.map(&method(:wrap_amenity_in_form))
+    @amenity_visits ||= filtered_amenity_visits&.can_invoice_now(remove_filter)&.map(&method(:wrap_amenity_in_form))
     assign(invoice_params)
   end
 
@@ -108,7 +108,7 @@ class InvoiceForm
   end
 
   def unchecked_amenity_visits
-    visit.amenity_visits.where.not(invoice_id: visit.invoice_ids)
+    visit.amenity_visits.not_invoiced
   end
   
   def value(num)

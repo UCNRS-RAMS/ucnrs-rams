@@ -61,9 +61,4 @@ class Invoice < ApplicationRecord
   def invoice_total
     amenity_visits.sum(&:subtotal)
   end
-
-  def updated_balance
-    self.balance_due = invoice_total - payments_amount_total
-    self.save!
-  end
 end
