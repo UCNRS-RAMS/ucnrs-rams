@@ -3,12 +3,13 @@
   <td><%= reserve_addendum.name %></td>
   <td>
     <%= link_to t("edit"),
-      "#",
+      edit_manager_reserve_reserve_info_reserve_addendum_path(current_reserve, reserve_addendum.id),
       data: { "turbo-frame": "modal-content" }
     %>
     <%= link_to t("delete"),
-      "#",
-      data: { "turbo-frame": "modal-content" }
+      manager_reserve_reserve_info_reserve_addendum_path(current_reserve, reserve_addendum.id),
+      method: :delete,
+      data: { confirm: t("confirm_removal", name: reserve_addendum.name) }
     %>
   </td>
 </tr>
