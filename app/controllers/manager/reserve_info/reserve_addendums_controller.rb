@@ -25,6 +25,30 @@ class Manager::ReserveInfo::ReserveAddendumsController < ApplicationController
     end
   end
 
+  def edit
+    form = ReserveAddendumForm.new(reserve_addendum: reserve_addendum)
+    @presenter = Manager::ReserveInfo::ReserveAddendumEditPresenter.new(form: form)
+  end
+
+  def update
+    form = ReserveAddendumForm.new(reserve_addendum: reserve_addendum, params: reserve_addendum_params)
+
+    if form.save
+      redirect_to manager_reserve_reserve_info_reserve_addendums_path(current_reserve)
+    else
+      @presenter = Manager::ReserveInfo::ReserveAddendumEditPresenter.new(form: form)
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    if reserve_addendum.destroy
+      redirect_to manager_reserve_reserve_info_reserve_addendums_path(current_reserve)
+    else
+      redirect_to manager_reserve_reserve_info_reserve_addendums_path(current_reserve), status: :unprocessable_entity
+    end
+  end
+
   private
 
   def reserve_addendum
