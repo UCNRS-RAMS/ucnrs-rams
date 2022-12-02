@@ -68,7 +68,6 @@ export default class extends Controller {
       subtotal = Array.from(document.querySelectorAll('.subtotal')).
         reduce((total, arg) => total + parseFloat(arg.innerHTML), 0.0).toFixed(2).toString();
       document.getElementById('total').innerHTML = '$' + subtotal
-      document.getElementById('balance_due').value = subtotal
   }
 
   toggle() {

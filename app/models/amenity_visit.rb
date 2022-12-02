@@ -50,6 +50,18 @@ class AmenityVisit < ApplicationRecord
     order(arrives_on: :desc).first&.departs_on
   end
 
+  def self.can_invoice_now(remove_filter)
+    if remove_filter
+      all
+    else
+      where(invoice_now: true)
+    end
+  end
+
+  def self.not_invoiced
+    where(invoice_id: nil)
+  end
+
   def self.on_date(date)
     DateQuery.call(
       self,
