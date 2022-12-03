@@ -7,6 +7,8 @@ class ReserveAddendumPresenter
     :sort_order,
     :name,
     :content,
+    :to_key,
+    :model_name,
     to: :reserve_addendum
 
   private
