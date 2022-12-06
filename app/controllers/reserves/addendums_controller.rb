@@ -18,5 +18,7 @@ class Reserves::AddendumsController < ApplicationController
 
   def addendums
     reserve&.addendums
+      .in_sort_order
+      .includes([:rich_text_content])
   end
 end
