@@ -6,12 +6,13 @@
         <th><%= t(".payment") %></th>
         <th><%= t(".note") %></th>
         <th><%= t(".subtotal") %></th>
+        <th class="align-end"><%= t(".edit_payment") %></th>
       </tr>
     </thead>
     <tbody>
       <%= render partial: "manager/invoices/invoice_payment", collection: invoice_payments %>
       <tr class="payment-total">
-        <td></td>
+        <td colspan="2"></td>
         <td class="balance-title"><%= t(".balance") %></td>
         <td class="balance"><strong><%= @presenter.balance %></strong></td>
       </tr>

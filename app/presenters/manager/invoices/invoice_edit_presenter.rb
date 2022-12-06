@@ -16,7 +16,7 @@ class Manager::Invoices::InvoiceEditPresenter < Manager::Invoices::InvoicesFormP
   end
 
   def balance
-    I18n.t("manager.invoices.edit.balance", balance: (amenities_total.delete("$").to_i - payments_amount_total).abs)
+    I18n.t("manager.invoices.edit.balance", balance: (amenity_visit_total.to_i - payments_amount_total).abs)
   end
 
   private 
@@ -27,6 +27,10 @@ class Manager::Invoices::InvoiceEditPresenter < Manager::Invoices::InvoicesFormP
 
   def payments_amount_total
     value(invoice_payments.pluck(:amount).sum).to_i
+  end
+
+  def amenity_visit_total
+    "#{value(invoice.amenity_visits.sum(&:subtotal))}"
   end
 
   delegate :modify_number, :id, to: :invoice, private: true

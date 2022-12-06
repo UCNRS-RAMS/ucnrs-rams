@@ -3,6 +3,11 @@
 require "rails_helper"
 
 RSpec.describe InvoicePaymentForm, type: :model do
+
+  describe "delegations" do
+    it { is_expected.to delegate_missing_methods_to(:invoice_payment) }
+  end
+
   describe "initializing" do
     it "makes a new empty InvoicePaymentForm" do
       form = InvoicePaymentForm.new

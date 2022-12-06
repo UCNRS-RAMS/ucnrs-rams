@@ -1067,6 +1067,7 @@ en:
         payment: "Payment"
         note: "Note"
         subtotal: "Subtotal"
+        edit_payment: "Edit Payment"
         balance: "Balance"
       amenity_visits_table:
         amenities: "Amenities"

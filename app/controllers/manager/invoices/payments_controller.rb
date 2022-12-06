@@ -18,6 +18,22 @@ class Manager::Invoices::PaymentsController < ApplicationController
     end
   end
 
+  def edit
+    @form = InvoicePaymentForm.new(params: { id: params[:id]}, editing: true)
+    @presenter = Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: current_user)
+  end
+
+  def update
+    @form = InvoicePaymentForm.new(params: invoice_payment_params, editing: true)
+    if @form.save
+      invoice.updated_balance
+      redirect_to edit_manager_reserve_visit_invoice_path(id: @form.invoice_id)
+    else
+      @presenter = Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: current_user)
+      render :edit
+    end
+  end
+
   private
 
   def invoice
@@ -26,6 +42,7 @@ class Manager::Invoices::PaymentsController < ApplicationController
 
   def invoice_payment_params
     params.require(:invoice_payment).permit(
+      :id,
       :invoice_id,
       :user_id,
       :amount,

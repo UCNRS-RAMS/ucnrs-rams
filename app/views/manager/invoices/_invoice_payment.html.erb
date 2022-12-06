@@ -2,4 +2,9 @@
   <td><%= invoice_payment.id %></td>
   <td><%= invoice_payment.notes %></td>
   <td>-$<%= invoice_payment.amount %></td>
+  <td>
+    <%= link_to edit_manager_reserve_visit_invoice_payment_path(invoice_id: @presenter.invoice_id, id: invoice_payment.id), data: { turbo_frame: "modal-content" }, method: :get do %>
+      <%= image_tag "edit_icon.svg", height: "24px", width: "24px", alt: "edit-icon" %>
+    <% end %>
+  </td>
 </tr>
