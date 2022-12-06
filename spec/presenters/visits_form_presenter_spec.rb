@@ -223,8 +223,58 @@ RSpec.describe VisitsFormPresenter do
   describe "#show_browse_reserve_link" do
     it "should return true to display show browse link" do
       presenter = VisitsFormPresenter.new(user: build(:user))
+      
+      result = presenter.editing == false
 
-      expect(presenter.show_browse_reserve_link).to eq true
+      expect(presenter.show_browse_reserve_link).to eq result
+    end
+
+    it "should return false and browse link will hide" do
+      presenter = VisitsFormPresenter.new(user: build(:user))
+      presenter.form.editing = true
+
+      result = presenter.editing == false
+
+      expect(presenter.show_browse_reserve_link).to eq result
+    end
+  end
+
+  describe "#reserve_header" do
+    it "should return 'Reserve' if editing is true" do
+      form = VisitForm.new(editing: true)
+      presenter = VisitsFormPresenter.new(user: build(:user), form: form)
+
+      expect(presenter.reserve_header).to eq "Reserve"
+    end
+
+    it "should return 'Reserves' if editing is false" do
+      form = VisitForm.new(editing: false)
+      presenter = VisitsFormPresenter.new(user: build(:user), form: form)
+
+      expect(presenter.reserve_header).to eq "Reserves"
+    end
+  end
+
+  describe "#project_type" do
+    it "should return project_type of visit" do
+      project = create(:project, project_type: "research")
+      form = VisitForm.new(params: {project_id: project.id}, editing: true)
+      presenter = VisitsFormPresenter.new(user: build(:user), form: form)
+
+      expect(presenter.project_type).to eq "Research"
+    end
+  end
+  
+  describe "#applicant_description" do
+    it "should return visit's applicant name and institute" do
+      institution = create(:institution, name: "institution_name")
+      user = create(:user, first_name: "hafiz", last_name: "ahmed", institution: institution)
+      visit = create(:visit, user_id: user.id)
+      form = VisitForm.new(user: user, params: {id: visit.id })
+      presenter = VisitsFormPresenter.new(user: user, form: form)
+
+      result = "hafiz ahmed - institution_name"
+      expect(presenter.applicant_description).to eq result
     end
   end
 end

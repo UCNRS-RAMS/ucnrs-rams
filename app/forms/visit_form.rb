@@ -49,6 +49,10 @@ class VisitForm
     end
   end
 
+  def editing=(edit)
+    @editing = edit
+  end
+
   def amenity_form(amenity_id)
     amenity_forms[amenity_id]
   end

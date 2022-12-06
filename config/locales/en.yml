@@ -1973,7 +1973,7 @@ en:
         denied: "Deny"
         incomplete: "Incomplete"
       project:
-        project_title: "Project Title"
+        project_title: "Project"
       user_visits:
         team_member:
           add_to_visitor: "Add To Visitor List"
@@ -2034,7 +2034,8 @@ en:
           amenities: "Select Amenities"
           amenities_subtitle: "(Optional)"
           purpose: "Purpose of Visit"
-          reserve: "Reserves"
+          reserves: "Reserves"
+          reserve: "Reserve"
         labels:
           public_use_category: "Choose a category that best describes your visit"
           purpose_of_visit: "What do you plan to do on this visit?"

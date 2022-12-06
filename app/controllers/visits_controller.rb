@@ -4,14 +4,14 @@ class VisitsController < ApplicationController
   def new
     @presenter = VisitsFormPresenter.new(user: current_user)
   end
-
-  def update
+  
+  def create
     @form = VisitForm.new(user: current_user, params: visit_params)
     if @form.save
       redirect_to visit_user_visits_path(@form.visit, format: :html)
     else
       @presenter = VisitsFormPresenter.new(user: current_user, form: @form)
-      render :edit, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -20,13 +20,14 @@ class VisitsController < ApplicationController
     @presenter = VisitsFormPresenter.new(user: current_user, form: @form)
   end
 
-  def create
+  def update
     @form = VisitForm.new(user: current_user, params: visit_params)
     if @form.save
       redirect_to visit_user_visits_path(@form.visit, format: :html)
     else
+      @form.editing = true
       @presenter = VisitsFormPresenter.new(user: current_user, form: @form)
-      render :new, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 

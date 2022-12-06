@@ -54,6 +54,10 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+
+      a {
+        padding: 0px;
+      }
     }
 
     label {
@@ -249,6 +253,18 @@
     }
 
     .project_select {
+      .project-container {
+        width: 100%;
+        
+        .project-title{
+          display: flex;
+          justify-content: space-between;
+
+          h3 {
+            margin: 0px;
+          }
+        }
+      }
       
       .select_or_new{ 
         display: flex;
