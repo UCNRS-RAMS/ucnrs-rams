@@ -1,16 +1,18 @@
 <section data-controller="turbo-content copy-first copy-second">
 
   <section class="visit-form">
-    <h3><%= t(".titles.purpose") %></h3>
     <%= form.hidden_field :id, value: @presenter.id %>
     <div class="project-type-options"  data-purpose="project_type" data-controller="value-projection" data-value-projection-projected-value="<%= form.object.project_type %>">
-      <div class="row">
-        <%= render partial: presenter.project_type_partial_path, locals: { presenter: presenter, form: form} %>
-      </div>
+      <% unless presenter.editing %>
+        <div class="row">
+          <%= render partial: presenter.project_type_partial_path, locals: { presenter: presenter, form: form} %>
+        </div>
+      <% end %>
       <div class="field project_select">
         <%= render partial: presenter.project_partial_path, locals: { presenter: presenter, form: form} %>
       </div>
     </div>
+    <h3><%= t(".titles.purpose") %></h3>
     <div class="text-area">
       <div><%= form.label :purpose_of_visit, t(".labels.purpose_of_visit") %></div>
       <%= form.text_area :purpose_of_visit %>
@@ -19,7 +21,7 @@
 
   <span data-controller="followup-content">
     <section class="reserve-info progress-steps">
-      <div><h3><%= t(".titles.reserve") %><% if presenter.show_browse_reserve_link %> <%= link_to t(".links.browse_reserves"), "#" %><% end %></h3></div>
+      <div><h3><%= presenter.reserve_header %><% if presenter.show_browse_reserve_link %> <%= link_to t(".links.browse_reserves"), "#" %><% end %></h3></div>
       <div class="display-row-flex">
         <div class="field">
          <%= render partial: presenter.reserve_partial_path, locals: { presenter: presenter, form: form} %>

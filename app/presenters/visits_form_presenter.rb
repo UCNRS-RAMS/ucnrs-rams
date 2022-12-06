@@ -82,8 +82,20 @@ class VisitsFormPresenter
     "visits/save"
   end
 
+  def reserve_header
+    editing ?  I18n.t("shared.visits.form.titles.reserve") : I18n.t("shared.visits.form.titles.reserves")
+  end
+
   def show_browse_reserve_link
-    true
+    editing == false
+  end
+
+  def project_type
+    Project.project_types[visit.project.project_type]
+  end
+
+  def applicant_description
+    "#{visit.user.full_name} - #{visit.user.institution_name}"
   end
 
   def time_options
