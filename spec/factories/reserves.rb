@@ -18,6 +18,14 @@ FactoryBot.define do
     association :address_country, factory: :country
     association :managing_campus, factory: :institution
 
+    trait :with_logo do
+      after(:build) do |reserve|
+        File.open(Rails.root.join('spec', 'support', 'assets', 'test-image.jpeg')) do |f|
+          reserve.logo = f
+        end
+      end
+    end
+
     trait :with_hero_photo do
       after(:build) do |reserve|
         File.open(Rails.root.join('spec', 'support', 'assets', 'test-image.jpeg')) do |f|

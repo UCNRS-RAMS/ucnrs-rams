@@ -77,6 +77,24 @@ RSpec.describe Manager::ReserveInfo::ReserveFormPresenter do
     end
   end
 
+  describe "#logo" do
+    it "presents placeholder image if no logo is attached" do
+      reserve = build(:reserve)
+      form = ReserveForm.new(reserve: reserve)
+      presenter = Manager::ReserveInfo::ReserveFormPresenter.new(form)
+
+      expect(presenter.logo).to eq("reserve_logo_placeholder.png")
+    end
+
+    it "presents the correct avatar path if logo is attached" do
+      reserve = create(:reserve, :with_logo)
+      form = ReserveForm.new(reserve: reserve)
+      presenter = Manager::ReserveInfo::ReserveFormPresenter.new(form)
+
+      expect(presenter.logo).to match(/\/tmp\/ucnrs-test\/reserve_id_#{reserve.id}\/small_test-image.jpeg/)
+    end
+  end
+
 
   describe "#hero_photo" do
     it "presents placeholder image if no large_hero_photo is attached" do
