@@ -1,10 +1,12 @@
 class Reserve < ApplicationRecord
+  LOGO_PLACEHOLDER = "reserve_logo_placeholder.png".freeze
   LISTING_PHOTO_PLACEHOLDER = "reserve_placeholder.jpg".freeze
   LARGE_HERO_PHOTO_PLACEHOLDER = "reserve-hero-placeholder.jpg".freeze
 
   has_one_attached :reserve_avatar
   has_rich_text :rules_and_regulations
 
+  mount_uploader :logo, ReserveUploader
   mount_uploader :listing_photo, ReserveUploader
   mount_uploader :large_hero_photo, ReserveUploader
 
@@ -41,6 +43,10 @@ class Reserve < ApplicationRecord
     else
       none
     end
+  end
+
+  def logo_placeholder
+    LOGO_PLACEHOLDER
   end
 
   def listing_photo_placeholder

@@ -32,6 +32,16 @@
         </section>
         <section class="reserve-info-subsection">
           <header class="with-form-group-pad"><%= t(".general_information") %></header>
+          <div class="row">
+            <div class="col form-group">
+              <%= f.label :logo, "Reserve Logo", class: "form-label" %>
+              <div class="reserve-pictures">
+                <%= image_tag @presenter.logo, height: "60", width: "60" %>
+                <%= f.file_field :logo %>
+                <%= f.hidden_field :logo_cache %>
+              </div>
+            </div>
+          </div>
           <div class="input-group">
             <div class="form-group">
               <%= f.label :reserve_name, t(".reserve_name"), class: "form-label" %>

@@ -29,6 +29,10 @@ class Manager::ReserveInfo::ReserveFormPresenter
       .alphabetical_by_name
   end
 
+  def logo
+    form_reserve.logo.url(:small) || form_reserve.logo_placeholder
+  end
+
   def hero_photo
     form_reserve.large_hero_photo.url(:small) || form_reserve.large_hero_photo_placeholder
   end
