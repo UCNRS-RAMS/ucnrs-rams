@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_01_041123) do
+ActiveRecord::Schema.define(version: 2022_12_05_164420) do
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
@@ -279,7 +279,7 @@ ActiveRecord::Schema.define(version: 2022_12_01_041123) do
   end
 
   create_table "invoice_payments", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "invoice_id", null: false
+    t.integer "invoice_id"
     t.integer "user_id"
     t.decimal "amount", precision: 10, scale: 2
     t.date "paid_on"
