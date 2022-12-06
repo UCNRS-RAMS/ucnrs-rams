@@ -862,6 +862,7 @@ ActiveRecord::Schema.define(version: 2022_12_05_164420) do
     t.text "description"
     t.string "listing_photo"
     t.string "large_hero_photo"
+    t.string "logo"
     t.index ["managing_campus_id", "name"], name: "ManagingCampus"
     t.index ["name"], name: "Name"
   end
