@@ -18,6 +18,7 @@ class Manager::InvoicesController < ApplicationController
       redirect_to manager_reserve_visit_invoice_path(id: @form.invoice_id)
     else
       @presenter = Manager::Invoices::InvoicesFormPresenter.new(visit: visit, form: @form)
+      flash.now[:alert] = I18n.translate("manager.no_amenity_visit") if !@form.has_amenity_visit?
       render :new
     end
   end

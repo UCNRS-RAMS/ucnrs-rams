@@ -24,6 +24,7 @@ class InvoiceForm
   attr_reader :amenity_visits, :visit, :amenity_visit_params, :params, :invoice, :editing, :remove_filter
 
   def save
+    return false unless has_amenity_visit?
     begin
       ActiveRecord::Base.transaction do
         invoice.save!
@@ -52,6 +53,10 @@ class InvoiceForm
 
   def is_recipient_checked?(user_id)
     editing ? invoice_recipient(user_id).present? : true
+  end
+
+  def has_amenity_visit?
+    amenity_visits.present?
   end
 
   private

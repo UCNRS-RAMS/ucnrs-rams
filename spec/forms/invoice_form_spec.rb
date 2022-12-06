@@ -103,6 +103,25 @@ RSpec.describe InvoiceForm, type: :model do
     end
   end
 
+  describe "#has_amenity_visit" do
+    it "return true if amenity_visit is present in form" do
+      visit = create(:visit)
+      create(:amenity_visit, visit: visit, invoice_id: nil)
+      invoice = create(:invoice)
+      form = InvoiceForm.new(invoice: invoice, params: { visit_id: visit.id })
+
+      expect(form.has_amenity_visit?).to be_truthy
+    end
+
+    it "return false if amenity_visit is present in form" do
+      visit = create(:visit)
+      invoice = create(:invoice)
+      form = InvoiceForm.new(invoice: invoice, params: { visit_id: visit.id })
+
+      expect(form.has_amenity_visit?).to be_falsy
+    end
+  end
+
   describe "#save" do
     it "saves both the amenity_visits, invoice and invoice_recipients if there are no errors" do
       visit = create(:visit)
