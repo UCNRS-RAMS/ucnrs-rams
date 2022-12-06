@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_05_164420) do
+ActiveRecord::Schema.define(version: 2022_12_06_075655) do
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
@@ -747,7 +747,7 @@ ActiveRecord::Schema.define(version: 2022_12_05_164420) do
     t.string "fax_number", limit: 20
     t.string "check_payable_to_name", limit: 50
     t.string "home_page_url"
-    t.string "logo_url", comment: "URL of reserve Icon"
+    t.string "logo_url_old", comment: "URL of reserve Icon"
     t.string "directions_url"
     t.string "rules_url"
     t.string "rates_url", default: ""
