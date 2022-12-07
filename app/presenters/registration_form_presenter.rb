@@ -5,6 +5,7 @@ class RegistrationFormPresenter
   BEGINNING_OR_END_UNDERSCORE_PATTERN = %r{(?:\A_+|_+\z)}
   PHONE_NUMBER_PLACEHOLDER = "(_ _ _) _ _ _ - _ _ _ _"
   POSTAL_CODE_PLACEHOLDER = "_ _ _ _ _"
+  ROLE_WITH_ALLOWED_ADVISOR_OPTIONS = ["research_scientist", "research_assistant", "graduate_student", "undergraduate_student"].freeze
 
   attr_reader :form
 
@@ -63,6 +64,10 @@ class RegistrationFormPresenter
 
   def institution_field_value
     form_user&.institution&.name
+  end
+
+  def role_with_allowed_advisor_options
+    ROLE_WITH_ALLOWED_ADVISOR_OPTIONS
   end
 
   private

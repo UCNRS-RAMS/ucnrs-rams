@@ -64,6 +64,21 @@ RSpec.describe RegistrationFormPresenter do
     end
   end
 
+  describe "#role_with_allowed_advisor_options" do
+    it "it return an array of role_with_allowed_advisor_options" do
+      presenter = RegistrationFormPresenter.new
+
+      result = [
+        "research_scientist",
+        "research_assistant",
+        "graduate_student",
+        "undergraduate_student"
+      ]
+
+      expect(presenter.role_with_allowed_advisor_options).to eq result
+    end
+  end
+
   describe "#phone_number_placeholder" do
     it "is the placeholder for telephone fields" do
       presenter = RegistrationFormPresenter.new
