@@ -1,5 +1,5 @@
 <turbo-frame id="modal-content" class="modal-content" role="dialog" aria-labelledby="modal-title">
-  <div data-modal-target="dialog openOnLoad" data-action="click@window->modal#closeBackground">
+  <div data-modal-target="dialog openOnLoad" data-action="mousedown@window->modal#closeBackground">
     <%= form_with model: presenter.form, url: presenter.user_visit_form_path do |form| %>
       <p class="screenreader-text">
         <span id="modal-title"><%= t(".title") %></span>
@@ -17,12 +17,12 @@
         </div>
         <div class="field institution-id">
           <%= form.label :institution_id, t(".institution_name") %>
-          <%= form.select :institution_id, options_for_select(@presenter.institution_options, @presenter.default_institution), 
+          <%= form.select :institution_id, options_for_select(@presenter.institution_options, @presenter.default_institution),
                 prompt: t(".select_institution") %>
         </div>
         <div class="field role">
           <%= form.label :role, t(".role") %>
-          <%= form.select :role, options_for_select(@presenter.user_role_options), 
+          <%= form.select :role, options_for_select(@presenter.user_role_options),
                 prompt: t(".select_user_role")%>
         </div>
       </section>
