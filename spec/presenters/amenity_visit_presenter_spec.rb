@@ -149,21 +149,20 @@ RSpec.describe AmenityVisitPresenter do
     end
   end
 
-  describe "#status" do
+  describe "#invoice_status" do
     it "returns 'INVOICED' if amenity_visit is invoiced and invoice_now is true" do
       presenter = AmenityVisitPresenter.new(
         create(:amenity_visit)
       )
 
-      expect(presenter.status).to eq "INVOICED"
+      expect(presenter.invoice_status).to eq "INVOICED"
     end
 
     it "returns nil if amenity_visit is not invoiced and invoice_now is true" do
       presenter = AmenityVisitPresenter.new(
         create(:amenity_visit, invoice_id: nil)
       )
-
-      expect(presenter.status).to eq nil
+      expect(presenter.invoice_status).to eq nil
     end
 
     it "returns nil if amenity_visit is not invoiced and invoice_now is true" do
@@ -171,7 +170,7 @@ RSpec.describe AmenityVisitPresenter do
         create(:amenity_visit, invoice_id: nil, invoice_now: false)
       )
 
-      expect(presenter.status).to eq "NEVER INVOICED"
+      expect(presenter.invoice_status).to eq "NEVER INVOICED"
     end
   end
 

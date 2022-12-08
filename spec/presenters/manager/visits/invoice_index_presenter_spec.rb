@@ -24,7 +24,7 @@ RSpec.describe Manager::Visits::InvoicesIndexPresenter do
   end
 
   describe "#invoice_filter_options" do
-    it "return invoices of the visit" do
+    it "return invoice filter options" do
       create(:invoice, visit: visit)
       form = InvoiceForm.new(params: {visit_id: visit.id})
       presenter = Manager::Visits::InvoicesIndexPresenter.new(visit: visit, user: user, form: form)

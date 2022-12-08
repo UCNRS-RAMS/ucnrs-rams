@@ -135,13 +135,13 @@ RSpec.describe AmenityVisit do
     end
   end
 
-  describe ".not_invoiced" do
+  describe ".uninvoiced" do
     it "returns amenity visits which are not invoiced" do
       amenity_visit1 = create(:amenity_visit, invoice_id: create(:invoice).id)
       amenity_visit2 = create(:amenity_visit, invoice_id: nil)
       amenity_visit3 = create(:amenity_visit, invoice_id: create(:invoice).id)
 
-      results = AmenityVisit.not_invoiced
+      results = AmenityVisit.uninvoiced
 
       expect(results).to eq [amenity_visit2]
     end

@@ -58,7 +58,7 @@ class AmenityVisit < ApplicationRecord
     end
   end
 
-  def self.not_invoiced
+  def self.uninvoiced
     where(invoice_id: nil)
   end
 

@@ -52,7 +52,7 @@ RSpec.describe InvoicePresenter do
   end
 
   describe "#manager_show_path" do
-    it "return date_range between earliest arrives and latest departs date of amenity_visits" do
+    it "return invoice show page path" do
       presenter = InvoicePresenter.new(invoice)
       output = "/manager/reserves/#{reserve.id}/visits/#{visit.id}/invoices/#{invoice.id}"
 
@@ -61,7 +61,7 @@ RSpec.describe InvoicePresenter do
   end
 
   describe "#invoiced_on" do
-    it "return date_range between earliest arrives and latest departs date of amenity_visits" do
+    it "return date when payment for invoice happen" do
       presenter = InvoicePresenter.new(invoice)
       output = "Oct 31, 1999"
 

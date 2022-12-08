@@ -355,7 +355,7 @@ RSpec.describe Visit, type: :model do
         amenity = create(:amenity)
         visit1 = create(:visit, report_access: 1)
         visit2 = create(:visit, report_access: 0)
-        amenity_visit = create(:amenity_visit, amenity: amenity, visit: visit1)
+        amenity_visit = create(:amenity_visit, amenity: amenity, visit: visit1, invoice_id: nil)
 
         results = Visit.using_amenity nil
 
