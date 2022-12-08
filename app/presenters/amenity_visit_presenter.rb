@@ -44,18 +44,18 @@ class AmenityVisitPresenter
   end
 
   def status_class
-    if status == "INVOICED"
+    if invoice_status == "INVOICED"
       "invoiced amenity-status"
-    elsif status == "NEVER INVOICED"
+    elsif invoice_status == "NEVER INVOICED"
       "amenity-status"
     end
   end
 
   def disable
-    "disable" if status == "INVOICED"
+    "disable" if invoice_status == "INVOICED"
   end
 
-  def status
+  def invoice_status
     if (invoiced? && invoice_now)
       "INVOICED"
     elsif (!invoiced? && !invoice_now)

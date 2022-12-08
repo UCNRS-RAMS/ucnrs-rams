@@ -108,7 +108,7 @@ class InvoiceForm
   end
 
   def unchecked_amenity_visits
-    visit.amenity_visits.not_invoiced
+    visit.amenity_visits.uninvoiced
   end
   
   def value(num)
