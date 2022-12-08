@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_06_075655) do
+ActiveRecord::Schema.define(version: 2022_12_08_075914) do
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 2022_12_06_075655) do
     t.string "description"
     t.column "amenities_type", "enum('Housing & Camping','Classroom & Meeting Space','Laboratory & Storage Space','Vehicles & Boats','Other Amenity')"
     t.string "image_url"
+    t.string "listing_photo"
     t.index ["disable", "sort_order", "title"], name: "DisableSortDescription"
     t.index ["reserve_id", "sort_order"], name: "reserve_sort_order"
     t.index ["reserve_id", "title"], name: "reserve"
