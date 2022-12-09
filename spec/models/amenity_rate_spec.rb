@@ -89,4 +89,33 @@ RSpec.describe AmenityRate, type: :model do
       expect(results).to match_array [amenity_rate3]
     end
   end
+
+  describe ".for_reserve" do
+    it "returns records for given associated amenity reserve" do
+      reserve = create(:reserve)
+      amenity1 = create(:amenity, reserve: reserve)
+      amenity2 = create(:amenity)
+      amenity_rate1 = create(:amenity_rate, amenity: amenity2)
+      amenity_rate2 = create(:amenity_rate)
+      amenity_rate3 = create(:amenity_rate, amenity: amenity1)
+
+      results = AmenityRate.for_reserve(reserve)
+
+      expect(results).to match_array [amenity_rate3]
+    end
+  end
+
+  describe ".with_only_enabled_rate_category" do
+    it "returns records associated with amenity_rate_category that is enabled" do
+      enabled_rate_category = create(:amenity_rate_category, visible: true)
+      disabled_rate_category = create(:amenity_rate_category, visible: false)
+      amenity_rate1 = create(:amenity_rate, amenity_rate_category: enabled_rate_category)
+      amenity_rate2 = create(:amenity_rate, amenity_rate_category: disabled_rate_category)
+      amenity_rate3 = create(:amenity_rate, amenity_rate_category: enabled_rate_category)
+
+      results = AmenityRate.with_only_enabled_rate_category
+
+      expect(results).to match_array [amenity_rate1, amenity_rate3]
+    end
+  end
 end

@@ -20,6 +20,10 @@ class AmenityRateCategory < ApplicationRecord
     where(reserve: reserve)
   end
 
+  def self.enabled
+    where(visible: true)
+  end
+
   def self.in_sort_order
     order(:sort_order)
   end

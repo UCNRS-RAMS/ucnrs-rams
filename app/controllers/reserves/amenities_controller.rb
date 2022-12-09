@@ -1,7 +1,7 @@
 class Reserves::AmenitiesController < ApplicationController
   def index
     @presenter = Reserves::AmenitiesIndexPresenter.new(
-      reserve_amenities: amenities.in_sort_order.by_group_number
+      reserve_amenities: reserve_amenities
     )
   end
 
@@ -11,7 +11,15 @@ class Reserves::AmenitiesController < ApplicationController
     params.permit(:reserve_id).require(:reserve_id)
   end
 
-  def amenities
-    Reserve.find(reserve_id).amenities
+  def reserve
+    Reserve.find(reserve_id)
+  end
+
+  def reserve_amenities
+    reserve.amenities
+      .visible
+      .not_disable
+      .in_sort_order
+      .by_group_number
   end
 end

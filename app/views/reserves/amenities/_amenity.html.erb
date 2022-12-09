@@ -7,7 +7,7 @@
     <span class="description"><%= amenity.comment %></span>
     <%= link_to t(".link"), "#" %>
     <div class="rates">
-      <%= render partial: "rate", collection: amenity.rates, locals: { amenity: amenity } %>
+      <%= render partial: "rate", collection: amenity.rates_with_enabled_rate_category, locals: { amenity: amenity } %>
     </div>
   </div>
 </section>
