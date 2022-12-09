@@ -21,13 +21,13 @@ RSpec.describe ReserveUploader do
 
   describe "#store_dir" do
     it "creates the correct store directory path for the test environment" do
-      expect(uploader.store_dir).to match(/\/tmp\/ucnrs-test\/reserve_id_#{reserve.id}\//)
+      expect(uploader.store_dir).to match(/\/tmp\/ucnrs-test\//)
     end
   end
 
   describe "#cache_dir" do
     it "creates the correct cache directory path for the test environment" do
-      expect(uploader.cache_dir).to match(/\/tmp\/ucnrs-test\/cache\/reserve_id_#{reserve.id}\//)
+      expect(uploader.cache_dir).to match(/\/tmp\/ucnrs-test\/cache\//)
     end
   end
 
