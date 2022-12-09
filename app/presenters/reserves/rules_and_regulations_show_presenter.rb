@@ -4,10 +4,9 @@ class Reserves::RulesAndRegulationsShowPresenter
   end
 
   delegate :id,
-    :rules,
-    :rules_url,
+    :rules_and_regulations,
     to: :reserve, prefix: true
-  
+
   private
 
   def reserve
