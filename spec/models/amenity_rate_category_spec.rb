@@ -50,13 +50,25 @@ RSpec.describe AmenityRateCategory, type: :model do
   end
 
   describe ".sort_by_visible" do
-    it "returns records based on visible column" do
+    it "returns records sorted by visible column" do
       amenity_rate_category1 = create(:amenity_rate_category, visible: false)
       amenity_rate_category2 = create(:amenity_rate_category, visible: true)
 
       results = AmenityRateCategory.sort_by_visible
 
       expect(results).to eq [amenity_rate_category2, amenity_rate_category1]
+    end
+  end
+
+  describe ".enabled" do
+    it "returns only records that are enabled" do
+      amenity_rate_category1 = create(:amenity_rate_category, visible: false)
+      amenity_rate_category2 = create(:amenity_rate_category, visible: true)
+      amenity_rate_category3 = create(:amenity_rate_category, visible: true)
+
+      results = AmenityRateCategory.enabled
+
+      expect(results).to match_array [amenity_rate_category2, amenity_rate_category3]
     end
   end
 end

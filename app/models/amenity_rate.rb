@@ -52,4 +52,12 @@ class AmenityRate < ApplicationRecord
       all
     end
   end
+
+  def self.with_only_enabled_rate_category
+    joins(:amenity_rate_category)
+      .merge(
+        AmenityRateCategory
+          .enabled
+      )
+  end
 end

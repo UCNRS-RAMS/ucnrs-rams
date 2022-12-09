@@ -17,6 +17,17 @@ class AmenityPresenter
     end
   end
 
+  def rates_with_enabled_rate_category
+    amenity
+      .amenity_rates
+      .with_only_enabled_rate_category
+      .in_order
+      .includes([:amenity_rate_category])
+      .map do |rate|
+        AmenityRatePresenter.new(rate)
+    end
+  end
+
   def unit
     units_type
   end

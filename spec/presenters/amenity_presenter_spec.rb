@@ -24,6 +24,45 @@ RSpec.describe AmenityPresenter do
     end
   end
 
+  describe "#rates_with_enabled_rate_category" do
+    it "presents only amenity rates that has its rate_category enabled" do
+      amenity = create(:amenity)
+      enabled_rate_category = create(:amenity_rate_category, visible: true)
+      disabled_rate_category = create(:amenity_rate_category, visible: false)
+      amenity_rate1 = create(:amenity_rate,
+        amenity: amenity,
+        amenity_rate_category: enabled_rate_category
+      )
+      amenity_rate2 =  create(:amenity_rate,
+        amenity: amenity,
+        amenity_rate_category: disabled_rate_category
+      )
+      amenity_rate3 =  create(:amenity_rate,
+        amenity: amenity,
+        amenity_rate_category: enabled_rate_category
+      )
+      presenter = AmenityPresenter.new(amenity)
+
+      presented_rates = presenter.rates_with_enabled_rate_category
+
+      expect(presented_rates.map(&:id))
+        .to match_array [amenity_rate1.id, amenity_rate3.id]
+    end
+
+    it "presents the rates in order" do
+      amenity = create(:amenity)
+      amenity_rate1 = create(:amenity_rate, amenity: amenity, sort_order: 1)
+      amenity_rate2 = create(:amenity_rate, amenity: amenity, sort_order: 3)
+      amenity_rate3 = create(:amenity_rate, amenity: amenity, sort_order: 2)
+      presenter = AmenityPresenter.new(amenity)
+
+      presented_rates = presenter.rates_with_enabled_rate_category
+
+      expect(presented_rates.map(&:id))
+        .to eq [amenity_rate1.id, amenity_rate3.id, amenity_rate2.id]
+    end
+  end
+
   describe "#per_sentence" do
     it "displays per units/per time sentence" do
       amenity = create(:amenity, units_type: "person", time_type: "day")
