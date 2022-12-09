@@ -33,10 +33,12 @@ RSpec.describe AmenityForm, type: :model do
         amenities_code: "-",
         group_number: nil,
         amenities_type: nil,
+        listing_photo_url: nil,
       )
     end
 
     it "makes a new AmenityForm from params" do
+      image = File.open(Rails.root.join('spec', 'support', 'assets', 'test-image.jpeg'))
       params = {
         id: 4,
         reserve_id: 4,
@@ -56,6 +58,7 @@ RSpec.describe AmenityForm, type: :model do
         amenities_code: "-",
         group_number: nil,
         amenities_type: nil,
+        listing_photo: image,
       }
       form = AmenityForm.new(params: params)
 
@@ -78,6 +81,8 @@ RSpec.describe AmenityForm, type: :model do
         amenities_code: "-",
         group_number: nil,
         amenities_type: nil,
+        listing_photo_url:
+          a_string_matching(/\/tmp\/ucnrs-test\/cache\/\S+\/test-image.jpeg/),
       )
     end
 

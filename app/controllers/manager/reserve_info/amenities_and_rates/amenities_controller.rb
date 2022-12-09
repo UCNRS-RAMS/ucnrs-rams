@@ -13,7 +13,7 @@ module Manager
 
         def create
           form = AmenityForm.new(params: amenity_params.merge(reserve_id: current_reserve.id))
-          
+
           if form.save
             redirect_to manager_reserve_reserve_info_amenities_and_rates_path(current_reserve)
           else
@@ -29,7 +29,7 @@ module Manager
 
         def update
           form = AmenityForm.new(amenity: amenity, params: amenity_params)
-          
+
           if form.save
             redirect_to manager_reserve_reserve_info_amenities_and_rates_path(current_reserve)
           else
@@ -67,6 +67,8 @@ module Manager
             :description,
             :amenities_type,
             :image_url,
+            :listing_photo,
+            :listing_photo_cache,
           )
         end
       end

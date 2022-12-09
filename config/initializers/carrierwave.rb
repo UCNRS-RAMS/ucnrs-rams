@@ -31,6 +31,7 @@ CarrierWave.configure do |config|
 
   # Auto-load Uploader classes
   ReserveUploader
+  AmenityUploader
 
   # Use different, explicit store_ and cache_ dirs when testing
   CarrierWave::Uploader::Base.descendants.each do |klass|

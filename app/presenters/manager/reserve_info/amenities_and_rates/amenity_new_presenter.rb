@@ -22,6 +22,10 @@ class Manager::ReserveInfo::AmenitiesAndRates::AmenityNewPresenter
     (1..5).map { |i| [reserve&.public_send("amenity_group_label_#{i}"), i.to_s] }
   end
 
+  def listing_photo
+    form_amenity.listing_photo.url(:medium) || form_amenity.listing_photo_placeholder
+  end
+
   private
 
   def translate(column, key)
