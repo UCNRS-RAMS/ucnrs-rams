@@ -95,6 +95,7 @@ RSpec.describe ReserveForm, type: :model do
         longitude_seconds: nil,
         longitude_hemisphere: nil,
         description: nil,
+        logo_url: nil,
         large_hero_photo_url: nil,
         listing_photo_url: nil,
       )
@@ -274,9 +275,9 @@ RSpec.describe ReserveForm, type: :model do
         longitude_seconds: 1.0,
         longitude_hemisphere: "longitude_hemisphere",
         description: "description",
-        logo_url: a_string_matching(/\/tmp\/ucnrs-test\/cache\/reserve_id_5\/\S+\/test-image.jpeg/),
-        large_hero_photo_url: a_string_matching(/\/tmp\/ucnrs-test\/cache\/reserve_id_5\/\S+\/test-image.jpeg/),
-        listing_photo_url: a_string_matching(/\/tmp\/ucnrs-test\/cache\/reserve_id_5\/\S+\/test-image.jpeg/),
+        logo_url: a_string_matching(/\/tmp\/ucnrs-test\/cache\/\S+\/test-image.jpeg/),
+        large_hero_photo_url: a_string_matching(/\/tmp\/ucnrs-test\/cache\/\S+\/test-image.jpeg/),
+        listing_photo_url: a_string_matching(/\/tmp\/ucnrs-test\/cache\/\S+\/test-image.jpeg/),
       )
     end
   end
@@ -445,9 +446,9 @@ RSpec.describe ReserveForm, type: :model do
         billing_address_state_id: 4,
         billing_address_country_id: 4,
         description: "description",
-        logo_url: a_string_matching(/\/tmp\/ucnrs-test\/reserve_id_#{reserve.id}\/test-image.jpeg/),
-        listing_photo_url: a_string_matching(/\/tmp\/ucnrs-test\/reserve_id_#{reserve.id}\/test-image.jpeg/),
-        large_hero_photo_url: a_string_matching(/\/tmp\/ucnrs-test\/reserve_id_#{reserve.id}\/test-image.jpeg/),
+        logo_url: a_string_matching(/\/tmp\/ucnrs-test\/test-image.jpeg/),
+        listing_photo_url: a_string_matching(/\/tmp\/ucnrs-test\/test-image.jpeg/),
+        large_hero_photo_url: a_string_matching(/\/tmp\/ucnrs-test\/test-image.jpeg/),
       )
     end
 
@@ -612,9 +613,9 @@ RSpec.describe ReserveForm, type: :model do
         billing_address_state_id: 4,
         billing_address_country_id: 4,
         description: "description",
-        logo_url: a_string_matching(/\/tmp\/ucnrs-test\/reserve_id_#{form.reserve.id}\/test-image.jpeg/),
-        listing_photo_url: a_string_matching(/\/tmp\/ucnrs-test\/reserve_id_#{form.reserve.id}\/test-image.jpeg/),
-        large_hero_photo_url: a_string_matching(/\/tmp\/ucnrs-test\/reserve_id_#{form.reserve.id}\/test-image.jpeg/),
+        logo_url: a_string_matching(/\/tmp\/ucnrs-test\/test-image.jpeg/),
+        listing_photo_url: a_string_matching(/\/tmp\/ucnrs-test\/test-image.jpeg/),
+        large_hero_photo_url: a_string_matching(/\/tmp\/ucnrs-test\/test-image.jpeg/),
       )
     end
 

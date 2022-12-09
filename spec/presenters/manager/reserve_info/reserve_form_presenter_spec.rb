@@ -91,7 +91,7 @@ RSpec.describe Manager::ReserveInfo::ReserveFormPresenter do
       form = ReserveForm.new(reserve: reserve)
       presenter = Manager::ReserveInfo::ReserveFormPresenter.new(form)
 
-      expect(presenter.logo).to match(/\/tmp\/ucnrs-test\/reserve_id_#{reserve.id}\/small_test-image.jpeg/)
+      expect(presenter.logo).to match(/\/tmp\/ucnrs-test\/small_test-image.jpeg/)
     end
   end
 
@@ -110,7 +110,7 @@ RSpec.describe Manager::ReserveInfo::ReserveFormPresenter do
       form = ReserveForm.new(reserve: reserve)
       presenter = Manager::ReserveInfo::ReserveFormPresenter.new(form)
 
-      expect(presenter.hero_photo).to match(/\/tmp\/ucnrs-test\/reserve_id_#{reserve.id}\/small_test-image.jpeg/)
+      expect(presenter.hero_photo).to match(/\/tmp\/ucnrs-test\/small_test-image.jpeg/)
     end
   end
 
@@ -128,7 +128,7 @@ RSpec.describe Manager::ReserveInfo::ReserveFormPresenter do
       form = ReserveForm.new(reserve: reserve)
       presenter = Manager::ReserveInfo::ReserveFormPresenter.new(form)
 
-      expect(presenter.listing_photo).to match(/\/tmp\/ucnrs-test\/reserve_id_#{reserve.id}\/small_test-image.jpeg/)
+      expect(presenter.listing_photo).to match(/\/tmp\/ucnrs-test\/small_test-image.jpeg/)
     end
   end
 end

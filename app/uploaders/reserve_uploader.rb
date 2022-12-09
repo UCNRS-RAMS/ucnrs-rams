@@ -4,14 +4,17 @@ class ReserveUploader < CarrierWave::Uploader::Base
   def store_dir
     [
       ("uploads" if Rails.env.development?),
-      "reserve_id_#{model.id}/",
+      "reserve_id_#{model.id || 'null'}",
+      "/",
     ].join("/")
   end
 
   def cache_dir
     [
+      "/",
       "tmp",
-      "reserve_id_#{model.id || 'null'}/",
+      "reserve_id_#{model.id || 'null'}",
+      "/",
     ].join("/")
   end
 

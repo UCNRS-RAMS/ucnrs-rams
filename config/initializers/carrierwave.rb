@@ -1,19 +1,25 @@
 require "carrierwave/orm/activerecord"
 
+if Rails.env.development?
+  CarrierWave.configure do |config|
+    config.storage = :file
+  end
+end
+
+if Rails.env.test?
+  CarrierWave.configure do |config|
+    config.storage = :file
+    config.enable_processing = false
+  end
+end
+
+if Rails.env.production?
+  CarrierWave.configure do |config|
+    config.storage = :fog
+  end
+end
+
 CarrierWave.configure do |config|
-  if Rails.env.development? || Rails.env.test?
-    CarrierWave.configure do |config|
-      config.storage = :file
-      config.enable_processing = false
-    end
-  end
-
-  if Rails.env.production?
-    CarrierWave.configure do |config|
-      config.storage = :fog
-    end
-  end
-
   config.fog_credentials = {
     provider: "AWS",
     aws_access_key_id: ENV["AWS_ACCESS_KEY"],
@@ -31,11 +37,11 @@ CarrierWave.configure do |config|
     next if klass.anonymous?
     klass.class_eval do
       def cache_dir
-        "#{Rails.root}/tmp/ucnrs-test/cache/reserve_id_#{model.id || 'null'}/"
+        "#{Rails.root}/tmp/ucnrs-test/cache/"
       end
 
       def store_dir
-        "#{Rails.root}/tmp/ucnrs-test/reserve_id_#{model.id}/"
+        "#{Rails.root}/tmp/ucnrs-test/"
       end
     end
   end

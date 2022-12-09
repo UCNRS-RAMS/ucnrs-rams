@@ -50,7 +50,7 @@ RSpec.describe ReservePresenter do
         reserve = create(:reserve, :with_listing_photo)
         presenter = ReservePresenter.new(reserve)
 
-        expect(presenter.listing_photo_src).to match(/reserve_id_#{reserve.id}\/medium_test-image.jpeg/)
+        expect(presenter.listing_photo_src).to match(/medium_test-image.jpeg/)
       end
     end
 
