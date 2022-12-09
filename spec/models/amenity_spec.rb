@@ -8,6 +8,7 @@ RSpec.describe Amenity do
     it { is_expected.to validate_presence_of(:units_type) }
     it { is_expected.to validate_presence_of(:time_type) }
     it { is_expected.to validate_uniqueness_of(:sort_order).scoped_to([:disable, :reserve_id]) }
+    it { is_expected.to validate_presence_of(:group_number) }
   end
 
   describe "associations" do

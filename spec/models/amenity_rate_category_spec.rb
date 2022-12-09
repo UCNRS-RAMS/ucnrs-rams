@@ -8,7 +8,7 @@ RSpec.describe AmenityRateCategory, type: :model do
   describe "validations" do
     subject { create(:amenity_rate_category) }
 
-    it { is_expected.to validate_uniqueness_of(:sort_order).scoped_to(:visible) }
+    it { is_expected.to validate_uniqueness_of(:sort_order).scoped_to([:visible, :reserve_id]) }
     it { is_expected.to validate_presence_of(:description) }
     it { is_expected.to validate_booleanish_values(:visible) }
     it { is_expected.to validate_booleanish_values(:state_university) }

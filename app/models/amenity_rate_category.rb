@@ -1,7 +1,7 @@
 class AmenityRateCategory < ApplicationRecord
   belongs_to :reserve
 
-  validates :sort_order, uniqueness: { scope: :visible }
+  validates :sort_order, uniqueness: { scope: [:visible, :reserve_id] }
   validates :description, presence: true
   validates :visible, inclusion: [true, false]
   validates :state_university, inclusion: [true, false]
