@@ -1814,6 +1814,9 @@ en:
         edit:
           rules_and_regulations: "Rules & Regulations"
           save_changes: "Save Changes"
+          migration_helper_explanation: "Below are the old rules, rules url, and code of conduct url displayed to help move the content to the new rules and regulations. It will be removed in the future."
+          rules_url: "Rules url"
+          code_of_conduct_url: "Code of conduct url"
       permits:
         index:
           permits: "Permits"

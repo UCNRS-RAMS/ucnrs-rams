@@ -7,6 +7,7 @@ class Manager::ReserveInfo::RulesAndRegulationsEditPresenter
   attr_reader :form
 
   delegate :id, :errors, to: :form
+  delegate :rules, :rules_url, :code_of_conduct_url, to: :reserve, prefix: true
 
   private
 
