@@ -70,7 +70,7 @@ RSpec.describe Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter do
 
   describe "#amenities_group_options" do
     it "is an array of time type options" do
-      reserve = create(:reserve, 
+      reserve = create(:reserve,
         amenity_group_label_1: "Label 1",
         amenity_group_label_2: "Label 2",
         amenity_group_label_3: "Label 3",
@@ -90,6 +90,26 @@ RSpec.describe Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter do
         ["Label 4", "4"],
         ["Label 5", "5"],
       ]
+    end
+  end
+
+  describe "#listing_photo" do
+    it "presents placeholder image if no listing_photo is attached" do
+      amenity = build(:amenity)
+      form = AmenityForm.new(amenity: amenity)
+      presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter.new(form: form)
+
+      expect(presenter.listing_photo).to eq("amenity_placeholder.jpg")
+    end
+
+    it "presents the correct avatar path if listing_photo is attached" do
+      amenity = create(:amenity, :with_listing_photo)
+      form = AmenityForm.new(amenity: amenity)
+      presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter.new(form: form)
+
+      expect(presenter.listing_photo).to match(
+        /\/tmp\/ucnrs-test\/medium_test-image.jpeg/
+      )
     end
   end
 end

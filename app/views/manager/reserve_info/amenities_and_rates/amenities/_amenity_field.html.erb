@@ -55,6 +55,16 @@
     </div>
   </div>
   <div class="row">
+    <div class="col form-group">
+      <%= form.label :listing_photo, "Amenity listing photo", class: "form-label" %>
+      <div class="reserve-pictures">
+        <%= image_tag @presenter.listing_photo, height: "100" %>
+        <%= form.file_field :listing_photo %>
+        <%= form.hidden_field :listing_photo_cache %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
     <div class="form-group">
       <%= form.label :units_type, t(".amenity_units_type"), class: "form-label" %>
       <%= form.select :units_type, presenter.units_type_options, { include_blank: t(".select_one") }, class: "form-input" %>

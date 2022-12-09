@@ -1,4 +1,8 @@
 class Amenity < ApplicationRecord
+  LISTING_PHOTO_PLACEHOLDER = "amenity_placeholder.jpg".freeze
+
+  mount_uploader :listing_photo, AmenityUploader
+
   belongs_to :reserve
   has_many :amenity_visits
   has_many :visits, through: :amenity_visits
@@ -62,6 +66,10 @@ class Amenity < ApplicationRecord
     vehicles_and_boats: "Vehicles & Boats",
     other_amenity: "Other Amenity",
   }
+
+  def listing_photo_placeholder
+    LISTING_PHOTO_PLACEHOLDER
+  end
 
   private
 
