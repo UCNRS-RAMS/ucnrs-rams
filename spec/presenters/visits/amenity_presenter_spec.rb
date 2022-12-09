@@ -3,10 +3,14 @@ require "rails_helper"
 RSpec.describe Visits::AmenityPresenter do
   describe "delegations to amenity" do
     subject { Visits::AmenityPresenter.new(build(:amenity)) }
-    it { is_expected.to delegate_method(:group_number).to(:amenity) }
+    it { is_expected.to delegate_method(:title).to(:amenity) }
     it { is_expected.to delegate_method(:description).to(:amenity) }
+    it { is_expected.to delegate_method(:group_number).to(:amenity) }
     it { is_expected.to delegate_method(:reserve).to(:amenity) }
     it { is_expected.to delegate_method(:comment).to(:amenity) }
+    it { is_expected.to delegate_method(:visit_id).to(:amenity) }
+    it { is_expected.to delegate_method(:listing_photo).to(:amenity) }
+    it { is_expected.to delegate_method(:listing_photo).to(:amenity) }
     it { is_expected.to delegate_method(:unit).to(:amenity).as(:units_type) }
     it { is_expected.to delegate_method(:period).to(:amenity).as(:time_type) }
   end
@@ -171,19 +175,23 @@ RSpec.describe Visits::AmenityPresenter do
     end
   end
 
-  describe "#image" do
-    it "is 'amenity_placeholder.jpg' when image_url is not set" do
-      amenity = create(:amenity)
-      presenter = Visits::AmenityPresenter.new(amenity)
-      
-      expect(presenter.image).to eq "amenity_placeholder.jpg"
+  describe "#listing_photo_src" do
+    context "when there is a listing photo uploaded" do
+      it "is the medium version of the listing_photo" do
+        amenity = create(:amenity, :with_listing_photo)
+        presenter = Visits::AmenityPresenter.new(amenity)
+
+        expect(presenter.listing_photo_src).to match(/medium_test-image.jpeg/)
+      end
     end
 
-    it "is equal to image_url when it is set" do
-      amenity = create(:amenity, image_url: "https://apod.nasa.gov/apod/image/2202/AuroraPillars_Correia_960.jpg")
-      presenter = Visits::AmenityPresenter.new(amenity)
-      
-      expect(presenter.image).to eq "https://apod.nasa.gov/apod/image/2202/AuroraPillars_Correia_960.jpg"
+    context "when there is no listing photo uploaded" do
+      it "is reserve's listing photo placeholder" do
+        amenity = build(:amenity)
+        presenter = Visits::AmenityPresenter.new(amenity)
+
+        expect(presenter.listing_photo_src).to eq("amenity_placeholder.jpg")
+      end
     end
   end
 
@@ -240,7 +248,7 @@ RSpec.describe Visits::AmenityPresenter do
       expect(presenter.period).to eq(Amenity.time_types[amenity.time_type])
     end
   end
-    
+
   describe "#unit" do
     it "should return amenity unit type" do
       amenity = create(:amenity)
@@ -282,7 +290,7 @@ RSpec.describe Visits::AmenityPresenter do
     it "should return 'per'" do
       amenity = create(:amenity)
       presenter = Visits::AmenityPresenter.new(amenity)
-      
+
       expect(presenter.per).to eq("per")
     end
   end
@@ -366,7 +374,7 @@ RSpec.describe Visits::AmenityPresenter do
       expect(presenter.selected_rate_description).to eq("#{rate.amount} #{presenter.per_sentence}")
     end
   end
-  
+
   describe "#amenity_rate_options" do
     it "should return array pair of rate_string and rate id for select options" do
       user = create(:user, institution: build(

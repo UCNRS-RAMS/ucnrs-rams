@@ -44,16 +44,8 @@ class AmenityPresenter
     end
   end
 
-  def with_image_url?
-    image_url.present?
-  end
-
-  def image
-    if with_image_url?
-      image_url
-    else
-      "amenity_placeholder.jpg"
-    end
+  def listing_photo_src
+    listing_photo.url(:medium) || listing_photo_placeholder
   end
 
   private

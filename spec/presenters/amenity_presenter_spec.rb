@@ -78,4 +78,24 @@ RSpec.describe AmenityPresenter do
       expect(presenter.per_sentence).to eq "per facility"
     end
   end
+
+  describe "#listing_photo_src" do
+    context "when there is a listing photo uploaded" do
+      it "is the medium version of the listing_photo" do
+        amenity = create(:amenity, :with_listing_photo)
+        presenter = AmenityPresenter.new(amenity)
+
+        expect(presenter.listing_photo_src).to match(/medium_test-image.jpeg/)
+      end
+    end
+
+    context "when there is no listing photo uploaded" do
+      it "is reserve's listing photo placeholder" do
+        amenity = build(:amenity)
+        presenter = AmenityPresenter.new(amenity)
+
+        expect(presenter.listing_photo_src).to eq("amenity_placeholder.jpg")
+      end
+    end
+  end
 end
