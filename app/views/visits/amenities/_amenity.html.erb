@@ -2,7 +2,7 @@
   <%= radio_button_tag "#{form.object_name}[amenity_id]", presenter.amenity_id, form.object.checked, id: presenter.checkbox_id, data: { "amenity-booking-target": "amenityRadioBtn", "amenity-category-target": "amenityRadioBtn" } %>
   <label for="<%= presenter.checkbox_id %>">
     <div class="amenity-padding">
-      <%= image_tag presenter.image, alt: t("amenities.alt_text.amenity_picture") %>
+      <%= image_tag presenter.listing_photo_src, alt: t("amenities.alt_text.amenity_picture") %>
       <div class="content" data-controller="toggle">
         <h3><%= presenter.title %></h3>
         <p class="description"><%= truncate(presenter.description, length: 150) %></p>
