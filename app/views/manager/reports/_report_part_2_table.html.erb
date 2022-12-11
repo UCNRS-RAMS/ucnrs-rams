@@ -8,7 +8,7 @@
   <tbody>
     <% presenter.report_part2_data.each do |institution_type, institutions| %>
       <tr class="subheader">
-          <td colspan="2"><%= t("universal.institution_type.#{institution_type}") %></td>
+          <td colspan="2"><%= t("universal.institution_types.#{institution_type}") %></td>
       </tr>
       <% institutions.each do |institution|  %>
         <tr class="text-muted">
