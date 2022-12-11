@@ -50,6 +50,7 @@ RSpec.describe "Manager Dashboard" do
     it "display user_visit for a visit", js: true do
       visit = create(:visit, reserve: reserve)
       create(:user_visit, visit: visit )
+
       sign_in(user)
       flow = Manager::DashboardFlow.new(page, reserve, user)
 
@@ -64,6 +65,7 @@ RSpec.describe "Manager Dashboard" do
       visit = create(:visit, reserve: reserve)
       create(:user_visit, visit: visit)
       create(:amenity_visit, visit: visit)
+
       sign_in(user)
       flow = Manager::DashboardFlow.new(page, reserve, user)
 
@@ -80,6 +82,7 @@ RSpec.describe "Manager Dashboard" do
       visit = create(:visit, reserve: reserve)
       create(:user_visit, visit: visit, arrives_at: visit.starts_at, departs_at: visit.ends_at)
       create(:amenity_visit, visit: visit)
+
       sign_in(user)
       flow = Manager::DashboardFlow.new(page, reserve, user)
 
@@ -102,10 +105,22 @@ RSpec.describe "Manager Dashboard" do
 
   describe "dashboard calendar filters" do
     it "display data on calendar after filtering type", js: true do
-      visit = create(:visit, reserve: reserve, starts_at: Time.current.beginning_of_month, ends_at: Time.current.end_of_week)
+      visit = create(:visit,
+        reserve: reserve,
+        starts_at: Time.current.beginning_of_month,
+        ends_at: Time.current.end_of_week
+      )
+      create(:user_visit,
+        visit: visit,
+        arrives_at: visit.starts_at,
+        departs_at: visit.ends_at
+      )
+      create(:amenity_visit,
+        visit: visit,
+        arrives: visit.starts_at,
+        departs: visit.ends_at
+      )
 
-      create(:user_visit, visit: visit, arrives_at: visit.starts_at, departs_at: visit.ends_at)
-      create(:amenity_visit, visit: visit)
       sign_in(user)
       flow = Manager::DashboardFlow.new(page, reserve, user)
 
@@ -131,8 +146,11 @@ RSpec.describe "Manager Dashboard" do
 
     it "display data on calendar after filtering status", js: true do
       visit_incomplete = create(:visit, reserve: reserve)
-      create(:user_visit, visit: visit_incomplete, arrives_at: visit_incomplete.starts_at, departs_at: visit_incomplete.ends_at)
-
+      create(:user_visit,
+        visit: visit_incomplete,
+        arrives_at: visit_incomplete.starts_at,
+        departs_at: visit_incomplete.ends_at
+      )
       create(:amenity_visit, visit: visit_incomplete, status: "approved")
 
       sign_in(user)
@@ -158,8 +176,10 @@ RSpec.describe "Manager Dashboard" do
     it "display only one visitor bar for all visits", js: true do
       visit_one = create(:visit, reserve: reserve)
       visit_two = create(:visit, reserve: reserve)
-      arr = [create(:user_visit, visit: visit_one, arrives_at: visit_one.starts_at, departs_at: visit_one.ends_at),
-      create(:user_visit, visit: visit_two, arrives_at: visit_one.starts_at, departs_at: visit_one.ends_at)]
+      arr = [
+        create(:user_visit, visit: visit_one, arrives_at: visit_one.starts_at, departs_at: visit_one.ends_at),
+        create(:user_visit, visit: visit_two, arrives_at: visit_one.starts_at, departs_at: visit_one.ends_at),
+      ]
 
       sign_in(user)
       flow = Manager::DashboardFlow.new(page, reserve, user)
