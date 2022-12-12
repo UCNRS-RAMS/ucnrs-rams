@@ -1758,6 +1758,7 @@ en:
             visible: "Visible"
             invoiceable: "Invoiceable"
             description_invoiceable_text: "Determines if amenity will show on invoice."
+            amenity_listing_photo: "Amenity listing photo"
         amenity:
           edit: "Edit"
         amenity_rate_categories:
