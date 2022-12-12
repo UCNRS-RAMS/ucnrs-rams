@@ -16,7 +16,7 @@ RSpec.describe ReservePersonnel, type: :model do
   end
 
   describe "associations" do
-    it { is_expected.to have_one_attached(:avatar) }
+    it { is_expected.to have_one_attached(:avatar_old) }
     it { is_expected.to belong_to(:reserve) }
     it { is_expected.to belong_to(:user) }
   end
@@ -31,6 +31,24 @@ RSpec.describe ReservePersonnel, type: :model do
       results = ReservePersonnel.receiving_new_visit_email
 
       expect(results).to match_array [personnel2, personnel4]
+    end
+  end
+
+  describe "#avatar_src" do
+    it "presents placeholder image if no avatar is attached" do
+      reserve_personnel = build(:reserve_personnel)
+
+      avatar_src = reserve_personnel.avatar_src
+
+      expect(avatar_src).to eq("personnel_avatar_placeholder.png")
+    end
+
+    it "presents the correct avatar_src path if avatar is attached" do
+      reserve_personnel = create(:reserve_personnel, :with_avatar)
+
+      avatar_src = reserve_personnel.avatar_src
+
+      expect(avatar_src).to match(/medium_test-image.jpeg/)
     end
   end
 end

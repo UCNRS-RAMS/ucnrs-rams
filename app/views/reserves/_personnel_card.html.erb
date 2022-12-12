@@ -1,6 +1,8 @@
 <div class="card">
   <div class="image">
-    <%= image_tag personnel_card.avatar, alt: t(".alt_text.personnel_picture") %>
+    <%= image_tag personnel_card.avatar_src, alt: t(".alt_text.personnel_picture"),
+      height: "100" , class: "avatar-img"
+    %>
   </div>
   <div class="details">
     <h2><%= personnel_card.full_name %></h2>

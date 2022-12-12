@@ -32,7 +32,7 @@ class Manager::ReserveInfo::StaffAndNotificationsController < ApplicationControl
 
   def update
     form = ReservePersonnelForm.new(reserve_personnel: reserve_personnel, params: reserve_personnel_params)
-    
+
     if form.save
       redirect_to manager_reserve_reserve_info_staff_and_notifications_path(current_reserve)
     else
@@ -72,6 +72,8 @@ class Manager::ReserveInfo::StaffAndNotificationsController < ApplicationControl
       :receive_new_visit_email,
       :phone_number,
       :email,
+      :avatar,
+      :avatar_cache,
     )
   end
 end

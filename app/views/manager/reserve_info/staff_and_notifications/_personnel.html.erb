@@ -1,5 +1,12 @@
 <tr>
-  <td><%= personnel.user_full_name %><br /><small><%= personnel.email %></small><br /><small><%= personnel.phone_number %></small></td>
+  <td><%= image_tag personnel.avatar_src, height: "55", class: "avatar-img" %></td>
+  <td>
+    <%= personnel.user_full_name %>
+    <br />
+    <small><%= personnel.email %></small>
+    <br />
+    <small><%= personnel.phone_number %></small>
+  </td>
   <td><%= image_tag personnel.icon(personnel.receive_new_visit_email), alt: t(personnel.icon_alt_i18n_key(personnel.receive_new_visit_email)) %></td>
   <td><%= image_tag personnel.icon(personnel.receive_incomplete_visit_email), alt: t(personnel.icon_alt_i18n_key(personnel.receive_incomplete_visit_email)) %></td>
   <td><%= image_tag personnel.icon(personnel.receive_update_email), alt: t(personnel.icon_alt_i18n_key(personnel.receive_update_email)) %></td>
