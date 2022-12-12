@@ -302,8 +302,8 @@ RSpec.describe Manager::DashboardShowPresenter do
   describe "#visit_request_day_count" do
     it "returns the number of visits submitted today" do
       reserve = create(:reserve)
-      create_list(:visit, 3, submitted_at: Time.current, status: :approved, reserve: reserve)
-      create_list(:visit, 2, submitted_at: Time.current - 1.hour, status: :in_review, reserve: reserve)
+      create_list(:visit, 3, submitted_at: Time.current.midday, status: :approved, reserve: reserve)
+      create_list(:visit, 2, submitted_at: Time.current.midday - 1.hour, status: :in_review, reserve: reserve)
       presenter = Manager::DashboardShowPresenter.new(reserve: reserve)
 
       results = presenter.visit_request_day_count
@@ -315,8 +315,8 @@ RSpec.describe Manager::DashboardShowPresenter do
   describe "#visit_request_day_count" do
     it "returns the number of visits submitted today for given reserve" do
       reserve = create(:reserve)
-      create_list(:visit, 3, submitted_at: Time.current, status: :approved, reserve: reserve)
-      create_list(:visit, 2, submitted_at: Time.current - 1.hour, status: :in_review, reserve: reserve)
+      create_list(:visit, 3, submitted_at: Time.current.midday, status: :approved, reserve: reserve)
+      create_list(:visit, 2, submitted_at: Time.current.midday - 1.hour, status: :in_review, reserve: reserve)
       presenter = Manager::DashboardShowPresenter.new(reserve: reserve)
 
       results = presenter.visit_request_day_count
