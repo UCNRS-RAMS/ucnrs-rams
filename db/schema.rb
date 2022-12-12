@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_08_075914) do
+ActiveRecord::Schema.define(version: 2022_12_12_003825) do
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
@@ -664,6 +664,7 @@ ActiveRecord::Schema.define(version: 2022_12_08_075914) do
     t.boolean "receive_new_visit_email", default: false, null: false
     t.string "phone_number", limit: 25
     t.string "email"
+    t.string "avatar"
     t.index ["reserve_id"], name: "reserve"
     t.index ["user_id", "reserve_id"], name: "index_reserve_personnel_on_user_id_and_reserve_id", unique: true
     t.index ["user_id"], name: "user"
