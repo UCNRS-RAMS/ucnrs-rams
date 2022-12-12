@@ -40,4 +40,14 @@
       <%= form.label(:receive_scuba_email, t(".receive_scuba_email"), class: "form-inline-label") %>
     </div>
   </div>
+  <div class="row">
+    <div class="col form-group">
+      <%= form.label :avatar, t(".avatar"), class: "form-label" %>
+      <div class="reserve-pictures">
+        <%= image_tag form.object.avatar_src, height: "100", class: "avatar-img" %>
+        <%= form.file_field :avatar %>
+        <%= form.hidden_field :avatar_cache %>
+      </div>
+    </div>
+  </div>
 </div>

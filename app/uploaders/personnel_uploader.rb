@@ -1,0 +1,35 @@
+class PersonnelUploader < CarrierWave::Uploader::Base
+  include CarrierWave::MiniMagick
+
+  def store_dir
+    [
+      ("uploads" if Rails.env.development?),
+      "reserve_id_#{model.reserve_id || 'null'}",
+      "personnel_id_#{model.id || 'null'}",
+    ].join("/")
+  end
+
+  def cache_dir
+    [
+      "tmp",
+      "reserve_id_#{model.reserve_id || 'null'}",
+      "personnel_id_#{model.id || 'null'}",
+    ].join("/")
+  end
+
+  def extension_allowlist
+    %w(jpg jpeg gif png)
+  end
+
+  def content_type_allowlist
+    [/image\//]
+  end
+
+  version :medium do
+    process resize_to_fill: [200,200]
+  end
+
+  version :small do
+    process resize_to_fill: [100,100]
+  end
+end

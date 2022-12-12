@@ -1,5 +1,8 @@
 class ReservePersonnel < ApplicationRecord
-  has_one_attached :avatar
+  AVATAR_PLACEHOLDER = "personnel_avatar_placeholder.png".freeze
+
+  mount_uploader :avatar, PersonnelUploader
+  has_one_attached :avatar_old
 
   validates :user, presence: true
   validates :user, uniqueness: { scope: :reserve_id }
@@ -17,5 +20,9 @@ class ReservePersonnel < ApplicationRecord
 
   def self.receiving_new_visit_email
     where(receive_new_visit_email: true)
+  end
+
+  def avatar_src
+    avatar_url(:medium) || AVATAR_PLACEHOLDER
   end
 end

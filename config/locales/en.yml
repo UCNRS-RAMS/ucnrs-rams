@@ -1920,6 +1920,7 @@ en:
           receive_iacuc_email: "IACUC"
           receive_drone_email: "Drone"
           receive_scuba_email: "Scuba"
+          avatar: "Avatar"
       reserve_addendums:
         index:
           reserve_addendums: "Reserve Addendums"

@@ -6,7 +6,7 @@ class ReservesController < ApplicationController
   end
 
   def show
-    reserve = Reserve.includes(personnel: [:user, :avatar_attachment]).find(reserve_id)
+    reserve = Reserve.includes(personnel: [:user]).find(reserve_id)
 
     @presenter = ReserveShowPresenter.new(reserve: reserve)
   end

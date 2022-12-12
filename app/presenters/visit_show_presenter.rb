@@ -48,7 +48,7 @@ class VisitShowPresenter
   end
 
   def visit_reserve_personnel
-    reserve.personnel.includes([:avatar_attachment]).map do |personnel|
+    reserve.personnel.map do |personnel|
       ReservePersonnelPresenter.new(personnel)
     end
   end
