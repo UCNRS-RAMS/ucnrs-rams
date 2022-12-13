@@ -14,7 +14,8 @@ class ReserveShowPresenter
     :address_postal_code,
     :state,
     :country,
-    :avatar,
+    :logo_url,
+    :logo_placeholder,
     :listing_photo_placeholder,
     :managing_campus,
     :description,
@@ -38,6 +39,10 @@ class ReserveShowPresenter
 
   def large_hero_photo_src
     reserve_large_hero_photo_url || "/assets/#{reserve_large_hero_photo_placeholder}"
+  end
+
+  def logo_src
+    reserve_logo_url(:medium) || reserve_logo_placeholder
   end
 
   private

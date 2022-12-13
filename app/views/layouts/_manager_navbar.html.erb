@@ -2,9 +2,14 @@
   <div class="container">
     <div class="navbar-content">
       <div class="left-side">
-        <%= image_tag "navbar-logo.svg", alt: t("alt.ucnrs_logo"), height: "57px", class: "logo" %>
-        <h1 class="title">RAMS</h1>
-        <small id="title-extra">University of California<br />Natural Reserve System</small>
+        <% if current_reserve.logo_url %>
+          <%= image_tag current_reserve.logo_url(:medium), alt: "#{current_reserve.name} logo", height: "65px", class: "logo" %>
+        <% else %>
+          <%= image_tag "navbar-logo.svg", alt: t("alt.ucnrs_logo"), height: "65px", class: "logo" %>
+        <% end %>
+        <small id="title-extra">
+          <strong><%= current_reserve.name %></strong><br /><%= current_reserve.managing_campus.name %>
+        </small>
       </div>
       <div class="right-side">
         <ul class="navbar-nav">
@@ -17,12 +22,12 @@
                   class:"nav-link #{active_class_for("projects")}" %>
           </li>
           <li> <%= link_to I18n.t(".navbar.link.invoices"), "#", class:"nav-link" %> </li>
-          <li> 
-            <%= link_to I18n.t(".navbar.link.reports"), 
-                  report_part_1_manager_reserve_report_path(current_reserve.id, Date.current.year), 
-                  class:"nav-link #{active_class_for("reports")}" %> 
+          <li>
+            <%= link_to I18n.t(".navbar.link.reports"),
+                  report_part_1_manager_reserve_report_path(current_reserve.id, Date.current.year),
+                  class:"nav-link #{active_class_for("reports")}" %>
           </li>
-          <li> 
+          <li>
             <%= link_to I18n.t(".navbar.link.reserve_info"),
                   edit_manager_reserve_reserve_info_reserve_details_path(current_reserve),
                   class:"nav-link #{active_class_for("reserve_details")}" %>

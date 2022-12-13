@@ -11,7 +11,8 @@ RSpec.describe ReserveShowPresenter do
     it { is_expected.to delegate_method(:address_postal_code).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:state).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:country).to(:reserve).with_prefix(true) }
-    it { is_expected.to delegate_method(:avatar).to(:reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:logo_url).to(:reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:logo_placeholder).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:managing_campus).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:description).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:large_hero_photo_url).to(:reserve).with_prefix(true) }
@@ -109,6 +110,26 @@ RSpec.describe ReserveShowPresenter do
         presenter = ReserveShowPresenter.new(reserve: reserve)
 
         expect(presenter.large_hero_photo_src).to eq("/assets/reserve-hero-placeholder.jpg")
+      end
+    end
+  end
+
+  describe "#logo_src" do
+    context "when a reserve logo is uploaded" do
+      it "is the reserve logo's url" do
+        reserve = create(:reserve, :with_logo)
+        presenter = ReserveShowPresenter.new(reserve: reserve)
+
+        expect(presenter.logo_src).to match(/medium_test-image.jpeg/)
+      end
+    end
+
+    context "when there is no uploaded reserve logo" do
+      it "is the path of the reserve logo placeholder" do
+        reserve = build(:reserve)
+        presenter = ReserveShowPresenter.new(reserve: reserve)
+
+        expect(presenter.logo_src).to eq("reserve_logo_placeholder.png")
       end
     end
   end

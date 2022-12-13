@@ -8,13 +8,21 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
-  padding: 1.5rem 1rem;
+  padding: 1.25rem 1rem;
   width: 100%;
 }
 
 nav.main-navigation {
   color: $navbar-link-color;
   font-size: 1rem;
+
+  #title-extra {
+      strong {
+        font-size: 0.8125rem;
+        font-weight: $medium;
+      }
+
+  }
 
   .left-side {
     align-items: center;
@@ -107,7 +115,7 @@ nav.main-navigation::after {
     #title-extra {
       display: none;
     }
-    
+
     .navbar-nav {
       .nav-link {
         margin: 0 .625rem;
@@ -133,7 +141,7 @@ nav.main-navigation::after {
     h1 {
       font-size: 1.53125rem;
     }
-  
+
     small {
       font-size: .65625rem;
     }
