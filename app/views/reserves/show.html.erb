@@ -61,7 +61,7 @@
     <section class="right-side">
       <button class="button-main"><%= t(".schedule_a_visit") %></button>
       <section class="reserve-info">
-        <%= image_tag @presenter.reserve_avatar, alt: t(".alt_text.reserve_logo") %>
+        <%= image_tag @presenter.logo_src, alt: t(".alt_text.reserve_logo"), height: 100 %>
         <div>
           <h2><%= @presenter.reserve_name %></h2>
           <span><%= @presenter.reserve_address_line_1 %></span>
@@ -70,11 +70,11 @@
           <span><%= @presenter.reserve_country %></span>
         </div>
         <%= link_to(
-              t(".get_directions"), 
+              t(".get_directions"),
               reserve_more_information_index_path(@presenter.reserve_id),
-              { 
-                class: "icon-map", 
-                data: { action: "click->tab-bar#changeTab", "tab-bar-id": "more_information", turbo_frame: "details" } 
+              {
+                class: "icon-map",
+                data: { action: "click->tab-bar#changeTab", "tab-bar-id": "more_information", turbo_frame: "details" }
               }
             )
         %>
