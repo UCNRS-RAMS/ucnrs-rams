@@ -1,0 +1,13 @@
+@mixin middle-bars($bg-color, $border-color, $border-width: 0.125rem) {
+  background-color: $bg-color;
+  border-bottom: $border-width solid $border-color;
+  border-top: $border-width solid $border-color;
+
+  .bars-text {
+    color: $black;
+  }
+
+  .status-bar-text {
+    color: $bg-color;
+  }
+}

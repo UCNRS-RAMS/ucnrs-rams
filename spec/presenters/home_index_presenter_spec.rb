@@ -37,6 +37,26 @@ RSpec.describe HomeIndexPresenter do
     end
   end
 
+  describe "#calendar_button_class" do
+    it "returns 'inactive' class" do
+      presenter = HomeIndexPresenter.new(user: user)
+
+      output = "inactive"
+
+      expect(presenter.calendar_button_class).to eq output
+    end
+  end
+
+  describe "#list_button_class" do
+    it "returns 'active' class" do
+      presenter = HomeIndexPresenter.new(user: user)
+
+      output = "active"
+
+      expect(presenter.list_button_class).to eq output
+    end
+  end
+
   describe "#invoice_selected" do
     it "return 'selected' if invoice_filter is equal to given option" do
       presenter = HomeIndexPresenter.new(user: user, invoice_filter: "status" )

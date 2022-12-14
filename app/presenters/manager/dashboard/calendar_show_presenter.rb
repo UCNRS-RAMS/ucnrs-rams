@@ -26,6 +26,10 @@ class Manager::Dashboard::CalendarShowPresenter
     @current_date_visits = []
   end
 
+  def calendar_path
+    manager_reserve_dashboard_calendar_path(reserve_id: reserve.id)
+  end
+
   attr_reader :type, :status, :current_date, :reserve, :start_date, :month_amenities, :current_date_visits
   def calendar_params
     {

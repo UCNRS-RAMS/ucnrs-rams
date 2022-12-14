@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   }
   root to: "home#index"
 
+  namespace :home do
+    resource :calendar, only: [:show], controller: "calendar"
+  end
   resources :institutions, only: [:index, :new, :create]
   resources :states, only: [:index]
   resources :users, only: [:index]

@@ -39,6 +39,9 @@
       },
       "user_input": "params[:id]",
       "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
       "note": "Dynamic Render Path"
     },
     {
@@ -59,6 +62,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -79,6 +85,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -99,6 +108,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -119,6 +131,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -139,6 +154,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -159,6 +177,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -200,6 +221,9 @@
       },
       "user_input": "params[:id]",
       "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
       "note": "Dynamic Render Path"
     },
     {
@@ -220,6 +244,9 @@
       },
       "user_input": ":role",
       "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
       "note": "Ignore role in user-visit related strong params assignment"
     },
     {
@@ -240,6 +267,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -260,6 +290,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -280,6 +313,9 @@
       },
       "user_input": "project_permit_answers.map do\n ActiveRecord::Base.sanitize_sql([\"(?,?,?,NOW(),NOW())\", answer.project_id, answer.permit_id, answer.answer])\n end.join(\",\\n  \")",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -289,7 +325,7 @@
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/shared/visits/_form.html.erb",
-      "line": 11,
+      "line": 12,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(partial => Manager::Visits::VisitsFormPresenter.new(:user => current_user, :form => VisitForm.new(:user => current_user, :params => ({ :id => params[:visit_id] }), :editing => true)).project_partial_path, { :locals => ({ :presenter => Manager::Visits::VisitsFormPresenter.new(:user => current_user, :form => VisitForm.new(:user => current_user, :params => ({ :id => params[:visit_id] }), :editing => true)), :form => form }) })",
       "render_path": [
@@ -321,6 +357,9 @@
       },
       "user_input": "params[:visit_id]",
       "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
       "note": ""
     },
     {
@@ -341,6 +380,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -361,6 +403,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -381,6 +426,9 @@
       },
       "user_input": "visit_reserve_answers.map do\n ActiveRecord::Base.sanitize_sql([\"(?,?,?,?,?,?)\", answer.visit_id, answer.reserve_question_id, answer.text_answer, answer.boolean_answer, Time.current, Time.current])\n end.join(\",\\n  \")",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -401,6 +449,9 @@
       },
       "user_input": ":role",
       "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
       "note": "Ignore role in user-visit related strong params assignment"
     },
     {
@@ -421,6 +472,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -441,6 +495,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -482,6 +539,9 @@
       },
       "user_input": "params[:visit_id]",
       "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
       "note": ""
     },
     {
@@ -502,6 +562,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -522,6 +585,9 @@
       },
       "user_input": "project_reserve_answers.map do\n ActiveRecord::Base.sanitize_sql([\"(?,?,?,?,?,?)\", answer.project_id, answer.reserve_question_id, answer.text_answer, answer.boolean_answer, Time.current, Time.current])\n end.join(\",\\n  \")",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -542,6 +608,9 @@
       },
       "user_input": ":role",
       "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
       "note": ""
     },
     {
@@ -572,6 +641,9 @@
       },
       "user_input": "(Unresolved Model).new.policy_url",
       "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
       "note": "Todo"
     },
     {
@@ -581,7 +653,7 @@
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/shared/visits/_form.html.erb",
-      "line": 25,
+      "line": 27,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(partial => Manager::Visits::VisitsFormPresenter.new(:user => current_user, :form => VisitForm.new(:user => current_user, :params => ({ :id => params[:visit_id] }), :editing => true)).reserve_partial_path, { :locals => ({ :presenter => Manager::Visits::VisitsFormPresenter.new(:user => current_user, :form => VisitForm.new(:user => current_user, :params => ({ :id => params[:visit_id] }), :editing => true)), :form => form }) })",
       "render_path": [
@@ -613,6 +685,9 @@
       },
       "user_input": "params[:visit_id]",
       "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
       "note": ""
     },
     {
@@ -633,6 +708,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -653,6 +731,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -673,6 +754,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -693,7 +777,44 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "d72950254cf979d53d6f4dadf1f847a60f42c20bae4259a27864759d7457e289",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/home/index.html.erb",
+      "line": 3,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(partial => HomeIndexPresenter.new(:news_articles => NewsArticle.fake, :user => current_user, :visit_filter => visit_filter, :visit_page => visit_page_number, :invoice_filter => invoice_filter, :invoice_page => invoice_page_number, :partial => params[:partial_name]).partial_name, { :locals => ({ :presenter => HomeIndexPresenter.new(:news_articles => NewsArticle.fake, :user => current_user, :visit_filter => visit_filter, :visit_page => visit_page_number, :invoice_filter => invoice_filter, :invoice_page => invoice_page_number, :partial => params[:partial_name]) }) })",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "HomeController",
+          "method": "index",
+          "line": 6,
+          "file": "app/controllers/home_controller.rb",
+          "rendered": {
+            "name": "home/index",
+            "file": "app/views/home/index.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "home/index"
+      },
+      "user_input": "params[:partial_name]",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": "\"Dynamic render path\""
     },
     {
       "warning_type": "Mass Assignment",
@@ -713,6 +834,9 @@
       },
       "user_input": ":role",
       "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
       "note": "Ignore role in user-related strong param assignment"
     },
     {
@@ -733,6 +857,9 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     },
     {
@@ -763,6 +890,9 @@
       },
       "user_input": "(Unresolved Model).new.url",
       "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
       "note": "Todo"
     },
     {
@@ -772,7 +902,7 @@
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/shared/visits/_form.html.erb",
-      "line": 59,
+      "line": 61,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(action => Manager::Visits::VisitsFormPresenter.new(:user => current_user, :form => VisitForm.new(:user => current_user, :params => ({ :id => params[:visit_id] }), :editing => true)).save_partial_path, {})",
       "render_path": [
@@ -804,6 +934,9 @@
       },
       "user_input": "params[:visit_id]",
       "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
       "note": "False Positive"
     },
     {
@@ -824,9 +957,12 @@
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
       "note": ""
     }
   ],
-  "updated": "2022-11-18 00:09:40 -0800",
-  "brakeman_version": "5.2.1"
+  "updated": "2022-12-14 02:55:25 -0900",
+  "brakeman_version": "5.4.0"
 }

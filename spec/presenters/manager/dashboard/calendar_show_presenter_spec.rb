@@ -155,10 +155,11 @@ RSpec.describe Manager::Dashboard::CalendarShowPresenter do
   end
 
   describe "#calendar_path" do
-    it "return calendar show page path for manager view" do
+    it "returns dashboard_calendar_path" do
       show_presenter = Manager::Dashboard::CalendarShowPresenter.new(reserve: reserve)
 
       output = "/manager/reserves/#{reserve.id}/dashboard/calendar"
+
       expect(show_presenter.calendar_path).to eq output
     end
   end

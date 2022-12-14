@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "home-visits" do %>
+  <section class="calendar-container">
+    <%= turbo_frame_tag 'calendar', src: home_calendar_path(start_date: Date.current) %>
+  </section>
+<% end %>

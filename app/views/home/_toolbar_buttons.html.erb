@@ -1,0 +1,14 @@
+<div class="toolbar-buttons">
+  <ul class="link-group">
+    <li id="dashboard">
+      <%= link_to image_tag("list.svg", alt: I18n.t(".alt.icon_dash"), class: "tab-icon", width: 16, height: 16),
+        root_path(partial_name: "visits"), method: :get, class: presenter.list_button_class
+      %>
+    </li>
+    <li id="calendar">
+      <%= link_to image_tag("icon-calendar-off.svg", alt: I18n.t(".alt.icon_calendar"), class: "tab-icon"),
+        root_path(partial_name: "calendar"), method: :get, class: presenter.calendar_button_class
+      %>
+    </li>
+  </ul>
+</div>
