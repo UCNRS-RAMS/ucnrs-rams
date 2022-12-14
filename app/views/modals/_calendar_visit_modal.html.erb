@@ -20,7 +20,7 @@
     <div class="vertical-padding">
       <p class="clr-gray"><em><%= t(".project", id: @presenter.project_id, project_type: @presenter.project_type ) %></em></p>
       <%= link_to @presenter.project_title, manager_reserve_project_path(reserve_id: @presenter.reserve_id, id: @presenter.project_id), class: "clr-blue", data: { turbo: "false" } %>
-      <p class="clr-gray"><em><%= @presenter.user_full_name %> - <%= @presenter.user.institution_name %></em></p>
+      <p class="clr-gray"><em><%= @presenter.role ? @presenter.user_role : @presenter.user_full_name %> - <%= @presenter.user.institution_name %></em></p>
     </div>
     <hr>
     <h5><%= t(".reservation_member") %></h5>

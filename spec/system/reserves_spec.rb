@@ -36,7 +36,6 @@ RSpec.describe "Reserves", type: :system, js: true do
 
       flow.go_to_calendar
       expect(flow).to be_displaying_calendar_section
-      expect(page).to be_axe_clean
 
       flow.go_to_waivers
       expect(flow).to be_displaying_waivers_section
@@ -52,6 +51,63 @@ RSpec.describe "Reserves", type: :system, js: true do
 
       flow.go_to_amenities
       expect(flow).to be_displaying_amenities_section
+    end
+  end
+
+  describe "dashboard calendar" do
+    it "display user_visit for a visit", js: true do
+      reserve = create(:reserve)
+      visit = create(:visit, reserve: reserve)
+      create(:user_visit, visit: visit )
+
+      flow = ReservesFlow.new(page)
+
+      flow.visit_reserves_show_page(reserve.id)
+      flow.go_to_calendar
+
+      expect(flow).to have_visit_visitor("1")
+      expect(flow).to have_visitor_bar(visit.starts_at.strftime("%Y-%m-%d"))
+    end
+
+    it "display amenity_visit for a visit", js: true do
+      reserve = create(:reserve)
+      visit = create(:visit, reserve: reserve)
+      create(:user_visit, visit: visit)
+      create(:amenity_visit, visit: visit)
+      flow = ReservesFlow.new(page)
+
+      flow.visit_reserves_show_page(reserve.id)
+      flow.go_to_calendar
+
+      expect(flow).to have_amenity_visitor
+      expect(flow).to have_one_amenity_visitor
+    end
+  end
+
+  describe "dashboard calendar modal" do
+    it "display modal after click on user_visit and amenity_visit bar", js: true do
+      reserve = create(:reserve)
+      user = create(:user, :confirmed)
+      sign_in(user)
+      visit = create(:visit, reserve: reserve)
+      create(:user_visit, visit: visit, arrives_at: visit.starts_at, departs_at: visit.ends_at)
+      create(:amenity_visit, visit: visit)
+      flow = ReservesFlow.new(page)
+
+      flow.visit_reserves_show_page(reserve.id)
+      flow.go_to_calendar
+
+      page.first(".visitor-count").click
+      expect(flow).to have_modal
+
+      page.click_on("Cancel")
+      expect(flow).not_to have_modal
+
+      page.first(".amenity-count").click
+      expect(flow).to have_modal
+
+      page.click_on("Close")
+      expect(flow).not_to have_modal
     end
   end
 end

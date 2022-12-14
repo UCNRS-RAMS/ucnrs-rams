@@ -34,7 +34,7 @@ class Visit < ApplicationRecord
 
   delegate :short_name, :name, to: :reserve, prefix: true
   delegate :title, to: :project, prefix: true
-  delegate :full_name, to: :user, prefix: true
+  delegate :full_name, :role, to: :user, prefix: true
 
   def self.recent_start_date_first
     order(start_date: :desc)

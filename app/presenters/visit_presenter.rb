@@ -3,8 +3,9 @@
 class VisitPresenter
   include Rails.application.routes.url_helpers
 
-  def initialize(visit)
+  def initialize(visit, role: false)
     @visit = visit
+    @role = role
   end
 
   delegate_missing_to :visit
@@ -99,9 +100,10 @@ class VisitPresenter
     visit.incomplete? ? edit_visit_path(visit) : visit_path(visit)
   end
 
+  attr_reader :visit, :role
+
   private
 
-  attr_reader :visit
 
   delegate :status,
     to: :visit,

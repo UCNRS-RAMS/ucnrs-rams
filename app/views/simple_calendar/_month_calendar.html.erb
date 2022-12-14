@@ -3,7 +3,7 @@
     <%= link_to(calendar.url_for_previous_view) do %>
       <%= image_tag "arrow-left.svg", alt: t(".alt.left_facing_arrow") %>
     <% end %>
-    <%= form_with url: manager_reserve_dashboard_calendar_path, method: :get, local: true do |f| %>
+    <%= form_with url: @presenter.calendar_path, method: :get, local: true do |f| %>
       <%=  f.month_field :start_date, value: "#{start_date.strftime('%Y-%m')}", onclick: "showPicker()" , onchange: "this.form.requestSubmit();", class: "calendar-title" %>
     <% end %>
     <%= link_to(calendar.url_for_next_view) do %>

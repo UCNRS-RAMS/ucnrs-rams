@@ -30,6 +30,202 @@ main {
 }
 
 .reserves-show {
+
+  .simple-calendar {
+    text-align: center;
+
+    .calendar-heading {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      margin: 2rem;
+    }
+
+    .calendar-title {
+      border: none;
+      margin: 0px 70px 0px 70px;
+    }
+
+    .table {
+      border: 0px;
+      td {
+        border: 1px solid $dark-bluegray;
+        color: $semidark-bluegray;
+        padding-left: 0px;
+        padding-right: 0px;
+      }
+
+      th {
+        border: 0px;
+        color: $semidark-bluegray;
+        font-size: 0.8rem;
+        font-weight: $medium;
+        text-align: center;
+      }
+    }
+
+    .day {
+      div:first-child {
+        margin-top: 0.3rem;
+      }
+
+      div:last-child {
+        margin-bottom: 0.3rem;
+      }
+    }
+
+    .prev-month {
+      background: $light-light-blue;
+    }
+
+    .next-month {
+      background: $light-light-blue;
+    }
+
+    .date-text {
+      font-size: 0.65rem;
+    }
+
+    .bar {
+      font-size: 0.7rem;
+      height: 25px;
+      margin: 0.4rem 0rem;
+      position: relative;
+    }
+
+    .visitor-count {
+      background-color: $black;
+    }
+
+    .amenity-count {
+      background-color: $sky-blue;
+    }
+
+    .left-radius {
+      border-bottom-left-radius: 15px;
+      border-top-left-radius: 15px;
+    }
+
+    .right-radius {
+      border-bottom-right-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+
+    .disable-link {
+      cursor: default;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .bars-text {
+      background-color: transparent;
+      color: $white;
+      left: 20px;
+      margin-top: 0.1rem;
+      position: absolute;
+      white-space: nowrap;
+      z-index: 1;
+    }
+  }
+
+  .modal {
+    .clr-gray {
+      color: $dark-bluegray;
+    }
+
+    .clr-blue {
+      color: $cornflower;
+      text-decoration: none;
+    }
+
+    .calendar-modal {
+      .container {
+        display: flex;
+        justify-content: space-between;
+
+        .align-right{
+          text-align: right ;
+        }
+
+        .left-spacer {
+          padding-left: 10px;
+        }
+      }
+      p {
+        margin: 0px;
+      }
+    }
+
+    .bg-approved {
+      background-color: $green;
+    }
+
+    .bg-in_review {
+      background-color: $yellow;
+    }
+
+    .bg-cancelled {
+      background-color: $pink;
+    }
+
+    .bg-denied {
+      background-color: $blue;
+    }
+
+    .bg-incomplete {
+      background-color: $red-alert;
+    }
+
+    .btn-status {
+      align-items: center;
+      border: 1px solid $dark-bluegray;
+      border-radius: 1.5rem;
+      color: $black;
+      display: flex;
+      height: 20px;
+      justify-content: center;
+      padding: 0.2rem 1rem;
+      text-decoration-line: none;
+      width: 8rem;
+    }
+
+    .vertical-padding {
+      padding: 8px 0px;
+    }
+
+    .black-btn {
+      background-color: $dark-bluegray;
+      border-radius: 4px;
+      color: $white !important;
+    }
+
+    .header {
+      border-bottom: 2px solid $dark-bluegray;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .display-flex {
+      border-bottom: 2px solid $dark-bluegray;
+      border-left: 10px solid $lightgreen;
+      display: flex;
+      justify-content: space-between;
+      padding: 0px 10px;
+
+      p {
+        margin: 0px;
+      }
+
+      p:last-child {
+        padding-right: 7rem;
+      }
+    }
+
+    .text {
+      padding: 2.25rem;
+    }
+  }
+
   nav {
     color: $white;
     height: 450px;
