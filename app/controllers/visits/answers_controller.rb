@@ -21,6 +21,8 @@ class Visits::AnswersController < ApplicationController
   end
 
   def answer_params
+    return {} if params[:visit].blank?
+    
     params.require(:visit).permit(
       permit_answers: {},
       reserve_answers: {},
