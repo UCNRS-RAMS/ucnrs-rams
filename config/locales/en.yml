@@ -1987,6 +1987,7 @@ en:
       project:
         project_title: "Project"
       user_visits:
+        click_add_visitor: "%{or}Click (Add Visitor) button to add this person as a one time guest (these guests have no login privileges in RAMS)."
         team_member:
           add_to_visitor: "Add To Visitor List"
         guest:

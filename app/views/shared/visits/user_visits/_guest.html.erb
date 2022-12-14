@@ -15,13 +15,12 @@
         <button><%= t(".add_visitor") %></button>
       </div>
       <span>
-        <%= t(".cannot_find_them") %>
         <% if @presenter.can_add_project_user? %>
+          <%= t(".cannot_find_them") %>
           <%= link_to t(".new_team_member"), project_team_memberships_path(presenter.visit.project.id), target: "_blank" %>
-        <% else %>
-          <%= link_to t(".create_new_user"), @presenter.new_user_visit_path({ add_visitor_partial: params[:add_visitor_partial], guest_name: @presenter.guest_name, show_add_guest_modal: true }), method: :get %>
         <% end %>
+        <strong><%= @presenter.click_add_visitor_text %></strong>
       </span>
-    <%end%>
+    <% end %>
   </section>
 </turbo-frame>
