@@ -6,9 +6,15 @@ class Manager::ReserveInfo::AmenitiesAndRatesIndexPresenter
   attr_reader :reserve
 
   def amenities
-    amenities_scope.map do |amenity|
-      AmenityPresenter.new(amenity)
-    end
+    amenities_scope
+      .map{ |amenity| AmenityPresenter.new(amenity) }
+      .group_by do |amenity|
+        if amenity.disable
+          I18n.t("manager.reserve_info.amenities_and_rates.amenities.disabled_amenities")
+        else
+          I18n.t("manager.reserve_info.amenities_and_rates.amenities.active_amenities")
+        end
+      end
   end
 
   def amenity_rate_categories
@@ -34,6 +40,7 @@ class Manager::ReserveInfo::AmenitiesAndRatesIndexPresenter
   def amenities_scope
     reserve
       .amenities
+      .order(:disable)
       .in_sort_order
   end
 

@@ -1752,11 +1752,14 @@ en:
           about_amenity_rates_paragraph1: "For each rate category you can specify the amount charged for each amenity. You can edit these amounts directly on an invoice if you would like to make an adjustment. In the case of amenities that either have no charge, or that you would like to enter in manually, please enter in the rate as 0."
         amenities:
           order: "Order"
+          visible: "Visible"
           name: "Name"
           capacity: "Capacity"
           units_time: "units/time"
           current_active_amenities: "Current Active Amenities"
           retired_amenities: "Retired Amenities"
+          active_amenities: "Active Amenities"
+          disabled_amenities: "Disabled Amenities"
           amenity_field:
             select_one: "Select One"
             enabled: "Enabled"

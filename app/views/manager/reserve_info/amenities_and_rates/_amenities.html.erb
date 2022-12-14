@@ -3,14 +3,23 @@
     <thead>
       <tr>
         <th><%= t(".order") %></th>
+        <th><%= t(".visible") %></th>
         <th><%= t(".name") %></th>
         <th><%= t(".capacity") %></th>
         <th><%= t(".units_time") %></th>
-        <th><%= link_to t("new"), new_manager_reserve_reserve_info_amenity_path(current_reserve), data: { "turbo-frame": "modal-content" } %></th>
+        <th>
+          <%= link_to t("new"),
+            new_manager_reserve_reserve_info_amenity_path(current_reserve),
+            data: { "turbo-frame": "modal-content" }
+          %>
+        </th>
       </tr>
     </thead>
     <tbody>
-      <%= render partial: "amenity", collection: amenities %>
+      <% amenities.each do |visibility, amenities| %>
+        <tr class="header"><th colspan="6"><%= visibility %></th></tr>
+        <%= render partial: "amenity", collection: amenities %>
+      <% end %>
     </tbody>
   </table>
 </turbo-frame>

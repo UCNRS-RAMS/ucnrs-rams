@@ -12,8 +12,22 @@ RSpec.describe Manager::ReserveInfo::AmenitiesAndRatesIndexPresenter, type: :pre
 
       results = presenter.amenities
 
-      expect(results).to all(be_a(AmenityPresenter))
-      expect(results.map(&:id)).to eq [amenity2.id, amenity3.id, amenity1.id]
+      expect(results.values.flatten).to all(be_a(AmenityPresenter))
+      expect(results.values.flatten.map(&:id)).to eq [amenity2.id, amenity3.id, amenity1.id]
+    end
+
+    it "returns given reserve amenities grouped according to if its visible or not" do
+      reserve = create(:reserve)
+      amenity1 = create(:amenity, reserve: reserve, disable: true)
+      amenity2 = create(:amenity, reserve: reserve, disable: false)
+      amenity3 = create(:amenity, reserve: reserve, disable: true)
+      presenter = Manager::ReserveInfo::AmenitiesAndRatesIndexPresenter.new(reserve: reserve)
+
+      results = presenter.amenities
+
+      expect(results.keys).to eq ["Active Amenities", "Disabled Amenities"]
+      expect(results["Active Amenities"].map(&:id)).to match_array [amenity2.id]
+      expect(results["Disabled Amenities"].map(&:id)).to match_array [amenity1.id, amenity3.id]
     end
   end
 

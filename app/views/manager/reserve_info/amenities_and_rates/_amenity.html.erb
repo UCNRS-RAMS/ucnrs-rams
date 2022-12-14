@@ -1,7 +1,19 @@
-<tr id="<%= dom_id amenity%>" >
+<tr id="<%= dom_id amenity %>" >
   <td><%= amenity.sort_order %></td>
+  <td>
+    <%= image_tag amenity.visible_icon(amenity.visible),
+      alt: t(amenity.visible_icon_alt_i18n_key(amenity.visible)),
+      width: 14,
+      height: 14
+    %>
+  </td>
   <td><%= amenity.title %></td>
   <td><%= amenity.total_capacity %></td>
   <td><%= amenity.per_sentence %></td>
-  <td><%= link_to t("edit"), edit_manager_reserve_reserve_info_amenity_path(current_reserve, amenity.id), data: { "turbo-frame": "modal-content" } %></td>
+  <td>
+    <%= link_to t("edit"),
+      edit_manager_reserve_reserve_info_amenity_path(current_reserve, amenity.id),
+      data: { "turbo-frame": "modal-content" }
+    %>
+  </td>
 </tr>

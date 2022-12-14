@@ -98,4 +98,36 @@ RSpec.describe AmenityPresenter do
       end
     end
   end
+
+  describe "#visible_icon" do
+    it "returns check category icon if the supplied value is true" do
+      amenity = create(:amenity, visible: true)
+      presenter = AmenityPresenter.new(amenity)
+
+      expect(presenter.visible_icon).to eq "check.svg"
+    end
+
+    it "returns check category icon if the supplied value is true" do
+      amenity = create(:amenity, visible: false)
+      presenter = AmenityPresenter.new(amenity)
+
+      expect(presenter.visible_icon).to eq "dot.svg"
+    end
+  end
+
+  describe "#visible_icon_alt_i18n_key" do
+    it "returns the key into the translations for an checked category" do
+      amenity = create(:amenity, visible: true)
+      presenter = AmenityPresenter.new(amenity)
+
+      expect(presenter.visible_icon_alt_i18n_key).to eq "alt.checked"
+    end
+
+    it "returns the key into the translations for an unchecked category" do
+      amenity = create(:amenity, visible: false)
+      presenter = AmenityPresenter.new(amenity)
+
+      expect(presenter.visible_icon_alt_i18n_key).to eq "alt.unchecked"
+    end
+  end
 end
