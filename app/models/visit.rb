@@ -11,6 +11,13 @@ class Visit < ApplicationRecord
     "incomplete" => "incomplete",
   }.freeze
 
+  CALENDAR_FILTERS = {
+    "all" => nil,
+    "approved" => "approved",
+    "in_review" => "in_review",
+    "denied" => "cancelled",
+  }.freeze
+
   belongs_to :user
   belongs_to :project
   belongs_to :reserve
@@ -77,7 +84,7 @@ class Visit < ApplicationRecord
       .left_joins(:reserve)
       .select("reserves.id as reserve_id, reserves.name as reserve_name")
       .group("reserves.id").order("reserves.name")
-      .map { |x| [x.reserve_name, x.reserve_id] }
+      .map { |x| [x.reserve_short_name, x.reserve_id] }
       .to_h
   end
 

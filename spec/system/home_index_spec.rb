@@ -36,6 +36,89 @@ RSpec.describe "Home Index" do
     end
   end
 
+  describe "home calendar" do
+    it "show visit calendar", js: true do
+      user = create(:user, :confirmed)
+      flow = HomeIndexFlow.new(page)
+      sign_in(user)
+
+      flow.visit_home_index_page
+      flow.dismiss_modal
+      flow.click_calendar_button
+      
+      expect(flow).to be_on_home_index_page
+      expect(flow).to have_calendar
+    end
+
+    it "display visit bars from visit start_date and end_date", js: true do
+      user = create(:user, :confirmed)
+      visit = create(:visit, user: user, starts_at: Time.current, ends_at: 1.week.from_now)
+      visit_date_range = (visit.starts_at.to_date..visit.ends_at.to_date).map{ |date| date.strftime("%Y-%m-%d") }
+      flow = HomeIndexFlow.new(page)
+      sign_in(user)
+
+      flow.visit_home_index_page
+      flow.dismiss_modal
+      flow.click_calendar_button
+      
+      expect(flow).to be_on_home_index_page
+      expect(flow).to have_calendar
+
+      visit_date_range.each do |date| 
+        expect(flow).to have_visit_bar(date)
+      end
+      expect(flow).to have_visit_status_bar(visit.starts_at.strftime("%Y-%m-%d"), visit.status)
+    end
+  end
+
+  describe "home calendar filters" do
+    it "display data on calendar after filtering visit status", js: true do
+      user = create(:user, :confirmed)
+      visit1 = create(:visit, starts_at: Time.current, ends_at: Time.current.end_of_week, user: user, status: :incomplete)
+      visit2 = create(:visit, starts_at: Time.current.beginning_of_month, ends_at: Time.current.end_of_week, user: user, status: :approved)
+      visit2_date_range = (visit2.starts_at.to_date..visit2.ends_at.to_date).map{ |date| date.strftime("%Y-%m-%d") }
+      
+      sign_in(user)
+      flow = HomeIndexFlow.new(page)
+
+      flow.visit_home_index_page
+      flow.dismiss_modal
+      flow.click_calendar_button
+
+      page.find("#visit_status").select("Approved")
+
+      visit2_date_range.each do |date| 
+        expect(flow).to have_visit_bar(date)
+      end
+      expect(flow).to have_visit_status_bar(visit2.starts_at.strftime("%Y-%m-%d"), visit2.status)
+      expect(flow).not_to have_visit_status_bar(visit1.starts_at.strftime("%Y-%m-%d"), visit1.status)
+    end
+
+    it "display data on calendar after filtering reserve", js: true do
+      user = create(:user, :confirmed)
+      reserve1 = create(:reserve, short_name: "reserve1")
+      reserve2 = create(:reserve, short_name: "reserve2")
+      visit1 = create(:visit, starts_at: Time.current, ends_at: Time.current.end_of_week, user: user, status: :incomplete, reserve: reserve1)
+      visit2 = create(:visit, starts_at: Time.current.beginning_of_month, ends_at: Time.current.end_of_week, user: user, status: :approved, reserve: reserve2)
+      visit1_date_range = (visit1.starts_at.to_date..visit1.ends_at.to_date).map{ |date| date.strftime("%Y-%m-%d") }
+      
+      sign_in(user)
+      flow = HomeIndexFlow.new(page)
+
+      flow.visit_home_index_page
+      flow.dismiss_modal
+      flow.click_calendar_button
+
+      page.find("#visit_status").select("reserve1")
+
+      visit1_date_range.each do |date| 
+        expect(flow).to have_visit_bar(date)
+      end
+      expect(flow).to have_visit_status_bar(visit1.starts_at.strftime("%Y-%m-%d"), visit1.status)
+      expect(flow).not_to have_visit_status_bar(visit2.starts_at.strftime("%Y-%m-%d"), visit2.status)
+    end
+  end
+
   describe "welcome modal" do
     it "should display on login only", js: true do
       user = create(:user, :confirmed)

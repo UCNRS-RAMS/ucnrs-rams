@@ -8,7 +8,8 @@ class HomeController < ApplicationController
       visit_filter: visit_filter,
       visit_page: visit_page_number,
       invoice_filter: invoice_filter,
-      invoice_page: invoice_page_number
+      invoice_page: invoice_page_number,
+      partial: params[:partial_name]
     )
   end
 

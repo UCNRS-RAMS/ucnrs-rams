@@ -1,8 +1,9 @@
 class HomeIndexPresenter
+  include Rails.application.routes.url_helpers
   VISIT_LIMIT_FOR_INDEX = 10.freeze
   INVOICE_LIMIT_FOR_INDEX = 5.freeze
 
-  def initialize(user:, visit_page: nil,invoice_page: nil, visit_filter: nil, invoice_filter: nil, news_articles: nil)
+  def initialize(user:, visit_page: nil,invoice_page: nil, visit_filter: nil, invoice_filter: nil, news_articles: nil, partial: "visits")
     @news_articles = news_articles
     @user = user
     @visit_filter = visit_filter
@@ -13,9 +14,10 @@ class HomeIndexPresenter
     @invoice_reserve_filter = filter_type(invoice_filter) == :reserve ? reserve_id(invoice_filter) : nil
     @visit_status_filter = filter_type(visit_filter) == :status ? visit_filter : nil
     @visit_reserve_filter = filter_type(visit_filter) == :reserve ? reserve_id(visit_filter) : nil
+    @partial_name = partial || "visits"
   end
 
-  attr_reader :visit_filter, :visit_status_filter, :visit_reserve_filter, :user, :visit_page, :invoice_page, :invoice_filter, :invoice_reserve_filter, :invoice_status_filter
+  attr_reader :visit_filter, :visit_status_filter, :visit_reserve_filter, :user, :visit_page, :invoice_page, :invoice_filter, :invoice_reserve_filter, :invoice_status_filter, :partial_name
 
   def visits
     visit_scope.map do |visit|
@@ -47,6 +49,14 @@ class HomeIndexPresenter
     invoice_scope.map do |invoice|
       InvoicePresenter.new(invoice)
     end
+  end
+
+  def list_button_class
+    "active"
+  end
+
+  def calendar_button_class
+    "inactive"
   end
 
   def news_articles

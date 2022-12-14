@@ -1,6 +1,7 @@
 @import "variables";
 @import "mixins/tables";
 @import "mixins/pagination";
+@import "mixins/calendar";
 
 .home-index {
   @include pagination;
@@ -25,6 +26,202 @@
         background-color: $section-background-even;
         flex: 4;
         padding-right: 6.25rem;
+      }
+
+      .calendar-container {
+        .display-none {
+          display: none;
+        }
+
+        .simple-calendar {
+          .calendar-heading {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            margin: 2rem;
+          }
+
+          .calendar-title {
+            border: none;
+            margin: 0px 70px 0px 70px;
+          }
+
+          text-align: center;
+
+          .table {
+            border: 0px;
+            td {
+              border: 1px solid $dark-bluegray;
+              color: $semidark-bluegray;
+              padding-left: 0px;
+              padding-right: 0px;
+            }
+
+            th {
+              border: 0px;
+              color: $semidark-bluegray;
+              font-size: 0.8rem;
+              font-weight: $medium;
+              text-align: center;
+            }
+          }
+
+          .day {
+            div:first-child {
+              margin-top: 0.3rem;
+            }
+
+            div:last-child {
+              margin-bottom: 0.3rem;
+            }
+          }
+
+          .prev-month {
+            background: $light-light-blue;
+          }
+
+          .next-month {
+            background: $light-light-blue;
+          }
+
+          .date-text {
+            font-size: 0.65rem;
+          }
+
+          .bar {
+            font-size: 0.7rem;
+            height: 25px;
+            margin: 0.4rem 0rem;
+            position: relative;
+
+            .status-bar {
+              bottom: 0 !important;
+              border: none;
+              left: 0 !important;
+              margin: 0px !important;
+              padding-left: 0px !important;
+              width: 100% !important;
+            }
+          }
+
+          .approved-bar {
+            background-color: $lightgreen !important;
+            color: $green !important;
+          }
+
+          .in_review-bar {
+            background-color: $gold !important;
+            color: $yellow !important;
+          }
+
+          .cancelled-bar {
+            background-color: $pink !important;
+            color: $light-pink !important;
+          }
+
+          .denied-bar {
+            background-color: $dark-sky-blue !important;
+            color: $blue !important;
+          }
+
+          .incomplete-bar {
+            background-color: $red !important;
+            color: $light-red !important;
+          }
+
+          [data-value-visit-status-value="approved"] {
+            @include middle-bars($green, $lightgreen);
+          }
+
+          [data-value-visit-status-value="in_review"] {
+            @include middle-bars($yellow, $gold);
+          }
+
+          [data-value-visit-status-value="cancelled"] {
+            @include middle-bars($light-pink, $pink);
+          }
+
+          [data-value-visit-status-value="denied"] {
+            @include middle-bars($blue, $dark-sky-blue);
+          }
+
+          [data-value-visit-status-value="incomplete"] {
+            @include middle-bars($red-alert, $red);
+          }
+
+          .left-radius-incomplete {
+            border-left: 0.125rem solid $red;
+          }
+
+          .right-radius-incomplete {
+            border-right: 0.125rem solid $red;
+          }
+
+          .left-radius-denied {
+            border-left: 0.125rem solid $dark-sky-blue;
+          }
+
+          .right-radius-denied {
+            border-right: 0.125rem solid $dark-sky-blue;
+          }
+
+          .left-radius-cancelled {
+            border-left: 0.125rem solid $pink;
+          }
+
+          .right-radius-cancelled {
+            border-right: 0.125rem solid $pink;
+          }
+
+          .left-radius-in_review {
+            border-left: 0.125rem solid $gold;
+          }
+
+          .right-radius-in_review {
+            border-right: 0.125rem solid $gold;
+          }
+
+          .left-radius-approved {
+            border-left: 0.125rem solid $lightgreen;
+          }
+
+          .right-radius-approved {
+            border-right: 0.125rem solid $lightgreen;
+          }
+
+          .left-bar {
+            border-bottom-left-radius: 15px;
+            border-top-left-radius: 15px;
+            margin-left: 5px;
+          }
+
+          .right-bar {
+            border-bottom-right-radius: 15px;
+            border-top-right-radius: 15px;
+            margin-right: 5px;
+          }
+
+          .disable-link {
+            cursor: default;
+            opacity: 0;
+            pointer-events: none;
+          }
+
+          .border {
+            border-bottom: 0.125rem solid transparent;
+            border-top: 0.125rem solid transparent;
+          }
+
+          .bars-text {
+            background-color: transparent;
+            font-weight: 600;
+            left: 20px;
+            margin-top: 0.3rem;
+            position: absolute;
+            white-space: nowrap;
+            z-index: 1;
+          }
+        }
       }
 
       header {
@@ -62,11 +259,49 @@
         }
 
         .toolbar-buttons {
-          flex: none;
+          .link-group {
+            display: flex;
+            margin-bottom: 0;
+            margin-top: 0;
+
+            li {
+              list-style: none;
+
+              a {
+                align-items: center;
+                border: 1px solid $gray;
+                display: flex;
+                height: 30px;
+                justify-content: center;
+                width: 35px;
+              }
+
+              a.active {
+                background-color: $gray;
+                .tab-icon {
+                  filter: brightness(0) invert(1);
+                }
+              }
+            }
+
+            li:first-child a {
+              border-bottom-left-radius: 0.25rem;
+              border-top-left-radius: 0.25rem;
+            }
+
+            li:last-child a {
+              border-bottom-right-radius: 1rem;
+              border-top-right-radius: 1rem;
+            }
+
+            li:not(:first-child) a {
+              margin-left: -1px;
+            }
+          }
         }
       }
 
-      table {
+      .invoices {
         @include table-style1;
       }
     }
@@ -94,7 +329,8 @@
   }
 
   .news {
-    background: no-repeat top left / cover url(asset-path("latest-news-background.jpg"));
+    background: no-repeat top left / cover
+      url(asset-path("latest-news-background.jpg"));
     padding: 4.75rem 6.25rem;
 
     header {
@@ -155,7 +391,6 @@ section.visits {
 @media screen and (max-width: 768px) {
   .home-index {
     .content {
-
       & > * {
         padding: 1.325rem;
 

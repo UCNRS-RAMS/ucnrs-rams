@@ -15,6 +15,35 @@ class HomeIndexFlow
     page.find(".modal button.active", text: "Let's go!").click
   end
 
+  def within(selector, &block)
+    begin
+      @page_scope = selector
+      block.call
+    ensure
+      @page_scope = nil
+    end
+  end
+
+  def click_calendar_button
+    page.find("#calendar").click
+  end
+
+  def has_visit_bar?(date)
+    within "#{date}" do
+      page.has_css?(".has-events")
+    end
+  end
+
+  def has_visit_status_bar?(date, status)
+    within "#{date}" do
+      page.has_css?("a>.bar>.bars-text", text: status.upcase)
+    end
+  end
+
+  def has_calendar?
+    page.has_css?(".simple-calendar")
+  end
+
   def on_home_index_page?
     page.has_css?("body.home.home-index")
   end

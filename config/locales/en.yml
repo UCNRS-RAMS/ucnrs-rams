@@ -119,13 +119,24 @@ en:
   forms:
     select_one: "Please Select One"
   home:
-    index:
+    visit_filter:
+      labels:
+        by_status: "By status:"
+        by_reserve: "By reserve:"
+    calendar:
+      show:
+        title: "Visit Requests"
+    visits:
+      title: "Visit Requests"
+      most_recent_filter: "Most recent"
       labels:
         by: "By:"
         by_reserve: "By reserve:"
-      visits:
-        title: "Visit Requests"
-        most_recent_filter: "Most recent"
+    index:
+      title: "Visit Requests"
+      labels:
+        by: "By:"
+        by_reserve: "By reserve:"
       invoices:
         title: "Invoices"
       visit_requests:

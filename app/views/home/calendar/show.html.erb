@@ -1,0 +1,17 @@
+<%= turbo_frame_tag 'calendar' do %>
+  <header>
+    <h1>
+      <%= t(".title") %>
+    </h1>
+    <%= form_with url: home_calendar_path, method: :get, data: { "turbo-frame": "calendar" } do %>
+      <%= hidden_field_tag "start_date", @presenter.start_date %>
+      <%= render partial: "home/visit_filter", locals: { presenter: @presenter } %>
+    <% end %>
+    <%= render partial: "home/toolbar_buttons", locals: { presenter: @presenter } %>
+  </header>
+  <%= month_calendar @presenter.calendar_params do |date, visits| %>
+    <% @presenter.add_date_visits(date: date, visits: visits) %>
+    <span class="date-text" ><strong><%= date.day %></strong></span>
+    <%= render partial: "bar", collection: @presenter.visits_link_params %>
+  <% end %>
+<% end %>

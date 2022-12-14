@@ -175,8 +175,8 @@ RSpec.describe Visit, type: :model do
   describe ".reserve_list_for_user" do
     it "returns an hash of reserve ids and reserve names of the user visits" do
       user = create(:user)
-      reserve1 = create(:reserve, name: "Snake River Reserve")
-      reserve2 = create(:reserve, name: "Under the Hill Reserve")
+      reserve1 = create(:reserve, short_name: "SRR")
+      reserve2 = create(:reserve, short_name: "UHR")
       reserve3 = create(:reserve)
       visit1 = create(:visit, user: user, reserve: reserve1)
       visit2 = create(:visit, user: user, reserve: reserve2)
@@ -185,8 +185,8 @@ RSpec.describe Visit, type: :model do
       results = Visit.reserve_list_for_user(user)
 
       expected_results = {
-        "Snake River Reserve" => reserve1.id,
-        "Under the Hill Reserve" => reserve2.id,
+        "SRR" => reserve1.id,
+        "UHR" => reserve2.id,
       }
 
       expect(results).to eq expected_results

@@ -1,0 +1,12 @@
+<select id="visit_status" name="visit_filter" aria-label="visit_filter" onchange="this.form.requestSubmit()">
+  <optgroup label="<%= t(".labels.by_status") %>">
+    <% presenter.visit_filter_options.each do |key, value| %>
+      <option <%= presenter.visit_selected(value) %> value="<%= value %>"><%= key.humanize %></option>
+    <% end %>
+  </optgroup>
+  <optgroup label="<%= t(".labels.by_reserve") %>">
+    <% presenter.visits_reserve_list.each do |key, value| %>
+      <option <%= presenter.visit_selected("reserve_#{value}") %> value="reserve_<%= value %>"><%= key %></option>
+    <% end %>
+  </optgroup>
+</select>
