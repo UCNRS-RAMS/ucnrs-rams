@@ -68,6 +68,14 @@ def initialize(current_user:, add_visitor_partial:, show_add_guest_modal: false,
     end
   end
 
+  def click_add_visitor_text
+    if can_add_project_user?
+      I18n.translate("shared.visits.user_visits.click_add_visitor", or: "or ")
+    else
+      I18n.translate("shared.visits.user_visits.click_add_visitor", or: "")
+    end
+  end
+
   def project_team_members
     visit.project.team_memberships.includes(:institution, :user).map do |user_team_membership|
       Projects::TeamMembershipPresenter.new(

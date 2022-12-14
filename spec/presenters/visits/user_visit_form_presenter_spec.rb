@@ -30,6 +30,41 @@ RSpec.describe Visits::UserVisitFormPresenter do
     end
   end
 
+  describe "#click_add_visitor_text" do
+    it "returns click add visitor text with 'or' if user can add project user" do
+      user = create(:user, :confirmed)
+      project = create(:project)
+      membership = create(
+        :project_team_membership,
+        can_add_project_user: true,
+        project: project,
+        user: user)
+      visit = create(:visit, project: project)
+      params = { visit_id: visit.id }
+      presenter = Visits::UserVisitFormPresenter.new(current_user: user, add_visitor_partial: "team_membership", form: UserVisitForm.new(params: params))
+      output = "or Click (Add Visitor) button to add this person as a one time guest (these guests have no login privileges in RAMS)."
+
+      expect(presenter.click_add_visitor_text).to eq output
+    end
+
+    it "returns click add visitor text without 'or' if user cannot add project user" do
+      user = create(:user, :confirmed)
+      project = create(:project)
+      membership = create(
+        :project_team_membership,
+        can_add_project_user: false,
+        project: project,
+        user: user)
+      visit = create(:visit, project: project)
+      params = { visit_id: visit.id }
+      presenter = Visits::UserVisitFormPresenter.new(current_user: user, add_visitor_partial: "team_membership", form: UserVisitForm.new(params: params))
+      output = "Click (Add Visitor) button to add this person as a one time guest (these guests have no login privileges in RAMS)."
+
+      expect(presenter.click_add_visitor_text).to eq output
+    end
+  end
+  
+
   describe "#user_visit_form_path" do
     it "returns user_visit_path with add_visitor_partial as query string" do
       visit = create(:visit)
