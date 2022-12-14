@@ -1,4 +1,7 @@
 class AmenityPresenter
+  CHECK_VISIBLE_ICON = "check.svg".freeze
+  UNCHECK_VISIBLE_ICON = "dot.svg".freeze
+
   def initialize(amenity)
     @amenity = amenity
   end
@@ -46,6 +49,21 @@ class AmenityPresenter
 
   def listing_photo_src
     listing_photo.url(:medium) || listing_photo_placeholder
+  end
+
+  def visible_icon
+    if visible
+      CHECK_VISIBLE_ICON
+    else
+      UNCHECK_VISIBLE_ICON
+    end
+  end
+
+  def visible_icon_alt_i18n_key
+    {
+      CHECK_VISIBLE_ICON => "alt.checked",
+      UNCHECK_VISIBLE_ICON => "alt.unchecked",
+    }[visible_icon]
   end
 
   private
