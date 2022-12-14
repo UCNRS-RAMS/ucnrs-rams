@@ -7,6 +7,15 @@ class ReservesFlow
     page.visit("/reserves")
   end
 
+  def within(selector, &block)
+    begin
+      @page_scope = selector
+      block.call
+    ensure
+      @page_scope = nil
+    end
+  end
+
   def on_reserves_page?
     page.has_css?("body.reserves.reserves-index")
   end
@@ -32,7 +41,7 @@ class ReservesFlow
   end
 
   def displaying_calendar_section?
-    page.has_css?("section.calendar.calendar-show")
+    page.has_css?(".simple-calendar")
   end
 
   def go_to_waivers
@@ -57,6 +66,28 @@ class ReservesFlow
 
   def displaying_more_information_section?
     page.has_css?("section.addendums.addendums-index")
+  end
+
+  def has_visit_visitor?(count)
+    page.has_css?(".visitor-count", text: "#{count} Visitors")
+  end
+
+  def has_visitor_bar?(date_id, count = 1)
+    within "#{date_id}" do
+      page.has_css?(".visitor-count", text: "#{count} Visitor")
+    end
+  end
+
+  def has_amenity_visitor?
+    page.has_css?(".amenity-count")
+  end
+
+  def has_one_amenity_visitor?
+    page.has_text?("1 visitor")
+  end
+
+  def has_modal?
+    page.has_css?(".calendar-modal")
   end
 
   private

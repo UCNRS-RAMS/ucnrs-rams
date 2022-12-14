@@ -66,6 +66,10 @@ class Manager::Dashboard::CalendarShowPresenter
     )
   end
 
+  def calendar_path
+    manager_reserve_dashboard_calendar_path(reserve_id: reserve)
+  end
+
   private
 
   def visits_link_classes(classes = "")

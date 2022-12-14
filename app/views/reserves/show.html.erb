@@ -20,7 +20,7 @@
           </li>
           <li>
             <%= link_to t(".link.calendar"),
-              reserve_calendar_path(@presenter.reserve_id),
+              reserve_calendar_path(@presenter.reserve_id, partial_name: "calendar", start_date: Date.today),
               {
                 id: "calendar",
                 data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }

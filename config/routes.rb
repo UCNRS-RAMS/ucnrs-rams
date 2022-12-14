@@ -25,7 +25,9 @@ Rails.application.routes.draw do
   resources :reserves, only: [:index, :show] do
     resources :amenities, only: [:index], controller: "reserves/amenities"
     resource :reserve_inputs, only: [:show], controller: "reserves/reserve_inputs"
-    resource :calendar, only: [:show], controller: "reserves/calendar"
+    resource :calendar, only: [:show], controller: "reserves/calendar" do
+      resources :visits, only: [:index, :show], controller: "reserves/calendar/visits"
+    end
     resources :waivers, only: [:index], controller: "reserves/waivers"
     resource :rules_and_regulations, only: [:show], controller: "reserves/rules_and_regulations"
     resources :more_information, only: [:index], controller: "reserves/addendums"
