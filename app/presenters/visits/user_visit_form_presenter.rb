@@ -76,6 +76,14 @@ def initialize(current_user:, add_visitor_partial:, show_add_guest_modal: false,
     end
   end
 
+  def add_visitor_text(user)
+    if visitor?(user)
+      I18n.translate(".shared.visits.user_visits.team_member.add_to_visitor_again")
+    else
+      I18n.translate(".shared.visits.user_visits.team_member.add_to_visitor")
+    end
+  end
+
   def visitor?(user)
     visit&.user_visits&.find_by(user_id: user.id).present?
   end

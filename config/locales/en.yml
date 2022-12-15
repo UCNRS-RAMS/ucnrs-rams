@@ -1989,6 +1989,7 @@ en:
       user_visits:
         team_member:
           add_to_visitor: "Add To Visitor List"
+          add_to_visitor_again: "Add To Visitor List Again"
         guest:
           guest_name: "Visitor Name"
           role: "Role"
