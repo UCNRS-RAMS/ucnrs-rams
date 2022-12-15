@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class InvoiceFilter  
+class InvoiceFilter
   DEFAULT_SORT_BY_FILTER = "created_recent_first"
   DEFAULT_INVOICE_STATUS_FILTER = "all"
 
@@ -33,7 +33,7 @@ class InvoiceFilter
     filter&.dig(:visit_date_begin)
   end
 
-  def visit_date_end_filter 
+  def visit_date_end_filter
     filter&.dig(:visit_date_end)
   end
 
