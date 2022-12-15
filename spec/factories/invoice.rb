@@ -17,5 +17,6 @@ FactoryBot.define do
         )
       end
     end
+    invoiced_on { Time.current }
   end
 end

@@ -1,10 +1,10 @@
 class Manager::InvoicesController < ApplicationController
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!
+  layout "manager"
 
   def index
-    @form = InvoiceForm.new(params: { visit_id: params[:visit_id] }, remove_filter: true)
-    @presenter = Manager::Visits::InvoicesIndexPresenter.new(visit: visit, invoice_filter: invoice_filter, user: current_user, form: @form)
+    @presenter = Manager::InvoicesIndexPresenter.new(reserve: current_reserve, user: current_user, page: page_number, filter: filter)
   end
 
   def new
@@ -58,7 +58,23 @@ class Manager::InvoicesController < ApplicationController
     Visit.find(params[:visit_id])
   end
 
-  def invoice_filter
-    params[:invoice_filter]
+  def page_number
+    params[:page]
+  end
+
+  def filter
+    if params[:filter].present?
+      params.require(:filter).permit(
+        :reserve,
+        :invoice_search,
+        :invoice_status,
+        :date_range_type,
+        :visit_date_begin,
+        :visit_date_end,
+        :invoice_date_end,
+        :invoice_date_begin,
+        :sort_by
+      )
+    end
   end
 end

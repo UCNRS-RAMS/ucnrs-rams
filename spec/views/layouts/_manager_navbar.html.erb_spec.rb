@@ -15,7 +15,10 @@ RSpec.describe "manager navbar", type: :view do
       "Projects",
       href: "/manager/reserves/#{reserve.id}/projects"
     )
-    expect(rendered).to have_link("Invoices", href: "#")
+    expect(rendered).to have_link(
+      "Invoices",
+      href: "/manager/reserves/#{reserve.id}/invoices"
+    )
     expect(rendered).to have_link(
       "Reports",
       href: "/manager/reserves/#{reserve.id}/reports/#{Date.current.year}/report_part_1",

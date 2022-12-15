@@ -1091,6 +1091,27 @@ en:
   manager:
     no_amenity_visit: "Invoice has no amenity visit"
     invoices:
+      search:
+        show_options: "Show options"
+        hide_options: "Hide options"
+        reserve: "Reserve"
+        status: "Status"
+        clear: "Clear"
+        search: "Search"
+        visit_start_date: "Visit Start Date"
+        visit_end_date: "Visit End Date"
+        invoice_date: "Invoice Date"
+        show: "Show"
+        sort_by: "Sort By"
+      index:
+        invoice_number: "Invoice Number"
+        invoices: "Invoices"
+        status: "Status"
+        invoice_date: "Invoice Date"
+        applicant: "Applicant"
+        project: "Project"
+        user: "User"
+        amount: "Amount"
       invoice_payment:
         edit: "Edit Payment"
       action_buttons:
@@ -1127,34 +1148,6 @@ en:
         institution: "Institution"
         email: "Email"
         project_role: "Project Role"
-      index:
-        invoices: "Invoices"
-        status: "Status"
-        invoice_id: "Invoice ID"
-        invoice_date: "Invoice Date"
-        amenity_visit_date: "Amenity Visit Date"
-        balance: "Balance"
-        project_invoices: "Project Invoices"
-      invoice_amenity_visit_table_row:
-        yes_opt: "yes"
-        no_opt: "no"
-      totals:
-        visit_total: "Visit Total"
-        invoiced: "Invoiced"
-        paid: "Paid"
-        total_balance: "Total Balance"
-        create: "Create An Invoice"
-      invoice_amenity_visits_table:
-        create_amenity: "Generate An Invoice"
-        amenities: "Amenities"
-        invoice: "Invoice"
-        status: "Status"
-        amenity_name: "Amenity Name"
-        units: "Units"
-        count: "Count"
-        rate: "Rate"
-        subtotal: "Subtotal"
-        total: "Total"
       show:
         invoice: "Invoice %{id}-%{version}"
       edit:
@@ -1189,12 +1182,44 @@ en:
       amenity_visit_forms:
         amenities: "Amenities"
         total: "Total"
+      invoice:
+        alt:
+          right_facing_arrow: "Right facing Arrow"
     not_a_manager: "You are not a manager"
     not_a_manager_of_reserve: "You are not a manager of the reserve."
     not_editable: "Visit is not editable after due date"
     update_message: "Updates were successfully made."
     error_message: "Required fields are missing"
     visits:
+      invoices:
+        index:
+          invoices: "Invoices"
+          status: "Status"
+          invoice_id: "Invoice ID"
+          invoice_date: "Invoice Date"
+          amenity_visit_date: "Amenity Visit Date"
+          balance: "Balance"
+          project_invoices: "Project Invoices"
+        invoice_amenity_visit_table_row:
+          yes_opt: "yes"
+          no_opt: "no"
+        totals:
+          visit_total: "Visit Total"
+          invoiced: "Invoiced"
+          paid: "Paid"
+          total_balance: "Total Balance"
+          create: "Create An Invoice"
+        invoice_amenity_visits_table:
+          create_amenity: "Generate An Invoice"
+          amenities: "Amenities"
+          invoice: "Invoice"
+          status: "Status"
+          amenity_name: "Amenity Name"
+          units: "Units"
+          count: "Count"
+          rate: "Rate"
+          subtotal: "Subtotal"
+          total: "Total"
       log:
         system: "System"
       activity_and_notes:

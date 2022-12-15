@@ -18,7 +18,7 @@
         </tr>
       </thead>
       <tbody>
-        <%= render partial: "manager/invoices/invoice_amenity_visit_table_row", collection: presenter.amenity_visit_presenters, as: :amenity_visit %>
+        <%= render partial: "manager/visits/invoices/invoice_amenity_visit_table_row", collection: presenter.amenity_visit_presenters, as: :amenity_visit %>
         <tr class="amenity-total">
           <td colspan=5></td>
           <td><%= t(".total") %></td>

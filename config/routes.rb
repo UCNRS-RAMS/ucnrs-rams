@@ -63,7 +63,7 @@ Rails.application.routes.draw do
 
   namespace :manager do
     resources :amenities, only: [:index]
-
+    
     resources :reserves, only: [:show] do
       resources :team_memberships, only: [:edit, :update, :destroy], controller: "projects/team_memberships"
       resource :dashboard, only: [:show], controller: "dashboard" do
@@ -73,6 +73,7 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :invoices, only: [:index]
       resources :projects, only: [:index, :show] do
         resource :summary, only: [:show], controller: "projects/summary"
         resource :detail, only: [:edit, :update], controller: "projects/detail"
@@ -87,7 +88,7 @@ Rails.application.routes.draw do
       resources :user_visits, only: [:edit, :update], controller: "visits/user_visits"
       resources :visits, only: [:show, :destroy] do
         resources :user_visits, only: [:new, :index, :create, :destroy], controller: "visits/user_visits"
-        resources :invoices do
+        resources :invoices, except: [:index] do
           resources :payments, controller: "invoices/payments"
         end
 
@@ -96,6 +97,7 @@ Rails.application.routes.draw do
         resource :detail, only: [:edit, :update], controller: "visits/detail"
         resources :activity_and_notes, only: [:index, :create, :show], controller: "visits/activity_and_notes"
         resources :reserve_info, only: [:index, :create], controller: "visits/reserve_info"
+        resources :invoices, only: [:index], controller: "visits/invoices"
       end
 
       resources :reports, only: [:show, :update] do
