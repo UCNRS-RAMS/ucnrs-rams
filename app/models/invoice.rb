@@ -1,16 +1,30 @@
 class Invoice < ApplicationRecord
+  NUMERIC_SEARCH_PATTERN = /\A\d+\z/
   STATUS_FILTERS = {
     "invoice_recent" => nil,
     "paid" => "paid",
     "balance_due" => "due",
   }.freeze
 
-  has_many :invoice_recipients, dependent: :destroy
   OPTIONS_FILTERS = {
     "visit_invoices" => "visit_invoices",
     "project_invoices" => "project_invoices"
   }.freeze
 
+  STATUS_OPTIONS = {
+    "All" => "all",
+    "Paid" => "paid",
+    "Pending" => "balance_due",
+  }
+
+  SORT_OPTIONS = {
+    "Date Created" => :created_recent_first,
+    "Amount" => :sort_by_amount,
+    "Balance Due" => :sort_by_balance_due,
+    "Invoice Number" => :sort_by_invoice_number
+  }
+
+  has_many :invoice_recipients, dependent: :destroy
   has_many :users, through: :invoice_recipients
   has_many :invoice_payments, dependent: :destroy
   has_many :amenity_visits, dependent: :nullify
@@ -60,5 +74,111 @@ class Invoice < ApplicationRecord
 
   def invoice_total
     amenity_visits.sum(&:subtotal)
+  end
+
+  def self.searching_term(search_filter)
+    if search_filter.present? && NUMERIC_SEARCH_PATTERN === search_filter
+      where(id: search_filter)
+    elsif search_filter.present?
+      left_outer_joins(visit: [{ user: :institution }, :project])
+        .where(
+          Arel.sql(<<-end_sql)
+          invoices.notes LIKE "%#{search_filter}%" OR
+          projects.title LIKE "%#{search_filter}%" OR
+          users.last_name LIKE "%#{search_filter}%" OR
+          users.email LIKE "%#{search_filter}%" OR
+          institutions.name LIKE "%#{search_filter}%"
+          end_sql
+        )
+        .group(:id)
+    else
+      all
+    end
+  end
+  
+  def self.sort_using(sort_option = nil)
+    case sort_option.to_s
+    when "created_recent_first" then order_by(:invoiced_on)
+    when "sort_by_amount" then sort_by_amount
+    when "sort_by_balance_due" then order_by(:balance_due)
+    when "sort_by_invoice_number" then order_by(:id)
+    else
+      all
+    end
+  end
+  
+  def self.for_status_filter(status_filter)
+    if status_filter == "all"
+      all
+    else
+      where(id: select{|invoice| invoice.status.eql?(STATUS_FILTERS[status_filter]) }.pluck(:id))
+    end
+  end
+
+  def self.with_invoices_at_reserve(reserve, managed_reserves)
+    if reserve.present? && reserve != 'all'
+      joins(:visit)
+        .where(visits: { reserve: reserve })
+        .group(:id)
+    else
+      joins(:visit)
+      .where(visits: { reserve: managed_reserves })
+      .group(:id)
+    end
+  end
+
+  def self.having_between_time_for(date_range_option: nil, date_start: nil, date_end: nil)
+    case date_range_option
+    when :visit_date_range
+      having_visit_end_date_after(date_start).having_visit_start_date_before(date_end)
+    when :invoiced_on
+      having_invoiced_date_after(date_start).having_invoiced_date_before(date_end)
+    else
+      all
+    end
+  end
+
+  private
+  
+  def self.having_invoiced_date_after(date_var)
+    if date_var.present?
+      where("invoiced_on >= ?", date_var) 
+    else
+      all
+    end
+  end
+    
+  def self.having_invoiced_date_before(date_var)
+    if date_var.present?
+      where("invoiced_on <= ?", date_var)
+    else
+      all
+    end
+  end
+
+  def self.having_visit_end_date_after(date_var)
+    if date_var.present?
+      joins(:visit)
+      .where(Visit.arel_table[:ends_at].gteq(date_var))
+    else
+      all
+    end
+  end
+  
+  def self.having_visit_start_date_before(date_var)
+    if date_var.present?
+      joins(:visit)
+      .where(Visit.arel_table[:starts_at].lteq(date_var))
+    else
+      all
+    end
+  end
+
+  def self.order_by(value)
+    order(value)
+  end
+  
+  def self.sort_by_amount
+    left_outer_joins(:invoice_payments).order('sum(amount) asc')
   end
 end

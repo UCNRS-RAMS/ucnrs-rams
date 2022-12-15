@@ -21,11 +21,11 @@
                   manager_reserve_projects_path(current_reserve),
                   class:"nav-link #{active_class_for("projects")}" %>
           </li>
-          <li> <%= link_to I18n.t(".navbar.link.invoices"), "#", class:"nav-link" %> </li>
-          <li>
-            <%= link_to I18n.t(".navbar.link.reports"),
-                  report_part_1_manager_reserve_report_path(current_reserve.id, Date.current.year),
-                  class:"nav-link #{active_class_for("reports")}" %>
+          <li> <%= link_to I18n.t(".navbar.link.invoices"), manager_reserve_invoices_path(current_reserve), class:"nav-link #{active_class_for("invoices")}" %> </li>
+          <li> 
+            <%= link_to  I18n.t(".navbar.link.reports"), 
+                  report_part_1_manager_reserve_report_path(current_reserve.id, Date.current.year), 
+                  class:"nav-link #{active_class_for("reports")}" %> 
           </li>
           <li>
             <%= link_to I18n.t(".navbar.link.reserve_info"),

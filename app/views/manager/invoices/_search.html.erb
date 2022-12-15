@@ -1,0 +1,81 @@
+<form method="get" data-controller="toggle" data-turbo-action="advance">
+  <div class="search-primary">
+    <div class="first">
+      <div class="row mb-0">
+        <div class="row-medium input-with-buttons search">
+          <input type="text" name="filter[invoice_search]" value="<%= @presenter.invoice_search_filter %>" placeholder="Search"/>
+        </div>
+        <div class="row-auto">
+          <%= link_to t(".show_options"), "#",
+            "data-action": "click->toggle#toggle", "data-toggle-target": "toggle", "data-toggle-class": "show",
+            class: "button button-inline button-clear #{ @presenter.filter_present? ? "loadhide" : "show" }",
+            id: "show_button"
+          %>
+          <%= link_to t(".hide_options"), "#",
+            "data-action": "click->toggle#toggle", "data-toggle-target": "toggle", "data-toggle-class": "show",
+            class: "button button-inline button-clear #{ @presenter.filter_present? ? "show" : "loadhide" }",
+            id: "hide_button"
+          %>
+        </div>
+      </div>
+    </div>
+    <div class="second">
+      <label for="show"><%= t(".show") %></label>
+      <select id="status" name="filter[invoice_status]" aria-label="invoice_status" onchange="this.form.requestSubmit()">
+        <%= options_for_select @presenter.invoice_status_options, @presenter.invoice_status_filter %>
+      </select>
+      
+      <label for="show"><%= t(".sort_by") %></label>
+      <select id="search_sort_by" name="filter[sort_by]" aria-label="sort_by" onchange="this.form.requestSubmit()">
+        <%= options_for_select(@presenter.sort_by_options, @presenter.sort_by_filter) %>
+      </select>
+    </div>
+  </div>
+
+  <div class="search-secondary <%= "show" if @presenter.filter_present? %>" data-toggle-target="toggle" data-toggle-class="show">
+    <div class="row">
+      <div class="row-medium">
+        <label for="reserve"><%= t(".reserve") %></label>
+        <select name="filter[reserve]" aria-label="reserve" onchange="this.form.requestSubmit()">
+          <%= options_for_select(@presenter.reserve_options, @presenter.reserve_filter) %>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row">
+        <div class="row-auto" id="horizontal-line">
+          <label for="visit_date_begin"><%= t(".visit_start_date") %></label>
+          <div class="input-with-buttons calendar">
+            <input type="date" name="filter[visit_date_begin]" value="<%= @presenter.visit_date_begin_filter %>" onchange="this.form.requestSubmit()">
+          </div>
+        </div>
+        <div class="row-auto">
+          <label for="visit_date_end"><%= t(".visit_end_date") %></label>
+          <div class="input-with-buttons calendar">
+            <input type="date" name="filter[visit_date_end]" value="<%= @presenter.visit_date_end_filter %>" onchange="this.form.requestSubmit()">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="row-auto" id="horizontal-line">
+          <label for="invoice_date_begin"><%= t(".invoice_date") %></label>
+          <div class="input-with-buttons calendar">
+            <input type="date" name="filter[invoice_date_begin]" value="<%= @presenter.invoice_date_begin_filter %>" onchange="this.form.requestSubmit()">
+          </div>
+        </div>
+        <div class="row-auto">
+          <label for="invoice_date_end"><%= t(".invoice_date") %></label>
+          <div class="input-with-buttons calendar">
+            <input type="date" name="filter[invoice_date_end]" value="<%= @presenter.invoice_date_end_filter %>" onchange="this.form.requestSubmit()">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex-right">
+      <%= link_to t(".clear"), manager_reserve_invoices_path(current_reserve, filter: { invoice_search: nil }),class: "clear-btn" %>
+      <button onclick="this.form.requestSubmit()" class="search-btn" >Search</button>
+    </div>
+  </div>
+</form>

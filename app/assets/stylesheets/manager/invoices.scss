@@ -4,16 +4,58 @@
 @import "mixins/form";
 @import "mixins/controls";
 @import "mixins/flex";
+@import "mixins/tables";
+@import "mixins/search";
+@import "mixins/pagination";
 
 .invoices-new,
 .invoices-show,
 .invoices-create,
 .invoices-edit,
-.invoices-update {
+.invoices-update,
+.invoices-index {
+
+  .manager-navbar {
+    .container {
+      margin-bottom: 0px;
+    }
+  }
+
   .container {
     display: block;
     margin: 0;
     padding: 0 $form-page-gutter;
+
+    table.invoices-table {
+      @include table-style1;
+      margin-top: 5rem;
+    }
+
+    .button-black {
+      background-color: $black;
+      color: $white !important;
+      padding: 10px 35px;
+    }
+
+    @include search-subsection;
+    
+    .clear-btn {
+      color: $navy-blue;
+      margin-right: 30px;
+      text-decoration: none;
+
+    }
+
+    .search-btn {
+      background-color: $navy-blue;
+      border-radius: 2.25rem;
+      border: none;
+      color: $white;
+      cursor: pointer;
+      padding: 10px 35px;
+      font-size: 1rem;
+      font-weight: 600;
+    }
 
     .balance {
       color: $red;
@@ -58,7 +100,7 @@
     }
 
     .d-flex-right {
-      @include flex(row, end, right);
+      @include flex(row, end, center);
 
       .total {
         flex: 2.5;
@@ -185,4 +227,5 @@
       }
     }
   }
+  @include pagination
 }

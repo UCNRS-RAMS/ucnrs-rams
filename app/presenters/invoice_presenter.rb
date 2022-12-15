@@ -10,7 +10,9 @@ class InvoicePresenter
   delegate :id, :modify_number, :amenity_visits, :invoice_payments, :status, :balance_due, to: :invoice
   delegate :id, to: :visit, prefix: true
   delegate :reserve_id, :reserve, to: :visit
-  delegate :reserve_name, to: :visit
+  delegate :reserve_name, to: :visit, allow_nil: true
+  delegate :project_title, to: :visit, allow_nil: true
+  delegate :user_full_name, to: :visit, allow_nil: true
 
   def invoice_id
     "#{id}-#{modify_number}"
