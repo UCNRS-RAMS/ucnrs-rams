@@ -117,6 +117,13 @@
         background-color: $light-gray;
       }
 
+      .button_to {
+        .add-visitor-btn {
+          background-color: $white;
+          width: 180px;
+        }
+      }
+
       td:last-child {
         text-align: right;
       }

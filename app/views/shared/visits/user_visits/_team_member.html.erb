@@ -3,7 +3,7 @@
     <td><%= team_membership.user_full_name %></td>
     <td><%= team_membership.institution_name %></td>
     <td><%= team_membership.project_role %></td>
-    <td><%= button_to t(".add_to_visitor"), @presenter.user_visit_form_path, 
-              params: @presenter.add_team_member_params(team_membership) unless presenter.visitor?(team_membership.user) %></td>
+    <td><%= button_to presenter.add_visitor_text(team_membership.user), @presenter.user_visit_form_path, 
+              params: @presenter.add_team_member_params(team_membership), class: "add-visitor-btn" %></td>
   </tr>
 <% end %>

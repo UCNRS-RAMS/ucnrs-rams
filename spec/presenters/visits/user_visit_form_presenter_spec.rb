@@ -159,4 +159,27 @@ RSpec.describe Visits::UserVisitFormPresenter do
       expect(presenter.visitor?(user)).to be_truthy
     end
   end
+
+  describe "#add_visitor_text" do
+    it "returns 'add_visitor' if user is a not visitor" do
+      user = create(:user)
+      visit = create(:visit)
+      params = { visit_id: visit.id }
+      presenter = Visits::UserVisitFormPresenter.new(current_user: user, add_visitor_partial: "team_membership", form: UserVisitForm.new(params: params))
+      output = "Add To Visitor List"
+
+      expect(presenter.add_visitor_text(user)).to eq output
+    end
+
+    it "returns 'add_visitor_again' if user is already visitor" do
+      user = create(:user)
+      visit = create(:visit)
+      params = { visit_id: visit.id }
+      create(:user_visit, visit: visit, user: user)
+      presenter = Visits::UserVisitFormPresenter.new(current_user: user, add_visitor_partial: "team_membership", form: UserVisitForm.new(params: params))
+      output = "Add To Visitor List Again"
+
+      expect(presenter.add_visitor_text(user)).to eq output
+    end
+  end
 end
