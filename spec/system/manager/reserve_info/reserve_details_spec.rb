@@ -68,8 +68,8 @@ RSpec.describe "Manager - Reserve Info" do
       expect(flow).to have_flash_message("Update success.")
 
       reserve.reload
-      expect(reserve.listing_photo_url).to match(/\/ucnrs-test\/test-image.jpeg/)
-      expect(reserve.large_hero_photo_url).to match(/\/ucnrs-test\/test-image.jpeg/)
+      expect(reserve.listing_photo_url).to match(/\/listing_photo\/test-image.jpeg/)
+      expect(reserve.large_hero_photo_url).to match(/\/large_hero_photo\/test-image.jpeg/)
     end
   end
 end

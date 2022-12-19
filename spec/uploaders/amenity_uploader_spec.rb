@@ -21,13 +21,15 @@ RSpec.describe AmenityUploader do
 
   describe "#store_dir" do
     it "creates the correct store directory path for the test environment" do
-      expect(uploader.store_dir).to match(/\/tmp\/ucnrs-test\//)
+      expect(uploader.store_dir).to match(
+        "reserve_id_#{amenity.reserve_id}/#{amenity.class.to_s.underscore}/#{amenity.id}"
+      )
     end
   end
 
   describe "#cache_dir" do
     it "creates the correct cache directory path for the test environment" do
-      expect(uploader.cache_dir).to match(/\/tmp\/ucnrs-test\/cache\//)
+      expect(uploader.cache_dir).to match(/uploads\/cache/)
     end
   end
 
