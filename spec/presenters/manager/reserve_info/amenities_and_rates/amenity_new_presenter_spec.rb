@@ -107,7 +107,7 @@ RSpec.describe Manager::ReserveInfo::AmenitiesAndRates::AmenityNewPresenter do
       presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter.new(form: form)
 
       expect(presenter.listing_photo).to match(
-        /\/tmp\/ucnrs-test\/medium_test-image.jpeg/
+        /\/medium_test-image.jpeg/
       )
     end
   end

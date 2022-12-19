@@ -100,7 +100,7 @@ RSpec.describe ReserveShowPresenter do
         reserve = create(:reserve, :with_hero_photo)
         presenter = ReserveShowPresenter.new(reserve: reserve)
 
-        expect(presenter.large_hero_photo_src).to match(/\/tmp\/ucnrs-test\/test-image.jpeg/)
+        expect(presenter.large_hero_photo_src).to match(/\/test-image.jpeg/)
       end
     end
 

@@ -82,7 +82,7 @@ RSpec.describe AmenityForm, type: :model do
         group_number: nil,
         amenities_type: nil,
         listing_photo_url:
-          a_string_matching(/\/tmp\/ucnrs-test\/cache\/\S+\/test-image.jpeg/),
+          a_string_matching(/\/uploads\/cache\/\S+\/test-image.jpeg/),
       )
     end
 

@@ -5,17 +5,9 @@ class ReserveUploader < CarrierWave::Uploader::Base
     [
       ("uploads" if Rails.env.development?),
       "reserve_id_#{model.id || 'null'}",
-      "/",
-    ].join("/")
-  end
-
-  def cache_dir
-    [
-      "/",
-      "tmp",
-      "reserve_id_#{model.id || 'null'}",
-      "/",
-    ].join("/")
+      "reserve_info",
+      "#{mounted_as}",
+    ].compact_blank.join("/")
   end
 
   def extension_allowlist

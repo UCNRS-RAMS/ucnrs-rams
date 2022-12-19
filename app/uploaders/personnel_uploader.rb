@@ -5,16 +5,10 @@ class PersonnelUploader < CarrierWave::Uploader::Base
     [
       ("uploads" if Rails.env.development?),
       "reserve_id_#{model.reserve_id || 'null'}",
-      "personnel_id_#{model.id || 'null'}",
-    ].join("/")
-  end
-
-  def cache_dir
-    [
-      "tmp",
-      "reserve_id_#{model.reserve_id || 'null'}",
-      "personnel_id_#{model.id || 'null'}",
-    ].join("/")
+      "#{model.class.to_s.underscore}",
+      "#{mounted_as}",
+      "#{model.id || 'null'}",
+    ].compact_blank.join("/")
   end
 
   def extension_allowlist
