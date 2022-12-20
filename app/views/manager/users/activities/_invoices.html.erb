@@ -1,0 +1,16 @@
+<%= turbo_frame_tag "invoices-table" do %>
+  <table class="invoices-table">
+    <thead>
+      <th><%= t(".status") %></th>
+      <th><%= t(".invoice_number") %></th>
+      <th><%= t(".invoice_date") %></th>
+      <th><%= t(".reserve_name") %></th>
+      <th><%= t(".amount") %></th>
+      <th></th>
+    </thead>
+    <tbody>
+      <%= render partial: "invoice", collection: invoices %>
+    </tbody>
+  </table>
+  <%= paginate invoice_scope, param_name: :invoices_page, data: { "turbo-action": "advance" } %>
+<% end %>
