@@ -150,4 +150,14 @@ RSpec.describe VisitPresenter do
       expect(visit_presenter.submitted_date).to eq "Sep, 20, 2022"
     end
   end
+
+  describe "#user_info" do
+    it "returns user full name in manager scope" do
+      user = create(:user, first_name: "hafiz", last_name: "ahmad")
+      visit = create(:visit, user: user)
+      visit_presenter = VisitPresenter.new(visit)
+
+      expect(visit_presenter.user_info).to eq("hafiz ahmad")
+    end
+  end
 end

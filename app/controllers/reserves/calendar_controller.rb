@@ -7,7 +7,7 @@ class Reserves::CalendarController < ApplicationController
 
   def initialize_calendar_presenter
     params[:start_date] = date_from_month_str(params[:start_date])
-    Reserves::CalendarShowPresenter.new(
+    Reserves::Calendar::ShowPresenter.new(
       reserve: current_reserve,
       start_date: params[:start_date],
       type: params[:type],

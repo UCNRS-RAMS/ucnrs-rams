@@ -1,4 +1,4 @@
-<%= link_to bar.path, class: bar.link_classes, method: :get do %>
+<%= link_to bar.path, class: bar.link_classes, data: { turbo_frame: "modal-content" } do %>
   <div class="bar <%= bar.background_classes %>" >
     <span class="bars-text <%= bar.text_classes %>" >
       <%= bar.text %>

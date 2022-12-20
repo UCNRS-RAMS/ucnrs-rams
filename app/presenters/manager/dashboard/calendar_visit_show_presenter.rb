@@ -1,10 +1,7 @@
 class Manager::Dashboard::CalendarVisitShowPresenter < VisitShowPresenter
-  def initialize(visit:, role: false)
+  def initialize(visit:)
     super(visit)
-    @role = role
   end
-
-  attr_reader :role
 
   def user_visits
     visit.user_visits.includes([:user]).map do |user_visit|
@@ -12,5 +9,9 @@ class Manager::Dashboard::CalendarVisitShowPresenter < VisitShowPresenter
         user_visit,
       )
     end
+  end
+
+  def user_info
+    user_full_name
   end
 end

@@ -1,12 +1,12 @@
 require "rails_helper"
 
-RSpec.describe Reserves::CalendarAmenityPresenter do
+RSpec.describe Reserves::Calendar::AmenityPresenter do
   describe "#visit_link_params" do
     it "returns params for visits_link method" do
       reserve = create(:reserve)
       amenity = AmenityPresenter.new(create(:amenity, reserve_id: reserve.id))
       visit = create(:visit, reserve_id: reserve.id)
-      show_presenter = Reserves::CalendarAmenityPresenter.new(amenity: amenity, visit: visit)
+      show_presenter = Reserves::Calendar::AmenityPresenter.new(amenity: amenity, visit: visit)
 
       output = Manager::Dashboard::BarPresenter.new(
         link_classes: "",

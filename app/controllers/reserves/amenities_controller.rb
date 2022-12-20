@@ -1,6 +1,6 @@
 class Reserves::AmenitiesController < ApplicationController
   def index
-    @presenter = Reserves::AmenitiesIndexPresenter.new(
+    @presenter = Reserves::Calendar::AmenitiesIndexPresenter.new(
       reserve_amenities: reserve_amenities
     )
   end

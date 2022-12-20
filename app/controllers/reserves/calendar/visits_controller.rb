@@ -1,7 +1,7 @@
 class Reserves::Calendar::VisitsController < ApplicationController
 
   def index
-    @presenter = Reserves::VisitsIndexPresenter.new(
+    @presenter = Reserves::Calendar::VisitsIndexPresenter.new(
       reserve: current_reserve,
       page: page_number,
       filter: filter,
@@ -9,7 +9,7 @@ class Reserves::Calendar::VisitsController < ApplicationController
   end
 
   def show
-    @presenter = Reserves::CalendarVisitShowPresenter.new(visit: visit)
+    @presenter = Reserves::Calendar::VisitShowPresenter.new(visit: visit)
   end
 
   private
