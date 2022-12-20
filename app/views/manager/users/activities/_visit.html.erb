@@ -1,0 +1,16 @@
+<tr id="<%= dom_id visit %>" class="visit <%= visit.status_class %>">
+  <td>
+    <span class="<%= visit.status_class %> pill">
+      <%= visit.status %>
+    </span>
+  </td>
+  <td class="date-range"><%= visit.requested_date_range %></td>
+  <td><%= truncate(visit.purpose_of_visit, length: 50) %></td>
+  <td><%= visit.requested_reserve_name %></td>
+  <td><%= visit.submitted_at %></td>
+  <td>
+    <%= link_to manager_reserve_visit_path(current_reserve, visit.id), data: { turbo_frame: "_top" } do %>
+      <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"), height: "20", width: "20" %>
+    <% end %>
+  </td>
+</tr>

@@ -1,0 +1,44 @@
+<section class="content">
+  <header>
+    <div class="header-title">
+      <h1><%= @presenter.user_full_name %></h1>
+      <small><%= @presenter.user_institution_name %></small>
+    </div>
+  </header>
+
+  <ul class="navbar-nav">
+    <li>
+      <%= link_to t(".account_details"),
+        edit_manager_reserve_user_path(current_reserve, @presenter.user_id),
+        data: { "turbo-frame": "user-details"} %>
+    </li>
+    <li>
+      <%= link_to t(".activity"),
+        manager_reserve_user_activities_path(current_reserve, @presenter.user_id),
+        class: "active",
+        data: { "turbo-frame": "user-activities-details"}
+      %>
+    </li>
+  </ul>
+
+  <%= turbo_frame_tag "user-activities-details" do %>
+    <%= tag.section class:"subsection" do %>
+      <%= tag.header t(".visits") %>
+      <%= render partial: "visits",
+        locals: { visits: @presenter.visits, visit_scope: @presenter.visit_scope }
+      %>
+    <% end %>
+    <%= tag.section class:"subsection" do %>
+      <%= tag.header t(".projects") %>
+      <%= render partial: "projects",
+        locals: { projects: @presenter.projects, project_scope: @presenter.project_scope }
+      %>
+    <% end %>
+    <%= tag.section class:"subsection" do %>
+      <%= tag.header t(".invoices") %>
+      <%= render partial: "invoices",
+        locals: { invoices: @presenter.invoices, invoice_scope: @presenter.invoice_scope }
+      %>
+    <% end %>
+  <% end %>
+</section>

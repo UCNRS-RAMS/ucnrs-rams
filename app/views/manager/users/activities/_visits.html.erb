@@ -1,0 +1,16 @@
+<%= turbo_frame_tag "visits-table" do %>
+  <table class="visits-table">
+    <thead>
+      <th><%= t(".status") %></th>
+      <th><%= t(".visit_dates") %></th>
+      <th><%= t(".purpose") %></th>
+      <th><%= t(".reserve_name") %></th>
+      <th><%= t(".date_submitted") %></th>
+      <th></th>
+    </thead>
+    <tbody>
+      <%= render partial: "visit", collection: visits %>
+    </tbody>
+  </table>
+  <%= paginate visit_scope, param_name: :visits_page, data: { "turbo-action": "advance" } %>
+<% end %>

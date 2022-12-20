@@ -17,9 +17,10 @@
         class: "active",
         data: { "turbo-frame": "user-details"} %>
     </li>
-    <li>
-      <%= link_to t(".activity"), "#", data: { "turbo-frame": "user-details"} %>
-    </li>
+    <%= link_to t(".activity"),
+        manager_reserve_user_activities_path(current_reserve, @presenter.user_id),
+        data: { "turbo-frame": "user-activities-details"}
+      %>
   </ul>
 
   <turbo-frame id="user-details">

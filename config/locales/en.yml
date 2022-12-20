@@ -1967,6 +1967,31 @@ en:
         role: "Role"
         projects: "Projects"
         visits: "Visits"
+      activities:
+        index:
+          account_details: "Account Details"
+          activity: "Activity"
+          visits: "Visits"
+          projects: "Projects"
+          invoices: "Invoices"
+        visits:
+          status: "Status"
+          visit_dates: "Visit Dates"
+          purpose: "Purpose"
+          reserve_name: "Reserve Name"
+          date_submitted: "Date Submitted"
+        projects:
+          project_title: "Project Title"
+          applicant_name: "Applicant Name"
+          date_submitted: "Date Submitted"
+          project_type: "Project Type"
+          visits: "Visits"
+        invoices:
+          status: "Status"
+          invoice_number: "Invoice Number"
+          invoice_date: "Invoice Date"
+          reserve_name: "Reserve Name"
+          amount: "Amount"
     institutions:
       edit:
         cancel_go_back: "Cancel, go back"

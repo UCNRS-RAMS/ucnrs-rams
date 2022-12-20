@@ -1,0 +1,65 @@
+@import "variables";
+@import "mixins/tables";
+@import "mixins/pagination";
+
+.manager.activities-index {
+  section.content {
+    > header {
+      align-content: center;
+      display: flex;
+      justify-content: space-between;
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: $light;
+        margin: 0 0 .5rem 0;
+      }
+
+      small {
+        font-size: .85rem;
+        font-weight: $light;
+      }
+
+      .header-links a {
+        font-size: .75rem;
+        font-weight: $semi-bold;
+        margin-right: 1rem;
+      }
+    }
+
+    ul.navbar-nav {
+      border-bottom: 2px solid $black;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+
+      a {
+        color: $navy-blue;
+        text-decoration: none;
+      }
+
+      a.active {
+        border-bottom: 6px solid $black;
+      }
+    }
+  }
+
+  section.subsection {
+    > header {
+      font-size: 1rem;
+      font-weight: $medium;
+      margin-bottom: 2rem;
+    }
+  }
+
+  table.visits-table,
+  table.projects-table,
+  table.invoices-table {
+    @include table-style1;
+
+    td > img {
+      vertical-align: middle;
+    }
+  }
+
+  @include pagination;
+}

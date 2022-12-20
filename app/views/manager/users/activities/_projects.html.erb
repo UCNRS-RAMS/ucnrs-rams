@@ -1,0 +1,16 @@
+<%= turbo_frame_tag "projects-table" do %>
+  <table class="projects-table">
+    <thead>
+      <th><%= t(".project_title") %></th>
+      <th><%= t(".applicant_name") %></th>
+      <th><%= t(".date_submitted") %></th>
+      <th><%= t(".project_type") %></th>
+      <th><%= t(".visits") %></th>
+      <th></th>
+    </thead>
+    <tbody>
+      <%= render partial: "project", collection: projects %>
+    </tbody>
+  </table>
+  <%= paginate project_scope, param_name: :projects_page, data: { "turbo-action": "advance" } %>
+<% end %>

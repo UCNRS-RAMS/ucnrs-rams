@@ -72,6 +72,7 @@ Rails.application.routes.draw do
           resources :visits, only: [:index, :show], controller: "dashboard/calendar/visits"
         end
       end
+
       resources :projects, only: [:index, :show] do
         resource :summary, only: [:show], controller: "projects/summary"
         resource :detail, only: [:edit, :update], controller: "projects/detail"
@@ -82,18 +83,21 @@ Rails.application.routes.draw do
         resources :users, only: [:new, :create], controller: "projects/users"
         resources :activity_and_notes, only: [:index, :create, :show], controller: "projects/activity_and_notes"
       end
+
       resources :user_visits, only: [:edit, :update], controller: "visits/user_visits"
       resources :visits, only: [:show, :destroy] do
         resources :user_visits, only: [:new, :index, :create, :destroy], controller: "visits/user_visits"
         resources :invoices do
           resources :payments, controller: "invoices/payments"
         end
+
         resource :amenity_visits, only: [:update], controller: "visits/amenity_visits"
         resource :summary, only: [:edit, :update, :show], controller: "visits/summary"
         resource :detail, only: [:edit, :update], controller: "visits/detail"
         resources :activity_and_notes, only: [:index, :create, :show], controller: "visits/activity_and_notes"
         resources :reserve_info, only: [:index, :create], controller: "visits/reserve_info"
       end
+
       resources :reports, only: [:show, :update] do
         get "report_part_1", on: :member
         get "report_part_2", on: :member
@@ -104,6 +108,7 @@ Rails.application.routes.draw do
         get "report_part_7", on: :member
         get "report_part_8", on: :member
       end
+
       namespace :reserve_info do
         resource :reserve_details, only: [:edit, :update]
         resources :amenities_and_rates, only: [:index]
@@ -117,7 +122,11 @@ Rails.application.routes.draw do
         resources :staff_and_notifications
         resources :reserve_addendums
       end
-      resources :users, only: [:index, :edit, :update]
+
+      resources :users, only: [:index, :edit, :update] do
+        resources :activities, only: [:index], controller: "users/activities"
+      end
+
       resources :institutions, only: [:index, :edit, :update]
     end
   end
