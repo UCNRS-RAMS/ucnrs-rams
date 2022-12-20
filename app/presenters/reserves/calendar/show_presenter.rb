@@ -1,4 +1,4 @@
-class Reserves::CalendarShowPresenter < Manager::Dashboard::CalendarShowPresenter
+class Reserves::Calendar::ShowPresenter < Manager::Dashboard::CalendarShowPresenter
   include Rails.application.routes.url_helpers
 
   def calendar_path
@@ -6,7 +6,7 @@ class Reserves::CalendarShowPresenter < Manager::Dashboard::CalendarShowPresente
   end
 
   def visits_link_params
-    Manager::Dashboard::BarPresenter.new(
+    Reserves::Calendar::BarPresenter.new(
       link_classes: visits_link_classes,
       background_classes: visits_link_background_classes,
       text_classes: "",
@@ -17,7 +17,7 @@ class Reserves::CalendarShowPresenter < Manager::Dashboard::CalendarShowPresente
 
   def visits
     visit_scope.map do |visit|
-      Reserves::CalendarVisitPresenter.new(visit: visit, type: type, status: status)
+      Reserves::Calendar::VisitPresenter.new(visit: visit, type: type, status: status)
     end
   end
 end

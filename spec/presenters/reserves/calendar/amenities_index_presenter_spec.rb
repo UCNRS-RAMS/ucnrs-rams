@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Reserves::AmenitiesIndexPresenter do
+RSpec.describe Reserves::Calendar::AmenitiesIndexPresenter do
   describe "#amenities" do
     it "presents the relevant amenities in order" do
       reserve = create(:reserve)
@@ -9,7 +9,7 @@ RSpec.describe Reserves::AmenitiesIndexPresenter do
       third_amenity = create(:amenity, sort_order: 1, reserve: reserve)
       fourth_amenity = create(:amenity, sort_order: 0)
 
-      presenter = Reserves::AmenitiesIndexPresenter.new(
+      presenter = Reserves::Calendar::AmenitiesIndexPresenter.new(
         reserve_amenities: reserve.amenities
       )
       amenities = presenter.amenities

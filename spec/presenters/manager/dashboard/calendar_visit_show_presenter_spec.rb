@@ -17,4 +17,15 @@ RSpec.describe Manager::Dashboard::CalendarVisitShowPresenter do
       expect(results).to all(be_instance_of Manager::Visits::UserVisitPresenter)
     end
   end
+
+  describe "#user_info" do
+    it "returns user full name in manager scope" do
+      user = create(:user, first_name: "hafiz", last_name: "ahmad")
+      visit = create(:visit, user: user)
+      user_visits = create_list(:user_visit, 3, visit: visit)
+      presenter = Manager::Dashboard::CalendarVisitShowPresenter.new(visit: visit)
+
+      expect(presenter.user_info).to eq("hafiz ahmad")
+    end
+  end
 end

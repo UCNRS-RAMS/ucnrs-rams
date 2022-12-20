@@ -175,7 +175,7 @@ en:
     calendar_visit_modal:
       visit: "Visit"
       reservation_member: "Reservation Members(s)"
-      reserve_Resource: "Reserve Resources(s) | "
+      reserve_resource: "Reserve Resources(s) | "
       create_invoice: "Create Invoice"
       close: "Close"
       project: "Under Project # %{id} | %{project_type}"

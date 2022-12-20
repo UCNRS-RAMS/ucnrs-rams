@@ -1,11 +1,11 @@
 require "rails_helper"
 
-RSpec.describe Reserves::CalendarShowPresenter do
+RSpec.describe Reserves::Calendar::ShowPresenter do
   let(:reserve) { create(:reserve) }
 
   describe "#calendar_path" do
     it "return calendar show page path for reserve" do
-      show_presenter = Reserves::CalendarShowPresenter.new(reserve: reserve)
+      show_presenter = Reserves::Calendar::ShowPresenter.new(reserve: reserve)
 
       output = "/reserves/#{reserve.id}/calendar"
       expect(show_presenter.calendar_path).to eq output
@@ -14,9 +14,9 @@ RSpec.describe Reserves::CalendarShowPresenter do
 
   describe "#visits_link_params" do
     it "returns params for visits_link method" do
-      show_presenter = Reserves::CalendarShowPresenter.new(reserve: reserve)
+      show_presenter = Reserves::Calendar::ShowPresenter.new(reserve: reserve)
 
-      output = Manager::Dashboard::BarPresenter.new(
+      output = Reserves::Calendar::BarPresenter.new(
         link_classes: " disable-link",
         background_classes: "visitor-count left-radius right-radius",
         text_classes: "",
