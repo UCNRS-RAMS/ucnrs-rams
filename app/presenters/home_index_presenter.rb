@@ -1,7 +1,16 @@
 class HomeIndexPresenter
   include Rails.application.routes.url_helpers
+
   VISIT_LIMIT_FOR_INDEX = 10.freeze
   INVOICE_LIMIT_FOR_INDEX = 5.freeze
+
+  STATUS_FILTERS = {
+    "visit_date" => nil,
+    "approved" => "approved",
+    "in_review" => "in_review",
+    "cancelled" => "cancelled",
+    "incomplete" => "incomplete",
+  }.freeze
 
   def initialize(user:, visit_page: nil,invoice_page: nil, visit_filter: nil, invoice_filter: nil, news_articles: nil, partial: "visits")
     @news_articles = news_articles
@@ -74,7 +83,7 @@ class HomeIndexPresenter
   end
 
   def visit_filter_options
-    Visit::STATUS_FILTERS
+    STATUS_FILTERS
   end
 
   def invoice_filter_options

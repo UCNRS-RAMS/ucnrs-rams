@@ -3,21 +3,6 @@
 class Visit < ApplicationRecord
   DEFAULT_LIMIT_FOR_INDEX = 10
 
-  STATUS_FILTERS = {
-    "visit_date" => nil,
-    "approved" => "approved",
-    "in_review" => "in_review",
-    "cancelled" => "cancelled",
-    "incomplete" => "incomplete",
-  }.freeze
-
-  CALENDAR_FILTERS = {
-    "all" => nil,
-    "approved" => "approved",
-    "in_review" => "in_review",
-    "denied" => "cancelled",
-  }.freeze
-
   belongs_to :user
   belongs_to :project
   belongs_to :reserve

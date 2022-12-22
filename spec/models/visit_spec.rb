@@ -200,7 +200,6 @@ RSpec.describe Visit, type: :model do
       visit3 = create(:visit, reserve: reserve3)
 
       results = Visit.reserve_list_for_user(user)
-
       expected_results = {
         "SRR" => reserve1.id,
         "UHR" => reserve2.id,
