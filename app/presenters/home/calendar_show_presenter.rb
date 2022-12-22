@@ -1,6 +1,13 @@
 class Home::CalendarShowPresenter
   include Rails.application.routes.url_helpers
 
+  CALENDAR_FILTERS = {
+    "all" => nil,
+    "approved" => "approved",
+    "in_review" => "in_review",
+    "denied" => "cancelled",
+  }.freeze
+
   def initialize(start_date: nil, user:, visit_filter: nil)
     @user = user
     @start_date = start_date&.to_date || Date.current
@@ -48,7 +55,7 @@ class Home::CalendarShowPresenter
   end
 
   def visit_filter_options
-    Visit::CALENDAR_FILTERS
+    CALENDAR_FILTERS
   end
 
   def visits_reserve_list
@@ -66,7 +73,7 @@ class Home::CalendarShowPresenter
 
   def visits
     visit_scope.map do |visit|
-      Home::CalendarVisitPresenter.new(visit: visit)
+      Home::Calendar::VisitPresenter.new(visit: visit)
     end
   end
 

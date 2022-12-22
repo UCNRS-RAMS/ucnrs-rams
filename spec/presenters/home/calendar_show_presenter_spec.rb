@@ -11,11 +11,13 @@ RSpec.describe Home::CalendarShowPresenter do
   describe "#calendar_params" do
     it "returns params for month_calendar method" do
       show_presenter = Home::CalendarShowPresenter.new(user: user)
+      visit_starts_at = :starts_at
+      visit_ends_at = :ends_at
 
       expect(show_presenter.calendar_params).to include({
-        attribute: :starts_at,
-        end_attribute: :ends_at,
-        events: all(be_instance_of(Home::CalendarVisitPresenter)),
+        attribute: visit_starts_at,
+        end_attribute: visit_ends_at,
+        events: all(be_instance_of(Home::Calendar::VisitPresenter)),
       })
     end
   end
@@ -32,7 +34,7 @@ RSpec.describe Home::CalendarShowPresenter do
 
     it "updates the current_date_visits with passed visits array with present dates as value" do
       visits = create_list(:visit, 3, user: user)
-      visits = visits.map { |visit| Home::CalendarVisitPresenter.new(visit: visit) }
+      visits = visits.map { |visit| Home::Calendar::VisitPresenter.new(visit: visit) }
       show_presenter = Home::CalendarShowPresenter.new(user: user)
 
       show_presenter.add_date_visits(date: date, visits: visits)
@@ -43,13 +45,13 @@ RSpec.describe Home::CalendarShowPresenter do
 
   describe "#visits_link_params" do
     it "updates the current date visit and amenities" do
-      visit = create(:visit)
+      visit = create(:visit, starts_at: 3.week.ago, ends_at: 3.week.from_now)
       amenity = create(:amenity)
-      create(:amenity_visit, visit: visit, amenity: amenity, arrives: visit.starts_at, departs: visit.ends_at)
-      date = visit.amenity_visits.first.arrives
+      create(:amenity_visit, visit: visit, amenity: amenity, arrives: 1.week.ago, departs: 1.week.from_now)
+      date = 1.week.ago
 
-      visit = Home::CalendarVisitPresenter.new(visit: visit, date: visit.starts_at)
-      show_presenter = Home::CalendarShowPresenter.new(user: user, start_date: visit.starts_at)
+      visit = Home::Calendar::VisitPresenter.new(visit: visit, date: 3.week.ago)
+      show_presenter = Home::CalendarShowPresenter.new(user: user, start_date: 3.week.ago)
       show_presenter.add_date_visits(date: date, visits: [visit])
 
       expect(show_presenter.visits_link_params.first).to eq show_presenter.month_visits[date.to_s].first.visit_link_params
@@ -60,10 +62,10 @@ RSpec.describe Home::CalendarShowPresenter do
     let(:date) { 10.days.ago.to_date }
     it "returns an array of added visits in month_visits for the current_date" do
       visits1 = create_list(:visit, 3, user: user).map do |visit|
-        Home::CalendarVisitPresenter.new(visit: visit)
+        Home::Calendar::VisitPresenter.new(visit: visit)
       end
       visits2 = create_list(:visit, 2, user: user).map do |visit|
-        Home::CalendarVisitPresenter.new(visit: visit)
+        Home::Calendar::VisitPresenter.new(visit: visit)
       end
       show_presenter = Home::CalendarShowPresenter.new(user: user)
 
@@ -72,16 +74,16 @@ RSpec.describe Home::CalendarShowPresenter do
 
       current_date_visits = show_presenter.current_date_visits
 
-      expect(current_date_visits).to all(be_instance_of(Home::CalendarVisitPresenter))
+      expect(current_date_visits).to all(be_instance_of(Home::Calendar::VisitPresenter))
       expect(current_date_visits.map(&:id)).to match_array(visits2.map(&:id))
     end
 
     it "update the date in CalendarVisitPresenter to current_date from CalendarShowPresenter" do
       visits1 = create_list(:visit, 3, user: user).map do |visit|
-        Home::CalendarVisitPresenter.new(visit: visit)
+        Home::Calendar::VisitPresenter.new(visit: visit)
       end
       visits2 = create_list(:visit, 2, user: user).map do |visit|
-        Home::CalendarVisitPresenter.new(visit: visit)
+        Home::Calendar::VisitPresenter.new(visit: visit)
       end
       show_presenter = Home::CalendarShowPresenter.new(user: user)
 

@@ -50,6 +50,7 @@
 
           .table {
             border: 0px;
+
             td {
               border: 1px solid $dark-bluegray;
               color: $semidark-bluegray;
@@ -95,12 +96,12 @@
             position: relative;
 
             .status-bar {
-              bottom: 0 !important;
+              bottom: 0;
               border: none;
-              left: 0 !important;
-              margin: 0px !important;
-              padding-left: 0px !important;
-              width: 100% !important;
+              left: 0;
+              margin: 0px;
+              padding-left: 0px;
+              width: 100%;
             }
           }
 

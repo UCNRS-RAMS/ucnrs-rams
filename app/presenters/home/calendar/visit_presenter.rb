@@ -1,4 +1,4 @@
-class Home::CalendarVisitPresenter < VisitPresenter
+class Home::Calendar::VisitPresenter < VisitPresenter
   include Rails.application.routes.url_helpers
 
   def initialize(visit:, date: Date.current)
