@@ -73,10 +73,6 @@ class VisitForm
     display_time(visit.end_time)
   end
 
-  def project_type=(category)
-    visit.project_type = category
-  end
-
   def start_date=(date)
     visit.start_date = parse_date(date)
     assign_starts_at

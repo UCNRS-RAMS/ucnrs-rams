@@ -33,7 +33,6 @@ RSpec.describe VisitForm, type: :model do
 
     it "makes a new VisitForm from params" do
       params = {
-        project_type: "public_use",
         project_id: 101,
         public_use_category: "k-12-class",
         purpose_of_visit: "World Conquest",
@@ -47,7 +46,6 @@ RSpec.describe VisitForm, type: :model do
       form = VisitForm.new(user: build(:user), params: params)
 
       expect(form).to have_attributes(
-        project_type: "public_use",
         project_id: 101,
         public_use_category: "k_12_class",
         purpose_of_visit: "World Conquest",
@@ -60,16 +58,6 @@ RSpec.describe VisitForm, type: :model do
         ends_at: "2021-10-26 15:30".to_datetime,
         special_needs: "A teddy bear",
       )
-    end
-  end
-
-  describe "assigning project_type" do
-    it "sets the project_id to nil" do
-      form = VisitForm.new
-
-      form.project_type = :research
-
-      expect(form.project_id).to be_nil
     end
   end
 
@@ -162,7 +150,6 @@ RSpec.describe VisitForm, type: :model do
 
       expect(form.errors.to_hash).to eq({
         purpose_of_visit: ["can't be blank"],
-        project_type: ["can't be blank"],
         start_date: ["can't be blank"],
         end_date: ["can't be blank"],
         start_time: ["can't be blank"],

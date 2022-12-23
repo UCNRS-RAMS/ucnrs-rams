@@ -70,6 +70,23 @@ RSpec.describe Visit, type: :model do
     end
   end
 
+  describe "#project_type" do
+    it "returns 'project.project_type' if project is present" do
+      project = create(:project)
+      visit = create(:visit, project: project)
+
+      results = visit.project_type
+
+      expect(results).to eq(project.project_type)
+    end
+
+    it "returns 'project.project_type' if project is present" do
+      visit = build(:visit, project: nil)
+
+      expect(visit.project_type).to be_nil
+    end
+  end
+
   describe ".recent_start_date_first" do
     it "returns records in reverse chronological order by starts_at date" do
       one = travel_to(1.week.ago) { create(:visit, starts_at: Date.current) }
