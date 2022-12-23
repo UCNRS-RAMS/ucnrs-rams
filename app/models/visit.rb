@@ -36,6 +36,10 @@ class Visit < ApplicationRecord
   delegate :title, to: :project, prefix: true
   delegate :full_name, :role, to: :user, prefix: true
 
+  def project_type
+    project.project_type if project.present? 
+  end
+
   def self.recent_start_date_first
     order(start_date: :desc)
   end
