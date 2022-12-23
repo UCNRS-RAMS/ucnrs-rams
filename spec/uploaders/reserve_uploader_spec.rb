@@ -44,16 +44,4 @@ RSpec.describe ReserveUploader do
       expect(uploader.content_type_allowlist).to eq([/image\//])
     end
   end
-
-  describe "the medium version" do
-    it "scales down an image to be 270 by 165 pixels" do
-      expect(uploader.medium).to have_dimensions(270, 165)
-    end
-  end
-
-  describe "the small version" do
-    it "scales down an image to be 150 by 100 pixels" do
-      expect(uploader.small).to have_dimensions(150, 100)
-    end
-  end
 end
