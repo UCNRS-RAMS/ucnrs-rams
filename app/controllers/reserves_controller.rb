@@ -14,6 +14,10 @@ class ReservesController < ApplicationController
   private
 
   def reserve_id
-    params.permit(:id).require(:id)
+    if params[:reserve_filter].present?
+      params.permit(:reserve_filter).require(:reserve_filter)
+    else
+      params.permit(:id).require(:id)
+    end
   end
 end

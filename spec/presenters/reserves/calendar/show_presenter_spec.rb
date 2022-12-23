@@ -12,6 +12,15 @@ RSpec.describe Reserves::Calendar::ShowPresenter do
     end
   end
 
+  describe "#calendar_partial_name" do
+    it "return calendar partial path when user is logined" do
+      show_presenter = Reserves::Calendar::ShowPresenter.new(reserve: reserve)
+
+      output = "calendar"
+      expect(show_presenter.calendar_partial_name).to eq output
+    end
+  end
+
   describe "#visits_link_params" do
     it "returns params for visits_link method" do
       show_presenter = Reserves::Calendar::ShowPresenter.new(reserve: reserve)

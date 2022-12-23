@@ -78,6 +78,14 @@ class ReservesFlow
     end
   end
 
+  def has_approved_visit_bar?
+    page.has_css?(".left-radius-approved")
+  end
+
+  def has_reserve_filter_dropdown?
+    page.has_css?("#reserve_filter")
+  end
+
   def has_amenity_visitor?
     page.has_css?(".amenity-count")
   end

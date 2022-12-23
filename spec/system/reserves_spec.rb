@@ -54,8 +54,10 @@ RSpec.describe "Reserves", type: :system, js: true do
     end
   end
 
-  describe "dashboard calendar" do
+  describe "reserve calendar" do
     it "display user_visit for a visit", js: true do
+      user = create(:user, :confirmed)
+      sign_in(user)
       reserve = create(:reserve)
       visit = create(:visit, reserve: reserve)
       create(:user_visit, visit: visit )
@@ -70,6 +72,8 @@ RSpec.describe "Reserves", type: :system, js: true do
     end
 
     it "display amenity_visit for a visit", js: true do
+      user = create(:user, :confirmed)
+      sign_in(user)
       reserve = create(:reserve)
       visit = create(:visit, reserve: reserve)
       create(:user_visit, visit: visit)
@@ -84,7 +88,7 @@ RSpec.describe "Reserves", type: :system, js: true do
     end
   end
 
-  describe "dashboard calendar modal" do
+  describe "reserve calendar modal" do
     it "display modal after click on user_visit and amenity_visit bar", js: true do
       reserve = create(:reserve)
       user = create(:user, :confirmed)
@@ -108,6 +112,43 @@ RSpec.describe "Reserves", type: :system, js: true do
 
       page.click_on("Close")
       expect(flow).not_to have_modal
+    end
+  end
+
+  describe "reserve calendar with user is not login" do
+    it "display approved visits for reserve", js: true do
+      reserve = create(:reserve)
+      visit = create(:visit, reserve: reserve, status: "approved")
+
+      flow = ReservesFlow.new(page)
+
+      flow.visit_reserves_show_page(reserve.id)
+      flow.go_to_calendar
+
+      expect(flow).to have_approved_visit_bar
+    end
+
+    it "do not display visits which are not approved", js: true do
+      reserve = create(:reserve)
+      visit = create(:visit, reserve: reserve, status: "incomplete")
+
+      flow = ReservesFlow.new(page)
+
+      flow.visit_reserves_show_page(reserve.id)
+      flow.go_to_calendar
+
+      expect(flow).not_to have_approved_visit_bar
+    end
+
+    it "display reserve filter dropdown", js: true do
+      reserve = create(:reserve)
+
+      flow = ReservesFlow.new(page)
+
+      flow.visit_reserves_show_page(reserve.id)
+      flow.go_to_calendar
+
+      expect(flow).to have_reserve_filter_dropdown
     end
   end
 end
