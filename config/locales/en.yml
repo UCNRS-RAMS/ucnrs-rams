@@ -388,6 +388,10 @@ en:
       index:
         title: "Amenities and Rates"
     calendar:
+      unauthorize:
+        reserve_filter:
+          labels:
+            by_reserve: "Search by reserve"
       show:
         title: "Reserve Calendar"
     rules_and_regulations:

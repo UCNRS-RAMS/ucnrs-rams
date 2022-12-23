@@ -15,6 +15,10 @@ class Reserves::Calendar::ShowPresenter < Manager::Dashboard::CalendarShowPresen
     )
   end
 
+  def calendar_partial_name
+    "calendar"
+  end
+
   def visits
     visit_scope.map do |visit|
       Reserves::Calendar::VisitPresenter.new(visit: visit, type: type, status: status)

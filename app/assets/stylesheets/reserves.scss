@@ -1,5 +1,7 @@
 @import "variables";
 @import "mixins/icon_link";
+@import "mixins/calendar";
+@import "mixins/flex.scss";
 
 main {
   ul.navbar-nav {
@@ -30,6 +32,20 @@ main {
 }
 
 .reserves-show {
+
+  .drop-down {
+    background-color: $white;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  .m-right {
+    margin-right: 5px;
+  }
+
+  .d-flex-end {
+    @include flex(row, end);
+  }
 
   .simple-calendar {
     text-align: center;
@@ -92,6 +108,59 @@ main {
       height: 25px;
       margin: 0.4rem 0rem;
       position: relative;
+
+      .status-bar {
+        bottom: 0;
+        border: none;
+        left: 0;
+        margin: 0px;
+        padding-left: 0px;
+        width: 100%;
+      }
+    }
+
+    .approved-bar {
+      background-color: $lightgreen !important;
+      color: $green !important;
+    }
+
+    [data-value-visit-status-value="approved"] {
+      @include middle-bars($green, $lightgreen);
+    }
+
+    .left-radius-approved {
+      border-left: 0.125rem solid $lightgreen;
+    }
+
+    .right-radius-approved {
+      border-right: 0.125rem solid $lightgreen;
+    }
+
+    .left-bar {
+      border-bottom-left-radius: 15px;
+      border-top-left-radius: 15px;
+      margin-left: 5px;
+    }
+
+    .right-bar {
+      border-bottom-right-radius: 15px;
+      border-top-right-radius: 15px;
+      margin-right: 5px;
+    }
+
+    .bars-text {
+      background-color: transparent;
+      font-weight: 600;
+      left: 20px;
+      margin-top: 0.3rem;
+      position: absolute;
+      white-space: nowrap;
+      z-index: 1;
+    }
+
+    .border {
+      border-bottom: 0.125rem solid transparent;
+      border-top: 0.125rem solid transparent;
     }
 
     .visitor-count {
