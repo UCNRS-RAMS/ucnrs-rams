@@ -109,7 +109,7 @@ RSpec.describe ReserveShowPresenter do
         reserve = build(:reserve)
         presenter = ReserveShowPresenter.new(reserve: reserve)
 
-        expect(presenter.large_hero_photo_src).to eq("/assets/reserve-hero-placeholder.jpg")
+        expect(presenter.large_hero_photo_src).to eq(ActionController::Base.helpers.image_path "reserve-hero-placeholder.jpg")
       end
     end
   end

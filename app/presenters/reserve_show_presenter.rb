@@ -38,7 +38,7 @@ class ReserveShowPresenter
   end
 
   def large_hero_photo_src
-    reserve_large_hero_photo_url || "/assets/#{reserve_large_hero_photo_placeholder}"
+    reserve_large_hero_photo_url || ActionController::Base.helpers.image_path(reserve_large_hero_photo_placeholder)
   end
 
   def logo_src
