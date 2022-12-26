@@ -26,6 +26,22 @@ RSpec.describe AmenityVisitPresenter do
     end
   end
 
+  describe "#requested_short_date_range" do
+    it "generates a short numeric date range" do
+      arrives_at = Time.current
+      departs_at = Time.current + 1.day
+      presenter = UserVisitPresenter.new(
+        create(:user_visit, arrives_at: arrives_at, departs_at: departs_at)
+      )
+      allow(ShortDateRangePresenter).to receive(:value)
+
+      presenter.requested_short_date_range(format: "date_range.short_date")
+
+      expect(ShortDateRangePresenter).to have_received(:value)
+        .with(start_date: arrives_at.to_date, format: "date_range.short_date", end_date: departs_at.to_date)
+    end
+  end
+
   describe "#total_days" do
     it "return total days of amenity_visit" do
       arrives = Time.current
