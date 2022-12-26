@@ -651,6 +651,9 @@ en:
       rules: "Rules"
       map: "Map"
       link: "Link"
+      reserve: "Reserve"
+      purpose: "Purpose"
+      project: "Project"
     visitors_summary:
       name: "Name"
       institution: "Institution"
@@ -2021,6 +2024,9 @@ en:
         users: "Users"
         institutions: "Institutions"
     visits:
+      content:
+        visitors: "Visitors (%{size})"
+        amenities: "Amenities (%{size})"
       status:
         approved: "Approve"
         in_review: "In Review"
