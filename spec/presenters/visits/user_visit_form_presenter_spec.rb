@@ -12,7 +12,7 @@ RSpec.describe Visits::UserVisitFormPresenter do
       visit = create(:visit)
       user = create(:user)
       params = { visit_id: visit.id }
-      user_visits = create_list(:user_visit, 3, visit: visit, user: user)
+      user_visit = create(:user_visit, visit: visit, user: user)
       presenter = Visits::UserVisitFormPresenter.new(current_user: create(:user), add_visitor_partial: "team_membership")
       presenter1 = Visits::UserVisitFormPresenter.new(current_user: create(:user), form: UserVisitForm.new(params: params), add_visitor_partial: "team_membership")
 
@@ -66,12 +66,31 @@ RSpec.describe Visits::UserVisitFormPresenter do
   
 
   describe "#user_visit_form_path" do
-    it "returns user_visit_path with add_visitor_partial as query string" do
+    it "returns user_visit_path with add_visitor_partial as query string if team_membership is not present" do
       visit = create(:visit)
       params = { visit_id: visit.id }
       presenter = Visits::UserVisitFormPresenter.new(current_user: create(:user), add_visitor_partial: "team_membership", form: UserVisitForm.new(params: params))
 
       expect(presenter.user_visit_form_path).to eq "/visits/#{visit.id}/user_visits?add_visitor_partial=team_membership"
+    end
+
+    it "returns new_user_visit_path with params as query string if team_membership is present" do
+      team_membership = create(:project_team_membership, :project_manager, active: true)
+      visit = create(:visit, project_id: team_membership.project_id)
+      params = { visit_id: visit.id }
+      presenter = Visits::UserVisitFormPresenter.new(current_user: create(:user), add_visitor_partial: "team_membership", form: UserVisitForm.new(params: params))
+
+      expect(presenter.user_visit_form_path(team_membership)).to eq "/visits/#{visit.id}/user_visits/new?institution_id=#{team_membership.user.institution_id}&user_id=#{team_membership.user_id}"
+    end
+  end
+
+  describe "#institution_fields_path" do
+    it "returns user_visit_path with add_visitor_partial in query string" do
+      visit = create(:visit)
+      params = { visit_id: visit.id }
+      presenter = Visits::UserVisitFormPresenter.new(current_user: create(:user), add_visitor_partial: "team_membership", form: UserVisitForm.new(params: params))
+
+      expect(presenter.new_user_visit_path({ add_visitor_partial: "team_member" })).to eq "/visits/#{visit.id}/user_visits/new?add_visitor_partial=team_member"
     end
   end
 
@@ -157,6 +176,17 @@ RSpec.describe Visits::UserVisitFormPresenter do
       presenter = Visits::UserVisitFormPresenter.new(current_user: user, add_visitor_partial: "team_membership", form: UserVisitForm.new(params: params))
 
       expect(presenter.visitor?(user)).to be_truthy
+    end
+  end
+
+  describe "#reset_visitor_partial" do
+    it "reset add_visitor_partial to 'nil'" do
+      user = create(:user)
+      presenter = Visits::UserVisitFormPresenter.new(current_user: user, add_visitor_partial: "team_membership")
+      presenter.reset_visitor_partial
+
+      expect(presenter.add_visitor_partial).to be_nil
+
     end
   end
 

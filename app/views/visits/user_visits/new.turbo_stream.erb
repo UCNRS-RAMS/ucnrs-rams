@@ -1,14 +1,23 @@
-<turbo-stream action="replace" target="add-visitor">
-  <template>
-    <turbo-frame id="add-visitor">
-      <%= render partial: @presenter.add_visitor_partial_path, locals: { presenter: @presenter } %>
-    </turbo-frame>
-  </template>
-</turbo-stream>
+<% if @presenter.add_visitor_partial.present? %>
+  <turbo-stream action="replace" target="add-visitor">
+    <template>
+      <turbo-frame id="add-visitor">
+        <%= render partial: @presenter.add_visitor_partial_path, locals: { presenter: @presenter } %>
+      </turbo-frame>
+    </template>
+  </turbo-stream>
+<% end %>
 <% if @presenter.show_add_guest_modal %>
   <turbo-stream action="replace" target="modal-content">
     <template>
       <%= render partial: "modals/new_user_visit", formats: [:html], locals: { presenter: @presenter } %>
+    </template>
+  </turbo-stream>
+<% end %>
+<% unless @presenter.add_visitor_partial.present? %>
+  <turbo-stream action="replace" target="modal-content">
+    <template>
+      <%= render partial: "modals/create_user_visit", formats: [:html], locals: { presenter: @presenter } %>
     </template>
   </turbo-stream>
 <% end %>

@@ -6,7 +6,7 @@ class Visits::UserVisitsController < ApplicationController
   end
 
   def new
-    @presenter = initialize_form_presenter({ visit_id: params[:visit_id], guest_name: params[:guest_name] })
+    @presenter = initialize_form_presenter(new_user_visit_params)
   end
 
   def edit
@@ -24,6 +24,9 @@ class Visits::UserVisitsController < ApplicationController
       render template: "shared/visits/user_visits/_tables"
     elsif @presenter.add_visitor_partial == "guest" && @presenter.user_id.blank?
       redirect_to @presenter.new_user_visit_path({ add_visitor_partial: params[:add_visitor_partial], guest_name: @presenter.guest_name, show_add_guest_modal: true })
+    elsif @presenter.add_visitor_partial == "team_members"
+      @presenter.reset_visitor_partial
+      render :new, status: :unprocessable_entity
     else
       render status: :unprocessable_entity
     end
@@ -82,6 +85,15 @@ class Visits::UserVisitsController < ApplicationController
 
   def display_institution_form?
     params[:display_institution_form].present?
+  end
+
+  def new_user_visit_params
+    {
+      visit_id: params[:visit_id],
+      user_id: params[:user_id],
+      institution_id: params[:institution_id],
+      guest_name: params[:guest_name],
+    }
   end
 
   def user_visit_params

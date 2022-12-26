@@ -100,7 +100,7 @@ RSpec.describe UserVisitForm, type: :model do
       arrives_at = Date.current
       form.arrives_at = arrives_at
 
-      expect(form.arrives_at.to_s).to eq("#{arrives_at}#{visit_starts_at.to_s[10..]}")
+      expect(form.arrives_at.to_s).to eq(arrives_at.beginning_of_day.to_s)
     end
 
     it "sets arrives_at nil when nil date is set" do
@@ -120,7 +120,7 @@ RSpec.describe UserVisitForm, type: :model do
       departs_at = Date.current
       form.departs_at = departs_at
 
-      expect(form.departs_at.to_s).to eq("#{departs_at}#{visit_end_time.to_s[10..]}")
+      expect(form.departs_at.to_s).to eq(departs_at.end_of_day.to_s)
     end
 
     it "sets departs_at nil when nil date is set" do

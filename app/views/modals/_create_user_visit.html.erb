@@ -1,0 +1,46 @@
+<turbo-frame id="modal-content" class="modal-content" role="dialog" aria-labelledby="modal-title">
+  <div data-modal-target="dialog openOnLoad" data-action="mousedown@window->modal#closeBackground" data-controller="user-days">
+    <%= form_with model: presenter.form.user_visit, url: presenter.user_visit_form_path do |form| %>
+      <section class="text">
+        <h2><%= t(".title") %></h2>
+        <div class="field"> 
+          <%= form.hidden_field :visit_id %>
+          <%= form.hidden_field :user_id %>
+          <%= form.hidden_field :institution_id %>
+          <%= form.hidden_field :count, value: 1 %>
+          <%= hidden_field_tag :add_visitor_partial, :team_members %>
+          <%= presenter.user.full_name %>
+        </div>
+        <div class="field">
+          <%= form.label :role %>
+          <%= form.select :role, presenter.user_role_options %>
+        </div>
+        <table>
+          <tr>
+            <td colspan="2">
+              <div class="date-range-select">
+                <div class="field">
+                  <%= form.label :arrives_at %>
+                  <%= form.date_field :arrives_at, data: {"user-days-target": "arrivesAt", action: "input->user-days#calculate" } %>
+                </div>
+                <span class="separator"></span>
+                <div class="field">
+                  <%= form.label :departs_at %>
+                  <%= form.date_field :departs_at, data: {"user-days-target": "departsAt", action: "input->user-days#calculate"} %>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </section>
+      <section class="buttons">
+        <div class="close">
+          <%= link_to t(".cancel"), "#", data: { action: "click->modal#close" } %>
+        </div>
+        <button class="active" type="submit">
+          <%= t(".save") %>
+        </button>
+      </section>
+    <% end %>
+  </div>
+</turbo-frame>

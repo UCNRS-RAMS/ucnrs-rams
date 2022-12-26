@@ -8,6 +8,8 @@ class UserVisit < ApplicationRecord
   validates :count, numericality: { greater_than_or_equal_to: 1 }
   validates :arrives_at, :departs_at, presence: true
   validates :departs_at, must_be_after: :arrives_at
+  validate :arrives_at_overlap_date_range
+  validate :departs_at_overlap_date_range
   validate :date_range_within_visit_range
   validates :role, presence: true
 
@@ -79,6 +81,18 @@ class UserVisit < ApplicationRecord
 
   def dates_present?
     departs_at.present? && arrives_at.present?
+  end
+
+  def departs_at_overlap_date_range
+    if visit&.user_visits&.where&.not(id: id)&.where(arrives_at: arrives_at..departs_at, user_id: user_id).present?
+      errors.add(:departs_at,:dates_overlap)
+    end
+  end
+
+  def arrives_at_overlap_date_range
+    if visit&.user_visits&.where&.not(id: id)&.where(departs_at: arrives_at..departs_at, user_id: user_id).present?
+      errors.add(:arrives_at,:dates_overlap)
+    end
   end
 
   def date_range_within_visit_range
