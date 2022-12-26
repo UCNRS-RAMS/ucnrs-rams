@@ -30,7 +30,7 @@ class Manager::Dashboard::CalendarVisitPresenter < VisitPresenter
   private
 
   def display_amenity?(amenity)
-    type.in?(["visits_and_amenities", "amenities_only", amenity.amenities_type])
+    type.in?(["visits_and_amenities", "amenities_only", amenity.group_number])
   end
 
   def amenities_scope
