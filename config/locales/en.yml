@@ -75,7 +75,9 @@ en:
           attributes:
             arrives_at:
               must_be_after_visit_start_date: "must be after visit start date"
+              dates_overlap: "overlapping date with existing dates"
             departs_at:
+              dates_overlap: "overlapping date with existing dates"
               must_be_before_visit_end_date: "must be before visit end date"
   activemodel:
     <<: *errors
@@ -323,6 +325,16 @@ en:
       edit_reserve_permit:
         title: "Edit Permit"
         accessible_description: "A modal pop-up form to edit details of a permit to this reserve."
+    create_user_visit:
+      create_new_institution: "Create New Institution"
+      search_by_name: "Search by Name"
+      title: "Change Date Range"
+      name: "Name"
+      institution: "Institution"
+      role: "Role"
+      save: "Save"
+      cancel: "Cancel"
+      accessible_description: "A modal pop-up form to create a visitor."
     edit_user_visit:
       create_new_institution: "Create New Institution"
       search_by_name: "Search by Name"
@@ -643,8 +655,6 @@ en:
       arrival_and_departure: "Arrival and Departure"
       purpose: "Purpose"
       project: "Project"
-      visitors: "Visitors (%{size})"
-      amenities: "Amenities (%{size})"
     content_approved_show:
       visit_summary: "Visit Summary"
       edit_visit: "Edit Visit"

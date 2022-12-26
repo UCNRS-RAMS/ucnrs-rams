@@ -13,3 +13,10 @@
     <%= render partial: "shared/visits/user_visits/user_visits_table", locals: { presenter: @presenter }, formats: [:html] %>
   </template>
 </turbo-stream>
+<% unless @presenter.add_visitor_partial.present? %>
+  <turbo-stream action="replace" target="modal-content">
+    <template>
+      <%= render partial: "modals/create_user_visit", formats: [:html], locals: { presenter: @presenter } %>
+    </template>
+  </turbo-stream>
+<% end %>

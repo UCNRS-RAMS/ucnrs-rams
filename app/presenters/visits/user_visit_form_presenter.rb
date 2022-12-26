@@ -20,12 +20,20 @@ def initialize(current_user:, add_visitor_partial:, show_add_guest_modal: false,
     visitor?(user) ? "visitor" : ""
   end
 
+  def reset_visitor_partial
+    @add_visitor_partial = nil
+  end
+
   def add_visitor_link_class(partial_name)
     partial_name == add_visitor_partial ? "selected" : ""
   end
 
-  def user_visit_form_path
-    visit_user_visits_path(visit.id, add_visitor_partial: add_visitor_partial)
+  def user_visit_form_path(team_membership=nil)
+    if team_membership.present?
+      new_visit_user_visit_path(visit_id: visit.id, user_id: team_membership.user_id, institution_id: team_membership.user.institution_id)
+    else
+      visit_user_visits_path(visit.id, add_visitor_partial: add_visitor_partial)
+    end
   end
 
   def new_user_visit_path(params)
