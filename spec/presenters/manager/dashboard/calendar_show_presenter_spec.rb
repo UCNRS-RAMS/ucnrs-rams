@@ -101,17 +101,20 @@ RSpec.describe Manager::Dashboard::CalendarShowPresenter do
 
   describe "#type_options" do
     it "return hash for types" do
+      reserve = create(:reserve, amenity_group_label_1: "Housing", amenity_group_label_2: "Laboratory",
+                          amenity_group_label_3: "Classroom", amenity_group_label_4: "", amenity_group_label_5: "")
+      create(:amenity, reserve: reserve, amenities_type: :housing_and_camping)
+      create(:amenity, reserve: reserve, amenities_type: :classroom_and_meeting_space)
+
       show_presenter = Manager::Dashboard::CalendarShowPresenter.new(reserve: reserve)
 
       expected_value = {
         "Visits and Amenities" => :visits_and_amenities,
         "Visits Only" => :visits_only,
         "Amenities Only" => :amenities_only,
-        "Housing & Camping" => :housing_and_camping,
-        "Classroom & Meeting Space" => :classroom_and_meeting_space,
-        "Laboratory & Storage Space" => :laboratory_and_storage_space,
-        "Vehicles & Boats" => :vehicles_and_boats,
-        "Other Amenity" => :other_amenity,
+        "Housing" => "1",
+        "Laboratory" => "2",
+        "Classroom" => "3",
       }
 
       expect(show_presenter.type_options).to eq expected_value

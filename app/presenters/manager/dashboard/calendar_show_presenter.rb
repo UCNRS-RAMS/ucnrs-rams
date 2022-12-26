@@ -5,7 +5,7 @@ class Manager::Dashboard::CalendarShowPresenter
     visits_and_amenities: I18n.t("manager.dashboards.calendar.visits_and_amenities"),
     visits_only: I18n.t("manager.dashboards.calendar.visits_only"),
     amenities_only: I18n.t("manager.dashboards.calendar.amenities_only"),
-  }.merge(Amenity.amenities_types.symbolize_keys)
+  }
 
   STATUS_FILTERS = {
     all: I18n.t("manager.dashboards.calendar.all"),
@@ -48,7 +48,7 @@ class Manager::Dashboard::CalendarShowPresenter
   end
 
   def type_options
-    TYPE_FILTERS.invert
+    TYPE_FILTERS.merge(amenities_group_options).invert
   end
 
   def status_options
@@ -143,6 +143,10 @@ class Manager::Dashboard::CalendarShowPresenter
 
   def prev_date_amenities
     month_amenities[current_date.yesterday.to_s] || []
+  end
+
+  def amenities_group_options
+    (1..5).map { |i| [i.to_s, reserve&.public_send("amenity_group_label_#{i}")] }.to_h.compact_blank
   end
 
   def hidden_link_params
