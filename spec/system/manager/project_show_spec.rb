@@ -226,8 +226,10 @@ RSpec.describe "Manager Project Show" do
   describe "it displays manager's project team section in show page" do
     it "displays a form to add a project team member" do
       project = create(:project, reserve: reserve, owner: user)
-      team_membership = create(:project_team_membership, :principal_investigator, project: project,
+      project_owner = create(:project_team_membership, :principal_investigator, project: project,
         user: user)
+      team_membership = create(:project_team_membership, :principal_investigator, project: project,
+        user: create(:user))
 
       sign_in(user)
       flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
@@ -240,14 +242,16 @@ RSpec.describe "Manager Project Show" do
       expect(flow).to have_hidden_field("project_team_membership_user_id")
       expect(flow).to have_select_field("Project Role")
       expect(flow).to have_section("team-member-table")
+      expect(flow).not_to have_team_membership_edit_link(project_owner)
       expect(flow).to have_team_membership_edit_link(team_membership)
     end
 
     it "displays a team member table" do
       project = create(:project, reserve: reserve, owner: user)
-      team_membership = create(:project_team_membership, :principal_investigator, project: project,
+      project_owner = create(:project_team_membership, :principal_investigator, project: project,
         user: user)
-
+      team_membership = create(:project_team_membership, :principal_investigator, project: project,
+        user: create(:user))
       sign_in(user)
       flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
 
@@ -256,6 +260,7 @@ RSpec.describe "Manager Project Show" do
       expect(flow).to be_not_showing_form(".team-member-table")
       flow.click_on_team
       expect(flow).to be_showing_form(".team-member-table")
+      expect(flow).not_to have_team_membership_edit_link(project_owner)
       expect(flow).to have_team_membership_edit_link(team_membership)
     end
   end
