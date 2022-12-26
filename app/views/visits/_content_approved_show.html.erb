@@ -11,6 +11,18 @@
     <span><%= link_to t(".edit_visit"), edit_visit_path(presenter.id) %></span>
   </div>
 </header>
+<section class="visit-summary">
+  <table class="visit-summary-table">
+    <tr>
+      <td><%= t(".purpose") %></td>
+      <td><%= presenter.purpose_of_visit %></td>
+    </tr>
+    <tr>
+      <td><%= t(".project") %></td>
+      <td><%= link_to presenter.project_title, project_path(presenter.project_id) %></td>
+    </tr>
+  </table>
+</section>
 <section class="visit-waivers">
   <h2 class="title"><%= t(".waivers") %></h2>
   <div class="reserve-waivers">
@@ -25,3 +37,4 @@
 <section>
   <h2 class="title"><%= t(".map") %></h2>
 </section>
+<%= render partial: "shared/visits/content", locals: { presenter: presenter } %>

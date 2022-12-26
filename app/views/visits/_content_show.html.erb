@@ -26,11 +26,4 @@
     </tr>
   </table>
 </section>
-<section class="visit-visitors">
-  <h2 class="main-header"><%= t(".visitors", size: presenter.visitor_count) %></h2>
-  <%= render partial: "visits/visitors_summary", locals: { presenter: presenter } %>
-</section>
-<section class="visit-amenities">
-  <h2 class="main-header"><%= t(".amenities", size: presenter.amenity_count) %></h2>
-  <%= render partial: "visits/amenities_summary", locals: { presenter: presenter } %>
-</section>
+<%= render partial: "shared/visits/content", locals: { presenter: presenter } %>
