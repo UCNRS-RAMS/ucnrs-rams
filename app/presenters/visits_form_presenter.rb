@@ -33,6 +33,15 @@ class VisitsFormPresenter
       .group_by(&:group_label)
   end
 
+  def user_visits
+    visit.user_visits.includes([:user])
+      .map do |user_visit|
+      Visits::UserVisitPresenter.new(
+        user_visit,
+      )
+    end
+  end
+
   def project_type_options
     Visit.project_types.keys
   end

@@ -27,6 +27,12 @@ class Visits::UserVisitsIndexPresenter
     end
   end
 
+  def amenity_visits
+    visit.amenity_visits.map do |amenity_visit|
+      AmenityVisitPresenter.new(amenity_visit)  
+    end
+  end
+
   def visit_date_range
     DateRangePresenter.value(start_date: visit.starts_at.to_date, end_date: visit.ends_at.to_date)
   end

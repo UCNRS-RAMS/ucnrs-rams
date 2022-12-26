@@ -48,6 +48,20 @@
         <%= render partial: "visits/reserve_inputs/fields", locals: { form_values: presenter.form, presenter: presenter } %>
       </div>
     </section>
+    <section class="visit-form">
+      <h2><%= t(".visitors_list") %></h2>
+      <table id="amenities-summary-table" class="summary-table">
+        <thead>
+          <tr>
+            <th><%= t(".name") %></th>
+            <th><%= t(".date_range") %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render partial: "shared/visits/user_visits/user_visit_dates", collection: presenter.user_visits, as: :user_visit %>
+        </tbody>
+      </table>
+    </section>
     <section class="amenities visit-form" data-followup-content-target="destination" data-followup-content-url-value="<%= visits_amenities_url(reserve_id: "VALUE") %>">
       <section class="amenity-options" >
         <% presenter.amenities_by_group_label.each do |group_label, amenities| %>

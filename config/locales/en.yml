@@ -564,6 +564,9 @@ en:
         arrive_departs_date: "Arrival & Departure"
         next_step: "Next: Reserve Info"
         back: "Go Back"
+        amenity_visits: "Amenity Visits"
+        amenity: "Amenity"
+        date_of_use: "Date of Use"
     amenities:
       amenity_booking:
          time_of_use: "Time of use"
@@ -2081,6 +2084,9 @@ en:
         text:
           aria_label_for: "textarea answer field for question %{question}"
       form:
+        visitors_list: "Visitors List"
+        name: "Name"
+        date_range: "Date Range"
         aria:
           arrival_time: "Arrival Time"
           departure_time: "Departure Time"
