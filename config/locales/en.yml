@@ -110,12 +110,15 @@ en:
       user_visit_date: "%m/%d/%Y"
       date_range:
         month_name: "%b"
+        month_in_digit: "%m"
+        day_in_digit: "%d"
   date_range:
     same_day: "%{start_month} %{start_day}, %{start_year}"
     different_days_same_month: "%{start_month} %{start_day} - %{end_day}, %{start_year}"
     different_months_same_year: "%{start_month} %{start_day} - %{end_month} %{end_day}, %{start_year}"
     different_years: "%{start_month} %{start_day}, %{start_year} - %{end_month} %{end_day}, %{end_year}"
     same_day_hour_difference: "%{start_month} %{start_day} (%{hours} hours)"
+    short_date: "%{start_month} / %{start_day} - %{end_month} / %{end_day}"
   forms:
     select_one: "Please Select One"
   home:
@@ -652,10 +655,12 @@ en:
       name: "Name"
       institution: "Institution"
       project_role: "Role"
+      date_range: "Date Range"
     amenities_summary:
       name: "Name"
       rate: "Rate"
       count: "Count"
+      date_range: "Date Range"
       cost: "Cost"
       total: "Total"
     steps:

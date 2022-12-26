@@ -15,6 +15,10 @@ class AmenityVisitPresenter
     DateRangePresenter.value(start_date: arrives, end_date: departs, format: format)
   end
 
+  def requested_short_date_range(format: nil)
+    ShortDateRangePresenter.value(start_date: arrives_at.to_date, end_date: departs_at.to_date, format: format)
+  end
+
   def total_days
     ((departs.to_date + 1.day) - arrives.to_date).to_i
   end
