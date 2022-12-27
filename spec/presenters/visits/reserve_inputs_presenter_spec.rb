@@ -34,4 +34,28 @@ RSpec.describe Visits::ReserveInputsPresenter do
       expect(presenter.alert_message).to be_nil
     end
   end
+
+  describe "#alert_message_class" do
+    it "returns 'reserve-message' if it is enabled" do
+      reserve = build(
+        :reserve,
+        reserve_alert_message_enabled: true,
+        reserve_alert_message: "Yes!"
+      )
+      presenter = Visits::ReserveInputsPresenter.new(reserve)
+
+      expect(presenter.alert_message_class).to eq "reserve-message"
+    end
+
+    it "returns nil if it is not enabled" do
+      reserve = build(
+        :reserve,
+        reserve_alert_message_enabled: false,
+        reserve_alert_message: "No!"
+      )
+      presenter = Visits::ReserveInputsPresenter.new(reserve)
+
+      expect(presenter.alert_message_class).to be_nil
+    end
+  end
 end

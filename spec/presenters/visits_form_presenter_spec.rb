@@ -91,6 +91,61 @@ RSpec.describe VisitsFormPresenter do
     end
   end
 
+  describe "#alert_message" do
+    let(:user) { build(:user) }
+
+    it "returns the alert_message if it is enabled" do
+      reserve = create(
+        :reserve,
+        reserve_alert_message_enabled: true,
+        reserve_alert_message: "Yes!"
+      )
+      form = VisitForm.new(params: { reserve_id: reserve.id })
+      presenter = VisitsFormPresenter.new(user: user, form: form)
+      
+      expect(presenter.alert_message).to eq "<p>Yes!</p>"
+    end
+
+    it "returns nil if it is not enabled" do
+      reserve = create(
+        :reserve,
+        reserve_alert_message_enabled: false,
+        reserve_alert_message: "No!"
+      )
+      form = VisitForm.new(params: { reserve_id: reserve.id })
+      presenter = VisitsFormPresenter.new(user: user, form: form)
+
+      expect(presenter.alert_message).to be_nil
+    end
+  end
+
+  describe "#alert_message_class" do
+    let(:user) { create(:user, :confirmed) }
+    it "returns 'reserve-message' if it is enabled" do
+      reserve = create(
+        :reserve,
+        reserve_alert_message_enabled: true,
+        reserve_alert_message: "Yes!"
+      )
+      form = VisitForm.new(params: { reserve_id: reserve.id })
+      presenter = VisitsFormPresenter.new(user: user, form: form)
+
+      expect(presenter.alert_message_class).to eq "reserve-message"
+    end
+
+    it "returns nil if it is not enabled" do
+      reserve = create(
+        :reserve,
+        reserve_alert_message_enabled: false,
+        reserve_alert_message: "No!"
+      )
+      form = VisitForm.new(params: { reserve_id: reserve.id })
+      presenter = VisitsFormPresenter.new(user: user, form: form)
+
+      expect(presenter.alert_message_class).to be_nil
+    end
+  end
+
   describe "#public_use_categories" do
     it "returns the Visit's public_use_categories" do
       presenter = VisitsFormPresenter.new(user: build(:user))

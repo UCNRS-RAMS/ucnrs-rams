@@ -1,5 +1,6 @@
 class VisitsFormPresenter
   include Rails.application.routes.url_helpers
+  include ActionView::Helpers::TextHelper
 
   HOURS_PER_DAY = 24
   def initialize(user:, current_step: 1, form: nil)
@@ -122,8 +123,12 @@ class VisitsFormPresenter
 
   def alert_message
     if reserve&.reserve_alert_message_enabled
-      reserve&.reserve_alert_message
+      simple_format reserve&.reserve_alert_message
     end
+  end
+
+  def alert_message_class
+    "reserve-message" if reserve&.reserve_alert_message_enabled
   end
 
   def amenity_scope

@@ -99,34 +99,34 @@
           padding-right: 1.1875rem;
         }
       }
+    }
 
-      .pill {
-        transition: all .25s ease-in-out;
+    .pill {
+      transition: all 0.25s ease-in-out;
 
-        &.approved {
-          border-color: transparent;
-          background-color: $green;
-        }
+      &.approved {
+        border-color: transparent;
+        background-color: $green;
+      }
 
-        &.in_review {
-          border-color: transparent;
-          background-color: $yellow;
-        }
+      &.in_review {
+        border-color: transparent;
+        background-color: $yellow;
+      }
 
-        &.denied {
-          border-color: transparent;
-          background-color: $blue;
-        }
+      &.denied {
+        border-color: transparent;
+        background-color: $blue;
+      }
 
-        &.incomplete {
-          border-color: transparent;
-          background-color: $red-alert;
-        }
+      &.incomplete {
+        border-color: transparent;
+        background-color: $red-alert;
+      }
 
-        &.cancelled {
-          border-color: transparent;
-          background-color: $pink;
-        }
+      &.cancelled {
+        border-color: transparent;
+        background-color: $pink;
       }
     }
   }
