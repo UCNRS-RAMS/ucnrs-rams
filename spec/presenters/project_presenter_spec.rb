@@ -9,6 +9,7 @@ RSpec.describe ProjectPresenter do
     it { is_expected.to delegate_method(:applicant).to(:project) }
     it { is_expected.to delegate_method(:to_key).to(:project) }
     it { is_expected.to delegate_method(:model_name).to(:project) }
+    it { is_expected.to delegate_missing_methods_to(:project) }
   end
 
   describe "#project_type" do
@@ -38,9 +39,9 @@ RSpec.describe ProjectPresenter do
           project: create(:project, start_date: start_date, end_date: end_date)
         )
         allow(DateRangePresenter).to receive(:value)
-  
+
         project_presenter.timeframe
-  
+
         expect(DateRangePresenter).to have_received(:value)
           .with(start_date: start_date, end_date: end_date)
       end
@@ -68,7 +69,7 @@ RSpec.describe ProjectPresenter do
         create(:visit, project: project, start_date: Date.new(2019, 10, 1))
         create(:visit, project: project, start_date: Date.new(2021, 10, 1))
         project_presenter = ProjectPresenter.new(project: project)
-  
+
         expect(project_presenter.recent_visit_date).to eq "Oct 01, 2021"
       end
     end
@@ -111,6 +112,17 @@ RSpec.describe ProjectPresenter do
       project_presenter = ProjectPresenter.new(project: project)
 
       expect(project_presenter.applicant_name).to eq "Scrooge McDuck"
+    end
+  end
+
+  describe "#owner_name" do
+    it "returns the project owner full name" do
+      user = create(:user, first_name: "Scrooge", last_name: "McDuck")
+      project  = create(:project, owner: user)
+
+      project_presenter = ProjectPresenter.new(project: project)
+
+      expect(project_presenter.owner_name).to eq "Scrooge McDuck"
     end
   end
 end

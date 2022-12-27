@@ -96,7 +96,7 @@ table.annual-report {
   border-width: 1px;
   font-size: 10px;
   margin-bottom: 3rem;
-  table-layout:fixed;
+  table-layout: fixed;
   width: 100%;
 
   col.first-col {
@@ -154,4 +154,39 @@ table.annual-report {
 
 table.report-part-2-table {
   @include rams-2-list-table;
+}
+
+div.report-part-3-data {
+  h3 {
+    background-color: $dark-bluegray;
+    color: $white;
+    margin: 0;
+    padding: 8px;
+  }
+
+  hr {
+    border-bottom: 1px solid $gray;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+  }
+
+  .part-3-subheader {
+    background-color: $gray;
+    padding: 8px;
+  }
+
+  .part-3-content {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+
+    > *:first-child {
+      padding: 8px;
+    }
+
+    > *:not(:first-child) {
+      padding: 4px 16px;
+    }
+  }
 }

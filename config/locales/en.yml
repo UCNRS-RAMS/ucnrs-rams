@@ -1705,6 +1705,10 @@ en:
         location: "Location"
       report_part_3:
         part_3_use_by_instructional_groups: "Part 3. Use by Instructional Groups"
+      report_part_3_content:
+        course_number: "Course Number"
+        instructor: "Instructor"
+        date: "Date"
       report_part_4:
         part_4_current_research: "Part 4. Current Research"
       report_part_5:
