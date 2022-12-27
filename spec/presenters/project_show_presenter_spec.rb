@@ -154,4 +154,24 @@ RSpec.describe ProjectShowPresenter do
       ]
     end
   end
+
+  describe "#sidebar_partial" do
+    it "return 'projects/completed_project_sidebar' if status is open" do
+      project = create(:project, status: "open")
+      presenter = ProjectShowPresenter.new(project)
+
+      output = "projects/completed_project_sidebar"
+
+      expect(presenter.sidebar_partial).to eq output
+    end
+
+    it "return 'projects/incomplete_project_sidebar' if status is not open" do
+      project = create(:project, status: "incomplete")
+      presenter = ProjectShowPresenter.new(project)
+
+      output = "projects/incomplete_project_sidebar"
+
+      expect(presenter.sidebar_partial).to eq output
+    end
+  end
 end

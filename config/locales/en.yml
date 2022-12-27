@@ -695,6 +695,23 @@ en:
     create:
       reset_password_sent: "A reset password email has been sent."
   projects:
+    incomplete_project_sidebar:
+      sidebar_title: "Incomplete"
+      edit_project: "Edit Project"
+      sidebar_information: "This visit is incomplete and has not been submitted yet to the reserve administration for approval.  Once you are ready please complete all the visit page information and submit."
+    completed_project_sidebar:
+      sidebar_title: "Eureka!"
+      sidebar_subtitle: "Congratulations on successfully creating your project."
+      sidebar_information: "The data you have provided should be as accurate as possible as it
+                            will be used by the reserve manager to determine whether your project
+                            falls within the scope of that reserve’s mission. Inaccurate or missing data
+                            may result in your visit request being denied."
+      sidebar_next_steps: "Next Steps"
+      sidebar_next_steps_1: "Visit reserve page and determine which reserves you would like to submit your project too."
+      sidebar_next_steps_2: "Create a visit for that reserve."
+      sidebar_next_steps_3: "Once your visit has been approved and only then, will you be able to physically visit the reserve."
+      sidebar_next_steps_4: "You may also be asked to provide Permit paperwork and Signed waivers."
+      schedule_a_visit: "Schedule a Visit"
     not_authorized: "You are not authorized to edit this project."
     cannot_add_users: "You are not authorized to add users."
     index:
@@ -943,19 +960,7 @@ en:
           right_facing_arrow: "Right-facing arrow"
           left_facing_arrow: "Left-facing arrow"
     show:
-      schedule_a_visit: "Schedule a Visit"
       view_our_reserves: "View Our Reserves"
-      sidebar_title: "Eureka!"
-      sidebar_subtitle: "Congratulations on successfully creating your project."
-      sidebar_information: "The data you have provided should be as accurate as possible as it
-                            will be used by the reserve manager to determine whether your project
-                            falls within the scope of that reserve’s mission. Inaccurate or missing data
-                            may result in your visit request being denied."
-      sidebar_next_steps: "Next Steps"
-      sidebar_next_steps_1: "Visit reserve page and determine which reserves you would like to submit your project too."
-      sidebar_next_steps_2: "Create a visit for that reserve."
-      sidebar_next_steps_3: "Once your visit has been approved and only then, will you be able to physically visit the reserve."
-      sidebar_next_steps_4: "You may also be asked to provide Permit paperwork and Signed waivers."
       project_summary: "Project Summary"
       project_status_request: "%{project_type} Request"
       edit_project: "Edit Project"

@@ -46,6 +46,10 @@ class ProjectShowPresenter
     end
   end
 
+  def sidebar_partial
+    open? ? "projects/completed_project_sidebar" : "projects/incomplete_project_sidebar" 
+  end
+
   def method_remove_organisms_statement
     I18n.t("projects.show.method_remove_organisms") if method_remove_organisms
   end
