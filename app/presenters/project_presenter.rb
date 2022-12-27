@@ -20,6 +20,8 @@ class ProjectPresenter
     :created_at,
     :status, to: :project, private: true
 
+  delegate_missing_to :project
+
   def timeframe
     if project_requires_dates?
       DateRangePresenter.value(start_date: start_date, end_date: end_date)
@@ -50,6 +52,10 @@ class ProjectPresenter
 
   def applicant_name
     applicant&.full_name
+  end
+
+  def owner_name
+    owner&.full_name
   end
 
   private
