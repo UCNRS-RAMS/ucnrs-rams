@@ -1,0 +1,9 @@
+<header class="<%= presenter.status %>">
+  <%= image_tag "icon-minus.svg", width: "30px", height: "30px", alt: t("alt.x_circle") %>
+  <h2 class="main-header"><%= t(".sidebar_title") %></h2>
+</header>
+<section class="reserve-info">
+  <hr />
+  <p class="information"><%= t(".sidebar_information") %></p>
+</section>
+<%= link_to t(".edit_project"), project_path(presenter.project_id), class: "button button-clear" %>
