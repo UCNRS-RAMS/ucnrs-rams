@@ -67,9 +67,9 @@ class RequestVisitFlow
 
   def has_alert_section?(content = nil)
     if content
-      page.has_css?("div.alert_message", text: content)
+      page.has_css?("div.reserve-message", text: content)
     else
-      page.has_css?("div.alert_message")
+      page.has_css?("div.reserve-message")
     end
   end
 

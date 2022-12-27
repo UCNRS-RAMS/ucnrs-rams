@@ -121,6 +121,27 @@
   .reserve-specific-fields {
     display: flex;
     flex-direction: column;
+
+    .reserve-message {
+      background-color: $gold;
+      border-radius: 0.3125rem;
+      font-size: 0.8125rem;
+      margin-bottom: -50px;
+      padding: 1.4rem 1.5rem 1.5rem 50px;
+
+      > p:first-of-type {
+        margin-top: 0;
+      }
+
+      > p:last-of-type {
+        margin-bottom: 0;
+      }
+
+      p {
+        line-height: 1.5rem;
+        margin-bottom: 1.2rem;
+      }
+    }
   }
 
   .special-needs-statement:empty {
