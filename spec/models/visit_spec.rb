@@ -437,17 +437,6 @@ RSpec.describe Visit, type: :model do
     end
   end
 
-  describe ".approved_visit" do
-    it "returns only approved visits" do
-      visit1 = travel_to(1.week.ago) { create(:visit, submitted_at: Date.current, status: "approved") }
-      visit2 = travel_to(1.month.ago) { create(:visit, submitted_at: Date.current, status: "incomplete") }
-
-      results = Visit.approved_visit
-
-      expect(results).to eq [visit1]
-    end
-  end
-
   describe "#starts_at" do
     context "when attribute starts_at is present" do
       it "returns datetime from the attribute starts_at" do

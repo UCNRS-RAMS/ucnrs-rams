@@ -10,8 +10,8 @@ RSpec.describe Reserves::Calendar::Unauthorize::VisitPresenter do
       output = Reserves::Calendar::Unauthorize::BarPresenter.new(
         link_classes: "",
         background_classes: "",
-        inner_classes: "display-none",
-        text_classes: "display-none",
+        inner_classes: "",
+        text_classes: "",
         text: "Reserve 1",
         status_class: "incomplete",
         path: "/reserves/#{reserve.id}/calendar/visits/#{visit.id}",

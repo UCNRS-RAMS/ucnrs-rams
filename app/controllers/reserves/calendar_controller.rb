@@ -26,8 +26,4 @@ class Reserves::CalendarController < ApplicationController
   def date_from_month_str(date_str)
     Date.new(*date_str&.split("-")&.map(&:to_i))
   end
-
-  def current_reserve
-    Reserve.find(params[:reserve_id])
-  end
 end
