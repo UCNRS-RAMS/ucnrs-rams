@@ -60,10 +60,6 @@ class Visit < ApplicationRecord
     end
   end
 
-  def self.approved_visit
-    where(status: "approved")
-  end
-
   def self.by_reserve(reserve)
     if reserve.present?
       where(reserve: reserve)

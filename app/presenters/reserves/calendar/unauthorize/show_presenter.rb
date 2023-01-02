@@ -27,7 +27,7 @@ class Reserves::Calendar::Unauthorize::ShowPresenter < Home::CalendarShowPresent
 
   def visit_scope
     Visit
-      .approved_visit
+      .approved
       .by_reserve(current_reserve)
       .where(
         starts_at: ..start_date.end_of_month.end_of_week,
