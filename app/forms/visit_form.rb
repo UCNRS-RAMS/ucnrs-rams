@@ -12,13 +12,14 @@ class VisitForm
   def initialize(user: User.new, params: {}, editing: false )
     @visit = Visit.where(id: params[:id]).first || Visit.new
     @visit.user = user
+    @project_type = params.delete(:project_type) || visit.project_type
     @visit.sign_token = SecureRandom.urlsafe_base64(48)
     @amenities_params = params.delete(:amenities) || {}
     @editing = editing
     assign(params)
   end
 
-  attr_reader :visit, :editing
+  attr_reader :visit, :editing, :project_type
 
   delegate_missing_to :visit
 
