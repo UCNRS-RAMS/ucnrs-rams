@@ -165,6 +165,9 @@ en:
       country: "Country"
       state: "State"
   modals:
+    visit_invoices_confirmation_box:
+      delete: "Delete"
+      confirmation_message: "Are you sure you want to delete the visit and its associated amenity_visit and invoices?"
     invoices:
       record_payment:
         record_payment: "Record Payment"
@@ -2069,6 +2072,13 @@ en:
         date_created: "Date Created"
   shared:
     manager:
+      invoices:
+        invoice_table:
+          status: "Status"
+          invoice_id: "Invoice ID"
+          invoice_date: "Invoice Date"
+          amenity_visit_date: "Amenity Visit Date"
+          balance: "Balance"
       users_and_institutions_submenu:
         users: "Users"
         institutions: "Institutions"

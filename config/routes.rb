@@ -97,7 +97,7 @@ Rails.application.routes.draw do
         resource :detail, only: [:edit, :update], controller: "visits/detail"
         resources :activity_and_notes, only: [:index, :create, :show], controller: "visits/activity_and_notes"
         resources :reserve_info, only: [:index, :create], controller: "visits/reserve_info"
-        resources :invoices, only: [:index], controller: "visits/invoices"
+        resources :invoices, only: [:index], as: "invoice", controller: "visits/invoices"
       end
 
       resources :reports, only: [:show, :update] do

@@ -11,17 +11,17 @@
           <p class="title"><%= presenter.requested_reserve_name %></p>
         </div>
       </div>
-      <div class="info-block" id="status_and_trash_btn" data-controller="summary-box" >
-          <%= link_to manager_reserve_visit_path(id: presenter.id), method: :delete, data: { action: "click->summary-box#alertMessage", "summary-box-staff_member-param": presenter.reserve_manager?, "summary-box-visit-id-param": presenter.id }, id: "trash-icon" do %>
+      <div class="info-block" id="status_and_trash_btn" >
+          <%= link_to manager_reserve_visit_invoice_index_path(visit_id: presenter.id), method: :get, id: "trash-icon" do %>
             <%= image_tag "icons-trash-can.svg", height: "24px", width: "24px"%>
           <% end %>
-          <%= render partial: "manager/visits/tab", locals: presenter.tab_params(
-                id: "summary",
-                path: manager_reserve_visit_summary_path(visit_id: presenter.id),
-                classes: presenter.status_classes,
-                action_method: "selectTab",
-                name: presenter.status) %>
-        </div>
+        <%= render partial: "manager/visits/tab", locals: presenter.tab_params(
+              id: "summary",
+              path: manager_reserve_visit_summary_path(visit_id: presenter.id),
+              classes: presenter.status_classes,
+              action_method: "selectTab",
+              name: presenter.status) %>
+      </div>
     </div>
     <div class="info-block display-flex">
       <div >

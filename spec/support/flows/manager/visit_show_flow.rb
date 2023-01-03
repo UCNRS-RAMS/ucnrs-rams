@@ -29,6 +29,10 @@ class VisitShowFlow
     page.find("#details").click
   end
 
+  def click_on_delete_button
+    page.find(".button").click
+  end
+
   def change_purpose_of_visit
     page.find("#visit_purpose_of_visit").set("changed")
   end
@@ -53,6 +57,14 @@ class VisitShowFlow
     page.has_css?(".notice")
   end
 
+  def showing_confirmation_box?
+    page.has_css?("#modal")
+  end
+
+  def showing_invoices_table?
+    page.has_css?(".invoices")
+  end
+
   def click_on_save_btn
     page.click_on("Save Changes")
   end
@@ -66,9 +78,7 @@ class VisitShowFlow
   end
 
   def click_on_trash_icon
-    page.accept_confirm do
-      page.find("#trash-icon").click
-    end
+    page.find("#trash-icon").click
   end
 
   def click_on_details_btn
