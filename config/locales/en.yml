@@ -1711,6 +1711,13 @@ en:
         date: "Date"
       report_part_4:
         part_4_current_research: "Part 4. Current Research"
+      report_part_4_data:
+        project_dates: "Project Dates"
+        principal_investigators: "Principal Investigators"
+        other_members: "Other Members"
+        affiliations: "Affiliations"
+        project_abstract: "Project Abstract"
+        none: "None"
       report_part_5:
         part_5_publications: "Part 5. Publications"
       report_part_6:
