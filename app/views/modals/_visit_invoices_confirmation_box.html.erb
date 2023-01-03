@@ -1,0 +1,12 @@
+<turbo-frame class="modal-content" data-modal-target="dialog openOnLoad" >
+  <div data-modal-target="dialog openOnLoad" data-action="mousedown@window->modal#closeBackground">
+    <div class="spacer">
+      <h3><%= t(".confirmation_message") %></h3>
+      <%= render partial: "shared/manager/invoices/invoice_table", locals: { presenter: presenter } %>
+    </div>
+    <section class="buttons">
+      <div class="close"><%= link_to t("cancel"), "#", data: { action: "click->modal#close" } %></div>
+      <%= link_to t(".delete"), manager_reserve_visit_path(id: presenter.id), method: :delete, class: "button" %>
+    </section>
+  </div>
+</turbo-frame>

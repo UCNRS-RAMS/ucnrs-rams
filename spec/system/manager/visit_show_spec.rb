@@ -41,7 +41,7 @@ RSpec.describe "Manager Visit Show" do
     end
   end
 
-  describe "it delete visit and its associated records", js: true do
+  describe "it open a confirmation modal", js: true do
     it "when click on trash icon", js: true do
       sign_in(user)
       flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
@@ -49,6 +49,30 @@ RSpec.describe "Manager Visit Show" do
       flow.visit_show_page
 
       flow.click_on_trash_icon
+      expect(flow).to be_showing_confirmation_box
+    end
+
+    it "when click on trash icon, contain invoices associated with current visit", js: true do
+      sign_in(user)
+      flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
+
+      flow.visit_show_page
+
+      flow.click_on_trash_icon
+      expect(flow).to be_showing_confirmation_box
+      expect(flow).to be_showing_invoices_table
+    end
+  end
+
+  describe "it delete visit and its associated records", js: true do
+    it "when click on delete button of modal", js: true do
+      sign_in(user)
+      flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
+
+      flow.visit_show_page
+
+      flow.click_on_trash_icon
+      flow.click_on_delete_button
 
       Visit.find_by(id: visit.id).nil?
     end

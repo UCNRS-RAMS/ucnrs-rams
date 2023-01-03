@@ -1,0 +1,13 @@
+<table class="invoices">
+  <thead>
+    <tr>
+      <th><%= t(".status") %></th>
+      <th><%= t(".invoice_id") %></th>
+      <th><%= t(".invoice_date") %></th>
+      <th><%= t(".amenity_visit_date") %></th>
+      <th><%= t(".balance") %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <%= render partial: "shared/manager/invoices/invoice", collection: presenter.selected_invoices %>
+</table>

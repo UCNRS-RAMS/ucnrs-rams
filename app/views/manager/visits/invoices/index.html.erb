@@ -12,19 +12,7 @@
           </select>
         <% end %>
       </header>
-      <table class="invoices">
-        <thead>
-          <tr>
-            <th><%= t(".status") %></th>
-            <th><%= t(".invoice_id") %></th>
-            <th><%= t(".invoice_date") %></th>
-            <th><%= t(".amenity_visit_date") %></th>
-            <th><%= t(".balance") %></th>
-            <th></th>
-          </tr>
-        </thead>
-        <%= render partial: "invoice", collection: @presenter.selected_invoices %>
-      </table>
+      <%= render partial: "shared/manager/invoices/invoice_table", locals: { presenter: @presenter } %>
     </section>
   <% end %>
   <%= render partial: "invoice_amenity_visits_table", locals: { presenter: @presenter } %>

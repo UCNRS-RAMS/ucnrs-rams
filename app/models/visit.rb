@@ -13,7 +13,7 @@ class Visit < ApplicationRecord
   has_many :reserve_notes, as: :record
   has_many :logs, as: :record
   has_many :visit_reserve_answers, dependent: :destroy
-  has_many :invoices
+  has_many :invoices, dependent: :destroy
 
   validates :purpose_of_visit, presence: true
   validates :project_type, presence: true
