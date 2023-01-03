@@ -190,3 +190,13 @@ div.report-part-3-data {
     }
   }
 }
+
+table.report-part-4-table {
+  @include rams-2-list-table;
+
+  colgroup {
+    col:first-child {
+      width: 200px;
+    }
+  }
+}

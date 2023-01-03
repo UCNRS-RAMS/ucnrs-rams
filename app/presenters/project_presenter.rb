@@ -54,10 +54,6 @@ class ProjectPresenter
     applicant&.full_name
   end
 
-  def owner_name
-    owner&.full_name
-  end
-
   private
 
   def with_visits?

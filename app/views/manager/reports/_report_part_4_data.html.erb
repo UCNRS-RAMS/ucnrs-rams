@@ -1,0 +1,31 @@
+<table class="report-part-4-table">
+  <colgroup>
+    <col>
+    <col>
+  </colgroup>
+  <thead>
+    <tr><th colspan="2"><%= project.title %></th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= t(".project_dates") %>:</td>
+      <td><%= project.timeframe %></td>
+    </tr>
+    <tr>
+      <td><%= t(".principal_investigators") %>:</td>
+      <td><%= project.principal_investigator_names.join(" | ") %></td>
+    </tr>
+    <tr>
+      <td><%= t(".other_members") %>:</td>
+      <td>
+        <%= project.other_team_member_names.present? ? project.other_team_member_names.join(" | ") : t(".none") %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= t(".affiliations") %>:</td>
+      <td><%= project.team_members_affiliations.join(" | ")%></td>
+    </tr>
+    <tr class="subheader"><td colspan="2"><%= t(".project_abstract") %></td></tr>
+    <tr><td colspan="2"><%= project.abstract %></td><tr>
+  </tbody>
+</table>
