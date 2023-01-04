@@ -1,5 +1,5 @@
 <div class="card">
-  <%= link_to reserve_path(reserve.id) do %>
+  <%= link_to reserve_path(reserve.id), data: { turbo: false } do %>
     <div class="image">
       <%= image_tag reserve.listing_photo_src, alt: t(".alt_text.reserve_picture"), class: "reserve-image", height: 165, width: 270 %>
     </div>

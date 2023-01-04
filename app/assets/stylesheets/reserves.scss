@@ -442,7 +442,12 @@ main {
     }
 
     .input-with-buttons {
+      display: flex;
       position: relative;
+
+      .cross-icon {
+        margin-left: -30px;
+      }
     }
 
     .input-with-buttons::before {
@@ -454,17 +459,6 @@ main {
       position: absolute;
       top: 0.6875rem;
       width: 0.75rem;
-    }
-
-    .input-with-buttons::after {
-      background: no-repeat center/15px url(asset-path("icon-x-circle.svg"));
-      content: "";
-      display: inline-block;
-      height: 0.9375rem;
-      position: absolute;
-      right: 0.625rem;
-      top: 0.625rem;
-      width: 0.9375rem;
     }
 
     .search-options {

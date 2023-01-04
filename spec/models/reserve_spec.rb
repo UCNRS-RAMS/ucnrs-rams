@@ -111,6 +111,188 @@ RSpec.describe Reserve, type: :model do
     end
   end
 
+  describe ".searching_term" do
+    it "returns reserves that have pulldown_name like search filed value" do
+      matching_reserve = create(:reserve, pulldown_name: "reserve 1 pulldown_name")
+      non_matching_reserve = create(:reserve, pulldown_name: "Hasting")
+
+      results = Reserve.searching_term("reserve 1")
+
+      expect(results).to match_array [matching_reserve]
+    end
+
+    it "returns reserves that have directions like search filed value" do
+      matching_reserve = create(:reserve, directions: "reserve 1 directions")
+      non_matching_reserve = create(:reserve, directions: "Hasting")
+
+      results = Reserve.searching_term("reserve 1")
+
+      expect(results).to match_array [matching_reserve]
+    end
+
+    it "returns reserves that have department like search filed value" do
+      matching_reserve = create(:reserve, department: "reserve 1 department")
+      non_matching_reserve = create(:reserve, department: "Hasting")
+
+      results = Reserve.searching_term("reserve 1")
+
+      expect(results).to match_array [matching_reserve]
+    end
+
+    it "returns reserves that have address_line_1 like search filed value" do
+      matching_reserve = create(:reserve, address_line_1: "reserve 1 address_line_1")
+      non_matching_reserve = create(:reserve, address_line_1: "Hasting")
+
+      results = Reserve.searching_term("reserve 1")
+
+      expect(results).to match_array [matching_reserve]
+    end
+
+    it "returns reserves that have rules like search filed value" do
+      matching_reserve = create(:reserve, rules: "reserve 1 rules")
+      non_matching_reserve = create(:reserve, rules: "Hasting")
+
+      results = Reserve.searching_term("reserve 1")
+
+      expect(results).to match_array [matching_reserve]
+    end
+
+    it "returns reserves that have rates like search filed value" do
+      matching_reserve = create(:reserve, rates: "reserve 1 rates")
+      non_matching_reserve = create(:reserve, rates: "Hasting")
+
+      results = Reserve.searching_term("reserve 1")
+
+      expect(results).to match_array [matching_reserve]
+    end
+
+    it "returns reserves that have short_name like search filed value" do
+      matching_reserve = create(:reserve, short_name: "reserve 1 short_name")
+      non_matching_reserve = create(:reserve, short_name: "Hasting")
+
+      results = Reserve.searching_term("reserve 1")
+
+      expect(results).to match_array [matching_reserve]
+    end
+
+    it "returns reserves that have name like search filed value" do
+      matching_reserve = create(:reserve, name: "reserve 1 name")
+      non_matching_reserve = create(:reserve, name: "Hasting")
+
+      results = Reserve.searching_term("reserve 1")
+
+      expect(results).to match_array [matching_reserve]
+    end
+
+    it "returns reserves that have address_line_2 like search filed value" do
+      matching_reserve = create(:reserve, address_line_2: "reserve 1 address_line_2")
+      non_matching_reserve = create(:reserve, address_line_2: "Hasting")
+
+      results = Reserve.searching_term("reserve 1")
+
+      expect(results).to match_array [matching_reserve]
+    end
+
+    it "returns reserves that have address_city like search filed value" do
+      matching_reserve = create(:reserve, address_city: "reserve 1 address_city")
+      non_matching_reserve = create(:reserve, address_city: "Hasting")
+
+      results = Reserve.searching_term("reserve 1")
+
+      expect(results).to match_array [matching_reserve]
+    end
+
+    it "returns reserves that have State like search filed value" do
+      matching_reserve = create(:reserve, State: "reserve 1 State")
+      non_matching_reserve = create(:reserve, State: "Hasting")
+
+      results = Reserve.searching_term("reserve 1")
+
+      expect(results).to match_array [matching_reserve]
+    end
+
+    it "returns reserves that have address_postal_code like search filed value" do
+      matching_reserve = create(:reserve, address_postal_code: "reserve 1")
+      non_matching_reserve = create(:reserve, address_postal_code: "Hasting")
+
+      results = Reserve.searching_term("reserve 1")
+
+      expect(results).to match_array [matching_reserve]
+    end
+
+    it "returns reserves that have Country like search filed value" do
+      matching_reserve = create(:reserve, Country: "reserve 1 Country")
+      non_matching_reserve = create(:reserve, Country: "Hasting")
+
+      results = Reserve.searching_term("reserve 1")
+
+      expect(results).to match_array [matching_reserve]
+    end
+
+    it "returns reserves that have home_page_url like search filed value" do
+      matching_reserve = create(:reserve, home_page_url: "reserve 1 home_page_url")
+      non_matching_reserve = create(:reserve, home_page_url: "Hasting")
+
+      results = Reserve.searching_term("reserve 1")
+
+      expect(results).to match_array [matching_reserve]
+    end
+
+    it "returns reserves that have special_needs_statement like search filed value" do
+      matching_reserve = create(:reserve, special_needs_statement: "reserve 1 special_needs_statement")
+      non_matching_reserve = create(:reserve, special_needs_statement: "Hasting")
+
+      results = Reserve.searching_term("reserve 1")
+
+      expect(results).to match_array [matching_reserve]
+    end
+
+    it "returns reserves that have doi like search filed value" do
+      matching_reserve = create(:reserve, doi: "reserve 1 doi")
+      non_matching_reserve = create(:reserve, doi: "Hasting")
+
+      results = Reserve.searching_term("reserve 1")
+
+      expect(results).to match_array [matching_reserve]
+    end
+
+    it "returns reserves that have administrative_group_name like search filed value" do
+      matching_reserve = create(:reserve, administrative_group_name: "reserve 1 administrative_group_name")
+      non_matching_reserve = create(:reserve, administrative_group_name: "Hasting")
+
+      results = Reserve.searching_term("reserve 1")
+
+      expect(results).to match_array [matching_reserve]
+    end
+
+    it "returns reserves that have administrative_group_name_acronym like search filed value" do
+      matching_reserve = create(:reserve, administrative_group_name_acronym: "reserve 1 administrative_group_name_acronym")
+      non_matching_reserve = create(:reserve, administrative_group_name_acronym: "Hasting")
+
+      results = Reserve.searching_term("reserve 1")
+
+      expect(results).to match_array [matching_reserve]
+    end
+
+    it "returns reserves that have administrative_group_state like search filed value" do
+      matching_reserve = create(:reserve, administrative_group_state: "reserve 1 administrative_group_state")
+      non_matching_reserve = create(:reserve, administrative_group_state: "Hasting")
+
+      results = Reserve.searching_term("reserve 1")
+
+      expect(results).to match_array [matching_reserve]
+    end
+
+    it "returns all reserves if search filed value is empty" do
+      reserve1 = create(:reserve)
+      reserve2 = create(:reserve)
+
+      results = Reserve.searching_term("")
+
+      expect(results).to match_array [reserve1, reserve2]
+    end
+  end
+
   describe "#listing_photo_placeholder" do
     it "is the file name of the listing photo placeholder image" do
       reserve = build(:reserve)

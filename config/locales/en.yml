@@ -369,6 +369,7 @@ en:
       alt_text:
         reserve_picture: "image of a reserve"
     index:
+      clear_icon: "clear icon"
       direction_title: "Reserves"
       direction_body: "Click a thumbnail to learn more about a reserve, or search by features such as geographic region, ecosystem type, and amenities such as overnight accommodations."
       search: "Search"

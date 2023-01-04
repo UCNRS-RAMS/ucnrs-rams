@@ -942,6 +942,29 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "fa8e11736da56aedb12b2560476633a8fb7d816651583dc51714053924bba175",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/reserve.rb",
+      "line": 52,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Arel.sql(\"        name LIKE \\\"%#{search_filter}%\\\" OR\\n        short_name LIKE \\\"%#{search_filter}%\\\" OR\\n        pulldown_name LIKE \\\"%#{search_filter}%\\\" OR\\n        directions LIKE \\\"%#{search_filter}%\\\" OR\\n        rules LIKE \\\"%#{search_filter}%\\\" OR\\n        rates LIKE \\\"%#{search_filter}%\\\" OR\\n        department LIKE \\\"%#{search_filter}%\\\" OR\\n        address_line_1 LIKE \\\"%#{search_filter}%\\\" OR\\n        address_line_2 LIKE \\\"%#{search_filter}%\\\" OR\\n        address_city LIKE \\\"%#{search_filter}%\\\" OR\\n        State LIKE \\\"%#{search_filter}%\\\" OR\\n        address_postal_code LIKE \\\"%#{search_filter}%\\\" OR\\n        Country LIKE \\\"%#{search_filter}%\\\" OR\\n        home_page_url LIKE \\\"%#{search_filter}%\\\" OR\\n        special_needs_statement LIKE \\\"%#{search_filter}%\\\" OR\\n        doi LIKE \\\"%#{search_filter}%\\\" OR\\n        administrative_group_name LIKE \\\"%#{search_filter}%\\\" OR\\n        administrative_group_name_acronym LIKE \\\"%#{search_filter}%\\\" OR\\n        administrative_group_state LIKE \\\"%#{search_filter}%\\\"\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Reserve",
+        "method": "Reserve.searching_term"
+      },
+      "user_input": "search_filter",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": "SQL Injection"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "fd192b11c691de9705eda00e1dbc0f95e5f9bdddb6e84c8d1589bf87af4601fb",
       "check_name": "SQL",
       "message": "Possible SQL injection",
@@ -963,6 +986,6 @@
       "note": ""
     }
   ],
-  "updated": "2022-12-14 02:55:25 -0900",
+  "updated": "2023-01-04 15:42:16 -0330",
   "brakeman_version": "5.4.0"
 }

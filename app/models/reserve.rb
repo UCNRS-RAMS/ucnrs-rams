@@ -45,6 +45,36 @@ class Reserve < ApplicationRecord
     end
   end
 
+  def self.searching_term(search_filter)
+    if search_filter.present?
+      where(
+        Arel.sql(<<-end_sql)
+        name LIKE "%#{search_filter}%" OR
+        short_name LIKE "%#{search_filter}%" OR
+        pulldown_name LIKE "%#{search_filter}%" OR
+        directions LIKE "%#{search_filter}%" OR
+        rules LIKE "%#{search_filter}%" OR
+        rates LIKE "%#{search_filter}%" OR
+        department LIKE "%#{search_filter}%" OR
+        address_line_1 LIKE "%#{search_filter}%" OR
+        address_line_2 LIKE "%#{search_filter}%" OR
+        address_city LIKE "%#{search_filter}%" OR
+        State LIKE "%#{search_filter}%" OR
+        address_postal_code LIKE "%#{search_filter}%" OR
+        Country LIKE "%#{search_filter}%" OR
+        home_page_url LIKE "%#{search_filter}%" OR
+        special_needs_statement LIKE "%#{search_filter}%" OR
+        doi LIKE "%#{search_filter}%" OR
+        administrative_group_name LIKE "%#{search_filter}%" OR
+        administrative_group_name_acronym LIKE "%#{search_filter}%" OR
+        administrative_group_state LIKE "%#{search_filter}%"
+        end_sql
+      )
+    else
+      all
+    end
+  end
+
   def logo_placeholder
     LOGO_PLACEHOLDER
   end
