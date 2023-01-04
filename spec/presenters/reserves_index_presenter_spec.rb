@@ -7,7 +7,7 @@ RSpec.describe ReservesIndexPresenter do
       reserve_two = create(:reserve, id: 2, name: "reserve b")
       reserve_three = create(:reserve, id: 3, name: "reserve c")
 
-      index_presenter = ReservesIndexPresenter.new
+      index_presenter = ReservesIndexPresenter.new(nil)
 
       expect(index_presenter.reserves.length).to eq 3
       expect(index_presenter.reserves[0]).to have_attributes(id: 1, name: "reserve a")

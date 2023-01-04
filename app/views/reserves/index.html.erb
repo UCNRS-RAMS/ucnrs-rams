@@ -7,9 +7,11 @@
           <%= t(".direction_body") %>
         </p>
       </div>
-      <section class="reserve-cards">
-        <%= render partial: "reserve", collection: @presenter.reserves %>
-      </section>
+      <turbo-frame id="reserve-table">
+        <section class="reserve-cards">
+          <%= render partial: "reserve", collection: @presenter.reserves %>
+        </section>
+      </turbo-frame>
     </section>
     <section class="right-side">
       <div class="reserve-search">
@@ -22,9 +24,12 @@
         <section class="search">
           <label>
             <h2><%= t(".search") %></h2>
-            <div class="input-with-buttons">
-              <input type="text" id="reserve-search">
-            </div>
+            <form method="get" data-turbo-action="advance">
+              <div class="input-with-buttons">
+                <input type="text" name="search_filter" value="<%= @presenter.search_filter %>" onchange="this.form.requestSubmit()" placeholder="Search" id="reserve-search" />
+                <%= image_tag "icon-x-circle.svg", alt: t(".clear_icon"), onclick: "getElementById('reserve-search').value=''", class: "cross-icon" %>
+              </div>
+            </form>
           </label>
         </section>
         <div class="search-options">

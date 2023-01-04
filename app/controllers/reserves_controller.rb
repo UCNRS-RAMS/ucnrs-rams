@@ -2,7 +2,7 @@ class ReservesController < ApplicationController
   layout "with_reserve_hero_nav", only: :show
 
   def index
-    @presenter = ReservesIndexPresenter.new
+    @presenter = ReservesIndexPresenter.new(search_filter)
   end
 
   def show
@@ -12,6 +12,10 @@ class ReservesController < ApplicationController
   end
 
   private
+
+  def search_filter
+    params[:search_filter]
+  end
 
   def reserve_id
     params.permit(:id).require(:id)
