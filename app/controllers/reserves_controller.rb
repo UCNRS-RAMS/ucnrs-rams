@@ -2,7 +2,7 @@ class ReservesController < ApplicationController
   layout "with_reserve_hero_nav", only: :show
 
   def index
-    @presenter = ReservesIndexPresenter.new(search_filter)
+    @presenter = ReservesIndexPresenter.new(search_filter: search_filter, tag_types: selected_tags)
   end
 
   def show
@@ -19,5 +19,9 @@ class ReservesController < ApplicationController
 
   def reserve_id
     params.permit(:id).require(:id)
+  end
+
+  def selected_tags
+    params[:tags][:selected] if params[:tags].present?
   end
 end
