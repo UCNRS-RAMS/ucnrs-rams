@@ -97,6 +97,18 @@ class RegistrationFlow
     page.check("user_terms_accepted_at")
   end
 
+  def select_billing_state
+    page.find("#user_billing_address_state_id").select("California")
+  end
+
+  def click_checkbox
+    page.find("#user_billing_address_same_as_current").click
+  end
+
+  def has_billing_address_div?
+    page.has_css?("#billingAddress")
+  end
+
   def fill_out_account_edit_form(
     first_name: "John",
     last_name: "Muir",
