@@ -25,6 +25,7 @@ class Reserve < ApplicationRecord
   has_many :reserve_permits
   has_many :permits, through: :reserve_permits
   has_many :visits
+  has_many :reserve_tags, dependent: :destroy
 
   def self.blank
     Reserve.new(id: -1, name: "", pulldown_name: "")
@@ -71,6 +72,14 @@ class Reserve < ApplicationRecord
           reserves.administrative_group_state LIKE "%#{search_filter}%"
           end_sql
         )
+    else
+      all
+    end
+  end
+
+  def self.with_tag_type(tag_type)
+    if tag_type.present?
+      joins(:reserve_tags).where(reserve_tags: { tag_type: tag_type }).distinct
     else
       all
     end

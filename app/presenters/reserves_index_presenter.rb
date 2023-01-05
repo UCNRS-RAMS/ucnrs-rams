@@ -1,9 +1,10 @@
 class ReservesIndexPresenter
-  def initialize(search_filter)
+  def initialize(search_filter: nil, tag_types: nil)
     @search_filter = search_filter
+    @tag_types = tag_types
   end
 
-  attr_reader :search_filter
+  attr_reader :search_filter, :tag_types
 
   def reserves
     reserve_scope.map do |reserve|
@@ -11,8 +12,8 @@ class ReservesIndexPresenter
     end
   end
 
-  def tags
-    ["tag01", "tag01", "tag01", "tag01", "tag01", "tag01", "tag01", "tag01", "tag01"]
+  def reserve_tags
+    ReserveTag.tag_types.keys
   end
 
   def amenities_tags
@@ -24,6 +25,7 @@ class ReservesIndexPresenter
   def reserve_scope
     Reserve
       .searching_term(search_filter)
+      .with_tag_type(tag_types)
       .alphabetized
   end
 end

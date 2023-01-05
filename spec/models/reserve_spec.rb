@@ -17,6 +17,7 @@ RSpec.describe Reserve, type: :model do
     it { is_expected.to have_many(:reserve_permits) }
     it { is_expected.to have_many(:permits).through(:reserve_permits) }
     it { is_expected.to have_many(:visits) }
+    it { is_expected.to have_many(:reserve_tags).dependent(:destroy) }
   end
 
   describe "validations" do
@@ -300,6 +301,40 @@ RSpec.describe Reserve, type: :model do
       reserve = build(:reserve)
 
       expect(reserve.listing_photo_placeholder).to eq("reserve_placeholder.jpg")
+    end
+  end
+
+  describe ".with_tag_type" do
+    context "when given tag_types is present" do
+      it "returns reserve associated with reserve_tag with the given tag_types" do
+        reserve1 = create(:reserve)
+        reserve2 = create(:reserve)
+        reserve3 = create(:reserve)
+
+        reserve_tag1 = create(:reserve_tag, reserve: reserve1, tag_type: :geographic)
+        reserve_tag2 = create(:reserve_tag, reserve: reserve2, tag_type: :ecosystem)
+        reserve_tag3 = create(:reserve_tag, reserve: reserve3, tag_type: :geographic)
+
+        results = Reserve.with_tag_type([:geographic])
+
+        expect(results).to eq [reserve1, reserve3]
+      end
+    end
+
+    context "when given tag_types is not present" do
+      it "returns all reserves" do
+        reserve1 = create(:reserve)
+        reserve2 = create(:reserve)
+        reserve3 = create(:reserve)
+
+        reserve_tag1 = create(:reserve_tag, reserve: reserve1, tag_type: :geographic)
+        reserve_tag2 = create(:reserve_tag, reserve: reserve2, tag_type: :ecosystem)
+        reserve_tag3 = create(:reserve_tag, reserve: reserve3, tag_type: :geographic)
+
+        results = Reserve.with_tag_type(nil)
+
+        expect(results).to eq [reserve1, reserve2, reserve3]
+      end
     end
   end
 
