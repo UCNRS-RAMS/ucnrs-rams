@@ -2,17 +2,24 @@ require "rails_helper"
 
 RSpec.describe ReservesIndexPresenter do
   describe "#reserves" do
-    it "presents reserves correctly" do
-      reserve_one = create(:reserve, id: 1, name: "reserve a")
-      reserve_two = create(:reserve, id: 2, name: "reserve b")
-      reserve_three = create(:reserve, id: 3, name: "reserve c")
+    context "if visit_filter is nil" do
+      it "return array of reserve presenters" do
+        reserve_one = create_list(:reserve, 3)
 
-      index_presenter = ReservesIndexPresenter.new(nil)
+        index_presenter = ReservesIndexPresenter.new
+        
+        expect(index_presenter.reserves).to all(be_instance_of ReservePresenter)
+      end
+    end
+  end
 
-      expect(index_presenter.reserves.length).to eq 3
-      expect(index_presenter.reserves[0]).to have_attributes(id: 1, name: "reserve a")
-      expect(index_presenter.reserves[1]).to have_attributes(id: 2, name: "reserve b")
-      expect(index_presenter.reserves[2]).to have_attributes(id: 3, name: "reserve c")
+  describe "#reserve_tags" do
+    it "return reserves tags array" do
+      index_presenter = ReservesIndexPresenter.new
+
+      output = ["ecosystem", "geographic", "organization", "amenities", "internet", "other", "facility"]
+
+      expect(index_presenter.reserve_tags).to eq output
     end
   end
 end

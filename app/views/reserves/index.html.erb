@@ -7,44 +7,44 @@
           <%= t(".direction_body") %>
         </p>
       </div>
-      <turbo-frame id="reserve-table">
+      <%= turbo_frame_tag "reserves" do %>
         <section class="reserve-cards">
           <%= render partial: "reserve", collection: @presenter.reserves %>
         </section>
-      </turbo-frame>
+      <% end %>
     </section>
     <section class="right-side">
-      <div class="reserve-search">
-        <div id="right-reserve-intro" class="load-hide show-765">
-          <h1><%= t(".direction_title") %></h1>
-          <p>
-            <%= t(".direction_body") %>
-          </p>
-        </div>
-        <section class="search">
-          <label>
-            <h2><%= t(".search") %></h2>
-            <form method="get" data-turbo-action="advance">
+      <%= form_with url: reserves_path, method: :get, data: { "turbo-frame": "reserves" } do %>
+        <div class="reserve-search">
+          <div id="right-reserve-intro" class="load-hide show-765">
+            <h1><%= t(".direction_title") %></h1>
+            <p>
+              <%= t(".direction_body") %>
+            </p>
+          </div>
+          <section class="search">
+            <label>
+              <h2><%= t(".search") %></h2>
               <div class="input-with-buttons">
                 <input type="text" name="search_filter" value="<%= @presenter.search_filter %>" placeholder="Search" id="reserve-search" />
                 <%= image_tag "icon-x-circle.svg", alt: t(".clear_icon"), onclick: "getElementById('reserve-search').value=''", class: "cross-icon" %>
               </div>
-            </form>
-          </label>
-        </section>
-        <div class="search-options">
-          <section class="tag-badges">
-            <h2><%= t(".tags") %></h2>
-            <%= render partial: "tag", collection: @presenter.tags %>
+            </label>
           </section>
-          <section class="amenity-badges">
-            <h2><%= t(".amenity_tags") %></h2>
-            <%= render partial: "amenities_tag", collection: @presenter.amenities_tags %>
-          </section>
-          <a href="#" class="icon-refresh-a"><%= t(".clear_selection_and_start_over") %></a>
+          <div class="search-options">
+            <section class="tag-badges">
+              <h2><%= t(".tags") %></h2>
+                <%= render partial: "tag", collection: @presenter.reserve_tags, locals: { presenter: @presenter } %>
+            </section>
+            <section class="amenity-badges">
+              <h2><%= t(".amenity_tags") %></h2>
+              <%= render partial: "amenities_tag", collection: @presenter.amenities_tags %>
+            </section>
+            <a href="#" class="icon-refresh-a"><%= t(".clear_selection_and_start_over") %></a>
+          </div>
+          <button class="button-clear load-hide show-765"><%= t(".less_options") %></button>
         </div>
-        <button class="button-clear load-hide show-765"><%= t(".less_options") %></button>
-      </div>
+      <% end %> 
     </section>
   </div>
 </div>
