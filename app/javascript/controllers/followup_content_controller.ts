@@ -1,12 +1,15 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["destination"]
+  static targets = ["destination", "checkbox", "billingAddress"]
 
   static values = { length: Number }
   declare lengthValue: number
 
   declare destinationTargets: HTMLElement[]
+  declare checkboxTarget: HTMLFormElement
+  declare billingAddressTarget: HTMLFormElement
+
 
   urlPlaceholder = "VALUE"
 
@@ -28,6 +31,10 @@ export default class extends Controller {
     }
 
     this.destinationTargets.forEach((target) => this.loadContent(target, value))
+  }
+
+  toggle(){
+    this.checkboxTarget.checked ? this.billingAddressTarget.setAttribute("hidden", "true" ) : this.billingAddressTarget.removeAttribute("hidden")
   }
 
   loadContent(target: HTMLElement, value: string) {

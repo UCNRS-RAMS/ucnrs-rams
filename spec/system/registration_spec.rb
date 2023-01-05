@@ -62,6 +62,8 @@ RSpec.describe "Registration" do
         address_country: country.name,
         address_state: state.name,
       )
+      flow.select_billing_state
+
       flow.submit_account_creation_form
       expect(flow).to be_on_sign_in_page
       expect(page).to be_axe_clean.skipping(:"color-contrast")
@@ -111,7 +113,7 @@ RSpec.describe "Registration" do
       expect(flow).to_not have_correct_state_options_for(select_field: "user_address_state_id", country_name: "United States")
       expect(page).to be_axe_clean
 
-      expect(flow).to have_no_selected_option_for("user_billing_address_country_id")
+      expect(flow).to have_selected_country_option_for(select_field: "user_billing_address_country_id", country_name: "United States")
       expect(flow).to have_no_selected_option_for("user_billing_address_state_id")
       expect(page).to be_axe_clean.skipping(:"color-contrast")
 
@@ -119,6 +121,42 @@ RSpec.describe "Registration" do
       expect(flow).to have_selected_country_option_for(select_field: "user_billing_address_country_id", country_name: "Zimbabwe")
       expect(flow).to have_correct_state_options_for(select_field: "user_billing_address_state_id", country_name: "Zimbabwe")
       expect(page).to be_axe_clean.skipping(:"color-contrast")
+    end
+
+    it "hide the billing address div when you checked the same_as_current checkbox", js: true do
+      us = create(:country, name: "United States")
+      create(:state, name: "California", country: us)
+      create(:state, name: "Massachusetts", country: us)
+      uk = create(:country, name: "United Kingdom")
+      create(:state, name: "Avon", country: uk)
+      create(:state, name: "Yorkshire", country: uk)
+      create(:country, name: "Zimbabwe", states: [])
+      flow = RegistrationFlow.new(page)
+
+      flow.visit_sign_up_page
+
+      expect(flow).to have_billing_address_div
+      flow.click_checkbox
+      expect(flow).not_to have_billing_address_div
+    end
+
+    it "show the billing address div when you unchecked the same_as_current checkbox", js: true do
+      us = create(:country, name: "United States")
+      create(:state, name: "California", country: us)
+      create(:state, name: "Massachusetts", country: us)
+      uk = create(:country, name: "United Kingdom")
+      create(:state, name: "Avon", country: uk)
+      create(:state, name: "Yorkshire", country: uk)
+      create(:country, name: "Zimbabwe", states: [])
+      flow = RegistrationFlow.new(page)
+
+      flow.visit_sign_up_page
+
+      expect(flow).to have_billing_address_div
+      flow.click_checkbox
+      expect(flow).not_to have_billing_address_div
+      flow.click_checkbox
+      expect(flow).to have_billing_address_div
     end
   end
 
@@ -237,6 +275,46 @@ RSpec.describe "Registration" do
       expect(flow).to have_selected_country_option_for(select_field: "user_billing_address_country_id", country_name: "Zimbabwe")
       expect(flow).to have_correct_state_options_for(select_field: "user_billing_address_state_id", country_name: "Zimbabwe")
       expect(page).to be_axe_clean
+    end
+
+    it "hide the billing address div when you checked the same_as_current checkbox", js: true do
+      user = create(:user, :confirmed)
+      us = create(:country, name: "United States")
+      create(:state, name: "California", country: us)
+      create(:state, name: "Massachusetts", country: us)
+      uk = create(:country, name: "United Kingdom")
+      create(:state, name: "Avon", country: uk)
+      create(:state, name: "Yorkshire", country: uk)
+      create(:country, name: "Zimbabwe", states: [])
+      flow = RegistrationFlow.new(page)
+      sign_in(user)
+
+      flow.visit_account_edit_page
+
+      expect(flow).to have_billing_address_div
+      flow.click_checkbox
+      expect(flow).not_to have_billing_address_div
+    end
+
+    it "show the billing address div when you unchecked the same_as_current checkbox", js: true do
+      user = create(:user, :confirmed)
+      us = create(:country, name: "United States")
+      create(:state, name: "California", country: us)
+      create(:state, name: "Massachusetts", country: us)
+      uk = create(:country, name: "United Kingdom")
+      create(:state, name: "Avon", country: uk)
+      create(:state, name: "Yorkshire", country: uk)
+      create(:country, name: "Zimbabwe", states: [])
+      flow = RegistrationFlow.new(page)
+      sign_in(user)
+
+      flow.visit_account_edit_page
+
+      expect(flow).to have_billing_address_div
+      flow.click_checkbox
+      expect(flow).not_to have_billing_address_div
+      flow.click_checkbox
+      expect(flow).to have_billing_address_div
     end
   end
 end

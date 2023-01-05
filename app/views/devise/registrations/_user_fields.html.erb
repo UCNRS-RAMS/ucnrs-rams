@@ -174,35 +174,37 @@
       <div class="billing-title">
         <h2><%= t(".titles.billing_address") %></h2>
         <div class="field">
-          <%= f.check_box :billing_address_same_as_current %> 
+          <%= f.check_box :billing_address_same_as_current, data: { "followup-content-target": "checkbox", action: "change->followup-content#toggle" } %>
           <%= f.label :billing_address_same_as_current, t(".labels.same_as_current") %> 
         </div>
       </div>
-      <div class="field medium">
-        <%= f.label :billing_address_country_id, t(".labels.country") %>
-        <%= f.collection_select(:billing_address_country_id, Country.alphabetical_by_name, :id, :name,
-                                  { include_blank: true },
-                                  { data: { action: "change->followup-content#change" } }) %>
-      </div>
-      <div class="field medium">
-        <%= f.label :billing_address_line_1, t(".labels.address") %>
-        <%= f.text_field :billing_address_line_1 %>
-        <%= f.text_field :billing_address_line_2, aria: { label: "Billing Address Line 2" } %>
-      </div>
-      <div class="field medium">
-        <%= f.label :billing_address_city, t(".labels.city") %>
-        <%= f.text_field :billing_address_city %>
-      </div>
-      <div class="inline">
+      <div id="billingAddress" data-followup-content-target="billingAddress">
         <div class="field medium">
-          <%= f.label :billing_address_state_id, t(".labels.state") %>
-          <%= f.collection_select(:billing_address_state_id, presenter.billing_address_state_options, :id, :name,
+          <%= f.label :billing_address_country_id, t(".labels.country") %>
+          <%= f.collection_select(:billing_address_country_id, Country.alphabetical_by_name, :id, :name,
                                     { include_blank: true },
-                                    { data: { followup_content_target: "destination", "followup-content-url-value": states_url(country_id: "VALUE") } }) %>
+                                    { data: { action: "change->followup-content#change" } }) %>
         </div>
-        <div class="field extra-small">
-          <%= f.label :billing_address_postal_code, t(".labels.postal_code") %>
-          <%= f.text_field :billing_address_postal_code, placeholder: presenter.postal_code_placeholder, class: "form-field-extra-small" %>
+        <div class="field medium">
+          <%= f.label :billing_address_line_1, t(".labels.address") %>
+          <%= f.text_field :billing_address_line_1 %>
+          <%= f.text_field :billing_address_line_2, aria: { label: "Billing Address Line 2" } %>
+        </div>
+        <div class="field medium">
+          <%= f.label :billing_address_city, t(".labels.city") %>
+          <%= f.text_field :billing_address_city %>
+        </div>
+        <div class="inline">
+          <div class="field medium">
+            <%= f.label :billing_address_state_id, t(".labels.state") %>
+            <%= f.collection_select(:billing_address_state_id, presenter.billing_address_state_options, :id, :name,
+                                      { include_blank: true },
+                                      { data: { followup_content_target: "destination", "followup-content-url-value": states_url(country_id: "VALUE") } }) %>
+          </div>
+          <div class="field extra-small">
+            <%= f.label :billing_address_postal_code, t(".labels.postal_code") %>
+            <%= f.text_field :billing_address_postal_code, placeholder: presenter.postal_code_placeholder, class: "form-field-extra-small" %>
+          </div>
         </div>
       </div>
       <div class="billing-contact">
