@@ -2,7 +2,7 @@ class HomeIndexPresenter
   include Rails.application.routes.url_helpers
 
   VISIT_LIMIT_FOR_INDEX = 10.freeze
-  INVOICE_LIMIT_FOR_INDEX = 5.freeze
+  INVOICE_LIMIT_FOR_INDEX = 10.freeze
 
   STATUS_FILTERS = {
     "visit_date" => nil,
