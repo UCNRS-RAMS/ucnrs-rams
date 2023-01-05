@@ -11,14 +11,6 @@ class Reserves::Calendar::Unauthorize::ShowPresenter < Home::CalendarShowPresent
     "reserves/calendar/unauthorize/calendar"
   end
 
-  def reserve_list
-    Reserve.all.map { |x| [x.short_name, x.id] }
-  end
-
-  def reserve_selected(option)
-    option == "#{current_reserve.id}" ? "selected" : ""
-  end
-
   def calendar_path
     reserve_calendar_path(reserve_id: current_reserve)
   end

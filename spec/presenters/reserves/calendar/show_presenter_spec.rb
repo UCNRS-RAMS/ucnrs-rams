@@ -8,15 +8,17 @@ RSpec.describe Reserves::Calendar::ShowPresenter do
       show_presenter = Reserves::Calendar::ShowPresenter.new(reserve: reserve)
 
       output = "/reserves/#{reserve.id}/calendar"
+
       expect(show_presenter.calendar_path).to eq output
     end
   end
 
   describe "#calendar_partial_name" do
-    it "return calendar partial path when user is logined" do
+    it "return calendar partial path when user has log in" do
       show_presenter = Reserves::Calendar::ShowPresenter.new(reserve: reserve)
 
       output = "calendar"
+
       expect(show_presenter.calendar_partial_name).to eq output
     end
   end

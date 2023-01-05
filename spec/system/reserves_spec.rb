@@ -139,16 +139,5 @@ RSpec.describe "Reserves", type: :system, js: true do
 
       expect(flow).not_to have_approved_visit_bar
     end
-
-    it "display reserve filter dropdown", js: true do
-      reserve = create(:reserve)
-
-      flow = ReservesFlow.new(page)
-
-      flow.visit_reserves_show_page(reserve.id)
-      flow.go_to_calendar
-
-      expect(flow).to have_reserve_filter_dropdown
-    end
   end
 end
