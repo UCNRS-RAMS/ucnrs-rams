@@ -1,6 +1,6 @@
 class HomeIndexPresenter
   VISIT_LIMIT_FOR_INDEX = 10.freeze
-  INVOICE_LIMIT_FOR_INDEX = 5.freeze
+  INVOICE_LIMIT_FOR_INDEX = 10.freeze
 
   def initialize(user:, visit_page: nil,invoice_page: nil, visit_filter: nil, invoice_filter: nil, news_articles: nil)
     @news_articles = news_articles
