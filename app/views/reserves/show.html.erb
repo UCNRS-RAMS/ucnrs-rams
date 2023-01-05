@@ -14,7 +14,7 @@
               reserve_amenities_path(@presenter.reserve_id),
               {
                 id: "amenities",
-                class: params[:reserve_filter].present? ? "" : "active", data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
+                class: "active", data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
               }
             %>
           </li>
@@ -23,7 +23,7 @@
               reserve_calendar_path(@presenter.reserve_id, partial_name: "calendar", start_date: Date.today),
               {
                 id: "calendar",
-                class: params[:reserve_filter].present? ? "active" : "", data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
+                data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
               }
             %>
           </li>
@@ -55,11 +55,7 @@
             %>
           </li>
         </ul>
-        <% if params[:reserve_filter].present? %>
-          <%= turbo_frame_tag "details", src: reserve_calendar_path(@presenter.reserve_id, partial_name: "calendar", start_date: Date.today), target: "_top" %>
-        <% else %>
-          <%= turbo_frame_tag "details", src: reserve_amenities_path(@presenter.reserve_id), target: "_top" %>
-        <% end %>
+        <%= turbo_frame_tag "details", src: reserve_amenities_path(@presenter.reserve_id), target: "_top" %>
       </div>
     </section>
     <section class="right-side">

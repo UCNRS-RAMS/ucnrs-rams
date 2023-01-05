@@ -2,7 +2,6 @@
   <header>
     <%= form_with url: reserve_path(id: @presenter.current_reserve), method: :get, data: { "turbo-frame": "_top" } do %>
       <%= hidden_field_tag "start_date", @presenter.start_date %>
-      <%= render partial: "reserves/calendar/unauthorize/reserve_filter", locals: { presenter: @presenter } %>
     <% end %>
   </header>
   <%= month_calendar @presenter.calendar_params do |date, visits| %>

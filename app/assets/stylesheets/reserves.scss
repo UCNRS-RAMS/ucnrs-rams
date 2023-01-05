@@ -33,20 +33,6 @@ main {
 
 .reserves-show {
 
-  .drop-down {
-    background-color: $white;
-    border-radius: 10px;
-    padding: 10px;
-  }
-
-  .m-right {
-    margin-right: 5px;
-  }
-
-  .d-flex-end {
-    @include flex(row, end);
-  }
-
   .simple-calendar {
     text-align: center;
 
