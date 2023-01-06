@@ -7,6 +7,6 @@
     <%= render partial: "project_team_members", locals: { team_members: @presenter.project_team_members, form: @presenter.form} %>
     <%= render partial: "amenity_visit_forms", locals: { presenter: @presenter, forms: @presenter.form } %>
     <%= render partial: "invoice_notes", locals: { presenter: @presenter , form: form} %>
-    <%= render partial: "submit", locals: { presenter: @presenter } %>
+    <%= render partial: "submit_invoice", locals: { presenter: @presenter } %>
   <% end %>
 </div>

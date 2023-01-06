@@ -67,7 +67,7 @@ RSpec.describe "Invoice Detail" do
       flow = Manager::InvoiceFLow.new(page: page, visit_id: visit.id, reserve_id: reserve.id, invoice_id: invoice.id)
       flow.visit_manager_projects_invoice_edit_page
 
-      expect(flow).to have_submit_button("Create Invoice")
+      expect(flow).to have_submit_button("Edit Invoice")
     end
 
     it "includes back button", js: true do

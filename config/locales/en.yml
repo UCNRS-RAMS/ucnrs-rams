@@ -1157,12 +1157,15 @@ en:
         spacer: "-"
       submit:
         back: "Cancel & Go Back"
-        submit: "Create Invoice"
+        submit: "Edit Invoice"
+      submit_invoice:
+          submit: "Create Invoice"
       amenity_visit_forms:
         amenities: "Amenities"
         total: "Total"
     not_a_manager: "You are not a manager"
     not_a_manager_of_reserve: "You are not a manager of the reserve."
+    not_editable: "Visit is not editable after due date"
     update_message: "Updates were successfully made."
     error_message: "Required fields are missing"
     visits:

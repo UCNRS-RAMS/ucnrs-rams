@@ -3,7 +3,7 @@
   <div class="subheader">
     <span><%= presenter.applicant_name %></span>
     <span><%= t(".request_submitted") %>: <%= presenter.submitted_at %></span>
-    <span><%= link_to t(".edit_visit"), "#" %></span>
+    <span><%= link_to t(".edit_visit"), edit_visit_path(presenter.id) %></span>
   </div>
 </header>
 <section class="visit-summary">

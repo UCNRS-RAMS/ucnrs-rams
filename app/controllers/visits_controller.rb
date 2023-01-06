@@ -1,5 +1,6 @@
 class VisitsController < ApplicationController
   before_action :authenticate_user!
+  before_action :editable, only: [:edit]
 
   def new
     @presenter = VisitsFormPresenter.new(user: current_user)
@@ -41,6 +42,12 @@ class VisitsController < ApplicationController
   end
 
   private
+
+  def editable
+    return true if(visit.start_date > Date.today && visit.status == "in_review")
+
+    redirect_to visit_path(id: visit.id), alert: I18n.translate("manager.not_editable")
+  end
 
   def amenity
     @amenity ||= Amenity.find_by(id: params[:amenity_id])

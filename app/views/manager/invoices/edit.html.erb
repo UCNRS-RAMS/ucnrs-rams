@@ -8,6 +8,6 @@
     <%= render partial: "amenity_visit_forms", locals: { presenter: @presenter, forms: @presenter.form } %>
     <%= render partial: "invoice_payment_table", locals: { invoice_payments: @presenter.invoice_payments }%>
     <%= render partial: "invoice_notes", locals: { form: form } %>
-    <%= render partial: "submit" %>
+    <%= render partial: "submit", locals: { presenter: @presenter } %>
   <% end %>
 </div>
