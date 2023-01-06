@@ -28,9 +28,12 @@ class Visits::UserVisitsIndexPresenter
   end
 
   def amenity_visits
-    visit.amenity_visits.map do |amenity_visit|
-      AmenityVisitPresenter.new(amenity_visit)  
-    end
+    visit
+      .amenity_visits
+      .includes(:amenity)
+      .map do |amenity_visit|
+        AmenityVisitPresenter.new(amenity_visit)  
+      end
   end
 
   def visit_date_range
