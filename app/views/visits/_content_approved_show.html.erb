@@ -8,7 +8,7 @@
     <span><%= t('.amenity').pluralize presenter.amenity_count %>: <%= presenter.amenity_count %></span>
   </div>
   <div class="subheader">
-    <span><%= link_to t(".edit_visit"), "#" %></span>
+    <span><%= link_to t(".edit_visit"), edit_visit_path(presenter.id) %></span>
   </div>
 </header>
 <section class="visit-waivers">

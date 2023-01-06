@@ -1,5 +1,5 @@
 <section class="controls">
-  <%= link_to "#" do %>
+  <%= link_to manager_reserve_visit_invoice_path(id: presenter.invoice_id) do %>
     <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t("alt.left_facing_arrow")  %>
     <%= t(".back") %>
   <% end %>
