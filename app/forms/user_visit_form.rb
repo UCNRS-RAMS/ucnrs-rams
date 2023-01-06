@@ -10,7 +10,7 @@ class UserVisitForm
   def initialize(params: {})
     @visit = Visit.find_by(id: params[:visit_id])
     @user = User.find_by(id: params[:user_id])
-    @user_visit = UserVisit.find_by(id: params[:id]) || UserVisit.new(new_user_visit_params(params))
+    @user_visit = UserVisit.find_by(id: params[:id]) || UserVisit.new(new_user_visit_params)
     assign(params.except(:institution))
     assign_guest_values if adding_guest_visitor?
     @institution_form = InstitutionForm.new(institution_form_params(params))
@@ -67,8 +67,8 @@ class UserVisitForm
   def arrives_time(date)
     return nil if date.blank?
 
-    if date == visit&.start_date.to_s
-      visit.start_time
+    if date == visit&.starts_at&.to_date.to_s
+      visit.starts_at
     else
       Date.parse(date).beginning_of_day
     end
@@ -77,8 +77,8 @@ class UserVisitForm
   def departs_time(date)
     return nil if date.blank?
 
-    if date == visit&.end_date.to_s
-      visit&.end_time
+    if date == visit&.ends_at&.to_date.to_s
+      visit&.ends_at
     else
       Date.parse(date).end_of_day
     end
@@ -105,7 +105,7 @@ class UserVisitForm
     end
   end
 
-  def new_user_visit_params(params)
+  def new_user_visit_params
     {
       arrives_at: add_default_time(visit&.start_date, visit&.start_time),
       departs_at: add_default_time(visit&.end_date, visit&.end_time),

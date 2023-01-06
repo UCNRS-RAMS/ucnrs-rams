@@ -35,12 +35,14 @@ class VisitsFormPresenter
   end
 
   def user_visits
-    visit.user_visits.includes([:user])
+    visit
+      .user_visits
+      .includes([:user])
       .map do |user_visit|
-      Visits::UserVisitPresenter.new(
-        user_visit,
-      )
-    end
+        Visits::UserVisitPresenter.new(
+          user_visit,
+        )
+      end
   end
 
   def project_type_options
