@@ -104,7 +104,7 @@ RSpec.describe "Invoice New" do
       expect(flow).to have_submit_button("Create Invoice")
     end
 
-    it "not have back button", js: true do
+    it "does not have a back button", js: true do
       sign_in(user)
 
       flow = Manager::InvoiceFLow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
