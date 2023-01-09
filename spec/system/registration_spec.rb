@@ -123,7 +123,7 @@ RSpec.describe "Registration" do
       expect(page).to be_axe_clean.skipping(:"color-contrast")
     end
 
-    it "hide the billing address div when you checked the same_as_current checkbox", js: true do
+    it "toggles the billing address section based on whether the same_as_current checkbox is checked", js: true do
       us = create(:country, name: "United States")
       create(:state, name: "California", country: us)
       create(:state, name: "Massachusetts", country: us)
@@ -135,28 +135,11 @@ RSpec.describe "Registration" do
 
       flow.visit_sign_up_page
 
-      expect(flow).to have_billing_address_div
+      expect(flow).to be_showing_billing_address
       flow.click_checkbox
-      expect(flow).not_to have_billing_address_div
-    end
-
-    it "show the billing address div when you unchecked the same_as_current checkbox", js: true do
-      us = create(:country, name: "United States")
-      create(:state, name: "California", country: us)
-      create(:state, name: "Massachusetts", country: us)
-      uk = create(:country, name: "United Kingdom")
-      create(:state, name: "Avon", country: uk)
-      create(:state, name: "Yorkshire", country: uk)
-      create(:country, name: "Zimbabwe", states: [])
-      flow = RegistrationFlow.new(page)
-
-      flow.visit_sign_up_page
-
-      expect(flow).to have_billing_address_div
+      expect(flow).not_to be_showing_billing_address
       flow.click_checkbox
-      expect(flow).not_to have_billing_address_div
-      flow.click_checkbox
-      expect(flow).to have_billing_address_div
+      expect(flow).to be_showing_billing_address
     end
   end
 
@@ -277,7 +260,7 @@ RSpec.describe "Registration" do
       expect(page).to be_axe_clean
     end
 
-    it "hide the billing address div when you checked the same_as_current checkbox", js: true do
+    it "toggles the billing address section based on whether the same_as_current checkbox is checked", js: true do
       user = create(:user, :confirmed)
       us = create(:country, name: "United States")
       create(:state, name: "California", country: us)
@@ -291,30 +274,11 @@ RSpec.describe "Registration" do
 
       flow.visit_account_edit_page
 
-      expect(flow).to have_billing_address_div
+      expect(flow).to be_showing_billing_address
       flow.click_checkbox
-      expect(flow).not_to have_billing_address_div
-    end
-
-    it "show the billing address div when you unchecked the same_as_current checkbox", js: true do
-      user = create(:user, :confirmed)
-      us = create(:country, name: "United States")
-      create(:state, name: "California", country: us)
-      create(:state, name: "Massachusetts", country: us)
-      uk = create(:country, name: "United Kingdom")
-      create(:state, name: "Avon", country: uk)
-      create(:state, name: "Yorkshire", country: uk)
-      create(:country, name: "Zimbabwe", states: [])
-      flow = RegistrationFlow.new(page)
-      sign_in(user)
-
-      flow.visit_account_edit_page
-
-      expect(flow).to have_billing_address_div
+      expect(flow).not_to be_showing_billing_address
       flow.click_checkbox
-      expect(flow).not_to have_billing_address_div
-      flow.click_checkbox
-      expect(flow).to have_billing_address_div
+      expect(flow).to be_showing_billing_address
     end
   end
 end

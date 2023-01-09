@@ -1,14 +1,14 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["destination", "checkbox", "billingAddress"]
+  static targets = ["destination", "checkbox", "togglable"]
 
   static values = { length: Number }
   declare lengthValue: number
 
   declare destinationTargets: HTMLElement[]
   declare checkboxTarget: HTMLFormElement
-  declare billingAddressTarget: HTMLFormElement
+  declare togglableTarget: HTMLFormElement
 
 
   urlPlaceholder = "VALUE"
@@ -34,7 +34,7 @@ export default class extends Controller {
   }
 
   toggle(){
-    this.checkboxTarget.checked ? this.billingAddressTarget.setAttribute("hidden", "true" ) : this.billingAddressTarget.removeAttribute("hidden")
+    this.checkboxTarget.checked ? this.togglableTarget.setAttribute("hidden", "true" ) : this.togglableTarget.removeAttribute("hidden")
   }
 
   loadContent(target: HTMLElement, value: string) {

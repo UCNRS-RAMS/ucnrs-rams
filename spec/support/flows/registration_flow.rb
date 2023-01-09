@@ -105,7 +105,7 @@ class RegistrationFlow
     page.find("#user_billing_address_same_as_current").click
   end
 
-  def has_billing_address_div?
+  def showing_billing_address?
     page.has_css?("#billingAddress")
   end
 
