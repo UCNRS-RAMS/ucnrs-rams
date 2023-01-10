@@ -167,7 +167,7 @@ en:
   modals:
     visit_invoices_confirmation_box:
       delete: "Delete"
-      confirmation_message: "Are you sure you want to delete the visit and its associated amenity_visit and invoices?"
+      confirmation_message: "Are you sure you want to delete the visit and all of its amenities and invoices?"
     invoices:
       record_payment:
         record_payment: "Record Payment"

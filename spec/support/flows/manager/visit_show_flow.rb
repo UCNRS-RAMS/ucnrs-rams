@@ -62,7 +62,7 @@ class VisitShowFlow
   end
 
   def showing_invoices_table?
-    page.has_css?(".invoices")
+    page.has_css?("table.invoices")
   end
 
   def click_on_save_btn
