@@ -168,7 +168,7 @@ RSpec.describe Invoice, type: :model do
 
   describe ".sort_using" do
     it "calls the submitted recent first when supplied sort_option is 'created_recent_first'" do
-      expect(Invoice).to receive(:sort_using).with("created_recent_first").and_return(Invoice.order_by(:invoiced_on))
+      expect(Invoice).to receive(:sort_using).with("created_recent_first").and_return(Invoice.order(:invoiced_on))
 
       Invoice.sort_using "created_recent_first"
     end
@@ -180,13 +180,13 @@ RSpec.describe Invoice, type: :model do
     end
 
     it "calls the sort by balance_due when supplied sort_option is 'sort_by_balance_due'" do
-      expect(Invoice).to receive(:sort_using).with("sort_by_balance_due").and_return(Invoice.order_by(:balance_due))
+      expect(Invoice).to receive(:sort_using).with("sort_by_balance_due").and_return(Invoice.order(:balance_due))
 
       Invoice.sort_using "sort_by_balance_due"
     end
 
     it "calls the sort by invoice id when supplied sort_option is 'sort_by_invoice_number'" do
-      expect(Invoice).to receive(:sort_using).with("sort_by_invoice_number").and_return(Invoice.order_by(:id))
+      expect(Invoice).to receive(:sort_using).with("sort_by_invoice_number").and_return(Invoice.order(:id))
 
       Invoice.sort_using "sort_by_invoice_number"
     end
@@ -227,7 +227,7 @@ RSpec.describe Invoice, type: :model do
     let(:reserve2) { create(:reserve) }
     let(:user) { create(:user, managed_reserves: [reserve1, reserve2]) }
 
-    it "if reserve is presente returns invoices that have visits on the given reserve" do
+    it "if reserve is present returns invoices that have visits on the given reserve" do
       visit1 = create(:visit, reserve: reserve1)
       visit2 = create(:visit, reserve: reserve2)
       visit3 = create(:visit, reserve: reserve1)
@@ -236,12 +236,12 @@ RSpec.describe Invoice, type: :model do
       invoice2 = create(:invoice, visit: visit2)
       invoice3 = create(:invoice, visit: visit1)
 
-      results = Invoice.with_invoices_at_reserve(reserve1, user.managed_reserves)
+      results = Invoice.with_invoices_at_reserve(reserve1)
 
       expect(results).to eq [invoice1, invoice3]
     end
 
-    it "if reserve is not present returns invoices that have visits on the user's managed_reserves" do
+    it "if reserve is not present returns all invoices" do
       visit1 = create(:visit, reserve: reserve1)
       visit2 = create(:visit, reserve: reserve2)
       visit3 = create(:visit, reserve: reserve1)
@@ -250,9 +250,9 @@ RSpec.describe Invoice, type: :model do
       invoice2 = create(:invoice, visit: visit2)
       invoice3 = create(:invoice, visit: visit1)
 
-      results = Invoice.with_invoices_at_reserve(nil, user.managed_reserves)
+      results = Invoice.with_invoices_at_reserve(nil)
 
-      expect(results.to_a).to eq [invoice1, invoice3, invoice2]
+      expect(results.to_a).to eq [invoice1, invoice2, invoice3]
     end
   end
 
@@ -261,35 +261,46 @@ RSpec.describe Invoice, type: :model do
       date1 = Date.new(1969, 7, 20)
       date2 = Date.new(1980, 7, 31)
 
-      expect(Invoice).to receive(:having_between_time_for).with({
-          date_range_option: :visit_date_range, 
-          date_start: date1,
-          date_end: date2,
-        }).and_return(Invoice.having_visit_end_date_after(date1).having_visit_start_date_before(date2))
+      visit1 = create(:visit, starts_at: Date.new(1969, 7, 21), ends_at: Date.new(1980, 7, 30))
+      visit2 = create(:visit, starts_at: Date.new(1981, 7, 20), ends_at: Date.new(1981, 10, 31))
+      visit3 = create(:visit, starts_at: Date.new(1969, 7, 25), ends_at: Date.new(1980, 7, 20))
 
-        Invoice.having_between_time_for(date_range_option: :visit_date_range, date_start: date1, date_end: date2)
+      invoice1 = create(:invoice, balance_due: 10, visit: visit1)
+      invoice2 = create(:invoice, balance_due: 0, visit: visit2)
+      invoice3 = create(:invoice, balance_due: 10, visit: visit3)
+
+      results = Invoice.having_between_time_for(
+        date_range_option: :visit_date_range,
+        date_start: date1,
+        date_end: date2,
+      )
+
+      expect(results.map(&:id)).to eq [invoice1.id, invoice3.id]
     end
 
     it "calls the .having_invoiced_date_after and .having_invoiced_date_before when supplied date_range_option is ':invoiced_on'" do
       date1 = Date.new(1969, 7, 20)
       date2 = Date.new(1980, 7, 31)
 
-      expect(Invoice).to receive(:having_between_time_for).with({
-          date_range_option: :invoiced_on, 
-          date_start: date1,
-          date_end: date2,
-        }).and_return(Invoice.having_invoiced_date_after(date1).having_invoiced_date_before(date2))
+      invoice1 = create(:invoice, balance_due: 10, invoiced_on: Date.new(1969, 7, 21))
+      invoice2 = create(:invoice, balance_due: 0, invoiced_on: Date.new(1980, 8, 31))
+      invoice3 = create(:invoice, balance_due: 10, invoiced_on: Date.new(1980, 7, 30))
 
-      Invoice.having_between_time_for(date_range_option: :invoiced_on, date_start: date1, date_end: date2)
+      results = Invoice.having_between_time_for(
+        date_range_option: :invoiced_on, 
+        date_start: date1,
+        date_end: date2,
+      )
+      expect(results.map(&:id)).to eq [invoice1.id, invoice3.id]
     end
 
     it "returns self.all when supplied date_range_option doesn't match any case" do
       date1 = Date.new(1969, 7, 20)
       date2 = Date.new(1980, 7, 31)
 
-      results = Project.having_between_time_for(date_range_option: :non_existent_case, date_start: date1, date_end: date2)
+      results = Invoice.having_between_time_for(date_range_option: :non_existent_case, date_start: date1, date_end: date2)
 
-      expect(results).to eq Project.all
+      expect(results).to eq Invoice.all
     end
   end
 end

@@ -1,6 +1,19 @@
 class Manager::InvoicesIndexPresenter
   DEFAULT_LIMIT_FOR_INDEX = 10
 
+  STATUS_OPTIONS = {
+    "All" => "all",
+    "Paid" => "paid",
+    "Pending" => "balance_due",
+  }
+
+  SORT_OPTIONS = {
+    "Date Created" => :created_recent_first,
+    "Amount" => :sort_by_amount,
+    "Balance Due" => :sort_by_balance_due,
+    "Invoice Number" => :sort_by_invoice_number
+  }
+
   def initialize(reserve: nil, user: nil, page: 1, filter: nil)
     @page = page
     @reserve = reserve
@@ -18,7 +31,7 @@ class Manager::InvoicesIndexPresenter
 
   def invoice_scope
     Invoice
-    .with_invoices_at_reserve(reserve_filter, managed_reserves)
+    .with_invoices_at_reserve(reserves)
     .searching_term(invoice_search_filter)
     .for_status_filter(invoice_status_filter)
     .having_between_time_for(
@@ -37,11 +50,11 @@ class Manager::InvoicesIndexPresenter
   end
 
   def sort_by_options
-    Invoice::SORT_OPTIONS
+    SORT_OPTIONS
   end
 
   def invoice_status_options
-    Invoice::STATUS_OPTIONS
+    STATUS_OPTIONS
   end
 
   def reserve_options
@@ -59,8 +72,8 @@ class Manager::InvoicesIndexPresenter
 
   delegate :present?, to: :filter, prefix: true
 
-  def managed_reserves
+  def reserves
+    return reserve_filter if reserve_filter.present? && reserve != "all"
     user.managed_reserve_ids
   end
-
 end

@@ -3,17 +3,17 @@
     <div class="first">
       <div class="row mb-0">
         <div class="row-medium input-with-buttons search">
-          <input type="text" name="filter[invoice_search]" value="<%= @presenter.invoice_search_filter %>" placeholder="Search"/>
+          <input type="text" name="filter[invoice_search]" value="<%= presenter.invoice_search_filter %>" placeholder="Search"/>
         </div>
         <div class="row-auto">
           <%= link_to t(".show_options"), "#",
             "data-action": "click->toggle#toggle", "data-toggle-target": "toggle", "data-toggle-class": "show",
-            class: "button button-inline button-clear #{ @presenter.filter_present? ? "loadhide" : "show" }",
+            class: "button button-inline button-clear #{ presenter.filter_present? ? "loadhide" : "show" }",
             id: "show_button"
           %>
           <%= link_to t(".hide_options"), "#",
             "data-action": "click->toggle#toggle", "data-toggle-target": "toggle", "data-toggle-class": "show",
-            class: "button button-inline button-clear #{ @presenter.filter_present? ? "show" : "loadhide" }",
+            class: "button button-inline button-clear #{ presenter.filter_present? ? "show" : "loadhide" }",
             id: "hide_button"
           %>
         </div>
@@ -32,7 +32,7 @@
     </div>
   </div>
 
-  <div class="search-secondary <%= "show" if @presenter.filter_present? %>" data-toggle-target="toggle" data-toggle-class="show">
+  <div class="search-secondary <%= "show" if presenter.filter_present? %>" data-toggle-target="toggle" data-toggle-class="show">
     <div class="row">
       <div class="row-medium">
         <label for="reserve"><%= t(".reserve") %></label>
