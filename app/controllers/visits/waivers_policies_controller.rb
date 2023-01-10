@@ -11,6 +11,7 @@ class Visits::WaiversPoliciesController < ApplicationController
 
     if visit_update_params[:policy_agreement] == "1" && @form.save
       create_log(action: :updated, visit: @form.visit, project: @form.project) if @form.status == "approved"
+      send_email!(visit: @form.visit) if @form.visit.submitted_at_before_last_save.nil?
       redirect_to @form.visit
     else
       @presenter = Visits::UsePolicyPresenter.new(current_user: current_user, current_step: 4, visit: visit)
@@ -37,5 +38,17 @@ class Visits::WaiversPoliciesController < ApplicationController
       record: visit,
       record_about: project
     )
+  end
+
+  def send_email!(visit:)
+    ManagerMailer
+      .with(presenter: Mail::Manager::VisitNewPresenter.new(visit))
+      .visit_new
+      .deliver_now
+
+    UserMailer
+      .with(presenter: Mail::User::VisitNewPresenter.new(visit))
+      .visit_new
+      .deliver_now
   end
 end
