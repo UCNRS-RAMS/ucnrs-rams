@@ -1,10 +1,12 @@
 class ReservesIndexPresenter
-  def initialize(search_filter: nil, categories: nil)
+  def initialize(reserves = nil, search_filter: nil, tag_types: nil, tag_names: nil)
+    @reserves = reserves || Reserve.alphabetized
     @search_filter = search_filter
-    @categories = categories
+    @tag_types = tag_types
+    @tag_names = tag_names
   end
 
-  attr_reader :search_filter, :categories
+  attr_reader :search_filter, :tag_types, :tag_names
 
   def reserves
     reserve_scope.map do |reserve|
@@ -13,7 +15,14 @@ class ReservesIndexPresenter
   end
 
   def reserve_tags
-    ReserveTag.categories.keys
+    ReserveTag
+    .pluck(:name, :tag_type)
+    .to_h
+    .then do |reserve_tags| 
+      reserve_tags
+      .keys
+      .group_by { |tag| reserve_tags[tag] }
+    end
   end
 
   def amenities_tags
@@ -25,7 +34,6 @@ class ReservesIndexPresenter
   def reserve_scope
     Reserve
       .searching_term(search_filter)
-      .with_category(categories)
-      .alphabetized
+      .with_tag_type(tag_types, tag_names)
   end
 end
