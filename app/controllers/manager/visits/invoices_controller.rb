@@ -1,6 +1,7 @@
 class Manager::Visits::InvoicesController < ApplicationController
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!
+  layout "manager"
 
   def index
     @form = InvoiceForm.new(params: { visit_id: params[:visit_id] }, remove_filter: true)

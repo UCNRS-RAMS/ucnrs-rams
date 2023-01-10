@@ -1111,7 +1111,7 @@ en:
         applicant: "Applicant"
         project: "Project"
         user: "User"
-        amount: "Amount"
+        balance_due: "Balance Due"
       invoice_payment:
         edit: "Edit Payment"
       action_buttons:
@@ -2075,6 +2075,9 @@ en:
       content:
         visitors: "Visitors (%{size})"
         amenities: "Amenities (%{size})"
+      invoice:
+        alt:
+          right_facing_arrow: "Right-facing arrow"
       status:
         approved: "Approve"
         in_review: "In Review"

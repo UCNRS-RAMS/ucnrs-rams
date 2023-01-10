@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe InvoiceFilter do
   describe "#invoice_search_filter" do
-    context "if :sort_by is present" do
+    context "if :invoice_search is present" do
       it "returns a strip :invoice_search" do
         filter = { invoice_search: "  keyword  " }
         invoice_filter = InvoiceFilter.new(filter, nil)
@@ -13,8 +13,8 @@ RSpec.describe InvoiceFilter do
       end
     end
 
-    context "if :sort_by is not present" do
-      it "returns a strip :invoice_search" do
+    context "if :invoice_search is not present" do
+      it "returns a empty string" do
         filter = { invoice_search: "" }
         invoice_filter = InvoiceFilter.new(filter, nil)
 

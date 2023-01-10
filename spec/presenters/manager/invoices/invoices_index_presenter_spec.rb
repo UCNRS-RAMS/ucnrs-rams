@@ -17,7 +17,7 @@ RSpec.describe Manager::InvoicesIndexPresenter do
 
       presenter = Manager::InvoicesIndexPresenter.new( user: user )
 
-      expect(presenter.invoices).to all(be_a(InvoicePresenter))
+      expect(presenter.invoices.map(&:id)).to match_array([invoice1.id, invoice2.id, invoice3.id])
     end
   end
 
@@ -39,7 +39,9 @@ RSpec.describe Manager::InvoicesIndexPresenter do
     it "returns status options for invoice filter" do
       presenter = Manager::InvoicesIndexPresenter.new
 
-      expect(presenter.invoice_status_options).to eq Invoice::STATUS_OPTIONS
+      output = { "All"=>"all", "Paid"=>"paid", "Pending"=>"balance_due" }
+
+      expect(presenter.invoice_status_options).to eq output
     end
   end
 
@@ -47,7 +49,9 @@ RSpec.describe Manager::InvoicesIndexPresenter do
     it "returns sort options for invoice filter" do
       presenter = Manager::InvoicesIndexPresenter.new
 
-      expect(presenter.sort_by_options).to eq Invoice::SORT_OPTIONS
+      output = { "Date Created"=>:created_recent_first, "Amount"=>:sort_by_amount, "Balance Due"=>:sort_by_balance_due, "Invoice Number"=>:sort_by_invoice_number }
+
+      expect(presenter.sort_by_options).to eq output
     end
   end
 end
