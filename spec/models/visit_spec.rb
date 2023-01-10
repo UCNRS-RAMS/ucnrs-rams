@@ -10,7 +10,7 @@ RSpec.describe Visit, type: :model do
     it { is_expected.to have_many(:user_visits).dependent(:destroy) }
     it { is_expected.to have_many(:visitors).through(:user_visits).source(:user) }
     it { is_expected.to have_many(:reserve_notes) }
-    it { is_expected.to have_many(:invoices) }
+    it { is_expected.to have_many(:invoices).dependent(:destroy) }
   end
 
   describe "validations" do
