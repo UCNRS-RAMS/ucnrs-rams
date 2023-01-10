@@ -310,14 +310,32 @@ RSpec.describe Reserve, type: :model do
         reserve1 = create(:reserve)
         reserve2 = create(:reserve)
         reserve3 = create(:reserve)
+        reserve4 = create(:reserve)
+        reserve_tag1 = create(:reserve_tag, reserve: reserve1, tag_type: :geographic)
+        reserve_tag2 = create(:reserve_tag, reserve: reserve2, tag_type: :ecosystem)
+        reserve_tag3 = create(:reserve_tag, reserve: reserve3, tag_type: :geographic)
+        reserve_tag4 = create(:reserve_tag, reserve: reserve4, tag_type: :geographic)
 
-        reserve_tag1 = create(:reserve_tag, reserve: reserve1, category: :geographic)
-        reserve_tag2 = create(:reserve_tag, reserve: reserve2, category: :ecosystem)
-        reserve_tag3 = create(:reserve_tag, reserve: reserve3, category: :geographic)
+        results = Reserve.with_tag_type([:geographic], {})
 
-        results = Reserve.with_category([:geographic])
+        expect(results).to eq [reserve1, reserve3, reserve4]
+      end
+    end
 
-        expect(results).to eq [reserve1, reserve3]
+    context "when given tag_types and tag_names are present" do
+      it "returns reserve associated with reserve_tag with the given tag_types" do
+        reserve1 = create(:reserve)
+        reserve2 = create(:reserve)
+        reserve3 = create(:reserve)
+        reserve4 = create(:reserve)
+        reserve_tag1 = create(:reserve_tag, reserve: reserve1, tag_type: :geographic, name: "River")
+        reserve_tag2 = create(:reserve_tag, reserve: reserve2, tag_type: :ecosystem, name: "Marsh")
+        reserve_tag3 = create(:reserve_tag, reserve: reserve3, tag_type: :geographic, name: "Dunes")
+        reserve_tag4 = create(:reserve_tag, reserve: reserve4, tag_type: :geographic, name: "Beach")
+
+        results = Reserve.with_tag_type([:geographic], {geographic: ["River", "Beach"]})
+
+        expect(results).to eq [reserve1, reserve4]
       end
     end
 
@@ -331,7 +349,7 @@ RSpec.describe Reserve, type: :model do
         reserve_tag2 = create(:reserve_tag, reserve: reserve2, category: :ecosystem)
         reserve_tag3 = create(:reserve_tag, reserve: reserve3, category: :geographic)
 
-        results = Reserve.with_category(nil)
+        results = Reserve.with_tag_type(nil, nil) 
 
         expect(results).to eq [reserve1, reserve2, reserve3]
       end

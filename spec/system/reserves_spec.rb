@@ -18,6 +18,68 @@ RSpec.describe "Reserves", type: :system, js: true do
       flow.click_reserve_image
       expect(flow).to be_displaying_amenities_section
     end
+
+    it "shows the reserve tags and allows the user to click and filter reserves", js: true do
+      reserve1 = create(:reserve)
+      reserve2 = create(:reserve)
+      reserve3 = create(:reserve)
+      reserve4 = create(:reserve)
+      reserve_tag1 = create(:reserve_tag, reserve: reserve1, tag_type: :geographic, name: "River")
+      reserve_tag2 = create(:reserve_tag, reserve: reserve2, tag_type: :ecosystem, name: "Marsh")
+      reserve_tag3 = create(:reserve_tag, reserve: reserve3, tag_type: :geographic, name: "Dunes")
+      reserve_tag4 = create(:reserve_tag, reserve: reserve4, tag_type: :geographic, name: "Beach")
+
+      flow = ReservesFlow.new(page)
+
+      flow.visit_reserves_page
+
+      expect(flow).to have_reserves_count(4)
+      expect(flow).to be_on_reserves_page
+      expect(flow).to be_displaying_tag("Geographic")
+      expect(flow).to be_displaying_tag("Ecosystem")
+      expect(page).to be_axe_clean
+
+      flow.click_reserve_tag("Geographic")
+      sleep(0.1)
+
+      expect(flow).to have_reserves_count(3)
+    end
+
+    it "shows the reserve name tags and allows the user to click and filter reserves", js: true do
+      reserve1 = create(:reserve)
+      reserve2 = create(:reserve)
+      reserve3 = create(:reserve)
+      reserve4 = create(:reserve)
+      reserve_tag1 = create(:reserve_tag, reserve: reserve1, tag_type: :geographic, name: "River")
+      reserve_tag2 = create(:reserve_tag, reserve: reserve2, tag_type: :ecosystem, name: "Marsh")
+      reserve_tag3 = create(:reserve_tag, reserve: reserve3, tag_type: :geographic, name: "Dunes")
+      reserve_tag4 = create(:reserve_tag, reserve: reserve4, tag_type: :geographic, name: "Beach")
+
+      flow = ReservesFlow.new(page)
+
+      flow.visit_reserves_page
+
+      expect(flow).to be_on_reserves_page
+      expect(flow).to have_reserves_count(4)
+      expect(flow).to be_displaying_tag("Ecosystem")
+      expect(flow).to be_displaying_tag("Geographic")
+      expect(flow).to be_displaying_tag("Ecosystem")
+      expect(page).to be_axe_clean
+
+      flow.click_reserve_tag("Geographic")
+      sleep(0.1)
+
+      expect(flow).to be_displaying_tag("River")
+      expect(flow).to be_displaying_tag("Dunes")
+      expect(flow).to be_displaying_tag("Beach")
+
+      expect(flow).to have_reserves_count(3)
+
+      flow.click_reserve_tag("River")
+      sleep(0.1)
+
+      expect(flow).to have_reserves_count(1)
+    end
   end
 
   describe "when on show page" do

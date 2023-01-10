@@ -34,7 +34,9 @@
           <div class="search-options">
             <section class="tag-badges">
               <h2><%= t(".tags") %></h2>
-              <%= render partial: "tag", collection: @presenter.reserve_tags, locals: { presenter: @presenter } %>
+              <% @presenter.reserve_tags.each do |tag_type, tag_names| %>
+                <%= render partial: "tag_types", locals: { tag_type: tag_type, tag_names: tag_names } %>
+              <% end %>
             </section>
             <section class="amenity-badges">
               <h2><%= t(".amenity_tags") %></h2>

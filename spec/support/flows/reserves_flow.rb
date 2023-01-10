@@ -36,6 +36,18 @@ class ReservesFlow
     page.has_css?("section.amenities.amenities-index")
   end
 
+  def displaying_tag?(tag)
+    page.has_css?(".tag-btn>label", text: tag)
+  end
+
+  def click_reserve_tag(tag)
+    page.find(".tag-btn>label",text: tag).click
+  end
+
+  def has_reserves_count?(expected_reserves)
+    page.all('.reserve-cards .card').count.eql?(expected_reserves)
+  end
+
   def go_to_calendar
     page.click_link("Calendar")
   end

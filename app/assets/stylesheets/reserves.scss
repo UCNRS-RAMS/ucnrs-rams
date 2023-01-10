@@ -488,6 +488,14 @@ main {
         padding: 0.3125rem 0.4375rem;
       }
 
+      .reserve_tags {
+        display: inline-block;
+      }
+
+      .name-tag {
+        background: $lightgray;
+      }
+
       .tag-btn {
         align-items: center;
         display: inline-block;

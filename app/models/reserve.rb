@@ -77,11 +77,13 @@ class Reserve < ApplicationRecord
     end
   end
 
-  def self.with_category(category)
-    if category.present?
-      joins(:reserve_tags)
-        .where(reserve_tags: { category: category })
-        .distinct
+  def self.with_tag_type(tag_types, tag_names)
+    scope = none
+    if tag_types.present?
+      tag_types.each do |type|
+        scope = scope.or(with_tags_and_names(type, tag_names))
+      end
+      return scope
     else
       all
     end
@@ -97,5 +99,13 @@ class Reserve < ApplicationRecord
 
   def large_hero_photo_placeholder
     LARGE_HERO_PHOTO_PLACEHOLDER
+  end
+
+  private
+
+  def self.with_tags_and_names(tag_type, tag_names)
+    condition = { tag_type: tag_type }
+    condition = condition.merge({ name: tag_names[tag_type] }) if tag_names[tag_type].present?
+    joins(:reserve_tags).where(reserve_tags: condition)
   end
 end
