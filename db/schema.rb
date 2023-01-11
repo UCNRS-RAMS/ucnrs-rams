@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_12_003825) do
+ActiveRecord::Schema.define(version: 2023_01_11_155933) do
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
@@ -310,6 +310,8 @@ ActiveRecord::Schema.define(version: 2022_12_12_003825) do
     t.integer "invoice_id", null: false
     t.integer "user_id", null: false
     t.integer "visit_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_invoice_recipients_on_deleted_at"
     t.index ["invoice_id"], name: "invoice"
     t.index ["user_id"], name: "user"
     t.index ["visit_id"], name: "visit"
@@ -324,6 +326,8 @@ ActiveRecord::Schema.define(version: 2022_12_12_003825) do
     t.decimal "balance_due", precision: 10, scale: 2, comment: "This is a field that contains the balance due of the invoice. It's only purpose is to make sorting by balance due faster. Do not trust this field when calculating real balance due, calculate it from the InvAssetReservation directly. "
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_invoices_on_deleted_at"
     t.index ["id"], name: "InvoiceID"
     t.index ["visit_id", "id"], name: "ReservePlus"
     t.index ["visit_id"], name: "visit"
