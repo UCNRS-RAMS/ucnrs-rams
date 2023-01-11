@@ -1,4 +1,6 @@
 class Invoice < ApplicationRecord
+  acts_as_paranoid
+
   NUMERIC_SEARCH_PATTERN = /\A\d+\z/
   STATUS_FILTERS = {
     "invoice_recent" => nil,
