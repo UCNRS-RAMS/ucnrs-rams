@@ -162,6 +162,29 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "2e4acac382fecc8c12cb7cef820498fdc54071c0be46dd94911b71a204377205",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/reserve.rb",
+      "line": 53,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Arel.sql(\"          reserves.name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.short_name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.pulldown_name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.directions LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.rules LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.rates LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.department LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.address_line_1 LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.address_line_2 LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.address_city LIKE \\\"%#{search_filter}%\\\" OR\\n          states.name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.address_postal_code LIKE \\\"%#{search_filter}%\\\" OR\\n          countries.name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.home_page_url LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.special_needs_statement LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.doi LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.administrative_group_name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.administrative_group_name_acronym LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.administrative_group_state LIKE \\\"%#{search_filter}%\\\"\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Reserve",
+        "method": "Reserve.searching_term"
+      },
+      "user_input": "search_filter",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": "SQL INJECTION"
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "39e41d5d1f47be64e90c8a741fbb111f94c3e4b8c514343991f0bcf5b5c495f1",
       "check_name": "SQL",
       "message": "Possible SQL injection",
@@ -438,7 +461,7 @@
       "check_name": "PermitAttributes",
       "message": "Potentially dangerous key allowed for mass assignment",
       "file": "app/controllers/visits/user_visits_controller.rb",
-      "line": 93,
+      "line": 105,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "params.require(:user_visit).permit(:id, :arrives_at, :departs_at, :count, :role, :institution_id, :user_id, :visit_id, :guest_name, :institution => ([:id, :name, :city, :country_id, :state_id, :institution_type]))",
       "render_path": null,
@@ -902,7 +925,7 @@
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/shared/visits/_form.html.erb",
-      "line": 61,
+      "line": 75,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(action => Manager::Visits::VisitsFormPresenter.new(:user => current_user, :form => VisitForm.new(:user => current_user, :params => ({ :id => params[:visit_id] }), :editing => true)).save_partial_path, {})",
       "render_path": [
@@ -942,29 +965,6 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
-      "fingerprint": "fa8e11736da56aedb12b2560476633a8fb7d816651583dc51714053924bba175",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/models/reserve.rb",
-      "line": 52,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "Arel.sql(\"        name LIKE \\\"%#{search_filter}%\\\" OR\\n        short_name LIKE \\\"%#{search_filter}%\\\" OR\\n        pulldown_name LIKE \\\"%#{search_filter}%\\\" OR\\n        directions LIKE \\\"%#{search_filter}%\\\" OR\\n        rules LIKE \\\"%#{search_filter}%\\\" OR\\n        rates LIKE \\\"%#{search_filter}%\\\" OR\\n        department LIKE \\\"%#{search_filter}%\\\" OR\\n        address_line_1 LIKE \\\"%#{search_filter}%\\\" OR\\n        address_line_2 LIKE \\\"%#{search_filter}%\\\" OR\\n        address_city LIKE \\\"%#{search_filter}%\\\" OR\\n        State LIKE \\\"%#{search_filter}%\\\" OR\\n        address_postal_code LIKE \\\"%#{search_filter}%\\\" OR\\n        Country LIKE \\\"%#{search_filter}%\\\" OR\\n        home_page_url LIKE \\\"%#{search_filter}%\\\" OR\\n        special_needs_statement LIKE \\\"%#{search_filter}%\\\" OR\\n        doi LIKE \\\"%#{search_filter}%\\\" OR\\n        administrative_group_name LIKE \\\"%#{search_filter}%\\\" OR\\n        administrative_group_name_acronym LIKE \\\"%#{search_filter}%\\\" OR\\n        administrative_group_state LIKE \\\"%#{search_filter}%\\\"\\n\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Reserve",
-        "method": "Reserve.searching_term"
-      },
-      "user_input": "search_filter",
-      "confidence": "Medium",
-      "cwe_id": [
-        89
-      ],
-      "note": "SQL Injection"
-    },
-    {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
       "fingerprint": "fd192b11c691de9705eda00e1dbc0f95e5f9bdddb6e84c8d1589bf87af4601fb",
       "check_name": "SQL",
       "message": "Possible SQL injection",
@@ -986,6 +986,6 @@
       "note": ""
     }
   ],
-  "updated": "2023-01-04 15:42:16 -0330",
+  "updated": "2023-01-17 05:09:28 -0900",
   "brakeman_version": "5.4.0"
 }

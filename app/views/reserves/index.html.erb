@@ -26,7 +26,7 @@
             <h2><%= t(".search") %></h2>
             <form method="get" data-turbo-action="advance">
               <div class="input-with-buttons">
-                <input type="text" name="search_filter" value="<%= @presenter.search_filter %>" onchange="this.form.requestSubmit()" placeholder="Search" id="reserve-search" />
+                <input type="text" name="search_filter" value="<%= @presenter.search_filter %>" placeholder="Search" id="reserve-search" />
                 <%= image_tag "icon-x-circle.svg", alt: t(".clear_icon"), onclick: "getElementById('reserve-search').value=''", class: "cross-icon" %>
               </div>
             </form>

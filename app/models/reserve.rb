@@ -47,29 +47,30 @@ class Reserve < ApplicationRecord
 
   def self.searching_term(search_filter)
     if search_filter.present?
-      where(
-        Arel.sql(<<-end_sql)
-        name LIKE "%#{search_filter}%" OR
-        short_name LIKE "%#{search_filter}%" OR
-        pulldown_name LIKE "%#{search_filter}%" OR
-        directions LIKE "%#{search_filter}%" OR
-        rules LIKE "%#{search_filter}%" OR
-        rates LIKE "%#{search_filter}%" OR
-        department LIKE "%#{search_filter}%" OR
-        address_line_1 LIKE "%#{search_filter}%" OR
-        address_line_2 LIKE "%#{search_filter}%" OR
-        address_city LIKE "%#{search_filter}%" OR
-        State LIKE "%#{search_filter}%" OR
-        address_postal_code LIKE "%#{search_filter}%" OR
-        Country LIKE "%#{search_filter}%" OR
-        home_page_url LIKE "%#{search_filter}%" OR
-        special_needs_statement LIKE "%#{search_filter}%" OR
-        doi LIKE "%#{search_filter}%" OR
-        administrative_group_name LIKE "%#{search_filter}%" OR
-        administrative_group_name_acronym LIKE "%#{search_filter}%" OR
-        administrative_group_state LIKE "%#{search_filter}%"
-        end_sql
-      )
+      left_outer_joins(:address_country, :address_state)
+        .where(
+          Arel.sql(<<-end_sql)
+          reserves.name LIKE "%#{search_filter}%" OR
+          reserves.short_name LIKE "%#{search_filter}%" OR
+          reserves.pulldown_name LIKE "%#{search_filter}%" OR
+          reserves.directions LIKE "%#{search_filter}%" OR
+          reserves.rules LIKE "%#{search_filter}%" OR
+          reserves.rates LIKE "%#{search_filter}%" OR
+          reserves.department LIKE "%#{search_filter}%" OR
+          reserves.address_line_1 LIKE "%#{search_filter}%" OR
+          reserves.address_line_2 LIKE "%#{search_filter}%" OR
+          reserves.address_city LIKE "%#{search_filter}%" OR
+          states.name LIKE "%#{search_filter}%" OR
+          reserves.address_postal_code LIKE "%#{search_filter}%" OR
+          countries.name LIKE "%#{search_filter}%" OR
+          reserves.home_page_url LIKE "%#{search_filter}%" OR
+          reserves.special_needs_statement LIKE "%#{search_filter}%" OR
+          reserves.doi LIKE "%#{search_filter}%" OR
+          reserves.administrative_group_name LIKE "%#{search_filter}%" OR
+          reserves.administrative_group_name_acronym LIKE "%#{search_filter}%" OR
+          reserves.administrative_group_state LIKE "%#{search_filter}%"
+          end_sql
+        )
     else
       all
     end
