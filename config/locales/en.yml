@@ -573,6 +573,7 @@ en:
         data_management_agreement: "Data Management Agreement"
         policy_agreement_error: "Must agree the policy agreement"
     user_visits:
+      no_visitor: "Please enter your visitor information before advancing"
       index:
         title: "Who are you bringing with you?"
         reserve: "Reserve"
