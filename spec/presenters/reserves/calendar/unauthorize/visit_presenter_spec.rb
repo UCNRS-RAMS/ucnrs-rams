@@ -12,7 +12,7 @@ RSpec.describe Reserves::Calendar::Unauthorize::VisitPresenter do
         background_classes: "",
         inner_classes: "display-none",
         text_classes: "display-none",
-        text: nil,
+        text: "Reserve 1",
         status_class: "incomplete",
         path: "/reserves/#{reserve.id}/calendar/visits/#{visit.id}",
       )
