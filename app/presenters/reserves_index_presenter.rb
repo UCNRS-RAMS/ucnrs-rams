@@ -1,6 +1,5 @@
 class ReservesIndexPresenter
-  def initialize(search_filter, reserves = nil)
-    @reserves = reserves || Reserve.alphabetized
+  def initialize(search_filter)
     @search_filter = search_filter
   end
 
@@ -24,6 +23,7 @@ class ReservesIndexPresenter
 
   def reserve_scope
     Reserve
-    .searching_term(search_filter)
+      .searching_term(search_filter)
+      .alphabetized
   end
 end

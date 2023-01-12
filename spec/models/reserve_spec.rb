@@ -112,31 +112,31 @@ RSpec.describe Reserve, type: :model do
   end
 
   describe ".searching_term" do
-    it "returns reserves that have pulldown_name like search filed value" do
+    it "returns reserves that have pulldown_name like search filled value" do
       matching_reserve = create(:reserve, pulldown_name: "reserve 1 pulldown_name")
       non_matching_reserve = create(:reserve, pulldown_name: "Hasting")
 
       results = Reserve.searching_term("reserve 1")
 
-      expect(results).to match_array [matching_reserve]
+      expect(results.map(&:id)).to match_array [matching_reserve.id]
     end
 
-    it "returns reserves that have directions like search filed value" do
+    it "returns reserves that have directions like search filled value" do
       matching_reserve = create(:reserve, directions: "reserve 1 directions")
       non_matching_reserve = create(:reserve, directions: "Hasting")
 
       results = Reserve.searching_term("reserve 1")
 
-      expect(results).to match_array [matching_reserve]
+      expect(results.map(&:id)).to match_array [matching_reserve.id]
     end
 
-    it "returns reserves that have department like search filed value" do
+    it "returns reserves that have department like search filled value" do
       matching_reserve = create(:reserve, department: "reserve 1 department")
       non_matching_reserve = create(:reserve, department: "Hasting")
 
       results = Reserve.searching_term("reserve 1")
 
-      expect(results).to match_array [matching_reserve]
+      expect(results.map(&:id)).to match_array [matching_reserve.id]
     end
 
     it "returns reserves that have address_line_1 like search filed value" do
@@ -145,7 +145,7 @@ RSpec.describe Reserve, type: :model do
 
       results = Reserve.searching_term("reserve 1")
 
-      expect(results).to match_array [matching_reserve]
+      expect(results.map(&:id)).to match_array [matching_reserve.id]
     end
 
     it "returns reserves that have rules like search filed value" do
@@ -154,7 +154,7 @@ RSpec.describe Reserve, type: :model do
 
       results = Reserve.searching_term("reserve 1")
 
-      expect(results).to match_array [matching_reserve]
+      expect(results.map(&:id)).to match_array [matching_reserve.id]
     end
 
     it "returns reserves that have rates like search filed value" do
@@ -163,7 +163,7 @@ RSpec.describe Reserve, type: :model do
 
       results = Reserve.searching_term("reserve 1")
 
-      expect(results).to match_array [matching_reserve]
+      expect(results.map(&:id)).to match_array [matching_reserve.id]
     end
 
     it "returns reserves that have short_name like search filed value" do
@@ -172,7 +172,7 @@ RSpec.describe Reserve, type: :model do
 
       results = Reserve.searching_term("reserve 1")
 
-      expect(results).to match_array [matching_reserve]
+      expect(results.map(&:id)).to match_array [matching_reserve.id]
     end
 
     it "returns reserves that have name like search filed value" do
@@ -181,7 +181,7 @@ RSpec.describe Reserve, type: :model do
 
       results = Reserve.searching_term("reserve 1")
 
-      expect(results).to match_array [matching_reserve]
+      expect(results.map(&:id)).to match_array [matching_reserve.id]
     end
 
     it "returns reserves that have address_line_2 like search filed value" do
@@ -190,7 +190,7 @@ RSpec.describe Reserve, type: :model do
 
       results = Reserve.searching_term("reserve 1")
 
-      expect(results).to match_array [matching_reserve]
+      expect(results.map(&:id)).to match_array [matching_reserve.id]
     end
 
     it "returns reserves that have address_city like search filed value" do
@@ -199,16 +199,17 @@ RSpec.describe Reserve, type: :model do
 
       results = Reserve.searching_term("reserve 1")
 
-      expect(results).to match_array [matching_reserve]
+      expect(results.map(&:id)).to match_array [matching_reserve.id]
     end
 
     it "returns reserves that have State like search filed value" do
-      matching_reserve = create(:reserve, State: "reserve 1 State")
+      state = create(:state, name: "reserve 1 State")
+      matching_reserve = create(:reserve, address_state: state)
       non_matching_reserve = create(:reserve, State: "Hasting")
 
       results = Reserve.searching_term("reserve 1")
 
-      expect(results).to match_array [matching_reserve]
+      expect(results.map(&:id)).to match_array [matching_reserve.id]
     end
 
     it "returns reserves that have address_postal_code like search filed value" do
@@ -217,16 +218,17 @@ RSpec.describe Reserve, type: :model do
 
       results = Reserve.searching_term("reserve 1")
 
-      expect(results).to match_array [matching_reserve]
+      expect(results.map(&:id)).to match_array [matching_reserve.id]
     end
 
     it "returns reserves that have Country like search filed value" do
-      matching_reserve = create(:reserve, Country: "reserve 1 Country")
+      country = create(:country, name: "reserve 1 Country")
+      matching_reserve = create(:reserve, address_country: country)
       non_matching_reserve = create(:reserve, Country: "Hasting")
 
       results = Reserve.searching_term("reserve 1")
 
-      expect(results).to match_array [matching_reserve]
+      expect(results.map(&:id)).to match_array [matching_reserve.id]
     end
 
     it "returns reserves that have home_page_url like search filed value" do
@@ -235,7 +237,7 @@ RSpec.describe Reserve, type: :model do
 
       results = Reserve.searching_term("reserve 1")
 
-      expect(results).to match_array [matching_reserve]
+      expect(results.map(&:id)).to match_array [matching_reserve.id]
     end
 
     it "returns reserves that have special_needs_statement like search filed value" do
@@ -244,7 +246,7 @@ RSpec.describe Reserve, type: :model do
 
       results = Reserve.searching_term("reserve 1")
 
-      expect(results).to match_array [matching_reserve]
+      expect(results.map(&:id)).to match_array [matching_reserve.id]
     end
 
     it "returns reserves that have doi like search filed value" do
@@ -253,7 +255,7 @@ RSpec.describe Reserve, type: :model do
 
       results = Reserve.searching_term("reserve 1")
 
-      expect(results).to match_array [matching_reserve]
+      expect(results.map(&:id)).to match_array [matching_reserve.id]
     end
 
     it "returns reserves that have administrative_group_name like search filed value" do
@@ -262,7 +264,7 @@ RSpec.describe Reserve, type: :model do
 
       results = Reserve.searching_term("reserve 1")
 
-      expect(results).to match_array [matching_reserve]
+      expect(results.map(&:id)).to match_array [matching_reserve.id]
     end
 
     it "returns reserves that have administrative_group_name_acronym like search filed value" do
@@ -271,7 +273,7 @@ RSpec.describe Reserve, type: :model do
 
       results = Reserve.searching_term("reserve 1")
 
-      expect(results).to match_array [matching_reserve]
+      expect(results.map(&:id)).to match_array [matching_reserve.id]
     end
 
     it "returns reserves that have administrative_group_state like search filed value" do
@@ -280,7 +282,7 @@ RSpec.describe Reserve, type: :model do
 
       results = Reserve.searching_term("reserve 1")
 
-      expect(results).to match_array [matching_reserve]
+      expect(results.map(&:id)).to match_array [matching_reserve.id]
     end
 
     it "returns all reserves if search filed value is empty" do
@@ -289,7 +291,7 @@ RSpec.describe Reserve, type: :model do
 
       results = Reserve.searching_term("")
 
-      expect(results).to match_array [reserve1, reserve2]
+      expect(results.map(&:id)).to match_array [reserve1.id, reserve2.id]
     end
   end
 
