@@ -3,7 +3,7 @@
 
 <section class="project-form">
   <h1><%= t(".title") %></h1>
-  <%= form_with model: @presenter.form, data: { controller: "turbo-content" }, id: "projects-new" do |form| %>
+  <%= form_with model: @presenter.form, url: projects_path(user_id: @presenter.user.id), data: { controller: "turbo-content" }, id: "projects-new" do |form| %>
     <h2><%= t(".project_type_options.title") %></h2>
     <section class="project-type-options" data-controller="value-projection" data-value-projection-projected-value="<%= form.object.project_type %>">
       <% @presenter.project_type_options.each do |project_type| %>

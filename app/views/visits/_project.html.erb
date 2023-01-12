@@ -7,5 +7,5 @@
     <% end %>
     <%= render partial: "visits/projects/projects_select", locals: { presenter: presenter.projects } %>
   </div>
-  <%= link_to t(".links.create_a_new_project"), new_project_path, class: "project-create-link" %>
+  <%= link_to t(".links.create_a_new_project"), new_project_path(user_id: presenter.user), class: "project-create-link" %>
 </div>

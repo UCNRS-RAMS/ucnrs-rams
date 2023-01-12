@@ -4,7 +4,7 @@ RSpec.describe "new.html.erb" do
   describe "on any render" do
     it "includes steps (on step 1)" do
       assign(:presenter, ProjectFormPresenter.new(
-        user: :dummy,
+        user: create(:user),
         current_step: 1,
       ))
 
@@ -19,7 +19,7 @@ RSpec.describe "new.html.erb" do
   describe "when project_type is defined" do
     it "renders the research partial" do
       assign(:presenter, ProjectFormPresenter.new(
-        user: :dummy,
+        user: create(:user),
         current_step: 1,
         project_type: :research,
       ))
@@ -32,7 +32,7 @@ RSpec.describe "new.html.erb" do
 
     it "renders the class partial" do
       assign(:presenter, ProjectFormPresenter.new(
-        user: :dummy,
+        user: create(:user),
         current_step: 1,
         project_type: :class,
       ))
@@ -45,7 +45,7 @@ RSpec.describe "new.html.erb" do
 
     it "renders the meeting partial" do
       assign(:presenter, ProjectFormPresenter.new(
-        user: :dummy,
+        user: create(:user),
         current_step: 1,
         project_type: :meeting,
       ))
@@ -60,7 +60,7 @@ RSpec.describe "new.html.erb" do
   describe "the submit button" do
     it "renders a button with the correct text for step 1" do
       assign(:presenter, ProjectFormPresenter.new(
-        user: :dummy,
+        user: create(:user),
         current_step: 1,
       ))
 
@@ -76,7 +76,7 @@ RSpec.describe "new.html.erb" do
 
     it "displays a modal when a modal should be shown" do
       assign(:presenter, ProjectFormPresenter.new(
-        user: :dummy,
+        user: create(:user),
         current_step: 1,
         show_modal: true,
       ))
@@ -89,7 +89,7 @@ RSpec.describe "new.html.erb" do
 
     it "does not display a modal when a modal should not be shown" do
       assign(:presenter, ProjectFormPresenter.new(
-        user: :dummy,
+        user: create(:user),
         current_step: 1,
         show_modal: false,
       ))

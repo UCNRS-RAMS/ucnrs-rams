@@ -6,7 +6,7 @@
     </div>
     <div class="header-links">
       <%= link_to t(".delete_user"), "#" %>
-      <%= link_to t(".submit_visit_request_for_user"), "#" %>
+      <%= link_to t(".submit_visit_request_for_user"), new_visit_path(user_id: @presenter.user_id) %>
     </div>
   </header>
 

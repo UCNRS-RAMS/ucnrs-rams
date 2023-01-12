@@ -3,15 +3,15 @@ class VisitsController < ApplicationController
   before_action :check_edit_access, only: [:edit]
 
   def new
-    @presenter = VisitsFormPresenter.new(user: current_user)
+    @presenter = VisitsFormPresenter.new(user: user)
   end
   
   def create
-    @form = VisitForm.new(user: current_user, params: visit_params)
+    @form = VisitForm.new(user: user, params: visit_params)
     if @form.save
       redirect_to visit_user_visits_path(@form.visit, format: :html)
     else
-      @presenter = VisitsFormPresenter.new(user: current_user, form: @form)
+      @presenter = VisitsFormPresenter.new(user: user, form: @form)
       render :new, status: :unprocessable_entity
     end
   end
@@ -51,6 +51,12 @@ class VisitsController < ApplicationController
 
   def amenity
     @amenity ||= Amenity.find_by(id: params[:amenity_id])
+  end
+
+  def user
+    return current_user if params[:user_id].nil?
+
+    User.find_by(id: params[:user_id])
   end
 
   def visit_params

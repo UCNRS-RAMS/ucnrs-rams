@@ -10,7 +10,7 @@ class ProjectFormPresenter
     @show_modal = show_modal
   end
 
-  attr_reader :form, :project_type, :show_modal
+  attr_reader :form, :project_type, :show_modal, :user
   delegate :svg, :step_class, to: :steps_presenter
   delegate :id, to: :form
 
@@ -73,7 +73,7 @@ class ProjectFormPresenter
 
   private
 
-  attr_reader :user, :steps_presenter, :current_step
+  attr_reader :steps_presenter, :current_step
 
   def project
     form.project

@@ -10,7 +10,7 @@ class VisitsFormPresenter
     @steps_presenter = StepsPresenter.new(@current_step)
   end
 
-  attr_reader :steps_presenter, :form
+  attr_reader :steps_presenter, :form, :user
   delegate :svg, :step_class, to: :steps_presenter
   delegate :editing, to: :form
 

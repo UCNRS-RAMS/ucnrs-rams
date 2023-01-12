@@ -6,11 +6,17 @@ class Visits::ProjectsController < ApplicationController
     @presenter = Visits::ProjectsPresenter.new(
       project_id: project_id,
       project_type: project_type,
-      user: current_user,
+      user: user,
     )
   end
 
   private
+
+  def user
+    return current_user if params[:user_id].nil?
+
+    User.find(params[:user_id])
+  end
 
   def project_type
     params[:project_type]

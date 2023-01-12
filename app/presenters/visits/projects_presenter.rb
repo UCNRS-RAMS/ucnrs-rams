@@ -5,7 +5,7 @@ class Visits::ProjectsPresenter
     @project_id = project_id
   end
 
-  attr_reader :project_type, :project_id
+  attr_reader :project_type, :project_id, :user
 
   def projects
     [
@@ -30,6 +30,4 @@ class Visits::ProjectsPresenter
       .alphabetized
       .with_active_team_member(user: user, can_add_visit: true)
   end
-
-  attr_reader :user
 end

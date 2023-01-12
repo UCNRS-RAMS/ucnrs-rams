@@ -12,19 +12,19 @@ class ProjectsController < ApplicationController
 
   def new
     @presenter = ProjectFormPresenter.new(
-      user: current_user,
+      user: user,
       current_step: 1,
       project_type: project_type,
     )
   end
 
   def create
-    form = ProjectForm.new(user: current_user, params: project_params)
+    form = ProjectForm.new(user: user, params: project_params)
     if form.save
       redirect_to project_team_memberships_path(form.project, format: :html)
     else
       @presenter = ProjectFormPresenter.new(
-        user: current_user,
+        user: user,
         current_step: 1,
         project_type: form.project_type,
         form: form,
@@ -98,6 +98,12 @@ class ProjectsController < ApplicationController
       :taxonomic_keywords,
       :recent_publications,
     )
+  end
+
+  def user
+    return current_user if params[:user_id].nil?
+
+    User.find(params[:user_id])
   end
 
   def status_filter
