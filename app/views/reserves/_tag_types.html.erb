@@ -1,6 +1,6 @@
 <div class="reserve_tags" data-controller="reserve-tag">
   <%= render partial: "shared/reserves/tag", locals: { tag: tag_type, option: "tag_type", data: { action: "change->reserve-tag#toggle" } } %>
-  <div class="<%= tag_type %>" data-reserve-tag-target = "tagsDiv" >
+  <div class="<%= tag_type %>" data-reserve-tag-target = "tagsDiv" data-reserve-target = "tagsDiv" >
     <%= render partial: "reserve_tag_name", collection: tag_names, locals: { reserve_tag_category: tag_type } %>
   </div>
 </div>

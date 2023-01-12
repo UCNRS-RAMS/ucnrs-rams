@@ -463,6 +463,18 @@ main {
 
     .search-options {
       margin: 2rem auto;
+
+      .submit-btn {
+        color: $dark-sky-blue;
+        cursor: pointer;
+        font-size: 0.875rem;
+        font-weight: $semi-bold;
+        margin: 0.75rem 0;
+
+        span {
+          padding: 0.5rem;
+        }
+      }
     }
 
     section,

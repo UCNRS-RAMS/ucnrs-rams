@@ -2747,6 +2747,7 @@ en:
     facebook_logo: "facebook logo"
     instagram_logo: "instagram logo"
     youtube_logo: "youtube logo"
+    reload_icon: "reload icon"
   universal:
     institution_types:
       university_of_california: "University of California"
