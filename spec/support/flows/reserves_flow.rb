@@ -44,6 +44,10 @@ class ReservesFlow
     page.find(".tag-btn>label",text: tag).click
   end
 
+  def click_clear_btn(tag)
+    page.find(".submit-btn",text: tag).click
+  end
+
   def has_reserves_count?(expected_reserves)
     page.all('.reserve-cards .card').count.eql?(expected_reserves)
   end
