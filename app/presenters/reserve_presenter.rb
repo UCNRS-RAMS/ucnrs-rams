@@ -16,11 +16,7 @@ class ReservePresenter
   end
 
   def avatar
-    if has_avatar?
-      rails_blob_path(reserve_avatar, only_path: true)
-    else
-      AVATAR_PLACEHOLDER
-    end
+    reserve.logo_url(:medium) || AVATAR_PLACEHOLDER
   end
 
   def address_line_3

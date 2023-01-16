@@ -53,8 +53,10 @@ RSpec.describe "show.html.erb" do
     end
 
     context "when status is approved" do
+      let(:reserve) { create(:reserve, outside_reservation_system_url: "https://rams3-dev.ucnrs.org/") }
+
       it "display approved sidebar" do
-        visit = create(:visit, status: "approved")
+        visit = create(:visit, status: "approved", reserve: reserve)
         assign(:presenter, VisitShowPresenter.new(visit))
 
         render template: "visits/show"
@@ -65,7 +67,7 @@ RSpec.describe "show.html.erb" do
       end
 
       it "display approved content" do
-        visit = create(:visit, status: "approved")
+        visit = create(:visit, status: "approved", reserve: reserve)
         assign(:presenter, VisitShowPresenter.new(visit))
 
         render template: "visits/show"

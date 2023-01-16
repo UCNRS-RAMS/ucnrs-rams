@@ -3,7 +3,11 @@
   <h2 class="main-header"><%= t(".sidebar_title") %></h2>
   <p><%= t(".sidebar_next_steps") %></p>
 </header>
-<span><%= link_to 'export to calendar', "#", class: "button button-clear" %></span>
+<section class="calendar-option">
+  <%= link_to image_tag("Ical_calender_icon.png", height: 42, alt: t("alt.ical_calender_icon")), "#", class: 'dock-item' %>
+  <%= link_to image_tag("google_calendar_icon.png", height: 38, alt: t("alt.google_calendar_icon")), "#", class: 'dock-item' %>
+  <%= link_to image_tag("outlook_calendar_icon.png", height: 42, alt: t("alt.outlook_calendar_icon")), "#", class: 'dock-item' %>
+</section>
 <section class="reserve-info">
   <hr />
   <%= image_tag @presenter.visit_reserve_avatar, alt: t(".alt_text.reserve_logo") %>
@@ -15,14 +19,17 @@
     <span><%= @presenter.visit_reserve_country %></span>
   </div>
   <%= link_to(
-        t(".get_directions"), 
-        reserve_more_information_index_path(@presenter.visit_reserve_id),
+        t(".more_information"), 
+        reserves_path,
         {
           class: "icon-map",
         }
       )
   %>
-  <a class="icon-external-link" href="#"><%= t(".visit_reserve_website") %></a>
+  <%= link_to t(".visit_reserve_website"),
+    @presenter.outside_reservation_system_url,
+    class: "icon-external-link"
+  %>
   <div>
     <h2><%= t(".mailing_address") %></h2>
     <span>Mailing Address</span>

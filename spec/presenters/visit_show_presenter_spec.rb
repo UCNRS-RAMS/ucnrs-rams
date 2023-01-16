@@ -33,6 +33,40 @@ RSpec.describe VisitShowPresenter do
     end
   end
 
+  describe "#outside_reservation_system_url" do
+    it "returns the outside_reservation_system_url if not equal to '0'" do
+      reserve = create(:reserve, outside_reservation_system_url: "https://rams3-dev.ucnrs.org/")
+      visit = create(:visit, status: :approved, reserve: reserve)
+      presenter = VisitShowPresenter.new(visit)
+
+      expect(presenter.outside_reservation_system_url).to eq "https://rams3-dev.ucnrs.org/"
+    end
+
+    it "returns 'nil' if equal to '0'" do
+      reserve = create(:reserve, outside_reservation_system_url: "0")
+      visit = create(:visit, status: :approved)
+      presenter = VisitShowPresenter.new(visit)
+
+      expect(presenter.outside_reservation_system_url).to be_nil
+    end
+  end
+
+  describe "#reserve_answers" do
+    it "creates a VisitReserveAnswer for each visit_reserve_answer" do
+      visit = create(:visit)
+      visit_reserve_answers = create_list(:visit_reserve_answer, 3, visit: visit, boolean_answer: true)
+      presenter = VisitShowPresenter.new(visit)
+
+      results = presenter.reserve_answers
+
+      expect(results.values.flatten.map(&:id)).to eq [
+        visit_reserve_answers[0].id,
+        visit_reserve_answers[1].id,
+        visit_reserve_answers[2].id,
+      ]
+    end
+  end
+
   describe "#content_partial_name" do
     context "when the visit status is approved" do
       it "returns the content partial path visits/content_approved_show" do
