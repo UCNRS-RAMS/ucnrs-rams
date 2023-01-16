@@ -235,6 +235,19 @@ RSpec.describe VisitForm, type: :model do
     end
   end
 
+  describe "#cancel_visit" do
+    it "will update visit status to cancelled" do
+      visit = create(:visit, status: "in_review")
+      params = { id: visit.id }
+
+      form = VisitForm.new(params: params)
+
+      expect(form.cancel_visit).to eq true
+      visit.reload
+      expect(visit.status).to eq "cancelled"
+    end
+  end
+
   describe "#parse_date" do
     it "parses a date in %Y-%m-%d format" do
       form = VisitForm.new

@@ -41,6 +41,16 @@ class VisitsController < ApplicationController
     @presenter = Visits::AmenityPresenter.new(amenity, user: current_user, form: [form])
   end
 
+  def cancel
+    form = VisitForm.new(user: current_user, params: {id: visit_id})
+    if form.cancel_visit
+      redirect_to visit_path, notice: I18n.translate("visits.show.successfully_cancelled")
+    else
+      flash.now[:alert] = I18n.translate("visits.show.could_not_cancel")
+      render :show
+    end
+  end
+
   private
 
   def check_edit_access
