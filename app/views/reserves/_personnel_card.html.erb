@@ -8,7 +8,7 @@
     <h2><%= personnel_card.full_name %></h2>
     <span><%= personnel_card.role %></span>
     <span><%= personnel_card.phone_number %></span>
-    <%= mail_to personnel_card.email, t(".email"), class: "icon-email" %>
+    <%= mail_to personnel_card.email, t(".email"), class: "icon-email" if personnel_card.email.present? %>
   </div>
 </div>
 <hr />

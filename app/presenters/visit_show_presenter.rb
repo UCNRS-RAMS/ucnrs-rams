@@ -31,6 +31,20 @@ class VisitShowPresenter
     "visits/sidebar_#{status}_show"
   end
 
+  def reserve_answers
+    VisitReserveAnswer
+      .includes([reserve_question: :reserve])
+      .with_reserve_name_column
+      .with_affirmative_answer
+      .for_visit(visit)
+      .map{ |reserve_answer| VisitReserveAnswerPresenter.new(reserve_answer) }
+      .group_by(&:reserve_name)
+  end
+
+  def outside_reservation_system_url
+    reserve.outside_reservation_system_url unless reserve.outside_reservation_system_url == "0"
+  end
+
   def content_partial_name
     if visit.approved?
       "visits/content_approved_show"

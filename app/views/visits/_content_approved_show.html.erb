@@ -7,9 +7,6 @@
     <span><%= t('.visitor').pluralize presenter.visitor_count %>: <%= presenter.visitor_count %></span>
     <span><%= t('.amenity').pluralize presenter.amenity_count %>: <%= presenter.amenity_count %></span>
   </div>
-  <div class="subheader">
-    <span><%= link_to t(".edit_visit"), edit_visit_path(presenter.id) %></span>
-  </div>
 </header>
 <section class="visit-summary">
   <table class="visit-summary-table">
@@ -36,5 +33,20 @@
 </section>
 <section>
   <h2 class="title"><%= t(".map") %></h2>
+</section>
+<section class="visit-reserve_question">
+  <h2 class="main-header"><%= t(".reserve_questions") %></h2>
+  <div id="reserve_question-summary-list">
+    <% presenter.reserve_answers.each do |reserve_name, reserve_answers| %>
+      <div class="answers-list">
+        <% reserve_answers.each do |reserve_answer| %>
+          <div class="question-answer">
+            <p class="question"><%= reserve_answer.reserve_question_question %></p>
+            <p class="answer"><strong><%= reserve_answer.answer %></strong></p>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </section>
 <%= render partial: "shared/visits/content", locals: { presenter: presenter } %>

@@ -632,7 +632,7 @@ en:
       alt_text:
         reserve_logo: "small picture of reserve logo"
         ucnrs_logo: "small picture of ucnrs logo"
-      get_directions: "Get Directions"
+      more_information: "Get More Reserve Information"
       visit_reserve_website: "Visit Reserve Website"
       mailing_address: "Mailing Address"
     sidebar_denied_show:
@@ -661,6 +661,7 @@ en:
       purpose: "Purpose"
       project: "Project"
     content_approved_show:
+      reserve_questions: "Reserve Questions"
       visit_summary: "Visit Summary"
       edit_visit: "Edit Visit"
       visitor: "Visitor"
@@ -2708,6 +2709,9 @@ en:
         reserves_info: "Reserves Info"
         project_search: "Project Search"
   alt:
+    ical_calender_icon: "Ical calendar icon"
+    google_calendar_icon: "Google Calendar icon"
+    outlook_calendar_icon: "Outlook calendar icon"
     right_facing_arrow: "right facing arrow"
     left_facing_arrow: "left facing arrow"
     list_icon: "list icon"

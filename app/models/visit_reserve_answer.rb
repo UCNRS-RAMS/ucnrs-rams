@@ -38,6 +38,24 @@ class VisitReserveAnswer < ApplicationRecord
     end
   end
 
+  def self.with_reserve_name_column
+    select("visit_reserve_answers.*, reserves.name AS reserve_name")
+      .left_joins(reserve_question: :reserve)
+  end
+
+  def self.with_affirmative_answer
+    joins(:reserve_question)
+      .where("(reserve_questions.question_type = 'Boolean' AND boolean_answer IS TRUE) OR (reserve_questions.question_type = 'Text' AND text_answer IS NOT NULL)")
+  end
+
+  def self.for_visit(visit)
+    if visit.present?
+      where(visit_id: visit)
+    else
+      all
+    end
+  end
+
   private
 
   def required_text_question
