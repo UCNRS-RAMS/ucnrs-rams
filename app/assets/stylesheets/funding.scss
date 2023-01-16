@@ -18,6 +18,11 @@
     padding: 10px;
   }
 
+  .submit-btn {
+    display: flex;
+    justify-content: end;
+  }
+
   form {
     label {
       color: $dark-bluegray;
