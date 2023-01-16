@@ -14,6 +14,14 @@
   </template>
 </turbo-stream>
 
+<turbo-stream action="replace" target="flash">
+  <template>
+    <turbo-frame id="flash">
+      <%= render partial: "shared/flash", formats: [:html] %>
+    </turbo-frame>
+  </template>
+</turbo-stream>
+
 <turbo-stream action="replace" target="funding-table">
   <template>
     <%= render partial: "shared/projects/fundings/funding_table", locals: { presenter: @presenter }, formats: [:html] %>

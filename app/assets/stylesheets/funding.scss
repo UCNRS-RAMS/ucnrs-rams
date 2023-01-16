@@ -6,6 +6,18 @@
 .complete-update {
   @include form;
 
+  p.notice {
+    background-color: $green;
+    margin: 0px;
+    padding: 10px;
+  }
+
+  p.alert {
+    background-color: $red-alert;
+    margin: 0px;
+    padding: 10px;
+  }
+
   form {
     label {
       color: $dark-bluegray;

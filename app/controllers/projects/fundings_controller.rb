@@ -19,6 +19,7 @@ class Projects::FundingsController < ApplicationController
       params: project_fundings_params
     )
     if form.save
+      flash[:notice] = I18n.t("projects.fundings.successfully_added_funding")
       redirect_to project_fundings_url(project)
     else
       @presenter = Projects::FundingsIndexPresenter.new(
@@ -26,6 +27,7 @@ class Projects::FundingsController < ApplicationController
         project: project,
         form: form,
       )
+      flash.now[:alert] = I18n.t("projects.fundings.missing_fileds_error")
       render :index, status: :unprocessable_entity
     end
   end

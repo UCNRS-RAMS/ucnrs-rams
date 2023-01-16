@@ -1,4 +1,9 @@
 <% content_for(:title) { t(".title") } %>
+
+<turbo-frame id="flash">
+  <%= render partial: "shared/flash" %>
+</turbo-frame>
+
 <%= render partial: "projects/steps", locals: { presenter: @presenter } %>
 
 <section>

@@ -960,6 +960,8 @@ en:
       text:
         aria_label_for: "textarea answer field for question %{question}"
     fundings:
+      missing_fileds_error: "Required fields are missing"
+      successfully_added_funding: "Funding added successfully"
       index:
         title: "Funding"
         add_funding_title: "Add Funding Information"
