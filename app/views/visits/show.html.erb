@@ -4,6 +4,10 @@
       <%= render partial: @presenter.sidebar_partial_name, locals: { presenter: @presenter } %>
     </section>
     <section class="content">
+      <section class="summary-header">
+        <h1 class="main-header"><%= t(".visit_summary") %></h1>
+        <%= render partial: "visits/cancel_button", locals: { visit_id: @presenter.id } unless @presenter.cancelled?  %>
+      </section>
       <%= render partial: @presenter.content_partial_name, locals: { presenter: @presenter } %>
     </section>
   </div>

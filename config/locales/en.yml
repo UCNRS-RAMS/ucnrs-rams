@@ -618,6 +618,11 @@ en:
           special_needs: "Special Needs"
           study_area: "Study Area"
     show:
+      successfully_cancelled: "Visit Successfully Cancelled"
+      could_not_cancel: "Could Not Cancel"
+      visit_summary: "Visit Summary"
+    cancel_button:
+      cancel: "Cancel"
     sidebar_in_review_show:
       return_to_dashboard: "Return To Dashboard"
       sidebar_title: "Your visit request was submitted."
@@ -647,13 +652,12 @@ en:
       contact_us: "Contact Use"
       help_topics: "Help Topics"
     sidebar_cancelled_show:
-      sidebar_title: "Cancelled"
+      sidebar_title: "Cancelled By Applicant"
       schedule_a_new_visit: "Schedule a New Visit"
       edit_project: "Edit Project"
       contact_us: "Contact Us"
       help_topics: "Help Topics"
     content_show:
-      visit_summary: "Visit Summary"
       edit_visit: "Edit Visit"
       request_submitted: "Request Submitted"
       reserve: "Reserve"
@@ -662,7 +666,6 @@ en:
       project: "Project"
     content_approved_show:
       reserve_questions: "Reserve Questions"
-      visit_summary: "Visit Summary"
       edit_visit: "Edit Visit"
       visitor: "Visitor"
       amenity: "Amenity"

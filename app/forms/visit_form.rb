@@ -54,6 +54,11 @@ class VisitForm
     @editing = edit
   end
 
+  def cancel_visit
+    visit.assign_attributes(status: :cancelled)
+    visit.save
+  end
+
   def amenity_form(amenity_id)
     amenity_forms[amenity_id]
   end

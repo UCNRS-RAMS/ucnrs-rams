@@ -368,6 +368,16 @@
     @include summary;
 
     .content {
+      .summary-header {
+        display: flex;
+        justify-content: space-between;
+
+        .cancel-btn {
+          text-decoration: none;
+          font-size: 1rem;
+          font-weight: $medium;
+        }
+      }
 
       .visit-summary {
         margin-bottom: 3rem;
