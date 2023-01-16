@@ -28,7 +28,7 @@ class Projects::FundingsController < ApplicationController
         form: form,
       )
       flash.now[:alert] = I18n.t("projects.fundings.missing_fileds_error")
-      render :index, status: :unprocessable_entity
+      render :create, status: :unprocessable_entity
     end
   end
 
