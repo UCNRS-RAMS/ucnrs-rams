@@ -115,6 +115,17 @@ RSpec.describe ProjectPresenter do
     end
   end
 
+  describe "#owner_name" do
+    it "returns the project owner full name" do
+      user = create(:user, first_name: "Scrooge", last_name: "McDuck")
+      project  = create(:project, owner: user)
+
+      project_presenter = ProjectPresenter.new(project: project)
+
+      expect(project_presenter.owner_name).to eq "Scrooge McDuck"
+    end
+  end
+
   describe "#principal_investigators_names" do
   it "returns array of project principal investigators names" do
     project  = create(:project)

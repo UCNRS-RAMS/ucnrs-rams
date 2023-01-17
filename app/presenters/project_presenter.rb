@@ -54,6 +54,10 @@ class ProjectPresenter
     applicant&.full_name
   end
 
+  def owner_name
+    owner&.full_name
+  end
+
   def principal_investigators_names
     team_memberships
       .select { |x| x.is_principal_investigator == true }
