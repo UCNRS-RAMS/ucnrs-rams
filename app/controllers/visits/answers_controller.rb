@@ -10,7 +10,12 @@ class Visits::AnswersController < ApplicationController
     if form.save
       redirect_to visit_waivers_policies_path
     else
-      redirect_to visit_questions_path(visit), alert: "Required fields are missing"
+      @presenter = Visits::QuestionsIndexPresenter.new(
+        current_step: 3,
+        visit: visit,
+      )
+      flash.now[:alert] = I18n.t("visits.answers.missing_fileds_error")
+      render :create, status: :unprocessable_entity
     end
   end
 
