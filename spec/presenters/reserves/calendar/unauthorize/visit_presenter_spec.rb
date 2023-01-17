@@ -4,15 +4,15 @@ RSpec.describe Reserves::Calendar::Unauthorize::VisitPresenter do
   describe "#visit_link_params" do
     it "returns params for visits_link method" do
       reserve = create(:reserve, name: "Reserve 1")
-      visit = create(:visit, reserve_id: reserve.id, status: "incomplete")
+      visit = create(:visit, reserve_id: reserve.id, status: "incomplete", starts_at: Time.current)
       visit_presenter = Reserves::Calendar::Unauthorize::VisitPresenter.new(visit: visit)
 
       output = Reserves::Calendar::Unauthorize::BarPresenter.new(
         link_classes: "",
-        background_classes: "",
-        inner_classes: "",
+        background_classes: " left-bar left-radius-incomplete",
+        inner_classes: "pill incomplete status-bar incomplete-bar",
         text_classes: "",
-        text: "Reserve 1",
+        text: visit.status.humanize,
         status_class: "incomplete",
         path: "/reserves/#{reserve.id}/calendar/visits/#{visit.id}",
       )
