@@ -54,8 +54,9 @@ class VisitsController < ApplicationController
   private
 
   def check_edit_access
-    unless visit.start_date > Date.today && visit.status == "in_review"
-      redirect_to visit_path(id: visit.id), alert: I18n.translate("manager.not_editable")
+    unless visit.start_date > Date.today && (visit.status == "in_review" || visit.status == "incomplete")
+      flash[:alert] = I18n.translate("manager.not_editable")
+      redirect_to visit_path(id: visit.id)
     end
   end
 

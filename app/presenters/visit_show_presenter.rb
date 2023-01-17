@@ -32,6 +32,10 @@ class VisitShowPresenter
     "visits/sidebar_#{status}_show"
   end
 
+  def edit_button?
+    visit.starts_at.to_date > Date.today && visit.status == "in_review"
+  end
+
   def reserve_email
     visit_reserve_email_address
   end

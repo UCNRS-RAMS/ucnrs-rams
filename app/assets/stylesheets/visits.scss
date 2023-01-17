@@ -379,6 +379,24 @@
         }
       }
 
+      .edit-btn {
+        border: 1px solid $navbar-link-color;
+        border-radius: 50px;
+        font-size: .8125rem;
+        font-weight: $normal;
+        margin-left: 1.25rem;
+        margin-right: 0;
+        padding: 0.5rem 1.25rem;
+        text-decoration: none;
+        transition: all .15s ease-in-out;
+      }
+
+      .edit-btn:hover {
+        color: $navbar-link-color;
+        background: $navbar-link-schedule-hover-background-color;
+        border: 1px solid $navbar-link-schedule-hover-border-color;
+      }
+
       .visit-summary {
         margin-bottom: 3rem;
       }
