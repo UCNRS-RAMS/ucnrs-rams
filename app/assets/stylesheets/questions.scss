@@ -6,6 +6,12 @@
 
 .questions-index,
 .questions {
+
+  p.alert {
+    background-color: $red-alert;
+    margin: 0px;
+    padding: 10px;
+  }
   
   .d-flex {
     display: flex;

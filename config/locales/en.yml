@@ -500,6 +500,8 @@ en:
       more_information: "Get More Reserve Information"
       alt_text:
         reserve_logo: "small picture of reserve logo"
+    answers:
+      missing_fileds_error: "Required fields are missing"
     questions:
       save_btn:
         back: "Go Back"
