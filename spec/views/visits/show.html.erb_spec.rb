@@ -2,8 +2,10 @@ require "rails_helper"
 
 RSpec.describe "show.html.erb" do
   describe "on any render" do
+    let(:reserve) { create(:reserve, outside_reservation_system_url: "https://rams3-dev.ucnrs.org/") }
+
     it "includes sidebar" do
-      visit = create(:visit, status: "in_review")
+      visit = create(:visit, status: "in_review", reserve: reserve)
       assign(:presenter, VisitShowPresenter.new(visit))
 
       render template: "visits/show"
@@ -14,7 +16,7 @@ RSpec.describe "show.html.erb" do
     end
 
     it "includes content" do
-      visit = create(:visit, status: "in_review")
+      visit = create(:visit, status: "in_review", reserve: reserve)
       assign(:presenter, VisitShowPresenter.new(visit))
 
       render template: "visits/show"
@@ -27,8 +29,10 @@ RSpec.describe "show.html.erb" do
 
   describe "based on visit status" do
     context "when status is in_review" do
+      let(:reserve) { create(:reserve, outside_reservation_system_url: "https://rams3-dev.ucnrs.org/") }
+
       it "display in_review sidebar" do
-        visit = create(:visit, status: "in_review")
+        visit = create(:visit, status: "in_review", reserve: reserve)
         assign(:presenter, VisitShowPresenter.new(visit))
 
         render template: "visits/show"
@@ -39,7 +43,7 @@ RSpec.describe "show.html.erb" do
       end
 
       it "display in_review content" do
-        visit = create(:visit, status: "in_review")
+        visit = create(:visit, status: "in_review", reserve: reserve)
         assign(:presenter, VisitShowPresenter.new(visit))
 
         render template: "visits/show"

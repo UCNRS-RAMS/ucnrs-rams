@@ -495,6 +495,11 @@ en:
         ucnrs_newsletter: "NRS Newsletter."
         terms_of_use: "Terms of Use"
   visits:
+    reserve_info:
+      email: "Reserve Email"
+      more_information: "Get More Reserve Information"
+      alt_text:
+        reserve_logo: "small picture of reserve logo"
     questions:
       save_btn:
         back: "Go Back"
@@ -625,6 +630,8 @@ en:
       confirm: "Are you sure?"
       cancel: "Cancel"
     sidebar_in_review_show:
+      mailing_address: "Mailing Address"
+      visit_reserve_website: "Visit Reserve Website"
       return_to_dashboard: "Return To Dashboard"
       sidebar_title: "Your visit request was submitted."
       sidebar_next_steps: "Next Steps"
@@ -666,7 +673,6 @@ en:
       purpose: "Purpose"
       project: "Project"
     content_approved_show:
-      reserve_questions: "Reserve Questions"
       edit_visit: "Edit Visit"
       visitor: "Visitor"
       amenity: "Amenity"
@@ -2106,6 +2112,7 @@ en:
         institutions: "Institutions"
     visits:
       content:
+        reserve_questions: "Reserve Questions"
         visitors: "Visitors (%{size})"
         amenities: "Amenities (%{size})"
       invoice:

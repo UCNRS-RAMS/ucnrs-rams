@@ -13,6 +13,7 @@ RSpec.describe VisitShowPresenter do
     it { is_expected.to delegate_method(:state).to(:visit_reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:country).to(:visit_reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:avatar).to(:visit_reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:email_address).to(:visit_reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:listing_photo_placeholder).to(:visit_reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:managing_campus).to(:visit_reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:reserve_alert_message).to(:visit_reserve).with_prefix(true) }
@@ -22,6 +23,16 @@ RSpec.describe VisitShowPresenter do
     it { is_expected.to delegate_method(:title).to(:project).with_prefix(true) }
     it { is_expected.to delegate_method(:project_type).to(:project).with_prefix(true) }
     it { is_expected.to delegate_missing_methods_to(:visit) }
+  end
+
+  describe "#reserve_email" do
+    it "returns visit's reserve email address" do
+      reserve = create(:reserve, email_address: "test@example.com")
+      visit = create(:visit, reserve: reserve)
+      presenter = VisitShowPresenter.new(visit)
+
+      expect(presenter.reserve_email).to eq "test@example.com"
+    end
   end
 
   describe "#sidebar_partial_name" do
