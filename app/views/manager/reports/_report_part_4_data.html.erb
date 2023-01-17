@@ -13,12 +13,12 @@
     </tr>
     <tr>
       <td><%= t(".principal_investigators") %>:</td>
-      <td><%= project.principal_investigator_names.join(" | ") %></td>
+      <td><%= project.principal_investigators_names.join(" | ") %></td>
     </tr>
     <tr>
       <td><%= t(".other_members") %>:</td>
       <td>
-        <%= project.other_team_member_names.present? ? project.other_team_member_names.join(" | ") : t(".none") %>
+        <%= project.other_team_members_names.present? ? project.other_team_members_names.join(" | ") : t(".none") %>
       </td>
     </tr>
     <tr>

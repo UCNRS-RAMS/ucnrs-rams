@@ -114,4 +114,59 @@ RSpec.describe ProjectPresenter do
       expect(project_presenter.applicant_name).to eq "Scrooge McDuck"
     end
   end
+
+  describe "#principal_investigators_names" do
+  it "returns array of project principal investigators names" do
+    project  = create(:project)
+    user1 = create(:user, first_name: "Scrooge", last_name: "McDuck")
+    membership1 = create(:project_team_membership,
+      project: project, user: user1, is_principal_investigator: false
+    )
+    user2 = create(:user, first_name: "Donald", last_name: "Duck")
+    membership2 = create(:project_team_membership,
+      project: project, user: user2, is_principal_investigator: true
+    )
+
+    project_presenter = ProjectPresenter.new(project: project)
+
+    expect(project_presenter.principal_investigators_names).to match_array ["Donald Duck"]
+  end
+end
+
+describe "#other_team_members_names" do
+  it "returns array of project non principal investigator team members names" do
+    project  = create(:project)
+    user1 = create(:user, first_name: "Scrooge", last_name: "McDuck")
+    membership1 = create(:project_team_membership,
+      project: project, user: user1, is_principal_investigator: false
+    )
+    user2 = create(:user, first_name: "Donald", last_name: "Duck")
+    membership2 = create(:project_team_membership,
+      project: project, user: user2, is_principal_investigator: true
+    )
+
+    project_presenter = ProjectPresenter.new(project: project)
+
+    expect(project_presenter.other_team_members_names).to match_array ["Scrooge McDuck"]
+  end
+end
+
+describe "#team_members_affiliations" do
+  it "returns array of team members' institution names" do
+    project  = create(:project)
+    institution1 = create(:institution, name: "Two Trees University")
+    membership1 = create(:project_team_membership,
+      project: project, institution: institution1, is_principal_investigator: false
+    )
+    institution2 = create(:institution, name: "Three Ducks University")
+    membership2 = create(:project_team_membership,
+      project: project, institution: institution2, is_principal_investigator: true
+    )
+
+    project_presenter = ProjectPresenter.new(project: project)
+
+    expect(project_presenter.team_members_affiliations)
+      .to match_array ["Two Trees University", "Three Ducks University"]
+  end
+end
 end

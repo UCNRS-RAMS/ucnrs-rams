@@ -54,6 +54,24 @@ class ProjectPresenter
     applicant&.full_name
   end
 
+  def principal_investigators_names
+    team_memberships
+      .select { |x| x.is_principal_investigator == true }
+      &.map { |membership| membership.user.full_name }
+  end
+
+  def other_team_members_names
+    team_memberships
+      .reject { |x| x.is_principal_investigator }
+      &.map { |membership| membership.user.full_name }
+  end
+
+  def team_members_affiliations
+    team_memberships
+      &.map { |membership| membership.institution.name }
+      &.uniq
+  end
+
   private
 
   def with_visits?
