@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :reserve_tag do
-    tag_type { "Ecosystem" }
+    category { "Ecosystem" }
     name { "Chaparral" }
 
     association :reserve
