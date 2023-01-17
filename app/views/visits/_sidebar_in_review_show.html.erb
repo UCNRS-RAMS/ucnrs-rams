@@ -6,8 +6,24 @@
   <li><%= t(".sidebar_next_steps_1") %></li>
   <li><%= t(".sidebar_next_steps_2") %></li>
 </ul>
-<%= link_to t(".return_to_dashboard"), root_path, class: "button" %>
-<div>
+<section class="reserve-info">
+  <hr />
+  <%= render partial: "visits/reserve_info", locals: { presenter: @presenter } %>
+  <div>
+    <h2><%= t(".mailing_address") %></h2>
+    <span>Mailing Address</span>
+    <span>Mailing City</span>
+  </div>
+  <hr >
+  <%= link_to t(".return_to_dashboard"), root_path, class: "button" %>
+  <%= link_to t(".visit_reserve_website"),
+    @presenter.outside_reservation_system_url,
+    class: "icon icon-external-link"
+  %>
   <%= link_to t(".contact_us"), "#", class: "icon icon-send" %>
-  <%= link_to t(".help_topics"), "#", class: "icon icon-question-circle" %>
-</div>
+  <%= link_to t(".help_topics"), helps_path, class: "icon icon-question-circle" %>
+</section>
+<section class="reserve-personnel">
+  <hr />
+  <%= render partial: "reserves/personnel_card", collection: @presenter.visit_reserve_personnel %>
+</section>

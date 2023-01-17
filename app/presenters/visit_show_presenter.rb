@@ -20,6 +20,7 @@ class VisitShowPresenter
     :reserve_alert_message,
     :rules,
     :rules_url,
+    :email_address,
     to: :visit_reserve, prefix: true
 
   delegate :id, to: :visit, prefix: true
@@ -29,6 +30,10 @@ class VisitShowPresenter
 
   def sidebar_partial_name
     "visits/sidebar_#{status}_show"
+  end
+
+  def reserve_email
+    visit_reserve_email_address
   end
 
   def reserve_answers
