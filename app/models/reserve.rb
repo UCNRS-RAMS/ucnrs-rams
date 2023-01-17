@@ -77,9 +77,11 @@ class Reserve < ApplicationRecord
     end
   end
 
-  def self.with_tag_type(tag_type)
-    if tag_type.present?
-      joins(:reserve_tags).where(reserve_tags: { tag_type: tag_type }).distinct
+  def self.with_category(category)
+    if category.present?
+      joins(:reserve_tags)
+        .where(reserve_tags: { category: category })
+        .distinct
     else
       all
     end

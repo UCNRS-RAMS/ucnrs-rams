@@ -2,7 +2,7 @@ class ReservesController < ApplicationController
   layout "with_reserve_hero_nav", only: :show
 
   def index
-    @presenter = ReservesIndexPresenter.new(search_filter: search_filter, tag_types: selected_tags)
+    @presenter = ReservesIndexPresenter.new(search_filter: search_filter, categories: selected_tags)
   end
 
   def show
