@@ -10,6 +10,18 @@ RSpec.describe Invoice, type: :model do
     it { is_expected.to belong_to(:visit) }
   end
 
+  describe "destroy" do
+    it "will do soft deletion for invoice" do
+      invoice = create(:invoice)
+
+      expect(invoice.deleted_at).to eq nil
+
+      invoice.destroy
+
+      expect(invoice.deleted_at).not_to eq nil
+    end
+  end
+
   describe ".recent_first" do
     it "returns records in reverse chronological order" do
       one = travel_to(1.week.ago) { create(:invoice) }
