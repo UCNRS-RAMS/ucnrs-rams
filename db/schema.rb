@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_11_155933) do
+ActiveRecord::Schema.define(version: 2023_01_17_024141) do
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
@@ -724,6 +724,15 @@ ActiveRecord::Schema.define(version: 2023_01_11_155933) do
     t.integer "reserve_id", null: false
   end
 
+  create_table "reserve_tags", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "reserve_id", null: false
+    t.column "category", "enum('ecosystem','geographic','organization','amenities','internet','other','facility')", null: false
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["reserve_id"], name: "index_reserve_tags_on_reserve_id"
+  end
+
   create_table "reserves", id: { type: :integer, comment: "NRS reserves listed in order of inclusion in the system" }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", limit: 80
     t.string "short_name", limit: 20
@@ -1075,4 +1084,5 @@ ActiveRecord::Schema.define(version: 2023_01_11_155933) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "project_permit_answers", "permits"
   add_foreign_key "project_permit_answers", "projects"
+  add_foreign_key "reserve_tags", "reserves"
 end
