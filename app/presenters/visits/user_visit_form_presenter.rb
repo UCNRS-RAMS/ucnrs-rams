@@ -20,6 +20,14 @@ def initialize(current_user:, add_visitor_partial:, show_add_guest_modal: false,
     visitor?(user) ? "visitor" : ""
   end
 
+  def warning_message_class
+    if user_visits_not_in_amenity_date_range?
+      "user-visits-warning"
+    else
+      "no-warning"
+    end
+  end
+
   def reset_visitor_partial
     @add_visitor_partial = nil
   end
@@ -112,5 +120,11 @@ def initialize(current_user:, add_visitor_partial:, show_add_guest_modal: false,
       role: team_membership.team_membership_user_role,
       count: 1,
     } }
+  end
+
+  private
+
+  def user_visits_not_in_amenity_date_range?
+    visit.user_visits.not_in_visit_amenities_range?(visit)
   end
 end
