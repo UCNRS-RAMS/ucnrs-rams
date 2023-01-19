@@ -124,6 +124,39 @@ RSpec.describe UserVisit, type: :model do
     end
   end
 
+  describe ".not_in_visit_amenities_range" do
+    it "returns false if visit has no amenity_visits" do
+      visit = create(:visit, starts_at: 3.week.ago, ends_at: 3.week.from_now)
+
+      user_visit1 = create(:user_visit, visit: visit)
+      user_visit2 = create(:user_visit, visit: visit)
+
+      expect(visit.user_visits.not_in_visit_amenities_range?(visit)).to be_falsy
+    end
+
+    it "returns false if user_visits in amenity date range" do
+      visit = create(:visit, starts_at: 3.week.ago, ends_at: 3.week.from_now)
+      amenity_visit1 = create(:amenity_visit, visit: visit, arrives_on: 2.week.ago, departs_on: 2.week.from_now)
+      amenity_visit2 = create(:amenity_visit, visit: visit, arrives_on: 2.week.ago, departs_on: Time.current)
+
+      user_visit1 = create(:user_visit, visit: visit, arrives_at: 1.week.ago, departs_at: Time.current)
+      user_visit2 = create(:user_visit, visit: visit, arrives_at: 1.week.ago, departs_at: 1.week.ago)
+
+      expect(visit.user_visits.not_in_visit_amenities_range?(visit)).to be_falsy
+    end
+
+    it "returns true if user_visits not in amenity date range" do
+      visit = create(:visit, starts_at: 3.week.ago, ends_at: 3.week.from_now)
+      amenity_visit1 = create(:amenity_visit, visit: visit, arrives_on: 2.week.ago, departs_on: 2.week.from_now)
+      amenity_visit2 = create(:amenity_visit, visit: visit, arrives_on: 2.week.ago, departs_on: Time.current)
+
+      user_visit1 = create(:user_visit, visit: visit, arrives_at: 3.week.ago, departs_at: Time.current)
+      user_visit2 = create(:user_visit, visit: visit, arrives_at: 1.week.ago, departs_at: 1.week.ago)
+
+      expect(visit.user_visits.not_in_visit_amenities_range?(visit)).to be_truthy
+    end
+  end
+
   describe ".at_reserve" do
     context "when given reserve record or reserve id" do
       it "returns user_visits that belongs to the given reserve through visit" do

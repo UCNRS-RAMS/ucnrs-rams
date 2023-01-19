@@ -2152,6 +2152,7 @@ en:
           change: "Change"
           confirm_removal: "Are you sure you want to remove %{name}?"
         user_visits_table:
+          warning: "Dates selected for visitors exceeds the specified dates entered for your amenities. Please check your dates in both amenities and visitors areas for accuracy."
           visitor_table: "Visitor List"
         team_members:
           new_team_member: "Add New Team Member"

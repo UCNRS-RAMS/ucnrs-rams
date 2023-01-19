@@ -244,6 +244,46 @@
     }
   }
 
+  .user-visits-table {
+    .no-warning {
+      display: none;
+    }
+
+    .user-visits-warning {
+      background-color: $gold;
+      border-radius: 0.3125rem;
+      font-size: 0.8125rem;
+      margin-bottom: -50px;
+      padding: 1.4rem 1.5rem 1.5rem 50px;
+      position: relative;
+      top: -60px;
+
+      > p:first-of-type {
+        margin-top: 0;
+      }
+
+      > p:last-of-type {
+        margin-bottom: 0;
+      }
+
+      p {
+        line-height: 1.5rem;
+        margin-bottom: 1.2rem;
+      }
+    }
+
+    .user-visits-warning::before {
+      background: no-repeat center/18px url(asset-path("icon-alert-circle.svg"));
+      content: "";
+      display: block;
+      height: 1.125rem;
+      left: 1.25rem;
+      position: absolute;
+      top: 1.55rem;
+      width: 1.125rem;
+    }
+  }
+
   .user-visits-table > table {
     @include table-style1;
 
