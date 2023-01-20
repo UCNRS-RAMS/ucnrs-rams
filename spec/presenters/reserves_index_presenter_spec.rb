@@ -19,10 +19,10 @@ RSpec.describe ReservesIndexPresenter do
       reserve2 = create(:reserve)
       reserve3 = create(:reserve)
       reserve4 = create(:reserve)
-      reserve_tag1 = create(:reserve_tag, reserve: reserve1, tag_type: :geographic, name: "River")
-      reserve_tag2 = create(:reserve_tag, reserve: reserve2, tag_type: :ecosystem, name: "Marsh")
-      reserve_tag3 = create(:reserve_tag, reserve: reserve3, tag_type: :geographic, name: "Dunes")
-      reserve_tag4 = create(:reserve_tag, reserve: reserve4, tag_type: :amenities, name: "Beach")
+      reserve_tag1 = create(:reserve_tag, reserve: reserve1, category: :geographic, name: "River")
+      reserve_tag2 = create(:reserve_tag, reserve: reserve2, category: :ecosystem, name: "Marsh")
+      reserve_tag3 = create(:reserve_tag, reserve: reserve3, category: :geographic, name: "Dunes")
+      reserve_tag4 = create(:reserve_tag, reserve: reserve4, category: :amenities, name: "Beach")
 
       index_presenter = ReservesIndexPresenter.new
 

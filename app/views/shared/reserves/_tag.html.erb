@@ -1,4 +1,4 @@
 <div class="tag-btn">
-  <%= check_box( option, "selected", { multiple: true, onchange: "this.form.requestSubmit()", id: "tags_selected_#{tag}", data: data }, tag, nil) %>
+  <%= check_box( option, "selected", { id: "tags_selected_#{tag}", data: data }, tag, nil) %>
   <label for="tags_selected_<%= tag %>" ><%= tag.capitalize %></label>
 </div>
