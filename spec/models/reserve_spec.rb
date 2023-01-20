@@ -304,42 +304,27 @@ RSpec.describe Reserve, type: :model do
     end
   end
 
-  describe ".with_category" do
-    context "when given category is present" do
-      it "returns reserve associated with reserve_tag with the given category" do
+  describe ".with_names" do
+    context "when given tags are present" do
+      it "returns reserve associated with reserve_tag with the given categorys" do
         reserve1 = create(:reserve)
         reserve2 = create(:reserve)
         reserve3 = create(:reserve)
-        reserve4 = create(:reserve)
-        reserve_tag1 = create(:reserve_tag, reserve: reserve1, tag_type: :geographic)
-        reserve_tag2 = create(:reserve_tag, reserve: reserve2, tag_type: :ecosystem)
-        reserve_tag3 = create(:reserve_tag, reserve: reserve3, tag_type: :geographic)
-        reserve_tag4 = create(:reserve_tag, reserve: reserve4, tag_type: :geographic)
+        create(:reserve_tag, reserve: reserve1, category: :geographic, name: "River")
+        create(:reserve_tag, reserve: reserve1, category: :ecosystem, name: "Marsh")
+        create(:reserve_tag, reserve: reserve2, category: :geographic, name: "River")
+        create(:reserve_tag, reserve: reserve2, category: :ecosystem, name: "Marsh")
+        create(:reserve_tag, reserve: reserve2, category: :geographic, name: "Beach")
+        create(:reserve_tag, reserve: reserve3, category: :geographic, name: "Beach")
+        create(:reserve_tag, reserve: reserve3, category: :ecosystem, name: "Marsh")
 
-        results = Reserve.with_tag_type([:geographic], {})
+        results = Reserve.with_names(["River", "Marsh"])
 
-        expect(results).to eq [reserve1, reserve3, reserve4]
+        expect(results.map(&:id)).to eq [reserve1.id, reserve2.id]
       end
     end
 
-    context "when given tag_types and tag_names are present" do
-      it "returns reserve associated with reserve_tag with the given tag_types" do
-        reserve1 = create(:reserve)
-        reserve2 = create(:reserve)
-        reserve3 = create(:reserve)
-        reserve4 = create(:reserve)
-        reserve_tag1 = create(:reserve_tag, reserve: reserve1, tag_type: :geographic, name: "River")
-        reserve_tag2 = create(:reserve_tag, reserve: reserve2, tag_type: :ecosystem, name: "Marsh")
-        reserve_tag3 = create(:reserve_tag, reserve: reserve3, tag_type: :geographic, name: "Dunes")
-        reserve_tag4 = create(:reserve_tag, reserve: reserve4, tag_type: :geographic, name: "Beach")
-
-        results = Reserve.with_tag_type([:geographic], {geographic: ["River", "Beach"]})
-
-        expect(results).to eq [reserve1, reserve4]
-      end
-    end
-
-    context "when given category is not present" do
+    context "when given tags not present" do
       it "returns all reserves" do
         reserve1 = create(:reserve)
         reserve2 = create(:reserve)
@@ -349,10 +334,44 @@ RSpec.describe Reserve, type: :model do
         reserve_tag2 = create(:reserve_tag, reserve: reserve2, category: :ecosystem)
         reserve_tag3 = create(:reserve_tag, reserve: reserve3, category: :geographic)
 
-        results = Reserve.with_tag_type(nil, nil) 
+        results = Reserve.with_names(nil) 
 
         expect(results).to eq [reserve1, reserve2, reserve3]
       end
+    end
+  end
+
+  describe ".reserve_ids_with_tag_names" do
+    it "returns reserve_ids associated with reserve_tag with the given tag_names" do
+      reserve1 = create(:reserve)
+      reserve2 = create(:reserve)
+      reserve3 = create(:reserve)
+      create(:reserve_tag, reserve: reserve1, category: :geographic, name: "River")
+      create(:reserve_tag, reserve: reserve1, category: :ecosystem, name: "Marsh")
+      create(:reserve_tag, reserve: reserve2, category: :geographic, name: "River")
+      create(:reserve_tag, reserve: reserve2, category: :ecosystem, name: "Marsh")
+      create(:reserve_tag, reserve: reserve2, category: :geographic, name: "Beach")
+      create(:reserve_tag, reserve: reserve3, category: :geographic, name: "Beach")
+      create(:reserve_tag, reserve: reserve3, category: :ecosystem, name: "Marsh")
+
+      results = Reserve.reserve_ids_with_tag_names(["River", "Marsh"])
+
+      expect(results).to eq [reserve1.id, reserve2.id]
+    end
+  end
+
+  describe ".with_name" do
+    it "returns reserve_ids associated with reserve_tag with the given tag_name" do
+      reserve1 = create(:reserve)
+      reserve2 = create(:reserve)
+      reserve3 = create(:reserve)
+      create(:reserve_tag, reserve: reserve1, category: :geographic, name: "River")
+      create(:reserve_tag, reserve: reserve2, category: :geographic, name: "River")
+      create(:reserve_tag, reserve: reserve3, category: :geographic, name: "Beach")
+
+      results = Reserve.with_name("River")
+
+      expect(results.map(&:id)).to eq [reserve1.id, reserve2.id]
     end
   end
 

@@ -77,13 +77,9 @@ class Reserve < ApplicationRecord
     end
   end
 
-  def self.with_tag_type(tag_types, tag_names)
-    scope = none
-    if tag_types.present?
-      tag_types.each do |type|
-        scope = scope.or(with_tags_and_names(type, tag_names))
-      end
-      return scope
+  def self.with_names(tag_names)
+    if tag_names.present?
+      where(id: reserve_ids_with_tag_names(tag_names))
     else
       all
     end
@@ -101,11 +97,13 @@ class Reserve < ApplicationRecord
     LARGE_HERO_PHOTO_PLACEHOLDER
   end
 
-  private
+  def self.reserve_ids_with_tag_names(tag_names)
+    tag_names
+      .reduce(with_name(tag_names.pop)) { |reserves, tag_name| reserves & with_name(tag_name) }
+      .pluck(:id)
+  end
 
-  def self.with_tags_and_names(tag_type, tag_names)
-    condition = { tag_type: tag_type }
-    condition = condition.merge({ name: tag_names[tag_type] }) if tag_names[tag_type].present?
-    joins(:reserve_tags).where(reserve_tags: condition)
+  def self.with_name(tag_name)
+    joins(:reserve_tags).where(reserve_tags: { name: tag_name })
   end
 end
