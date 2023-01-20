@@ -622,6 +622,7 @@ en:
       could_not_cancel: "Could Not Cancel"
       visit_summary: "Visit Summary"
     cancel_button:
+      confirm: "Are you sure?"
       cancel: "Cancel"
     sidebar_in_review_show:
       return_to_dashboard: "Return To Dashboard"
@@ -2704,7 +2705,7 @@ en:
         reserves_info: "Reserves Info"
         project_search: "Project Search"
   alt:
-    ical_calender_icon: "Ical calendar icon"
+    apple_calender_icon: "Apple calendar icon"
     google_calendar_icon: "Google Calendar icon"
     outlook_calendar_icon: "Outlook calendar icon"
     right_facing_arrow: "right facing arrow"
