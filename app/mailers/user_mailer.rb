@@ -20,4 +20,17 @@ class UserMailer < ApplicationMailer
       content_type: "text/html",
     )
   end
+
+  def visit_update
+    @presenter = Mail::User::VisitUpdatePresenter.new(params[:visit])
+    @approval_message = params[:approval_message]
+    email_to_list = params[:email_to_list]
+
+    mail(
+      to: email_to_list,
+      bcc: @presenter.email_bcc_to_list,
+      subject: @presenter.email_subject,
+      content_type: "text/html",
+    )
+  end
 end

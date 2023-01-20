@@ -1,11 +1,11 @@
-<table id="visitors-summary-table" class="summary-table" style="border-collapse: collapse; width: 100%">
+<table id="visitors-summary-table" class="summary-table" style="border-collapse: collapse; width: 100%;">
   <thead style="color: #5D747C;">
     <tr style="font-size: 0.75em; font-weight: 400;">
       <th style="border-bottom: 2px solid #aab7bb; padding: 0.25em, 0.25em, 0.25em, 0; text-align: left;"><%= t(".name") %></th>
       <th style="border-bottom: 2px solid #aab7bb; padding: 0.25em, 0.25em, 0.25em, 0; text-align: left;"></th>
       <th style="border-bottom: 2px solid #aab7bb; padding: 0.25em, 0.25em, 0.25em, 0; text-align: left;"><%= t(".institution") %></th>
       <th style="border-bottom: 2px solid #aab7bb; padding: 0.25em, 0.25em, 0.25em, 0; text-align: left;"><%= t(".project_role") %></th>
-    </tr>0
+    </tr>
   </thead>
   <tbody>
     <%= render partial: "shared/user_visit", collection: visit.user_visits %>
