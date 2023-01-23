@@ -13,6 +13,20 @@ class ProjectCompleteForm
 
   def save
     project.update_project_status
-    project.save
+
+    if project.save
+      send_email!(project: project) if project.status_before_last_save == "incomplete"
+      return true
+    end
+    false
+  end
+
+  private
+
+  def send_email!(project:)
+    UserMailer
+      .with(presenter: Mail::User::ProjectCompletePresenter.new(project))
+      .project_complete
+      .deliver_now
   end
 end
