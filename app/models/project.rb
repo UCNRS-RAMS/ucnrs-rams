@@ -1,6 +1,8 @@
 #frozen_string_literal: true
 
 class Project < ApplicationRecord
+  mount_uploaders :files, ProjectFileUploader
+
   NUMERIC_SEARCH_PATTERN = /\A\d+\z/
   ALL_FILTER = "All Projects"
   ACTIVE_FILTER = "Active Projects"
@@ -144,6 +146,11 @@ class Project < ApplicationRecord
 
   def self.blank
     Project.new(id: -1, title: "")
+  end
+
+  def delete_file(index)
+    self.files.delete_at(index)
+    save!
   end
 
   def self.alphabetized

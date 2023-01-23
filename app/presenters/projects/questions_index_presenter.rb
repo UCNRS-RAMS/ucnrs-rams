@@ -12,6 +12,7 @@ class Projects::QuestionsIndexPresenter
 
   attr_reader :form, :project
   delegate :svg, :step_class, to: :steps_presenter
+  delegate :id, to: :project
 
   def questions_by_authority
     permit_scope

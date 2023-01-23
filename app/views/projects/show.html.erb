@@ -15,6 +15,7 @@
         </div>
       </header>
       <%= render partial: @presenter.partial_name, locals: { presenter: @presenter } %>
+      <%= render partial: "projects/file_table", locals: { presenter: @presenter } %>
       <%= render partial: "shared/projects/team_member_show_table", locals: { presenter: @presenter } %>
       <%= render partial: "shared/projects/funding_show_table", locals: { presenter: @presenter } %>
       <%= render partial: "shared/projects/permit_show", locals: { presenter: @presenter } %>

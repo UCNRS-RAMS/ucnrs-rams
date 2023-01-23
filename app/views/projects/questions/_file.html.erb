@@ -1,0 +1,8 @@
+<tr>
+  <td><%= link_to file.name, file.url %></td>
+  <td>
+    <%= link_to project_file_upload_path(id: @presenter.project.id, file_index: file.index, project: { id: @presenter.project.id }), method: :put do %>
+      <%= image_tag "cross.svg", alt: t(".cross_icon") %>
+    <%  end %>
+  </td>
+</tr>

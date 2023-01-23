@@ -1,0 +1,19 @@
+<turbo-stream action="replace" target="file-table">
+  <template>
+    <%= render partial: "projects/questions/file_table", locals: { presenter: @presenter }, formats: [:html]  %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="file-input">
+  <template>
+    <%= fields_for Project do |f| %>
+      <%= render partial: "projects/questions/file_upload_field", locals: { f: f }, formats: [:html] %>
+    <% end %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="flash">
+  <template>
+    <%= render partial: "shared/flash", formats: [:html] %>
+  </template>
+</turbo-stream>
