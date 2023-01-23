@@ -45,6 +45,39 @@
       "note": "Dynamic Render Path"
     },
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "0c5182e2fc1a0c795675498eda7f93819d26bcc8440e119da506271a78ff05db",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/projects/questions/_file.html.erb",
+      "line": 2,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to((Unresolved Model).new.name, (Unresolved Model).new.url)",
+      "render_path": [
+        {
+          "type": "template",
+          "name": "projects/questions/_file_table",
+          "line": 3,
+          "file": "app/views/projects/questions/_file_table.html.erb",
+          "rendered": {
+            "name": "projects/questions/_file",
+            "file": "app/views/projects/questions/_file.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "projects/questions/_file"
+      },
+      "user_input": "(Unresolved Model).new.url",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": "cross site scripting"
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "0f832c296802513fcd105def1c1878a8064b902c6105c5e9b9518e826263ab25",
@@ -166,7 +199,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/reserve.rb",
-      "line": 53,
+      "line": 54,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "Arel.sql(\"          reserves.name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.short_name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.pulldown_name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.directions LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.rules LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.rates LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.department LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.address_line_1 LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.address_line_2 LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.address_city LIKE \\\"%#{search_filter}%\\\" OR\\n          states.name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.address_postal_code LIKE \\\"%#{search_filter}%\\\" OR\\n          countries.name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.home_page_url LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.special_needs_statement LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.doi LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.administrative_group_name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.administrative_group_name_acronym LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.administrative_group_state LIKE \\\"%#{search_filter}%\\\"\\n\")",
       "render_path": null,
@@ -522,6 +555,39 @@
         89
       ],
       "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "8e042ff81c7d3f61d5b945768feb9316361bc9396eb0966dd54bb0f4dd24ba94",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/projects/_file.html.erb",
+      "line": 2,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to((Unresolved Model).new.name, (Unresolved Model).new.url)",
+      "render_path": [
+        {
+          "type": "template",
+          "name": "projects/_file_table",
+          "line": 11,
+          "file": "app/views/projects/_file_table.html.erb",
+          "rendered": {
+            "name": "projects/_file",
+            "file": "app/views/projects/_file.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "projects/_file"
+      },
+      "user_input": "(Unresolved Model).new.url",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": "Cross site scripting"
     },
     {
       "warning_type": "Dynamic Render Path",
@@ -986,6 +1052,6 @@
       "note": ""
     }
   ],
-  "updated": "2023-01-17 05:09:28 -0900",
+  "updated": "2023-01-23 14:03:01 -0330",
   "brakeman_version": "5.4.0"
 }

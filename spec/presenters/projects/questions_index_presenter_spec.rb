@@ -4,6 +4,7 @@ RSpec.describe Projects::QuestionsIndexPresenter do
     subject { Projects::QuestionsIndexPresenter.new(current_step: 3, project: build(:project)) }
     it { is_expected.to delegate_method(:svg).to(:steps_presenter) }
     it { is_expected.to delegate_method(:step_class).to(:steps_presenter) }
+    it { is_expected.to delegate_method(:id).to(:project) }
   end
 
   describe "#questions_by_reserve" do

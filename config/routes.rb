@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     resources :answers, only: [:create], controller: "projects/answers"
     resources :fundings, only: [:index, :create], controller: "projects/fundings"
     resource :complete, only: [:update], controller: "projects/complete"
+    resource :file_upload, only: [:update], controller: "projects/file_upload"
   end
 
   resources :reserves, only: [:index, :show] do

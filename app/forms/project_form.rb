@@ -7,22 +7,25 @@ class ProjectForm
     ActiveModel::Name.new(Project)
   end
 
-  def initialize(user: User.new, params: {})
+  def initialize(user: User.new, params: {}, file_index: nil )
     @project = Project.where(id: params[:id]).first ||
       Project.new(project_type: :research)
     @project.applicant ||= user
     @project.owner ||= user
     @project.status ||= :incomplete
+    @file_index = file_index
+    assign_files(params.delete(:files))
     assign(params)
   end
 
-  attr_reader :project
+  attr_reader :project, :file_index
   delegate :valid?, :validate, :errors, to: :project
   delegate_missing_to :project
 
   def save
     begin
       Project.transaction do
+        remove_file
         project.save!
         project_team_membership.save!
         true
@@ -90,6 +93,18 @@ class ProjectForm
   end
 
   private
+
+  def assign_files(new_files)
+    previous_files = project.files || []
+    project.files = new_files || []
+    project.files.concat previous_files
+  end
+
+  def remove_file
+    if file_index.present?
+      project.delete_file(file_index.to_i)
+    end
+  end
 
   def project_team_membership
     ProjectTeamMembership

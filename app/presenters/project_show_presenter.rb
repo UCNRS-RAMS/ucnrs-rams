@@ -8,6 +8,8 @@ class ProjectShowPresenter
   delegate :id, to: :project, prefix: true
   delegate :id, to: :reserve, prefix: true
 
+  attr_reader :project
+
   delegate_missing_to :project
 
   def project_status
@@ -120,8 +122,6 @@ class ProjectShowPresenter
   end
 
   private
-
-  attr_reader :project
 
   delegate :team_memberships, to: :project, prefix: true
 

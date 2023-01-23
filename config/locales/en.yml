@@ -718,6 +718,10 @@ en:
     create:
       reset_password_sent: "A reset password email has been sent."
   projects:
+    file_table:
+      file_name: "Name"
+      date: "Date"
+      upload_file: "Uploaded Files"
     incomplete_project_sidebar:
       sidebar_title: "Incomplete"
       edit_project: "Edit Project"
@@ -952,9 +956,13 @@ en:
         alt:
           right_facing_arrow: "A right facing arrow"
     questions:
+      file:
+        cross_icon: "cross icon"
       index:
         title: "Permits"
         reserve_section_title: "Reserve-specific Questions"
+        description: " If you wish to attach any files to this project please do so here. You may wish to attach your permits or other information requested by a manager. These files will be available to the reserve administration when reviewing your project."
+        plus_icon: "Plus Icon"
         authority:
           federal: "Federal Permits"
           state: "State Permits"
