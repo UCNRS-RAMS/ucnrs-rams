@@ -2650,6 +2650,9 @@ en:
     visit_new:
       login_and_view_visit: "Login and view Visit"
   user_mailer:
+    project_complete:
+      added_to_project: "You have been added to the project."
+      login_and_view_project: "Login and view Project"
     visit_new:
       your_visit_request_has_been_submitted: "Your Visit request has been Submitted."
       your_visit_evaluated: "This visit request will be <strong>evaluated and an email will be sent to you</strong> once the status of your visit changes."

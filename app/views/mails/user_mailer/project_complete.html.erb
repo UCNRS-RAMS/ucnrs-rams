@@ -1,0 +1,11 @@
+<div style="max-width: 800px; margin: 0 auto; color: #002045; font-size: 14px; font-family: 'Sora', sans-serif" >
+  <%= render partial: "shared/project_brief", locals: { project: @presenter.project } %>
+  <hr style="border-top: none; border-bottom: 2px solid #002045; margin-top: 1em; margin-bottom: 2.5em;" />
+  <p style="color: red;">
+    <%= t(".added_to_project") %>
+  </p>
+  <p style="color: red; margin-bottom: 3em;">
+    <%= link_to t(".login_and_view_project"), project_url(@presenter.id) %>
+  </p>
+  <hr style="border-top: none; border-bottom: 2px solid #002045; margin-top: 1em; margin-bottom: 2.5em;" />
+</div>
