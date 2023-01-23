@@ -9,11 +9,6 @@
 <section class="reserve-info">
   <hr />
   <%= render partial: "visits/reserve_info", locals: { presenter: @presenter } %>
-  <div>
-    <h2><%= t(".mailing_address") %></h2>
-    <span>Mailing Address</span>
-    <span>Mailing City</span>
-  </div>
   <hr >
   <%= link_to t(".return_to_dashboard"), root_path, class: "button" %>
   <%= link_to t(".visit_reserve_website"),

@@ -12,9 +12,9 @@ RSpec.describe VisitShowPresenter do
     it { is_expected.to delegate_method(:address_postal_code).to(:visit_reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:state).to(:visit_reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:country).to(:visit_reserve).with_prefix(true) }
-    it { is_expected.to delegate_method(:avatar).to(:visit_reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:email_address).to(:visit_reserve).with_prefix(true) }
-    it { is_expected.to delegate_method(:listing_photo_placeholder).to(:visit_reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:logo_placeholder).to(:visit_reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:logo_url).to(:visit_reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:managing_campus).to(:visit_reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:reserve_alert_message).to(:visit_reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:rules).to(:visit_reserve).with_prefix(true) }

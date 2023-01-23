@@ -14,8 +14,8 @@ class VisitShowPresenter
     :address_postal_code,
     :state,
     :country,
-    :avatar,
-    :listing_photo_placeholder,
+    :logo_url,
+    :logo_placeholder,
     :managing_campus,
     :reserve_alert_message,
     :rules,
@@ -30,6 +30,10 @@ class VisitShowPresenter
 
   def sidebar_partial_name
     "visits/sidebar_#{status}_show"
+  end
+
+  def visit_reserve_avatar
+    visit_reserve_logo_url(:medium) || visit_reserve_logo_placeholder
   end
 
   def edit_button?
