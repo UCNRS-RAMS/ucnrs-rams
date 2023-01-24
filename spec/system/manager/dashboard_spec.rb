@@ -178,7 +178,7 @@ RSpec.describe "Manager Dashboard" do
       visit_two = create(:visit, reserve: reserve)
       arr = [
         create(:user_visit, visit: visit_one, arrives_at: visit_one.starts_at, departs_at: visit_one.ends_at),
-        create(:user_visit, visit: visit_two, arrives_at: visit_one.starts_at, departs_at: visit_one.ends_at),
+        create(:user_visit, visit: visit_two, arrives_at: visit_one.starts_at + 1.day, departs_at: visit_one.ends_at),
       ]
 
       sign_in(user)
