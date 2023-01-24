@@ -9,8 +9,10 @@
   <td><%= invoice.reserve_name %></td>
   <td><%= invoice.amount %></td>
   <td>
-    <%= link_to "#", data: { turbo_frame: "_top" } do %>
-      <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"), height: "20", width: "20" %>
-    <% end %>
+    <%= render partial: "link", locals: { 
+      presenter: presenter, 
+      reserve: invoice.reserve, 
+      link_path: manager_reserve_visit_invoice_path(invoice.reserve, invoice.visit_id, invoice.id), 
+    } %>
   </td>
 </tr>

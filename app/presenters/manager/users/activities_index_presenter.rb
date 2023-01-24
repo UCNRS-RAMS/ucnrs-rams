@@ -20,6 +20,10 @@ class Manager::Users::ActivitiesIndexPresenter
     UserPresenter.new(@user)
   end
 
+  def reserve_manager?(reserve)
+    user.manager_of_reserve?(reserve)
+  end
+
   def visits
     visit_scope.map do |visit|
       VisitPresenter.new(visit)

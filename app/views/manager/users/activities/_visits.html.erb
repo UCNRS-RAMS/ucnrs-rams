@@ -9,7 +9,7 @@
       <th></th>
     </thead>
     <tbody>
-      <%= render partial: "visit", collection: visits %>
+      <%= render partial: "visit", collection: visits, locals: { presenter: presenter } %>
     </tbody>
   </table>
   <%= paginate visit_scope, param_name: :visits_page, data: { "turbo-action": "advance" } %>

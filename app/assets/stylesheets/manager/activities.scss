@@ -4,6 +4,11 @@
 
 .manager.activities-index {
   section.content {
+    .disabled-link {
+      filter: invert(50%);
+      pointer-events: none;
+    }
+
     > header {
       align-content: center;
       display: flex;
