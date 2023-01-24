@@ -22,16 +22,9 @@
 
 <turbo-stream action="replace" target="funding-table">
   <template>
-    <%= render partial: "shared/projects/fundings/funding_table", locals: { presenter: @presenter }, formats: [:html] %>
+    <div data-controller="scroll">
+      <%= render partial: "shared/projects/fundings/funding_table", locals: { presenter: @presenter }, formats: [:html] %>
+    </div>
   </template>
 </turbo-stream>
 
-<turbo-stream action="replace" target="submit-btn">
-  <template>
-    <turbo-frame class="submit-btn" id="submit-btn">
-      <%= fields_for @presenter.form do |form| %>
-        <%= form.submit t(".add_funding_submit"), class: "button-clear", data: { controller: "scroll", disable_with: false } %>
-      <% end %>
-    </turbo-frame>
-  </template>
-</turbo-stream>

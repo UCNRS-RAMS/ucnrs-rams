@@ -1,5 +1,4 @@
 <% content_for(:title) { t(".title") } %>
-<%= render partial: "shared/flash" %>
 <%= render partial: "projects/steps", locals: { presenter: @presenter } %>
 
 <section>
@@ -15,9 +14,7 @@
       <%= render partial: "shared/projects/fundings/form_fields", locals: { presenter: @presenter, form: form } %>
     </turbo-frame>
     <div class="end">
-      <turbo-frame class="submit-btn" id="submit-btn">
-        <%= form.submit t(".add_funding_submit"), class: "button-clear", data: { disable_with: false } %>
-      </turbo-frame>
+      <%= form.submit t(".add_funding_submit"), class: "button-clear", data: { disable_with: false } %>
     </div>
   <% end %>
 </section>

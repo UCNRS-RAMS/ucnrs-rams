@@ -1,12 +1,14 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
+  static targets = ["scrollPosition"]
+  declare scrollPositionTarget: HTMLInputElement
 
   connect(): void {
     this.scroll()
   }
 
   scroll() {
-    document.getElementById('funding-table').scrollIntoView();
+    this.scrollPositionTarget.scrollIntoView();
   }
 }
