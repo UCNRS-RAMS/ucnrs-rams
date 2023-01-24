@@ -1,0 +1,7 @@
+<%= link_to_if presenter.reserve_manager?(reserve), 
+  image_tag("arrow-right-circle.svg", alt: t("alt.right_facing_arrow"), height: "18", width: "18"), 
+  link_path, 
+  data: { turbo_frame: "_top" } do 
+%>
+  <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"), height: "18", width: "18", class: "disabled-link" %>
+<% end %>

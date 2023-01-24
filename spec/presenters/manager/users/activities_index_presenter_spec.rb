@@ -23,6 +23,25 @@ RSpec.describe Manager::Users::ActivitiesIndexPresenter do
     end
   end
 
+  describe "#reserve_manager?" do
+    it "return true if current user is a staff member of reserve" do
+      user = create(:user, :confirmed)
+      reserve = create(:reserve)
+      create(:reserve_personnel, user: user, reserve: reserve)
+      presenter = Manager::Users::ActivitiesIndexPresenter.new(user: user)
+
+      expect(presenter.reserve_manager?(reserve)).to eq true
+    end
+    
+    it "return false if current user is not a staff member of reserve" do
+      user = create(:user, :confirmed)
+      reserve = create(:reserve)
+      presenter = Manager::Users::ActivitiesIndexPresenter.new(user: user)
+
+      expect(presenter.reserve_manager?(reserve)).to eq false
+    end
+  end
+
   describe "#visits" do
     it "presents the visits records wrapped in VisitPresenter" do
       user = create(:user)

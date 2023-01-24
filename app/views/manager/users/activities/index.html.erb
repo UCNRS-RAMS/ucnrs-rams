@@ -25,7 +25,7 @@
     <%= tag.section class:"subsection" do %>
       <%= tag.header t(".visits") %>
       <%= render partial: "visits",
-        locals: { visits: @presenter.visits, visit_scope: @presenter.visit_scope }
+        locals: { visits: @presenter.visits, visit_scope: @presenter.visit_scope, presenter: @presenter }
       %>
     <% end %>
     <%= tag.section class:"subsection" do %>
@@ -37,7 +37,7 @@
     <%= tag.section class:"subsection" do %>
       <%= tag.header t(".invoices") %>
       <%= render partial: "invoices",
-        locals: { invoices: @presenter.invoices, invoice_scope: @presenter.invoice_scope }
+        locals: { invoices: @presenter.invoices, invoice_scope: @presenter.invoice_scope, presenter: @presenter }
       %>
     <% end %>
   <% end %>

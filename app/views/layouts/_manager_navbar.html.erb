@@ -8,7 +8,7 @@
           <%= image_tag "navbar-logo.svg", alt: t("alt.ucnrs_logo"), height: "65px", class: "logo" %>
         <% end %>
         <small id="title-extra">
-          <strong><%= current_reserve.name %></strong><br /><%= current_reserve.managing_campus.name %>
+          <strong><%= current_reserve.name %></strong><br /><%= current_reserve.managing_campus&.name %>
         </small>
       </div>
       <div class="right-side">
