@@ -8,7 +8,7 @@ class Manager::InstitutionEditPresenter
   attr_reader :form
 
   delegate :institution, to: :form, prefix: true
-  delegate :id, :name, to: :form_institution, prefix: :institution
+  delegate :id, :name, :country, to: :form_institution, prefix: :institution
 
   def institution_type_options
     Institution.institution_types
@@ -23,6 +23,7 @@ class Manager::InstitutionEditPresenter
 
   def institution_state_options
     State
+      .in_country(institution_country)
       .alphabetical_by_name
       .pluck(:name, :id)
   end

@@ -20,6 +20,7 @@ class Manager::InstitutionsController < ApplicationController
     @presenter = Manager::InstitutionEditPresenter.new(form: form)
 
     if form.submit
+      flash.now[:notice] = I18n.t("manager.institutions.successfully_updated", institution: institution.name).html_safe
       render :edit
     else
       render :edit, status: :unprocessable_entity
