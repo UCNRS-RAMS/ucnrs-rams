@@ -6,6 +6,7 @@ RSpec.describe Manager::InstitutionEditPresenter do
     it { is_expected.to delegate_method(:institution).to(:form).with_prefix(true) }
     it { is_expected.to delegate_method(:id).to(:form_institution).with_prefix(:institution) }
     it { is_expected.to delegate_method(:name).to(:form_institution).with_prefix(:institution) }
+    it { is_expected.to delegate_method(:country).to(:form_institution).with_prefix(:institution) }
   end
 
   describe "#form" do
@@ -62,15 +63,20 @@ RSpec.describe Manager::InstitutionEditPresenter do
 
   describe "#institution_state_options" do
     it "is an array of institution type options translated" do
-      state1 = create(:state, name: "d")
-      state2 = create(:state, name: "a")
-      state3 = create(:state, name: "z")
-      presenter = Manager::InstitutionEditPresenter.new(form: nil)
+      country1 = create(:country)
+      country2 = create(:country)
+      state1 = create(:state, name: "d", country: country1)
+      state2 = create(:state, name: "a", country: country2)
+      state3 = create(:state, name: "z", country: country1)
+
+      institution = create(:institution, country: country1)
+      form = InstitutionEditForm.new(institution: institution)
+      
+      presenter = Manager::InstitutionEditPresenter.new(form: form)
 
       institution_state_options = presenter.institution_state_options
 
       expect(institution_state_options).to eq [
-        ["a", state2.id],
         ["d", state1.id],
         ["z", state3.id],
       ]

@@ -1,0 +1,20 @@
+<turbo-frame id="institution-form">
+  <section class="content">
+    <header>
+      <div><h1><%= presenter.institution_name %></h1></div>
+    </header>
+    <hr>
+      <%= form_with model: presenter.form_institution,
+        url: manager_reserve_institution_path(current_reserve, presenter.institution_id),
+        method: :patch do |form|
+      %>
+        <%= render partial: "institution_field", locals: { form: form, presenter: presenter } %>
+        <br>
+        <hr>
+        <section class="buttons">
+          <%= link_to t(".cancel_go_back"), manager_reserve_institutions_path(current_reserve), data: { turbo_frame: "_top" } %>
+          <%= form.button t(".save_changes"), type: :submit, class: "active" %>
+        </section>
+      <% end %>
+  </section>
+</turbo-frame>

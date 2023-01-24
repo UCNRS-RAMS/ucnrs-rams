@@ -1,0 +1,7 @@
+<turbo-frame id="flash">
+  <section role="region" aria-label="errors" class="flash">
+    <% flash.each do |type, message| %>
+      <p class=<%= type %>><%= message %></p>
+    <% end %>
+  </section>
+</turbo-frame>

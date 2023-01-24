@@ -214,10 +214,10 @@ RSpec.describe Reserve, type: :model do
     end
 
     it "returns reserves that have address_postal_code like search filed value" do
-      matching_reserve = create(:reserve, address_postal_code: "reserve 11")
+      matching_reserve = create(:reserve, address_postal_code: "code")
       non_matching_reserve = create(:reserve, address_postal_code: "Hasting")
 
-      results = Reserve.searching_term("reserve 11")
+      results = Reserve.searching_term("code")
 
       expect(results.map(&:id)).to match_array [matching_reserve.id]
     end

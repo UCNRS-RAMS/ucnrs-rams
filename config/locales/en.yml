@@ -2066,7 +2066,8 @@ en:
           reserve_name: "Reserve Name"
           amount: "Amount"
     institutions:
-      edit:
+      successfully_updated: "Record for <strong>%{institution}</strong> successfully updated"
+      institution_form:
         cancel_go_back: "Cancel, go back"
         save_changes: "Save Changes"
       institutions:
