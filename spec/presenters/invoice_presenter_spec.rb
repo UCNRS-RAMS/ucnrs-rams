@@ -45,10 +45,11 @@ RSpec.describe InvoicePresenter do
 
   describe "#amenity_visit_dates" do
     it "return date_range between earliest arrives and latest departs date of amenity_visits" do
-      amenity_visit1 = create(:amenity_visit, invoice: invoice, visit: visit, arrives_on: 1.week.ago, departs_on: 1.week.from_now)
-      amenity_visit2 = create(:amenity_visit, invoice: invoice, visit: visit, arrives_on: Time.current, departs_on: 2.week.from_now)
+      visit = create(:visit, starts_at: 1.week.ago, ends_at: 4.week.from_now)
+      amenity_visit1 = create(:amenity_visit, invoice: invoice, visit: visit, arrives: 1.week.ago, departs: 2.week.from_now)
+      amenity_visit2 = create(:amenity_visit, invoice: invoice, visit: visit, arrives: Time.current, departs: 3.week.from_now)
       presenter = InvoicePresenter.new(invoice)
-      output = DateRangePresenter.value(start_date: amenity_visit1.arrives_on, end_date: amenity_visit2.departs_on)
+      output = DateRangePresenter.value(start_date: amenity_visit1.arrives, end_date: amenity_visit2.departs)
 
       expect(presenter.amenity_visit_dates).to eq output
     end

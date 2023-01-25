@@ -43,11 +43,11 @@ class AmenityVisit < ApplicationRecord
   end
 
   def self.earliest_arrives_date
-    order(arrives_on: :desc).last&.arrives_on
+    order(arrives: :desc).last&.arrives
   end
 
   def self.latest_departs_date
-    order(arrives_on: :desc).first&.departs_on
+    order(:departs).last&.departs
   end
 
   def self.can_invoice_now(remove_filter)

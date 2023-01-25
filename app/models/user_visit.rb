@@ -77,10 +77,15 @@ class UserVisit < ApplicationRecord
     end
   end
 
-  def self.not_in_visit_amenities_range?(visit)
-    return false if visit.amenity_visits.earliest_arrives_date.blank? && visit.amenity_visits.latest_departs_date.blank?
+  def self.in_visit_amenities_range?(visit)
+    return false if visit.amenity_visits.blank?
 
-    where('arrives_at < ? OR departs_at > ?', visit.amenity_visits.earliest_arrives_date, visit.amenity_visits.latest_departs_date).present?
+    where(
+      'arrives_at >= ? OR departs_at <= ?', 
+      visit.amenity_visits.earliest_arrives_date, 
+      visit.amenity_visits.latest_departs_date
+    )
+    .present?
   end
 
   private
