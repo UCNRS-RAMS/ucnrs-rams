@@ -23,7 +23,7 @@ class InvoicePresenter
   end
 
   def amenity_visit_dates
-    DateRangePresenter.value(start_date: amenity_visits.earliest_arrives_date, end_date: amenity_visits.latest_departs_date) if amenity_visits.present?
+    DateRangePresenter.value(start_date: amenity_visits.earliest_arrives_date.to_date, end_date: amenity_visits.latest_departs_date.to_date) if amenity_visits.present?
   end
 
   def manager_show_path

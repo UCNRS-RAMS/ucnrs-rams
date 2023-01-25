@@ -104,22 +104,22 @@ RSpec.describe AmenityVisit do
   describe ".earliest_arrives_date" do
     it "returns earliest arrives date between amenity visits" do
       visit = create(:visit, starts_at: 3.week.ago, ends_at: 3.week.from_now)
-      amenity_visit1 = create(:amenity_visit, visit: visit, arrives_on: 1.week.ago, departs_on: 1.week.from_now)
-      amenity_visit2 = create(:amenity_visit, visit: visit, arrives_on: Time.current, departs_on:Time.current)
+      amenity_visit1 = create(:amenity_visit, visit: visit, arrives: 1.week.ago, departs: 1.week.from_now)
+      amenity_visit2 = create(:amenity_visit, visit: visit, arrives: Time.current, departs:Time.current)
       results = AmenityVisit.earliest_arrives_date
 
-      expect(results).to eq amenity_visit1.arrives_on
+      expect(results).to eq amenity_visit1.arrives
     end
   end
 
   describe ".latest_departs_date" do
     it "returns latest departs date amenity visits" do
       visit = create(:visit, starts_at: 3.week.ago, ends_at: 3.week.from_now)
-      amenity_visit1 = create(:amenity_visit, visit: visit, arrives_on: 1.week.ago, departs_on: 1.week.from_now)
-      amenity_visit2 = create(:amenity_visit, visit: visit, arrives_on: Time.current, departs_on: 2.week.from_now)
+      amenity_visit1 = create(:amenity_visit, visit: visit, arrives: 1.week.ago, departs: 1.week.from_now)
+      amenity_visit2 = create(:amenity_visit, visit: visit, arrives: Time.current, departs: 2.week.from_now)
       results = AmenityVisit.latest_departs_date
 
-      expect(results).to eq amenity_visit2.departs_on
+      expect(results).to eq amenity_visit2.departs
     end
   end
 
