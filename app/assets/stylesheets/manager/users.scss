@@ -104,6 +104,14 @@
     flex-direction: column;
     width: 100%;
 
+    .inner-spacer {
+      padding: 20px;
+    }
+
+    .right-spacer {
+      padding-right: 40px;
+    }
+
     .section-container {
       align-items: center;
       display: flex;
@@ -119,7 +127,7 @@
         flex-direction: column;
         flex-wrap: wrap;
         margin-bottom: 2rem;
-        width: 60%;
+        width: 100%;
 
         &.basics {
           max-height: 620px;
