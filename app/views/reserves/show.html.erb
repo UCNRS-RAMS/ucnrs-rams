@@ -2,7 +2,7 @@
   <div class="reserves-list container" data-controller="tab-bar">
     <section class="reserve-name">
       <h1><%= @presenter.reserve_name %></h1>
-      <span><%= @presenter.reserve_managing_campus.name %></span>
+      <span><%= @presenter.reserve_managing_campus&.name %></span>
     </section>
     <section class="left-side">
       <section class="reserve-message"><%= @presenter.reserve_alert_message %></section>
@@ -14,7 +14,8 @@
               reserve_amenities_path(@presenter.reserve_id),
               {
                 id: "amenities",
-                class: "active", data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
+                class: @presenter.tab_class, 
+                data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
               }
             %>
           </li>
@@ -23,6 +24,7 @@
               reserve_calendar_path(@presenter.reserve_id, partial_name: "calendar", start_date: Date.today),
               {
                 id: "calendar",
+                class: @presenter.tab_class("calendar"), 
                 data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
               }
             %>
@@ -32,6 +34,7 @@
               reserve_waivers_path(@presenter.reserve_id),
               {
                 id: "waivers",
+                class: @presenter.tab_class("waivers"), 
                 data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
               }
             %>
@@ -41,6 +44,7 @@
               reserve_rules_and_regulations_path(@presenter.reserve_id),
               {
                 id: "rules_and_regulations",
+                class: @presenter.tab_class("rules_and_regulations"), 
                 data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
               }
             %>
@@ -50,12 +54,13 @@
               reserve_more_information_index_path(@presenter.reserve_id),
               {
                 id: "more_information",
+                class: @presenter.tab_class("more_information"), 
                 data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
               }
             %>
           </li>
         </ul>
-        <%= turbo_frame_tag "details", src: reserve_amenities_path(@presenter.reserve_id), target: "_top" %>
+        <%= turbo_frame_tag "details", src: @presenter.tab_content_path, target: "_top" %>
       </div>
     </section>
     <section class="right-side">

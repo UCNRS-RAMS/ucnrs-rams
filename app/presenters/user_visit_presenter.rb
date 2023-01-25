@@ -32,6 +32,14 @@ class UserVisitPresenter
     departs_at.to_date == Time.zone.today
   end
 
+  def name
+    if count > 1
+      user_full_name
+    else
+      "<a href=\"mailto:#{user_email}\">#{user_full_name}</a>".html_safe
+    end
+  end
+
   def to_model
     self
   end

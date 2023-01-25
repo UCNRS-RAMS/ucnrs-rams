@@ -8,7 +8,7 @@ class ReservesController < ApplicationController
   def show
     reserve = Reserve.includes(personnel: [:user]).find(reserve_id)
 
-    @presenter = ReserveShowPresenter.new(reserve: reserve)
+    @presenter = ReserveShowPresenter.new(reserve: reserve, selected_tab: params[:selected_tab])
   end
 
   private

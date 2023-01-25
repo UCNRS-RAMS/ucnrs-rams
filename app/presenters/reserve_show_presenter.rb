@@ -1,8 +1,10 @@
 class ReserveShowPresenter
   include ActionView::Helpers::TextHelper
+  include Rails.application.routes.url_helpers
 
-  def initialize(reserve:)
+  def initialize(reserve:, selected_tab: nil)
     @reserve = reserve
+    @selected_tab = selected_tab
   end
 
   delegate :id,
@@ -23,10 +25,31 @@ class ReserveShowPresenter
     :large_hero_photo_placeholder,
     to: :reserve, prefix: true
 
+  attr_accessor :selected_tab
+
   def reserve_personnel
     @reserve.personnel.map do |personnel|
       ReservePersonnelPresenter.new(personnel)
     end
+  end
+
+  def tab_content_path
+    case selected_tab
+    when "more_information"
+      reserve_more_information_index_path(reserve_id)
+    when "calendar"
+      reserve_calendar_path(reserve_id, partial_name: "calendar", start_date: Date.today)
+    when "waivers"
+      reserve_waivers_path(reserve_id)
+    when "rules_and_regulations"
+      reserve_rules_and_regulations_path(reserve_id)
+    else
+      reserve_amenities_path(reserve_id)
+    end
+  end
+
+  def tab_class(tab = nil)
+    selected_tab == tab ? "active" : ""
   end
 
   def reserve_alert_message

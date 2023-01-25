@@ -118,4 +118,26 @@ RSpec.describe UserVisitPresenter do
       expect(role).to eq "docent translated"
     end
   end
+
+  describe "#name" do
+    it "return mail_to with user email and full name if user_visit count is one" do
+      user = create(:user, first_name: "Hafiz", last_name: "Ahmad", email: "hafiz@example.com")
+      user_visit = create(:user_visit, user: user)
+      presenter = UserVisitPresenter.new(user_visit)
+
+      output = "<a href=\"mailto:hafiz@example.com\">Hafiz Ahmad</a>"
+
+      expect(presenter.name).to eq output
+    end
+
+    it "return user full name if user_visit count is greater then one" do
+      user = create(:user, first_name: "Hafiz", last_name: "Ahmad", email: "hafiz@example.com")
+      user_visit = create(:user_visit, user: user, count: 3)
+      presenter = UserVisitPresenter.new(user_visit)
+
+      output = "Hafiz Ahmad"
+
+      expect(presenter.name).to eq output
+    end
+  end
 end

@@ -54,10 +54,6 @@ class VisitShowPresenter
       .group_by(&:reserve_name)
   end
 
-  def outside_reservation_system_url
-    reserve.outside_reservation_system_url unless reserve.outside_reservation_system_url == "0"
-  end
-
   def content_partial_name
     if visit.approved?
       "visits/content_approved_show"

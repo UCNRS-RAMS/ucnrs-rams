@@ -44,25 +44,6 @@ RSpec.describe VisitShowPresenter do
     end
   end
 
-  describe "#outside_reservation_system_url" do
-    it "returns the outside_reservation_system_url if not equal to '0'" do
-      reserve = create(:reserve, outside_reservation_system_url: "https://rams3-dev.ucnrs.org/")
-      visit = create(:visit, status: :approved, reserve: reserve)
-      presenter = VisitShowPresenter.new(visit)
-
-      expect(presenter.outside_reservation_system_url).to eq "https://rams3-dev.ucnrs.org/"
-    end
-
-    it "returns 'nil' if equal to '0'" do
-      reserve = create(:reserve, outside_reservation_system_url: "0")
-      visit = create(:visit, status: :approved)
-      presenter = VisitShowPresenter.new(visit)
-
-      expect(presenter.outside_reservation_system_url).to be_nil
-    end
-  end
-  
-
   describe "#edit_button?" do
     it "returns 'true' if visit start_date greater then today's date and visit status is 'in_review'" do
       visit = create(:visit, status: :in_review, starts_at: Time.current.tomorrow)
