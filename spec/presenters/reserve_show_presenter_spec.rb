@@ -31,6 +31,76 @@ RSpec.describe ReserveShowPresenter do
     end
   end
 
+  describe "#tab_class" do
+    it "return 'active' if tab is equals to selected_tab" do
+      reserve = create(:reserve)
+
+      show_presenter = ReserveShowPresenter.new(reserve: reserve, selected_tab: "calendar")
+
+      expect(show_presenter.tab_class("calendar")).to eq "active"
+    end
+
+    it "return empty string if tab is equals to selected_tab" do
+      reserve = create(:reserve)
+
+      show_presenter = ReserveShowPresenter.new(reserve: reserve, selected_tab: "calendar")
+
+      expect(show_presenter.tab_class("more_information")).to eq ""
+    end
+  end
+
+  describe "#tab_content_path" do
+    it "return 'reserve_more_information_index_path' if selected_tab is more_information" do
+      reserve = create(:reserve)
+
+      show_presenter = ReserveShowPresenter.new(reserve: reserve, selected_tab: "more_information")
+
+      output = "/reserves/#{reserve.id}/more_information"
+
+      expect(show_presenter.tab_content_path).to eq output
+    end
+
+    it "return 'reserve_calendar_path' if selected_tab is calendar" do
+      reserve = create(:reserve)
+
+      show_presenter = ReserveShowPresenter.new(reserve: reserve, selected_tab: "calendar")
+
+      output = "/reserves/#{reserve.id}/calendar?partial_name=calendar&start_date=#{Date.today}"
+
+      expect(show_presenter.tab_content_path).to eq output
+    end
+
+    it "return 'reserve_waivers_path' if selected_tab is waivers" do
+      reserve = create(:reserve)
+
+      show_presenter = ReserveShowPresenter.new(reserve: reserve, selected_tab: "waivers")
+
+      output = "/reserves/#{reserve.id}/waivers"
+
+      expect(show_presenter.tab_content_path).to eq output
+    end
+
+    it "return reserve_rules_and_regulations_path if selected_tab is rules_and_regulations" do
+      reserve = create(:reserve)
+
+      show_presenter = ReserveShowPresenter.new(reserve: reserve, selected_tab: "rules_and_regulations")
+
+      output = "/reserves/#{reserve.id}/rules_and_regulations"
+
+      expect(show_presenter.tab_content_path).to eq output
+    end
+
+    it "return reserve_rules_and_regulations_path if selected_tab is not present" do
+      reserve = create(:reserve)
+
+      show_presenter = ReserveShowPresenter.new(reserve: reserve)
+
+      output = "/reserves/#{reserve.id}/amenities"
+
+      expect(show_presenter.tab_content_path).to eq output
+    end
+  end
+
   describe "#personnel" do
     it "presents personnel informations correctly through the presenter" do
       reserve = create(:reserve)

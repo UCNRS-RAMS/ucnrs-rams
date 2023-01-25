@@ -631,7 +631,7 @@ en:
       cancel: "Cancel"
     sidebar_in_review_show:
       mailing_address: "Mailing Address"
-      visit_reserve_website: "Visit Reserve Website"
+      visit_reserve_website: "Visit RAMS's Reserve Webpage"
       return_to_dashboard: "Return To Dashboard"
       sidebar_title: "Your visit request was submitted."
       sidebar_next_steps: "Next Steps"
@@ -646,7 +646,7 @@ en:
         reserve_logo: "small picture of reserve logo"
         ucnrs_logo: "small picture of ucnrs logo"
       more_information: "Get More Reserve Information"
-      visit_reserve_website: "Visit Reserve Website"
+      visit_reserve_website: "Visit RAMS's Reserve Webpage"
       mailing_address: "Mailing Address"
     sidebar_denied_show:
       sidebar_title: "Denied"

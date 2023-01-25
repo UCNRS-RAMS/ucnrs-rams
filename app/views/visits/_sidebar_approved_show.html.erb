@@ -13,14 +13,14 @@
   <%= render partial: "visits/reserve_info", locals: { presenter: @presenter } %>
   <%= link_to(
         t(".more_information"), 
-        reserve_path(@presenter.visit_reserve_id),
+        reserve_path(@presenter.visit_reserve_id, selected_tab: "more_information"),
         {
           class: "icon-map",
         }
       )
   %>
   <%= link_to t(".visit_reserve_website"),
-    @presenter.outside_reservation_system_url,
+    reserve_path(@presenter.visit_reserve_id),
     class: "icon-external-link"
   %>
 </section>
