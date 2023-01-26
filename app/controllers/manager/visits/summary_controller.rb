@@ -1,6 +1,7 @@
-class Manager::Visits::SummaryController < ApplicationController
+class Manager::Visits::SummaryController < Manager::ManagerController
   before_action :authenticate_user!
   before_action :confirm_manager!
+  before_action :is_administrator_or_accountant!, only: [:update]
 
   def show
     @presenter = Manager::Visits::SummaryPresenter.new(visit: visit, current_user: current_user)

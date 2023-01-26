@@ -1,6 +1,7 @@
-class Manager::Visits::UserVisitsController < ApplicationController
+class Manager::Visits::UserVisitsController < Manager::ManagerController
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!
+  before_action :is_administrator_or_accountant!, only: [:update, :destroy]
 
   def index
     @presenter = user_visit_index_presenter

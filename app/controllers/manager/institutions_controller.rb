@@ -1,6 +1,7 @@
-class Manager::InstitutionsController < ApplicationController
+class Manager::InstitutionsController < Manager::ManagerController
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!
+  before_action :is_administrator!, only: [:update]
   layout "manager"
 
   def index

@@ -1,7 +1,8 @@
-class Manager::ReserveInfo::ReserveAddendumsController < ApplicationController
+class Manager::ReserveInfo::ReserveAddendumsController < Manager::ManagerController
   layout "manager"
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!
+  before_action :is_administrator!, only: [:create, :update, :destroy]
 
   def index
     @presenter = Manager::ReserveInfo::ReserveAddendumsIndexPresenter.new(

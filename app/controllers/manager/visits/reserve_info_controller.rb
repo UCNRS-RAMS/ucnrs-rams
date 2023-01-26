@@ -1,6 +1,7 @@
-class Manager::Visits::ReserveInfoController < ApplicationController
+class Manager::Visits::ReserveInfoController < Manager::ManagerController
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!
+  before_action :is_administrator_or_accountant!, only: [:create]
 
   def index
     @presenter = Manager::Visits::QuestionsIndexPresenter.new(

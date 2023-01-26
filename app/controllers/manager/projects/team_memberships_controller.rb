@@ -1,6 +1,7 @@
-class Manager::Projects::TeamMembershipsController < ApplicationController
+class Manager::Projects::TeamMembershipsController < Manager::ManagerController
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!
+  before_action :is_administrator!, only: [:create, :update, :destroy]
 
   def index
     @presenter = Manager::Projects::TeamMembershipsIndexPresenter.new(

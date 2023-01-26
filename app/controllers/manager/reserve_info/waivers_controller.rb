@@ -1,7 +1,8 @@
-class Manager::ReserveInfo::WaiversController < ApplicationController
+class Manager::ReserveInfo::WaiversController < Manager::ManagerController
   layout "manager"
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!
+  before_action :is_administrator!, only: [:update]
 
   def index
     @presenter = Manager::ReserveInfo::WaiversIndexPresenter.new(

@@ -1,6 +1,7 @@
-class Manager::Invoices::PaymentsController < ApplicationController
+class Manager::Invoices::PaymentsController < Manager::ManagerController
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!
+  before_action :is_administrator_or_accountant!, only: [:create, :update]
 
   def new
     @form = InvoicePaymentForm.new
