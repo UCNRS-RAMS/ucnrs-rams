@@ -1211,6 +1211,7 @@ en:
     not_a_manager_of_reserve: "You are not a manager of the reserve."
     not_editable: "Visit is not editable after due date"
     update_message: "Updates were successfully made."
+    not_authorize: "You are not authorize to do that"
     error_message: "Required fields are missing"
     visits:
       invoices:

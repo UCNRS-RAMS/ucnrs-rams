@@ -1,7 +1,8 @@
-class Manager::ReserveInfo::StaffAndNotificationsController < ApplicationController
+class Manager::ReserveInfo::StaffAndNotificationsController < Manager::ManagerController
   layout "manager"
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!
+  before_action :is_administrator!, only: [:create, :update, :destroy]
 
   def index
     @presenter = Manager::ReserveInfo::StaffAndNotificationsIndexPresenter.new(

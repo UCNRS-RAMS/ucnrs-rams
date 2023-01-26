@@ -1,6 +1,7 @@
-class Manager::Visits::AmenityVisitsController < ApplicationController
+class Manager::Visits::AmenityVisitsController < Manager::ManagerController
   before_action :authenticate_user!
   before_action :confirm_manager!
+  before_action :is_administrator_or_accountant!
 
   def update
     if amenity_visit.save

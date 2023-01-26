@@ -1,7 +1,8 @@
-class Manager::ReserveInfo::AmenitiesAndRates::AmenityRateCategoriesController < ApplicationController
+class Manager::ReserveInfo::AmenitiesAndRates::AmenityRateCategoriesController < Manager::ManagerController
   layout "manager"
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!
+  before_action :is_administrator!, only: [:update]
 
   def edit
     form = AmenityRateCategoryForm.new(amenity_rate_category: amenity_rate_category)

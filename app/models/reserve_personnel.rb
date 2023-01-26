@@ -22,6 +22,10 @@ class ReservePersonnel < ApplicationRecord
     where(receive_new_visit_email: true)
   end
 
+  def self.role(user)
+    find_by(user_id: user)&.role
+  end
+
   def avatar_src
     avatar_url(:medium) || AVATAR_PLACEHOLDER
   end

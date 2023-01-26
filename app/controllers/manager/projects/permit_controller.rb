@@ -1,6 +1,7 @@
-class Manager::Projects::PermitController < ApplicationController
+class Manager::Projects::PermitController < Manager::ManagerController
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!
+  before_action :is_administrator!, only: [:create]
 
   def edit
     @presenter = Manager::Projects::QuestionsIndexPresenter.new(

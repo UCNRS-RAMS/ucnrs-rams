@@ -1,9 +1,10 @@
-class Manager::ReportsController < ApplicationController
+class Manager::ReportsController < Manager::ManagerController
   include ReportQueries
 
   layout "manager"
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!
+  before_action :is_administrator!, only: [:update]
 
   FISCAL_MONTH_BEGIN = 7
   FISCAL_DAY_BEGIN = 1

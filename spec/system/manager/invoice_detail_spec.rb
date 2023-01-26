@@ -4,7 +4,7 @@ RSpec.describe "Invoice Detail" do
   let(:user) { create(:user, :confirmed) }
   let(:project) { create(:project) }
   let!(:reserve) { create(:reserve, name: "Test Reserve") }
-  let!(:reserve_personnel) { create(:reserve_personnel, user: user, reserve: reserve) }
+  let!(:reserve_personnel) { create(:reserve_personnel, role: "Administrator", user: user, reserve: reserve) }
   let!(:visit) { create(:visit, reserve: reserve, starts_at: "21 sep 2022", ends_at: "31 oct 2022") }
   let!(:invoice) { create(:invoice, visit: visit) }
 

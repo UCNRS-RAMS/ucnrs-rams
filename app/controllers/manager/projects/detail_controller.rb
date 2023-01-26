@@ -1,6 +1,7 @@
-class Manager::Projects::DetailController < ApplicationController
+class Manager::Projects::DetailController < Manager::ManagerController
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!
+  before_action :is_administrator!, only: [:update]
 
   def edit
     @presenter = ProjectFormPresenter.new(

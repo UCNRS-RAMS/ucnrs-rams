@@ -1,6 +1,7 @@
-class Manager::Visits::ActivityAndNotesController < ApplicationController
+class Manager::Visits::ActivityAndNotesController < Manager::ManagerController
   before_action :authenticate_user!
   before_action :confirm_manager!
+  before_action :is_administrator_or_accountant!, only: [:create]
 
   def index
     @presenter = Manager::Visits::ActivityAndNotesIndexPresenter.new(

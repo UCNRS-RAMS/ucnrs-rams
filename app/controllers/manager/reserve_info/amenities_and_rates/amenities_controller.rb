@@ -1,10 +1,11 @@
 module Manager
   module ReserveInfo
     module AmenitiesAndRates
-      class AmenitiesController < ApplicationController
+      class AmenitiesController < Manager::ManagerController
         layout "manager"
         before_action :authenticate_user!
         before_action :confirm_reserve_manager!
+        before_action :is_administrator!, only: [:create, :update]
 
         def new
           form = AmenityForm.new(params: { reserve_id: current_reserve.id })

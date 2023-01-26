@@ -654,7 +654,7 @@ ActiveRecord::Schema.define(version: 2023_01_17_024141) do
   create_table "reserve_personnel", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.integer "user_id", null: false
-    t.column "role", "enum('No selection made','Reserve manager','Reserve assistant manager','Reserve co-manager','Reserve steward','Reserve staff','Campus NRS director','Campus committee member','Information manager','Faculty reserve manager','Reserve accountant','Resident researcher')", default: "No selection made"
+    t.column "role", "enum('Administrator','View Only','Accountant')", default: "Administrator"
     t.string "supervisor_name", limit: 50
     t.boolean "receive_project_email", default: false, null: false, comment: "DEPRECATED"
     t.boolean "receive_invoice_email", default: false, null: false, comment: "Set checkbox if Recieve email of invoice"

@@ -1,7 +1,8 @@
-class Manager::Projects::ActivityAndNotesController < ApplicationController
+class Manager::Projects::ActivityAndNotesController < Manager::ManagerController
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!
   before_action :project, only: [:index, :create]
+  before_action :is_administrator!, only: [:create]
 
   def index
     @presenter = Manager::Projects::ActivityAndNotesIndexPresenter.new(
