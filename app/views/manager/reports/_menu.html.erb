@@ -6,7 +6,7 @@
   <li class="list-item"><%= active_link_to_by_url t(".publications"), report_part_5_manager_reserve_report_path(current_reserve, presenter.fiscal_year_ending) %></li>
   <li class="list-item"><%= active_link_to_by_url t(".narrative"), report_part_6_manager_reserve_report_path(current_reserve, presenter.fiscal_year_ending) %></li>
   <li class="list-item"><%= active_link_to_by_url t(".nrs_campus_committee"), report_part_7_manager_reserve_report_path(current_reserve, presenter.fiscal_year_ending) %></li>
-  <li class="list-item"><%= link_to t(".report_status"), "#" %></li>
+  <li class="list-item"><%= active_link_to_by_url t(".report_status"), manager_reserve_report_path(current_reserve, presenter.fiscal_year_ending) %></li>
   <li class="list-item"><%= link_to t(".use_by_publicly_affiliated_groups"), "#" %></li>
   <li class="list-item"><%= link_to t(".flex_report"), "#" %></li>
 </ul>

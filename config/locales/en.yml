@@ -1688,6 +1688,15 @@ en:
           date_and_time: "Date & Time"
           user_or_admin: "User/Admin"
     reports:
+      show:
+        report_status: "Report Status"
+        part_1_reserve_use: "Part 1. Reserve Use"
+        part_2_user_affiliation: "Part 2. Reserve Users' Affiliation"
+        part_3_use_by_instructional_groups: "Part 3. Use by Instructional Groups"
+        part_4_current_research: "Part 4. Current Research"
+        part_5_publications: "Part 5. Publications"
+        part_6_narrative: "Part 6. Narrative"
+        part_7_nrs_campus_committee: "Part 7. NRS Campus Committee Roster"
       update:
         flash:
           report_updated_success: "Report Updated successfully"
