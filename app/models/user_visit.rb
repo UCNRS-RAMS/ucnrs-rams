@@ -4,6 +4,7 @@ class UserVisit < ApplicationRecord
   belongs_to :visit
   belongs_to :user
   belongs_to :institution
+  has_many :logs, as: :record_about
 
   validates :count, numericality: { greater_than_or_equal_to: 1 }
   validates :arrives_at, :departs_at, presence: true

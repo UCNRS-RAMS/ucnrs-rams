@@ -9,6 +9,7 @@ class VisitsController < ApplicationController
   def create
     @form = VisitForm.new(user: current_user, params: visit_params)
     if @form.save
+      create_log(action: :created, visit: @form.visit, project: @form.project)
       redirect_to visit_user_visits_path(@form.visit, format: :html)
     else
       @presenter = VisitsFormPresenter.new(user: current_user, form: @form)
@@ -24,6 +25,7 @@ class VisitsController < ApplicationController
   def update
     @form = VisitForm.new(user: current_user, params: visit_params)
     if @form.save
+      create_log(action: :updated, visit: @form.visit, project: @form.project)
       redirect_to visit_user_visits_path(@form.visit, format: :html)
     else
       @form.editing = true
@@ -44,6 +46,7 @@ class VisitsController < ApplicationController
   def cancel
     form = VisitForm.new(user: current_user, params: {id: visit_id})
     if form.cancel_visit
+      create_log(action: :cancelled, visit: form.visit, project: form.project)
       redirect_to visit_path, notice: I18n.translate("visits.show.successfully_cancelled")
     else
       flash.now[:alert] = I18n.translate("visits.show.could_not_cancel")
@@ -99,5 +102,15 @@ class VisitsController < ApplicationController
 
   def amenity_booking_params
     params.permit(:amenity_id, :amenity_rate_id)
+  end
+
+  def create_log(action:, visit:, project:)
+    LogForm.create(params: {
+        action: action,
+        user_id: current_user.id,
+      },
+      record: visit,
+      record_about: project
+    )
   end
 end

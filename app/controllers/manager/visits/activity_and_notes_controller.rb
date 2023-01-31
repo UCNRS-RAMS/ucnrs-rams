@@ -9,7 +9,7 @@ class Manager::Visits::ActivityAndNotesController < Manager::ManagerController
   end
 
   def show
-    @presenter = Manager::Visits::LogPresenter.new(record: log)
+    @presenter = Manager::Visits::LogPresenter.new(record: log, reserve: current_reserve)
   end
 
   def create

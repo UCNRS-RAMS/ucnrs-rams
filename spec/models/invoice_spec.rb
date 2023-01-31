@@ -8,6 +8,7 @@ RSpec.describe Invoice, type: :model do
     it { is_expected.to have_many(:invoice_payments) }
     it { is_expected.to have_many(:amenity_visits) }
     it { is_expected.to belong_to(:visit) }
+    it { is_expected.to have_many(:logs) }
   end
 
   describe "destroy" do

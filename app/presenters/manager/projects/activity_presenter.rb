@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
 class Manager::Projects::ActivityPresenter
-  def initialize(record:)
+  include Rails.application.routes.url_helpers
+
+  def initialize(record:, reserve: nil)
     @record = record
+    @current_reserve = reserve
   end
 
   delegate_missing_to :record
 
   def action_name
-    data = JSON.parse(metadata)
     if data["about"]
       "#{data["about"]} #{data["about_id"]} #{data["action"]}"
     else
@@ -25,20 +27,30 @@ class Manager::Projects::ActivityPresenter
   end
 
   def user_name
-    user ? user.full_name : "System"
+    user ? user.full_name : I18n.t("manager.visits.log.system")
   end
 
   def old_value
-    data = JSON.parse(metadata)
     data["changes"]["ApplicationStatus"].first
   end
 
   def new_value
-    data = JSON.parse(metadata)
     data["changes"]["ApplicationStatus"].last
+  end
+
+  def changes
+    data["changes"]
+  end
+
+  def details_page_url
+    manager_reserve_project_log_path(current_reserve, record_id, id)
   end
 
   private
 
-  attr_reader :record
+  attr_reader :record, :current_reserve
+
+  def data
+    @data ||= JSON.parse(metadata)
+  end
 end

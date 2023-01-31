@@ -1,7 +1,7 @@
 <section class="reserve-notes">
   <h2><%= t(".title") %></h2>
   <section class="note-form">
-    <%= form_with model: ReserveNote.new, url: manager_reserve_project_activity_and_notes_path(presenter.reserve_id, presenter.id) do |f| %>
+    <%= form_with model: ReserveNote.new, url: manager_reserve_project_activity_and_notes_path(current_reserve, presenter.id) do |f| %>
       <div class="inline">
         <%= f.text_field :note, class: "field", required: true %>
         <%= f.button "Post Note" , type: "submit" ,class: "submit-btn" %>

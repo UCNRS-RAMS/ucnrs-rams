@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 class Manager::Visits::LogPresenter
-  def initialize(record:)
+  include Rails.application.routes.url_helpers
+
+  def initialize(record:, reserve: nil)
     @record = record
+    @current_reserve = reserve
   end
 
   delegate_missing_to :record
@@ -35,9 +38,24 @@ class Manager::Visits::LogPresenter
     data["changes"]["ApplicationStatus"].last
   end
 
+  def changes
+    data["changes"]
+  end
+
+  def details_page_url
+    case record_type
+    when "Visit"
+      manager_reserve_visit_log_path(record.record.reserve_id, record_id, id)
+    when "Project"
+      manager_reserve_visit_log_path(current_reserve, record_id, id)
+    else
+      "#"
+    end
+  end
+
   private
 
-  attr_reader :record
+  attr_reader :record, :current_reserve
 
   def data
     @data ||= JSON.parse(metadata)

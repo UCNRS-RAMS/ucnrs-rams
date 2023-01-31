@@ -9,5 +9,5 @@
       <th></th>
     </tr>
   </thead>
-  <%= render partial: "shared/manager/invoices/invoice", collection: presenter.selected_invoices %>
+  <%= render partial: "shared/manager/invoices/invoice", collection: presenter.selected_invoices, locals: { presenter: presenter } %>
 </table>

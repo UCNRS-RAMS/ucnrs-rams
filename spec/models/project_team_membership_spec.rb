@@ -5,6 +5,7 @@ RSpec.describe ProjectTeamMembership, type: :model do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to belong_to(:project) }
     it { is_expected.to belong_to(:institution) }
+    it { is_expected.to have_many(:logs) }
   end
 
   describe "validations" do

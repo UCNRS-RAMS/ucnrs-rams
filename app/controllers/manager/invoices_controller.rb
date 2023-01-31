@@ -16,6 +16,7 @@ class Manager::InvoicesController < Manager::ManagerController
   def create
     @form = InvoiceForm.new(invoice: invoice, params: params)
     if @form.save
+      create_log(action: :created, invoice: @form.invoice, visit: @form.visit)
       redirect_to manager_reserve_visit_invoice_path(id: @form.invoice_id)
     else
       @presenter = Manager::Invoices::InvoicesFormPresenter.new(visit: visit, form: @form)
@@ -77,5 +78,17 @@ class Manager::InvoicesController < Manager::ManagerController
         :sort_by
       )
     end
+  end
+
+  private
+
+  def create_log(action:, invoice:, visit: nil)
+    LogForm.create(params: {
+        action: action,
+        user_id: current_user.id,
+      },
+      record: invoice,
+      record_about: visit
+    )
   end
 end
