@@ -48,8 +48,9 @@ class Manager::ReportsController < Manager::ManagerController
   end
 
   def report_part_6
-    @presenter = Manager::ReportsReportPart6Presenter.new(
-      report: annual_report,
+    form = AnnualReportForm.new(annual_report: annual_report)
+    @presenter = Manager::Reports::ReportPart6Presenter.new(
+      form: form,
     )
   end
 
