@@ -1,0 +1,116 @@
+<section class="content">
+  <header>Reports</header>
+  <div>
+    <section class="report-menu">
+      <%= render partial: 'menu', locals: { presenter: @presenter } %>
+    </section>
+    <section class="report">
+      <header><%= t(".report_status") %></header>
+      <%= render partial: 'fiscal_year_select', locals: { presenter: @presenter } %>
+      <div>
+        <table id="status-report">
+          <tbody>
+            <tr>
+              <td>
+                <%= link_to t(".part_1_reserve_use"),
+                  report_part_1_manager_reserve_report_path(
+                    current_reserve,
+                    @presenter.fiscal_year_ending
+                  )
+                %>
+              </td>
+              <td>
+                <%= image_tag @presenter.icon_for_column(@presenter.part_1_approved),
+                  alt: t(@presenter.icon_alt_i18n_key(@presenter.part_1_approved)) %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= link_to t(".part_2_user_affiliation"),
+                  report_part_2_manager_reserve_report_path(
+                    current_reserve,
+                    @presenter.fiscal_year_ending
+                  )
+                %>
+              </td>
+              <td>
+                <%= image_tag @presenter.icon_for_column(@presenter.part_2_approved),
+                  alt: t(@presenter.icon_alt_i18n_key(@presenter.part_2_approved)) %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= link_to t(".part_3_use_by_instructional_groups"),
+                  report_part_3_manager_reserve_report_path(
+                    current_reserve,
+                    @presenter.fiscal_year_ending
+                  )
+                %>
+              </td>
+              <td>
+                <%= image_tag @presenter.icon_for_column(@presenter.part_3_approved),
+                  alt: t(@presenter.icon_alt_i18n_key(@presenter.part_3_approved)) %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= link_to t(".part_4_current_research"),
+                  report_part_4_manager_reserve_report_path(
+                    current_reserve,
+                    @presenter.fiscal_year_ending
+                  )
+                %>
+              </td>
+              <td>
+                <%= image_tag @presenter.icon_for_column(@presenter.part_4_approved),
+                  alt: t(@presenter.icon_alt_i18n_key(@presenter.part_4_approved)) %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= link_to t(".part_5_publications"),
+                  report_part_5_manager_reserve_report_path(
+                    current_reserve,
+                    @presenter.fiscal_year_ending
+                  )
+                %>
+              </td>
+              <td>
+                <%= image_tag @presenter.icon_for_column(@presenter.part_5_approved),
+                  alt: t(@presenter.icon_alt_i18n_key(@presenter.part_5_approved)) %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= link_to t(".part_6_narrative"),
+                  report_part_6_manager_reserve_report_path(
+                    current_reserve,
+                    @presenter.fiscal_year_ending
+                  )
+                %>
+              </td>
+              <td>
+                <%= image_tag @presenter.icon_for_column(@presenter.part_6_approved),
+                  alt: t(@presenter.icon_alt_i18n_key(@presenter.part_6_approved)) %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= link_to t(".part_7_nrs_campus_committee"),
+                  report_part_7_manager_reserve_report_path(
+                    current_reserve,
+                    @presenter.fiscal_year_ending
+                  )
+                %>
+              </td>
+              <td>
+                <%= image_tag @presenter.icon_for_column(@presenter.part_7_approved),
+                  alt: t(@presenter.icon_alt_i18n_key(@presenter.part_7_approved)) %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</section>

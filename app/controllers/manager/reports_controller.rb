@@ -11,11 +11,21 @@ class Manager::ReportsController < Manager::ManagerController
   FISCAL_MONTH_END = 6
   FISCAL_DAY_END = 30
 
+  def show
+    @presenter = Manager::Reports::ShowPresenter.new(
+      annual_report: annual_report,
+    )
+  end
+
   def report_part_1
     form = AnnualReportForm.new(annual_report: annual_report)
     @presenter = Manager::Reports::ReportPart1Presenter.new(
       form: form,
-      report_part1_data: query_part_1(current_reserve, report_start_date, report_stop_date)
+      report_part1_data: query_part_1(
+        current_reserve,
+        report_start_date,
+        report_stop_date,
+      )
     )
   end
 

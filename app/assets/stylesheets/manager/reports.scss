@@ -91,6 +91,14 @@
   }
 }
 
+table#status-report {
+  @include rams-2-list-table;
+
+  td img {
+    vertical-align: middle;
+  }
+}
+
 table.annual-report {
   border-collapse: collapse;
   border-width: 1px;
