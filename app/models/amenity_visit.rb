@@ -4,6 +4,7 @@ class AmenityVisit < ApplicationRecord
   belongs_to :user
   belongs_to :visit
   belongs_to :invoice, optional: true
+  has_many :logs, as: :record_about
 
   validates :departs_on, must_be_after: :arrives_on
   validates :departs, must_be_after: :arrives

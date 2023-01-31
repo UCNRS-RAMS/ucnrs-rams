@@ -10,6 +10,7 @@ class Visits::WaiversPoliciesController < ApplicationController
     @form = VisitCompleteForm.new(params: { id: visit.id })
 
     if visit_update_params[:policy_agreement] == "1" && @form.save
+      create_log(action: :updated, visit: @form.visit, project: @form.project) if @form.status == "approved"
       redirect_to @form.visit
     else
       @presenter = Visits::UsePolicyPresenter.new(current_user: current_user, current_step: 4, visit: visit)
@@ -26,5 +27,15 @@ class Visits::WaiversPoliciesController < ApplicationController
 
   def visit_update_params
     params.require(:visit).permit(:policy_agreement, :id)
+  end
+
+  def create_log(action:, visit:, project:)
+    LogForm.create(params: {
+        action: action,
+        user_id: current_user.id,
+      },
+      record: visit,
+      record_about: project
+    )
   end
 end

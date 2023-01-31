@@ -28,7 +28,7 @@
         </tr>
         <tr>
           <td><%= t(".id") %></td>
-          <td>Reservatoin # <%= presenter.id %></td>
+          <td>Visit # <%= presenter.id %></td>
         </tr>
         <tr>
           <td><%= t(".by") %></td>
@@ -48,11 +48,7 @@
           </tr>
         </thead>
         <tbody>
-        <tr>
-          <td><%= t(".status") %></td>
-          <td class="highlight"><%= presenter.old_value %></td>
-          <td class="highlight"><%= presenter.new_value %></td>
-        </tr>
+          <%= render partial: 'modals/changed_attribute', collection: presenter.changes, as: :change %>
         </tbody>
       </table>
     </section>

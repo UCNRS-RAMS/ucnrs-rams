@@ -21,6 +21,7 @@ class ProjectsController < ApplicationController
   def create
     form = ProjectForm.new(user: current_user, params: project_params)
     if form.save
+      create_log(action: :created, project: form.project)
       redirect_to project_team_memberships_path(form.project, format: :html)
     else
       @presenter = ProjectFormPresenter.new(
@@ -47,6 +48,7 @@ class ProjectsController < ApplicationController
   def update
     form = ProjectForm.new(user: current_user, params: project_params.merge(id: project.id))
     if form.save
+      create_log(action: :updated, project: form.project)
       redirect_to project_team_memberships_path(form.project, format: :html)
     else
       @presenter = ProjectFormPresenter.new(
@@ -125,5 +127,14 @@ class ProjectsController < ApplicationController
 
   def project_id
     params.permit(:id).require(:id)
+  end
+
+  def create_log(action:, project:)
+    LogForm.create(params: {
+        action: action,
+        user_id: current_user.id,
+      },
+      record: project,
+    )
   end
 end

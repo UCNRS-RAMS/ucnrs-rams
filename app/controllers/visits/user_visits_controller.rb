@@ -20,6 +20,7 @@ class Visits::UserVisitsController < ApplicationController
   def create
     @presenter = initialize_form_presenter(user_visit_params)
     if @presenter.form.save
+      create_log(action: :added, user_visit: @presenter.form.user_visit, visit: @presenter.form.visit)
       @presenter = initialize_form_presenter({ visit_id: params[:visit_id] })
       render template: "shared/visits/user_visits/_tables"
     elsif @presenter.add_visitor_partial == "guest" && @presenter.user_id.blank?
@@ -115,6 +116,18 @@ class Visits::UserVisitsController < ApplicationController
         :state_id,
         :institution_type,
       ],
+    )
+  end
+
+  private
+
+  def create_log(action:, user_visit:, visit:)
+    LogForm.create(params: {
+        action: action,
+        user_id: current_user.id,
+      },
+      record: visit,
+      record_about: user_visit
     )
   end
 end

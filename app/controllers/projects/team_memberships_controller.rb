@@ -28,6 +28,7 @@ class Projects::TeamMembershipsController < ApplicationController
     )
 
     if form.save
+      create_log(action: :added, team_member: form.project_team_membership, project: form.project)
       redirect_to project_team_memberships_path(project)
     else
       @presenter = Projects::TeamMembershipsIndexPresenter.new(
@@ -127,6 +128,16 @@ class Projects::TeamMembershipsController < ApplicationController
       :can_add_visit,
       :can_receive_invoice,
       :active,
+    )
+  end
+
+  def create_log(action:, team_member:, project:)
+    LogForm.create(params: {
+        action: action,
+        user_id: current_user.id,
+      },
+      record: project,
+      record_about: team_member
     )
   end
 end

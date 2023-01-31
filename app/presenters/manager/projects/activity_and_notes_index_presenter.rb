@@ -3,18 +3,19 @@
 class Manager::Projects::ActivityAndNotesIndexPresenter
   DEFAULT_PAGE_LIMIT = 10
 
-  def initialize(project:, logs_page: 1, notes_page: 1)
+  def initialize(project:, logs_page: 1, notes_page: 1, reserve: nil)
     @project = project
     @logs_page = logs_page
     @notes_page = notes_page
+    @current_reserve = reserve
   end
 
-  attr_reader :project, :logs_page, :notes_page
+  attr_reader :project, :logs_page, :notes_page, :current_reserve
   delegate_missing_to :project
 
   def logs
     logs_scope.map do |record|
-      Manager::Projects::ActivityPresenter.new(record: record)
+      Manager::Projects::ActivityPresenter.new(record: record, reserve: current_reserve)
     end
   end
 

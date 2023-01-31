@@ -6,11 +6,15 @@ class Manager::Projects::ActivityAndNotesController < Manager::ManagerController
 
   def index
     @presenter = Manager::Projects::ActivityAndNotesIndexPresenter.new(
-      project: @project, logs_page: params[:logs_page], notes_page: params[:notes_page])
+      project: @project, 
+      logs_page: params[:logs_page], 
+      notes_page: params[:notes_page], 
+      reserve: current_reserve
+    )
   end
 
   def show
-    @presenter = Manager::Projects::ActivityPresenter.new(record: Log.find(params[:id]))
+    @presenter = Manager::Projects::ActivityPresenter.new(record: Log.find(params[:id]), reserve: current_reserve)
   end
 
   def create

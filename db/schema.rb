@@ -11,7 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2023_01_18_150350) do
-
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.integer "project_id", null: false
@@ -373,7 +372,7 @@ ActiveRecord::Schema.define(version: 2023_01_18_150350) do
     t.bigint "record_id", null: false
     t.bigint "record_about_id"
     t.string "record_about_type"
-    t.bigint "reserve_id", null: false
+    t.bigint "reserve_id"
     t.bigint "project_id"
     t.bigint "reservation_id"
     t.bigint "invoice_id"
