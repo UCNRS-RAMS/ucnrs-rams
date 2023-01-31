@@ -6,6 +6,22 @@
     </section>
     <section class="report">
       <header><%= t(".part_7_nrs_campus_committee") %></header>
+      <%= render partial: 'fiscal_year_select', locals: { presenter: @presenter } %>
+      <%= form_with model: @presenter.form, url: manager_reserve_report_path, method: :patch do |form| %>
+        <div>
+          <%= form.text_area :part_7_campus_committee, class: "form-textarea" %>
+        </div>
+        <div id="review">
+          <%= tag.div t(".report_has_been_reviewed") %>
+          <%= tag.div do %>
+            <%= form.label @presenter.annual_report_column do %>
+              <%= form.check_box @presenter.annual_report_column %>
+              <%= t("yes") %>
+            <% end %>
+          <% end %>
+        </div>
+        <%= form.button t("submit") %>
+      <% end %>
     </section>
   </div>
 </section>
