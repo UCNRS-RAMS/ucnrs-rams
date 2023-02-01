@@ -2,6 +2,31 @@
 @import "mixins/icon_link";
 @import "mixins/errors";
 
+.registrations .modal-content {
+  background: rgba($navy-blue, 0.85);
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 2;
+
+  .body{
+    align-items: center;
+    background: $white;
+    border-radius: 10px;
+    border: 1px solid $dark-gray;
+    margin: 2rem auto;
+    max-width: 800px;
+
+    form {
+      input[type="text"] {
+        width: 100%;
+      }
+    }
+  }
+}
 .registrations main {
   .content {
     align-items: center;
