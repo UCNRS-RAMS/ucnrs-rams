@@ -8,8 +8,8 @@
           <div class="dropdown-menu" data-dropdown-class="show" data-dropdown-target= "dropdown">
             <header><%= I18n.t(".navbar.link.your_managed_reserves") %></header>
             <hr />
-            <% current_user.managed_reserves.each do |reserve| %>
-              <%= link_to reserve.name, manager_reserve_dashboard_path(reserve), class: "dropdown-item" %>
+            <% current_user.managed_reserves.alphabetized.each do |reserve| %>
+              <%= link_to reserve.short_name, manager_reserve_dashboard_path(reserve), class: "dropdown-item" %>
             <% end%>
           </div>
         </li>
@@ -26,7 +26,7 @@
           end %>
         </div>
       </li>
-      <li><%= link_to image_tag("icon-user-navbar.svg", alt: I18n.t(".navbar.alt_text.icon_user")), edit_user_registration_path, class: "icon-only" %></li>
+      <li><%= link_to image_tag("icon-user-navbar.svg", alt: I18n.t(".navbar.alt_text.icon_user")), manager_namespace? ? edit_manager_reserve_user_path(current_reserve, current_user) : edit_user_registration_path, class: "icon-only" %></li>
       <li><%= link_to image_tag("icon-sign-out-navbar.svg", alt: I18n.t(".navbar.alt_text.icon_sign_out")), destroy_user_session_path, class: "icon-only" %> </li>
     </ul>
   </div>
