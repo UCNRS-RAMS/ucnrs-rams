@@ -37,6 +37,25 @@
     }
 
     @include search-subsection;
+
+    .search-subsection{
+      form {
+        .search-primary{
+          flex-wrap: wrap;
+
+          .second{
+            margin-top: 10px;
+          }
+        }
+      }
+
+      .search-secondary {
+        .row {
+          flex-wrap: wrap;
+        }
+      }
+    }
+    
     .clear-btn {
       color: $navy-blue;
       margin-right: 30px;
@@ -89,7 +108,7 @@
     }
 
     .d-flex {
-      @include flex(row, space-between, center)
+      @include flex(row, space-between, center, wrap);
     }
 
     .d-flex-column {
@@ -113,6 +132,7 @@
       background-color: $white;
       border: 1px solid;
       border-radius: 10px;
+      flex-wrap: wrap;
       margin-bottom: 10px;
       padding: 15px;
     }
@@ -182,6 +202,7 @@
       border: 1px solid $semidark-bluegray;
       border-radius: 10px;
       color: $semidark-bluegray;
+      margin: 10px 0px;
       padding: 10px;
 
       input:focus {
