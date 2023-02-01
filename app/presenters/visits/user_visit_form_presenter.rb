@@ -125,8 +125,10 @@ def initialize(current_user:, add_visitor_partial:, show_add_guest_modal: false,
   private
 
   def user_visits_not_in_amenity_date_range?
-    return !visit.user_visits.in_visit_amenities_range?(visit) if visit.amenity_visits.present? && visit.user_visits.present?
-
-    false
+    if visit.amenity_visits.present? && visit.user_visits.present?
+      return !visit.user_visits.in_visit_amenities_range?(visit)
+    else
+      false
+    end
   end
 end
