@@ -31,6 +31,6 @@ RSpec.describe "manager navbar", type: :view do
       "Users",
       href: "/manager/reserves/#{reserve.id}/users"
     )
-    expect(rendered).to have_link("Help", href: "#")
+    expect(rendered).to have_link("Help", href: "https://ramshelp.ucnrs.org/manager")
   end
 end
