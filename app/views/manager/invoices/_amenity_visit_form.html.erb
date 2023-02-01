@@ -8,7 +8,6 @@
     <%= f.hidden_field :arrives_at, value: amenity_visit.arrives_at, data: { "subtotal-target": "arriveAt" } %>
     <%= f.hidden_field :departs_at, value: amenity_visit.departs_at, data: { "subtotal-target": "departsAt" } %>
     <%= f.hidden_field :status, value: "approved" %>
-    <div class="d-flex">
       <div class="d-flex text-field-div right-spacer">
         <div class="d-flex-column">
           <%= f.label :arrives_on, for: "arrives#{amenity_visit.id}", class: "text-center" %>
@@ -33,7 +32,6 @@
         <%= f.number_field :number_of_people, min: 1, id: "number_of_people#{amenity_visit.id}", data: { action: "input->subtotal#calculateSubtotal", "subtotal-target": "count" }, class: "input-field" %>
       </div>
       <div class="text-field-div"><%= f.select :amenity_rate_id, options_for_select(presenter.amenity_rate_options, presenter.selected_amenity_rate_id), {}, class: "select-field", "data-subtotal-target": "initialVal",  "data-action": "change->subtotal#calculateSubtotal" %></div>
-    </div>
     <div class="text-center">
       <strong><%= t(".dollar") %> <span data-subtotal-target="subtotal" data-invoices-target="subtotal" class="subtotal"></span></strong>
     </div>
