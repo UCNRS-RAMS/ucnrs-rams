@@ -57,4 +57,12 @@ class ApplicationController < ActionController::Base
       :terms_accepted_at,
     ])
   end
+
+  def after_sign_in_path_for(current_user)
+    if current_user.is_manager?
+      manager_reserve_dashboard_path(current_user.managed_reserves.first)
+    else
+      root_path
+    end
+  end
 end
