@@ -1,0 +1,21 @@
+<section class="content">
+  <%= render partial: 'manager/reserve_info/header' %>
+  <div>
+    <section class="reserve-info-menu">
+      <%= render partial: 'manager/reserve_info/menu' %>
+    </section>
+    <section class="reserve-info">
+      <header><%= t(".reserve_tags") %></header>
+      <%= form_with url: manager_reserve_reserve_info_reserve_tags_path(current_reserve) do |f| %>
+        <section class="reserve-info-subsection">
+          <% @presenter.reserve_tags.each do |tag_type, tag_names| %>
+            <%= render partial: "tag_types", locals: { tag_type: tag_type, tag_names: tag_names, presenter: @presenter } %>
+          <% end %>
+        </section>
+      <% end %>
+      <div>
+        <p class="comment"><%= t(".add_more_tag_options") %></p>
+      </div>
+    </section>
+  </div>
+</section>

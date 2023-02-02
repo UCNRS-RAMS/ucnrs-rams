@@ -2,6 +2,7 @@
 @import "mixins/tables";
 
 .manager.reserve_details,
+.manager.reserve_tags,
 .manager.amenities_and_rates,
 .manager.waivers,
 .manager.rules_and_regulations,
@@ -9,6 +10,16 @@
 .manager.reserve_questions,
 .manager.staff_and_notifications,
 .manager.reserve_addendums {
+  .tag-btn{
+    flex-basis: calc(50% - 20px);
+    margin: 10px;
+  }
+
+  .tag_names {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   .content {
     margin-top: 3rem;
   }

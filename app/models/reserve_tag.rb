@@ -10,4 +10,8 @@ class ReserveTag < ApplicationRecord
     other: "other",
     facility: "facility",
   }
+
+  def self.with_name(category, tag_name)
+    where(category: category, name: tag_name)
+  end
 end

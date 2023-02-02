@@ -1,0 +1,8 @@
+<div class="reserve_tags">
+  <div class="tag-btn">
+    <h3 for="tags_selected_<%= tag_type %>" ><%= tag_type.capitalize %></h3>
+  </div>
+  <div class=<%= "tag_names #{tag_type}" %> >
+    <%= render partial: "reserve_tag_name", collection: tag_names, locals: { reserve_tag_category: tag_type, presenter: presenter } %>
+  </div>
+</div>
