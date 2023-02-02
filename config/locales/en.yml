@@ -1752,6 +1752,7 @@ en:
       header:
         reserve_info: "Reserve Info"
       menu:
+        reserve_tags: "Reserve Tags"
         reserve_details: "Reserve Details"
         amenities_and_rates: "Amenities & Rates"
         waivers: "Waivers"
@@ -1760,6 +1761,10 @@ en:
         reserve_questions: "Reserve Questions"
         staff_and_notifications: "Staff & Notifications"
         reserve_addendums: "Reserve Addendums"
+      reserve_tags:
+        new:
+          reserve_tags: "Reserve Tags"
+          add_more_tag_options: "If you wish to add a new tag to this list contact a RAMS administrator and they can work on adding it to the database"
       reserve_details:
         edit:
           reserve_details: "Reserve Details"

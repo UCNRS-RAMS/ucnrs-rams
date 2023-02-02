@@ -1,0 +1,4 @@
+<div class="tag-btn">
+  <%= check_box( "tag_names", "#{reserve_tag_category}", { multiple: true, onchange: "this.form.requestSubmit()", id: "tags_selected_#{reserve_tag_name}", checked: presenter.has_reserve_tag?(reserve_tag_category, reserve_tag_name)}, reserve_tag_name, nil) %>
+  <label for="tags_selected_<%= reserve_tag_name %>" class="name-tag" ><%= reserve_tag_name.capitalize %></label>
+</div>

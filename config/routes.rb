@@ -113,6 +113,7 @@ Rails.application.routes.draw do
       end
 
       namespace :reserve_info do
+        resource :reserve_tags, only: [:create, :new]
         resource :reserve_details, only: [:edit, :update]
         resources :amenities_and_rates, only: [:index]
         resources :amenity_rates, only: [:edit, :update], controller: "amenities_and_rates/amenity_rates"
