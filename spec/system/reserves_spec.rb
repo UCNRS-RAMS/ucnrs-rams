@@ -223,7 +223,7 @@ RSpec.describe "Reserves", type: :system, js: true do
   describe "reserve calendar with user is not login" do
     it "display approved visits for reserve", js: true do
       reserve = create(:reserve)
-      visit = create(:visit, reserve: reserve, status: "approved")
+      visit = create(:visit, reserve: reserve, status: "approved", starts_at: Time.current, ends_at: Time.current+1)
 
       flow = ReservesFlow.new(page)
 
