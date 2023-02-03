@@ -5,6 +5,13 @@ class VisitForm
 
   DEFAULT_TIME = "12:00"
 
+  STATUS = {
+    "approved" => "Approved",
+    "in_review" => "Pending approval",
+    "cancelled" => "Cancelled",
+    "denied" => "Rejected"
+  }.freeze
+
   def model_name
     ActiveModel::Name.new(Visit)
   end
@@ -104,7 +111,7 @@ class VisitForm
   end
 
   def update_status
-    visit.save
+    visit.save && update_user_visits_status && update_amenity_visits_status
   end
 
   private
@@ -233,5 +240,25 @@ class VisitForm
 
   def removed_amenity_visit_ids
     amenity_visit_ids - amenity_forms.values.flatten.map(&:id)
+  end
+
+  def update_user_visits_status
+    begin
+      user_visits.update_all(status: STATUS[status])
+      true
+    rescue ActiveRecord::ActiveRecordError => e
+      Rails.logger.error(e)
+      false
+    end
+  end
+
+  def update_amenity_visits_status
+    begin
+      amenity_visits.update_all(status: STATUS[status])
+      true
+    rescue ActiveRecord::ActiveRecordError => e
+      Rails.logger.error(e)
+      false
+    end
   end
 end
