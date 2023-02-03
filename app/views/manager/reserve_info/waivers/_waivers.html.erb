@@ -5,7 +5,7 @@
         <tr>
           <th><%= t(".name") %></th>
           <th><%= t(".description") %></th>
-          <th><%= t(".new") %></th>
+          <th><%= link_to t(".new"), new_manager_reserve_reserve_info_waiver_path(current_reserve), data: { "turbo-frame": "modal-content" } %></th>
         </tr>
       </thead>
       <tbody>

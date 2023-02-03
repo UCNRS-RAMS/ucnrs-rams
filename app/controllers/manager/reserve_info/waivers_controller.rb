@@ -10,6 +10,21 @@ class Manager::ReserveInfo::WaiversController < Manager::ManagerController
     )
   end
 
+  def new
+    @form = WaiverFormPresenter.new
+  end
+
+  def create
+    form = WaiverForm.new(params: waiver_params, reserve: current_reserve)
+    presenter = WaiverFormPresenter.new(form: form)
+
+    if presenter.save
+      redirect_to manager_reserve_reserve_info_waivers_path(current_reserve)
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def edit
     form = WaiverForm.new(waiver: waiver)
     @presenter = Manager::ReserveInfo::WaiverEditPresenter.new(form: form)
@@ -17,8 +32,9 @@ class Manager::ReserveInfo::WaiversController < Manager::ManagerController
 
   def update
     form = WaiverForm.new(waiver: waiver, params: waiver_params)
+    presenter = WaiverFormPresenter.new(form: form)
 
-    if form.save
+    if presenter.save
       redirect_to manager_reserve_reserve_info_waivers_path(current_reserve)
     else
       @presenter = Manager::ReserveInfo::WaiverEditPresenter.new(form: form)

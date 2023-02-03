@@ -5,18 +5,20 @@ class WaiverForm
     ActiveModel::Name.new(Waiver)
   end
 
-  def initialize(waiver: nil, params: {})
+  def initialize(waiver: nil, params: {}, reserve: nil)
     @waiver = waiver || Waiver.new
+    @reserve = reserve
     assign(params)
   end
 
-  attr_reader :waiver
+  attr_reader :waiver, :reserve
   delegate :valid?, :validate, :errors, to: :waiver
   delegate_missing_to :waiver
 
   def save
     begin
       waiver.save!
+      reserve.waivers << waiver if reserve.present?
       true
     rescue ActiveRecord::RecordInvalid => e
       Rails.logger.error(e)

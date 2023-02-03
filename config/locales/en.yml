@@ -307,6 +307,9 @@ en:
         accessible_description: A modal pop-up form to new details of reserve personnel.
         search_by_name: "Name"
     waivers:
+      new_waiver:
+        title: "New Waiver"
+        accessible_description: "A modal pop-up form to create new waiver for this reserve."
       edit_waiver:
         title: "Edit Waiver"
         accessible_description: "A modal pop-up form to edit waiver for this reserve."
