@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Reserve, type: :model do
   describe "associations" do
     it { should have_rich_text(:rules_and_regulations) }
+    it { should have_rich_text(:directions) }
     it { should have_one_attached(:reserve_avatar) }
 
     it { is_expected.to belong_to(:managing_campus).class_name("Institution").optional(true) }
@@ -118,15 +119,6 @@ RSpec.describe Reserve, type: :model do
       non_matching_reserve = create(:reserve, pulldown_name: "Hasting")
 
       results = Reserve.searching_term("pulldown_name")
-
-      expect(results.map(&:id)).to match_array [matching_reserve.id]
-    end
-
-    it "returns reserves that have directions like search filled value" do
-      matching_reserve = create(:reserve, directions: "reserve 1 directions")
-      non_matching_reserve = create(:reserve, directions: "Hasting")
-
-      results = Reserve.searching_term("directions")
 
       expect(results.map(&:id)).to match_array [matching_reserve.id]
     end
