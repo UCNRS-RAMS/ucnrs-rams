@@ -3,6 +3,7 @@
   <td><%= t("universal.institution_types")[:"#{institution.institution_type}"] %></td>
   <td><%= institution.city %>, <%= institution.state_name %></td>
   <td><%= institution.country_name %></td>
+  <td><%= institution.users_count %></td>
   <td>
     <%= link_to edit_manager_reserve_institution_path(current_reserve, institution.id), data: { "turbo-frame" => "_top" } do %>
       <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"), height: "20", width: "20" %>
