@@ -77,6 +77,30 @@ RSpec.describe InstitutionFilter do
     end
   end
 
+  describe "#institution_state_filter" do
+    context "when :institution_state is present" do
+      it "returns given :institution_state" do
+        filter = { institution_state: "texas" }
+        institution_filter = InstitutionFilter.new(filter)
+
+        result = institution_filter.institution_state_filter
+
+        expect(result).to eq "texas"
+      end
+    end
+
+    context "when :institution_state is not present" do
+      it "returns DEFAULT_INSTITUTION_STATE_FILTER" do
+        filter = { institution_state: "" }
+        institution_filter = InstitutionFilter.new(filter)
+
+        result = institution_filter.institution_state_filter
+
+        expect(result).to eq InstitutionFilter::DEFAULT_INSTITUTION_STATE_FILTER
+      end
+    end
+  end
+
   describe "#institution_type_filter" do
     context "when :institution_type is present" do
       it "returns given :institution_type" do

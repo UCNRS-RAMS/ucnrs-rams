@@ -74,6 +74,14 @@ class Institution < ApplicationRecord
     end
   end
 
+  def self.in_state(state)
+    if state.present?
+      where(state: state)
+    else
+      all
+    end
+  end
+
   def self.sorted_using(sort_option = nil)
     case sort_option.to_s
     when "name" then order(:name)

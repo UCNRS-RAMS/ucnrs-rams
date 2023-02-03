@@ -6,6 +6,7 @@ RSpec.describe Manager::InstitutionsIndexPresenter do
     it { is_expected.to delegate_method(:institution_search_filter).to(:filter) }
     it { is_expected.to delegate_method(:institution_sort_by_filter).to(:filter) }
     it { is_expected.to delegate_method(:institution_country_filter).to(:filter) }
+    it { is_expected.to delegate_method(:institution_state_filter).to(:filter) }
     it { is_expected.to delegate_method(:institution_type_filter).to(:filter) }
     it { is_expected.to delegate_method(:present?).to(:filter).with_prefix(true) }
   end
@@ -150,6 +151,59 @@ RSpec.describe Manager::InstitutionsIndexPresenter do
         ["d", country1.id],
         ["z", country3.id],
       ]
+    end
+  end
+
+  describe "#institution_state_options" do
+    it "is an array of institution state options" do
+      country1 = create(:country, name: "c1")
+      country2 = create(:country, name: "c1")
+
+      state1 = create(:state, name: "d", country: country1)
+      state2 = create(:state, name: "a", country: country2)
+      state3 = create(:state, name: "z", country: country1)
+      allow(I18n).to receive(:t)
+        .with("select")
+        .and_return("select_translate")
+      presenter = Manager::InstitutionsIndexPresenter.new(filter: { institution_country: "#{country1.id}" })
+
+      institution_country_options = presenter.institution_state_options
+
+      expect(institution_country_options).to eq [
+        ["select_translate", nil],
+        ["d", state1.id],
+        ["z", state3.id],
+      ]
+    end
+  end
+
+  describe "#country_have_states?" do
+    it "return true if selected country has states" do
+      country1 = create(:country, name: "c1")
+      country2 = create(:country, name: "c1")
+
+      state1 = create(:state, name: "d", country: country1)
+      state3 = create(:state, name: "z", country: country1)
+      allow(I18n).to receive(:t)
+        .with("select")
+        .and_return("select_translate")
+      presenter = Manager::InstitutionsIndexPresenter.new(filter: { institution_country: "#{country1.id}" })
+
+      expect(presenter.country_have_states?).to be_truthy
+    end
+
+    it "return true if selected country has no states" do
+      country1 = create(:country, name: "c1")
+      country2 = create(:country, name: "c1")
+
+      state1 = create(:state, name: "d", country: country1)
+      state3 = create(:state, name: "z", country: country1)
+      allow(I18n).to receive(:t)
+        .with("select")
+        .and_return("select_translate")
+      presenter = Manager::InstitutionsIndexPresenter.new(filter: { institution_country: "#{country2.id}" })
+
+      expect(presenter.country_have_states?).to be_falsy
     end
   end
 

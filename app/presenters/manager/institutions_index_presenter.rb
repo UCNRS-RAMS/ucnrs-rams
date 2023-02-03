@@ -13,6 +13,7 @@ class Manager::InstitutionsIndexPresenter
   delegate :institution_search_filter,
     :institution_sort_by_filter,
     :institution_country_filter,
+    :institution_state_filter,
     :institution_type_filter,
     to: :filter
 
@@ -28,6 +29,7 @@ class Manager::InstitutionsIndexPresenter
     Institution
       .search(institution_search_filter)
       .in_country(institution_country_filter)
+      .in_state(institution_state_filter)
       .with_institution_type(institution_type_filter)
       .sorted_using(institution_sort_by_filter)
       .page(page)
@@ -47,6 +49,20 @@ class Manager::InstitutionsIndexPresenter
       .select(:name, :id)
       .map { |country| [country.name, country.id] }
       .unshift([I18n.t("all"), nil])
+  end
+
+  def institution_state_options
+    State
+      .in_country(institution_country_filter)
+      .alphabetical_by_name
+      .map { |state| [state.name, state.id] }
+      .unshift([I18n.t("select"), nil])
+  end
+
+  def country_have_states?
+    State
+      .in_country(institution_country_filter)
+      .present?
   end
 
   def institution_sort_by_options
