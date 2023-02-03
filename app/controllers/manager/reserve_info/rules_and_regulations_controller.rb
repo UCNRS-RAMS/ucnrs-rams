@@ -26,6 +26,8 @@ class Manager::ReserveInfo::RulesAndRegulationsController < Manager::ManagerCont
       :rules_url,
       :code_of_conduct_url,
       :rules_and_regulations,
+      :approval_message,
+      :directions
     )
   end
 end

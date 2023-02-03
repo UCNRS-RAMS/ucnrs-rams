@@ -5,6 +5,7 @@ class Reserve < ApplicationRecord
 
   has_one_attached :reserve_avatar
   has_rich_text :rules_and_regulations
+  has_rich_text :directions
 
   mount_uploader :logo, Reserve::LogoUploader
   mount_uploader :listing_photo, Reserve::PhotoUploader
@@ -54,7 +55,6 @@ class Reserve < ApplicationRecord
           reserves.name LIKE "%#{search_filter}%" OR
           reserves.short_name LIKE "%#{search_filter}%" OR
           reserves.pulldown_name LIKE "%#{search_filter}%" OR
-          reserves.directions LIKE "%#{search_filter}%" OR
           reserves.rules LIKE "%#{search_filter}%" OR
           reserves.rates LIKE "%#{search_filter}%" OR
           reserves.department LIKE "%#{search_filter}%" OR
