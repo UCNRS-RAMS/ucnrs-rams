@@ -30,6 +30,20 @@ RSpec.describe InstitutionPresenter do
     end
   end
 
+  describe "#users_count" do
+    it "return count of users associated with that institution" do
+      institution1 = create(:institution)
+      institution2 = create(:institution)
+      user1 = create(:user, institution: institution1)
+      user2 = create(:user, institution: institution2)
+      user3 = create(:user, institution: institution1)
+
+      presenter = InstitutionPresenter.new(institution1)
+
+      expect(presenter.users_count).to eq 2
+    end
+  end
+
   describe "#address_line_3" do
     context "when state is present" do
       it "correctly presents city, state and country correctly" do
