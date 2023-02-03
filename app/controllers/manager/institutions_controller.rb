@@ -54,6 +54,7 @@ class Manager::InstitutionsController < Manager::ApplicationController
         :institution_search,
         :institution_sort_by,
         :institution_country,
+        :institution_state,
         :institution_type,
       )
     end

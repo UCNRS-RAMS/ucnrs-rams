@@ -2143,6 +2143,7 @@ en:
         hide_options: "Hide Options"
         clear: "Clear"
         country: "Country"
+        state: "State"
         institution_type: "Institution Type"
         name: "Name"
         date_created: "Date Created"
@@ -2889,3 +2890,4 @@ en:
   confirm_removal: "Are you sure you want to remove %{name}?"
   not_applicable: "N/A"
   all: "All"
+  select: "Select"

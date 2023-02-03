@@ -126,6 +126,21 @@ RSpec.describe Institution, type: :model do
     end
   end
 
+  describe ".in_state" do
+    it "return only returns institution records with given state" do
+      state = create(:state)
+      institution1 = create(:institution, state: state)
+      institution2 = create(:institution, state: state)
+      create(:institution, state: create(:state))
+      create(:institution, state: create(:state))
+      create(:institution, state: create(:state))
+
+      results = Institution.in_state(state)
+
+      expect(results).to match_array [institution1, institution2]
+    end
+  end
+
   describe ".search" do
     let(:institution1) { create(:institution, name: "the institution1", acronym: "acronym1", city: "city1") }
     let(:institution2) { create(:institution, name: "institution2", acronym: "the a", city: "city2") }

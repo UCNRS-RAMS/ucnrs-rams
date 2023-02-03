@@ -3,6 +3,7 @@
 class InstitutionFilter
   DEFAULT_INSTITUTION_SORT_BY_FILTER = :user_id
   DEFAULT_INSTITUTION_COUNTRY_FILTER = nil
+  DEFAULT_INSTITUTION_STATE_FILTER = nil
   DEFAULT_INSTITUTION_TYPE_FILTER = nil
 
   def initialize(filter = nil)
@@ -21,6 +22,10 @@ class InstitutionFilter
 
   def institution_country_filter
     filter&.dig(:institution_country).presence || DEFAULT_INSTITUTION_COUNTRY_FILTER
+  end
+
+  def institution_state_filter
+    filter&.dig(:institution_state).presence || DEFAULT_INSTITUTION_STATE_FILTER
   end
 
   def institution_type_filter

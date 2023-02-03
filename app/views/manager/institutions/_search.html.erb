@@ -33,6 +33,12 @@
           <%= options_for_select(presenter.institution_country_options, presenter.institution_country_filter) %>
         </select>
       </div>
+      <div class="row-medium">
+        <label for="institution_state"><%= t(".state") %></label>
+        <select id="institution_state" name="filter[institution_state]" aria-label="show" onchange="this.form.requestSubmit()" <%= "disabled" unless presenter.country_have_states? %>>
+          <%= options_for_select(presenter.institution_state_options, presenter.institution_state_filter) %>
+        </select>
+      </div>
     </div>
     <div class="row">
       <div class="row-medium">
