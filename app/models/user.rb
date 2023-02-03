@@ -124,7 +124,7 @@ class User < ApplicationRecord
       .split
       .inject(self) do |scope, part|
         scope.where(
-          "first_name REGEXP :query OR last_name REGEXP :query",
+          "first_name REGEXP :query OR last_name REGEXP :query OR email REGEXP :query",
           query: part
         )
       end
