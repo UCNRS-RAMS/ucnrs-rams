@@ -509,6 +509,12 @@ main {
         background: $lightgray;
       }
 
+      .category {
+        input ~ label {
+          border: 2px solid $gold;
+        }
+      }
+
       .tag-btn {
         align-items: center;
         display: inline-block;
