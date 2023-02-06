@@ -676,7 +676,7 @@
       "cwe_id": [
         79
       ],
-      "note": ""
+      "note": "Cross-Site Scripting"
     },
     {
       "warning_type": "Dynamic Render Path",
