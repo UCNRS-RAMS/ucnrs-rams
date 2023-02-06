@@ -1269,6 +1269,25 @@ en:
     not_reserve_administrator: "You do not have authorization to do this because you do not have administrator role"
     error_message: "Required fields are missing"
     visits:
+      new:
+        title: "New Visit"
+      edit:
+        title: "Edit Visit"
+      waivers_policies:
+        checkbox:
+          yes_agree: "Yes, I agree"
+        show:
+          note: "Please note if your application is approved, you will be required to abide by the following policies. Failure to comply may lead to denial or termination of reserve use. Know and abide by University of California, Natural Reserve System, and reserve specific rules and regulations."
+          title: "Waivers and Policies"
+          agree: "I have read and agree to abide by the use policies listed above and any reserve-specific policies appended to this application, and am aware that it is my responsibility to disseminate this information to all members of my party."
+          signature: "* Checking the box is equivalent to your signature"
+          check_button: "Check to Agree"
+          back: "Go Back"
+          submit: "Submit New Visit Request"
+          reserve_use_agreement: "Reserve Use Agreement"
+          code_of_conduct_agreement: "Code of Conduct Agreement"
+          data_management_agreement: "Data Management Agreement"
+          policy_agreement_error: "Must agree the policy agreement"
       invoices:
         index:
           invoices: "Invoices"
@@ -1406,11 +1425,42 @@ en:
         amenities: "Amenities"
         confirm_removal: "Are you sure you want to delete visit number %{visit_id}"
       user_visits:
+        index:
+            title: "Who are you bringing with you?"
+            reserve: "Reserve"
+            arrive_departs_date: "Arrival & Departure"
+            next_step: "Next: Reserve Info"
+            back: "Go Back"
+            amenity_visits: "Amenity Visits"
+            amenity: "Amenity"
+            date_of_use: "Date of Use"
         total_days: " (%{total_days} days)"
         user_days_description: "%{total_days} days x %{count} users = %{user_days} userdays"
         user_days:
           use_arrival_and_departure: "Use Arrival and Departure datetime:"
           manual_userdays: "Manual enter number of userdays:"
+      questions:
+        save_btn:
+          back: "Go Back"
+          next_step: "Next: Waivers & Policies"
+        index:
+          title: "Permits"
+          reserve_section_title: "Reserve-specific Questions"
+          authority:
+            federal: "Federal Permits"
+            state: "State Permits"
+            local: "Local Permits"
+            institution: "Institution Permits"
+          permit_information: "Permit Information"
+          no_questions: "There are no necessary permit questions for this project at this time."
+          permit_statement: "If you have any approved permits, please provide the type of permit, permit number, permit dates, and any other relevant information. You may be asked to provide a copy of the approved permit prior to or upon your arrival. If you have your IACUC permit please also state the institution name that issued that permit."
+          back: "Go Back"
+          alt:
+            right_facing_arrow: "Right-facing arrow"
+            left_facing_arrow: "Left-facing arrow"
+          next_step: "Next: Funding"
+          yes_option: "Yes"
+          no_option: "No"
     dashboards:
       calendar:
         title: "Visits and Amenities"
@@ -2204,6 +2254,56 @@ en:
         date_created: "Date Created"
   shared:
     manager:
+      visits:
+        form:
+          visitors_list: "Visitors List"
+          name: "Name"
+          date_range: "Date Range"
+          aria:
+            arrival_time: "Arrival Time"
+            departure_time: "Departure Time"
+          titles:
+            amenities: "Select Amenities"
+            amenities_subtitle: "(Optional)"
+            purpose: "Purpose of Visit"
+            reserves: "Reserves"
+            reserve: "Reserve"
+          labels:
+            public_use_category: "Choose a category that best describes your visit"
+            purpose_of_visit: "What do you plan to do on this visit?"
+            select_project: "Select Project"
+            reserve: "Which reserve you like to visits?"
+            arrival: "Arrival"
+            departure: "Departure"
+            next_page:
+              visitors: "Next: Visitors"
+          alt_text:
+            calendar: "Calendar Icon"
+            left_arrow: "Left Arrow to Go Back"
+            right_arrow: "Right Arrow"
+          links:
+            go_back: "Go Back"
+            create_a_new_project: "or Create a new Project"
+            browse_reserves: "Browse Our Reserves"
+          public_use_options:
+            labels:
+              general_use: "General Use"
+              community_event: "Community Event"
+              fundraiser: "Fundraiser"
+              k_12_class: "K-12 Class"
+              private_class: "Private Class (Not University or K-12)"
+              volunteer: "Volunteer Event"
+          project_type_options:
+            labels:
+              research: "Research"
+              university_class: "University Class"
+              meeting_or_conference: "Meeting or Conference"
+              public_use: "Public Use"
+            explanation:
+              research: "Field or lab-based research in any discipline"
+              university_class: "University or college course or class"
+              meeting_or_conference: "Symposia, lab retreates, and academic meetings"
+              public_use: "Community events, fundraising, K-12, or other classes, volunteer use"
       invoices:
         invoice_table:
           status: "Status"

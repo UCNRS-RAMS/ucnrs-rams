@@ -1,3 +1,31 @@
+<%= render partial: "visits/steps", locals: { presenter: @presenter } %>
+<section class="visit-info">
+  <h1><%= t(".title")%></h1>
+  <table>
+    <tr>
+      <td><%= t(".reserve") %></td>
+      <td><%= @presenter.visit_reserve_name %></td>
+    </tr>
+    <tr>
+      <td><%= t(".arrive_departs_date") %></td>
+      <td><%= @presenter.visit_date_range %></td>
+    </tr>
+  </table>
+</section>
+<section class="visit-amenities">
+  <h2 class="main-header"><%= t(".amenity_visits") %></h2>
+  <table id="amenities-summary-table" class="summary-table">
+    <thead>
+      <tr>
+        <th><%= t(".amenity") %></th>
+        <th><%= t(".date_of_use") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "shared/visits/amenity_visit", collection: @presenter.amenity_visits %>
+    </tbody>
+  </table>
+</section>
 <%= turbo_frame_tag "visit-details" do%>
   <div class="user_visits user_visits-index m-top-3">
     <section class="add-visitor">
@@ -6,3 +34,13 @@
     <%= render partial: "shared/visits/user_visits/user_visits_table", locals: { presenter: @presenter } %>
   </div>
 <% end %>
+<section class="controls">
+  <%= link_to edit_manager_reserve_visit_path(reserve_id: current_reserve, id: params[:visit_id]) do %>
+    <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t("alt.left_facing_arrow")  %>
+    <%= t(".back") %>
+  <% end %>
+  <%= button_to manager_reserve_visit_questions_path(reserve_id: current_reserve ,visit_id: params[:visit_id]),method: :get, class: "active" do %>
+    <%= t(".next_step") %>
+    <%= image_tag "arrow-right.svg", alt: t("alt.right_facing_arrow") %>
+  <% end %>
+</section>

@@ -1,0 +1,4 @@
+<div class="agree">
+  <%= check_box_tag id, 1, check , data: { action: "click->waivers-policies#agreementHandler", "waivers-policies-target": "agreement"  }, class: "policy-check" %>
+  <label for=<%= id %>><%= t(".yes_agree") %> <span class="require"> * </span></label>
+</div>

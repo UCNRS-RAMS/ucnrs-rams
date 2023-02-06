@@ -9,17 +9,373 @@
 
 @include controls;
 
+.manager.visits-new,
+.manager.visits-create,
+.manager.visits-edit {
+  .container {
+    display: block;
+    justify-content: center;
+
+    .footer {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      padding: 30px 281px !important;
+
+      input {
+        margin-left: 20px;
+        padding: 20px;
+      }
+
+      button {
+        margin-left: 100px;
+      }
+
+      a {
+        align-items: center;
+        color: $dark-bluegray;
+        display: flex;
+        text-decoration: none;
+
+        img {
+          margin-right: 7px;
+        }
+      }
+    }
+
+    .reserve-info {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+      padding: 1.625rem 3rem;
+
+      .reserve-field {
+        border-radius: 0.5rem;
+        width: 23rem;
+      }
+
+      .display-row-flex {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        a {
+          padding: 0px;
+        }
+      }
+
+      label {
+        color: $dark-bluegray;
+        display: inline;
+        font-size: 0.625rem;
+        font-weight: $bold;
+      }
+
+      .error {
+        color: $red;
+      }
+
+      select {
+        background-color: white;
+        border: 1px solid;
+        border-radius: 0rem 0.5rem 0.5rem 0rem;
+        padding: 0.6rem;
+      }
+
+      input,
+      textarea {
+        border: 1px solid;
+        border-radius: 0.5rem 0rem 0rem 0.5rem;
+        padding: 0.61rem;
+      }
+    }
+
+    .amenities {
+      h2 {
+        margin-bottom: 40px;
+
+        span {
+          color: $dark-bluegray;
+          font-size: $medium;
+          margin-left: 30px;
+        }
+      }
+    }
+
+    .flex-break {
+      flex-basis: 100%;
+      height: 0;
+    }
+
+    .date-range-select {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      .separator {
+        border: 1px solid $black;
+        font-size: 0;
+        height: 0;
+        margin: 0.5rem;
+        width: 0.625rem;
+      }
+    }
+
+    .reserve-specific-fields {
+      display: flex;
+      flex-direction: column;
+
+      .reserve-message {
+        background-color: $gold;
+        border-radius: 0.3125rem;
+        font-size: 0.8125rem;
+        margin-bottom: -50px;
+        padding: 1.4rem 1.5rem 1.5rem 50px;
+
+        > p:first-of-type {
+          margin-top: 0;
+        }
+
+        > p:last-of-type {
+          margin-bottom: 0;
+        }
+
+        p {
+          line-height: 1.5rem;
+          margin-bottom: 1.2rem;
+        }
+      }
+    }
+
+    .special-needs-statement:empty {
+      display: none;
+    }
+
+    .amenities-header {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .visit-form {
+      color: $navy-blue;
+      padding: 0;
+
+      h1 {
+        font-size: 2.25rem;
+        font-weight: $semi-bold;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        font-weight: $bold;
+      }
+
+      .project-type-options {
+        .row {
+          display: flex;
+          flex-direction: row;
+          margin-bottom: 3rem;
+
+          &[data-value-projection-projected-value="research"] {
+            label[for="project-type-research"] {
+              background-color: $light-light-blue;
+              border: 2px solid $navy-blue;
+              padding: 1rem;
+            }
+          }
+
+          &[data-value-projection-projected-value="university_class"] {
+            label[for="project-type-university_class"] {
+              background-color: $light-light-blue;
+              border: 2px solid $navy-blue;
+              padding: 1rem;
+            }
+          }
+
+          &[data-value-projection-projected-value="meeting_or_conference"] {
+            label[for="project-type-meeting_or_conference"] {
+              background-color: $light-light-blue;
+              border: 2px solid $navy-blue;
+              padding: 1rem;
+            }
+          }
+
+          &[data-value-projection-projected-value="public_use"] {
+            label[for="project-type-public_use"] {
+              background-color: $light-light-blue;
+              border: 2px solid $navy-blue;
+              padding: 1rem;
+            }
+          }
+
+          label {
+            align-items: flex-start;
+            background-color: transparent;
+            border: 1px solid $gray;
+            display: flex;
+            flex: 1;
+            flex-direction: row;
+            margin-right: 10px;
+            padding: calc(1rem + 1px);
+
+            &:last-child {
+              margin-right: 0;
+            }
+
+            input {
+              margin-right: 0.5rem;
+            }
+
+            .project-type-label {
+              align-content: flex-start;
+              display: flex;
+              flex: 1;
+              flex-direction: column;
+
+              h3 {
+                font-size: 1rem;
+                font-weight: $bold;
+                margin: 0;
+                margin-bottom: 0.5rem;
+                padding: 0;
+              }
+
+              p {
+                font-size: 0.625rem;
+                font-weight: $normal;
+                margin: 0;
+                padding: 0;
+              }
+            }
+          }
+        }
+      }
+      .text-area {
+        margin-bottom: 3rem;
+
+        textarea {
+          border-radius: 0.5rem;
+          font-family: $sora;
+          font-size: 0.6875rem;
+          height: 6.675rem;
+          padding: 0.5rem;
+          width: 100%;
+        }
+
+        label {
+          color: $dark-bluegray;
+          display: inline;
+          font-size: 0.625rem;
+          font-weight: 700;
+        }
+
+        .error {
+          color: $red;
+          font-size: small;
+        }
+      }
+
+      .project_select {
+        .project-container {
+          width: 100%;
+
+          .project-title {
+            display: flex;
+            justify-content: space-between;
+
+            h3 {
+              margin: 0px;
+            }
+          }
+        }
+
+        .select_or_new {
+          align-items: center;
+          display: flex;
+
+          .display-column-flex {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1px;
+          }
+
+          .project-create-link {
+            padding: 0.5rem 0rem 0.5rem 4rem;
+          }
+
+          label {
+            color: $dark-bluegray;
+            display: inline;
+            font-size: 0.625rem;
+            font-weight: 700;
+          }
+
+          .error {
+            color: $red;
+          }
+
+          select {
+            background-color: $white;
+            border: 1px solid;
+            border-radius: 0.5rem;
+            min-width: 35rem;
+            padding: 0.6rem;
+          }
+        }
+
+        .uneditable-project-type {
+          border-left: 3px solid $navy-blue;
+          margin-bottom: 2rem;
+          padding-left: 1rem;
+
+          h3 {
+            font-size: 1rem;
+            font-weight: $bold;
+            margin-bottom: 0;
+          }
+
+          p {
+            font-size: 0.625rem;
+            font-weight: $normal;
+            margin-top: 0.5rem;
+          }
+        }
+
+        section.research,
+        section.class,
+        section.meeting {
+          @include form;
+        }
+      }
+    }
+
+    .error {
+      border-color: $red;
+      border-width: 0.125rem !important;
+      color: $red;
+      font-size: small;
+      .error_messages {
+        margin-left: 5px;
+      }
+    }
+  }
+}
+
 .manager.visits-index {
   section.content {
     display: block;
 
-    header{
-      margin: .5rem 0;
+    header {
+      margin: 0.5rem 0;
 
       h1 {
         font-size: 1.85rem;
         font-weight: $medium;
-        margin: .5rem 0;
+        margin: 0.5rem 0;
       }
     }
 
@@ -134,11 +490,11 @@
       .display-link {
         display: block;
       }
-      
+
       .controls {
         padding: 1.5rem;
       }
-      
+
       p.notice {
         background-color: $gold;
         border-radius: 10px;

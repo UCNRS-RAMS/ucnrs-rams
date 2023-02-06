@@ -2,7 +2,7 @@
 
 class Manager::Visits::UserVisitsIndexPresenter < Visits::UserVisitsIndexPresenter
   def initialize(visit:, current_user:)
-    super(current_step: 0, visit: visit, current_user: current_user)
+    super(current_step: 2, visit: visit, current_user: current_user)
   end
 
   def user_visits

@@ -5,7 +5,7 @@
       <small><%= @presenter.user_institution_name %></small>
     </div>
     <div class="header-links">
-      <%= link_to t(".submit_visit_request_for_user"), "#" %>
+      <%= link_to t(".submit_visit_request_for_user"), new_manager_reserve_visit_path(reserve_id: current_reserve, user_id: @presenter.user_id) %>
     </div>
   </header>
 

@@ -1,0 +1,75 @@
+@import "variables";
+@import "mixins/summary";
+@import "mixins/date_fields";
+@import "mixins/form";
+@import "mixins/controls";
+@import "mixins/tables";
+
+.manager.questions-index,
+.manager.questions {
+  .container {
+    display: block;
+    justify-content: center;
+
+    p.alert {
+      background-color: $red-alert;
+      margin: 0px;
+      padding: 10px;
+    }
+
+    .d-flex {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .d-flex-end {
+      display: flex;
+      justify-content: end;
+    }
+
+    .clr-red {
+      color: $red;
+    }
+
+    .d-flex-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    section.spacer {
+      margin-top: 100px;
+    }
+
+    section.questions {
+      padding: 0;
+    }
+
+    span.describe {
+      font-size: 16px;
+      width: 700px;
+    }
+
+    p.align {
+      justify-content: space-between;
+    }
+
+    span.image {
+      margin-right: 100px;
+    }
+
+    form {
+      height: auto;
+    }
+
+    table {
+      @include table-style1;
+    }
+
+    .text-area {
+      background-color: $light-gray;
+      border-radius: 5px;
+      width: 100%;
+    }
+  }
+}
