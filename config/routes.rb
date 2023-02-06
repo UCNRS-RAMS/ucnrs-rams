@@ -90,8 +90,11 @@ Rails.application.routes.draw do
       end
 
       resources :user_visits, only: [:edit, :update], controller: "visits/user_visits"
-      resources :visits, only: [:show, :destroy] do
+      resources :visits do
         resources :user_visits, only: [:new, :index, :create, :destroy], controller: "visits/user_visits"
+        resources :questions, only: [:index], controller: "visits/questions"
+        resources :answers, only: [:create], controller: "visits/answers"
+        resource :waivers_policies, only: [:show, :update], controller: "visits/waivers_policies"
         resources :invoices, except: [:index] do
           resources :payments, controller: "invoices/payments"
         end

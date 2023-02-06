@@ -49,7 +49,7 @@ class VisitForm
       Visit.transaction do
         save_visit!
         save_amenities!
-        true
+        validate_form
       end
     rescue ActiveRecord::RecordInvalid => e
       validate
