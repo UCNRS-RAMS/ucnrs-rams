@@ -712,6 +712,7 @@ en:
         special_needs: "Special Needs"
         study_area: "Study Area"
   password:
+    change_password: "Change Password"
     new:
       description: "You will be logged out <br /> and a reset password request will be sent to:"
       send: "Send"

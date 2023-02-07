@@ -6,8 +6,19 @@ class PasswordController < Devise::PasswordsController
   end
 
   def create
-    @user = current_user
-    User.send_reset_password_instructions({ email: @user.email })
-    sign_out @user
+    User.send_reset_password_instructions({ email: user.email })
+
+    if params[:user_id].present?
+      flash.now[:notice] = I18n.t(".password.create.reset_password_sent")
+    else
+      sign_out user
+    end
   end
+
+  private
+
+  def user
+    @user ||=  params[:user_id].present? ? User.find_by_id(params[:user_id]) : current_user
+  end
+
 end

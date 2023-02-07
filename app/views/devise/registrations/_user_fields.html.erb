@@ -60,7 +60,7 @@
         <%= f.password_field :password_confirmation %>
       </div>
     <% else %>
-      <%= link_to t(".links.change_my_password"), "#" %>
+      <%= presenter.change_password %>
     <% end %>
   </section>
 </div>
