@@ -3,14 +3,15 @@ class VisitsFormPresenter
   include ActionView::Helpers::TextHelper
 
   HOURS_PER_DAY = 24
-  def initialize(user:, current_step: 1, form: nil)
+  def initialize(user:, current_step: 1, form: nil, project_url: nil)
     @user = user
     @current_step = current_step
     @form = form || VisitForm.new(user: user)
     @steps_presenter = StepsPresenter.new(@current_step)
+    @project_url = project_url || new_project_path
   end
 
-  attr_reader :steps_presenter, :form, :user
+  attr_reader :steps_presenter, :form, :user, :project_url
   delegate :svg, :step_class, to: :steps_presenter
   delegate :editing, to: :form
 

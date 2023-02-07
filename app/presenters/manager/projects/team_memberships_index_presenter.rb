@@ -2,7 +2,7 @@
 
 class Manager::Projects::TeamMembershipsIndexPresenter < Projects::TeamMembershipsIndexPresenter
   def initialize(reserve:, project: nil, form: nil, current_user: nil)
-    super(current_step: 0, project: project, form: form, current_user: current_user)
+    super(current_step: 2, project: project, form: form, current_user: current_user)
     @reserve = reserve
   end
 
@@ -23,6 +23,14 @@ class Manager::Projects::TeamMembershipsIndexPresenter < Projects::TeamMembershi
         editable: current_user&.able_to_edit?(project),
         reserve: reserve,
       )
+    end
+  end
+
+  def continue_button
+    if able_to_edit?
+      { partial: "shared/projects/team_memberships/next_step_button", locals: { presenter: self, project_link: manager_reserve_project_questions_path(reserve_id: reserve, project_id: project) } }
+    else
+      { partial: "shared/projects/team_memberships/finish_button", locals: { presenter: self, project_link: manager_reserve_project_path(reserve_id: reserve, project_id: project) } }
     end
   end
 

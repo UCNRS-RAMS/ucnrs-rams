@@ -2,8 +2,7 @@ class Manager::ProjectsController < Manager::ApplicationController
   before_action :authenticate_user!
   before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
   before_action :is_administrator!, only: [:update]
-
-  layout "manager"
+  layout "manager", except: [:new, :edit]
 
   def index
     @presenter = Manager::ProjectsIndexPresenter.new(
@@ -13,21 +12,52 @@ class Manager::ProjectsController < Manager::ApplicationController
     )
   end
 
-  def show
-    @presenter = Manager::ProjectShowPresenter.new(
-      project: project,
-      reserve: current_reserve,
-      current_user: current_user,
+  def new
+    @presenter = ProjectFormPresenter.new(
+      user: user,
+      current_step: 1,
+      project_type: project_type,
     )
   end
 
+  def create
+    form = ProjectForm.new(user: user, params: project_params)
+    if form.save
+      redirect_to manager_reserve_project_team_memberships_path(reserve_id: current_reserve ,project_id: form.project, format: :html)
+    else
+      @presenter = ProjectFormPresenter.new(
+        user: user,
+        current_step: 1,
+        project_type: form.project_type,
+        form: form,
+        show_modal: false,
+      )
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def edit
-    form = ProjectForm.new(
-      user: current_user,
-      params: { id: project.id },
-    )
+    form = ProjectForm.new(user: user, params: { id: project.id })
     @presenter = ProjectFormPresenter.new(
-      user: current_user,
+      user: user,
+      current_step: 1,
+      project_type: project.project_type,
+      form: form,
+    )
+  end
+
+  def project_type
+    params[:project_type]
+  end
+
+  def show
+    @presenter = Manager::ProjectShowPresenter.new(project: project, reserve: current_reserve, current_user: user)
+  end
+
+  def edit
+    form = ProjectForm.new(user: user, params: { id: project.id })
+    @presenter = ProjectFormPresenter.new(
+      user: user,
       current_step: 1,
       project_type: project.project_type,
       form: form,
@@ -35,16 +65,12 @@ class Manager::ProjectsController < Manager::ApplicationController
   end
 
   def update
-    form = ProjectForm.new(
-      user: current_user,
-      params: project_params.merge(id: project.id),
-    )
-
+    form = ProjectForm.new(user: user, params: project_params.merge(id: project.id))
     if form.save
-      redirect_to project_team_memberships_path(form.project, format: :html)
+      redirect_to manager_reserve_project_team_memberships_path(reserve_id: current_reserve, project_id: form.project, format: :html)
     else
       @presenter = ProjectFormPresenter.new(
-        user: current_user,
+        user: user,
         current_step: 1,
         project_type: form.project_type,
         form: form,
@@ -55,6 +81,11 @@ class Manager::ProjectsController < Manager::ApplicationController
 
   private
 
+  def user
+    return current_user if params[:user_id].nil?
+    User.find_by(id: params[:user_id])
+  end
+ 
   def page_number
     params[:page]
   end

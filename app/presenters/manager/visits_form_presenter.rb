@@ -1,6 +1,6 @@
 class Manager::VisitsFormPresenter < VisitsFormPresenter
   def initialize(user:, current_step: 1, form: nil)
-    super(user: user, current_step: current_step, form: form)
+    super(user: user, current_step: current_step, form: form, project_url: new_manager_reserve_project_path(reserve_id: current_reserve, user_id: user.id))
   end
 
   def projects

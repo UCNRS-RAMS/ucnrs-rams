@@ -1,6 +1,6 @@
 class Manager::Projects::FundingsIndexPresenter < Projects::FundingsIndexPresenter
   def initialize(project:, reserve:, form: nil)
-    super(current_step: 0, project: project, form: form)
+    super(current_step: 4, project: project, form: form)
     @reserve = reserve
   end
 
