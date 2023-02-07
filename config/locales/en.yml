@@ -725,7 +725,7 @@ en:
     incomplete_project_sidebar:
       sidebar_title: "Incomplete"
       edit_project: "Edit Project"
-      sidebar_information: "This visit is incomplete and has not been submitted yet to the reserve administration for approval.  Once you are ready please complete all the visit page information and submit."
+      sidebar_information: "The project is incomplete at this time. Visits can not be submitted to incomplete projects. Once completed it will show up as a valid project to apply to your visit requests. Once you are ready please complete all the project page information and submit."
     completed_project_sidebar:
       sidebar_title: "Eureka!"
       sidebar_subtitle: "Congratulations on successfully creating your project."
