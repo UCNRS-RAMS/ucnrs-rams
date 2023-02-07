@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class RegistrationFormPresenter
+  include Rails.application.routes.url_helpers
+  include ActionView::Helpers::UrlHelper
+
   SPECIAL_CHARACTERS_PATTERN = %r{[^0-9A-Za-z]+}
   BEGINNING_OR_END_UNDERSCORE_PATTERN = %r{(?:\A_+|_+\z)}
   PHONE_NUMBER_PLACEHOLDER = "(_ _ _) _ _ _ - _ _ _ _"
@@ -17,6 +20,10 @@ class RegistrationFormPresenter
 
   def gender_identity_options
     User.gender_identities.map {|key, value| [value, key]}
+  end
+
+  def change_password
+    link_to I18n.t(".password.change_password"), password_index_path, method: :post
   end
 
   def age_range_options

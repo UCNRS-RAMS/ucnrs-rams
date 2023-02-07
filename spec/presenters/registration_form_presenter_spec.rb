@@ -26,6 +26,16 @@ RSpec.describe RegistrationFormPresenter do
     end
   end
 
+  describe "#change_password" do
+    it "return password index path" do
+      presenter = RegistrationFormPresenter.new
+
+      output = "<a rel=\"nofollow\" data-method=\"post\" href=\"/password\">Change Password</a>"
+
+      expect(presenter.change_password).to eq output
+    end
+  end
+
   describe "#age_range_options" do
     it "is an array of age range options" do
       presenter = RegistrationFormPresenter.new
