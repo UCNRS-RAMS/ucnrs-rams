@@ -5,15 +5,18 @@ class Manager::ReserveInfo::ReserveTagsController < Manager::ManagerController
   before_action :is_administrator!, only: [:create, :update]
 
   def new
-    @presenter = Manager::ReserveInfo::ReserveTagsPresenter.new(reserve: current_reserve)
+    @presenter = Manager::ReserveInfo::ReserveTagsNewPresenter.new(reserve: current_reserve)
   end
 
   def create
-    form = ReserveTagForm.new(reserve: current_reserve, reserve_tags: difference_of_hashes(params["tag_names"], reserve_tags_by_categories))
+    form = ReserveTagForm.new(
+      reserve: current_reserve, 
+      reserve_tags: difference_of_hashes(params["tag_names"], reserve_tags_by_categories)
+    )
 
     if form.save
-      @presenter = Manager::ReserveInfo::ReserveTagsPresenter.new(reserve: current_reserve)
-      flash.now[:alert] = "Reserve Tags Updated"
+      @presenter = Manager::ReserveInfo::ReserveTagsNewPresenter.new(reserve: current_reserve)
+      flash.now[:notice] = I18n.t(".manager.reserve_info.reserve_tags.create.reserve_tags_updated")
       render :new
     else
       render :new, status: :unprocessable_entity
