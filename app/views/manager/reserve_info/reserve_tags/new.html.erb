@@ -12,6 +12,9 @@
             <%= render partial: "tag_types", locals: { tag_type: tag_type, tag_names: tag_names, presenter: @presenter } %>
           <% end %>
         </section>
+        <div class="submit-btn">
+          <%= f.submit t(".submit") %>
+        </div>
       <% end %>
       <div>
         <p class="comment"><%= t(".add_more_tag_options") %></p>

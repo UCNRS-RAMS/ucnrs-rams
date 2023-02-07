@@ -1762,8 +1762,11 @@ en:
         staff_and_notifications: "Staff & Notifications"
         reserve_addendums: "Reserve Addendums"
       reserve_tags:
+        create:
+          reserve_tags_updated: "Reserve Tags Updated"
         new:
           reserve_tags: "Reserve Tags"
+          submit: "Submit"
           add_more_tag_options: "If you wish to add a new tag to this list contact a RAMS administrator and they can work on adding it to the database"
       reserve_details:
         edit:
