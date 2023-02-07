@@ -1,3 +1,10 @@
+<% content_for(:title) { t(".title") } %>
+<%= render partial: "projects/steps", locals: { presenter: @presenter } %>
+
+<section>
+  <h1><%= t(".title") %></h1>
+</section>
+
 <turbo-frame id="project-details">
   <section class="fundings-index">
     <section class="add-funding-form">
@@ -16,3 +23,14 @@
     <%= render partial: "shared/projects/fundings/funding_table", locals: { presenter: @presenter } %>
   </section>
 </turbo-frame>
+
+<section class="controls">
+  <%= link_to manager_reserve_project_questions_path(reserve_id: params[:reserve_id], project_id: @presenter.project) do %>
+    <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t(".alt.left_facing_arrow")  %>
+    <%= t(".back") %>
+  <% end %>
+  <%= button_to manager_reserve_project_complete_path(reserve_id: params[:reserve_id], project_id: @presenter.project), method: :patch, class: "active" do %>
+    <%= t(".next_step") %>
+    <%= image_tag "arrow-right.svg", alt: t(".alt.right_facing_arrow") %>
+  <% end %>
+</section>

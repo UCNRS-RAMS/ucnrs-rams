@@ -81,7 +81,11 @@ Rails.application.routes.draw do
       end
 
       resources :invoices, only: [:index]
-      resources :projects, only: [:index, :show] do
+      resources :projects do
+        resources :questions, only: [:index], controller: "projects/questions"
+        resources :answers, only: [:create], controller: "projects/answers"
+        resources :fundings, only: [:index, :create], controller: "projects/fundings"
+        resource :complete, only: [:update], controller: "projects/complete"
         resource :summary, only: [:show], controller: "projects/summary"
         resource :detail, only: [:edit, :update], controller: "projects/detail"
         resource :permit, only: [:edit, :create], controller: "projects/permit"

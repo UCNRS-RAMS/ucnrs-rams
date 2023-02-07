@@ -1,0 +1,42 @@
+<% content_for(:title) { t(".title") } %>
+<%= render partial: "projects/steps", locals: { presenter: @presenter } %>
+
+<section class="project-form">
+  <h1><%= t(".title") %></h1>
+  <%= form_with model: @presenter.form, url: manager_reserve_projects_path(reserve_id: current_reserve, user_id: params[:user_id]), data: { controller: "turbo-content" }, id: "projects-new" do |form| %>
+    <h2><%= t(".project_type_options.title") %></h2>
+    <section class="project-type-options" data-controller="value-projection" data-value-projection-projected-value="<%= form.object.project_type %>">
+      <% @presenter.project_type_options.each do |project_type| %>
+        <label for="project-type-<%= project_type %>">
+          <%= form.radio_button :project_type, project_type, id: "project-type-#{project_type}", data: { action: "click->turbo-content#change click->value-projection#change" }, checked: form.object.project_type.to_s == project_type.to_s %>
+          <div class="project-type-label">
+            <h3><%= t(".project_type_options.labels.#{project_type}") %></h3>
+            <p><%= t(".project_type_options.explanation.#{project_type}") %></p>
+          </div>
+        </label>
+      <% end %>
+    </section>
+
+    <%= turbo_frame_tag "project_type_form", data: { pattern: new_manager_reserve_project_path(reserve_id: params[:reserve_id], project_type: "VALUE"), "turbo-content-target": "destination" } do %>
+      <section class="<%= @presenter.project_type %>">
+        <%= render partial: @presenter.partial_name, locals: {
+          form: form,
+          presenter: @presenter
+        } %>
+      </section>
+    <% end %>
+  <% end %>
+</section>
+
+<section class="controls">
+  <button form="projects-new" class="active">
+    <%= t(@presenter.current_step_name) %>
+    <%= image_tag "arrow-right.svg", alt: t(".alt.right_facing_arrow") %>
+  </button>
+</section>
+
+<% if @presenter.show_modal %>
+  <% content_for :modal do %>
+    <%= render partial: "modals/project" %>
+  <% end %>
+<% end %>

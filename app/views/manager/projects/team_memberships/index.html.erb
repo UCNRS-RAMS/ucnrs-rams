@@ -1,3 +1,8 @@
+<% content_for(:title) { t(".title") } %>
+<%= render partial: "projects/steps", locals: { presenter: @presenter } %>
+<section>
+  <h1><%= t(".title") %></h1>
+</section>
 <turbo-frame id="project-details">
   <section class="team_memberships-index">
     <section class="add-user-form">
@@ -8,3 +13,10 @@
     <%= render partial: "shared/projects/team_memberships/team_member_table", locals: { presenter: @presenter } %>
   </section>
 </turbo-frame>
+<section class="controls">
+  <%= link_to edit_manager_reserve_project_path(reserve_id: params[:reserve_id] ,id: @presenter.project) do %>
+    <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t(".alt.left_facing_arrow")  %>
+    <%= t(".back") %>
+  <% end %>
+  <%= render @presenter.continue_button %>
+</section>

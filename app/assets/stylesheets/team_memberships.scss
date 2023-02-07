@@ -93,6 +93,12 @@
     padding: 1.625rem $form-page-gutter;
   }
 
+  #project-details {
+    .team_memberships-index {
+      padding: 0px;
+    }
+  }
+
   #team-member-table {
     height: 100%;
   }

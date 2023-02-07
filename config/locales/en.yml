@@ -1802,6 +1802,31 @@ en:
           name: "Name"
           date_and_time: "Date & Time"
           user_or_admin: "User/Admin"
+      team_memberships:
+        index:
+          title: "Team"
+          back: "Go Back"
+          alt:
+            left_facing_arrow: "Left-facing arrow"
+      questions:
+        index:
+          title: "Permits"
+          reserve_section_title: "Reserve-specific Questions"
+          authority:
+            federal: "Federal Permits"
+            state: "State Permits"
+            local: "Local Permits"
+            institution: "Institution Permits"
+          permit_information: "Permit Information"
+          no_questions: "There are no necessary permit questions for this project at this time."
+          permit_statement: "If you have any approved permits, please provide the type of permit, permit number, permit dates, and any other relevant information. You may be asked to provide a copy of the approved permit prior to or upon your arrival. If you have your IACUC permit please also state the institution name that issued that permit."
+          back: "Go Back"
+          alt:
+            right_facing_arrow: "Right-facing arrow"
+            left_facing_arrow: "Left-facing arrow"
+          next_step: "Next: Funding"
+          yes_option: "Yes"
+          no_option: "No"
     reports:
       show:
         report_status: "Report Status"

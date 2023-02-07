@@ -5,7 +5,7 @@ RSpec.describe "app/views/shared/projects/team_memberships/_finish_button.html.e
     project = build_stubbed(:project)
     presenter = OpenStruct.new(project: project)
 
-    render partial: "shared/projects/team_memberships/finish_button", locals: { presenter: presenter }
+    render partial: "shared/projects/team_memberships/finish_button", locals: { presenter: presenter, project_link: project_path(project) }
 
     doc = Capybara.string(rendered)
     expect(doc).to have_css("form[action='/projects/#{project.id}'] button", text: "Save Memberships")

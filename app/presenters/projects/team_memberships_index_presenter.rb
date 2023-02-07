@@ -55,9 +55,9 @@ class Projects::TeamMembershipsIndexPresenter
 
   def continue_button
     if able_to_edit?
-      { partial: "shared/projects/team_memberships/next_step_button", locals: { presenter: self } }
+      { partial: "shared/projects/team_memberships/next_step_button", locals: { presenter: self, project_link: project_questions_path(project) } }
     else
-      { partial: "shared/projects/team_memberships/finish_button", locals: { presenter: self } }
+      { partial: "shared/projects/team_memberships/finish_button", locals: { presenter: self, project_link: project_path(project) } }
     end
   end
 
