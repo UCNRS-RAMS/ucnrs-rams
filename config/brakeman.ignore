@@ -45,6 +45,29 @@
       "note": "Dynamic Render Path"
     },
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "0a152eca6ee196426f2d0f9739668ecc9b5f68f5815d5b12f3f601190e857061",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/reserve.rb",
+      "line": 55,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Arel.sql(\"          reserves.name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.short_name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.pulldown_name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.rules LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.rates LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.department LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.address_line_1 LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.address_line_2 LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.address_city LIKE \\\"%#{search_filter}%\\\" OR\\n          states.name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.address_postal_code LIKE \\\"%#{search_filter}%\\\" OR\\n          countries.name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.home_page_url LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.special_needs_statement LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.doi LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.administrative_group_name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.administrative_group_name_acronym LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.administrative_group_state LIKE \\\"%#{search_filter}%\\\"\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Reserve",
+        "method": "Reserve.searching_term"
+      },
+      "user_input": "search_filter",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
       "fingerprint": "0c5182e2fc1a0c795675498eda7f93819d26bcc8440e119da506271a78ff05db",
@@ -1085,6 +1108,6 @@
       "note": ""
     }
   ],
-  "updated": "2023-02-01 07:08:13 -0900",
+  "updated": "2023-02-08 07:24:06 -0900",
   "brakeman_version": "5.4.0"
 }
