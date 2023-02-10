@@ -30,7 +30,7 @@ class Manager::Projects::TeamMembershipsIndexPresenter < Projects::TeamMembershi
     if able_to_edit?
       { partial: "shared/projects/team_memberships/next_step_button", locals: { presenter: self, project_link: manager_reserve_project_questions_path(reserve_id: reserve, project_id: project) } }
     else
-      { partial: "shared/projects/team_memberships/finish_button", locals: { presenter: self, project_link: manager_reserve_project_path(reserve_id: reserve, project_id: project) } }
+      { partial: "shared/projects/team_memberships/finish_button", locals: { presenter: self, project_link: manager_reserve_project_path(reserve_id: reserve, id: project) } }
     end
   end
 

@@ -1,5 +1,8 @@
 class Manager::Projects::QuestionsController < ApplicationController
   before_action :authenticate_user!
+  before_action :confirm_reserve_manager!
+
+  layout "manager"
 
   def index
     @presenter = Manager::Projects::QuestionsIndexPresenter.new(

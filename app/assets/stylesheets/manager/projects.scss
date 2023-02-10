@@ -13,150 +13,153 @@
 .manager.projects-update,
 .manager.projects-new,
 .manager.projects-create {
-  @include date_fields;
+  .container {
+    @include date_fields;
+    display: block;
 
-  .modal-content.project {
-    color: $navy-blue;
-    display: flex;
-    flex-direction: column;
-
-    .close {
-      display: flex;
-      justify-content: flex-end;
-
-      img {
-        background-color: rgba($gray, 0.36);
-        border-radius: 50%;
-        padding: 0.5rem;
-      }
-    }
-
-    h1 {
+    .modal-content.project {
       color: $navy-blue;
-      font-size: 2.25rem;
-      line-height: 2.688rem;
-      margin-left: 3rem;
-      text-align: left;
-    }
+      display: flex;
+      flex-direction: column;
 
-    div {
-      width: 100%;
+      .close {
+        display: flex;
+        justify-content: flex-end;
 
-      p {
-        font-size: 0.813;
-        line-height: 1.438rem;
-        margin-bottom: 1.438rem;
+        img {
+          background-color: rgba($gray, 0.36);
+          border-radius: 50%;
+          padding: 0.5rem;
+        }
+      }
+
+      h1 {
+        color: $navy-blue;
+        font-size: 2.25rem;
+        line-height: 2.688rem;
+        margin-left: 3rem;
         text-align: left;
       }
-    }
-  }
 
-  .project-form {
-    color: $navy-blue;
-    padding: 0 $form-page-gutter;
+      div {
+        width: 100%;
 
-    h1 {
-      font-size: 2.25rem;
-      font-weight: $semi-bold;
-    }
-
-    h2 {
-      font-size: 1.5rem;
-      font-weight: $bold;
-    }
-
-    .project-type-options {
-      display: flex;
-      flex-direction: row;
-
-      &[data-value-projection-projected-value="research"] {
-        label[for="project-type-research"] {
-          background-color: $light-light-blue;
-          border: 2px solid $navy-blue;
-          padding: 1rem;
+        p {
+          font-size: 0.813rem;
+          line-height: 1.438rem;
+          margin-bottom: 1.438rem;
+          text-align: left;
         }
       }
+    }
 
-      &[data-value-projection-projected-value="class"] {
-        label[for="project-type-class"] {
-          background-color: $light-light-blue;
-          border: 2px solid $navy-blue;
-          padding: 1rem;
-        }
+    .project-form {
+      color: $navy-blue;
+      padding: 0;
+
+      h1 {
+        font-size: 2.25rem;
+        font-weight: $semi-bold;
       }
 
-      &[data-value-projection-projected-value="meeting"] {
-        label[for="project-type-meeting"] {
-          background-color: $light-light-blue;
-          border: 2px solid $navy-blue;
-          padding: 1rem;
-        }
+      h2 {
+        font-size: 1.5rem;
+        font-weight: $bold;
       }
 
-      label {
-        align-items: flex-start;
-        background-color: transparent;
-        border: 1px solid $gray;
+      .project-type-options {
         display: flex;
         flex-direction: row;
-        flex: 1;
-        margin-right: 10px;
-        padding: calc(1rem + 1px);
 
-        &:last-child {
-          margin-right: 0;
+        &[data-value-projection-projected-value="research"] {
+          label[for="project-type-research"] {
+            background-color: $light-light-blue;
+            border: 2px solid $navy-blue;
+            padding: 1rem;
+          }
         }
 
-        input {
-          margin-right: 0.5rem;
+        &[data-value-projection-projected-value="class"] {
+          label[for="project-type-class"] {
+            background-color: $light-light-blue;
+            border: 2px solid $navy-blue;
+            padding: 1rem;
+          }
         }
 
-        .project-type-label {
-          align-content: flex-start;
+        &[data-value-projection-projected-value="meeting"] {
+          label[for="project-type-meeting"] {
+            background-color: $light-light-blue;
+            border: 2px solid $navy-blue;
+            padding: 1rem;
+          }
+        }
+
+        label {
+          align-items: flex-start;
+          background-color: transparent;
+          border: 1px solid $gray;
           display: flex;
-          flex-direction: column;
           flex: 1;
+          flex-direction: row;
+          margin-right: 10px;
+          padding: calc(1rem + 1px);
 
-          h3 {
-            font-size: 1rem;
-            font-weight: $bold;
-            margin: 0;
-            padding: 0;
+          &:last-child {
+            margin-right: 0;
           }
 
-          p {
-            font-size: 0.625rem;
-            font-weight: $normal;
-            margin: 0;
-            padding: 0;
+          input {
+            margin-right: 0.5rem;
+          }
+
+          .project-type-label {
+            align-content: flex-start;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+
+            h3 {
+              font-size: 1rem;
+              font-weight: $bold;
+              margin: 0;
+              padding: 0;
+            }
+
+            p {
+              font-size: 0.625rem;
+              font-weight: $normal;
+              margin: 0;
+              padding: 0;
+            }
           }
         }
       }
-    }
 
-    .uneditable-project-type {
-      border-left: 3px solid $navy-blue;
-      margin-bottom: 2rem;
-      padding-left: 1rem;
+      .uneditable-project-type {
+        border-left: 3px solid $navy-blue;
+        margin-bottom: 2rem;
+        padding-left: 1rem;
 
-      h3 {
-        font-size: 1rem;
-        font-weight: $bold;
-        margin-bottom: 0;
+        h3 {
+          font-size: 1rem;
+          font-weight: $bold;
+          margin-bottom: 0;
+        }
+
+        p {
+          font-size: 0.625rem;
+          font-weight: $normal;
+          margin-top: 0.5rem;
+        }
       }
 
-      p {
-        font-size: 0.625rem;
-        font-weight: $normal;
-        margin-top: 0.5rem;
+      section.research,
+      section.class,
+      section.meeting,
+      section.public_use {
+        @include form;
       }
-    }
-
-    section.research,
-    section.class,
-    section.meeting,
-    section.public_use {
-      @include form;
     }
   }
 }
@@ -265,13 +268,13 @@
   section.content {
     display: block;
 
-    header{
-      margin: .5rem 0;
+    header {
+      margin: 0.5rem 0;
 
       h1 {
         font-size: 1.85rem;
         font-weight: $medium;
-        margin: .5rem 0;
+        margin: 0.5rem 0;
       }
     }
 
