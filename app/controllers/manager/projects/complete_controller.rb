@@ -1,5 +1,8 @@
 class Manager::Projects::CompleteController < ApplicationController
   before_action :authenticate_user!
+  before_action :confirm_reserve_manager!
+
+  layout "manager"
 
   def update
     form = ProjectCompleteForm.new(params: { id: project_id })

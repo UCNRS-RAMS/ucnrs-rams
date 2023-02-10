@@ -34,9 +34,3 @@
     <%= image_tag "arrow-right.svg", alt: t(".alt.right_facing_arrow") %>
   </button>
 </section>
-
-<% if @presenter.show_modal %>
-  <% content_for :modal do %>
-    <%= render partial: "modals/project" %>
-  <% end %>
-<% end %>

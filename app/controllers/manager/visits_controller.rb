@@ -8,7 +8,11 @@ class Manager::VisitsController < Manager::ApplicationController
 
   def new
     form = VisitForm.new(user: user, params: {reserve_id: current_reserve.id})
-    @presenter = Manager::VisitsFormPresenter.new(user: user, form: form)
+    @presenter = Manager::VisitsFormPresenter.new(
+      user: user,
+      form: form,
+      project_url: new_manager_reserve_project_path(reserve_id: current_reserve, user_id: user.id)
+    )
   end
 
   def create

@@ -1,5 +1,8 @@
 class Manager::Projects::AnswersController < ApplicationController
+  before_action :authenticate_user!
   before_action :confirm_reserve_manager!
+
+  layout "manager"
 
   def create
     form = ProjectAnswersForm.new(
