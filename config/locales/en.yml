@@ -1762,6 +1762,12 @@ en:
       report_part_7:
         part_7_nrs_campus_committee: "Part 7. NRS Campus Committee Roster"
         report_has_been_reviewed: "This page of the report has been reviewed and is ready for UCOP."
+      report_part_8:
+        part_8_use_by_public: "Part 8. Use by Publicly Affiliated Groups"
+      report_part_8_data:
+        project_title: "Project Title"
+        institution: "Institution"
+        role: "Role"
       fiscal_year_select:
         fiscal_year: "Fiscal Year"
       report_approval_form:

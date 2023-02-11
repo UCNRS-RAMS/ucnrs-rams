@@ -1,0 +1,13 @@
+<section class="content">
+  <header>Reports</header>
+  <div>
+    <section class="report-menu">
+      <%= render partial: 'menu', locals: { presenter: @presenter } %>
+    </section>
+    <section class="report">
+      <header><%= t(".part_8_use_by_public") %></header>
+      <%= render partial: 'fiscal_year_select', locals: { presenter: @presenter } %>
+      <%= render partial: 'report_part_8_data', locals: { report_part8_data: @presenter.report_part8_data } %>
+    </section>
+  </div>
+</section>
