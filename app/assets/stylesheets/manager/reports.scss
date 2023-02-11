@@ -230,3 +230,7 @@ table.report-part-4-table {
     }
   }
 }
+
+table.report-part-8-table {
+  @include rams-2-list-table;
+}
