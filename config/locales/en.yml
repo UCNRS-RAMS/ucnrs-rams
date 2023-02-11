@@ -1761,6 +1761,16 @@ en:
         none: "None"
       report_part_5:
         part_5_publications: "Part 5. Publications"
+        report_has_been_reviewed: "This page of the report has been reviewed and is ready for UCOP."
+        direction_1: "Publications are now handled through Zotero. UCOP will retrieve publication data from your individual Zotero library for your reserve."
+        direction_2: "This section is meant to provide tips on finding and adding publications to your reserve's Zotero library."
+        direction_3: "To update your reserve's Zotero library, follow these steps:"
+        step_1: "Access to reserve's Zotero bibliographic database: <strong>%{zotero_url}</strong> | Username: <strong>%{zotero_login}</strong> Password: <strong>%{zotero_password}</strong>"
+        step_2: "Use internet search engines (Google Scholar, ProQuest, research gate, JSTOR) to search for publications that include your reserve name as key words (e.g. \"Sedgwick Reserve\") and on individual researchers."
+        step_3: "You may find additional citations by reviewing Publications included in a researcher's RAMS applications."
+        step_4: "Set up a <strong>Google Scholar</strong> search alert for your reserve."
+        step_5: "Add a Zotero connector to your browser or install the standalone Zotero application to easily add publications to your Zotero library."
+        step_6: "Do not wait until September to update your Zotero library - better to do it throughout the year!"
       report_part_6:
         part_6_narrative: "Part 6. Narrative"
         report_has_been_reviewed: "This page of the report has been reviewed and is ready for UCOP."

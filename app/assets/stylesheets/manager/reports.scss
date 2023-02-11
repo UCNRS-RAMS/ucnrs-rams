@@ -65,7 +65,7 @@
       align-items: center;
       display: flex;
       gap: .5rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
 
     #review {
@@ -98,6 +98,17 @@
       min-height: 15rem;
       min-width: 100%;
       padding: 0.625rem;
+    }
+
+    .direction {
+      font-size: 0.9375rem;
+      margin-bottom: 3rem;
+
+      .steps {
+        li {
+          margin: 1.5rem 0;
+        }
+      }
     }
   }
 }
