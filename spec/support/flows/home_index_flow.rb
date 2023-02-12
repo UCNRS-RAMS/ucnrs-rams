@@ -77,7 +77,7 @@ class HomeIndexFlow
   end
 
   def go_to_page(page_number)
-    page.find("a", text: page_number).click
+    page.find("a", exact_text: page_number.to_s).click
   end
 
   def has_no_pagination_links?

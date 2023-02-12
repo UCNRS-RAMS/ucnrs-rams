@@ -45,7 +45,7 @@ RSpec.describe "Home Index" do
       flow.visit_home_index_page
       flow.dismiss_modal
       flow.click_calendar_button
-      
+
       expect(flow).to be_on_home_index_page
       expect(flow).to have_calendar
     end
@@ -60,11 +60,11 @@ RSpec.describe "Home Index" do
       flow.visit_home_index_page
       flow.dismiss_modal
       flow.click_calendar_button
-      
+
       expect(flow).to be_on_home_index_page
       expect(flow).to have_calendar
 
-      visit_date_range.each do |date| 
+      visit_date_range.each do |date|
         expect(flow).to have_visit_bar(date)
       end
       expect(flow).to have_visit_status_bar(visit.starts_at.strftime("%Y-%m-%d"), visit.status)
@@ -77,7 +77,7 @@ RSpec.describe "Home Index" do
       visit1 = create(:visit, starts_at: Time.current, ends_at: Time.current.end_of_week, user: user, status: :incomplete)
       visit2 = create(:visit, starts_at: Time.current.beginning_of_month, ends_at: Time.current.end_of_week, user: user, status: :approved)
       visit2_date_range = (visit2.starts_at.to_date..visit2.ends_at.to_date).map{ |date| date.strftime("%Y-%m-%d") }
-      
+
       sign_in(user)
       flow = HomeIndexFlow.new(page)
 
@@ -87,7 +87,7 @@ RSpec.describe "Home Index" do
 
       page.find("#visit_status").select("Approved")
 
-      visit2_date_range.each do |date| 
+      visit2_date_range.each do |date|
         expect(flow).to have_visit_bar(date)
       end
       expect(flow).to have_visit_status_bar(visit2.starts_at.strftime("%Y-%m-%d"), visit2.status)
@@ -101,7 +101,7 @@ RSpec.describe "Home Index" do
       visit1 = create(:visit, starts_at: Time.current, ends_at: Time.current.end_of_week, user: user, status: :incomplete, reserve: reserve1)
       visit2 = create(:visit, starts_at: Time.current.beginning_of_month, ends_at: Time.current.end_of_week, user: user, status: :approved, reserve: reserve2)
       visit1_date_range = (visit1.starts_at.to_date..visit1.ends_at.to_date).map{ |date| date.strftime("%Y-%m-%d") }
-      
+
       sign_in(user)
       flow = HomeIndexFlow.new(page)
 
@@ -111,7 +111,7 @@ RSpec.describe "Home Index" do
 
       page.find("#visit_status").select("reserve1")
 
-      visit1_date_range.each do |date| 
+      visit1_date_range.each do |date|
         expect(flow).to have_visit_bar(date)
       end
       expect(flow).to have_visit_status_bar(visit1.starts_at.strftime("%Y-%m-%d"), visit1.status)
