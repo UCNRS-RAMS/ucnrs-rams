@@ -27,19 +27,9 @@
       <%= paginate @presenter.invoice_scope, param_name: :invoice_page, data: { "turbo-action": "advance" } %>
     </section>
   <% end %>
-
 </section>
 
-<section class="news">
-  <header>
-    <%= t(".latest_news") %>
-    <%= link_to t(".view_all"), "#" %>
-  </header>
-
-  <section class="articles">
-    <%= render partial: "news_article", collection: @presenter.news_articles %>
-  </section>
-</section>
+<turbo-frame id="ucnrs_latest_news" src="/home/latest_news"></turbo-frame>
 
 <% if session[:welcome].nil? && session[:welcome] = true %>
   <% content_for :modal do %>

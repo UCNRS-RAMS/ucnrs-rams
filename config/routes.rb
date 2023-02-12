@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   namespace :home do
     resource :calendar, only: [:show], controller: "calendar"
+    resources :latest_news, only: [:index]
   end
   resources :institutions, only: [:index, :new, :create]
   resources :states, only: [:index]
