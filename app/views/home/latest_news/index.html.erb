@@ -1,0 +1,16 @@
+<turbo-frame id="ucnrs_latest_news">
+  <section class="news">
+    <header>
+      <%= t(".latest_news") %>
+      <%= link_to t(".view_all"), "https://ucnrs.org" %>
+    </header>
+    <section class="articles">
+      <% @presenter.news_articles.each do |article| %>
+        <%= link_to article.link, class: "news_article", target: "_blank" do %>
+          <%= image_tag article.image, alt: t("alt.news_article_image") %>
+          <p class="headline"><%= article.title.html_safe %></p>
+        <% end %>
+      <% end %>
+    </section>
+  </section>
+</turbo-frame>
