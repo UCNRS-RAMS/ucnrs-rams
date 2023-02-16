@@ -17,15 +17,11 @@ class ReservesIndexPresenter
     ReserveTag
     .pluck(:name, :category)
     .to_h
-    .then do |reserve_tags| 
+    .then do |reserve_tags|
       reserve_tags
       .keys
       .group_by { |tag| reserve_tags[tag] }
     end
-  end
-
-  def amenities_tags
-    ["amenity01", "amenity01", "amenity01", "amenity01", "amenity01", "amenity01", "amenity01", "amenity01"]
   end
 
   private
