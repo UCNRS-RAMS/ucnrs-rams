@@ -38,10 +38,6 @@
                 <%= render partial: "tag_types", locals: { tag_type: tag_type, tag_names: tag_names } %>
               <% end %>
             </section>
-            <section class="amenity-badges">
-              <h2><%= t(".amenity_tags") %></h2>
-              <%= render partial: "amenities_tag", collection: @presenter.amenities_tags %>
-            </section>
             <div class="submit-btn" data-action= "click->reserve#reset" >
               <%= image_tag "icon-refresh-a.svg", alt: t("alt.reload_icon"), height: 16 %>
               <span><%= t(".clear_selection_and_start_over") %></span>
@@ -49,7 +45,7 @@
           </div>
           <button class="button-clear load-hide show-765"><%= t(".less_options") %></button>
         </div>
-      <% end %> 
+      <% end %>
     </section>
   </div>
 </div>
