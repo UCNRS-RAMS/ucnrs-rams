@@ -116,6 +116,9 @@ class UserVisit < ApplicationRecord
     if departs_at > visit.ends_at
       errors.add(:departs_at, :must_be_before_visit_end_date)
     end
+    if arrives_at > visit.ends_at
+      errors.add(:arrives_at, :must_be_before_visit_end_date)
+    end
   end
 
   private
