@@ -8,7 +8,7 @@ class UserVisitForm
   end
 
   def initialize(params: {})
-    @visit = Visit.find_by(id: params[:visit_id])
+    @params = params
     @user = User.find_by(id: params[:user_id])
     @user_visit = UserVisit.find_by(id: params[:id]) || UserVisit.new(new_user_visit_params)
     assign(params.except(:institution))
@@ -74,6 +74,10 @@ class UserVisitForm
     end
   end
 
+  def visit
+    @visit ||= Visit.find_by(id: params[:visit_id]) || user_visit&.visit
+  end
+
   def departs_time(date)
     return nil if date.blank?
 
@@ -136,4 +140,6 @@ class UserVisitForm
       public_send("#{key}=", value)
     end
   end
+
+  attr_reader :params
 end

@@ -75,6 +75,7 @@ en:
           attributes:
             arrives_at:
               must_be_after_visit_start_date: "must be after visit start date"
+              must_be_before_visit_end_date: "must be before visit end date"
               dates_overlap: "overlapping date with existing dates"
             departs_at:
               dates_overlap: "overlapping date with existing dates"
