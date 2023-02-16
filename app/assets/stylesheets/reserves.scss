@@ -314,15 +314,12 @@ main {
 
 .split-background {
   background: linear-gradient(90deg, $white 50%, $light-gray 50%);
-}
-
-.reserves-list.container {
-  margin: 0 auto;
-  max-width: 1300px;
+  height: 100%;
 }
 
 .reserves-list {
   display: flex;
+  height: 100%;
 
   span,
   p {
@@ -367,7 +364,7 @@ main {
     color: $navy-blue;
     flex-grow: 1;
     font-size: 0.875rem;
-    padding: 3.5rem 3.5rem 1.5rem 1.25rem;
+    padding: 3.5rem 3rem 1.5rem 1.25rem;
 
     h1 {
       color: $navy-blue;
@@ -428,9 +425,18 @@ main {
     background-color: $light-gray;
     box-sizing: border-box;
     color: $navy-blue;
+    flex-basis: min-content;
     font-size: 0.8125rem;
     min-width: 360px;
-    padding: 4.5rem 1.25rem 1.5rem 3.5rem;
+    padding: 4.5rem 1.25rem 1.5rem 3rem;
+
+    section {
+      margin: 2.5rem auto;
+    }
+
+    span, a {
+      display: block;
+    }
 
     .search input {
       background-color: $white;
@@ -477,8 +483,7 @@ main {
       }
     }
 
-    section,
-    .reserve-cards {
+    .search-option {
       margin: 2.5rem auto;
       max-width: 865px;
 
@@ -486,62 +491,71 @@ main {
         margin: 0.5rem 0;
       }
 
-      span,
-      a {
-        display: block;
+      .tags-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
       }
 
-      span.badge {
-        border: 1px solid $gray;
-        color: $semidark-bluegray;
-        cursor: pointer;
-        display: inline-block;
-        font-size: 0.75rem;
-        margin: 0.3125rem;
-        padding: 0.3125rem 0.4375rem;
+      .tags-names {
+        margin-top: 10px;
       }
 
-      .reserve_tags {
-        display: inline-block;
-      }
+      .tag-btn.category {
+        label {
+          background: unset;
+          border: 1px solid $gold;
+        }
 
-      .name-tag {
-        background: $lightgray;
-      }
+        label:hover {
+          background: $gold;
+          color: $white;
+        }
 
-      .category {
-        input ~ label {
-          border: 2px solid $gold;
+        input:checked ~ label {
+          background: $gold;
+          color: $white;
         }
       }
 
       .tag-btn {
-        align-items: center;
-        display: inline-block;
-        font-size: 20px;
-        justify-content: center;
-
         input {
           display: none;
         }
 
         label {
           align-items: center;
+          background: $lightgray;
           border: 1px solid $gray;
+          border-radius: 3px;
           color: $semidark-bluegray;
           cursor: pointer;
           display: inline-block;
-          font-size: 1rem;
-          margin: 0.3125rem;
+          font-size: 0.875rem;
           padding: 0.3125rem 0.4375rem;
-          width: fit-content;
+          transition: all .15s ease-in-out;
         }
 
-        input:checked ~ label {
+        label:hover {
           background: $gray;
           color: $white;
         }
+
+        label:active {
+          background: $gray;
+          color: $white;
+
+        }
+
+        input:checked ~ label {
+          background: $dark-gray;
+          color: $white;
+        }
       }
+    }
+
+    .submit-btn span {
+      display: unset;
     }
   }
 }
@@ -550,7 +564,7 @@ main {
 .amenity-cards {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.625rem 1.625rem;
+  gap: 1rem;
   justify-content: space-evenly;
   margin: 2rem 0;
 
@@ -559,12 +573,11 @@ main {
     flex-basis: 15%;
     margin: 0 0 0.75rem 0;
     min-height: 230px;
-    min-width: 270px;
 
     .image img {
       border-radius: 5px;
       height: 165px;
-      width: 270px;
+      width: 260px;
     }
 
     a {
@@ -614,12 +627,7 @@ main {
     font-weight: $semi-bold;
     margin: 0;
   }
-}
 
-.reserve-waivers,
-.reserve-personnel,
-.reserve-info,
-.reserve-search {
   a {
     color: $sky-blue;
     font-size: 0.875rem;
@@ -861,8 +869,4 @@ main {
   .button-main {
     font-size: 0.875rem;
   }
-}
-
-.load-hide {
-  display: none;
 }
