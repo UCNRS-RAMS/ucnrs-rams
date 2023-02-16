@@ -14,7 +14,10 @@
       <% end %>
     </section>
     <section class="right-side" data-controller= "reserve" >
-      <%= form_with url: reserves_path, method: :get, data: { "turbo-frame": "reserves", "reserve-target": "form" } do %>
+      <%= form_with url: reserves_path,
+        method: :get,
+        data: { "turbo-frame": "reserves", "turbo-action": "advance", "reserve-target": "form" } do
+      %>
         <div class="reserve-search">
           <div id="right-reserve-intro" class="load-hide show-765">
             <h1><%= t(".direction_title") %></h1>
@@ -32,11 +35,13 @@
             </label>
           </section>
           <div class="search-options">
-            <section class="tag-badges">
+            <section id="search-reserve-tags" class="search-option">
               <h2><%= t(".tags") %></h2>
-              <% @presenter.reserve_tags.each do |tag_type, tag_names| %>
-                <%= render partial: "tag_types", locals: { tag_type: tag_type, tag_names: tag_names } %>
-              <% end %>
+              <div id="reserve-tags-container" class="tags-container">
+                <% @presenter.reserve_tags.each do |tag_type, tag_names| %>
+                  <%= render partial: "tag_types", locals: { tag_type: tag_type, tag_names: tag_names } %>
+                <% end %>
+              </div>
             </section>
             <div class="submit-btn" data-action= "click->reserve#reset" >
               <%= image_tag "icon-refresh-a.svg", alt: t("alt.reload_icon"), height: 16 %>
