@@ -2148,6 +2148,10 @@ en:
         users: "Users"
         institutions: "Institutions"
     visits:
+      visitors_table:
+        visitors_list: "Visitors List"
+        name: "Name"
+        date_range: "Date Range"
       content:
         reserve_questions: "Reserve Questions"
         visitors: "Visitors (%{size})"
@@ -2219,9 +2223,6 @@ en:
         text:
           aria_label_for: "textarea answer field for question %{question}"
       form:
-        visitors_list: "Visitors List"
-        name: "Name"
-        date_range: "Date Range"
         aria:
           arrival_time: "Arrival Time"
           departure_time: "Departure Time"
