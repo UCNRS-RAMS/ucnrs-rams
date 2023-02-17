@@ -16,6 +16,88 @@ RSpec.describe Manager::VisitShowPresenter do
     end
   end
 
+  describe "#tab_content_path" do
+    it "return 'edit_manager_reserve_visit_detail_path' if selected_tab is details" do
+      user = create(:user, :confirmed)
+      reserve = create(:reserve)
+      visit = create(:visit, user: user, reserve: reserve)
+
+      show_presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: user, selected_tab: "details")
+
+      output = "/manager/reserves/#{reserve.id}/visits/#{visit.id}/detail/edit"
+
+      expect(show_presenter.tab_content_path).to eq output
+    end
+
+    it "return 'manager_reserve_visit_user_visits_path' if selected_tab is visitors" do
+      user = create(:user, :confirmed)
+      reserve = create(:reserve)
+      visit = create(:visit, user: user, reserve: reserve)
+
+      show_presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: user, selected_tab: "visitors")
+
+      output = "/manager/reserves/#{reserve.id}/visits/#{visit.id}/user_visits"
+
+      expect(show_presenter.tab_content_path).to eq output
+    end
+
+    it "return 'manager_reserve_visit_reserve_info_index_path' if selected_tab is reserve_info" do
+      user = create(:user, :confirmed)
+      reserve = create(:reserve)
+      visit = create(:visit, user: user, reserve: reserve)
+
+      show_presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: user, selected_tab: "reserve_info")
+
+      output = "/manager/reserves/#{reserve.id}/visits/#{visit.id}/reserve_info"
+
+      expect(show_presenter.tab_content_path).to eq output
+    end
+
+    it "return manager_reserve_visit_invoices_path if selected_tab is invoices" do
+      user = create(:user, :confirmed)
+      reserve = create(:reserve)
+      visit = create(:visit, user: user, reserve: reserve)
+
+      show_presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: user, selected_tab: "invoices")
+
+      output = "/manager/reserves/#{reserve.id}/visits/#{visit.id}/invoices"
+
+      expect(show_presenter.tab_content_path).to eq output
+    end
+
+    it "return manager_reserve_visit_summary_path if selected_tab is not present" do
+      user = create(:user, :confirmed)
+      reserve = create(:reserve)
+      visit = create(:visit, user: user, reserve: reserve)
+
+      show_presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: user)
+
+      output = "/manager/reserves/#{reserve.id}/visits/#{visit.id}/summary"
+
+      expect(show_presenter.tab_content_path).to eq output
+    end
+  end
+
+  describe "#tab_class" do
+    it "return 'active' if tab is equals to selected_tab" do
+      user = create(:user, :confirmed)
+      visit = create(:visit, user: user)
+
+      show_presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: user, selected_tab: "invoices")
+
+      expect(show_presenter.tab_class("invoices")).to eq "active"
+    end
+
+    it "return empty string if tab is equals to selected_tab" do
+      user = create(:user, :confirmed)
+      visit = create(:visit, user: user)
+
+      show_presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: user, selected_tab: "invoices")
+
+      expect(show_presenter.tab_class("summary")).to eq ""
+    end
+  end
+
   describe "#reserve_manager?" do
     it "return true if current user is a staff member of reserve" do
       user = create(:user, :confirmed)

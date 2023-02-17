@@ -64,7 +64,7 @@
       </div>
     </section>
     <section class="right-side">
-      <button class="button-main"><%= t(".schedule_a_visit") %></button>
+      <%= link_to t(".schedule_a_visit"), new_visit_path, class: "button-main", id: "schedule-visit"%>
       <section class="reserve-info">
         <%= image_tag @presenter.logo_src, alt: t(".alt_text.reserve_logo"), height: 100 %>
         <div>
