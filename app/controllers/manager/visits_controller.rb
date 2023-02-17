@@ -1,9 +1,9 @@
-class Manager::VisitsController < Manager::ManagerController
+class Manager::VisitsController < Manager::ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_reserve_manager!, only: [:destroy]
+  before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }, only: [:destroy]
   before_action :confirm_manager!, only: [:show]
   before_action :is_administrator_or_accountant!, only: [:destroy]
-  
+
   layout "manager"
 
   def show

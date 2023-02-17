@@ -1,6 +1,6 @@
-class Manager::Projects::FundingsController < Manager::ManagerController
+class Manager::Projects::FundingsController < Manager::ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_reserve_manager!
+  before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
   before_action :is_administrator!, only: [:create, :update, :destroy]
 
   def index

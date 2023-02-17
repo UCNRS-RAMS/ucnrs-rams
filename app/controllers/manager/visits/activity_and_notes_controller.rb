@@ -1,4 +1,4 @@
-class Manager::Visits::ActivityAndNotesController < Manager::ManagerController
+class Manager::Visits::ActivityAndNotesController < Manager::ApplicationController
   before_action :authenticate_user!
   before_action :confirm_manager!
   before_action :is_administrator_or_accountant!, only: [:create]
@@ -32,7 +32,7 @@ class Manager::Visits::ActivityAndNotesController < Manager::ManagerController
     params.permit(:visit_id).require(:visit_id)
   end
 
-  def note_params 
+  def note_params
     params.require(:reserve_note).permit(:note).tap do |note_params|
       note_params[:user_id] = current_user.id
       note_params[:reserve_id] = current_reserve.id

@@ -1,16 +1,10 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   helper_method :current_reserve
+  helper_method :super_admin?
 
   def current_reserve
     @current_reserve ||= Reserve.find_by(id: params[:reserve_id])
-  end
-
-  def confirm_reserve_manager!
-    return true if current_user.manager_of_reserve?(current_reserve)
-
-    flash[:notice] = I18n.translate("manager.not_a_manager_of_reserve")
-    redirect_to root_url and return false
   end
 
   def confirm_manager!
@@ -18,6 +12,10 @@ class ApplicationController < ActionController::Base
 
     flash[:notice] = I18n.translate("manager.not_a_manager")
     redirect_to root_url and return false
+  end
+
+  def super_admin?
+    current_user.admin?
   end
 
   protected

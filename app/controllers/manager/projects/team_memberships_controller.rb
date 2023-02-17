@@ -1,6 +1,6 @@
-class Manager::Projects::TeamMembershipsController < Manager::ManagerController
+class Manager::Projects::TeamMembershipsController < Manager::ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_reserve_manager!
+  before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
   before_action :is_administrator!, only: [:create, :update, :destroy]
 
   def index
@@ -76,7 +76,7 @@ class Manager::Projects::TeamMembershipsController < Manager::ManagerController
         end
         format.html do
           render template: "shared/projects/team_memberships/edit",
-            status: :unprocessable_entity 
+            status: :unprocessable_entity
         end
       end
     end

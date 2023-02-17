@@ -1,4 +1,4 @@
-class Manager::Projects::UsersController < Manager::ManagerController
+class Manager::Projects::UsersController < Manager::ApplicationController
   before_action :is_administrator!, only: [:create]
   layout false
 

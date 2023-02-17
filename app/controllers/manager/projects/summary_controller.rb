@@ -1,6 +1,6 @@
-class Manager::Projects::SummaryController < ApplicationController
+class Manager::Projects::SummaryController < Manager::ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_reserve_manager!
+  before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
 
   def show
     @presenter = Manager::ProjectShowPresenter.new(project: project, reserve: current_reserve, current_user: current_user)

@@ -1,8 +1,9 @@
-class Manager::ReserveInfo::PermitsController < Manager::ManagerController
-  layout "manager"
+class Manager::ReserveInfo::PermitsController < Manager::ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_manager!
+  before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
   before_action :is_administrator!, only: [:update]
+
+  layout "manager"
 
   def index
     @presenter = Manager::ReserveInfo::PermitsIndexPresenter.new(

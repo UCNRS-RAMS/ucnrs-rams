@@ -1,4 +1,4 @@
-class Manager::Visits::SummaryController < Manager::ManagerController
+class Manager::Visits::SummaryController < Manager::ApplicationController
   before_action :authenticate_user!
   before_action :confirm_manager!
   before_action :is_administrator_or_accountant!, only: [:update]

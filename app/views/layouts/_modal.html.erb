@@ -1,0 +1,5 @@
+<div id="modal" class="modal" data-controller="modal" aria-hidden="true">
+  <div class="modal-container">
+    <%= content_for?(:modal) ? yield(:modal) : render(partial: "modals/empty") %>
+  </div>
+</div>

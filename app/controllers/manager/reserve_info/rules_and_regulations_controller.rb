@@ -1,7 +1,9 @@
-class Manager::ReserveInfo::RulesAndRegulationsController < Manager::ManagerController
-  layout "manager"
+class Manager::ReserveInfo::RulesAndRegulationsController < Manager::ApplicationController
   before_action :authenticate_user!
+  before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
   before_action :is_administrator!, only: [:update]
+
+  layout "manager"
 
   def edit
     form = ReserveForm.new(reserve: current_reserve)
