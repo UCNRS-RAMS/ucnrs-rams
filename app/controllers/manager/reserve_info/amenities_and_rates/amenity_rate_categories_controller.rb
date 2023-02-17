@@ -1,8 +1,9 @@
-class Manager::ReserveInfo::AmenitiesAndRates::AmenityRateCategoriesController < Manager::ManagerController
-  layout "manager"
+class Manager::ReserveInfo::AmenitiesAndRates::AmenityRateCategoriesController < Manager::ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_reserve_manager!
+  before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
   before_action :is_administrator!, only: [:update]
+
+  layout "manager"
 
   def edit
     form = AmenityRateCategoryForm.new(amenity_rate_category: amenity_rate_category)
@@ -11,7 +12,7 @@ class Manager::ReserveInfo::AmenitiesAndRates::AmenityRateCategoriesController <
 
   def update
     form = AmenityRateCategoryForm.new(amenity_rate_category: amenity_rate_category, params: amenity_rate_category_params)
-    
+
     if form.save
       redirect_to manager_reserve_reserve_info_amenities_and_rates_path(current_reserve)
     else

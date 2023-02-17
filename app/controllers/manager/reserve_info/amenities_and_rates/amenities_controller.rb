@@ -1,10 +1,10 @@
 module Manager
   module ReserveInfo
     module AmenitiesAndRates
-      class AmenitiesController < Manager::ManagerController
+      class AmenitiesController < Manager::ApplicationController
         layout "manager"
         before_action :authenticate_user!
-        before_action :confirm_reserve_manager!
+        before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
         before_action :is_administrator!, only: [:create, :update]
 
         def new

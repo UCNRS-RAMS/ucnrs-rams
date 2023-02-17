@@ -1,14 +1,14 @@
-class Manager::Projects::ActivityAndNotesController < Manager::ManagerController
+class Manager::Projects::ActivityAndNotesController < Manager::ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_reserve_manager!
+  before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
   before_action :project, only: [:index, :create]
   before_action :is_administrator!, only: [:create]
 
   def index
     @presenter = Manager::Projects::ActivityAndNotesIndexPresenter.new(
-      project: @project, 
-      logs_page: params[:logs_page], 
-      notes_page: params[:notes_page], 
+      project: @project,
+      logs_page: params[:logs_page],
+      notes_page: params[:notes_page],
       reserve: current_reserve
     )
   end

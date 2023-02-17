@@ -1,6 +1,6 @@
-class Manager::Visits::InvoicesController < ApplicationController
+class Manager::Visits::InvoicesController < Manager::ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_reserve_manager!
+  before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
   layout "manager"
 
   def index

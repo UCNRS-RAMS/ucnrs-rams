@@ -18,7 +18,6 @@ RSpec.describe "Confirm manager", type: :system, js: true do
     it "means the user gets redirected to root home page when going to manager reserve page" do
       user = create(:user, :confirmed)
       reserve = create(:reserve)
-      create(:reserve_personnel, user: user)
       sign_in(user)
       flow = ConfirmManagerFlow.new(page)
 

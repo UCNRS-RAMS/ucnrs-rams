@@ -1,4 +1,4 @@
-class Manager::Visits::LogsController < Manager::ManagerController
+class Manager::Visits::LogsController < Manager::ApplicationController
   before_action :authenticate_user!
   before_action :confirm_manager!
 

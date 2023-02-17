@@ -1,8 +1,9 @@
-class Manager::ReserveInfo::ReserveQuestionsController < Manager::ManagerController
-  layout "manager"
+class Manager::ReserveInfo::ReserveQuestionsController < Manager::ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_reserve_manager!
+  before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
   before_action :is_administrator!, only: [:create, :update]
+
+  layout "manager"
 
   def index
     @presenter = Manager::ReserveInfo::ReserveQuestionsIndexPresenter.new(
@@ -17,7 +18,7 @@ class Manager::ReserveInfo::ReserveQuestionsController < Manager::ManagerControl
 
   def create
     form = ReserveQuestionForm.new(params: reserve_question_params.merge(reserve_id: current_reserve.id))
-    
+
     if form.save
       redirect_to manager_reserve_reserve_info_reserve_questions_path(current_reserve)
     else
@@ -33,7 +34,7 @@ class Manager::ReserveInfo::ReserveQuestionsController < Manager::ManagerControl
 
   def update
     form = ReserveQuestionForm.new(reserve_question: reserve_question, params: reserve_question_params)
-    
+
     if form.save
       redirect_to manager_reserve_reserve_info_reserve_questions_path(current_reserve)
     else

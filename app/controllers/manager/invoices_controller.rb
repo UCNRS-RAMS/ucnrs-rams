@@ -1,6 +1,6 @@
-class Manager::InvoicesController < Manager::ManagerController
+class Manager::InvoicesController < Manager::ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_reserve_manager!
+  before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
   before_action :is_administrator_or_accountant!, only: [:create, :update, :destroy]
   layout "manager"
 
@@ -31,7 +31,7 @@ class Manager::InvoicesController < Manager::ManagerController
   end
 
   def update
-    @form = InvoiceForm.new(invoice: invoice, params: params, editing: true)    
+    @form = InvoiceForm.new(invoice: invoice, params: params, editing: true)
     if @form.save
       redirect_to manager_reserve_visit_invoice_path(id: @form.invoice_id)
     else

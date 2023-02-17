@@ -1,4 +1,4 @@
-class Manager::Visits::AmenityVisitsController < Manager::ManagerController
+class Manager::Visits::AmenityVisitsController < Manager::ApplicationController
   before_action :authenticate_user!
   before_action :confirm_manager!
   before_action :is_administrator_or_accountant!
