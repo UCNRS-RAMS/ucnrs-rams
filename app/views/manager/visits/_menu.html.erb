@@ -2,37 +2,37 @@
   <ul class="visit-menu-bar">
     <li>
       <%= render partial: "tab",
-        locals: @presenter.tab_params(path: manager_reserve_visit_summary_path(visit_id: @presenter.id), classes: "active") %>
+        locals: presenter.tab_params(path: manager_reserve_visit_summary_path(visit_id: presenter.id), classes: presenter.tab_class) %>
     </li>
 
     <li>
       <%= render partial: "tab",
-        locals: @presenter.tab_params(id: "details", path: edit_manager_reserve_visit_detail_path(visit_id: @presenter.id), clickable: @presenter.reserve_manager?) %>
+        locals: presenter.tab_params(id: "details", path: edit_manager_reserve_visit_detail_path(visit_id: presenter.id), clickable: presenter.reserve_manager?, classes: presenter.tab_class("details")) %>
     </li>
 
     <li>
       <%= render partial: "tab",
-        locals: @presenter.tab_params(id: "visitors", path: manager_reserve_visit_user_visits_path(visit_id: @presenter.id, reserve_id: @presenter.reserve_id), clickable: @presenter.reserve_manager?) %>
+        locals: presenter.tab_params(id: "visitors", path: manager_reserve_visit_user_visits_path(visit_id: presenter.id, reserve_id: presenter.reserve_id), clickable: presenter.reserve_manager?, classes: presenter.tab_class("visitors")) %>
     </li>
 
     <li>
       <%= render partial: "tab",
-        locals: @presenter.tab_params(id: "reserve_info", path: manager_reserve_visit_reserve_info_index_path(visit_id: @presenter.id), clickable: @presenter.reserve_manager?) %>
+        locals: presenter.tab_params(id: "reserve_info", path: manager_reserve_visit_reserve_info_index_path(visit_id: presenter.id), clickable: presenter.reserve_manager?, classes: presenter.tab_class("reserve_info")) %>
     </li>
 
     <li>
       <%= render partial: "tab",
-        locals: @presenter.tab_params(id: "policies", clickable: @presenter.reserve_manager?) %>
+        locals: presenter.tab_params(id: "policies", clickable: presenter.reserve_manager?) %>
     </li>
 
     <li>
       <%= render partial: "tab",
-        locals: @presenter.tab_params(id: "activity", path: manager_reserve_visit_activity_and_notes_path(visit_id: @presenter.id, reserve_id: @presenter.reserve_id)) %>
+        locals: presenter.tab_params(id: "activity", path: manager_reserve_visit_activity_and_notes_path(visit_id: presenter.id, reserve_id: presenter.reserve_id), classes: presenter.tab_class("activity")) %>
     </li>
 
     <li>
       <%= render partial: "tab",
-        locals: @presenter.tab_params(id: "invoices", path: manager_reserve_visit_invoices_path(visit_id: @presenter.id, reserve_id: @presenter.reserve_id), clickable: @presenter.reserve_manager?) %>
+        locals: presenter.tab_params(id: "invoices", path: manager_reserve_visit_invoices_path(visit_id: presenter.id, reserve_id: presenter.reserve_id), clickable: presenter.reserve_manager?, classes: presenter.tab_class("invoices")) %>
     </li>
   </ul>
 </section>

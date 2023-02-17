@@ -7,7 +7,7 @@ class Manager::VisitsController < Manager::ApplicationController
   layout "manager"
 
   def show
-    @presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: current_user)
+    @presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: current_user, selected_tab: params[:selected_tab])
   end
 
   def destroy
