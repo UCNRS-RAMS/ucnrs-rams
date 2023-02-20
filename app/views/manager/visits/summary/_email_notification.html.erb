@@ -6,7 +6,7 @@
       <%= form.select t(".email-notification-method"), options_for_select(presenter.email_options), { }, class: "email-notification-method", data: {"summary-tab-target": "selectField", action: "change->summary-tab#toggleEmailDiv"} %>
     </div>
     <div>
-      <%= form.check_box :report_access, checked: false %>
+      <%= form.check_box :report_access %>
       <label for="remove_visit_from_annual_report"><%= t(".annual_report") %></label>
     </div>
   </div>
