@@ -4,7 +4,7 @@ class VisitFilter
   DEFAULT_SORT_BY_FILTER = "submitted_recent_first"
   DEFAULT_VISIT_PROJECT_TYPE_FILTER = nil
   DEFAULT_VISIT_STATUS_FILTER = nil
-  DEFAULT_REPORT_ACCESS_FILTER = true
+  DEFAULT_REPORT_ACCESS_FILTER = nil
   DEFAULT_AMENITY_FILTER = "all"
 
   def initialize(filter, reserve = nil)
