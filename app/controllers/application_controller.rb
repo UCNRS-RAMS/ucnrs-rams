@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :turbo_frame_request_variant
+
   helper_method :current_reserve
   helper_method :super_admin?
 
@@ -16,6 +18,12 @@ class ApplicationController < ActionController::Base
 
   def super_admin?
     current_user.admin?
+  end
+
+  private
+
+  def turbo_frame_request_variant
+    request.variant = :turbo_frame if turbo_frame_request?
   end
 
   protected
