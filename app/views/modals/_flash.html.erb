@@ -1,0 +1,9 @@
+<turbo-frame id="modal-content">
+  <div data-modal-target="dialog openOnLoad" data-action="mousedown@window->modal#closeBackground">
+    <section role="region" aria-label="errors" class="flash">
+      <% flash.each do |type, message| %>
+        <%= tag.p message, class: type %>
+      <% end %>
+    </section>
+  </div>
+</turbo-frame>
