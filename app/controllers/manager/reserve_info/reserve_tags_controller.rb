@@ -1,4 +1,4 @@
-class Manager::ReserveInfo::ReserveTagsController < Manager::ManagerController
+class Manager::ReserveInfo::ReserveTagsController < Manager::ApplicationController
   layout "manager"
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!
@@ -10,7 +10,7 @@ class Manager::ReserveInfo::ReserveTagsController < Manager::ManagerController
 
   def create
     form = ReserveTagForm.new(
-      reserve: current_reserve, 
+      reserve: current_reserve,
       reserve_tags: difference_of_hashes(params["tag_names"], reserve_tags_by_categories)
     )
 
