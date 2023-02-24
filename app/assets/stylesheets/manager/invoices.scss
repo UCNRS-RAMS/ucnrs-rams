@@ -12,8 +12,7 @@
 .invoices-show,
 .invoices-create,
 .invoices-edit,
-.invoices-update,
-.invoices-index {
+.invoices-update {
   .manager-navbar {
     .container {
       margin-bottom: 0px;
@@ -36,8 +35,6 @@
       padding: 10px 35px;
     }
 
-    @include search-subsection;
-
     .search-subsection{
       form {
         .search-primary{
@@ -55,7 +52,7 @@
         }
       }
     }
-    
+
     .clear-btn {
       color: $navy-blue;
       margin-right: 30px;
@@ -245,5 +242,39 @@
       }
     }
   }
-  @include pagination
+}
+
+.invoices-index {
+  section.content {
+    display: block;
+
+    header{
+      margin: .5rem 0;
+
+      h1 {
+        font-size: 1.85rem;
+        font-weight: $medium;
+        margin: .5rem 0;
+      }
+    }
+
+    hr {
+      border-bottom: 2px solid $gray;
+      border-left: 0;
+      border-right: 0;
+      border-top: 0;
+      margin: 0;
+    }
+
+    table.invoices-table {
+      @include table-style1;
+
+      td > img {
+        vertical-align: middle;
+      }
+    }
+
+    @include search-subsection;
+    @include pagination;
+  }
 }
