@@ -7,16 +7,21 @@ class Manager::ReserveInfo::AmenitiesAndRates::AmenityRateCategoriesController <
 
   def edit
     form = AmenityRateCategoryForm.new(amenity_rate_category: amenity_rate_category)
-    @presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityRateCategoryEditPresenter.new(form: form)
+    @presenter =
+      Manager::ReserveInfo::AmenitiesAndRates::AmenityRateCategoryEditPresenter.new(form: form)
   end
 
   def update
-    form = AmenityRateCategoryForm.new(amenity_rate_category: amenity_rate_category, params: amenity_rate_category_params)
+    form = AmenityRateCategoryForm.new(
+      amenity_rate_category: amenity_rate_category,
+      params: amenity_rate_category_params,
+    )
 
     if form.save
       redirect_to manager_reserve_reserve_info_amenities_and_rates_path(current_reserve)
     else
-      @presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityRateCategoryEditPresenter.new(form: form)
+      @presenter =
+        Manager::ReserveInfo::AmenitiesAndRates::AmenityRateCategoryEditPresenter.new(form: form)
       render :edit, status: :unprocessable_entity
     end
   end

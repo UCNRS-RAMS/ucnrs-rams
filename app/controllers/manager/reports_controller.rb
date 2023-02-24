@@ -81,7 +81,10 @@ class Manager::ReportsController < Manager::ApplicationController
   end
 
   def update
-    form = AnnualReportForm.new(annual_report: annual_report, params: report_params)
+    form = AnnualReportForm.new(
+      annual_report: annual_report,
+      params: report_params,
+    )
 
     if form.save
       flash[:notice] = t(".flash.report_updated_success")
@@ -89,13 +92,20 @@ class Manager::ReportsController < Manager::ApplicationController
       flash[:alert] = t(".flash.cannot_update_report")
     end
 
-    redirect_back fallback_location: manager_reserve_report_path(current_reserve, annual_report.fiscal_year_ending)
+    redirect_back(
+      fallback_location: manager_reserve_report_path(
+        current_reserve,
+        annual_report.fiscal_year_ending,
+      ),
+    )
   end
 
   private
 
   def annual_report
-    AnnualReport.where(reserve: current_reserve, fiscal_year_ending: fiscal_year_end).first_or_initialize
+    AnnualReport
+      .where(reserve: current_reserve, fiscal_year_ending: fiscal_year_end)
+      .first_or_initialize
   end
 
   def fiscal_year_end

@@ -7,12 +7,22 @@ class Manager::ReserveInfo::RulesAndRegulationsController < Manager::Application
 
   def edit
     form = ReserveForm.new(reserve: current_reserve)
-    @presenter = Manager::ReserveInfo::RulesAndRegulationsEditPresenter.new(reserve: current_reserve, form: form)
+    @presenter = Manager::ReserveInfo::RulesAndRegulationsEditPresenter.new(
+      reserve: current_reserve,
+      form: form,
+    )
   end
 
   def update
-    form = ReserveForm.new(reserve: current_reserve, params: rules_and_regulations_params)
-    @presenter = Manager::ReserveInfo::RulesAndRegulationsEditPresenter.new(reserve: current_reserve, form: form)
+    form = ReserveForm.new(
+      reserve: current_reserve,
+      params: rules_and_regulations_params,
+    )
+    @presenter = Manager::ReserveInfo::RulesAndRegulationsEditPresenter.new(
+      reserve: current_reserve,
+      form: form,
+    )
+
     if form.save
       flash.now[:notice] = "Update success."
       render :edit
