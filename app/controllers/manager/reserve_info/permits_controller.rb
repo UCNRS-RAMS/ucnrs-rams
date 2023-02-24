@@ -17,7 +17,10 @@ class Manager::ReserveInfo::PermitsController < Manager::ApplicationController
   end
 
   def update
-    form = ReservePermitForm.new(reserve_permit: reserve_permit, params: reserve_permit_params)
+    form = ReservePermitForm.new(
+      reserve_permit: reserve_permit,
+      params: reserve_permit_params,
+    )
 
     if form.save
       redirect_to manager_reserve_reserve_info_permits_path(current_reserve)

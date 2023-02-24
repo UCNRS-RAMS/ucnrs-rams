@@ -2,10 +2,16 @@ class Manager::InvoicesController < Manager::ApplicationController
   before_action :authenticate_user!
   before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
   before_action :is_administrator_or_accountant!, only: [:create, :update, :destroy]
+
   layout "manager"
 
   def index
-    @presenter = Manager::InvoicesIndexPresenter.new(reserve: current_reserve, user: current_user, page: page_number, filter: filter)
+    @presenter = Manager::InvoicesIndexPresenter.new(
+      reserve: current_reserve,
+      user: current_user,
+      page: page_number,
+      filter: filter
+    )
   end
 
   def new
@@ -26,8 +32,16 @@ class Manager::InvoicesController < Manager::ApplicationController
   end
 
   def edit
-    form = InvoiceForm.new(invoice: invoice, params: { visit_id: params[:visit_id] }, editing: true)
-    @presenter = Manager::Invoices::InvoiceEditPresenter.new(visit: visit, invoice: invoice, form: form)
+    form = InvoiceForm.new(
+      invoice: invoice,
+      params: { visit_id: params[:visit_id] },
+      editing: true
+    )
+    @presenter = Manager::Invoices::InvoiceEditPresenter.new(
+      visit: visit,
+      invoice: invoice,
+      form: form
+    )
   end
 
   def update
@@ -35,13 +49,20 @@ class Manager::InvoicesController < Manager::ApplicationController
     if @form.save
       redirect_to manager_reserve_visit_invoice_path(id: @form.invoice_id)
     else
-      @presenter = Manager::Invoices::InvoiceEditPresenter.new(visit: visit, invoice: invoice, form: @form)
+      @presenter = Manager::Invoices::InvoiceEditPresenter.new(
+        visit: visit,
+        invoice: invoice,
+        form: @form
+      )
       render :edit
     end
   end
 
   def show
-    @presenter = Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: current_user)
+    @presenter = Manager::Invoices::InvoiceShowPresenter.new(
+      invoice: invoice,
+      current_user: current_user
+    )
   end
 
   def destroy

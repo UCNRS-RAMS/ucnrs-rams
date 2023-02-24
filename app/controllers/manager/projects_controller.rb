@@ -2,6 +2,7 @@ class Manager::ProjectsController < Manager::ApplicationController
   before_action :authenticate_user!
   before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
   before_action :is_administrator!, only: [:update]
+
   layout "manager"
 
   def index
@@ -13,11 +14,18 @@ class Manager::ProjectsController < Manager::ApplicationController
   end
 
   def show
-    @presenter = Manager::ProjectShowPresenter.new(project: project, reserve: current_reserve, current_user: current_user)
+    @presenter = Manager::ProjectShowPresenter.new(
+      project: project,
+      reserve: current_reserve,
+      current_user: current_user,
+    )
   end
 
   def edit
-    form = ProjectForm.new(user: current_user, params: { id: project.id })
+    form = ProjectForm.new(
+      user: current_user,
+      params: { id: project.id },
+    )
     @presenter = ProjectFormPresenter.new(
       user: current_user,
       current_step: 1,
@@ -27,7 +35,11 @@ class Manager::ProjectsController < Manager::ApplicationController
   end
 
   def update
-    form = ProjectForm.new(user: current_user, params: project_params.merge(id: project.id))
+    form = ProjectForm.new(
+      user: current_user,
+      params: project_params.merge(id: project.id),
+    )
+
     if form.save
       redirect_to project_team_memberships_path(form.project, format: :html)
     else

@@ -10,23 +10,28 @@ module Manager
 
         def new
           form = AmenityForm.new(params: { reserve_id: current_reserve.id })
-          @presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityNewPresenter.new(form: form)
+          @presenter =
+            Manager::ReserveInfo::AmenitiesAndRates::AmenityNewPresenter.new(form: form)
         end
 
         def create
-          form = AmenityForm.new(params: amenity_params.merge(reserve_id: current_reserve.id))
+          form = AmenityForm.new(
+            params: amenity_params.merge(reserve_id: current_reserve.id),
+          )
 
           if form.save
             redirect_to manager_reserve_reserve_info_amenities_and_rates_path(current_reserve)
           else
-            @presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityNewPresenter.new(form: form)
+            @presenter =
+              Manager::ReserveInfo::AmenitiesAndRates::AmenityNewPresenter.new(form: form)
             render :new, status: :unprocessable_entity
           end
         end
 
         def edit
           form = AmenityForm.new(amenity: amenity)
-          @presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter.new(form: form)
+          @presenter =
+            Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter.new(form: form)
         end
 
         def update
@@ -35,7 +40,8 @@ module Manager
           if form.save
             redirect_to manager_reserve_reserve_info_amenities_and_rates_path(current_reserve)
           else
-            @presenter = Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter.new(form: form)
+            @presenter =
+              Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter.new(form: form)
             render :edit, status: :unprocessable_entity
           end
         end

@@ -17,7 +17,9 @@ class Manager::ReserveInfo::ReserveAddendumsController < Manager::ApplicationCon
   end
 
   def create
-    form = ReserveAddendumForm.new(params: reserve_addendum_params.merge(reserve_id: current_reserve.id))
+    form = ReserveAddendumForm.new(
+      params: reserve_addendum_params.merge(reserve_id: current_reserve.id)
+    )
 
     if form.save
       redirect_to manager_reserve_reserve_info_reserve_addendums_path(current_reserve)
@@ -33,7 +35,10 @@ class Manager::ReserveInfo::ReserveAddendumsController < Manager::ApplicationCon
   end
 
   def update
-    form = ReserveAddendumForm.new(reserve_addendum: reserve_addendum, params: reserve_addendum_params)
+    form = ReserveAddendumForm.new(
+      reserve_addendum: reserve_addendum,
+      params: reserve_addendum_params,
+    )
 
     if form.save
       redirect_to manager_reserve_reserve_info_reserve_addendums_path(current_reserve)
@@ -45,9 +50,14 @@ class Manager::ReserveInfo::ReserveAddendumsController < Manager::ApplicationCon
 
   def destroy
     if reserve_addendum.destroy
-      redirect_to manager_reserve_reserve_info_reserve_addendums_path(current_reserve)
+      redirect_to(
+        manager_reserve_reserve_info_reserve_addendums_path(current_reserve),
+      )
     else
-      redirect_to manager_reserve_reserve_info_reserve_addendums_path(current_reserve), status: :unprocessable_entity
+      redirect_to(
+        manager_reserve_reserve_info_reserve_addendums_path(current_reserve),
+        status: :unprocessable_entity,
+      )
     end
   end
 

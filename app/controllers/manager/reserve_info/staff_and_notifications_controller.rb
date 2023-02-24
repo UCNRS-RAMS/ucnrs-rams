@@ -17,7 +17,9 @@ class Manager::ReserveInfo::StaffAndNotificationsController < Manager::Applicati
   end
 
   def create
-    form = ReservePersonnelForm.new(params: reserve_personnel_params.merge(reserve_id: current_reserve.id))
+    form = ReservePersonnelForm.new(
+      params: reserve_personnel_params.merge(reserve_id: current_reserve.id)
+    )
 
     if form.save
       redirect_to manager_reserve_reserve_info_staff_and_notifications_path(current_reserve)
@@ -33,10 +35,15 @@ class Manager::ReserveInfo::StaffAndNotificationsController < Manager::Applicati
   end
 
   def update
-    form = ReservePersonnelForm.new(reserve_personnel: reserve_personnel, params: reserve_personnel_params)
+    form = ReservePersonnelForm.new(
+      reserve_personnel: reserve_personnel,
+      params: reserve_personnel_params,
+    )
 
     if form.save
-      redirect_to manager_reserve_reserve_info_staff_and_notifications_path(current_reserve)
+      redirect_to(
+        manager_reserve_reserve_info_staff_and_notifications_path(current_reserve),
+      )
     else
       @presenter = Manager::ReserveInfo::StaffAndNotificationEditPresenter.new(form: form)
       render :edit, status: :unprocessable_entity
@@ -46,9 +53,14 @@ class Manager::ReserveInfo::StaffAndNotificationsController < Manager::Applicati
   def destroy
 
     if reserve_personnel.destroy
-      redirect_to manager_reserve_reserve_info_staff_and_notifications_path(current_reserve)
+      redirect_to(
+        manager_reserve_reserve_info_staff_and_notifications_path(current_reserve),
+      )
     else
-      redirect_to manager_reserve_reserve_info_staff_and_notifications_path(current_reserve), status: :unprocessable_entity
+      redirect_to(
+        manager_reserve_reserve_info_staff_and_notifications_path(current_reserve),
+        status: :unprocessable_entity,
+      )
     end
   end
 

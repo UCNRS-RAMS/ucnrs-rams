@@ -17,7 +17,9 @@ class Manager::ReserveInfo::ReserveQuestionsController < Manager::ApplicationCon
   end
 
   def create
-    form = ReserveQuestionForm.new(params: reserve_question_params.merge(reserve_id: current_reserve.id))
+    form = ReserveQuestionForm.new(
+      params: reserve_question_params.merge(reserve_id: current_reserve.id)
+    )
 
     if form.save
       redirect_to manager_reserve_reserve_info_reserve_questions_path(current_reserve)
@@ -33,7 +35,10 @@ class Manager::ReserveInfo::ReserveQuestionsController < Manager::ApplicationCon
   end
 
   def update
-    form = ReserveQuestionForm.new(reserve_question: reserve_question, params: reserve_question_params)
+    form = ReserveQuestionForm.new(
+      reserve_question: reserve_question,
+      params: reserve_question_params,
+    )
 
     if form.save
       redirect_to manager_reserve_reserve_info_reserve_questions_path(current_reserve)
