@@ -1,10 +1,12 @@
-<header class="d-flex">
-  <h1 class="invoice-title"><%= @presenter.title %></h1>
-  <%= render partial: "manager/invoices/action_buttons", locals: { presenter: @presenter } %>
-</header>
-<turbo-frame id="invoice-details">
-  <%= render partial: "visit_info", locals: { presenter: @presenter } %>
-  <%= render partial: "invoice_recipients_table", locals: { presenter: @presenter } %>
-  <%= render partial: "amenity_visits_table", locals: { presenter: @presenter } %>
-  <%= render partial: "notes", locals: { presenter: @presenter } %>
-</turbo-frame>
+<section class="content">
+  <header>
+    <h1 class="invoice-title"><%= @presenter.title %></h1>
+    <%= render partial: "manager/invoices/action_buttons", locals: { presenter: @presenter } %>
+  </header>
+  <turbo-frame id="invoice-details">
+    <%= render partial: "visit_info", locals: { presenter: @presenter } %>
+    <%= render partial: "invoice_recipients_table", locals: { presenter: @presenter } %>
+    <%= render partial: "amenity_visits_table", locals: { presenter: @presenter } %>
+    <%= render partial: "notes", locals: { presenter: @presenter } %>
+  </turbo-frame>
+</section>
