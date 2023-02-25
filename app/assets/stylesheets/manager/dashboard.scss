@@ -262,6 +262,7 @@
         pointer-events: none;
         cursor: default;
         opacity: 0;
+        visibility: hidden;
       }
 
       .bars-text {
@@ -351,7 +352,6 @@
       border-bottom: 2px solid $dark-bluegray;
       display: flex;
       justify-content: space-between;
-      
     }
 
     .display-flex {
