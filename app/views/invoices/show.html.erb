@@ -1,6 +1,11 @@
 <div class="container">
-  <header>
-    <h1><%= t(".invoice", id: @presenter.id, version: @presenter.modify_number) %></h1>
-  </header>
-  <%= turbo_frame_tag "invoice-details", src: manager_reserve_visit_invoice_path(@presenter.reserve_id, @presenter.visit_id, @presenter.id), target: "_top" %>
+  <section class="content">
+    <header>
+      <h1><%= t(".invoice", id: @presenter.id, version: @presenter.modify_number) %></h1>
+    </header>
+    <%= turbo_frame_tag "invoice-details",
+      src: manager_reserve_visit_invoice_path(@presenter.reserve_id, @presenter.visit_id, @presenter.id),
+      target: "_top"
+    %>
+  </div>
 </div>
