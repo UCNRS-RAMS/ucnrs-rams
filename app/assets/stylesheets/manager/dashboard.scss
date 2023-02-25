@@ -1,6 +1,7 @@
 @import "variables";
 @import "mixins/search";
 @import "mixins/tables";
+@import "mixins/input";
 
 .manager {
   .link-group {
@@ -156,26 +157,6 @@
   .calendar-container {
     .display-none {
       display: none;
-    }
-
-    .pulldowns {
-      background-color: $light-light-blue;
-      display: flex;
-      justify-content: end;
-      margin-bottom: 3rem;
-      padding: 1.5rem;
-
-      select {
-        background-color: $buttonset-background;
-        border: 1px solid $buttonset-border;
-        border-radius: 0.325rem;
-        color: $navy-blue;
-        flex: none;
-        font-weight: $bold;
-        height: 2rem;
-        margin-right: 0.5rem;
-        padding: 0.25rem 0.75rem;
-      }
     }
 
     .simple-calendar {
