@@ -85,18 +85,18 @@ class Invoice < ApplicationRecord
       all
     end
   end
-  
+
   def self.sort_using(sort_option = nil)
     case sort_option.to_s
-    when "created_recent_first" then order(:invoiced_on)
+    when "created_recent_first" then order(invoiced_on: :DESC)
     when "sort_by_amount" then sort_by_amount
-    when "sort_by_balance_due" then order(:balance_due)
-    when "sort_by_invoice_number" then order(:id)
+    when "sort_by_balance_due" then order(balance_due: :DESC)
+    when "sort_by_invoice_number" then order(id: :DESC)
     else
       all
     end
   end
-  
+
   def self.for_status_filter(status_filter)
     if status_filter == "all"
       all
@@ -128,15 +128,15 @@ class Invoice < ApplicationRecord
   end
 
   private
-  
+
   def self.having_invoiced_date_after(date_var)
     if date_var.present?
-      where(invoiced_on: date_var..) 
+      where(invoiced_on: date_var..)
     else
       all
     end
   end
-    
+
   def self.having_invoiced_date_before(date_var)
     if date_var.present?
       where("invoiced_on <= ?", date_var)
@@ -153,7 +153,7 @@ class Invoice < ApplicationRecord
       all
     end
   end
-  
+
   def self.having_visit_start_date_before(date_var)
     if date_var.present?
       joins(:visit)
@@ -162,8 +162,10 @@ class Invoice < ApplicationRecord
       all
     end
   end
-  
+
   def self.sort_by_amount
-    left_outer_joins(:invoice_payments).group('invoices.id').order('sum(invoice_payments.amount) asc')
+    left_outer_joins(:invoice_payments)
+      .group('invoices.id')
+      .order('sum(invoice_payments.amount) asc')
   end
 end

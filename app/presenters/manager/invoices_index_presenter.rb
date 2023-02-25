@@ -36,12 +36,12 @@ class Manager::InvoicesIndexPresenter
     .for_status_filter(invoice_status_filter)
     .having_between_time_for(
       date_range_option: :visit_date_range,
-      date_start: visit_date_begin_filter, 
+      date_start: visit_date_begin_filter,
       date_end: visit_date_end_filter
     )
     .having_between_time_for(
       date_range_option: :invoiced_on,
-      date_start: invoice_date_begin_filter, 
+      date_start: invoice_date_begin_filter,
       date_end: invoice_date_end_filter
     )
     .sort_using(sort_by_filter)
@@ -68,7 +68,18 @@ class Manager::InvoicesIndexPresenter
 
   private
 
-  delegate :reserve_filter, :invoice_status_filter, :invoice_search_filter, :invoice_type_filter, :visit_date_end_filter, :visit_date_begin_filter, :reserve_filter, :date_range_type_filter, :sort_by_filter, :invoice_date_end_filter, :invoice_date_begin_filter, to: :filter
+  delegate :reserve_filter,
+    :invoice_status_filter,
+    :invoice_search_filter,
+    :invoice_type_filter,
+    :visit_date_end_filter,
+    :visit_date_begin_filter,
+    :reserve_filter,
+    :date_range_type_filter,
+    :sort_by_filter,
+    :invoice_date_end_filter,
+    :invoice_date_begin_filter,
+    to: :filter
 
   delegate :present?, to: :filter, prefix: true
 
