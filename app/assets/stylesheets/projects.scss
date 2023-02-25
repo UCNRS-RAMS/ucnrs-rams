@@ -5,6 +5,7 @@
 @import "mixins/summary";
 @import "mixins/tables";
 @import "mixins/pagination";
+@import "mixins/input";
 
 .projects-index {
   @include pagination;
@@ -26,6 +27,8 @@
         width: 60%;
 
         header {
+          @include sort-style;
+
           align-items: center;
           border-bottom: 2px solid $gray;
           display: flex;
@@ -45,18 +48,6 @@
             font-weight: $semi-bold;
             margin: 0;
             white-space: nowrap;
-          }
-
-          select {
-            background-color: $buttonset-background;
-            border-radius: 0.325rem;
-            border: 1px solid $buttonset-border;
-            color: $navy-blue;
-            flex: none;
-            font-weight: $bold;
-            height: 2rem;
-            margin-right: 0.5rem;
-            padding: 0.25rem 0.75rem;
           }
         }
 
@@ -394,7 +385,7 @@ table.summary-table {
     .inactive-user {
       color: $gray;
     }
-    
+
     tr {
       td {
         border-bottom: 1px solid $gray;
@@ -527,7 +518,7 @@ table.visit-requests {
   .bg-incomplete {
     background-color: $red-alert;
   }
-  
+
   td {
     border-bottom: 1px solid $gray;
     border-top: 1px solid $gray;
@@ -541,7 +532,7 @@ table.visit-requests {
       filter: invert(50%);
       pointer-events: none;
     }
-    
+
     &:first-of-type {
       border-bottom-left-radius: 0.313rem;
       border-left: 1px solid $gray;

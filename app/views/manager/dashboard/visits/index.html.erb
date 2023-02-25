@@ -7,7 +7,7 @@
     <%= turbo_frame_tag 'dashboard-content' do %>
       <section class="visits-search-list">
         <section class="search-subsection">
-        <%= render partial: "search", locals: { presenter: @presenter } %>
+          <%= render partial: "search", locals: { presenter: @presenter } %>
         </section>
         <section class="reserve-info-subsection">
           <%= render partial: "visits", locals: { presenter: @presenter } %>
