@@ -1,12 +1,12 @@
-class Visits::ProjectsController < ApplicationController
+class Manager::Visits::ProjectsController < ApplicationController
   before_action :authenticate_user!
   layout false
 
   def index
-    @presenter = Visits::ProjectsPresenter.new(
+    @presenter = Manager::Visits::ProjectsPresenter.new(
       project_id: project_id,
       project_type: project_type,
-      user: current_user,
+      user: user,
     )
   end
 
@@ -18,5 +18,9 @@ class Visits::ProjectsController < ApplicationController
 
   def project_id
     params[:project_id]
+  end
+
+  def user
+    params[:user_id].present? ? User.find_by(id: params[:user_id]) : current_user
   end
 end

@@ -1,0 +1,7 @@
+<turbo-frame id="project_select" data-pattern="<%= manager_visits_projects_path(project_type: "VALUE", project_id: presenter.project_id, user_id: presenter.user) %>" data-turbo-content-target="destination">
+  <select id="visit_project_id" name="visit[project_id]">
+    <% presenter.projects.each do |project| %>
+      <option value="<%= project.id %>" <%= presenter.selected_project(project) %> ><%= project.title %></option>
+    <% end %>
+  </select>
+</turbo-frame>

@@ -94,6 +94,7 @@ class Visits::UserVisitsController < ApplicationController
       user_id: params[:user_id],
       institution_id: params[:institution_id],
       guest_name: params[:guest_name],
+      role: params[:role],
     }
   end
 
