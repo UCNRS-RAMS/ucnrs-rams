@@ -38,7 +38,7 @@ def initialize(current_user:, add_visitor_partial:, show_add_guest_modal: false,
 
   def user_visit_form_path(team_membership=nil)
     if team_membership.present?
-      new_visit_user_visit_path(visit_id: visit.id, user_id: team_membership.user_id, institution_id: team_membership.user.institution_id)
+      new_visit_user_visit_path(visit_id: visit.id, user_id: team_membership.user_id, institution_id: team_membership.user.institution_id, role: team_membership.user.role)
     else
       visit_user_visits_path(visit.id, add_visitor_partial: add_visitor_partial)
     end

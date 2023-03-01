@@ -1,4 +1,4 @@
-class Manager::Visits::AnswersController < ApplicationController
+class Manager::Visits::AnswersController < Manager::ApplicationController
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!, only: [:destroy]
   before_action :confirm_manager!, only: [:show]

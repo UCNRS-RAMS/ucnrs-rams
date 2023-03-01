@@ -1461,6 +1461,15 @@ en:
           next_step: "Next: Funding"
           yes_option: "Yes"
           no_option: "No"
+      project:
+        links:
+          create_a_new_project: "Create A New Project"
+        project_type_options:
+          labels:
+            research: "Research"
+            university_class: "University Class"
+            meeting_or_conference: "Meeting or Conference"
+            public_use: "Public Use"
     dashboards:
       calendar:
         title: "Visits and Amenities"

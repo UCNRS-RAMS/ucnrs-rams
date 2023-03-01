@@ -1,6 +1,8 @@
-class Manager::Visits::WaiversPoliciesController < ApplicationController
+class Manager::Visits::WaiversPoliciesController < Manager::ApplicationController
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!
+
+  layout "manager"
 
   def show
     @form = VisitCompleteForm.new(params: { id: visit.id })

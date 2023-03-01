@@ -17,6 +17,12 @@ class Manager::ApplicationController < ApplicationController
     respond_to_modal_turbo_frame(flash_msg: I18n.translate("manager.not_reserve_administrator"))
   end
 
+  def confirm_reserve_manager!
+    return true if user.manager_of_reserve?(current_reserve)
+
+    respond_to_modal_turbo_frame(flash_msg: I18n.translate("manager.not_a_manager_of_reserve"))
+  end
+
   private
 
   def respond_to_modal_turbo_frame(flash_msg: nil)
@@ -32,5 +38,9 @@ class Manager::ApplicationController < ApplicationController
         }
       end
     end
+  end
+
+  def user
+    params[:user_id].present? ? User.find_by(id: params[:user_id]) : current_user
   end
 end

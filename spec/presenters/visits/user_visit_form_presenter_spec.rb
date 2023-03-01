@@ -78,9 +78,9 @@ RSpec.describe Visits::UserVisitFormPresenter do
       team_membership = create(:project_team_membership, :project_manager, active: true)
       visit = create(:visit, project_id: team_membership.project_id)
       params = { visit_id: visit.id }
-      presenter = Visits::UserVisitFormPresenter.new(current_user: create(:user), add_visitor_partial: "team_membership", form: UserVisitForm.new(params: params))
-
-      expect(presenter.user_visit_form_path(team_membership)).to eq "/visits/#{visit.id}/user_visits/new?institution_id=#{team_membership.user.institution_id}&user_id=#{team_membership.user_id}"
+      user = create(:user)
+      presenter = Visits::UserVisitFormPresenter.new(current_user: user, add_visitor_partial: "team_membership", form: UserVisitForm.new(params: params))
+      expect(presenter.user_visit_form_path(team_membership)).to eq "/visits/#{visit.id}/user_visits/new?institution_id=#{team_membership.user.institution_id}&role=#{user.role}&user_id=#{team_membership.user_id}"
     end
   end
 

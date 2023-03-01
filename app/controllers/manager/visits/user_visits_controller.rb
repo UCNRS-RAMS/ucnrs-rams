@@ -3,6 +3,8 @@ class Manager::Visits::UserVisitsController < Manager::ApplicationController
   before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
   before_action :is_administrator_or_accountant!, only: [:update, :destroy]
 
+  layout "manager"
+
   def index
     @presenter = user_visit_index_presenter
   end

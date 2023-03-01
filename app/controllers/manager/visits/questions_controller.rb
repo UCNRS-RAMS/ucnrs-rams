@@ -1,4 +1,4 @@
-class  Manager::Visits::QuestionsController < ApplicationController
+class  Manager::Visits::QuestionsController < Manager::ApplicationController
   before_action :authenticate_user!
   before_action :confirm_reserve_manager!
   before_action :confirm_having_user_visits, only: [:index]
@@ -17,7 +17,7 @@ class  Manager::Visits::QuestionsController < ApplicationController
 
   def confirm_having_user_visits
     if visit.user_visits.blank?
-      redirect_to visit_user_visits_path(visit, format: :html), alert: I18n.translate(".visits.user_visits.no_visitor")
+      redirect_to manager_reserve_visit_user_visits_path(current_reserve, visit, format: :html), alert: I18n.translate(".visits.user_visits.no_visitor")
     end
   end
 

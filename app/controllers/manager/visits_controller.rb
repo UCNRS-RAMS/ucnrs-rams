@@ -7,7 +7,8 @@ class Manager::VisitsController < Manager::ApplicationController
   layout "manager"
 
   def new
-    @presenter = VisitsFormPresenter.new(user: user)
+    form = VisitForm.new(user: user, params: {reserve_id: current_reserve.id})
+    @presenter = Manager::VisitsFormPresenter.new(user: user, form: form)
   end
 
   def create
@@ -15,14 +16,14 @@ class Manager::VisitsController < Manager::ApplicationController
     if @form.save
       redirect_to manager_reserve_visit_user_visits_path(reserve_id: reserve_id, visit_id: @form.visit, format: :html)
     else
-      @presenter = VisitsFormPresenter.new(user: user, form: @form)
+      @presenter = Manager::VisitsFormPresenter.new(user: user, form: @form)
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
     @form = VisitForm.new(user: current_user, params: { id: visit.id }, editing: true)
-    @presenter = VisitsFormPresenter.new(user: current_user, form: @form)
+    @presenter = Manager::VisitsFormPresenter.new(user: current_user, form: @form)
   end
 
   def update
@@ -31,7 +32,7 @@ class Manager::VisitsController < Manager::ApplicationController
       redirect_to manager_reserve_visit_user_visits_path(reserve_id: reserve_id, visit_id: @form.visit, format: :html)
     else
       @form.editing = true
-      @presenter = VisitsFormPresenter.new(user: current_user, form: @form)
+      @presenter = Manager::VisitsFormPresenter.new(user: current_user, form: @form)
       render :edit, status: :unprocessable_entity
     end
   end
