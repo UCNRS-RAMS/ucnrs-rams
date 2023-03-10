@@ -38,29 +38,6 @@ body {
   &.no-scroll {
     overflow: hidden;
   }
-
-  .flash {
-    margin: 0;
-    padding: 0;
-
-    p:empty {
-      padding: 0;
-      margin: 0;
-    }
-
-    p {
-      margin: 0;
-      padding: .5rem 1.375rem;
-    }
-
-    p.notice {
-      background-color: $flash-green;
-    }
-
-    p.alert {
-      background-color: pink;
-    }
-  }
 }
 
 main {
