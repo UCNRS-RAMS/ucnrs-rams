@@ -1,15 +1,21 @@
 class ProjectFileUploader < CarrierWave::Uploader::Base
   def filename
-    extension = File.extname(self.file&.filename)
-    "#{self.file&.filename.split(".")[0]}_#{Time.zone.today.strftime("%Y-%m-%d")}#{extension}"
+    "#{file_name}_#{file_date}#{file_extension}"
   end
 
   def extension_allowlist
-    %w(txt pdf rtf doc docx)
+    ["txt", "pdf", "rtf", "doc", "docx", "jpg", "jpeg", "gif", "png"]
   end
 
   def content_type_allowlist
-    %w(text/plain application/pdf application/rtf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document)
+    [
+      "text/plain",
+      "application/pdf",
+      "application/rtf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      /image\//,
+    ]
   end
 
   def date
@@ -23,6 +29,25 @@ class ProjectFileUploader < CarrierWave::Uploader::Base
   end
 
   def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    [
+      ("uploads" if Rails.env.development?),
+      "#{model.class.to_s.underscore}",
+      "#{mounted_as}",
+      "#{model.id || 'null'}",
+    ].compact_blank.join("/")
+  end
+
+  private
+
+  def file_name
+    self.file&.filename.split(".")[0]
+  end
+
+  def file_date
+    Time.zone.today.strftime("%Y-%m-%d")
+  end
+
+  def file_extension
+    File.extname(self.file&.filename)
   end
 end
