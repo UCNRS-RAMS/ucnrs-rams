@@ -18,7 +18,7 @@ describe("AmenityVisitController", () => {
       <div><h3>Reserves <a href="#">Browse Our Reserves</a></h3></div>
       <div class="display-row-flex">
         <div class="field">
-         <label for="visit_reserve_id">Which reserve you like to visits?</label>
+         <label for="visit_reserve_id">Which reserve would you like to visit?</label>
           <turbo-frame id="reserves_select" data-pattern="/visits/reserves?project_type=VALUE" data-turbo-content-target="destination" src="http://localhost:3000/visits/reserves?project_type=meeting_or_conference">
             <select id="visit_reserve_id" name="visit[reserve_id]" data-action="change->followup-content#change" class="reserve-field">
                 <option value="-1"></option>
@@ -119,7 +119,7 @@ describe("AmenityVisitController", () => {
             <img data-amenity-category-target="minImage" src="/assets/minimize-7fcc982e2f50da385afb8c3c379c10b58c39830ee0bd585c73fa70853cda3d4b.svg" width="30" height="24" style="display: block;">
             <span class="group_label">Housing</span>
           </h3>
-        </a>  
+        </a>
         <div data-amenity-category-target="amenitiesDiv" style="display: block;">
         <div class="amenity" data-controller="amenity-booking">
       <input type="radio" name="visit[amenities][1][amenity_id]" id="amenity-1" value="1" data-amenity-booking-target="amenityRadioBtn" data-amenity-category-target="amenityRadioBtn">
@@ -147,7 +147,7 @@ describe("AmenityVisitController", () => {
         <div class="bookings">
           <div class="booking">
             <turbo-frame id="amenity_1">
-                
+
       <div class="booking-card" data-amenity-booking-target="bookingCard" data-controller="subtotal amenity-visit">
           <input data-amenity-visit-target="id" autocomplete="off" type="hidden" name="visit[amenities][1][amenity_visits][a21ab4acc255da7fea65f5e001fda437][id]" id="visit_amenities_1_amenity_visits_a21ab4acc255da7fea65f5e001fda437_id">
         <div class="flex-row-field">
@@ -246,7 +246,7 @@ describe("AmenityVisitController", () => {
       <div class="bookings">
       <div class="booking">
         <turbo-frame id="amenity_1">
-            
+
       <div class="booking-card" data-amenity-booking-target="bookingCard" data-controller="subtotal amenity-visit">
       <input data-amenity-visit-target="id" autocomplete="off" type="hidden" name="visit[amenities][1][amenity_visits][a21ab4acc255da7fea65f5e001fda437][id]" id="visit_amenities_1_amenity_visits_a21ab4acc255da7fea65f5e001fda437_id">
       <div class="flex-row-field">
