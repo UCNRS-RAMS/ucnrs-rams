@@ -12,7 +12,7 @@
             <li> <%= link_to I18n.t(".navbar.link.visits"), root_path, class:"nav-link #{active_class_for("visits")} #{active_class_for("home")}" %> </li>
             <li> <%= link_to I18n.t(".navbar.link.reserves"), reserves_path, class:"nav-link #{active_class_for("reserves")}" %> </li>
             <li> <%= link_to I18n.t(".navbar.link.projects"), projects_path, class:"nav-link #{active_class_for("projects")}" %> </li>
-            <li> <%= link_to I18n.t(".navbar.link.help"), helps_path, class:"nav-link #{active_class_for("helps")}" %> </li>
+            <li> <%= link_to I18n.t(".navbar.link.help"), "https://ramshelp.ucnrs.org/", class:"nav-link #{active_class_for("helps")}", target: "_blank" %> </li>
             <li> <%= link_to I18n.t(".navbar.link.account"), edit_user_registration_path, class:"nav-link #{active_class_for("registrations")}" %> </li>
             <li> <%= link_to I18n.t(".navbar.link.sign_out"), destroy_user_session_path, class:"nav-link #{active_class_for("sessions")}", data: { turbo: false } %> </li>
             <li> <%= link_to I18n.t(".navbar.link.schedule_visit"), new_visit_path, class:"nav-link schedule #{active_class_for("visits")}" %></li>

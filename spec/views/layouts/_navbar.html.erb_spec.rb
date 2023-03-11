@@ -9,7 +9,7 @@ RSpec.describe "navbar", type: :view do
     expect(rendered).to have_link("Visits", href: "/")
     expect(rendered).to have_link("Reserves", href: "/reserves")
     expect(rendered).to have_link("Projects", href: "/projects")
-    expect(rendered).to have_link("Help", href: "/helps")
+    expect(rendered).to have_link("Help", href: "https://ramshelp.ucnrs.org/")
     expect(rendered).to have_link("Account", href: "/users/edit")
     expect(rendered).to have_link("Sign Out", href: "/users/sign_out")
 
