@@ -25,10 +25,10 @@
         <p><%= t(".hero.explanation1") %></p>
         <p><%= t(".hero.explanation2") %></p>
         <p><%= raw t(".hero.more_information") %></p>
-        <p><%= t(".hero.public_information", 
-                  reserves_info_link: link_to(t(".hero.reserves_info"), reserves_path), 
+        <p><%= t(".hero.public_information",
+                  reserves_info_link: link_to(t(".hero.reserves_info"), reserves_path),
                   project_search_link: link_to(t(".hero.project_search"), "#")
-                ).html_safe 
+                ).html_safe
             %>
         </p>
       </section>

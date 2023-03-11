@@ -2776,13 +2776,19 @@ en:
         logo: "Swirling UCNRS Logo"
       hero:
         title: "Plan Your Visit"
-        emphasized: "The University of California Natural Reserve System is the world’s largest network of university-administered field stations and protected lands."
-        explanation1: "Our library of ecosystems includes examples of most major state habitats. We offer outdoor laboratories to field scientists, classrooms without walls for students, and nature’s inspiration to all."
-        explanation2: "Reserves are available for teaching, research, and public service, but not general recreation. Access is by permission only."
-        more_information: "For more UCNRS information, visit <a href='https://ucnrs.org'>UCNRS.ORG</a>"
-        public_information: "For RAMS public information, %{reserves_info_link} %{project_search_link}"
+        emphasized: "The University of California Natural Reserve System is the world’s largest
+          network of university-administered field stations and protected lands."
+        explanation1: "Our library of ecosystems includes examples of most major state habitats.
+          We offer outdoor laboratories to field scientists, classrooms without walls for students,
+          and nature’s inspiration to all."
+        explanation2: "Reserves are available for teaching, research, and public service,
+          but not general recreation. Access is by permission only."
+        more_information: "For more information about the UC Natural Reserve System (or UC NRS),
+          visit <a href='https://ucnrs.org'>UCNRS.ORG</a>"
+        public_information: "For RAMS public information, %{reserves_info_link}
+          %{project_search_link}"
         reserves_info: "Reserves Info"
-        project_search: "Project Search"
+        project_search: "Project Search (coming soon)"
   alt:
     apple_calender_icon: "Apple calendar icon"
     google_calendar_icon: "Google Calendar icon"
