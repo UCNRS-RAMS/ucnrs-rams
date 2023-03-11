@@ -549,7 +549,7 @@ en:
           visitors: "Next: Visitors"
     reserve:
       labels:
-        reserve: "Which reserve you like to visits?"
+        reserve: "Which reserve would you like to visit?"
     project:
       links:
         create_a_new_project: "Create A New Project"
@@ -569,7 +569,7 @@ en:
         explanation:
           research: "Field or lab-based research in any discipline"
           university_class: "University or college course or class"
-          meeting_or_conference: "Symposia, lab retreates, and academic meetings"
+          meeting_or_conference: "Symposia, lab retreats, and academic meetings"
           public_use: "Community events, fundraising, K-12, or other classes, volunteer use"
     edit:
       title: "Visit Details"
@@ -1301,7 +1301,7 @@ en:
             explanation:
               research: "Field or lab-based research in any discipline"
               university_class: "University or college course or class"
-              meeting_or_conference: "Symposia, lab retreates, and academic meetings"
+              meeting_or_conference: "Symposia, lab retreats, and academic meetings"
               public_use: "Community events, fundraising, K-12, or other classes, volunteer use"
       summary:
         show:
@@ -2256,7 +2256,7 @@ en:
           public_use_category: "Choose a category that best describes your visit"
           purpose_of_visit: "What do you plan to do on this visit?"
           select_project: "Select Project"
-          reserve: "Which reserve you like to visits?"
+          reserve: "Which reserve would you like to visit?"
           arrival: "Arrival"
           departure: "Departure"
           next_page:
@@ -2286,7 +2286,7 @@ en:
           explanation:
             research: "Field or lab-based research in any discipline"
             university_class: "University or college course or class"
-            meeting_or_conference: "Symposia, lab retreates, and academic meetings"
+            meeting_or_conference: "Symposia, lab retreats, and academic meetings"
             public_use: "Community events, fundraising, K-12, or other classes, volunteer use"
     projects:
       permit_questions:

@@ -21,7 +21,14 @@
 
   <span data-controller="followup-content">
     <section class="reserve-info progress-steps">
-      <div><h3><%= presenter.reserve_header %><% if presenter.show_browse_reserve_link %> <%= link_to t(".links.browse_reserves"), reserves_path  %><% end %></h3></div>
+      <div>
+        <h3>
+          <%= presenter.reserve_header %>
+          <% if presenter.show_browse_reserve_link %>
+            <%= link_to t(".links.browse_reserves"), reserves_path, target: "_blank" %>
+          <% end %>
+        </h3>
+      </div>
       <div class="display-row-flex">
         <div class="field">
          <%= render partial: presenter.reserve_partial_path, locals: { presenter: presenter, form: form} %>

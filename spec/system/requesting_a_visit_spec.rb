@@ -87,7 +87,7 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     expect(flow).to be_on_new_visit_page
     expect(flow).to have_error_on("What do you plan to do on this visit?", "can't be blank")
     expect(flow).to have_error_on("Research Project", "must exist")
-    expect(flow).to have_error_on("Which reserve you like to visits?", "must exist")
+    expect(flow).to have_error_on("Which reserve would you like to visit?", "must exist")
 
     flow.select_project_type("University Class")
     flow.select_reserve("Silver Lake Area")
