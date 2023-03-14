@@ -753,15 +753,14 @@ en:
     completed_project_sidebar:
       sidebar_title: "Eureka!"
       sidebar_subtitle: "Congratulations on successfully creating your project."
-      sidebar_information: "The data you have provided should be as accurate as possible as it
-                            will be used by the reserve manager to determine whether your project
-                            falls within the scope of that reserve’s mission. Inaccurate or missing data
-                            may result in your visit request being denied."
+      sidebar_information: "This information you have provided will be used to determine whether
+        your project is suitable for each reserve you propose to visit. Inaccurate or missing data
+        may result in your visit request being denied."
       sidebar_next_steps: "Next Steps"
-      sidebar_next_steps_1: "Visit reserve page and determine which reserves you would like to submit your project too."
+      sidebar_next_steps_1: "Determine which reserves you plan to work at."
       sidebar_next_steps_2: "Create a visit for that reserve."
-      sidebar_next_steps_3: "Once your visit has been approved and only then, will you be able to physically visit the reserve."
-      sidebar_next_steps_4: "You may also be asked to provide Permit paperwork and Signed waivers."
+      sidebar_next_steps_3: "You may visit a reserve only after your Project and Visit have been approved."
+      sidebar_next_steps_4: "You may be asked to provide permits and sign waivers prior to visiting a reserve."
       schedule_a_visit: "Schedule a Visit"
     not_authorized: "You are not authorized to edit this project."
     cannot_add_users: "You are not authorized to add users."
@@ -1056,8 +1055,8 @@ en:
       method_soil_disturbance: "Soil Disturbance"
       method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages,
                                     data-loggers, antennas, or buoys"
-      method_description: "Detailed Description of Environmental Manipulations."
-      method_study_area: "Area of the property to visit or conduct manipulations in."
+      method_description: "Detailed description of environmental manipulations"
+      method_study_area: "Reserve area(s) you plan to visit or conduct manipulations"
     research_show:
       principal_investigators: "Principal Investigators"
       project_title: "Project Title"
@@ -1076,8 +1075,8 @@ en:
       method_soil_disturbance: "Soil Disturbance"
       method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages,
                                     data-loggers, antennas, or buoys"
-      method_description: "Detailed Description of Environmental Manipulations."
-      method_study_area: "Area of the property to visit or conduct manipulations in."
+      method_description: "Detailed description of environmental manipulations"
+      method_study_area: "Reserve area(s) you plan to visit or conduct manipulations"
     class_show:
       leads: "Leads"
       project_title: "Project Title"
@@ -1096,8 +1095,8 @@ en:
       method_soil_disturbance: "Soil Disturbance"
       method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages,
                                     data-loggers, antennas, or buoys"
-      method_description: "Detailed Description of Environmental Manipulations."
-      method_study_area: "Area of the property to visit or conduct manipulations in."
+      method_description: "Detailed description of environmental manipulations"
+      method_study_area: "Reserve area(s) you plan to visit or conduct manipulations"
     meeting_show:
       leads: "Leads"
       event_title: "Event Title"
@@ -2350,15 +2349,14 @@ en:
         view_our_reserves: "View Our Reserves"
         sidebar_title: "Eureka!"
         sidebar_subtitle: "Congratulations on successfully creating your project."
-        sidebar_information: "The data you have provided should be as accurate as possible as it
-                              will be used by the reserve manager to determine whether your project
-                              falls within the scope of that reserve’s mission. Inaccurate or missing data
-                              may result in your visit request being denied."
+        sidebar_information: "This information you have provided will be used to determine whether
+          your project is suitable for each reserve you propose to visit. Inaccurate or
+          missing data may result in your visit request being denied."
         sidebar_next_steps: "Next Steps"
-        sidebar_next_steps_1: "Visit reserve page and determine which reserves you would like to submit your project too."
+        sidebar_next_steps_1: "Determine which reserves you plan to work at."
         sidebar_next_steps_2: "Create a visit for that reserve."
-        sidebar_next_steps_3: "Once your visit has been approved and only then, will you be able to physically visit the reserve."
-        sidebar_next_steps_4: "You may also be asked to provide Permit paperwork and Signed waivers."
+        sidebar_next_steps_3: "You may visit a reserve only after your Project and Visit have been approved."
+        sidebar_next_steps_4: "You may be asked to provide permits and sign waivers prior to visiting a reserve."
         project_summary: "Project Summary"
         project_status_request: "%{project_type} Request"
         edit_project: "Edit Project"
@@ -2379,8 +2377,8 @@ en:
         method_soil_disturbance: "Soil Disturbance"
         method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages,
                                       data-loggers, antennas, or buoys"
-        method_description: "Detailed Description of Environmental Manipulations."
-        method_study_area: "Area of the property to visit or conduct manipulations in."
+        method_description: "Detailed description of environmental manipulations"
+        method_study_area: "Reserve area(s) you plan to visit or conduct manipulations"
       research_show:
         principal_investigators: "Principal Investigators"
         project_title: "Project Title"
@@ -2399,8 +2397,8 @@ en:
         method_soil_disturbance: "Soil Disturbance"
         method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages,
                                       data-loggers, antennas, or buoys"
-        method_description: "Detailed Description of Environmental Manipulations."
-        method_study_area: "Area of the property to visit or conduct manipulations in."
+        method_description: "Detailed description of environmental manipulations"
+        method_study_area: "Reserve area(s) you plan to visit or conduct manipulations"
       class_show:
         leads: "Leads"
         project_title: "Project Title"
@@ -2419,8 +2417,8 @@ en:
         method_soil_disturbance: "Soil Disturbance"
         method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages,
                                       data-loggers, antennas, or buoys"
-        method_description: "Detailed Description of Environmental Manipulations."
-        method_study_area: "Area of the property to visit or conduct manipulations in."
+        method_description: "Detailed description of environmental manipulations"
+        method_study_area: "Reserve area(s) you plan to visit or conduct manipulations"
       meeting_show:
         leads: "Leads"
         event_title: "Event Title"
@@ -2749,8 +2747,8 @@ en:
       method_soil_disturbance: "Soil Disturbance"
       method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages,
                                     data-loggers, antennas, or buoys"
-      method_description: "Detailed Description of Environmental Manipulations."
-      method_study_area: "Area of the property to visit or conduct manipulations in."
+      method_description: "Detailed description of environmental manipulations"
+      method_study_area: "Reserve area(s) you plan to visit or conduct manipulations"
     visit_detail:
       visit_summary: "Visit Summary"
       request_submitted: "Request Submitted"
