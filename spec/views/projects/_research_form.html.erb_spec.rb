@@ -113,7 +113,7 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
 
     doc = Capybara.string(rendered)
     expect(doc).to have_field("Environmental Manipulations Needed", type: "textarea")
-    expect(doc).to have_field("Describe where you will be working on the reserve.", type: "textarea")
+    expect(doc).to have_field("List the name of each reserve you would like to visit and describe where you plan to work on that reserve.", type: "textarea")
   end
 
   it "has the required fields in the 'Planning Questions' section" do
@@ -189,7 +189,7 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
       expect(doc).to display_error("can't be blank")
         .for_field("Environmental Manipulations Needed")
       expect(doc).to display_error("can't be blank")
-        .for_field("Describe where you will be working on the reserve.")
+        .for_field("List the name of each reserve you would like to visit and describe where you plan to work on that reserve.")
       expect(doc).to display_error("must make a choice")
         .for_field("Remove organisms or materials from the reserve?")
       expect(doc).to display_error("must make a choice")

@@ -60,7 +60,7 @@ class EditProjectFlow
       assert.has_field?("Taxonomic Keywords (Optional)", with: taxonomic_keywords)
       assert.has_field?("Recent Publications (Optional)", with: recent_publications)
       assert.has_field?("Environmental Manipulations Needed", with: method_description)
-      assert.has_field?("Describe where you will be working on the reserve.", with: method_study_area)
+      assert.has_field?("List the name of each reserve you would like to visit and describe where you plan to work on that reserve.", with: method_study_area)
       assert.has_field?("project_method_remove_organisms_#{method_remove_organisms ? "yes" : "no"}", checked: true)
       assert.has_field?("project_method_transfer_organisms_#{method_transfer_organisms ? "yes" : "no"}", checked: true)
       assert.has_field?("project_method_study_non_native_species_#{method_study_non_native_species ? "yes" : "no"}", checked: true)
@@ -124,7 +124,7 @@ class EditProjectFlow
     page.fill_in("Taxonomic Keywords (Optional)", with: taxonomic_keywords)
     page.fill_in("Recent Publications (Optional)", with: recent_publications)
     page.fill_in("Environmental Manipulations Needed", with: method_description)
-    page.fill_in("Describe where you will be working on the reserve.", with: method_study_area)
+    page.fill_in("List the name of each reserve you would like to visit and describe where you plan to work on that reserve.", with: method_study_area)
     page.choose("project_method_remove_organisms_#{method_remove_organisms.downcase}")
     page.choose("project_method_transfer_organisms_#{method_transfer_organisms.downcase}")
     page.choose("project_method_study_non_native_species_#{method_study_non_native_species.downcase}")
@@ -327,7 +327,7 @@ class EditProjectFlow
     page.has_css?("td:nth-child(1)", text: title) &&
       page.has_css?("td:nth-child(2)", text: funding_agency) &&
       page.has_css?("td:nth-child(3)", text: award_amount)
-  end 
+  end
 
   def has_no_funding?(title:, funding_agency:, award_amount:)
     page.has_no_css?("td:nth-child(1)", text: title) &&
