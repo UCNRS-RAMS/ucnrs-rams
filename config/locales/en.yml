@@ -257,16 +257,26 @@ en:
       save: "Save"
     welcome:
       title: "Welcome to RAMS"
-      content: "Here you can learn about natural reserves and field stations, request dates and accommodations for your visit, submit project descriptions and permits, and sign any necessary waivers or other permissions."
+      content: "Here you can learn about natural reserves and field stations, request dates and
+        accommodations for your visit, submit project descriptions and permits, and sign any
+        necessary waivers or other permissions."
       continue: "Let's go!"
-      accessible_description: "This is a dialog that welcomes you to RAMS. Press the Let's Go button to continue."
+      accessible_description: "This is a dialog that welcomes you to RAMS.
+        Press the Let's Go button to continue."
     project:
       title: "How we use project information"
-      accessible_description: "This is a dialog that explains why project information is collected and how it is used. Press the Okay, Got it button to continue."
-      content_first: "Project information allows site managers to assess the suitability of proposed activities and better meet the needs of users. It is used to measure site success, demonstrate demand for reserves, and validate the need for financial and staffing support."
-      content_middle: "If you have a research project, the California Digital Library Data Management Plan (DMP) Tool can help you complete your data management plan. RAMS has an active connection to the DMP Tool, which allows real-time tracking of data and journal publications."
-      content_last: "The information entered may be included in reports and other communications, and shared with the public."
-      okay: "Okay, Got it"
+      accessible_description: "This is a dialog that explains why project information is collected
+        and how it is used. Press the Okay, Got It button to continue."
+      content_first: "Project information allows site managers to assess the suitability of proposed
+        activities and better meet the needs of users. It is used to measure site success, demonstrate
+        demand for reserves, and validate the need for financial and staffing support."
+      content_middle: "If you have a research project, the California Digital Library
+        Data Management Plan (DMP) Tool can help you complete your data management plan.
+        RAMS has an active connection to the DMP Tool, which allows real-time tracking of data
+        and journal publications."
+      content_last: "The information entered may be included in reports and other communications,
+        and shared with the public."
+      okay: "Okay, Got It"
       alt:
         right_facing_arrow: "A right facing arrow"
         close_modal_icon: "An 'x' icon to close the modal"
@@ -828,7 +838,8 @@ en:
         explanation: "Enter a short descriptive title to uniquely identify your application."
       thesis_title:
         field_name: "Thesis Title"
-        explanation: "Please provide the most complete version of your thesis title."
+        explanation: "Please provide the most complete version of your thesis title.
+          If this project does not support work toward an academic thesis, leave this field blank."
       abstract:
         field_name: "Project Abstract"
         explanation: "Enter a short summary of your project."
@@ -842,14 +853,19 @@ en:
         placeholder: "Ex: Quercus lobata,Picoides nuttallii"
       recent_publications:
         field_name: "Recent Publications (Optional)"
-        explanation: "Enter recent publications that resulted from research done on the reserve."
+        explanation: "Enter recent publications that resulted from research done on the reserve.
+          If submitting a new project, fill in later when applicable."
         placeholder: "DOI (Digital Object Identifier)"
       method_description:
         field_name: "Environmental Manipulations Needed"
-        explanation: "Include objects or organisms to be collected, animal and plant populations that may be affected, disturbances of cultural resources, introductions of any species or genotypes, etc."
+        explanation: "Include objects or organisms to be collected, animal and plant populations
+          that may be affected, disturbances of cultural resources, introductions of any
+          species or genotypes, etc."
       method_study_area:
-        field_name: "Describe where you will be working on the reserve."
-        explanation: "A general description of the geographic area from which you will be collecting data for the project. Could be a place name or a detailed list of sites."
+        field_name: "List the name of each reserve you would like to visit and describe
+          where you plan to work on that reserve."
+        explanation: "A general description of the geographic area from which you will be
+          collecting data for the project. Could be a place name or a detailed list of sites."
       start_date: "Start Date"
       end_date: "End Date"
       select_involvements: "Will your project involve any of the following?"
@@ -907,14 +923,19 @@ en:
         placeholder: "Ex: Quercus lobata,Picoides nuttallii"
       recent_publications:
         field_name: "Recent Publications (Optional)"
-        explanation: "Enter recent publications that resulted from research done on the reserve."
+        explanation: "Enter recent publications that resulted from research done on the reserve.
+          If submitting a new project, fill in later when applicable."
         placeholder: "DOI (Digital Object Identifier)"
       method_description:
         field_name: "Environmental Manipulations Needed"
-        explanation: "Include objects or organisms to be collected, animal and plant populations that may be affected, disturbances of cultural resources, introductions of any species or genotypes, etc."
+        explanation: "Include objects or organisms to be collected, animal and plant
+          populations that may be affected, disturbances of cultural resources, introductions
+          of any species or genotypes, etc."
       method_study_area:
-        field_name: "Describe where you will be working on the reserve."
-        explanation: "A general description of the geographic area from which you will be collecting data for the project. Could be a place name or a detailed list of sites."
+        field_name: "List the name of each reserve you would like to visit and describe where
+          you plan to work on that reserve."
+        explanation: "A general description of the geographic area from which you will be
+          collecting data for the project. Could be a place name or a detailed list of sites."
       start_date: "Start Date"
       end_date: "End Date"
       select_involvements: "Will your project involve any of the following?"
@@ -1572,7 +1593,8 @@ en:
           explanation: "Enter a short descriptive title to uniquely identify your application."
         thesis_title:
           field_name: "Thesis Title"
-          explanation: "Please provide the most complete version of your thesis title."
+          explanation: "Please provide the most complete version of your thesis title.
+            If this project does not support work toward an academic thesis, leave this field blank."
         abstract:
           field_name: "Project Abstract"
           explanation: "Enter a short summary of your project."
@@ -1586,14 +1608,19 @@ en:
           placeholder: "Ex: Quercus lobata,Picoides nuttallii"
         recent_publications:
           field_name: "Recent Publications (Optional)"
-          explanation: "Enter recent publications that resulted from research done on the reserve."
+          explanation: "Enter recent publications that resulted from research done on the reserve.
+            If submitting a new project, fill in later when applicable."
           placeholder: "DOI (Digital Object Identifier)"
         method_description:
           field_name: "Environmental Manipulations Needed"
-          explanation: "Include objects or organisms to be collected, animal and plant populations that may be affected, disturbances of cultural resources, introductions of any species or genotypes, etc."
+          explanation: "Include objects or organisms to be collected, animal and plant populations
+            that may be affected, disturbances of cultural resources, introductions of any species
+            or genotypes, etc."
         method_study_area:
-          field_name: "Describe where you will be working on the reserve."
-          explanation: "A general description of the geographic area from which you will be collecting data for the project. Could be a place name or a detailed list of sites."
+          field_name: "List the name of each reserve you would like to visit and describe where
+            you plan to work on that reserve."
+          explanation: "A general description of the geographic area from which you will be
+            collecting data for the project. Could be a place name or a detailed list of sites."
         start_date: "Start Date"
         end_date: "End Date"
         select_involvements: "Will your project involve any of the following?"
@@ -1651,14 +1678,19 @@ en:
           placeholder: "Ex: Quercus lobata,Picoides nuttallii"
         recent_publications:
           field_name: "Recent Publications (Optional)"
-          explanation: "Enter recent publications that resulted from research done on the reserve."
+          explanation: "Enter recent publications that resulted from research done on the reserve.
+            If submitting a new project, fill in later when applicable."
           placeholder: "DOI (Digital Object Identifier)"
         method_description:
           field_name: "Environmental Manipulations Needed"
-          explanation: "Include objects or organisms to be collected, animal and plant populations that may be affected, disturbances of cultural resources, introductions of any species or genotypes, etc."
+          explanation: "Include objects or organisms to be collected, animal and plant populations
+            that may be affected, disturbances of cultural resources, introductions of any
+            species or genotypes, etc."
         method_study_area:
-          field_name: "Describe where you will be working on the reserve."
-          explanation: "A general description of the geographic area from which you will be collecting data for the project. Could be a place name or a detailed list of sites."
+          field_name: "List the name of each reserve you would like to visit and describe where
+            you plan to work on that reserve."
+          explanation: "A general description of the geographic area from which you will be
+            collecting data for the project. Could be a place name or a detailed list of sites."
         start_date: "Start Date"
         end_date: "End Date"
         select_involvements: "Will your project involve any of the following?"
@@ -2482,7 +2514,8 @@ en:
           explanation: "Enter a short descriptive title to uniquely identify your application."
         thesis_title:
           field_name: "Thesis Title"
-          explanation: "Please provide the most complete version of your thesis title."
+          explanation: "Please provide the most complete version of your thesis title.
+            If this project does not support work toward an academic thesis, leave this field blank."
         abstract:
           field_name: "Project Abstract"
           explanation: "Enter a short summary of your project."
@@ -2496,14 +2529,19 @@ en:
           placeholder: "Ex: Quercus lobata,Picoides nuttallii"
         recent_publications:
           field_name: "Recent Publications (Optional)"
-          explanation: "Enter recent publications that resulted from research done on the reserve."
+          explanation: "Enter recent publications that resulted from research done on the reserve.
+            If submitting a new project, fill in later when applicable."
           placeholder: "DOI (Digital Object Identifier)"
         method_description:
           field_name: "Environmental Manipulations Needed"
-          explanation: "Include objects or organisms to be collected, animal and plant populations that may be affected, disturbances of cultural resources, introductions of any species or genotypes, etc."
+          explanation: "Include objects or organisms to be collected, animal and plant populations
+            that may be affected, disturbances of cultural resources, introductions of any
+            species or genotypes, etc."
         method_study_area:
-          field_name: "Describe where you will be working on the reserve."
-          explanation: "A general description of the geographic area from which you will be collecting data for the project. Could be a place name or a detailed list of sites."
+          field_name: "List the name of each reserve you would like to visit and describe where
+            you plan to work on that reserve."
+          explanation: "A general description of the geographic area from which you will be
+            collecting data for the project. Could be a place name or a detailed list of sites."
         start_date: "Start Date"
         end_date: "End Date"
         select_involvements: "Will your project involve any of the following?"
@@ -2583,14 +2621,19 @@ en:
           placeholder: "Ex: Quercus lobata,Picoides nuttallii"
         recent_publications:
           field_name: "Recent Publications (Optional)"
-          explanation: "Enter recent publications that resulted from research done on the reserve."
+          explanation: "Enter recent publications that resulted from research done on the reserve.
+            If submitting a new project, fill in later when applicable."
           placeholder: "DOI (Digital Object Identifier)"
         method_description:
           field_name: "Environmental Manipulations Needed"
-          explanation: "Include objects or organisms to be collected, animal and plant populations that may be affected, disturbances of cultural resources, introductions of any species or genotypes, etc."
+          explanation: "Include objects or organisms to be collected, animal and plant populations
+            that may be affected, disturbances of cultural resources, introductions of any
+            species or genotypes, etc."
         method_study_area:
-          field_name: "Describe where you will be working on the reserve."
-          explanation: "A general description of the geographic area from which you will be collecting data for the project. Could be a place name or a detailed list of sites."
+          field_name: "List the name of each reserve you would like to visit and describe where
+            you plan to work on that reserve."
+          explanation: "A general description of the geographic area from which you will be
+            collecting data for the project. Could be a place name or a detailed list of sites."
         start_date: "Start Date"
         end_date: "End Date"
         select_involvements: "Will your project involve any of the following?"
