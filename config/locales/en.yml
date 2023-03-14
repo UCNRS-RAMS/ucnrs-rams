@@ -609,7 +609,7 @@ en:
     user_visits:
       no_visitor: "Please enter your visitor information before advancing"
       index:
-        title: "Who are you bringing with you?"
+        title: "Who is going on this visit?"
         reserve: "Reserve"
         arrive_departs_date: "Arrival & Departure"
         next_step: "Next: Reserve Info"
@@ -2250,8 +2250,10 @@ en:
           change: "Change"
           confirm_removal: "Are you sure you want to remove %{name}?"
         user_visits_table:
-          warning: "Dates selected for visitors exceeds the specified dates entered for your amenities. Please check your dates in both amenities and visitors areas for accuracy."
+          warning: "Dates selected for visitors exceeds the specified dates entered for your amenities.
+            Please check your dates in both amenities and visitors areas for accuracy."
           visitor_table: "Visitor List"
+          add_visitors: "Add visitors to this list."
         team_members:
           new_team_member: "Add New Team Member"
         links:

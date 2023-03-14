@@ -24,7 +24,7 @@
     display: flex;
     justify-content: space-between;
   }
-  
+
   .link {
     font-size: small;
     padding-top: 1rem;
@@ -295,6 +295,12 @@
       height: 1.2rem;
       vertical-align: middle;
       width: 1.2rem;
+    }
+
+    tr.empty > td{
+      font-size: 1rem;
+      font-weight: $semi-bold;
+      text-align: center;
     }
   }
 
