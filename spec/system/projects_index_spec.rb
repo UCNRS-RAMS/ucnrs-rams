@@ -18,10 +18,10 @@ RSpec.describe "Projects Index" do
 
         flow = ProjectIndexFlow.new(page)
         sign_in(user)
-  
+
         flow.visit_projects_index_page
         expect(flow).to be_on_projects_index_page
-        expect(flow).to have_active_my_projects_tab
+        expect(flow).to have_active_projects_tab
         expect(flow).to have_projects_count(4)
         expect(flow).to have_projects_in_order([project3, project2, project1, project4])
         expect(flow).to have_project_with(
@@ -84,7 +84,7 @@ RSpec.describe "Projects Index" do
           reserve_name: "Alpine Heights",
         )
         expect(page).to be_axe_clean
-  
+
         flow.filter_by_status("Incomplete Projects")
         expect(flow).to have_projects_count(1)
         expect(flow).to have_projects_in_order([project3])
@@ -98,7 +98,7 @@ RSpec.describe "Projects Index" do
           reserve_name: "N/A",
         )
         expect(page).to be_axe_clean
-  
+
         flow.filter_by_status("Inactive Projects")
         expect(flow).to have_projects_count(1)
         expect(flow).to have_projects_in_order([project4])
@@ -112,7 +112,7 @@ RSpec.describe "Projects Index" do
           reserve_name: "Bodega Bay",
         )
         expect(page).to be_axe_clean
-  
+
         flow.filter_by_status("All Projects")
         expect(flow).to have_projects_count(4)
         expect(flow).to have_project_with(
@@ -169,7 +169,7 @@ RSpec.describe "Projects Index" do
 
       flow.visit_projects_index_page
       expect(flow).to be_on_projects_index_page
-      expect(flow).to have_active_my_projects_tab
+      expect(flow).to have_active_projects_tab
       expect(flow).to have_displayed_projects(10)
       expect(flow).to have_pagination_link("next")
       expect(flow).to have_pagination_link("last")

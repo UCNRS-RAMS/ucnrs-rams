@@ -26,8 +26,8 @@ class ProjectIndexFlow
     row_ids == project_ids
   end
 
-  def has_active_my_projects_tab?
-    page.has_css?("a.nav-link.active", text: "My Projects")
+  def has_active_projects_tab?
+    page.has_css?("a.nav-link.active", text: "Projects")
   end
 
   def has_project_with?(
