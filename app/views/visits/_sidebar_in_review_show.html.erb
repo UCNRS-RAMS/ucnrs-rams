@@ -10,7 +10,6 @@
   <hr />
   <%= render partial: "visits/reserve_info", locals: { presenter: @presenter } %>
   <hr >
-  <%= link_to t(".return_to_dashboard"), root_path, class: "button" %>
   <%= link_to t(".visit_reserve_website"),
     reserve_path(@presenter.visit_reserve_id),
     class: "icon icon-external-link"
