@@ -1440,7 +1440,6 @@ en:
       index:
         arrival_date: "Enter Arrival Date"
         departure_date: "Enter Departs Date"
-        title: "My Projects"
         projects: "Projects"
         date_submitted: "Date Submitted"
         all: "All"
@@ -2742,7 +2741,7 @@ en:
     link:
       visits: "Visits"
       reserves: "Reserves"
-      my_projects: "My Projects"
+      projects: "Projects"
       help: "Help"
       account: "Account"
       schedule_visit: "Schedule a Visit"
