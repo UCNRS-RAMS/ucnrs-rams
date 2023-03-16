@@ -52,6 +52,7 @@ class HomeIndexPresenter
       .for_status(invoice_status_filter)
       .page(invoice_page)
       .per(INVOICE_LIMIT_FOR_INDEX)
+      .includes(visit: :reserve)
   end
 
   def invoices
@@ -95,9 +96,11 @@ class HomeIndexPresenter
   end
 
   def invoice_reserve_list
-    user.invoices.map do |invoice|
-      [invoice.visit.reserve_name, invoice.visit.reserve_id]
-    end.to_h
+    user
+      .invoices
+      .includes(visit: :reserve)
+      .map { |invoice| [invoice.visit.reserve_name, invoice.visit.reserve_id] }
+      .to_h
   end
 
   private
