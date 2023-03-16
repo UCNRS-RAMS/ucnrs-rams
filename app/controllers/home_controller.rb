@@ -11,6 +11,12 @@ class HomeController < ApplicationController
       invoice_page: invoice_page_number,
       partial: params[:partial_name]
     )
+
+    if session[:welcome].nil? && session[:welcome] = true && !current_user.managed_reserves.present?
+      @display_welcome_modal = true
+    else
+      @display_welcome_modal = false
+    end
   end
 
   private

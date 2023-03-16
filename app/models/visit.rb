@@ -21,7 +21,7 @@ class Visit < ApplicationRecord
   validates :end_time, presence: true
   validates :end_date, must_be_after: :start_date
   validates :public_use_category, presence: true, if: :public_use?
-  
+
   validate :user_visits_ranges_within_date_range
 
   delegate :short_name, :name, to: :reserve, prefix: true
@@ -29,7 +29,7 @@ class Visit < ApplicationRecord
   delegate :full_name, :role, to: :user, prefix: true
 
   def project_type
-    project.project_type if project.present? 
+    project.project_type if project.present?
   end
 
   def self.recent_start_date_first
@@ -70,6 +70,7 @@ class Visit < ApplicationRecord
 
   def self.reserve_list_for_user(user)
     where(id: participating_visit_ids(user) | applicant_visit_ids(user))
+      .includes(:reserve)
       .left_joins(:reserve)
       .select("reserves.id as reserve_id, reserves.name as reserve_name")
       .group("reserves.id").order("reserves.name")

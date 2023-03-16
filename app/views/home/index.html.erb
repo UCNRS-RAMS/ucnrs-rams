@@ -31,7 +31,7 @@
 
 <turbo-frame id="ucnrs_latest_news" src="/home/latest_news"></turbo-frame>
 
-<% if session[:welcome].nil? && session[:welcome] = true %>
+<% if @display_welcome_modal %>
   <% content_for :modal do %>
     <%= render partial: "modals/welcome" %>
   <% end %>
