@@ -2,7 +2,7 @@
 
 class InvoiceFilter
   DEFAULT_SORT_BY_FILTER = "created_recent_first"
-  DEFAULT_INVOICE_STATUS_FILTER = "all"
+  DEFAULT_INVOICE_STATUS_FILTER = nil
 
   def initialize(filter, reserve = nil)
     @filter = filter
@@ -46,6 +46,6 @@ class InvoiceFilter
   end
 
   private
-  
+
   attr_reader :filter, :reserve
 end

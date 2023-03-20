@@ -113,7 +113,7 @@ RSpec.describe InvoiceFilter do
       invoice_filter = InvoiceFilter.new(filter, nil)
 
       result = invoice_filter.visit_date_end_filter
-  
+
       expect(result).to eq "a date"
     end
   end
@@ -125,19 +125,19 @@ RSpec.describe InvoiceFilter do
         invoice_filter = InvoiceFilter.new(filter, nil)
 
         result = invoice_filter.invoice_status_filter
-    
+
         expect(result).to eq "a invoice status"
       end
     end
 
     context "if :invoice_status is not present" do
-      it "returns 'all'" do
+      it "returns nil" do
         filter = { invoice_status: "" }
         invoice_filter = InvoiceFilter.new(filter, nil)
 
         result = invoice_filter.invoice_status_filter
-    
-        expect(result).to eq "all"
+
+        expect(result).to eq nil
       end
     end
   end

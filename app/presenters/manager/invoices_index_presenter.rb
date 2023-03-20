@@ -1,12 +1,6 @@
 class Manager::InvoicesIndexPresenter
   DEFAULT_LIMIT_FOR_INDEX = 10
 
-  STATUS_OPTIONS = {
-    "All" => "all",
-    "Paid" => "paid",
-    "Pending" => "balance_due",
-  }
-
   SORT_OPTIONS = {
     "Date Created" => :created_recent_first,
     "Amount" => :sort_by_amount,
@@ -33,7 +27,7 @@ class Manager::InvoicesIndexPresenter
     Invoice
     .with_invoices_at_reserve(reserves)
     .searching_term(invoice_search_filter)
-    .for_status_filter(invoice_status_filter)
+    .for_status(invoice_status_filter)
     .having_between_time_for(
       date_range_option: :visit_date_range,
       date_start: visit_date_begin_filter,
@@ -54,7 +48,11 @@ class Manager::InvoicesIndexPresenter
   end
 
   def invoice_status_options
-    STATUS_OPTIONS
+    {
+      I18n.t("manager.invoices.index.all") => nil,
+      I18n.t("manager.invoices.index.paid") => :paid,
+      I18n.t("manager.invoices.index.pending") => :due,
+    }
   end
 
   def reserve_options
