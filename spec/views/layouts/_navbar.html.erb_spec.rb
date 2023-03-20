@@ -10,7 +10,7 @@ RSpec.describe "navbar", type: :view do
     expect(rendered).to have_link("Reserves", href: "/reserves")
     expect(rendered).to have_link("Projects", href: "/projects")
     expect(rendered).to have_link("Help", href: "https://ramshelp.ucnrs.org/")
-    expect(rendered).to have_link("Account", href: "/users/edit")
+    expect(rendered).to have_link("My Profile", href: "/users/edit")
     expect(rendered).to have_link("Sign Out", href: "/users/sign_out")
 
     expect(rendered).to have_link("Schedule a Visit", href: "/visits/new")
@@ -28,6 +28,6 @@ RSpec.describe "navbar", type: :view do
     expect(rendered).not_to have_link("Visits")
     expect(rendered).not_to have_link("Projects")
     expect(rendered).not_to have_link("Help")
-    expect(rendered).not_to have_link("Account")
+    expect(rendered).not_to have_link("My Profile")
   end
 end
