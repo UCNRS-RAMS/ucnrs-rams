@@ -145,6 +145,9 @@ en:
         by_reserve: "By reserve:"
       invoices:
         title: "Invoices"
+      recent_invoices: "Recent Invoices"
+      paid: "Paid"
+      balance_due: "Balance Due"
       visit_requests:
         title: "Visit Requests"
       latest_news: "Latest News"
@@ -1178,6 +1181,9 @@ en:
         project: "Project"
         user: "User"
         balance_due: "Balance Due"
+        all: "All"
+        paid: "Paid"
+        pending: "Pending"
       invoice_payment:
         edit: "Edit Payment"
       action_buttons:

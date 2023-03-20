@@ -38,8 +38,7 @@ RSpec.describe Manager::InvoicesIndexPresenter do
   describe "#invoice_status_options" do
     it "returns status options for invoice filter" do
       presenter = Manager::InvoicesIndexPresenter.new
-
-      output = { "All"=>"all", "Paid"=>"paid", "Pending"=>"balance_due" }
+      output = { "All" => nil, "Paid" => :paid, "Pending" => :due }
 
       expect(presenter.invoice_status_options).to eq output
     end
@@ -48,8 +47,12 @@ RSpec.describe Manager::InvoicesIndexPresenter do
   describe "#sort_by_options" do
     it "returns sort options for invoice filter" do
       presenter = Manager::InvoicesIndexPresenter.new
-
-      output = { "Date Created"=>:created_recent_first, "Amount"=>:sort_by_amount, "Balance Due"=>:sort_by_balance_due, "Invoice Number"=>:sort_by_invoice_number }
+      output = {
+        "Date Created" => :created_recent_first,
+        "Amount" => :sort_by_amount,
+        "Balance Due" => :sort_by_balance_due,
+        "Invoice Number" => :sort_by_invoice_number,
+      }
 
       expect(presenter.sort_by_options).to eq output
     end

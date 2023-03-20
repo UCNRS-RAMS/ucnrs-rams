@@ -109,7 +109,7 @@ RSpec.describe Invoice, type: :model do
       create(:invoice_payment, invoice: invoice, user: user, amount: 5)
       create(:invoice_payment, invoice: invoice, user: user, amount: 10)
 
-      output = 15 
+      output = 15
 
       expect(invoice.payments_amount_total).to eq output
     end
@@ -228,7 +228,7 @@ RSpec.describe Invoice, type: :model do
         invoice2 = create(:invoice, balance_due: 0)
         invoice3 = create(:invoice, balance_due: 10)
 
-        results = Invoice.for_status_filter("balance_due")
+        results = Invoice.for_status_filter("due")
 
         expect(results).to match_array [invoice1, invoice3]
       end
@@ -300,7 +300,7 @@ RSpec.describe Invoice, type: :model do
       invoice3 = create(:invoice, balance_due: 10, invoiced_on: Date.new(1980, 7, 30))
 
       results = Invoice.having_between_time_for(
-        date_range_option: :invoiced_on, 
+        date_range_option: :invoiced_on,
         date_start: date1,
         date_end: date2,
       )

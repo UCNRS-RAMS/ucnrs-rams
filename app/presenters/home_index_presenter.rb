@@ -12,7 +12,9 @@ class HomeIndexPresenter
     "incomplete" => "incomplete",
   }.freeze
 
-  def initialize(user:, visit_page: nil,invoice_page: nil, visit_filter: nil, invoice_filter: nil, news_articles: nil, partial: "visits")
+  def initialize(user:, visit_page: nil, invoice_page: nil, visit_filter: nil,
+    invoice_filter: nil, news_articles: nil, partial: "visits")
+
     @news_articles = news_articles
     @user = user
     @visit_filter = visit_filter
@@ -26,7 +28,16 @@ class HomeIndexPresenter
     @partial_name = partial || "visits"
   end
 
-  attr_reader :visit_filter, :visit_status_filter, :visit_reserve_filter, :user, :visit_page, :invoice_page, :invoice_filter, :invoice_reserve_filter, :invoice_status_filter, :partial_name
+  attr_reader :visit_filter,
+    :visit_status_filter,
+    :visit_reserve_filter,
+    :user,
+    :visit_page,
+    :invoice_page,
+    :invoice_filter,
+    :invoice_reserve_filter,
+    :invoice_status_filter,
+    :partial_name
 
   def visits
     visit_scope.map do |visit|
@@ -88,7 +99,11 @@ class HomeIndexPresenter
   end
 
   def invoice_filter_options
-    Invoice::STATUS_FILTERS
+    {
+      I18n.t("home.index.recent_invoices") => nil,
+      I18n.t("home.index.paid") => :paid,
+      I18n.t("home.index.balance_due") => :due,
+    }
   end
 
   def visits_reserve_list

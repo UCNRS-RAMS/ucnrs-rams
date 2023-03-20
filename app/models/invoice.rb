@@ -2,11 +2,6 @@ class Invoice < ApplicationRecord
   acts_as_paranoid
 
   NUMERIC_SEARCH_PATTERN = /\A\d+\z/
-  STATUS_FILTERS = {
-    "invoice_recent" => nil,
-    "paid" => "paid",
-    "balance_due" => "due",
-  }.freeze
 
   OPTIONS_FILTERS = {
     "visit_invoices" => "visit_invoices",
@@ -100,7 +95,7 @@ class Invoice < ApplicationRecord
   def self.for_status_filter(status_filter)
     if status_filter == "all"
       all
-    elsif STATUS_FILTERS[status_filter] == "due"
+    elsif status_filter == "due"
        where(Invoice.arel_table[:balance_due].gt(0))
     else
       where(Invoice.arel_table[:balance_due].lteq(0))

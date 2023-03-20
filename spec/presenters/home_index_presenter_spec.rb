@@ -15,7 +15,7 @@ RSpec.describe HomeIndexPresenter do
   describe "#invoice_filter_options" do
     it "generates a date range" do
       presenter = HomeIndexPresenter.new(user: user)
-      output = { "invoice_recent"=>nil, "paid"=>"paid", "balance_due"=>"due" }
+      output = { "Recent Invoices" => nil, "Paid" => :paid, "Balance Due" => :due }
 
       expect(presenter.invoice_filter_options).to eq output
     end
@@ -29,7 +29,7 @@ RSpec.describe HomeIndexPresenter do
       invoice2 = create(:invoice, visit: create(:visit, reserve: reserve2))
       create(:invoice_recipient, user: user, invoice: invoice1)
       create(:invoice_recipient, user: user, invoice: invoice2)
-      
+
       presenter = HomeIndexPresenter.new(user: user)
       output = { reserve1.name => reserve1.id, reserve2.name => reserve2.id }
 
@@ -68,7 +68,7 @@ RSpec.describe HomeIndexPresenter do
     it "return '' if invoice_filter is not equal to given option" do
       presenter = HomeIndexPresenter.new(user: user, invoice_filter: "status" )
       output = ""
-      
+
       expect(presenter.invoice_selected("reserve")).to eq output
     end
   end
@@ -84,7 +84,7 @@ RSpec.describe HomeIndexPresenter do
     it "return '' if visit_filter is not equal to given option" do
       presenter = HomeIndexPresenter.new(user: user, invoice_filter: "status" )
       output = ""
-      
+
       expect(presenter.visit_selected("reserve")).to eq output
     end
   end
@@ -97,9 +97,9 @@ RSpec.describe HomeIndexPresenter do
         visit2 = create(:visit, user: user)
         create(:user_visit, visit: visit1, user: user)
         create(:user_visit, visit: visit2, user: user)
-  
+
         presenter = HomeIndexPresenter.new(user: user, visit_filter: "reserve_#{reserve.id}")
-  
+
         expect(presenter.visit_scope).to match_array [visit1]
       end
     end
@@ -111,9 +111,9 @@ RSpec.describe HomeIndexPresenter do
         visit2 = create(:visit, user: user)
         create(:user_visit, visit: visit1, user: user)
         create(:user_visit, visit: visit2, user: user)
-  
+
         presenter = HomeIndexPresenter.new(user: user, visit_filter: "approved")
-        
+
         expect(presenter.visit_scope).to match_array [visit1]
       end
     end
@@ -125,9 +125,9 @@ RSpec.describe HomeIndexPresenter do
         visit2 = create(:visit, user: user)
         create(:user_visit, visit: visit1, user: user)
         create(:user_visit, visit: visit2, user: user)
-  
+
         presenter = HomeIndexPresenter.new(user: user)
-        
+
         expect(presenter.visit_scope).to match_array [visit1, visit2]
       end
     end
@@ -141,9 +141,9 @@ RSpec.describe HomeIndexPresenter do
         visit2 = create(:visit, user: user)
         create(:user_visit, visit: visit1, user: user)
         create(:user_visit, visit: visit2, user: user)
-  
+
         presenter = HomeIndexPresenter.new(user: user)
-        
+
         expect(presenter.visits).to all(be_instance_of VisitPresenter)
       end
     end
@@ -161,7 +161,7 @@ RSpec.describe HomeIndexPresenter do
         create(:invoice_recipient, user: user, invoice: invoice3)
 
         presenter = HomeIndexPresenter.new(user: user, invoice_filter: "reserve_#{reserve.id}")
-        
+
         expect(presenter.invoice_scope).to match_array [invoice1, invoice2]
       end
     end
@@ -174,7 +174,7 @@ RSpec.describe HomeIndexPresenter do
         create(:invoice_recipient, user: user, invoice: invoice1)
         create(:invoice_recipient, user: user, invoice: invoice2)
         create(:invoice_recipient, user: user, invoice: invoice3)
-  
+
         presenter = HomeIndexPresenter.new(user: user, invoice_filter: "paid")
 
         expect(presenter.invoice_scope).to match_array [invoice1, invoice3]
@@ -188,7 +188,7 @@ RSpec.describe HomeIndexPresenter do
         create(:invoice_recipient, user: user, invoice: create(:invoice))
 
         presenter = HomeIndexPresenter.new(user: user)
-        
+
         expect(presenter.invoice_scope).to match_array(user.invoices.to_a)
       end
     end
