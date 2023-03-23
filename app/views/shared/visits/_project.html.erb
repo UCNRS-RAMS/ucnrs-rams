@@ -1,12 +1,11 @@
-<div class="select_or_new">
-  <div class="project-container" >
-    <div class="project-title">
-      <h3><%= t(".project_title") %></h3>
-      <h3><%= presenter.project_type %></h3>
-    </div>
-    <%= link_to presenter.project_summary_path, target: :_blank, class: "display-link" do %>
-      <h4><%= presenter.project_title %></h4>
-    <% end %>  
-    <h4><%= presenter.applicant_description %></h4>
+<div class="project-container" >
+  <div class="project-title">
+    <h3><%= t(".project_title") %></h3>
+    <h3><%= presenter.project_type %></h3>
   </div>
+  <%= link_to presenter.project_summary_path, target: :_blank, class: "display-link" do %>
+    <h4><%= presenter.project_title %></h4>
+  <% end %>
+  <h4><%= presenter.applicant_description %></h4>
 </div>
+

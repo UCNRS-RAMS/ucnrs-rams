@@ -5,11 +5,20 @@
 @import "mixins/controls";
 @import "mixins/tables";
 @import "mixins/flex";
+@import "mixins/input";
 
 .visits-new,
 .visits-edit,
 .visits-update,
 .visits-create {
+  @include input_default;
+
+  label {
+    color: $dark-bluegray;
+    font-size: 0.75rem;
+    font-weight: $semi-bold;
+  }
+
   .footer {
     align-items: center;
     display: flex;
@@ -46,7 +55,6 @@
     margin-bottom: 3rem;
 
     .reserve-field {
-      border-radius: 0.5rem;
       width: 23rem;
     }
 
@@ -60,28 +68,8 @@
       }
     }
 
-    label {
-      color: $dark-bluegray;
-      display: inline;
-      font-size: 0.625rem;
-      font-weight: $bold;
-    }
-    
     .error {
       color: $red;
-    }
-
-    select {
-      background-color: white;
-      border: 1px solid;
-      border-radius: 0rem 0.5rem 0.5rem 0rem;
-      padding: 0.6rem;
-    }
-
-    input, textarea {
-      border: 1px solid;
-      border-radius: 0.5rem 0rem 0rem 0.5rem;
-      padding: 0.61rem;
     }
   }
 
@@ -108,6 +96,17 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+
+    select {
+      background-color: white;
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+    }
+
+    input {
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+    }
 
     .separator {
       border: 1px solid $black;
@@ -168,178 +167,179 @@
     }
 
     .project-type-options {
-      
-      .row {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      margin-bottom: 3rem;
+
+      &[data-value-projection-projected-value="research"] {
+        label[for="project-type-research"] {
+          background-color: $light-light-blue;
+          border: 2px solid $navy-blue;
+          padding: 1rem;
+        }
+      }
+
+      &[data-value-projection-projected-value="university_class"] {
+        label[for="project-type-university_class"] {
+          background-color: $light-light-blue;
+          border: 2px solid $navy-blue;
+          padding: 1rem;
+        }
+      }
+
+      &[data-value-projection-projected-value="meeting_or_conference"] {
+        label[for="project-type-meeting_or_conference"] {
+          background-color: $light-light-blue;
+          border: 2px solid $navy-blue;
+          padding: 1rem;
+        }
+      }
+
+      &[data-value-projection-projected-value="public_use"] {
+        label[for="project-type-public_use"] {
+          background-color: $light-light-blue;
+          border: 2px solid $navy-blue;
+          padding: 1rem;
+        }
+      }
+
+      label {
+        align-items: flex-start;
+        background-color: transparent;
+        border: 1px solid $gray;
+        border-radius: $border-radius;
+        color: $navy-blue;
         display: flex;
         flex-direction: row;
-        margin-bottom: 3rem;
-        
-        &[data-value-projection-projected-value="research"] {
-          label[for="project-type-research"] {
-            background-color: $light-light-blue;
-            border: 2px solid $navy-blue;
-            padding: 1rem;
-          }
+        flex: 1;
+        padding: calc(1rem + 1px);
+
+        input {
+          margin-right: 0.5rem;
         }
 
-        &[data-value-projection-projected-value="university_class"] {
-          label[for="project-type-university_class"] {
-            background-color: $light-light-blue;
-            border: 2px solid $navy-blue;
-            padding: 1rem;
-          }
-        }
-
-        &[data-value-projection-projected-value="meeting_or_conference"] {
-          label[for="project-type-meeting_or_conference"] {
-            background-color: $light-light-blue;
-            border: 2px solid $navy-blue;
-            padding: 1rem;
-          }
-        }
-
-        &[data-value-projection-projected-value="public_use"] {
-          label[for="project-type-public_use"] {
-            background-color: $light-light-blue;
-            border: 2px solid $navy-blue;
-            padding: 1rem;
-          }
-        }
-
-        label {
-          align-items: flex-start;
-          background-color: transparent;
-          border: 1px solid $gray;
+        .project-type-label {
+          align-content: flex-start;
           display: flex;
-          flex-direction: row;
+          flex-direction: column;
           flex: 1;
-          margin-right: 10px;
-          padding: calc(1rem + 1px);
 
-          &:last-child {
-            margin-right: 0;
+          h3 {
+            font-size: 1rem;
+            font-weight: $semi-bold;
+            margin: 0;
+            margin-bottom: 0.125rem;
+            padding: 0;
           }
 
-          input {
-            margin-right: 0.5rem;
-          }
-
-          .project-type-label {
-            align-content: flex-start;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-
-            h3 {
-              font-size: 1rem;
-              font-weight: $bold;
-              margin: 0;
-              margin-bottom: 0.5rem;
-              padding: 0;
-            }
-
-            p {
-              font-size: 0.625rem;
-              font-weight: $normal;
-              margin: 0;
-              padding: 0;
-            }
+          p {
+            color: $dark-bluegray;
+            font-size: 0.75rem;
+            font-weight: $normal;
+            margin: 0;
+            padding: 0;
           }
         }
       }
     }
+
+    [data-value-projection-projected-value="research"] {
+      label[for="project-type-research"] {
+        background-color: $light-light-blue;
+        border: 2px solid $navy-blue;
+        padding: 1rem;
+      }
+    }
+
+    [data-value-projection-projected-value="university_class"] {
+      label[for="project-type-university_class"] {
+        background-color: $light-light-blue;
+        border: 2px solid $navy-blue;
+        padding: 1rem;
+      }
+    }
+
+    [data-value-projection-projected-value="meeting_or_conference"] {
+      label[for="project-type-meeting_or_conference"] {
+        background-color: $light-light-blue;
+        border: 2px solid $navy-blue;
+        padding: 1rem;
+      }
+    }
+
+    [data-value-projection-projected-value="public_use"] {
+      label[for="project-type-public_use"] {
+        background-color: $light-light-blue;
+        border: 2px solid $navy-blue;
+        padding: 1rem;
+      }
+    }
+
     .text-area {
       margin-bottom: 3rem;
 
       textarea {
-        border-radius: 0.5rem;
-        font-family: $sora;
-        font-size: 0.6875rem;
         height: 6.675rem;
-        padding: 0.5rem;
         width: 100%;
       }
 
-      label {
-        color: $dark-bluegray;
-        display: inline;
-        font-size: 0.625rem;
-        font-weight: 700;
-      }
-      
       .error {
         color: $red;
         font-size: small;
       }
     }
 
-    .project_select {
-      .project-container {
-        width: 100%;
-        
-        .project-title{
-          display: flex;
-          justify-content: space-between;
+    .project-container {
+      margin-bottom: 3rem;
 
-          h3 {
-            margin: 0px;
-          }
+      .project-title{
+        display: flex;
+        justify-content: space-between;
+
+        h3 {
+          margin: 0px;
         }
       }
-      
-      .select_or_new{ 
+    }
+
+    .project_select {
+      .select_or_new{
         display: flex;
         align-items: center;
-        
-        .display-column-flex {
-          display: flex;
-          flex-direction: column;
-          margin-bottom: 1px;
-        }
-  
+
         .project-create-link {
           padding: 0.5rem 0rem 0.5rem 4rem;
         }
-  
-        label {
-          color: $dark-bluegray;
-          display: inline;
-          font-size: 0.625rem;
-          font-weight: 700;
-        }
-        
+
         .error {
           color: $red;
         }
-  
+
         select {
-          background-color: white;
-          border: 1px solid;
-          border-radius: 0.5rem;
           min-width: 35rem;
-          padding: 0.6rem;
         }
-      
+
       }
-  
+
       .uneditable-project-type {
         border-left: 3px solid $navy-blue;
         margin-bottom: 2rem;
         padding-left: 1rem;
-  
+
         h3 {
           font-size: 1rem;
           font-weight: $bold;
           margin-bottom: 0;
         }
-  
+
         p {
           font-size: 0.625rem;
           font-weight: $normal;
           margin-top: 0.5rem;
         }
       }
-  
+
       section.research,
       section.class,
       section.meeting {
@@ -347,13 +347,13 @@
       }
     }
   }
-  
+
   .error {
     border-color: $red;
     border-width: 2px !important;
     color: $red;
     font-size: small;
-    .error_messages { 
+    .error_messages {
       margin-left: 5px;
     }
   }
@@ -364,7 +364,7 @@
     display: flex;
     margin: 0 auto;
     max-width: 1300px;
-  
+
     @include summary;
 
     .content {
@@ -400,16 +400,16 @@
       .visit-summary {
         margin-bottom: 3rem;
       }
-  
+
       .visit-summary-table {
         margin-bottom: 2rem;
-  
+
         td {
           padding-bottom: 0.3rem;
           padding-right: 2rem;
           padding-top: 0.3rem;
         }
-  
+
         td:nth-child(2) {
           font-weight: $semi-bold;
         }

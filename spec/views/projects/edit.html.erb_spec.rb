@@ -52,7 +52,7 @@ RSpec.describe "edit.html.erb" do
 
         doc = Capybara.string(rendered)
         expect(doc).to have_css(".uneditable-project-type h3", text: "Research")
-        expect(doc).to have_css(".uneditable-project-type p", text: "Research")
+        expect(doc).to have_css(".uneditable-project-type p", text: "Field or lab-based research in any discipline")
       end
     end
   end
