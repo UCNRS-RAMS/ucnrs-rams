@@ -802,11 +802,13 @@ en:
           class: "University Class"
           meeting: "Meeting or Conference"
           public_use: "Public Use"
+          housing: "Housing"
         explanation:
-          research: "Research"
-          class: "Class"
-          meeting: "Meeting"
-          public_use: "Public"
+          research: "Field or lab-based research in any discipline"
+          class: "University or college course or class"
+          meeting: "Symposia, lab retreats, and academic meetings"
+          public_use: "Community events, fundraising, K-12, or other classes, volunteer use"
+          housing: "Housing only"
     new:
       title: "Project Details"
       submit:
@@ -820,11 +822,13 @@ en:
           class: "University Class"
           meeting: "Meeting or Conference"
           public_use: "Public Use"
+          housing: "Housing"
         explanation:
-          research: "Research"
-          class: "Class"
-          meeting: "Meeting"
-          public_use: "Public"
+          research: "Field or lab-based research in any discipline"
+          class: "University or college course or class"
+          meeting: "Symposia, lab retreats, and academic meetings"
+          public_use: "Community events, fundraising, K-12, or other classes, volunteer use"
+          housing: "Housing only"
     steps:
       step_1: "Project Details"
       step_2: "Team"

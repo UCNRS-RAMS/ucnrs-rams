@@ -30,9 +30,9 @@
 
     label {
       color: $dark-bluegray;
-      display: inline;
-      font-size: 0.625rem;
-      font-weight: $bold;
+      font-size: 0.75rem;
+      font-weight: $semi-bold;
+      margin-bottom: 0.125rem;
     }
 
     & > label {
@@ -61,6 +61,11 @@
       }
     }
 
+    input, textarea, select {
+      font-family: $sora;
+      font-size: 0.8125rem;
+    }
+
     input[type="email"],
     input[type="number"],
     input[type="password"],
@@ -85,8 +90,6 @@
     }
 
     textarea {
-      font-family: $sora;
-      font-size: 0.6875rem;
       height: 3.675rem;
       padding: 0.5rem;
     }
@@ -94,7 +97,7 @@
     .explanation {
       display: block;
       flex: initial;
-      font-size: 0.625rem;
+      font-size: 0.75rem;
       width: 240px;
     }
 
@@ -108,11 +111,11 @@
       padding-top: 0;
 
       li {
-        align-items: flex-start;
+        align-items: center;
         display: flex;
         flex-direction: row;
         padding-bottom: 0.25rem;
-        padding-right: 4.688rem;
+        padding-right: 4.5rem;
         padding-top: 0.25rem;
 
         .other-discipline {
@@ -173,7 +176,7 @@
     }
 
     .yes-no-options {
-      align-items: flex-start;
+      align-items: center;
       display: flex;
       flex-direction: row;
       margin-bottom: 1rem;
@@ -188,6 +191,7 @@
 
       input {
         margin-left: 0;
+        margin-right: 5px;
       }
     }
   }

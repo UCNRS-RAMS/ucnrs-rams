@@ -1,21 +1,21 @@
 <section data-controller="turbo-content copy-first copy-second">
 
   <section class="visit-form">
-    <%= form.hidden_field :id, value: @presenter.id %>
-    <div class="project-type-options"  data-purpose="project_type" data-controller="value-projection" data-value-projection-projected-value="<%= form.object.project_type %>">
+    <%= form.hidden_field :id, value: presenter.id %>
+    <div data-purpose="project_type" data-controller="value-projection" data-value-projection-projected-value="<%= form.object.project_type %>">
       <% unless presenter.editing %>
-        <div class="row">
+        <div class="project-type-options">
           <%= render partial: presenter.project_type_partial_path, locals: { presenter: presenter, form: form} %>
         </div>
       <% end %>
-      <div class="field project_select">
-        <%= render partial: presenter.project_partial_path, locals: { presenter: presenter, form: form} %>
-      </div>
+      <%= render partial: presenter.project_partial_path, locals: { presenter: presenter, form: form} %>
     </div>
-    <h3><%= t(".titles.purpose") %></h3>
-    <div class="text-area">
-      <div><%= form.label :purpose_of_visit, t(".labels.purpose_of_visit") %></div>
-      <%= form.text_area :purpose_of_visit %>
+    <div>
+      <h3><%= t(".titles.purpose") %></h3>
+      <div class="text-area">
+        <%= form.label :purpose_of_visit, t(".labels.purpose_of_visit") %>
+        <%= form.text_area :purpose_of_visit %>
+      </div>
     </div>
   </section>
 

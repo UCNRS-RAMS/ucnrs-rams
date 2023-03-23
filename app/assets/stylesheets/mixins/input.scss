@@ -1,7 +1,34 @@
 @import "variables";
 
+@mixin input_default {
+  input,
+  select,
+  textarea {
+    background-color: $buttonset-background;
+    border-radius: $border-radius;
+    border: 1px solid $navy-blue;
+    box-sizing: border-box;
+    color: $navy-blue;
+    flex: none;
+    font-size: 0.8125rem;
+    padding: 0.25rem 0.75rem;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  select {
+    height: 2rem;
+  }
+
+  select {
+    font-weight: $normal;
+    max-width: 100%;
+  }
+}
+
 @mixin sort-style {
-  input, select {
+  input,
+  select {
     background-color: $buttonset-background;
     border-radius: 0.3125rem;
     border: 1px solid $buttonset-border;

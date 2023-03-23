@@ -169,44 +169,20 @@
     .project-type-options {
       display: flex;
       flex-direction: row;
-
-      &[data-value-projection-projected-value="research"] {
-        label[for="project-type-research"] {
-          background-color: $light-light-blue;
-          border: 2px solid $navy-blue;
-          padding: 1rem;
-        }
-      }
-
-      &[data-value-projection-projected-value="class"] {
-        label[for="project-type-class"] {
-          background-color: $light-light-blue;
-          border: 2px solid $navy-blue;
-          padding: 1rem;
-        }
-      }
-
-      &[data-value-projection-projected-value="meeting"] {
-        label[for="project-type-meeting"] {
-          background-color: $light-light-blue;
-          border: 2px solid $navy-blue;
-          padding: 1rem;
-        }
-      }
+      gap: 10px;
+      margin-bottom: 3rem;
 
       label {
         align-items: flex-start;
         background-color: transparent;
         border: 1px solid $gray;
+        border-radius: $border-radius;
+        cursor: pointer;
         display: flex;
         flex-direction: row;
         flex: 1;
-        margin-right: 10px;
         padding: calc(1rem + 1px);
-
-        &:last-child {
-          margin-right: 0;
-        }
+        transition: all .15s ease-in-out;
 
         input {
           margin-right: 0.5rem;
@@ -220,17 +196,55 @@
 
           h3 {
             font-size: 1rem;
-            font-weight: $bold;
+            font-weight: $semi-bold;
             margin: 0;
+            margin-bottom: 0.125rem;
             padding: 0;
           }
 
           p {
-            font-size: 0.625rem;
+            color: $dark-bluegray;
+            font-size: 0.75rem;
             font-weight: $normal;
             margin: 0;
             padding: 0;
           }
+        }
+      }
+
+      &[data-value-projection-projected-value="research"] {
+        label[for="project-type-research"] {
+          background-color: $light-light-blue;
+          border: 2px solid $navy-blue;
+          padding: 1rem;
+          transition: all .15s ease-in-out;
+        }
+      }
+
+      &[data-value-projection-projected-value="class"] {
+        label[for="project-type-class"] {
+          background-color: $light-light-blue;
+          border: 2px solid $navy-blue;
+          padding: 1rem;
+          transition: all .15s ease-in-out;
+        }
+      }
+
+      &[data-value-projection-projected-value="meeting"] {
+        label[for="project-type-meeting"] {
+          background-color: $light-light-blue;
+          border: 2px solid $navy-blue;
+          padding: 1rem;
+          transition: all .15s ease-in-out;
+        }
+      }
+
+      &[data-value-projection-projected-value="public_use"] {
+        label[for="project-type-public_use"] {
+          background-color: $light-light-blue;
+          border: 2px solid $navy-blue;
+          padding: 1rem;
+          transition: all .15s ease-in-out;
         }
       }
     }
@@ -247,7 +261,8 @@
       }
 
       p {
-        font-size: 0.625rem;
+        color: $dark-bluegray;
+        font-size: 0.75rem;
         font-weight: $normal;
         margin-top: 0.5rem;
       }
