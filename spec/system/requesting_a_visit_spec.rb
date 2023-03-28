@@ -12,9 +12,22 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
       amenity_group_label_1: "Fun Things"
     )
     amenity = create(:amenity, title: "Beach Access", reserve: reserve, group_number: "1")
-    amenity_rate_category = create(:amenity_rate_category, reserve: reserve, state_university: true)
-    amenity_rate = create(:amenity_rate, rate: 0, amenity: amenity, sort_order: 1, amenity_rate_category: amenity_rate_category)
+    amenity_rate_category = create(
+      :amenity_rate_category,
+      reserve: reserve,
+      state_university: true
+    )
+    amenity_rate = create(
+      :amenity_rate,
+      rate: 0,
+      amenity:
+      amenity,
+      sort_order: 1,
+      amenity_rate_category: amenity_rate_category
+    )
     user = create(:user, :confirmed)
+    project = create(:project, owner: user, project_type: :class)
+    create(:project_team_membership, project: project, user: user)
     sign_in(user)
     now = Time.current
     flow = RequestVisitFlow.new(page)
