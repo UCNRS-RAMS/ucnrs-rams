@@ -15,7 +15,7 @@
   p {
     border-radius: 3px;
     box-shadow: 0 0 6px -3px $gray;
-    margin: 1rem 0 0 0;
+    margin: 1rem 0 0;
     padding: .5rem 1.375rem;
   }
 
@@ -24,6 +24,10 @@
   }
 
   p.alert {
+    background-color: $red-alert;
+  }
+
+  p.error {
     background-color: $red-alert;
   }
 }
