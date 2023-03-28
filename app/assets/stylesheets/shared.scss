@@ -1,0 +1,22 @@
+@import "variables";
+
+div.initial-info {
+  background-color: $light-gray;
+  border: 1px solid $gray;
+  border-radius: $border-radius;
+  font-size: 0.875rem;
+  padding: 1rem;
+  text-align: justify;
+
+  > p {
+    text-align: justify;
+  }
+
+  > p:first-of-type {
+    margin-top: 0;
+  }
+
+  > p:last-of-type {
+    margin-bottom: 0;
+  }
+}

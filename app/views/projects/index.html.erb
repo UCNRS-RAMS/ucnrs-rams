@@ -13,21 +13,27 @@
           </select>
         </form>
       </header>
-      <table class="projects">
-        <thead>
-          <tr>
-            <th><%= t(".table_headers.title") %></th>
-            <th><%= t(".table_headers.timeframe") %></th>
-            <th><%= t(".table_headers.type") %></th>
-            <th><%= t(".table_headers.num_visits") %></th>
-            <th><%= t(".table_headers.recent_visit_date") %></th>
-            <th><%= t(".table_headers.recent_visit_reserve") %></th>
-            <th></th>
-          </tr>
-        <thead>
-        <%= render partial: "table", locals: { presenter: @presenter } %>
-      </table>
-      <%= paginate @presenter.project_scope, data: { "turbo-action": "advance" } %>
+      <% if @presenter.projects.present? %>
+        <table class="projects">
+          <thead>
+            <tr>
+              <th><%= t(".table_headers.title") %></th>
+              <th><%= t(".table_headers.timeframe") %></th>
+              <th><%= t(".table_headers.type") %></th>
+              <th><%= t(".table_headers.num_visits") %></th>
+              <th><%= t(".table_headers.recent_visit_date") %></th>
+              <th><%= t(".table_headers.recent_visit_reserve") %></th>
+              <th></th>
+            </tr>
+          <thead>
+          <%= render partial: "table", locals: { presenter: @presenter } %>
+        </table>
+        <%= paginate @presenter.project_scope, data: { "turbo-action": "advance" } %>
+      <% else %>
+        <div class="initial-info">
+          <p><%= t(".no_projects") %></p>
+        </div>
+      <% end %>
     </turbo-frame>
   </section>
   <section class="right">

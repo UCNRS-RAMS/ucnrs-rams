@@ -1,15 +1,20 @@
 <%= turbo_frame_tag "home-visits" do %>
   <header>
-    <h1>
-      <%= t(".title") %>
-    </h1>
+    <h1><%= t(".title") %></h1>
     <%= form_with url: root_path, method: :get, data: { "turbo-frame": "home-visits", "turbo-action": "advance" } do %>
       <%= render partial: "home/visit_filter", locals: { presenter: @presenter } %>
     <% end %>
     <%= render partial: "toolbar_buttons", locals: { presenter: @presenter } %>
   </header>
-  <table class="visit-requests">
-    <%= render partial: "visit", collection: @presenter.visits %>
-  </table>
-  <%= paginate @presenter.visit_scope, param_name: :visit_page, data: { "turbo-action": "advance" } %>
+  <% if @presenter.visits.present? %>
+    <table class="visit-requests">
+      <%= render partial: "visit", collection: @presenter.visits %>
+    </table>
+    <%= paginate @presenter.visit_scope, param_name: :visit_page, data: { "turbo-action": "advance" } %>
+  <% else %>
+    <div class="initial-info">
+      <p><%= t(".no_visits_1") %></p>
+      <p><%= t(".no_visits_2") %></p>
+    </div>
+  <% end %>
 <% end %>

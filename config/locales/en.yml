@@ -138,13 +138,20 @@ en:
       labels:
         by: "By:"
         by_reserve: "By reserve:"
-    index:
+      no_visits_1: "You currently are not part of any Visits. To create a visit please click on the
+        (Schedule a Visit) button located at the top right of this page."
+      no_visits_2: "Please note that creating
+        a visit requires a Project to attach to. To create a project please click on the Projects
+        link at the navigation pane above, then click on the (Create A New Project) button."
+    invoices:
       title: "Visit Requests"
       labels:
         by: "By:"
         by_reserve: "By reserve:"
       invoices:
         title: "Invoices"
+      no_invoices: "You do not have any Invoice at this time."
+    index:
       recent_invoices: "Recent Invoices"
       paid: "Paid"
       balance_due: "Balance Due"
@@ -768,6 +775,8 @@ en:
     not_authorized: "You are not authorized to edit this project."
     cannot_add_users: "You are not authorized to add users."
     index:
+      no_projects: "You currently are not part of any Project. To create a project please click
+        on the (Create A New Project) button located to the right of this page."
       title: "My Projects"
       table_headers:
         title: "Title"
