@@ -6,15 +6,18 @@
 </section>
 
 <%= render partial: "shared/projects/permit_questions", locals: { presenter: @presenter } %>
-<section class="field spacer">
+
+<section class="spacer">
   <%= form_with model: Project, url: project_file_upload_url(@presenter.id), method: :put do |f| %>
-    <label for="files">
-        <p class="align">
-          <span class="describe"><%= t(".description") %></span>
-          <span class="image"><%= image_tag "icon-plus.svg", width: "70px", alt: t(".plus_icon"), class: "plus" %></span>
-        </p>
-    </label>
-    <%= render partial: "projects/questions/file_upload_field", locals: { f: f }%>
+    <h2><%= t(".files") %></h2>
+    <div class="upload-files">
+      <p><%= t(".description") %></p>
+      <label for="files" class="button">
+        <%= image_tag "icon-plus.svg", alt: t(".plus_icon"), class: "plus" %>
+        <%= t(".upload_files") %>
+      </label>
+    </div>
+    <%= render partial: "projects/questions/file_upload_field", locals: { f: f } %>
   <% end %>
   <%= render partial: "projects/questions/file_table", locals: { presenter: @presenter } %>
 </section>

@@ -2,15 +2,17 @@
   <% if presenter.has_permit_questions_for_project? %>
     <section class="questions questions-index">
       <% presenter.questions_by_authority.each do |authority, questions| %>
-        <%= render partial: "projects/questions/group", locals: { title: t(".authority.#{authority}"), questions: questions } %>
+        <%= render partial: "projects/questions/group",
+          locals: { title: t(".authority.#{authority}"), questions: questions }
+        %>
       <% end %>
     </section>
     <section class="approved_questions questions-index">
       <div class="field">
         <%= form.label :approved_permits %>
         <p>
-        <%= form.text_area :approved_permits %>
-        <span class="explanation"><%= t(".permit_statement") %></span>
+          <%= form.text_area :approved_permits %>
+          <span class="explanation"><%= t(".permit_statement") %></span>
         </p>
       </div>
     </section>
@@ -20,6 +22,7 @@
       <p><%= t(".no_questions") %></p>
     </section>
   <% end %>
+
   <% if presenter.has_reserve_questions_for_project? %>
     <section class="questions">
       <h1><%= t(".reserve_section_title") %></h1>
