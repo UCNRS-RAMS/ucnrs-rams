@@ -1013,7 +1013,10 @@ en:
       index:
         title: "Permits"
         reserve_section_title: "Reserve-specific Questions"
-        description: " If you wish to attach any files to this project please do so here. You may wish to attach your permits or other information requested by a manager. These files will be available to the reserve administration when reviewing your project."
+        description: "If you wish to attach any files to this project, such as permits or
+          other information requested by a manager, do so here.
+          These files will be available to the reserve administration when reviewing your
+          project. (allowed file types: doc, txt, pdf, jpg, gif, png)"
         plus_icon: "Plus Icon"
         authority:
           federal: "Federal Permits"
@@ -1022,7 +1025,12 @@ en:
           institution: "Institution Permits"
         permit_information: "Permit Information"
         no_questions: "There are no necessary permit questions for this project at this time."
-        permit_statement: "If you have any approved permits, please provide the type of permit, permit number, permit dates, and any other relevant information. You may be asked to provide a copy of the approved permit prior to or upon your arrival. If you have your IACUC permit please also state the institution name that issued that permit."
+        permit_statement: "If you have any approved permits, please provide the type of permit,
+          permit number, permit dates, and any other relevant information. You may be asked to
+          provide a copy of the approved permit prior to or upon your arrival. If you have your
+          IACUC permit please also state the institution name that issued that permit."
+        files: "Files"
+        upload_files: "Upload File"
         back: "Go Back"
         alt:
           right_facing_arrow: "Right-facing arrow"

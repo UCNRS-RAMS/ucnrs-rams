@@ -44,6 +44,11 @@ main {
   display: flex;
   flex-direction: column;
   flex: 1;
+
+  a {
+    color: $dark-sky-blue;
+    text-decoration: none;
+  }
 }
 
 select:focus,
