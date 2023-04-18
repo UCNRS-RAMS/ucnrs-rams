@@ -12,7 +12,7 @@ gem 'foreman'
 gem 'jbuilder', '~> 2.7'
 gem 'kaminari'
 gem 'mysql2', '~> 0.5'
-gem 'nokogiri', '~> 1.13.9'
+gem 'nokogiri', '~> 1.14.3'
 gem "paranoia", "~> 2.2"
 gem 'puma', '~> 5.6.1'
 gem 'rails', '~> 6.1.4'
