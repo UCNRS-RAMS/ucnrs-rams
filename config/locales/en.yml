@@ -2976,7 +2976,7 @@ en:
       your_managed_reserves: "Your Managed Reserves"
   footer:
     link:
-      all_rights: "© 2021 UCNRS. All rights reserved."
+      all_rights: "© %{year} UCNRS. All rights reserved."
       sign_up_newsletter: "Sign Up for the Newsletter"
       terms_of_use: "Terms of Use"
       privacy_policy: "Privacy Policy"
