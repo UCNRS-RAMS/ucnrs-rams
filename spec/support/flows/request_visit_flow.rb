@@ -115,10 +115,10 @@ class RequestVisitFlow
   end
 
   def set_amenity_usage_dates(id:, arrival:, departure:)
-    page.find("#visit_amenities_#{id}_arrives_on").set(arrival.strftime("%m/%d/%Y"))
-    page.find("#visit_amenities_#{id}_arrives_at").set(arrival.strftime("%I:%M%p"))
-    page.find("#visit_amenities_#{id}_departs_on").set(departure.strftime("%m/%d/%Y"))
-    page.find("#visit_amenities_#{id}_departs_at").set(departure.strftime("%I:%M%p"))
+    page.find("[id^='visit_amenities_#{id}_amenity_visits_'][id$='_arrives_on']").set(arrival.strftime("%m/%d/%Y"))
+    page.find("[id^='visit_amenities_#{id}_amenity_visits_'][id$='_arrives_at']").set(arrival.strftime("%I:%M%p"))
+    page.find("[id^='visit_amenities_#{id}_amenity_visits_'][id$='_departs_on']").set(departure.strftime("%m/%d/%Y"))
+    page.find("[id^='visit_amenities_#{id}_amenity_visits_'][id$='_departs_at']").set(departure.strftime("%I:%M%p"))
   end
 
   def inside_amenity_labeled(title, &block)
