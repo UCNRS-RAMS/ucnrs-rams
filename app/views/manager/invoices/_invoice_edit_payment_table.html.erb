@@ -3,17 +3,19 @@
   <table id="invoice-payments-table" class="summary-table">
     <thead>
       <tr>
+        <th><%= t(".payment") %></th>
         <th><%= t(".date") %></th>
         <th><%= t(".note") %></th>
         <th><%= t(".amount") %></th>
+        <th class="align-end"><%= t(".edit_payment") %></th>
       </tr>
     </thead>
     <tbody>
-      <%= render partial: "manager/invoices/invoice_payment", collection: invoice_payments %>
+      <%= render partial: "manager/invoices/invoice_edit_payment", collection: invoice_payments, as: :invoice_payment %>
       <tr class="payment-total">
-        <td></td>
+        <td colspan="3"></td>
         <td class="balance-title"><%= t(".balance") %></td>
-        <td class='<%= "balance #{@presenter.balance_class}"  %>'><strong><%= @presenter.balance %></strong></td>
+        <td class="balance"><strong id="balance"></strong></td>
       </tr>
     </tbody>
   </table>

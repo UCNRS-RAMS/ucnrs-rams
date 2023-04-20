@@ -1,6 +1,6 @@
 <div class="invoice-amenity-visits">
   <h3><%= t(".amenities") %></h3>
-  <div data-controller="invoice-amenity-visits">
+  <div>
     <% forms.amenity_visits.each do |amenity_visit| %>
       <%= render partial: "amenity_visit_form", locals: { amenity_visit: amenity_visit, presenter: presenter.amenity_presenter(amenity_visit.amenity, amenity_visit), form: forms} %>
     <% end %>

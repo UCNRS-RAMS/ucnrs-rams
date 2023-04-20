@@ -31,7 +31,7 @@ class Manager::InvoiceFLow
   end
 
   def showing_bill_to_table?
-    page.has_css?("#team-summary-table")
+    page.has_css?("#invoice-payments-table")
   end
 
   def showing_amenity_visit_table?

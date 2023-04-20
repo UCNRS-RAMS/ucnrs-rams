@@ -23,16 +23,29 @@ RSpec.describe  Manager::Invoices::InvoiceEditPresenter do
     end
   end
 
-  describe "#balance" do
-    it "return amenity_visits total of invoice" do
-      amenity_visit = create(:amenity_visit, invoice_id: invoice.id, rate: 10)
-      invoice_payment = create(:invoice_payment, invoice: invoice, user: user, amount: 1000)
-      presenter = Manager::Invoices::InvoiceEditPresenter.new(visit: visit, invoice: invoice, form: InvoiceForm.new(invoice: invoice, params: { visit_id: visit.id }, editing: true))
-      amenity_visit_total = format("%0.2f", invoice.amenity_visits.sum(&:subtotal)).to_i
-      payments_amount_total = format("%0.2f", invoice.invoice_payments.pluck(:amount).sum).to_i
-      output = "-$ #{(amenity_visit_total - payments_amount_total).abs}"
+  describe "#invoice_payments" do
+    context "when invoice has payments" do
+      let!(:invoice_payment1) { create(:invoice_payment, invoice: invoice) }
+      let!(:invoice_payment2) { create(:invoice_payment, invoice: invoice) }
+      let!(:presenter) {
+        Manager::Invoices::InvoiceEditPresenter.new(
+          visit: visit,
+          invoice: invoice,
+          form: InvoiceForm.new(invoice: invoice, params: { visit_id: visit.id }))
+      }
 
-      expect(presenter.balance).to eq output
+      it "returns an array of InvoicePaymentPresenter objects" do
+        invoice_payments = presenter.invoice_payments
+        expect(invoice_payments).to be_an(Array)
+        expect(invoice_payments).to all(be_an(InvoicePaymentPresenter))
+      end
+    end
+
+    context "when invoice has no payments" do
+      it "returns an empty array" do
+        invoice_payments = invoice.invoice_payments
+        expect(invoice_payments).to be_empty
+      end
     end
   end
 end

@@ -1207,11 +1207,20 @@ en:
         email_icon: "icon-email.svg"
         printer_icon: "printer.svg"
         edit_icon: "edit_icon.svg"
-      invoice_payment_table:
+      invoice_edit_payment_table:
         payments: "Total Payment(s) & Credits"
+        date: "Date"
         payment: "Payment"
         note: "Note"
-        subtotal: "Subtotal"
+        amount: "Amount"
+        edit_payment: "Edit Payment"
+        balance: "Balance"
+        edit_payment: "Edit Payment"
+      invoice_payment_table:
+        payments: "Total Payment(s) & Credits"
+        date: "Date"
+        note: "Note"
+        amount: "Amount"
         edit_payment: "Edit Payment"
         balance: "Balance"
       amenity_visits_table:
@@ -1233,7 +1242,7 @@ en:
         invoice: "Invoice %{id}-%{version}"
       edit:
         invoice: "Edit Invoice %{id}-%{version}"
-        balance: "-$ %{balance}"
+        balance: "%{sign}$ %{balance}"
       notes:
         notes: "Notes"
       invoice_notes:

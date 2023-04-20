@@ -74,6 +74,11 @@ class Visits::AmenityForm
     amenity_visit.invoice_id = create_invoice ? id : nil
   end
 
+  def amenity_rate_id=(rate_id)
+    amenity_visit.amenity_rate_id = rate_id
+    amenity_visit.rate = amenity_rate.rate if rate_id
+  end
+
   alias_method :validate_form, :validate
   alias_method :valid_form?, :valid?
 

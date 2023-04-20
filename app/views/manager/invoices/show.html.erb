@@ -7,6 +7,7 @@
     <%= render partial: "visit_info", locals: { presenter: @presenter } %>
     <%= render partial: "invoice_recipients_table", locals: { presenter: @presenter } %>
     <%= render partial: "amenity_visits_table", locals: { presenter: @presenter } %>
+    <%= render partial: "invoice_payment_table", locals: { invoice_payments: @presenter.invoice_payments } if @presenter.invoice_payments.present? %>
     <%= render partial: "notes", locals: { presenter: @presenter } %>
   </turbo-frame>
 </section>
