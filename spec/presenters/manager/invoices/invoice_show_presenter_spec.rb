@@ -76,4 +76,72 @@ RSpec.describe Manager::Invoices::InvoiceShowPresenter do
       expect(presenter.link_params(path: "xyz", icon: "delete-icon")).to eq output
     end
   end
+
+  describe "#balance" do
+    it "return amenity_visits total of invoice" do
+      amenity_visit = create(:amenity_visit, invoice_id: invoice.id, rate: 10)
+      invoice_payment = create(:invoice_payment, invoice: invoice, user: user, amount: 1000)
+      presenter = Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: :user)
+      amenity_visit_total = format("%0.2f", invoice.amenity_visits.sum(&:subtotal)).to_i
+      payments_amount_total = format("%0.2f", invoice.invoice_payments.pluck(:amount).sum).to_i
+      output = "-$ #{(amenity_visit_total - payments_amount_total).abs}"
+
+      expect(presenter.balance).to eq output
+    end
+  end
+
+  describe "#balance_class" do
+    let(:presenter) { Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: :user) }
+
+    context "when the balance is negative" do
+      before do
+        allow(presenter).to receive(:calculate_balance).and_return(-100)
+      end
+
+      it "returns 'negative_balance'" do
+        expect(presenter.balance_class).to eq "negative_balance"
+      end
+    end
+
+    context "when the balance is positive" do
+      before do
+        allow(presenter).to receive(:calculate_balance).and_return(100)
+      end
+
+      it "returns 'positive_balance'" do
+        expect(presenter.balance_class).to eq "positive_balance"
+      end
+    end
+
+    context "when the balance is zero" do
+      before do
+        allow(presenter).to receive(:calculate_balance).and_return(0)
+      end
+
+      it "returns 'default_balance'" do
+        expect(presenter.balance_class).to eq "default_balance"
+      end
+    end
+  end
+
+  describe "#invoice_payments" do
+    context "when invoice has payments" do
+      let!(:invoice_payment1) { create(:invoice_payment, invoice: invoice) }
+      let!(:invoice_payment2) { create(:invoice_payment, invoice: invoice) }
+      let!(:presenter) { Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: :user) }
+
+      it "returns an array of InvoicePaymentPresenter objects" do
+        invoice_payments = presenter.invoice_payments
+        expect(invoice_payments).to be_an(Array)
+        expect(invoice_payments).to all(be_an(InvoicePaymentPresenter))
+      end
+    end
+
+    context "when invoice has no payments" do
+      it "returns an empty array" do
+        invoice_payments = invoice.invoice_payments
+        expect(invoice_payments).to be_empty
+      end
+    end
+  end
 end

@@ -4,7 +4,6 @@ class Manager::Invoices::InvoiceEditPresenter < Manager::Invoices::InvoicesFormP
   def initialize(visit:, invoice: nil, form: nil)
     super(visit: visit, form: form)
     @invoice = invoice || Invoice.new
-    @invoice_payments = @invoice&.invoice_payments
   end
 
   attr_reader :invoice_payments, :invoice
@@ -15,23 +14,11 @@ class Manager::Invoices::InvoiceEditPresenter < Manager::Invoices::InvoicesFormP
     I18n.t("manager.invoices.edit.invoice", id: id, version: modify_number)
   end
 
-  def balance
-    I18n.t("manager.invoices.edit.balance", balance: (amenity_visit_total.to_i - payments_amount_total).abs)
+  def invoice_payments
+    @invoice_payments ||= @invoice&.invoice_payments.map { |payment| InvoicePaymentPresenter.new(payment) }
   end
 
-  private 
-
-  def value(num)
-    format("%0.2f", num)
-  end
-
-  def payments_amount_total
-    value(invoice_payments.pluck(:amount).sum).to_i
-  end
-
-  def amenity_visit_total
-    "#{value(invoice.amenity_visits.sum(&:subtotal))}"
-  end
+  private
 
   delegate :modify_number, :id, to: :invoice, private: true
 end

@@ -18,6 +18,7 @@ export default class extends Controller {
 
   checkBoxTargetConnected(){
     this.calculateTotal()
+    this.calculateBalance()
   }
 
   async calculateSubtotal(){
@@ -27,6 +28,7 @@ export default class extends Controller {
       this.countTarget.value = '1'
     this.subtotalTarget.innerText = (parseFloat(this.countTarget.value) * parseFloat(rate) * parseFloat(units)).toFixed(2)
     this.calculateTotal()
+    this.calculateBalance()
   }
 
   setRate(rateValue){
@@ -68,10 +70,58 @@ export default class extends Controller {
       subtotal = Array.from(document.querySelectorAll('.subtotal')).
         reduce((total, arg) => total + parseFloat(arg.innerHTML), 0.0).toFixed(2).toString();
       document.getElementById('total').innerHTML = '$' + subtotal
+    return parseFloat(subtotal)
   }
 
   toggle() {
     this.checkBoxTarget.checked ? this.subtotalTarget.setAttribute('class', 'subtotal') : this.subtotalTarget.removeAttribute('class')
     this.calculateTotal()
+    this.calculateBalance()
+  }
+
+  calculateBalance() {
+    const balance = this.getBalance()
+    if (isNaN(balance)) return;
+
+    const balanceElement = document.getElementById("balance")
+    if (balanceElement) {
+      const sign = this.getNumberSign(balance)
+      const absoluteBalance = Math.abs(balance)
+      balanceElement.innerHTML = `${sign}$ ${absoluteBalance}`
+      balanceElement.parentElement.className = `balance ${this.getBalanceColorClass(
+        balance
+      )}`
+    }
+  }
+
+  calculateAmountTotal(): number {
+    const invoicePaymentElements = Array.from(
+      document.querySelectorAll(".invoice-payment")
+    )
+    const invoicePaymentTotal = invoicePaymentElements
+      .reduce((total, element) => {
+        const elementValue = parseFloat(element.innerHTML.replace(/[$-]/g, ""))
+        return total + (isNaN(elementValue) ? 0 : elementValue)
+      }, 0.0)
+      .toFixed(2)
+    return parseFloat(invoicePaymentTotal)
+  }
+
+  getBalance(): number {
+    return this.calculateTotal() - this.calculateAmountTotal()
+  }
+
+  getNumberSign(number: number): string {
+    return number < 0 ? "-" : ""
+  }
+
+  getBalanceColorClass(balance: number): string {
+    if (balance < 0) {
+      return "negative_balance"
+    } else if (balance > 0) {
+      return "positive_balance"
+    } else {
+      return "default_balance"
+    }
   }
 }

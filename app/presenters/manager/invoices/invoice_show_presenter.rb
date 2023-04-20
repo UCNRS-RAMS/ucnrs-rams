@@ -52,6 +52,26 @@ class Manager::Invoices::InvoiceShowPresenter
     InvoicePresenter.new(invoice).amenities_total
   end
 
+  def invoice_payments
+    @invoice_payments ||= @invoice&.invoice_payments.map { |payment| InvoicePaymentPresenter.new(payment) }
+  end
+
+  def balance
+    balance ||= calculate_balance
+    I18n.t("manager.invoices.edit.balance",sign: sign(balance), balance: balance.abs)
+  end
+
+  def balance_class
+    case calculate_balance <=> 0
+    when -1
+      "negative_balance"
+    when 1
+      "positive_balance"
+    else
+      "default_balance"
+    end
+  end
+
   private
 
   delegate :reserve, :project, to: :visit, private: true
@@ -64,5 +84,25 @@ class Manager::Invoices::InvoiceShowPresenter
 
   def recipients_scope
     project.team_memberships.where(user_id: recipients_user_ids)
+  end
+
+  def payments_amount_total
+    value(invoice_payments.pluck(:amount).sum).to_i
+  end
+
+  def amenity_visit_total
+    "#{value(invoice.amenity_visits.sum(&:subtotal))}"
+  end
+
+  def calculate_balance
+    amenity_visit_total.to_i - payments_amount_total
+  end
+
+  def value(num)
+    format("%0.2f", num)
+  end
+
+  def sign(number)
+    number.negative? ? "-" : ""
   end
 end

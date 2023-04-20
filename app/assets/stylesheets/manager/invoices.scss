@@ -70,8 +70,19 @@
     }
 
     .balance {
-      color: $red;
       font-size: $small-heading-size;
+    }
+
+    .negative_balance {
+      color: $gold;
+    }
+
+    .positive_balance {
+      color: $red;
+    }
+
+    .default_balance {
+      color: $normal;
     }
 
     .balance-title {
@@ -323,6 +334,26 @@
 
         img {
           display: block;
+        }
+      }
+    }
+
+    .bill-to {
+      table {
+        .balance {
+          font-size: $small-heading-size;
+        }
+
+        .negative_balance {
+          color: $gold;
+        }
+
+        .positive_balance {
+          color: $red;
+        }
+
+        .default_balance {
+          color: $normal;
         }
       }
     }
