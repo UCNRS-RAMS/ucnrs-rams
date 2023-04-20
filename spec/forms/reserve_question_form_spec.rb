@@ -45,7 +45,7 @@ RSpec.describe ReserveQuestionForm, type: :model do
         involves_amphibians: nil,
         involves_fish: nil,
         involves_birds: nil,
-        involves_plants_fungus_soil: nil
+        involves_plants_fungi_soil: nil
       )
     end
 
@@ -83,7 +83,7 @@ RSpec.describe ReserveQuestionForm, type: :model do
         involves_amphibians: true,
         involves_fish: true,
         involves_birds: true,
-        involves_plants_fungus_soil: true,
+        involves_plants_fungi_soil: true,
       }
       form = ReserveQuestionForm.new(params: params)
 
@@ -120,7 +120,7 @@ RSpec.describe ReserveQuestionForm, type: :model do
         involves_amphibians: true,
         involves_fish: true,
         involves_birds: true,
-        involves_plants_fungus_soil: true,
+        involves_plants_fungi_soil: true,
       )
     end
 
