@@ -88,7 +88,7 @@ class Manager::ReserveInfo::ReserveQuestionsController < Manager::ApplicationCon
       :involves_amphibians,
       :involves_fish,
       :involves_birds,
-      :involves_plants_fungus_soil,
+      :involves_plants_fungi_soil,
       :involves_none,
       :involves_all,
       :state_id,

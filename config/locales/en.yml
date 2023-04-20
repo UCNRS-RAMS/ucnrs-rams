@@ -2194,7 +2194,7 @@ en:
           amphibians: "Amphibians"
           fish: "Fish"
           birds: "Birds"
-          plants_fungus_soil: "Plants, Fungus, Soil"
+          plants_fungi_soil: "Plants, Fungi, Soil"
           enabled: "Enabled"
           disabled: "Disabled"
           visible: "Visible"

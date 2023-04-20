@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_18_150350) do
+ActiveRecord::Schema.define(version: 2023_04_19_062453) do
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.integer "project_id", null: false
@@ -708,7 +708,7 @@ ActiveRecord::Schema.define(version: 2023_01_18_150350) do
     t.boolean "involves_amphibians"
     t.boolean "involves_fish"
     t.boolean "involves_birds"
-    t.boolean "involves_plants_fungus_soil"
+    t.boolean "involves_plants_fungi_soil"
     t.boolean "involves_none"
     t.boolean "involves_all"
     t.integer "state_id"

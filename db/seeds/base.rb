@@ -557,7 +557,7 @@ Project.where(title: "Big Sur Conference").first_or_create(
   permits_completed: true,
 )
 
-involvements = ["", :mammal, :reptile, :amphibian, :fish, :bird, :plant_fungus_soil, :threatened_endangered]
+involvements = ["", :mammal, :reptile, :amphibian, :fish, :bird, :plant_fungi_soil, :threatened_endangered]
 [:federal, :state, :local, :institution].each do |authority|
   8.times do |index|
     Permit.where(question: "Does this project violate #{authority} #{involvements[index]} law?").first_or_create(
