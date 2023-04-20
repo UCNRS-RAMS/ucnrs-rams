@@ -331,6 +331,7 @@ en:
         title: "New Reserve Personnel"
         accessible_description: A modal pop-up form to new details of reserve personnel.
         search_by_name: "Name"
+        search_by_name_description: "Reserve staff must have an existing RAMS user account."
     waivers:
       new_waiver:
         title: "New Waiver"
@@ -2213,7 +2214,13 @@ en:
           receive_scuba: "Receive scuba"
         reserve_personnel_field:
           email: "Email"
+          email_description: "This Email will be shown on the
+            <a href='%{href}' target='_blank'>reserve information</a>
+            page and can be different than your personnal profile one."
           phone_number: "Phone Number"
+          phone_number_description: "This Phone Number will be shown on the
+            <a href='%{href}' target='_blank'>reserve information</a>
+            page and can be different than your personnal profile one."
           email_notifications: "Email Notifications"
           receive_new_visit_email: "New Visit"
           receive_incomplete_visit_email: "Incomplete visit"
