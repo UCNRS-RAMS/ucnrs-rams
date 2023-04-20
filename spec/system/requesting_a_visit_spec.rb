@@ -209,9 +209,9 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     flow.select_amenity("title 1")
 
     flow.inside_amenity(amenity) do
-      expect(page.find("#amenity-#{amenity.id}")).to be_checked
-      page.find(".cross-icon button").click
-      expect(page.find("#amenity-#{amenity.id}")).not_to be_checked
+      expect(page.find("#amenity-#{amenity.id}", visible: false)).to be_checked
+      page.find(".cross-button").click
+      expect(page.find("#amenity-#{amenity.id}", visible: false)).not_to be_checked
     end
   end
 

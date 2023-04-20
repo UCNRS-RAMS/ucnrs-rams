@@ -7,19 +7,18 @@
     color: $dark-bluegray;
     display: flex;
   }
-  
+
   .group_label {
     margin-left: 15px;
   }
-  
+
   a {
     text-decoration: none;
   }
 
   .amenity {
     input[type="radio"] {
-      margin: 15px 0px 0px 10px;
-      position: absolute;
+      display: none;
     }
 
     .amenity-padding {
@@ -53,6 +52,7 @@
     label {
       align-items: flex-start;
       border: 1px solid $black;
+      border-radius: $border-radius;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
@@ -93,6 +93,8 @@
 
       .bookings {
         background: lighten($bluegray, 30%);
+        border-bottom-left-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
         width: 100%;
 
         img {
@@ -105,23 +107,24 @@
           display: none;
           flex-basis: 100%;
           flex-direction: column;
+          padding: 30px;
 
           .booking-card {
             background-color: $white;
             border: 1px solid;
-            border-radius: 10px;
+            border-radius: $border-radius;
             display: flex;
             flex-wrap: wrap;
+            gap: 10px;
             justify-content: space-evenly;
-            margin: 30px 30px 0px 30px;
             padding: 10px;
 
             .flex-row-field {
-              align-items: flex-end;
+              align-items: center;
               display: flex;
               flex-direction: row;
               flex-wrap: nowrap;
-              position: relative;
+              gap: 4px;
 
               .field {
                 span {
@@ -163,18 +166,8 @@
               }
 
               .counter {
-                width: 20px;
-              }
-
-              input {
-                align-items: center;
-                border-radius: 5px;
-                margin: 0px 3px;
-                padding: 10px;
-              }
-
-              select {
-                padding: 10px;
+                text-align: center;
+                width: 45px;
               }
 
               label {
@@ -213,6 +206,7 @@
       .content {
         background: lighten($bluegray, 35%);
       }
+
       .booking {
         display: flex;
 
