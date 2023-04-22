@@ -1959,12 +1959,15 @@ en:
         new:
           reserve_tags: "Reserve Tags"
           submit: "Submit"
-          add_more_tag_options: "If you wish to add a new tag to this list contact a RAMS administrator and they can work on adding it to the database"
+          add_more_tag_options: "If you wish to add a new tag to this list contact a RAMS
+            administrator and they can work on adding it to the database"
       reserve_details:
         edit:
           reserve_details: "Reserve Details"
           alert_message: "Alert Message"
-          alert_message_subheader: "Lorem ipsum"
+          alert_message_subheader: "Special message for users about the reserve. This Message
+            appears to user when initially selecting this reserve when creating a visit, and the
+            reserve page."
           general_information: "General Information"
           reserve_name: "Reserve Name"
           managing_campus: "Managing Campus"
