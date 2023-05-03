@@ -418,12 +418,11 @@ en:
         amenities_and_rates: "Amenities & Rates"
         calendar: "Calendar"
         waivers: "Waivers"
-        rules_and_regulations: "Rules & Regulations"
+        rules_and_directions: "Rules & Directions"
         more_information: "More Information"
     addendums:
       index:
         title: "More Information"
-        reserve_directions: "Reserve Directions"
     amenities:
       amenity:
         link: "Amenity Link"
@@ -438,10 +437,10 @@ en:
     calendar:
       show:
         title: "Reserve Calendar"
-    rules_and_regulations:
+    rules_and_directions:
       show:
-        title: "Rules and Regulations"
-      rules_and_regulations:
+        title: "Rules and Directions"
+      rules_and_directions:
         link: "Link"
     waivers:
       index:
@@ -1949,6 +1948,7 @@ en:
         amenities_and_rates: "Amenities & Rates"
         waivers: "Waivers"
         rules_and_regulations: "Rules & Regulations"
+        directions: "Directions"
         permits: "Permits"
         reserve_questions: "Reserve Questions"
         staff_and_notifications: "Staff & Notifications"
@@ -2121,14 +2121,24 @@ en:
         edit:
           rules_and_regulations: "Rules & Regulations"
           save_changes: "Save Changes"
-          migration_helper_explanation: "Below are the old rules, rules url, and code of conduct url displayed to help move the content to the new rules and regulations. It will be removed in the future."
+          migration_helper_explanation: "Below are the old rules, rules url, and code of conduct
+            url displayed to help move the content to the new rules and regulations. It will be
+            removed in the future."
           rules_url: "Rules url"
           code_of_conduct_url: "Code of conduct url"
+      directions:
+        edit:
+          reserve_directions: "Reserve Directions"
+          save_changes: "Save Changes"
       permits:
         index:
           permits: "Permits"
           about_permits: "About Permits"
-          about_permits_paragraph: "This page shows which permits are displayed for your reserve, you can hide permits that are not relevant to you e.g. marine mammals for a desert reserve, You can also choose to collect permit number and date from the applicant. If you would like additional permits added to the system, please contact the RAMS IT help desk at ramshelp@ucner.org or add the permit in the questions section."
+          about_permits_paragraph: "This page shows which permits are displayed for your reserve,
+            you can hide permits that are not relevant to you e.g. marine mammals for a desert
+            reserve, You can also choose to collect permit number and date from the applicant.
+            If you would like additional permits added to the system, please contact the RAMS IT
+            help desk at ramshelp@ucner.org or add the permit in the questions section."
         reserve_permits:
           question: "Question"
           enabled: "Enabled"

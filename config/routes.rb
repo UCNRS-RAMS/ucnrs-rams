@@ -34,7 +34,7 @@ Rails.application.routes.draw do
       resources :visits, only: [:index, :show], controller: "reserves/calendar/visits"
     end
     resources :waivers, only: [:index], controller: "reserves/waivers"
-    resource :rules_and_regulations, only: [:show], controller: "reserves/rules_and_regulations"
+    resource :rules_and_directions, only: [:show], controller: "reserves/rules_and_directions"
     resources :more_information, only: [:index], controller: "reserves/addendums"
   end
 
@@ -136,6 +136,7 @@ Rails.application.routes.draw do
         resources :amenity_rate_categories, only: [:edit, :update], controller: "amenities_and_rates/amenity_rate_categories"
         resources :waivers, only: [:index, :edit, :update, :new, :create]
         resource :rules_and_regulations, only: [:edit, :update]
+        resource :directions, only: [:edit, :update]
         resources :permits, only: [:index, :edit, :update]
         resources :reserve_questions, only: [:index, :new, :create, :edit, :update]
         resources :staff_and_notifications

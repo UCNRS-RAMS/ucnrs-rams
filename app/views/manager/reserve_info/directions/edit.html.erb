@@ -1,0 +1,25 @@
+<section class="content">
+  <%= render partial: 'manager/reserve_info/header' %>
+  <div>
+    <section class="reserve-info-menu">
+      <%= render partial: 'manager/reserve_info/menu' %>
+    </section>
+    <section class="reserve-info">
+      <header><%= t(".reserve_directions") %></header>
+      <section class="reserve-info-subsection">
+        <%= form_with model: @presenter.form,
+          url: manager_reserve_reserve_info_directions_path(current_reserve),
+          method: :patch do |form|
+        %>
+          <div class="form-group">
+            <%= form.label :directions, class: "form-label" %>
+            <%= form.rich_text_area :directions, class: "form-input" %>
+          </div>
+          <div class="with-form-group-pad">
+            <%= form.button t(".save_changes") %>
+          </div>
+        <% end %>
+      </section>
+    </section>
+  </div>
+</section>

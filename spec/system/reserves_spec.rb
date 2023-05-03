@@ -126,7 +126,7 @@ RSpec.describe "Reserves", type: :system, js: true do
   end
 
   describe "when on show page" do
-    it "allows the user view the amenities, calendar, rules_and_regulations and waivers page", js: true do
+    it "allows the user view the amenities, calendar, rules_and_directions and waivers page", js: true do
       reserve = create(:reserve, name: "RAMS Test Reserve")
       amenity = create(:amenity, reserve: reserve, title: "Amenity one", comment: "comment")
       rate_category = create(:amenity_rate_category, reserve: reserve)
@@ -146,8 +146,8 @@ RSpec.describe "Reserves", type: :system, js: true do
       expect(flow).to be_displaying_waivers_section
       expect(page).to be_axe_clean
 
-      flow.go_to_rules_and_regulations
-      expect(flow).to be_displaying_rules_and_regulations_section
+      flow.go_to_rules_and_directions
+      expect(flow).to be_displaying_rules_and_directions_section
       expect(page).to be_axe_clean
 
       flow.go_to_more_information

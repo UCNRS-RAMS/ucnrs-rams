@@ -23,6 +23,10 @@ RSpec.describe "reserve details menu", type: :view do
       href: "/manager/reserves/#{reserve.id}/reserve_info/rules_and_regulations/edit",
     )
     expect(rendered).to have_link(
+      "Directions",
+      href: "/manager/reserves/#{reserve.id}/reserve_info/directions/edit",
+    )
+    expect(rendered).to have_link(
       "Reserve Questions",
       href: "/manager/reserves/#{reserve.id}/reserve_info/reserve_questions",
     )

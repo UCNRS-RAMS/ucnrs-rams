@@ -10,8 +10,6 @@ class Reserves::AddendumsIndexPresenter
     end
   end
 
-  delegate :directions, to: :reserve, prefix: true
-
   private
 
   attr_reader :reserve, :addendums
