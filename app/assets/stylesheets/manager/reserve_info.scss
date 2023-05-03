@@ -7,6 +7,7 @@
 .manager.amenities_and_rates,
 .manager.waivers,
 .manager.rules_and_regulations,
+.manager.directions,
 .manager.permits,
 .manager.reserve_questions,
 .manager.staff_and_notifications,
@@ -148,7 +149,8 @@
 }
 
 .manager.reserve_details,
-.manager.rules_and_regulations {
+.manager.rules_and_regulations,
+.manager.directions {
   section.reserve-info-subsection {
     background-color: $light-gray;
     margin-bottom: 2rem;

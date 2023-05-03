@@ -41,8 +41,8 @@ class ReserveShowPresenter
       reserve_calendar_path(reserve_id, partial_name: "calendar", start_date: Date.today)
     when "waivers"
       reserve_waivers_path(reserve_id)
-    when "rules_and_regulations"
-      reserve_rules_and_regulations_path(reserve_id)
+    when "rules_and_directions"
+      reserve_rules_and_directions_path(reserve_id)
     else
       reserve_amenities_path(reserve_id)
     end

@@ -1,11 +1,6 @@
 require "rails_helper"
 
 RSpec.describe Reserves::AddendumsIndexPresenter do
-  describe "delegations" do
-    subject { Reserves::AddendumsIndexPresenter.new(reserve: build(:reserve), addendums: []) }
-    it { is_expected.to delegate_method(:directions).to(:reserve).with_prefix(true) }
-  end
-
   describe "#reserve_addendums" do
     it "presents reserve additional information correctly" do
       reserve = create(:reserve)

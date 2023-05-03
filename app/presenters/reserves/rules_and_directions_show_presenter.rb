@@ -1,9 +1,10 @@
-class Reserves::RulesAndRegulationsShowPresenter
+class Reserves::RulesAndDirectionsShowPresenter
   def initialize(reserve:)
     @reserve = reserve
   end
 
   delegate :id,
+    :directions,
     :rules_and_regulations,
     to: :reserve, prefix: true
 

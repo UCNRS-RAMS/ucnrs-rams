@@ -1,0 +1,13 @@
+<div>
+  <h1><%= t(".title") %>asdf</h1>
+  <hr />
+  <%= turbo_frame_tag "details" do %>
+    <%= render partial: "rules_and_regulations",
+      locals: { reserve_rules_and_regulations: @presenter.reserve_rules_and_regulations }
+    %>
+    <hr />
+    <%= render partial: "directions",
+      locals: { reserve_directions: @presenter.reserve_directions }
+    %>
+  <% end %>
+</div>

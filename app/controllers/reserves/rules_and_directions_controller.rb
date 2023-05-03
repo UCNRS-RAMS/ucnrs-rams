@@ -1,6 +1,6 @@
-class Reserves::RulesAndRegulationsController < ApplicationController
+class Reserves::RulesAndDirectionsController < ApplicationController
   def show
-    @presenter = Reserves::RulesAndRegulationsShowPresenter.new(
+    @presenter = Reserves::RulesAndDirectionsShowPresenter.new(
       reserve: reserve
     )
   end

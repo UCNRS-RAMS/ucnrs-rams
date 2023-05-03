@@ -68,12 +68,12 @@ class ReservesFlow
     page.has_css?("section.waivers.waivers-index")
   end
 
-  def go_to_rules_and_regulations
-    page.click_link("Rules & Regulations")
+  def go_to_rules_and_directions
+    page.click_link("Rules & Directions")
   end
 
-  def displaying_rules_and_regulations_section?
-    page.has_css?("section.rules_and_regulations.rules_and_regulations-show")
+  def displaying_rules_and_directions_section?
+    page.has_css?("section.rules_and_directions.rules_and_directions-show")
   end
 
   def go_to_more_information

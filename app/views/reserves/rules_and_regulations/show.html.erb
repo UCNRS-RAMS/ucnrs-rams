@@ -1,7 +1,0 @@
-<div>
-  <h1><%= t(".title") %></h1>
-  <hr />
-  <%= turbo_frame_tag "details" do %>
-    <%= render partial: "rules_and_regulations", locals: { rules_and_regulations: @presenter } %>
-  <% end %>
-</div>

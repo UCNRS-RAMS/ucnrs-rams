@@ -14,7 +14,7 @@
               reserve_amenities_path(@presenter.reserve_id),
               {
                 id: "amenities",
-                class: @presenter.tab_class, 
+                class: @presenter.tab_class,
                 data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
               }
             %>
@@ -24,7 +24,7 @@
               reserve_calendar_path(@presenter.reserve_id, partial_name: "calendar", start_date: Date.today),
               {
                 id: "calendar",
-                class: @presenter.tab_class("calendar"), 
+                class: @presenter.tab_class("calendar"),
                 data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
               }
             %>
@@ -34,17 +34,17 @@
               reserve_waivers_path(@presenter.reserve_id),
               {
                 id: "waivers",
-                class: @presenter.tab_class("waivers"), 
+                class: @presenter.tab_class("waivers"),
                 data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
               }
             %>
           </li>
           <li>
-            <%= link_to t(".link.rules_and_regulations"),
-              reserve_rules_and_regulations_path(@presenter.reserve_id),
+            <%= link_to t(".link.rules_and_directions"),
+              reserve_rules_and_directions_path(@presenter.reserve_id),
               {
                 id: "rules_and_regulations",
-                class: @presenter.tab_class("rules_and_regulations"), 
+                class: @presenter.tab_class("rules_and_regulations"),
                 data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
               }
             %>
@@ -54,7 +54,7 @@
               reserve_more_information_index_path(@presenter.reserve_id),
               {
                 id: "more_information",
-                class: @presenter.tab_class("more_information"), 
+                class: @presenter.tab_class("more_information"),
                 data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
               }
             %>
