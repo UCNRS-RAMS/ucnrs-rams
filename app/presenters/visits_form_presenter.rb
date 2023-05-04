@@ -28,6 +28,7 @@ class VisitsFormPresenter
     to: :form
 
   delegate :reserve, :project, to: :visit
+  delegate :institution, to: :user, prefix: true
 
   def amenities_by_group_label
     amenity_scope
@@ -156,5 +157,9 @@ class VisitsFormPresenter
       form: form.amenity_form(amenity.id.to_s),
       user: @user,
     )
+  end
+
+  def user_institution_type
+    I18n.t("universal.institution_types.#{user_institution.institution_type}")
   end
 end

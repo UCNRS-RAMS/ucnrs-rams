@@ -2472,6 +2472,7 @@ en:
           purpose: "Purpose of Visit"
           reserves: "Reserves"
           reserve: "Reserve"
+          select_amenities: "Select Amenities"
         labels:
           public_use_category: "Choose a category that best describes your visit"
           purpose_of_visit: "What do you plan to do on this visit?"
@@ -2485,6 +2486,8 @@ en:
           calendar: "Calendar Icon"
           left_arrow: "Left Arrow to Go Back"
           right_arrow: "Right Arrow"
+          optional: "Optional"
+          rate_determined: "Rate determined automatically from your Institution (%{institution})"
         links:
           go_back: "Go Back"
           create_a_new_project: "or Create a new Project"
@@ -2512,7 +2515,10 @@ en:
       permit_questions:
         reserve_section_title: "Reserve-specific Questions"
         no_questions: "There are no necessary permit questions for this project at this time."
-        permit_statement: "If you have any approved permits, please provide the type of permit, permit number, permit dates, and any other relevant information. You may be asked to provide a copy of the approved permit prior to or upon your arrival. If you have your IACUC permit please also state the institution name that issued that permit."
+        permit_statement: "If you have any approved permits, please provide the type of permit,
+          permit number, permit dates, and any other relevant information. You may be asked to
+          provide a copy of the approved permit prior to or upon your arrival. If you have your
+          IACUC permit please also state the institution name that issued that permit."
         authority:
           federal: "Federal Permits"
           state: "State Permits"

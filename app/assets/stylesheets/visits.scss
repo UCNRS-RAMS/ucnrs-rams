@@ -73,19 +73,6 @@
     }
   }
 
-  .amenities {
-
-    h2 {
-      margin-bottom: 40px;
-
-      span {
-        color: $dark-bluegray;
-        font-size: $medium;
-        margin-left: 30px;
-      }
-    }
-  }
-
   .flex-break {
     flex-basis: 100%;
     height: 0;
@@ -148,8 +135,22 @@
   }
 
   .amenities-header {
-    display: flex;
-    justify-content: space-between;
+    h3 {
+      font-weight: $bold;
+      margin: 0;
+
+      span {
+        color: $dark-bluegray;
+        font-size: 1rem;
+        font-weight: $normal;
+        margin-left: 30px;
+      }
+    }
+
+    span {
+      color: $dark-bluegray;
+      font-size: 0.875rem;
+    }
   }
 
   .visit-form {
@@ -164,6 +165,13 @@
     h2 {
       font-size: 1.5rem;
       font-weight: $bold;
+
+      span {
+        color: $dark-bluegray;
+        font-size: 1.25rem;
+        font-weight: $normal;
+        margin-left: 30px;
+      }
     }
 
     .project-type-options {
@@ -346,6 +354,11 @@
         @include form;
       }
     }
+  }
+
+  #visitors-list,
+  #amenities-select {
+    margin-bottom: 3rem;
   }
 
   .error {
