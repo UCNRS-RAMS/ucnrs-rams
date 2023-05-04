@@ -24,6 +24,7 @@ RSpec.describe VisitsFormPresenter do
     it { is_expected.to delegate_method(:special_needs_statement).to(:reserve) }
     it { is_expected.to delegate_method(:special_needs_statement).to(:reserve) }
     it { is_expected.to delegate_method(:editing).to(:form) }
+    it { is_expected.to delegate_method(:institution).to(:user).with_prefix(true) }
   end
 
   describe "project_type_options" do
@@ -102,7 +103,7 @@ RSpec.describe VisitsFormPresenter do
       )
       form = VisitForm.new(params: { reserve_id: reserve.id })
       presenter = VisitsFormPresenter.new(user: user, form: form)
-      
+
       expect(presenter.alert_message).to eq "<p>Yes!</p>"
     end
 
@@ -228,7 +229,7 @@ RSpec.describe VisitsFormPresenter do
     it "should return 'shared/visits/project' when editing" do
       form = VisitForm.new(params: { reserve_id: create(:reserve).id }, editing: true)
       presenter = VisitsFormPresenter.new(user: build(:user), form: form)
-      
+
       expect(presenter.project_partial_path).to eq "shared/visits/project"
     end
 
@@ -270,7 +271,7 @@ RSpec.describe VisitsFormPresenter do
       presenter = VisitsFormPresenter.new(user: build(:user), form: form)
 
       result = "/projects/#{form.project_id}"
-      
+
       expect(presenter.project_summary_path).to eq result
     end
   end
@@ -278,7 +279,7 @@ RSpec.describe VisitsFormPresenter do
   describe "#show_browse_reserve_link" do
     it "should return true to display show browse link" do
       presenter = VisitsFormPresenter.new(user: build(:user))
-      
+
       result = presenter.editing == false
 
       expect(presenter.show_browse_reserve_link).to eq result
@@ -319,7 +320,7 @@ RSpec.describe VisitsFormPresenter do
       expect(presenter.project_type).to eq "Research"
     end
   end
-  
+
   describe "#applicant_description" do
     it "should return visit's applicant name and institute" do
       institution = create(:institution, name: "institution_name")
@@ -330,6 +331,22 @@ RSpec.describe VisitsFormPresenter do
 
       result = "hafiz ahmed - institution_name"
       expect(presenter.applicant_description).to eq result
+    end
+  end
+
+  describe "#user_institution_type" do
+    it "should return translated user institution type" do
+      institution = create(:institution, institution_type: "university_of_california")
+      user = create(:user, institution: institution)
+      visit = create(:visit, user: user)
+      form = VisitForm.new(user: user, params: {id: visit.id })
+      allow(I18n).to receive(:t)
+        .with("universal.institution_types.university_of_california")
+        .and_return("institution_type_translate")
+
+      presenter = VisitsFormPresenter.new(user: user, form: form)
+
+      expect(presenter.user_institution_type).to eq "institution_type_translate"
     end
   end
 end

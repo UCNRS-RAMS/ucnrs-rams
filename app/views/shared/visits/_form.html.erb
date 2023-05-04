@@ -19,7 +19,7 @@
     </div>
   </section>
 
-  <span data-controller="followup-content">
+  <div data-controller="followup-content">
     <section class="reserve-info progress-steps">
       <div>
         <h3>
@@ -52,18 +52,34 @@
         </div>
       </div>
       <div data-followup-content-target="destination" data-followup-content-url-value="<%= visits_reserve_input_url("VALUE") %>" class="reserve-specific-fields">
-        <%= render partial: "visits/reserve_inputs/fields", locals: { form_values: presenter.form, presenter: presenter } %>
+        <%= render partial: "visits/reserve_inputs/fields",
+          locals: { form_values: presenter.form, presenter: presenter }
+        %>
       </div>
     </section>
-    <%= render partial: "shared/visits/visitors_table", locals: { presenter: presenter } if presenter.user_visits.present? %>
-    <section class="amenities visit-form" data-followup-content-target="destination" data-followup-content-url-value="<%= visits_amenities_url(reserve_id: "VALUE") %>">
-      <section class="amenity-options" >
+    <%= render partial: "shared/visits/visitors_table",
+      locals: { presenter: presenter } if presenter.user_visits.present?
+    %>
+    <section class="amenities visit-form" id="amenities-select"
+      data-followup-content-target="destination"
+      data-followup-content-url-value="<%= visits_amenities_url(reserve_id: "VALUE") %>"
+    >
+      <header class="amenities-header">
+        <h3>
+          <%= t(".titles.select_amenities") %>
+          <span><%= t(".alt_text.optional")%></span>
+        </h3>
+        <span><%= t(".alt_text.rate_determined", institution: presenter.user_institution_type) %></span>
+      </header>
+      <div class="amenity-options">
         <% presenter.amenities_by_group_label.each do |group_label, amenities| %>
-          <%= render partial: "visits/amenities/amenities", locals: { group_label: group_label, amenities: amenities } %>
+          <%= render partial: "visits/amenities/amenities",
+            locals: { group_label: group_label, amenities: amenities }
+          %>
         <% end %>
-      </section>
+      </div>
     </section>
-  </span>
+  </div>
 
   <section class="visit-form footer progress-steps">
     <%= render presenter.save_partial_path %>
