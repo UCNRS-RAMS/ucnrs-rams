@@ -19,9 +19,7 @@
         <div class="reserve-search">
           <div id="right-reserve-intro" class="load-hide show-765">
             <h1><%= t(".direction_title") %></h1>
-            <p>
-              <%= t(".direction_body") %>
-            </p>
+            <p><%= t(".direction_body") %></p>
           </div>
           <section class="search">
             <label>
@@ -40,6 +38,7 @@
                   <%= render partial: "tag_types", locals: { tag_type: tag_type, tag_names: tag_names } %>
                 <% end %>
               </div>
+              <small><%= t ".description_tags_text" %></small>
             </section>
             <div class="submit-btn" data-action= "click->reserve#reset" >
               <%= image_tag "icon-refresh-a.svg", alt: t("alt.reload_icon"), height: 16 %>
