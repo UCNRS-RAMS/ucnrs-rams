@@ -331,7 +331,8 @@ en:
         title: "New Reserve Personnel"
         accessible_description: A modal pop-up form to new details of reserve personnel.
         search_by_name: "Name"
-        search_by_name_description: "Reserve staff must have an existing RAMS user account."
+        search_by_name_description: "Reserve staff must have an existing RAMS user account. If
+          not found ask staff member to create a RAMS account first before you add them as staff."
     waivers:
       new_waiver:
         title: "New Waiver"
