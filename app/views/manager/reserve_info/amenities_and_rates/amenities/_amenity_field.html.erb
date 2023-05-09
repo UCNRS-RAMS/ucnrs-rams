@@ -62,18 +62,19 @@
         <%= form.file_field :listing_photo %>
         <%= form.hidden_field :listing_photo_cache %>
       </div>
+      <small><%= t(".description_amenity_listing_photo_text") %></small>
     </div>
   </div>
   <div class="row">
     <div class="form-group">
       <%= form.label :units_type, t(".amenity_units_type"), class: "form-label" %>
       <%= form.select :units_type, presenter.units_type_options, { include_blank: t(".select_one") }, class: "form-input" %>
-      <small><%=t(".description_units_type_text")%></small>
+      <small><%= t(".description_units_type_text") %></small>
     </div>
     <div class="form-group">
       <%= form.label :time_type, t(".amenity_time_interval"), class: "form-label" %>
       <%= form.select :time_type, presenter.time_type_options, { include_blank: t(".select_one") }, class: "form-input" %>
-      <small><%=t(".description_time_type_text")%></small>
+      <small><%= t(".description_time_type_text") %></small>
     </div>
   </div>
   <div class="form-group">
