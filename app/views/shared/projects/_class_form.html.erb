@@ -137,8 +137,9 @@
 
       <% if presenter.chemical_question?(planning_question) %>
         <div class="additional-question">
+          <%= form.label :method_chemicals_list, t(".planning_questions.method_chemicals_list"),
+            class: "planning-question-label", id: "method_chemicals_list" %>
           <%= form.text_field :method_chemicals_list %>
-          <%= form.label :method_chemicals_list, "&#8203;".html_safe, id: "method_chemicals_list" %>
         </div>
       <% end %>
     </div>

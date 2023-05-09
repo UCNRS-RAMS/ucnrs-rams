@@ -896,14 +896,19 @@ en:
         involves_birds: "Birds"
         involves_plants_fungi_soil: "Plants, Fungi, or Soils"
         involves_none: "None of the Above"
-        involves_threatened_endangered_species: "Threatened, Endangered, or Species of Special Concern"
+        involves_threatened_endangered_species: "Threatened, Endangered, or Species of
+          Special Concern"
       planning_questions:
         method_remove_organisms: "Remove organisms or materials from the reserve?"
-        method_transfer_organisms: "Transfer animals and plants from outside the reserve to within the reserve, or between different parts of the reserve?"
+        method_transfer_organisms: "Transfer animals and plants from outside the reserve to
+          within the reserve, or between different parts of the reserve?"
         method_study_non_native_species: "Study or manipulate non-native species?"
-        method_chemicals: "Use radioactive isotopes or other chemicals? (e.g., pesticides, herbicides, fertilizers, tracers)"
+        method_chemicals: "Use radioactive isotopes or other chemicals? (e.g., pesticides,
+          herbicides, fertilizers, tracers)"
+        method_chemicals_list: "Please list the chemicals"
         method_soil_disturbance: "Disturb the soil?"
-        method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
+        method_long_term_structures: "Erect structures or deploy long term equipment, such as
+          markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
       yes_option: "Yes"
       no_option: "No"
     meeting_form:
@@ -966,14 +971,19 @@ en:
         involves_birds: "Birds"
         involves_plants_fungi_soil: "Plants, Fungi, or Soils"
         involves_none: "None of the Above"
-        involves_threatened_endangered_species: "Threatened, Endangered, or Species of Special Concern"
+        involves_threatened_endangered_species: "Threatened, Endangered, or Species of
+          Special Concern"
       planning_questions:
         method_remove_organisms: "Remove organisms or materials from the reserve?"
-        method_transfer_organisms: "Transfer animals and plants from outside the reserve to within the reserve, or between different parts of the reserve?"
+        method_transfer_organisms: "Transfer animals and plants from outside the reserve to
+          within the reserve, or between different parts of the reserve?"
         method_study_non_native_species: "Study or manipulate non-native species?"
-        method_chemicals: "Use radioactive isotopes or other chemicals? (e.g., pesticides, herbicides, fertilizers, tracers)"
+        method_chemicals: "Use radioactive isotopes or other chemicals? (e.g., pesticides,
+          herbicides, fertilizers, tracers)"
+        method_chemicals_list: "Please list the chemicals"
         method_soil_disturbance: "Disturb the soil?"
-        method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
+        method_long_term_structures: "Erect structures or deploy long term equipment, such as
+          markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
       yes_option: "Yes"
       no_option: "No"
     team_memberships:
@@ -1114,14 +1124,14 @@ en:
       discipline: "Discipline"
       project_involves: "Project Involves"
       method_remove_organisms: "Remove organisms or materials from the reserve"
-      method_transfer_organisms: "Involves the transfer of animals, plants, and/or microorganisms from outside
-                                  the reserve to within the reserve, or between different parts of the reserve."
-      method_chemicals: "Use of radioactive isotopes or other chemicals? (e.g., pesticides, herbicides, fertilizers, tracers) <br />
-                          %{chemical_list}"
+      method_transfer_organisms: "Involves the transfer of animals, plants, and/or microorganisms
+        from outside the reserve to within the reserve, or between different parts of the reserve."
+      method_chemicals: "Use of radioactive isotopes or other chemicals? (e.g., pesticides,
+        herbicides, fertilizers, tracers) <br /> %{chemical_list}"
       method_study_non_native_species: "Manipulation of non-native species"
       method_soil_disturbance: "Soil Disturbance"
-      method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages,
-                                    data-loggers, antennas, or buoys"
+      method_long_term_structures: "Erect structures or deploy long term equipment, such as
+        markers, fences, enclosures, cages, data-loggers, antennas, or buoys"
       method_description: "Detailed description of environmental manipulations"
       method_study_area: "Reserve area(s) you plan to visit or conduct manipulations"
     meeting_show:
@@ -2763,14 +2773,19 @@ en:
           involves_birds: "Birds"
           involves_plants_fungi_soil: "Plants, Fungi, or Soils"
           involves_none: "None of the Above"
-          involves_threatened_endangered_species: "Threatened, Endangered, or Species of Special Concern"
+          involves_threatened_endangered_species: "Threatened, Endangered, or Species of
+            Special Concern"
         planning_questions:
           method_remove_organisms: "Remove organisms or materials from the reserve?"
-          method_transfer_organisms: "Transfer animals and plants from outside the reserve to within the reserve, or between different parts of the reserve?"
+          method_transfer_organisms: "Transfer animals and plants from outside the reserve to
+            within the reserve, or between different parts of the reserve?"
           method_study_non_native_species: "Study or manipulate non-native species?"
-          method_chemicals: "Use radioactive isotopes or other chemicals? (e.g., pesticides, herbicides, fertilizers, tracers)"
+          method_chemicals: "Use radioactive isotopes or other chemicals? (e.g., pesticides,
+            herbicides, fertilizers, tracers)"
+          method_chemicals_list: "Please list the chemicals"
           method_soil_disturbance: "Disturb the soil?"
-          method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
+          method_long_term_structures: "Erect structures or deploy long term equipment, such as
+            markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
         yes_option: "Yes"
         no_option: "No"
       meeting_form:
@@ -2855,25 +2870,33 @@ en:
           involves_birds: "Birds"
           involves_plants_fungi_soil: "Plants, Fungi, or Soils"
           involves_none: "None of the Above"
-          involves_threatened_endangered_species: "Threatened, Endangered, or Species of Special Concern"
+          involves_threatened_endangered_species: "Threatened, Endangered, or Species of
+            Special Concern"
         planning_questions:
           method_remove_organisms: "Remove organisms or materials from the reserve?"
-          method_transfer_organisms: "Transfer animals and plants from outside the reserve to within the reserve, or between different parts of the reserve?"
+          method_transfer_organisms: "Transfer animals and plants from outside the reserve to
+            within the reserve, or between different parts of the reserve?"
           method_study_non_native_species: "Study or manipulate non-native species?"
-          method_chemicals: "Use radioactive isotopes or other chemicals? (e.g., pesticides, herbicides, fertilizers, tracers)"
+          method_chemicals: "Use radioactive isotopes or other chemicals? (e.g., pesticides,
+            herbicides, fertilizers, tracers)"
+          method_chemicals_list: "Please list the chemicals"
           method_soil_disturbance: "Disturb the soil?"
-          method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
+          method_long_term_structures: "Erect structures or deploy long term equipment, such
+            as markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
         yes_option: "Yes"
         no_option: "No"
       fundings:
         form_fields:
           is_funded: "Project is currently being supported by at least one grant or contract"
-          is_submitted: "At least one grant or contract application has been submitted but has not yet been approved"
-          will_be_submitted: "At least one grant or contract application will be submitted in the future"
+          is_submitted: "At least one grant or contract application has been submitted but has
+            not yet been approved"
+          will_be_submitted: "At least one grant or contract application will be submitted in
+            the future"
           was_denied: "Project grant or contract application was denied by the funding agency"
           official_grant_title: "Official Grant Title"
           funding_opportunity_number: "Funding Opportunity Number"
-          funding_opportunity_number_explanation: "Funding opportunity numbers (FON) is a number that a federal agency assigns to its grant announcement."
+          funding_opportunity_number_explanation: "Funding opportunity numbers (FON) is a number
+            that a federal agency assigns to its grant announcement."
           grant_number: "Grant Number"
           grant_number_explanation: "Grant Number or Grant URL Address"
           principal_investigators: "Principal Investigators"
@@ -2950,14 +2973,14 @@ en:
       endangered: "Endangered"
       species_of_special_concern: "Species of Special Concern"
       method_remove_organisms: "Remove organisms or materials from the reserve"
-      method_transfer_organisms: "Involves the transfer of animals, plants, and/or microorganisms from outside
-                                  the reserve to within the reserve, or between different parts of the reserve."
-      method_chemicals: "Use of radioactive isotopes or other chemicals? (e.g., pesticides, herbicides, fertilizers, tracers) <br />
-                          %{chemical_list}"
+      method_transfer_organisms: "Involves the transfer of animals, plants, and/or microorganisms
+        from outside the reserve to within the reserve, or between different parts of the reserve."
+      method_chemicals: "Use of radioactive isotopes or other chemicals? (e.g., pesticides,
+        herbicides, fertilizers, tracers) <br /> %{chemical_list}"
       method_study_non_native_species: "Manipulation of non-native species"
       method_soil_disturbance: "Soil Disturbance"
-      method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages,
-                                    data-loggers, antennas, or buoys"
+      method_long_term_structures: "Erect structures or deploy long term equipment, such as
+        markers, fences, enclosures, cages, data-loggers, antennas, or buoys"
       method_description: "Detailed description of environmental manipulations"
       method_study_area: "Reserve area(s) you plan to visit or conduct manipulations"
     visit_detail:
