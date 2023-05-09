@@ -477,6 +477,13 @@ main {
     .search-options {
       margin: 2rem auto;
 
+      small {
+        color: $dark-bluegray;
+        display: inline-block;
+        font-size: 0.75rem;
+        margin-top: 0.5rem;
+      }
+
       .submit-btn {
         color: $dark-sky-blue;
         cursor: pointer;
