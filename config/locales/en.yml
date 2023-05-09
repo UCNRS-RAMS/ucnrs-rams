@@ -1969,6 +1969,9 @@ en:
             appears to user when initially selecting this reserve when creating a visit, and the
             reserve page."
           general_information: "General Information"
+          reserve_logo: "Reserve Logo"
+          description_reserve_logo_text: "Please be patient when adding large image
+            files after pressing Save Changes button."
           reserve_name: "Reserve Name"
           managing_campus: "Managing Campus"
           department: "Department"
@@ -1997,7 +2000,11 @@ en:
           site_content: "Site Content"
           upload_support_text: Please upload photos in landscape orientation only.
           large_hero_photo: "Large Hero Photo (Reserve Detail Page)"
+          description_large_hero_photo_text: "Please be patient when adding large image
+            files after pressing Save Changes button."
           listing_photo: "Listing Photo (Reserve Listing Page)"
+          description_listing_photo_text: "Please be patient when adding large image
+            files after pressing Save Changes button."
           browse: "Browse"
           upload: "Upload"
           short_description: "Short Description"
@@ -2016,7 +2023,9 @@ en:
           message: "Message"
           please_select: "Please Select"
           amenities: "Amenities"
-          amenities_small_info: "Amenities can be put into 1 of 5 group to better manage them. While the group name is determined here, putting amenities into the group is set in the Amenities & Rates page."
+          amenities_small_info: "Amenities can be put into 1 of 5 group to better manage them.
+            While the group name is determined here, putting amenities into the group is set
+            in the Amenities & Rates page."
           amenities_and_rates: "Amenities & Rates"
           amenity_group_name_1: "Amenity Group Name 1"
           amenity_group_name_2: "Amenity Group Name 2"
@@ -2054,17 +2063,24 @@ en:
             description_amenity_type_text: "This will be used to group amenities in visit creation."
             name_of_amenity: "Name of amenity"
             description_of_amenity: "Description of Amenity"
-            description_helper_text: "Optional text to describe and or give instruction for the amenity. (255 characters or less.)"
+            description_helper_text: "Optional text to describe and or give instruction for the
+              amenity. (255 characters or less.)"
             maximum_capacity: "Maximum Capacity"
-            description_capacity_text: "If capacity is set to 1, user input will automatically be 1 if amenity selected. Useful for amenities that are not charged by the person. Setting the capacity to 0, is equal to unlimited."
+            description_capacity_text: "If capacity is set to 1, user input will automatically
+              be 1 if amenity selected. Useful for amenities that are not charged by the person.
+              Setting the capacity to 0, is equal to unlimited."
             amenity_units_type: "Amenity Units Type"
-            description_units_type_text: "Equation is as follows: (number of amenity) per (amenity unit type) per (amenity time interval)."
+            description_units_type_text: "Equation is as follows: (number of amenity) per
+              (amenity unit type) per (amenity time interval)."
             amenity_time_interval: "Amenity Time Interval"
-            description_time_type_text: "'Each' is a special time unit. By using 'each', start and end time are not calculated for the subtotal."
+            description_time_type_text: "'Each' is a special time unit. By using 'each', start
+              and end time are not calculated for the subtotal."
             visible: "Visible"
             invoiceable: "Invoiceable"
             description_invoiceable_text: "Determines if amenity will show on invoice."
             amenity_listing_photo: "Amenity listing photo"
+            description_amenity_listing_photo_text: "Please be patient when adding large image
+              files after pressing create/update button."
         amenity:
           edit: "Edit"
         amenity_rate_categories:
@@ -2156,7 +2172,8 @@ en:
         index:
           reserve_questions: "Reserve Questions"
           about_questions: "About Questions"
-          about_questions_paragraph1: "Add additional questions to projects visits specific for your reserve. They can be yes/no questions or text based answer."
+          about_questions_paragraph1: "Add additional questions to projects visits specific for
+            your reserve. They can be yes/no questions or text based answer."
         new:
           visit: "Visits"
           project: "Projects"
@@ -2243,6 +2260,8 @@ en:
           receive_drone_email: "Drone"
           receive_scuba_email: "Scuba"
           avatar: "Avatar"
+          description_avatar_text: "Please be patient when adding large image
+            files after pressing Create/Update button."
       reserve_addendums:
         index:
           reserve_addendums: "Reserve Addendums"
