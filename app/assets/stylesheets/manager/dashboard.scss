@@ -163,13 +163,19 @@
       .calendar-heading {
         align-items: center;
         display: flex;
-        justify-content: center;
+        justify-content: space-evenly;
         margin: 2rem;
+
+        a {
+          display: flex;
+        }
       }
 
       .calendar-title {
         border: none;
+        font-size: 0.875rem;
         margin: 0px 70px 0px 70px;
+        text-align: center;
       }
 
       text-align: center;
@@ -248,7 +254,7 @@
 
       .bars-text {
         background-color: transparent;
-        color: white;
+        color: $white;
         left: 20px;
         margin-top: 0.3rem;
         position: absolute;

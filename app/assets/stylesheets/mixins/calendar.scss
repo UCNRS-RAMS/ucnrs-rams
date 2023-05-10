@@ -1,3 +1,5 @@
+@import "variables";
+
 @mixin middle-bars($bg-color, $border-color, $border-width: 0.125rem) {
   background-color: $bg-color;
   border-bottom: $border-width solid $border-color;
