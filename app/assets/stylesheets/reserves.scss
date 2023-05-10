@@ -39,13 +39,19 @@ main {
     .calendar-heading {
       align-items: center;
       display: flex;
-      justify-content: center;
+      justify-content: space-evenly;
       margin: 2rem;
+
+      a {
+        display: flex;
+      }
     }
 
     .calendar-title {
       border: none;
+      font-size: 0.875rem;
       margin: 0px 70px 0px 70px;
+      text-align: center;
     }
 
     .table {
