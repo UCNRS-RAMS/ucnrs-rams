@@ -1,5 +1,5 @@
 <turbo-frame id="add-visitor">
-  <%= render partial: 'shared/visits/user_visits/links' %>
+  <%= render partial: 'shared/visits/user_visits/links', locals: { presenter: presenter } %>
   <section id="add-group">
     <%= form_with model: @presenter, url: @presenter.user_visit_form_path do |form|%>
       <%= form.hidden_field :user_id, value: 1 %>
@@ -11,12 +11,12 @@
         </div>
         <div class="field institution-id">
           <%= form.label :institution_id, t(".institution_name") %>
-          <%= form.select :institution_id, options_for_select(@presenter.institution_options, @presenter.default_institution), 
+          <%= form.select :institution_id, options_for_select(@presenter.institution_options, @presenter.default_institution),
                 prompt: t(".select_institution") %>
         </div>
         <div class="field role">
           <%= form.label :role, t(".role") %>
-          <%= form.select :role, options_for_select(@presenter.user_role_options), 
+          <%= form.select :role, options_for_select(@presenter.user_role_options),
                 prompt: t(".select_user_role")%>
         </div>
         <div class="add-group">

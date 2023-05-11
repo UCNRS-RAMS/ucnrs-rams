@@ -582,6 +582,9 @@ en:
           university_class: "University Class"
           meeting_or_conference: "Meeting or Conference"
           public_use: "Public Use"
+      team_memberships:
+        index:
+          back_to_schedule_visit: "BACK to Schedule Visit"
     project_type:
       project_type_options:
         labels:

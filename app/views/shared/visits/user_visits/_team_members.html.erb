@@ -1,8 +1,11 @@
 <turbo-frame id="add-visitor">
   <div class="d-flex">
-    <%= render partial: 'shared/visits/user_visits/links' %>
+    <%= render partial: 'shared/visits/user_visits/links', locals: { presenter: presenter } %>
     <% if presenter.can_add_project_user? %>
-      <%= link_to t(".new_team_member"), project_team_memberships_path(presenter.visit_project_id), target: "_blank" %>
+      <%= link_to t(".new_team_member"),
+        visit_project_team_memberships_path(presenter.visit_id),
+        data: { turbo_frame: "_top"}
+      %>
     <% end %>
   </div>
   <section id="add-team-member">
