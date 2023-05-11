@@ -54,6 +54,9 @@ Rails.application.routes.draw do
     resources :questions, only: [:index], controller: "visits/questions"
     resources :answers, only: [:create], controller: "visits/answers"
     resource :waivers_policies, only: [:show, :update], controller: "visits/waivers_policies"
+    resource :project, only: [] do
+      resources :team_memberships, only: [:index, :create], controller: "visits/project/team_memberships"
+    end
   end
 
   resource :helps , only: [:show]
