@@ -359,3 +359,14 @@
     }
   }
 }
+
+.invoices-edit {
+  main{
+    .container{
+      header {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}

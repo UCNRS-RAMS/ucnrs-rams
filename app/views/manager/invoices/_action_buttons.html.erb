@@ -28,10 +28,4 @@
       classes: "edit"
     )
   %>
-  <%= link_to t(".record_payment"),
-    new_manager_reserve_visit_invoice_payment_path(invoice_id: @presenter.invoice_id),
-    data: { turbo_frame: "modal-content" },
-    method: :get,
-    class: "payment-btn button-clear"
-  %>
 </div>

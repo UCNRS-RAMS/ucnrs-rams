@@ -1202,7 +1202,6 @@ en:
         email_alt: "email icon"
         printer_alt: "printer icon"
         edit_alt: "edit icon"
-        record_payment: "Record Payment"
         delete_icon: "delete_icon.svg"
         email_icon: "icon-email.svg"
         printer_icon: "printer.svg"
@@ -1241,6 +1240,7 @@ en:
       show:
         invoice: "Invoice %{id}-%{version}"
       edit:
+        record_payment: "Record Payment"
         invoice: "Edit Invoice %{id}-%{version}"
         balance: "%{sign}$ %{balance}"
       notes:

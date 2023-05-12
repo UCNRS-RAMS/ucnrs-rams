@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      <%= render partial: "manager/invoices/invoice_edit_payment", collection: invoice_payments, as: :invoice_payment %>
+      <%= render partial: "manager/invoices/invoice_edit_payment", collection: invoice_payments, as: :invoice_payment, locals: { presenter: presenter } %>
       <tr class="payment-total">
         <td colspan="3"></td>
         <td class="balance-title"><%= t(".balance") %></td>

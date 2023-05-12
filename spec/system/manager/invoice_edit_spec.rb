@@ -79,4 +79,37 @@ RSpec.describe "Invoice Detail" do
       expect(flow).to have_back_link("Cancel & Go Back")
     end
   end
+
+  describe "when click on Record payment button" do
+    it "payment modal will open", js: true do
+      sign_in(user)
+      flow = Manager::InvoiceFLow.new(page: page, visit_id: visit.id, reserve_id: reserve.id, invoice_id: invoice.id)
+      flow.visit_manager_projects_invoice_edit_page
+      flow.click_payment_btn
+
+      expect(flow).to be_showing_payment_madal
+    end
+
+    it "display errors if submit invalid data", js: true do
+      sign_in(user)
+      flow = Manager::InvoiceFLow.new(page: page, visit_id: visit.id, reserve_id: reserve.id, invoice_id: invoice.id)
+      flow.visit_manager_projects_invoice_edit_page
+      flow.click_payment_btn
+      flow.click_save_btn
+
+      expect(flow).to be_showing_errors
+    end
+
+    it "will not display error if data is valid", js: true do
+      sign_in(user)
+
+      flow = Manager::InvoiceFLow.new(page: page, visit_id: visit.id, reserve_id: reserve.id, invoice_id: invoice.id)
+      flow.visit_manager_projects_invoice_edit_page
+      flow.click_payment_btn
+      flow.fill_payment_form
+      flow.click_save_btn
+
+      expect(flow).not_to be_showing_errors
+    end
+  end
 end
