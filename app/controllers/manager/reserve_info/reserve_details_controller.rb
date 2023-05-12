@@ -31,7 +31,6 @@ class Manager::ReserveInfo::ReserveDetailsController < Manager::ApplicationContr
     params.require(:reserve).permit(
       :short_name,
       :pulldown_name,
-      :directions,
       :rules,
       :rates,
       :managing_campus_id,
@@ -51,7 +50,6 @@ class Manager::ReserveInfo::ReserveDetailsController < Manager::ApplicationContr
       :check_payable_to_name,
       :home_page_url,
       :logo_url,
-      :directions_url,
       :rules_url,
       :rates_url,
       :research_projects_accepted,
