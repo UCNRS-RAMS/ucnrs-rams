@@ -4,8 +4,11 @@
   <td><%= invoice_payment.notes %></td>
   <td class="invoice-payment">-$<%= invoice_payment.amount %></td>
   <td>
-    <%= link_to edit_manager_reserve_visit_invoice_payment_path(invoice_id: @presenter.invoice_id, id: invoice_payment.id), data: { turbo_frame: "modal-content" }, method: :get do %>
+    <%= link_to edit_manager_reserve_visit_invoice_payment_path(invoice_id: presenter.invoice_id, id: invoice_payment.id), data: { turbo_frame: "modal-content" }, method: :get do %>
       <%= image_tag "edit_icon.svg", height: "24px", width: "24px", alt: "edit-icon" %>
+    <% end %>
+    <%= link_to manager_reserve_visit_invoice_payment_path(invoice_id: presenter.invoice_id, id: invoice_payment.id), method: :delete  do %>
+      <%= image_tag "icon-trash.svg", height: "24px", width: "24px", alt: "edit-icon" %>
     <% end %>
   </td>
 </tr>
