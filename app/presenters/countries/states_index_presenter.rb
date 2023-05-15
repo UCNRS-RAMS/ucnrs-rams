@@ -1,4 +1,4 @@
-class StatesIndexPresenter
+class Countries::StatesIndexPresenter
   def initialize(country:)
     @country = country
   end
@@ -6,7 +6,7 @@ class StatesIndexPresenter
   attr_reader :country
 
   def states
-    states_scope
+    states_scope.presence || [State.blank]
   end
 
   private

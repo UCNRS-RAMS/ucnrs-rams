@@ -22,4 +22,8 @@ class State < ApplicationRecord
   def in_country?(country)
     self.country == country
   end
+
+  def self.blank
+    State.new(id: nil, name: "")
+  end
 end

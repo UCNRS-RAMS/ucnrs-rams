@@ -10,7 +10,7 @@ class Visits::ProjectsPresenter
   def projects
     [
       Project.blank,
-      *projects_scope
+      *projects_scope,
     ]
   end
 
@@ -24,7 +24,7 @@ class Visits::ProjectsPresenter
 
   private
 
-  def projects_scope 
+  def projects_scope
     Project
       .of_type(project_type)
       .alphabetized
