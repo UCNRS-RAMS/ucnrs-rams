@@ -45,8 +45,8 @@
           </div>
           <div class="input-group">
             <div class="form-group">
-              <%= f.label :reserve_name, t(".reserve_name"), class: "form-label" %>
-              <%= f.text_field :reserve_name, placeholder: @presenter.reserve_name, disabled: :disabled, class: "form-input" %>
+              <%= f.label :name, t(".reserve_name"), class: "form-label" %>
+              <%= f.text_field :name, disabled: :disabled, class: "form-input" %>
             </div>
             <div class="row">
               <div class="col form-group">
@@ -70,13 +70,16 @@
                   <div class="col-50 form-group">
                   <%= f.label :address_country_id, t(".country"), class: "form-label" %>
                   <%= f.collection_select(
-                        :address_country_id,
-                        Country.alphabetical_by_name,
-                        :id,
-                        :name,
-                        { selected: f.object.address_country_id, prompt: t(".please_select") },
-                        { data: { action: "change->followup-content#change" }, class: "form-input" },
-                      )
+                      :address_country_id,
+                      Country.alphabetical_by_name,
+                      :id,
+                      :name,
+                      {
+                        selected: f.object.address_country_id,
+                        prompt: t(".please_select")
+                      },
+                      { data: { action: "change->followup-content#change" }, class: "form-input" },
+                    )
                   %>
                   </div>
                 </div>
@@ -98,8 +101,13 @@
                           @presenter.address_state_options,
                           :id,
                           :name,
-                          { selected: f.object.address_state_id },
-                          { data: { followup_content_target: "destination", "followup-content-url-value": states_url(country_id: "VALUE") }, class: "form-input" },
+                          { selected: f.object.address_state_id, prompt: t(".please_select") },
+                          { data: {
+                              followup_content_target: "destination",
+                              "followup-content-url-value": states_url(country_id: "VALUE"),
+                            },
+                            class: "form-input",
+                          },
                         ) %>
                   </div>
                   <div class="col-25 form-group">
@@ -172,12 +180,15 @@
                 <div class="col-50 form-group">
                   <%= f.label :billing_address_country_id, t(".country"), class: "form-label" %>
                   <%= f.collection_select(
-                                          :billing_address_country_id,
-                                          Country.alphabetical_by_name,
-                                          :id,
-                                          :name,
-                                          { selected: f.object.billing_address_country_id, prompt: t(".please_select") },
-                                          { data: { action: "change->followup-content#change" }, class: "form-input" },
+                    :billing_address_country_id,
+                    Country.alphabetical_by_name,
+                    :id,
+                    :name,
+                    {
+                      selected: f.object.billing_address_country_id,
+                      prompt: t(".please_select")
+                    },
+                    { data: { action: "change->followup-content#change" }, class: "form-input" },
                   ) %>
                 </div>
               </div>
@@ -195,12 +206,17 @@
                 <div class="col-25 form-group">
                   <%= f.label :billing_address_state_id, t(".state"), class: "form-label" %>
                   <%= f.collection_select(
-                                          :billing_address_state_id,
-                                          @presenter.billing_address_state_options,
-                                          :id,
-                                          :name,
-                                          { selected: f.object.billing_address_state_id },
-                                          { data: { followup_content_target: "destination", "followup-content-url-value": states_url(country_id: "VALUE") }, class: "form-input" },
+                    :billing_address_state_id,
+                    @presenter.billing_address_state_options,
+                    :id,
+                    :name,
+                    { selected: f.object.billing_address_state_id, prompt: t(".please_select") },
+                    { data: {
+                        followup_content_target: "destination",
+                        "followup-content-url-value": country_states_url("VALUE")
+                      },
+                      class: "form-input"
+                    },
                   ) %>
                 </div>
                 <div class="col-25 form-group">

@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
 class Manager::ReserveInfo::ReserveFormPresenter
+  def initialize(form = nil)
+    @form = form || ReserveForm.new
+
+    set_default_country_selected
+    set_default_billing_country_selected
+  end
+
   attr_reader :form
 
   delegate :reserve, to: :form, prefix: true
-
-  def initialize(form = nil)
-    @form = form || ReserveForm.new
-  end
 
   def reserve_name
     form_reserve&.name
@@ -45,5 +48,13 @@ class Manager::ReserveInfo::ReserveFormPresenter
 
   def default_country
     Country.find_by(name: "United States")
+  end
+
+  def set_default_country_selected
+    form_reserve.address_country_id ||= default_country.id
+  end
+
+  def set_default_billing_country_selected
+    form_reserve.billing_address_country_id ||= default_country.id
   end
 end

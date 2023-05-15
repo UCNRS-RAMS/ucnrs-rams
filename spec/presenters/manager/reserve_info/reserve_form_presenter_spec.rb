@@ -1,8 +1,10 @@
 require "rails_helper"
 
 RSpec.describe Manager::ReserveInfo::ReserveFormPresenter do
+  before { create :country, name: "United States" }
+
   describe "delegations" do
-    subject { Manager::ReserveInfo::ReserveFormPresenter.new(form: ReserveForm.new()) }
+    subject { Manager::ReserveInfo::ReserveFormPresenter.new }
     it { is_expected.to delegate_method(:reserve).to(:form).with_prefix(true) }
   end
 
@@ -94,7 +96,6 @@ RSpec.describe Manager::ReserveInfo::ReserveFormPresenter do
       expect(presenter.logo).to match(/\/small_test-image.jpeg/)
     end
   end
-
 
   describe "#hero_photo" do
     it "presents placeholder image if no large_hero_photo is attached" do
