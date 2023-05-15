@@ -11,8 +11,12 @@ Rails.application.routes.draw do
     resource :calendar, only: [:show], controller: "calendar"
     resources :latest_news, only: [:index]
   end
+
   resources :institutions, only: [:index, :new, :create]
   resources :states, only: [:index]
+  resources :countries, only: [] do
+    resources :states, only: [:index], controller: "countries/states"
+  end
   resources :users, only: [:index]
 
   resources :team_memberships, only: [:edit, :update, :destroy], controller: "projects/team_memberships"
