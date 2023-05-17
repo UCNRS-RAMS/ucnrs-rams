@@ -22,22 +22,7 @@ RSpec.describe "modals/edit_project_funding.html.erb", type: :view do
     render partial: "modals/edit_project_funding", locals: { presenter: presenter }
 
     doc = Capybara.string(rendered)
-    expect(doc).to have_field(
-      "Project is currently being supported by at least one grant or contract",
-      type: "checkbox",
-    )
-    expect(doc).to have_field(
-      "At least one grant or contract application has been submitted but has not yet been approved",
-      type: "checkbox",
-    )
-    expect(doc).to have_field(
-      "At least one grant or contract application will be submitted in the future",
-      type: "checkbox",
-    )
-    expect(doc).to have_field(
-      "Project grant or contract application was denied by the funding agency",
-      type: "checkbox",
-    )
+    expect(doc).to have_field("Funding Status", type: "select")
     expect(doc).to have_field("Official Grant Title", type: "text")
     expect(doc).to have_field("Funding Opportunity Number", type: "text")
     expect(doc).to have_field("Grant Number", type: "text")

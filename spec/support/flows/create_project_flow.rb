@@ -281,10 +281,7 @@ class CreateProjectFlow
   end
 
   def fill_out_fundings_form(
-    is_funded: false,
-    is_submitted: false,
-    will_be_submitted: false,
-    was_denied: false,
+    funding_status: nil,
     title:,
     principal_investigators:,
     funding_sponsor:,
@@ -293,10 +290,7 @@ class CreateProjectFlow
     end_date:,
     award_amount:
   )
-    page.check("Project is currently being supported by at least one grant or contract") if is_funded
-    page.check("At least one grant or contract application has been submitted but has not yet been approved") if is_submitted
-    page.check("At least one grant or contract application will be submitted in the future") if will_be_submitted
-    page.check("Project grant or contract application was denied by the funding agency") if was_denied
+    page.select(funding_status, from: "Funding Status") if funding_status
     page.fill_in("Official Grant Title", with: title)
     page.fill_in("Principal Investigators", with: principal_investigators, exact: true)
     page.select(funding_sponsor, from: "Funding Agency")

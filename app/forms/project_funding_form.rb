@@ -25,19 +25,19 @@ class ProjectFundingForm
   end
 
   def is_funded=(value)
-    funding.is_funded = value == "1" 
+    funding.is_funded = value == "1"
   end
 
   def is_submitted=(value)
-    funding.is_submitted = value == "1" 
+    funding.is_submitted = value == "1"
   end
 
   def will_be_submitted=(value)
-    funding.will_be_submitted = value == "1" 
+    funding.will_be_submitted = value == "1"
   end
 
   def was_denied=(value)
-    funding.was_denied = value == "1" 
+    funding.was_denied = value == "1"
   end
 
   def is_funded
@@ -56,6 +56,37 @@ class ProjectFundingForm
     funding.was_denied == true ? "1" : "0"
   end
 
+  def funding_status=(value)
+    case value
+    when :is_funded
+      reset_funding_status
+      funding.is_funded = true
+    when :is_submitted
+      reset_funding_status
+      funding.is_submitted = true
+    when :will_be_submitted
+      reset_funding_status
+      funding.will_be_submitted = true
+    when :was_denied
+      reset_funding_status
+      funding.was_denied = true
+    else
+      reset_funding_status
+    end
+  end
+
+  def funding_status
+    if funding.is_funded?
+      :is_funded
+    elsif funding.is_submitted?
+      :is_submitted
+    elsif funding.will_be_submitted?
+      :will_be_submitted
+    elsif funding.was_denied?
+      :was_denied
+    end
+  end
+
   private
 
   def assign(params)
@@ -66,5 +97,12 @@ class ProjectFundingForm
 
   def award_amount_as_integer(value)
     value.to_s.strip.gsub(DECIMAL_NUMBER_PATTERN, "").to_i
+  end
+
+  def reset_funding_status
+    funding.is_funded = false
+    funding.is_submitted = false
+    funding.will_be_submitted = false
+    funding.was_denied = false
   end
 end

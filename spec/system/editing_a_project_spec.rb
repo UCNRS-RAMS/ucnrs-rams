@@ -190,16 +190,16 @@ RSpec.describe "Editing a project", type: :system, js: true do
       flow.edit_funding("Give me money for birdwatching")
       expect(flow).to be_showing_popup_editing_user("Give me money for birdwatching")
       expect(page).to be_axe_clean
-  
+
       flow.click_cancel
       expect(flow).to be_not_showing_popup_editing_user("Give me money for birdwatching")
-  
+
       flow.edit_funding("Give me money for birdwatching")
       expect(flow).to be_showing_popup_editing_user("Give me money for birdwatching")
 
       flow.in_editing_modal do
         flow.fill_out_fundings_form(
-          is_funded: true,
+          funding_status: "Project is currently being supported by at least one grant or contract",
           title: "Give me money for birdwatching, please",
           principal_investigators: "Just me.",
           funding_sponsor: "Other",
@@ -215,7 +215,7 @@ RSpec.describe "Editing a project", type: :system, js: true do
         funding_agency: "Audubon Society",
         award_amount: "$1,000,000.00"
       )
-  
+
       flow.edit_funding("Give me money for birdwatching, please")
       flow.remove_funding
       expect(flow).to have_no_funding(
@@ -223,7 +223,7 @@ RSpec.describe "Editing a project", type: :system, js: true do
         funding_agency: "Audubon Society",
         award_amount: "$1,000,000.00"
       )
-  
+
       flow.submit_funding
       expect(flow).to be_on_project_summary_page
       expect(flow).to have_open_project_status

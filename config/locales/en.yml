@@ -231,10 +231,6 @@ en:
       accessible_description: "A modal pop-up form to edit details of funding for this project."
       remove_funding: "Remove Funding"
       confirm_removal: "Are you sure you want to remove %{title}?"
-      is_funded: "Project is currently being supported by at least one grant or contract"
-      is_submitted: "At least one grant or contract application has been submitted but has not yet been approved"
-      will_be_submitted: "At least one grant or contract application will be submitted in the future"
-      was_denied: "Project grant or contract application was denied by the funding agency"
       official_grant_title: "Official Grant Title"
       funding_opportunity_number: "Funding Opportunity Number"
       funding_opportunity_number_explanation: "Funding opportunity numbers (FON) is a number that a federal agency assigns to its grant announcement."
@@ -2890,12 +2886,7 @@ en:
         no_option: "No"
       fundings:
         form_fields:
-          is_funded: "Project is currently being supported by at least one grant or contract"
-          is_submitted: "At least one grant or contract application has been submitted but has
-            not yet been approved"
-          will_be_submitted: "At least one grant or contract application will be submitted in
-            the future"
-          was_denied: "Project grant or contract application was denied by the funding agency"
+          funding_status: "Funding Status"
           official_grant_title: "Official Grant Title"
           funding_opportunity_number: "Funding Opportunity Number"
           funding_opportunity_number_explanation: "Funding opportunity numbers (FON) is a number
@@ -3173,6 +3164,12 @@ en:
         mile: "Per Mile"
         square_foot: "Per Square Foot"
         facility: "Per Facility"
+    funding:
+      funding_status:
+        is_funded: "Project is currently being supported by at least one grant or contract"
+        is_submitted: "At least one grant or contract application has been submitted but has not yet been approved"
+        will_be_submitted: "At least one grant or contract application will be submitted in the future"
+        was_denied: "Project grant or contract application was denied by the funding agency"
   edit: "Edit"
   research: "Research"
   university_class: "University Class"
