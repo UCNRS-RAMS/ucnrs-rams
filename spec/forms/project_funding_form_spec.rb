@@ -187,4 +187,34 @@ RSpec.describe ProjectFundingForm, type: :model do
       expect(form.was_denied).to eq "0"
     end
   end
+
+  describe "#funding_status" do
+    it "return :is_funded if the funding is_funded is true" do
+      funding = create(:funding, is_funded: true)
+      form = ProjectFundingForm.new(params: { id: funding.id })
+
+      expect(form.funding_status).to eq :is_funded
+    end
+
+    it "return :is_submitted if the funding is_submitted is true" do
+      funding = create(:funding, is_submitted: true)
+      form = ProjectFundingForm.new(params: { id: funding.id })
+
+      expect(form.funding_status).to eq :is_submitted
+    end
+
+    it "return :will_be_submitted if the funding will_be_submitted is true" do
+      funding = create(:funding, will_be_submitted: true)
+      form = ProjectFundingForm.new(params: { id: funding.id })
+
+      expect(form.funding_status).to eq :will_be_submitted
+    end
+
+    it "return :was_denied if the funding was_denied is true" do
+      funding = create(:funding, was_denied: true)
+      form = ProjectFundingForm.new(params: { id: funding.id })
+
+      expect(form.funding_status).to eq :was_denied
+    end
+  end
 end

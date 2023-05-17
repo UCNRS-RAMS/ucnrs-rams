@@ -196,7 +196,7 @@ RSpec.describe "Creating a project", type: :system, js: true do
 
     flow.in_editing_modal do
       flow.fill_out_fundings_form(
-        is_funded: true,
+        funding_status: "Project is currently being supported by at least one grant or contract",
         title: "Give me money for birdwatching, please",
         principal_investigators: "Just me.",
         funding_sponsor: "Other",

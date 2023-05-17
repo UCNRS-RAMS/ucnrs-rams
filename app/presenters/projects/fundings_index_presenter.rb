@@ -19,6 +19,15 @@ class Projects::FundingsIndexPresenter
     Funding.sponsors.map { |key, value| [value, key] }
   end
 
+  def funding_status_options
+    {
+      I18n.t("universal.funding.funding_status.is_funded") => :is_funded,
+      I18n.t("universal.funding.funding_status.is_submitted") => :is_submitted,
+      I18n.t("universal.funding.funding_status.will_be_submitted") => :will_be_submitted,
+      I18n.t("universal.funding.funding_status.was_denied") => :was_denied,
+    }
+  end
+
   private
 
   attr_reader :steps_presenter, :current_step

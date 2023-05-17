@@ -39,4 +39,13 @@ class Projects::FundingEditPresenter
   def funding_form_path
     funding_path(id)
   end
+
+  def funding_status_options
+    {
+      I18n.t("universal.funding.funding_status.is_funded") => :is_funded,
+      I18n.t("universal.funding.funding_status.is_submitted") => :is_submitted,
+      I18n.t("universal.funding.funding_status.will_be_submitted") => :will_be_submitted,
+      I18n.t("universal.funding.funding_status.was_denied") => :was_denied,
+    }
+  end
 end

@@ -77,10 +77,7 @@ class Projects::FundingsController < ApplicationController
     params.require(:funding).permit(
       :id,
       :title,
-      :is_funded,
-      :is_submitted,
-      :will_be_submitted,
-      :was_denied,
+      :funding_status,
       :principal_investigators,
       :co_principal_investigators,
       :start_date,
