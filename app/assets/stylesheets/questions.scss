@@ -56,3 +56,130 @@
     @include table-style1;
   }
 }
+
+.questions-index {
+  main {
+    @include form;
+
+    section {
+      color: $navy-blue;
+      margin: 0;
+      padding: 0 $form-page-gutter;
+
+      h1 {
+        color: $navy-blue;
+        font-size: 2.25rem;
+        font-weight: $semi-bold;
+        line-height: 2.75rem;
+      }
+
+      h2 {
+        font-size: 1.25rem;
+        font-weight: $bold;
+        line-height: 1.75rem;
+        margin-top: 3.125rem;
+
+        &:first-of-type {
+          margin-top: 2.5rem;
+        }
+      }
+    }
+
+    .answers.field {
+      textarea {
+        width: 240px;
+        height: 3rem;
+        margin-right: 0;
+      }
+    }
+
+    .questions {
+      font-size: 0.875rem;
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          border-bottom: 1px solid $gray;
+          padding: 0.5rem 0;
+
+          .description {
+            display: none;
+
+            li {
+              border: 0;
+              padding: 0;
+            }
+          }
+
+          &[data-value-projection-projected-value="1"] {
+            .description {
+              display: block;
+
+              p {
+                margin: 0;
+                margin-bottom: 0.5rem;
+              }
+            }
+          }
+
+          .question {
+            align-items: start;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+
+            p {
+              font-size: 1rem;
+              font-weight: $semi-bold;
+            }
+          }
+
+          .answers {
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+
+            input[type="radio"] {
+              margin-left: 1rem;
+              margin-right: 0.25rem;
+            }
+          }
+        }
+      }
+    }
+
+    .progress-steps {
+      padding: 1.625rem $form-page-gutter;
+    }
+
+    .modal-content {
+      form {
+        padding: 1rem;
+
+        p {
+          color: $navy-blue;
+          font-size: 0.625rem;
+          line-height: initial;
+          text-align: left;
+        }
+
+        select {
+          border: 1px solid $bluegray;
+          border-radius: 0.3125rem;
+          margin-right: 2rem;
+        }
+
+        .autocomplete input {
+          width: auto;
+        }
+      }
+
+      .field {
+        margin-bottom: 1.25rem;
+      }
+    }
+  }
+}
