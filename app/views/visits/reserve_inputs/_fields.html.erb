@@ -1,4 +1,6 @@
 <% if presenter.reserve %>
+  <%= tag.div simple_format(presenter.alert_message), class: "reserve-message" if presenter.alert_message.present? %>
+
   <div class="field">
     <label for="reserve-special-needs"><%= t(".labels.special_needs") %></label>
     <p class="special-needs-statement"><%= presenter.special_needs_statement %></p>
@@ -9,6 +11,4 @@
     <label for="visit_study_area"><%= t(".labels.study_area") %></label>
     <input name="visit[study_area]" id="visit_study_area" value="<%= form_values.study_area %>"/>
   </div>
-
-  <div class=<%= presenter.alert_message_class %>><%= simple_format presenter.alert_message %></div>
 <% end %>

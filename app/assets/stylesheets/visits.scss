@@ -13,153 +13,40 @@
 .visits-create {
   @include input_default;
 
-  label {
-    color: $dark-bluegray;
-    font-size: 0.75rem;
-    font-weight: $semi-bold;
+  .form-container {
+    box-sizing: border-box;
+    margin:0 auto;
+    max-width: 950px;
+    padding: 0 10px;
+    width: 100%;
   }
 
-  .footer {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    padding: 30px 281px !important;
-
-    input {
-      margin-left: 20px;
-      padding: 20px;
-    }
-
-    button {
-      margin-left: 100px;
-    }
-
-    a {
-      align-items: center;
-      color: $dark-bluegray;
-      display: flex;
-      text-decoration: none;
-
-      img {
-        margin-right: 7px;
-      }
-    }
-  }
-
-  .reserve-info {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-bottom: 3rem;
-
-    .reserve-field {
-      width: 23rem;
-    }
-
-    .display-row-flex {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-
-      a {
-        padding: 0px;
+  section.visits-form {
+    header {
+      h1 {
+        color: $navy-blue;
+        font-size: 2.25rem;
+        font-weight: $semi-bold;
+        line-height: 2.75rem;
       }
     }
 
-    .error {
-      color: $red;
-    }
-  }
-
-  .flex-break {
-    flex-basis: 100%;
-    height: 0;
-  }
-
-  .date-range-select {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-
-    select {
-      background-color: white;
-      border-bottom-left-radius: 0;
-      border-top-left-radius: 0;
+    section.form-subsection {
+      margin-bottom: 3rem;
     }
 
-    input {
-      border-bottom-right-radius: 0;
-      border-top-right-radius: 0;
-    }
+    section.form-subsection > header,
+    section.form-subsection > * > header {
+      margin-bottom: 1rem;
 
-    .separator {
-      border: 1px solid $black;
-      font-size: 0;
-      height: 0;
-      margin: 0.5rem;
-      width: 0.625rem;
-    }
-  }
-
-  .reserve-specific-fields {
-    display: flex;
-    flex-direction: column;
-
-    .reserve-message {
-      background-color: $gold;
-      border-radius: 0.3125rem;
-      font-size: 0.8125rem;
-      margin-bottom: -50px;
-      padding: 1.4rem 1.5rem 1.5rem 50px;
-
-      > p:first-of-type {
-        margin-top: 0;
+      h2 {
+        margin: 0;
       }
 
-      > p:last-of-type {
-        margin-bottom: 0;
-      }
-
-      p {
-        line-height: 1.5rem;
-        margin-bottom: 1.2rem;
-      }
-    }
-  }
-
-  .special-needs-statement:empty {
-    display: none;
-  }
-
-  .amenities-header {
-    h3 {
-      font-weight: $bold;
-      margin: 0;
-
-      span {
+      > span {
         color: $dark-bluegray;
-        font-size: 1rem;
-        font-weight: $normal;
-        margin-left: 30px;
+        font-size: 0.875rem;
       }
-    }
-
-    span {
-      color: $dark-bluegray;
-      font-size: 0.875rem;
-    }
-  }
-
-  .visit-form {
-    color: $navy-blue;
-    padding: 0 $form-page-gutter;
-
-    h1 {
-      font-size: 2.25rem;
-      font-weight: $semi-bold;
     }
 
     h2 {
@@ -174,11 +61,17 @@
       }
     }
 
+    label {
+      color: $dark-bluegray;
+      font-size: 0.75rem;
+      font-weight: $semi-bold;
+    }
+
     .project-type-options {
       display: flex;
       flex-direction: row;
       gap: 10px;
-      margin-bottom: 3rem;
+      margin-bottom: 1rem;
 
       &[data-value-projection-projected-value="research"] {
         label[for="project-type-research"] {
@@ -285,8 +178,6 @@
     }
 
     .text-area {
-      margin-bottom: 3rem;
-
       textarea {
         height: 6.675rem;
         width: 100%;
@@ -298,77 +189,121 @@
       }
     }
 
-    .project-container {
-      margin-bottom: 3rem;
+    .uneditable-visit-project-info > section {
+      border-left: 3px solid $navy-blue;
+      padding-left: 1rem;
 
-      .project-title{
-        display: flex;
-        justify-content: space-between;
+      h3 {
+        font-size: 1rem;
+        font-weight: $bold;
+        margin: 0;
+      }
 
-        h3 {
-          margin: 0px;
-        }
+      p {
+        color: $dark-bluegray;
+        font-size: 0.75rem;
+        font-weight: $normal;
+        margin-top: 0.5rem;
       }
     }
 
-    .project_select {
-      .select_or_new{
-        display: flex;
-        align-items: center;
+    section.research,
+    section.class,
+    section.meeting {
+      @include form;
+    }
 
-        .project-create-link {
-          padding: 0.5rem 0rem 0.5rem 4rem;
-        }
-
-        .error {
-          color: $red;
-        }
-
-        select {
-          min-width: 35rem;
-        }
-
-      }
-
-      .uneditable-project-type {
-        border-left: 3px solid $navy-blue;
-        margin-bottom: 2rem;
-        padding-left: 1rem;
-
-        h3 {
-          font-size: 1rem;
-          font-weight: $bold;
-          margin-bottom: 0;
-        }
-
-        p {
-          font-size: 0.625rem;
-          font-weight: $normal;
-          margin-top: 0.5rem;
-        }
-      }
-
-      section.research,
-      section.class,
-      section.meeting {
-        @include form;
+    .error {
+      border-color: $red;
+      border-width: 2px !important;
+      color: $red;
+      font-size: small;
+      .error_messages {
+        margin-left: 5px;
       }
     }
   }
 
-  #visitors-list,
-  #amenities-select {
+  .reserve-info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
     margin-bottom: 3rem;
+
+    .reserve-field {
+      width: 23rem;
+    }
+
+    .display-row-flex {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      a {
+        padding: 0px;
+      }
+    }
+
+    .error {
+      color: $red;
+    }
   }
 
-  .error {
-    border-color: $red;
-    border-width: 2px !important;
-    color: $red;
-    font-size: small;
-    .error_messages {
-      margin-left: 5px;
+  .flex-break {
+    flex-basis: 100%;
+    height: 0;
+  }
+
+  .date-range-select {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    select {
+      background-color: white;
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
     }
+
+    input {
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    .separator {
+      border: 1px solid $black;
+      font-size: 0;
+      height: 0;
+      margin: 0.5rem;
+      width: 0.625rem;
+    }
+  }
+
+  .reserve-message {
+    background-color: $gold;
+    border-radius: 0.3125rem;
+    font-size: 0.8125rem;
+    margin-bottom: 1rem;
+    padding: 1.5rem;
+
+    > p:first-of-type {
+      margin-top: 0;
+    }
+
+    > p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    p {
+      line-height: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+  }
+
+  .special-needs-statement:empty {
+    display: none;
   }
 }
 

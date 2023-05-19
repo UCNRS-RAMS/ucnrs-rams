@@ -395,7 +395,7 @@
   }
 }
 
-.visits-show {
+.manager.visits-show {
   .m-top-3 {
     margin-top: 2rem;
   }
@@ -558,6 +558,34 @@
             }
           }
         }
+      }
+    }
+  }
+
+  .footer {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 30px 281px !important;
+
+    input {
+      margin-left: 20px;
+      padding: 20px;
+    }
+
+    button {
+      margin-left: 100px;
+    }
+
+    a {
+      align-items: center;
+      color: $dark-bluegray;
+      display: flex;
+      text-decoration: none;
+
+      img {
+        margin-right: 7px;
       }
     }
   }

@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class Manager::Visits::VisitsFormPresenter < VisitsFormPresenter
   include Rails.application.routes.url_helpers
+
   EMAIL_OPTIONS = {
     composed_email: I18n.t("manager.visits.summary.presenter.composed_email"),
     silently_update: I18n.t("manager.visits.summary.presenter.update_silently"),
@@ -14,7 +17,7 @@ class Manager::Visits::VisitsFormPresenter < VisitsFormPresenter
   def project_summary_path
     manager_reserve_project_path(reserve_id: reserve.id, id: project.id)
   end
-  
+
   def project_partial_path
     "shared/visits/project"
   end

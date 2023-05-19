@@ -1,10 +1,10 @@
-<div class="amenities-header">
+<header class="amenities-header">
   <h2>
     <%= t(".select_amenities") %>
     <span><%= t(".optional")%></span>
   </h2>
-  <p><%= t(".rate_determined", institution: @presenter.institution_name) %></p>
-</div>
+  <span><%= t(".rate_determined", institution: @presenter.institution_name) %></span>
+</header>
 <section class="amenity-options">
   <% @presenter.amenities_by_group_label.each do |group_label, amenities| %>
     <%= render partial: "visits/amenities/amenities",
