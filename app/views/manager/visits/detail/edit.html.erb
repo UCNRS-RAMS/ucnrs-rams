@@ -1,12 +1,17 @@
 <turbo-frame id="visit-details">
-  <section class="visits-edit">
-    <header class="visit-form">
-    </header>
-    <% if notice.present? %>
-      <p class="notice"><%= notice %></p>
-    <% end %>
-    <%= form_with model: @presenter.form, url: manager_reserve_visit_detail_path(@presenter.reserve.id, @presenter.id), method: :put do |form| %>
-      <%= render partial: "shared/visits/form", locals: { presenter: @presenter, form: form } %>
-    <% end %>
-  </section>
+  <div class="visits-edit">
+    <section class="visits-form">
+      <%= tag.p notice, class: "notice" if notice.present? %>
+      <%= form_with model: @presenter.form,
+        url: manager_reserve_visit_detail_path(@presenter.reserve.id, @presenter.id),
+        method: :put, id: "form-visits-edit" do |form|
+      %>
+        <%= render partial: "shared/visits/form", locals: { presenter: @presenter, form: form } %>
+      <% end %>
+    </section>
+
+    <section class="controls">
+      <%= render partial: @presenter.save_partial_path, locals: { form_id: "form-visits-edit" } %>
+    </section>
+  </div>
 </turbo-frame>

@@ -104,7 +104,7 @@ RSpec.describe VisitsFormPresenter do
       form = VisitForm.new(params: { reserve_id: reserve.id })
       presenter = VisitsFormPresenter.new(user: user, form: form)
 
-      expect(presenter.alert_message).to eq "<p>Yes!</p>"
+      expect(presenter.alert_message).to eq "Yes!"
     end
 
     it "returns nil if it is not enabled" do

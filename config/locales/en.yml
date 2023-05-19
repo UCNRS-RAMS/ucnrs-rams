@@ -2435,7 +2435,7 @@ en:
         denied: "Deny"
         incomplete: "Incomplete"
       project:
-        project_title: "Project"
+        project_title: "Visit for Project"
       user_visits:
         click_add_visitor: "%{or}Click (Add Visitor) button to add this person as a one time guest (these guests have no login privileges in RAMS)."
         team_member:

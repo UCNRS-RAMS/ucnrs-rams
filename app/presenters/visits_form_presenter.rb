@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class VisitsFormPresenter
   include Rails.application.routes.url_helpers
-  include ActionView::Helpers::TextHelper
 
   HOURS_PER_DAY = 24
+
   def initialize(user:, current_step: 1, form: nil, project_url: nil)
     @user = user
     @current_step = current_step
@@ -12,6 +14,7 @@ class VisitsFormPresenter
   end
 
   attr_reader :steps_presenter, :form, :user, :project_url
+
   delegate :svg, :step_class, to: :steps_presenter
   delegate :editing, to: :form
 
@@ -136,7 +139,7 @@ class VisitsFormPresenter
 
   def alert_message
     if reserve&.reserve_alert_message_enabled
-      simple_format reserve&.reserve_alert_message
+      reserve&.reserve_alert_message
     end
   end
 

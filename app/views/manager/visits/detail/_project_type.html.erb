@@ -1,4 +1,4 @@
-<% @presenter.project_type_options.each do |value| %>
+<% presenter.project_type_options.each do |value| %>
   <% if form.object.project_type == value %>
     <label for="project-type-<%= value %>">
       <div class="project-type-label">

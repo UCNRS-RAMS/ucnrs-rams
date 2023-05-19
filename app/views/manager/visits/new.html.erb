@@ -5,7 +5,14 @@
   <header class="visit-form">
     <h1><%= t(".title") %></h1>
   </header>
-  <%= form_with model: @presenter.form, url: manager_reserve_visits_path(reserve_id: current_reserve, user_id: @presenter.user.id) do |form| %>
+  <%= form_with model: @presenter.form,
+    url: manager_reserve_visits_path(reserve_id: current_reserve, user_id: @presenter.user.id),
+    id: "visits-new" do |form|
+  %>
     <%= render partial: "shared/manager/visits/form", locals: { presenter: @presenter, form: form } %>
   <% end %>
+</section>
+
+<section class="visit-form footer progress-steps">
+  <%= render partial: @presenter.save_partial_path, locals: {form_id: "visits-new"} %>
 </section>
