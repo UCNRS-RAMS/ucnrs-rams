@@ -1,6 +1,6 @@
 <turbo-frame id="add-visitor">
   <%= render partial: 'shared/visits/user_visits/links', locals: { presenter: presenter } %>
-  <section id="add-group">
+  <section id="add-group" class="add-visitor-input">
     <%= form_with model: @presenter, url: @presenter.user_visit_form_path do |form|%>
       <%= form.hidden_field :user_id, value: 1 %>
       <%= form.hidden_field :visit_id, value: @presenter.visit.id %>
