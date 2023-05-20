@@ -1,42 +1,64 @@
+<% content_for(:title) { t(".title") } %>
 <%= render partial: "visits/steps", locals: { presenter: @presenter } %>
-<section class="visit-info">
-  <h1><%= t(".title")%></h1>
-  <table>
-    <tr>
-      <td><%= t(".reserve") %></td>
-      <td><%= @presenter.visit_reserve_name %></td>
-    </tr>
-    <tr>
-      <td><%= t(".arrive_departs_date") %></td>
-      <td><%= @presenter.visit_date_range %></td>
-    </tr>
-  </table>
+
+<section class="visits-form">
+  <header class="form-container">
+    <h1><%= t(".title") %></h1>
+  </header>
+
+  <div class="form-container">
+    <section class="form-subsection uneditable-visit-project-info">
+      <header>
+        <h2>Visit Summary</h2>
+      </header>
+      <section>
+        <section style="margin-bottom:1rem;">
+          <table class="visit-info">
+            <tr>
+              <td><%= t(".reserve") %></td>
+              <td><%= @presenter.visit_reserve_name %></td>
+            </tr>
+            <tr>
+              <td><%= t(".arrive_departs_date") %></td>
+              <td><%= @presenter.visit_date_range %></td>
+            </tr>
+          </table>
+        </section>
+        <section>
+          <table id="amenities-summary-table" class="visit-info summary-table">
+            <thead>
+              <tr>
+                <th><%= t(".amenity") %></th>
+                <th><%= t(".date_of_use") %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= render partial: "shared/visits/amenity_visit", collection: @presenter.amenity_visits %>
+            </tbody>
+          </table>
+        </section>
+      </section>
+    </section>
+  </div>
+
+  <section class="add-visitor form-subsection background-1">
+    <div class="form-container">
+      <%= render partial: "shared/visits/user_visits/#{@presenter.add_visitor_partial}", locals: { presenter: @presenter } %>
+    </div>
+  </section>
+
+  <div class="form-container form-subsection">
+    <%= render partial: "shared/visits/user_visits/user_visits_table", locals: { presenter: @presenter } %>
+  </div>
 </section>
-<section class="visit-amenities">
-  <h2 class="main-header"><%= t(".amenity_visits") %></h2>
-  <table id="amenities-summary-table" class="summary-table">
-    <thead>
-      <tr>
-        <th><%= t(".amenity") %></th>
-        <th><%= t(".date_of_use") %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <%= render partial: "shared/visits/amenity_visit", collection: @presenter.amenity_visits %>
-    </tbody>
-  </table>
-</section>
-<section class="add-visitor">
-  <%= render partial: "shared/visits/user_visits/#{@presenter.add_visitor_partial}", locals: { presenter: @presenter } %>
-</section>
-<%= render partial: "shared/visits/user_visits/user_visits_table", locals: { presenter: @presenter } %>
+
 <section class="controls">
   <%= link_to edit_visit_path(params[:visit_id]) do %>
     <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t("alt.left_facing_arrow")  %>
-    <%= t(".back") %>
+    <%= t("sitewide.back") %>
   <% end %>
   <%= button_to visit_questions_path(visit_id: params[:visit_id]),method: :get, class: "active" do %>
-    <%= t(".next_step") %>
+    <%= t("sitewide.next_step") %>
     <%= image_tag "arrow-right.svg", alt: t("alt.right_facing_arrow") %>
   <% end %>
 </section>

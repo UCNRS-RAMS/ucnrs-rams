@@ -5,7 +5,7 @@
 @import "mixins/controls";
 @import "mixins/tables";
 
-.user_visits-index {
+.manager.user_visits-index {
   .container {
     display: block;
     @include form;

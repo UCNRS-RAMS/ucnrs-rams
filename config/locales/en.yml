@@ -3170,6 +3170,9 @@ en:
         is_submitted: "At least one grant or contract application has been submitted but has not yet been approved"
         will_be_submitted: "At least one grant or contract application will be submitted in the future"
         was_denied: "Project grant or contract application was denied by the funding agency"
+  sitewide:
+    back: "Back"
+    next_step: "Next Step"
   edit: "Edit"
   research: "Research"
   university_class: "University Class"
