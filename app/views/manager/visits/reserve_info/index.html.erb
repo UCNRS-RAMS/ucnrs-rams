@@ -1,7 +1,13 @@
 <turbo-frame id="visit-details">
   <%= render partial: "manager/visits/reserve_info/flash_messages" %>
+
   <section class="text-end apply-padding">
     <%= link_to t(".permit_information"), manager_reserve_project_path(@presenter.visit.reserve, @presenter.visit.project.id), target: :_blank %>
   </section>
+
   <%= render partial: "shared/visits/questions/questions", locals: { presenter: @presenter } %>
+
+  <section class="controls">
+    <%= render partial: @presenter.save_btn_partial_path, locals: { form_id: "visits-questions-form" } %>
+  </section>
 </turbo-frame>

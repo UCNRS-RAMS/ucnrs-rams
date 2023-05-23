@@ -1,3 +1,10 @@
 <% content_for(:title) { t(".title") } %>
 <%= render partial: "visits/steps", locals: { presenter: @presenter } %>
-<%= render partial: "shared/visits/questions/questions", locals: { presenter: @presenter } %>
+
+<section class="visits-form form-container">
+  <%= render partial: "shared/visits/questions/questions", locals: { presenter: @presenter } %>
+</section>
+
+<section class="controls">
+  <%= render partial: @presenter.save_btn_partial_path, locals: { form_id: "visits-questions-form" } %>
+</section>

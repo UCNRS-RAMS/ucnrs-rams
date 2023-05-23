@@ -94,11 +94,11 @@ class ProjectShowFlow
   end
 
   def not_showing_questions?
-    page.has_no_css?(".questions-index")
+    page.has_no_css?("#permit-questions")
   end
 
   def showing_questions?
-    page.has_css?(".questions-index")
+    page.has_css?("#permit-questions")
   end
 
   def has_heading?(heading)
