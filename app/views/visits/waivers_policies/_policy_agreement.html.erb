@@ -1,12 +1,16 @@
-<h4><%= policy_agreement.title %></h4>
-<div class="policy">
-  <%= policy_agreement.description %> 
-  <%= image_tag(policy_agreement.image_url, class: "agreement-logo") if policy_agreement.image_url.present? %>
-</div>
+<div class="policy-agreement">
+  <header>
+    <h3><%= policy_agreement.title %></h3>
+  </header>
+  <div class="description">
+    <div><%= simple_format policy_agreement.description %></div>
+    <%= image_tag(policy_agreement.image_url, class: "agreement-logo") if policy_agreement.image_url.present? %>
+  </div>
 
-<% if policy_agreement.policy_url.present? %>
-  <%= link_to policy_agreement.policy_url, class: "policy-link", target: :blank do %>
-    <%= image_tag "icon-external-link.svg" %>
-    <%= policy_agreement.policy_link_text %>
+  <% if policy_agreement.policy_url.present? %>
+    <%= link_to policy_agreement.policy_url, class: "policy-link", target: :blank do %>
+      <%= image_tag "icon-external-link.svg" %>
+      <%= policy_agreement.policy_link_text %>
+    <% end %>
   <% end %>
-<% end %>
+</div>

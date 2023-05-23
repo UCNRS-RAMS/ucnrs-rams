@@ -1,43 +1,59 @@
+<% content_for(:title) { t(".title") } %>
 <%= render partial: "visits/steps", locals: { presenter: @presenter } %>
 
-<%= form_with model: @form, url: visit_waivers_policies_path, method: :put do |form| %>
-  <section class="agreement-info" data-controller="waivers-policies">
+<section class="visits-form form-container">
+  <header>
     <h1><%= t(".title")%></h1>
-    <%= turbo_frame_tag "policy-waivers", src: reserve_waivers_path(@form.reserve.id) %>
-    <p><%= t(".note") %></p>
-
-    <%= render partial: "agreements", locals: { policy_agreements: @presenter.reserve_use_agreements, title: t(".reserve_use_agreement") } %>
-    <%= render partial: "checkbox", locals: { check: @form.policy_agreement, id: "reserveUseAgreement" } %>
-    
-    <%= render partial: "agreements", locals: { policy_agreements: @presenter.code_of_conduct_agreements, title: t(".code_of_conduct_agreement") } %>
-    <%= render partial: "checkbox", locals: { check: @form.policy_agreement, id: "codeOfConductAgreement" } %>
-
-    <%= render partial: "agreements", locals: { policy_agreements: @presenter.data_management_agreements, title: t(".data_management_agreement") } %>
-    <%= render partial: "checkbox", locals: { check: @form.policy_agreement, id: "dataManagementAgreement" } %>
-
+  </header>
+  <%= form_with model: @form, url: visit_waivers_policies_path, method: :put, id: "visits-waivers-form" do |form| %>
     <%= form.hidden_field :id, value: @form.id %>
 
+    <div class="agreement-info" data-controller="waivers-policies">
+      <section class="waivers">
+        <header>
+          <h2>Waivers Information</h2>
+        </header>
+        <%= turbo_frame_tag "policy-waivers", src: reserve_waivers_path(@form.reserve.id) %>
+        <p><%= t(".note") %></p>
+      </section>
+      <section class="policy_agreements">
+        <%= render partial: "policy_agreements",
+          locals: { policy_agreements: @presenter.reserve_use_agreements, title: t(".reserve_use_agreement") } %>
+        <%= render partial: "checkbox", locals: { check: @form.policy_agreement, id: "reserveUseAgreement" } %>
+      </section>
+      <section class="policy_agreements">
+        <%= render partial: "policy_agreements",
+          locals: { policy_agreements: @presenter.code_of_conduct_agreements, title: t(".code_of_conduct_agreement") } %>
+        <%= render partial: "checkbox", locals: { check: @form.policy_agreement, id: "codeOfConductAgreement" } %>
+      </section>
+      <section class="policy_agreements">
+        <%= render partial: "policy_agreements",
+          locals: { policy_agreements: @presenter.data_management_agreements, title: t(".data_management_agreement") } %>
+        <%= render partial: "checkbox", locals: { check: @form.policy_agreement, id: "dataManagementAgreement" } %>
+      </section>
 
-    <div class="agree-all">
-      <h3><%= t(".agree") %></h3>
-      <div class="checkbox">
-        <%= form.check_box :policy_agreement, id: "policyAgreement", data: { action: "click->waivers-policies#signatureHandler", "waivers-policies-target": "signature" } %>
-        <label for="policyAgreement"><%= t(".check_button") %></label>
-      </div>
+      <section id="policy-agreements-agree-all">
+        <div class="agree-all">
+          <%= t(".agree") %>
+          <div class="checkbox">
+            <%= form.check_box :policy_agreement, id: "policyAgreement",
+              data: { action: "click->waivers-policies#signatureHandler", "waivers-policies-target": "signature" } %>
+            <label for="policyAgreement"><strong><%= t(".check_button") %></strong></label>
+          </div>
+        </div>
+        <span class="signature"><%= t(".signature") %></span>
+      </section>
     </div>
-    <div class="signature">
-      <%= t(".signature") %>
-    </div>
-  </section>
+  <% end %>
+</section>
 
-  <section class="controls">
-    <%= link_to visit_questions_path(@form.id) do %>
-      <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t("alt.left_facing_arrow")  %>
-      <%= t(".back") %>
-    <% end %>
-    <%= button_tag class: "active" do %>
-      <%= t(".submit") %>
-      <%= image_tag "arrow-right.svg", alt: t("alt.right_facing_arrow") %>
-    <% end %>
-  </section>
-<% end %>
+<section class="controls">
+  <%= link_to visit_questions_path(@form.id) do %>
+    <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t("alt.left_facing_arrow")  %>
+    <%= t("sitewide.back") %>
+  <% end %>
+  <%= button_tag class: "active", form: "visits-waivers-form" do %>
+    <%= t("sitewide.submit") %>
+    <%= image_tag "arrow-right.svg", alt: t("alt.right_facing_arrow") %>
+  <% end %>
+</section>
