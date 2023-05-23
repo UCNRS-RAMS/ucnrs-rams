@@ -5,17 +5,65 @@
 @import "mixins/controls";
 @import "mixins/tables";
 
-.waivers_policies-show, .waivers_policies-update {
-  @include form;
+.waivers_policies-show,
+.waivers_policies-update {
+  color: $navy-blue;
 
-  section {
-    color: $navy-blue;
-    padding: 0 $form-page-gutter;
+  .form-container {
+    box-sizing: border-box;
+    margin:0 auto;
+    max-width: 950px;
+    padding: 0 10px;
+    width: 100%;
+  }
 
-    h1 {
-      font-size: 2.25rem;
+  section.visits-form {
+    flex: 1;
+    font-size: 14px;
+
+    form {
+      @include form;
+    }
+
+    header {
+      h1 {
+        color: $navy-blue;
+        font-size: 2.25rem;
+        font-weight: $semi-bold;
+        line-height: 2.75rem;
+      }
+    }
+
+    section.form-subsection,
+    div.form-subsection {
+      margin-bottom: 3rem;
+    }
+
+    section.form-subsection > header,
+    section.form-subsection > * > header {
+      margin-bottom: 1rem;
+
+      h2 {
+        margin: 0;
+      }
+
+      > span {
+        color: $dark-bluegray;
+        font-size: 0.875rem;
+      }
+    }
+
+    h2 {
+      color: $navy-blue;
+      font-size: 1.5rem;
       font-weight: $semi-bold;
-      line-height: 2.75rem;
+
+      span {
+        color: $dark-bluegray;
+        font-size: 1.25rem;
+        font-weight: $normal;
+        margin-left: 30px;
+      }
     }
   }
 
@@ -28,28 +76,35 @@
       }
     }
 
-    .policy {
-      display: flex;
-      justify-content: space-between;
+    .policy-agreement {
+      .description {
+        display: flex;
+        justify-content: space-between;
 
-      .agreement-logo {
-        max-width: 250px;
-        max-height: 200px;
+        p:first-of-type {
+          margin-top: 0;
+        }
+
+        .agreement-logo {
+          margin-left: 1rem;
+          max-height: 100px;
+        }
       }
     }
 
     .agree-all {
+      align-items: center;
       background: $gold;
+      border-radius: $border-radius;
       display: flex;
-      margin-top: 3rem;
-      padding: 2px 30px;
+      padding: 15px 10px;
 
       .checkbox {
         background-color: $light-gray;
-        border-radius: 12px;
+        border-radius: $border-radius;
         display: flex;
         height: fit-content;
-        margin: auto 0;
+        margin: 0 0 0 1rem;
         padding: 10px;
         width: 20rem;
 
@@ -61,12 +116,12 @@
       }
     }
 
-    .agree {
+    .agree,
+    .agree-error {
       display: flex;
-      background-color: $light-gray;
+      border-radius: $border-radius;
       flex-direction: row;
-      height: 51px;
-      padding-left: 10px;
+      padding: 10px;
 
       input[type="checkbox"] {
         height: 16px;
@@ -77,14 +132,19 @@
       label {
         color: $navy-blue;
         font-size: 0.813rem;
-        font-family: Sora;
         height: 23px;
         letter-spacing: 0;
         line-height: 23px;
         margin: auto 0;
         padding-left: 10px;
         width: 296px;
+      }
+    }
 
+    .agree {
+      background-color: $light-gray;
+
+      label {
         .require{
           display: none;
         }
@@ -92,49 +152,20 @@
     }
 
     .agree-error {
-      display: flex;
       background-color: $light-red;
-      flex-direction: row;
-      height: 51px;
-      padding-left: 10px;
-
-      input[type="checkbox"] {
-        height: 16px;
-        margin: auto 0;
-        width: 16px;
-      }
 
       label {
-        color: $navy-blue;
-        font-size: 0.813rem;
-        font-family: Sora;
-        height: 23px;
-        letter-spacing: 0;
-        line-height: 23px;
-        margin: auto 0;
-        padding-left: 10px;
-        width: 296px;
-
         .require{
-          display: inline;
+          display: inline-block;
           color: $red;
         }
       }
     }
+
     .signature {
       display: flex;
       justify-content: center;
       padding: 10px;
-    }
-
-    h1 {
-      font-size: 2.25rem;
-      font-weight: $semi-bold;
-    }
-
-    h2 {
-      font-size: 1.5rem;
-      font-weight: $bold;
     }
 
     .policy-link {

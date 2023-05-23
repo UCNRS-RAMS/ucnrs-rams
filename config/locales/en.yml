@@ -3135,6 +3135,7 @@ en:
   sitewide:
     back: "Back"
     next_step: "Next Step"
+    submit: "Submit"
   edit: "Edit"
   research: "Research"
   university_class: "University Class"

@@ -769,39 +769,6 @@
       "note": ""
     },
     {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 4,
-      "fingerprint": "bc20510a2335da65305653d789e01df10445055c7d4a43194514b962dbb73532",
-      "check_name": "LinkToHref",
-      "message": "Potentially unsafe model attribute in `link_to` href",
-      "file": "app/views/visits/waivers_policies/_policy_agreement.html.erb",
-      "line": 8,
-      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to((Unresolved Model).new.policy_url, :class => \"policy-link\", :target => :blank)",
-      "render_path": [
-        {
-          "type": "template",
-          "name": "visits/waivers_policies/_agreements",
-          "line": 2,
-          "file": "app/views/visits/waivers_policies/_agreements.html.erb",
-          "rendered": {
-            "name": "visits/waivers_policies/_policy_agreement",
-            "file": "app/views/visits/waivers_policies/_policy_agreement.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "visits/waivers_policies/_policy_agreement"
-      },
-      "user_input": "(Unresolved Model).new.policy_url",
-      "confidence": "Weak",
-      "cwe_id": [
-        79
-      ],
-      "note": "Todo"
-    },
-    {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
       "fingerprint": "bc248bf968dc0c70d4edd0145a688a77ba6b026b8462420600c147079ba489c0",
@@ -1029,6 +996,39 @@
       "note": "Ignore role in user-related strong param assignment"
     },
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "d921a596b4e806f8b1bebd48d04525740b52d3f77b2cdadc28c820fb6fd0e868",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/visits/waivers_policies/_policy_agreement.html.erb",
+      "line": 11,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to((Unresolved Model).new.policy_url, :class => \"policy-link\", :target => :blank)",
+      "render_path": [
+        {
+          "type": "template",
+          "name": "visits/waivers_policies/_policy_agreements",
+          "line": 5,
+          "file": "app/views/visits/waivers_policies/_policy_agreements.html.erb",
+          "rendered": {
+            "name": "visits/waivers_policies/_policy_agreement",
+            "file": "app/views/visits/waivers_policies/_policy_agreement.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "visits/waivers_policies/_policy_agreement"
+      },
+      "user_input": "(Unresolved Model).new.policy_url",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "e17c5d359e0adffb9e651c0358ad21214ee0421f4280cb4f42f80d3febdfdf56",
@@ -1108,6 +1108,6 @@
       "note": ""
     }
   ],
-  "updated": "2023-05-19 02:05:48 -0700",
+  "updated": "2023-05-23 04:44:42 -0700",
   "brakeman_version": "5.4.0"
 }
