@@ -194,6 +194,15 @@
         margin-right: 5px;
       }
     }
+
+    .yes-no-row {
+      display: flex;
+
+      .yes-no-options {
+        flex: 1;
+        margin-right: 2rem;
+      }
+    }
   }
 
   .small-title {

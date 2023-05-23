@@ -1,38 +1,45 @@
-<%= form_with model: presenter.form, url: presenter.form_url, id: "questions", class: "d-flex-col" do |form| %>
-  <% if presenter.has_reserve_questions_for_visit? %>
-    <section class="questions">
-      <h2><%= t(".reserve_section_title") %></h2>
+<%= form_with model: presenter.form, url: presenter.form_url, id: "visits-questions-form", class: "d-flex-col" do |form| %>
+  <section>
+    <header>
+      <h2><%= t(".reserve_questions") %></h2>
+    </header>
+
+    <% if presenter.has_reserve_questions_for_visit? %>
       <% presenter.reserve_questions_by_authority.each do |reserve, questions| %>
         <%= render partial:  "shared/visits/questions/group", locals: { title: reserve, questions: questions } %>
       <% end %>
-    </section>
-  <% else %>
-  <section id="no-questions">
-    <h1><%= t(".no_reserve_questions") %></h1>
+
+    <% else %>
+      <p id="no-questions"><%= t(".no_reserve_questions") %></p>
+
+    <% end %>
   </section>
-  <% end %>
-  <% if presenter.has_permit_questions_for_project? %>
-    <section class="questions questions-index">
-      <% presenter.permit_questions_by_authority.each do |authority, questions| %>
-        <%= render partial: "projects/questions/group", locals: { title: t(".authority.#{authority}"), questions: questions } %>
-      <% end %>
-    </section>
-    <section class="approved_questions questions-index">
-      <div class="field">
-        <%= form.label :approved_permits %>
-        <p>
-        <%= form.text_area :approved_permits %>
-        <span class="explanation"><%= t(".permit_statement") %></span>
-        </p>
-      </div>
-    </section>
-  <% else %>
-    <section>
+
+  <section>
+    <header>
+      <h2><%= t(".permit_questions") %></h2>
+    </header>
+
+    <% if presenter.has_permit_questions_for_project? %>
+      <section>
+        <% presenter.permit_questions_by_authority.each do |authority, questions| %>
+          <%= render partial: "projects/questions/group", locals: { title: t(".authority.#{authority}"), questions: questions } %>
+        <% end %>
+      </section>
+      <section>
+        <div class="field">
+          <%= form.label :approved_permits %>
+          <p>
+            <%= form.text_area :approved_permits %>
+            <span class="explanation"><%= t(".permit_statement") %></span>
+          </p>
+        </div>
+      </section>
+
+    <% else %>
       <input name="project[no_questions]" value="" type="hidden"/>
-      <p><%= t(".no_questions") %></p>
-    </section>
-  <% end %>
-  <section class="controls">
-    <%= render presenter.save_btn_partial_path %>
+      <p><%= t(".no_permit_questions") %></p>
+
+    <% end %>
   </section>
 <% end %>

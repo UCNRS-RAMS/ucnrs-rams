@@ -1,9 +1,15 @@
-<div class="question d-flex" >
-  <div class="question_text"><%= question.question %><span class="clr-red"><%= " *" if question.answer_required %></span></div>
-  <div class="answers">
-    <%= f.radio_button :boolean_answer, "1", data: { action: "change->value-projection#change" } %>
-    <%= f.label :boolean_answer, t("visits.questions.index.yes_option"), for: "visit_reserve_answers_#{question.id}_boolean_answer_1" %>
-    <%= f.radio_button :boolean_answer, "0", data: { action: "change->value-projection#change" } %>
-    <%= f.label :boolean_answer, t("visits.questions.index.no_option"), for: "visit_reserve_answers_#{question.id}_boolean_answer_0" %>
+<div class="field">
+  <label for="<%= question.question %>">
+    <%= question.question %>
+    <%= tag.span " *", class: "clr-red" if question.answer_required %>
+  </label>
+  <div class="yes-no-row">
+    <div class="yes-no-options">
+      <%= f.radio_button :boolean_answer, "1", data: { action: "change->value-projection#change" } %>
+      <%= f.label :boolean_answer, t("yes"), for: "visit_reserve_answers_#{question.id}_boolean_answer_1" %>
+      <%= f.radio_button :boolean_answer, "0", data: { action: "change->value-projection#change" } %>
+      <%= f.label :boolean_answer, t("no"), for: "visit_reserve_answers_#{question.id}_boolean_answer_0" %>
+    </div>
+    <span class="explanation"><%= question.statement %></span>
   </div>
 </div>

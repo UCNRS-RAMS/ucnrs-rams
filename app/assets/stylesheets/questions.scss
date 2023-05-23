@@ -58,14 +58,12 @@
 }
 
 .questions-index {
-  main {
-    @include form;
+  main .projects-form{
+    form {
+      @include form;
+    }
 
     section {
-      color: $navy-blue;
-      margin: 0;
-      padding: 0 $form-page-gutter;
-
       h1 {
         color: $navy-blue;
         font-size: 2.25rem;
@@ -150,35 +148,84 @@
         }
       }
     }
+  }
+}
 
-    .progress-steps {
-      padding: 1.625rem $form-page-gutter;
+.questions-index {
+  color: $navy-blue;
+
+  .form-container {
+    box-sizing: border-box;
+    margin:0 auto;
+    max-width: 950px;
+    padding: 0 10px;
+    width: 100%;
+  }
+
+  section.visits-form {
+    flex: 1;
+
+    form {
+      @include form;
     }
 
-    .modal-content {
-      form {
-        padding: 1rem;
+    header {
+      h1 {
+        color: $navy-blue;
+        font-size: 2.25rem;
+        font-weight: $semi-bold;
+        line-height: 2.75rem;
+      }
+    }
 
-        p {
-          color: $navy-blue;
-          font-size: 0.625rem;
-          line-height: initial;
-          text-align: left;
-        }
+    section.form-subsection,
+    div.form-subsection {
+      margin-bottom: 3rem;
+    }
 
-        select {
-          border: 1px solid $bluegray;
-          border-radius: 0.3125rem;
-          margin-right: 2rem;
-        }
+    section.form-subsection > header,
+    section.form-subsection > * > header {
+      margin-bottom: 1rem;
 
-        .autocomplete input {
-          width: auto;
-        }
+      h2 {
+        margin: 0;
       }
 
-      .field {
-        margin-bottom: 1.25rem;
+      > span {
+        color: $dark-bluegray;
+        font-size: 0.875rem;
+      }
+    }
+
+    h2 {
+      color: $navy-blue;
+      font-size: 1.5rem;
+      font-weight: $semi-bold;
+
+      span {
+        color: $dark-bluegray;
+        font-size: 1.25rem;
+        font-weight: $normal;
+        margin-left: 30px;
+      }
+    }
+
+    .uneditable-visit-project-info > section,
+    .uneditable-visit-project-info > div {
+      border-left: 3px solid $navy-blue;
+      padding-left: 1rem;
+
+      h3 {
+        font-size: 1rem;
+        font-weight: $bold;
+        margin: 0;
+      }
+
+      p {
+        color: $dark-bluegray;
+        font-size: 0.75rem;
+        font-weight: $normal;
+        margin-top: 0.5rem;
       }
     }
   }
