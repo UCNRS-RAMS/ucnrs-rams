@@ -54,7 +54,7 @@ class CreateProjectFlow
 
   def showing_project_form?(name)
     type = name.downcase.tr(" ", "_")
-    page.has_css?("form section.#{type}")
+    page.has_css?("form div.#{type}")
   end
 
   def select_project_type(name)

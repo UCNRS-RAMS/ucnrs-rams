@@ -51,8 +51,8 @@ RSpec.describe "edit.html.erb" do
         render template: "projects/edit"
 
         doc = Capybara.string(rendered)
-        expect(doc).to have_css(".uneditable-project-type h3", text: "Research")
-        expect(doc).to have_css(".uneditable-project-type p", text: "Field or lab-based research in any discipline")
+        expect(doc).to have_css(".uneditable-visit-project-info h3", text: "Research")
+        expect(doc).to have_css(".uneditable-visit-project-info p", text: "Field or lab-based research in any discipline")
       end
     end
   end
@@ -70,7 +70,7 @@ RSpec.describe "edit.html.erb" do
       render template: "projects/edit"
 
       doc = Capybara.string(rendered)
-      expect(doc).to have_css("form section.research")
+      expect(doc).to have_css("form div.research")
     end
 
     it "renders the class partial" do
@@ -85,7 +85,7 @@ RSpec.describe "edit.html.erb" do
       render template: "projects/edit"
 
       doc = Capybara.string(rendered)
-      expect(doc).to have_css("form section.class")
+      expect(doc).to have_css("form div.class")
     end
 
     it "renders the meeting partial" do
@@ -100,7 +100,7 @@ RSpec.describe "edit.html.erb" do
       render template: "projects/edit"
 
       doc = Capybara.string(rendered)
-      expect(doc).to have_css("form section.meeting")
+      expect(doc).to have_css("form div.meeting")
     end
   end
 

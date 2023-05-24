@@ -27,7 +27,7 @@ RSpec.describe "new.html.erb" do
       render template: "projects/new"
 
       doc = Capybara.string(rendered)
-      expect(doc).to have_css("form section.research")
+      expect(doc).to have_css("form div.research")
     end
 
     it "renders the class partial" do
@@ -40,7 +40,7 @@ RSpec.describe "new.html.erb" do
       render template: "projects/new"
 
       doc = Capybara.string(rendered)
-      expect(doc).to have_css("form section.class")
+      expect(doc).to have_css("form div.class")
     end
 
     it "renders the meeting partial" do
@@ -53,7 +53,7 @@ RSpec.describe "new.html.erb" do
       render template: "projects/new"
 
       doc = Capybara.string(rendered)
-      expect(doc).to have_css("form section.meeting")
+      expect(doc).to have_css("form div.meeting")
     end
   end
 
