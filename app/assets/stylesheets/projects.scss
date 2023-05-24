@@ -114,56 +114,80 @@
 .projects-update,
 .projects-new,
 .projects-create {
-  @include date_fields;
-
-  .modal-content.project {
-    color: $navy-blue;
-    display: flex;
-    flex-direction: column;
-
-    .close {
-      display: flex;
-      justify-content: flex-end;
-
-      img {
-        background-color: rgba($gray, 0.36);
-        border-radius: 50%;
-        padding: 0.5rem;
-      }
-    }
-
-    h1 {
-      color: $navy-blue;
-      font-size: 2.25rem;
-      line-height: 2.688rem;
-      margin-left: 3rem;
-      text-align: left;
-    }
-
-    div {
-      width: 100%;
-
-      p {
-        font-size: 0.813;
-        line-height: 1.438rem;
-        margin-bottom: 1.438rem;
-        text-align: left;
-      }
-    }
+  .form-container {
+    box-sizing: border-box;
+    margin:0 auto;
+    max-width: 950px;
+    padding: 0 10px;
+    width: 100%;
   }
 
-  .project-form {
-    color: $navy-blue;
-    padding: 0 $form-page-gutter;
+  .project-form,
+  .visits-form {
+    flex: 1;
 
-    h1 {
-      font-size: 2.25rem;
-      font-weight: $semi-bold;
+    form {
+      @include form;
+      @include date_fields;
+    }
+
+    header {
+      h1 {
+        color: $navy-blue;
+        font-size: 2.25rem;
+        font-weight: $semi-bold;
+        line-height: 2.75rem;
+      }
+    }
+
+    section.form-subsection,
+    div.form-subsection {
+      margin-bottom: 3rem;
+    }
+
+    section.form-subsection > header,
+    section.form-subsection > :not(section) > header {
+      margin-bottom: 1rem;
+
+      h2 {
+        margin: 0;
+      }
+
+      > span {
+        color: $dark-bluegray;
+        font-size: 0.875rem;
+      }
     }
 
     h2 {
+      color: $navy-blue;
       font-size: 1.5rem;
-      font-weight: $bold;
+      font-weight: $semi-bold;
+
+      span {
+        color: $dark-bluegray;
+        font-size: 1.25rem;
+        font-weight: $normal;
+        margin-left: 30px;
+      }
+    }
+
+    section.uneditable-visit-project-info {
+      border-left: 3px solid $navy-blue;
+      padding-left: 1rem;
+
+      h3 {
+        font-size: 1rem;
+        font-weight: $bold;
+        margin: 0;
+      }
+
+      p {
+        color: $dark-bluegray;
+        font-size: 0.75rem;
+        font-weight: $normal;
+        margin-top: 0.5rem;
+      }
     }
 
     .project-type-options {
@@ -248,32 +272,6 @@
         }
       }
     }
-
-    .uneditable-project-type {
-      border-left: 3px solid $navy-blue;
-      margin-bottom: 2rem;
-      padding-left: 1rem;
-
-      h3 {
-        font-size: 1rem;
-        font-weight: $bold;
-        margin-bottom: 0;
-      }
-
-      p {
-        color: $dark-bluegray;
-        font-size: 0.75rem;
-        font-weight: $normal;
-        margin-top: 0.5rem;
-      }
-    }
-
-    section.research,
-    section.class,
-    section.meeting,
-    section.public_use {
-      @include form;
-    }
   }
 }
 
@@ -356,20 +354,22 @@
   margin-bottom: 0.2rem;
 }
 
-ul.next-steps-list {
-  list-style-type: square;
-  margin-bottom: 2.5rem;
-  margin-top: 0;
-  padding-left: 2rem;
-
-  li {
-    line-height: 1.5rem;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
-  }
-
-  li:nth-child(1) {
+.projects-show {
+  ul.next-steps-list {
+    list-style-type: square;
+    margin-bottom: 2.5rem;
     margin-top: 0;
+    padding-left: 2rem;
+
+    li {
+      line-height: 1.5rem;
+      margin-bottom: 1rem;
+      margin-top: 1rem;
+    }
+
+    li:nth-child(1) {
+      margin-top: 0;
+    }
   }
 }
 
@@ -617,6 +617,42 @@ div#reserve_question-summary-list {
       .answer {
         margin-top: 0;
       }
+    }
+  }
+}
+
+.modal-content.project {
+  color: $navy-blue;
+  display: flex;
+  flex-direction: column;
+
+  .close {
+    display: flex;
+    justify-content: flex-end;
+
+    img {
+      background-color: rgba($gray, 0.36);
+      border-radius: 50%;
+      padding: 0.5rem;
+    }
+  }
+
+  h1 {
+    color: $navy-blue;
+    font-size: 2.25rem;
+    line-height: 2.688rem;
+    margin-left: 3rem;
+    text-align: left;
+  }
+
+  div {
+    width: 100%;
+
+    p {
+      font-size: 0.813;
+      line-height: 1.438rem;
+      margin-bottom: 1.438rem;
+      text-align: left;
     }
   }
 }

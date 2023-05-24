@@ -74,7 +74,6 @@
       border-radius: $border-radius;
       border: 1px solid $bluegray;
       flex: 1;
-      margin-right: 2rem;
       min-height: 2rem;
       padding: 0.25rem 0.5rem;
 
@@ -98,6 +97,7 @@
       display: block;
       flex: initial;
       font-size: 0.75rem;
+      margin-left: 2rem;
       width: 240px;
     }
 
@@ -105,6 +105,8 @@
       display: flex;
       flex-direction: column;
       flex-wrap: wrap;
+      margin-bottom: 0;
+      margin-top: 0.5rem;
       max-height: 175px;
       list-style: none;
       padding-left: 0;
@@ -142,16 +144,6 @@
 
         input[type="radio"] {
           margin-top: 0.25rem;
-        }
-      }
-
-      &.autocomplete-results {
-        flex-wrap: nowrap;
-        overflow-y: scroll;
-
-        li {
-          border: 0;
-          border: 1px solid $gray;
         }
       }
     }
