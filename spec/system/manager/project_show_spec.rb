@@ -8,7 +8,6 @@ RSpec.describe "Manager Project Show" do
 
   describe "it displays project show page" do
     it "includes summary box and menu bar", js: true do
-
       sign_in(user)
       flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
 
@@ -109,10 +108,9 @@ RSpec.describe "Manager Project Show" do
       project_type: :research,
       status: :incomplete,
       created_at: Time.zone.local(2004, 11, 24, 1, 4, 44),
-      reserve: reserve,
     )
     sign_in(user)
-    
+
     flow = ProjectShowFlow.new(page: page, project_id: project.id, reserve_id: reserve.id)
     flow.visit_show_page
     flow.click_on_summary
@@ -241,7 +239,7 @@ RSpec.describe "Manager Project Show" do
       expect(flow).to have_text_field("project_team_membership_full_name")
       expect(flow).to have_hidden_field("project_team_membership_user_id")
       expect(flow).to have_select_field("Project Role")
-      expect(flow).to have_section("team-member-table")
+      expect(flow).to have_section("team-member-section")
       expect(flow).not_to have_team_membership_edit_link(project_owner)
       expect(flow).to have_team_membership_edit_link(team_membership)
     end

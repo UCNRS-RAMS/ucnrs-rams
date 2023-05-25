@@ -1,11 +1,11 @@
 <turbo-frame id="add-user-form">
-  <div class="add-user-form-header">
+  <header class="add-user-form-header">
     <h2><%= t(".add_team_member_title") %></h2>
     <span>
       <%= t(".cannot_find_them") %>
       <%= link_to t(".create_new_user"), presenter.user_form_path, data: { "turbo-frame": "modal-content" } %>
     </span>
-  </div>
+  </header>
   <%= form_with model: presenter.form, url: presenter.team_memberships_form_path do |form| %>
     <div class="field autocomplete" data-controller="autocomplete" data-autocomplete-url-value="<%= users_path %>">
       <%= form.label :full_name %>
@@ -15,8 +15,8 @@
         <ul class="autocomplete-results" data-autocomplete-target="results"></ul>
       </div>
     </div>
-    <div class="inline">
-      <div class="field">
+    <div class="submit-row">
+      <div id="project-role-select" class="field">
         <%= form.label :project_role %>
         <%= form.select :project_role, presenter.project_roles, prompt: t(".choose_role") %>
       </div>

@@ -1,11 +1,18 @@
 <% content_for(:title) { "Project Team Membership Edit" } %>
 
-<section class="add-user-form">
-  <% if @presenter.able_to_add_user? %>
-    <%= render partial: "shared/projects/team_memberships/form", locals: { presenter: @presenter } %>
-  <% end %>
+<section class="project-form add-user-form">
+  <section class="form-subsection background-1">
+    <div class="form-container">
+      <% if @presenter.able_to_add_user? %>
+        <%= render partial: "shared/projects/team_memberships/form", locals: { presenter: @presenter } %>
+      <% end %>
+    </div>
+  </section>
+  <div class="form-subsection form-container">
+    <%= render partial: "shared/projects/team_memberships/team_member_table", locals: { presenter: @presenter } %>
+  </div>
 </section>
-<%= render partial: "shared/projects/team_memberships/team_member_table", locals: { presenter: @presenter } %>
+
 <section class="controls">
   <%= link_to visit_user_visits_path(@presenter.visit.id) do %>
     <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t("alt.left_facing_arrow") %>
