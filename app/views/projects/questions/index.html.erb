@@ -1,32 +1,34 @@
 <% content_for(:title) { t(".title") } %>
 <%= render partial: "projects/steps", locals: { presenter: @presenter } %>
 
-<div class="form-container">
-  <section class="projects-form">
+<section class="projects-form form-container">
+  <header>
     <h1><%=t(".title")%></h1>
-    <%= render partial: "shared/projects/permit_questions", locals: { presenter: @presenter } %>
+  </header>
+  <%= render partial: "shared/projects/permit_questions", locals: { presenter: @presenter } %>
 
-    <section class="spacer">
-      <%= form_with model: Project, url: project_file_upload_url(@presenter.id), method: :put do |f| %>
-        <h2><%= t(".files") %></h2>
-        <div class="upload-files">
-          <p><%= t(".description") %></p>
-          <label for="files" class="button">
-            <%= image_tag "icon-plus.svg", alt: t(".plus_icon"), class: "plus" %>
-            <%= t(".upload_files") %>
-          </label>
-        </div>
-        <%= render partial: "projects/questions/file_upload_field", locals: { f: f } %>
-      <% end %>
-      <%= render partial: "projects/questions/file_table", locals: { presenter: @presenter } %>
-    </section>
+  <section class="form-subsection">
+    <header>
+      <h2><%= t(".files") %></h2>
+    </header>
+    <%= form_with model: Project, url: project_file_upload_url(@presenter.id), method: :put do |f| %>
+      <div class="upload-files">
+        <p><%= t(".description") %></p>
+        <label for="files" class="button">
+          <%= image_tag "icon-plus.svg", alt: t(".plus_icon"), class: "plus" %>
+          <%= t(".upload_files") %>
+        </label>
+      </div>
+      <%= render partial: "projects/questions/file_upload_field", locals: { f: f } %>
+    <% end %>
+    <%= render partial: "projects/questions/file_table", locals: { presenter: @presenter } %>
   </section>
-</div>
+</section>
 
 <section class="controls">
   <%= link_to project_team_memberships_path(@presenter.project) do %>
     <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t(".alt.left_facing_arrow") %>
-    <%= t(".back") %>
+    <%= t(".go_back") %>
   <% end %>
   <button form="questions" class="active" data-turbo="false">
     <%= t(".next_step") %>

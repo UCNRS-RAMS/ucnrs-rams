@@ -2,7 +2,7 @@
   <li data-controller="value-projection" data-value-projection-projected-value="<%= f.object.answer %>">
     <%= render partial: "projects/questions/#{question.question_type}", locals: { question: question, f: f } %>
     <div class="description">
-      <%= question.description %>
+      <span class="description-text"><%= question.description %></span>
       <ul>
         <% question.urls.each do |url, description| %>
           <li><%= link_to description, url, target: "_blank" %></li>

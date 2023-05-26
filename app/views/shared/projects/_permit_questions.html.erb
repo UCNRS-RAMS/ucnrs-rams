@@ -1,12 +1,10 @@
 <%= form_with model: presenter.form, url: presenter.form_url, id: "questions" do |form| %>
   <% if presenter.has_permit_questions_for_project? %>
-    <section>
-      <% presenter.questions_by_authority.each do |authority, questions| %>
-        <%= render partial: "projects/questions/group",
-          locals: { title: t(".authority.#{authority}"), questions: questions }
-        %>
-      <% end %>
-    </section>
+    <% presenter.questions_by_authority.each do |authority, questions| %>
+      <%= render partial: "projects/questions/group",
+        locals: { title: t(".authority.#{authority}"), questions: questions }
+      %>
+    <% end %>
     <section class="approved_questions">
       <div class="field">
         <%= form.label :approved_permits %>
@@ -25,9 +23,12 @@
 
   <% if presenter.has_reserve_questions_for_project? %>
     <section class="questions">
-      <h1><%= t(".reserve_section_title") %></h1>
+      <header>
+        <h1><%= t(".reserve_section_title") %></h1>
+      </header>
       <% presenter.questions_by_reserve.each do |reserve, questions| %>
-        <%= render partial:  "projects/questions/group", locals: { title: reserve, questions: questions } %>
+        <%= render partial:  "projects/questions/group",
+          locals: { title: reserve, questions: questions } %>
       <% end %>
     </section>
   <% end %>

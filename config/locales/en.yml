@@ -1020,10 +1020,10 @@ en:
           IACUC permit please also state the institution name that issued that permit."
         files: "Files"
         upload_files: "Upload File"
-        back: "Go Back"
         alt:
           right_facing_arrow: "Right-facing arrow"
           left_facing_arrow: "Left-facing arrow"
+        go_back: "Go Back"
         next_step: "Next: Funding"
         yes_option: "Yes"
         no_option: "No"
@@ -3134,6 +3134,7 @@ en:
         was_denied: "Project grant or contract application was denied by the funding agency"
   sitewide:
     back: "Back"
+    go_back: "Go Back"
     next_step: "Next Step"
     submit: "Submit"
   edit: "Edit"

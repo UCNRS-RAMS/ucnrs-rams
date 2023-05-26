@@ -1,7 +1,7 @@
 <%= fields_for "project[permit_answers][#{permit.id}]", permit.form do |f| %>
   <li data-controller="value-projection" data-value-projection-projected-value="<%= f.object.answer %>">
     <div class="question">
-      <%= permit.question %>
+      <span class="question_text"><%= permit.question %></span>
       <div class="answers">
         <%= f.radio_button :answer, "1", data: { action: "change->value-projection#change" } %>
         <%= f.label :answer, t("projects.questions.index.yes_option"), for: "project_permit_answers_#{permit.id}_answer_1" %>
@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="description">
-      <%= permit.description %>
+      <span class="description-text"><%= permit.description %></span>
       <ul>
         <% permit.urls.each do |url, description| %>
           <li><%= link_to description, url, target: "_blank" %></li>
