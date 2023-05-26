@@ -5,151 +5,6 @@
 @import "mixins/controls";
 @import "mixins/tables";
 
-.questions-index,
-.questions {
-  p.alert {
-    background-color: $red-alert;
-    margin: 0px;
-    padding: 10px;
-  }
-
-  .clr-red {
-    color: $red;
-  }
-
-  section.spacer {
-    margin-bottom: 7rem;
-  }
-
-  div.upload-files {
-    align-items: center;
-    display: flex;
-    font-size: 0.875rem;
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
-
-    > p {
-      margin-right: 2.5rem;
-    }
-  }
-
-  label.button {
-    align-items: center;
-    background-color: $light-gray;
-    border-radius: 5rem;
-    color: $navy-blue;
-    cursor: pointer;
-    display: flex;
-    height: 2rem;
-    flex-grow: 0;
-    font-size: 0.875rem;
-    padding-left: 8px;
-    padding-right: 14px;
-    white-space: nowrap;
-
-    img {
-      margin-right: 0.5rem;
-    }
-  }
-
-  table {
-    @include table-style1;
-  }
-}
-
-.questions-index {
-  main .projects-form{
-    form {
-      @include form;
-    }
-
-    section {
-      h1 {
-        color: $navy-blue;
-        font-size: 2.25rem;
-        font-weight: $semi-bold;
-        line-height: 2.75rem;
-      }
-
-      h2 {
-        font-size: 1.25rem;
-        font-weight: $bold;
-        line-height: 1.75rem;
-        margin-top: 3.125rem;
-
-        &:first-of-type {
-          margin-top: 2.5rem;
-        }
-      }
-    }
-
-    .answers.field {
-      textarea {
-        width: 240px;
-        height: 3rem;
-        margin-right: 0;
-      }
-    }
-
-    .questions {
-      font-size: 0.875rem;
-
-      ul {
-        list-style: none;
-        padding: 0;
-
-        li {
-          border-bottom: 1px solid $gray;
-          padding: 0.5rem 0;
-
-          .description {
-            display: none;
-
-            li {
-              border: 0;
-              padding: 0;
-            }
-          }
-
-          &[data-value-projection-projected-value="1"] {
-            .description {
-              display: block;
-
-              p {
-                margin: 0;
-                margin-bottom: 0.5rem;
-              }
-            }
-          }
-
-          .question {
-            align-items: start;
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-
-            p {
-              font-size: 1rem;
-              font-weight: $semi-bold;
-            }
-          }
-
-          .answers {
-            align-items: center;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-
-            input[type="radio"] {
-              margin-left: 1rem;
-              margin-right: 0.25rem;
-            }
-          }
-        }
-      }
-    }
-  }
-}
 
 .questions-index {
   color: $navy-blue;
@@ -162,7 +17,8 @@
     width: 100%;
   }
 
-  section.visits-form {
+  section.visits-form,
+  section.projects-form {
     flex: 1;
 
     form {
@@ -226,6 +82,124 @@
         font-size: 0.75rem;
         font-weight: $normal;
         margin-top: 0.5rem;
+      }
+    }
+
+
+    p.alert {
+      background-color: $red-alert;
+      margin: 0px;
+      padding: 10px;
+    }
+
+    .clr-red {
+      color: $red;
+    }
+
+    div.upload-files {
+      align-items: center;
+      display: flex;
+      font-size: 0.8125rem;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+
+      > *:not(:first-child) {
+        margin-left: 0.5rem;
+      }
+
+      > p {
+        margin-bottom: 0;
+        margin-top: 0;
+      }
+    }
+
+    label.button {
+      align-items: center;
+      background-color: $light-gray;
+      border-radius: 5rem;
+      color: $navy-blue;
+      cursor: pointer;
+      display: flex;
+      height: 2rem;
+      flex-grow: 0;
+      font-size: 0.875rem;
+      padding-left: 8px;
+      padding-right: 14px;
+      white-space: nowrap;
+
+      img {
+        margin-right: 0.5rem;
+      }
+    }
+
+    table.files-table {
+      @include table-style1;
+    }
+
+    .answers.field {
+      textarea {
+        width: 240px;
+        height: 3rem;
+        margin-right: 0;
+      }
+    }
+
+    .questions {
+      font-size: 0.8125rem;
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          border-bottom: 1px solid $gray;
+          padding: 0.5rem 0;
+
+          .description {
+            display: none;
+            font-weight: $semi-bold;
+
+            li {
+              border: 0;
+              padding: 0;
+            }
+
+            .description-text {
+              display: inline-block;
+              margin-top: 0.75rem;
+            }
+
+            .description-text:empty {
+              display: none;
+            }
+          }
+
+          &[data-value-projection-projected-value="1"] {
+            .description {
+              display: block;
+            }
+          }
+
+          .question {
+            align-items: start;
+            display: flex;
+            justify-content: space-between;
+          }
+
+          .answers {
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+
+            input[type="radio"] {
+              margin-bottom: 0;
+              margin-left: 1rem;
+              margin-right: 0.25rem;
+              margin-top: 0;
+            }
+          }
+        }
       }
     }
   }

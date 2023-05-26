@@ -180,11 +180,11 @@ RSpec.describe "app/views/projects/questions/index.html.erb" do
       render template: "projects/questions/index"
 
       doc = Capybara.string(rendered)
-      expect(doc).to have_css("div.questions .question", text: "Who?")
+      expect(doc).to have_css("section.questions .question", text: "Who?")
       expect(doc).to have_css(".answers textarea", text: "You!")
-      expect(doc).to have_css("div.questions .question", text: "Where?")
+      expect(doc).to have_css("section.questions .question", text: "Where?")
       expect(doc).to have_css(".answers textarea", text: "Here!")
-      expect(doc).to have_css("div.questions .question", text: "Does 2+2 = 4?")
+      expect(doc).to have_css("section.questions .question", text: "Does 2+2 = 4?")
       expect(doc).to have_field("Yes", checked: true)
     end
 
