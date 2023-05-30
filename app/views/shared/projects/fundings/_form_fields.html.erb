@@ -7,16 +7,16 @@
   <%= form.label :title, t(".official_grant_title") %>
   <%= form.text_field :title %>
 </div>
-<div class="inline">
+<div class="inline-fields">
   <div class="field small">
     <%= form.label :funding_opportunity_number, t(".funding_opportunity_number") %>
     <%= form.text_field :funding_opportunity_number %>
-    <span><%= t(".funding_opportunity_number_explanation") %></span>
+    <small><%= t(".funding_opportunity_number_explanation") %></small>
   </div>
   <div class="field small">
     <%= form.label :grant_number, t(".grant_number") %>
     <%= form.text_field :grant_number %>
-    <span><%= t(".grant_number_explanation") %></span>
+    <small><%= t(".grant_number_explanation") %></small>
   </div>
 </div>
 <div class="field">
@@ -27,7 +27,7 @@
   <%= form.label :co_principal_investigators, t(".co_principal_investigators") %>
   <%= form.text_area :co_principal_investigators %>
 </div>
-<div class="inline" data-controller="value-projection" data-value-projection-projected-value="<%= form.object.sponsor %>">
+<div class="inline-fields" data-controller="value-projection" data-value-projection-projected-value="<%= form.object.sponsor %>">
   <div class="field small">
     <%= form.label :sponsor, t(".sponsor") %>
     <%= form.select :sponsor, presenter.sponsor_options, { prompt: t(".sponsor_prompt") },
@@ -38,12 +38,12 @@
     <%= form.text_field :sponsor_other, placeholder: t(".sponsor_other_placeholder") %>
   </div>
 </div>
-<div class="inline">
+<div class="inline-fields">
   <div class="field">
     <%= form.label :award_amount, t(".award_amount") %>
     <%= form.text_field :award_amount, placeholder: t(".award_amount_placeholder") %>
   </div>
-  <div class="date-range-select">
+  <div class="date-fields">
     <div class="field">
       <%= form.label :start_date, t(".start_date") %>
       <%= form.date_field(:start_date) %>

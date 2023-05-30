@@ -1,215 +1,99 @@
 @import "variables";
 @import "mixins/form";
+@import "mixins/tables";
+@import "mixins/date_fields";
 
 .fundings-index,
 .fundings-create,
 .complete-update {
-  .submit-btn {
-    display: flex;
-    justify-content: end;
-  }
+  color: $navy-blue;
 
-  form {
-    @include form;
-
-    label {
-      color: $dark-bluegray;
-      font-size: 0.75rem;
-      font-weight: $bold;
-      line-height: 0.875rem;
-    }
-
-    .field {
-      .error_messages {
-        font-size: inherit;
-      }
-    }
-
-    input[type="checkbox"] + label {
-      color: $navy-blue;
-      font-size: 0.8125rem;
-      font-weight: $normal;
-      line-height: 1.5rem;
-    }
-
-    input[type="date"],
-    input[type="text"],
-    select {
-      border-radius: 0.3125rem;
-      border: 1px solid $dark-bluegray;
-      font-family: $sora, $sans-serif;
-      height: 34px;
-    }
-
-    select {
-      min-width: 200px;
-    }
-
-    .date-range-select {
-      .field {
-        padding-right: 0;
-      }
-    }
-
-    .inline {
-      align-items: start;
-      display: flex;
-      flex-direction: row;
-      height: initial;
-      justify-content: start;
-
-      .small {
-        width: 20rem;
-      }
-
-      span {
-        color: $dark-bluegray;
-        font-size: 0.625rem;
-      }
-    }
-
-    .end {
-      display: flex;
-      justify-content: end;
-
-      .button-clear {
-        background-color: $light-light-blue;
-      }
-    }
-  }
-
-  h1 {
-    color: $navy-blue;
-    font-size: 2.25rem;
-  }
-
-  h2 {
-    color: $navy-blue;
-    font-size: 1rem;
-    font-weight: $bold;
-    line-height: 1.32rem;
-    margin: 0;
-    padding: 1rem 0;
-  }
-
-  main section {
-    padding-left: $form-page-gutter;
-    padding-right: $form-page-gutter;
-  }
-
-  [data-value-projection-projected-value] .sponsor_other {
-    display: none;
-  }
-
-  [data-value-projection-projected-value="other"] .sponsor_other {
-    display: inherit;
-  }
-
-  .date-range-select {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-
-    .separator {
-      border: 1px solid black;
-      font-size: 0;
-      height: 0;
-      margin: 0.5rem;
-      width: 0.625rem;
-    }
+  .form-container {
+    box-sizing: border-box;
+    margin:0 auto;
+    max-width: 950px;
+    padding: 0 10px;
+    width: 100%;
   }
 
   .add-funding-form {
-    background-color: $light-light-blue;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
+    flex: 1;
 
-    .funding-questions {
-      padding: 1rem 0;
+    form {
+      @include form;
+      @include date_fields;
+    }
 
-      div {
-        padding: 0;
-        padding-bottom: 0.25rem;
+    header {
+      h1 {
+        color: $navy-blue;
+        font-size: 2.25rem;
+        font-weight: $semi-bold;
+        line-height: 2.75rem;
       }
     }
-  }
 
-  #funding-table {
-    height: 100%;
-  }
+    section.form-subsection,
+    div.form-subsection {
+      margin-bottom: 3rem;
+    }
 
-  .funding-table {
-    margin-bottom: 3.1875rem;
+    section.form-subsection > header,
+    section.form-subsection > :not(section) > header {
+      margin-bottom: 1rem;
+
+      h2 {
+        margin: 0;
+      }
+
+      > span {
+        color: $dark-bluegray;
+        font-size: 0.875rem;
+      }
+    }
 
     h2 {
       color: $navy-blue;
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       font-weight: $semi-bold;
-      margin-bottom: 1.25rem;
+
+      span {
+        color: $dark-bluegray;
+        font-size: 1.25rem;
+        font-weight: $normal;
+        margin-left: 30px;
+      }
     }
 
-    table {
-      border-collapse: separate;
-      border-spacing: 0 0.375rem;
-      margin-bottom: 0.625rem;
-      width: 100%;
+    section.uneditable-visit-project-info {
+      border-left: 3px solid $navy-blue;
+      padding-left: 1rem;
 
-      tr {
-        text-align: left;
-
-        &:not(:first-child) {
-          box-shadow: 0px 1px 2px rgba(0,32,69,0.18);
-        }
+      h3 {
+        font-size: 1rem;
+        font-weight: $bold;
+        margin: 0;
       }
 
-      th {
+      p {
         color: $dark-bluegray;
-        font-size: 0.688rem;
-        line-height: 0.875rem;
+        font-size: 0.75rem;
+        font-weight: $normal;
+        margin-top: 0.5rem;
+      }
+    }
 
-        &:first-of-type {
-          padding-left: 1.25rem;
-        }
+    .funding-table {
+      @include table-style1;
+    }
+
+    form {
+      [data-value-projection-projected-value] .sponsor_other {
+        display: none;
       }
 
-      .funding {
-        background-color: $light-light-blue;
-
-        td {
-          border-bottom: 1px solid $gray;
-          border-top: 1px solid $gray;
-          color: $navy-blue;
-          font-size: 0.75rem;
-          font-weight: $normal;
-          line-height: 1.25rem;
-          padding-bottom: 0.625rem;
-          padding-right: 1.25rem;
-          padding-top: 0.625rem;
-
-          &:first-of-type {
-            border-bottom-left-radius: 0.313rem;
-            border-left: 1px solid $gray;
-            border-top-left-radius: 0.313rem;
-            font-weight: $bold;
-            max-width: 150px;
-            padding-left: 1.25rem;
-          }
-
-          &:last-of-type {
-            border-bottom-right-radius: 0.313rem;
-            border-right: 1px solid $gray;
-            border-top-right-radius: 0.313rem;
-          }
-
-          a {
-            color: $dark-bluegray;
-
-            &:visited {
-              color: $navy-blue;
-            }
-          }
-        }
+      [data-value-projection-projected-value="other"] .sponsor_other {
+        display: inherit;
       }
     }
   }
