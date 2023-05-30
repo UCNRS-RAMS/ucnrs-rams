@@ -1,6 +1,7 @@
 @import "variables";
 @import "mixins/form";
 @import "mixins/flex";
+@import "mixins/date_fields";
 
 .modal {
   background: rgba($navy-blue, 0.85);
@@ -22,6 +23,7 @@
   }
 
   @include form;
+  @include date_fields;
 
   .screenreader-text {
     display: none;

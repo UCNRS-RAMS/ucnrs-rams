@@ -1,27 +1,30 @@
 <% content_for(:title) { t(".title") } %>
 <%= render partial: "projects/steps", locals: { presenter: @presenter } %>
 
-<section>
-  <h1><%= t(".title") %></h1>
-</section>
-
 <section class="add-funding-form">
-  <div class="add-funding-form-header">
-    <h2><%= t(".add_funding_title") %></h2>
-  </div>
-  <%= form_with model: @presenter.form, url: project_fundings_url(@presenter.project), namespace: "new" do |form| %>
-    <turbo-frame id="new-funding-form">
-      <%= render partial: "shared/projects/fundings/form_fields", locals: { presenter: @presenter, form: form } %>
-    </turbo-frame>
-    <div class="end">
-      <turbo-frame class="submit-btn" id="submit-btn">
-        <%= form.submit t(".add_funding_submit"), class: "button-clear", data: { disable_with: false } %>
-      </turbo-frame>
-    </div>
-  <% end %>
-</section>
+  <header class="form-container">
+    <h1><%= t(".title") %></h1>
+  </header>
 
-<%= render partial: "shared/projects/fundings/funding_table", locals: { presenter: @presenter } %>
+  <section class="form-subsection background-1">
+    <div class="form-container">
+      <header>
+        <h2><%= t(".add_funding_title") %></h2>
+      </header>
+      <%= form_with model: @presenter.form, url: project_fundings_url(@presenter.project), namespace: "new" do |form| %>
+        <turbo-frame id="new-funding-form">
+          <%= render partial: "shared/projects/fundings/form_fields", locals: { presenter: @presenter, form: form } %>
+        </turbo-frame>
+        <turbo-frame class="form-end submit-btn" id="submit-btn">
+          <%= form.submit t(".add_funding_submit"), class: "button-clear", data: { disable_with: false } %>
+        </turbo-frame>
+      <% end %>
+    </div>
+  </section>
+  <div class="form-subsection form-container">
+    <%= render partial: "shared/projects/fundings/funding_table", locals: { presenter: @presenter } %>
+  </div>
+</section>
 
 <section class="controls">
   <%= link_to project_questions_path(@presenter.project) do %>

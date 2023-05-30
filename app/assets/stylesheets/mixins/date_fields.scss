@@ -5,6 +5,7 @@
     align-items: center;
     display: flex;
     flex-direction: row;
+
     .field {
       width: 150px;
 
@@ -16,6 +17,10 @@
         height: 2rem;
         text-indent: 0.10rem;
       }
+    }
+
+    .field:first-of-type {
+      padding-right: 0;
     }
 
     .separator {
