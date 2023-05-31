@@ -196,38 +196,60 @@ RSpec.describe Visits::AmenityPresenter do
   end
 
   describe "#selected_amenity_rate_id" do
-    it "returns the default amenity_rate for the user by default" do
-      user = create(:user, institution: build(
-        :institution, institution_type: :k_12_education
-      ))
-      amenity = create(:amenity, amenity_rates: [
-        create(:amenity_rate, k12: false),
-        create(:amenity_rate, k12: true),
-      ])
-      presenter = Visits::AmenityPresenter.new(amenity, user: user)
-      expected_rate = amenity.amenity_rates[1]
+    context "if form doesnt exist" do
+      it "returns the default amenity_rate for the user by default" do
+        user = create(:user, institution: build(
+          :institution, institution_type: :k_12_education
+        ))
+        amenity = create(:amenity, amenity_rates: [
+          create(:amenity_rate, k12: false),
+          create(:amenity_rate, k12: true),
+        ])
+        presenter = Visits::AmenityPresenter.new(amenity, user: user)
+        expected_rate = amenity.amenity_rates[1]
 
-      selected_amenity_rate_id = presenter.selected_amenity_rate_id
+        selected_amenity_rate_id = presenter.selected_amenity_rate_id
 
-      expect(selected_amenity_rate_id).to eq expected_rate.id
+        expect(selected_amenity_rate_id).to eq expected_rate.id
+      end
     end
 
-    it "returns the amenity_rate_id from form (if exists) regardless of user" do
-      user = create(:user, institution: build(
-        :institution, institution_type: :k_12_education
-      ))
-      amenity = create(:amenity, amenity_rates: [
-        create(:amenity_rate, k12: false),
-        create(:amenity_rate, k12: true),
-      ])
-      selected_rate = amenity.amenity_rates[1]
-      expected_rate = amenity.amenity_rates[1]
-      form = [Visits::AmenityForm.new(params: { amenity_rate_id: selected_rate.id })]
-      presenter = Visits::AmenityPresenter.new(amenity, user: user, form: form)
+    context "if form exist" do
+      it "returns the amenity_rate_id from form (if exists) regardless of user" do
+        user = create(:user, institution: build(
+          :institution, institution_type: :k_12_education
+        ))
+        amenity = create(:amenity, amenity_rates: [
+          create(:amenity_rate, k12: false),
+          create(:amenity_rate, k12: true),
+        ])
+        selected_rate = amenity.amenity_rates[1]
+        expected_rate = amenity.amenity_rates[1]
+        form = [Visits::AmenityForm.new(params: { amenity_rate_id: selected_rate.id })]
+        presenter = Visits::AmenityPresenter.new(amenity, user: user, form: form)
 
-      selected_amenity_rate_id = presenter.selected_amenity_rate_id
+        selected_amenity_rate_id = presenter.selected_amenity_rate_id
 
-      expect(selected_amenity_rate_id).to eq expected_rate.id
+        expect(selected_amenity_rate_id).to eq expected_rate.id
+      end
+    end
+
+    context "if form doesnt exist and user doesnt have a default category that matches the reserve amenity_category" do
+      it "returns the first rate_id from the list of amenity rates" do
+        user = create(:user, institution: build(
+          :institution, institution_type: :k_12_education
+        ))
+        amenity = create(:amenity, amenity_rates: [
+          create(:amenity_rate, state_university: true),
+          create(:amenity_rate, state_college: true),
+        ])
+        presenter = Visits::AmenityPresenter.new(amenity, user: user)
+        expected_rate = amenity.amenity_rates[0]
+
+        selected_amenity_rate_id = presenter.selected_amenity_rate_id
+
+        expect(selected_amenity_rate_id).to eq expected_rate.id
+      end
     end
   end
 

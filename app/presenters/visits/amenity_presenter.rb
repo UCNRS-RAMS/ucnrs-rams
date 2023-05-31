@@ -48,11 +48,11 @@ class Visits::AmenityPresenter
   end
 
   def selected_amenity_rate_id
-    if form.first.amenity_rate_id.nil?
-      rates.detect{ |r| r.default_for_user == 1 }&.id
-    else
-      form.first.amenity_rate_id
-    end
+    return form.first.amenity_rate_id if form.first.amenity_rate_id
+
+    return rates.detect{ |r| r.default_for_user == 1 }&.id if rates.detect{ |r| r.default_for_user == 1 }
+
+    return rates.first.id
   end
 
   def group_label
