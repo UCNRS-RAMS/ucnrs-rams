@@ -1,11 +1,8 @@
 @import "variables";
 
-.display-none {
-  display: none;
-}
-
 .navbar-content {
   align-items: center;
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   padding: 1.25rem 1rem;
@@ -17,11 +14,10 @@ nav.main-navigation {
   font-size: 1rem;
 
   #title-extra {
-      strong {
-        font-size: 0.8125rem;
-        font-weight: $medium;
-      }
-
+    strong {
+      font-size: 0.8125rem;
+      font-weight: $medium;
+    }
   }
 
   .left-side {

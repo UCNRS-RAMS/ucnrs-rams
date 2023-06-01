@@ -1,8 +1,169 @@
 @import "variables";
+@import "mixins/date_fields";
+@import "mixins/form";
 
 @mixin inline-between {
   align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+@mixin projects-visits-form-layout {
+  flex: 1;
+
+  form {
+    @include form;
+    @include date_fields;
+  }
+
+  header {
+    h1 {
+      color: $navy-blue;
+      font-size: 2.25rem;
+      font-weight: $semi-bold;
+      line-height: 2.75rem;
+    }
+  }
+
+  section.form-subsection,
+  div.form-subsection {
+    margin-bottom: 3rem;
+  }
+
+  section.form-subsection > header,
+  section.form-subsection > :not(section) > header {
+    margin-bottom: 1rem;
+
+    h2 {
+      margin: 0;
+    }
+
+    > span {
+      color: $dark-bluegray;
+      font-size: 0.875rem;
+    }
+  }
+
+  h2 {
+    color: $navy-blue;
+    font-size: 1.5rem;
+    font-weight: $semi-bold;
+
+    span {
+      color: $dark-bluegray;
+      font-size: 1.25rem;
+      font-weight: $normal;
+      margin-left: 30px;
+    }
+  }
+
+  section.uneditable-visit-project-info {
+    border-left: 3px solid $navy-blue;
+    padding-left: 1rem;
+
+    h3 {
+      font-size: 1rem;
+      font-weight: $bold;
+      margin: 0;
+    }
+
+    p {
+      color: $dark-bluegray;
+      font-size: 0.75rem;
+      font-weight: $normal;
+      margin-top: 0.5rem;
+    }
+  }
+
+  .project-type-options {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 3rem;
+
+    label {
+      align-items: flex-start;
+      background-color: transparent;
+      border: 1px solid $gray;
+      border-radius: $border-radius;
+      cursor: pointer;
+      display: flex;
+      flex-direction: row;
+      flex: 1;
+      padding: calc(1rem + 1px);
+      transition: all .15s ease-in-out;
+
+      input {
+        margin-right: 0.5rem;
+      }
+
+      .project-type-label {
+        align-content: flex-start;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+
+        h3 {
+          font-size: 1rem;
+          font-weight: $semi-bold;
+          margin: 0;
+          margin-bottom: 0.125rem;
+          padding: 0;
+        }
+
+        p {
+          color: $dark-bluegray;
+          font-size: 0.75rem;
+          font-weight: $normal;
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
+
+    &[data-value-projection-projected-value="research"] {
+      label[for="project-type-research"] {
+        background-color: $light-light-blue;
+        border: 2px solid $navy-blue;
+        padding: 1rem;
+        transition: all .15s ease-in-out;
+      }
+    }
+
+    &[data-value-projection-projected-value="class"] {
+      label[for="project-type-class"] {
+        background-color: $light-light-blue;
+        border: 2px solid $navy-blue;
+        padding: 1rem;
+        transition: all .15s ease-in-out;
+      }
+    }
+
+    &[data-value-projection-projected-value="meeting"] {
+      label[for="project-type-meeting"] {
+        background-color: $light-light-blue;
+        border: 2px solid $navy-blue;
+        padding: 1rem;
+        transition: all .15s ease-in-out;
+      }
+    }
+
+    &[data-value-projection-projected-value="public_use"] {
+      label[for="project-type-public_use"] {
+        background-color: $light-light-blue;
+        border: 2px solid $navy-blue;
+        padding: 1rem;
+        transition: all .15s ease-in-out;
+      }
+    }
+  }
+}
+
+@mixin projects-visits-form-container {
+  box-sizing: border-box;
+  margin:0 auto;
+  max-width: 950px;
+  padding: 0 10px;
+  width: 100%;
 }
