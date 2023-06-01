@@ -1,7 +1,7 @@
 <% content_for(:title) { t(".title") } %>
 <%= render partial: "projects/steps", locals: { presenter: @presenter } %>
 
-<section class="project-form form-container">
+<section class="projects-form form-container">
   <header>
     <h1><%= t(".title") %></h1>
   </header>
@@ -18,7 +18,10 @@
           data-value-projection-projected-value="<%= form.object.project_type %>">
           <% @presenter.project_type_options.each do |project_type| %>
             <label for="project-type-<%= project_type %>">
-              <%= form.radio_button :project_type, project_type, id: "project-type-#{project_type}", data: { action: "click->turbo-content#change click->value-projection#change" }, checked: form.object.project_type.to_s == project_type.to_s %>
+              <%= form.radio_button :project_type, project_type, id: "project-type-#{project_type}",
+                data: { action: "click->turbo-content#change click->value-projection#change" },
+                checked: form.object.project_type.to_s == project_type.to_s
+              %>
               <div class="project-type-label">
                 <h3><%= t(".project_type_options.labels.#{project_type}") %></h3>
                 <p><%= t(".project_type_options.explanation.#{project_type}") %></p>
@@ -34,7 +37,9 @@
       <% end %>
     </section>
 
-    <%= turbo_frame_tag "project_type_form", data: { pattern: new_project_path(project_type: "VALUE"), "turbo-content-target": "destination" } do %>
+    <%= turbo_frame_tag "project_type_form", data: { pattern: new_project_path(project_type: "VALUE"),
+      "turbo-content-target": "destination" } do
+    %>
       <div class="<%= @presenter.project_type %>">
         <%= render partial: @presenter.partial_name, locals: {
           form: form,
