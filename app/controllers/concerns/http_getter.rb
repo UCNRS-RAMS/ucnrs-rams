@@ -20,8 +20,6 @@ class HttpGetter
     Faraday.new(
       url: @url,
       params: @params,
-    ) do |f|
-      f.response :json
-    end
+    )
   end
 end
