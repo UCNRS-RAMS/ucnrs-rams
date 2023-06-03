@@ -3,6 +3,8 @@ class Manager::Projects::TeamMembershipsController < Manager::ApplicationControl
   before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
   before_action :is_administrator!, only: [:create, :update, :destroy]
 
+  layout "manager"
+
   def index
     @presenter = Manager::Projects::TeamMembershipsIndexPresenter.new(
       project: project,
