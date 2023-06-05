@@ -10,7 +10,7 @@
     method: :put, data: { controller: "turbo-content" }, id: "projects-edit" do |form|
   %>
     <%= form.hidden_field :id %>
-    <section>
+    <section class="form-subsection">
       <header>
         <h2><%= t(".project_type_options.title") %></h2>
       </header>
@@ -38,20 +38,21 @@
         </section>
 
       <% end %>
+    </section>
 
-      <%= turbo_frame_tag "project_type_form",
-        data: {
-          pattern: new_manager_reserve_project_path(current_reserve, project_type: "VALUE"),
-          "turbo-content-target": "destination"
-        } do
-      %>
-        <div class="<%= @presenter.project_type %>">
-          <%= render partial: @presenter.partial_name, locals: {
-            form: form,
-            presenter: @presenter
-          } %>
-        </div>
-      <% end %>
+    <%= turbo_frame_tag "project_type_form",
+      data: {
+        pattern: new_manager_reserve_project_path(current_reserve, project_type: "VALUE"),
+        "turbo-content-target": "destination"
+      } do
+    %>
+      <div class="<%= @presenter.project_type %>">
+        <%= render partial: @presenter.partial_name, locals: {
+          form: form,
+          presenter: @presenter
+        } %>
+      </div>
+    <% end %>
   <% end %>
 </section>
 
