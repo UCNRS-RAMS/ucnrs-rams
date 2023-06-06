@@ -9,7 +9,7 @@ class Manager::Dashboard::CalendarController < ApplicationController
   private
 
   def initialize_calendar_presenter
-    params[:start_date] = date_from_month_str(params[:start_date])
+    set_start_date
     Manager::Dashboard::CalendarShowPresenter.new(
       reserve: current_reserve,
       start_date: params[:start_date],
@@ -20,5 +20,9 @@ class Manager::Dashboard::CalendarController < ApplicationController
 
   def date_from_month_str(date_str)
     Date.new(*date_str&.split("-")&.map(&:to_i))
+  end
+
+  def set_start_date
+    params[:start_date] = params[:start_date].present? ? date_from_month_str(params[:start_date]) : Date.current
   end
 end
