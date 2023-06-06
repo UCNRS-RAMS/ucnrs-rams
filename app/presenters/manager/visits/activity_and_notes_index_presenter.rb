@@ -3,18 +3,19 @@
 class Manager::Visits::ActivityAndNotesIndexPresenter
   DEFAULT_PAGE_LIMIT = 10
 
-  def initialize(visit:, logs_page: 1, notes_page: 1)
+  def initialize(visit:, logs_page: 1, notes_page: 1, reserve: nil)
     @visit = visit
     @logs_page = logs_page
     @notes_page = notes_page
+    @current_reserve = reserve
   end
 
-  attr_reader :visit, :logs_page, :notes_page
+  attr_reader :visit, :logs_page, :notes_page, :current_reserve
   delegate_missing_to :visit
 
   def logs
     logs_scope.map do |record|
-      Manager::Visits::LogPresenter.new(record: record)
+      Manager::Visits::LogPresenter.new(record: record, reserve: current_reserve)
     end
   end
 

@@ -5,7 +5,7 @@ class Manager::Visits::ActivityAndNotesController < Manager::ApplicationControll
 
   def index
     @presenter = Manager::Visits::ActivityAndNotesIndexPresenter.new(
-      visit: visit, logs_page: params[:logs_page], notes_page: params[:notes_page])
+      visit: visit, logs_page: params[:logs_page], notes_page: params[:notes_page], reserve: current_reserve)
   end
 
   def show
