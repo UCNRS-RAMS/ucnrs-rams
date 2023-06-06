@@ -57,7 +57,7 @@ class ProjectFundingForm
   end
 
   def funding_status=(value)
-    case value
+    case value.to_sym
     when :is_funded
       reset_funding_status
       funding.is_funded = true
@@ -70,7 +70,7 @@ class ProjectFundingForm
     when :was_denied
       reset_funding_status
       funding.was_denied = true
-    else
+    when :""
       reset_funding_status
     end
   end
