@@ -1,19 +1,20 @@
 <% content_for(:title) { t(".title") } %>
 <%= render partial: "projects/steps", locals: { presenter: @presenter } %>
 
-<section>
-  <h1><%=t(".title")%></h1>
+<section class="project-questions-form form-container">
+  <header>
+    <h1><%=t(".title")%></h1>
+  </header>
+  <%= render partial: "shared/projects/permit_questions", locals: { presenter: @presenter } %>
 </section>
 
-<%= render partial: "shared/projects/permit_questions", locals: { presenter: @presenter } %>
-
 <section class="controls">
-  <%= link_to manager_reserve_project_team_memberships_path(reserve_id: current_reserve ,project_id: params[:project_id]) do %>
-    <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t(".alt.left_facing_arrow") %>
+  <%= link_to manager_reserve_project_team_memberships_path(current_reserve, params[:project_id]) do %>
+    <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t("alt.left_facing_arrow") %>
     <%= t(".back") %>
   <% end %>
   <button form="questions" class="active" data-turbo="false">
     <%= t(".next_step") %>
-    <%= image_tag "arrow-right.svg", alt: t(".alt.right_facing_arrow") %>
+    <%= image_tag "arrow-right.svg", alt: t("alt.right_facing_arrow") %>
   </button>
 </section>

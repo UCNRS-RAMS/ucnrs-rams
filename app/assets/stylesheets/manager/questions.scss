@@ -4,72 +4,80 @@
 @import "mixins/form";
 @import "mixins/controls";
 @import "mixins/tables";
+@import "mixins/layouts";
 
 .manager.questions-index,
 .manager.questions {
-  .container {
-    display: block;
-    justify-content: center;
+  color: $navy-blue;
 
-    p.alert {
-      background-color: $red-alert;
-      margin: 0px;
-      padding: 10px;
-    }
+  main > .container {
+    max-width: unset;
+  }
 
-    .d-flex {
-      display: flex;
-      justify-content: space-between;
-    }
+  .form-container {
+    @include projects-visits-form-container;
+  }
 
-    .d-flex-end {
-      display: flex;
-      justify-content: end;
-    }
+  .project-questions-form {
+    @include projects-visits-form-layout;
+  }
 
-    .clr-red {
-      color: $red;
-    }
+  .questions {
+    font-size: 0.8125rem;
 
-    .d-flex-col {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    section.spacer {
-      margin-top: 100px;
-    }
-
-    section.questions {
+    ul {
+      list-style: none;
       padding: 0;
-    }
 
-    span.describe {
-      font-size: 16px;
-      width: 700px;
-    }
+      li {
+        border-bottom: 1px solid $gray;
+        padding: 0.5rem 0;
 
-    p.align {
-      justify-content: space-between;
-    }
+        .description {
+          display: none;
+          font-weight: $semi-bold;
 
-    span.image {
-      margin-right: 100px;
-    }
+          li {
+            border: 0;
+            padding: 0;
+          }
 
-    form {
-      height: auto;
-    }
+          .description-text {
+            display: inline-block;
+            margin-top: 0.75rem;
+          }
 
-    table {
-      @include table-style1;
-    }
+          .description-text:empty {
+            display: none;
+          }
+        }
 
-    .text-area {
-      background-color: $light-gray;
-      border-radius: 5px;
-      width: 100%;
+        &[data-value-projection-projected-value="1"] {
+          .description {
+            display: block;
+          }
+        }
+
+        .question {
+          align-items: start;
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .answers {
+          align-items: center;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+
+          input[type="radio"] {
+            margin-bottom: 0;
+            margin-left: 1rem;
+            margin-right: 0.25rem;
+            margin-top: 0;
+          }
+        }
+      }
     }
   }
 }

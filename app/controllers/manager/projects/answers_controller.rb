@@ -1,6 +1,7 @@
-class Manager::Projects::AnswersController < ApplicationController
+class Manager::Projects::AnswersController < Manager::ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_reserve_manager!
+  before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
+  before_action :is_administrator!, only: [:create, :update, :destroy]
 
   layout "manager"
 
@@ -11,14 +12,14 @@ class Manager::Projects::AnswersController < ApplicationController
     )
 
     if form.save
-      redirect_to manager_reserve_project_fundings_path(reserve_id: current_reserve, project_id: project)
+      redirect_to manager_reserve_project_fundings_path(current_reserve, project)
     else
       @presenter = Manager::Projects::QuestionsIndexPresenter.new(
         project: project,
         form: form,
         reserve: current_reserve,
       )
-      render template: "projects/questions/index", status: :unprocessable_entity
+      render template: "manager/projects/questions/index", status: :unprocessable_entity
     end
   end
 
