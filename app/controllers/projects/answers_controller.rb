@@ -9,14 +9,15 @@ class Projects::AnswersController < ApplicationController
     )
 
     if form.save
-      redirect_to project_fundings_path(project)
+      redirect_to project_fundings_path(project, format: :html)
     else
       @presenter = Projects::QuestionsIndexPresenter.new(
         current_step: 3,
         project: project,
         form: form,
       )
-      render template: "projects/questions/index", status: :unprocessable_entity
+      flash.now[:alert] = I18n.t("visits.answers.missing_fileds_error")
+      render :create, status: :unprocessable_entity
     end
   end
 

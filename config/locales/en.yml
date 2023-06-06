@@ -1030,6 +1030,7 @@ en:
         next_step: "Next: Funding"
         yes_option: "Yes"
         no_option: "No"
+        missing_fileds_error: "Required fields are missing"
       text:
         aria_label_for: "textarea answer field for question %{question}"
     fundings:
