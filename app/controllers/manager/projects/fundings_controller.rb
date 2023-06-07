@@ -43,10 +43,7 @@ class Manager::Projects::FundingsController < Manager::ApplicationController
         format.html { redirect_to manager_reserve_project_fundings_path(current_reserve, form.project_id) }
         format.turbo_stream { redirect_to manager_reserve_project_fundings_path(current_reserve, form.project_id) }
       else
-        @presenter = Manager::Projects::FundingsIndexPresenter.new(
-          project: project,
-          reserve: current_reserve,
-        )
+        @presenter = Manager::Projects::FundingEditPresenter.new(form: form, reserve: current_reserve)
         format.html do
           render template: "manager/projects/fundings/edit",
             status: :unprocessable_entity
