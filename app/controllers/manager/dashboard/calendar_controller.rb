@@ -1,6 +1,7 @@
 class Manager::Dashboard::CalendarController < ApplicationController
   before_action :authenticate_user!
   before_action :confirm_manager!
+  layout "manager"
 
   def show
     @presenter = initialize_calendar_presenter
