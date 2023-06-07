@@ -1,0 +1,16 @@
+<turbo-stream action="replace" target="new-funding-form">
+  <template>
+    <turbo-frame id="new-funding-form">
+      <%= fields_for @presenter.form do |form| %>
+        <%= render partial: "shared/projects/fundings/form_fields", locals: { presenter: @presenter, form: form }, formats: [:html] %>
+      <% end %>
+    </turbo-frame>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="flash">
+  <template>
+    <%= render partial: "shared/flash", formats: [:html] %>
+  </template>
+</turbo-stream>
+
