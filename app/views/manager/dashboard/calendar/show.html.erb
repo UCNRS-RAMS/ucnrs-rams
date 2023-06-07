@@ -1,31 +1,35 @@
-<section>
-  <%= turbo_frame_tag 'calendar' do %>
-    <section class="search-subsection">
-      <div class="search-primary">
-        <div></div>
-        <div>
-          <%= form_with url: manager_reserve_dashboard_calendar_path, method: :get do |f| %>
-            <%= hidden_field_tag 'start_date', @presenter.start_date %>
-            <%= hidden_field_tag 'partial_name', "calendar" %>
-            <%= f.select :type,
-              options_for_select(@presenter.type_options, @presenter.type),
-              {},
-              onchange: "this.form.requestSubmit();"
-            %>
-            <%= f.select :status,
-              options_for_select(@presenter.status_options, @presenter.status),
-              {},
-              onchange: "this.form.requestSubmit();"
-            %>
-          <% end %>
+<section class="content">
+  <%= render partial: "shared/manager/dashboard/header", locals: { selected_tab: 2 } %>
+  <hr />
+  <%= turbo_frame_tag 'dashboard-content' do %>
+    <section class="calendar-container">
+      <section class="search-subsection">
+        <div class="search-primary">
+          <div></div>
+          <div>
+            <%= form_with url: manager_reserve_dashboard_calendar_path, method: :get do |f| %>
+              <%= hidden_field_tag 'start_date', @presenter.start_date %>
+              <%= hidden_field_tag 'partial_name', "calendar" %>
+              <%= f.select :type,
+                options_for_select(@presenter.type_options, @presenter.type),
+                {},
+                onchange: "this.form.requestSubmit();"
+              %>
+              <%= f.select :status,
+                options_for_select(@presenter.status_options, @presenter.status),
+                {},
+                onchange: "this.form.requestSubmit();"
+              %>
+            <% end %>
+          </div>
         </div>
-      </div>
+      </section>
+      <%= month_calendar @presenter.calendar_params do |date, visits| %>
+        <% @presenter.add_date_visits(date: date, visits: visits) %>
+        <span class="date-text" ><strong><%= date.day %></strong></span>
+        <%= render partial: "bar", object: @presenter.visits_link_params %>
+        <%= render partial: "bar", collection: @presenter.amenities_link_params %>
+      <% end %>
     </section>
-    <%= month_calendar @presenter.calendar_params do |date, visits| %>
-      <% @presenter.add_date_visits(date: date, visits: visits) %>
-      <span class="date-text" ><strong><%= date.day %></strong></span>
-      <%= render partial: "bar", object: @presenter.visits_link_params %>
-      <%= render partial: "bar", collection: @presenter.amenities_link_params %>
-    <% end %>
   <% end %>
 </section>

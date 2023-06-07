@@ -1492,8 +1492,6 @@ en:
       list:
         title: "List"
       show:
-        new_visit_request: "New Visit Request"
-        visits: "Visits"
         todays_visit_and_resources: "Today's Visit & Resources"
         last_24_hours: "Last 24 Hours"
         last_7_days: "Last 7 Days"
@@ -2327,6 +2325,10 @@ en:
         date_created: "Date Created"
   shared:
     manager:
+      dashboard:
+        header:
+          new_visit_request: "New Visit Request"
+          visits: "Visits"
       visits:
         form:
           visitors_list: "Visitors List"
