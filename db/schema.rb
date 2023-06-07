@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_04_205033) do
+ActiveRecord::Schema.define(version: 2023_06_06_081146) do
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
@@ -244,7 +244,7 @@ ActiveRecord::Schema.define(version: 2023_05_04_205033) do
     t.datetime "updated_at"
     t.boolean "was_denied", comment: "Project grant or contract application was denied by the funding agency"
     t.string "funding_opportunity_number", comment: "Funding opportunity numbers (FON) is a number that a federal agency assigns to its grant announcement. FON are currently unique within the fundings.Gov System"
-    t.column "sponsor", "enum('National Science Foundation (NSF)','National Institute of Health (NIH)','U.S. Geological Survey (USGS)','U.S. Forest Service (USFS),U.S. Department of Agriculture (USDA)','California Department of Fish and Wildlife','Other')"
+    t.column "sponsor", "enum('National Science Foundation (NSF)','National Institute of Health (NIH)','U.S. Geological Survey (USGS)','U.S. Forest Service (USFS)','U.S. Department of Agriculture (USDA)','California Department of Fish and Wildlife','Other')"
     t.index ["end_date", "reserve_id"], name: "EndReserve"
     t.index ["end_date"], name: "End"
     t.index ["reserve_id", "end_date"], name: "ReserveEnd"
