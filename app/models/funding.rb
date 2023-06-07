@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Funding < ApplicationRecord
+  before_save :check_remove_sponsor_other
+
   belongs_to :project
   belongs_to :reserve, optional: true
 
@@ -33,5 +35,13 @@ class Funding < ApplicationRecord
 
   def self.alphabetized
     order(:title)
+  end
+
+  private
+
+  def check_remove_sponsor_other
+    if sponsor != "other"
+      self.sponsor_other = nil
+    end
   end
 end
