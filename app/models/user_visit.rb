@@ -96,13 +96,13 @@ class UserVisit < ApplicationRecord
   end
 
   def departs_at_overlap_date_range
-    if user_visits_arrives_within_range&.where&.not(id: id).present?
+    if user_id != 1 && user_visits_arrives_within_range&.where&.not(id: id).present?
       errors.add(:departs_at,:dates_overlap)
     end
   end
 
   def arrives_at_overlap_date_range
-    if user_visits_departs_within_range&.where&.not(id: id).present?
+    if user_id != 1 && user_visits_departs_within_range&.where&.not(id: id).present?
       errors.add(:arrives_at,:dates_overlap)
     end
   end
