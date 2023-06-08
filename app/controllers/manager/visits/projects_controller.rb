@@ -21,6 +21,6 @@ class Manager::Visits::ProjectsController < ApplicationController
   end
 
   def user
-    params[:user_id].present? ? User.find_by(id: params[:user_id]) : current_user
+    User.find_by(id: params[:user_id])
   end
 end
