@@ -71,9 +71,14 @@
     }
 
     input, textarea, select {
+      background-color: $white;
+      border: 1px solid $bluegray;
+      border-radius: $border-radius;
       box-sizing: border-box;
       font-family: $sora;
       font-size: 0.8125rem;
+      min-height: 2rem;
+      padding-left: 0.5rem;
     }
 
     input[type="email"],
@@ -81,24 +86,13 @@
     input[type="password"],
     input[type="text"],
     textarea {
-      border-radius: $border-radius;
       border: 1px solid $bluegray;
       flex: 1;
-      min-height: 2rem;
-      padding: 0.25rem 0.5rem;
 
       &:last-child-of-type {
         padding-right: 0;
         margin-right: 0;
       }
-    }
-
-    select {
-      background-color: $white;
-      border: 1px solid $bluegray;
-      border-radius: $border-radius;
-      min-height: 2rem;
-      padding-left: 0.5rem;
     }
 
     textarea {

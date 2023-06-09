@@ -14,4 +14,8 @@ class Manager::VisitsFormPresenter < VisitsFormPresenter
   def project_partial_path
     editing ?  "shared/visits/project" : "manager/visits/project"
   end
+
+  def project_summary_path
+    manager_reserve_project_path(reserve, project)
+  end
 end

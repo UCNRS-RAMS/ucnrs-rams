@@ -18,12 +18,14 @@
 @import "variables";
 @import "mixins/dropdown";
 @import "simple_calendar";
+@import "mixins/input";
 
 html {
   height: 100%;
 }
 
 body {
+  @include input_default;
   @include dropdown;
 
   border: 0;

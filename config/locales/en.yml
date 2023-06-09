@@ -2320,9 +2320,6 @@ en:
     manager:
       visits:
         form:
-          visitors_list: "Visitors List"
-          name: "Name"
-          date_range: "Date Range"
           aria:
             arrival_time: "Arrival Time"
             departure_time: "Departure Time"
@@ -2332,6 +2329,7 @@ en:
             purpose: "Purpose of Visit"
             reserves: "Reserves"
             reserve: "Reserve"
+            select_amenities: "Select Amenities"
           labels:
             public_use_category: "Choose a category that best describes your visit"
             purpose_of_visit: "What do you plan to do on this visit?"
@@ -2345,6 +2343,8 @@ en:
             calendar: "Calendar Icon"
             left_arrow: "Left Arrow to Go Back"
             right_arrow: "Right Arrow"
+            optional: "Optional"
+            rate_determined: "Rate determined automatically from your Institution (%{institution})"
           links:
             go_back: "Go Back"
             create_a_new_project: "or Create a new Project"
