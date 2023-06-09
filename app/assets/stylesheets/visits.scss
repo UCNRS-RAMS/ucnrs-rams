@@ -5,222 +5,44 @@
 @import "mixins/controls";
 @import "mixins/tables";
 @import "mixins/flex";
-@import "mixins/input";
+@import "mixins/layouts";
 
 .visits-new,
 .visits-edit,
 .visits-update,
 .visits-create {
-  @include input_default;
-
   .form-container {
-    box-sizing: border-box;
-    margin:0 auto;
-    max-width: 950px;
-    padding: 0 10px;
-    width: 100%;
+    @include projects-visits-form-container;
   }
 
-  section.visits-form {
-    header {
-      h1 {
-        color: $navy-blue;
-        font-size: 2.25rem;
-        font-weight: $semi-bold;
-        line-height: 2.75rem;
-      }
-    }
+  .visits-form {
+    @include projects-visits-form-layout;
 
-    section.form-subsection {
-      margin-bottom: 3rem;
-    }
-
-    section.form-subsection > header,
-    section.form-subsection > * > header {
-      margin-bottom: 1rem;
-
-      h2 {
-        margin: 0;
-      }
-
-      > span {
-        color: $dark-bluegray;
-        font-size: 0.875rem;
-      }
-    }
-
-    h2 {
-      color: $navy-blue;
-      font-size: 1.5rem;
-      font-weight: $semi-bold;
-
-      span {
-        color: $dark-bluegray;
-        font-size: 1.25rem;
-        font-weight: $normal;
-        margin-left: 30px;
-      }
-    }
-
-    label {
-      color: $dark-bluegray;
-      font-size: 0.75rem;
-      font-weight: $semi-bold;
-    }
-
-    .project-type-options {
+    .date-range-select {
+      align-items: center;
       display: flex;
       flex-direction: row;
-      gap: 10px;
-      margin-bottom: 1rem;
+      justify-content: center;
 
-      &[data-value-projection-projected-value="research"] {
-        label[for="project-type-research"] {
-          background-color: $light-light-blue;
-          border: 2px solid $navy-blue;
-          padding: 1rem;
+      .date-time-select {
+        select {
+          background-color: white;
+          border-bottom-left-radius: 0;
+          border-top-left-radius: 0;
         }
-      }
-
-      &[data-value-projection-projected-value="university_class"] {
-        label[for="project-type-university_class"] {
-          background-color: $light-light-blue;
-          border: 2px solid $navy-blue;
-          padding: 1rem;
-        }
-      }
-
-      &[data-value-projection-projected-value="meeting_or_conference"] {
-        label[for="project-type-meeting_or_conference"] {
-          background-color: $light-light-blue;
-          border: 2px solid $navy-blue;
-          padding: 1rem;
-        }
-      }
-
-      &[data-value-projection-projected-value="public_use"] {
-        label[for="project-type-public_use"] {
-          background-color: $light-light-blue;
-          border: 2px solid $navy-blue;
-          padding: 1rem;
-        }
-      }
-
-      label {
-        align-items: flex-start;
-        background-color: transparent;
-        border: 1px solid $gray;
-        border-radius: $border-radius;
-        color: $navy-blue;
-        display: flex;
-        flex-direction: row;
-        flex: 1;
-        padding: calc(1rem + 1px);
 
         input {
-          margin-right: 0.5rem;
-        }
-
-        .project-type-label {
-          align-content: flex-start;
-          display: flex;
-          flex-direction: column;
-          flex: 1;
-
-          h3 {
-            font-size: 1rem;
-            font-weight: $semi-bold;
-            margin: 0;
-            margin-bottom: 0.125rem;
-            padding: 0;
-          }
-
-          p {
-            color: $dark-bluegray;
-            font-size: 0.75rem;
-            font-weight: $normal;
-            margin: 0;
-            padding: 0;
-          }
+          border-bottom-right-radius: 0;
+          border-top-right-radius: 0;
         }
       }
-    }
 
-    [data-value-projection-projected-value="research"] {
-      label[for="project-type-research"] {
-        background-color: $light-light-blue;
-        border: 2px solid $navy-blue;
-        padding: 1rem;
-      }
-    }
-
-    [data-value-projection-projected-value="university_class"] {
-      label[for="project-type-university_class"] {
-        background-color: $light-light-blue;
-        border: 2px solid $navy-blue;
-        padding: 1rem;
-      }
-    }
-
-    [data-value-projection-projected-value="meeting_or_conference"] {
-      label[for="project-type-meeting_or_conference"] {
-        background-color: $light-light-blue;
-        border: 2px solid $navy-blue;
-        padding: 1rem;
-      }
-    }
-
-    [data-value-projection-projected-value="public_use"] {
-      label[for="project-type-public_use"] {
-        background-color: $light-light-blue;
-        border: 2px solid $navy-blue;
-        padding: 1rem;
-      }
-    }
-
-    .text-area {
-      textarea {
-        height: 6.675rem;
-        width: 100%;
-      }
-
-      .error {
-        color: $red;
-        font-size: small;
-      }
-    }
-
-    .uneditable-visit-project-info > section {
-      border-left: 3px solid $navy-blue;
-      padding-left: 1rem;
-
-      h3 {
-        font-size: 1rem;
-        font-weight: $bold;
-        margin: 0;
-      }
-
-      p {
-        color: $dark-bluegray;
-        font-size: 0.75rem;
-        font-weight: $normal;
-        margin-top: 0.5rem;
-      }
-    }
-
-    section.research,
-    section.class,
-    section.meeting {
-      @include form;
-    }
-
-    .error {
-      border-color: $red;
-      border-width: 2px !important;
-      color: $red;
-      font-size: small;
-      .error_messages {
-        margin-left: 5px;
+      .separator {
+        border: 1px solid $black;
+        font-size: 0;
+        height: 0;
+        margin: 0.5rem;
+        width: 0.625rem;
       }
     }
   }
@@ -254,32 +76,6 @@
   .flex-break {
     flex-basis: 100%;
     height: 0;
-  }
-
-  .date-range-select {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-
-    select {
-      background-color: white;
-      border-bottom-left-radius: 0;
-      border-top-left-radius: 0;
-    }
-
-    input {
-      border-bottom-right-radius: 0;
-      border-top-right-radius: 0;
-    }
-
-    .separator {
-      border: 1px solid $black;
-      font-size: 0;
-      height: 0;
-      margin: 0.5rem;
-      width: 0.625rem;
-    }
   }
 
   .reserve-message {
