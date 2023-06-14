@@ -78,6 +78,12 @@
     color: $bluegray;
   }
 
+  tr.empty > td {
+    font-size: 1rem;
+    font-weight: $semi-bold;
+    text-align: center;
+  }
+
   tbody {
     tr:not(.header):hover {
       background-color: $light-gold;
@@ -134,9 +140,9 @@
   img {
     border-radius: 0.125rem;
     color: $white;
-    height: 1rem;
+    height: 1.25rem;
     vertical-align: middle;
-    width: 1rem;
+    width: 1.25rem;
 
     &[src*="check"] {
       height: 0.875rem;

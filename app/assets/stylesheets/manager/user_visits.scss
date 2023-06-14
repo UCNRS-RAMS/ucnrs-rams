@@ -1,30 +1,33 @@
 @import "variables";
-@import "mixins/summary";
-@import "mixins/date_fields";
-@import "mixins/form";
+@import "mixins/layouts";
 @import "mixins/controls";
 @import "mixins/tables";
 
+
 .manager.user_visits-index {
-  .container {
-    display: block;
-    @include form;
+  @include controls;
 
-    section {
-      color: $navy-blue;
-      padding: 3rem;
-    }
+  main > .container {
+    max-width: unset;
+  }
 
-    .d-flex {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
-    }
+  .form-container {
+    @include projects-visits-form-container;
+  }
+
+  .user-visits-form {
+    @include projects-visits-form-layout;
 
     .add-visitor {
-      background-color: $light-gray;
-      padding-bottom: 2rem;
-      padding-top: 2rem;
+      .add-visitor-types {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .add-visitor-input form {
+        @include form;
+      }
 
       table {
         @include table-style1;
@@ -35,6 +38,13 @@
 
         .visitor {
           background-color: $light-gray;
+        }
+
+        .button_to {
+          .add-visitor-btn {
+            background-color: $white;
+            width: 180px;
+          }
         }
 
         td:last-child {
@@ -157,99 +167,113 @@
       }
     }
 
-    .user-visits-table > table {
+    table.visit-info {
+      margin-bottom: 1rem;
+
+      td {
+        font-size: 0.8125rem;
+        padding: 0.375rem 0;
+      }
+
+      td:first-child {
+        padding-right: 2rem;
+      }
+
+      td:last-child {
+        font-weight: $bold;
+      }
+    }
+
+    section#visitors-summary {
+      .no-warning {
+        display: none;
+      }
+
+      .user-visits-warning {
+        background-color: $gold;
+        border-radius: 0.3125rem;
+        font-size: 0.8125rem;
+        margin-bottom: -50px;
+        padding: 1.4rem 1.5rem 1.5rem 50px;
+        position: relative;
+        top: -60px;
+
+        > p:first-of-type {
+          margin-top: 0;
+        }
+
+        > p:last-of-type {
+          margin-bottom: 0;
+        }
+
+        p {
+          line-height: 1.5rem;
+          margin-bottom: 1.2rem;
+        }
+      }
+
+      .user-visits-warning::before {
+        background: no-repeat center/18px url(asset-path("icon-alert-circle.svg"));
+        content: "";
+        display: block;
+        height: 1.125rem;
+        left: 1.25rem;
+        position: absolute;
+        top: 1.55rem;
+        width: 1.125rem;
+      }
+    }
+
+    table#user-visits-table {
       @include table-style1;
 
       a {
         color: $dark-bluegray;
       }
-
-      img {
-        height: 1.2rem;
-        vertical-align: middle;
-        width: 1.2rem;
-      }
-    }
-
-    label {
-      color: $dark-bluegray;
-      display: inline;
-      font-size: 0.625rem;
-      font-weight: $bold;
     }
   }
 
-  .modal {
-    .field {
-      input[type="text"],
-      input[type="number"],
+  .modal .date-range-select {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+
+    > * {
+      flex-grow: 1;
+    }
+
+    .date-time-select {
       select {
-        border: 1px solid $dark-bluegray;
-        border-radius: 0.3125rem;
-        box-sizing: border-box;
-        width: 100%;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
       }
 
-      margin-right: 1rem;
-      width: 100%;
-    }
-
-    .date-range-select {
-      align-items: center;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      padding-top: 2rem;
-
-      .separator {
-        border: 1px solid $black;
-        font-size: 0;
-        height: 0;
-        margin: 0.5rem;
-        width: 0.8rem;
+      input {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
       }
     }
 
-    .d-flex {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
+    .separator {
+      border: 1px solid $black;
+      font-size: 0;
+      height: 0;
+      margin: 0.5rem;
+      width: 0.625rem;
     }
 
-    .field {
-      width: 100%;
+    > .separator {
+      flex-grow: unset;
     }
+  }
 
-    .link {
-      font-size: small;
-      padding-top: 1rem;
-      text-align: right;
-    }
+  .field-inline {
+    display: flex;
+    font-size: 0.8125rem;
+    margin-bottom: 0.75rem;
 
-    .user-days {
-      font-size: small;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
-      > * {
-        margin-bottom: 1rem;
-      }
-
-      > *:last-child {
-        margin-bottom: 0rem;
-      }
-    }
-
-    table {
-      width: 100%;
-
-      td {
-        span {
-          font-size: 0.8rem;
-          font-weight: $bold;
-        }
-      }
+    > *:not(:first-child) {
+      margin-left: 1rem;
     }
   }
 }

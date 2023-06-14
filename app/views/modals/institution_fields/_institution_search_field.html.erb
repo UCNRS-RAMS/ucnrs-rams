@@ -2,14 +2,20 @@
   <%= form.fields_for form.object.institution_form.institution do |f| %>
     <div class="field autocomplete" data-controller="autocomplete" data-autocomplete-url-value="<%= institutions_path %>">
       <%= f.label :name %>
-      <%= f.text_field :name, placeholder: t(".search_by_name"), value: presenter.institution_name, data: { "autocomplete-target": "input" }, required: true %>
+      <%= f.text_field :name, placeholder: t(".search_by_name"),
+        value: presenter.institution_name, data: { "autocomplete-target": "input" },
+        required: true
+      %>
       <%= f.hidden_field :id, data: { "autocomplete-target": "hidden" }, value: presenter.institution_id  %>
       <div class="autocomplete-results-container">
         <ul class="autocomplete-results" data-autocomplete-target="results"></ul>
       </div>
-      <div class="link">
-        <%= link_to t(".create_new_institution"), edit_user_visit_path(id: presenter.id, display_institution_form: true), data: { "turbo-frame": "institution" } %>
-      </div>
+      <small>
+        <%= link_to t(".create_new_institution"),
+          edit_user_visit_path(id: presenter.id, display_institution_form: true),
+          data: { "turbo-frame": "institution" }
+        %>
+      </small>
     </div>
   <% end %>
 </turbo-frame>

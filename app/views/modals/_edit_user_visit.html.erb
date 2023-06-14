@@ -25,23 +25,19 @@
           </div>
         <% end %>
         <%= render partial: presenter.institution_fields_path, locals: { presenter: presenter, form: form }%>
-        <table>
-          <tr>
-            <td colspan="2">
-              <div class="date-range-select">
-                <div class="field">
-                  <%= form.label :arrives_at %>
-                  <%= form.date_field :arrives_at, data: {"user-days-target": "arrivesAt", action: "input->user-days#calculate" } %>
-                </div>
-                <span class="separator"></span>
-                <div class="field">
-                  <%= form.label :departs_at %>
-                  <%= form.date_field :departs_at, data: {"user-days-target": "departsAt", action: "input->user-days#calculate"} %>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </table>
+
+        <div class="date-range-select">
+          <div class="field">
+            <%= form.label :arrives_at %>
+            <%= form.date_field :arrives_at, data: {"user-days-target": "arrivesAt", action: "input->user-days#calculate" } %>
+          </div>
+          <span class="separator"></span>
+          <div class="field">
+            <%= form.label :departs_at %>
+            <%= form.date_field :departs_at, data: {"user-days-target": "departsAt", action: "input->user-days#calculate"} %>
+          </div>
+        </div>
+
         <%= render partial: presenter.user_days_partial, locals: { presenter: presenter, form: form } %>
       </section>
       <section class="buttons">

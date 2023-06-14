@@ -4,352 +4,276 @@
 @import "mixins/form";
 @import "mixins/controls";
 @import "mixins/tables";
+@import "mixins/layouts";
 
 .user_visits-index {
+  @include controls;
+
   color: $navy-blue;
 
   .form-container {
-    box-sizing: border-box;
-    margin:0 auto;
-    max-width: 950px;
-    padding: 0 10px;
-    width: 100%;
+    @include projects-visits-form-container;
   }
 
   section.visits-form {
-    padding: 0;
+    @include projects-visits-form-layout;
 
-    header {
-      h1 {
-        color: $navy-blue;
-        font-size: 2.25rem;
-        font-weight: $semi-bold;
-        line-height: 2.75rem;
-      }
-    }
-
-    section.form-subsection,
-    div.form-subsection {
-      margin-bottom: 3rem;
-    }
-
-    section.form-subsection > header,
-    section.form-subsection > * > header {
-      margin-bottom: 1rem;
-
-      h2 {
-        margin: 0;
+    .add-visitor {
+      .add-visitor-types {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
       }
 
-      > span {
-        color: $dark-bluegray;
-        font-size: 0.875rem;
-      }
-    }
-
-    h2 {
-      color: $navy-blue;
-      font-size: 1.5rem;
-      font-weight: $semi-bold;
-
-      span {
-        color: $dark-bluegray;
-        font-size: 1.25rem;
-        font-weight: $normal;
-        margin-left: 30px;
-      }
-    }
-
-    .uneditable-visit-project-info > section,
-    .uneditable-visit-project-info > div {
-      border-left: 3px solid $navy-blue;
-      padding-left: 1rem;
-
-      h3 {
-        font-size: 1rem;
-        font-weight: $bold;
-        margin: 0;
+      .add-visitor-input form {
+        @include form;
       }
 
-      p {
-        color: $dark-bluegray;
-        font-size: 0.75rem;
-        font-weight: $normal;
-        margin-top: 0.5rem;
-      }
-    }
-  }
+      table {
+        @include table-style1;
 
-  .link {
-    font-size: small;
-    padding-top: 1rem;
-    text-align: right;
-  }
-
-  .modal {
-    .date-range-select {
-      align-items: center;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      padding-top: 2rem;
-
-      .separator {
-        border: 1px solid $black;
-        font-size: 0;
-        height: 0;
-        margin: 0.5rem;
-        width: 0.8rem;
-      }
-    }
-
-    .field {
-      input[type="text"],
-      input[type="number"],
-      select {
-        border: 1px solid $dark-bluegray;
-        border-radius: 0.3125rem;
-        box-sizing: border-box;
-        width: 100%;
-      }
-
-      margin-right: 1rem;
-      width: 100%;
-    }
-
-    table {
-      width: 100%;
-
-      td {
-        span {
-          font-size: 0.8rem;
-          font-weight: $bold;
+        tbody tr {
+          background-color: $table-row-even-background-neutral;
         }
-      }
-    }
-  }
 
-  table.visit-info {
-    td {
-      font-size: 0.8125rem;
-      padding: 0.375rem 0;
-    }
-
-    td:first-child {
-      padding-right: 2rem;
-    }
-
-    td:last-child {
-      font-weight: $bold;
-    }
-  }
-
-  .add-visitor {
-    .add-visitor-types {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .add-visitor-input form {
-      @include form;
-    }
-
-    table {
-      @include table-style1;
-
-      tbody tr {
-        background-color: $table-row-even-background-neutral;
-      }
-
-      .visitor {
-        background-color: $light-gray;
-      }
-
-      .button_to {
-        .add-visitor-btn {
-          background-color: $white;
-          width: 180px;
+        .visitor {
+          background-color: $light-gray;
         }
-      }
 
-      td:last-child {
-        text-align: right;
-      }
-
-      a {
-        border: 1px solid $dark-bluegray;
-        border-radius: 1.5rem;
-        color: $dark-bluegray;
-        padding: 0.2rem 1.5rem;
-        text-decoration: none;
-      }
-    }
-
-    .toolbar-button {
-      display: flex;
-      font-size: 0.75rem;
-
-      a {
-        background: $buttonset-background;
-        border: 1px solid $dark-bluegray;
-        color: $dark-bluegray;
-        font-weight: $bold;
-        margin: 0;
-        margin-left: -1px;
-        padding: 0.6rem;
-        text-decoration: none;
-
-        &.selected {
-          background: $dark-bluegray;
-          color: $buttonset-foreground-selected;
+        .button_to {
+          .add-visitor-btn {
+            background-color: $white;
+            width: 180px;
+          }
         }
-      }
 
-      a:first-child {
-        border-radius: 1rem 0 0 1rem;
-        margin-left: 0;
-        padding-left: 1rem;
-      }
+        td:last-child {
+          text-align: right;
+        }
 
-      a:last-child {
-        border-radius: 0 1rem 1rem 0;
-        padding-right: 1rem;
-      }
-    }
-
-    section {
-      margin: 0;
-      padding: 2rem 0 0 0;
-    }
-
-    .flex-row {
-      align-items: center;
-      display: flex;
-
-      .field {
-        input[type="text"],
-        input[type="number"],
-        select {
+        a {
           border: 1px solid $dark-bluegray;
-          border-radius: 0.3125rem;
-          box-sizing: border-box;
+          border-radius: 1.5rem;
+          color: $dark-bluegray;
+          padding: 0.2rem 1.5rem;
+          text-decoration: none;
+        }
+      }
+
+      .toolbar-button {
+        display: flex;
+        font-size: 0.75rem;
+
+        a {
+          background: $buttonset-background;
+          border: 1px solid $dark-bluegray;
+          color: $dark-bluegray;
+          font-weight: $bold;
+          margin: 0;
+          margin-left: -1px;
+          padding: 0.6rem;
+          text-decoration: none;
+
+          &.selected {
+            background: $dark-bluegray;
+            color: $buttonset-foreground-selected;
+          }
+        }
+
+        a:first-child {
+          border-radius: 1rem 0 0 1rem;
+          margin-left: 0;
+          padding-left: 1rem;
+        }
+
+        a:last-child {
+          border-radius: 0 1rem 1rem 0;
+          padding-right: 1rem;
+        }
+      }
+
+      section {
+        margin: 0;
+        padding: 2rem 0 0 0;
+      }
+
+      .flex-row {
+        align-items: center;
+        display: flex;
+
+        .field {
+          input[type="text"],
+          input[type="number"],
+          select {
+            border: 1px solid $dark-bluegray;
+            border-radius: 0.3125rem;
+            box-sizing: border-box;
+            width: 100%;
+          }
+
+          margin-right: 1rem;
           width: 100%;
         }
 
-        margin-right: 1rem;
-        width: 100%;
+        button {
+          border: 1px solid $dark-bluegray;
+          border-radius: 1.5rem;
+          padding: 0.2rem 1.5rem;
+          width: 8rem;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        .visitor-name {
+          flex: 4;
+        }
+
+        .role {
+          flex: 2;
+        }
+
+        .add-visitor {
+          flex: 1;
+        }
+
+        .number-in-group {
+          flex: 1;
+        }
+
+        .institution-id {
+          flex: 4;
+        }
       }
 
-      button {
+      span {
+        font-size: 0.75rem;
+        font-weight: $normal;
+        line-height: 1.25rem;
+      }
+
+      input[type="submit"] {
+        background-color: transparent;
         border: 1px solid $dark-bluegray;
         border-radius: 1.5rem;
+        color: $sky-blue;
+        font-size: 0.75rem;
         padding: 0.2rem 1.5rem;
-        width: 8rem;
 
         &:hover {
           cursor: pointer;
         }
       }
+    }
 
-      .visitor-name {
-        flex: 4;
+    table.visit-info {
+      margin-bottom: 1rem;
+
+      td {
+        font-size: 0.8125rem;
+        padding: 0.375rem 0;
       }
 
-      .role {
-        flex: 2;
+      td:first-child {
+        padding-right: 2rem;
       }
 
-      .add-visitor {
-        flex: 1;
-      }
-
-      .number-in-group {
-        flex: 1;
-      }
-
-      .institution-id {
-        flex: 4;
+      td:last-child {
+        font-weight: $bold;
       }
     }
 
-    span {
-      font-size: 0.75rem;
-      font-weight: $normal;
-      line-height: 1.25rem;
-    }
-
-    input[type="submit"] {
-      background-color: transparent;
-      border: 1px solid $dark-bluegray;
-      border-radius: 1.5rem;
-      color: $sky-blue;
-      font-size: 0.75rem;
-      padding: 0.2rem 1.5rem;
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
-  }
-
-  .user-visits-table {
-    .no-warning {
-      display: none;
-    }
-
-    .user-visits-warning {
-      background-color: $gold;
-      border-radius: 0.3125rem;
-      font-size: 0.8125rem;
-      margin-bottom: -50px;
-      padding: 1.4rem 1.5rem 1.5rem 50px;
-      position: relative;
-      top: -60px;
-
-      > p:first-of-type {
-        margin-top: 0;
+    section#visitors-summary {
+      .no-warning {
+        display: none;
       }
 
-      > p:last-of-type {
-        margin-bottom: 0;
+      .user-visits-warning {
+        background-color: $gold;
+        border-radius: 0.3125rem;
+        font-size: 0.8125rem;
+        margin-bottom: -50px;
+        padding: 1.4rem 1.5rem 1.5rem 50px;
+        position: relative;
+        top: -60px;
+
+        > p:first-of-type {
+          margin-top: 0;
+        }
+
+        > p:last-of-type {
+          margin-bottom: 0;
+        }
+
+        p {
+          line-height: 1.5rem;
+          margin-bottom: 1.2rem;
+        }
       }
 
-      p {
-        line-height: 1.5rem;
-        margin-bottom: 1.2rem;
+      .user-visits-warning::before {
+        background: no-repeat center/18px url(asset-path("icon-alert-circle.svg"));
+        content: "";
+        display: block;
+        height: 1.125rem;
+        left: 1.25rem;
+        position: absolute;
+        top: 1.55rem;
+        width: 1.125rem;
       }
     }
 
-    .user-visits-warning::before {
-      background: no-repeat center/18px url(asset-path("icon-alert-circle.svg"));
-      content: "";
-      display: block;
-      height: 1.125rem;
-      left: 1.25rem;
-      position: absolute;
-      top: 1.55rem;
-      width: 1.125rem;
+    table#user-visits-table {
+      @include table-style1;
+
+      a {
+        color: $dark-bluegray;
+      }
     }
   }
 
-  .user-visits-table > table {
-    @include table-style1;
+  .modal .date-range-select {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
 
-    a {
-      color: $dark-bluegray;
+    > * {
+      flex-grow: 1;
     }
 
-    img {
-      height: 1.2rem;
-      vertical-align: middle;
-      width: 1.2rem;
+    .date-time-select {
+      select {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+      }
+
+      input {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+      }
     }
 
-    tr.empty > td{
-      font-size: 1rem;
-      font-weight: $semi-bold;
-      text-align: center;
+    .separator {
+      border: 1px solid $black;
+      font-size: 0;
+      height: 0;
+      margin: 0.5rem;
+      width: 0.625rem;
+    }
+
+    > .separator {
+      flex-grow: unset;
+    }
+  }
+
+  .field-inline {
+    display: flex;
+    font-size: 0.8125rem;
+    margin-bottom: 0.75rem;
+
+    > *:not(:first-child) {
+      margin-left: 1rem;
     }
   }
 }

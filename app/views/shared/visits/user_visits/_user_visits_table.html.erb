@@ -1,17 +1,13 @@
 <turbo-frame id="user-visits-table">
-  <section class="user-visits-table">
-    <div class=<%= presenter.warning_message_class %>><%= t(".warning") %></div>
-    <h2><%= t(".visitor_table") %></h2>
-    <table>
-      <tbody>
-        <% if presenter.user_visits.present? %>
-          <%= render partial: "shared/visits/user_visits/user_visit", collection: presenter.user_visits %>
-        <% else %>
-          <tr class="empty">
-            <td><%= t(".add_visitors") %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </section>
+  <table id="user-visits-table">
+    <tbody>
+      <% if presenter.user_visits.present? %>
+        <%= render partial: "shared/visits/user_visits/user_visit", collection: presenter.user_visits %>
+      <% else %>
+        <tr class="empty">
+          <td><%= t(".add_visitors") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </turbo-frame>
