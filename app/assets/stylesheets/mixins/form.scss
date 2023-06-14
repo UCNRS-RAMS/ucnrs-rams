@@ -70,7 +70,9 @@
       font-size: 0.6875rem;
     }
 
-    input, textarea, select {
+    input:not([type=checkbox], [type=radio]),
+    textarea,
+    select {
       background-color: $white;
       border: 1px solid $bluegray;
       border-radius: $border-radius;
@@ -86,7 +88,6 @@
     input[type="password"],
     input[type="text"],
     textarea {
-      border: 1px solid $bluegray;
       flex: 1;
 
       &:last-child-of-type {

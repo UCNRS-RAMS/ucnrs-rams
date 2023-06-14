@@ -606,6 +606,9 @@ en:
         amenity_visits: "Amenity Visits"
         amenity: "Amenity"
         date_of_use: "Date of Use"
+        visitor_table: "Visitor List"
+        warning: "Dates selected for visitors exceeds the specified dates entered for your amenities.
+          Please check your dates in both amenities and visitors areas for accuracy."
     amenities:
       amenity_booking:
          time_of_use: "Time of use"
@@ -1440,14 +1443,18 @@ en:
         confirm_removal: "Are you sure you want to delete visit number %{visit_id}"
       user_visits:
         index:
-            title: "Who are you bringing with you?"
-            reserve: "Reserve"
-            arrive_departs_date: "Arrival & Departure"
-            next_step: "Next: Reserve Info"
-            back: "Go Back"
-            amenity_visits: "Amenity Visits"
-            amenity: "Amenity"
-            date_of_use: "Date of Use"
+          title: "Who are you bringing with you?"
+          visit_summary: "Visit Summary"
+          reserve: "Reserve"
+          arrive_departs_date: "Arrival & Departure"
+          next_step: "Next: Reserve Info"
+          back: "Go Back"
+          amenity_visits: "Amenity Visits"
+          amenity: "Amenity"
+          date_of_use: "Date of Use"
+          visitor_table: "Visitor List"
+          warning: "Dates selected for visitors exceeds the specified dates entered for your amenities.
+            Please check your dates in both amenities and visitors areas for accuracy."
         total_days: " (%{total_days} days)"
         user_days_description: "%{total_days} days x %{count} users = %{user_days} userdays"
         user_days:
@@ -2435,9 +2442,6 @@ en:
           change: "Change"
           confirm_removal: "Are you sure you want to remove %{name}?"
         user_visits_table:
-          warning: "Dates selected for visitors exceeds the specified dates entered for your amenities.
-            Please check your dates in both amenities and visitors areas for accuracy."
-          visitor_table: "Visitor List"
           add_visitors: "Add visitors to this list."
         team_members:
           new_team_member: "Add New Team Member"
