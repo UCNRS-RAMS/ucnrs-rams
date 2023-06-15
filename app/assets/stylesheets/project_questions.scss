@@ -1,24 +1,18 @@
 @import "variables";
 @import "mixins/summary";
-@import "mixins/date_fields";
-@import "mixins/form";
 @import "mixins/controls";
 @import "mixins/tables";
 @import "mixins/layouts";
 
-.manager.questions-index,
-.manager.questions {
-  color: $navy-blue;
 
-  main > .container {
-    max-width: unset;
-  }
+.questions-index {
+  color: $navy-blue;
 
   .form-container {
     @include projects-visits-form-container;
   }
 
-  .project-questions-form {
+  section.project-questions-form {
     @include projects-visits-form-layout;
   }
 
@@ -78,6 +72,64 @@
           }
         }
       }
+    }
+  }
+
+  p.alert {
+    background-color: $red-alert;
+    margin: 0px;
+    padding: 10px;
+  }
+
+  .clr-red {
+    color: $red;
+  }
+
+  div.upload-files {
+    align-items: center;
+    display: flex;
+    font-size: 0.8125rem;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+
+    > *:not(:first-child) {
+      margin-left: 0.5rem;
+    }
+
+    > p {
+      margin-bottom: 0;
+      margin-top: 0;
+    }
+  }
+
+  label.button {
+    align-items: center;
+    background-color: $light-gray;
+    border-radius: 5rem;
+    color: $navy-blue;
+    cursor: pointer;
+    display: flex;
+    height: 2rem;
+    flex-grow: 0;
+    font-size: 0.875rem;
+    padding-left: 8px;
+    padding-right: 14px;
+    white-space: nowrap;
+
+    img {
+      margin-right: 0.5rem;
+    }
+  }
+
+  table.files-table {
+    @include table-style1;
+  }
+
+  .answers.field {
+    textarea {
+      width: 240px;
+      height: 3rem;
+      margin-right: 0;
     }
   }
 }

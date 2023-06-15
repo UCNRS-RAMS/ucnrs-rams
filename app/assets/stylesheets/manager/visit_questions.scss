@@ -1,0 +1,20 @@
+@import "variables";
+@import "mixins/controls";
+@import "mixins/layouts";
+
+.manager.questions-index,
+.manager.questions {
+  color: $navy-blue;
+
+  main > .container {
+    max-width: unset;
+  }
+
+  .form-container {
+    @include projects-visits-form-container;
+  }
+
+  .visit-questions-form {
+    @include projects-visits-form-layout;
+  }
+}

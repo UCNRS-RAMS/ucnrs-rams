@@ -1,7 +1,7 @@
 <% content_for(:title) { t(".title") } %>
 <%= render partial: "visits/steps", locals: { presenter: @presenter } %>
 
-<section class="visits-form form-container">
+<section class="visit-questions-form form-container">
   <%= render partial: "shared/visits/questions/questions", locals: { presenter: @presenter } %>
 </section>
 

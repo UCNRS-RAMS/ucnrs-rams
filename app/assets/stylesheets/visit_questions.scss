@@ -1,0 +1,16 @@
+@import "variables";
+@import "mixins/controls";
+@import "mixins/layouts";
+
+.questions-index,
+.questions {
+  color: $navy-blue;
+
+  .form-container {
+    @include projects-visits-form-container;
+  }
+
+  .visit-questions-form {
+    @include projects-visits-form-layout;
+  }
+}
