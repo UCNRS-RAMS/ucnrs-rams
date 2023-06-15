@@ -63,10 +63,17 @@ class Projects::QuestionsIndexPresenter
 
   def wrap_question_in_presenter(question)
     if question.is_a?(Permit)
-      Projects::PermitPresenter.new(question)
+      answer = form.permit_answers_params.dig(question.id.to_s, "answer")
+      Projects::PermitPresenter.new(permit: question, answer: answer, show_error: !has_permit_answer_for_project?(question.id))
     else
       Projects::QuestionPresenter.new(question)
     end
+  end
+
+  def has_permit_answer_for_project?(permit_id)
+    return true if form.errors.errors.blank?
+
+    return form.permit_answers_params["#{permit_id}"].present?
   end
 
   attr_reader :steps_presenter, :current_step

@@ -4,8 +4,8 @@
 @import "mixins/tables";
 @import "mixins/layouts";
 
-
-.questions-index {
+.questions-index,
+.answers-create {
   color: $navy-blue;
 
   .form-container {
@@ -56,6 +56,10 @@
           align-items: start;
           display: flex;
           justify-content: space-between;
+
+          .error {
+            color: $red;
+          }
         }
 
         .answers {

@@ -17,7 +17,7 @@ class Projects::AnswersController < ApplicationController
         form: form,
       )
       flash.now[:alert] = I18n.t("visits.answers.missing_fileds_error")
-      render :create, status: :unprocessable_entity
+      render template: "projects/questions/index", status: :unprocessable_entity
     end
   end
 

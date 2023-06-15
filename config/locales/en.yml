@@ -1000,6 +1000,8 @@ en:
         alt:
           right_facing_arrow: "A right facing arrow"
     questions:
+      permit:
+        inclusion: "must make a choice"
       file:
         cross_icon: "cross icon"
       index:
