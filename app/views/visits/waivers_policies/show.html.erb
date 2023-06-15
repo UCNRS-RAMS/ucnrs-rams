@@ -1,38 +1,38 @@
 <% content_for(:title) { t(".title") } %>
 <%= render partial: "visits/steps", locals: { presenter: @presenter } %>
 
-<section class="visits-form form-container">
+<section class="waivers-policies-form form-container">
   <header>
     <h1><%= t(".title")%></h1>
   </header>
+  <section class="waivers form-subsection">
+    <header>
+      <h2><%= t(".waivers_information") %></h2>
+    </header>
+    <%= turbo_frame_tag "policy-waivers", src: reserve_waivers_path(@form.reserve.id) %>
+    <p><%= t(".note") %></p>
+  </section>
   <%= form_with model: @form, url: visit_waivers_policies_path, method: :put, id: "visits-waivers-form" do |form| %>
     <%= form.hidden_field :id, value: @form.id %>
 
     <div class="agreement-info" data-controller="waivers-policies">
-      <section class="waivers">
-        <header>
-          <h2>Waivers Information</h2>
-        </header>
-        <%= turbo_frame_tag "policy-waivers", src: reserve_waivers_path(@form.reserve.id) %>
-        <p><%= t(".note") %></p>
-      </section>
-      <section class="policy_agreements">
+      <section class="policy_agreements form-subsection">
         <%= render partial: "policy_agreements",
           locals: { policy_agreements: @presenter.reserve_use_agreements, title: t(".reserve_use_agreement") } %>
         <%= render partial: "checkbox", locals: { check: @form.policy_agreement, id: "reserveUseAgreement" } %>
       </section>
-      <section class="policy_agreements">
+      <section class="policy_agreements form-subsection">
         <%= render partial: "policy_agreements",
           locals: { policy_agreements: @presenter.code_of_conduct_agreements, title: t(".code_of_conduct_agreement") } %>
         <%= render partial: "checkbox", locals: { check: @form.policy_agreement, id: "codeOfConductAgreement" } %>
       </section>
-      <section class="policy_agreements">
+      <section class="policy_agreements form-subsection">
         <%= render partial: "policy_agreements",
           locals: { policy_agreements: @presenter.data_management_agreements, title: t(".data_management_agreement") } %>
         <%= render partial: "checkbox", locals: { check: @form.policy_agreement, id: "dataManagementAgreement" } %>
       </section>
 
-      <section id="policy-agreements-agree-all">
+      <section id="policy-agreements-agree-all" class="form-subsection">
         <div class="agree-all">
           <%= t(".agree") %>
           <div class="checkbox">

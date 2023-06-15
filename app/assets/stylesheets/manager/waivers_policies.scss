@@ -1,161 +1,146 @@
 @import "variables";
 @import "mixins/summary";
-@import "mixins/date_fields";
-@import "mixins/form";
 @import "mixins/controls";
-@import "mixins/tables";
+@import "mixins/layouts";
 
-.waivers_policies-show,
-.waivers_policies-update {
-  .container {
-    display: block;
-    @include form;
+.manager.waivers_policies-show,
+.manager.waivers_policies-update {
+  @include controls;
 
-    section {
-      color: $navy-blue;
-      padding: 0 $form-page-gutter;
+  color: $navy-blue;
+  font-size: 0.875rem;
 
-      h1 {
-        font-size: 2.25rem;
-        font-weight: $semi-bold;
-        line-height: 2.75rem;
-      }
+  main > .container {
+    max-width: unset;
+  }
+
+  .form-container {
+    @include projects-visits-form-container;
+  }
+
+  .waivers-policies-form {
+    @include projects-visits-form-layout;
+  }
+
+  .reserve-waivers {
+    h2 {
+      font-size: 0.9375rem;
+      font-weight: $semi-bold;
+      margin: 0;
     }
+  }
 
-    .agreement-info {
-      padding: 0;
-      .reserve-waivers {
-        h2 {
-          font-size: 0.9375rem;
-          font-weight: $semi-bold;
-          margin: 0;
-        }
+  .agreement-info {
+    .policy-agreement {
+      margin-bottom: 1.125rem;
+
+      header > h3 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+        margin-top: 0.5rem;
       }
 
-      .policy {
+      .description {
         display: flex;
         justify-content: space-between;
 
+        p:first-of-type {
+          margin-top: 0;
+        }
+
         .agreement-logo {
-          max-width: 250px;
-          max-height: 200px;
+          margin-left: 1rem;
+          max-height: 100px;
         }
-      }
-
-      .agree-all {
-        background: $gold;
-        display: flex;
-        margin-top: 3rem;
-        padding: 2px 30px;
-
-        .checkbox {
-          background-color: $light-gray;
-          border-radius: 12px;
-          display: flex;
-          height: fit-content;
-          margin: auto 0;
-          padding: 10px;
-          width: 20rem;
-
-          label {
-            font-size: 0.813rem;
-            margin: auto 0;
-            padding-left: 5px;
-          }
-        }
-      }
-
-      .agree {
-        display: flex;
-        background-color: $light-gray;
-        flex-direction: row;
-        height: 51px;
-        padding-left: 10px;
-
-        input[type="checkbox"] {
-          height: 16px;
-          margin: auto 0;
-          width: 16px;
-        }
-
-        label {
-          color: $navy-blue;
-          font-size: 0.813rem;
-          font-family: Sora;
-          height: 23px;
-          letter-spacing: 0;
-          line-height: 23px;
-          margin: auto 0;
-          padding-left: 10px;
-          width: 296px;
-
-          .require {
-            display: none;
-          }
-        }
-      }
-
-      .agree-error {
-        display: flex;
-        background-color: $light-red;
-        flex-direction: row;
-        height: 51px;
-        padding-left: 10px;
-
-        input[type="checkbox"] {
-          height: 16px;
-          margin: auto 0;
-          width: 16px;
-        }
-
-        label {
-          color: $navy-blue;
-          font-size: 0.813rem;
-          font-family: Sora;
-          height: 23px;
-          letter-spacing: 0;
-          line-height: 23px;
-          margin: auto 0;
-          padding-left: 10px;
-          width: 296px;
-
-          .require {
-            display: inline;
-            color: $red;
-          }
-        }
-      }
-      .signature {
-        display: flex;
-        justify-content: center;
-        padding: 10px;
-      }
-
-      h1 {
-        font-size: 2.25rem;
-        font-weight: $semi-bold;
-      }
-
-      h2 {
-        font-size: 1.5rem;
-        font-weight: $bold;
-      }
-
-      .policy-link {
-        color: $sky-blue;
-        display: block;
-        font-weight: bold;
-        font-size: 0.813rem;
-        height: 18px;
-        line-height: 18px;
-        letter-spacing: 0;
-        margin: 10px 0;
-        text-decoration: none;
       }
     }
-  }
-}
 
-.waivers-list {
-  padding: 0 400px;
+    .agree-all {
+      align-items: center;
+      background: $gold;
+      border-radius: $border-radius;
+      display: flex;
+      padding: 15px 10px;
+
+      .checkbox {
+        background-color: $light-gray;
+        border-radius: $border-radius;
+        display: flex;
+        height: fit-content;
+        margin: 0 0 0 1rem;
+        padding: 10px;
+        width: 20rem;
+
+        label{
+          font-size: 0.813rem;
+          margin: auto 0;
+          padding-left: 5px;
+        }
+      }
+    }
+
+    .agree,
+    .agree-error {
+      display: flex;
+      border-radius: $border-radius;
+      flex-direction: row;
+      padding: 10px;
+
+      input[type="checkbox"] {
+        height: 16px;
+        margin: auto 0;
+        width: 16px;
+      }
+
+      label {
+        color: $navy-blue;
+        font-size: 0.813rem;
+        height: 23px;
+        letter-spacing: 0;
+        line-height: 23px;
+        margin: auto 0;
+        padding-left: 10px;
+        width: 296px;
+      }
+    }
+
+    .agree {
+      background-color: $light-gray;
+
+      label {
+        .require{
+          display: none;
+        }
+      }
+    }
+
+    .agree-error {
+      background-color: $light-red;
+
+      label {
+        .require{
+          display: inline-block;
+          color: $red;
+        }
+      }
+    }
+
+    .signature {
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .policy-link {
+      color: $sky-blue;
+      display: block;
+      font-weight: bold;
+      font-size: 0.813rem;
+      height: 18px;
+      line-height: 18px;
+      letter-spacing: 0;
+      margin: 10px 0;
+      text-decoration: none;
+    }
+  }
 }

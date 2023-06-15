@@ -1,82 +1,41 @@
 @import "variables";
 @import "mixins/summary";
-@import "mixins/date_fields";
-@import "mixins/form";
 @import "mixins/controls";
-@import "mixins/tables";
+@import "mixins/layouts";
 
 .waivers_policies-show,
 .waivers_policies-update {
+  @include controls;
+
   color: $navy-blue;
+  font-size: 0.875rem;
 
   .form-container {
-    box-sizing: border-box;
-    margin:0 auto;
-    max-width: 950px;
-    padding: 0 10px;
-    width: 100%;
+    @include projects-visits-form-container;
   }
 
-  section.visits-form {
-    flex: 1;
-    font-size: 14px;
+  .waivers-policies-form {
+    @include projects-visits-form-layout;
+  }
 
-    form {
-      @include form;
-    }
-
-    header {
-      h1 {
-        color: $navy-blue;
-        font-size: 2.25rem;
-        font-weight: $semi-bold;
-        line-height: 2.75rem;
-      }
-    }
-
-    section.form-subsection,
-    div.form-subsection {
-      margin-bottom: 3rem;
-    }
-
-    section.form-subsection > header,
-    section.form-subsection > * > header {
-      margin-bottom: 1rem;
-
-      h2 {
-        margin: 0;
-      }
-
-      > span {
-        color: $dark-bluegray;
-        font-size: 0.875rem;
-      }
-    }
-
+  .reserve-waivers {
     h2 {
-      color: $navy-blue;
-      font-size: 1.5rem;
+      font-size: 0.9375rem;
       font-weight: $semi-bold;
-
-      span {
-        color: $dark-bluegray;
-        font-size: 1.25rem;
-        font-weight: $normal;
-        margin-left: 30px;
-      }
+      margin: 0;
     }
   }
 
   .agreement-info {
-    .reserve-waivers {
-      h2 {
-        font-size: 0.9375rem;
-        font-weight: $semi-bold;
-        margin: 0;
-      }
-    }
-
     .policy-agreement {
+      margin-bottom: 1.125rem;
+
+      header > h3 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+        margin-top: 0.5rem;
+      }
+
       .description {
         display: flex;
         justify-content: space-between;
@@ -180,8 +139,4 @@
       text-decoration: none;
     }
   }
-}
-
-.waivers-list {
-  padding: 0 400px;
 }

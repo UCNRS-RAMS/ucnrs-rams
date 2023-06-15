@@ -1,9 +1,9 @@
-<div class="policy-agreement">
+<section class="policy-agreement">
   <header>
     <h3><%= policy_agreement.title %></h3>
   </header>
   <div class="description">
-    <div><%= simple_format policy_agreement.description %></div>
+    <%= simple_format policy_agreement.description %>
     <%= image_tag(policy_agreement.image_url, class: "agreement-logo") if policy_agreement.image_url.present? %>
   </div>
 
@@ -13,4 +13,4 @@
       <%= policy_agreement.policy_link_text %>
     <% end %>
   <% end %>
-</div>
+</section>
