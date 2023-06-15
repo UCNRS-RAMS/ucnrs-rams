@@ -584,6 +584,7 @@ en:
           reserve use. Know and abide by University of California Natural Reserve System,
           and reserve specific rules and regulations."
         title: "Waivers and Policies"
+        waivers_information: "Waivers Information"
         agree: "I have read and agree to abide by the use policies listed above and any
           reserve-specific policies appended to this application, and am aware that it is my
           responsibility to disseminate this information to all members of my party."
@@ -670,8 +671,8 @@ en:
       sidebar_next_steps: "Unfortunately, your visit request was denied."
       reason: "Reason"
       reason_text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent congue augue ac nisi dapibus,
-                    non tempus tortor lacinia. Quisque sed tortor vitae arcu consequat eleifend. Donec pellentesque
-                    ornare est, eu condimentum leo sollicitudin ut. Nullam ut dui lectus."
+        non tempus tortor lacinia. Quisque sed tortor vitae arcu consequat eleifend. Donec pellentesque
+        ornare est, eu condimentum leo sollicitudin ut. Nullam ut dui lectus."
       edit_visit_request: "Edit Visit request."
       edit_project: "Edit Project"
       contact_us: "Contact Use"
@@ -1294,9 +1295,15 @@ en:
         checkbox:
           yes_agree: "Yes, I agree"
         show:
-          note: "Please note if your application is approved, you will be required to abide by the following policies. Failure to comply may lead to denial or termination of reserve use. Know and abide by University of California, Natural Reserve System, and reserve specific rules and regulations."
+          note: "Please note if your application is approved, you will be required to abide by the
+            following policies. Failure to comply may lead to denial or termination of reserve use.
+            Know and abide by University of California, Natural Reserve System, and reserve
+            specific rules and regulations."
           title: "Waivers and Policies"
-          agree: "I have read and agree to abide by the use policies listed above and any reserve-specific policies appended to this application, and am aware that it is my responsibility to disseminate this information to all members of my party."
+          waivers_information: "Waivers Information"
+          agree: "I have read and agree to abide by the use policies listed above and any
+            reserve-specific policies appended to this application, and am aware that it is my
+            responsibility to disseminate this information to all members of my party."
           signature: "* Checking the box is equivalent to your signature"
           check_button: "Check to Agree"
           back: "Go Back"
