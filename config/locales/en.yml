@@ -640,6 +640,10 @@ en:
         labels:
           special_needs: "Special Needs"
           study_area: "Study Area"
+          study_area_description: "If known please provide a general description of the geographic
+            area in which the data is being collected for the entire project. It can be a simple
+            place name or a full description. This information helps the reserve staff manage
+            the different class and research activities on the reserve."
     show:
       successfully_cancelled: "Visit Successfully Cancelled"
       could_not_cancel: "Could Not Cancel"
@@ -722,11 +726,6 @@ en:
     user_visit:
       group_name: "Group of %{count}"
       group_name_and_user_role: "Group of %{count} %{user_role}"
-  reserve_inputs:
-    show:
-      labels:
-        special_needs: "Special Needs"
-        study_area: "Study Area"
   password:
     change_password: "Change Password"
     new:
