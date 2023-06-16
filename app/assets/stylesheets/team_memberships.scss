@@ -9,78 +9,11 @@
   color: $navy-blue;
 
   .form-container {
-    box-sizing: border-box;
-    margin:0 auto;
-    max-width: 950px;
-    padding: 0 10px;
-    width: 100%;
+    @include projects-visits-form-container;
   }
 
   .add-user-form {
-    flex: 1;
-
-    form {
-      @include form;
-    }
-
-    header {
-      h1 {
-        color: $navy-blue;
-        font-size: 2.25rem;
-        font-weight: $semi-bold;
-        line-height: 2.75rem;
-      }
-    }
-
-    section.form-subsection,
-    div.form-subsection {
-      margin-bottom: 3rem;
-    }
-
-    section.form-subsection > header,
-    section.form-subsection > :not(section) > header {
-      margin-bottom: 1rem;
-
-      h2 {
-        margin: 0;
-      }
-
-      > span {
-        color: $dark-bluegray;
-        font-size: 0.875rem;
-      }
-    }
-
-    h2 {
-      color: $navy-blue;
-      font-size: 1.5rem;
-      font-weight: $semi-bold;
-
-      span {
-        color: $dark-bluegray;
-        font-size: 1.25rem;
-        font-weight: $normal;
-        margin-left: 30px;
-      }
-    }
-
-    section.uneditable-visit-project-info {
-      border-left: 3px solid $navy-blue;
-      padding-left: 1rem;
-
-      h3 {
-        font-size: 1rem;
-        font-weight: $bold;
-        margin: 0;
-      }
-
-      p {
-        color: $dark-bluegray;
-        font-size: 0.75rem;
-        font-weight: $normal;
-        margin-top: 0.5rem;
-      }
-    }
+    @include projects-visits-form-layout;
 
     form {
       #project-role-select {
