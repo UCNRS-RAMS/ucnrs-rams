@@ -2674,6 +2674,12 @@ en:
       team_memberships:
         form:
           add_team_member_title: "Add a Team Member"
+          add_team_member_description: "Team members are unique individuals that you would like
+            to define by their name and to give specific access permissions to editing or adding
+            to your project or visit. Adding these individuals here also helps the user add them
+            to future visits. A team member is not intended to be used to add groups of people or
+            guests (which is done when adding a visit) but intended for repeat user or users
+            requiring specific authorization within RAMS."
           cannot_find_them: "Can't find them?"
           create_new_user: "Create new user"
           search_by_name: "Search by name"

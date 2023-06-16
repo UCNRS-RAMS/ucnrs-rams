@@ -32,16 +32,19 @@
   }
 
   section.form-subsection > header,
-  section.form-subsection > :not(section) > header {
-    margin-bottom: 1rem;
+  section.form-subsection > :not(section) > header,
+  section.form-subsection > :not(section) > turbo-frame > header {
+    margin-bottom: 1.25rem;
+    margin-top: 1rem;
 
     h2 {
-      margin: 0;
+      margin-bottom: 0;
+      margin-top: 0;
     }
 
     > span {
       color: $dark-bluegray;
-      font-size: 0.875rem;
+      font-size: 0.8125rem;
     }
   }
 
