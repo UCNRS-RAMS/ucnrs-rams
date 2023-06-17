@@ -1,18 +1,15 @@
 <turbo-frame id="funding-table">
-  <section data-scroll-target="scrollPosition" class="funding-table-section" >
-    <h2><%= t(".project_funding") %></h2>
-    <table class="funding-table">
-      <thead>
-        <tr>
-          <th><%= t(".title") %></th>
-          <th><%= t(".funding_agency") %></th>
-          <th><%= t(".award_amount") %></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= render partial: "shared/projects/fundings/funding", collection: presenter.fundings %>
-      </tbody>
-    </table>
-  </section>
+  <table class="funding-table">
+    <thead>
+      <tr>
+        <th><%= t(".title") %></th>
+        <th><%= t(".funding_agency") %></th>
+        <th><%= t(".award_amount") %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "shared/projects/fundings/funding", collection: presenter.fundings %>
+    </tbody>
+  </table>
 </turbo-frame>

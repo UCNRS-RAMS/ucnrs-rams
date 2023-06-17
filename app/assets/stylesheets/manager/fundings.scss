@@ -1,0 +1,46 @@
+@import "variables";
+@import "mixins/form";
+@import "mixins/tables";
+@import "mixins/date_fields";
+@import "mixins/layouts";
+
+.manager.fundings-index,
+.manager.fundings-create,
+.manager.complete-update {
+  color: $navy-blue;
+
+  @include controls;
+
+  main > .container {
+    max-width: unset;
+  }
+
+  .form-container {
+    @include projects-visits-form-container;
+  }
+
+  .add-funding-form {
+    @include projects-visits-form-layout;
+
+    .funding-table {
+      @include table-style1;
+    }
+  }
+
+  .add-funding-form form,
+  .modal form {
+    [data-value-projection-projected-value] .sponsor_other {
+      display: none;
+    }
+
+    [data-value-projection-projected-value="other"] .sponsor_other {
+      display: inherit;
+    }
+  }
+
+  #project-details {
+    .fundings-index {
+      padding: 0px;
+    }
+  }
+}

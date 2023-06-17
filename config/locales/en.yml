@@ -1043,6 +1043,7 @@ en:
         add_funding_title: "Add Funding Information"
         next_step: "Save Project & Submit"
         add_funding_submit: "Add Funding Information"
+        project_funding: "Project Funding"
         back: "Go Back"
         alt:
           right_facing_arrow: "Right-facing arrow"
@@ -1595,6 +1596,7 @@ en:
           add_funding_title: "Add Funding Information"
           next_step: "Save Project & Submit"
           add_funding_submit: "Add Funding Information"
+          project_funding: "Project Funding"
           back: "Go Back"
           alt:
             right_facing_arrow: "Right-facing arrow"
@@ -2893,7 +2895,6 @@ en:
           alt:
             right_facing_arrow: "Right-facing arrow"
         funding_table:
-          project_funding: "Project Funding"
           title: "Title"
           funding_agency: "Funding Agency"
           award_amount: "Award Amount"
