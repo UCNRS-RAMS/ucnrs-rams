@@ -21,18 +21,21 @@
       <% end %>
     </div>
   </section>
-  <div class="form-subsection form-container">
+  <section data-scroll-target="scrollPosition" class="funding-table-section form-subsection form-container" >
+    <header>
+      <h2><%= t(".project_funding") %></h2>
+    </header>
     <%= render partial: "shared/projects/fundings/funding_table", locals: { presenter: @presenter } %>
-  </div>
+  </section>
 </section>
 
 <section class="controls">
   <%= link_to project_questions_path(@presenter.project) do %>
-    <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t(".alt.left_facing_arrow")  %>
+    <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t("alt.left_facing_arrow")  %>
     <%= t(".back") %>
   <% end %>
   <%= button_to project_complete_path(@presenter.project), method: :patch, class: "active" do %>
     <%= t(".next_step") %>
-    <%= image_tag "arrow-right.svg", alt: t(".alt.right_facing_arrow") %>
+    <%= image_tag "arrow-right.svg", alt: t("alt.right_facing_arrow") %>
   <% end %>
 </section>
