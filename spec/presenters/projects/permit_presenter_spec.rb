@@ -2,13 +2,13 @@ require "rails_helper"
 
 RSpec.describe Projects::PermitPresenter do
   describe "delegations" do
-    subject { Projects::PermitPresenter.new(build(:permit)) }
+    subject { Projects::PermitPresenter.new(permit: build(:permit)) }
     it { is_expected.to delegate_missing_methods_to(:permit) }
   end
 
   describe "#render_values" do
     it "is a hash containing a path to the partial and locals" do
-      presenter = Projects::PermitPresenter.new(build_stubbed(:permit))
+      presenter = Projects::PermitPresenter.new(permit: build_stubbed(:permit))
 
       expect(presenter.render_values).to eq ({
         partial: "projects/questions/permit",
@@ -28,7 +28,7 @@ RSpec.describe Projects::PermitPresenter do
         url3: "www.foo3.com",
         url3_description: "Foo 3",
       )
-      presenter = Projects::PermitPresenter.new(permit)
+      presenter = Projects::PermitPresenter.new(permit: permit)
 
       expect(presenter.urls).to include(
         "www.foo1.com" => "Foo 1",
@@ -47,7 +47,7 @@ RSpec.describe Projects::PermitPresenter do
         url3: "www.foo3.com",
         url3_description: "Foo 3",
       )
-      presenter = Projects::PermitPresenter.new(permit)
+      presenter = Projects::PermitPresenter.new(permit: permit)
 
       expect(presenter.urls).to include(
         "www.foo1.com" => "Foo 1",
@@ -61,7 +61,7 @@ RSpec.describe Projects::PermitPresenter do
       permit = create(:permit)
       mock_permit_answer(permit, "1")
 
-      presenter = Projects::PermitPresenter.new(permit)
+      presenter = Projects::PermitPresenter.new(permit: permit)
 
       expect(presenter.answer).to eq "1"
     end
@@ -69,7 +69,7 @@ RSpec.describe Projects::PermitPresenter do
     it "returns '0' if the permit has no answer" do
       permit = create(:permit)
 
-      presenter = Projects::PermitPresenter.new(permit)
+      presenter = Projects::PermitPresenter.new(permit: permit)
 
       expect(presenter.answer).to eq "0"
     end

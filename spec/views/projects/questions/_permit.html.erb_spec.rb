@@ -12,7 +12,7 @@ RSpec.describe "projects/questions/_permit.html.erb", type: :view do
       url2: "https://your-local.library",
       url2_description: "Take a look!"
     )
-    presenter = Projects::PermitPresenter.new(permit)
+    presenter = Projects::PermitPresenter.new(permit: permit)
 
     render partial: "projects/questions/permit", locals: { permit: presenter }
 
