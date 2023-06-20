@@ -2,10 +2,6 @@
 @import "mixins/tables";
 
 .manager.reports {
-  .content {
-    margin-top: 3rem;
-  }
-
   .content > header {
     font-size: 2.5rem;
     font-weight: $light;
