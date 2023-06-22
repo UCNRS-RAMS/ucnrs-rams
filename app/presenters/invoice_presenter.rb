@@ -8,11 +8,9 @@ class InvoicePresenter
   attr_reader :invoice
 
   delegate :id, :modify_number, :amenity_visits, :invoice_payments, :status, :balance_due, to: :invoice
-  delegate :id, to: :visit, prefix: true
+  delegate :id, :user_id, to: :visit, prefix: true
   delegate :reserve_id, :reserve, to: :visit
-  delegate :reserve_name, to: :visit, allow_nil: true
-  delegate :project_title, to: :visit, allow_nil: true
-  delegate :user_full_name, to: :visit, allow_nil: true
+  delegate :reserve_name, :project_title, :project_id, :user_full_name, to: :visit, allow_nil: true
 
   def invoice_id
     "#{id}-#{modify_number}"
@@ -23,7 +21,12 @@ class InvoicePresenter
   end
 
   def amenity_visit_dates
-    DateRangePresenter.value(start_date: amenity_visits.earliest_arrives_date.to_date, end_date: amenity_visits.latest_departs_date.to_date) if amenity_visits.present?
+    if amenity_visits.present?
+      DateRangePresenter.value(
+        start_date: amenity_visits.earliest_arrives_date.to_date,
+        end_date: amenity_visits.latest_departs_date.to_date,
+      )
+    end
   end
 
   def manager_show_path

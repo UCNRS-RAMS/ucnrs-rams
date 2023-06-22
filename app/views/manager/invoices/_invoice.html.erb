@@ -1,8 +1,8 @@
 <tr class="invoice" id="<%= "invoice-#{ invoice.id }" %>">
   <td><%= invoice.invoice_id %></td>
   <td><%= invoice.invoiced_on %></td>
-  <td><%= invoice.user_full_name %></td>
-  <td><%= invoice.project_title %></td>
+  <td><%= link_to invoice.user_full_name, edit_manager_reserve_user_path(current_reserve, invoice.visit_user_id) %></td>
+  <td><%= link_to invoice.project_title, manager_reserve_project_path(current_reserve, invoice.project_id) %></td>
   <td><%= invoice.amount %></td>
   <td><%= invoice.invoice_status %></td>
   <td>
