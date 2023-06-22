@@ -6,7 +6,7 @@ RSpec.describe Manager::Dashboard::VisitsIndexPresenter do
       reserve = create(:reserve)
       visit1 = create(:visit, reserve: reserve)
       visit2 = create(:visit, reserve: reserve)
-      
+
       presenter = Manager::Dashboard::VisitsIndexPresenter.new(reserve: reserve)
 
       expect(presenter.visits.map(&:id)).to match_array [visit1.id, visit2.id]
@@ -48,6 +48,8 @@ RSpec.describe Manager::Dashboard::VisitsIndexPresenter do
         }
       )
       allow(I18n).to receive(:t)
+        .and_call_original
+      allow(I18n).to receive(:t)
         .with("universal.visit.statuses.status_1_key")
         .and_return("status_1_key_translate")
       allow(I18n).to receive(:t)
@@ -58,7 +60,7 @@ RSpec.describe Manager::Dashboard::VisitsIndexPresenter do
       visit_status_options = presenter.visit_status_options
 
       expect(visit_status_options.to_a).to match_array [
-        ["All", nil],
+        [I18n.t("all"), nil],
         ["status_1_key_translate", "status_1_key"],
         ["status_2_key_translate", "status_2_key"],
       ]
@@ -74,6 +76,8 @@ RSpec.describe Manager::Dashboard::VisitsIndexPresenter do
         }
       )
       allow(I18n).to receive(:t)
+        .and_call_original
+      allow(I18n).to receive(:t)
         .with("universal.project.project_types.project_type_1_key")
         .and_return("project_type_1_key_translate")
       allow(I18n).to receive(:t)
@@ -84,7 +88,7 @@ RSpec.describe Manager::Dashboard::VisitsIndexPresenter do
       visit_project_type_options = presenter.visit_project_type_options
 
       expect(visit_project_type_options.to_a).to match_array [
-        ["All", nil],
+        [I18n.t("all"), nil],
         ["project_type_1_key_translate", "project_type_1_key"],
         ["project_type_2_key_translate", "project_type_2_key"],
       ]
@@ -124,6 +128,7 @@ RSpec.describe Manager::Dashboard::VisitsIndexPresenter do
       report_access_options = presenter.report_access_options
 
       expect(report_access_options.to_a).to match_array [
+        [I18n.t("all"), nil],
         [I18n.t("enabled"), true],
         [I18n.t("disabled"), false],
       ]
@@ -141,7 +146,7 @@ RSpec.describe Manager::Dashboard::VisitsIndexPresenter do
         amenity_options = presenter.amenity_options
 
         expect(amenity_options.to_a).to match_array [
-          ["All", "all"],
+          [I18n.t("all"), "all"],
           [amenity1.title, amenity1.id],
           [amenity2.title, amenity2.id],
         ]
@@ -156,7 +161,7 @@ RSpec.describe Manager::Dashboard::VisitsIndexPresenter do
 
         amenity_options = presenter.amenity_options
 
-        expect(amenity_options.to_a).to match_array [["All", "all"]]
+        expect(amenity_options.to_a).to match_array [[I18n.t("all"), "all"]]
       end
     end
   end
