@@ -7,7 +7,7 @@
   <td class="date-range"><%= visit.requested_date_range %></td>
   <td><%= truncate(visit.purpose_of_visit, length: 50) %></td>
   <td><%= visit.requested_reserve_name %></td>
-  <td><%= visit.applicant_name %></td>
+  <td><%= link_to visit.applicant_name, edit_manager_reserve_user_path(current_reserve, visit.user_id) %></td>
   <td><%= visit.submitted_at %></td>
   <td>
     <%= link_to manager_reserve_visit_invoice_index_path(visit_id: visit.id), method: :get do %>

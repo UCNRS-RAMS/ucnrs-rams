@@ -157,6 +157,10 @@
     }
   }
 
+  a {
+    color: $dark-sky-blue;
+  }
+
   a:not(:last-of-type) {
     display: inline-block;
     margin-right: .5rem;
