@@ -33,13 +33,13 @@ class Manager::Dashboard::VisitsIndexPresenter
       .for_status(visit_status_filter)
       .page(page)
       .per(DEFAULT_LIMIT_FOR_INDEX)
-      .includes([:reserve, :user]) 
+      .includes([:reserve, :user])
   end
 
   def visit_status_options
     Visit
       .statuses
-      .inject({ "All" => nil }) do |memo, (key, value)| 
+      .inject({ I18n.t("all") => nil }) do |memo, (key, value)|
         memo.merge!( I18n.t("universal.visit.statuses.#{key}") => key)
       end
   end
@@ -47,7 +47,7 @@ class Manager::Dashboard::VisitsIndexPresenter
   def visit_project_type_options
     Project
       .project_types
-      .inject({ "All" => nil }) do |memo, (key, value)| 
+      .inject({ I18n.t("all") => nil }) do |memo, (key, value)|
         memo.merge!( I18n.t("universal.project.project_types.#{key}") => key)
       end
   end
@@ -63,11 +63,12 @@ class Manager::Dashboard::VisitsIndexPresenter
     Reserve
       .select(:id, :name)
       .order(:name)
-      .inject({ "All" => nil }) { |memo, reserve| memo.merge!(reserve.name => reserve.id) }
+      .inject({ I18n.t("all") => nil }) { |memo, reserve| memo.merge!(reserve.name => reserve.id) }
   end
 
   def report_access_options
     {
+      I18n.t("all") => nil,
       I18n.t("enabled") => true,
       I18n.t("disabled") => false,
     }
@@ -80,9 +81,9 @@ class Manager::Dashboard::VisitsIndexPresenter
         .where(reserve: reserve_filter)
         .visible
         .in_sort_order
-        .inject({ "All" => "all" }) { |memo, amenity| memo.merge!(amenity.title => amenity.id) }
+        .inject({ I18n.t("all") => "all" }) { |memo, amenity| memo.merge!(amenity.title => amenity.id) }
     else
-      { "All" => "all" }
+      { I18n.t("all") => "all" }
     end
   end
 
