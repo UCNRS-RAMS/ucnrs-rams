@@ -23,7 +23,6 @@ RSpec.describe Project, type: :model do
       it { is_expected.to validate_presence_of(:end_date) }
       it { is_expected.to validate_date(:end_date).is_after(:start_date) }
       it { is_expected.to validate_presence_of(:method_description) }
-      it { is_expected.to validate_presence_of(:method_study_area) }
       it { is_expected.to validate_booleanish_values(:method_remove_organisms) }
       it { is_expected.to validate_booleanish_values(:method_transfer_organisms) }
       it { is_expected.to validate_booleanish_values(:method_study_non_native_species) }
@@ -106,6 +105,7 @@ RSpec.describe Project, type: :model do
       it { is_expected.to validate_presence_of(:start_date) }
       it { is_expected.to validate_presence_of(:end_date) }
       it { is_expected.to validate_date(:end_date).is_after(:start_date) }
+      it { is_expected.to validate_presence_of(:method_description) }
       it { is_expected.to validate_booleanish_values(:method_remove_organisms) }
       it { is_expected.to validate_booleanish_values(:method_transfer_organisms) }
       it { is_expected.to validate_booleanish_values(:method_study_non_native_species) }
@@ -265,7 +265,7 @@ RSpec.describe Project, type: :model do
     end
   end
 
-  it do 
+  it do
     is_expected.to define_enum_for(:status)
       .with_values(
         open: "Open",
@@ -274,7 +274,7 @@ RSpec.describe Project, type: :model do
       ).backed_by_column_of_type(:string)
   end
 
-  it do 
+  it do
     is_expected.to define_enum_for(:project_type)
       .with_values(
         research: "Research",
@@ -307,9 +307,9 @@ RSpec.describe Project, type: :model do
         create(:project_team_membership, project: first_project, user: first_user, active: false)
         create(:project_team_membership, project: second_project, user: second_user, active: true)
         create(:project_team_membership, project: third_project, user: first_user, active: true)
-  
+
         results = Project.with_active_team_member(user: first_user)
-  
+
         expect(results).to match_array [third_project]
       end
     end
@@ -439,7 +439,7 @@ RSpec.describe Project, type: :model do
 
       expect(results).to eq [research_project]
     end
-    
+
     it "returns class projects when the supplied type is 'university_class'" do
       class_project = create(:project, project_type: "Class")
       non_class_project = create(:project, project_type: "Public Use")
@@ -539,7 +539,7 @@ RSpec.describe Project, type: :model do
       date2 = Date.new(1980, 7, 31)
 
       expect(Project).to receive(:having_between_time_for).with({
-          date_range_option: :visit_date_range, 
+          date_range_option: :visit_date_range,
           date_start: date1,
           date_end: date2,
         }).and_return(Project.having_visit_end_date_after(date1).having_visit_start_date_before(date2))
@@ -552,7 +552,7 @@ RSpec.describe Project, type: :model do
       date2 = Date.new(1980, 7, 31)
 
       expect(Project).to receive(:having_between_time_for).with({
-          date_range_option: :invoice_created_at_date_range, 
+          date_range_option: :invoice_created_at_date_range,
           date_start: date1,
           date_end: date2,
         }).and_return(Project.having_invoice_created_start_date_after(date1).having_invoice_created_end_date_before(date2))
@@ -579,7 +579,7 @@ RSpec.describe Project, type: :model do
       visit1 = create(:visit, reserve: reserve1, project: project1)
       visit2 = create(:visit, reserve: reserve2, project: project2)
       visit3 = create(:visit, reserve: reserve1, project: project1)
-      
+
       results = Project.with_visits_at_reserve(reserve1)
 
       expect(results).to eq [project1]

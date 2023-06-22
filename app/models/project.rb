@@ -53,7 +53,6 @@ class Project < ApplicationRecord
     validates :end_date, presence: true
     validates :end_date, must_be_after: :start_date
     validates :method_description, presence: true
-    validates :method_study_area, presence: true
     validates :method_remove_organisms, inclusion: [true, false]
     validates :method_transfer_organisms, inclusion: [true, false]
     validates :method_study_non_native_species, inclusion: [true, false]

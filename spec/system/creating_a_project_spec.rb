@@ -87,7 +87,6 @@ RSpec.describe "Creating a project", type: :system, js: true do
       involves_threatened_endangered_species: nil,
       involves_none: nil,
       method_description: "Method Description",
-      method_study_area: "Method Study Area",
       method_remove_organisms: "Yes",
       method_transfer_organisms: "Yes",
       method_study_non_native_species: "No",
