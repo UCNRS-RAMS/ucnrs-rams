@@ -325,5 +325,9 @@
 .manager {
   .visits-search-list {
     @include pagination;
+
+    header .list-count {
+      font-size: 0.9375rem;
+    }
   }
 }
