@@ -7,7 +7,14 @@
         <%= render partial: "search", locals: { presenter: @presenter } %>
       </section>
       <section class="reserve-info-subsection">
-        <%= render partial: "visits", locals: { presenter: @presenter } %>
+        <header>
+          <span class="list-count">
+            <strong><%= @presenter.visit_scope.total_count %></strong>
+            <%= t(".found", name: t(".visit").pluralize(@presenter.visit_scope.total_count)) %>
+          </span>
+        </header>
+        <%= render partial: "visits", locals: { visits: @presenter.visits } %>
+        <%= paginate @presenter.visit_scope, data: { "turbo-action": "advance" } %>
       </section>
     </section>
   <% end %>

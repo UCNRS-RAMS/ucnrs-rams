@@ -9,7 +9,14 @@
         <%= render partial: "search", locals: { presenter: @presenter } %>
       </section>
       <section class="reserve-info-subsection">
-        <%= render partial: "projects_table", locals: { presenter: @presenter } %>
+        <header>
+          <span class="list-count">
+            <strong><%= @presenter.project_scope.total_count %></strong>
+            <%= t(".found", name: t('.project').pluralize(@presenter.project_scope.total_count)) %>
+          </span>
+        </header>
+        <%= render partial: "projects_table", locals: { projects: @presenter.projects } %>
+        <%= paginate @presenter.project_scope, data: { "turbo-action": "advance" } %>
       </section>
     </section>
   </section>

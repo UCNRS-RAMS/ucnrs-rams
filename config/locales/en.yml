@@ -1524,6 +1524,8 @@ en:
           visits: "Visits"
           date_submitted: "Date Submitted"
           visit_start_date: "Visit Start Date"
+          visit: "Visit"
+          found: "%{name} found."
         search:
           show_options: "Show Options"
           hide_options: "Hide Options"
@@ -1555,6 +1557,8 @@ en:
         project_date_range: "Project Date Range"
         visit_date_range: "Visit Date Range"
         invoice_created_at_date_range: "Invoice Created At Date Range"
+        project: "Project"
+        found: "%{name} found."
         table_headers:
           title: "Title"
           timeframe: "Timeframe"
