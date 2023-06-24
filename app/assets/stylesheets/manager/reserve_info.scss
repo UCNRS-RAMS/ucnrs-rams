@@ -207,7 +207,8 @@
       box-sizing: border-box;
       display: block;
       font-size: 0.8125rem;
-      padding: 0.625rem;
+      height: 2rem;
+      padding: 0.25rem 0.625rem;
       width: 100%;
     }
 
@@ -366,7 +367,7 @@
     .form-textarea {
       background-color: $white;
       border: 1px solid $gray;
-      border-radius: 0.3125rem;
+      border-radius: 3px;
       box-sizing: border-box;
       min-height: 6rem;
       padding: 0.625rem;
@@ -377,10 +378,11 @@
     .form-input {
       background-color: $white;
       border: 1px solid $gray;
-      border-radius: 0.3125rem;
+      border-radius: 3px;
       box-sizing: border-box;
       display: block;
-      padding: 0.625rem;
+      height: 2rem;
+      padding: 0.25rem 0.625rem;
       width: 100%;
     }
 
