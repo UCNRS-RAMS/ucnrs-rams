@@ -49,7 +49,7 @@ class ProjectShowPresenter
   end
 
   def sidebar_partial
-    open? ? "projects/completed_project_sidebar" : "projects/incomplete_project_sidebar" 
+    open? ? "projects/completed_project_sidebar" : "projects/incomplete_project_sidebar"
   end
 
   def method_remove_organisms_statement
@@ -75,7 +75,7 @@ class ProjectShowPresenter
   def method_long_term_structures_statement
     I18n.t("projects.show.method_long_term_structures") if method_long_term_structures
   end
-  
+
   def team_memberships
     project_team_memberships
       .is_active
@@ -147,5 +147,9 @@ class ProjectShowPresenter
       involves << I18n.t("projects.show.endangered") if involves_threatened_endangered_species
       involves << I18n.t("projects.show.species_of_special_concern") if involves_threatened_endangered_species
     end.flatten
+  end
+
+  def not_applicable
+    I18n.t("not_applicable")
   end
 end
