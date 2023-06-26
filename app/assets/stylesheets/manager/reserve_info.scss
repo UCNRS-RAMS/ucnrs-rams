@@ -139,7 +139,13 @@
     }
   }
 
-  .avatar-img {
+  table.personnel-table .avatar-img {
+    height: 60px;
+    border-radius: 50px;
+    width: 60px;
+  }
+
+  #modal .avatar-img {
     border-radius: 50px;
   }
 }
