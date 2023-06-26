@@ -106,11 +106,10 @@
 
 .visits-show {
   .visit.container {
-    display: flex;
-    margin: 0 auto;
-    max-width: 1300px;
-
     @include summary;
+
+    display: flex;
+    flex-direction: row;
 
     .content {
       .summary-header {

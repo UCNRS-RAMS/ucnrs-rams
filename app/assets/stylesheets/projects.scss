@@ -279,11 +279,13 @@
   background: linear-gradient(270deg, $white 50%, $light-gray 50%);
 }
 
-.container {
+.project.container {
   @include summary;
 
-  .content {
+  display: flex;
+  flex-direction: row;
 
+  .content {
     .project-summary {
       margin-bottom: 3rem;
     }
