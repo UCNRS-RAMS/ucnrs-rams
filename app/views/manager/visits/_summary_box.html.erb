@@ -1,67 +1,67 @@
-<%= turbo_frame_tag :visit_summary_box  do %>
-  <section class="visit-summary-box">
-    <div class="display-flex">
-      <div class="info-block">
-        <div class="w-200">
-          <p><%= t(".number") %></p>
-          <p class="title"><%= presenter.id %></p>
-        </div>
-        <div>
-          <p> <%= t('.reserve') %></p>
-          <p class="title"><%= presenter.requested_reserve_name %></p>
-        </div>
-      </div>
-      <div class="info-block" id="status_and_trash_btn" >
-          <%= link_to manager_reserve_visit_invoice_index_path(visit_id: presenter.id), method: :get, id: "trash-icon" do %>
-            <%= image_tag "icons-trash-can.svg", height: "24px", width: "24px"%>
-          <% end %>
-        <%= render partial: "manager/visits/tab", locals: presenter.tab_params(
-              id: "summary",
-              path: manager_reserve_visit_summary_path(visit_id: presenter.id),
-              classes: presenter.status_classes,
-              action_method: "selectTab",
-              name: presenter.status) %>
-      </div>
-    </div>
-    <div class="info-block display-flex">
-      <div >
-        <p><%= t('.project_title') %></p>
-        <p class="title"><%= presenter.project_title %></p>
-      </div>
-      <div >
-        <p class="text-center"><%= t('.visit_dates') %></p>
-        <p class="title">
-          <%= presenter.visit_date_range %>
-        </p>
-      </div>
-      <div>
-        <%= render partial: "manager/visits/icon_links", locals: { path: "#", icon_name: "calendar.svg" } %>
-        <%= render partial: "manager/visits/icon_links", locals: { path: "#", icon_name: "ical.svg" } %>
-      </div>
-    </div>
+<%= turbo_frame_tag :visit_summary_box do %>
+  <div class="display-flex">
     <div class="info-block">
       <div class="w-200">
-        <p><%= t('.date_submitted') %></p>
-        <p class="title"><%= presenter.submitted_date %></p>
+        <p><%= t(".number") %></p>
+        <p class="title"><%= presenter.id %></p>
       </div>
-      <div class="w-200">
-        <p><%= t('.applicant') %></p>
-        <p class="title"><%= presenter.user_full_name %></p>
-      </div>
-      <div class="w-200">
-        <p><%= t('.visit_type') %></p>
-        <p class="title"><%= presenter.project_type %></p>
-      </div>
-      <div class="w-200">
-        <p><%= t('.visitors') %></p>
-        <p class="title"><%= presenter.visitor_count %></p>
-      </div>
-      <div class="w-200 ">
-        <p><%= t('.amenities') %></p>
-        <p class="title"><%= presenter.amenity_count %></p>
+      <div>
+        <p> <%= t('.reserve') %></p>
+        <p class="title"><%= presenter.requested_reserve_name %></p>
       </div>
     </div>
-  </section>
+    <div class="info-block" id="status_and_trash_btn" >
+      <%= link_to manager_reserve_visit_invoice_index_path(visit_id: presenter.id), method: :get, id: "trash-icon" do %>
+        <%= image_tag "icons-trash-can.svg", height: "24px", width: "24px"%>
+      <% end %>
+      <%= render partial: "manager/visits/tab", locals: presenter.tab_params(
+        id: "summary",
+        path: manager_reserve_visit_summary_path(visit_id: presenter.id),
+        classes: presenter.status_classes,
+        action_method: "selectTab",
+        name: presenter.status)
+      %>
+    </div>
+  </div>
+  <div class="info-block display-flex">
+    <div >
+      <p><%= t('.project_title') %></p>
+      <p class="title"><%= presenter.project_title %></p>
+    </div>
+    <div >
+      <p class="text-center"><%= t('.visit_dates') %></p>
+      <p class="title">
+        <%= presenter.visit_date_range %>
+      </p>
+    </div>
+    <div>
+      <%= render partial: "manager/visits/icon_links", locals: { path: "#", icon_name: "calendar.svg" } %>
+      <%= render partial: "manager/visits/icon_links", locals: { path: "#", icon_name: "ical.svg" } %>
+    </div>
+  </div>
+  <div class="info-block">
+    <div class="w-200">
+      <p><%= t('.date_submitted') %></p>
+      <p class="title"><%= presenter.submitted_date %></p>
+    </div>
+    <div class="w-200">
+      <p><%= t('.applicant') %></p>
+      <p class="title"><%= presenter.user_full_name %></p>
+    </div>
+    <div class="w-200">
+      <p><%= t('.visit_type') %></p>
+      <p class="title"><%= presenter.project_type %></p>
+    </div>
+    <div class="w-200">
+      <p><%= t('.visitors') %></p>
+      <p class="title"><%= presenter.visitor_count %></p>
+    </div>
+    <div class="w-200 ">
+      <p><%= t('.amenities') %></p>
+      <p class="title"><%= presenter.amenity_count %></p>
+    </div>
+  </div>
+
   <% if notice.present? %>
     <p class="notice"><%= notice %></p>
   <% end %>

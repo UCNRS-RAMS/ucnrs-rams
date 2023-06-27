@@ -1,12 +1,15 @@
 <turbo-frame id="visit-summary-edit">
-  <div class="summary section-spacing" data-controller="summary-tab">
-    <%= form_with model: @presenter.form, url: manager_reserve_visit_summary_path(@presenter.reserve.id, @presenter.visit.id), method: :put do |form| %>
+  <section class="visit-summary-edit" data-controller="summary-tab">
+    <%= form_with model: @presenter.form,
+      url: manager_reserve_visit_summary_path(@presenter.reserve, @presenter.visit),
+      method: :put do |form|
+    %>
       <%= render partial: "status_bar", locals: { form: form, presenter: @presenter } %>
       <%= render partial: "email_notification", locals: { form: form, presenter: @presenter } %>
-      <div class="d-flex-end">
+      <div class="form-end">
         <%= form.submit t(".update_status") %>
       </div>
     <% end %>
-  </div>
+  </section>
 </turbo-frame>
 

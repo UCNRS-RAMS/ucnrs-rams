@@ -1,7 +1,11 @@
-<section class="container">
-  <section class="content" data-controller="tab-bar">
+<section class="content" data-controller="tab-bar">
+  <section class="visit-summary-box">
     <%= render partial: "manager/visits/summary_box", locals: { presenter: @presenter } %>
-      <%= render "manager/visits/menu", presenter: @presenter %>
-      <%= turbo_frame_tag "visit-details", src: @presenter.tab_content_path %>
   </section>
+  <section>
+    <%= render partial: "manager/visits/menu", locals: { presenter: @presenter } %>
+  </section>
+
+  <%= turbo_frame_tag "visit-details", src: @presenter.tab_content_path %>
 </section>
+

@@ -1,10 +1,15 @@
-<div class="d-flex p-bottom">
+<section class="status-bar">
   <div class="visit-status">
-    <%= render partial: "status_btn", locals: { context: "approved", form: form, presenter: presenter, img: "check.svg", action: "click->summary-tab#approvedStatusEmailMessage" } %>
+    <%= render partial: "status_btn",
+      locals: {
+        context: "approved", form: form, presenter: presenter,
+        img: "check.svg", action: "click->summary-tab#approvedStatusEmailMessage"
+      }
+    %>
     <%= form.hidden_field :id  %>
     <%= render partial: "status_btn", locals: { context: "in_review", form: form, presenter: presenter, img: "clock.svg", action: "click->summary-tab#clearField" } %>
     <%= render partial: "status_btn", locals: { context: "cancelled", form: form, presenter: presenter, img: "x-circle.svg", action: "click->summary-tab#clearField" } %>
     <%= render partial: "status_btn", locals: { context: "denied", form: form, presenter: presenter, img: "x.svg", action: "click->summary-tab#clearField" } %>
   </div>
   <%= render partial: "update_btn", locals: { form: form } %>
-</div>
+</section>

@@ -1,102 +1,165 @@
 @import "variables";
-@import "mixins/date_fields";
-@import "mixins/form";
-@import "mixins/controls";
-@import "mixins/summary";
 @import "mixins/tables";
-@import "mixins/search";
-@import "mixins/pagination";
 
-@include controls;
+.visit-summary-edit {
+  background-color: lighten($bluegray, 35%);
+  font-size: 0.875rem;
+  margin-bottom: 3rem;
+  padding: 30px;
 
-.visits-show {
-  .d-flex {
+  .space-between {
     align-items: center;
     display: flex;
     justify-content: space-between;
   }
 
-  .d-flex-end {
+  .form-end {
     display: flex;
     justify-content: end;
   }
 
-  .p-bottom {
-    padding: 0px 0px 25px 0px;
+  .status-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 3rem;
   }
 
-  .label {
-    color: $dark-bluegray;
-    display: inline;
-    font-size: 0.625rem;
-    font-weight: $bold;
-  }
+  .visit-status {
+    border-radius: 20px;
+    display: flex;
 
-  .left-spacer {
-    padding-left: 10px;
-  }
+    label:nth-child(2) {
+      border-bottom-left-radius: 20px;
+      border-top-left-radius: 20px;
+    }
 
-  .summary {
-    background-color: lighten($bluegray, 35%);
-    padding: 30px ;
+    label:last-child {
+      border-bottom-right-radius: 20px;
+      border-top-right-radius: 20px;
+    }
 
-    .visit-status {
-      border-radius: 20px;
-      display: flex;
+    .h-input {
+      display: none;
+    }
 
-      label:nth-child(2) {
-        border-bottom-left-radius: 20px;
-        border-top-left-radius: 20px;
-      }
+    .tab {
+      border: solid 1px $black;
+      padding: 10px 30px;
 
-      label:last-child {
-        border-bottom-right-radius: 20px;
-        border-top-right-radius: 20px;
-      }
+      > div {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
 
-      .h-input {
-        display: none;
-      }
-
-      .tab {
-        border: solid 1px $black;
-        padding: 10px 30px;
-
-      }
-
-      .h-input:checked + .tab {
-        background-color: $black;
-        color: $white;
-
-        img {
-          filter: invert(100%);
+        > span {
+          margin-left: 0.5rem;
         }
       }
     }
 
-    .email-notification-method {
-      background-color: $white;
-      border-radius: 5px;
-      font-weight: $bold;
-      padding: 10px;
-      width: 40rem;
+    .h-input:checked + .tab {
+      background-color: $black;
+      color: $white;
+
+      img {
+        filter: invert(100%);
+      }
+    }
+  }
+
+  .email-notification {
+    margin-bottom: 3rem;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+  }
+
+  .team-member {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    background-color: $white;
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+  }
+}
+
+.visit-summary-detail {
+  section {
+    margin-bottom: 3rem;
+  }
+
+  header {
+    margin-bottom: 0rem;
+
+    .subheader {
+      align-items: center;
+      display: flex;
+
+      span {
+        margin-right: 1.5rem;
+      }
+    }
+  }
+
+  h1.main-header {
+    font-size: 2.25rem;
+    font-weight: $medium;
+    margin-bottom: .5rem;
+    margin-top: 0;
+  }
+
+  h2.main-header {
+    display: inline-block;
+    font-weight: $semi-bold;
+    margin-right: 1rem;
+  }
+
+  h2.timeframe {
+    font-size: 1rem;
+    margin-bottom: .55rem;
+  }
+
+  h2.title {
+    margin-bottom: .45rem;
+  }
+
+  h3 {
+    font-weight: $semi-bold;
+  }
+
+  .information {
+    align-items: center;
+    display: flex;
+    margin-bottom: 1.5rem;
+
+
+    span {
+      align-items: center;
+      display: flex;
     }
 
-    .email-message {
-      border-radius: 5px;
-      padding: 10px;
+    span:not(:last-child)::after {
+      background: $light-bluegray;
+      content: "";
+      display: block;
+      height: 18px;
+      margin: 0 1.25rem;
+      width: 1px;
     }
+  }
 
-    .team-member {
-      background-color: $white;
-      border: 1px solid;
-      border-radius: 10px;
-      padding: 15px;
-      margin-bottom: 10px;
-    }
+  p.description {
+    line-height: 1.5rem;
+  }
 
-    .check-box {
-      display: none;
-    }
+  p.description:first-of-type {
+    margin-top: 0;
   }
 }
