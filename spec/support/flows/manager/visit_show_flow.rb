@@ -74,7 +74,7 @@ class VisitShowFlow
   end
 
   def showing_summary_partial?
-    page.has_css?(".summary")
+    page.has_css?(".visit-summary-edit")
   end
 
   def click_on_trash_icon

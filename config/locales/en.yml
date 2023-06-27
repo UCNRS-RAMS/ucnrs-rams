@@ -1387,25 +1387,25 @@ en:
         show:
           submit_date: "Request Submitted:"
           overall_date: "Visit overall date:"
+          user_visits: "Visitors (%{size})"
+          edit_visitor: "Edit Visitors"
+          amenity_visits: "Amenities (%{size})"
+          edit_amenities: "Edit Amenities"
         edit:
           update_status: "Update Status"
-        user_visits_show_table:
+        user_visits_table:
           name: "Name"
           institution: "Institution"
           role: "Role"
-          user_visits: "Visitors (%{size})"
-          edit_visitor: "Edit Visitors"
           project_role: "Project Role"
           dates_of_use: "Dates of Use"
-        amenity_visits_show_table:
+        amenity_visits_table:
           name: "Name"
           dates_of_use: "Dates of Use"
           rate: "Rate"
           count: "Count"
           cost: "Cost"
           total: "Total"
-          amenity_visits: "Amenities (%{size})"
-          edit_amenities: "Edit Amenities"
         presenter:
           composed_email: "Send applicants a composed email"
           update_silently: "Silently update status"

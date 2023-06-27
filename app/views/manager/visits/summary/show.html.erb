@@ -1,11 +1,32 @@
 <turbo-frame id="visit-details">
-  <%= turbo_frame_tag "visit-summary-edit", src: edit_manager_reserve_visit_summary_path(visit_id: @presenter.id) if @presenter.reserve_manager? %>
-  <div>
-    <div class="p-bottom">
-      <h4><%= t(".submit_date") %>&nbsp<%= @presenter.submitted_date %></h4>
-      <h4><%= t(".overall_date") %>&nbsp<%= @presenter.visit_date_range %></h4>
-    </div>
-    <%= render partial: "manager/visits/summary/user_visits_show_table", locals: { presenter: @presenter } %>
-    <%= render partial: "manager/visits/summary/amenity_visits_show_table", locals: { presenter: @presenter } %>
+  <% if @presenter.reserve_manager?%>
+    <%= turbo_frame_tag "visit-summary-edit", src: edit_manager_reserve_visit_summary_path(visit_id: @presenter.id) %>
+  <% end %>
+
+  <div class="visit-summary-detail">
+    <section>
+      <header>
+        <h2 class="main-header"><%= t(".user_visits", size: @presenter.user_visits.sum(&:count)) %></h2>
+        <% if @presenter.reserve_manager? %>
+          <%= link_to t(".edit_visitor"),
+            manager_reserve_visit_user_visits_path(visit_id: @presenter.id, reserve_id: @presenter.reserve_id),
+            data: { controller: "tab-bar", action: "click->tab-bar#selectTab", "tab-bar-id-param": "visitors" }
+          %>
+        <% end %>
+      </header>
+      <%= render partial: "manager/visits/summary/user_visits_table", locals: { presenter: @presenter } %>
+    </section>
+    <section>
+      <header>
+        <h2 class="main-header"><%= t(".amenity_visits", size: @presenter.amenity_visits.sum(&:number_of_people)) %></h2>
+        <% if @presenter.reserve_manager? %>
+          <%= link_to t(".edit_amenities"),
+            edit_manager_reserve_visit_detail_path(visit_id: @presenter.id),
+            data: { controller: "tab-bar", action: "click->tab-bar#selectTab", "tab-bar-id-param": "details" }
+          %>
+        <% end %>
+      </header>
+      <%= render partial: "manager/visits/summary/amenity_visits_table", locals: { presenter: @presenter } %>
+    </section>
   </div>
 </turbo-frame>

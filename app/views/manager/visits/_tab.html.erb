@@ -1,6 +1,16 @@
-<%= link_to_if clickable, name, path, { class: classes,
-        id: id,
-        data: { action: "click->tab-bar##{action_method}", "tab-bar-id-param": "#{id}", "tab-bar-target": "tab", "turbo-frame": "visit-details" }
-      } do %>
-    <a class= "<%= classes %>"><%= name %></a>
+<%= link_to_if clickable,
+  name,
+  path,
+  {
+    class: classes,
+    id: id,
+    data: {
+      action: "click->tab-bar##{action_method}",
+      "tab-bar-id-param": "#{id}",
+      "tab-bar-target": "tab",
+      "turbo-frame": "visit-details"
+    }
+  } do
+%>
+  <%= tag.a name, class: classes %>
 <% end %>

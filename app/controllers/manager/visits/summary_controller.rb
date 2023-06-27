@@ -3,6 +3,8 @@ class Manager::Visits::SummaryController < Manager::ApplicationController
   before_action :confirm_manager!
   before_action :is_administrator_or_accountant!, only: [:update]
 
+  layout "manager"
+
   def show
     @presenter = Manager::Visits::SummaryPresenter.new(visit: visit, current_user: current_user)
   end
