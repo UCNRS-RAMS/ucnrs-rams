@@ -6,6 +6,8 @@
 
 
 .questions-index {
+  @include controls;
+
   color: $navy-blue;
 
   .form-container {

@@ -6,12 +6,18 @@
 @import "mixins/search";
 @import "mixins/pagination";
 @import "mixins/layouts";
+@import "mixins/controls";
 
 .manager.visits-new,
 .manager.visits-create,
 .manager.visits-edit {
-  main > .container {
-    max-width: unset;
+  @include controls;
+
+  main {
+
+    > .container {
+      max-width: unset;
+    }
   }
 
   .form-container {

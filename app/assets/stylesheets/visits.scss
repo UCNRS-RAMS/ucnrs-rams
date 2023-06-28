@@ -11,6 +11,8 @@
 .visits-edit,
 .visits-update,
 .visits-create {
+  @include controls;
+
   .form-container {
     @include projects-visits-form-container;
   }

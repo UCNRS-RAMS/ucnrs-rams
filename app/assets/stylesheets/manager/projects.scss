@@ -6,11 +6,14 @@
 @import "mixins/search";
 @import "mixins/pagination";
 @import "mixins/layouts";
+@import "mixins/controls";
 
 .manager.projects-edit,
 .manager.projects-update,
 .manager.projects-new,
 .manager.projects-create {
+  @include controls;
+
   main > .container {
     max-width: unset;
   }

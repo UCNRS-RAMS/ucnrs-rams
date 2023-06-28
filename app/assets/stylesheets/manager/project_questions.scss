@@ -5,6 +5,8 @@
 
 .manager.questions-index,
 .manager.questions {
+  @include controls;
+
   color: $navy-blue;
 
   main > .container {
