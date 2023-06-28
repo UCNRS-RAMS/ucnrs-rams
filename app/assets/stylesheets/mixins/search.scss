@@ -2,6 +2,8 @@
 
 @mixin search-subsection {
   .search-subsection {
+    margin-bottom: 3rem;
+
     input, select {
       background-color: $white;
       border: 1px solid $gray;
