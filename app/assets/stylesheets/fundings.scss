@@ -3,10 +3,13 @@
 @import "mixins/tables";
 @import "mixins/date_fields";
 @import "mixins/layouts";
+@import "mixins/controls";
 
 .fundings-index,
 .fundings-create,
 .complete-update {
+  @include controls;
+
   color: $navy-blue;
 
   .form-container {

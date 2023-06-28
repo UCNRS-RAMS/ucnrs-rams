@@ -7,9 +7,9 @@
 .manager.fundings-index,
 .manager.fundings-create,
 .manager.complete-update {
-  color: $navy-blue;
-
   @include controls;
+
+  color: $navy-blue;
 
   main > .container {
     max-width: unset;

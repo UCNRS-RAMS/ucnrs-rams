@@ -114,6 +114,8 @@
 .projects-update,
 .projects-new,
 .projects-create {
+  @include controls;
+
   .form-container {
     box-sizing: border-box;
     margin:0 auto;

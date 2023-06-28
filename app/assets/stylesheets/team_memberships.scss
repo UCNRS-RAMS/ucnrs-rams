@@ -2,10 +2,13 @@
 @import "mixins/form";
 @import "variables";
 @import "mixins/tables";
+@import "mixins/controls";
 
 .team_memberships-index,
 .team_memberships-edit,
 .team_memberships-create {
+  @include controls;
+
   color: $navy-blue;
 
   .form-container {
