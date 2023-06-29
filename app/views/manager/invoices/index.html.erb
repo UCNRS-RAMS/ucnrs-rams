@@ -1,26 +1,13 @@
-<section class="content">
-  <header>
-    <h1><%= t(".invoices") %></h1>
-  </header>
-  <hr />
-  <section class="search-subsection">
-    <%= render partial: "search", locals: { presenter: @presenter } %>
-  </section>
-  <table class="invoices-table">
-    <thead>
-      <tr>
-        <th><%= t(".invoice_number") %></th>
-        <th><%= t(".invoice_date") %></th>
-        <th><%= t(".user") %></th>
-        <th><%= t(".project") %></th>
-        <th><%= t(".balance_due") %></th>
-        <th><%= t(".status") %></th>
-        <th></th>
-      </tr>
-    </thead>
-      <%= render partial: "invoice", collection: @presenter.invoices %>
-  </table>
-  <div class="d-flex-right">
+<%= turbo_frame_tag "invoicing_content" do %>
+  <section class="content">
+    <header class="header-with-links">
+      <%= render partial: "manager/invoicing_submenu" %>
+    </header>
+    <hr />
+    <section class="search-subsection">
+      <%= render partial: "search", locals: { presenter: @presenter } %>
+    </section>
+    <%= render partial: "invoices", locals: { invoices: @presenter.invoices } %>
     <%= paginate @presenter.invoice_scope, data: { "turbo-action": "advance" } %>
-  </div>
-</section>
+  </section>
+<% end %>

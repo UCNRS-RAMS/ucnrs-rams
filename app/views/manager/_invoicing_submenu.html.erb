@@ -1,0 +1,10 @@
+<%= tag.h1 active_link_to_by_url(
+  t(".invoices"),
+  manager_reserve_invoices_path(current_reserve),
+  data: { "turbo-action": "advance", "turbo-frame": "invoicing_content" }
+) %>
+<%= tag.h1 active_link_to_by_url(
+  t(".uninvoiced_visits"),
+  manager_reserve_uninvoiced_index_path(current_reserve),
+  data: { "turbo-action": "advance", "turbo-frame": "invoicing_content" }
+) %>

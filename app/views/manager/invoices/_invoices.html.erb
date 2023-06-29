@@ -1,0 +1,16 @@
+<turbo-frame id="invoices">
+  <table class="invoices-table table-style1">
+    <thead>
+      <tr>
+        <th><%= t(".invoice_number") %></th>
+        <th><%= t(".invoice_date") %></th>
+        <th><%= t(".user") %></th>
+        <th><%= t(".project") %></th>
+        <th><%= t(".balance_due") %></th>
+        <th><%= t(".status") %></th>
+        <th></th>
+      </tr>
+    </thead>
+      <%= render partial: "invoice", collection: invoices %>
+  </table>
+</turbo-frame>

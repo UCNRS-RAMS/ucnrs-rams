@@ -88,6 +88,7 @@ Rails.application.routes.draw do
       end
 
       resources :invoices, only: [:index]
+      resources :uninvoiced, only: [:index]
       resources :projects do
         resources :questions, only: [:index], controller: "projects/questions"
         resources :answers, only: [:create], controller: "projects/answers"

@@ -28,6 +28,30 @@ class Visit < ApplicationRecord
   delegate :title, to: :project, prefix: true
   delegate :full_name, :role, to: :user, prefix: true
 
+  enum status: {
+    approved: "approved",
+    in_review: "in_review",
+    cancelled: "cancelled",
+    incomplete: "incomplete",
+    denied: "denied",
+  }
+
+  enum project_type: {
+    research: "research",
+    university_class: "university class",
+    meeting_or_conference: "meeting or conference",
+    public_use: "public use",
+  }
+
+  enum public_use_category: {
+    general_use: "general-use",
+    community_event: "community-event",
+    fundraiser: "fundraiser",
+    k_12_class: "k-12-class",
+    private_class: "private-class",
+    volunteer: "volunteer",
+  }
+
   def project_type
     project.project_type if project.present?
   end
@@ -183,29 +207,10 @@ class Visit < ApplicationRecord
     order(submitted_at: :desc)
   end
 
-  enum status: {
-    approved: "approved",
-    in_review: "in_review",
-    cancelled: "cancelled",
-    incomplete: "incomplete",
-    denied: "denied",
-  }
-
-  enum project_type: {
-    research: "research",
-    university_class: "university class",
-    meeting_or_conference: "meeting or conference",
-    public_use: "public use",
-  }
-
-  enum public_use_category: {
-    general_use: "general-use",
-    community_event: "community-event",
-    fundraiser: "fundraiser",
-    k_12_class: "k-12-class",
-    private_class: "private-class",
-    volunteer: "volunteer",
-  }
+  def self.having_uninvoiced_amenities
+    joins(:amenity_visits)
+      .merge(AmenityVisit.uninvoiced)
+  end
 
   private
 

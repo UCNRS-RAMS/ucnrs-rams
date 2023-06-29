@@ -60,7 +60,7 @@ class AmenityVisit < ApplicationRecord
   end
 
   def self.uninvoiced
-    where(invoice_id: nil)
+    where(invoice_id: [nil, 0])
   end
 
   def self.on_date(date)
