@@ -1,0 +1,8 @@
+@import "variables";
+@import "mixins/pagination";
+@import "mixins/search";
+
+.manager.uninvoiced-index {
+  @include search-subsection;
+  @include pagination;
+}

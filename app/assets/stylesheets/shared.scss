@@ -1,4 +1,5 @@
 @import "variables";
+@import "mixins/tables";
 
 div.initial-info {
   background-color: $light-gray;
@@ -19,4 +20,48 @@ div.initial-info {
   > p:last-of-type {
     margin-bottom: 0;
   }
+}
+
+header.header-with-links {
+  display: flex;
+  gap: 2rem;
+  margin: .75rem 0 0 0;
+
+  h1 {
+    display: flex;
+    font-size: 1.5rem;
+    font-weight: $medium;
+    margin: 0;
+
+    > a {
+      border-bottom: 0 solid $gray;
+      color: $navy-blue;
+      text-decoration: none;
+      transition: all .15s ease-in-out;
+    }
+
+    > a:not(.active) {
+      color: $dark-bluegray;
+    }
+
+    > a:hover {
+      border-bottom: 3px solid $gray;
+    }
+
+    > a.active {
+      border-bottom: 3px solid $gray;
+    }
+  }
+
+  + hr {
+    border-bottom: 2px solid $gray;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    margin: 0;
+  }
+}
+
+table.table-style1 {
+  @include table-style1;
 }

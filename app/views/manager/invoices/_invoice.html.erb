@@ -1,13 +1,28 @@
 <tr class="invoice" id="<%= "invoice-#{ invoice.id }" %>">
   <td><%= invoice.invoice_id %></td>
   <td><%= invoice.invoiced_on %></td>
-  <td><%= link_to invoice.user_full_name, edit_manager_reserve_user_path(current_reserve, invoice.visit_user_id) %></td>
-  <td><%= link_to invoice.project_title, manager_reserve_project_path(current_reserve, invoice.project_id) %></td>
+  <td>
+    <%= link_to invoice.user_full_name,
+      edit_manager_reserve_user_path(current_reserve, invoice.visit_user_id),
+      data: { "turbo-frame" => "_top" }
+    %>
+  </td>
+  <td>
+    <%= link_to invoice.project_title,
+      manager_reserve_project_path(current_reserve, invoice.project_id),
+      data: { "turbo-frame" => "_top" }
+    %>
+  </td>
   <td><%= invoice.amount %></td>
   <td><%= invoice.invoice_status %></td>
   <td>
-    <%= link_to manager_reserve_visit_invoice_path(reserve_id: invoice.reserve_id, visit_id: invoice.visit_id, id: invoice.id) do %>
-      <%= image_tag "arrow-circle-right-heavy-light.svg", height: "20px", width: "20px", alt: t(".alt.right_facing_arrow")  %>
+    <%= link_to manager_reserve_visit_invoice_path(invoice.reserve_id, invoice.visit_id, invoice.id),
+      data: { "turbo-frame" => "_top" } do
+    %>
+      <%= image_tag "arrow-circle-right-heavy-light.svg",
+        height: "20px", width: "20px",
+        alt: t("alt.right_facing_arrow")
+      %>
     <% end %>
   </td>
 </tr>

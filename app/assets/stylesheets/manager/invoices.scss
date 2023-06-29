@@ -8,10 +8,10 @@
 @import "mixins/search";
 @import "mixins/pagination";
 
-.invoices-new,
-.invoices-create,
-.invoices-edit,
-.invoices-update {
+.manager.invoices-new,
+.manager.invoices-create,
+.manager.invoices-edit,
+.manager.invoices-update {
   .manager-navbar {
     .container {
       margin-bottom: 0px;
@@ -275,42 +275,12 @@
   }
 }
 
-.invoices-index {
-  section.content {
-    display: block;
-
-    header{
-      margin: .5rem 0;
-
-      h1 {
-        font-size: 1.85rem;
-        font-weight: $medium;
-        margin: .5rem 0;
-      }
-    }
-
-    hr {
-      border-bottom: 2px solid $gray;
-      border-left: 0;
-      border-right: 0;
-      border-top: 0;
-      margin: 0;
-    }
-
-    table.invoices-table {
-      @include table-style1;
-
-      td > img {
-        vertical-align: middle;
-      }
-    }
-
-    @include search-subsection;
-    @include pagination;
-  }
+.manager.invoices-index {
+  @include search-subsection;
+  @include pagination;
 }
 
-.invoices-show {
+.manager.invoices-show {
   section.content{
     font-size: 1rem;
 
@@ -360,7 +330,7 @@
   }
 }
 
-.invoices-edit {
+.manager.invoices-edit {
   main{
     .container{
       header {

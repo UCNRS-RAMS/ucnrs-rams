@@ -28,7 +28,7 @@ RSpec.describe Manager::Dashboard::VisitsIndexPresenter do
       expect(scope).to match_array [visit1, visit2]
     end
 
-    it "returns a maximum of 10 projects" do
+    it "returns a maximum of 10 visits" do
       reserve = create(:reserve)
       create_list(:visit, 11, reserve: reserve)
       presenter = Manager::Dashboard::VisitsIndexPresenter.new(reserve: reserve, page: 1)

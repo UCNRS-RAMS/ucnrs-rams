@@ -1187,14 +1187,6 @@ en:
         show: "Show"
         sort_by: "Sort By"
       index:
-        invoice_number: "Invoice Number"
-        invoices: "Invoices"
-        status: "Status"
-        invoice_date: "Invoice Date"
-        applicant: "Applicant"
-        project: "Project"
-        user: "User"
-        balance_due: "Balance Due"
         all: "All"
         paid: "Paid"
         pending: "Pending"
@@ -1218,7 +1210,6 @@ en:
         amount: "Amount"
         edit_payment: "Edit Payment"
         balance: "Balance"
-        edit_payment: "Edit Payment"
       invoice_payment_table:
         payments: "Total Payment(s) & Credits"
         date: "Date"
@@ -1276,9 +1267,15 @@ en:
       amenity_visit_forms:
         amenities: "Amenities"
         total: "Total"
-      invoice:
-        alt:
-          right_facing_arrow: "Right facing Arrow"
+      invoices:
+        invoice_number: "Invoice Number"
+        invoices: "Invoices"
+        status: "Status"
+        invoice_date: "Invoice Date"
+        applicant: "Applicant"
+        project: "Project"
+        user: "User"
+        balance_due: "Balance Due"
     not_a_manager: "You are not a manager"
     not_a_manager_of_reserve: "You are not a manager of the reserve."
     not_editable: "Visit is not editable after due date"
@@ -2347,6 +2344,9 @@ en:
         institution_type: "Institution Type"
         name: "Name"
         date_created: "Date Created"
+    invoicing_submenu:
+      invoices: "Invoices"
+      uninvoiced_visits: "Uninvoiced Visits"
   shared:
     manager:
       dashboard:

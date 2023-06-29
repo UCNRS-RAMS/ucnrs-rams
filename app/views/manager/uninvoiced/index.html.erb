@@ -1,0 +1,13 @@
+<%= turbo_frame_tag "invoicing_content" do %>
+  <section class="content">
+    <header class="header-with-links">
+      <%= render partial: "manager/invoicing_submenu" %>
+    </header>
+    <hr />
+    <section class="search-subsection"></section>
+    <section class="visits-search-list">
+      <%= render partial: "uninvoiced_visits", locals: { visits: @presenter.visits } %>
+      <%= paginate @presenter.visit_scope, data: { "turbo-action": "advance" } %>
+    </section>
+  </section>
+<% end %>
