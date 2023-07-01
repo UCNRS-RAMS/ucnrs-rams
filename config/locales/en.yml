@@ -207,7 +207,7 @@ en:
           id_with_reserve_name: "Visit # %{id} @ %{reserve_name}"
           project: "Under Project # %{id} | %{project_type}"
     calendar_visit_modal:
-      visit: "Visit"
+      visit: "Visit #%{id} @%{reserve_name}"
       reservation_member: "Reservation Members(s)"
       reserve_resource: "Reserve Resources(s) | "
       create_invoice: "Create Invoice"

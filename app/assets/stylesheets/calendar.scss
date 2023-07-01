@@ -31,14 +31,6 @@
     }
   }
 
-  hr {
-    border-bottom: 0;
-    border-left: 0;
-    border-right: 0;
-    border-top: 2px solid $gray;
-    margin: 0;
-  }
-
   section.dashboard-content {
     margin-top: 4rem;
   }
@@ -227,11 +219,6 @@
       color: $dark-bluegray;
     }
 
-    .clr-blue {
-      color: $cornflower;
-      text-decoration: none;
-    }
-
     .calendar-modal {
       .container {
         display: flex;
@@ -283,42 +270,71 @@
       width: 8rem;
     }
 
-    .vertical-padding {
-      padding: 8px 0px;
-    }
-
     .black-btn {
       background-color: $dark-bluegray;
       border-radius: 4px;
       color: $white !important;
     }
+  }
+}
 
-    .header {
-      border-bottom: 2px solid $dark-bluegray;
-      display: flex;
-      justify-content: space-between;
+.modal .calendar-modal {
+  font-size: 14px;
+  margin: 0;
+  padding: 1.5rem;
+
+  a {
+    text-decoration: none;
+  }
+
+  hr {
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+    border-top: 1px solid $gray;
+    margin: 1rem 0;
+  }
+
+  .modal-header {
+    border-bottom: 2px solid $dark-bluegray;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .visit-information {
+    color: $semidark-bluegray;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .project-information {
+    color: $semidark-bluegray;
+    font-style: italic;
+  }
+
+  .visitor-amenity-list-section {
+    margin-bottom: 2rem;
+
+    > header {
+      h2 {
+        font-size: 1rem;
+        font-weight: $normal;
+      }
     }
 
-    .display-flex {
-      border-bottom: 2px solid $dark-bluegray;
-      border-left: 10px solid $lightgreen;
+    .visitor-amenity-list {
+      border-bottom: 1px solid $gray;
       display: flex;
+      flex-direction: row;
       justify-content: space-between;
-      padding: 0px 10px;
+      padding: 4px 10px;
 
-      p {
-        margin: 0px;
-      }
-
-      p:first-child,
-      p:last-child {
+      span:first-child,
+      span:last-child {
         min-width: 150px;
         max-width: 300px;
       }
-    }
-
-    .text {
-      padding: 2.25rem;
     }
   }
 }

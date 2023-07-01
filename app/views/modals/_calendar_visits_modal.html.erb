@@ -1,10 +1,12 @@
-<turbo-frame  id="modal-content" class="modal-content" data-modal-target="dialog openOnLoad" >
-  <section class="text calendar-modal">
-    <%= render partial: "modals/calendar/visits", locals: { presenter: presenter }%>
-  </section>
-  <section class="buttons">
-    <button class="active black-btn" data-action="click->modal#close">
-      <%= t('cancel') %>
-    </button>
-  </section>
+<turbo-frame  id="modal-content" class="modal-content" data-modal-target="dialog openOnLoad">
+  <div data-modal-target="dialog openOnLoad" data-action="mousedown@window->modal#closeBackground">
+    <section class="text calendar-modal">
+      <%= render partial: "modals/calendar/visits", locals: { presenter: presenter }%>
+    </section>
+    <section class="buttons">
+      <button class="active black-btn" data-action="click->modal#close">
+        <%= t('cancel') %>
+      </button>
+    </section>
+  </div>
 </turbo-frame>

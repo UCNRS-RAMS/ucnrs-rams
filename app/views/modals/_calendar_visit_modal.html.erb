@@ -1,47 +1,78 @@
-<turbo-frame class="modal-content" data-modal-target="dialog openOnLoad" >
-  <section class="text calendar-modal">
-    <div class="close">
-      <%= image_tag "x.svg", height: "16px", width: "16px", data: { action: "click->modal#close" } %>
-    </div>
-    <div class="header">
-      <h3><%= presenter.reserve_name %></h3>
-      <h3><%= presenter.timeframe(:date_month_hour) %></h3>
-    </div>
-    <div class="vertical-padding d-flex">
-      <div>
-        <%= link_to presenter.purpose_of_visit, manager_reserve_visit_path(reserve_id: presenter.reserve_id, id: presenter.id), class: "clr-blue", data: { turbo: "false" } %>
-        <p class="clr-gray"><em><%= t(".visit", id: presenter.id, reserve_name: presenter.visit_reserve_name ) %></em></p>
+<turbo-frame class="modal-content" data-modal-target="dialog openOnLoad">
+  <div data-modal-target="dialog openOnLoad" data-action="mousedown@window->modal#closeBackground">
+    <section class="calendar-modal">
+      <div class="close">
+        <%= image_tag "x.svg", height: "16px", width: "16px", data: { action: "click->modal#close" } %>
       </div>
-      <div>
+      <header class="modal-header">
+        <h1><%= presenter.reserve_name %></h1>
+        <h1><%= presenter.timeframe(:date_month_hour) %></h1>
+      </header>
+      <div class="visit-information">
+        <div>
+          <%= link_to presenter.purpose_of_visit,
+            manager_reserve_visit_path(presenter.reserve_id, presenter.id),
+            class: "clr-blue",
+            data: { turbo_frame: "_top"}
+          %>
+          <p><%= t(".visit", id: presenter.id, reserve_name: presenter.visit_reserve_name ) %></p>
+        </div>
         <p class="<%= presenter.status_classes%>"><%= presenter.status_text %></p>
       </div>
-    </div>
-    <hr>
-    <div class="vertical-padding">
-      <p class="clr-gray"><em><%= t(".project", id: presenter.project_id, project_type: presenter.project_type ) %></em></p>
-      <%= link_to presenter.project_title, manager_reserve_project_path(reserve_id: presenter.reserve_id, id: presenter.project_id), class: "clr-blue", data: { turbo: "false" } %>
-      <p class="clr-gray"><em><%= presenter.user_info %> - <%= presenter.user.institution_name %></em></p>
-    </div>
-    <hr>
-    <h5><%= t(".reservation_member") %></h5>
-    <% presenter.user_visits? && presenter.user_visits.each  do |user_visit| %>
-      <div class="display-flex">
-        <p><%= user_visit.user_full_name(with_role: true) %></p>
-        <p><%= user_visit.date_range %></p>
+      <hr />
+      <div class="project-information">
+        <p><%= t(".project", id: presenter.project_id,
+          project_type: t("universal.project.project_types.#{presenter.project_type}") )
+          %>
+        </p>
+        <%= link_to presenter.project_title,
+          manager_reserve_project_path(presenter.reserve_id, presenter.project_id),
+          class: "clr-blue",
+          data: { turbo_frame: "_top"}
+        %>
+        <p><%= presenter.user_info %> - <%= presenter.user.institution_name %></p>
       </div>
-    <% end %>
-    <h5><%= t(".reserve_resource") %> <%= t(".create_invoice")%></h5>
-    <% presenter.amenity_visits.each  do |amenity_visit| %>
-      <div class="display-flex">
-        <p><%= amenity_visit.amenity_title %></p>
-        <p><%= amenity_visit.number_of_people %></p>
-        <p><%= amenity_visit.requested_date_time_range %></p>
-      </div>
-    <% end %>
-  </section>
-  <section class="buttons">
-    <button class="active black-btn" data-action="click->modal#close">
-      <%= t('.close') %>
-    </button>
-  </section>
+      <hr />
+      <section class="visitor-amenity-list-section">
+        <header>
+          <h2><%= t(".reservation_member") %></h2>
+        </header>
+        <% presenter.user_visits? && presenter.user_visits.each do |user_visit| %>
+          <div class="visitor-amenity-list">
+            <% if user_visit.user_id > 1 %>
+              <%= link_to user_visit.user_full_name(with_role: true),
+                edit_manager_reserve_user_path(current_reserve, user_visit.user_id),
+                data: { turbo_frame: "_top"}
+              %>
+            <% else %>
+              <span><%= user_visit.user_full_name(with_role: true) %></span>
+            <% end %>
+            <span><%= user_visit.date_range %></span>
+          </div>
+        <% end %>
+      </section>
+
+      <section class="visitor-amenity-list-section">
+        <header>
+          <h2>
+            <%= t(".reserve_resource") %>
+            <%= link_to t(".create_invoice"),
+              manager_reserve_visit_path(current_reserve, presenter.id, selected_tab: "invoices"),
+              data: { turbo_frame: "_top" }
+            %>
+          </h2>
+        </header>
+        <% presenter.amenity_visits.each do |amenity_visit| %>
+          <div class="visitor-amenity-list">
+            <span><%= amenity_visit.amenity_title %></span>
+            <span><%= amenity_visit.number_of_people %></span>
+            <span><%= amenity_visit.requested_date_time_range %></span>
+          </div>
+        <% end %>
+      </section>
+      <section class="buttons">
+        <%= tag.button t(".close"), class: "active black-btn", data: { action: "click->modal#close" } %>
+      </section>
+    </section>
+  </div>
 </turbo-frame>
