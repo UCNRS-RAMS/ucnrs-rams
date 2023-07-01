@@ -144,6 +144,22 @@
     }
   }
 
+  a {
+    color: $sky-blue;
+  }
+
+  header.modal-header {
+    margin-bottom: 1rem;
+
+    h1 {
+      font-size: 1rem;
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 0.75rem;
+      margin-top: 0.75rem;
+    }
+  }
+
   .body {
     box-sizing: border-box;
     color: $modal-body-color;
@@ -221,6 +237,18 @@
         font-size: 1rem;
         padding: .875rem 2rem;
       }
+    }
+  }
+
+  .close {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.75rem;
+
+    img {
+      background-color: rgba($gray, 0.36);
+      border-radius: 50%;
+      padding: 0.5rem;
     }
   }
 }

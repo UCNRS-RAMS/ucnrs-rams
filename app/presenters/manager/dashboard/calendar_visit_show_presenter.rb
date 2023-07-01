@@ -14,4 +14,8 @@ class Manager::Dashboard::CalendarVisitShowPresenter < VisitShowPresenter
   def user_info
     user_full_name
   end
+
+  def project_type
+    project_project_type
+  end
 end
