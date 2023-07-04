@@ -29,6 +29,14 @@
       font-size: 0.75rem;
       vertical-align: middle;
     }
+
+    + hr {
+      border-bottom: 2px solid #aab7bb;
+      border-left: 0;
+      border-right: 0;
+      border-top: 0;
+      margin: 0;
+    }
   }
 
   section.dashboard-content {
@@ -215,61 +223,6 @@
   }
 
   .modal {
-    .clr-gray {
-      color: $dark-bluegray;
-    }
-
-    .calendar-modal {
-      .container {
-        display: flex;
-        justify-content: space-between;
-
-        .align-right {
-          text-align: right;
-        }
-
-        .left-spacer {
-          padding-left: 10px;
-        }
-      }
-      p {
-        margin: 0px;
-      }
-    }
-
-    .bg-approved {
-      background-color: $green;
-    }
-
-    .bg-in_review {
-      background-color: $yellow;
-    }
-
-    .bg-cancelled {
-      background-color: $pink;
-    }
-
-    .bg-denied {
-      background-color: $blue;
-    }
-
-    .bg-incomplete {
-      background-color: $red-alert;
-    }
-
-    .btn-status {
-      align-items: center;
-      border: 1px solid $dark-bluegray;
-      border-radius: 1.5rem;
-      color: black;
-      display: flex;
-      height: 20px;
-      justify-content: center;
-      padding: 0.2rem 1rem;
-      text-decoration-line: none;
-      width: 8rem;
-    }
-
     .black-btn {
       background-color: $dark-bluegray;
       border-radius: 4px;
@@ -287,12 +240,47 @@
     text-decoration: none;
   }
 
+  p {
+    margin: 0;
+  }
+
   hr {
     border-bottom: 0;
     border-left: 0;
     border-right: 0;
     border-top: 1px solid $gray;
     margin: 1rem 0;
+  }
+
+  .pill {
+    align-items: center;
+    border: 1px solid $dark-bluegray;
+    color: black;
+    display: flex;
+    font-size: 0.875rem;
+    font-weight: $medium;
+    justify-content: center;
+    text-transform: unset;
+
+    &.approved {
+      background-color: $green;
+    }
+
+    &.in_review {
+      background-color: $yellow;
+    }
+
+    &.cancelled {
+      background-color: $pink;
+    }
+
+    &.denied {
+      background-color: $blue;
+    }
+
+    &.incomplete {
+      background-color: $red-alert;
+    }
   }
 
   .modal-header {
@@ -335,6 +323,29 @@
         min-width: 150px;
         max-width: 300px;
       }
+    }
+  }
+}
+
+.modal .calendar-visit-day-modal {
+  .calendar-visit {
+    margin-bottom: 1rem;
+
+    header h2{
+      font-size: 1rem;
+      font-weight: $semi-bold;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .calendar-visit-body {
+    color: $dark-bluegray;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .visit-status {
+      text-align: center;
     }
   }
 }

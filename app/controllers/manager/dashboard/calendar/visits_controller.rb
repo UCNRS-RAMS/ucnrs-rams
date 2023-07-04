@@ -1,6 +1,6 @@
-class Manager::Dashboard::Calendar::VisitsController < ApplicationController
+class Manager::Dashboard::Calendar::VisitsController < Manager::ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_manager!
+  before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
 
   def index
     @presenter = Manager::Dashboard::VisitsIndexPresenter.new(

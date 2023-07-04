@@ -1,12 +1,18 @@
-<turbo-frame  id="modal-content" class="modal-content" data-modal-target="dialog openOnLoad">
+<turbo-frame id="modal-content" class="modal-content" data-modal-target="dialog openOnLoad">
   <div data-modal-target="dialog openOnLoad" data-action="mousedown@window->modal#closeBackground">
-    <section class="text calendar-modal">
-      <%= render partial: "modals/calendar/visits", locals: { presenter: presenter }%>
+    <section class="calendar-modal calendar-visit-day-modal">
+      <div class="buttons-top">
+        <%= image_tag "x.svg", height: "16px", width: "16px", data: { action: "click->modal#close" } %>
+      </div>
+      <%= render partial: "modals/calendar/visit",
+        collection: presenter.visits,
+        spacer_template: "shared/divider",
+        locals: { begin_date: presenter.date_begin_filter }
+      %>
+      <%= paginate presenter.visit_scope %>
     </section>
     <section class="buttons">
-      <button class="active black-btn" data-action="click->modal#close">
-        <%= t('cancel') %>
-      </button>
+      <%= tag.button t("close"), class: "active black-btn", data: { action: "click->modal#close" } %>
     </section>
   </div>
 </turbo-frame>

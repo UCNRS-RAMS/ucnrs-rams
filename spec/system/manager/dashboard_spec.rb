@@ -1,8 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Manager Dashboard" do
-  let(:user) { create(:user, :confirmed) }
   let(:reserve) { create(:reserve, name: "Test Reserve") }
+  let(:user) { create(:user, :confirmed, managed_reserves: [reserve]) }
 
   describe "it displays manager dashboard page" do
     it "happen if current user is manager of reserve", js: true do
@@ -81,7 +81,7 @@ RSpec.describe "Manager Dashboard" do
     it "display modal after click on user_visit and amenity_visit bar", js: true do
       visit = create(:visit, reserve: reserve)
       create(:user_visit, visit: visit, arrives_at: visit.starts_at, departs_at: visit.ends_at)
-      create(:amenity_visit, visit: visit)
+      create(:amenity_visit, visit: visit, amenity: create(:amenity, reserve: reserve))
 
       sign_in(user)
       flow = Manager::DashboardFlow.new(page, reserve, user)
@@ -92,7 +92,7 @@ RSpec.describe "Manager Dashboard" do
       page.first(".visitor-count").click
       expect(flow).to have_modal
 
-      page.click_on("Cancel")
+      page.click_on("Close")
       expect(flow).not_to have_modal
 
       page.first(".amenity-count").click

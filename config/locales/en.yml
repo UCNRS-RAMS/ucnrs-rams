@@ -203,7 +203,7 @@ en:
         search_by_name: "Search by Name"
     calendar:
       visit:
-          visitors: "(%{count}) visitors"
+          visitor: "visitor"
           id_with_reserve_name: "Visit # %{id} @ %{reserve_name}"
           project: "Under Project # %{id} | %{project_type}"
     calendar_visit_modal:
@@ -3198,3 +3198,4 @@ en:
   not_applicable: "N/A"
   all: "All"
   select: "Select"
+  close: "Close"

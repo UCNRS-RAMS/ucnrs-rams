@@ -209,7 +209,7 @@ RSpec.describe "Reserves", type: :system, js: true do
       page.first(".visitor-count").click
       expect(flow).to have_modal
 
-      page.click_on("Cancel")
+      page.click_on("Close")
       expect(flow).not_to have_modal
 
       page.first(".amenity-count").click
