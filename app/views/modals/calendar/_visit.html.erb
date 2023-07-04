@@ -1,14 +1,21 @@
-<%= link_to truncate(visit.purpose_of_visit, length: 50), manager_reserve_visit_path(reserve_id: visit.reserve_id, id: visit.id), class: "clr-blue", data: { turbo: "false" }%>
-<div class="container">
-  <div>
-    <p class="clr-gray"><em><%= t(".id_with_reserve_name", id: visit.id, reserve_name: visit.reserve_name ) %></em></p>
-    <p class="clr-gray"><em><%= t(".project", id: visit.project_id, project_type: visit.project_type ) %></em></p>
-    <%= link_to truncate(visit.project_title, length: 50), manager_reserve_project_path(reserve_id: visit.reserve_id, id: visit.project_id), class: "clr-blue", data: { turbo: "false" }%>
-    <p class="clr-gray"><em><%= visit.user_info %> - <%= visit.institution_name %></em></p>
-  </div>
+<section class="calendar-visit">
+  <header>
+    <h2>
+      <%= link_to truncate(visit.purpose_of_visit, length: 50),
+        manager_reserve_visit_path(visit.reserve_id, visit.id),
+        data: { turbo_frame: "_top"}
+      %>
+    </h2>
+  </header>
+  <div class="calendar-visit-body">
+    <div>
+      <p><%= t(".id_with_reserve_name", id: visit.id, reserve_name: visit.reserve_name ) %></p>
+      <p><%= visit.user_info %> - <%= visit.institution_name %></p>
+    </div>
 
-  <div class="align-right ">
-    <span> <%= t(".visitors", count: visit.visitor_count_on_date(@presenter.date_begin_filter)) %></span>
-    <%= render partial: "shared/visits/status", locals: {context: visit.status_class, img: visit.status_icon} %>
+    <div class="visit-status">
+      <%= tag.span t("universal.visit.statuses.#{visit.status_class}"), class: "pill #{visit.status_class}" %>
+      <%= tag.p pluralize(visit.visitor_count_on_date(begin_date), t(".visitor")) %>
+    </div>
   </div>
-</div>
+</section>

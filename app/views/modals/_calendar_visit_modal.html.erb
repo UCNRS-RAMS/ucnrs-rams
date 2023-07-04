@@ -1,7 +1,7 @@
-<turbo-frame class="modal-content" data-modal-target="dialog openOnLoad">
+<turbo-frame id="modal-content" class="modal-content" data-modal-target="dialog openOnLoad">
   <div data-modal-target="dialog openOnLoad" data-action="mousedown@window->modal#closeBackground">
     <section class="calendar-modal">
-      <div class="close">
+      <div class="buttons-top">
         <%= image_tag "x.svg", height: "16px", width: "16px", data: { action: "click->modal#close" } %>
       </div>
       <header class="modal-header">
@@ -17,7 +17,11 @@
           %>
           <p><%= t(".visit", id: presenter.id, reserve_name: presenter.visit_reserve_name ) %></p>
         </div>
-        <p class="<%= presenter.status_classes%>"><%= presenter.status_text %></p>
+        <div>
+          <%= tag.span t("universal.visit.statuses.#{presenter.status}"),
+            class: "pill #{presenter.status}"
+          %>
+        </div>
       </div>
       <hr />
       <div class="project-information">

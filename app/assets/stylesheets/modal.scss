@@ -240,10 +240,11 @@
     }
   }
 
-  .close {
+  .buttons-top {
     display: flex;
+    flex-direction: row;
     justify-content: flex-end;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
 
     img {
       background-color: rgba($gray, 0.36);
