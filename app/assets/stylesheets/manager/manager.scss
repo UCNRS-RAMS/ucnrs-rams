@@ -1,6 +1,6 @@
 .manager {
   main {
-    flex-direction: row;
+    display: unset;
 
     > .container {
       display: flex;

@@ -73,6 +73,7 @@
   .reserve-info {
     flex-grow: 1;
     margin-top: 0.125rem;
+    width: 100%;
 
     > header {
       font-size: 1.5rem;
@@ -105,9 +106,14 @@
   .reserve-pictures {
     display: flex;
     align-items: flex-start;
+    flex-wrap: wrap;
 
     > * {
       margin-right: 0.75rem;
+    }
+
+    > img {
+      margin-bottom: 0.50rem;
     }
   }
 
@@ -155,6 +161,7 @@
 .manager.directions {
   section.reserve-info-subsection {
     background-color: $light-gray;
+    font-size: 0.8125rem;
     margin-bottom: 2rem;
     padding: 2rem 1.5rem;
 
@@ -180,6 +187,11 @@
 
     .form-group {
       margin-bottom: 1rem;
+
+      small {
+        color: $dark-bluegray;
+        font-size: 12px;
+      }
     }
 
     .form-group,
@@ -190,7 +202,7 @@
     .form-label {
       color: $dark-bluegray;
       display: inline-block;
-      font-size: 0.75rem;
+      font-size: 0.8125rem;
       font-weight: $normal;
       margin-bottom: 0.15rem;
     }
@@ -265,6 +277,7 @@
       background-color: $white;
       border: 1px solid $darker-gray;
       border-radius: 3px;
+      font-size: 0.8125rem;
       font-weight: $medium;
       padding: 0.625rem;
     }
