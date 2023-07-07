@@ -4,11 +4,21 @@
       <%= visit.status %>
     </span>
   </td>
-  <td class="date-range"><%= visit.requested_date_range %></td>
-  <td><%= visit.requested_reserve_name %></td>
+  <td>
+    <span class="date-range"><%= visit.requested_date_range %></span>
+    <br />
+    <%= t("universal.project.project_types.#{visit.project_type}") %>
+    |
+    <%= truncate visit.project_title, length: 50, omission: '...' %>
+  </td>
+  <td class="reserve-name">
+    <%= visit.requested_reserve_name %>
+  </td>
   <td>
     <%= link_to visit.visit_route, target: "_top" do %>
-      <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"), height: "20", width: "20" %>
+      <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"),
+        height: "20", width: "20"
+      %>
     <% end %>
   </td>
 </tr>
