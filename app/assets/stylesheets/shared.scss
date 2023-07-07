@@ -65,3 +65,26 @@ header.header-with-links {
 table.table-style1 {
   @include table-style1;
 }
+
+table.visit-requests {
+  @include table-style1;
+
+  tbody td {
+    .disabled-link {
+      filter: invert(50%);
+      pointer-events: none;
+    }
+
+    &:first-of-type {
+      width: 115px;
+    }
+  }
+
+  .date-range {
+    font-weight: $semi-bold;
+  }
+
+  .reserve-name {
+    width: 175px;
+  }
+}

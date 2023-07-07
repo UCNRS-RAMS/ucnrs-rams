@@ -42,18 +42,18 @@
       padding-top: 0.625rem;
 
       &:first-of-type {
-        border-bottom-left-radius: 0.313rem;
+        border-bottom-left-radius: $border-radius;
         border-left: 1px solid $gray;
-        border-top-left-radius: 0.313rem;
+        border-top-left-radius: $border-radius;
         max-width: 150px;
         padding-left: 1.25rem;
         padding-right: 1rem;
       }
 
       &:last-of-type {
-        border-bottom-right-radius: 0.313rem;
+        border-bottom-right-radius: $border-radius;
         border-right: 1px solid $gray;
-        border-top-right-radius: 0.313rem;
+        border-top-right-radius: $border-radius;
         padding-right: 1.25rem;
         text-align: right;
       }
