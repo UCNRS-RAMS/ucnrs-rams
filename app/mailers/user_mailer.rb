@@ -25,10 +25,13 @@ class UserMailer < ApplicationMailer
     @presenter = Mail::User::VisitUpdatePresenter.new(params[:visit])
     @approval_message = params[:approval_message]
     email_to_list = params[:email_to_list]
+    bcc = if params[:bcc_personnel]
+      @presenter.email_bcc_to_list
+    end
 
     mail(
       to: email_to_list,
-      bcc: @presenter.email_bcc_to_list,
+      bcc: bcc,
       subject: @presenter.email_subject,
       content_type: "text/html",
     )
