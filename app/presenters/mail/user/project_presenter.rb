@@ -10,7 +10,8 @@ class Mail::User::ProjectPresenter
   delegate_missing_to :project
 
   def principal_investigators_list
-    team_memberships
+    project_team_memberships
+      .includes(:user)
       .select(&:is_principal_investigator)
       &.map { |membership| membership.user.full_name }
       .to_sentence

@@ -4,17 +4,17 @@
   </header>
   <div class="space-between">
     <div class="input-group">
-      <%= form.label t(".email-notification-method"), t(".notification_method") %>
-      <%= form.select t(".email-notification-method"),
+      <%= form.label :email_notification_method, t(".notification_method") %>
+      <%= form.select :email_notification_method,
         options_for_select(presenter.email_options),
-        { },
+        {},
         class: "email-notification-method",
         data: {"summary-tab-target": "selectField", action: "change->summary-tab#toggleEmailDiv"}
       %>
     </div>
     <div>
       <%= form.check_box :report_access %>
-      <%= form.label :report_access, t(".annual_report") %>
+      <%= form.label :report_access, t(".report_access") %>
     </div>
   </div>
   <div class="email" data-summary-tab-target="emailDiv" >
@@ -45,16 +45,26 @@
       <% presenter.project_team_members.each do |team_member| %>
         <div class="team-member">
           <div>
-            <%= form.check_box t(".recipient_email"), checked: team_member.is_principal_investigator? %>
-            <strong><%= tag.label team_member.user.full_name %></strong>
+            <%= form.check_box :email_to_list,
+              {
+                multiple: true,
+                checked: team_member.is_principal_investigator?,
+                id: "visit_email_to_list_#{team_member.id}",
+              },
+              team_member.user.email,
+              nil
+            %>
+            <strong>
+              <%= form.label "email_to_list_#{team_member.id}", team_member.user.full_name %>
+            </strong>
           </div>
           <div><%= team_member.institution.name %></div>
           <div><%= team_member.project_role %></div>
         </div>
       <% end %>
       <div>
-        <%= form.check_box t(".cc_recipients_box"), checked: true, id: "cc_recipients" %>
-        <%= tag.label t(".cc_recipients"), for: "cc_recipients" %>
+        <%= form.check_box :bcc_personnel, checked: true %>
+        <%= form.label :bcc_personnel, t(".bcc_recipients") %>
       </div>
     </section>
   </div>

@@ -1413,19 +1413,16 @@ en:
         email_notification:
           email_message: "Email Message"
           notification: "Notification Email"
-          email-notification-method: "email-notification-method"
           clear_message: "Clear message field"
-          recipient_email: "recipient_email"
-          email_applicant_and_staff: "email_applicant_and_staff"
-          email_staff_only: "email_staff_only"
-          cc_recipients_box: "cc_recipients_box"
           notification_method: "Email Notification Method"
-          annual_report: "Remove Visit From Annual Report"
-          message_field_label: "This message is displayed in the visit page in the summary page in the public interface"
+          report_access: "Include Visit in Annual Report"
+          message_field_label: "This message is displayed in the visit page in the summary page
+            in the public interface"
           email_recipient: "Email Recipients"
           email_applicant: "Email Applicant and Staff"
           email_staff: "Email Staff Only"
-          cc_recipients: "CC Reserve Personnel (Staff signed up to be notified of status changes)"
+          bcc_recipients: "BCC Reserve Personnel (Staff signed up to be notified of status
+            changes)"
       tab:
         summary: "Summary"
         details: "Details"

@@ -3,3 +3,9 @@
     <%= render partial: "manager/visits/summary_box", locals: { presenter: @presenter } %>
   </template>
 </turbo-stream>
+
+<turbo-stream action="replace" target="flash">
+  <template>
+      <%= render "shared/flash" %>
+  </template>
+</turbo-stream>

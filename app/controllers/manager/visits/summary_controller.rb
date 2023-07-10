@@ -16,9 +16,15 @@ class Manager::Visits::SummaryController < Manager::ApplicationController
 
   def update
     @form = VisitForm.new(user: current_user, params: visit_params)
+
     if @form.update_status
       flash.now[:notice] = I18n.t("manager.visits.summary.update.flash_message")
       @presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: current_user)
+
+      if email_params[:email_notification_method] == "composed_email"
+        send_update_email!(visit: @form.visit, email_params: email_params)
+      end
+
     else
       @presenter = Manager::Visits::VisitsFormPresenter.new(user: current_user, form: @form)
       render :edit, status: :unprocessable_entity
@@ -35,11 +41,32 @@ class Manager::Visits::SummaryController < Manager::ApplicationController
     )
   end
 
+  def email_params
+    params.require(:visit).permit(
+      :email_notification_method,
+      :approval_message,
+      :email_to_list,
+      :bcc_personnel,
+    )
+  end
+
   def visit
     Visit.find(visit_id)
   end
 
   def visit_id
     params.permit(:visit_id).require(:visit_id)
+  end
+
+  def send_update_email!(visit:, email_params:)
+    UserMailer
+      .with(
+        visit: visit,
+        approval_message: email_params[:approval_message],
+        email_to_list: email_params[:email_to_list],
+        bcc_personnel: ActiveModel::Type::Boolean.new.cast(email_params[:bcc_personnel]),
+      )
+      .visit_update
+      .deliver_now
   end
 end
