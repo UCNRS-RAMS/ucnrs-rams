@@ -2,9 +2,13 @@
   <div>
     <h2><%= t(".visits") %></h2>
   </div>
-  <ul class="link-group" data-controller="active-tab" data-active-tab-selected-value=<%= selected_tab %>>
+  <ul class="link-group" data-controller="active-tab" data-active-tab-selected-value=<%= selected_tab %> >
     <li id="dashboard">
-      <%= link_to image_tag('icon-dash-on.svg', alt: I18n.t(".alt.icon_dash"), class: "tab-icon"),
+      <%= link_to image_tag('icon-dash-on.svg',
+          alt: t("alt.icon_dash"),
+          class: "tab-icon",
+          id: "dashboard-icon"
+        ),
         manager_reserve_dashboard_path(current_reserve),
         data: {
           "active-tab-target": "tab",
@@ -14,7 +18,7 @@
       %>
     </li>
     <li id="list">
-      <%= link_to image_tag('icon-list-off.svg', alt: I18n.t("alt.icon_list"), class: "tab-icon"),
+      <%= link_to image_tag('icon-list-off.svg', alt: t("alt.icon_list"), class: "tab-icon"),
         manager_reserve_dashboard_visits_path(current_reserve),
         data: {
           "turbo-frame": "dashboard-content",
@@ -26,10 +30,15 @@
       %>
     </li>
     <li id="calendar">
-      <%= link_to image_tag('icon-calendar-off.svg', alt: I18n.t(".alt.icon_calendar"), class: "tab-icon"),
-        manager_reserve_dashboard_calendar_path(start_date: Date.current),
-        data: { "turbo-frame": "dashboard-content",
-          "turbo-action": "replace", "active-tab-target": "tab", index: 2, action: "click->active-tab#activeCalendar" }
+      <%= link_to image_tag('icon-calendar-off.svg', alt: t("alt.icon_calendar"), class: "tab-icon"),
+        manager_reserve_dashboard_calendar_path(current_reserve),
+        data: {
+          "turbo-frame": "dashboard-content",
+          "turbo-action": "replace",
+          "active-tab-target": "tab",
+          index: 2,
+          action: "click->active-tab#activeCalendar"
+        }
       %>
     </li>
   </ul>

@@ -1,7 +1,9 @@
 <%= turbo_frame_tag "home-visits" do %>
   <header>
     <h1><%= t(".title") %></h1>
-    <%= form_with url: root_path, method: :get, data: { "turbo-frame": "home-visits", "turbo-action": "advance" } do %>
+    <%= form_with url: root_path, method: :get,
+      data: { "turbo-frame": "home-visits", "turbo-action": "advance" } do
+    %>
       <%= render partial: "home/visit_filter", locals: { presenter: @presenter } %>
     <% end %>
     <%= render partial: "toolbar_buttons", locals: { presenter: @presenter } %>

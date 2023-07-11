@@ -1,9 +1,9 @@
 <%= turbo_frame_tag 'calendar' do %>
   <header>
-    <h1>
-      <%= t(".title") %>
-    </h1>
-    <%= form_with url: home_calendar_path, method: :get, data: { "turbo-frame": "calendar" } do %>
+    <h1><%= t(".title") %></h1>
+    <%= form_with url: home_calendar_path, method: :get,
+      data: { "turbo-frame": "calendar", "turbo-action": "advance" } do
+    %>
       <%= hidden_field_tag "start_date", @presenter.start_date %>
       <%= render partial: "home/visit_filter", locals: { presenter: @presenter } %>
     <% end %>
