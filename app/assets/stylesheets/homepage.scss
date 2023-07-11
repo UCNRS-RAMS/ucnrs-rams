@@ -47,6 +47,7 @@
 
         h1 {
           flex: 1;
+          font-size: 1.5rem;
           font-style: normal;
           font-weight: $semi-bold;
           margin: 0;
@@ -66,9 +67,9 @@
                 align-items: center;
                 border: 1px solid $gray;
                 display: flex;
-                height: 30px;
+                height: 32px;
                 justify-content: center;
-                width: 35px;
+                width: 38px;
               }
 
               a.active {
@@ -77,16 +78,30 @@
                   filter: brightness(0) invert(1);
                 }
               }
+
+              &#dashboard img {
+                width: 1.55rem;
+              }
+
+              &#list img {
+                width: 1.25rem;
+              }
+
+              &#calendar img {
+                width: 1.25rem;
+              }
             }
 
             li:first-child a {
-              border-bottom-left-radius: 0.25rem;
-              border-top-left-radius: 0.25rem;
+              border-bottom-left-radius: $border-radius;
+              border-top-left-radius: $border-radius;
+              padding-left: 2px;
             }
 
             li:last-child a {
-              border-bottom-right-radius: 1rem;
-              border-top-right-radius: 1rem;
+              border-bottom-right-radius: $border-radius;
+              border-top-right-radius: $border-radius;
+              padding-right: 2px;
             }
 
             li:not(:first-child) a {
