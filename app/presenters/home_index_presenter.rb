@@ -25,7 +25,7 @@ class HomeIndexPresenter
     @invoice_reserve_filter = filter_type(invoice_filter) == :reserve ? reserve_id(invoice_filter) : nil
     @visit_status_filter = filter_type(visit_filter) == :status ? visit_filter : nil
     @visit_reserve_filter = filter_type(visit_filter) == :reserve ? reserve_id(visit_filter) : nil
-    @partial_name = partial || "visits"
+    @partial_name = partial || "visits_section"
   end
 
   attr_reader :visit_filter,

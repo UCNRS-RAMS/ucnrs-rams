@@ -132,8 +132,8 @@ en:
     calendar:
       show:
         title: "Visit Requests"
-    visits:
-      title: "Visit Requests"
+    visits_section:
+      title: "My Visit Requests"
       most_recent_filter: "Most recent"
       labels:
         by: "By:"
