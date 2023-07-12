@@ -7,6 +7,17 @@
 .home-index {
   @include pagination;
 
+  main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-between;
+
+    section.content {
+      flex-grow: 1;
+    }
+  }
+
   .content {
     color: $navy-blue;
     display: flex;
@@ -337,6 +348,17 @@
           position: absolute;
           white-space: nowrap;
           z-index: 1;
+        }
+      }
+    }
+
+    table.visit-requests,
+    table.invoices {
+      tbody > tr:not(.header):hover {
+        img.right-arrow {
+          background-color: white;
+          border-radius: 1rem;
+          filter: invert(1);
         }
       }
     }

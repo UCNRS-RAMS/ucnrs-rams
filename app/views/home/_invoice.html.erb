@@ -9,7 +9,7 @@
   <td>
     <%= link_to invoice_path(invoice.id), data: { turbo_frame: "_top" } do %>
       <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"),
-        height: "20", width: "20"
+        class: "right-arrow", height: "20", width: "20"
       %>
     <% end %>
   </td>
