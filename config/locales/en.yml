@@ -143,11 +143,12 @@ en:
       no_visits_2: "Please note that creating
         a visit requires a Project to attach to. To create a project please click on the Projects
         link at the navigation pane above, then click on the (Create A New Project) button."
-    invoices:
-      title: "Visit Requests"
+    invoice_filter:
       labels:
         by: "By:"
         by_reserve: "By reserve:"
+    invoices_section:
+      title: "Visit Requests"
       invoices:
         title: "Invoices"
       no_invoices: "You do not have any Invoice at this time."
