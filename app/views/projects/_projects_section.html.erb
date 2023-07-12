@@ -1,0 +1,22 @@
+<turbo-frame id="projects-table">
+  <section>
+    <header>
+      <h1><%= t(".title") %></h1>
+      <form method="get", data-turbo-action="advance" >
+        <select id="status" name="status" aria-label="status" onchange="this.form.requestSubmit()">
+          <% presenter.filter_options.each do |option| %>
+            <option <%= @presenter.selected?(option) %> value="<%= option %>"><%= option %></option>
+          <% end %>
+        </select>
+      </form>
+    </header>
+    <% if presenter.projects.present? %>
+      <%= render partial: "projects", locals: { projects: presenter.projects } %>
+      <%= paginate presenter.project_scope, data: { "turbo-action": "advance" } %>
+    <% else %>
+      <div class="initial-info">
+        <p><%= t(".no_projects") %></p>
+      </div>
+    <% end %>
+  </section>
+</turbo-frame>

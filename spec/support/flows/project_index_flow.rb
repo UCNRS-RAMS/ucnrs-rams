@@ -33,7 +33,6 @@ class ProjectIndexFlow
   def has_project_with?(
     id:,
     title:,
-    timeframe:,
     project_type:,
     number_of_visits:,
     most_recent_visit:,
@@ -41,7 +40,6 @@ class ProjectIndexFlow
   )
     page.within "tr#project_#{id}" do
       page.has_content?(title) &&
-        page.has_content?(timeframe) &&
         page.has_content?(project_type) &&
         page.has_content?(number_of_visits) &&
         page.has_content?(most_recent_visit) &&
