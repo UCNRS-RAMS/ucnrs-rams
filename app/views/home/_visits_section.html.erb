@@ -7,10 +7,11 @@
         data: { "turbo-frame": "home-visits", "turbo-action": "advance" } do
       %>
         <%= render partial: "home/visit_filter", locals: { presenter: @presenter } %>
-
       <% end %>
+
       <%= render partial: "toolbar_buttons", locals: { presenter: @presenter } %>
     </header>
+
     <% if @presenter.visits.present? %>
       <%= render partial: "visits", locals: { visits: @presenter.visits } %>
       <%= paginate @presenter.visit_scope,

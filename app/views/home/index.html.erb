@@ -1,11 +1,6 @@
 <section class="content">
   <%= render partial: @presenter.partial_name, locals: { presenter: @presenter } %>
-
-  <%= turbo_frame_tag "invoice" do %>
-    <section class="invoices">
-      <%= render partial: "invoices", locals: { presenter: @presenter } %>
-    </section>
-  <% end %>
+  <%= render partial: "invoices_section", locals: { presenter: @presenter } %>
 </section>
 
 <turbo-frame id="ucnrs_latest_news" src="/home/latest_news"></turbo-frame>

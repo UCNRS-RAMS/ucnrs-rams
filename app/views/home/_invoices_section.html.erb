@@ -1,0 +1,27 @@
+<%= turbo_frame_tag "home-invoices" do %>
+  <section class="invoices">
+    <header>
+      <h1><%= t(".invoices.title") %></h1>
+      <%= form_with url: root_path,
+        method: :get,
+        data: { "turbo-frame": "invoice", "turbo-action": "advance" } do
+      %>
+        <%= render partial: "home/invoice_filter", locals: { presenter: @presenter } %>
+      <% end %>
+
+    </header>
+
+    <% if @presenter.visits.present? %>
+      <%= render partial: "invoices", locals: { invoices: @presenter.invoices } %>
+      <%= paginate @presenter.invoice_scope,
+        param_name: :invoice_page, data: { "turbo-action": "advance" }
+      %>
+
+    <% else %>
+      <div class="initial-info">
+        <p><%= t(".no_invoices") %></p>
+      </div>
+
+    <% end %>
+  </section>
+<% end %>
