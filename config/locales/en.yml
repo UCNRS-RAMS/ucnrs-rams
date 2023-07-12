@@ -758,16 +758,7 @@ en:
     not_authorized: "You are not authorized to edit this project."
     cannot_add_users: "You are not authorized to add users."
     index:
-      no_projects: "You currently are not part of any Project. To create a project please click
-        on the (Create A New Project) button located to the right of this page."
       title: "My Projects"
-      table_headers:
-        title: "Title"
-        timeframe: "Timeframe"
-        type: "Type"
-        num_visits: "No. of Visits"
-        recent_visit_date: "Most Recent Visit"
-        recent_visit_reserve: "Reserve Name"
       what_are_projects: "What is a Project?"
       project_description: "A project encompasses the activities you plan to conduct for a specific
         purpose. For example, a project might be teaching a class, or running a study. A project
@@ -777,6 +768,18 @@ en:
         create_a_new_project: "Create A New Project"
       alt:
         help_icon: "A question mark endclosed in a circle"
+    projects_section:
+      no_projects: "You currently are not part of any Project. To create a project please click
+        on the (Create A New Project) button located to the right of this page."
+      title: "My Projects"
+    projects:
+      table_headers:
+        title: "Title"
+        timeframe: "Timeframe"
+        type: "Type"
+        num_visits: "No. of Visits"
+        recent_visit_date: "Most Recent Visit"
+        recent_visit_reserve: "Reserve Name"
     project:
       not_applicable: "N/A"
       alt:

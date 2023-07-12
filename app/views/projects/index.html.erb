@@ -2,39 +2,7 @@
 
 <section class="content">
   <section class="left">
-    <turbo-frame id="projects-table">
-      <header>
-        <h1><%= t(".title") %></h1>
-        <form method="get", data-turbo-action="advance" >
-          <select id="status" name="status" aria-label="status" onchange="this.form.requestSubmit()">
-            <% @presenter.filter_options.each do |option| %>
-              <option <%= @presenter.selected?(option) %> value="<%= option %>"><%= option %></option>
-            <% end %>
-          </select>
-        </form>
-      </header>
-      <% if @presenter.projects.present? %>
-        <table class="projects">
-          <thead>
-            <tr>
-              <th><%= t(".table_headers.title") %></th>
-              <th><%= t(".table_headers.timeframe") %></th>
-              <th><%= t(".table_headers.type") %></th>
-              <th><%= t(".table_headers.num_visits") %></th>
-              <th><%= t(".table_headers.recent_visit_date") %></th>
-              <th><%= t(".table_headers.recent_visit_reserve") %></th>
-              <th></th>
-            </tr>
-          <thead>
-          <%= render partial: "table", locals: { presenter: @presenter } %>
-        </table>
-        <%= paginate @presenter.project_scope, data: { "turbo-action": "advance" } %>
-      <% else %>
-        <div class="initial-info">
-          <p><%= t(".no_projects") %></p>
-        </div>
-      <% end %>
-    </turbo-frame>
+    <%= render partial: "projects_section", locals: { presenter: @presenter } %>
   </section>
   <section class="right">
     <div>

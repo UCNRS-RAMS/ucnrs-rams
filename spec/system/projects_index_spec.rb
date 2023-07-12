@@ -27,7 +27,6 @@ RSpec.describe "Projects Index" do
         expect(flow).to have_project_with(
           id: project3.id,
           title: "Project 3",
-          timeframe: "Aug 1 - Dec 1, 2021",
           project_type: "Class",
           number_of_visits: 0,
           most_recent_visit: "N/A",
@@ -36,7 +35,6 @@ RSpec.describe "Projects Index" do
         expect(flow).to have_project_with(
           id: project2.id,
           title: "Project 2",
-          timeframe: "Aug 1 - Dec 1, 2021",
           project_type: "Research",
           number_of_visits: 1,
           most_recent_visit: "Oct 11, 2021",
@@ -45,7 +43,6 @@ RSpec.describe "Projects Index" do
         expect(flow).to have_project_with(
           id: project1.id,
           title: "Project 1",
-          timeframe: "Dec 31, 2021 - Dec 31, 2023",
           project_type: "Research",
           number_of_visits: 1,
           most_recent_visit: "Dec 31, 2021",
@@ -54,7 +51,6 @@ RSpec.describe "Projects Index" do
         expect(flow).to have_project_with(
           id: project4.id,
           title: "Project 4",
-          timeframe: "Dec 31, 2019 - Jan 2, 2021",
           project_type: "Class",
           number_of_visits: 1,
           most_recent_visit: "Jan 01, 2020",
@@ -68,7 +64,6 @@ RSpec.describe "Projects Index" do
         expect(flow).to have_project_with(
           id: project2.id,
           title: "Project 2",
-          timeframe: "Aug 1 - Dec 1, 2021",
           project_type: "Research",
           number_of_visits: 1,
           most_recent_visit: "Oct 11, 2021",
@@ -77,7 +72,6 @@ RSpec.describe "Projects Index" do
         expect(flow).to have_project_with(
           id: project1.id,
           title: "Project 1",
-          timeframe: "Dec 31, 2021 - Dec 31, 2023",
           project_type: "Research",
           number_of_visits: 1,
           most_recent_visit: "Dec 31, 2021",
@@ -91,7 +85,6 @@ RSpec.describe "Projects Index" do
         expect(flow).to have_project_with(
           id: project3.id,
           title: "Project 3",
-          timeframe: "Aug 1 - Dec 1, 2021",
           project_type: "Class",
           number_of_visits: 0,
           most_recent_visit: "N/A",
@@ -105,7 +98,6 @@ RSpec.describe "Projects Index" do
         expect(flow).to have_project_with(
           id: project4.id,
           title: "Project 4",
-          timeframe: "Dec 31, 2019 - Jan 2, 2021",
           project_type: "Class",
           number_of_visits: 1,
           most_recent_visit: "Jan 01, 2020",
@@ -118,7 +110,6 @@ RSpec.describe "Projects Index" do
         expect(flow).to have_project_with(
           id: project3.id,
           title: "Project 3",
-          timeframe: "Aug 1 - Dec 1, 2021",
           project_type: "Class",
           number_of_visits: 0,
           most_recent_visit: "N/A",
@@ -127,7 +118,6 @@ RSpec.describe "Projects Index" do
         expect(flow).to have_project_with(
           id: project2.id,
           title: "Project 2",
-          timeframe: "Aug 1 - Dec 1, 2021",
           project_type: "Research",
           number_of_visits: 1,
           most_recent_visit: "Oct 11, 2021",
@@ -136,7 +126,6 @@ RSpec.describe "Projects Index" do
         expect(flow).to have_project_with(
           id: project1.id,
           title: "Project 1",
-          timeframe: "Dec 31, 2021 - Dec 31, 2023",
           project_type: "Research",
           number_of_visits: 1,
           most_recent_visit: "Dec 31, 2021",
@@ -145,7 +134,6 @@ RSpec.describe "Projects Index" do
         expect(flow).to have_project_with(
           id: project4.id,
           title: "Project 4",
-          timeframe: "Dec 31, 2019 - Jan 2, 2021",
           project_type: "Class",
           number_of_visits: 1,
           most_recent_visit: "Jan 01, 2020",

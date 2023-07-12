@@ -1,0 +1,15 @@
+<table class="projects">
+  <thead>
+    <tr>
+      <th id="project-title"><%= t(".table_headers.title") %></th>
+      <th id="project-type"><%= t(".table_headers.type") %></th>
+      <th id="project-num-visits"><%= t(".table_headers.num_visits") %></th>
+      <th id="project-visit-date"><%= t(".table_headers.recent_visit_date") %></th>
+      <th id="project-recent-visit-reserve"><%= t(".table_headers.recent_visit_reserve") %></th>
+      <th></th>
+    </tr>
+  <thead>
+  <tbody>
+    <%= render partial: "projects/project", collection: projects %>
+  </tbody>
+</table>

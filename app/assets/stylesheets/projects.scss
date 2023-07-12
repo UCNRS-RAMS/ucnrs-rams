@@ -54,6 +54,14 @@
         table {
           @include table-style1;
 
+          #project-num-visits {
+            width: 50px;
+          }
+
+          #project-visit-date {
+            width: 110px;
+          }
+
           tbody > tr:not(.header):hover {
             img.right-arrow {
               background-color: white;
@@ -66,7 +74,7 @@
 
       .right {
         background-color: $light-light-blue;
-        width: 405px;
+        width: 475px;
 
         div {
           margin-top: 4.375rem;
