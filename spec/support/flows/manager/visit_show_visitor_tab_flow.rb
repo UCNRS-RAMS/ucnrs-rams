@@ -53,8 +53,8 @@ class VisitShowVisitorTabFlow
     page.has_css?(css)
   end
 
-  def click_on_add_guest
-    page.click_link("Add Guest")
+  def click_on_add_individual
+    page.click_link("Add Individual")
   end
 
   def click_on_add_group

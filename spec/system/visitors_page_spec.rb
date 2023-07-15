@@ -12,7 +12,6 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
     flow = AddVisitorsFlow.new(page)
 
     flow.visit_add_visitors_page(visit.id)
-
     expect(flow).to have_a_visitor(visitor1, user_visit1)
   end
 
@@ -24,8 +23,8 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
     flow = AddVisitorsFlow.new(page)
 
     flow.visit_add_visitors_page(visit.id)
-
     expect(flow).to have_a_visitor(visitor1, user_visit1)
+
     flow.delete_user_visit(user_visit1)
     expect(flow).to be_not_showing_a_visitor(user_visit1)
   end
@@ -43,7 +42,7 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
     expect(flow).not_to have_section("#add-guest")
     expect(flow).not_to have_section("#add-group")
 
-    flow.click_on_add_guest
+    flow.click_on_add_individual
     expect(flow).to have_section("#add-guest")
     expect(flow).not_to have_section("#add-team-member")
     expect(flow).not_to have_section("#add-group")
@@ -125,7 +124,7 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
       sign_in(user)
       flow = AddVisitorsFlow.new(page)
       flow.visit_add_visitors_page(visit.id)
-      page.click_on("Add Guest")
+      flow.click_on_add_individual
 
       expect(page).to_not have_css(".list-group-item")
 
@@ -141,7 +140,7 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
       flow = AddVisitorsFlow.new(page)
       flow.visit_add_visitors_page(visit.id)
 
-      page.click_on("Add Guest")
+      flow.click_on_add_individual
       page.find("#user_visit_guest_name").set("John Muir")
       page.find("#-option-0").click
 
@@ -158,7 +157,7 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
       sign_in(user)
       flow = AddVisitorsFlow.new(page)
       flow.visit_add_visitors_page(visit.id)
-      page.click_on("Add Guest")
+      flow.click_on_add_individual
 
       click_button("Add Visitor")
 
@@ -176,7 +175,6 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
     it "previous form will swap with another form to create institute" do
       visitor = create(:user, :confirmed, first_name: "user1", last_name: "test1")
       user_visit = create(:user_visit, visit: visit, user: visitor, role: "Other")
-
       sign_in(user)
       flow = AddVisitorsFlow.new(page)
 
@@ -188,12 +186,12 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
       expect(page).to have_css("#institution-fields")
     end
 
-    context "if instituion name field is dublicate" do
+    context "if institution name field is duplicate" do
       it "display error" do
         visitor = create(:user, :confirmed, first_name: "user1", last_name: "test1")
         institution = create(:institution, name: "university-abc", city: "houstan")
-        user_visit = create(:user_visit, visit: visit, user: visitor, institution: institution, role: "Other")
-
+        user_visit = create(:user_visit, visit: visit, user: visitor, institution: institution,
+          role: "Other")
         sign_in(user)
         flow = AddVisitorsFlow.new(page)
 
@@ -214,13 +212,12 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
       it "it will create new institution and associate it with user_visit" do
         visitor = create(:user, :confirmed, first_name: "user1", last_name: "test1")
         institution = create(:institution, name: "university-xyz")
-        user_visit = create(:user_visit, visit: visit, user: visitor, institution: institution, role: "Other")
-
+        user_visit = create(:user_visit, visit: visit, user: visitor, institution: institution,
+          role: "Other")
         sign_in(user)
         flow = AddVisitorsFlow.new(page)
 
         flow.visit_add_visitors_page(visit.id)
-
         flow.click_on_change(user_visit)
         flow.click_on_new_institution_link
         flow.fill_form_for_institution

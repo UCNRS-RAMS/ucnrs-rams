@@ -1,12 +1,11 @@
 <% if @presenter.add_visitor_partial.present? %>
   <turbo-stream action="replace" target="add-visitor">
     <template>
-      <turbo-frame id="add-visitor">
-        <%= render partial: @presenter.add_visitor_partial_path, locals: { presenter: @presenter } %>
-      </turbo-frame>
+      <%= render partial: @presenter.add_visitor_partial_path, locals: { presenter: @presenter } %>
     </template>
   </turbo-stream>
 <% end %>
+
 <% if @presenter.show_add_guest_modal %>
   <turbo-stream action="replace" target="modal-content">
     <template>
@@ -14,6 +13,7 @@
     </template>
   </turbo-stream>
 <% end %>
+
 <% unless @presenter.add_visitor_partial.present? %>
   <turbo-stream action="replace" target="modal-content">
     <template>
