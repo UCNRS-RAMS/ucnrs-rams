@@ -156,7 +156,7 @@ RSpec.describe "Manager Visit Show" do
       expect(flow).not_to have_section("#add-guest")
       expect(flow).not_to have_section("#add-group")
 
-      flow.click_on_add_guest
+      flow.click_on_add_individual
       expect(flow).to have_section("#add-guest")
       expect(flow).not_to have_section("#add-team-member")
       expect(flow).not_to have_section("#add-group")
@@ -179,8 +179,8 @@ RSpec.describe "Manager Visit Show" do
 
       flow.click_on_change
       flow.change_user_visit_dates(arrives_at: user_visit.arrives_at + 1.day, departs_at: user_visit.departs_at)
-      
-      expect(flow).to have_visitor_dates(user_visit, 
+
+      expect(flow).to have_visitor_dates(user_visit,
         DateRangePresenter.value(
           start_date: user_visit.arrives_at + 1.day,
           end_date: user_visit.departs_at
@@ -260,7 +260,7 @@ RSpec.describe "Manager Visit Show" do
 
       flow.visit_show_page
       flow.click_on_vistors_tab
-      flow.click_on_add_guest
+      flow.click_on_add_individual
 
       expect(page).to_not have_css(".list-group-item")
       flow.set_guest
@@ -274,7 +274,7 @@ RSpec.describe "Manager Visit Show" do
       flow.visit_show_page
       flow.click_on_vistors_tab
 
-      flow.click_on_add_guest
+      flow.click_on_add_individual
       flow.set_guest
       flow.select_option
 
@@ -292,7 +292,7 @@ RSpec.describe "Manager Visit Show" do
 
       flow.visit_show_page
       flow.click_on_vistors_tab
-      flow.click_on_add_guest
+      flow.click_on_add_individual
 
       flow.click_add_visitor
 

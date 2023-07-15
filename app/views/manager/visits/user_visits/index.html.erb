@@ -43,10 +43,10 @@
 
     <section id="visitors-summary" class="form-subsection">
       <div class="form-container">
-        <%= tag.div t(".warning"), class: @presenter.warning_message_class %>
         <header>
           <h2><%= t(".visitor_table") %></h2>
         </header>
+        <%= tag.div t(".warning"), class: @presenter.warning_message_class %>
         <%= render partial: "shared/visits/user_visits/user_visits_table", locals: { presenter: @presenter } %>
       </div>
     </section>

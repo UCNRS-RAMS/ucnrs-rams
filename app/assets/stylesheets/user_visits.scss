@@ -42,7 +42,7 @@
 
         .button_to {
           .add-visitor-btn {
-            background-color: $white;
+            background-color: $gold;
             width: 180px;
           }
         }
@@ -52,9 +52,10 @@
         }
 
         a {
+          background-color: $gold;
           border: 1px solid $dark-bluegray;
           border-radius: 1.5rem;
-          color: $dark-bluegray;
+          color: unset;
           padding: 0.2rem 1.5rem;
           text-decoration: none;
         }
@@ -63,6 +64,7 @@
       .toolbar-button {
         display: flex;
         font-size: 0.75rem;
+        margin-bottom: 1.5rem;
 
         a {
           background: $buttonset-background;
@@ -94,7 +96,7 @@
 
       section {
         margin: 0;
-        padding: 2rem 0 0 0;
+        padding: 0;
       }
 
       .flex-row {
@@ -116,9 +118,11 @@
         }
 
         button {
+          background-color: $gold;
           border: 1px solid $dark-bluegray;
           border-radius: 1.5rem;
-          padding: 0.2rem 1.5rem;
+          font-size: 0.875rem;
+          height: 2rem;
           width: 8rem;
 
           &:hover {
@@ -191,12 +195,10 @@
 
       .user-visits-warning {
         background-color: $gold;
-        border-radius: 0.3125rem;
+        border-radius: $border-radius;
         font-size: 0.8125rem;
-        margin-bottom: -50px;
         padding: 1.4rem 1.5rem 1.5rem 50px;
         position: relative;
-        top: -60px;
 
         > p:first-of-type {
           margin-top: 0;

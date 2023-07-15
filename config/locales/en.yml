@@ -2435,10 +2435,13 @@ en:
       project:
         project_title: "Visit for Project"
       user_visits:
-        click_add_visitor: "%{or}Click (Add Visitor) button to add this person as a one time guest (these guests have no login privileges in RAMS)."
+        click_add_visitor: "%{or}Click (Add Visitor) button to add this person as a one time guest
+          (these guests have no login privileges in RAMS)."
         team_member:
           add_to_visitor: "Add To Visitor List"
           add_to_visitor_again: "Add To Visitor List Again"
+        team_members:
+          add_team_members_info: "Click on team members listed to add them to the visit."
         guest:
           guest_name: "Visitor Name"
           role: "Role"
@@ -2456,16 +2459,15 @@ en:
           add_group: "Add Group"
           search_by_name: "Search by name"
           select_institution: "- Select Institution -"
+          add_group_info: "Add people as a group, eg. students, TAs, volunteers, etc."
         user_visit:
           change: "Change"
           confirm_removal: "Are you sure you want to remove %{name}?"
         user_visits_table:
           add_visitors: "Add visitors to this list."
-        team_members:
-          new_team_member: "Add New Team Member"
         links:
           add_team_member: "Add Team Member"
-          add_guest: "Add Guest"
+          add_individual: "Add Individual"
           add_group: "Add Group"
       questions:
         questions:

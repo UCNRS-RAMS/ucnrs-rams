@@ -11,8 +11,13 @@
   <section id="add-team-member" class="add-visitor-input">
     <table class="user-visits-table">
       <tbody>
-        <%= render partial: "shared/visits/user_visits/team_member", locals: { presenter: presenter, team_members: presenter.project_team_members } %>
+        <%= render partial: "shared/visits/user_visits/team_member",
+          locals: { presenter: presenter, team_members: presenter.project_team_members }
+        %>
       </tbody>
     </table>
   </section>
+  <span>
+    <strong><%= t(".add_team_members_info") %></strong>
+  </span>
 </turbo-frame>
