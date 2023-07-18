@@ -4,7 +4,6 @@
   </header>
   <div class="description">
     <%= simple_format policy_agreement.description %>
-    <%= image_tag(policy_agreement.image_url, class: "agreement-logo") if policy_agreement.image_url.present? %>
   </div>
 
   <% if policy_agreement.policy_url.present? %>
