@@ -36,6 +36,7 @@
 
       header > h3 {
         font-size: 1rem;
+        font-weight: $semi-bold;
         margin-bottom: 0.5rem;
         margin-top: 0.5rem;
       }
@@ -46,6 +47,10 @@
 
         p:first-of-type {
           margin-top: 0;
+        }
+
+        p:last-of-type {
+          margin-bottom: 0;
         }
 
         .agreement-logo {
@@ -60,7 +65,7 @@
       background: $gold;
       border-radius: $border-radius;
       display: flex;
-      padding: 15px 10px;
+      padding: 1rem;
 
       .checkbox {
         background-color: $light-gray;
@@ -69,10 +74,10 @@
         height: fit-content;
         margin: 0 0 0 1rem;
         padding: 10px;
-        width: 20rem;
+        width: 25rem;
 
         label{
-          font-size: 0.813rem;
+          font-size: 1rem;
           margin: auto 0;
           padding-left: 5px;
         }
@@ -81,8 +86,8 @@
 
     .agree,
     .agree-error {
-      display: flex;
       border-radius: $border-radius;
+      display: flex;
       flex-direction: row;
       padding: 10px;
 
@@ -94,18 +99,22 @@
 
       label {
         color: $navy-blue;
-        font-size: 0.813rem;
+        font-size: 1rem;
         height: 23px;
         letter-spacing: 0;
         line-height: 23px;
         margin: auto 0;
         padding-left: 10px;
         width: 296px;
+
+        strong {
+          font-weight: $semi-bold;
+        }
       }
     }
 
     .agree {
-      background-color: $light-gray;
+      background-color: $light-gold;
 
       label {
         .require{

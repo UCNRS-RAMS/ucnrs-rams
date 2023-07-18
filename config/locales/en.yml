@@ -596,7 +596,10 @@ en:
         reserve_use_agreement: "Reserve Use Agreement"
         code_of_conduct_agreement: "Code of Conduct Agreement"
         data_management_agreement: "Data Management Agreement"
-        policy_agreement_error: "Must agree the policy agreement"
+        policy_agreement_error: "You are almost done. You MUST check off each Agreement sections
+          and click the Submit button at the bottom of the page to officialy submit your visit
+          which will notify the staff of your request. If you skip this step your visit status
+          will remain INCOMPLETE."
     user_visits:
       no_visitor: "Please enter your visitor information before advancing"
       index:
@@ -1312,7 +1315,10 @@ en:
           reserve_use_agreement: "Reserve Use Agreement"
           code_of_conduct_agreement: "Code of Conduct Agreement"
           data_management_agreement: "Data Management Agreement"
-          policy_agreement_error: "Must agree the policy agreement"
+          policy_agreement_error: "You are almost done. You MUST check off each Agreement sections
+            and click the Submit button at the bottom of the page to officialy submit your visit
+            which will notify the staff of your request. If you skip this step your visit status
+            will remain INCOMPLETE."
       invoices:
         index:
           invoices: "Invoices"
