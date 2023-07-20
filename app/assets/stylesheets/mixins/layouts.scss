@@ -15,6 +15,12 @@
   form {
     @include form;
     @include date_fields;
+
+    small {
+      color: $dark-bluegray;
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+    }
   }
 
   header {

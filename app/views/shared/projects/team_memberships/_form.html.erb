@@ -2,10 +2,6 @@
   <header>
     <div class="add-user-form-header">
       <h2><%= t(".add_team_member_title") %></h2>
-      <span>
-        <%= t(".cannot_find_them") %>
-        <%= link_to t(".create_new_user"), presenter.user_form_path, data: { "turbo-frame": "modal-content" } %>
-      </span>
     </div>
     <span class="header-info"><%= t(".add_team_member_description") %></span>
   </header>
@@ -17,6 +13,10 @@
       <div class="autocomplete-results-container">
         <ul class="autocomplete-results" data-autocomplete-target="results"></ul>
       </div>
+      <small>
+        <%= t(".cannot_find_them") %>
+        <%= link_to t(".create_new_user"), presenter.user_form_path, data: { "turbo-frame": "modal-content" } %>
+      </small>
     </div>
     <div class="submit-row">
       <div id="project-role-select" class="field">
