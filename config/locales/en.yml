@@ -2447,6 +2447,7 @@ en:
           add_to_visitor: "Add To Visitor List"
           add_to_visitor_again: "Add To Visitor List Again"
         team_members:
+          new_team_member: "Add team member"
           add_team_members_info: "Click on team members listed to add them to the visit."
         guest:
           guest_name: "Visitor Name"

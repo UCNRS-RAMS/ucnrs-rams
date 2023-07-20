@@ -19,7 +19,7 @@ RSpec.describe StepsPresenter do
         partial: "svg/step_marker",
         locals: { presenter: StepMarkerPresenter.new(
           number: 1,
-          size: 24,
+          size: 25,
           color: "#556b72",
           fill_opacity: "1",
           use_checkmark: true,
@@ -30,7 +30,7 @@ RSpec.describe StepsPresenter do
         partial: "svg/step_marker",
         locals: { presenter: StepMarkerPresenter.new(
           number: 2,
-          size: 24,
+          size: 25,
           color: "#002045",
           fill_opacity: "1",
           use_checkmark: false,
@@ -41,7 +41,7 @@ RSpec.describe StepsPresenter do
         partial: "svg/step_marker",
         locals: { presenter: StepMarkerPresenter.new(
           number: 3,
-          size: 24,
+          size: 25,
           color: "#556b72",
           fill_opacity: "0",
           use_checkmark: false,

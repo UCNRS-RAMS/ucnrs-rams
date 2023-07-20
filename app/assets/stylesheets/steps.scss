@@ -23,11 +23,18 @@
       padding-right: 2.5rem;
 
       svg {
-        padding: 0.25rem;
+        //border-radius: 3em;
+        margin: 0.25rem;
       }
+
+
 
       &.active {
         color: $navy-blue;
+
+        circle {
+          fill: $gold;
+        }
       }
     }
   }
