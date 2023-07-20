@@ -617,16 +617,22 @@ main {
       line-height: 1.25rem;
       margin: 0.5rem 0;
 
+      .description {
+        display: block;
+        margin-bottom: 1.75rem;
+      }
+
       a {
         color: $dark-bluegray;
         display: block;
         font-size: 0.75rem;
         font-weight: $normal;
-        margin: 0.75rem 0;
+        margin-bottom: 0.75rem;
         text-decoration: underline;
       }
 
       .rates > span {
+        color: $dark-bluegray;
         display: inline-block;
       }
 

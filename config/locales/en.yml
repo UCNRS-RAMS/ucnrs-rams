@@ -425,7 +425,6 @@ en:
         title: "More Information"
     amenities:
       amenity:
-        link: "Amenity Link"
         more_info: "Show More"
         dates_of_use: "Dates of Use"
         rate: "Rate"
