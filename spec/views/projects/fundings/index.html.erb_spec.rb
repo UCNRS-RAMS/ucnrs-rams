@@ -26,7 +26,6 @@ RSpec.describe "app/views/projects/fundings/index.html.erb" do
       render template: "projects/fundings/index"
 
       doc = Capybara.string(rendered)
-      expect(doc).to have_field("Funding Status", type: "select")
       expect(doc).to have_field("Official Grant Title", type: "text")
       expect(doc).to have_field("Funding Opportunity Number", type: "text")
       expect(doc).to have_field("Grant Number", type: "text")
@@ -45,10 +44,6 @@ RSpec.describe "app/views/projects/fundings/index.html.erb" do
         project: project,
         params: {
           title: "",
-          is_funded: "0",
-          is_submitted: "1",
-          will_be_submitted: "0",
-          was_denied: "0",
           principal_investigators: "",
           co_principal_investigators: nil,
           start_date: Date.new(2022, 1, 2),

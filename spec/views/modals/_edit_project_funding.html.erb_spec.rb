@@ -22,7 +22,6 @@ RSpec.describe "modals/edit_project_funding.html.erb", type: :view do
     render partial: "modals/edit_project_funding", locals: { presenter: presenter }
 
     doc = Capybara.string(rendered)
-    expect(doc).to have_field("Funding Status", type: "select")
     expect(doc).to have_field("Official Grant Title", type: "text")
     expect(doc).to have_field("Funding Opportunity Number", type: "text")
     expect(doc).to have_field("Grant Number", type: "text")
