@@ -32,7 +32,7 @@ class StepsPresenter
 
   def svg_presenter(display_step)
     StepMarkerPresenter.new(
-      size: 24,
+      size: 25,
       number: display_step,
       **display_values(display_step)
     )

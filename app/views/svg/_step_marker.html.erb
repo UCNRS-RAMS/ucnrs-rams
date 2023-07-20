@@ -1,22 +1,22 @@
-<svg height="<%= presenter.size %>" width="<%= presenter.size %>" viewBox="0 0 50 50">
+<svg height="<%= presenter.size %>" width="<%= presenter.size %>" viewBox="0 0 100 100">
   <defs>
     <% if presenter.use_checkmark %>
       <polyline
         id="content-<%= presenter.number %>"
-        points="37 16 20.5 32.5 13 25"
+        points="74 32 41 65 26 50"
         fill="white"
         stroke="black"
-        stroke-width="3"
+        stroke-width="7"
       />
     <% else %>
       <text
         id="content-<%= presenter.number %>"
-        font-size="22px"
+        font-size="60px"
         font-weight="700"
         text-anchor="middle"
-        x="25"
-        y="25"
-        dy="0.41em"
+        x="50"
+        y="50"
+        dy="0.37em"
       >
         <%= presenter.number %>
       </text>
@@ -25,8 +25,8 @@
       <rect
         x="0"
         y="0"
-        width="50"
-        height="50"
+        width="100%"
+        height="100%"
         stroke-width="0"
         fill="white"
       />
@@ -34,13 +34,13 @@
     </mask>
   </defs>
   <circle
-    cx="25"
-    cy="25"
-    r="22"
+    cx="50%"
+    cy="50%"
+    r="47"
     fill="<%= presenter.color %>"
     stroke="<%= presenter.color %>"
     fill-opacity="<%= presenter.fill_opacity %>"
-    stroke-width="2"
+    stroke-width="6"
     <% if presenter.invert %>
       mask="url(#invert-<%= presenter.number %>)"
     <% end %>
