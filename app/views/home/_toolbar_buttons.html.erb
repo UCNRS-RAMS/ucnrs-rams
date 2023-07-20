@@ -2,7 +2,7 @@
   <ul class="link-group">
     <li id="list">
       <%= link_to image_tag("icon-list-off.svg", alt: t("alt.icon_dash"), class: "tab-icon"),
-        root_path(partial_name: "visits"),
+        root_path,
         class: presenter.list_button_class,
         data: { turbo_frame: "home-visits" }
       %>
