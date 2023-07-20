@@ -1,11 +1,18 @@
 <%= form.hidden_field :id %>
 <div class="field">
-  <%= form.label :funding_status, t(".funding_status") %>
-  <%= form.select :funding_status, presenter.funding_status_options, { prompt: t(".sponsor_prompt") } %>
-</div>
-<div class="field">
   <%= form.label :title, t(".official_grant_title") %>
   <%= form.text_field :title %>
+</div>
+<div class="inline-fields" data-controller="value-projection" data-value-projection-projected-value="<%= form.object.sponsor %>">
+  <div class="field small">
+    <%= form.label :sponsor, t(".sponsor") %>
+    <%= form.select :sponsor, presenter.sponsor_options, { prompt: t(".sponsor_prompt") },
+      data: { action: "change->value-projection#change" } %>
+  </div>
+  <div class="field small sponsor_other">
+    <%= form.label :sponsor_other, t(".sponsor_other") %>
+    <%= form.text_field :sponsor_other, placeholder: t(".sponsor_other_placeholder") %>
+  </div>
 </div>
 <div class="inline-fields">
   <div class="field small">
@@ -26,17 +33,6 @@
 <div class="field">
   <%= form.label :co_principal_investigators, t(".co_principal_investigators") %>
   <%= form.text_area :co_principal_investigators %>
-</div>
-<div class="inline-fields" data-controller="value-projection" data-value-projection-projected-value="<%= form.object.sponsor %>">
-  <div class="field small">
-    <%= form.label :sponsor, t(".sponsor") %>
-    <%= form.select :sponsor, presenter.sponsor_options, { prompt: t(".sponsor_prompt") },
-      data: { action: "change->value-projection#change" } %>
-  </div>
-  <div class="field small sponsor_other">
-    <%= form.label :sponsor_other, t(".sponsor_other") %>
-    <%= form.text_field :sponsor_other, placeholder: t(".sponsor_other_placeholder") %>
-  </div>
 </div>
 <div class="inline-fields">
   <div class="field">

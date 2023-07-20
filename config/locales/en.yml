@@ -1045,7 +1045,7 @@ en:
         add_funding_submit: "Add Funding Information"
       index:
         title: "Funding"
-        add_funding_title: "Add Funding Information"
+        add_funding_title: "Add Information About Your Grant"
         next_step: "Save Project & Submit"
         add_funding_submit: "Add Funding Information"
         project_funding: "Project Funding"
@@ -1599,7 +1599,7 @@ en:
       fundings:
         index:
           title: "Funding"
-          add_funding_title: "Add Funding Information"
+          add_funding_title: "Add Information About Your Grant"
           next_step: "Save Project & Submit"
           add_funding_submit: "Add Funding Information"
           project_funding: "Project Funding"

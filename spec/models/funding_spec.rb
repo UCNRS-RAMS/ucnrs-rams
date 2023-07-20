@@ -9,10 +9,6 @@ RSpec.describe Funding, type: :model do
   describe "validations" do
     subject { Funding.new(start_date: Date.current, end_date: Date.current + 1.day) }
 
-    it { is_expected.to validate_booleanish_values(:is_funded) }
-    it { is_expected.to validate_booleanish_values(:is_submitted) }
-    it { is_expected.to validate_booleanish_values(:will_be_submitted) }
-    it { is_expected.to validate_booleanish_values(:was_denied) }
     it { is_expected.to validate_presence_of(:title) }
     it { is_expected.to validate_presence_of(:principal_investigators) }
     it { is_expected.to validate_presence_of(:start_date) }
@@ -32,7 +28,7 @@ RSpec.describe Funding, type: :model do
     end
   end
 
-  it do 
+  it do
     is_expected.to define_enum_for(:sponsor)
       .with_values(
         national_science_foundation: "National Science Foundation (NSF)",

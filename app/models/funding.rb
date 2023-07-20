@@ -6,10 +6,6 @@ class Funding < ApplicationRecord
   belongs_to :project
   belongs_to :reserve, optional: true
 
-  validates :is_funded, inclusion: [true, false]
-  validates :is_submitted, inclusion: [true, false]
-  validates :will_be_submitted, inclusion: [true, false]
-  validates :was_denied, inclusion: [true, false]
   validates :title, presence: true
   validates :principal_investigators, presence: true
   validates :start_date, presence: true
