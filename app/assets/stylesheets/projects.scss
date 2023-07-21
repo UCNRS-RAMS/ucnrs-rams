@@ -373,6 +373,10 @@
 }
 
 .projects-show {
+  .schedule {
+    margin-bottom: 2rem;
+  }
+
   ul.next-steps-list {
     list-style-type: square;
     margin-bottom: 2.5rem;
@@ -388,6 +392,11 @@
     li:nth-child(1) {
       margin-top: 0;
     }
+  }
+
+  select.reserve-list {
+    display: inline-block;
+    width: 220px;
   }
 }
 

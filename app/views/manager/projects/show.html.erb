@@ -1,5 +1,8 @@
 <section class="content">
   <%= render partial: "manager/projects/summary_box", locals: { presenter: @presenter } %>
   <%= render "manager/projects/menu" %>
-  <%= turbo_frame_tag "project-details", src: manager_reserve_project_summary_path(@presenter.reserve_id, @presenter.project_id), target: "_top" %>
+  <%= turbo_frame_tag "project-details",
+    src: manager_reserve_project_summary_path(@presenter.reserve_id, @presenter.project_id),
+    target: "_top"
+  %>
 </section>

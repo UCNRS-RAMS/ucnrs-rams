@@ -1,14 +1,34 @@
-<h2 class="main-header"><%= t(".sidebar_title").html_safe %><br />
-  <%= t(".sidebar_subtitle") %></h2>
-<p class="information"><%= t(".sidebar_information") %></p>
-<h3 class="subheader"><%= t(".sidebar_next_steps") %></h3>
-<ul class="next-steps-list">
-  <li><%= t(".sidebar_next_steps_1") %></li>
-  <li><%= t(".sidebar_next_steps_2") %></li>
-  <li><%= t(".sidebar_next_steps_3") %></li>
-  <li><%= t(".sidebar_next_steps_4") %></li>
-</ul>
-<%= link_to new_visit_path, class: "button" do %>
-  <%= t(".schedule_a_visit") %>
-  <%= image_tag("arrow-right.svg", width: "20px", height: "20px", alt: t("alt.right_facing_arrow")) %>
-<% end %>
+<section>
+  <header>
+    <h2 class="main-header">
+      <%= t(".sidebar_title") %>
+    </h2>
+  </header>
+  <div class="schedule">
+    <%= link_to new_visit_path, class: "button" do %>
+      <%= t(".schedule_a_visit") %>
+      <%= image_tag("arrow-right.svg", width: "20px", height: "20px", alt: t("alt.right_facing_arrow")) %>
+    <% end %>
+  </div>
+  <section>
+    <h3 class="subheader"><%= t(".sidebar_next_steps") %></h3>
+    <ul class="next-steps-list">
+      <li><%= t(".sidebar_next_steps_1") %> <%= link_to t(".view_our_reserves"), reserves_path %></li>
+      <li><%= t(".sidebar_next_steps_2") %></li>
+      <li><%= t(".sidebar_next_steps_3") %></li>
+      <li><%= t(".sidebar_next_steps_4") %></li>
+    </ul>
+  </section>
+</section>
+<section>
+  <h2><%= t(".or_you_can") %></h2>
+  <%= simple_format t(".contact_reserve")%>
+  <%= form_with scope: :email_admin, url: "/", method: :post  do |form| %>
+    <%= form.select(:reserve_id, options_from_collection_for_select(Reserve.all, :id, :name),
+      { prompt: t(".select_a_reserve") }, class: "reserve-list"
+    ) %>
+    <%= form.button t("submit") %>
+  <% end %>
+</section>
+
+

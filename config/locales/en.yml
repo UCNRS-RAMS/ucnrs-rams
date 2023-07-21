@@ -744,19 +744,26 @@ en:
     incomplete_project_sidebar:
       sidebar_title: "Incomplete"
       edit_project: "Edit Project"
-      sidebar_information: "The project is incomplete at this time. Visits can not be submitted to incomplete projects. Once completed it will show up as a valid project to apply to your visit requests. Once you are ready please complete all the project page information and submit."
+      sidebar_information: "The project is incomplete at this time. Visits can not be submitted to
+        incomplete projects. Once completed it will show up as a valid project to apply to your
+        visit requests. Once you are ready please complete all the project page information and
+        submit."
     completed_project_sidebar:
-      sidebar_title: "Eureka!"
-      sidebar_subtitle: "Congratulations on successfully creating your project."
-      sidebar_information: "This information you have provided will be used to determine whether
-        your project is suitable for each reserve you propose to visit. Inaccurate or missing data
-        may result in your visit request being denied."
+      sidebar_title: "Congratulations on successfully creating your project. Now schedule your
+        visit(s)"
       sidebar_next_steps: "Next Steps"
       sidebar_next_steps_1: "Determine which reserves you plan to work at."
       sidebar_next_steps_2: "Create a visit for that reserve."
-      sidebar_next_steps_3: "You may visit a reserve only after your Project and Visit have been approved."
-      sidebar_next_steps_4: "You may be asked to provide permits and sign waivers prior to visiting a reserve."
+      sidebar_next_steps_3: "You may visit a reserve only after your Project and Visit have been
+        approved."
+      sidebar_next_steps_4: "You may be asked to provide permits and sign waivers prior to
+        visiting a reserve."
       schedule_a_visit: "Schedule a Visit"
+      view_our_reserves: "View our reserves."
+      or_you_can: "-Or you can-"
+      contact_reserve: "Contact reserve administrator if you wish to discuss your project before
+        scheduling a visit."
+      select_a_reserve: "Select a reserve"
     not_authorized: "You are not authorized to edit this project."
     cannot_add_users: "You are not authorized to add users."
     index:
@@ -1058,6 +1065,9 @@ en:
       project_summary: "Project Summary"
       project_status_request: "%{project_type} Request"
       edit_project: "Edit Project"
+      information: "This information you have provided will be used to determine whether
+        your project is suitable for each reserve you propose to visit. Inaccurate or missing data
+        may result in your visit request being denied."
       mammals: "Mammals"
       reptiles: "Reptiles"
       amphibians: "Amphibians"
@@ -1070,14 +1080,14 @@ en:
       endangered: "Endangered"
       species_of_special_concern: "Species of Special Concern"
       method_remove_organisms: "Remove organisms or materials from the reserve"
-      method_transfer_organisms: "Involves the transfer of animals, plants, and/or microorganisms from outside
-                                  the reserve to within the reserve, or between different parts of the reserve."
-      method_chemicals: "Use of radioactive isotopes or other chemicals? (e.g., pesticides, herbicides, fertilizers, tracers) <br />
-                          %{chemical_list}"
+      method_transfer_organisms: "Involves the transfer of animals, plants, and/or microorganisms
+        from outside the reserve to within the reserve, or between different parts of the reserve."
+      method_chemicals: "Use of radioactive isotopes or other chemicals? (e.g., pesticides,
+        herbicides, fertilizers, tracers) <br /> %{chemical_list}"
       method_study_non_native_species: "Manipulation of non-native species"
       method_soil_disturbance: "Soil Disturbance"
-      method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages,
-                                    data-loggers, antennas, or buoys"
+      method_long_term_structures: "Erect structures or deploy long term equipment, such as markers,
+        fences, enclosures, cages, data-loggers, antennas, or buoys"
       method_description: "Detailed description of environmental manipulations"
       method_study_area: "Reserve area(s) you plan to visit or conduct manipulations"
     research_show:
@@ -2564,45 +2574,6 @@ en:
         state: "State Permits"
         local: "Local Permits"
         institution: "Institution Permits"
-      show:
-        research: "Research"
-        save_changes: "Save Changes"
-        alt:
-          right_facing_arrow: "A right facing arrow"
-        schedule_a_visit: "Schedule a Visit"
-        view_our_reserves: "View Our Reserves"
-        sidebar_title: "Eureka!"
-        sidebar_subtitle: "Congratulations on successfully creating your project."
-        sidebar_information: "This information you have provided will be used to determine whether
-          your project is suitable for each reserve you propose to visit. Inaccurate or
-          missing data may result in your visit request being denied."
-        sidebar_next_steps: "Next Steps"
-        sidebar_next_steps_1: "Determine which reserves you plan to work at."
-        sidebar_next_steps_2: "Create a visit for that reserve."
-        sidebar_next_steps_3: "You may visit a reserve only after your Project and Visit have been approved."
-        sidebar_next_steps_4: "You may be asked to provide permits and sign waivers prior to visiting a reserve."
-        project_summary: "Project Summary"
-        project_status_request: "%{project_type} Request"
-        edit_project: "Edit Project"
-        mammals: "Mammals"
-        reptiles: "Reptiles"
-        amphibians: "Amphibians"
-        fish: "Fish"
-        birds: "Birds"
-        plants: "Plants"
-        fungi: "Fungi"
-        soil: "Soil"
-        method_remove_organisms: "Remove organisms or materials from the reserve"
-        method_transfer_organisms: "Involves the transfer of animals, plants, and/or microorganisms from outside
-                                    the reserve to within the reserve, or between different parts of the reserve."
-        method_chemicals: "Use of radioactive isotopes or other chemicals? (e.g., pesticides, herbicides, fertilizers, tracers) <br />
-                            %{chemical_list}"
-        method_study_non_native_species: "Manipulation of non-native species"
-        method_soil_disturbance: "Soil Disturbance"
-        method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages,
-                                      data-loggers, antennas, or buoys"
-        method_description: "Detailed description of environmental manipulations"
-        method_study_area: "Reserve area(s) you plan to visit or conduct manipulations"
       research_show:
         principal_investigators: "Principal Investigators"
         project_title: "Project Title"
