@@ -28,7 +28,7 @@
     </div>
   </section>
 
-  <section>
+  <section class="load-hide">
     <div class="field">
       <%= form.label :discipline, t(".choose_discipline") %>
       <ul class="disciplines">
@@ -78,7 +78,7 @@
       </div>
     </div>
 
-    <div class="field">
+    <div class="field load-hide">
       <%= form.label :keywords, t(".project_keywords.field_name") %>
       <p>
         <%= form.text_area :keywords, placeholder: t(".project_keywords.placeholder") %>
@@ -86,7 +86,7 @@
       </p>
     </div>
 
-    <div class="field">
+    <div class="field load-hide">
       <%= form.label :taxonomic_keywords, t(".taxonomic_keywords.field_name") %>
       <p>
         <%= form.text_area :taxonomic_keywords, placeholder: t(".taxonomic_keywords.placeholder") %>
@@ -94,7 +94,7 @@
       </p>
     </div>
 
-    <div class="field">
+    <div class="field load-hide">
       <%= form.label :recent_publications, t(".recent_publications.field_name") %>
       <p>
         <%= form.text_area :recent_publications, placeholder: t(".recent_publications.placeholder") %>
@@ -104,7 +104,7 @@
   </section>
 </section>
 
-<section class="form-subsection">
+<section class="form-subsection load-hide">
   <header>
     <h2><%= t(".class_activities") %></h2>
   </header>
