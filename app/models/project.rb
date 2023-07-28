@@ -113,20 +113,9 @@ class Project < ApplicationRecord
   with_options(if: :project_type_public_use?) do
     validates :title, presence: true
     validates :abstract, presence: true
-    validates :discipline, presence: true
-    validates :discipline_other, presence: true, if: :other_discipline?
     validates :start_date, presence: true
     validates :end_date, presence: true
     validates :end_date, must_be_after: :start_date
-    validates :involves_mammals,
-      :involves_reptiles,
-      :involves_amphibians,
-      :involves_fish,
-      :involves_birds,
-      :involves_plants_fungi_soil,
-      :involves_none,
-      :involves_threatened_endangered_species,
-      must_select_at_least_one: { report_to: :involvements }
   end
 
   enum status: {

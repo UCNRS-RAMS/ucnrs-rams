@@ -204,7 +204,6 @@ RSpec.describe Project, type: :model do
       subject { Project.new(project_type: :public_use) }
       it { is_expected.to validate_presence_of(:title) }
       it { is_expected.to validate_presence_of(:abstract) }
-      it { is_expected.to validate_presence_of(:discipline) }
       it { is_expected.to validate_presence_of(:start_date) }
       it { is_expected.to validate_presence_of(:end_date) }
       it { is_expected.to validate_date(:end_date).is_after(:start_date) }
@@ -219,48 +218,6 @@ RSpec.describe Project, type: :model do
       context "when discipline is not 'Other'" do
         subject { Project.new(project_type: :class, discipline: "Agriculture") }
         it { is_expected.not_to validate_presence_of(:discipline_other) }
-      end
-
-      context "involvement selections" do
-        it "is valid and has no errors when at least on involvement is selected" do
-          project = build(
-            :project,
-            project_type: :research,
-            involves_mammals: true,
-            involves_reptiles: false,
-            involves_amphibians: false,
-            involves_fish: false,
-            involves_birds: false,
-            involves_plants_fungi_soil: false,
-            involves_none: false,
-            involves_threatened_endangered_species: false,
-          )
-
-          project.validate
-
-          expect(project).to be_valid
-          expect(project.errors.full_messages).to be_empty
-        end
-
-        it "is invalid and has an error when no involvements are selected" do
-          project = build(
-            :project,
-            project_type: :research,
-            involves_mammals: false,
-            involves_reptiles: false,
-            involves_amphibians: false,
-            involves_fish: false,
-            involves_birds: false,
-            involves_plants_fungi_soil: false,
-            involves_none: false,
-            involves_threatened_endangered_species: false,
-          )
-
-          project.validate
-
-          expect(project).not_to be_valid
-          expect(project.errors.full_messages).to eq ["Involvements must select at least one"]
-        end
       end
     end
   end
