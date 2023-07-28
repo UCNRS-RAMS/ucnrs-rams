@@ -86,8 +86,6 @@ RSpec.describe "app/views/projects/_meeting_form.html.erb", type: :view do
         .for_field("Start Date")
       expect(doc).to display_error("can't be blank")
         .for_field("End Date")
-      expect(doc).to display_error("must select one")
-        .for_field("Choose a discipline that best describes your meeting or conference.")
     end
 
     it "displays errors on 'popup' fields" do

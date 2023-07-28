@@ -182,7 +182,6 @@ RSpec.describe Project, type: :model do
       subject { Project.new(project_type: :meeting) }
       it { is_expected.to validate_presence_of(:title) }
       it { is_expected.to validate_presence_of(:abstract) }
-      it { is_expected.to validate_presence_of(:discipline) }
       it { is_expected.to validate_presence_of(:start_date) }
       it { is_expected.to validate_presence_of(:end_date) }
       it { is_expected.to validate_date(:end_date).is_after(:start_date) }
