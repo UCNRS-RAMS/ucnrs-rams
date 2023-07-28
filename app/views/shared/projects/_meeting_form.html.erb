@@ -37,7 +37,7 @@
   <section>
     <div class="field">
       <%= form.label :discipline, t(".choose_discipline") %>
-      <ul>
+      <ul class="disciplines">
         <% presenter.disciplines.each do |discipline| %>
           <li>
             <%= form.radio_button :discipline, discipline, id: "discipline-#{discipline}" %>

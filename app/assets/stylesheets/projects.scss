@@ -147,6 +147,10 @@
     form {
       @include form;
       @include date_fields;
+
+      .field ul.involvements {
+        max-height: 160px;
+      }
     }
 
     header {
