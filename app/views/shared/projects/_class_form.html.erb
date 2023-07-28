@@ -31,7 +31,7 @@
   <section>
     <div class="field">
       <%= form.label :discipline, t(".choose_discipline") %>
-      <ul>
+      <ul class="disciplines">
         <% presenter.disciplines.each do |discipline| %>
           <li>
             <%= form.radio_button :discipline, discipline, id: "discipline-#{discipline}" %>
@@ -54,7 +54,7 @@
   <section>
     <div class="field">
       <%= form.label :involvements, t(".select_involvements") %>
-      <ul>
+      <ul class="involvements">
         <% presenter.involvement_flags.each do |involvement_flag| %>
           <li>
             <%= form.check_box involvement_flag %>
