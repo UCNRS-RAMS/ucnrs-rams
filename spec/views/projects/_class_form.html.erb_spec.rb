@@ -14,7 +14,7 @@ RSpec.describe "app/views/projects/_class_form.html.erb", type: :view do
 
     doc = Capybara.string(rendered)
     expect(doc).to have_field("Project or Event Title", type: "text")
-    expect(doc).to have_field("Course Title", type: "text")
+    expect(doc).to have_field("Course Name", type: "text")
     expect(doc).to have_field("Course Number", type: "text")
   end
 
@@ -169,7 +169,7 @@ RSpec.describe "app/views/projects/_class_form.html.erb", type: :view do
       expect(doc).to display_error("can't be blank")
         .for_field("Project or Event Title")
       expect(doc).to display_error("can't be blank")
-        .for_field("Course Title")
+        .for_field("Course Name")
       expect(doc).to display_error("can't be blank")
         .for_field("Course Number")
       expect(doc).to display_error("must select at least one")

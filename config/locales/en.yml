@@ -923,7 +923,7 @@ en:
         field_name: "Project or Event Title"
         explanation: "Enter a short descriptive title to uniquely identify your application."
       course_title:
-        field_name: "Course Title"
+        field_name: "Course Name"
         explanation: "Please provide the complete course name as described by your university."
       course_number:
         field_name: "Course Number"
@@ -1113,7 +1113,7 @@ en:
     class_show:
       leads: "Leads"
       project_title: "Project Title"
-      course_title: "Course Title"
+      course_title: "Course Name"
       course_number: "Course Number"
       applicant: "Applicant"
       project_duration: "Project Duration"
@@ -1761,7 +1761,7 @@ en:
           field_name: "Project or Event Title"
           explanation: "Enter a short descriptive title to uniquely identify your application."
         course_title:
-          field_name: "Course Title"
+          field_name: "Course Name"
           explanation: "Please provide the complete course name as described by your university."
         course_number:
           field_name: "Course Number"
@@ -2597,7 +2597,7 @@ en:
       class_show:
         leads: "Leads"
         project_title: "Project Title"
-        course_title: "Course Title"
+        course_title: "Course Name"
         course_number: "Course Number"
         applicant: "Applicant"
         project_duration: "Project Duration"
@@ -2810,7 +2810,7 @@ en:
           field_name: "Project or Event Title"
           explanation: "Enter a short descriptive title to uniquely identify your application."
         course_title:
-          field_name: "Course Title"
+          field_name: "Course Name"
           explanation: "Please provide the complete course name as described by your university."
         course_number:
           field_name: "Course Number"
