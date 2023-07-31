@@ -20,16 +20,6 @@
             %>
           </li>
           <li>
-            <%= link_to t(".link.calendar"),
-              reserve_calendar_path(@presenter.reserve_id, partial_name: "calendar", start_date: Date.today),
-              {
-                id: "calendar",
-                class: @presenter.tab_class("calendar"),
-                data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
-              }
-            %>
-          </li>
-          <li>
             <%= link_to t(".link.waivers"),
               reserve_waivers_path(@presenter.reserve_id),
               {
@@ -55,6 +45,16 @@
               {
                 id: "more_information",
                 class: @presenter.tab_class("more_information"),
+                data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
+              }
+            %>
+          </li>
+          <li>
+            <%= link_to t(".link.calendar"),
+              reserve_calendar_path(@presenter.reserve_id, partial_name: "calendar", start_date: Date.today),
+              {
+                id: "calendar",
+                class: @presenter.tab_class("calendar"),
                 data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
               }
             %>
