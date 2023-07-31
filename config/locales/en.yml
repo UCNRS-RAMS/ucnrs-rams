@@ -652,7 +652,7 @@ en:
       could_not_cancel: "Could Not Cancel"
       visit_summary: "Visit Summary"
     cancel_button:
-      confirm: "Are you sure?"
+      confirm: "Clicking OK will flag this visit request as Cancelled."
       cancel: "Cancel"
     sidebar_in_review_show:
       mailing_address: "Mailing Address"
