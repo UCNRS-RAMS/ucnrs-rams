@@ -401,8 +401,8 @@ en:
       direction_body: "Click a thumbnail to learn more about a reserve, or search by features
         such as geographic region, ecosystem type, and amenities such as overnight accommodations."
       search: "Search"
-      tags: "Tags"
-      description_tags_text: "Results reflect ALL selected tags matching the reserve(s)."
+      filter_by: "Filter By"
+      description_filter_by_text: "Results reflect ALL selected tags matching the reserve(s)."
       amenity_tags: "Amenities"
       clear_selection_and_start_over: "Clear Selection & Start Over"
       less_options: "Less Options"
