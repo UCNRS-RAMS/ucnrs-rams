@@ -1,5 +1,6 @@
 <section class="visit-reserve_question">
   <h2 class="main-header"><%= t(".reserve_questions") %></h2>
+  <%= link_to t("edit"), visit_questions_path(presenter.visit_id) %>
   <div id="reserve_question-summary-list">
     <% presenter.reserve_answers.each do |reserve_name, reserve_answers| %>
       <div class="answers-list">
@@ -12,12 +13,14 @@
       </div>
     <% end %>
   </div>
-</section>  
+</section>
 <section class="visit-visitors">
   <h2 class="main-header"><%= t(".visitors", size: presenter.visitor_count) %></h2>
+  <%= link_to t("edit"), visit_user_visits_path(presenter.visit_id) %>
   <%= render partial: "visits/visitors_summary", locals: { presenter: presenter } %>
 </section>
 <section class="visit-amenities">
   <h2 class="main-header"><%= t(".amenities", size: presenter.amenity_count) %></h2>
+  <%= link_to t("edit"), edit_visit_path(presenter.visit_id, anchor: "amenities") %>
   <%= render partial: "visits/amenities_summary", locals: { presenter: presenter } %>
 </section>
