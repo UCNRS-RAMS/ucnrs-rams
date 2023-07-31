@@ -25,20 +25,26 @@
             <label>
               <h2><%= t(".search") %></h2>
               <div class="input-with-buttons">
-                <input type="text" name="search_filter" value="<%= @presenter.search_filter %>" placeholder="Search" id="reserve-search" />
-                <%= image_tag "icon-x-circle.svg", alt: t(".clear_icon"), onclick: "getElementById('reserve-search').value=''", class: "cross-icon" %>
+                <input type="text" name="search_filter" value="<%= @presenter.search_filter %>"
+                  placeholder="Search" id="reserve-search"
+                />
+                <%= image_tag "icon-x-circle.svg", alt: t(".clear_icon"),
+                  onclick: "getElementById('reserve-search').value=''", class: "cross-icon"
+                %>
               </div>
             </label>
           </section>
           <div class="search-options">
             <section id="search-reserve-tags" class="search-option">
-              <h2><%= t(".tags") %></h2>
+              <header>
+                <h2><%= t(".filter_by") %></h2>
+                <small><%= t ".description_filter_by_text" %></small>
+              </header>
               <div id="reserve-tags-container" class="tags-container">
                 <% @presenter.reserve_tags.each do |tag_type, tag_names| %>
                   <%= render partial: "tag_types", locals: { tag_type: tag_type, tag_names: tag_names } %>
                 <% end %>
               </div>
-              <small><%= t ".description_tags_text" %></small>
             </section>
             <div class="submit-btn" data-action= "click->reserve#reset" >
               <%= image_tag "icon-refresh-a.svg", alt: t("alt.reload_icon"), height: 16 %>
