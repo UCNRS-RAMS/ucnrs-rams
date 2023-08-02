@@ -27,12 +27,12 @@
         <div class="dash-cards">
           <div class="dash-card">
             <%= tag.h4 presenter.visit_request_day_count %>
-            <%= image_tag "icon-wrench.svg" %>
+            <%= image_tag "icon-calendar-green.svg" %>
             <%= tag.span t(".visit_request").pluralize(presenter.visit_request_day_count, I18n.locale) %>
           </div>
           <div class="dash-card">
             <%= tag.h4 presenter.visit_booked_day_count %>
-            <%= image_tag "icon-calendar-green.svg" %>
+            <%= image_tag "icon-house.svg", class: "dashboard-house-svg" %>
             <%= tag.span t(".booked_visit").pluralize(presenter.visit_booked_day_count, I18n.locale) %>
           </div>
         </div>
@@ -45,13 +45,13 @@
         <div class="dash-cards">
           <div class="dash-card">
             <%= tag.h4 presenter.visit_request_week_count %>
-            <%= image_tag "icon-wrench.svg" %>
+            <%= image_tag "icon-calendar-green.svg" %>
             <%= tag.span t(".visit_request").pluralize(presenter.visit_request_week_count, I18n.locale) %>
           </div>
           <div class="dash-card">
             <%= tag.h4 presenter.visit_booked_week_count %>
-            <%= image_tag "icon-calendar-green.svg" %>
-            <%= tag.span t(".booked_visit").pluralize(presenter.visit_booked_week_count, I18n.locale)  %>
+            <%= image_tag "icon-house.svg", class: "dashboard-house-svg" %>
+            <%= tag.span t(".booked_visit").pluralize(presenter.visit_booked_week_count, I18n.locale) %>
           </div>
         </div>
         <div class="dash-chart">
