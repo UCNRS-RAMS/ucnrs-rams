@@ -39,9 +39,7 @@ class RegistrationFlow
     email: "john@muirwoods.test",
     password: "Password1",
     password_confirmation: "Password1",
-    age_range: "50 or older",
     secondary_phone_number: "",
-    accessibility_requirements: "",
     backup_email_address: "",
     role: "Docent",
     orcid: "",
@@ -71,9 +69,8 @@ class RegistrationFlow
     page.fill_in("Email", id: "user_email", with: email)
     page.fill_in("Password", id: "user_password", with: password)
     page.fill_in("Re-Enter Password", id: "user_password_confirmation", with: password)
-    page.choose(age_range)
+
     page.fill_in("Secondary Phone Number (Optional)", id: "user_secondary_phone_number", with: secondary_phone_number)
-    page.fill_in("Accessibility Requirements or Known Allergies (Optional)", with: accessibility_requirements)
     page.fill_in("Backup Email Address", id: "user_backup_email_address", with: backup_email_address)
     page.choose(role)
     page.fill_in("Institution, Organization, or Agency", with: institution)
@@ -145,9 +142,7 @@ class RegistrationFlow
     page.fill_in("Phone Number", id: "user_phone_number", with: phone_number)
     page.select(gender_identity, from: "Gender Identity")
     page.fill_in("Email", id: "user_email", with: email)
-    page.choose(age_range)
     page.fill_in("Secondary Phone Number (Optional)", id: "user_secondary_phone_number", with: secondary_phone_number)
-    page.fill_in("Accessibility Requirements or Known Allergies (Optional)", with: accessibility_requirements)
     page.fill_in("Backup Email Address", id: "user_backup_email_address", with: backup_email_address)
     page.choose(role)
     page.fill_in("Institution, Organization, or Agency", with: institution)

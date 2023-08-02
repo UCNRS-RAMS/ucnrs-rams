@@ -82,7 +82,7 @@
         width: 100%;
 
         &.basics {
-          max-height: 620px;
+          max-height: 420px;
 
           .field {
             &.email {
@@ -203,7 +203,6 @@
         .inline {
           align-items: center;
           display: flex;
-          height: 100px;
 
           div {
             padding-right: 1rem;
@@ -253,9 +252,6 @@
               border-color: $error-red !important;
               border-width: 2px !important;
             }
-          }
-          select {
-            height: 38px;
           }
         }
 
