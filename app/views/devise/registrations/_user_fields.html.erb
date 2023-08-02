@@ -16,18 +16,6 @@
         selected: f.object.gender_identity || presenter.default_gender_identity_option
       %>
     </div>
-    <div class="field medium">
-      <p class="helper-text"><strong><%= t(".titles.age_range") %></strong></p>
-      <p class="helper-text"><%= t(".helper_text.age_range") %></p>
-      <div class="radio-buttons age-range">
-        <% presenter.age_range_options.each do |(value, label)|%>
-          <span class="radio-button">
-            <%= f.radio_button :age_range, value %>
-            <%= f.label :age_range, label, value: value %>
-          </span>
-        <% end %>
-      </div>
-    </div>
     <div class="inline">
       <div class="field small">
         <%= f.label :phone_number, t(".labels.phone_number") %>
@@ -37,10 +25,6 @@
         <%= f.label :secondary_phone_number, t(".labels.secondary_phone_number") %>
         <%= f.telephone_field :secondary_phone_number, placeholder: presenter.phone_number_placeholder %>
       </div>
-    </div>
-    <div class="field large">
-      <%= f.label :accessibility_requirements, t(".labels.accessibility_requirements") %>
-      <%= f.text_area :accessibility_requirements, class: "form-field-large" %>
     </div>
     <div class="field medium email">
       <%= f.label :email, t(".labels.email_address") %>
@@ -85,12 +69,12 @@
         <%= link_to t(".links.orcid"), t(".urls.orcid"), target: :_blank %>
       </p>
     </div>
-    <div 
-        class="field institution-field large" 
-        data-controller="autocomplete" 
-        data-autocomplete-url-value="<%= institutions_url %>" 
+    <div
+        class="field institution-field large"
+        data-controller="autocomplete"
+        data-autocomplete-url-value="<%= institutions_url %>"
         data-autocomplete-min-length-value="3"
-        
+
       >
       <%= f.label :institution, t(".labels.institution") %>
       <p class="helper-text">
@@ -99,7 +83,7 @@
         <%= link_to t(".links.create_new_instituion"), new_institution_path, remote: true %>
       </p>
       <div class="autocomplete">
-        <%= f.text_field :institution, 
+        <%= f.text_field :institution,
           data: {
             "autocomplete-target": "input",
           },
@@ -143,7 +127,7 @@
       <h2><%= t(".titles.current_address") %></h2>
       <div class="field medium">
         <%= f.label :address_country_id, t(".labels.country") %>
-        <%= f.collection_select(:address_country_id, Country.alphabetical_by_name, :id, :name, 
+        <%= f.collection_select(:address_country_id, Country.alphabetical_by_name, :id, :name,
                                   { selected: f.object.address_country_id || presenter.default_country_option },
                                   { data: { action: "change->followup-content#change" } }) %>
       </div>
@@ -175,7 +159,7 @@
         <h2><%= t(".titles.billing_address") %></h2>
         <div class="field">
           <%= f.check_box :billing_address_same_as_current, data: { "followup-content-target": "checkbox", action: "change->followup-content#toggle" } %>
-          <%= f.label :billing_address_same_as_current, t(".labels.same_as_current") %> 
+          <%= f.label :billing_address_same_as_current, t(".labels.same_as_current") %>
         </div>
       </div>
       <div id="billingAddress" data-followup-content-target="togglable">
