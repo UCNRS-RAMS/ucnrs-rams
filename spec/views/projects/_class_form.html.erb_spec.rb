@@ -112,7 +112,7 @@ RSpec.describe "app/views/projects/_class_form.html.erb", type: :view do
     end
 
     doc = Capybara.string(rendered)
-    expect(doc).to have_field("Environmental Manipulations Needed", type: "textarea")
+    expect(doc).to have_field("Please provide a detailed description of environmental manipulations needed for your research.", type: "textarea")
   end
 
   it "has the required fields in the 'Planning Questions' section" do

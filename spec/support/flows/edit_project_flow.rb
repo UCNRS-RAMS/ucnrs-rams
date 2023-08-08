@@ -46,7 +46,7 @@ class EditProjectFlow
       assert.has_field?("None of the Above", checked: involves_none)
       assert.has_field?("Start Date", with: start_date)
       assert.has_field?("End Date", with: end_date)
-      assert.has_field?("Environmental Manipulations Needed", with: method_description)
+      assert.has_field?("Please provide a detailed description of environmental manipulations needed for your research.", with: method_description)
       assert.has_field?("project_method_remove_organisms_#{method_remove_organisms ? "yes" : "no"}", checked: true)
       assert.has_field?("project_method_transfer_organisms_#{method_transfer_organisms ? "yes" : "no"}", checked: true)
       assert.has_field?("project_method_study_non_native_species_#{method_study_non_native_species ? "yes" : "no"}", checked: true)
@@ -96,7 +96,7 @@ class EditProjectFlow
     page.check("None of the Above") if involves_none
     page.fill_in("Start Date", with: start_date)
     page.fill_in("End Date", with: end_date)
-    page.fill_in("Environmental Manipulations Needed", with: method_description)
+    page.fill_in("Please provide a detailed description of environmental manipulations needed for your research.", with: method_description)
     page.choose("project_method_remove_organisms_#{method_remove_organisms.downcase}")
     page.choose("project_method_transfer_organisms_#{method_transfer_organisms.downcase}")
     page.choose("project_method_study_non_native_species_#{method_study_non_native_species.downcase}")
