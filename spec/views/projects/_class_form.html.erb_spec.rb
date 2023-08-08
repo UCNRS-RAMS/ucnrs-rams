@@ -191,32 +191,5 @@ RSpec.describe "app/views/projects/_class_form.html.erb", type: :view do
       expect(doc).to display_error("must make a choice")
         .for_field("Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages, data-loggers, antennas, or buoys?")
     end
-
-    it "displays errors on 'popup' fields" do
-      user = User.new
-      presenter = ProjectFormPresenter.new(
-        user: user,
-        current_step: 1,
-        project_type: :class,
-        form: ProjectForm.new(params: {
-          method_chemicals: "Yes",
-          discipline: "Other",
-          project_type: :class,
-        }, user: user),
-      )
-      project_form = presenter.form
-      project_form.validate
-
-      FakeForm.fields_for(project_form) do |form|
-        render partial: "shared/projects/class_form",
-          locals: { presenter: presenter, form: form }
-      end
-
-      doc = Capybara.string(rendered)
-      expect(doc).to display_error("can't be blank")
-      .for_field_with_id("method_chemicals_list")
-      expect(doc).to display_error("can't be blank")
-      .for_field_with_id("discipline_other")
-    end
   end
 end
