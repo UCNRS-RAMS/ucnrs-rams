@@ -166,29 +166,41 @@ RSpec.describe "app/views/projects/_class_form.html.erb", type: :view do
       end
 
       doc = Capybara.string(rendered)
-      expect(doc).to display_error("can't be blank")
+      expect(doc).to display_error(I18n.t("activerecord.errors.messages.blank"))
         .for_field("Project or Event Title")
-      expect(doc).to display_error("can't be blank")
+      expect(doc).to display_error(I18n.t("activerecord.errors.messages.blank"))
         .for_field("Course Name")
-      expect(doc).to display_error("can't be blank")
+      expect(doc).to display_error(I18n.t("activerecord.errors.messages.blank"))
         .for_field("Course Number")
       expect(doc).to display_error("must select at least one")
         .for_field("Will your project involve any of the following?")
-      expect(doc).to display_error("can't be blank")
+      expect(doc).to display_error(I18n.t("activerecord.errors.messages.blank"))
         .for_field("Start Date")
-      expect(doc).to display_error("can't be blank")
+      expect(doc).to display_error(I18n.t("activerecord.errors.messages.blank"))
         .for_field("End Date")
-      expect(doc).to display_error("must make a choice")
+      expect(doc).to display_error(
+          I18n.t("activerecord.errors.models.project.attributes.method_remove_organisms.inclusion")
+        )
         .for_field("Remove organisms or materials from the reserve?")
-      expect(doc).to display_error("must make a choice")
+      expect(doc).to display_error(
+          I18n.t("activerecord.errors.models.project.attributes.method_transfer_organisms.inclusion")
+        )
         .for_field("Transfer animals and plants from outside the reserve to within the reserve, or between different parts of the reserve?")
-      expect(doc).to display_error("must make a choice")
+      expect(doc).to display_error(
+          I18n.t("activerecord.errors.models.project.attributes.method_study_non_native_species.inclusion")
+        )
         .for_field("Study or manipulate non-native species?")
-      expect(doc).to display_error("must make a choice")
+      expect(doc).to display_error(
+          I18n.t("activerecord.errors.models.project.attributes.method_chemicals.inclusion")
+        )
         .for_field("Use radioactive isotopes or other chemicals? (e.g., pesticides, herbicides, fertilizers, tracers")
-      expect(doc).to display_error("must make a choice")
+      expect(doc).to display_error(
+          I18n.t("activerecord.errors.models.project.attributes.method_soil_disturbance.inclusion")
+        )
         .for_field("Disturb the soil?")
-      expect(doc).to display_error("must make a choice")
+      expect(doc).to display_error(
+          I18n.t("activerecord.errors.models.project.attributes.method_long_term_structures.inclusion")
+        )
         .for_field("Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages, data-loggers, antennas, or buoys?")
     end
   end

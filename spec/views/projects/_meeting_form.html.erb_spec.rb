@@ -78,13 +78,13 @@ RSpec.describe "app/views/projects/_meeting_form.html.erb", type: :view do
       end
 
       doc = Capybara.string(rendered)
-      expect(doc).to display_error("can't be blank")
+      expect(doc).to display_error(I18n.t("activerecord.errors.messages.blank"))
         .for_field("Event Title")
-      expect(doc).to display_error("can't be blank")
+      expect(doc).to display_error(I18n.t("activerecord.errors.messages.blank"))
         .for_field("Event Description")
-      expect(doc).to display_error("can't be blank")
+      expect(doc).to display_error(I18n.t("activerecord.errors.messages.blank"))
         .for_field("Start Date")
-      expect(doc).to display_error("can't be blank")
+      expect(doc).to display_error(I18n.t("activerecord.errors.messages.blank"))
         .for_field("End Date")
     end
   end

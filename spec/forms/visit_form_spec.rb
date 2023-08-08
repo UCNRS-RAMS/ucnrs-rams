@@ -149,11 +149,11 @@ RSpec.describe VisitForm, type: :model do
       form.validate
 
       expect(form.errors.to_hash).to eq({
-        purpose_of_visit: ["can't be blank"],
-        start_date: ["can't be blank"],
-        end_date: ["can't be blank"],
-        start_time: ["can't be blank"],
-        end_time: ["can't be blank"],
+        purpose_of_visit: [I18n.t("activerecord.errors.messages.blank")],
+        start_date: [I18n.t("activerecord.errors.messages.blank")],
+        end_date: [I18n.t("activerecord.errors.messages.blank")],
+        start_time: [I18n.t("activerecord.errors.messages.blank")],
+        end_time: [I18n.t("activerecord.errors.messages.blank")],
       })
     end
   end

@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe UserForm, type: :model do
   describe "validations" do
-    it do 
+    it do
       is_expected.to validate_inclusion_of(:project_role)
         .in_array(ProjectTeamMembership::PROJECT_ROLES)
     end
@@ -28,9 +28,9 @@ RSpec.describe UserForm, type: :model do
 
       form.validate
 
-      expect(form.errors[:first_name]).to eq ["can't be blank"]
+      expect(form.errors[:first_name]).to eq [I18n.t("activerecord.errors.messages.blank")]
       expect(form.errors[:project_role]).to eq ["is not included in the list"]
-      expect(form.errors[:institution_name]).to eq ["can't be blank", "must exist"]
+      expect(form.errors[:institution_name]).to eq [I18n.t("activerecord.errors.messages.blank"), "must exist"]
     end
 
     it "cannot create users that already exist" do
@@ -254,7 +254,7 @@ RSpec.describe UserForm, type: :model do
 
       expect(Rails.logger).to have_received(:error)
       expect(result).to be false
-    end 
+    end
   end
 
   describe "#project_role=" do

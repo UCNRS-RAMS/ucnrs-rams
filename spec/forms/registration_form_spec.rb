@@ -9,7 +9,7 @@ RSpec.describe RegistrationForm do
       form.submit
 
       error_messages = form.errors.messages
-      expect(error_messages[:first_name]).to include("can't be blank")
+      expect(error_messages[:first_name]).to include(I18n.t("activerecord.errors.messages.blank"))
     end
   end
 
