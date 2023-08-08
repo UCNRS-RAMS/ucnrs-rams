@@ -18,6 +18,7 @@ en:
       messages:
         must_be_after: "must be after %{attribute}"
         must_select_at_least_one: "must select at least one"
+        blank: "required"
       models:
         visit:
           attributes:
@@ -37,29 +38,30 @@ en:
         project:
           attributes:
             involvements:
-              must_select_at_least_one: "must select at least one"
+              must_select_at_least_one: "required: must select at least one"
             discipline:
               blank: "must select one"
             method_remove_organisms:
-              inclusion: "must make a choice"
+              inclusion: "required"
             method_transfer_organisms:
-              inclusion: "must make a choice"
+              inclusion: "required"
             method_study_non_native_species:
-              inclusion: "must make a choice"
+              inclusion: "required"
             method_chemicals:
-              inclusion: "must make a choice"
+              inclusion: "required"
             method_soil_disturbance:
-              inclusion: "must make a choice"
+              inclusion: "required"
             method_long_term_structures:
-              inclusion: "must make a choice"
+              inclusion: "required"
         project_team_membership:
           attributes:
             user:
+              required: "required"
               taken: "already on this team"
         project_team_membership_form:
           attributes:
             project_role:
-              inclusion: "must select an option"
+              inclusion: "required"
         user:
           billing_address_fields_presence: "can't be blank if including a billing address"
           attributes:

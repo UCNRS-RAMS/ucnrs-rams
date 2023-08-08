@@ -92,10 +92,10 @@ RSpec.describe Visits::AmenityForm, type: :model do
 
       expect(form.errors.to_hash).to eq ({
         amenity: ["must exist"],
-        amenity_id: ["can't be blank"],
+        amenity_id: [I18n.t("activerecord.errors.messages.blank")],
         amenity_rate: ["must exist"],
-        arrives_on: ["can't be blank"],
-        departs_on: ["can't be blank"],
+        arrives_on: [I18n.t("activerecord.errors.messages.blank")],
+        departs_on: [I18n.t("activerecord.errors.messages.blank")],
         number_of_people: ["must be a number greater than 0"],
         visit: ["must exist"],
       })

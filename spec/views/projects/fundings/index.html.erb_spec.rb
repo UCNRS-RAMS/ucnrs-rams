@@ -65,11 +65,16 @@ RSpec.describe "app/views/projects/fundings/index.html.erb" do
       render template: "projects/fundings/index"
 
       doc = Capybara.string(rendered)
-      expect(doc).to display_error("can't be blank").for_field("Title")
-      expect(doc).to display_error("can't be blank").for_field("Principal Investigators")
+      expect(doc).to display_error(I18n.t("activerecord.errors.messages.blank"))
+        .for_field("Title")
+      expect(doc).to display_error(I18n.t("activerecord.errors.messages.blank"))
+        .for_field("Principal Investigators")
       expect(doc).to display_error("must be after Start date").for_field("End")
-      expect(doc).to have_css("[data-value-projection-projected-value='other'] input[name='funding[sponsor_other]']")
-      expect(doc).to display_error("can't be blank").for_field("Enter Funding Agency Name")
+      expect(doc).to have_css(
+        "[data-value-projection-projected-value='other'] input[name='funding[sponsor_other]']"
+      )
+      expect(doc).to display_error(I18n.t("activerecord.errors.messages.blank"))
+        .for_field("Enter Funding Agency Name")
     end
 
     it "renders a button as a form with the correct text for step 4" do

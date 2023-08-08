@@ -71,7 +71,7 @@ RSpec.describe "index.html.erb" do
 
     doc = Capybara.string(rendered)
     expect(doc).to display_error("already on this team").for_field("Full Name")
-    expect(doc).to display_error("must select an option").for_field("Project Role")
+    expect(doc).to display_error(I18n.t("activerecord.errors.models.project_team_membership_form.attributes.project_role.inclusion")).for_field("Project Role")
   end
 
   describe "if the user does not have can_add_project_user permission" do
@@ -120,9 +120,9 @@ RSpec.describe "index.html.erb" do
         current_step: 2,
         project: project,
       ))
-  
+
       render template: "projects/team_memberships/index"
-  
+
       doc = Capybara.string(rendered)
       expect(doc).to have_css(".controls a[href='/projects/#{project.id}/edit']", text: "Go Back")
     end

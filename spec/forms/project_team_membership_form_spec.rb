@@ -34,7 +34,7 @@ RSpec.describe ProjectTeamMembershipForm, type: :model do
       form.validate
 
       expect(form.errors[:full_name]).to eq ["already on this team"]
-      expect(form.errors[:project_role]).to eq ["must select an option"]
+      expect(form.errors[:project_role]).to eq [I18n.t("activerecord.errors.models.project_team_membership_form.attributes.project_role.inclusion")]
     end
 
     it "collates errors when saving an existing membership" do
@@ -51,7 +51,7 @@ RSpec.describe ProjectTeamMembershipForm, type: :model do
 
       form.validate
 
-      expect(form.errors[:institution_name]).to eq ["can't be blank"]
+      expect(form.errors[:institution_name]).to eq [I18n.t("activerecord.errors.messages.blank")]
     end
 
     it "does not allow users that don't exist" do
@@ -65,7 +65,7 @@ RSpec.describe ProjectTeamMembershipForm, type: :model do
 
       form.validate
 
-      expect(form.errors[:user]).to eq ["must exist"]
+      expect(form.errors[:user]).to eq [I18n.t("activerecord.errors.models.project_team_membership.attributes.user.required")]
     end
   end
 

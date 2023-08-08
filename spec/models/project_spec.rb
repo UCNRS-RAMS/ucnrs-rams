@@ -80,7 +80,9 @@ RSpec.describe Project, type: :model do
           project.validate
 
           expect(project).not_to be_valid
-          expect(project.errors.full_messages).to eq ["Involvements must select at least one"]
+          expect(project.errors.full_messages).to eq [
+            "Involvements #{I18n.t("activerecord.errors.models.project.attributes.involvements.must_select_at_least_one")}"
+          ]
         end
       end
     end
@@ -150,7 +152,9 @@ RSpec.describe Project, type: :model do
           project.validate
 
           expect(project).not_to be_valid
-          expect(project.errors.full_messages).to eq ["Involvements must select at least one"]
+          expect(project.errors.full_messages).to eq [
+            "Involvements #{I18n.t("activerecord.errors.models.project.attributes.involvements.must_select_at_least_one")}"
+          ]
         end
       end
     end

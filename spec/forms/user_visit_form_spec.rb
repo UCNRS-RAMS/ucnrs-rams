@@ -19,8 +19,8 @@ RSpec.describe UserVisitForm, type: :model do
 
       form.validate
 
-      expect(form.errors[:institution_id]).to eq ["can't be blank"]
-      expect(form.errors[:arrives_at]).to eq ["can't be blank"]
+      expect(form.errors[:institution_id]).to eq [I18n.t("activerecord.errors.messages.blank")]
+      expect(form.errors[:arrives_at]).to eq [I18n.t("activerecord.errors.messages.blank")]
     end
 
     it "does not allow users that don't exist" do
@@ -141,7 +141,7 @@ RSpec.describe UserVisitForm, type: :model do
 
     it "sets user role as it is when the role is valid" do
       form = UserVisitForm.new(params: { id: create(:user_visit).id })
-      
+
       expect(form.role).to eq("faculty")
     end
   end

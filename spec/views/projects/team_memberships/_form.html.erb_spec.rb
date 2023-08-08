@@ -55,6 +55,6 @@ RSpec.describe "shared/projects/team_memberships/_form.html.erb", type: :view do
 
     doc = Capybara.string(rendered)
     expect(doc).to display_error("already on this team").for_field("Full Name")
-    expect(doc).to display_error("must select an option").for_field("Project Role")
+    expect(doc).to display_error(I18n.t("activerecord.errors.models.project_team_membership_form.attributes.project_role.inclusion")).for_field("Project Role")
   end
 end

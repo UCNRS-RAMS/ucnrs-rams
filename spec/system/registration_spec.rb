@@ -27,19 +27,19 @@ RSpec.describe "Registration" do
       flow.submit_account_creation_form
       expect(flow).to have_validation_errors_on_sign_up_page
       expect(page).to be_axe_clean.skipping(:"color-contrast")
-      expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_first_name")
-      expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_last_name")
+      expect(flow).to have_form_error(I18n.t("activerecord.errors.messages.blank"), on_field_with_id: "user_first_name")
+      expect(flow).to have_form_error(I18n.t("activerecord.errors.messages.blank"), on_field_with_id: "user_last_name")
       expect(flow).to have_form_error(
         "Password complexity requirement not met. Length should be 8-70 characters and include: 1 uppercase character and 1 digit.",
         on_field_with_id: "user_password",
       )
-      expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_institution")
-      expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_emergency_contact_full_name")
-      expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_emergency_contact_phone_number")
-      expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_address_line_1")
-      expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_address_city")
-      expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_address_postal_code")
-      expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_institution")
+      expect(flow).to have_form_error(I18n.t("activerecord.errors.messages.blank"), on_field_with_id: "user_institution")
+      expect(flow).to have_form_error(I18n.t("activerecord.errors.messages.blank"), on_field_with_id: "user_emergency_contact_full_name")
+      expect(flow).to have_form_error(I18n.t("activerecord.errors.messages.blank"), on_field_with_id: "user_emergency_contact_phone_number")
+      expect(flow).to have_form_error(I18n.t("activerecord.errors.messages.blank"), on_field_with_id: "user_address_line_1")
+      expect(flow).to have_form_error(I18n.t("activerecord.errors.messages.blank"), on_field_with_id: "user_address_city")
+      expect(flow).to have_form_error(I18n.t("activerecord.errors.messages.blank"), on_field_with_id: "user_address_postal_code")
+      expect(flow).to have_form_error(I18n.t("activerecord.errors.messages.blank"), on_field_with_id: "user_institution")
 
       flow.fill_out_account_creation_form(
         first_name: "John",
@@ -167,15 +167,15 @@ RSpec.describe "Registration" do
       )
       flow.submit_account_edit_form
       expect(page).to be_axe_clean
-      expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_first_name")
-      expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_last_name")
-      expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_institution")
-      expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_emergency_contact_full_name")
-      expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_emergency_contact_phone_number")
-      expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_address_line_1")
-      expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_address_city")
-      expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_address_postal_code")
-      expect(flow).to have_form_error("can't be blank", on_field_with_id: "user_institution")
+      expect(flow).to have_form_error(I18n.t("activerecord.errors.messages.blank"), on_field_with_id: "user_first_name")
+      expect(flow).to have_form_error(I18n.t("activerecord.errors.messages.blank"), on_field_with_id: "user_last_name")
+      expect(flow).to have_form_error(I18n.t("activerecord.errors.messages.blank"), on_field_with_id: "user_institution")
+      expect(flow).to have_form_error(I18n.t("activerecord.errors.messages.blank"), on_field_with_id: "user_emergency_contact_full_name")
+      expect(flow).to have_form_error(I18n.t("activerecord.errors.messages.blank"), on_field_with_id: "user_emergency_contact_phone_number")
+      expect(flow).to have_form_error(I18n.t("activerecord.errors.messages.blank"), on_field_with_id: "user_address_line_1")
+      expect(flow).to have_form_error(I18n.t("activerecord.errors.messages.blank"), on_field_with_id: "user_address_city")
+      expect(flow).to have_form_error(I18n.t("activerecord.errors.messages.blank"), on_field_with_id: "user_address_postal_code")
+      expect(flow).to have_form_error(I18n.t("activerecord.errors.messages.blank"), on_field_with_id: "user_institution")
 
       flow.fill_out_account_edit_form(
         first_name: "John",
