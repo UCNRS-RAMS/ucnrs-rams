@@ -76,8 +76,6 @@ RSpec.describe "Creating a project", type: :system, js: true do
       project_type: "research",
       start_date: Date.current,
       end_date: Date.current + 1.day,
-      discipline: "Agriculture",
-      discipline_other: nil,
       involves_mammals: nil,
       involves_reptiles: nil,
       involves_amphibians: nil,
@@ -94,9 +92,6 @@ RSpec.describe "Creating a project", type: :system, js: true do
       method_chemicals_list: "Chemicals List",
       method_soil_disturbance: "No",
       method_long_term_structures: "No",
-      keywords: nil,
-      taxonomic_keywords: nil,
-      recent_publications: nil,
     )
     flow.submit_project_form
     project = Project.last

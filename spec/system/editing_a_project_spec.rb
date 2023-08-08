@@ -53,8 +53,6 @@ RSpec.describe "Editing a project", type: :system, js: true do
         project_type: project.project_type,
         start_date: project.start_date,
         end_date: project.end_date,
-        discipline: project.discipline,
-        discipline_other: project.discipline_other,
         involves_mammals: project.involves_mammals,
         involves_reptiles: project.involves_reptiles,
         involves_amphibians: project.involves_amphibians,
@@ -71,9 +69,6 @@ RSpec.describe "Editing a project", type: :system, js: true do
         method_chemicals_list: project.method_chemicals_list,
         method_soil_disturbance: project.method_soil_disturbance,
         method_long_term_structures: project.method_long_term_structures,
-        keywords: project.keywords,
-        taxonomic_keywords: project.taxonomic_keywords,
-        recent_publications: project.recent_publications,
       )
 
       flow.fill_out_project_form(
@@ -83,8 +78,6 @@ RSpec.describe "Editing a project", type: :system, js: true do
         project_type: "research",
         start_date: Date.current + 10.days,
         end_date: Date.current + 20.days,
-        discipline: "Other",
-        discipline_other: "Accounting",
         involves_mammals: true,
         involves_reptiles: true,
         involves_amphibians: true,
@@ -101,9 +94,6 @@ RSpec.describe "Editing a project", type: :system, js: true do
         method_chemicals_list: "Oxygen?",
         method_soil_disturbance: "No",
         method_long_term_structures: "No",
-        keywords: "Key, Lock, Pick, Tumbler",
-        taxonomic_keywords: "Taxonomy, Category, Classification",
-        recent_publications: "USA Today",
       )
       flow.submit_project_form
       expect(flow).to be_on_project_teams_page

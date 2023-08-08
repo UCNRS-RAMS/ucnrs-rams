@@ -15,8 +15,6 @@ class EditProjectFlow
     project_type:,
     start_date:,
     end_date:,
-    discipline:,
-    discipline_other:,
     involves_mammals:,
     involves_reptiles:,
     involves_amphibians:,
@@ -32,19 +30,12 @@ class EditProjectFlow
     method_chemicals:,
     method_chemicals_list:,
     method_soil_disturbance:,
-    method_long_term_structures:,
-    keywords:,
-    taxonomic_keywords:,
-    recent_publications:
+    method_long_term_structures:
   )
     Assertions.all(page) do |assert|
       assert.has_field?("Project or Event Title", with: title)
       assert.has_field?("Thesis Title", with: thesis_title)
       assert.has_field?("Project Abstract", with: abstract)
-      assert.has_field?("discipline-#{discipline}", checked: true)
-      if discipline == "other"
-        assert.has_field?("project_discipline_other", with: discipline_other)
-      end
       assert.has_field?("Mammals", checked: involves_mammals)
       assert.has_field?("Reptiles", checked: involves_reptiles)
       assert.has_field?("Amphibians", checked: involves_amphibians)
@@ -55,9 +46,6 @@ class EditProjectFlow
       assert.has_field?("None of the Above", checked: involves_none)
       assert.has_field?("Start Date", with: start_date)
       assert.has_field?("End Date", with: end_date)
-      assert.has_field?("Project Keywords (Optional)", with: keywords)
-      assert.has_field?("Taxonomic Keywords (Optional)", with: taxonomic_keywords)
-      assert.has_field?("Recent Publications (Optional)", with: recent_publications)
       assert.has_field?("Environmental Manipulations Needed", with: method_description)
       assert.has_field?("project_method_remove_organisms_#{method_remove_organisms ? "yes" : "no"}", checked: true)
       assert.has_field?("project_method_transfer_organisms_#{method_transfer_organisms ? "yes" : "no"}", checked: true)
@@ -78,8 +66,6 @@ class EditProjectFlow
     project_type:,
     start_date:,
     end_date:,
-    discipline:,
-    discipline_other:,
     involves_mammals:,
     involves_reptiles:,
     involves_amphibians:,
@@ -95,18 +81,11 @@ class EditProjectFlow
     method_chemicals:,
     method_chemicals_list:,
     method_soil_disturbance:,
-    method_long_term_structures:,
-    keywords:,
-    taxonomic_keywords:,
-    recent_publications:
+    method_long_term_structures:
   )
     page.fill_in("Project or Event Title", with: title)
     page.fill_in("Thesis Title", with: thesis_title)
     page.fill_in("Project Abstract", with: abstract)
-    page.choose(discipline)
-    if discipline == "Other"
-      page.fill_in("project_discipline_other", with: discipline_other)
-    end
     page.check("Mammals") if involves_mammals
     page.check("Reptiles") if involves_reptiles
     page.check("Amphibians") if involves_amphibians
@@ -117,9 +96,6 @@ class EditProjectFlow
     page.check("None of the Above") if involves_none
     page.fill_in("Start Date", with: start_date)
     page.fill_in("End Date", with: end_date)
-    page.fill_in("Project Keywords (Optional)", with: keywords)
-    page.fill_in("Taxonomic Keywords (Optional)", with: taxonomic_keywords)
-    page.fill_in("Recent Publications (Optional)", with: recent_publications)
     page.fill_in("Environmental Manipulations Needed", with: method_description)
     page.choose("project_method_remove_organisms_#{method_remove_organisms.downcase}")
     page.choose("project_method_transfer_organisms_#{method_transfer_organisms.downcase}")

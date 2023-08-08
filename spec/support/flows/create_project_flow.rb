@@ -68,8 +68,6 @@ class CreateProjectFlow
     project_type:,
     start_date:,
     end_date:,
-    discipline:,
-    discipline_other:,
     involves_mammals:,
     involves_reptiles:,
     involves_amphibians:,
@@ -85,18 +83,11 @@ class CreateProjectFlow
     method_chemicals:,
     method_chemicals_list:,
     method_soil_disturbance:,
-    method_long_term_structures:,
-    keywords:,
-    taxonomic_keywords:,
-    recent_publications:
+    method_long_term_structures:
   )
     page.fill_in("Project or Event Title", with: title)
     page.fill_in("Thesis Title", with: thesis_title)
     page.fill_in("Project Abstract", with: abstract)
-    page.choose(discipline)
-    if discipline == "Other"
-      page.fill_in("dicipline_other", with: discipline_other)
-    end
     page.check("Mammals") if involves_mammals
     page.check("Reptiles") if involves_reptiles
     page.check("Amphibians") if involves_amphibians
@@ -107,9 +98,6 @@ class CreateProjectFlow
     page.check("None of the Above") if involves_none
     page.fill_in("Start Date", with: start_date)
     page.fill_in("End Date", with: end_date)
-    page.fill_in("Project Keywords (Optional)", with: keywords)
-    page.fill_in("Taxonomic Keywords (Optional)", with: taxonomic_keywords)
-    page.fill_in("Recent Publications (Optional)", with: recent_publications)
     page.fill_in("Environmental Manipulations Needed", with: method_description)
     page.choose("project_method_remove_organisms_#{method_remove_organisms.downcase}")
     page.choose("project_method_transfer_organisms_#{method_transfer_organisms.downcase}")

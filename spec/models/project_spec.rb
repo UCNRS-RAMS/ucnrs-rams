@@ -18,7 +18,6 @@ RSpec.describe Project, type: :model do
       subject { Project.new(project_type: :research) }
       it { is_expected.to validate_presence_of(:title) }
       it { is_expected.to validate_presence_of(:abstract) }
-      it { is_expected.to validate_presence_of(:discipline) }
       it { is_expected.to validate_presence_of(:start_date) }
       it { is_expected.to validate_presence_of(:end_date) }
       it { is_expected.to validate_date(:end_date).is_after(:start_date) }
@@ -32,16 +31,6 @@ RSpec.describe Project, type: :model do
 
       it { is_expected.not_to validate_presence_of(:course_title) }
       it { is_expected.not_to validate_presence_of(:course_number) }
-
-      context "when discipline is 'Other'" do
-        subject { Project.new(project_type: :research, discipline: "Other") }
-        it { is_expected.to validate_presence_of(:discipline_other) }
-      end
-
-      context "when discipline is not 'Other'" do
-        subject { Project.new(project_type: :research, discipline: "Agriculture") }
-        it { is_expected.not_to validate_presence_of(:discipline_other) }
-      end
 
       context "when method_chemicals is true" do
         subject { Project.new(project_type: :research, method_chemicals: true) }
@@ -113,16 +102,6 @@ RSpec.describe Project, type: :model do
 
       it { is_expected.not_to validate_presence_of(:abstract) }
 
-      context "when discipline is 'Other'" do
-        subject { Project.new(project_type: :class, discipline: "Other") }
-        it { is_expected.to validate_presence_of(:discipline_other) }
-      end
-
-      context "when discipline is not 'Other'" do
-        subject { Project.new(project_type: :class, discipline: "Agriculture") }
-        it { is_expected.not_to validate_presence_of(:discipline_other) }
-      end
-
       context "when method_chemicals is true" do
         subject { Project.new(project_type: :class, method_chemicals: true) }
         it { is_expected.to validate_presence_of(:method_chemicals_list) }
@@ -185,16 +164,6 @@ RSpec.describe Project, type: :model do
       it { is_expected.to validate_date(:end_date).is_after(:start_date) }
 
       it { is_expected.not_to validate_presence_of(:course_title) }
-
-      context "when discipline is 'Other'" do
-        subject { Project.new(project_type: :class, discipline: "Other") }
-        it { is_expected.to validate_presence_of(:discipline_other) }
-      end
-
-      context "when discipline is not 'Other'" do
-        subject { Project.new(project_type: :class, discipline: "Agriculture") }
-        it { is_expected.not_to validate_presence_of(:discipline_other) }
-      end
     end
 
     context "when the project_type is public" do
@@ -206,16 +175,6 @@ RSpec.describe Project, type: :model do
       it { is_expected.to validate_date(:end_date).is_after(:start_date) }
 
       it { is_expected.not_to validate_presence_of(:course_title) }
-
-      context "when discipline is 'Other'" do
-        subject { Project.new(project_type: :class, discipline: "Other") }
-        it { is_expected.to validate_presence_of(:discipline_other) }
-      end
-
-      context "when discipline is not 'Other'" do
-        subject { Project.new(project_type: :class, discipline: "Agriculture") }
-        it { is_expected.not_to validate_presence_of(:discipline_other) }
-      end
     end
   end
 
