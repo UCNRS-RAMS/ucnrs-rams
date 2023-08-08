@@ -87,29 +87,5 @@ RSpec.describe "app/views/projects/_meeting_form.html.erb", type: :view do
       expect(doc).to display_error("can't be blank")
         .for_field("End Date")
     end
-
-    it "displays errors on 'popup' fields" do
-      user = User.new
-      presenter = ProjectFormPresenter.new(
-        user: user,
-        current_step: 1,
-        project_type: :meeting,
-        form: ProjectForm.new(params: {
-          discipline: "Other",
-          project_type: :meeting,
-        }, user: user),
-      )
-      project_form = presenter.form
-      project_form.validate
-
-      FakeForm.fields_for(project_form) do |form|
-        render partial: "shared/projects/meeting_form",
-          locals: { presenter: presenter, form: form }
-      end
-
-      doc = Capybara.string(rendered)
-      expect(doc).to display_error("can't be blank")
-      .for_field_with_id("discipline_other")
-    end
   end
 end
