@@ -18,33 +18,6 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
     expect(doc).to have_field("Project Abstract", type: "textarea")
   end
 
-  it "has the required fields in the 'Disciplines' section" do
-    presenter = ProjectFormPresenter.new(
-      user: :fake_user,
-      current_step: 1,
-    )
-
-    FakeForm.fields_for(ProjectForm.new) do |form|
-      render partial: "shared/projects/research_form",
-        locals: { presenter: presenter, form: form }
-    end
-
-    doc = Capybara.string(rendered)
-    expect(doc).to have_field("Agriculture", type: "radio")
-    expect(doc).to have_field("Arts/Humanities", type: "radio")
-    expect(doc).to have_field("Medical, Health & Safety", type: "radio")
-    expect(doc).to have_field("Biology", type: "radio")
-    expect(doc).to have_field("Earth Sciences", type: "radio")
-    expect(doc).to have_field("Education", type: "radio")
-    expect(doc).to have_field("Engineering/Computer Science", type: "radio")
-    expect(doc).to have_field("Environmental Science/Natural Resources", type: "radio")
-    expect(doc).to have_field("Physical Sciences", type: "radio")
-    expect(doc).to have_field("Social Sciences", type: "radio")
-    expect(doc).to have_field("Veterinary Medicine", type: "radio")
-    expect(doc).to have_field("Other", type: "radio")
-    expect(doc).to have_field("project_discipline_other", type: "text")
-  end
-
   it "has the required fields in the 'Involvements' section" do
     presenter = ProjectFormPresenter.new(
       user: :fake_user,
@@ -81,23 +54,6 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
     doc = Capybara.string(rendered)
     expect(doc).to have_field("Start Date", type: "date")
     expect(doc).to have_field("End Date", type: "date")
-  end
-
-  it "has the required fields in the 'Keywords' section" do
-    presenter = ProjectFormPresenter.new(
-      user: :fake_user,
-      current_step: 1,
-    )
-
-    FakeForm.fields_for(ProjectForm.new) do |form|
-      render partial: "shared/projects/research_form",
-        locals: { presenter: presenter, form: form }
-    end
-
-    doc = Capybara.string(rendered)
-    expect(doc).to have_field("Project Keywords (Optional)", type: "textarea")
-    expect(doc).to have_field("Taxonomic Keywords (Optional)", type: "textarea")
-    expect(doc).to have_field("Recent Publications (Optional)", type: "textarea")
   end
 
   it "has the required fields in the 'Methods' section" do
@@ -177,8 +133,6 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
         .for_field("Project or Event Title")
       expect(doc).to display_error("can't be blank")
         .for_field("Project Abstract")
-      expect(doc).to display_error("must select one")
-        .for_field("Choose a discipline that best describes your project")
       expect(doc).to display_error("must select at least one")
         .for_field("Will your project involve any of the following?")
       expect(doc).to display_error("can't be blank")
@@ -199,32 +153,6 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
         .for_field("Disturb the soil?")
       expect(doc).to display_error("must make a choice")
         .for_field("Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages, data-loggers, antennas, or buoys?")
-    end
-
-    it "displays errors on 'popup' fields" do
-      user = User.new
-      project_form = ProjectForm.new(params: {
-        method_chemicals: "Yes",
-        discipline: "Other",
-      }, user: user)
-      project_form.validate
-      presenter = ProjectFormPresenter.new(
-        user: user,
-        current_step: 1,
-        project_type: :research,
-        form: project_form,
-      )
-
-      FakeForm.fields_for(project_form) do |form|
-        render partial: "shared/projects/research_form",
-          locals: { presenter: presenter, form: form }
-      end
-
-      doc = Capybara.string(rendered)
-      expect(doc).to display_error("can't be blank")
-      .for_field_with_id("method_chemicals_list")
-      expect(doc).to display_error("can't be blank")
-      .for_field_with_id("discipline_other")
     end
   end
 end

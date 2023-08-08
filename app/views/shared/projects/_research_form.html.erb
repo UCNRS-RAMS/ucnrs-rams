@@ -25,7 +25,7 @@
       </p>
     </div>
   </section>
-  <section>
+  <section class="load-hide">
     <div class="field">
       <%= form.label :discipline, t(".choose_discipline") %>
       <ul class="disciplines">
@@ -71,21 +71,21 @@
         <%= form.date_field(:end_date, value: presenter.form.end_date) %>
       </div>
     </div>
-    <div class="field">
+    <div class="field load-hide">
       <%= form.label :keywords, t(".project_keywords.field_name") %>
       <p>
         <%= form.text_area :keywords, placeholder: t(".project_keywords.placeholder") %>
         <span class="explanation"><%= t(".project_keywords.explanation") %></span>
       </p>
     </div>
-    <div class="field">
+    <div class="field load-hide">
       <%= form.label :taxonomic_keywords, t(".taxonomic_keywords.field_name") %>
       <p>
         <%= form.text_area :taxonomic_keywords, placeholder: t(".taxonomic_keywords.placeholder") %>
         <span class="explanation"><%= t(".taxonomic_keywords.explanation") %></span>
       </p>
     </div>
-    <div class="field">
+    <div class="field load-hide">
       <%= form.label :recent_publications, t(".recent_publications.field_name") %>
       <p>
         <%= form.text_area :recent_publications, placeholder: t(".recent_publications.placeholder") %>
