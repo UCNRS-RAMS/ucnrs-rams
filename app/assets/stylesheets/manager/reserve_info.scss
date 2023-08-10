@@ -336,14 +336,19 @@
     input,
     textarea,
     select {
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
     }
 
     small {
+      color: $dark-bluegray;
       display: block;
-      font-size: 0.75rem;
+      font-size: 0.8125rem;
       font-weight: $light;
-      margin-top: 0.25rem;
+      margin-top: 4px;
+    }
+
+    textarea + small {
+      margin-top: 0px;
     }
 
     hr {
@@ -370,7 +375,7 @@
     .form-label {
       color: $dark-bluegray;
       display: inline-block;
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
       font-weight: $semi-bold;
       margin-bottom: 0.15rem;
     }
@@ -378,9 +383,9 @@
     .form-inline-label {
       color: $dark-bluegray;
       display: inline-block;
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
       font-weight: $normal;
-      margin-bottom: 0.15rem;
+      margin-bottom: 0.25rem;
     }
 
     .form-textarea {
