@@ -50,4 +50,16 @@ class Manager::ProjectShowPresenter < ProjectShowPresenter
         Manager::VisitShowPresenter.new(visit: visit, current_user: current_user)
     end
   end
+
+  def edit_team_membership_path
+    manager_reserve_project_team_memberships_path(reserve, project_id)
+  end
+
+  def edit_funding_path
+    manager_reserve_project_fundings_path(reserve, project_id)
+  end
+
+  def edit_questions_path
+    manager_reserve_project_questions_path(reserve, project_id)
+  end
 end

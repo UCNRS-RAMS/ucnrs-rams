@@ -1,7 +1,7 @@
 <section class="project-permit">
   <header>
     <h2 class="main-header"><%= t(".permits") %></h2>
-    <%= link_to t(".edit_permits"), project_questions_path(presenter.project_id) %>
+    <%= link_to t(".edit_permits"), presenter.edit_questions_path %>
     <% if presenter.display_approved_permits? %>
       <h3 class="subheader"><%= t(".approved_permits") %></h3>
       <p><%= presenter.approved_permits %></p>

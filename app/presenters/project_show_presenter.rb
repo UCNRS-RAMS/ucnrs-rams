@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ProjectShowPresenter
+  include Rails.application.routes.url_helpers
+
   def initialize(project)
     @project = project
   end
@@ -119,6 +121,18 @@ class ProjectShowPresenter
       .map do |visit|
         VisitPresenter.new(visit)
     end
+  end
+
+  def edit_team_membership_path
+    project_team_memberships_path(project_id)
+  end
+
+  def edit_funding_path
+    project_fundings_path(project_id)
+  end
+
+  def edit_questions_path
+    project_questions_path(project_id)
   end
 
   private

@@ -43,7 +43,7 @@
 
     .button {
       margin-bottom: 1rem;
-      
+
       img {
         margin-left: 1rem;
         vertical-align: middle;
@@ -76,13 +76,13 @@
       margin-bottom: 3rem;
     }
 
-    header {
+    > header {
       margin-bottom: 2.5rem;
 
       .subheader {
         align-items: center;
         display: flex;
-  
+
         span {
           margin-right: 1.5rem;
         }
@@ -119,7 +119,6 @@
       align-items: center;
       display: flex;
       margin-bottom: 1.5rem;
-      
 
       span {
         align-items: center;

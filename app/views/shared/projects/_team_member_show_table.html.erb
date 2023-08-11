@@ -1,6 +1,6 @@
 <section class="project-team">
   <h2 class="main-header"><%= t(".project_team", size: presenter.team_memberships.size) %></h2>
-  <%= link_to t(".edit_team"), project_team_memberships_path(presenter.project_id) %>
+  <%= link_to t(".edit_team"), presenter.edit_team_membership_path %>
   <table id="team-summary-table" class="summary-table">
     <thead>
       <tr>
