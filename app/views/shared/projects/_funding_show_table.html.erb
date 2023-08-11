@@ -1,6 +1,6 @@
 <section class="project-funding">
   <h2 class="main-header"><%= t(".funding", size: presenter.fundings.size) %></h2>
-  <%= link_to t(".edit_funding"), project_fundings_path(presenter.project_id) %>
+  <%= link_to t(".edit_funding"), presenter.edit_funding_path %>
   <table id="funding-summary-table" class="summary-table">
     <thead>
       <tr>

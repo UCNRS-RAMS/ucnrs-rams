@@ -742,7 +742,6 @@ en:
     file_table:
       file_name: "Name"
       date: "Date"
-      upload_file: "Uploaded Files"
     incomplete_project_sidebar:
       sidebar_title: "Incomplete"
       edit_project: "Edit Project"
@@ -1094,6 +1093,7 @@ en:
         fences, enclosures, cages, data-loggers, antennas, or buoys"
       method_description: "Detailed description of environmental manipulations"
       method_study_area: "Reserve area(s) you plan to visit or conduct manipulations"
+      upload_file: "Uploaded Files"
     research_show:
       principal_investigators: "Principal Investigators"
       project_title: "Project Title"
@@ -1863,6 +1863,9 @@ en:
           next_step: "Next: Funding"
           yes_option: "Yes"
           no_option: "No"
+      summary:
+        show:
+          upload_file: "Uploaded Files"
     reports:
       show:
         report_status: "Report Status"

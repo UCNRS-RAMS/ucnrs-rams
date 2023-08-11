@@ -17,7 +17,13 @@
         </div>
       </header>
       <%= render partial: @presenter.partial_name, locals: { presenter: @presenter } %>
-      <%= render partial: "projects/file_table", locals: { presenter: @presenter } %>
+
+      <section class="project-files">
+        <header>
+          <h2 class="main-header"><%= t(".upload_file") %></h2>
+        </header>
+        <%= render partial: "projects/file_table", locals: { presenter: @presenter } %>
+      </section>
       <%= render partial: "shared/projects/team_member_show_table", locals: { presenter: @presenter } %>
       <%= render partial: "shared/projects/funding_show_table", locals: { presenter: @presenter } %>
       <%= render partial: "shared/projects/permit_show", locals: { presenter: @presenter } %>
