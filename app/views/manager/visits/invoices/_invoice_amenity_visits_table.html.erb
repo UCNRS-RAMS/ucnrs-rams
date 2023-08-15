@@ -2,8 +2,15 @@
   <section class="amenity-visits p-bottom">
     <h2 class="main-header">
       <%= t(".amenities") %>
-      <%= link_to t(".create_amenity"), edit_manager_reserve_visit_detail_path(visit_id: @presenter.id),
-        data: { turbo_frame: "visit-details", controller: "tab-bar", action: "click->tab-bar#selectTab", "tab-bar-id-param": "details"}, class: "amenity_link" %>
+      <%= link_to t(".edit_amenity"),
+        edit_manager_reserve_visit_detail_path(visit_id: @presenter.id),
+        data: {
+          turbo_frame: "visit-details",
+          controller: "tab-bar",
+          action: "click->tab-bar#selectTab", "tab-bar-id-param": "details"
+        },
+        class: "amenity_link"
+      %>
     </h2>
     <table id="amenities-summary-table" class="summary-table">
       <thead>
@@ -18,7 +25,9 @@
         </tr>
       </thead>
       <tbody>
-        <%= render partial: "manager/visits/invoices/invoice_amenity_visit_table_row", collection: presenter.amenity_visit_presenters, as: :amenity_visit %>
+        <%= render partial: "manager/visits/invoices/invoice_amenity_visit_table_row",
+          collection: presenter.amenity_visit_presenters, as: :amenity_visit
+        %>
         <tr class="amenity-total">
           <td colspan=5></td>
           <td><%= t(".total") %></td>

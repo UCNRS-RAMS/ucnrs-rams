@@ -4,11 +4,15 @@
     <section class="invoices">
       <header class="invoice-list">
         <h2 class="main-header"><%= t(".invoices") %></h2>
-        <%= form_with url: manager_reserve_visit_invoices_path, method: :get, data: { "turbo-frame": "invoice", "turbo-action": "advance" } do %>
-          <select id="invoice_status" class="invoice-select" name="invoice_filter" aria-label="invoice_filter" onchange="this.form.requestSubmit()">
+        <%= form_with url: manager_reserve_visit_invoices_path, method: :get,
+          data: { "turbo-frame": "invoice", "turbo-action": "advance" } do
+        %>
+          <select id="invoice_status" class="invoice-select" name="invoice_filter"
+            aria-label="invoice_filter" onchange="this.form.requestSubmit()"
+          >
             <% @presenter.invoice_filter_options.each do |key, value| %>
-                <option <%= @presenter.invoice_selected(value) %> value="<%= value %>"><%= key.humanize %></option>
-              <% end %>
+              <option <%= @presenter.invoice_selected(value) %> value="<%= value %>"><%= key.humanize %></option>
+            <% end %>
           </select>
         <% end %>
       </header>

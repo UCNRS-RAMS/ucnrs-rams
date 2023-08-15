@@ -1351,7 +1351,7 @@ en:
           total_balance: "Total Balance"
           create: "Create An Invoice"
         invoice_amenity_visits_table:
-          create_amenity: "Generate An Invoice"
+          edit_amenity: "Edit Amenities"
           amenities: "Amenities"
           invoice: "Invoice"
           status: "Status"

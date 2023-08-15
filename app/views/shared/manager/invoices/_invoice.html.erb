@@ -9,8 +9,14 @@
   <td><%= invoice.amenity_visit_dates %></td>
   <td><%= invoice.amount %></td>
   <td>
-    <%= link_to_if presenter.reserve_manager?(invoice.reserve), image_tag("arrow-right-circle.svg", alt: t("alt.right_facing_arrow"), height: "18", width: "18"), invoice.manager_show_path, data: { turbo_frame: "_top" } do %>
-      <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"), height: "18", width: "18", class: "disabled-link" %>
+    <%= link_to_if presenter.reserve_manager?(invoice.reserve),
+      image_tag("arrow-right-circle.svg", alt: t("alt.right_facing_arrow"), height: "18", width: "18"),
+      invoice.manager_show_path,
+      data: { turbo_frame: "_top" } do
+    %>
+      <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"),
+        height: "18", width: "18", class: "disabled-link"
+      %>
     <% end %>
   </td>
 </tr>
