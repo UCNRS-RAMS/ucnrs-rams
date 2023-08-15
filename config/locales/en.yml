@@ -2442,6 +2442,7 @@ en:
           invoice_date: "Invoice Date"
           amenity_visit_date: "Amenity Visit Date"
           balance: "Balance"
+          total_balance: "Total Balance"
       users_and_institutions_submenu:
         users: "Users"
         institutions: "Institutions"

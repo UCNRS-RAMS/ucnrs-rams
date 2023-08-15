@@ -13,4 +13,11 @@
     collection: presenter.selected_invoices,
     locals: { presenter: presenter }
   %>
+  <tfoot>
+    <tr>
+      <td colspan="3"></td>
+      <td class="total-balance-label"><%= t(".total_balance") %></td>
+      <td class="total-balance"><%= number_to_currency presenter.selected_invoices.sum(&:balance_due) %></td>
+    </tr>
+  </tfoot>
 </table>

@@ -266,6 +266,15 @@
     td:nth-child(2) {
       font-weight: $semi-bold;
     }
+
+    tfoot {
+      font-size: 13px;
+
+      .total-balance-label {
+        padding-right: 10px;
+        text-align: right;
+      }
+    }
   }
 
   .invoice-select {
