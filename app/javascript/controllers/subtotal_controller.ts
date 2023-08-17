@@ -1,9 +1,10 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["initialVal", "subtotal", "rate",  "count", "arriveOn", "departsOn", "arriveAt", "departsAt", "unitType", "checkBox" ]
+  static targets = ["initialVal", "subtotal", "rate", "days", "count", "arriveOn", "departsOn", "arriveAt", "departsAt", "unitType", "checkBox"]
   declare countTarget: HTMLInputElement
   declare subtotalTarget: HTMLInputElement
+  declare daysTargets: HTMLInputElement[]
   declare initialValTarget: any
   declare arriveOnTarget: HTMLInputElement
   declare arriveAtTarget: HTMLInputElement
@@ -11,49 +12,53 @@ export default class extends Controller {
   declare departsOnTarget: HTMLInputElement
   declare unitTypeTarget: HTMLInputElement
   declare checkBoxTarget: HTMLInputElement
-  
+
   async connect() {
-   await this.calculateSubtotal()
+    await this.calculateSubtotal()
   }
 
-  checkBoxTargetConnected(){
+  checkBoxTargetConnected() {
     this.calculateTotal()
     this.calculateBalance()
   }
 
-  async calculateSubtotal(){
+  async calculateSubtotal() {
     const units = Math.max(await this.getSubtotal(), 0);
     const rate = this.rate()
+
     if (parseFloat(this.countTarget.value) < 1 || this.countTarget.value == '')
       this.countTarget.value = '1'
-    this.subtotalTarget.innerText = (parseFloat(this.countTarget.value) * parseFloat(rate) * parseFloat(units)).toFixed(2)
+
+    this.subtotalTarget.innerText = (parseFloat(this.countTarget.value) * parseFloat(rate) * units).toFixed(2)
     this.calculateTotal()
     this.calculateBalance()
+    this.updateDays(units)
   }
 
-  setRate(rateValue){
+  setRate(rateValue) {
     this.initialValTarget.innerText = rateValue
     this.calculateSubtotal()
- }
+  }
 
-  async getSubtotal(){
+  async getSubtotal() {
     const arrives = `${this.arriveOnTarget.value} ${this.arriveAtTarget.value}`
     const departs = `${this.departsOnTarget.value} ${this.departsAtTarget.value}`
+
     return await this.fetchSubtotal(arrives, departs)
   }
 
-  async fetchSubtotal(arrives, departs){
+  async fetchSubtotal(arrives, departs) {
     const url = `/visits/units?arrive=${encodeURIComponent(arrives)}&departs=${encodeURIComponent(departs)}&unit=${this.unitTypeTarget.textContent.trim()}`
     return fetch(url,
-      { 
-        headers: {
-          'Content-Type': 'application/json',
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          }
         }
-      }
-    )
-    .then((res) => res.json())
-    .then((result) => result.data)
-    .catch((e)=> console.log(`Something went wrong. Error ${e}`))
+      )
+      .then((res) => res.json())
+      .then((result) => result.data)
+      .catch((e) => console.log(`Something went wrong. Error ${e}`))
   }
 
   rate() {
@@ -63,13 +68,15 @@ export default class extends Controller {
       return this.initialValTarget.textContent
     }
   }
-  
+
   calculateTotal() {
     let subtotal
     if (document.getElementById('total') != null)
-      subtotal = Array.from(document.querySelectorAll('.subtotal')).
-        reduce((total, arg) => total + parseFloat(arg.innerHTML), 0.0).toFixed(2).toString();
-      document.getElementById('total').innerHTML = '$' + subtotal
+      subtotal = Array.from(document.querySelectorAll('.subtotal'))
+        .reduce((total, arg) => total + parseFloat(arg.innerHTML), 0.0).toFixed(2).toString();
+
+    document.getElementById('total').innerHTML = '$' + subtotal
+
     return parseFloat(subtotal)
   }
 
@@ -84,6 +91,7 @@ export default class extends Controller {
     if (isNaN(balance)) return;
 
     const balanceElement = document.getElementById("balance")
+
     if (balanceElement) {
       const sign = this.getNumberSign(balance)
       const absoluteBalance = Math.abs(balance)
@@ -123,5 +131,9 @@ export default class extends Controller {
     } else {
       return "default_balance"
     }
+  }
+
+  updateDays(num_of_days) {
+    this.daysTargets.forEach(target => target.innerHTML = num_of_days.toString())
   }
 }
