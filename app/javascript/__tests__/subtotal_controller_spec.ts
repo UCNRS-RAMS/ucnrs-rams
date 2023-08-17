@@ -91,6 +91,7 @@ describe("SubtotalController", () => {
        <input type="button" id="down" data-action="click->counter#decrement click->subtotal#calculateSubtotal"/>
         <input type="button" id="up" data-action="click->counter#increment click->subtotal#calculateSubtotal"/>
       <input type="button" id="close-btn" data-action="click->amenity-booking#removeAmenityBooking">
+      <span data-subtotal-target="days"></span>
       </section>`)
   })
 

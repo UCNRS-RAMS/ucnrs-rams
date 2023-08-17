@@ -20,9 +20,9 @@ class AmenityVisitPresenter
   end
 
   def total_days
-    ((departs.to_date + 1.day) - arrives.to_date).to_i
+    calc_units_of_time
   end
-  
+
   def requested_date_time_range(format: nil)
     DateTimeRangePresenter.value(start_datetime: arrives, end_datetime: departs, format: format)
   end
@@ -74,7 +74,7 @@ class AmenityVisitPresenter
   def invoiced?
     Visits::AmenityForm.new(params: { amenity_visit_id: amenity_visit.id }).invoiced?
   end
-  
+
   private
 
   attr_reader :amenity_visit
