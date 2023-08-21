@@ -18,7 +18,7 @@ gem 'puma', '~> 5.6.1'
 gem 'rails', '~> 6.1.4'
 gem 'sass-rails', '>= 6'
 gem 'simple_calendar', '~> 2.4'
-gem 'turbo-rails', '~> 1.3'
+gem 'turbo-rails', '~> 1.4'
 gem 'webpacker', '~> 5.0'
 
 # charting
