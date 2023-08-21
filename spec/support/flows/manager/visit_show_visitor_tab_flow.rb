@@ -118,7 +118,7 @@ class VisitShowVisitorTabFlow
   end
 
   def select_option
-    page.find("#-option-0").click
+    page.find("#stimulus-autocomplete-option-0").click
   end
 
   def has_error_message?(text)

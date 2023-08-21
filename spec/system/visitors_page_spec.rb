@@ -142,7 +142,7 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
 
       flow.click_on_add_individual
       page.find("#user_visit_guest_name").set("John Muir")
-      page.find("#-option-0").click
+      page.find("#stimulus-autocomplete-option-0").click
 
       click_button("Add Visitor")
 
