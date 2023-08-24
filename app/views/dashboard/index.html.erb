@@ -1,0 +1,70 @@
+<section class="container content">
+  <section class="main-section">
+    <div class="dashboard-links">
+      <%= link_to nil, href: new_project_path do %>
+        <%= tag.div "Create a Project" %>
+      <% end %>
+      <%= link_to nil, href: new_visit_path do %>
+        <%= tag.div "Schedule a Visit" %>
+      <% end %>
+      <%= link_to nil, href: home_calendar_path do %>
+        <%= tag.div "My Calendar" %>
+      <% end %>
+      <%= link_to nil, href: projects_path do %>
+        <%= tag.div "My Projects" %>
+      <% end %>
+      <%= link_to nil, href: root_path do %>
+        <%= tag.div "My Visits" %>
+      <% end %>
+      <%= link_to nil, href: root_path do %>
+        <%= tag.div "My Invoices" %>
+      <% end %>
+    </div>
+    <p>Reserve use is managed through the two-step process detailed below</p>
+    <p>Please contact reserve staff at any time during this project to discuss
+      feasibility and logistics</p>
+  </section>
+  <div class="instructions">
+    <section>
+      <header>
+        <%= render partial: "svg/step_marker",
+          locals: { presenter: StepMarkerPresenter.new(
+            number: 1,
+            size: 50,
+            color: "#556b72",
+            fill_opacity: "0",
+            use_checkmark: false,
+            invert: false,
+          )}
+        %>
+        Create a Project
+      </header>
+      <ul class="instruction-list">
+        <li>Indicate your project type (research, university-class, etc.)</li>
+        <li>Describe what you plan to do, why you want to conduct this activity, and how you will accomplish it.</li>
+        <li>List members of your team</li>
+        <li>Upload all required permit</li>
+      </ul>
+    </section>
+    <section>
+      <header>
+        <%= render partial: "svg/step_marker",
+          locals: { presenter: StepMarkerPresenter.new(
+            number: 2,
+            size: 50,
+            color: "#556b72",
+            fill_opacity: "0",
+            use_checkmark: false,
+            invert: false,
+          )}
+        %>
+        Schedule a Visit
+      </header>
+      <ul class="instruction-list">
+        <li>Visit type must match an active project type</li>
+        <li>Enter details of your visit: dates, times, participants</li>
+        <li>Read and sign waivers and the NRS code of conduct</li>
+      </ul>
+    </section>
+  </div>
+</section>

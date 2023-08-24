@@ -1,0 +1,66 @@
+.dashboard-index {
+  .content {
+    margin-bottom: 3rem;
+    margin-top: 3rem;
+    max-width: 900px;
+    padding: 1rem;
+  }
+
+  .main-section {
+    margin-bottom: 3rem;
+  }
+
+  .dashboard-links {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    padding: 0;
+
+    a {
+      display: flex;
+      height: 150px;
+      justify-content: center;
+      flex-basis: 33.33333%;
+      flex-direction: column;
+      font-size: 1.25rem;
+
+      > div {
+        text-align: center;
+      }
+    }
+
+    a:nth-child(odd) {
+      background-color: #72CDF4;
+    }
+
+    a:nth-child(even) {
+      background-color: #FFE552;
+    }
+  }
+
+  .instructions {
+    display: flex;
+    gap: 3rem;
+
+    > section {
+      flex-basis: 50%;
+
+      > header {
+        display: flex;
+        flex-direction: column;
+        font-size: 1.25rem;
+        font-weight: 600;
+        justify-content: center;
+        text-align: center;
+
+        svg {
+          margin: 1rem auto;
+        }
+      }
+
+      ul.instruction-list {
+        padding-left: 1rem;
+      }
+    }
+  }
+}
