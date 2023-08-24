@@ -30,6 +30,7 @@ RSpec.describe "Authentication", type: :system, js: true do
       flow.reset_password_to("Password2")
       expect(flow).to be_signed_in
 
+      flow.visit_homepage
       flow.dismiss_modal # Necessary for now.
       flow.sign_out
       flow.sign_in_as(email: email, password: "Password2")
@@ -49,6 +50,7 @@ RSpec.describe "Authentication", type: :system, js: true do
       flow.sign_in_as(email: email, password: password)
       expect(flow).to be_signed_in
 
+      flow.visit_homepage
       flow.dismiss_modal
       flow.sign_out
       # expect(flow).to_not be_signed_in  # Doesn't work after turbo

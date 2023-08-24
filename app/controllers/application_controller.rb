@@ -68,7 +68,7 @@ class ApplicationController < ActionController::Base
     if current_user.is_manager?
       manager_reserve_dashboard_path(current_user.managed_reserves.first)
     else
-      root_path
+      dashboard_index_path
     end
   end
 end

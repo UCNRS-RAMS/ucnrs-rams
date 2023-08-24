@@ -61,7 +61,7 @@ class AuthenticationFlow
   def has_confirmed_email_is_valid?
     page.has_content?("Your email address has been successfully confirmed.")
   end
-  
+
   def sign_in_as(email:, password:)
     page.fill_in("Email", with: email)
     page.fill_in("Password", with: password)
@@ -94,7 +94,7 @@ class AuthenticationFlow
   end
 
   def signed_in?
-    page.has_css?("body.home")
+    page.has_css?("body.home") || page.has_css?("body.dashboard")
   end
 
   def on_sign_in_page?

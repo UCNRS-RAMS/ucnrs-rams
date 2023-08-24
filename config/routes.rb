@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   }
   root to: "home#index"
 
+  resources :dashboard, only: [:index]
+
   namespace :home do
     resource :calendar, only: [:show], controller: "calendar"
     resources :latest_news, only: [:index]
