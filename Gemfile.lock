@@ -391,7 +391,7 @@ GEM
       faraday (>= 0.17.3, < 3)
     scss_lint (0.59.0)
       sass (~> 3.5, >= 3.5.5)
-    selenium-webdriver (4.11.0)
+    selenium-webdriver (4.10.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
@@ -442,6 +442,10 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    webdrivers (5.3.1)
+      nokogiri (~> 1.6)
+      rubyzip (>= 1.3.0)
+      selenium-webdriver (~> 4.0, < 4.11)
     webpacker (5.4.4)
       activesupport (>= 5.2)
       rack-proxy (>= 0.6.1)
@@ -501,12 +505,13 @@ DEPENDENCIES
   rspec-rails (~> 4.1)
   sass-rails (>= 6)
   scss_lint
-  selenium-webdriver
+  selenium-webdriver (~> 4.10)
   shoulda-matchers
   simple_calendar (~> 2.4)
   simplecov
   turbo-rails (~> 1.4)
   web-console (>= 4.1.0)
+  webdrivers (~> 5.3)
   webpacker (~> 5.0)
 
 RUBY VERSION
