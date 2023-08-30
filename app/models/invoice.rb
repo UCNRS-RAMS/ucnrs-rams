@@ -13,7 +13,6 @@ class Invoice < ApplicationRecord
   has_many :invoice_payments, dependent: :destroy
   has_many :amenity_visits, dependent: :nullify
   belongs_to :visit
-  has_many :invoice_payments
   has_many :logs, as: :record_about
 
   def self.recent_first

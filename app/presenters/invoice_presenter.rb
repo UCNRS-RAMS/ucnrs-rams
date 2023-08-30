@@ -12,6 +12,8 @@ class InvoicePresenter
   delegate :reserve_id, :reserve, to: :visit
   delegate :reserve_name, :project_title, :project_id, :user_full_name, to: :visit, allow_nil: true
 
+  delegate_missing_to :invoice
+
   def invoice_id
     "#{id}-#{modify_number}"
   end
@@ -46,6 +48,7 @@ class InvoicePresenter
   end
 
   private
+
   delegate :visit, :invoice_total, to: :invoice, private: true
 
   def value(num)

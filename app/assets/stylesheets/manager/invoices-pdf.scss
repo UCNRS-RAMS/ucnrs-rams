@@ -1,0 +1,137 @@
+@import "variables";
+
+.pdf-show {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+
+  hr {
+    border: 0;
+    border-top: 1px solid #555;
+    margin: 10px 0;
+  }
+
+  .invoice-header {
+    font-family: times-new-roman;
+    font-size: 22px;
+
+    .reserve-logo {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .reserve-name {
+      display: inline-block;
+      line-height: 1.2em;
+    }
+
+    .reserve-address {
+      float: right;
+      font-size: .5em;
+      line-height: 1.5em;
+      padding-top: 0px;
+      text-align: right;
+    }
+  }
+
+  .invoice-body {
+    font-family: monospace;
+    font-size: 11px;
+
+    .invoice-body-header {
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    table.invoice-summary {
+      background: #ddd;
+      margin: 0 auto 30px auto;
+      padding: 15px;
+      width: 100%;
+
+      td:first-of-type {
+        font-weight: bold;
+        text-align: right;
+        vertical-align: top;
+        width: 120px;
+      }
+    }
+
+    .invoice-notes {
+      margin-bottom: 20px;
+
+      p {
+        margin-top: 0;
+      }
+
+      .invoice-notes-header {
+        font-size:1.3em;
+        line-height:2em;
+      }
+    }
+  }
+
+  .invoice-guide {
+    width: 100%;
+
+    td {
+      vertical-align: top;
+      width: 50%;
+
+      .invoice-guide-header {
+        color: #aaa;
+        font-size: 12px;
+        padding: 0 0 3px 0;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+
+.pdf-no-break {
+  page-break-inside: avoid;
+}
+
+.list-table {
+  border-collapse: collapse;
+  margin:0 auto 40px auto;
+  width:100%;
+
+  thead tr {
+    background-color: $gold;
+  }
+
+  tbody tr, tfoot tr {
+    height: 30px;
+  }
+
+  th {
+    padding: 8px;
+    text-align: left;
+  }
+
+  td {
+    border-top: 0.5px solid #aaa;
+    padding: 4px 4px 4px 8px;
+  }
+
+  .balance {
+    text-align: right;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .balance.total {
+    border-top: 1px solid #555;
+  }
+
+  .units {
+    text-align: center;
+  }
+
+  .currency-end {
+    text-align: right;
+    width: 70px;
+  }
+}

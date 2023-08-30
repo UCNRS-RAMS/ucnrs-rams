@@ -91,6 +91,7 @@ Rails.application.routes.draw do
 
       resources :invoices, only: [:index] do
         resource :email, only: [:new, :create], controller: "invoices/emails"
+        resource :pdf, only: [:show], controller: "invoices/pdf"
       end
 
       resources :uninvoiced, only: [:index]

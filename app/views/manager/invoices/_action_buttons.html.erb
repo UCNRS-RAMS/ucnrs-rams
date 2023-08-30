@@ -18,6 +18,7 @@
   %>
   <%= render partial: "manager/invoices/link_icon",
     locals: presenter.link_params(
+      path: manager_reserve_invoice_pdf_path(current_reserve, presenter.invoice_id),
       icon: t(".printer_icon"),
       icon_alt: t(".printer_alt")
     )

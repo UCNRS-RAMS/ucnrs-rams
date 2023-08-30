@@ -1311,6 +1311,37 @@ en:
           new_email:
             title: "Email Invoice"
             accessible_description: ""
+      pdf:
+        show:
+          invoice: "Invoice"
+          invoice_note: "Invoice Note:"
+          balance: "Balance"
+          billing_address: "Billing Address"
+          notes: "Notes"
+        bill_to:
+          bill_to: "Bill To"
+        invoiced_amenities:
+          count: "Count"
+          date: "Date"
+          rate: "Rate"
+          reserve_amenity: "Reserve Amenity"
+          subtotal: "Subtotal"
+          total_reserve_amenities_provided: "Total reserve amenities provided"
+          units: "Units"
+        invoice_payments:
+          amount: "Amount"
+          note: "Note"
+          payment: "Payment"
+          payment_type: "Payment Type"
+          payor: "Payor"
+          total_payments: "Total payment(s) or credit"
+        invoice_info:
+          description: "Description"
+          invoice_date: "Invoice Date"
+          invoice_number: "Invoice #"
+          project_number: "Project #"
+          purpose: "Purpose"
+          visit_number: "Visit #"
     not_a_manager: "You are not a manager"
     not_a_manager_of_reserve: "You are not a manager of the reserve."
     not_editable: "Visit is not editable after due date"
