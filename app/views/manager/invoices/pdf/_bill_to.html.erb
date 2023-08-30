@@ -1,0 +1,19 @@
+<table class="list-table">
+  <thead>
+    <tr >
+      <th colspan="2"><%= t(".bill_to") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% presenter.invoice_recipients.each do |recipient| %>
+        <tr>
+          <td>
+            <%= recipient.user.full_name %>
+            <br />
+            <small><%= recipient.user.institution_name %></small>
+          </td>
+          <td><%= recipient.user.email %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -24,9 +24,9 @@ class AmenityVisit < ApplicationRecord
 
   def calc_units_of_time
     ApplicationController.helpers.num_of_units(
-        self.arrives,
-        self.departs,
-        amenity.time_type,
+      self.arrives,
+      self.departs,
+      amenity.time_type,
     )
   end
 

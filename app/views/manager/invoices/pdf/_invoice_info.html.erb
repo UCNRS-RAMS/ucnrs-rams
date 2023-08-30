@@ -1,0 +1,26 @@
+<table class="pdf-no-break invoice-summary">
+  <tr>
+    <td><%= t(".invoice_date") %>:</td>
+    <td><%= presenter.invoice_date %></td>
+  </tr>
+  <tr>
+    <td><%= t(".invoice_number") %>:</td>
+    <td><%= presenter.invoice.id %>-<%= presenter.invoice.modify_number %></td>
+  </tr>
+  <tr>
+    <td><%= t(".project_number") %>:</td>
+    <td><%= presenter.invoice_visit_project.id %></td>
+  </tr>
+  <tr>
+    <td><%= t(".description") %>:</td>
+    <td><%= presenter.invoice_visit_project.title %></td>
+  </tr>
+  <tr>
+    <td><%= t(".visit_number") %>:</td>
+    <td><%= presenter.invoice_visit.id %></td>
+  </tr>
+  <tr>
+    <td><%= t(".purpose") %>:</td>
+    <td><%= truncate presenter.invoice_visit.purpose_of_visit, length: 500 %></td>
+  </tr>
+</table>

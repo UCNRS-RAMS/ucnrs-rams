@@ -1,0 +1,33 @@
+<table class="list-table" >
+  <thead>
+    <tr >
+      <th width="125"><%= t(".payment") %></th>
+      <th width="100"><%= t(".payor") %></th>
+      <th width="120"><%= t(".payment_type") %></th>
+      <th><%= t(".note") %></th>
+      <th class="currency-end"><%= t(".amount") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% payment_total = 0.0 %>
+    <% presenter.invoice_payments.each do | invoice_payment | %>
+      <% payment_total += invoice_payment.amount %>
+
+      <tr>
+        <td><%= invoice_payment.paid_on %></td>
+        <td><%= invoice_payment.payor %></td>
+        <td><%= invoice_payment.payment_type %></td>
+        <td><%= invoice_payment.notes %></td>
+        <td class="currency-end"><%= number_to_currency(invoice_payment.amount) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr class="balance">
+      <td colspan="6" >
+        <%= t(".total_payments") %>:
+        <span style="color:green;"><%= number_to_currency(payment_total) %></span>
+      </td>
+    </tr>
+  </tfoot>
+</table>

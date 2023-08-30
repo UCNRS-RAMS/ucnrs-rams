@@ -1,0 +1,58 @@
+<table class="list-table">
+  <colgroup>
+    <col span="2"/>
+    <col span="3" style="background-color:#ffc"/>
+    <col/>
+  </colgroup>
+  <thead>
+    <tr >
+      <th><%= t(".reserve_amenity") %></th>
+      <th><%= t(".date") %></th>
+      <th class="units"><%= t(".units") %></th>
+      <th class="units"><%= t(".count") %></th>
+      <th class="units"><%= t(".rate") %></th>
+      <th class="currency-end"><%= t(".subtotal") %></th>
+    </tr>
+  </thead>
+    <tbody>
+      <% service_total = 0.0 %>
+      <% presenter.invoice_amenity_visits.each do | amenity_visits | %>
+        <% service_total += amenity_visits.subtotal %>
+
+        <tr >
+          <td id="name[field:'AssetActivityID']" class="fullName">
+              <%= amenity_visits.amenity_title %><br />
+              <small>(<%= amenity_visits.per_sentence %>)</small>
+          </td>
+          <td>
+            <div style="display:inline-block;"><%= amenity_visits.requested_date_range %></div>
+          </td>
+          <td class="units">
+            <div style="display:inline-block;">
+              <%= pluralize(amenity_visits.number_of_people, amenity_visits.amenity.units_type ) %>
+            </div>
+          </td>
+          <td class="units">
+            <%= pluralize(amenity_visits.real_units_of_time, amenity_visits.amenity.time_type ) %>
+          </td>
+          <td class="units">
+            <%= number_to_currency(amenity_visits.rate) %>
+          </td>
+          <td class="currency-end">
+            <%= number_to_currency(amenity_visits.subtotal) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr class="balance">
+        <td colspan="8">
+          <%= t(".total_reserve_amenities_provided") %>:
+          <%= service_total < 0 ?
+            "<span style='color:green;'>#{number_to_currency(service_total)}</span>".html_safe :
+            "<span style='color:red;'>#{number_to_currency(service_total)}</span>".html_safe
+          %>
+        </td>
+      </tr>
+    </tfoot>
+</table>
