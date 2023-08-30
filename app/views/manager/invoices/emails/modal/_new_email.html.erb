@@ -1,0 +1,18 @@
+<turbo-frame id="modal-content" class="modal-content" role="dialog" aria-labelledby="modal-title">
+  <div data-modal-target="dialog openOnLoad" data-action="mousedown@window->modal#closeBackground">
+    <%= form_with scope: :invoice_email, url: root_path, method: :post do |form| %>
+      <p class="screenreader-text">
+        <span id="modal-title"><%= t(".title") %></span>
+        <span id="modal-description"><%= t(".accessible_description") %></span>
+      </p>
+      <section class="text">
+        <h2><%= t(".title") %></h2>
+        <%= render partial: "email_field", locals: { form: form, presenter: presenter } %>
+      </section>
+      <section class="buttons">
+        <div class="close"><%= link_to t("cancel"), "#", data: { action: "click->modal#close" } %></div>
+        <button class="active" type="submit"><%= t("submit") %></button>
+      </section>
+    <% end %>
+  </div>
+</turbo-frame>

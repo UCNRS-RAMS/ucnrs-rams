@@ -1296,6 +1296,19 @@ en:
         project: "Project"
         user: "User"
         balance_due: "Balance Due"
+      emails:
+        email_field:
+          labels:
+            email_to: "Email To"
+            email_recipient: "Email Recipients"
+            email_option: "Email Option"
+            cc_personnel: "CC Personnel"
+            subject: "Subject"
+            body: "Body"
+        modal:
+          new_email:
+            title: "Email Invoice"
+            accessible_description: ""
     not_a_manager: "You are not a manager"
     not_a_manager_of_reserve: "You are not a manager of the reserve."
     not_editable: "Visit is not editable after due date"
