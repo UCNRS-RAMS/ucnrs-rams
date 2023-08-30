@@ -22,7 +22,7 @@
     min-height: calc(100% - 4rem);
   }
 
-  @include form;
+  @include form2;
   @include date_fields;
 
   .screenreader-text {

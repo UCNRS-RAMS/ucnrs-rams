@@ -10,6 +10,8 @@
   %>
   <%= render partial: "manager/invoices/link_icon",
     locals: presenter.link_params(
+      path: new_manager_reserve_invoice_email_path(current_reserve, presenter.invoice_id),
+      data: { "turbo-frame": "modal-content" },
       icon: t(".email_icon"),
       icon_alt: t(".email_alt")
     )

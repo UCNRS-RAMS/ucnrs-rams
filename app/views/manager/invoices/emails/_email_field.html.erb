@@ -1,0 +1,40 @@
+  <div class="form-group">
+    <%= form.label t(".labels.email_to"), class: "form-label" %>
+    <table class="team-members">
+      <% presenter.invoice_visit_project_team_membership.each do |team_member| %>
+        <tr>
+          <td>
+            <%= form.check_box :email_to_list,
+              {
+                multiple: true,
+                checked: team_member.is_principal_investigator?,
+                id: "email_to_list_#{team_member.id}",
+              },
+              team_member.user_email,
+              nil
+            %>
+            <strong>
+              <%= form.label team_member.user_full_name, for: "email_to_list_#{team_member.id}" %>
+            </strong>
+          </td>
+          <td><%= team_member.institution_name %></td>
+          <td><%= team_member.project_role %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="form-group">
+    <%= form.label t(".labels.email_option"), class:"form-label" %>
+    <div>
+      <%= form.check_box :cc_personnel, checked: true %>
+      <%= form.label :cc_personnel, t(".labels.cc_personnel") %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= form.label :subject, t(".labels.subject"), class: "form-label" %>
+    <%= form.text_field :subject, value: presenter.email_default_subject, class: "form-input" %>
+  </div>
+  <div class="form-group">
+    <%= form.label :body, t(".labels.body"), class: "form-label" %>
+    <%= form.text_area :body, value: presenter.email_default_body, class: "form-textarea" %>
+  </div>

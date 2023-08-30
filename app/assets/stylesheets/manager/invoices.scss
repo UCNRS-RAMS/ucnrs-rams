@@ -274,6 +274,45 @@
       font-weight: $bold;
     }
   }
+
+  .modal form {
+    font-size: 14px;
+
+    h2 {
+      font-weight: $semi-bold;
+      margin-top: 0;
+    }
+
+    input,
+    textarea,
+    select {
+      font-size: 0.875rem;
+    }
+
+    small {
+      color: $dark-bluegray;
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: $light;
+      margin-top: 4px;
+    }
+
+    textarea + small {
+      margin-top: 0px;
+    }
+
+    hr {
+      border-bottom: 1px;
+      border-color: $gray;
+      border-style: solid;
+      border-top: 0;
+      margin: 1rem 0;
+    }
+
+    table.team-members {
+      @include table-style2;
+    }
+  }
 }
 
 .manager.invoices-index {
