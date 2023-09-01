@@ -47,8 +47,6 @@ class Project < ApplicationRecord
   with_options(if: :project_type_research?) do
     validates :title, presence: true
     validates :abstract, presence: true
-    validates :start_date, presence: true
-    validates :end_date, presence: true
     validates :end_date, must_be_after: :start_date
     validates :method_description, presence: true
     validates :method_remove_organisms, inclusion: [true, false]
@@ -73,8 +71,6 @@ class Project < ApplicationRecord
     validates :title, presence: true
     validates :course_title, presence: true
     validates :course_number, presence: true
-    validates :start_date, presence: true
-    validates :end_date, presence: true
     validates :end_date, must_be_after: :start_date
     validates :method_remove_organisms, inclusion: [true, false]
     validates :method_transfer_organisms, inclusion: [true, false]
@@ -97,16 +93,12 @@ class Project < ApplicationRecord
   with_options(if: :project_type_meeting?) do
     validates :title, presence: true
     validates :abstract, presence: true
-    validates :start_date, presence: true
-    validates :end_date, presence: true
     validates :end_date, must_be_after: :start_date
   end
 
   with_options(if: :project_type_public_use?) do
     validates :title, presence: true
     validates :abstract, presence: true
-    validates :start_date, presence: true
-    validates :end_date, presence: true
     validates :end_date, must_be_after: :start_date
   end
 

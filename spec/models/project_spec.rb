@@ -18,8 +18,6 @@ RSpec.describe Project, type: :model do
       subject { Project.new(project_type: :research) }
       it { is_expected.to validate_presence_of(:title) }
       it { is_expected.to validate_presence_of(:abstract) }
-      it { is_expected.to validate_presence_of(:start_date) }
-      it { is_expected.to validate_presence_of(:end_date) }
       it { is_expected.to validate_date(:end_date).is_after(:start_date) }
       it { is_expected.to validate_presence_of(:method_description) }
       it { is_expected.to validate_booleanish_values(:method_remove_organisms) }
@@ -92,8 +90,6 @@ RSpec.describe Project, type: :model do
       it { is_expected.to validate_presence_of(:title) }
       it { is_expected.to validate_presence_of(:course_title) }
       it { is_expected.to validate_presence_of(:course_number) }
-      it { is_expected.to validate_presence_of(:start_date) }
-      it { is_expected.to validate_presence_of(:end_date) }
       it { is_expected.to validate_date(:end_date).is_after(:start_date) }
       it { is_expected.to validate_booleanish_values(:method_remove_organisms) }
       it { is_expected.to validate_booleanish_values(:method_transfer_organisms) }
@@ -163,8 +159,6 @@ RSpec.describe Project, type: :model do
       subject { Project.new(project_type: :meeting) }
       it { is_expected.to validate_presence_of(:title) }
       it { is_expected.to validate_presence_of(:abstract) }
-      it { is_expected.to validate_presence_of(:start_date) }
-      it { is_expected.to validate_presence_of(:end_date) }
       it { is_expected.to validate_date(:end_date).is_after(:start_date) }
 
       it { is_expected.not_to validate_presence_of(:course_title) }
@@ -174,8 +168,6 @@ RSpec.describe Project, type: :model do
       subject { Project.new(project_type: :public_use) }
       it { is_expected.to validate_presence_of(:title) }
       it { is_expected.to validate_presence_of(:abstract) }
-      it { is_expected.to validate_presence_of(:start_date) }
-      it { is_expected.to validate_presence_of(:end_date) }
       it { is_expected.to validate_date(:end_date).is_after(:start_date) }
 
       it { is_expected.not_to validate_presence_of(:course_title) }

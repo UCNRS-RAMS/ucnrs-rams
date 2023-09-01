@@ -34,7 +34,6 @@ class EditProjectFlow
   )
     Assertions.all(page) do |assert|
       assert.has_field?("Project or Event Title", with: title)
-      assert.has_field?("Thesis Title", with: thesis_title)
       assert.has_field?("Project Abstract", with: abstract)
       assert.has_field?("Mammals", checked: involves_mammals)
       assert.has_field?("Reptiles", checked: involves_reptiles)
@@ -44,8 +43,6 @@ class EditProjectFlow
       assert.has_field?("Plants, Fungi, or Soils", checked: involves_plants_fungi_soil)
       assert.has_field?("Threatened, Endangered, or Species of Special Concern", checked: involves_threatened_endangered_species)
       assert.has_field?("None of the Above", checked: involves_none)
-      assert.has_field?("Start Date", with: start_date)
-      assert.has_field?("End Date", with: end_date)
       assert.has_field?("Please provide a detailed description of environmental manipulations needed for your research.", with: method_description)
       assert.has_field?("project_method_remove_organisms_#{method_remove_organisms ? "yes" : "no"}", checked: true)
       assert.has_field?("project_method_transfer_organisms_#{method_transfer_organisms ? "yes" : "no"}", checked: true)
@@ -84,7 +81,6 @@ class EditProjectFlow
     method_long_term_structures:
   )
     page.fill_in("Project or Event Title", with: title)
-    page.fill_in("Thesis Title", with: thesis_title)
     page.fill_in("Project Abstract", with: abstract)
     page.check("Mammals") if involves_mammals
     page.check("Reptiles") if involves_reptiles
@@ -94,8 +90,6 @@ class EditProjectFlow
     page.check("Plants, Fungi, or Soils") if involves_plants_fungi_soil
     page.check("Threatened, Endangered, or Species of Special Concern") if involves_threatened_endangered_species
     page.check("None of the Above") if involves_none
-    page.fill_in("Start Date", with: start_date)
-    page.fill_in("End Date", with: end_date)
     page.fill_in("Please provide a detailed description of environmental manipulations needed for your research.", with: method_description)
     page.choose("project_method_remove_organisms_#{method_remove_organisms.downcase}")
     page.choose("project_method_transfer_organisms_#{method_transfer_organisms.downcase}")
