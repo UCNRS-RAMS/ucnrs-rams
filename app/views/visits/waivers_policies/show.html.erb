@@ -1,6 +1,9 @@
 <% content_for(:title) { t(".title") } %>
 <%= render partial: "visits/steps", locals: { presenter: @presenter } %>
 
+<section class="flash-banner notice">
+  <div class="form-container"><%= t(".visit_agreements_flash_notice") %></div>
+</section>
 <section class="waivers-policies-form form-container">
   <header>
     <h1><%= t(".title")%></h1>
@@ -49,7 +52,7 @@
 
 <section class="controls">
   <%= link_to visit_questions_path(@form.id) do %>
-    <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t("alt.left_facing_arrow")  %>
+    <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t("alt.left_facing_arrow") %>
     <%= t("sitewide.back") %>
   <% end %>
   <%= button_tag class: "active", form: "visits-waivers-form" do %>
