@@ -581,6 +581,10 @@ en:
       checkbox:
         yes_agree: "Yes, I agree"
       show:
+        visit_agreements_flash_notice: "You are almost done. You MUST check off each Agreement sections
+          and click the Submit button at the bottom of the page to officialy submit your visit
+          which will notify the staff of your request. If you skip this step your visit status
+          will remain INCOMPLETE."
         note: "Please note if your application is approved, you will be required to abide by
           the following policies. Failure to comply may lead to denial or termination of
           reserve use. Know and abide by University of California Natural Reserve System,
@@ -597,10 +601,8 @@ en:
         reserve_use_agreement: "Reserve Use Agreement"
         code_of_conduct_agreement: "Code of Conduct Agreement"
         data_management_agreement: "Data Management Agreement"
-        policy_agreement_error: "You are almost done. You MUST check off each Agreement sections
-          and click the Submit button at the bottom of the page to officialy submit your visit
-          which will notify the staff of your request. If you skip this step your visit status
-          will remain INCOMPLETE."
+        policy_agreement_error: "You MUST check off each Agreement sections
+          and click the Submit button at the bottom of the page."
     user_visits:
       no_visitor: "Please enter your visitor information before advancing"
       index:
@@ -1325,6 +1327,10 @@ en:
         checkbox:
           yes_agree: "Yes, I agree"
         show:
+          visit_agreements_flash_notice: "You are almost done. You MUST check off each Agreement sections
+            and click the Submit button at the bottom of the page to officialy submit your visit
+            which will notify the staff of your request. If you skip this step your visit status
+            will remain INCOMPLETE."
           note: "Please note if your application is approved, you will be required to abide by the
             following policies. Failure to comply may lead to denial or termination of reserve use.
             Know and abide by University of California, Natural Reserve System, and reserve
@@ -1341,10 +1347,8 @@ en:
           reserve_use_agreement: "Reserve Use Agreement"
           code_of_conduct_agreement: "Code of Conduct Agreement"
           data_management_agreement: "Data Management Agreement"
-          policy_agreement_error: "You are almost done. You MUST check off each Agreement sections
-            and click the Submit button at the bottom of the page to officialy submit your visit
-            which will notify the staff of your request. If you skip this step your visit status
-            will remain INCOMPLETE."
+          policy_agreement_error: "You MUST check off each Agreement sections
+          and click the Submit button at the bottom of the page."
       invoices:
         index:
           invoices: "Invoices"

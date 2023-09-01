@@ -31,3 +31,12 @@
     background-color: $red-alert;
   }
 }
+
+.flash-banner {
+  padding: 1rem;
+
+  &.notice {
+    background-color: $gold;
+  }
+}
+
