@@ -10,7 +10,7 @@
         <span class="explanation"><%= t(".project_title.explanation") %></span>
       </p>
     </div>
-    <div class="field">
+    <div class="field load-hide">
       <%= form.label :thesis_title, t(".thesis_title.field_name") %>
       <p>
         <%= form.text_field :thesis_title %>
@@ -60,7 +60,7 @@
     </div>
   </section>
   <section>
-    <div class="date-fields">
+    <div class="date-fields load-hide">
       <div class="field">
         <%= form.label :start_date, t(".start_date") %>
         <%= form.date_field(:start_date, value: presenter.form.start_date) %>

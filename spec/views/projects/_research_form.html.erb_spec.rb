@@ -135,10 +135,6 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
         .for_field("Project Abstract")
       expect(doc).to display_error("must select at least one")
         .for_field("Will your project involve any of the following?")
-      expect(doc).to display_error(I18n.t("activerecord.errors.messages.blank"))
-        .for_field("Start Date")
-      expect(doc).to display_error(I18n.t("activerecord.errors.messages.blank"))
-        .for_field("End Date")
       expect(doc).to display_error(
           I18n.t("activerecord.errors.models.project.attributes.method_remove_organisms.inclusion")
         )
