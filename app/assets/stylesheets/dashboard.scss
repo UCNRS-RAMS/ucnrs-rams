@@ -1,3 +1,5 @@
+@import "variables";
+
 .dashboard-index {
   .content {
     margin-bottom: 3rem;
@@ -17,6 +19,7 @@
     padding: 0;
 
     a {
+      color: $white;
       display: flex;
       height: 150px;
       justify-content: center;
@@ -30,11 +33,17 @@
     }
 
     a:nth-child(odd) {
-      background-color: #72CDF4;
+      background-color: #005581;
     }
 
     a:nth-child(even) {
-      background-color: #FFE552;
+      background-color: #FFB551;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      transition: all .15s ease-in-out;
     }
   }
 
