@@ -40,10 +40,10 @@ module ApplicationHelper
     when "night"
       num_units               = (dep_time.to_date - arr_time.to_date).to_i
 
-    when "4 hours"
+    when "four_hours"
       num_units               = (dep_time - arr_time) / 4.hours
 
-    when "8 hours"
+    when "eight_hours"
       num_units               = (dep_time - arr_time) / 8.hours
 
     when "week"
@@ -56,7 +56,7 @@ module ApplicationHelper
       num_units               /= 92.0
       num_units               = num_units.ceil
 
-    when "semi-annual"
+    when "semi_annual"
       num_units               = (dep_time.to_date - arr_time.to_date).to_i + 1
       num_units               /= 183.0
       num_units               = num_units.ceil
