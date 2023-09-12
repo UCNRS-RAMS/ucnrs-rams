@@ -1,0 +1,21 @@
+namespace :db do
+  desc "Update amenity visits arrives and departs based on the arrives_on + arrives_at and
+    departs_on + departs_at respectively."
+
+  task update_amenity_visits_arrives_departs: :environment do
+    AmenityVisit.where.not(arrives_on: nil)
+      .where.not(arrives_at: nil)
+      .where.not(departs_on: nil)
+      .where.not(departs_on: nil)
+      .find_each do |amenity_visit|
+
+        arrives = amenity_visit.arrives_on.to_time.localtime + amenity_visit.arrives_at.localtime.hour.hour
+        departs = amenity_visit.departs_on.to_time.localtime + amenity_visit.departs_at.localtime.hour.hour
+
+        amenity_visit.update_columns(
+          arrives: arrives,
+          departs: departs
+        )
+      end
+  end
+end
