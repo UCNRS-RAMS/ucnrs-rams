@@ -9,8 +9,10 @@ namespace :db do
       .where.not(DepartureTime: nil)
       .find_each do |user_visit|
 
-        arrives = user_visit.ArrivalDate.to_time.localtime + user_visit.ArrivalTime.localtime.hour.hour
-        departs = user_visit.DepartureDate.to_time.localtime + user_visit.DepartureTime.localtime.hour.hour
+        arrives = user_visit.ArrivalDate.to_time.in_time_zone("Pacific Time (US & Canada)") +
+          user_visit.ArrivalTime.in_time_zone("Pacific Time (US & Canada)").hour.hour
+        departs = user_visit.DepartureDate.to_time.in_time_zone("Pacific Time (US & Canada)") +
+          user_visit.DepartureTime.in_time_zone("Pacific Time (US & Canada)").hour.hour
 
         user_visit.update_columns(
           arrives_at: arrives,
