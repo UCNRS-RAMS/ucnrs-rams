@@ -229,7 +229,7 @@ GEM
     msgpack (1.6.0)
     multi_json (1.15.0)
     multi_xml (0.6.0)
-    mysql2 (0.5.4)
+    mysql2 (0.5.5)
     net-imap (0.3.7)
       date
       net-protocol
@@ -464,6 +464,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  arm64-darwin-22
   x86_64-darwin-19
   x86_64-darwin-20
   x86_64-darwin-21
@@ -523,4 +524,4 @@ RUBY VERSION
    ruby 3.0.2p107
 
 BUNDLED WITH
-   2.4.4
+   2.4.19
