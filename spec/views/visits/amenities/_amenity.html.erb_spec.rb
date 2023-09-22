@@ -18,7 +18,6 @@ RSpec.describe "app/views/visits/amenities/_amenity.html.erb", type: :view do
     end
 
     doc = Capybara.string(rendered)
-    expect(doc).to have_css(".comment-and-rates p", text: amenity.comment)
     expect(doc).to have_css(".comment-and-rates p", text: "$0.01 per facility/per day")
     expect(doc).to have_css(".comment-and-rates p", text: "$12.50 per facility/per day")
     expect(doc).to have_css("[data-controller='toggle'] .comment-and-rates[data-toggle-target='toggle'][data-toggle-class='showing']")

@@ -186,7 +186,7 @@ class RequestVisitFlow
   end
 
   def click_on_add_another_date_range
-    page.find(".add-booking-card").click
+    page.find(".add-booking-card a").click
   end
 
   def increment_count

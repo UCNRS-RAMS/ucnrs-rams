@@ -1,19 +1,31 @@
 @import "variables";
 
 .amenity_group{
+  font-size: 0.8125rem;
   margin: 0px 0px 30px 0px;
+
+  a {
+    text-decoration: none;
+  }
 
   h3 {
     color: $dark-bluegray;
     display: flex;
   }
 
+  hr {
+    border-bottom: 1px solid $black;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+
   .group_label {
     margin-left: 15px;
   }
 
-  a {
-    text-decoration: none;
+  .amenity-padding {
+    padding: 15px;
   }
 
   .amenity {
@@ -21,9 +33,8 @@
       display: none;
     }
 
-    .amenity-padding {
+    .amenity-header {
       display: flex;
-      padding: 15px 20px;
       width: -webkit-fill-available;
 
       h3 {
@@ -32,24 +43,23 @@
 
       p {
         font-size: small;
-        margin: 3px;
+        margin: 3px 0;
       }
 
-      img {
-        margin-left: 10px;
+      img.amenity-img {
+        border: 1px solid $black;
+        border-radius: $border-radius;
+        height: 89px;
+        width: 146px;
       }
 
       .bold {
         font-size: small;
         font-weight: $bold;
       }
-
-      .content {
-        padding: 0px;
-      }
     }
 
-    label {
+    label.amenity-label {
       align-items: flex-start;
       border: 1px solid $black;
       border-radius: $border-radius;
@@ -58,15 +68,10 @@
       flex-wrap: wrap;
       margin: 0.5rem 0;
 
-      img {
-        border: 1px dotted $black;
-        height: 89px;
-        width: 146px;
-      }
-
       .content {
         flex: 1;
         margin: 0 1rem;
+        padding: 0px;
 
         h3 {
           margin: 0;
@@ -97,82 +102,63 @@
         border-bottom-right-radius: $border-radius;
         width: 100%;
 
-        img {
-          border: 0px;
-          height: 30px;
-          width: 50px;
-        }
-
         .booking {
           display: none;
           flex-basis: 100%;
           flex-direction: column;
-          padding: 30px;
 
           .booking-card {
+            align-items: end;
             background-color: $white;
             border: 1px solid;
             border-radius: $border-radius;
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            justify-content: space-evenly;
+            justify-content: space-between;
+            margin-bottom: 15px;
             padding: 10px;
 
+            button {
+              background-color: transparent;
+              border: 0;
+              margin: 0;
+              padding: 0;
+            }
+
+            label {
+              display: block;
+              flex-basis: 100%;
+              text-align: center;
+            }
+
             .flex-row-field {
-              align-items: center;
+              align-items: end;
               display: flex;
               flex-direction: row;
               flex-wrap: nowrap;
               gap: 4px;
 
-              .field {
-                span {
-                  text-align: center;
-                }
+              &.remove-amenity-field {
+                align-self: center;
               }
+            }
 
-              .cross-icon {
-                img {
-                 margin: 0px 0px 20px 40px;
-                }
-              }
+            .flex-column-field {
+              align-items: center;
+              display: flex;
+              flex-direction: column;
+            }
 
-              button {
-                background-color: transparent;
-                border: none;
-                margin: 0;
-                padding: 0;
-
-                img {
-                  border: 0px;
-                  height: 40px;
-                  width: 50px;
-                }
-              }
-
-              .flex-column-field {
-                display: flex;
-                flex-direction: column;
-              }
-
-              label {
-                display: block;
+            .field {
+              span {
                 text-align: center;
               }
+            }
 
-              .label-error {
-                width: 145px;
-              }
-
-              .counter {
-                text-align: center;
-                width: 45px;
-              }
-
-              label {
-                flex-basis: 100%;
-              }
+            .counter {
+              text-align: center;
+              width: 45px;
             }
 
             .cross-icon {
@@ -185,21 +171,41 @@
                 border: none;
               }
             }
+
+            .subtotal {
+              align-items: center;
+              display: flex;
+              font-weight: $semi-bold;
+              height: 2rem;
+            }
           }
 
           .add-booking-card {
-            align-items: center;
-            color: $black;
             display: flex;
-            padding: 10px 0px 10px 20px;
-            text-decoration: none;
-            width: fit-content;
+            justify-content: flex-end;
+
+            a {
+              align-items: center;
+              display: flex;
+              color: $black;
+              margin-right: 11px;
+              text-decoration: none;
+            }
+
+            img {
+              margin-left: 10px;
+            }
+          }
+
+          .add-booking-card img, .booking-card button img {
+            height: 30px;
+            width: 30px;
           }
         }
       }
     }
 
-    input:checked + label {
+    input:checked + label.amenity-label {
       background: lighten($bluegray, 35%);
       border: 2px solid $black;
 

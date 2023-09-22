@@ -1,5 +1,7 @@
 <%= fields_for "visit[amenities][#{presenter.amenity_id}][amenity_visits][#{SecureRandom.hex}]", amenity do |form| %>
-  <div class="booking-card" data-amenity-booking-target="bookingCard" data-controller="subtotal counter amenity-visit">
+  <div class="booking-card" data-amenity-booking-target="bookingCard" 
+    data-controller="subtotal counter amenity-visit"
+  >
     <%= form.hidden_field :id %>
     <div class="flex-row-field">
       <div class="flex-column-field">
@@ -64,7 +66,6 @@
         <div class="flex-row-field">
           <%= button_tag type: "button", class: "less" do %>
             <%= image_tag "icon-minus.svg",
-              style: "height: 2rem; width: 2rem;",
               data: { action: "click->counter#decrement click->subtotal#calculateSubtotal" }
             %>
           <% end %>
@@ -81,7 +82,6 @@
           %>
           <%= button_tag type: "button", class: "more" do %>
             <%= image_tag "icon-plus.svg",
-              style: "height: 2rem; width: 2rem;",
               data: { action: "click->counter#increment click->subtotal#calculateSubtotal" }
             %>
           <% end %>
@@ -90,14 +90,14 @@
       </div>
     </div>
     <div class="flex-row-field">
-      <div class="field">
+      <p data-subtotal-target = "initialVal", data-amenity-booking-target = "initialVal" hidden> <%= presenter.selected_rate_in_number %></p>
+      <p data-subtotal-target = "unitType" hidden> <%= presenter.period %></p>
+      <div class="flex-column-field">
         <label><%= t(".subtotal") %></label>
-        <p data-subtotal-target = "initialVal", data-amenity-booking-target = "initialVal" hidden> <%= presenter.selected_rate_in_number %></p>
-        <p data-subtotal-target = "unitType" hidden> <%= presenter.period %></p>
         <span class="subtotal" data-subtotal-target="subtotal", data-amenity-booking-target="subtotal" ></span>
       </div>
     </div>
-    <div class="flex-row-field">
+    <div class="flex-row-field remove-amenity-field">
       <%= button_tag type: "button", class: "cross-button" do %>
         <%= image_tag "cross.svg", data: { action: "click->amenity-booking#removeAmenityBooking"} %>
       <% end %>
