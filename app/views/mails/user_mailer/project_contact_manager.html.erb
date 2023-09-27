@@ -1,0 +1,16 @@
+<div style="max-width: 800px; margin: 0 auto; color: #002045; font-size: 14px; font-family: 'Sora', sans-serif" >
+  <h2 class="main-header" style="font-size: 1.5em; font-weight: 500;">
+    <%= t(".contact_manager_header") %>
+  </h2>
+  <p>
+    <%= t(".the_user", user_full_name: @presenter.user_full_name) %>
+    (<%= mail_to @presenter.user_email %>)
+    <%= t(".user_discuss") %>
+    <%= link_to "project #{@presenter.project_id}", 
+      manager_reserve_project_url(@presenter.reserve_id, @presenter.project_id) 
+    %>
+    <%= t(".with_reserve", reserve_name: @presenter.reserve_name) %>
+  </p>
+  <hr style="border-top: none; border-bottom: 2px solid #002045; margin-top: 1em; margin-bottom: 2.5em;" />
+  <%= render partial: "shared/project_brief", locals: { project: @presenter.project } %>
+</div>

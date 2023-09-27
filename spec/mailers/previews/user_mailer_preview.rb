@@ -31,6 +31,16 @@ class UserMailerPreview < ActionMailer::Preview
       .visit_update
   end
 
+  def project_contact_manager
+    UserMailer
+      .with(
+        project: Project.last,
+        reserve: Reserve.last,
+        user: User.last,
+      )
+      .project_contact_manager
+  end
+
   private
 
   def reserve_ids_with_personnel_email

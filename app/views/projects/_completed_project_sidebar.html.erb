@@ -23,7 +23,10 @@
 <section>
   <h2><%= t(".or_you_can") %></h2>
   <%= simple_format t(".contact_reserve")%>
-  <%= form_with scope: :email_admin, url: "/", method: :post  do |form| %>
+  <%= form_with scope: :email_manager, 
+    url: project_contact_manager_path(presenter.project), 
+    method: :post  do |form| 
+  %>
     <%= form.select(:reserve_id, options_from_collection_for_select(Reserve.all, :id, :name),
       { prompt: t(".select_a_reserve") }, class: "reserve-list"
     ) %>

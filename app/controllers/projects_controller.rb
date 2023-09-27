@@ -65,6 +65,14 @@ class ProjectsController < ApplicationController
     @presenter = ProjectShowPresenter.new(project)
   end
 
+  def contact_manager
+    reserve = Reserve.find contact_manager_reserve_id
+    send_contact_manager_email!(project: project, reserve: reserve)
+
+    flash[:notice] = t(".sent_message", reserve_name: reserve.name)
+    redirect_to project_path(Project.find(params[:project_id]))
+  end
+
   private
 
   def project_params
@@ -105,7 +113,7 @@ class ProjectsController < ApplicationController
   def status_filter
     params[:status]
   end
- 
+
   def page_number
     params[:page]
   end
@@ -126,7 +134,7 @@ class ProjectsController < ApplicationController
   end
 
   def project_id
-    params.permit(:id).require(:id)
+    params.dig(:id) || params.dig(:project_id)
   end
 
   def create_log(action:, project:)
@@ -136,5 +144,20 @@ class ProjectsController < ApplicationController
       },
       record: project,
     )
+  end
+
+  def contact_manager_reserve_id
+    params.require(:email_manager).permit(:reserve_id).dig(:reserve_id)
+  end
+
+  def send_contact_manager_email!(project:, reserve:)
+    UserMailer
+      .with(
+        project: project,
+        reserve: reserve,
+        user: current_user,
+      )
+      .project_contact_manager
+      .deliver_later
   end
 end

@@ -36,4 +36,18 @@ class UserMailer < ApplicationMailer
       content_type: "text/html",
     )
   end
+
+  def project_contact_manager
+    @presenter = Mail::User::ProjectContactManagerPresenter.new(
+      project: params[:project],
+      reserve: params[:reserve],
+      user: params[:user],
+    )
+
+    mail(
+      to: @presenter.email_to,
+      subject: @presenter.email_subject,
+      content_type: "text/html",
+    )
+  end
 end
