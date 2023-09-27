@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   resources :team_memberships, only: [:edit, :update, :destroy], controller: "projects/team_memberships"
   resources :fundings, only: [:edit, :update, :destroy], controller: "projects/fundings"
   resources :projects, only: [:index, :new, :create, :show, :edit, :update] do
+    post :contact_manager
+
     resources :team_memberships, only: [:index, :create], controller: "projects/team_memberships"
     resources :users, only: [:new, :create], controller: "projects/users"
     resources :questions, only: [:index], controller: "projects/questions"
