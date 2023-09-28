@@ -1,16 +1,18 @@
-<section class="form-container form-subsection" id="visitors-list">
+<section class="form-container form-subsection uneditable-visit-project-info" id="visitors-list">
   <header>
     <h2><%= t(".visitors_list") %></h2>
   </header>
-  <table id="amenities-summary-table" class="summary-table">
-    <thead>
-      <tr>
-        <th><%= t(".name") %></th>
-        <th><%= t(".date_range") %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <%= render partial: "shared/visits/user_visits/user_visit_dates", collection: presenter.user_visits, as: :user_visit %>
-    </tbody>
-  </table>
+  <section>
+    <table id="amenities-summary-table" class="summary-table">
+      <thead>
+        <tr>
+          <th><%= t(".name") %></th>
+          <th><%= t(".date_range") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: "shared/visits/user_visits/user_visit_dates", collection: presenter.user_visits, as: :user_visit %>
+      </tbody>
+    </table>
+  </section>
 </section>
