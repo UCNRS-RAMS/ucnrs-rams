@@ -1,16 +1,23 @@
-<div class="amenity_group" data-controller = "amenity-category" >
+<section class="amenity_group" data-controller = "amenity-category" >
   <%= link_to '#', remote: true, data: { action: "click->amenity-category#toggle" } do %>
-    <h3>
-      <%= image_tag "maximize.svg", size: "30x24", data: {"amenity-category-target": "maxImage"} %>
-      <%= image_tag "minimize.svg", size: "30x24", data: {"amenity-category-target": "minImage"} %>
-      <span class="group_label" ><%= group_label %></span>
-    </h3>
+    <header>
+      <h3><%= group_label %></h3>
+      <%= image_tag "icon-maximize.svg", size: "24x24", data: { "amenity-category-target": "maxImage" } %>
+      <%= image_tag "icon-minimize.svg", size: "24x24", data: { "amenity-category-target": "minImage" } %>
+    </header>
   <% end %>
   <div data-amenity-category-target = "amenitiesDiv" >
     <% amenities.each do |amenity| %>
       <%= fields_for "visit[amenities][#{ amenity.amenity_id }]", amenity.form.first do |form| %>
-        <%= render partial: "visits/amenities/amenity", locals: { form: form, presenter: amenity, group_label: group_label, forms: amenity.form } %>
+        <%= render partial: "visits/amenities/amenity",
+          locals: {
+            form: form,
+            presenter: amenity,
+            group_label: group_label,
+            forms: amenity.form,
+          }
+        %>
       <% end %>
     <% end %>
   </div>
-</div>
+</section>

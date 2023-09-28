@@ -1,5 +1,5 @@
 <%= fields_for "visit[amenities][#{presenter.amenity_id}][amenity_visits][#{SecureRandom.hex}]", amenity do |form| %>
-  <div class="booking-card" data-amenity-booking-target="bookingCard" 
+  <div class="booking-card" data-amenity-booking-target="bookingCard"
     data-controller="subtotal counter amenity-visit"
   >
     <%= form.hidden_field :id %>
@@ -99,7 +99,7 @@
     </div>
     <div class="flex-row-field remove-amenity-field">
       <%= button_tag type: "button", class: "cross-button" do %>
-        <%= image_tag "cross.svg", data: { action: "click->amenity-booking#removeAmenityBooking"} %>
+        <%= image_tag "x-circle.svg", data: { action: "click->amenity-booking#removeAmenityBooking"} %>
       <% end %>
     </div>
   </div>

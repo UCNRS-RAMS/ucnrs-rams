@@ -2,26 +2,44 @@
 
 .amenity_group{
   font-size: 0.8125rem;
-  margin: 0px 0px 30px 0px;
+  margin: 0 !important;
 
   a {
     text-decoration: none;
   }
 
-  h3 {
-    color: $dark-bluegray;
+  header {
+    align-items: center;
+    background-color: lighten($bluegray, 35%);
+    border-radius: $border-radius;
     display: flex;
+    justify-content: space-between;
+    padding: 10px 10px;
+    margin-top: 14px;
+    transition: all .15s ease-in-out;
+
+    h3 {
+      color: $dark-bluegray;
+      display: inline-block;
+      margin-bottom: 4px;
+      margin-top: 4px;
+    }
+
+    img {
+      filter: opacity(40%);
+    }
   }
 
-  hr {
-    border-bottom: 1px solid $black;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-  }
+  header:hover {
+    background-color: lighten($bluegray, 30%);
 
-  .group_label {
-    margin-left: 15px;
+    h3 {
+      color: $black;
+    }
+
+    img {
+      filter: none;
+    }
   }
 
   .amenity-padding {
@@ -29,48 +47,50 @@
   }
 
   .amenity {
+    margin-top: 8px;
+
     input[type="radio"] {
       display: none;
     }
 
     .amenity-header {
+      cursor: pointer;
       display: flex;
-      width: -webkit-fill-available;
-
-      h3 {
-        color: $black;
-      }
+      gap: 1rem;
+      width: 100%;
 
       p {
         font-size: small;
         margin: 3px 0;
       }
 
+      img.amenity-check-icon, img.amenity-plus-icon {
+        height: 30px;
+        width: 30px;
+        align-self: center;
+      }
+
+      img.amenity-check-icon {
+        background-color: $gold;
+        border-radius: 30px;
+        display: none;
+      }
+
+      img.amenity-plus-icon {
+        filter: opacity(30%);
+        cursor: pointer;
+      }
+
       img.amenity-img {
-        border: 1px solid $black;
+        border: 1px solid $light-bluegray;
         border-radius: $border-radius;
+        filter: opacity(40%);
         height: 89px;
         width: 146px;
       }
 
-      .bold {
-        font-size: small;
-        font-weight: $bold;
-      }
-    }
-
-    label.amenity-label {
-      align-items: flex-start;
-      border: 1px solid $black;
-      border-radius: $border-radius;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      margin: 0.5rem 0;
-
       .content {
         flex: 1;
-        margin: 0 1rem;
         padding: 0px;
 
         h3 {
@@ -81,7 +101,7 @@
           display: none;
 
           &.showing {
-            color: $dark-bluegray;
+            color: $light-bluegray;
             display: initial;
             font-size: small;
           }
@@ -94,6 +114,23 @@
             display: initial;
           }
         }
+      }
+    }
+
+    label.amenity-label {
+      align-items: flex-start;
+      border: 1px solid $light-bluegray;
+      border-radius: $border-radius;
+      color: $light-bluegray;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      hr {
+        border-bottom: 1px solid $light-bluegray;
+        border-top: none;
+        border-left: none;
+        border-right: none;
       }
 
       .bookings {
@@ -161,14 +198,24 @@
               width: 45px;
             }
 
-            .cross-icon {
+            .more, .less, .cross-button {
+              background-color: transparent;
+              border: none;
               display: flex;
               flex-direction: column;
               justify-content: center;
 
-              button {
-                background-color: transparent;
-                border: none;
+              img {
+                filter: opacity(40%);
+                cursor: pointer;
+              }
+
+              img:hover {
+                filter: none;
+              }
+
+              img:active {
+                filter: opacity(60%);
               }
             }
 
@@ -187,13 +234,30 @@
             a {
               align-items: center;
               display: flex;
-              color: $black;
-              margin-right: 11px;
+              color: $dark-gray;
+              padding: 3px 11px;
               text-decoration: none;
+
+              img {
+                filter: opacity(40%);
+                margin-left: 10px;
+              }
             }
 
-            img {
-              margin-left: 10px;
+            a:hover {
+              background-color: $light-bluegray;
+              border-radius: $border-radius;
+              color: $black;
+              transition: all .15s ease-in-out;
+
+              img {
+                filter: none;
+              }
+            }
+
+            a:active {
+              background-color: $bluegray;
+              transition: none;
             }
           }
 
@@ -208,9 +272,35 @@
     input:checked + label.amenity-label {
       background: lighten($bluegray, 35%);
       border: 2px solid $black;
+      color: $black;
+
+      hr {
+        border-bottom-color: $black;
+      }
+
+      .amenity-header {
+        cursor: default;
+      }
+
+      img.amenity-check-icon {
+        display: unset;
+      }
+
+      img.amenity-plus-icon {
+        display: none;
+      }
+
+      img.amenity-img {
+        border: 1px solid $black;
+        filter: opacity(100%);
+      }
 
       .content {
         background: lighten($bluegray, 35%);
+
+        a.showing {
+          color: $dark-bluegray;
+        }
       }
 
       .booking {
@@ -220,6 +310,20 @@
           border: 0px;
         }
       }
+    }
+  }
+
+  .amenity:last-child {
+    margin-bottom: 2.5rem;
+  }
+
+  .amenity:hover {
+    img.amenity-plus-icon {
+      filter: none;
+    }
+
+    img.amenity-plus-icon {
+      filter: opacity(80%);
     }
   }
 }
