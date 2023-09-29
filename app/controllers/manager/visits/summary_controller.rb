@@ -1,7 +1,7 @@
 class Manager::Visits::SummaryController < Manager::ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_manager!
-  before_action :is_administrator_or_accountant!, only: [:update]
+  before_action :confirm_manager!, unless: -> { super_admin? }
+  before_action :is_administrator_or_accountant!, unless: -> { super_admin? }, only: [:update]
 
   layout "manager"
 

@@ -1,6 +1,6 @@
 class Manager::Projects::CompleteController < ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_reserve_manager!
+  before_action :confirm_reserve_manager!, unless: -> { super_admin? }
 
   layout "manager"
 
