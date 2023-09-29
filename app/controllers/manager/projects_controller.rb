@@ -1,7 +1,8 @@
 class Manager::ProjectsController < Manager::ApplicationController
   before_action :authenticate_user!
   before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
-  before_action :is_administrator!, only: [:update]
+  before_action :is_administrator!, unless: -> { super_admin? }, only: [:update]
+
   layout "manager"
 
   def index
@@ -85,7 +86,7 @@ class Manager::ProjectsController < Manager::ApplicationController
     return current_user if params[:user_id].nil?
     User.find_by(id: params[:user_id])
   end
- 
+
   def page_number
     params[:page]
   end

@@ -1,6 +1,6 @@
 class Manager::Visits::LogsController < Manager::ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_manager!
+  before_action :confirm_manager!, unless: -> { super_admin? }
 
   def show
     @presenter = Manager::Visits::LogPresenter.new(record: log, reserve: current_reserve)

@@ -1,29 +1,33 @@
 class Manager::Projects::ActivityAndNotesController < Manager::ApplicationController
   before_action :authenticate_user!
   before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
-  before_action :project, only: [:index, :create]
-  before_action :is_administrator!, only: [:create]
+  before_action :is_administrator!, unless: -> { super_admin? }, only: [:create]
 
   def index
     @presenter = Manager::Projects::ActivityAndNotesIndexPresenter.new(
-      project: @project,
+      project: project,
       logs_page: params[:logs_page],
       notes_page: params[:notes_page],
-      reserve: current_reserve
+      reserve: current_reserve,
     )
   end
 
   def show
-    @presenter = Manager::Projects::ActivityPresenter.new(record: Log.find(params[:id]), reserve: current_reserve)
+    @presenter = Manager::Projects::ActivityPresenter.new(
+      record: Log.find(params[:id]),
+      reserve: current_reserve,
+    )
   end
 
   def create
-    @note = @project.reserve_notes.new(note_params)
+    @note = project.reserve_notes.new(note_params)
     if @note.save
-      redirect_to manager_reserve_project_activity_and_notes_path(current_reserve, @project)
+      redirect_to manager_reserve_project_activity_and_notes_path(current_reserve, project)
+
     else
-      @presenter = Manager::Projects::ActivityAndNotesIndexPresenter.new(project: @project)
+      @presenter = Manager::Projects::ActivityAndNotesIndexPresenter.new(project: project)
       render :index, status: :unprocessable_entity
+
     end
   end
 

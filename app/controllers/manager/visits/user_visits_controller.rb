@@ -1,7 +1,7 @@
 class Manager::Visits::UserVisitsController < Manager::ApplicationController
   before_action :authenticate_user!
   before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
-  before_action :is_administrator_or_accountant!, only: [:update, :destroy]
+  before_action :is_administrator_or_accountant!, unless: -> { super_admin? }, only: [:update, :destroy]
 
   layout "manager"
 

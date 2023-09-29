@@ -1,7 +1,7 @@
 class Manager::Visits::DetailController < Manager::ApplicationController
   before_action :authenticate_user!
   before_action :confirm_manager!
-  before_action :is_administrator_or_accountant!, only: [:update]
+  before_action :is_administrator_or_accountant!, unless: -> { super_admin? }, only: [:update]
 
   def edit
     @form = VisitForm.new(user: current_user, params: { id: params[:visit_id] }, editing: true)
