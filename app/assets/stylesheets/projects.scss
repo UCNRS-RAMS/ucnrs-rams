@@ -308,66 +308,7 @@
   flex-direction: row;
 
   .content {
-    .project-summary {
-      margin-bottom: 3rem;
-    }
-
-    .project-summary-table {
-      margin-bottom: 2rem;
-
-      td {
-        padding-bottom: 0.3rem;
-        padding-right: 2rem;
-        padding-top: 0.3rem;
-      }
-
-      td:nth-child(2) {
-        font-weight: $semi-bold;
-      }
-    }
-
-    .project-methods {
-      ul {
-        list-style: none;
-        margin-bottom: 2.25rem;
-        padding-left: 0;
-
-        li {
-          align-items: center;
-          display: flex;
-          margin: .75rem 0;
-        }
-
-        li::before {
-          background: no-repeat center/22px url(asset-path("icon-alert-circle-blue.svg"));
-          content: "";
-          flex-shrink: 0;
-          height: 22px;
-          margin-right: .5rem;
-          width: 22px;
-        }
-
-        li:empty {
-          display: none;
-        }
-      }
-
-      .project-methods-detail {
-        margin-bottom: 1.25rem;
-
-        span {
-          display: block;
-        }
-
-        span:nth-child(1) {
-          margin-bottom: .5rem;
-        }
-
-        span:nth-child(2) {
-          font-weight: $semi-bold;
-        }
-      }
-    }
+    @include project-summary;
   }
 }
 

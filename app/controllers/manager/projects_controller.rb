@@ -13,6 +13,14 @@ class Manager::ProjectsController < Manager::ApplicationController
     )
   end
 
+  def show
+    @presenter = Manager::ProjectShowPresenter.new(
+      project: project,
+      reserve: current_reserve,
+      current_user: user,
+    )
+  end
+
   def new
     @presenter = ProjectFormPresenter.new(
       user: user,
@@ -24,7 +32,12 @@ class Manager::ProjectsController < Manager::ApplicationController
   def create
     form = ProjectForm.new(user: user, params: project_params)
     if form.save
-      redirect_to manager_reserve_project_team_memberships_path(reserve_id: current_reserve ,project_id: form.project, format: :html)
+      redirect_to manager_reserve_project_team_memberships_path(
+        reserve_id: current_reserve,
+        project_id: form.project,
+        format: :html,
+      )
+
     else
       @presenter = ProjectFormPresenter.new(
         user: user,
@@ -34,25 +47,8 @@ class Manager::ProjectsController < Manager::ApplicationController
         show_modal: false,
       )
       render :new, status: :unprocessable_entity
+
     end
-  end
-
-  def edit
-    form = ProjectForm.new(user: user, params: { id: project.id })
-    @presenter = ProjectFormPresenter.new(
-      user: user,
-      current_step: 1,
-      project_type: project.project_type,
-      form: form,
-    )
-  end
-
-  def project_type
-    params[:project_type]
-  end
-
-  def show
-    @presenter = Manager::ProjectShowPresenter.new(project: project, reserve: current_reserve, current_user: user)
   end
 
   def edit
@@ -68,7 +64,12 @@ class Manager::ProjectsController < Manager::ApplicationController
   def update
     form = ProjectForm.new(user: user, params: project_params.merge(id: project.id))
     if form.save
-      redirect_to manager_reserve_project_team_memberships_path(reserve_id: current_reserve, project_id: form.project, format: :html)
+      redirect_to manager_reserve_project_team_memberships_path(
+        reserve_id: current_reserve,
+        project_id: form.project,
+        format: :html,
+      )
+
     else
       @presenter = ProjectFormPresenter.new(
         user: user,
@@ -77,6 +78,7 @@ class Manager::ProjectsController < Manager::ApplicationController
         form: form,
       )
       render :edit, status: :unprocessable_entity
+
     end
   end
 
@@ -156,5 +158,9 @@ class Manager::ProjectsController < Manager::ApplicationController
         :reserve,
       )
     end
+  end
+
+  def project_type
+    params[:project_type]
   end
 end
