@@ -15,16 +15,12 @@ class Manager::Projects::DetailController < Manager::ApplicationController
   def update
     form = ProjectForm.new(user: current_user, params: project_params.merge(id: project.id))
     if form.save
-      redirect_to manager_reserve_project_path(current_reserve, project)
+      flash[:notice] = "Project details updated successfully."
     else
-      @presenter = ProjectFormPresenter.new(
-        user: current_user,
-        current_step: 1,
-        project_type: form.project_type,
-        form: form,
-      )
-      render :edit, status: :unprocessable_entity
+      flash[:error] = "Error."
     end
+
+    redirect_to manager_reserve_project_path(current_reserve, project)
   end
 
   private
