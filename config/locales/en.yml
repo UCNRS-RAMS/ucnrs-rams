@@ -1419,7 +1419,7 @@ en:
         system: "System"
       activity_and_notes:
         activity_table:
-          title: "Activtiy"
+          title: "Activity"
           name: "Name"
           date_and_time: "Date & Time"
           details: "Details"
@@ -1881,7 +1881,7 @@ en:
           amenity: "Amenity"
       activity_and_notes:
         activity_table:
-          title: "Activtiy"
+          title: "Activity"
           name: "Name"
           date_and_time: "Date & Time"
           details: "Details"
