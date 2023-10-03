@@ -19,3 +19,9 @@
     <%= render partial: "shared/projects/fundings/funding_table", locals: { presenter: @presenter }, formats: [:html] %>
   </template>
 </turbo-stream>
+
+<turbo-stream action="replace" target="flash">
+  <template>
+    <%= render partial: "shared/flash", formats: [:html] %>
+  </template>
+</turbo-stream>

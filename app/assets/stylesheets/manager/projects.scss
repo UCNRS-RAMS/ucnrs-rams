@@ -126,14 +126,19 @@
     }
   }
 
-  .fundings-index {
-    margin-bottom: 0rem;
-    section {
-      padding: 3rem;
+  #project-fundings-index {
+    @include projects-visits-form-layout;
+
+    .funding-table {
+      @include table-style1;
     }
-    section:last-child {
-      margin-bottom: 0rem;
-      padding: 1.5rem;
+
+    [data-value-projection-projected-value] .sponsor_other {
+      display: none;
+    }
+
+    [data-value-projection-projected-value="other"] .sponsor_other {
+      display: inherit;
     }
   }
 
