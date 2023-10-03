@@ -5,8 +5,8 @@
   <header class="form-container">
     <h1><%= t(".title") %></h1>
   </header>
-  <turbo-frame id="project-details" class="team_memberships-index">
-    <div>
+  <turbo-frame id="project-details">
+    <div id="project-team_memberships-index">
       <section class="form-subsection background-1">
         <div class="form-container">
           <%= render partial: "shared/projects/team_memberships/form", locals: { presenter: @presenter } %>
