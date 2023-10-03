@@ -152,6 +152,69 @@
     }
   }
 
+  #project-permit-edit {
+    @include projects-visits-form-layout;
+
+    .questions {
+      font-size: 0.8125rem;
+  
+      ul {
+        list-style: none;
+        padding: 0;
+  
+        li {
+          border-bottom: 1px solid $gray;
+          padding: 0.5rem 0;
+  
+          .description {
+            display: none;
+            font-weight: $semi-bold;
+  
+            li {
+              border: 0;
+              padding: 0;
+            }
+  
+            .description-text {
+              display: inline-block;
+              margin-top: 0.75rem;
+            }
+  
+            .description-text:empty {
+              display: none;
+            }
+          }
+  
+          &[data-value-projection-projected-value="1"] {
+            .description {
+              display: block;
+            }
+          }
+  
+          .question {
+            align-items: start;
+            display: flex;
+            justify-content: space-between;
+          }
+  
+          .answers {
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+  
+            input[type="radio"] {
+              margin-bottom: 0;
+              margin-left: 1rem;
+              margin-right: 0.25rem;
+              margin-top: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
   .controls {
     background-color: unset;
     padding-left: 0;
