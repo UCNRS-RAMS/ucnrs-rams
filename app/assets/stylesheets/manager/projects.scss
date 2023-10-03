@@ -114,15 +114,25 @@
     @include projects-visits-form-layout;
   }
 
-  .team_memberships-index {
-    margin-bottom: 0rem;
+  #project-team_memberships-index {
+    @include projects-visits-form-layout;
 
-    section {
-      padding: 0rem 3rem;
+    form {
+      #project-role-select {
+        width: 200px;
+      }
+
+      .submit-row {
+        @include inline-between;
+      }
     }
-    section:last-child {
-      margin-bottom: 0rem;
-      padding: 1.5rem;
+
+    .add-user-form-header {
+      @include inline-between;
+    }
+
+    .team-member-table {
+      @include table-style1;
     }
   }
 
