@@ -28,8 +28,8 @@ RSpec.describe "Manager Project Show" do
       flow.visit_show_page
       flow.click_on_visits
 
-      expect(flow).to have_section("project-visits")
-      expect(flow).to have_n_table_rows(css_class: ".project-visits", count: 3)
+      expect(flow).to have_section("project-visits-index")
+      expect(flow).to have_n_table_rows(css_class: ".project-visits-index", count: 3)
     end
 
     it "includes visit values in table row", js: true do

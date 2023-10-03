@@ -1874,9 +1874,8 @@ en:
       complete:
         not_saved: "This project could not be saved as 'open'"
       visits:
-        visit_show_table:
+        index:
           visits: "Visits (%{size})"
-          schedule_a_visit: "Schedule a Visit"
         visit:
           visitor: "Visitor"
           amenity: "Amenity"

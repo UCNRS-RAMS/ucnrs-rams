@@ -1,4 +1,4 @@
-<tr class="visit ">
+<tr class="visit">
   <td>
     <span class="<%= visit.status_classes %> pill">
       <%= visit.status %>
@@ -6,19 +6,22 @@
   </td>
   <td class="date-range"><%= visit.requested_date_range %></td>
   <td><%= visit.requested_reserve_name %></td>
-  <td><%= "#{pluralize(visit.visitor_count, t('.visitor'))}, #{pluralize(visit.amenity_count, t('.amenity'))}" %></td>
   <td>
-    <%= link_to_if visit.reserve_manager?, image_tag("dollar_icon.svg", alt: t("alt.dollar_sign"), height: "18", width: "18"), "#" do %>
-      <%= image_tag "dollar_icon.svg", alt: t("alt.dollar_sign"), height: "18", width: "18", class: "disabled-link" %>
-    <% end %>
+    <%= "#{pluralize(visit.visitor_count, t('.visitor'))}, 
+      #{pluralize(visit.amenity_count, t('.amenity'))}" 
+    %>
   </td>
   <td>
-    <%= link_to "#", class: visit.btn_class do %>
-      <%= image_tag "edit_icon.svg", alt: t("alt.pencil_sign"), height: "18", width: "18" %>
+    <%= link_to_if visit.reserve_manager?, 
+      image_tag("dollar_icon.svg", alt: t("alt.dollar_sign"), height: "18", width: "18"), 
+      "#" do 
+    %>
+      <%= image_tag "dollar_icon.svg", alt: t("alt.dollar_sign"), 
+        height: "18", width: "18", class: "disabled-link" 
+      %>
     <% end %>
-  </td>
-  <td>
-    <%= link_to manager_reserve_visit_path(id: visit.id, reserve_id: current_reserve.id) do %>
+    &nbsp;
+    <%= link_to manager_reserve_visit_path(current_reserve.id, visit.id) do %>
       <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"), height: "18", width: "18" %>
     <% end %>
   </td>
