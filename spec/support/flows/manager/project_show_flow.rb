@@ -138,7 +138,7 @@ class ProjectShowFlow
   end
 
   def in_visits_section(&block)
-    page.within(".project-visits", &block)
+    page.within(".project-visits-index", &block)
   end
 
   def has_table_data_text?(child:, text:)
