@@ -1652,7 +1652,7 @@ en:
         clear_all_and_start_over: "Clear All & Start Over"
         search_for_incomplete_projects: "Search for Incomplete Projects"
       detail:
-       details:
+       edit:
         research: "Research"
         meeting: "Meeting"
         class: "Class"

@@ -38,16 +38,6 @@
     }
   }
 
-  .controls {
-    margin-bottom: 0rem;
-    padding: 1.5rem;
-  }
-
-  .project-form {
-    margin-bottom: 0rem;
-    padding: 0rem;
-  }
-
   .project-summary-box {
     background-color: $light-gray;
     border: 1px solid $dark-bluegray;
@@ -78,7 +68,7 @@
     border-bottom: 1px solid $dark-bluegray;
     display: flex;
     list-style: none;
-    margin: 0px;
+    margin: 0 0 2rem 0;
     padding: 0px;
 
     li {
@@ -120,8 +110,8 @@
     }
   }
 
-  .project-details-edit {
-
+  .project-detail-edit {
+    @include projects-visits-form-layout;
   }
 
   .team_memberships-index {
@@ -145,6 +135,12 @@
       margin-bottom: 0rem;
       padding: 1.5rem;
     }
+  }
+
+  .controls {
+    background-color: unset;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
