@@ -106,11 +106,11 @@ class ProjectShowFlow
   end
 
   def not_showing_fundings?
-    page.has_no_css?("#project-fundings")
+    page.has_no_css?("#project-fundings-index")
   end
 
   def showing_fundings?
-    page.has_css?("#project-fundings")
+    page.has_css?("#project-fundings-index")
   end
 
   def click_on_funding_edit
