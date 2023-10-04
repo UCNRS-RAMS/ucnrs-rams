@@ -318,6 +318,24 @@
 .manager.invoices-index {
   @include search-subsection;
   @include pagination;
+
+  table.invoices-table {
+    @include table-style1;
+
+    thead {
+      .invoice-number {
+        min-width: 75px;
+      }
+
+      .invoice-date {
+        min-width: 85px;
+      }
+
+      .balance {
+        min-width: 85px;
+      }
+    }
+  }
 }
 
 .manager.invoices-show {
