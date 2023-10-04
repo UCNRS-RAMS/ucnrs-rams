@@ -1,12 +1,16 @@
 <turbo-frame id="visit-details">
-  <% if @presenter.reserve_manager?%>
-    <%= turbo_frame_tag "visit-summary-edit", src: edit_manager_reserve_visit_summary_path(visit_id: @presenter.id) %>
-  <% end %>
+  <section class="visit-summary-show">
+    <% if @presenter.reserve_manager?%>
+      <%= turbo_frame_tag "visit-summary-edit", 
+        src: edit_manager_reserve_visit_summary_path(current_reserve, visit_id: @presenter.id) 
+      %>
+    <% end %>
 
-  <div class="visit-summary-detail">
     <section>
       <header>
-        <h2 class="main-header"><%= t(".user_visits", size: @presenter.user_visits.sum(&:count)) %></h2>
+        <h2 class="main-header">
+          <%= t(".user_visits", size: @presenter.user_visits.sum(&:count)) %>
+        </h2>
         <% if @presenter.reserve_manager? %>
           <%= link_to t(".edit_visitor"),
             manager_reserve_visit_user_visits_path(visit_id: @presenter.id, reserve_id: @presenter.reserve_id),
@@ -18,7 +22,9 @@
     </section>
     <section>
       <header>
-        <h2 class="main-header"><%= t(".amenity_visits", size: @presenter.amenity_visits.sum(&:number_of_people)) %></h2>
+        <h2 class="main-header">
+          <%= t(".amenity_visits", size: @presenter.amenity_visits.sum(&:number_of_people)) %>
+        </h2>
         <% if @presenter.reserve_manager? %>
           <%= link_to t(".edit_amenities"),
             edit_manager_reserve_visit_detail_path(visit_id: @presenter.id),
@@ -28,5 +34,5 @@
       </header>
       <%= render partial: "manager/visits/summary/amenity_visits_table", locals: { presenter: @presenter } %>
     </section>
-  </div>
+  </section>
 </turbo-frame>

@@ -143,75 +143,92 @@
 }
 
 .manager.visits-show {
-  .m-top-3 {
-    margin-top: 2rem;
+  font-size: 13px;
+
+  .content {
+    padding: 3.5rem 3.5rem 0rem 3.5rem;
   }
 
-  .container {
-    .content {
-      padding: 3.5rem 3.5rem 0rem 3.5rem;
-    }
-  }
-
-  .status {
-    border-radius: 20px;
-    height: 30px;
-    margin: 0px 20px 0px 5px;
-    padding: 0px 30px;
-  }
-
-  .visit-form {
-    padding: 0px;
-  }
-
-  .text-center {
-    text-align: center;
-  }
-
-  .text-end {
-    text-align: end;
-  }
-
-  .reserve-info {
-    padding: 1.625rem 3rem;
-  }
-
-  .display-link {
-    display: block;
-  }
-
-  .controls {
-    padding: 1.5rem;
-  }
-
-  p.notice {
-    background-color: $gold;
-    border-radius: 10px;
-    padding: 10px;
-    text-align: center;
-  }
-
-  p.alert {
-    background-color: $pink;
-    border-radius: 10px;
-    padding: 10px;
-    text-align: center;
-  }
-
-  .btn-status {
-    align-items: center;
+  .visit-summary-box {
+    background-color: $light-gray;
     border: 1px solid $dark-bluegray;
-    border-radius: 1.5rem;
-    color: black;
-    display: flex;
-    height: 20px;
-    justify-content: center;
-    padding: 0.2rem 1rem;
-    text-decoration-line: none;
-    width: 8rem;
+    margin-bottom: 3rem;
+    padding: 1.25rem;
+  
+    .display-flex {
+      display: flex;
+      justify-content: space-between;
+    }
+  
+    .info-block {
+      display: flex;
+      margin-bottom: 12px;
+      p {
+        margin: 0.5rem 0px;
+      }
 
-    &:hover {
-      cursor: pointer;
+      .title {
+        font-weight: $semi-bold;
+      }
+
+      .w-200 {
+        width: 200px;
+      }
+    }
+
+    .info-block:last-child {
+      margin: 0rem;
+    }
+
+    .btn-status {
+      align-items: center;
+      border: 1px solid $dark-bluegray;
+      border-radius: 1.5rem;
+      color: black;
+      display: flex;
+      height: 20px;
+      justify-content: center;
+      padding: 0.2rem 1rem;
+      text-decoration-line: none;
+      width: 8rem;
+  
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  
+    .bg-approved {
+      background-color: $green;
+    }
+  
+    .bg-in_review {
+      background-color: $yellow;
+    }
+  
+    .bg-cancelled {
+      background-color: $pink;
+    }
+  
+    .bg-denied {
+      background-color: $blue;
+    }
+  
+    .bg-incomplete {
+      background-color: $red-alert;
+    }
+
+    p.notice {
+      background-color: $gold;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+    }
+  
+    p.alert {
+      background-color: $pink;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
     }
   }
 
@@ -244,6 +261,14 @@
         }
       }
     }
+  }
+
+
+
+  .controls {
+    background-color: unset;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .footer {
@@ -282,65 +307,5 @@
     header .list-count {
       font-size: 0.9375rem;
     }
-  }
-}
-
-.visit-summary-box {
-  background-color: $light-gray;
-  border: 1px solid $dark-bluegray;
-  font-size: 0.875rem;
-  margin-bottom: 3rem;
-  padding: 1.25rem;
-
-  .display-flex {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  button {
-    border-radius: 20px;
-    height: 30px;
-    margin: 0px 20px 0px 5px;
-    padding: 0px 30px;
-  }
-
-  .info-block {
-    display: flex;
-    margin-bottom: 12px;
-
-    p {
-      margin: 0.5rem 0;
-    }
-
-    .title {
-      font-weight: $semi-bold;
-    }
-
-    .w-200 {
-      width: 200px;
-    }
-  }
-  .info-block:last-child {
-    margin: 0rem;
-  }
-
-  .bg-approved {
-    background-color: $green;
-  }
-
-  .bg-in_review {
-    background-color: $yellow;
-  }
-
-  .bg-cancelled {
-    background-color: $pink;
-  }
-
-  .bg-denied {
-    background-color: $blue;
-  }
-
-  .bg-incomplete {
-    background-color: $red-alert;
   }
 }
