@@ -516,6 +516,10 @@
     }
   }
 
+  #visit-reserve_info-index {
+    @include projects-visits-form-layout;
+  }
+
   .controls {
     display: flex;
     flex-direction: row;
