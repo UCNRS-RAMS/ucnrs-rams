@@ -213,6 +213,7 @@
       border-radius: 3px;
       box-sizing: border-box;
       font-size: 0.8125rem;
+      height: 12rem;
       min-height: 6rem;
       padding: 0.625rem;
       width: 100%;
@@ -393,10 +394,12 @@
       border: 1px solid $gray;
       border-radius: 3px;
       box-sizing: border-box;
+      height: 6rem;
+      max-width: 100%;
       min-height: 6rem;
+      min-width: 100%;
       padding: 0.625rem;
       resize: vertical;
-      width: 100%;
     }
 
     .form-input {
