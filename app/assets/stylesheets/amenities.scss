@@ -115,6 +115,13 @@
           }
         }
       }
+
+      .rates {
+        select {
+          filter: opacity(20%);
+          pointer-events: none;
+        }
+      }
     }
 
     label.amenity-label {
@@ -300,6 +307,13 @@
 
         a.showing {
           color: $dark-bluegray;
+        }
+      }
+
+      .rates {
+        select {
+          filter: unset;
+          pointer-events: unset;
         }
       }
 

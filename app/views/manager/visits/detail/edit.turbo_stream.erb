@@ -1,0 +1,23 @@
+<turbo-stream action="replace" target="visit-details">
+  <template>
+    <turbo-frame id="visit-details">
+      <section class="visit-detail-edit">
+        <%= form_with model: @presenter.form,
+          url: manager_reserve_visit_detail_path(@presenter.reserve.id, @presenter.id),
+          method: :put, id: "form-visits-edit" do |form|
+        %>
+          <%= render partial: "shared/visits/form", locals: { presenter: @presenter, form: form } %>
+        <% end %>
+      </section>
+      <section class="controls">
+        <%= render partial: @presenter.save_partial_path, locals: { form_id: "form-visits-edit" } %>
+      </section>
+    </turbo-frame>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="flash">
+  <template>
+    <%= render partial: "shared/flash", formats: [:html] %>
+  </template>
+</turbo-stream>
