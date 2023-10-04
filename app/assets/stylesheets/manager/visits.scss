@@ -351,6 +351,171 @@
     }
   }
 
+  #visit-user_visits-index {
+    @include projects-visits-form-layout;
+
+    .add-visitor {
+      .add-visitor-types {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .add-visitor-input form {
+        @include form;
+      }
+
+      table {
+        @include table-style1;
+
+        tbody tr {
+          background-color: $table-row-even-background-neutral;
+        }
+
+        .visitor {
+          background-color: $light-gray;
+        }
+
+        .button_to {
+          .add-visitor-btn {
+            background-color: $white;
+            width: 180px;
+          }
+        }
+
+        td:last-child {
+          text-align: right;
+        }
+
+        a {
+          background-color: $gold;
+          border: 1px solid $dark-bluegray;
+          border-radius: 1.5rem;
+          color: unset;
+          padding: 0.2rem 1.5rem;
+          text-decoration: none;
+        }
+      }
+
+      .toolbar-button {
+        display: flex;
+        font-size: 0.75rem;
+        margin-bottom: 1.5rem;
+
+        a {
+          background: $buttonset-background;
+          border: 1px solid $dark-bluegray;
+          color: $dark-bluegray;
+          font-weight: $bold;
+          margin: 0;
+          margin-left: -1px;
+          padding: 0.6rem;
+          text-decoration: none;
+
+          &.selected {
+            background: $dark-bluegray;
+            color: $buttonset-foreground-selected;
+          }
+        }
+
+        a:first-child {
+          border-radius: 1rem 0 0 1rem;
+          margin-left: 0;
+          padding-left: 1rem;
+        }
+
+        a:last-child {
+          border-radius: 0 1rem 1rem 0;
+          padding-right: 1rem;
+        }
+      }
+
+      section {
+        margin: 0;
+        padding: 0;
+      }
+
+      .flex-row {
+        align-items: center;
+        display: flex;
+
+        .field {
+          input[type="text"],
+          input[type="number"],
+          select {
+            border: 1px solid $dark-bluegray;
+            border-radius: 0.3125rem;
+            box-sizing: border-box;
+            width: 100%;
+          }
+
+          margin-right: 1rem;
+          width: 100%;
+        }
+
+        button {
+          background-color: $gold;
+          border: 1px solid $dark-bluegray;
+          border-radius: 1.5rem;
+          font-size: 0.875rem;
+          height: 2rem;
+          width: 8rem;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        .visitor-name {
+          flex: 4;
+        }
+
+        .role {
+          flex: 2;
+        }
+
+        .add-visitor {
+          flex: 1;
+        }
+
+        .number-in-group {
+          flex: 1;
+        }
+
+        .institution-id {
+          flex: 4;
+        }
+      }
+
+      span {
+        font-size: 0.75rem;
+        font-weight: $normal;
+        line-height: 1.25rem;
+      }
+
+      input[type="submit"] {
+        background-color: transparent;
+        border: 1px solid $dark-bluegray;
+        border-radius: 1.5rem;
+        color: $sky-blue;
+        font-size: 0.75rem;
+        padding: 0.2rem 1.5rem;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    table#user-visits-table {
+      @include table-style1;
+
+      a {
+        color: $dark-bluegray;
+      }
+    }
+  }
+
   .controls {
     display: flex;
     flex-direction: row;
