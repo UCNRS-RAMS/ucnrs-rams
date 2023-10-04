@@ -60,7 +60,7 @@
         width: 200px;
       }
     }
-    
+
     .info-block:last-child {
       margin: 0rem;
     }
@@ -76,6 +76,10 @@
     li {
       display: flex;
       margin-right: 2.5rem;
+
+      a.disabled-link {
+        color: $light-bluegray !important;
+      }
 
       a.nav-link {
         color: $dark-bluegray;

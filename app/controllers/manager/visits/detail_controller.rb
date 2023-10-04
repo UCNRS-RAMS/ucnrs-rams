@@ -15,6 +15,7 @@ class Manager::Visits::DetailController < Manager::ApplicationController
       flash.now[:notice] = "Updates were successfully made."
       render :edit
     else
+      flash.now[:error] = "Error."
       render :edit, status: :unprocessable_entity
     end
   end
