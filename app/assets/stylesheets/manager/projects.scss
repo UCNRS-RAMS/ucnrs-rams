@@ -47,6 +47,7 @@
     .info-block {
       display: flex;
       margin-bottom: 12px;
+
       p {
         margin: 0.5rem 0px;
       }
@@ -59,6 +60,7 @@
         width: 200px;
       }
     }
+    
     .info-block:last-child {
       margin: 0rem;
     }
