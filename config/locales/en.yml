@@ -1305,6 +1305,8 @@ en:
         user: "User"
         balance_due: "Balance Due"
       emails:
+        new:
+          invoice: "Invoice"
         email_field:
           labels:
             email_to: "Email To"

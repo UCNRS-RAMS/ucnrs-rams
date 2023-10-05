@@ -7,8 +7,6 @@ RSpec.describe  Manager::Invoices::InvoiceEditPresenter do
   let(:invoice) { create(:invoice, visit: visit) }
   let(:user) { create(:user, :confirmed) }
 
-
-
   describe "delegations" do
     subject { Manager::Invoices::InvoiceEditPresenter.new(visit: visit, invoice: invoice, form: InvoiceForm.new(invoice: invoice, params: { visit_id: visit.id })) }
     it { is_expected.to delegate_method(:id).to(:invoice).with_prefix(true) }

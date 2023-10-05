@@ -6,7 +6,6 @@ class Manager::Invoices::EmailsController < Manager::ApplicationController
   def new
     @presenter = Manager::Invoices::EmailsNewPresenter.new(
       invoice: invoice,
-      current_user: current_user
     )
   end
 
