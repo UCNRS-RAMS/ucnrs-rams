@@ -1,14 +1,14 @@
 <div class="invoice-header">
-  <%= wicked_pdf_image_tag(@presenter.invoice_visit_reserve.avatar,
+  <%= wicked_pdf_image_tag(presenter.invoice_visit_reserve.avatar,
     class: "reserve-logo", size: "50x50")
   %>
   <div class="reserve-name">
-    <strong><%= @presenter.invoice_visit_reserve.name %></strong>
+    <strong><%= presenter.invoice_visit_reserve.name %></strong>
     <br />
-    <%= @presenter.invoice_visit_reserve.managing_campus.name %>
+    <%= presenter.invoice_visit_reserve.managing_campus.name %>
   </div>
   <div class="reserve-address">
-    <%= simple_format @presenter.address, {}, wrapper_tag: "div" %>
+    <%= simple_format presenter.address, {}, wrapper_tag: "div" %>
   </div>
 </div>
 
@@ -16,15 +16,15 @@
 
 <div class="invoice-body">
   <%= tag.div t(".invoice"), class: "invoice-body-header" %>
-  <%= render partial: "invoice_info", locals: { presenter: @presenter } %>
-  <%= render partial: "bill_to", locals: { presenter: @presenter } %>
-  <%= render partial: "invoiced_amenities", locals: { presenter: @presenter } %>
-  <%= render partial: "invoice_payments", locals: { presenter: @presenter } %>
+  <%= render partial: "manager/invoices/pdf/invoice_info", locals: { presenter: presenter } %>
+  <%= render partial: "manager/invoices/pdf/bill_to", locals: { presenter: presenter } %>
+  <%= render partial: "manager/invoices/pdf/invoiced_amenities", locals: { presenter: presenter } %>
+  <%= render partial: "manager/invoices/pdf/invoice_payments", locals: { presenter: presenter } %>
 
-  <% if @presenter.invoice_notes.present? %>
+  <% if presenter.invoice_notes.present? %>
     <div class="invoice-notes">
       <%= tag.div t(".invoice_note"), class: "invoice-notes-header" %>
-      <%= simple_format @presenter.invoice_notes %>
+      <%= simple_format presenter.invoice_notes %>
     </div>
   <% end %>
 
@@ -33,8 +33,8 @@
       <tr class="balance total" >
         <td >
           <%= t(".balance") %>:
-          <span style="color:<%= @presenter.invoice_balance.positive? ? 'red' : 'green' %>;">
-            <%= number_to_currency(@presenter.invoice_balance) %>
+          <span style="color:<%= presenter.invoice_balance.positive? ? 'red' : 'green' %>;">
+            <%= number_to_currency(presenter.invoice_balance) %>
           </span>
         </td>
       </tr>
@@ -46,13 +46,13 @@
       <td>
         <div class="pdf-no-break">
           <%= tag.div t(".billing_address"), class: "invoice-guide-header" %>
-          <%= simple_format @presenter.billing_address, {}, wrapper_tag: "div" %>
+          <%= simple_format presenter.billing_address, {}, wrapper_tag: "div" %>
         </div>
       </td>
       <td>
         <div class="pdf-no-break">
           <%= tag.div t(".notes"), class: "invoice-guide-header" %>
-          <%= simple_format @presenter.invoice_text, {}, wrapper_tag: "div" %>
+          <%= simple_format presenter.invoice_text, {}, wrapper_tag: "div" %>
         </div>
       </td>
     </tr>
