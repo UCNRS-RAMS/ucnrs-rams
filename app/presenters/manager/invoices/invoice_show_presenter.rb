@@ -44,7 +44,7 @@ class Manager::Invoices::InvoiceShowPresenter
 
   def amenity_visit_presenters
     amenity_visits.map do |amenity_visit|
-      AmenityVisitPresenter.new(amenity_visit)  
+      AmenityVisitPresenter.new(amenity_visit)
     end
   end
 
@@ -83,7 +83,7 @@ class Manager::Invoices::InvoiceShowPresenter
   end
 
   def recipients_scope
-    project.team_memberships.where(user_id: recipients_user_ids)
+    project.team_memberships.includes([:user, :institution]).where(user_id: recipients_user_ids)
   end
 
   def payments_amount_total

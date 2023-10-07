@@ -13,4 +13,23 @@ class ManagerMailer < ApplicationMailer
       content_type: "text/html",
     )
   end
+
+  def invoice_email
+    @presenter = Mail::Manager::InvoiceEmailPresenter.new(
+      invoice: params[:invoice],
+      email_params: params[:email_params],
+    )
+
+    attachments[@presenter.email_attachment_name] = {
+      mime_type: "application/pdf",
+      content: params[@presenter.email_attachment],
+    }
+
+    mail(
+      to: @presenter.email_to,
+      cc: @presenter.email_cc,
+      subject: @presenter.email_subject,
+      content_type: "text/html",
+    )
+  end
 end

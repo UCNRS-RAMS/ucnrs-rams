@@ -10,6 +10,7 @@ class Manager::Invoices::PdfController < Manager::ApplicationController
     render pdf: "rams_invoice_#{invoice.id}",
       disposition: "inline",
       layout: "pdf.html",
+      locals: { presenter: @presenter },
       show_as_html: params[:debug].present?
   end
 
