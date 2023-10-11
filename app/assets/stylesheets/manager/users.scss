@@ -12,13 +12,16 @@
 
 .manager.users-edit {
   section.content {
-    header {
-      @include flex(row, space-between, center);
+    > header {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
 
       h1 {
         font-size: 2.5rem;
         font-weight: $light;
-        margin: 0 0 .5rem 0;
+        margin: 0;
       }
 
       small {
@@ -246,7 +249,6 @@
             border-radius: 0.375rem;
             height: 34px;
             margin-bottom: 0.875rem;
-            text-indent: 0.5rem;
 
             &.error {
               border-color: $error-red !important;

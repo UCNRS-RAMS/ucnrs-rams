@@ -26,7 +26,10 @@
     class: "icon-external-link"
   %>
 </section>
+<hr />
 <section class="reserve-personnel">
-  <hr />
-  <%= render partial: "reserves/personnel_card", collection: @presenter.visit_reserve_personnel %>
+  <%= render partial: "reserves/personnel_card", 
+    collection: @presenter.visit_reserve_personnel, 
+    spacer_template: "shared/hr"
+  %>
 </section>

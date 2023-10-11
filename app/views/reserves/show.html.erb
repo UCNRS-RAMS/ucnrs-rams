@@ -1,6 +1,6 @@
 <div class="split-background">
   <div class="reserves-list container" data-controller="tab-bar">
-    <section class="reserve-name">
+    <section class="reserve-name container">
       <h1><%= @presenter.reserve_name %></h1>
       <span><%= @presenter.reserve_managing_campus&.name %></span>
     </section>
@@ -66,9 +66,10 @@
     <section class="right-side">
       <%= link_to t(".schedule_a_visit"), new_visit_path, class: "button-main", id: "schedule-visit"%>
       <section class="reserve-info">
-        <%= image_tag @presenter.logo_src, alt: t(".alt_text.reserve_logo"), height: 100 %>
-        <div>
-          <h2><%= @presenter.reserve_name %></h2>
+        <%= image_tag @presenter.logo_src, alt: t(".alt_text.reserve_logo"), class: "reserve-logo" %>
+        
+        <h2><%= @presenter.reserve_name %></h2>
+        <div class="reserve-address">
           <span><%= @presenter.reserve_address_line_1 %></span>
           <span><%= @presenter.reserve_address_line_2 %></span>
           <span><%= @presenter.reserve_address_line_3 %></span>
@@ -84,15 +85,13 @@
             )
         %>
         <a class="icon-external-link" href="#"><%= t(".visit_reserve_website") %></a>
-        <div>
-          <h2><%= t(".mailing_address") %></h2>
-          <span>Mailing Address</span>
-          <span>Mailing City</span>
-        </div>
       </section>
+      <hr />
       <section class="reserve-personnel">
-        <hr />
-        <%= render partial: "personnel_card", collection: @presenter.reserve_personnel %>
+          <%= render partial: "personnel_card", 
+            collection: @presenter.reserve_personnel, 
+            spacer_template: "shared/hr" 
+          %>
       </section>
     </section>
   </div>

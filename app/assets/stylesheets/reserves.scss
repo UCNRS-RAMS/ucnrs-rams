@@ -293,12 +293,33 @@ main {
     color: $white;
     height: 450px;
 
+    .manager-navbar {
+      .navbar-nav {
+        color: $white;
+        filter: drop-shadow(0px 0px 7px $black);
+
+        li a {
+          color: $white;
+
+          img {
+            filter: invert(1);
+          }
+        }
+      }
+    }
+
+    .left-side {
+      filter: drop-shadow(0px 0px 7px $black);
+    }
+
     .navbar-nav {
       .nav-link {
         color: $white;
+        filter: drop-shadow(0px 0px 7px $black);
 
         &.schedule {
           border-color: $white;
+          filter: unset;
         }
 
         &:hover {
@@ -348,9 +369,10 @@ main {
   }
 
   .reserve-name {
+    filter: drop-shadow(0px 0px 7px $black);
     padding: 0 1.25rem;
     position: absolute;
-    top: 200px;
+    top: 180px;
 
     h1 {
       color: $white;
@@ -652,7 +674,7 @@ main {
   h2 {
     font-size: 0.9375rem;
     font-weight: $semi-bold;
-    margin: 0;
+    margin: .5rem 0;
   }
 
   a {
@@ -663,6 +685,15 @@ main {
     padding-left: 1.5625rem;
     position: relative;
     text-decoration: none;
+  }
+
+  .reserve-logo {
+    height: 100px;
+    width: 100px;
+  }
+
+  .reserve-address span {
+    display: block;
   }
 }
 
@@ -687,15 +718,28 @@ main {
 .reserve-personnel {
   .card {
     display: flex;
+    margin-bottom: 20px;
+    margin-top: 20px;
 
     .image img {
       border-radius: 100px;
+      height: 75px;
       margin-right: 1.25rem;
+      width: 75px;
     }
 
     .details {
       h2 {
         margin: 0;
+      }
+
+      > span {
+        display: block;
+      }
+
+      .icon-email {
+        margin-bottom: 0;
+        margin-top: 3px;
       }
     }
   }
@@ -864,10 +908,6 @@ main {
 
     .card .details {
       font-size: 0.6875rem;
-    }
-
-    hr:last-of-type {
-      display: none;
     }
   }
 
