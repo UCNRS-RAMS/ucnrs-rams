@@ -17,7 +17,10 @@
   <%= link_to t(".contact_us"), "#", class: "icon icon-send" %>
   <%= link_to t(".help_topics"), helps_path, class: "icon icon-question-circle" %>
 </section>
+<hr />
 <section class="reserve-personnel">
-  <hr />
-  <%= render partial: "reserves/personnel_card", collection: @presenter.visit_reserve_personnel %>
+  <%= render partial: "reserves/personnel_card", 
+    collection: @presenter.visit_reserve_personnel, 
+    spacer_template: "shared/hr"
+  %>
 </section>

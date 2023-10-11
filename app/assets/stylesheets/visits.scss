@@ -195,10 +195,14 @@
 
     .card {
       display: flex;
+      margin-bottom: 20px;
+      margin-top: 20px;
 
       .image img {
         border-radius: 3rem;
+        height: 75px;
         margin-right: 1.25rem;
+        width: 75px;
       }
 
       .details {
@@ -206,7 +210,7 @@
           margin: 0;
         }
 
-        span {
+        > span {
           display: block;
         }
       }
@@ -222,14 +226,17 @@
   }
 
   .reserve-info {
+    .reserve-icon {
+      height: 100px;
+      width: 100px;
+    }
+
     h2 {
       margin: .5rem 0;
     }
-  }
 
-  .reserve-personnel {
-    hr:last-of-type {
-      display: none;
+    .reserve-address span {
+      display: block;
     }
   }
 

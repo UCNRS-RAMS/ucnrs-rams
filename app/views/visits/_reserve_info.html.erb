@@ -1,9 +1,13 @@
-<%= image_tag presenter.visit_reserve_avatar, alt: t(".alt_text.reserve_logo") %>
-<div>
-  <h2><%= presenter.visit_reserve_name %></h2>
+<%= image_tag presenter.visit_reserve_avatar, alt: t(".alt_text.reserve_logo"), class: "reserve-icon" %>
+
+<h2><%= presenter.visit_reserve_name %></h2>
+<div class="reserve-address">
   <span><%= presenter.visit_reserve_address_line_1 %></span>
   <span><%= presenter.visit_reserve_address_line_2 %></span>
   <span><%= presenter.visit_reserve_address_line_3 %></span>
   <span><%= presenter.visit_reserve_country %></span>
-  <span><%= mail_to presenter.reserve_email, t(".email"), class: "icon-email" if presenter.reserve_email.present? %></span>
 </div>
+<% if presenter.reserve_email.present? %>
+  <span><%= mail_to presenter.reserve_email, t(".email"), class: "icon-email" %></span>
+<% end %>
+
