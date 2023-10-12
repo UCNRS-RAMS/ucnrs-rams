@@ -3,40 +3,37 @@ require "rails_helper"
 RSpec.describe Home::LatestNews::IndexPresenter do
   describe "#news_articles" do
     it "returns latest news" do
-      body = [
+      article_response = [
         {
-          "title" => {
-            "rendered" => "title 1"
-          },
+          "title" => { "rendered" => "title 1" },
           "link" => "link 1",
-          "uagb_featured_image_src"=> {
-            "medium_large" => ["image 1"],
-          }
+          "_links"=> { "wp:featuredmedia" => ["href" => "https"], }
         },
         {
-          "title" => {
-            "rendered" => "title 2"
-          },
+          "title" => { "rendered" => "title 2" },
           "link" => "link 2",
-          "uagb_featured_image_src"=> {
-            "medium_large" => ["image 2"],
-          }
+          "_links"=> { "wp:featuredmedia" => ["href" => "https"], }
         },
         {
-          "title" => {
-            "rendered" => "title 3"
-          },
+          "title" => { "rendered" => "title 3" },
           "link" => "link 3",
-          "uagb_featured_image_src"=> {
-            "medium_large" => ["image 3"],
-          }
+          "_links"=> { "wp:featuredmedia" => ["href" => "https"], }
         },
       ].to_json
-      articles = OpenStruct.new(
-        body: body
-      )
+      featured_media_response = {
+        "media_details" => { "sizes" => { "medium_large" => { "source_url" => "href" } } }
+      }.to_json
       getter = HttpGetter
-      allow(getter).to receive(:get).and_return(articles)
+      allow(getter).to(
+        receive(:get)
+          .with(hash_including(url: Home::LatestNews::IndexPresenter::LATEST_NEWS_URL))
+          .and_return(OpenStruct.new(body: article_response))
+      )
+      allow(getter).to(
+        receive(:get)
+          .with(hash_including(url: "https"))
+          .and_return(OpenStruct.new(body: featured_media_response))
+      )
       presenter = Home::LatestNews::IndexPresenter.new(getter)
 
       news_articles = presenter.news_articles
