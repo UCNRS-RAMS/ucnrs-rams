@@ -1,5 +1,5 @@
 namespace :db do
-  desc "Populate visits table start and end datetime columns."
+  desc "Populate visits table start and end datetime columns (please run 'rake db:update_user_visits_arrives_departs' first)"
   task populate_visits_start_end: :environment do
     Visit.find_each do |visit|
       next unless visit.user_visits.exists?
