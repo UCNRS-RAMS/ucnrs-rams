@@ -1,6 +1,5 @@
 namespace :db do
-  desc "Update user visits arrives and departs based on the ArrivalDate + ArrivalTime and
-    DepartureDate + DepartureTime respectively."
+  desc "Update user visits arrives and departs based on the ArrivalDate + ArrivalTime and DepartureDate + DepartureTime respectively."
 
   task update_user_visits_arrives_departs: :environment do
     UserVisit.where.not(ArrivalDate: nil)
