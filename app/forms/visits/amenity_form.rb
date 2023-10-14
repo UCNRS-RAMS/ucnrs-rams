@@ -2,6 +2,7 @@
 
 class Visits::AmenityForm
   include ActiveModel::Model
+
   DEFAULT_TIME = "12:00"
 
   def class_name
@@ -13,7 +14,7 @@ class Visits::AmenityForm
       id: params[:amenity_visit_id]
     ).first || AmenityVisit.new
     @amenity_visit.user = user
-    @create_invoice = create_invoice 
+    @create_invoice = create_invoice
     assign(params)
   end
 
@@ -35,19 +36,19 @@ class Visits::AmenityForm
   end
 
   def arrives_on
-    display_date(amenity_visit.arrives_on)
+    display_date(amenity_visit.arrives)
   end
 
   def arrives_at
-    display_time(amenity_visit.arrives_at)
+    display_time(amenity_visit.arrives)
   end
 
   def departs_on
-    display_date(amenity_visit.departs_on)
+    display_date(amenity_visit.departs)
   end
 
   def departs_at
-    display_time(amenity_visit.departs_at)
+    display_time(amenity_visit.departs)
   end
 
   def arrives_on=(date)
@@ -136,7 +137,7 @@ class Visits::AmenityForm
 
   def parse_time(time)
     begin
-      Time.strptime("#{time} -0000", I18n.t("time.formats.visit_form_input_time"))
+      time.in_time_zone
     rescue ArgumentError, TypeError
       nil
     end
@@ -145,11 +146,15 @@ class Visits::AmenityForm
   private :valid_form?, :validate_form
 
   def assign_arrives
-    amenity_visit.arrives = change_date_for_datetime(amenity_visit.arrives_at, amenity_visit.arrives_on.to_date) unless amenity_visit.arrives_on.nil? || amenity_visit.arrives_at.nil?
+    unless amenity_visit.arrives_on.nil? || amenity_visit.arrives_at.nil?
+      amenity_visit.arrives = change_date_for_datetime(amenity_visit.arrives_at, amenity_visit.arrives_on)
+    end
   end
 
   def assign_departs
-    amenity_visit.departs = change_date_for_datetime(amenity_visit.departs_at, amenity_visit.departs_on.to_date) unless amenity_visit.arrives_on.nil? || amenity_visit.arrives_at.nil?
+    unless amenity_visit.arrives_on.nil? || amenity_visit.arrives_at.nil?
+      amenity_visit.departs = change_date_for_datetime(amenity_visit.departs_at, amenity_visit.departs_on)
+    end
   end
 
   def change_date_for_datetime(datetime, date)

@@ -5,13 +5,6 @@ class VisitForm
 
   DEFAULT_TIME = "12:00"
 
-  STATUS = {
-    "approved" => "Approved",
-    "in_review" => "Pending approval",
-    "cancelled" => "Cancelled",
-    "denied" => "Rejected"
-  }.freeze
-
   def model_name
     ActiveModel::Name.new(Visit)
   end
@@ -71,19 +64,19 @@ class VisitForm
   end
 
   def start_date
-    display_date(visit.start_date)
+    display_date(visit.starts_at)
   end
 
   def start_time
-    display_time(visit.start_time)
+    display_time(visit.starts_at)
   end
 
   def end_date
-    display_date(visit.end_date)
+    display_date(visit.ends_at)
   end
 
   def end_time
-    display_time(visit.end_time)
+    display_time(visit.ends_at)
   end
 
   def start_date=(date)
@@ -174,10 +167,7 @@ class VisitForm
 
   def parse_time(time_string)
     begin
-      Time.strptime(
-        "#{time_string} -0000",
-        I18n.translate("time.formats.visit_form_input_time")
-      )
+      time_string.in_time_zone
     rescue ArgumentError, TypeError
       nil
     end
@@ -192,11 +182,11 @@ class VisitForm
   private :valid_form?, :validate_form
 
   def assign_starts_at
-    visit.starts_at = change_date_for_datetime(start_time.to_datetime, start_date.to_date)
+    visit.starts_at = change_date_for_datetime(visit.start_time, visit.start_date)
   end
 
   def assign_ends_at
-    visit.ends_at = change_date_for_datetime(end_time.to_datetime, end_date.to_date)
+    visit.ends_at = change_date_for_datetime(visit.end_time, visit.end_date)
   end
 
   def change_date_for_datetime(datetime, date)
@@ -244,7 +234,7 @@ class VisitForm
 
   def update_user_visits_status
     begin
-      user_visits.update_all(status: STATUS[status])
+      user_visits.update_all(status: UserVisit.statuses[status])
       true
     rescue ActiveRecord::ActiveRecordError => e
       Rails.logger.error(e)
@@ -254,7 +244,7 @@ class VisitForm
 
   def update_amenity_visits_status
     begin
-      amenity_visits.update_all(status: STATUS[status])
+      amenity_visits.update_all(status: AmenityVisit.statuses[status])
       true
     rescue ActiveRecord::ActiveRecordError => e
       Rails.logger.error(e)
