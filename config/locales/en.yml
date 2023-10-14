@@ -92,7 +92,7 @@ en:
       form_output_time: "%H:%M"
       form_output_time_human: "%-I:%M %p"
       visit_form_input_date: "%Y-%m-%d"
-      visit_form_input_time: "%H:%M %z"
+      visit_form_input_time: "%H:%M"
       visit_form_output_date: "%Y-%m-%d"
       visit_form_output_time: "%H:%M"
       visit_form_output_time_human: "%-I:%M %p"
