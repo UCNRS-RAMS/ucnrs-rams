@@ -10,6 +10,8 @@ class Manager::Dashboard::VisitsController < Manager::ApplicationController
       page: page_number,
       filter: filter,
     )
+
+    session[:dashboard] = :visits
   end
 
   private

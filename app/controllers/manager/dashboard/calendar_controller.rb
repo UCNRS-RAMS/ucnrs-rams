@@ -5,6 +5,8 @@ class Manager::Dashboard::CalendarController < ApplicationController
 
   def show
     @presenter = initialize_calendar_presenter
+
+    session[:dashboard] = :calendar
   end
 
   private

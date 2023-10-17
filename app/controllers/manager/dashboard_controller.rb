@@ -9,5 +9,7 @@ class Manager::DashboardController < Manager::ApplicationController
       reserve: current_reserve,
       partial_name: params[:partial_name]
     )
+
+    session[:dashboard] = :dashboard
   end
 end
