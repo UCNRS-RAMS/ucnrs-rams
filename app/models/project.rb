@@ -234,7 +234,7 @@ class Project < ApplicationRecord
   def self.having_visit_end_date_after(date_var)
     if date_var.present?
       left_outer_joins(:visits)
-        .where(Visit.arel_table[:ends_at].gteq(date_var))
+        .where(Visit.arel_table[:ends_at].gteq(date_var.midnight))
         .group(:id)
     else
       all
@@ -244,7 +244,7 @@ class Project < ApplicationRecord
   def self.having_visit_start_date_before(date_var)
     if date_var.present?
       left_outer_joins(:visits)
-        .where(Visit.arel_table[:starts_at].lteq(date_var))
+        .where(Visit.arel_table[:starts_at].lteq(date_var.midnight))
         .group(:id)
     else
       all

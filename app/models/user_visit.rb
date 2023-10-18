@@ -64,8 +64,8 @@ class UserVisit < ApplicationRecord
   def self.having_between_time(date_start: nil, date_end: nil)
     DateQuery.call(
       self,
-      date_start_type: :departs_at, date_start: date_start,
-      date_end_type: :arrives_at, date_end: date_end&.tomorrow
+      date_start_type: :departs_at, date_start: date_start&.midnight,
+      date_end_type: :arrives_at, date_end: date_end&.midnight&.tomorrow
     )
   end
 
@@ -82,8 +82,8 @@ class UserVisit < ApplicationRecord
     return false if visit.amenity_visits.blank?
 
     where(
-      'arrives_at >= ? OR departs_at <= ?', 
-      visit.amenity_visits.earliest_arrives_date, 
+      'arrives_at >= ? OR departs_at <= ?',
+      visit.amenity_visits.earliest_arrives_date,
       visit.amenity_visits.latest_departs_date
     )
     .present?
