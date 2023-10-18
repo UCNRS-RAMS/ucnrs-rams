@@ -94,7 +94,7 @@ RSpec.describe UserVisit, type: :model do
     end
   end
 
-  it do 
+  it do
     is_expected.to define_enum_for(:status)
       .with_values(
         approved: "Approved",
