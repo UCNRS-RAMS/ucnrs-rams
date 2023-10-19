@@ -14,10 +14,14 @@ RSpec.describe "manager superbar", type: :view do
       reserve2 = create(:reserve, name: "Mountain Reserve")
       create(:reserve_personnel, reserve: reserve1, user: user)
       create(:reserve_personnel, reserve: reserve2, user: user)
-      allow(view).to receive(:manager_namespace?).and_return(true)
+      layout_presenter = LayoutPresenter.new(
+        current_user: user,
+        current_reserve: reserve1,
+        controller_path: "manager/",
+        dashboard: nil
+      )
 
-      render partial: "layouts/manager_superbar",
-        locals: { current_user: user, current_reserve: reserve1 }
+      render partial: "layouts/manager_superbar", locals: { layout_presenter: layout_presenter }
 
       expect(rendered).to have_link("", href: "/users/sign_out")
       expect(rendered).to have_link(reserve1.name, href: "/manager/reserves/#{reserve1.id}/dashboard")
@@ -32,10 +36,14 @@ RSpec.describe "manager superbar", type: :view do
       reserve2 = create(:reserve, name: "Mountain Reserve")
       create(:reserve_personnel, reserve: reserve1, user: user)
       create(:reserve_personnel, reserve: reserve2, user: user)
-      allow(view).to receive(:manager_namespace?).and_return(false)
+      layout_presenter = LayoutPresenter.new(
+        current_user: user,
+        current_reserve: reserve1,
+        controller_path: "",
+        dashboard: nil
+      )
 
-      render partial: "layouts/manager_superbar",
-        locals: { current_user: user, current_reserve: reserve1 }
+      render partial: "layouts/manager_superbar", locals: { layout_presenter: layout_presenter }
 
       expect(rendered).to have_link("", href: "/users/sign_out")
       expect(rendered).not_to have_link(reserve1.name, href: "/manager/reserves/#{reserve1.id}/dashboard")

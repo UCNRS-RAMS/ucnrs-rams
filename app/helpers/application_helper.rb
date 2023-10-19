@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  MANAGER_NAMESPACE = "manager"
-
   def body_class
     controller_name = controller.controller_name
     action_name = controller.action_name
@@ -20,10 +18,6 @@ module ApplicationHelper
     end
 
     link_to(name, options, html_options, &block)
-  end
-
-  def manager_namespace?
-    controller_path.split("/").first == MANAGER_NAMESPACE
   end
 
   def num_of_units(arr_time, dep_time, units_type)

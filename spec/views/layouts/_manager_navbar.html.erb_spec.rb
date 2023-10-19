@@ -4,8 +4,14 @@ RSpec.describe "manager navbar", type: :view do
   it "display the manager navbar" do
     user = create(:user)
     reserve = create(:reserve)
+    layout_presenter = LayoutPresenter.new(
+      current_user: user,
+      current_reserve: reserve,
+      controller_path: nil,
+      dashboard: nil
+    )
 
-    render partial: "layouts/manager_navbar", locals: { current_user: user, current_reserve: reserve }
+    render partial: "layouts/manager_navbar", locals: { layout_presenter: layout_presenter }
 
     expect(rendered).to have_link(
       "Visits",

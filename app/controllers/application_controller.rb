@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :turbo_frame_request_variant
+  before_action :set_layout_presenter
 
   helper_method :current_reserve
   helper_method :super_admin?
@@ -21,6 +22,15 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def set_layout_presenter
+    @layout_presenter ||= LayoutPresenter.new(
+      current_user: current_user,
+      current_reserve: current_reserve,
+      controller_path: controller_path,
+      dashboard: session[:dashboard]
+    )
+  end
 
   def turbo_frame_request_variant
     request.variant = :turbo_frame if turbo_frame_request?

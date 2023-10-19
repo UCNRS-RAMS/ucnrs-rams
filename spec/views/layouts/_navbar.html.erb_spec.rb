@@ -3,8 +3,14 @@ require "rails_helper"
 RSpec.describe "navbar", type: :view do
   it "display the signed in navbar" do
     user = FactoryBot.create(:user)
+    layout_presenter = LayoutPresenter.new(
+      current_user: user,
+      current_reserve: nil,
+      controller_path: nil,
+      dashboard: nil
+    )
 
-    render partial: 'layouts/navbar', locals: { current_user: user }
+    render partial: 'layouts/navbar', locals: { layout_presenter: layout_presenter }
 
     expect(rendered).to have_link("Visits", href: "/")
     expect(rendered).to have_link("Reserves", href: "/reserves")
@@ -18,8 +24,14 @@ RSpec.describe "navbar", type: :view do
 
   it "display the signed out navbar" do
     user = nil
+    layout_presenter = LayoutPresenter.new(
+      current_user: user,
+      current_reserve: nil,
+      controller_path: nil,
+      dashboard: nil
+    )
 
-    render partial: 'layouts/navbar', locals: { current_user: user }
+    render partial: 'layouts/navbar', locals: { layout_presenter: layout_presenter }
 
     expect(rendered).to have_link("Reserves", href: "/reserves")
     expect(rendered).to have_link("Search", href: "#")

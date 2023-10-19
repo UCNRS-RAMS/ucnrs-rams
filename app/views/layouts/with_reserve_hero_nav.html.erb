@@ -14,11 +14,8 @@
 
   <body class="<%= body_class %>">
     <header>
-      <%= render partial: 'layouts/reserve_hero_nav', locals: { current_user: current_user } %>
-      <section role="region" aria-label="errors" class="flash">
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
-      </section>
+      <%= render partial: 'layouts/reserve_hero_nav', locals: { layout_presenter: @layout_presenter } %>
+      <%= render "shared/flash", formats: [:html] %>
     </header>
     <main role="main">
       <%= yield %>

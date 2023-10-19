@@ -1,4 +1,9 @@
-<nav class="main-navigation" role="navigation" style="background: no-repeat center/cover url(<%= @presenter.large_hero_photo_src %>);">
-  <%= render(partial: 'layouts/manager_superbar', locals: { current_user: current_user }) if current_user&.is_manager? %>
-  <%= render partial: 'layouts/navbar', locals: { current_user: current_user } %>
+<nav class="main-navigation" role="navigation"
+  style="background: no-repeat center/cover url(<%= @presenter.large_hero_photo_src %>);"
+>
+  <% if layout_presenter.current_user_is_manager_admin? %>
+    <%= render partial: 'layouts/manager_superbar', locals: { layout_presenter: layout_presenter } %>
+  <% end %>
+
+  <%= render partial: 'layouts/navbar', locals: { layout_presenter: layout_presenter } %>
 </nav>

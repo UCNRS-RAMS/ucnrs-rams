@@ -1,62 +1,68 @@
 <div class="manager-navbar upper">
   <div class="container">
     <ul class="navbar-nav">
-      <li><%= I18n.t(".navbar.link.welcome_back", name: current_user.full_name) %></li>
-      <% if manager_namespace? %>
+      <li><%= I18n.t(".navbar.link.welcome_back", name: layout_presenter.current_user_full_name) %></li>
+      <% if layout_presenter.in_manager_namespace? %>
         <li class="dropdown" data-controller="dropdown">
-          <%= link_to current_reserve.name,
+          <%= link_to layout_presenter.current_reserve_name,
             "#",
             class: "dropdown-toggle",
             data: { action: "click->dropdown#toggle click@window->dropdown#hide"}
           %>
-            <% if super_admin? %>
+            <% if layout_presenter.current_user_is_admin? %>
               <div class="dropdown-menu" data-dropdown-class="show" data-dropdown-target= "dropdown">
                 <header><%= I18n.t(".navbar.link.your_managed_reserves") %></header>
                 <hr />
-                <% Reserve.alphabetized.each do |reserve| %>
+                <% layout_presenter.admin_reserves.each do |reserve| %>
                   <%= link_to reserve.name, manager_reserve_dashboard_path(reserve), class: "dropdown-item" %>
-                <% end%>
+                <% end %>
               </div>
+
             <% else %>
               <div class="dropdown-menu" data-dropdown-class="show" data-dropdown-target= "dropdown">
                 <header><%= I18n.t(".navbar.link.your_managed_reserves") %></header>
                 <hr />
-                <% current_user.managed_reserves.alphabetized.each do |reserve| %>
+                <% layout_presenter.current_user_managed_reserves.each do |reserve| %>
                   <%= link_to reserve.name, manager_reserve_dashboard_path(reserve), class: "dropdown-item" %>
-                <% end%>
+                <% end %>
               </div>
+
           <% end %>
         </li>
       <% end %>
+
       <li class="dropdown" data-controller="dropdown">
-        <%= link_to "#",
+        <%= link_to (layout_presenter.in_manager_namespace? ?
+            I18n.t(".navbar.link.manager_view") : I18n.t(".navbar.link.public_view")
+          ),
+          "#",
           class: "dropdown-toggle",
-          data: { action: "click->dropdown#toggle click@window->dropdown#hide"} do
+          data: { action: "click->dropdown#toggle click@window->dropdown#hide"}
         %>
-          <%= manager_namespace? ? I18n.t(".navbar.link.manager_view") : I18n.t(".navbar.link.public_view") %>
-        <% end %>
         <div class="dropdown-menu" data-dropdown-class="show" data-dropdown-target= "dropdown">
-          <%= if manager_namespace?
-            link_to I18n.t(".navbar.link.go_to_public_view"),
+          <% if layout_presenter.in_manager_namespace? %>
+            <%= link_to I18n.t(".navbar.link.go_to_public_view"),
               root_path,
-              class: "dropdown-item"
-          else
-            link_to I18n.t(".navbar.link.go_to_manager_view"),
-              manager_reserve_dashboard_path(current_user.managed_reserve_ids.first),
-              class: "dropdown-item"
-          end %>
+              class: "dropdown-item" %>
+
+          <% else %>
+            <%= link_to I18n.t(".navbar.link.go_to_manager_view"),
+              manager_reserve_dashboard_path(layout_presenter.current_user_first_managed_reserve),
+              class: "dropdown-item" %>
+
+          <% end %>
         </div>
       </li>
       <li>
-        <%= link_to image_tag("icon-user-navbar.svg",
-          alt: I18n.t(".navbar.alt_text.icon_user")),
-          manager_namespace? ? edit_manager_reserve_user_path(current_reserve, current_user) : edit_user_registration_path,
+        <%= link_to image_tag("icon-user-navbar.svg", alt: I18n.t(".navbar.alt_text.icon_user")),
+          layout_presenter.in_manager_namespace? ?
+            edit_manager_reserve_user_path(layout_presenter.current_reserve, layout_presenter.current_user) :
+            edit_user_registration_path,
           class: "icon-only"
         %>
       </li>
       <li>
-        <%= link_to image_tag("icon-sign-out-navbar.svg",
-          alt: I18n.t(".navbar.alt_text.icon_sign_out")),
+        <%= link_to image_tag("icon-sign-out-navbar.svg", alt: I18n.t(".navbar.alt_text.icon_sign_out")),
           destroy_user_session_path,
           class: "icon-only"
         %>

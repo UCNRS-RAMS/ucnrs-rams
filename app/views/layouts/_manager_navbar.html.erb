@@ -2,73 +2,70 @@
   <div class="container">
     <div class="navbar-content">
       <div class="left-side">
-        <% if current_reserve.logo_url %>
-          <%= image_tag current_reserve.logo_url(:medium), 
-            alt: "#{current_reserve.name} logo", height: "65px", class: "logo" %>
-            
-        <% else %>
-          <%= image_tag "navbar-logo.svg", alt: t("alt.ucnrs_logo"), height: "65px", class: "logo" %>
+          <%= image_tag layout_presenter.current_reserve_logo,
+            alt: t("alt.reserve_logo"), height: "65px", class: "logo" %>
 
-        <% end %>
         <small id="title-extra">
-          <strong><%= current_reserve.name %></strong>
+          <strong><%= layout_presenter.current_reserve_name %></strong>
           <br />
-          <%= current_reserve.managing_campus&.name %>
+          <%= layout_presenter.current_reserve_managing_campus_name %>
         </small>
       </div>
       <div class="right-side">
         <ul class="navbar-nav">
           <li>
-            <% if session[:dashboard] == "visits" %>
-              <% dashboard_path = manager_reserve_dashboard_visits_path(current_reserve) %>
+            <% if layout_presenter.current_user_dashboard == :visits %>
+              <% dashboard_path = manager_reserve_dashboard_visits_path(layout_presenter.current_reserve) %>
 
-            <% elsif session[:dashboard] == "calendar" %>
-              <% dashboard_path = manager_reserve_dashboard_calendar_path(current_reserve) %>
+            <% elsif layout_presenter.current_user_dashboard == :calendar %>
+              <% dashboard_path = manager_reserve_dashboard_calendar_path(layout_presenter.current_reserve) %>
 
             <% else %>
-              <% dashboard_path = manager_reserve_dashboard_path(current_reserve) %>
+              <% dashboard_path = manager_reserve_dashboard_path(layout_presenter.current_reserve) %>
 
             <% end %>
 
-            <%= link_to I18n.t(".navbar.link.visits"),
-              dashboard_path,
-              class:"nav-link #{active_class_for("dashboard")}" 
-            %>
+            <%= link_to I18n.t(".navbar.link.visits"), dashboard_path,
+              class:"nav-link #{active_class_for("dashboard")}" %>
           </li>
-          <li> 
+          <li>
             <%= link_to I18n.t(".navbar.link.projects"),
-              manager_reserve_projects_path(current_reserve),
-              class:"nav-link #{active_class_for("projects")}" 
+              manager_reserve_projects_path(layout_presenter.current_reserve),
+              class:"nav-link #{active_class_for("projects")}"
             %>
           </li>
           <li>
-            <%= link_to I18n.t(".navbar.link.invoices"), 
-              manager_reserve_invoices_path(current_reserve), 
-              class:"nav-link #{active_class_for("invoices")}" 
-            %> 
+            <%= link_to I18n.t(".navbar.link.invoices"),
+              manager_reserve_invoices_path(layout_presenter.current_reserve),
+              class:"nav-link #{active_class_for("invoices")}"
+            %>
           </li>
-          <li> 
-            <%= link_to  I18n.t(".navbar.link.reports"), 
-              report_part_1_manager_reserve_report_path(current_reserve.id, Date.current.year), 
-              class:"nav-link #{active_class_for("reports")}" 
-            %> 
+          <li>
+            <%= link_to  I18n.t(".navbar.link.reports"),
+              report_part_1_manager_reserve_report_path(layout_presenter.current_reserve, Date.current.year),
+              class:"nav-link #{active_class_for("reports")}"
+            %>
           </li>
           <li>
             <%= link_to I18n.t(".navbar.link.reserve_info"),
-              edit_manager_reserve_reserve_info_reserve_details_path(current_reserve),
-              class:"nav-link #{active_class_for("reserve_details")}" 
+              edit_manager_reserve_reserve_info_reserve_details_path(layout_presenter.current_reserve),
+              class:"nav-link #{active_class_for("reserve_details")}"
             %>
           </li>
           <li>
             <%= link_to I18n.t(".navbar.link.users"),
-              manager_reserve_users_path(current_reserve),
-              class:"nav-link #{active_class_for("users")}" 
+              manager_reserve_users_path(layout_presenter.current_reserve),
+              class:"nav-link #{active_class_for("users")}"
             %>
           </li>
-          <li> <%= link_to I18n.t(".navbar.link.help"), "https://ramshelp.ucnrs.org/manager", class:"nav-link" %> </li>
+          <li>
+            <%= link_to I18n.t(".navbar.link.help"), "https://ramshelp.ucnrs.org/manager",
+              class:"nav-link" %>
+          </li>
         </ul>
 
-        <%= image_tag "hamburger.svg", alt: I18n.t(".navbar.alt_text.mobile_menu"), class: "navbar-hamburger display-none" %>
+        <%= image_tag "hamburger.svg", alt: I18n.t(".navbar.alt_text.mobile_menu"),
+          class: "navbar-hamburger display-none" %>
       </div>
     </div>
   </div>

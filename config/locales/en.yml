@@ -1106,13 +1106,13 @@ en:
       discipline: "Discipline"
       project_involves: "Project Involves"
       method_remove_organisms: "Remove organisms or materials from the reserve"
-      method_transfer_organisms: "Involves the transfer of animals, plants, and/or microorganisms 
+      method_transfer_organisms: "Involves the transfer of animals, plants, and/or microorganisms
         from outside the reserve to within the reserve, or between different parts of the reserve."
-      method_chemicals: "Use of radioactive isotopes or other chemicals? (e.g., pesticides, 
+      method_chemicals: "Use of radioactive isotopes or other chemicals? (e.g., pesticides,
         herbicides, fertilizers, tracers) <br /> %{chemical_list}"
       method_study_non_native_species: "Manipulation of non-native species"
       method_soil_disturbance: "Soil Disturbance"
-      method_long_term_structures: "Erect structures or deploy long term equipment, such as 
+      method_long_term_structures: "Erect structures or deploy long term equipment, such as
         markers, fences, enclosures, cages, data-loggers, antennas, or buoys"
       method_description: "Detailed description of environmental manipulations"
       method_study_area: "Reserve area(s) you plan to visit or conduct manipulations"
@@ -1171,7 +1171,7 @@ en:
       edit_permits: "Edit Permits"
       approved_permits: "Approved Permits"
       permits: "Permits"
-      approved_permits_information: "Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+      approved_permits_information: "Ut enim ad minim veniam, quis nostrud exercitation ullamco
         laboris nisi ut aliquip ex ea commodo consequat"
     reserve_question_show:
       reserve_questions: "Additional Reserve Questions"
@@ -1185,17 +1185,17 @@ en:
     complete:
       not_saved: "This project could not be saved as 'open'"
     contact_manager:
-      sent_message: "A message have been sent to the reserve: %{reserve_name} regarding your 
+      sent_message: "A message have been sent to the reserve: %{reserve_name} regarding your
         request."
   waivers:
     index:
       title: "Waivers"
     waivers:
-      direction_title: "All visitors must sign and return a waiver agreement prior to visiting a 
+      direction_title: "All visitors must sign and return a waiver agreement prior to visiting a
         reserve."
-      direction_body: "If your application is approved, the group leader (person who is listed as 
-        contact for the requested activity) will be responsible for ensuring that all necessary 
-        waivers are submitted to reserve staff prior to the proposed visit. Waiver agreements 
+      direction_body: "If your application is approved, the group leader (person who is listed as
+        contact for the requested activity) will be responsible for ensuring that all necessary
+        waivers are submitted to reserve staff prior to the proposed visit. Waiver agreements
         for minors must be signed by the parent or legal guardian."
     waiver:
       download_pdf: "Download PDF"
@@ -3062,15 +3062,15 @@ en:
       added_to_project: "You have been added to the project."
       login_and_view_project: "Login and view Project"
     project_contact_manager:
-      contact_manager_header: "This email is being sent to facilitate communications between 
-        the applicant of the following project and the reserve to determine the project’s 
+      contact_manager_header: "This email is being sent to facilitate communications between
+        the applicant of the following project and the reserve to determine the project’s
         suitability."
       the_user: "The user %{user_full_name}"
       user_discuss: "would like to discuss the"
       with_reserve: "with reserve %{reserve_name}"
     visit_new:
       your_visit_request_has_been_submitted: "Your Visit request has been Submitted."
-      your_visit_evaluated: "This visit request will be <strong>evaluated and an email will 
+      your_visit_evaluated: "This visit request will be <strong>evaluated and an email will
         be sent to you</strong> once the status of your visit changes."
       login_and_view_visit: "Login and view Visit"
     visit_update:
@@ -3145,6 +3145,7 @@ en:
     dollar_sign: "dollar icon"
     pencil_sign: "a pencil icon"
     ucnrs_logo: "UCNRS logo"
+    reserve_logo: "logo of reserve"
     checked: "checked icon"
     unchecked: "unckecked icon"
     facebook_logo: "facebook logo"
