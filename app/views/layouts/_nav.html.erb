@@ -1,4 +1,7 @@
 <nav class="main-navigation" role="navigation">
-  <%= render(partial: 'layouts/manager_superbar', locals: { current_user: current_user }) if current_user&.is_manager? %>
-  <%= render partial: 'layouts/navbar', locals: { current_user: current_user } %>
+  <% if layout_presenter.current_user_is_manager_admin? %>
+    <%= render partial: 'layouts/manager_superbar', locals: { layout_presenter: layout_presenter } %>
+  <% end %>
+
+  <%= render partial: 'layouts/navbar', locals: { layout_presenter: layout_presenter } %>
 </nav>

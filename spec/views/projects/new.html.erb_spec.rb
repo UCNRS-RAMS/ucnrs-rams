@@ -80,6 +80,12 @@ RSpec.describe "new.html.erb" do
         current_step: 1,
         show_modal: true,
       ))
+      assign(:layout_presenter, LayoutPresenter.new(
+        current_user: nil,
+        current_reserve: nil,
+        controller_path: nil,
+        dashboard: nil
+      ))
 
       render template: "projects/new", layout: "layouts/application"
 
@@ -92,6 +98,12 @@ RSpec.describe "new.html.erb" do
         user: :dummy,
         current_step: 1,
         show_modal: false,
+      ))
+      assign(:layout_presenter, LayoutPresenter.new(
+        current_user: nil,
+        current_reserve: nil,
+        controller_path: nil,
+        dashboard: nil
       ))
 
       render template: "projects/new", layout: "layouts/application"

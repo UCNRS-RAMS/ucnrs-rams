@@ -14,7 +14,7 @@
 
   <body class="<%= body_class %>">
     <header>
-      <%= render partial: 'layouts/nav', locals: { current_user: current_user } %>
+      <%= render partial: 'layouts/nav', locals: { layout_presenter: @layout_presenter } %>
       <%= render "shared/flash", formats: [:html] %>
     </header>
     <main role="main">
