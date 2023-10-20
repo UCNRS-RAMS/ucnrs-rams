@@ -2,7 +2,7 @@
   <div class="container">
     <div class="navbar-content">
       <div class="left-side">
-        <%= image_tag "navbar-logo.svg", alt: t("alt.ucnrs_logo"), height: "57px", class: "logo" %>
+        <%= image_tag "ucnrs-logo.svg", alt: t("alt.ucnrs_logo"), height: "57px", class: "logo" %>
         <h1 class="title">RAMS</h1>
         <small id="title-extra">University of California<br />Natural Reserve System</small>
       </div>
@@ -37,7 +37,7 @@
               <%= link_to I18n.t(".navbar.link.schedule_visit"), new_visit_path,
                 class: ["nav-link", "schedule", active_class_for("visits")] %>
             </li>
-      
+
           <% else %>
             <li>
               <%= link_to I18n.t(".navbar.link.reserves"), reserves_path,
