@@ -35,8 +35,8 @@ class VisitShowPresenter
     visit_reserve_logo_src(:medium)
   end
 
-  def edit_button?
-    visit.starts_at.to_date > Date.today && visit.status == "in_review"
+  def visit_is_user_editable?
+    visit.starts_at.to_date > Time.current.to_date && visit.in_review?
   end
 
   def reserve_email

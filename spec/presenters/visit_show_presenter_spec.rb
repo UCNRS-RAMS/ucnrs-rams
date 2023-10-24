@@ -43,19 +43,19 @@ RSpec.describe VisitShowPresenter do
     end
   end
 
-  describe "#edit_button?" do
+  describe "#visit_is_user_editable?" do
     it "returns 'true' if visit start_date greater then today's date and visit status is 'in_review'" do
       visit = create(:visit, status: :in_review, starts_at: Time.current.tomorrow)
       presenter = VisitShowPresenter.new(visit)
 
-      expect(presenter.edit_button?).to be_truthy
+      expect(presenter.visit_is_user_editable?).to be_truthy
     end
 
     it "returns 'false' if visit start_date less then today's date and visit status is not 'in_review'" do
       visit = create(:visit, status: :in_review, starts_at: Time.current.yesterday)
       presenter = VisitShowPresenter.new(visit)
 
-      expect(presenter.edit_button?).to be_falsy
+      expect(presenter.visit_is_user_editable?).to be_falsy
     end
   end
 
