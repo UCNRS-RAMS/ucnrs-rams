@@ -14,8 +14,7 @@ class VisitShowPresenter
     :address_postal_code,
     :state,
     :country,
-    :logo_url,
-    :logo_placeholder,
+    :logo_src,
     :managing_campus,
     :reserve_alert_message,
     :rules,
@@ -33,7 +32,7 @@ class VisitShowPresenter
   end
 
   def visit_reserve_avatar
-    visit_reserve_logo_url(:medium) || visit_reserve_logo_placeholder
+    visit_reserve_logo_src(:medium)
   end
 
   def edit_button?

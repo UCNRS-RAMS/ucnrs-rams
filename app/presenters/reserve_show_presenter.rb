@@ -16,13 +16,10 @@ class ReserveShowPresenter
     :address_postal_code,
     :state,
     :country,
-    :logo_url,
-    :logo_placeholder,
-    :listing_photo_placeholder,
+    :logo_src,
     :managing_campus,
     :description,
-    :large_hero_photo_url,
-    :large_hero_photo_placeholder,
+    :large_hero_photo_src,
     to: :reserve, prefix: true
 
   attr_accessor :selected_tab
@@ -61,11 +58,11 @@ class ReserveShowPresenter
   end
 
   def large_hero_photo_src
-    reserve_large_hero_photo_url || ActionController::Base.helpers.image_path(reserve_large_hero_photo_placeholder)
+    reserve_large_hero_photo_src(nil)
   end
 
   def logo_src
-    reserve_logo_url(:medium) || reserve_logo_placeholder
+    reserve_logo_src(:medium)
   end
 
   private

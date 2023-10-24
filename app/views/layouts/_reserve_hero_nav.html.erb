@@ -1,5 +1,5 @@
 <nav class="main-navigation" role="navigation"
-  style="background: no-repeat center/cover url(<%= @presenter.large_hero_photo_src %>);"
+  style="background: no-repeat center/cover url(<%= ActionController::Base.helpers.image_path(@presenter.large_hero_photo_src) %>);"
 >
   <% if layout_presenter.current_user_is_manager_admin? %>
     <%= render partial: 'layouts/manager_superbar', locals: { layout_presenter: layout_presenter } %>

@@ -288,14 +288,6 @@ RSpec.describe Reserve, type: :model do
     end
   end
 
-  describe "#listing_photo_placeholder" do
-    it "is the file name of the listing photo placeholder image" do
-      reserve = build(:reserve)
-
-      expect(reserve.listing_photo_placeholder).to eq("reserve_placeholder.jpg")
-    end
-  end
-
   describe ".with_names" do
     context "when given tags are present" do
       it "returns reserve associated with reserve_tag with the given categorys" do
@@ -326,7 +318,7 @@ RSpec.describe Reserve, type: :model do
         reserve_tag2 = create(:reserve_tag, reserve: reserve2, category: :ecosystem)
         reserve_tag3 = create(:reserve_tag, reserve: reserve3, category: :geographic)
 
-        results = Reserve.with_names(nil) 
+        results = Reserve.with_names(nil)
 
         expect(results).to eq [reserve1, reserve2, reserve3]
       end
@@ -367,11 +359,57 @@ RSpec.describe Reserve, type: :model do
     end
   end
 
-  describe "#large_hero_photo_placeholder" do
-    it "is the file name of the large hero photo placeholder image" do
-      reserve = build(:reserve)
+  describe "#logo_src" do
+    context "when a reserve logo is uploaded" do
+      it "is the reserve logo's medium filename" do
+        reserve = create(:reserve, :with_logo)
 
-      expect(reserve.large_hero_photo_placeholder).to eq("reserve-hero-placeholder.jpg")
+        expect(reserve.logo_src).to match(/medium_test-image.jpeg/)
+      end
+    end
+
+    context "when there is no uploaded reserve logo" do
+      it "is the path of the reserve logo placeholder" do
+        reserve = build(:reserve)
+
+        expect(reserve.logo_src).to eq(Reserve::LOGO_PLACEHOLDER)
+      end
+    end
+  end
+
+  describe "#listing_photo_src" do
+    context "when a reserve listing photo is uploaded" do
+      it "is the reserve listing photo's medium filename" do
+        reserve = create(:reserve, :with_listing_photo)
+
+        expect(reserve.listing_photo_src).to match(/medium_test-image.jpeg/)
+      end
+    end
+
+    context "when there is no uploaded reserve listing photo" do
+      it "is the path of the reserve listing photo placeholder" do
+        reserve = build(:reserve)
+
+        expect(reserve.listing_photo_src).to eq(Reserve::LISTING_PHOTO_PLACEHOLDER)
+      end
+    end
+  end
+
+  describe "#large_hero_photo_src" do
+    context "when a large hero photo is uploaded" do
+      it "is the large hero photo's medium filename" do
+        reserve = create(:reserve, :with_hero_photo)
+
+        expect(reserve.large_hero_photo_src).to match(/\/medium_test-image.jpeg/)
+      end
+    end
+
+    context "when there is no uploaded large hero photo" do
+      it "is the path of the large hero photo placeholder" do
+        reserve = build(:reserve)
+
+        expect(reserve.large_hero_photo_src).to eq(Reserve::LARGE_HERO_PHOTO_PLACEHOLDER)
+      end
     end
   end
 end

@@ -11,13 +11,10 @@ RSpec.describe ReserveShowPresenter do
     it { is_expected.to delegate_method(:address_postal_code).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:state).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:country).to(:reserve).with_prefix(true) }
-    it { is_expected.to delegate_method(:logo_url).to(:reserve).with_prefix(true) }
-    it { is_expected.to delegate_method(:logo_placeholder).to(:reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:logo_src).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:managing_campus).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:description).to(:reserve).with_prefix(true) }
-    it { is_expected.to delegate_method(:large_hero_photo_url).to(:reserve).with_prefix(true) }
-    it { is_expected.to delegate_method(:large_hero_photo_placeholder).to(:reserve).with_prefix(true) }
-    it { is_expected.to delegate_method(:listing_photo_placeholder).to(:reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:large_hero_photo_src).to(:reserve).with_prefix(true) }
   end
 
   describe "#reserve" do
@@ -173,7 +170,7 @@ RSpec.describe ReserveShowPresenter do
         reserve = build(:reserve)
         presenter = ReserveShowPresenter.new(reserve: reserve)
 
-        expect(presenter.large_hero_photo_src).to eq(ActionController::Base.helpers.image_path "reserve-hero-placeholder.jpg")
+        expect(presenter.large_hero_photo_src).to eq(Reserve::LARGE_HERO_PHOTO_PLACEHOLDER)
       end
     end
   end
@@ -193,7 +190,7 @@ RSpec.describe ReserveShowPresenter do
         reserve = build(:reserve)
         presenter = ReserveShowPresenter.new(reserve: reserve)
 
-        expect(presenter.logo_src).to eq("reserve_logo_placeholder.png")
+        expect(presenter.logo_src).to eq(Reserve::LOGO_PLACEHOLDER)
       end
     end
   end

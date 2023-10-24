@@ -2,7 +2,6 @@
 
 class LayoutPresenter
   MANAGER_NAMESPACE = "manager"
-  LOGO = "ucnrs-logo.svg"
 
   def initialize(current_user: nil, current_reserve: nil, controller_path: "", dashboard: nil)
     @current_user = current_user
@@ -53,11 +52,7 @@ class LayoutPresenter
   end
 
   def current_reserve_logo
-    if current_reserve&.logo_url && current_reserve&.logo.file.exists?
-      current_reserve.logo_url(:medium)
-    else
-      LOGO
-    end
+    current_reserve.logo_src(:medium)
   end
 
   private

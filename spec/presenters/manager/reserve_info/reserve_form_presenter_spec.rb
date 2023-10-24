@@ -85,7 +85,7 @@ RSpec.describe Manager::ReserveInfo::ReserveFormPresenter do
       form = ReserveForm.new(reserve: reserve)
       presenter = Manager::ReserveInfo::ReserveFormPresenter.new(form)
 
-      expect(presenter.logo).to eq("reserve_logo_placeholder.png")
+      expect(presenter.logo).to eq("ucnrs-logo.svg")
     end
 
     it "presents the correct avatar path if logo is attached" do
