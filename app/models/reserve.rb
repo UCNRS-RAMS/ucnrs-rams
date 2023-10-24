@@ -1,5 +1,5 @@
 class Reserve < ApplicationRecord
-  LOGO_PLACEHOLDER = "reserve_logo_placeholder.png".freeze
+  LOGO_PLACEHOLDER = "ucnrs-logo.svg".freeze
   LISTING_PHOTO_PLACEHOLDER = "reserve_placeholder.jpg".freeze
   LARGE_HERO_PHOTO_PLACEHOLDER = "reserve-hero-placeholder.jpg".freeze
 
@@ -85,16 +85,28 @@ class Reserve < ApplicationRecord
     end
   end
 
-  def logo_placeholder
-    LOGO_PLACEHOLDER
+  def logo_exists?
+    logo_url && logo.file.exists?
   end
 
-  def listing_photo_placeholder
-    LISTING_PHOTO_PLACEHOLDER
+  def logo_src(size = :medium)
+    logo_exists? ? logo_url(size) : LOGO_PLACEHOLDER
   end
 
-  def large_hero_photo_placeholder
-    LARGE_HERO_PHOTO_PLACEHOLDER
+  def listing_photo_exists?
+    listing_photo_url && listing_photo.file.exists?
+  end
+
+  def listing_photo_src(size = :medium)
+    listing_photo_exists? ? listing_photo_url(size) : LISTING_PHOTO_PLACEHOLDER
+  end
+
+  def large_hero_photo_exists?
+    large_hero_photo_url && large_hero_photo.file.exists?
+  end
+
+  def large_hero_photo_src(size = :medium)
+    large_hero_photo_exists? ? large_hero_photo_url(size) : LARGE_HERO_PHOTO_PLACEHOLDER
   end
 
   def self.reserve_ids_with_tag_names(tag_names)

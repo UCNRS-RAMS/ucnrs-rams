@@ -33,15 +33,15 @@ class Manager::ReserveInfo::ReserveFormPresenter
   end
 
   def logo
-    form_reserve.logo.url(:small) || form_reserve.logo_placeholder
+    form_reserve.logo_src(:small)
   end
 
   def hero_photo
-    form_reserve.large_hero_photo.url(:small) || form_reserve.large_hero_photo_placeholder
+    form_reserve.large_hero_photo_src(:small)
   end
 
   def listing_photo
-    form_reserve.listing_photo.url(:small) || form_reserve.listing_photo_placeholder
+    form_reserve.listing_photo_src(:small)
   end
 
   private
