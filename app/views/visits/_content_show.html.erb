@@ -2,7 +2,9 @@
   <div class="subheader">
     <span><%= presenter.applicant_name %></span>
     <span><%= t(".request_submitted") %>: <%= presenter.submitted_at %></span>
-    <span><%= link_to t(".edit_visit"), edit_visit_path(presenter.id), class: "edit-btn" if presenter.edit_button? %></span>
+    <% if presenter.visit_is_user_editable? %>
+      <%= tag.span(link_to t(".edit_visit"), edit_visit_path(presenter.id), class: "edit-btn") %>
+    <% end %>
   </div>
 </header>
 <section class="visit-summary">
