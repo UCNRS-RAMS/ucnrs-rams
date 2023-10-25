@@ -1,17 +1,21 @@
-<div class="bill-to">
-  <h3><%= t(".bill_to") %></h3>
-  <% team_members.each do |team_member| %>
-    <%= fields_for "project_team_members[#{team_member.id}]", team_member do |f| %>
-      <div class="table-row d-flex">
-        <%= f.hidden_field "user_id", value: team_member.user_id %>
-        <div>
-          <span><%= f.check_box "check", checked: form.is_recipient_checked?(team_member.user_id) %></span>
-          <strong class="left-spacer"><%= team_member.user.full_name %></strong>
-        </div>
-        <div><%= team_member.institution.name %></div>
-        <div><%= team_member.user.email %></div>
-        <div><%= team_member.project_role %></div>
-      </div>
+<section class="invoice-bill-to subsection">
+  <header>
+    <h3><%= t(".bill_to") %></h3>
+  </header>
+  <table>
+    <% team_members.each do |team_member| %>
+      <%= fields_for "project_team_members[#{team_member.id}]", team_member do |f| %>
+        <tr>
+          <td>
+            <%= f.hidden_field "user_id", value: team_member.user_id %>
+            <%= f.check_box "check", checked: form.is_recipient_checked?(team_member.user_id) %>
+            <strong class="left-spacer"><%= f.label "check", team_member.user.full_name %></strong>
+          </td>
+          <td><%= team_member.institution.name %></td>
+          <td><%= team_member.user.email %></td>
+          <td><%= team_member.project_role %></td>
+        </tr>
+      <% end %>
     <% end %>
-  <% end %>
-</div>
+  </table>
+</section>

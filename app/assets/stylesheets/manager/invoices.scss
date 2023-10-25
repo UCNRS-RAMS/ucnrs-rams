@@ -2,7 +2,6 @@
 @import "mixins/summary";
 @import "mixins/date_fields";
 @import "mixins/form";
-@import "mixins/controls";
 @import "mixins/flex";
 @import "mixins/tables";
 @import "mixins/search";
@@ -12,95 +11,182 @@
 .manager.invoices-create,
 .manager.invoices-edit,
 .manager.invoices-update {
-  .manager-navbar {
-    .container {
-      margin-bottom: 0px;
-    }
-  }
+  font-size: 13px;
 
-  .container {
-    display: block;
-    margin: 0;
-    padding: 0 $form-page-gutter;
+  .content {
+    padding-left: 4rem;
+    padding-right: 4rem;
 
-    table.invoices-table {
-      @include table-style1;
+    > header {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
 
-      margin-top: 5rem;
-    }
-
-    .button-black {
-      background-color: $black;
-      color: $white !important;
-      padding: 10px 35px;
+      h1 {
+        font-size: 1.5rem;
+      }
     }
 
-    .search-subsection{
-      form {
-        .search-primary{
-          flex-wrap: wrap;
+    .subsection {
+      margin-bottom: 3rem;
+    }
 
-          .second{
-            margin-top: 10px;
+    .invoice-visit-info {
+      td {
+        padding: 0.25rem 0;
+      }
+
+      td:first-child {
+        padding-right: 2rem;
+      }
+
+      td:last-child {
+        font-weight: $bold;
+      }
+    }
+
+    .invoice-bill-to {
+      table {
+        border-collapse: separate;
+        border-spacing: 0 .5rem;
+        width: 100%;
+
+        tr {
+          border: 1px solid;
+        }
+
+        td {
+          border-bottom: 1px solid;
+          border-top: 1px solid;
+          padding-bottom: .75rem;
+          padding-left: .75rem;
+          padding-top: .75rem;
+        }
+
+        td:first-of-type {
+          border-bottom-left-radius: $border-radius;
+          border-left: 1px solid;
+          border-top-left-radius: $border-radius;
+        }
+
+        td:last-of-type {
+          border-bottom-right-radius: $border-radius;
+          border-right: 1px solid;
+          border-top-right-radius: $border-radius;
+        }
+      }
+    }
+
+    .invoice-amenity-visits {
+      table{
+        @include summary-table-style;
+
+        tr .amenity-visit-unit {
+          width: 50px;
+        }
+
+        tr .amenity-visit-subtotal {
+          text-align: right;
+        }
+
+        tfoot {
+          tr {
+            td {
+              border-top: 2px solid $gray;
+            }
+          }
+        }
+      }
+    }
+
+    .invoice-payments {
+      table{
+        @include summary-table-style;
+
+        tr .payment-date {
+          width: 100px;
+        }
+
+        tr .payment-amount {
+          text-align: right;
+          width: 100px;
+        }
+
+        tr .payment-action {
+          width: 80px;
+        }
+
+        tbody tr .payment-amount {
+          font-weight: $bold;
+        }
+
+
+        tfoot {
+          tr {
+            td {
+              border-top: 2px solid $gray;
+            }
+
+            td.balance {
+              text-align: right;
+            }
           }
         }
       }
 
-      .search-secondary {
-        .row {
-          flex-wrap: wrap;
+      .payment-total {
+        .negative_balance {
+          color: $gold;
+        }
+
+        .positive_balance {
+          color: $red;
+        }
+
+        .default_balance {
+          color: $normal;
+        }
+
+        .balance-title {
+          font-weight: $semi-bold;
+          text-align: left;
         }
       }
     }
+  }
 
-    .clear-btn {
-      color: $navy-blue;
-      margin-right: 30px;
+  .controls {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+    padding: 1.5rem 1.5rem;
+
+    a.clear {
+      align-items: center;
+      border-radius: 1.5625rem;
+      border: 1px solid $dark-sky-blue;
+      color: $dark-sky-blue;
+      display: flex;
+      flex-direction: row;
+      font-size: 0.875rem;
+      font-weight: $bold;
+      line-height: 1.125rem;
+      padding: 0.5rem 1.5rem;
       text-decoration: none;
-    }
 
-    .search-btn {
-      background-color: $navy-blue;
-      border: none;
-      border-radius: 2.25rem;
-      color: $white;
-      cursor: pointer;
-      padding: 10px 35px;
-      font-size: 1rem;
-      font-weight: $semi-bold;
-    }
-
-    .balance {
-      font-size: $small-heading-size;
-    }
-
-    .negative_balance {
-      color: $gold;
-    }
-
-    .positive_balance {
-      color: $red;
-    }
-
-    .default_balance {
-      color: $normal;
-    }
-
-    .balance-title {
-      font-size: $base-font-size;
-      text-align: right;
-    }
-
-    .controls {
-      padding-right: 100px;
-    }
-
-    header {
-      padding-top: 40px;
-
-      h1 {
-        font-size: 2.25rem;
+      img {
+        height: 1.5rem;
+        padding-right: 0.5rem;
+        width: 1.5rem;
       }
+    }
+  }
+
+    table.invoices-table {
+      @include table-style1;
     }
 
     .payment-btn {
@@ -153,24 +239,7 @@
       padding-left: 10px;
     }
 
-    .visit-info {
-      h1 {
-        margin-top: 0px;
-      }
 
-      td {
-        font-size: 0.8rem;
-        padding: 0.4rem 0;
-      }
-
-      td:first-child {
-        padding-right: 2rem;
-      }
-
-      td:last-child {
-        font-weight: $bold;
-      }
-    }
 
     .invoice-notes {
       h2 {
@@ -252,29 +321,9 @@
         outline: none;
       }
     }
-  }
 }
 
 .invoices {
-  .visit-info {
-    h1 {
-      margin-top: 0px;
-    }
-
-    td {
-      font-size: 0.8rem;
-      padding: 0.4rem 0;
-    }
-
-    td:first-child {
-      padding-right: 2rem;
-    }
-
-    td:last-child {
-      font-weight: $bold;
-    }
-  }
-
   .modal form {
     font-size: 14px;
 
@@ -363,37 +412,6 @@
         img {
           display: block;
         }
-      }
-    }
-
-    .bill-to {
-      table {
-        .balance {
-          font-size: $small-heading-size;
-        }
-
-        .negative_balance {
-          color: $gold;
-        }
-
-        .positive_balance {
-          color: $red;
-        }
-
-        .default_balance {
-          color: $normal;
-        }
-      }
-    }
-  }
-}
-
-.manager.invoices-edit {
-  main{
-    .container{
-      header {
-        display: flex;
-        justify-content: space-between;
       }
     }
   }

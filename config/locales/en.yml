@@ -1202,6 +1202,21 @@ en:
   manager:
     no_amenity_visit: "Invoice has no amenity visit"
     invoices:
+      index:
+        all: "All"
+        paid: "Paid"
+        pending: "Pending"
+      show:
+        invoice: "Invoice %{id}-%{version}"
+      new:
+        new_invoice: "New Invoice"
+        submit: "Create Invoice"
+      edit:
+        record_payment: "Record Payment"
+        invoice: "Edit Invoice %{id}-%{version}"
+        balance: "%{sign}$ %{balance}"
+        back: "Cancel & Go Back"
+        submit: "Edit Invoice"
       search:
         show_options: "Show options"
         hide_options: "Hide options"
@@ -1214,10 +1229,6 @@ en:
         invoice_date: "Invoice Date"
         show: "Show"
         sort_by: "Sort By"
-      index:
-        all: "All"
-        paid: "Paid"
-        pending: "Pending"
       invoice_payment:
         edit: "Edit Payment"
       action_buttons:
@@ -1260,17 +1271,10 @@ en:
         institution: "Institution"
         email: "Email"
         project_role: "Project Role"
-      show:
-        invoice: "Invoice %{id}-%{version}"
-      edit:
-        record_payment: "Record Payment"
-        invoice: "Edit Invoice %{id}-%{version}"
-        balance: "%{sign}$ %{balance}"
       notes:
         notes: "Notes"
       invoice_notes:
         title: "Notes"
-        invoice_notes_instructions: "Invoice Notes/Special Institutions"
         optional: "Optional"
       visit_info:
         reserve: "Reserve"
@@ -1280,18 +1284,11 @@ en:
       project_team_members:
         bill_to: "Bill To"
         recipient_email: "recipient_email"
-      new:
-        new_invoice: "New Invoice"
       amenity_visit_form:
         dollar: "$ "
         left_bracket: "("
         right_bracket: ")"
         spacer: "-"
-      submit:
-        back: "Cancel & Go Back"
-        submit: "Edit Invoice"
-      submit_invoice:
-          submit: "Create Invoice"
       amenity_visit_forms:
         amenities: "Amenities"
         total: "Total"

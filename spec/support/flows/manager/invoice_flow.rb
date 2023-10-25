@@ -19,7 +19,7 @@ class Manager::InvoiceFLow
   end
 
   def showing_visit_info?
-    page.has_css?(".visit-info")
+    page.has_css?(".invoice-visit-info")
   end
 
   def showing_text?(class_name, text)
@@ -27,7 +27,7 @@ class Manager::InvoiceFLow
   end
 
   def showing_bill_to?
-    page.has_css?(".bill-to")
+    page.has_css?(".invoice-bill-to")
   end
 
   def showing_bill_to_table?

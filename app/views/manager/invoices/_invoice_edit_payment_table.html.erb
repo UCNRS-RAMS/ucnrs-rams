@@ -1,22 +1,27 @@
-<div class="bill-to">
-  <h3><%= t(".payments") %></h3>
-  <table id="invoice-payments-table" class="summary-table">
+<section class="invoice-payments subsection">
+  <header>
+    <h3><%= t(".payments") %></h3>
+  </header>
+  <table id="invoice-payments-table" class="">
     <thead>
       <tr>
-        <th><%= t(".payment") %></th>
-        <th><%= t(".date") %></th>
-        <th><%= t(".note") %></th>
-        <th><%= t(".amount") %></th>
-        <th class="align-end"><%= t(".edit_payment") %></th>
+        <th class="payment-action"></th>
+        <th class="payment-date"><%= t(".date") %></th>
+        <th class="payment-note"><%= t(".note") %></th>
+        <th class="payment-amount invoice-amount"><%= t(".amount") %></th>
       </tr>
     </thead>
     <tbody>
-      <%= render partial: "manager/invoices/invoice_edit_payment", collection: invoice_payments, as: :invoice_payment, locals: { presenter: presenter } %>
+      <%= render partial: "manager/invoices/invoice_edit_payment",
+        collection: invoice_payments, as: :invoice_payment, locals: { presenter: presenter } %>
+    </tbody>
+    <tfoot>
       <tr class="payment-total">
-        <td colspan="3"></td>
         <td class="balance-title"><%= t(".balance") %></td>
+        <td></td>
+        <td></td>
         <td class="balance"><strong id="balance"></strong></td>
       </tr>
-    </tbody>
+    </tfoot>
   </table>
-</div>
+</section>

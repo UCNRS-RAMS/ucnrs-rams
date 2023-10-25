@@ -1,11 +1,12 @@
-<section class="invoice-notes">
-  <h2><%= t(".title") %><span>(<%= t(".optional") %>)</span></h2>
+<section class="invoice-notes subsection">
+  <header>
+    <h3><%= t(".title") %><span class="optional">(<%= t(".optional") %>)</span></h3>
+  </header>
   <section class="note-form">
-      <div class="field">
-        <label for="notes-message" class="label"><%= t(".invoice_notes_instructions") %></label>
-        <%= form.text_area :notes, rows: 4, class:"note" %>
-        <%= form.hidden_field :invoiced_on %>
-        <%= form.hidden_field :modify_number %>
-      </div>
+    <div class="field">
+      <%= form.text_area :notes, rows: 4, class:"note" %>
+      <%= form.hidden_field :invoiced_on %>
+      <%= form.hidden_field :modify_number %>
+    </div>
   </section>
 </section>

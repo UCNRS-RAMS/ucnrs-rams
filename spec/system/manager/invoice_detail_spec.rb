@@ -10,11 +10,10 @@ RSpec.describe "Invoice Detail" do
 
   describe "it displays visit info" do
     it "includes invoice id, modified number, reserve name, project title, purpose of visit and visit date range", js: true do
+      flow = Manager::InvoiceFLow.new(page: page, visit_id: visit.id, reserve_id: reserve.id, invoice_id: invoice.id)
       sign_in(user)
 
-      flow = Manager::InvoiceFLow.new(page: page, visit_id: visit.id, reserve_id: reserve.id, invoice_id: invoice.id)
       flow.visit_manager_projects_invoice_detail_page
-
       expect(flow).to be_showing_visit_info
       expect(flow).to be_showing_text(".invoice-title", "Invoice #{invoice.id}-#{invoice.modify_number}")
       expect(flow).to be_showing_text(".reserve-name", reserve.name)
@@ -26,36 +25,36 @@ RSpec.describe "Invoice Detail" do
 
   describe "it displays bill to" do
     it " includes invoice recipients table", js: true do
-      sign_in(user)
-
       create(:project_team_membership, project: project, can_receive_invoice: true)
 
       flow = Manager::InvoiceFLow.new(page: page, visit_id: visit.id, reserve_id: reserve.id, invoice_id: invoice.id)
-      flow.visit_manager_projects_invoice_detail_page
+      sign_in(user)
 
+      flow.visit_manager_projects_invoice_detail_page
       expect(flow).to be_showing_bill_to_table
     end
   end
 
   describe "it display amenity visits table" do
     it "includes amenity visits", js: true do
-      sign_in(user)
-
-      create(:amenity_visit, visit: visit, number_of_people: 10, manual_units_of_time: 10, rate: 10, arrives: visit.starts_at, departs: visit.ends_at)
+      create(:amenity_visit, visit: visit, number_of_people: 10, manual_units_of_time: 10,
+        rate: 10, arrives: visit.starts_at, departs: visit.ends_at
+      )
 
       flow = Manager::InvoiceFLow.new(page: page, visit_id: visit.id, reserve_id: reserve.id, invoice_id: invoice.id)
-      flow.visit_manager_projects_invoice_detail_page
+      sign_in(user)
 
+      flow.visit_manager_projects_invoice_detail_page
       expect(flow).to be_showing_amenity_visit_table
     end
   end
 
   describe "it display invoice notes" do
     it "includes note message", js: true do
-      sign_in(user)
       flow = Manager::InvoiceFLow.new(page: page, visit_id: visit.id, reserve_id: reserve.id, invoice_id: invoice.id)
-      flow.visit_manager_projects_invoice_detail_page
+      sign_in(user)
 
+      flow.visit_manager_projects_invoice_detail_page
       expect(flow).to be_showing_saved_note
       expect(flow).not_to be_showing_notes_field
     end
@@ -64,12 +63,12 @@ RSpec.describe "Invoice Detail" do
   describe "Invoice detail page action buttons" do
     context "when click on trash icon" do
       it "invoice will delete after confirmation ", js: true do
-        sign_in(user)
         flow = Manager::InvoiceFLow.new(page: page, visit_id: visit.id, reserve_id: reserve.id, invoice_id: invoice.id)
+        sign_in(user)
+
         flow.visit_manager_projects_invoice_detail_page
         flow.click_trash_icon
         sleep(0.1)
-
         expect(flow).to be_deleted_invoice
       end
     end
