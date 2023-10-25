@@ -1,19 +1,40 @@
-<header>
-  <h1 class="invoice-title"><%= @presenter.title %></h1>
-  <div class="action-buttons">
-    <%= link_to t(".record_payment"),
-      new_manager_reserve_visit_invoice_payment_path(invoice_id: @presenter.invoice_id),
-      data: { turbo_frame: "modal-content" },
-      method: :get,
-      class: "payment-btn button-clear"
+<section class="content">
+  <header>
+    <h1 class="invoice-title"><%= @presenter.title %></h1>
+    <div class="action-buttons">
+      <%= link_to t(".record_payment"),
+        new_manager_reserve_visit_invoice_payment_path(invoice_id: @presenter.invoice_id),
+        data: { turbo_frame: "modal-content" },
+        method: :get,
+        class: "payment-btn button-clear"
+      %>
+    </div>
+  </header>
+  <%= render partial: "visit_info", locals: { presenter: @presenter } %>
+
+  <%= form_with model: @presenter.form,
+    url: manager_reserve_visit_invoice_path(id: @presenter.invoice_id),
+    method: :put,
+    data: { turbo: false },
+    id: "invoices-edit" do |form|
+  %>
+    <%= render partial: "project_team_members",
+      locals: { team_members: @presenter.project_team_members, form: @presenter.form }
     %>
-  </div>
-</header>
-<%= render partial: "visit_info", locals: { presenter: @presenter } %>
-<%= form_with model: @presenter.form, url: manager_reserve_visit_invoice_path(id: @presenter.invoice_id), method: :put, data: {turbo: false} do |form| %>
-  <%= render partial: "project_team_members", locals: { team_members: @presenter.project_team_members, form: @presenter.form } %>
-  <%= render partial: "amenity_visit_forms", locals: { presenter: @presenter, forms: @presenter.form } %>
-  <%= render partial: "invoice_edit_payment_table", locals: { invoice_payments: @presenter.invoice_payments, presenter: @presenter}%>
-  <%= render partial: "invoice_notes", locals: { form: form } %>
-  <%= render partial: "submit", locals: { presenter: @presenter } %>
-<% end %>
+    <%= render partial: "amenity_visit_forms",
+      locals: { presenter: @presenter, forms: @presenter.form }
+    %>
+    <%= render partial: "invoice_edit_payment_table",
+      locals: { invoice_payments: @presenter.invoice_payments, presenter: @presenter }
+    %>
+    <%= render partial: "invoice_notes", locals: { form: form } %>
+  <% end %>
+</section>
+
+<section class="controls">
+  <%= link_to manager_reserve_visit_invoice_path(id: @presenter.invoice_id), class: "clear" do %>
+    <%= image_tag "arrow-left-blue.svg", alt: t("alt.left_facing_arrow") %>
+    <%= t(".back") %>
+  <% end %>
+  <%= button_tag t(".submit"), form: "invoices-edit", class: "active" %>
+</section>
