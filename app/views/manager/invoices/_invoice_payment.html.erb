@@ -1,5 +1,5 @@
-<tr class="team-membership">
-  <td><%= invoice_payment.paid_on %></td>
-  <td><%= invoice_payment.notes %></td>
-  <td>-$<%= invoice_payment.amount %></td>
+<tr>
+  <td class="payment-date"><%= invoice_payment.paid_on %></td>
+  <td class="payment-note"><%= invoice_payment.notes %></td>
+  <td class="payment-amount invoice-payment">-$<%= invoice_payment.amount %></td>
 </tr>

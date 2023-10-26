@@ -2,33 +2,33 @@
   <header>
     <h3><%= t(".amenities") %></h3>
   </header>
-  <div>
-    <table>
-      <thead>
+  <table>
+    <thead>
+      <tr>
         <th class="amenity-visit-name">Name</th>
         <th class="amenity-visit-dates">Starting - Ending</th>
-        <th class="amenity-visit-unit">Unit</th>
+        <th class="amenity-visit-count">Count</th>
         <th class="amenity-visit-cost">Cost</th>
         <th class="amenity-visit-subtotal">Subtotal</th>
-      </thead>
-      <tbody>
-        <% forms.amenity_visits.each do |amenity_visit| %>
-          <%= render partial: "amenity_visit_form",
-            locals: {
-              amenity_visit: amenity_visit,
-              presenter: presenter.amenity_presenter(amenity_visit.amenity, amenity_visit),
-              form: forms
-            }
-          %>
-        <% end %>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td><strong><%= t(".total") %></strong></td>
-          <td colspan="3"></td>
-          <td class="amenity-visit-subtotal"><strong id="total"><%= presenter.amenities_total %></strong></td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
+      </tr>
+    </thead>
+    <tbody>
+      <% forms.amenity_visits.each do |amenity_visit| %>
+        <%= render partial: "amenity_visit_form",
+          locals: {
+            amenity_visit: amenity_visit,
+            presenter: presenter.amenity_presenter(amenity_visit.amenity, amenity_visit),
+            form: forms
+          }
+        %>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td><strong><%= t(".total") %></strong></td>
+        <td colspan="3"></td>
+        <td class="amenity-visit-subtotal"><strong id="total"><%= presenter.amenities_total %></strong></td>
+      </tr>
+    </tfoot>
+  </table>
 </section>
