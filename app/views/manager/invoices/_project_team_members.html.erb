@@ -2,7 +2,7 @@
   <header>
     <h3><%= t(".bill_to") %></h3>
   </header>
-  <table>
+  <table id="invoice-bill-to-table">
     <% team_members.each do |team_member| %>
       <%= fields_for "project_team_members[#{team_member.id}]", team_member do |f| %>
         <tr>

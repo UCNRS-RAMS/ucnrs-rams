@@ -78,11 +78,11 @@
     }
 
     .invoice-amenity-visits {
-      table{
+      table {
         @include summary-table-style;
 
         tr .amenity-visit-unit {
-          width: 50px;
+          width: 70px;
         }
 
         tr .amenity-visit-subtotal {
@@ -153,6 +153,14 @@
         }
       }
     }
+
+    .invoice-notes {
+      .note-form {
+        .note {
+          padding: 10px;
+        }
+      }
+    }
   }
 
   .controls {
@@ -184,143 +192,6 @@
       }
     }
   }
-
-    table.invoices-table {
-      @include table-style1;
-    }
-
-    .payment-btn {
-      border: 1px solid $black;
-      border-radius: 50px;
-      color: $black;
-      font-size: .8125rem;
-      font-weight: $normal;
-      margin-left: 1.25rem;
-      margin-right: 0;
-      padding: 0.5rem 1.25rem;
-      text-decoration: none;
-    }
-
-    .d-flex {
-      @include flex(row, space-between, center, wrap);
-    }
-
-    .d-flex-column {
-      @include flex(column);
-    }
-
-    .d-flex-right {
-      @include flex(row, end, center);
-
-      .total {
-        flex: 2.5;
-        text-align: right;
-      }
-
-      .margin-right {
-        margin-right: 20px;
-      }
-    }
-
-    .table-row {
-      background-color: $white;
-      border: 1px solid;
-      border-radius: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-      padding: 15px;
-    }
-
-    .table-row:hover {
-      background-color: lighten($bluegray, 35%);
-    }
-
-    .left-spacer {
-      padding-left: 10px;
-    }
-
-
-
-    .invoice-notes {
-      h2 {
-        margin-bottom: 30px;
-
-        span {
-          color: $navy-blue-20;
-          font-size: $base-font-size;
-          margin-left: 30px;
-        }
-      }
-      .note-form {
-        label {
-          color: $dark-bluegray;
-          display: inline;
-          font-size: 0.625rem;
-          font-weight: $bold;
-        }
-
-        .note {
-          border-radius: 5px;
-          padding: 10px;
-        }
-      }
-    }
-
-    .text-center {
-      text-align: center;
-    }
-
-    .right-spacer {
-      margin-right: 5px;
-    }
-
-    .text-field-div {
-      background-color: $white;
-      border: 1px solid $semidark-bluegray;
-      border-radius: 10px;
-      color: $semidark-bluegray;
-      margin: 10px 0px;
-      padding: 10px;
-
-      input:focus {
-        outline: none;
-      }
-
-      label {
-        font-size: 13px;
-
-        .error_messages {
-          color: $red;
-        }
-      }
-
-      .days {
-        width: 110px;
-      }
-
-      .input-field {
-        border: none;
-        max-width: 30px;
-        min-width: 5px;
-        padding: 5px;
-        text-align: end;
-      }
-
-      input[type="date"] {
-        width: 140px;
-      }
-
-      .select-field {
-        background-color: $white;
-        border: none;
-        padding: 5px;
-        text-align: center;
-      }
-
-      .select-field:focus {
-        outline: none;
-      }
-    }
 }
 
 .invoices {
@@ -388,18 +259,18 @@
 }
 
 .manager.invoices-show {
-  section.content{
-    font-size: 1rem;
+  .content{
+    font-size: 13px;
+    padding-left: 4rem;
+    padding-right: 4rem;
 
-    & > header {
+    > header {
       align-items: center;
       display: flex;
       justify-content: space-between;
-      margin-bottom: 1rem;
 
-      & > h1 {
-        font-size: 2rem;
-        margin: 0;
+      h1 {
+        font-size: 1.5rem;
       }
 
       .action-buttons {
@@ -412,6 +283,115 @@
         img {
           display: block;
         }
+      }
+    }
+
+    .subsection {
+      margin-bottom: 3rem;
+    }
+
+    .invoice-visit-info {
+      td {
+        padding: 0.25rem 0;
+      }
+
+      td:first-child {
+        padding-right: 2rem;
+      }
+
+      td:last-child {
+        font-weight: $bold;
+      }
+    }
+
+    .invoice-bill-to {
+      table {
+        @include summary-table-style;
+      }
+    }
+
+    .invoice-amenity-visits {
+      table {
+        @include summary-table-style;
+
+        tr .amenity-visit-unit, tr .amenity-visit-count {
+          width: 70px;
+        }
+
+        tr .amenity-visit-subtotal {
+          text-align: right;
+        }
+
+        tfoot {
+          tr {
+            td {
+              border-top: 2px solid $gray;
+            }
+          }
+        }
+      }
+    }
+
+    .invoice-payments {
+      table{
+        @include summary-table-style;
+
+        tr .payment-date {
+          width: 100px;
+        }
+
+        tr .payment-amount {
+          text-align: right;
+          width: 100px;
+        }
+
+        tr .payment-action {
+          width: 80px;
+        }
+
+        tbody tr .payment-amount {
+          font-weight: $bold;
+        }
+
+
+        tfoot {
+          tr {
+            td {
+              border-top: 2px solid $gray;
+            }
+
+            td.balance {
+              text-align: right;
+            }
+          }
+        }
+      }
+
+      .payment-total {
+        .negative_balance {
+          color: $gold;
+        }
+
+        .positive_balance {
+          color: $red;
+        }
+
+        .default_balance {
+          color: $normal;
+        }
+
+        .balance-title {
+          font-weight: $semi-bold;
+          text-align: left;
+        }
+      }
+    }
+
+    .invoice-notes {
+      margin-bottom: 6rem;
+
+      pre {
+        white-space: pre-line;
       }
     }
   }
