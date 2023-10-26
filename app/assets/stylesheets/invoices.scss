@@ -1,0 +1,181 @@
+@import "variables";
+@import "mixins/tables";
+
+.invoices-show {
+  .content{
+    font-size: 0.8125rem;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 3rem;
+    max-width: 1000px;
+
+    > header {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .action-buttons {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 10px;
+
+        img {
+          display: block;
+        }
+      }
+    }
+
+    .subsection {
+      margin-bottom: 3rem;
+    }
+
+    .invoice-visit-info {
+      td {
+        padding: 0.25rem 0;
+      }
+
+      td:first-child {
+        padding-right: 2rem;
+      }
+
+      td:last-child {
+        font-weight: $bold;
+      }
+    }
+
+    .invoice-bill-to {
+      table {
+        @include summary-table-style;
+      }
+    }
+
+    .invoice-amenity-visits {
+      table {
+        @include summary-table-style;
+
+        tr .amenity-visit-unit, tr .amenity-visit-count {
+          width: 70px;
+        }
+
+        tr .amenity-visit-subtotal {
+          text-align: right;
+        }
+
+        tbody tr .amenity-visit-subtotal,
+        tfoot tr .amenity-visit-subtotal {
+          color: red;
+        }
+
+        tfoot {
+          tr {
+            td {
+              border-top: 2px solid $gray;
+
+              strong {
+                font-weight: $semi-bold;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .invoice-payments {
+      table{
+        @include summary-table-style;
+
+        tr .payment-date {
+          width: 100px;
+        }
+
+        tr .payment-subtotal {
+          text-align: right;
+          width: 100px;
+        }
+
+        tbody tr .payment-subtotal,
+        tfoot tr .payment-subtotal {
+          color: green;
+        }
+
+        tfoot {
+          tr {
+            td {
+              border-top: 2px solid $gray;
+
+              strong {
+                font-weight: $semi-bold;
+              }
+            }
+          }
+        }
+      }
+
+      .payment-total {
+        .negative_balance {
+          color: $gold;
+        }
+
+        .positive_balance {
+          color: $red;
+        }
+
+        .default_balance {
+          color: $normal;
+        }
+
+        .balance-title {
+          font-weight: $semi-bold;
+          text-align: left;
+        }
+      }
+    }
+
+    .invoice-balance {
+      table{
+        @include summary-table-style;
+
+        tbody tr td {
+          border-bottom: none;
+        }
+
+        tr {
+          td {
+            border-top: 2px solid $gray;
+          }
+
+          td:first-child {
+            text-align: left;
+          }
+
+          td:last-child {
+            text-align: right;
+          }
+        }
+
+        .negative-balance {
+          color: green;
+        }
+
+        .positive-balance {
+          color: red;
+        }
+      }
+    }
+
+    .invoice-notes {
+      margin-bottom: 6rem;
+
+      pre {
+        white-space: pre-line;
+      }
+    }
+  }
+}

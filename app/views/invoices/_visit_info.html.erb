@@ -1,0 +1,20 @@
+<section class="invoice-visit-info subsection">
+  <table>
+    <tr>
+      <td><%= t(".reserve") %></td>
+      <td class="reserve-name"><%= presenter.reserve_name %></td>
+    </tr>
+    <tr>
+      <td><%= t(".project") %></td>
+      <td class="project-name"><%= presenter.project_title %></td>
+    </tr>
+    <tr>
+      <td><%= t(".visit") %></td>
+      <td class="visit-purpose"><%= truncate(presenter.purpose_of_visit, length: 100) %></td>
+    </tr>
+    <tr>
+      <td><%= t(".date_of_use") %></td>
+      <td class="date-of-use"><%= presenter.visit_date_range %></td>
+    </tr>
+  </table>
+</section>

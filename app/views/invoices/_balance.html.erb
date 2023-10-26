@@ -1,0 +1,12 @@
+<section class="invoice-balance subsection">
+  <table>
+    <tbody>
+      <tr class="balance">
+        <td class="balance-title"><strong><%= t(".balance") %></strong></td>
+        <td class='<%= "balance #{presenter.balance_class}" %>'>
+          <strong><%= number_to_currency presenter.balance %></strong>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

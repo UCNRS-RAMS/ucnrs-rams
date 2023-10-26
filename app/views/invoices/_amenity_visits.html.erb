@@ -1,0 +1,29 @@
+<section class="invoice-amenity-visits subsection">
+  <header>
+    <h3><%= t(".amenities") %></h3>
+  </header>
+  <table id="amenities-summary-table">
+    <thead>
+      <tr>
+        <th class="amenity-visit-name"><%= t(".amenity_name") %></th>
+        <th class="amenity-visit-dates"><%= t(".start_end") %></th>
+        <th class="amenity-visit-unit"><%= t(".quantity") %></th>
+        <th class="amenity-visit-count"><%= t(".count") %></th>
+        <th class="amenity-visit-cost"><%= t(".rate") %></th>
+        <th class="amenity-visit-subtotal"><%= t(".subtotal") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "amenity_visit", collection: amenity_visits, as: :amenity_visit %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td><strong><%= t(".subtotal") %></strong></td>
+        <td colspan=4></td>
+        <td class="amenity-visit-subtotal">
+          <strong><%= number_to_currency amenity_visits.sum(&:subtotal) %></strong>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</section>

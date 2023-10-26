@@ -169,6 +169,35 @@ en:
   invoices:
     show:
       invoice: "Invoice %{id}-%{version}"
+    amenity_visits:
+      amenities: "Amenities"
+      amenity_name: "Amenity Name"
+      start_end: "Start - End"
+      quantity: "Qty"
+      count: "Count"
+      rate: "Rate"
+      subtotal: "Subtotal"
+    balance:
+      balance: "Balance"
+    invoice_payments:
+      payments: "Total Payment(s) & Credits"
+      date: "Date"
+      note: "Note"
+      amount: "Amount"
+      subtotal: "Subtotal"
+    invoice_recipients:
+      bill_to: "Bill to"
+      name: "Name"
+      institution: "Institution"
+      email: "Email"
+      project_role: "Project Role"
+    notes:
+      notes: "Notes"
+    visit_info:
+      reserve: "Reserve"
+      date_of_use: "Date of Use"
+      project: "Project"
+      visit: "Visit"
   institutions:
     index:
       no_results: "<strong>No</strong> Results Found."
