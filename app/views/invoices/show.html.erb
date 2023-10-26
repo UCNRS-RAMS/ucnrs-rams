@@ -1,11 +1,17 @@
 <div class="container">
   <section class="content">
     <header>
-      <h1><%= t(".invoice", id: @presenter.id, version: @presenter.modify_number) %></h1>
+      <h1 class="invoice-title"><%= @presenter.title %></h1>
     </header>
-    <%= turbo_frame_tag "invoice-details",
-      src: manager_reserve_visit_invoice_path(@presenter.reserve_id, @presenter.visit_id, @presenter.id),
-      target: "_top"
-    %>
-  </div>
+    <turbo-frame id="invoice-details">
+      <%= render partial: "visit_info", locals: { presenter: @presenter } %>
+      <%= render partial: "invoice_recipients", locals: { recipients: @presenter.recipients } %>
+      <%= render partial: "amenity_visits", locals: { amenity_visits: @presenter.amenity_visits } %>
+      <% if @presenter.invoice_payments.present? %>
+        <%= render partial: "invoice_payments", locals: { invoice_payments: @presenter.invoice_payments } %>
+      <% end %>
+      <%= render partial: "balance", locals: { presenter: @presenter } %>
+      <%= render partial: "notes", locals: { presenter: @presenter } %>
+    </turbo-frame>
+  </section>
 </div>

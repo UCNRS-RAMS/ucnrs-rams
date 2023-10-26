@@ -1,6 +1,10 @@
 class InvoicesController < ApplicationController
+  before_action :authenticate_user!
+
   def show
-    @presenter = InvoicePresenter.new(invoice) 
+    @presenter = Invoices::InvoiceShowPresenter.new(
+      invoice: invoice,
+    )
   end
 
   private

@@ -1,0 +1,14 @@
+<tr class="amenity_visit">
+  <td><%= amenity_visit.amenity_title %></td>
+  <td><%= amenity_visit.requested_date_range %></td>
+  <td>
+    <%= amenity_visit.number_of_people %>
+    <%= amenity_visit.unit.pluralize(amenity_visit.total_days, I18n.locale) %>
+  </td>
+  <td>
+    <%= amenity_visit.total_days %>
+    <%= amenity_visit.period.pluralize(amenity_visit.total_days, I18n.locale) %>
+  </td>
+  <td><%= amenity_visit.rate_in_dollar %> <%= amenity_visit.per_sentence %></td>
+  <td class="amenity-visit-subtotal"><%= amenity_visit.cost_in_dollar %></td>
+</tr>
