@@ -1,14 +1,14 @@
 <turbo-frame id="invoices">
-  <table class="invoices-table table-style1">
+  <table class="invoices-table">
     <thead>
       <tr>
         <th class="invoice-number"><%= t(".invoice_number") %></th>
         <th class="invoice-date"><%= t(".invoice_date") %></th>
-        <th><%= t(".user") %></th>
-        <th><%= t(".project") %></th>
-        <th class="balance"><%= t(".balance_due") %></th>
-        <th><%= t(".status") %></th>
-        <th></th>
+        <th class="invoice-user"><%= t(".user") %></th>
+        <th class="invoice-project"><%= t(".project") %></th>
+        <th class="invoice-balance"><%= t(".balance_due") %></th>
+        <th class="invoice-status"><%= t(".status") %></th>
+        <th class="invoice-actions"></th>
       </tr>
     </thead>
       <%= render partial: "invoice", collection: invoices %>

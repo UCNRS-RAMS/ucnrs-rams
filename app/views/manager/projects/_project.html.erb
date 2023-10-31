@@ -1,8 +1,16 @@
 <tr id="<%= dom_id project %>" class="project">
-  <td><strong><%= truncate(project.title, length: 50) %></strong></td>
+  <td>
+    <strong>
+      <%= link_to truncate(project.title, length: 50),
+        manager_reserve_project_path(current_reserve, project.id),
+        data: { "turbo-frame" => "_top" }
+      %>
+    </strong>
+  </td>
   <td>
     <%= link_to project.applicant_name,
-      edit_manager_reserve_user_path(current_reserve, project.applicant_id)
+      edit_manager_reserve_user_path(current_reserve, project.applicant_id),
+      data: { "turbo-frame" => "_top" }
     %>
   </td>
   <td><%= project.recent_visit_date %></td>
@@ -14,7 +22,10 @@
   </td>
   <td>
     <%= link_to manager_reserve_project_path(current_reserve, project.id), target: "_top" do %>
-      <%= image_tag "arrow-circle-right-heavy-light.svg", height: "20px", width: "20px", alt: t("alt.right_facing_arrow") %>
+      <%= image_tag "arrow-right-circle.svg",
+        class: "right-arrow", height: "20px", width: "20px",
+        alt: t("alt.right_facing_arrow")
+      %>
     <% end %>
   </td>
 </tr>
