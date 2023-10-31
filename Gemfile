@@ -45,7 +45,7 @@ group :development, :test do
   gem 'pronto-scss', require: false
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 4.1'
+  gem 'rspec-rails', '~> 6.0'
   gem 'scss_lint', require: false
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
