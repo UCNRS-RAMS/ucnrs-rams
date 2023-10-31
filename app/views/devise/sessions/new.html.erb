@@ -20,7 +20,7 @@
       <%= image_tag "hide-password.svg", class: "input-icon", data: { action: "click->passwords#togglePasswordDisplay", "passwords-target": "icon", info: { show_url: image_url("show-password.svg"), hide_url: image_url("hide-password.svg") } }, alt: t(".password_visibility_alt") %>
     </div>
   </div>
-  
+
 
   <section class="extra_actions">
     <%= link_to t(".forgot_password"), new_user_password_path %>
@@ -32,7 +32,7 @@
 
   <section class="legal">
     <p>
-      <span><%= I18n.t(".footer.link.all_rights") %></span>
+      <span><%= I18n.t(".footer.link.all_rights", year: Date.current.year) %></span>
     </p>
     <p>
       <span><%= link_to I18n.t(".footer.link.terms_of_use"), "https://ucnrs.org/ucnrs-websites-terms-of-use/" %></span>
@@ -44,5 +44,5 @@
       </span>
     </p>
   </section>
-  
+
 <% end %>
