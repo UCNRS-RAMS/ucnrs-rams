@@ -1,12 +1,20 @@
 <tr id="<%= dom_id user %>">
-  <td><strong><%= user.full_name %></strong></td>
+  <td>
+    <strong>
+      <%= link_to user.full_name,
+        edit_manager_reserve_user_path(current_reserve, user.id),
+        data: { "turbo-frame" => "_top" }
+      %>
+    </strong>
+  </td>
   <td><%= user.institution_name %></td>
   <td><%= t("universal.roles")[:"#{user.role}"] %></td>
   <td><%= user.number_of_project_members %></td>
   <td><%= user.number_of_visits %></td>
   <td>
     <%= link_to edit_manager_reserve_user_path(current_reserve, user.id), data: { "turbo-frame" => "_top" } do %>
-      <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"), height: "20", width: "20" %>
+      <%= image_tag "arrow-right-circle.svg", class: "right-arrow",
+        alt: t("alt.right_facing_arrow"), height: "20", width: "20" %>
     <% end %>
   </td>
 </tr>

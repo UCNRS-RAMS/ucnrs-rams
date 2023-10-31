@@ -244,15 +244,41 @@
 
     thead {
       .invoice-number {
-        min-width: 75px;
+        width: 80px;
       }
 
       .invoice-date {
+        width: 90px;
+      }
+
+      .invoice-user {
+        width: 110px;
+      }
+
+      .invoice-balance {
         min-width: 85px;
       }
 
-      .balance {
-        min-width: 85px;
+      .invoice-status {
+        width: 85px;
+      }
+
+      .invoice-actions {
+        width: 20px;
+      }
+    }
+
+    tbody {
+      td.invoice-balance {
+        text-align: right;
+      }
+    }
+
+    tbody > tr:not(.header):hover {
+      img.right-arrow {
+        background-color: white;
+        border-radius: 1rem;
+        filter: invert(1);
       }
     }
   }
