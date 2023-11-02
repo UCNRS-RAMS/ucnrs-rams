@@ -140,7 +140,8 @@ en:
       labels:
         by: "By:"
         by_reserve: "By reserve:"
-      no_visits_1: "You currently are not part of any Visits. To create a visit please click on the
+      no_visits_1:
+        "You currently are not part of any Visits. To create a visit please click on the
         (Schedule a Visit) button located at the top right of this page."
       no_visits_2: "Please note that creating
         a visit requires a Project to attach to. To create a project please click on the Projects
@@ -225,7 +226,7 @@ en:
         payment_amount: "Payment Amount"
         amount_for: "invoice_payment_amount"
         paid_on_for: "invoice_payment_paid_on"
-        notes:  "Notes(Optional)"
+        notes: "Notes(Optional)"
         notes_for: "invoice_payment_notes"
         save: "Save"
         cancel: "Cancel"
@@ -235,9 +236,9 @@ en:
         search_by_name: "Search by Name"
     calendar:
       visit:
-          visitor: "visitor"
-          id_with_reserve_name: "Visit # %{id} @ %{reserve_name}"
-          project: "Under Project # %{id} | %{project_type}"
+        visitor: "visitor"
+        id_with_reserve_name: "Visit # %{id} @ %{reserve_name}"
+        project: "Under Project # %{id} | %{project_type}"
     calendar_visit_modal:
       visit: "Visit #%{id} @%{reserve_name}"
       reservation_member: "Reservation Members(s)"
@@ -295,7 +296,8 @@ en:
       save: "Save"
     welcome:
       title: "Welcome to RAMS"
-      content: "Here you can learn about natural reserves and field stations, request dates and
+      content:
+        "Here you can learn about natural reserves and field stations, request dates and
         accommodations for your visit, submit project descriptions and permits, and sign any
         necessary waivers or other permissions."
       continue: "Let's go!"
@@ -303,16 +305,20 @@ en:
         Press the Let's Go button to continue."
     project:
       title: "How we use project information"
-      accessible_description: "This is a dialog that explains why project information is collected
+      accessible_description:
+        "This is a dialog that explains why project information is collected
         and how it is used. Press the Okay, Got It button to continue."
-      content_first: "Project information allows site managers to assess the suitability of proposed
+      content_first:
+        "Project information allows site managers to assess the suitability of proposed
         activities and better meet the needs of users. It is used to measure site success, demonstrate
         demand for reserves, and validate the need for financial and staffing support."
-      content_middle: "If you have a research project, the California Digital Library
+      content_middle:
+        "If you have a research project, the California Digital Library
         Data Management Plan (DMP) Tool can help you complete your data management plan.
         RAMS has an active connection to the DMP Tool, which allows real-time tracking of data
         and journal publications."
-      content_last: "The information entered may be included in reports and other communications,
+      content_last:
+        "The information entered may be included in reports and other communications,
         and shared with the public."
       okay: "Okay, Got It"
       alt:
@@ -359,7 +365,8 @@ en:
         title: "New Reserve Personnel"
         accessible_description: A modal pop-up form to new details of reserve personnel.
         search_by_name: "Name"
-        search_by_name_description: "Reserve staff must have an existing RAMS user account. If
+        search_by_name_description:
+          "Reserve staff must have an existing RAMS user account. If
           not found ask staff member to create a RAMS account first before you add them as staff."
     waivers:
       new_waiver:
@@ -429,7 +436,8 @@ en:
     index:
       clear_icon: "clear icon"
       direction_title: "Reserves"
-      direction_body: "Click a thumbnail to learn more about a reserve, or search by features
+      direction_body:
+        "Click a thumbnail to learn more about a reserve, or search by features
         such as geographic region, ecosystem type, and amenities such as overnight accommodations."
       search: "Search"
       filter_by: "Filter By"
@@ -477,26 +485,27 @@ en:
         title: "Waivers"
       waivers:
         direction_title: "All visitors must sign and return a waiver agreement prior to visiting a reserve."
-        direction_body: "If your application is approved, the group leader (person who is listed as contact for the requested activity) will be responsible
-                        for ensuring that all necessary waivers are submitted to reserve staff prior to the proposed visit. Waiver agreements for minors
-                        must be signed by the parent or legal guardian."
+        direction_body:
+          "If your application is approved, the group leader (person who is listed as contact for the requested activity) will be responsible
+          for ensuring that all necessary waivers are submitted to reserve staff prior to the proposed visit. Waiver agreements for minors
+          must be signed by the parent or legal guardian."
       waiver:
         download_pdf: "Download PDF"
         show_more: "Show more information"
   amenities:
-      alt_text:
-        amenity_picture: "picture of a reserve amenity"
-      units:
-        per: "per"
-      amenity:
-        link: "Amenity Link"
-        more_info: "Learn More"
-        less_info: "Show Less"
-        dates_of_use: "Dates of Use"
-        rate: "Rate"
-        rate_period: "(per %{unit} per %{period})"
-        number_of_people: "No. of People"
-        subtotal: "Subtotal"
+    alt_text:
+      amenity_picture: "picture of a reserve amenity"
+    units:
+      per: "per"
+    amenity:
+      link: "Amenity Link"
+      more_info: "Learn More"
+      less_info: "Show Less"
+      dates_of_use: "Dates of Use"
+      rate: "Rate"
+      rate_period: "(per %{unit} per %{period})"
+      number_of_people: "No. of People"
+      subtotal: "Subtotal"
   users:
     new:
       header:
@@ -610,17 +619,20 @@ en:
       checkbox:
         yes_agree: "Yes, I agree"
       show:
-        visit_agreements_flash_notice: "You are almost done. You MUST check off each Agreement sections
+        visit_agreements_flash_notice:
+          "You are almost done. You MUST check off each Agreement sections
           and click the Submit button at the bottom of the page to officialy submit your visit
           which will notify the staff of your request. If you skip this step your visit status
           will remain INCOMPLETE."
-        note: "Please note if your application is approved, you will be required to abide by
+        note:
+          "Please note if your application is approved, you will be required to abide by
           the following policies. Failure to comply may lead to denial or termination of
           reserve use. Know and abide by University of California Natural Reserve System,
           and reserve specific rules and regulations."
         title: "Waivers and Policies"
         waivers_information: "Waivers Information"
-        agree: "I have read and agree to abide by the use policies listed above and any
+        agree:
+          "I have read and agree to abide by the use policies listed above and any
           reserve-specific policies appended to this application, and am aware that it is my
           responsibility to disseminate this information to all members of my party."
         signature: "* Checking the box is equivalent to your signature"
@@ -644,14 +656,15 @@ en:
         amenity: "Amenity"
         date_of_use: "Date of Use"
         visitor_table: "Visitor List"
-        warning: "Dates selected for visitors exceeds the specified dates entered for your amenities.
+        warning:
+          "Dates selected for visitors exceeds the specified dates entered for your amenities.
           Please check your dates in both amenities and visitors areas for accuracy."
     amenities:
       amenity_booking:
-         time_of_use: "Time of use"
-         number_of_people: "Count"
-         subtotal: "Subtotal"
-         add_another: "Add Another Date Range"
+        time_of_use: "Time of use"
+        number_of_people: "Count"
+        subtotal: "Subtotal"
+        add_another: "Add Another Date Range"
       index:
         select_amenities: "Select Amenities"
         optional: "(Optional)"
@@ -676,7 +689,8 @@ en:
         labels:
           special_needs: "Special Needs"
           study_area: "Study Area"
-          study_area_description: "If known please provide a general description of the geographic
+          study_area_description:
+            "If known please provide a general description of the geographic
             area in which the data is being collected for the entire project. It can be a simple
             place name or a full description. This information helps the reserve staff manage
             the different class and research activities on the reserve."
@@ -710,7 +724,8 @@ en:
       sidebar_title: "Denied"
       sidebar_next_steps: "Unfortunately, your visit request was denied."
       reason: "Reason"
-      reason_text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent congue augue ac nisi dapibus,
+      reason_text:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent congue augue ac nisi dapibus,
         non tempus tortor lacinia. Quisque sed tortor vitae arcu consequat eleifend. Donec pellentesque
         ornare est, eu condimentum leo sollicitudin ut. Nullam ut dui lectus."
       edit_visit_request: "Edit Visit request."
@@ -776,24 +791,29 @@ en:
     incomplete_project_sidebar:
       sidebar_title: "Incomplete"
       edit_project: "Edit Project"
-      sidebar_information: "The project is incomplete at this time. Visits can not be submitted to
+      sidebar_information:
+        "The project is incomplete at this time. Visits can not be submitted to
         incomplete projects. Once completed it will show up as a valid project to apply to your
         visit requests. Once you are ready please complete all the project page information and
         submit."
     completed_project_sidebar:
-      sidebar_title: "Congratulations on successfully creating your project. Now schedule your
+      sidebar_title:
+        "Congratulations on successfully creating your project. Now schedule your
         visit(s)"
       sidebar_next_steps: "Next Steps"
       sidebar_next_steps_1: "Determine which reserves you plan to work at."
       sidebar_next_steps_2: "Create a visit for that reserve."
-      sidebar_next_steps_3: "You may visit a reserve only after your Project and Visit have been
+      sidebar_next_steps_3:
+        "You may visit a reserve only after your Project and Visit have been
         approved."
-      sidebar_next_steps_4: "You may be asked to provide permits and sign waivers prior to
+      sidebar_next_steps_4:
+        "You may be asked to provide permits and sign waivers prior to
         visiting a reserve."
       schedule_a_visit: "Schedule a Visit"
       view_our_reserves: "View our reserves."
       or_you_can: "-Or you can-"
-      contact_reserve: "Contact reserve administrator if you wish to discuss your project before
+      contact_reserve:
+        "Contact reserve administrator if you wish to discuss your project before
         scheduling a visit."
       select_a_reserve: "Select a reserve"
     not_authorized: "You are not authorized to edit this project."
@@ -801,7 +821,8 @@ en:
     index:
       title: "My Projects"
       what_are_projects: "What is a Project?"
-      project_description: "A project encompasses the activities you plan to conduct for a specific
+      project_description:
+        "A project encompasses the activities you plan to conduct for a specific
         purpose. For example, a project might be teaching a class, or running a study. A project
         is not site-specific; it may be conducted at multiple reserves/field stations."
       links:
@@ -810,7 +831,8 @@ en:
       alt:
         help_icon: "A question mark endclosed in a circle"
     projects_section:
-      no_projects: "You currently are not part of any Project. To create a project please click
+      no_projects:
+        "You currently are not part of any Project. To create a project please click
         on the (Create A New Project) button located to the right of this page."
       title: "My Projects"
     projects:
@@ -880,7 +902,8 @@ en:
         explanation: "Enter a short descriptive title to uniquely identify your application."
       thesis_title:
         field_name: "Thesis Title"
-        explanation: "Please provide the most complete version of your thesis title.
+        explanation:
+          "Please provide the most complete version of your thesis title.
           If this project does not support work toward an academic thesis, leave this field blank."
       abstract:
         field_name: "Project Abstract"
@@ -895,19 +918,24 @@ en:
         placeholder: "Ex: Quercus lobata,Picoides nuttallii"
       recent_publications:
         field_name: "Recent Publications (Optional)"
-        explanation: "Enter recent publications that resulted from research done on the reserve.
+        explanation:
+          "Enter recent publications that resulted from research done on the reserve.
           If submitting a new project, fill in later when applicable."
         placeholder: "DOI (Digital Object Identifier)"
       method_description:
-        field_name: "Please provide a detailed description of environmental manipulations needed
+        field_name:
+          "Please provide a detailed description of environmental manipulations needed
           for your research."
-        explanation: "Include objects or organisms to be collected, animal and plant populations
+        explanation:
+          "Include objects or organisms to be collected, animal and plant populations
           that may be affected, disturbances of cultural resources, introductions of any
           species or genotypes, etc."
       method_study_area:
-        field_name: "List the name of each reserve you would like to visit and describe
+        field_name:
+          "List the name of each reserve you would like to visit and describe
           where you plan to work on that reserve."
-        explanation: "A general description of the geographic area from which you will be
+        explanation:
+          "A general description of the geographic area from which you will be
           collecting data for the project. Could be a place name or a detailed list of sites."
       start_date: "Start Date"
       end_date: "End Date"
@@ -921,18 +949,22 @@ en:
         involves_birds: "Birds"
         involves_plants_fungi_soil: "Plants, Fungi, or Soils"
         involves_none: "None of the Above"
-        involves_threatened_endangered_species: "Threatened, Endangered, or Species of
+        involves_threatened_endangered_species:
+          "Threatened, Endangered, or Species of
           Special Concern"
       planning_questions:
         method_remove_organisms: "Remove organisms or materials from the reserve?"
-        method_transfer_organisms: "Transfer animals and plants from outside the reserve to
+        method_transfer_organisms:
+          "Transfer animals and plants from outside the reserve to
           within the reserve, or between different parts of the reserve?"
         method_study_non_native_species: "Study or manipulate non-native species?"
-        method_chemicals: "Use radioactive isotopes or other chemicals? (e.g., pesticides,
+        method_chemicals:
+          "Use radioactive isotopes or other chemicals? (e.g., pesticides,
           herbicides, fertilizers, tracers)"
         method_chemicals_list: "Please list the chemicals"
         method_soil_disturbance: "Disturb the soil?"
-        method_long_term_structures: "Erect structures or deploy long term equipment, such as
+        method_long_term_structures:
+          "Erect structures or deploy long term equipment, such as
           markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
       yes_option: "Yes"
       no_option: "No"
@@ -971,19 +1003,24 @@ en:
         placeholder: "Ex: Quercus lobata,Picoides nuttallii"
       recent_publications:
         field_name: "Recent Publications (Optional)"
-        explanation: "Enter recent publications that resulted from research done on the reserve.
+        explanation:
+          "Enter recent publications that resulted from research done on the reserve.
           If submitting a new project, fill in later when applicable."
         placeholder: "DOI (Digital Object Identifier)"
       method_description:
-        field_name: "Please provide a detailed description of environmental manipulations needed
+        field_name:
+          "Please provide a detailed description of environmental manipulations needed
           for your research."
-        explanation: "Include objects or organisms to be collected, animal and plant
+        explanation:
+          "Include objects or organisms to be collected, animal and plant
           populations that may be affected, disturbances of cultural resources, introductions
           of any species or genotypes, etc."
       method_study_area:
-        field_name: "List the name of each reserve you would like to visit and describe where
+        field_name:
+          "List the name of each reserve you would like to visit and describe where
           you plan to work on that reserve."
-        explanation: "A general description of the geographic area from which you will be
+        explanation:
+          "A general description of the geographic area from which you will be
           collecting data for the project. Could be a place name or a detailed list of sites."
       start_date: "Start Date"
       end_date: "End Date"
@@ -997,18 +1034,22 @@ en:
         involves_birds: "Birds"
         involves_plants_fungi_soil: "Plants, Fungi, or Soils"
         involves_none: "None of the Above"
-        involves_threatened_endangered_species: "Threatened, Endangered, or Species of
+        involves_threatened_endangered_species:
+          "Threatened, Endangered, or Species of
           Special Concern"
       planning_questions:
         method_remove_organisms: "Remove organisms or materials from the reserve?"
-        method_transfer_organisms: "Transfer animals and plants from outside the reserve to
+        method_transfer_organisms:
+          "Transfer animals and plants from outside the reserve to
           within the reserve, or between different parts of the reserve?"
         method_study_non_native_species: "Study or manipulate non-native species?"
-        method_chemicals: "Use radioactive isotopes or other chemicals? (e.g., pesticides,
+        method_chemicals:
+          "Use radioactive isotopes or other chemicals? (e.g., pesticides,
           herbicides, fertilizers, tracers)"
         method_chemicals_list: "Please list the chemicals"
         method_soil_disturbance: "Disturb the soil?"
-        method_long_term_structures: "Erect structures or deploy long term equipment, such as
+        method_long_term_structures:
+          "Erect structures or deploy long term equipment, such as
           markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
       yes_option: "Yes"
       no_option: "No"
@@ -1052,7 +1093,8 @@ en:
       index:
         title: "Permits"
         reserve_section_title: "Reserve-specific Questions"
-        description: "If you wish to attach any files to this project, such as permits or
+        description:
+          "If you wish to attach any files to this project, such as permits or
           other information requested by a manager, do so here.
           These files will be available to the reserve administration when reviewing your
           project. (allowed file types: doc, txt, pdf, jpg, gif, png)"
@@ -1064,7 +1106,8 @@ en:
           institution: "Institution Permits"
         permit_information: "Permit Information"
         no_questions: "There are no necessary permit questions for this project at this time."
-        permit_statement: "If you have any approved permits, please provide the type of permit,
+        permit_statement:
+          "If you have any approved permits, please provide the type of permit,
           permit number, permit dates, and any other relevant information. You may be asked to
           provide a copy of the approved permit prior to or upon your arrival. If you have your
           IACUC permit please also state the institution name that issued that permit."
@@ -1099,7 +1142,8 @@ en:
       project_summary: "Project Summary"
       project_status_request: "%{project_type} Request"
       edit_project: "Edit Project"
-      information: "This information you have provided will be used to determine whether
+      information:
+        "This information you have provided will be used to determine whether
         your project is suitable for each reserve you propose to visit. Inaccurate or missing data
         may result in your visit request being denied."
       mammals: "Mammals"
@@ -1114,13 +1158,16 @@ en:
       endangered: "Endangered"
       species_of_special_concern: "Species of Special Concern"
       method_remove_organisms: "Remove organisms or materials from the reserve"
-      method_transfer_organisms: "Involves the transfer of animals, plants, and/or microorganisms
+      method_transfer_organisms:
+        "Involves the transfer of animals, plants, and/or microorganisms
         from outside the reserve to within the reserve, or between different parts of the reserve."
-      method_chemicals: "Use of radioactive isotopes or other chemicals? (e.g., pesticides,
+      method_chemicals:
+        "Use of radioactive isotopes or other chemicals? (e.g., pesticides,
         herbicides, fertilizers, tracers) <br /> %{chemical_list}"
       method_study_non_native_species: "Manipulation of non-native species"
       method_soil_disturbance: "Soil Disturbance"
-      method_long_term_structures: "Erect structures or deploy long term equipment, such as markers,
+      method_long_term_structures:
+        "Erect structures or deploy long term equipment, such as markers,
         fences, enclosures, cages, data-loggers, antennas, or buoys"
       method_description: "Detailed description of environmental manipulations"
       method_study_area: "Reserve area(s) you plan to visit or conduct manipulations"
@@ -1135,13 +1182,16 @@ en:
       discipline: "Discipline"
       project_involves: "Project Involves"
       method_remove_organisms: "Remove organisms or materials from the reserve"
-      method_transfer_organisms: "Involves the transfer of animals, plants, and/or microorganisms
+      method_transfer_organisms:
+        "Involves the transfer of animals, plants, and/or microorganisms
         from outside the reserve to within the reserve, or between different parts of the reserve."
-      method_chemicals: "Use of radioactive isotopes or other chemicals? (e.g., pesticides,
+      method_chemicals:
+        "Use of radioactive isotopes or other chemicals? (e.g., pesticides,
         herbicides, fertilizers, tracers) <br /> %{chemical_list}"
       method_study_non_native_species: "Manipulation of non-native species"
       method_soil_disturbance: "Soil Disturbance"
-      method_long_term_structures: "Erect structures or deploy long term equipment, such as
+      method_long_term_structures:
+        "Erect structures or deploy long term equipment, such as
         markers, fences, enclosures, cages, data-loggers, antennas, or buoys"
       method_description: "Detailed description of environmental manipulations"
       method_study_area: "Reserve area(s) you plan to visit or conduct manipulations"
@@ -1155,13 +1205,16 @@ en:
       discipline: "Discipline"
       project_involves: "Project Involves"
       method_remove_organisms: "Remove organisms or materials from the reserve"
-      method_transfer_organisms: "Involves the transfer of animals, plants, and/or microorganisms
+      method_transfer_organisms:
+        "Involves the transfer of animals, plants, and/or microorganisms
         from outside the reserve to within the reserve, or between different parts of the reserve."
-      method_chemicals: "Use of radioactive isotopes or other chemicals? (e.g., pesticides,
+      method_chemicals:
+        "Use of radioactive isotopes or other chemicals? (e.g., pesticides,
         herbicides, fertilizers, tracers) <br /> %{chemical_list}"
       method_study_non_native_species: "Manipulation of non-native species"
       method_soil_disturbance: "Soil Disturbance"
-      method_long_term_structures: "Erect structures or deploy long term equipment, such as
+      method_long_term_structures:
+        "Erect structures or deploy long term equipment, such as
         markers, fences, enclosures, cages, data-loggers, antennas, or buoys"
       method_description: "Detailed description of environmental manipulations"
       method_study_area: "Reserve area(s) you plan to visit or conduct manipulations"
@@ -1200,7 +1253,8 @@ en:
       edit_permits: "Edit Permits"
       approved_permits: "Approved Permits"
       permits: "Permits"
-      approved_permits_information: "Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      approved_permits_information:
+        "Ut enim ad minim veniam, quis nostrud exercitation ullamco
         laboris nisi ut aliquip ex ea commodo consequat"
     reserve_question_show:
       reserve_questions: "Additional Reserve Questions"
@@ -1214,15 +1268,18 @@ en:
     complete:
       not_saved: "This project could not be saved as 'open'"
     contact_manager:
-      sent_message: "A message have been sent to the reserve: %{reserve_name} regarding your
+      sent_message:
+        "A message have been sent to the reserve: %{reserve_name} regarding your
         request."
   waivers:
     index:
       title: "Waivers"
     waivers:
-      direction_title: "All visitors must sign and return a waiver agreement prior to visiting a
+      direction_title:
+        "All visitors must sign and return a waiver agreement prior to visiting a
         reserve."
-      direction_body: "If your application is approved, the group leader (person who is listed as
+      direction_body:
+        "If your application is approved, the group leader (person who is listed as
         contact for the requested activity) will be responsible for ensuring that all necessary
         waivers are submitted to reserve staff prior to the proposed visit. Waiver agreements
         for minors must be signed by the parent or legal guardian."
@@ -1392,17 +1449,20 @@ en:
         checkbox:
           yes_agree: "Yes, I agree"
         show:
-          visit_agreements_flash_notice: "You are almost done. You MUST check off each Agreement sections
+          visit_agreements_flash_notice:
+            "You are almost done. You MUST check off each Agreement sections
             and click the Submit button at the bottom of the page to officialy submit your visit
             which will notify the staff of your request. If you skip this step your visit status
             will remain INCOMPLETE."
-          note: "Please note if your application is approved, you will be required to abide by the
+          note:
+            "Please note if your application is approved, you will be required to abide by the
             following policies. Failure to comply may lead to denial or termination of reserve use.
             Know and abide by University of California, Natural Reserve System, and reserve
             specific rules and regulations."
           title: "Waivers and Policies"
           waivers_information: "Waivers Information"
-          agree: "I have read and agree to abide by the use policies listed above and any
+          agree:
+            "I have read and agree to abide by the use policies listed above and any
             reserve-specific policies appended to this application, and am aware that it is my
             responsibility to disseminate this information to all members of my party."
           signature: "* Checking the box is equivalent to your signature"
@@ -1413,7 +1473,7 @@ en:
           code_of_conduct_agreement: "Code of Conduct Agreement"
           data_management_agreement: "Data Management Agreement"
           policy_agreement_error: "You MUST check off each Agreement sections
-          and click the Submit button at the bottom of the page."
+            and click the Submit button at the bottom of the page."
       invoices:
         index:
           invoices: "Invoices"
@@ -1521,12 +1581,14 @@ en:
           clear_message: "Clear message field"
           notification_method: "Email Notification Method"
           report_access: "Include Visit in Annual Report"
-          message_field_label: "This message is displayed in the visit page in the summary page
+          message_field_label:
+            "This message is displayed in the visit page in the summary page
             in the public interface"
           email_recipient: "Email Recipients"
           email_applicant: "Email Applicant and Staff"
           email_staff: "Email Staff Only"
-          bcc_recipients: "BCC Reserve Personnel (Staff signed up to be notified of status
+          bcc_recipients:
+            "BCC Reserve Personnel (Staff signed up to be notified of status
             changes)"
       tab:
         summary: "Summary"
@@ -1559,7 +1621,8 @@ en:
           amenity: "Amenity"
           date_of_use: "Date of Use"
           visitor_table: "Visitor List"
-          warning: "Dates selected for visitors exceeds the specified dates entered for your amenities.
+          warning:
+            "Dates selected for visitors exceeds the specified dates entered for your amenities.
             Please check your dates in both amenities and visitors areas for accuracy."
         total_days: " (%{total_days} days)"
         user_days_description: "%{total_days} days x %{count} users = %{user_days} userdays"
@@ -1680,18 +1743,18 @@ en:
         clear_all_and_start_over: "Clear All & Start Over"
         search_for_incomplete_projects: "Search for Incomplete Projects"
       detail:
-       edit:
-        research: "Research"
-        meeting: "Meeting"
-        class: "Class"
-        public_use: "Public Use"
-        meeting_tag_line: "Field or lab base meeting in any discipline"
-        class_tag_line: "Field or lab base class in any discipline"
-        research_tag_line: "Field or lab base research in any discipline"
-        public_use_tag_line: "Community events, fundraising, K-12, or other classes, volunteer use"
-        project_type: "Project Type"
-        save_changes: "Save Changes"
-        right_facing_arrow: "A right facing arrow"
+        edit:
+          research: "Research"
+          meeting: "Meeting"
+          class: "Class"
+          public_use: "Public Use"
+          meeting_tag_line: "Field or lab base meeting in any discipline"
+          class_tag_line: "Field or lab base class in any discipline"
+          research_tag_line: "Field or lab base research in any discipline"
+          public_use_tag_line: "Community events, fundraising, K-12, or other classes, volunteer use"
+          project_type: "Project Type"
+          save_changes: "Save Changes"
+          right_facing_arrow: "A right facing arrow"
       fundings:
         index:
           title: "Funding"
@@ -1777,7 +1840,8 @@ en:
           explanation: "Enter a short descriptive title to uniquely identify your application."
         thesis_title:
           field_name: "Thesis Title"
-          explanation: "Please provide the most complete version of your thesis title.
+          explanation:
+            "Please provide the most complete version of your thesis title.
             If this project does not support work toward an academic thesis, leave this field blank."
         abstract:
           field_name: "Project Abstract"
@@ -1792,19 +1856,24 @@ en:
           placeholder: "Ex: Quercus lobata,Picoides nuttallii"
         recent_publications:
           field_name: "Recent Publications (Optional)"
-          explanation: "Enter recent publications that resulted from research done on the reserve.
+          explanation:
+            "Enter recent publications that resulted from research done on the reserve.
             If submitting a new project, fill in later when applicable."
           placeholder: "DOI (Digital Object Identifier)"
         method_description:
-          field_name: "Please provide a detailed description of environmental manipulations needed
+          field_name:
+            "Please provide a detailed description of environmental manipulations needed
             for your research."
-          explanation: "Include objects or organisms to be collected, animal and plant populations
+          explanation:
+            "Include objects or organisms to be collected, animal and plant populations
             that may be affected, disturbances of cultural resources, introductions of any species
             or genotypes, etc."
         method_study_area:
-          field_name: "List the name of each reserve you would like to visit and describe where
+          field_name:
+            "List the name of each reserve you would like to visit and describe where
             you plan to work on that reserve."
-          explanation: "A general description of the geographic area from which you will be
+          explanation:
+            "A general description of the geographic area from which you will be
             collecting data for the project. Could be a place name or a detailed list of sites."
         start_date: "Start Date"
         end_date: "End Date"
@@ -1863,19 +1932,24 @@ en:
           placeholder: "Ex: Quercus lobata,Picoides nuttallii"
         recent_publications:
           field_name: "Recent Publications (Optional)"
-          explanation: "Enter recent publications that resulted from research done on the reserve.
+          explanation:
+            "Enter recent publications that resulted from research done on the reserve.
             If submitting a new project, fill in later when applicable."
           placeholder: "DOI (Digital Object Identifier)"
         method_description:
-          field_name: "Please provide a detailed description of environmental manipulations needed
+          field_name:
+            "Please provide a detailed description of environmental manipulations needed
             for your research."
-          explanation: "Include objects or organisms to be collected, animal and plant populations
+          explanation:
+            "Include objects or organisms to be collected, animal and plant populations
             that may be affected, disturbances of cultural resources, introductions of any
             species or genotypes, etc."
         method_study_area:
-          field_name: "List the name of each reserve you would like to visit and describe where
+          field_name:
+            "List the name of each reserve you would like to visit and describe where
             you plan to work on that reserve."
-          explanation: "A general description of the geographic area from which you will be
+          explanation:
+            "A general description of the geographic area from which you will be
             collecting data for the project. Could be a place name or a detailed list of sites."
         start_date: "Start Date"
         end_date: "End Date"
@@ -2021,7 +2095,7 @@ en:
         direction_2: "This section is meant to provide tips on finding and adding publications to your reserve's Zotero library."
         direction_3: "To update your reserve's Zotero library, follow these steps:"
         step_1: "Access to reserve's Zotero bibliographic database: <strong>%{zotero_url}</strong> | Username: <strong>%{zotero_login}</strong> Password: <strong>%{zotero_password}</strong>"
-        step_2: "Use internet search engines (Google Scholar, ProQuest, research gate, JSTOR) to search for publications that include your reserve name as key words (e.g. \"Sedgwick Reserve\") and on individual researchers."
+        step_2: 'Use internet search engines (Google Scholar, ProQuest, research gate, JSTOR) to search for publications that include your reserve name as key words (e.g. "Sedgwick Reserve") and on individual researchers.'
         step_3: "You may find additional citations by reviewing Publications included in a researcher's RAMS applications."
         step_4: "Set up a <strong>Google Scholar</strong> search alert for your reserve."
         step_5: "Add a Zotero connector to your browser or install the standalone Zotero application to easily add publications to your Zotero library."
@@ -2062,18 +2136,21 @@ en:
         new:
           reserve_tags: "Reserve Tags"
           submit: "Submit"
-          add_more_tag_options: "If you wish to add a new tag to this list contact a RAMS
+          add_more_tag_options:
+            "If you wish to add a new tag to this list contact a RAMS
             administrator and they can work on adding it to the database"
       reserve_details:
         edit:
           reserve_details: "Reserve Details"
           alert_message: "Alert Message"
-          alert_message_subheader: "Special message for users about the reserve. This Message
+          alert_message_subheader:
+            "Special message for users about the reserve. This Message
             appears to user when initially selecting this reserve when creating a visit, and the
             reserve page."
           general_information: "General Information"
           reserve_logo: "Reserve Logo"
-          description_reserve_logo_text: "Please be patient when adding large image
+          description_reserve_logo_text:
+            "Please be patient when adding large image
             files after pressing Save Changes button."
           reserve_name: "Reserve Name"
           managing_campus: "Managing Campus"
@@ -2108,10 +2185,12 @@ en:
           site_content: "Site Content"
           upload_support_text: Please upload photos in landscape orientation only.
           large_hero_photo: "Large Hero Photo (Reserve Detail Page)"
-          description_large_hero_photo_text: "Please be patient when adding large image
+          description_large_hero_photo_text:
+            "Please be patient when adding large image
             files after pressing Save Changes button."
           listing_photo: "Listing Photo (Reserve Listing Page)"
-          description_listing_photo_text: "Please be patient when adding large image
+          description_listing_photo_text:
+            "Please be patient when adding large image
             files after pressing Save Changes button."
           browse: "Browse"
           upload: "Upload"
@@ -2131,7 +2210,8 @@ en:
           message: "Message"
           please_select: "Please Select"
           amenities: "Amenities"
-          amenities_small_info: "Amenities can be put into 1 of 5 group to better manage them.
+          amenities_small_info:
+            "Amenities can be put into 1 of 5 group to better manage them.
             While the group name is determined here, putting amenities into the group is set
             in the Amenities & Rates page."
           amenities_and_rates: "Amenities & Rates"
@@ -2171,23 +2251,28 @@ en:
             description_amenity_type_text: "This will be used to group amenities in visit creation."
             name_of_amenity: "Name of amenity"
             description_of_amenity: "Description of Amenity"
-            description_helper_text: "Optional text to describe and or give instruction for the
+            description_helper_text:
+              "Optional text to describe and or give instruction for the
               amenity. (255 characters or less.)"
             maximum_capacity: "Maximum Capacity"
-            description_capacity_text: "If capacity is set to 1, user input will automatically
+            description_capacity_text:
+              "If capacity is set to 1, user input will automatically
               be 1 if amenity selected. Useful for amenities that are not charged by the person.
               Setting the capacity to 0, is equal to unlimited."
             amenity_units_type: "Amenity Units Type"
-            description_units_type_text: "Equation is as follows: (number of amenity) per
+            description_units_type_text:
+              "Equation is as follows: (number of amenity) per
               (amenity unit type) per (amenity time interval)."
             amenity_time_interval: "Amenity Time Interval"
-            description_time_type_text: "'Each' is a special time unit. By using 'each', start
+            description_time_type_text:
+              "'Each' is a special time unit. By using 'each', start
               and end time are not calculated for the subtotal."
             visible: "Visible"
             invoiceable: "Invoiceable"
             description_invoiceable_text: "Determines if amenity will show on invoice."
             amenity_listing_photo: "Amenity listing photo"
-            description_amenity_listing_photo_text: "Please be patient when adding large image
+            description_amenity_listing_photo_text:
+              "Please be patient when adding large image
               files after pressing create/update button."
         amenity:
           edit: "Edit"
@@ -2245,7 +2330,8 @@ en:
         edit:
           rules_and_regulations: "Rules & Regulations"
           save_changes: "Save Changes"
-          migration_helper_explanation: "Below are the old rules, rules url, and code of conduct
+          migration_helper_explanation:
+            "Below are the old rules, rules url, and code of conduct
             url displayed to help move the content to the new rules and regulations. It will be
             removed in the future."
           rules_url: "Rules url"
@@ -2258,7 +2344,8 @@ en:
         index:
           permits: "Permits"
           about_permits: "About Permits"
-          about_permits_paragraph: "This page shows which permits are displayed for your reserve,
+          about_permits_paragraph:
+            "This page shows which permits are displayed for your reserve,
             you can hide permits that are not relevant to you e.g. marine mammals for a desert
             reserve, You can also choose to collect permit number and date from the applicant.
             If you would like additional permits added to the system, please contact the RAMS IT
@@ -2280,7 +2367,8 @@ en:
         index:
           reserve_questions: "Reserve Questions"
           about_questions: "About Questions"
-          about_questions_paragraph1: "Add additional questions to projects visits specific for
+          about_questions_paragraph1:
+            "Add additional questions to projects visits specific for
             your reserve. They can be yes/no questions or text based answer."
         new:
           visit: "Visits"
@@ -2338,11 +2426,14 @@ en:
             disabled: "Disabled"
             visible: "Visible"
           helper_text:
-            additional_information: "This additional information is located to the right of the
+            additional_information:
+              "This additional information is located to the right of the
               answer box"
-            does_this_question_involves: "Question will be triggered by the following boxes
+            does_this_question_involves:
+              "Question will be triggered by the following boxes
               checked in the associated project"
-            flag: "Checking this will send an automated message to the people identified in the
+            flag:
+              "Checking this will send an automated message to the people identified in the
               Staff and Notifications section"
       staff_and_notifications:
         index:
@@ -2548,7 +2639,8 @@ en:
       project:
         project_title: "Visit for Project"
       user_visits:
-        click_add_visitor: "%{or}Click (Add Visitor) button to add this person as a one time guest
+        click_add_visitor:
+          "%{or}Click (Add Visitor) button to add this person as a one time guest
           (these guests have no login privileges in RAMS)."
         team_member:
           add_to_visitor: "Add To Visitor List"
@@ -2658,7 +2750,8 @@ en:
       permit_questions:
         reserve_section_title: "Reserve-specific Questions"
         no_questions: "There are no necessary permit questions for this project at this time."
-        permit_statement: "If you have any approved permits, please provide the type of permit,
+        permit_statement:
+          "If you have any approved permits, please provide the type of permit,
           permit number, permit dates, and any other relevant information. You may be asked to
           provide a copy of the approved permit prior to or upon your arrival. If you have your
           IACUC permit please also state the institution name that issued that permit."
@@ -2682,14 +2775,17 @@ en:
         discipline: "Discipline"
         project_involves: "Project Involves"
         method_remove_organisms: "Remove organisms or materials from the reserve"
-        method_transfer_organisms: "Involves the transfer of animals, plants, and/or microorganisms from outside
-                                    the reserve to within the reserve, or between different parts of the reserve."
-        method_chemicals: "Use of radioactive isotopes or other chemicals? (e.g., pesticides, herbicides, fertilizers, tracers) <br />
-                            %{chemical_list}"
+        method_transfer_organisms:
+          "Involves the transfer of animals, plants, and/or microorganisms from outside
+          the reserve to within the reserve, or between different parts of the reserve."
+        method_chemicals:
+          "Use of radioactive isotopes or other chemicals? (e.g., pesticides, herbicides, fertilizers, tracers) <br />
+          %{chemical_list}"
         method_study_non_native_species: "Manipulation of non-native species"
         method_soil_disturbance: "Soil Disturbance"
-        method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages,
-                                      data-loggers, antennas, or buoys"
+        method_long_term_structures:
+          "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages,
+          data-loggers, antennas, or buoys"
         method_description: "Detailed description of environmental manipulations"
         method_study_area: "Reserve area(s) you plan to visit or conduct manipulations"
       class_show:
@@ -2702,14 +2798,17 @@ en:
         discipline: "Discipline"
         project_involves: "Project Involves"
         method_remove_organisms: "Remove organisms or materials from the reserve"
-        method_transfer_organisms: "Involves the transfer of animals, plants, and/or microorganisms from outside
-                                    the reserve to within the reserve, or between different parts of the reserve."
-        method_chemicals: "Use of radioactive isotopes or other chemicals? (e.g., pesticides, herbicides, fertilizers, tracers) <br />
-                            %{chemical_list}"
+        method_transfer_organisms:
+          "Involves the transfer of animals, plants, and/or microorganisms from outside
+          the reserve to within the reserve, or between different parts of the reserve."
+        method_chemicals:
+          "Use of radioactive isotopes or other chemicals? (e.g., pesticides, herbicides, fertilizers, tracers) <br />
+          %{chemical_list}"
         method_study_non_native_species: "Manipulation of non-native species"
         method_soil_disturbance: "Soil Disturbance"
-        method_long_term_structures: "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages,
-                                      data-loggers, antennas, or buoys"
+        method_long_term_structures:
+          "Erect structures or deploy long term equipment, such as markers, fences, enclosures, cages,
+          data-loggers, antennas, or buoys"
         method_description: "Detailed description of environmental manipulations"
         method_study_area: "Reserve area(s) you plan to visit or conduct manipulations"
       meeting_show:
@@ -2760,7 +2859,8 @@ en:
       team_memberships:
         form:
           add_team_member_title: "Add a Team Member"
-          add_team_member_description: "Team members are unique individuals that you would like
+          add_team_member_description:
+            "Team members are unique individuals that you would like
             to define by their name and to give specific access permissions to editing or adding
             to your project or visit. Adding these individuals here also helps the user add them
             to future visits. A team member is not intended to be used to add groups of people or
@@ -2811,7 +2911,8 @@ en:
           explanation: "Enter a short descriptive title to uniquely identify your application."
         thesis_title:
           field_name: "Thesis Title"
-          explanation: "Please provide the most complete version of your thesis title.
+          explanation:
+            "Please provide the most complete version of your thesis title.
             If this project does not support work toward an academic thesis, leave this field blank."
         abstract:
           field_name: "Project Abstract"
@@ -2826,19 +2927,24 @@ en:
           placeholder: "Ex: Quercus lobata,Picoides nuttallii"
         recent_publications:
           field_name: "Recent Publications (Optional)"
-          explanation: "Enter recent publications that resulted from research done on the reserve.
+          explanation:
+            "Enter recent publications that resulted from research done on the reserve.
             If submitting a new project, fill in later when applicable."
           placeholder: "DOI (Digital Object Identifier)"
         method_description:
-          field_name: "Please provide a detailed description of environmental manipulations needed
+          field_name:
+            "Please provide a detailed description of environmental manipulations needed
             for your research."
-          explanation: "Include objects or organisms to be collected, animal and plant populations
+          explanation:
+            "Include objects or organisms to be collected, animal and plant populations
             that may be affected, disturbances of cultural resources, introductions of any
             species or genotypes, etc."
         method_study_area:
-          field_name: "List the name of each reserve you would like to visit and describe where
+          field_name:
+            "List the name of each reserve you would like to visit and describe where
             you plan to work on that reserve."
-          explanation: "A general description of the geographic area from which you will be
+          explanation:
+            "A general description of the geographic area from which you will be
             collecting data for the project. Could be a place name or a detailed list of sites."
         start_date: "Start Date"
         end_date: "End Date"
@@ -2852,18 +2958,22 @@ en:
           involves_birds: "Birds"
           involves_plants_fungi_soil: "Plants, Fungi, or Soils"
           involves_none: "None of the Above"
-          involves_threatened_endangered_species: "Threatened, Endangered, or Species of
+          involves_threatened_endangered_species:
+            "Threatened, Endangered, or Species of
             Special Concern"
         planning_questions:
           method_remove_organisms: "Remove organisms or materials from the reserve?"
-          method_transfer_organisms: "Transfer animals and plants from outside the reserve to
+          method_transfer_organisms:
+            "Transfer animals and plants from outside the reserve to
             within the reserve, or between different parts of the reserve?"
           method_study_non_native_species: "Study or manipulate non-native species?"
-          method_chemicals: "Use radioactive isotopes or other chemicals? (e.g., pesticides,
+          method_chemicals:
+            "Use radioactive isotopes or other chemicals? (e.g., pesticides,
             herbicides, fertilizers, tracers)"
           method_chemicals_list: "Please list the chemicals"
           method_soil_disturbance: "Disturb the soil?"
-          method_long_term_structures: "Erect structures or deploy long term equipment, such as
+          method_long_term_structures:
+            "Erect structures or deploy long term equipment, such as
             markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
         yes_option: "Yes"
         no_option: "No"
@@ -2924,19 +3034,24 @@ en:
           placeholder: "Ex: Quercus lobata,Picoides nuttallii"
         recent_publications:
           field_name: "Recent Publications (Optional)"
-          explanation: "Enter recent publications that resulted from research done on the reserve.
+          explanation:
+            "Enter recent publications that resulted from research done on the reserve.
             If submitting a new project, fill in later when applicable."
           placeholder: "DOI (Digital Object Identifier)"
         method_description:
-          field_name: "Please provide a detailed description of environmental manipulations needed
+          field_name:
+            "Please provide a detailed description of environmental manipulations needed
             for your research."
-          explanation: "Include objects or organisms to be collected, animal and plant populations
+          explanation:
+            "Include objects or organisms to be collected, animal and plant populations
             that may be affected, disturbances of cultural resources, introductions of any
             species or genotypes, etc."
         method_study_area:
-          field_name: "List the name of each reserve you would like to visit and describe where
+          field_name:
+            "List the name of each reserve you would like to visit and describe where
             you plan to work on that reserve."
-          explanation: "A general description of the geographic area from which you will be
+          explanation:
+            "A general description of the geographic area from which you will be
             collecting data for the project. Could be a place name or a detailed list of sites."
         start_date: "Start Date"
         end_date: "End Date"
@@ -2950,18 +3065,22 @@ en:
           involves_birds: "Birds"
           involves_plants_fungi_soil: "Plants, Fungi, or Soils"
           involves_none: "None of the Above"
-          involves_threatened_endangered_species: "Threatened, Endangered, or Species of
+          involves_threatened_endangered_species:
+            "Threatened, Endangered, or Species of
             Special Concern"
         planning_questions:
           method_remove_organisms: "Remove organisms or materials from the reserve?"
-          method_transfer_organisms: "Transfer animals and plants from outside the reserve to
+          method_transfer_organisms:
+            "Transfer animals and plants from outside the reserve to
             within the reserve, or between different parts of the reserve?"
           method_study_non_native_species: "Study or manipulate non-native species?"
-          method_chemicals: "Use radioactive isotopes or other chemicals? (e.g., pesticides,
+          method_chemicals:
+            "Use radioactive isotopes or other chemicals? (e.g., pesticides,
             herbicides, fertilizers, tracers)"
           method_chemicals_list: "Please list the chemicals"
           method_soil_disturbance: "Disturb the soil?"
-          method_long_term_structures: "Erect structures or deploy long term equipment, such
+          method_long_term_structures:
+            "Erect structures or deploy long term equipment, such
             as markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
         yes_option: "Yes"
         no_option: "No"
@@ -2970,7 +3089,8 @@ en:
           funding_status: "Funding Status"
           official_grant_title: "Official Grant Title"
           funding_opportunity_number: "Funding Opportunity Number"
-          funding_opportunity_number_explanation: "Funding opportunity numbers (FON) is a number
+          funding_opportunity_number_explanation:
+            "Funding opportunity numbers (FON) is a number
             that a federal agency assigns to its grant announcement."
           grant_number: "Grant Number"
           grant_number_explanation: "Grant Number or Grant URL Address"
@@ -3047,13 +3167,16 @@ en:
       endangered: "Endangered"
       species_of_special_concern: "Species of Special Concern"
       method_remove_organisms: "Remove organisms or materials from the reserve"
-      method_transfer_organisms: "Involves the transfer of animals, plants, and/or microorganisms
+      method_transfer_organisms:
+        "Involves the transfer of animals, plants, and/or microorganisms
         from outside the reserve to within the reserve, or between different parts of the reserve."
-      method_chemicals: "Use of radioactive isotopes or other chemicals? (e.g., pesticides,
+      method_chemicals:
+        "Use of radioactive isotopes or other chemicals? (e.g., pesticides,
         herbicides, fertilizers, tracers) <br /> %{chemical_list}"
       method_study_non_native_species: "Manipulation of non-native species"
       method_soil_disturbance: "Soil Disturbance"
-      method_long_term_structures: "Erect structures or deploy long term equipment, such as
+      method_long_term_structures:
+        "Erect structures or deploy long term equipment, such as
         markers, fences, enclosures, cages, data-loggers, antennas, or buoys"
       method_description: "Detailed description of environmental manipulations"
       method_study_area: "Reserve area(s) you plan to visit or conduct manipulations"
@@ -3088,7 +3211,8 @@ en:
       added_to_project: "You have been added to the project."
       login_and_view_project: "Login and view Project"
     project_contact_manager:
-      contact_manager_header: "This email is being sent to facilitate communications between
+      contact_manager_header:
+        "This email is being sent to facilitate communications between
         the applicant of the following project and the reserve to determine the project’s
         suitability."
       the_user: "The user %{user_full_name}"
@@ -3096,7 +3220,8 @@ en:
       with_reserve: "with reserve %{reserve_name}"
     visit_new:
       your_visit_request_has_been_submitted: "Your Visit request has been Submitted."
-      your_visit_evaluated: "This visit request will be <strong>evaluated and an email will
+      your_visit_evaluated:
+        "This visit request will be <strong>evaluated and an email will
         be sent to you</strong> once the status of your visit changes."
       login_and_view_visit: "Login and view Visit"
     visit_update:
@@ -3139,14 +3264,18 @@ en:
         logo: "Swirling UCNRS Logo"
       hero:
         title: "Plan Your Visit"
-        emphasized: "The University of California Natural Reserve System is the world’s largest
+        emphasized:
+          "The University of California Natural Reserve System is the world’s largest
           network of university-administered field stations and protected lands."
-        explanation1: "Our library of ecosystems includes examples of most major state habitats.
+        explanation1:
+          "Our library of ecosystems includes examples of most major state habitats.
           We offer outdoor laboratories to field scientists, classrooms without walls for students,
           and nature’s inspiration to all."
-        explanation2: "Reserves are available for teaching, research, and public service,
+        explanation2:
+          "Reserves are available for teaching, research, and public service,
           but not general recreation. Access is by permission only."
-        more_information: "For more information about the UC Natural Reserve System (or UC NRS),
+        more_information:
+          "For more information about the UC Natural Reserve System (or UC NRS),
           visit <a href='https://ucnrs.org'>UCNRS.ORG</a>"
         public_information: "For RAMS public information, %{reserves_info_link}
           %{project_search_link}"
@@ -3206,7 +3335,7 @@ en:
       reserve_staff: "Reserve Staff"
       staff: "Reserve Staff"
       no_selection: "No Selection"
-      '': "Not Available"
+      "": "Not Available"
       subtotal: "Subtotal"
     project:
       project_types:
@@ -3273,8 +3402,8 @@ en:
   yes_no: "Yes/No"
   checked: "checked icon"
   unchecked: "unchecked icon"
-  'yes': "Yes"
-  'no': "No"
+  "yes": "Yes"
+  "no": "No"
   submit: "Submit"
   cancel: "Cancel"
   update: "Update"
