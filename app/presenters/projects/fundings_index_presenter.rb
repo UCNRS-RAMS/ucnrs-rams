@@ -28,6 +28,10 @@ class Projects::FundingsIndexPresenter
     }
   end
 
+  def display_funding_question?
+    project.project_type_research?
+  end
+
   private
 
   attr_reader :steps_presenter, :current_step

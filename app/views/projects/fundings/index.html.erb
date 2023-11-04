@@ -6,27 +6,35 @@
     <h1><%= t(".title") %></h1>
   </header>
 
-  <section class="form-subsection background-1">
-    <div class="form-container">
+  <% if @presenter.display_funding_question? %>
+    <section class="form-subsection background-1">
+      <div class="form-container">
+        <header>
+          <h2><%= t(".add_funding_title") %></h2>
+        </header>
+        <%= form_with model: @presenter.form, url: project_fundings_url(@presenter.project), namespace: "new" do |form| %>
+          <turbo-frame id="new-funding-form">
+            <%= render partial: "shared/projects/fundings/form_fields", locals: { presenter: @presenter, form: form } %>
+          </turbo-frame>
+          <turbo-frame class="form-end submit-btn" id="submit-btn">
+            <%= form.submit t(".add_funding_submit"), class: "button-clear", data: { disable_with: false } %>
+          </turbo-frame>
+        <% end %>
+      </div>
+    </section>
+    <section data-scroll-target="scrollPosition" class="funding-table-section form-subsection form-container" >
       <header>
-        <h2><%= t(".add_funding_title") %></h2>
+        <h2><%= t(".project_funding") %></h2>
       </header>
-      <%= form_with model: @presenter.form, url: project_fundings_url(@presenter.project), namespace: "new" do |form| %>
-        <turbo-frame id="new-funding-form">
-          <%= render partial: "shared/projects/fundings/form_fields", locals: { presenter: @presenter, form: form } %>
-        </turbo-frame>
-        <turbo-frame class="form-end submit-btn" id="submit-btn">
-          <%= form.submit t(".add_funding_submit"), class: "button-clear", data: { disable_with: false } %>
-        </turbo-frame>
-      <% end %>
-    </div>
-  </section>
-  <section data-scroll-target="scrollPosition" class="funding-table-section form-subsection form-container" >
-    <header>
-      <h2><%= t(".project_funding") %></h2>
-    </header>
-    <%= render partial: "shared/projects/fundings/funding_table", locals: { presenter: @presenter } %>
-  </section>
+      <%= render partial: "shared/projects/fundings/funding_table", locals: { presenter: @presenter } %>
+    </section>
+
+  <% else %>
+    <section class="form-subsection form-container">
+        <%= t(".no_funding_required", project_type: @presenter.project_type.capitalize) %>
+    </section>
+
+  <% end %>
 </section>
 
 <section class="controls">

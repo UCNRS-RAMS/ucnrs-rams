@@ -68,4 +68,61 @@ RSpec.describe Projects::FundingsIndexPresenter do
       ]
     end
   end
+
+  describe "#display_funding_question?" do
+    context "when project type is research" do
+      it "returns true" do
+        project = create(:project, project_type: :research)
+        presenter = Projects::FundingsIndexPresenter.new(current_step: 4, project: project)
+
+        display_funding_question = presenter.display_funding_question?
+
+        expect(display_funding_question).to eq true
+      end
+    end
+
+    context "when project type is Class" do
+      it "returns false" do
+        project = create(:project, project_type: :class)
+        presenter = Projects::FundingsIndexPresenter.new(current_step: 4, project: project)
+
+        display_funding_question = presenter.display_funding_question?
+
+        expect(display_funding_question).to eq false
+      end
+    end
+
+    context "when project type is Meeting" do
+      it "returns false" do
+        project = create(:project, project_type: :meeting)
+        presenter = Projects::FundingsIndexPresenter.new(current_step: 4, project: project)
+
+        display_funding_question = presenter.display_funding_question?
+
+        expect(display_funding_question).to eq false
+      end
+    end
+
+    context "when project type is Public Use" do
+      it "returns false" do
+        project = create(:project, project_type: :public_use)
+        presenter = Projects::FundingsIndexPresenter.new(current_step: 4, project: project)
+
+        display_funding_question = presenter.display_funding_question?
+
+        expect(display_funding_question).to eq false
+      end
+    end
+
+    context "when project type is Housing" do
+      it "returns false" do
+        project = create(:project, project_type: :housing)
+        presenter = Projects::FundingsIndexPresenter.new(current_step: 4, project: project)
+
+        display_funding_question = presenter.display_funding_question?
+
+        expect(display_funding_question).to eq false
+      end
+    end
+  end
 end
