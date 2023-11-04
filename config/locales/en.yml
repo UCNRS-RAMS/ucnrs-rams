@@ -1128,15 +1128,18 @@ en:
       create:
         add_funding_submit: "Add Funding Information"
       index:
-        title: "Funding"
         add_funding_title: "Add Information About Your Grant"
-        next_step: "Save Project & Submit"
         add_funding_submit: "Add Funding Information"
-        project_funding: "Project Funding"
         back: "Go Back"
         alt:
           right_facing_arrow: "Right-facing arrow"
           left_facing_arrow: "Left-facing arrow"
+        next_step: "Save Project & Submit"
+        no_funding_required:
+          "No funding information is required for this project type: %{project_type}.
+          Please continue to the next step."
+        project_funding: "Project Funding"
+        title: "Funding"
     show:
       view_our_reserves: "View Our Reserves"
       project_summary: "Project Summary"
