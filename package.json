@@ -1,6 +1,10 @@
 {
   "name": "ucnrs-rams",
+  "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "16.x"
+   },
   "dependencies": {
     "@babel/core": "^7.0.0",
     "@babel/plugin-transform-typescript": "^7.15.0",
@@ -20,7 +24,6 @@
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"
   },
-  "version": "0.1.0",
   "devDependencies": {
     "@types/jest": "^27.0.2",
     "babel-jest": "^27.2.2",
