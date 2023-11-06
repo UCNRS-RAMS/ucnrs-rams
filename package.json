@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
    },
+  "start": "export NODE_OPTIONS=--openssl-legacy-provider",
   "dependencies": {
     "@babel/core": "^7.0.0",
     "@babel/plugin-transform-typescript": "^7.15.0",
