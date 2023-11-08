@@ -19,7 +19,7 @@ gem 'rails', '~> 6.1.4'
 gem 'sass-rails', '>= 6'
 gem 'simple_calendar', '~> 2.4'
 gem 'turbo-rails', '~> 1.4'
-gem 'webpacker', '~> 5.0'
+gem 'shakapacker', '6.0.0'
 gem "wicked_pdf", "~> 2.7"
 gem "wkhtmltopdf-binary", "~> 0.12.6"
 
