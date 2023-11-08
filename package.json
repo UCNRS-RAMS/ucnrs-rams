@@ -4,11 +4,14 @@
   "private": true,
   "engines": {
     "node": "18.x"
-   },
-  "start": "export NODE_OPTIONS=--openssl-legacy-provider",
+  },
   "dependencies": {
     "@babel/core": "^7.0.0",
     "@babel/plugin-transform-typescript": "^7.15.0",
+    "@babel/preset-typescript": "^7.23.2",
+    "@babel/plugin-transform-runtime": "7",
+    "@babel/preset-env": "7",
+    "@babel/runtime": "7",
     "@hotwired/stimulus": "^3.0.1",
     "@hotwired/stimulus-webpack-helpers": "^1.0.1",
     "@hotwired/turbo-rails": "^7.0.1",
@@ -16,23 +19,42 @@
     "@rails/actiontext": "^6.1.5-1",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
-    "@rails/webpacker": "5.4.4",
+    "babel-loader": "8",
+    "compression-webpack-plugin": "9",
+    "pnp-webpack-plugin": "1",
+    "shakapacker": "6.0.0",
+    "terser-webpack-plugin": "5",
+    "webpack": "5",
+    "webpack-assets-manifest": "5",
+    "webpack-cli": "4",
+    "webpack-merge": "5",
     "chart.js": "4.3.1",
     "chartkick": "^5.0.1",
+    "fork-ts-checker-webpack-plugin": "^9.0.2",
     "stimulus-autocomplete": "^3.0.0-rc.5",
     "trix": "^2.0.2",
-    "typescript": "^4.4.2",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^3.3.12"
+    "typescript": "^5.2.2"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",
+    "@webpack-cli/serve": "^2.0.5",
     "babel-jest": "^27.2.2",
     "babel-preset-env": "^1.7.0",
     "jest": "^27.2.2",
     "mutationobserver-shim": "^0.3.7",
-    "webpack-dev-server": "^4.0.0"
+    "webpack-dev-server": "^4.15.1"
   },
+  "babel": {
+    "presets": [
+      "./node_modules/shakapacker/package/babel/preset.js"
+    ],
+    "plugins": [
+      ["@babel/plugin-transform-typescript", { "allowDeclareFields": true }]
+    ]
+  },
+  "browserslist": [
+    "defaults"
+  ],
   "jest": {
     "testEnvironment": "jsdom",
     "testRegex": [
