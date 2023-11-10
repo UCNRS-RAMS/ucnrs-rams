@@ -5,6 +5,7 @@ RSpec.describe Projects::FundingsIndexPresenter do
     subject { Projects::FundingsIndexPresenter.new(current_step: 4, project: build_stubbed(:project)) }
     it { is_expected.to delegate_method(:svg).to(:steps_presenter) }
     it { is_expected.to delegate_method(:step_class).to(:steps_presenter) }
+    it { is_expected.to delegate_method(:project_type).to(:project) }
   end
 
   describe "#sponsor_options" do

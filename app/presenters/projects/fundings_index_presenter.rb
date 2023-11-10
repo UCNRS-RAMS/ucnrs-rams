@@ -8,6 +8,7 @@ class Projects::FundingsIndexPresenter
 
   attr_reader :form, :project
   delegate :svg, :step_class, to: :steps_presenter
+  delegate :project_type, to: :project
 
   def fundings
     fundings_scope.map do |funding|
