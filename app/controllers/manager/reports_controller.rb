@@ -28,6 +28,17 @@ class Manager::ReportsController < Manager::ApplicationController
         report_stop_date,
       )
     )
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "annual_report_#{current_reserve.name.downcase.tr(' ', '_')}_part_1",
+          disposition: "inline",
+          layout: "pdf.html",
+          orientation: "landscape",
+          show_as_html: params[:debug].present?
+      end
+    end
   end
 
   def report_part_2

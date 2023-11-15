@@ -5,8 +5,8 @@ class Manager::Reports::ReportPart1Presenter
   end
 
   delegate :annual_report, to: :form, prefix: true
-
-  delegate :fiscal_year_ending, to: :form_annual_report
+  delegate :fiscal_year_ending, :reserve, to: :form_annual_report
+  delegate :managing_campus, to: :reserve
 
   def report_part1
     @report_part1 ||= report_part1_data
@@ -28,6 +28,14 @@ class Manager::Reports::ReportPart1Presenter
 
   def fiscal_year_ending_options
     (2000..(Date.current.year + 1)).map { |year_end| ["#{year_end - 1}-#{year_end}", year_end] }
+  end
+
+  def reserve_name
+    reserve.name
+  end
+
+  def reserve_managing_campus_name
+    managing_campus.name
   end
 
   attr_reader :report_part1_data, :form

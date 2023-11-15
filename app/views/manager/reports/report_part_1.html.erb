@@ -19,6 +19,7 @@
             <% end %>
           <% end %>
         <% end %>
+        <%= link_to "pdf", report_part_1_manager_reserve_report_path(current_reserve, @presenter.fiscal_year_ending, format: :pdf) %>
       </div>
       <%= render partial: 'report_part_1_table', locals: { presenter: @presenter } %>
 

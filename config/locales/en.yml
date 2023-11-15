@@ -2055,6 +2055,11 @@ en:
         fiscal_year: "Fiscal year"
         part_1_reserve_use_data: "Part 1. Reserve Use Data - Using Unique People Roles"
         report_has_been_reviewed: "This page of the report has been reviewed and is ready for UCOP."
+        pdf:
+          campus: "Campus: %{campus}"
+          fiscal_year: "Fiscal year: %{fiscal_year}"
+          reserve: "Reserve: %{reserve}"
+          reserve_use_data: "RESERVE USE DATA"
       report_part_1_table:
         uc_home: "UC Home"
         uc_other: "UC Other"
@@ -2186,7 +2191,7 @@ en:
           tax_id_number: "Tax ID Number"
           invoice_payment_directions: "Invoice Payment Directions"
           site_content: "Site Content"
-          upload_support_text: Please upload photos in landscape orientation only.
+          upload_support_text: "Please upload photos in landscape orientation only."
           large_hero_photo: "Large Hero Photo (Reserve Detail Page)"
           description_large_hero_photo_text:
             "Please be patient when adding large image
