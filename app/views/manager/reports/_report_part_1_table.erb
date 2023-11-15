@@ -28,11 +28,11 @@
           <%= tag.th t(".users") %><%= tag.th t(".user_days") %>
         <% end %>
       </tr>
+    </thead>
+    <tbody>
       <tr class="group-header">
         <%= tag.th group, colspan: 27 %>
       </tr>
-    </thead>
-    <tbody>
       <% rows.each do | row | %>
         <%= tag.tr class: ("row-subtotal" if row.role.downcase == "subtotal") do %>
           <%= tag.td row.role, class: "col-1" %>
@@ -41,7 +41,7 @@
           <% end %>
         <% end %>
       <% end %>
-      
+
       <tr class="spacer"><td>&nbsp;</td></tr>
       <tr class="spacer"><td>&nbsp;</td></tr>
     </tbody>

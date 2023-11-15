@@ -1,0 +1,15 @@
+<section class="report-part-1">
+  <header>
+    <h1 class="title">
+      <%= t(".pdf.reserve_use_data") %>
+      <br />
+      <%= t(".pdf.fiscal_year", fiscal_year: @presenter.fiscal_year) %>
+    </h1>
+    <div class="subheader">
+      <%= t(".pdf.campus", campus: @presenter.reserve_managing_campus_name) %>
+      <br />
+      <%= t(".pdf.reserve", reserve: @presenter.reserve_name) %>
+    </div>
+  </header>
+  <%= render partial: 'report_part_1_table', locals: { presenter: @presenter } %>
+</section>

@@ -331,3 +331,64 @@
     }
   }
 }
+
+@mixin rams-2-annual-report-part1-style {
+  border-collapse: collapse;
+  border-width: 1px;
+  font-size: 10px;
+  margin-bottom: 3rem;
+  table-layout: fixed;
+  width: 100%;
+
+  col.first-col {
+    width: 100px;
+  }
+
+  col.subtotal-col {
+    background: $light-gray;
+  }
+
+  th {
+    background: $light-gray;
+    border: 1px solid $gray;
+    font-weight: $medium;
+    padding: 8px 0px;
+    text-align: center;
+  }
+
+  tr {
+    height: 30px;
+
+    &.row-subtotal, &.row-total {
+      background: $gold;
+      padding: 0 0.5em;
+      text-align: center;
+    }
+
+    &.row-total {
+      font-weight: $medium;
+    }
+
+    &.group-header th{
+      padding: 0 0.5em;
+      text-align: left;
+    }
+  }
+
+  td {
+    border-color: $gray;
+    border-style: solid;
+    border-width: 1px;
+    padding: 4px;
+    text-align: center;
+
+    &.col-1 {
+      font-weight: $medium;
+      text-align: left;
+    }
+  }
+
+  .spacer td {
+    border:none;
+  }
+}
