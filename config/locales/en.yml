@@ -3208,6 +3208,23 @@ en:
       total: "Total"
     header_user:
       phone: "Phone:"
+  reports:
+    part_1:
+      uc_home: "UC Home"
+      uc_other: "UC Other"
+      csu_system: "CSU System"
+      ca_community_college: "CA Comm College"
+      ca_other_college: "Other CA College"
+      out_of_state_college: "Out of State College"
+      international_university: "Int. University"
+      government: "Government"
+      ngo_non_profit: "NGO/Non-Profit"
+      business_entity: "Business Entity"
+      k12_school: "K-12 School"
+      other: "Other"
+      total: "Total"
+      users: "Users"
+      user_days: "UDs"
   manager_mailer:
     visit_new:
       login_and_view_visit: "Login and view Visit"

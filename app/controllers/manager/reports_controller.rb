@@ -1,4 +1,6 @@
 class Manager::ReportsController < Manager::ApplicationController
+  require 'csv'
+
   include ReportQueries
 
   before_action :authenticate_user!
@@ -37,6 +39,13 @@ class Manager::ReportsController < Manager::ApplicationController
           layout: "pdf.html",
           orientation: "landscape",
           show_as_html: params[:debug].present?
+      end
+
+      format.csv do
+        filename = "annual_report_#{current_reserve.name.downcase.tr(' ', '_')}_part_1"
+        response.headers['Content-Type'] = 'text/csv'
+        response.headers['Content-Disposition'] = "attachment; filename=#{filename}.csv"
+        render layout: nil
       end
     end
   end
