@@ -2078,6 +2078,11 @@ en:
         user_days: "UDs"
       report_part_2:
         part_2_reserve_users_affiliation: "Part 2. Reserve Users' Affiliation"
+        pdf:
+          campus: "Campus: %{campus}"
+          fiscal_year: "Fiscal year: %{fiscal_year}"
+          reserve: "Reserve: %{reserve}"
+          reserve_users_affiliation: "Reserve Users' Affiliation"
       report_part_2_table:
         institution_name: "Institution Name"
         location: "Location"

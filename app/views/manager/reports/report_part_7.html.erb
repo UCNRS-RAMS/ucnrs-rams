@@ -6,7 +6,9 @@
     </section>
     <section class="report">
       <header><%= t(".part_7_nrs_campus_committee") %></header>
-      <%= render partial: 'fiscal_year_select', locals: { presenter: @presenter } %>
+      <div class="fiscal-year-select">
+        <%= render partial: 'fiscal_year_select', locals: { presenter: @presenter } %>
+      </div>
       <%= form_with model: @presenter.form, url: manager_reserve_report_path, method: :patch do |form| %>
         <div>
           <%= form.text_area :part_7_campus_committee, class: "form-textarea" %>

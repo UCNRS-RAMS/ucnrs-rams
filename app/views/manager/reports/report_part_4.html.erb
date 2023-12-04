@@ -6,7 +6,9 @@
     </section>
     <section class="report">
       <header><%= t(".part_4_current_research") %></header>
-      <%= render partial: 'fiscal_year_select', locals: { presenter: @presenter } %>
+      <div class="fiscal-year-select">
+        <%= render partial: 'fiscal_year_select', locals: { presenter: @presenter } %>
+      </div>
       <%= render partial: 'report_part_4_data', collection: @presenter.report_part4_data, as: :project %>
       <%= render partial: 'report_approval_form', locals: { presenter: @presenter, form: @presenter.form } %>
     </section>
