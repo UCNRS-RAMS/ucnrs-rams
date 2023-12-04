@@ -6,7 +6,14 @@
     </section>
     <section class="report">
       <header><%= t(".part_2_reserve_users_affiliation") %></header>
-      <%= render partial: 'fiscal_year_select', locals: { presenter: @presenter } %>
+      <div class="fiscal-year-select">
+        <%= render partial: 'fiscal_year_select', locals: { presenter: @presenter } %>
+        <%= link_to "pdf",
+          report_part_2_manager_reserve_report_path(
+            current_reserve, @presenter.fiscal_year_ending, format: :pdf
+          )
+        %>
+      </div>
       <%= render partial: 'report_part_2_table', locals: { presenter: @presenter } %>
       <%= render partial: 'report_approval_form', locals: { presenter: @presenter, form: @presenter.form } %>
   </div>

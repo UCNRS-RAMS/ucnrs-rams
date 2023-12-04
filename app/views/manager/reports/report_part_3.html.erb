@@ -6,7 +6,9 @@
     </section>
     <section class="report">
       <header><%= t(".part_3_use_by_instructional_groups") %></header>
-      <%= render partial: 'fiscal_year_select', locals: { presenter: @presenter } %>
+      <div class="fiscal-year-select">
+        <%= render partial: 'fiscal_year_select', locals: { presenter: @presenter } %>
+      </div>
       <%= render partial: 'report_part_3_data', locals: { presenter: @presenter } %>
       <%= render partial: 'report_approval_form', locals: { presenter: @presenter, form: @presenter.form } %>
     </section>

@@ -4,9 +4,8 @@ RSpec.describe "reports menu", type: :view do
   it "display the reports page menu" do
     reserve = create(:reserve)
     form = AnnualReportForm.new(annual_report: create(:annual_report, fiscal_year_ending: 2.year.ago.year))
-    presenter = Manager::Reports::ReportPart2Presenter.new(
+    presenter = Manager::Reports::ReportBasePresenter.new(
       form: form,
-      reserve: reserve
     )
 
     render partial: "manager/reports/menu", locals: { current_reserve: reserve, presenter: presenter }

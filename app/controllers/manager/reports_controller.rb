@@ -54,8 +54,17 @@ class Manager::ReportsController < Manager::ApplicationController
     form = AnnualReportForm.new(annual_report: annual_report)
     @presenter = Manager::Reports::ReportPart2Presenter.new(
       form: form,
-      reserve: current_reserve,
     )
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "annual_report_#{current_reserve.name.downcase.tr(' ', '_')}_part_2",
+          disposition: "inline",
+          layout: "pdf.html",
+          show_as_html: params[:debug].present?
+      end
+    end
   end
 
   def report_part_3
