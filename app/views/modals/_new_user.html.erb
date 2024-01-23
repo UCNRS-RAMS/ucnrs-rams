@@ -5,7 +5,7 @@
         <span id="modal-title"><%= t(".title") %></span>
         <span id="modal-description"><%= t(".accessible_description") %></span>
       </p>
-      <section class="text">
+      <section class="text" data-controller="followup-content">
         <h2><%= t(".title") %></h2>
         <div class="field">
           <%= form.label :first_name %>
@@ -18,7 +18,18 @@
         <div class="field">
           <%= form.label :email %>
           <%= form.text_field :email %>
-          <p><%=t(".email_helper_text")%></p>
+        </div>
+        <div class="field">
+          <%= form.label :phone_number %>
+          <%= form.text_field :phone_number %>
+        </div>
+        <div class="field">
+          <%= form.label :emergency_contact_full_name %>
+          <%= form.text_field :emergency_contact_full_name %>
+        </div>
+        <div class="field">
+          <%= form.label :emergency_contact_phone_number %>
+          <%= form.text_field :emergency_contact_phone_number %>
         </div>
         <div class="field">
           <%= form.label :user_role %>
@@ -35,6 +46,38 @@
         <div class="field">
           <%= form.label :project_role %>
           <%= form.select :project_role, presenter.project_role_options, prompt: t(".select_project_role") %>
+        </div>
+
+        <h3>current address</h3>
+        <div class="field">
+          <%= form.label :address_country_id %>
+          <%= form.collection_select(:address_country_id, Country.alphabetical_by_name,
+            :id,
+            :name,
+            { selected: form.object.address_country_id || presenter.default_country_option },
+            { data: { action: "change->followup-content#change" } }
+          ) %>
+        </div>
+        <div class="field">
+          <%= form.label :address_line_1 %>
+          <%= form.text_field :address_line_1 %>
+        </div>
+        <div class="field">
+          <%= form.label :address_city %>
+          <%= form.text_field :address_city %>
+        </div>
+        <div class="field">
+          <%= form.label :address_state_id %>
+          <%= form.collection_select(:address_state_id, presenter.address_state_options || presenter.initial_state_options,
+            :id,
+            :name,
+            { include_blank: true, selected: form.object.address_state_id || presenter.default_state_option },
+            { data: { followup_content_target: "destination", "followup-content-url-value": states_url(country_id: "VALUE") } }
+          ) %>
+        </div>
+        <div class="field">
+          <%= form.label :address_postal_code %>
+          <%= form.text_field :address_postal_code %>
         </div>
       </section>
       <section class="buttons">

@@ -2,6 +2,8 @@ require "rails_helper"
 
 RSpec.describe "projects/users/new.turbo_stream.erb", type: :view do
   it "renders an empty modal" do
+    create(:country, name: "United States")
+    create(:state, name: "California")
     @presenter = Projects::UserNewPresenter.new(
       form: UserForm.new,
       project: build_stubbed(:project)

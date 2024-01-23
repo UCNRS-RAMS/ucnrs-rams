@@ -10,7 +10,7 @@ class UserForm
     @project = project
     @user = User.new
     assign(params)
-    maybe_assign_placeholder_email
+    # maybe_assign_placeholder_email
     assign_user_role
     assign_placeholder_data_for_non_registered_users
 

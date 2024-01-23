@@ -104,15 +104,7 @@ class User < ApplicationRecord
     default_state = State.where(name: "California", country: default_country).first_or_create
 
     {
-      address_line_1: UCNRS_STREET_ADDRESS,
-      address_city: UCNRS_CITY,
-      address_postal_code: UCNRS_POSTAL_CODE,
-      address_state: default_state,
-      address_country: default_country,
-      phone_number: FAKE_PHONE_NUMBER,
       password: SecureRandom.urlsafe_base64(10) + "1!",
-      emergency_contact_full_name: FAKE_EMERGENCY_CONTACT,
-      emergency_contact_phone_number: FAKE_EMERGENCY_CONTACT_PHONE_NUMBER,
       terms_accepted_at: Time.current,
     }
   end

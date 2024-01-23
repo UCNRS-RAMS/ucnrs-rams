@@ -35,6 +35,8 @@ RSpec.describe "Creating a project", type: :system, js: true do
   end
 
   it "can create a new project" do
+    country1 = create(:country, name: "Country 1")
+    create(:state, name: "State 1", country: country1)
     institution = create(:institution, name: "MIT")
     user = create(:user, :confirmed)
     another_user = create(

@@ -52,6 +52,14 @@ class Projects::UsersController < ApplicationController
       :email,
       :user_role,
       :project_role,
+      :phone_number,
+      :emergency_contact_full_name,
+      :emergency_contact_phone_number,
+      :address_country_id,
+      :address_line_1,
+      :address_city,
+      :address_state_id,
+      :address_postal_code,
     )
   end
 end

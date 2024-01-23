@@ -204,15 +204,33 @@ class CreateProjectFlow
     email: "foo@email.test",
     user_role: "Other",
     project_role: "PI - Principal Investigator",
-    institution: nil
+    institution: nil,
+    phone_number: "111-111-1111",
+    emergency_contact_full_name: "name 1",
+    emergency_contact_phone_number: "222-222-2222",
+    address_country: "Country 1",
+    address_line_1: "123 main",
+    address_city: "city 123",
+    address_state: "State 1",
+    address_postal_code: "91234"
   )
     page.fill_in("First name", with: first_name)
     page.fill_in("Last name", with: last_name)
+    page.fill_in("Email", with: email)
+    page.fill_in("Phone number", with: phone_number)
+    page.fill_in("Emergency contact full name", with: emergency_contact_full_name)
+    page.fill_in("Emergency contact phone number", with: emergency_contact_phone_number)
     page.fill_in("Institution name", with: institution.name)
     page.find("li#institution_#{institution.id}").click
-    page.fill_in("Email", with: email)
+
     page.select(user_role, from: "User role")
     page.select(project_role, from: "Project role")
+
+    page.select(address_country, from: "Address country")
+    page.fill_in("Address line 1", with: address_line_1)
+    page.fill_in("Address city", with: address_city)
+    page.fill_in("Address postal code", with: address_postal_code)
+    page.select(address_state, from: "Address state")
   end
 
   def submit_team_memberships

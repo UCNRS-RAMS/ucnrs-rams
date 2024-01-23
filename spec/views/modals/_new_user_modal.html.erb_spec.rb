@@ -2,6 +2,8 @@ require "rails_helper"
 
 RSpec.describe "modals/_new_user.html.erb", type: :view do
   it "renders a turbo-frame modal" do
+    create(:country, name: "United States")
+    create(:state, name: "California")
     presenter = Projects::UserNewPresenter.new(
       form: UserForm.new,
       project: build_stubbed(:project),
@@ -14,6 +16,8 @@ RSpec.describe "modals/_new_user.html.erb", type: :view do
   end
 
   it "includes an autocomplete form for institution name" do
+    create(:country, name: "United States")
+    create(:state, name: "California")
     presenter = Projects::UserNewPresenter.new(
       form: UserForm.new,
       project: build_stubbed(:project),
@@ -29,6 +33,8 @@ RSpec.describe "modals/_new_user.html.erb", type: :view do
   end
 
   it "renders a form with the right fields for a new user" do
+    create(:country, name: "United States")
+    create(:state, name: "California")
     project = build_stubbed(:project)
     presenter = Projects::UserNewPresenter.new(
       form: UserForm.new,

@@ -3,6 +3,8 @@ require "rails_helper"
 RSpec.describe "Editing a project", type: :system, js: true do
   describe "when viewing the edit project form" do
     it "can edit an existing, fully filled-out project", js: true do
+      country1 = create(:country, name: "Country 1")
+      create(:state, name: "State 1", country: country1)
       user = create(:user, :confirmed)
       sign_in(user)
       project = create(
