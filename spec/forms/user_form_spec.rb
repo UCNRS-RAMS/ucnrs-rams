@@ -85,27 +85,6 @@ RSpec.describe UserForm, type: :model do
       expect(form.user).to have_attributes(role: "faculty")
     end
 
-    it "assigns placeholder data for validated attributes that aren't obtained from params" do
-      us = create(:country, name: "United States")
-      ca = create(:state, name: "California", country: us)
-      form = UserForm.new(params: {})
-
-      user = form.user
-
-      expect(user).to have_attributes(
-        address_line_1: User::UCNRS_STREET_ADDRESS,
-        address_city: User::UCNRS_CITY,
-        address_postal_code: User::UCNRS_POSTAL_CODE,
-        phone_number: User::FAKE_PHONE_NUMBER,
-        emergency_contact_full_name: User::FAKE_EMERGENCY_CONTACT,
-        emergency_contact_phone_number: User::FAKE_EMERGENCY_CONTACT_PHONE_NUMBER,
-      )
-      expect(user.address_state).to eq ca
-      expect(user.address_country).to eq us
-      expect(user.password).to_not be_nil
-      expect(user.terms_accepted_at).to_not be_nil
-    end
-
     it "initializes a ProjectTeamMembership" do
       project = create(:project)
       form = UserForm.new(
@@ -141,15 +120,6 @@ RSpec.describe UserForm, type: :model do
         expect(form.email).to eq "present@email.test"
       end
 
-      it "assigns a fake email address containing the applicant's id if there is no email and an applicant is supplied" do
-        form = UserForm.new(
-          applicant: create(:user),
-          params: { email: "" }
-        )
-
-        expect(form.email).to match /\Auser-\w+-\d+@ucnrs.org\z/
-      end
-
       it "does not assign an email if there is no applicant supplied" do
         form = UserForm.new(
           params: { email: "" }
@@ -163,6 +133,8 @@ RSpec.describe UserForm, type: :model do
   describe "#save" do
     it "saves the user if there are no errors" do
       institution = create(:institution)
+      us = create(:country, name: "United States")
+      ca = create(:state, name: "California", country: us)
       form = UserForm.new(
         applicant: create(:user),
         project: create(:project),
@@ -174,6 +146,14 @@ RSpec.describe UserForm, type: :model do
           email: "mister@moustache.test",
           user_role: "Other",
           project_role: ProjectTeamMembership::PRINCIPAL_INVESTIGATOR_ROLE,
+          phone_number: "111-111-1111",
+          emergency_contact_full_name: "name 1",
+          emergency_contact_phone_number: "222-222-2222",
+          address_line_1: "123 main",
+          address_city: "city 123",
+          address_postal_code: "91234",
+          address_state_id: ca.id,
+          address_country_id: us.id,
         }
       )
 
@@ -187,6 +167,14 @@ RSpec.describe UserForm, type: :model do
         institution_id: institution.id,
         email: "mister@moustache.test",
         role: "other",
+        phone_number: "111-111-1111",
+        emergency_contact_full_name: "name 1",
+        emergency_contact_phone_number: "222-222-2222",
+        address_line_1: "123 main",
+        address_city: "city 123",
+        address_postal_code: "91234",
+        address_state_id: ca.id,
+        address_country_id: us.id,
       )
     end
 
@@ -214,6 +202,8 @@ RSpec.describe UserForm, type: :model do
       applicant = create(:user)
       project = create(:project)
       institution = create(:institution)
+      us = create(:country, name: "United States")
+      ca = create(:state, name: "California", country: us)
       form = UserForm.new(
         applicant: applicant,
         project: project,
@@ -225,6 +215,14 @@ RSpec.describe UserForm, type: :model do
           email: "mister@moustache.test",
           user_role: "Other",
           project_role: ProjectTeamMembership::PRINCIPAL_INVESTIGATOR_ROLE,
+          phone_number: "111-111-1111",
+          emergency_contact_full_name: "name 1",
+          emergency_contact_phone_number: "222-222-2222",
+          address_line_1: "123 main",
+          address_city: "city 123",
+          address_postal_code: "91234",
+          address_state_id: ca.id,
+          address_country_id: us.id,
         }
       )
 
