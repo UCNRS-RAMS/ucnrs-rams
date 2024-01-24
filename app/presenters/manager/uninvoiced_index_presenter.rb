@@ -22,6 +22,7 @@ class Manager::UninvoicedIndexPresenter
       .having_uninvoiced_amenities
       .for_status(:approved)
       .sort_using(:submitted_recent_first)
+      .group(:id)
       .page(page)
       .per(DEFAULT_LIMIT_FOR_INDEX)
       .includes([:reserve, :user])
