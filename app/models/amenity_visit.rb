@@ -88,10 +88,14 @@ class AmenityVisit < ApplicationRecord
     return if visit.blank?
 
     if arrives < visit.starts_at
+      errors.add(:arrives, :must_be_after_visit_start_date)
       errors.add(:arrives_on, :must_be_after_visit_start_date)
+      errors.add(:arrives_at, :must_be_after_visit_start_date)
     end
     if departs > visit.ends_at
+      errors.add(:departs, :must_be_before_visit_end_date)
       errors.add(:departs_on, :must_be_before_visit_end_date)
+      errors.add(:departs_at, :must_be_before_visit_end_date)
     end
   end
 end

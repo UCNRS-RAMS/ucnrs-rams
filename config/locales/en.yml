@@ -28,10 +28,18 @@ en:
               must_be_after_user_visits_departs_at: "must be after visitor departure"
         amenity_visit:
           attributes:
+            arrives:
+              must_be_after_visit_start_date: "must be after visit start datetime"
+            departs:
+              must_be_before_visit_end_date: "must be before visit end datetime"
             arrives_on:
-              must_be_after_visit_start_date: "must be after visit start date"
+              must_be_after_visit_start_date: "must be after visit start datetime"
             departs_on:
-              must_be_before_visit_end_date: "must be before visit end date"
+              must_be_before_visit_end_date: "must be before visit end datetime"
+            arrives_at:
+              must_be_after_visit_start_date: "must be after visit start datetime"
+            departs_at:
+              must_be_before_visit_end_date: "must be before visit end datetime"
             number_of_people:
               greater_than: "must be a number greater than %{count}"
               not_a_number: "must be a number greater than 0"
