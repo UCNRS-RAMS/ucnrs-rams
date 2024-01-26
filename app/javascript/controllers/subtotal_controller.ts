@@ -63,7 +63,7 @@ export default class extends Controller {
 
   rate() {
     if (this.initialValTarget.type == 'select-one') {
-      return this.initialValTarget.options[this.initialValTarget.selectedIndex].innerText.match(/\d+/)[0]
+      return this.initialValTarget.options[this.initialValTarget.selectedIndex].innerText.match(/\d+.\d+/)[0]
     } else {
       return this.initialValTarget.textContent
     }
