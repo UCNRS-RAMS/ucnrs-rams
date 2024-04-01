@@ -35,7 +35,8 @@ class Manager::InvoicesController < Manager::ApplicationController
     form = InvoiceForm.new(
       invoice: invoice,
       params: { visit_id: params[:visit_id] },
-      editing: true
+      editing: true,
+      remove_filter: true
     )
     @presenter = Manager::Invoices::InvoiceEditPresenter.new(
       visit: visit,
