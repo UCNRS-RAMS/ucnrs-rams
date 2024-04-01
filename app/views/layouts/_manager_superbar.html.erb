@@ -47,7 +47,7 @@
 
           <% else %>
             <%= link_to I18n.t(".navbar.link.go_to_manager_view"),
-              manager_reserve_dashboard_path(layout_presenter.current_user_first_managed_reserve),
+              manager_reserve_dashboard_path(layout_presenter.current_user_first_managed_reserve || Reserve.first),
               class: "dropdown-item" %>
 
           <% end %>
