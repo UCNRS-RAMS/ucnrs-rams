@@ -92,10 +92,13 @@ export default class extends Controller {
 
     const balanceElement = document.getElementById("balance")
 
+    let USDollar = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    });
+
     if (balanceElement) {
-      const sign = this.getNumberSign(balance)
-      const absoluteBalance = Math.abs(balance)
-      balanceElement.innerHTML = `${sign}$ ${absoluteBalance}`
+      balanceElement.innerHTML = USDollar.format(balance)
       balanceElement.parentElement.className = `balance ${this.getBalanceColorClass(
         balance
       )}`
@@ -117,10 +120,6 @@ export default class extends Controller {
 
   getBalance(): number {
     return this.calculateTotal() - this.calculateAmountTotal()
-  }
-
-  getNumberSign(number: number): string {
-    return number < 0 ? "-" : ""
   }
 
   getBalanceColorClass(balance: number): string {
