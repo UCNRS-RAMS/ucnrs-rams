@@ -319,15 +319,14 @@ en:
       content_first:
         "Project information allows site managers to assess the suitability of proposed
         activities and better meet the needs of users. It is used to measure site success, demonstrate
-        demand for reserves, and validate the need for financial and staffing support."
+        demand for reserves, and validate the need for financial and staffing support.
+        The information you enter may be be included in reports and other communications,
+        and shared with the public."
       content_middle:
         "If you have a research project, the California Digital Library
         Data Management Plan (DMP) Tool can help you complete your data management plan.
         RAMS has an active connection to the DMP Tool, which allows real-time tracking of data
         and journal publications."
-      content_last:
-        "The information entered may be included in reports and other communications,
-        and shared with the public."
       okay: "Okay, Got It"
       alt:
         right_facing_arrow: "A right facing arrow"
