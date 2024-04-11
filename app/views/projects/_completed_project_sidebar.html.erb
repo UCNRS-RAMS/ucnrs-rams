@@ -5,7 +5,7 @@
     </h2>
   </header>
   <div class="schedule">
-    <%= link_to new_visit_path, class: "button" do %>
+    <%= link_to new_visit_path(visit: { project_type: presenter.project_type }), class: "button" do %>
       <%= t(".schedule_a_visit") %>
       <%= image_tag("arrow-right.svg", width: "20px", height: "20px", alt: t("alt.right_facing_arrow")) %>
     <% end %>
@@ -23,9 +23,9 @@
 <section>
   <h2><%= t(".or_you_can") %></h2>
   <%= simple_format t(".contact_reserve")%>
-  <%= form_with scope: :email_manager, 
-    url: project_contact_manager_path(presenter.project), 
-    method: :post  do |form| 
+  <%= form_with scope: :email_manager,
+    url: project_contact_manager_path(presenter.project),
+    method: :post  do |form|
   %>
     <%= form.select(:reserve_id, options_from_collection_for_select(Reserve.all, :id, :name),
       { prompt: t(".select_a_reserve") }, class: "reserve-list"

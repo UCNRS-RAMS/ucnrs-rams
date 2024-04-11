@@ -3,9 +3,10 @@ class VisitsController < ApplicationController
   before_action :check_edit_access, only: [:edit]
 
   def new
-    @presenter = VisitsFormPresenter.new(user: current_user)
+    @form = VisitForm.new(user: current_user, params: visit_new_params)
+    @presenter = VisitsFormPresenter.new(user: current_user, form: @form)
   end
-  
+
   def create
     @form = VisitForm.new(user: current_user, params: visit_params)
     if @form.save
@@ -90,6 +91,10 @@ class VisitsController < ApplicationController
         { amenity_visits: {} },
       ],
     )
+  end
+
+  def visit_new_params
+    params.fetch(:visit, {})
   end
 
   def visit
