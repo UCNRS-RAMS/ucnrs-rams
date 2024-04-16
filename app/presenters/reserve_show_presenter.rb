@@ -20,6 +20,7 @@ class ReserveShowPresenter
     :managing_campus,
     :description,
     :large_hero_photo_src,
+    :home_page_url,
     to: :reserve, prefix: true
 
   attr_accessor :selected_tab
