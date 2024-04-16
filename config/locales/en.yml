@@ -485,8 +485,10 @@ en:
     rules_and_directions:
       show:
         title: "Rules and Directions"
-      rules_and_directions:
-        link: "Link"
+      directions:
+        directions: "Directions"
+      rules_and_regulations:
+        rules_and_regulations: "Rules and Regulations"
     waivers:
       index:
         title: "Waivers"
