@@ -33,8 +33,8 @@
             <%= link_to t(".link.rules_and_directions"),
               reserve_rules_and_directions_path(@presenter.reserve_id),
               {
-                id: "rules_and_regulations",
-                class: @presenter.tab_class("rules_and_regulations"),
+                id: "rules_and_directions",
+                class: @presenter.tab_class("rules_and_directions"),
                 data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "details" }
               }
             %>
@@ -67,7 +67,7 @@
       <%= link_to t(".schedule_a_visit"), new_visit_path, class: "button-main", id: "schedule-visit"%>
       <section class="reserve-info">
         <%= image_tag @presenter.logo_src, alt: t(".alt_text.reserve_logo"), class: "reserve-logo" %>
-        
+
         <h2><%= @presenter.reserve_name %></h2>
         <div class="reserve-address">
           <span><%= @presenter.reserve_address_line_1 %></span>
@@ -77,20 +77,25 @@
         </div>
         <%= link_to(
               t(".get_directions"),
-              reserve_more_information_index_path(@presenter.reserve_id),
+              reserve_rules_and_directions_path(@presenter.reserve_id),
               {
                 class: "icon-map",
-                data: { action: "click->tab-bar#changeTab", "tab-bar-id": "more_information", turbo_frame: "details" }
+                data: { action: "click->tab-bar#changeTab", "tab-bar-id": "rules_and_directions", turbo_frame: "details" }
               }
             )
         %>
-        <a class="icon-external-link" href="#"><%= t(".visit_reserve_website") %></a>
+        <% if @presenter.reserve_home_page_url.present?%>
+          <%= link_to t(".visit_reserve_website"),
+            @presenter.reserve_home_page_url,
+            class: "icon-external-link"
+          %>
+        <% end %>
       </section>
       <hr />
       <section class="reserve-personnel">
-          <%= render partial: "personnel_card", 
-            collection: @presenter.reserve_personnel, 
-            spacer_template: "shared/hr" 
+          <%= render partial: "personnel_card",
+            collection: @presenter.reserve_personnel,
+            spacer_template: "shared/hr"
           %>
       </section>
     </section>
