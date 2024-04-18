@@ -2164,15 +2164,14 @@ en:
         edit:
           reserve_details: "Reserve Details"
           alert_message: "Alert Message"
-          alert_message_subheader:
-            "Special message for users about the reserve. This Message
+          alert_message_subheader: "Special message for users about the reserve. This Message
             appears to user when initially selecting this reserve when creating a visit, and the
             reserve page."
           general_information: "General Information"
           reserve_logo: "Reserve Logo"
-          description_reserve_logo_text:
-            "Please be patient when adding large image
+          description_reserve_logo_text: "Please be patient when adding large image
             files after pressing Save Changes button."
+          external_homepage_url: "External Homepage URL"
           reserve_name: "Reserve Name"
           managing_campus: "Managing Campus"
           department: "Department"
@@ -2206,12 +2205,10 @@ en:
           site_content: "Site Content"
           upload_support_text: "Please upload photos in landscape orientation only."
           large_hero_photo: "Large Hero Photo (Reserve Detail Page)"
-          description_large_hero_photo_text:
-            "Please be patient when adding large image
+          description_large_hero_photo_text: "Please be patient when adding large image
             files after pressing Save Changes button."
           listing_photo: "Listing Photo (Reserve Listing Page)"
-          description_listing_photo_text:
-            "Please be patient when adding large image
+          description_listing_photo_text: "Please be patient when adding large image
             files after pressing Save Changes button."
           browse: "Browse"
           upload: "Upload"
@@ -2231,8 +2228,7 @@ en:
           message: "Message"
           please_select: "Please Select"
           amenities: "Amenities"
-          amenities_small_info:
-            "Amenities can be put into 1 of 5 group to better manage them.
+          amenities_small_info: "Amenities can be put into 1 of 5 group to better manage them.
             While the group name is determined here, putting amenities into the group is set
             in the Amenities & Rates page."
           amenities_and_rates: "Amenities & Rates"
