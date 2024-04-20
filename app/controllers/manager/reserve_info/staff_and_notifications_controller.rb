@@ -84,10 +84,12 @@ class Manager::ReserveInfo::StaffAndNotificationsController < Manager::Applicati
       :receive_scuba_email,
       :receive_new_project_email,
       :receive_new_visit_email,
+      :role_title,
       :phone_number,
       :email,
       :avatar,
       :avatar_cache,
+      :visible,
     )
   end
 end

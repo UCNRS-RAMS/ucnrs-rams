@@ -7,7 +7,7 @@
       </p>
       <section class="text">
         <h2><%= t(".title") %></h2>
-        <div><%= presenter.reserve_personnel_name %></div>
+        <h3><%= presenter.reserve_personnel_name %></h3>
         <hr />
         <%= render partial: "reserve_personnel_field", locals: { form: form, presenter: presenter } %>
       </section>
