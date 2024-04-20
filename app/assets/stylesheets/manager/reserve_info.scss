@@ -308,6 +308,14 @@
 .manager.staff_and_notifications {
   table.personnel-table {
     @include table-style1;
+
+    .personnel-name {
+      font-weight: $semi-bold;
+    }
+
+    .personnel-info {
+      display: block;
+    }
   }
 }
 

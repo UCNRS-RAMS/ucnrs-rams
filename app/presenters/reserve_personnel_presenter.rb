@@ -6,7 +6,7 @@ class ReservePersonnelPresenter
   attr_reader :reserve_personnel
 
   delegate :id,
-    :role,
+    :role_title,
     :email,
     :phone_number,
     :user,

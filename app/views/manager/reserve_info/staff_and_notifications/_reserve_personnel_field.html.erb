@@ -1,4 +1,21 @@
 <div>
+  <div class="form-group">
+    <div class="form-inline">
+      <%= form.radio_button(:visible, true) %>
+      <%= form.label(:visible_true, "Visible", class: "form-label") %>
+    </div>
+    <div class="form-inline">
+      <%= form.radio_button(:visible, false) %>
+      <%= form.label(:visible_false, "Hide", class: "form-label") %>
+    </div>
+    <%= tag.small "Show or hide personnel at the reserve information page" %>
+  </div>
+  <hr />
+  <div class="form-group">
+    <%= form.label :role_title, "Role", class: "form-label" %>
+    <%= form.text_field :role_title, class: "form-input" %>
+    <%= tag.small "Role on the reserve e.g. Reserve Director, Steward, etc" %>
+  </div>
   <div class="row">
     <div class="form-group col">
       <%= form.label :email, t(".email"), class: "form-label" %>

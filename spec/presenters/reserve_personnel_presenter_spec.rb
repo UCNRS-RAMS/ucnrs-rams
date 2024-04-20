@@ -4,7 +4,7 @@ RSpec.describe ReservePersonnelPresenter do
   describe "delegations" do
     subject { ReservePersonnelPresenter.new(build(:reserve_personnel)) }
     it { is_expected.to delegate_method(:id).to(:reserve_personnel) }
-    it { is_expected.to delegate_method(:role).to(:reserve_personnel) }
+    it { is_expected.to delegate_method(:role_title).to(:reserve_personnel) }
     it { is_expected.to delegate_method(:email).to(:reserve_personnel) }
     it { is_expected.to delegate_method(:phone_number).to(:reserve_personnel) }
     it { is_expected.to delegate_method(:user).to(:reserve_personnel) }
