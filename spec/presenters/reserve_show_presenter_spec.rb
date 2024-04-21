@@ -93,18 +93,22 @@ RSpec.describe ReserveShowPresenter do
     end
   end
 
-  describe "#personnel" do
+  describe "#reserve_personnel" do
     it "presents personnel informations correctly through the presenter" do
       reserve = create(:reserve)
-      personnel_one = create(:reserve_personnel, id: 1, email: "t.kirk@enterprise.uss", reserve: reserve)
-      personnel_two = create(:reserve_personnel, id: 2, email: "spock@enterprise.uss", reserve: reserve)
-      personnel_three = create(:reserve_personnel, id: 3, email: "McCoy@enterprise.uss", reserve: reserve)
+      personnel_one = create(:reserve_personnel, email: "t.kirk@enterprise.uss", reserve: reserve, visible: true)
+      personnel_two = create(:reserve_personnel, email: "spock@enterprise.uss", reserve: reserve, visible: true)
+      personnel_three = create(:reserve_personnel, email: "McCoy@enterprise.uss", reserve: reserve, visible: true)
+      personnel_four = create(:reserve_personnel, email: "tribble@enterprise.uss", reserve: reserve, visible: false)
 
       show_presenter = ReserveShowPresenter.new(reserve: reserve)
 
-      expect(show_presenter.reserve_personnel.first).to have_attributes(id: 1, email: "t.kirk@enterprise.uss")
-      expect(show_presenter.reserve_personnel.second).to have_attributes(id: 2, email: "spock@enterprise.uss")
-      expect(show_presenter.reserve_personnel.third).to have_attributes(id: 3, email: "McCoy@enterprise.uss")
+      expect(show_presenter.reserve_personnel).to all(be_instance_of ReservePersonnelPresenter)
+      expect(show_presenter.reserve_personnel.map(&:id)).to eq [
+        personnel_one.id,
+        personnel_two.id,
+        personnel_three.id,
+      ]
     end
   end
 

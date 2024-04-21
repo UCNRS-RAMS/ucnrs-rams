@@ -26,7 +26,7 @@ class ReserveShowPresenter
   attr_accessor :selected_tab
 
   def reserve_personnel
-    @reserve.personnel.map do |personnel|
+    @reserve.personnel.visible.map do |personnel|
       ReservePersonnelPresenter.new(personnel)
     end
   end

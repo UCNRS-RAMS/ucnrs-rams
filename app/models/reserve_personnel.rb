@@ -29,4 +29,8 @@ class ReservePersonnel < ApplicationRecord
   def avatar_src
     avatar_url(:medium) || AVATAR_PLACEHOLDER
   end
+
+  def self.visible
+    where(visible: true)
+  end
 end
