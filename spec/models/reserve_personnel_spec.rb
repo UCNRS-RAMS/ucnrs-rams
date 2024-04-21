@@ -51,4 +51,17 @@ RSpec.describe ReservePersonnel, type: :model do
       expect(avatar_src).to match(/medium_test-image.jpeg/)
     end
   end
+
+  describe ".visible" do
+    it "returns only personnel that have visible flag true" do
+      personnel1 = create(:reserve_personnel, visible: false)
+      personnel2 = create(:reserve_personnel, visible: true)
+      personnel3 = create(:reserve_personnel, visible: false)
+      personnel4 = create(:reserve_personnel, visible: true)
+
+      results = ReservePersonnel.visible
+
+      expect(results).to match_array [personnel2, personnel4]
+    end
+  end
 end
