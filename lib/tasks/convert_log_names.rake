@@ -8,6 +8,7 @@ namespace :db do
       "reservation submitted" => "submitted",
       "reservation updated" => "updated",
       "reservation deleted" => "deleted",
+      "reservation cancellation" => "cancelation",
       "visit updated" => "updated",
       "visit cancelled" => "cancelled",
       "visit deleted" => "deleted",
@@ -18,6 +19,7 @@ namespace :db do
       "invoice updated" => "updated",
       "invoice deleted" => "deleted",
       "invoice sent" => "sent",
+      "requested" => "cancelation requested",
 
       "Application" => "Project",
       "Activity" => "Visit",
@@ -34,11 +36,17 @@ namespace :db do
       "invoice" => "Invoice",
     }
 
+    ActiveRecord::Base.connection.exec_query("SET FOREIGN_KEY_CHECKS=0;")
+    ActiveRecord::Base.connection.exec_query("DROP TABLE IF EXISTS `logs_backup`;")
+    ActiveRecord::Base.connection.exec_query("SET FOREIGN_KEY_CHECKS=1;")
+
     ActiveRecord::Base.connection.exec_query("CREATE TABLE logs_backup LIKE logs;")
     ActiveRecord::Base.connection.exec_query("INSERT INTO logs_backup SELECT * FROM logs;")
 
     Log.find_each do |log|
-      metadata = JSON.parse(log.metadata, object_class: OpenStruct)
+      metadata = log.metadata
+      metadata = metadata.to_json if metadata.is_a?(Hash)
+      metadata = JSON.parse(metadata, object_class: OpenStruct)
 
       log.action = CONVERT_MAP[log.action] if CONVERT_MAP[log.action].present?
       log.record_type = CONVERT_MAP[log.record_type] if CONVERT_MAP[log.record_type].present?
@@ -48,7 +56,11 @@ namespace :db do
       metadata.about = CONVERT_MAP[metadata.about] if CONVERT_MAP[metadata.about].present?
       metadata.about_type = CONVERT_MAP[metadata.about_type] if CONVERT_MAP[metadata.about_type].present?
 
-      log.metadata = metadata.deep_to_h.to_json
+      metadata = metadata.deep_to_h
+
+      metadata = metadata.to_json unless log.metadata.is_a?(Hash)
+
+      log.metadata = metadata
 
       log.save(validate: false)
     end
