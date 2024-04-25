@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_04_18_184341) do
+ActiveRecord::Schema.define(version: 2024_04_25_063449) do
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
@@ -375,16 +375,16 @@ ActiveRecord::Schema.define(version: 2024_04_18_184341) do
     t.string "record_about_type"
     t.bigint "reserve_id"
     t.bigint "project_id"
-    t.bigint "reservation_id"
+    t.bigint "visit_id"
     t.bigint "invoice_id"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.index ["invoice_id"], name: "index_logs_on_invoice_id"
     t.index ["project_id"], name: "index_logs_on_project_id"
     t.index ["record_about_type", "record_about_id"], name: "index_logs_on_record_about_type_and_record_about_id"
-    t.index ["reservation_id"], name: "index_logs_on_reservation_id"
     t.index ["reserve_id"], name: "index_logs_on_reserve_id"
     t.index ["user_id"], name: "index_logs_on_user_id"
+    t.index ["visit_id"], name: "index_logs_on_visit_id"
   end
 
   create_table "logs-old", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", comment: "DEPRECATED", force: :cascade do |t|
