@@ -2,7 +2,7 @@ namespace :db do
   desc "Convert logs to rams3 naming convention."
   task convert_log_names: :environment do
     CONVERT_MAP = {
-      "application submitted" => "updated",
+      "application submitted" => "submitted",
       "application updated" => "updated",
       "application deleted" => "deleted",
       "reservation submitted" => "submitted",
