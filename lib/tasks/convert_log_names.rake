@@ -8,7 +8,6 @@ namespace :db do
       "reservation submitted" => "submitted",
       "reservation updated" => "updated",
       "reservation deleted" => "deleted",
-      "reservation cancellation" => "cancelation",
       "visit updated" => "updated",
       "visit cancelled" => "cancelled",
       "visit deleted" => "deleted",
@@ -28,6 +27,7 @@ namespace :db do
       "Invoice" => "Invoice",
 
       "reservation" => "Visit",
+      "reservation cancellation" => "Visit",
       "application" => "Project",
       "activity" => "Visit",
       "visit" => "UserVisit",
