@@ -2,7 +2,9 @@
   <div class="container">
     <div class="navbar-content">
       <div class="left-side">
-        <%= image_tag "ucnrs-logo.svg", alt: t("alt.ucnrs_logo"), height: "57px", class: "logo" %>
+        <%= link_to dashboard_index_path do %>
+          <%= image_tag "ucnrs-logo.svg", alt: t("alt.ucnrs_logo"), height: "57px", class: "logo" %>
+        <% end %>
         <h1 class="title">RAMS</h1>
         <small id="title-extra">University of California<br />Natural Reserve System</small>
       </div>
