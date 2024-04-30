@@ -216,39 +216,6 @@
       "note": ""
     },
     {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 4,
-      "fingerprint": "381acbbbafd19f8222ca7f365450d5a24813b72fe6b933180c2bfe532b8944b6",
-      "check_name": "LinkToHref",
-      "message": "Potentially unsafe model attribute in `link_to` href",
-      "file": "app/views/manager/projects/activity_and_notes/_activity.html.erb",
-      "line": 2,
-      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to((Unresolved Model).new.action_name, (Unresolved Model).new.details_page_url, :data => ({ :\"turbo-frame\" => \"modal-content\" }))",
-      "render_path": [
-        {
-          "type": "template",
-          "name": "manager/projects/activity_and_notes/_activity_table",
-          "line": 13,
-          "file": "app/views/manager/projects/activity_and_notes/_activity_table.html.erb",
-          "rendered": {
-            "name": "manager/projects/activity_and_notes/_activity",
-            "file": "app/views/manager/projects/activity_and_notes/_activity.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "manager/projects/activity_and_notes/_activity"
-      },
-      "user_input": "(Unresolved Model).new.details_page_url",
-      "confidence": "Weak",
-      "cwe_id": [
-        79
-      ],
-      "note": "cross-site scripting"
-    },
-    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "39e41d5d1f47be64e90c8a741fbb111f94c3e4b8c514343991f0bcf5b5c495f1",
@@ -345,7 +312,7 @@
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/manager/visits/waivers_policies/_policy_agreement.html.erb",
-      "line": 11,
+      "line": 10,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
       "code": "link_to((Unresolved Model).new.policy_url, :class => \"policy-link\", :target => :blank)",
       "render_path": [
@@ -465,7 +432,7 @@
         {
           "type": "template",
           "name": "manager/visits/detail/edit",
-          "line": 9,
+          "line": 8,
           "file": "app/views/manager/visits/detail/edit.html.erb",
           "rendered": {
             "name": "shared/visits/_form",
@@ -635,8 +602,18 @@
       "render_path": [
         {
           "type": "template",
-          "name": "projects/_file_table",
+          "name": "manager/projects/summary/show",
           "line": 11,
+          "file": "app/views/manager/projects/summary/show.html.erb",
+          "rendered": {
+            "name": "projects/_file_table",
+            "file": "app/views/projects/_file_table.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "projects/_file_table",
+          "line": 9,
           "file": "app/views/projects/_file_table.html.erb",
           "rendered": {
             "name": "projects/_file",
@@ -680,7 +657,7 @@
         {
           "type": "template",
           "name": "manager/visits/detail/edit",
-          "line": 9,
+          "line": 8,
           "file": "app/views/manager/visits/detail/edit.html.erb",
           "rendered": {
             "name": "shared/visits/_form",
@@ -696,6 +673,39 @@
       "confidence": "Weak",
       "cwe_id": [
         22
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "947805473476d447ea869c752f2a1e926607863d312b1d8c14c8b223d15396d1",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/manager/projects/activity_and_notes/_activity.html.erb",
+      "line": 6,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to((Unresolved Model).new.details_page_url, :data => ({ :\"turbo-frame\" => \"modal-content\" }))",
+      "render_path": [
+        {
+          "type": "template",
+          "name": "manager/projects/activity_and_notes/_activity_table",
+          "line": 15,
+          "file": "app/views/manager/projects/activity_and_notes/_activity_table.html.erb",
+          "rendered": {
+            "name": "manager/projects/activity_and_notes/_activity",
+            "file": "app/views/manager/projects/activity_and_notes/_activity.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "manager/projects/activity_and_notes/_activity"
+      },
+      "user_input": "(Unresolved Model).new.details_page_url",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
       ],
       "note": ""
     },
@@ -793,7 +803,7 @@
         {
           "type": "template",
           "name": "manager/visits/detail/edit",
-          "line": 9,
+          "line": 8,
           "file": "app/views/manager/visits/detail/edit.html.erb",
           "rendered": {
             "name": "shared/visits/_form",
@@ -865,7 +875,7 @@
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/manager/visits/detail/edit.html.erb",
-      "line": 14,
+      "line": 12,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(partial => Manager::Visits::VisitsFormPresenter.new(:user => current_user, :form => VisitForm.new(:user => current_user, :params => ({ :id => params[:visit_id] }), :editing => true)).save_partial_path, { :locals => ({ :form_id => \"form-visits-edit\" }) })",
       "render_path": [
@@ -945,7 +955,7 @@
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/home/index.html.erb",
-      "line": 3,
+      "line": 2,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(partial => HomeIndexPresenter.new(:news_articles => NewsArticle.fake, :user => current_user, :visit_filter => visit_filter, :visit_page => visit_page_number, :invoice_filter => invoice_filter, :invoice_page => invoice_page_number, :partial => params[:partial_name]).partial_name, { :locals => ({ :presenter => HomeIndexPresenter.new(:news_articles => NewsArticle.fake, :user => current_user, :visit_filter => visit_filter, :visit_page => visit_page_number, :invoice_filter => invoice_filter, :invoice_page => invoice_page_number, :partial => params[:partial_name]) }) })",
       "render_path": [
@@ -1002,7 +1012,7 @@
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/visits/waivers_policies/_policy_agreement.html.erb",
-      "line": 11,
+      "line": 10,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
       "code": "link_to((Unresolved Model).new.policy_url, :class => \"policy-link\", :target => :blank)",
       "render_path": [
@@ -1108,6 +1118,6 @@
       "note": ""
     }
   ],
-  "updated": "2023-06-15 19:40:30 -0700",
+  "updated": "2024-04-29 20:51:08 -0700",
   "brakeman_version": "5.4.0"
 }

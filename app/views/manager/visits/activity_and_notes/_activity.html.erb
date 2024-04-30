@@ -1,6 +1,12 @@
-<tr class="activity">
-  <td><%= link_to activity.action_name, manager_reserve_project_activity_and_note_path(activity.reserve_id, activity.project_id, activity.id), data: { "turbo-frame": "modal-content" } %></td>
-  <td><%= activity.date %></td>
-  <td><%= activity.details %></td>
-  <td><%= activity.user_name %></td>
+<tr class="log" id="<%= dom_id activity %>">
+  <td class="log-creator"><%= activity.user_name %></td>
+  <td class="log-action"><%= activity.action_name %></td>
+  <td class="log-datetime"><%= activity.date %></td>
+  <td class="log-button-actions">
+    <%= link_to activity.details_page_url, data: { "turbo-frame": "modal-content" } do %>
+      <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"),
+        class: "right-arrow", height: "20", width: "20"
+      %>
+    <% end %>
+  </td>
 </tr>
