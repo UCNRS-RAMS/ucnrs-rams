@@ -1,17 +1,19 @@
-<section class="activity-table">
-  <h2><%= t(".title") %></h2>
-  <table>
+<section class="logs">
+  <header>
+    <h2><%= t(".title") %></h2>
+  </header>
+  <table class="logs-table">
     <thead>
-      <tr>
-        <th><%= t(".name") %></th>
-        <th><%= t(".date_and_time") %></th>
-        <th><%= t(".details") %></th>
-        <th><%= t(".user_or_admin") %></th>
+      <tr class="log">
+        <th class="log-creator"><%= t(".creator") %></th>
+        <th class="log-action"><%= t(".action") %></th>
+        <th class="log-datetime"><%= t(".date_and_time") %></th>
+        <th class="log-button-actions"></th>
       </tr>
     </thead>
     <tbody>
       <%= render partial: "manager/projects/activity_and_notes/activity", collection: presenter.logs %>
-      <%= paginate presenter.logs_scope, param_name: :logs_page, data: { "turbo-action": "advance" } %>
     </tbody>
   </table>
+  <%= paginate presenter.logs_scope, param_name: :logs_page, data: { "turbo-action": "advance" } %>
 </section>

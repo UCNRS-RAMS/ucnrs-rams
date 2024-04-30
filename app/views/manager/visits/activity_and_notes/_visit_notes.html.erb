@@ -1,13 +1,14 @@
 <section class="reserve-notes">
-  <h2><%= t(".title") %></h2>
-  <section class="note-form">
-    <%= form_with model: ReserveNote.new, url: manager_reserve_visit_activity_and_notes_path(reserve_id: presenter.reserve_id, visit_id: presenter.id) do |f| %>
-      <div class="inline">
-        <%= f.text_field :note, class: "field", required: true %>
-        <%= f.button t(".post_note") , type: "submit" ,class: "submit-btn" %>
-      </div>
-    <% end %>
-  </section>
+  <header>
+    <h2><%= t(".title") %></h2>
+  <header>
+  <%= form_with model: ReserveNote.new, url: manager_reserve_visit_activity_and_notes_path(current_reserve, presenter.id) do |f| %>
+    <section class="note-form">
+      <%= f.text_field :note, id:"note-input", required: true %>
+      <%= f.button "Post Note" , type: "submit" ,class: "submit-btn" %>
+    </section>
+  <% end %>
+
   <%= render partial: "manager/visits/activity_and_notes/note", collection: presenter.notes %>
   <%= paginate presenter.notes_scope, param_name: :notes_page, data: { "turbo-action": "advance" } %>
 </section>

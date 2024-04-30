@@ -391,6 +391,18 @@ en:
       status: "Status"
       old_value: "Old value:"
       new_value: "New value:"
+    log:
+      log: "Log"
+      time: "Time:"
+      action: "Action:"
+      details: "Details:"
+      id: "Id:"
+      by: "By:"
+      log_changes: "Changes"
+      field: "Field"
+      status: "Status"
+      old_value: "Old value"
+      new_value: "New value"
     staff_and_notifications:
       edit_reserve_personnel:
         title: "Edit Reserve Personnel"
@@ -1545,11 +1557,11 @@ en:
         system: "System"
       activity_and_notes:
         activity_table:
-          title: "Activity"
-          name: "Name"
+          action: "Action"
           date_and_time: "Date & Time"
           details: "Details"
-          user_or_admin: "User/Admin"
+          title: "Activity"
+          creator: "Creator"
         visit_notes:
           title: "Notes"
           name: "Name"
@@ -2021,13 +2033,13 @@ en:
           amenity: "Amenity"
       activity_and_notes:
         activity_table:
-          title: "Activity"
-          name: "Name"
+          action: "Action"
           date_and_time: "Date & Time"
           details: "Details"
-          user_or_admin: "User/Admin"
+          title: "Activity"
+          creator: "Creator"
         reserve_notes:
-          title: "Notes"
+          title: "Internal Notes"
           name: "Name"
           date_and_time: "Date & Time"
           user_or_admin: "User/Admin"

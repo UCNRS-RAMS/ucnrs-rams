@@ -1,0 +1,69 @@
+<turbo-frame id="modal-content"
+  class="modal-content"
+  role="dialog"
+  aria-labelledby="modal-title"
+  aria-describedby="modal-description"
+>
+  <div data-modal-target="dialog openOnLoad" data-action="mousedown@window->modal#closeBackground">
+    <section class="text">
+      <header>
+        <h2 id="modal-title"><%= t(".log") %></h2>
+        <div class="close">
+          <%= image_tag "x.svg", height: "16px", width: "16px", data: { action: "click->modal#close" } %>
+        </div>
+      </header>
+
+      <section class="log">
+        <table>
+          <tr>
+            <td><%= t(".log") %></td>
+            <td><%= presenter.date %></td>
+          </tr>
+          <tr>
+            <td><%= t(".action") %></td>
+            <td><%= presenter.action %></td>
+          </tr>
+          <tr>
+            <td><%= t(".details") %></td>
+            <td><%= presenter.details %></td>
+          </tr>
+          <tr>
+            <td><%= t(".id") %></td>
+            <td>Visit # <%= presenter.id %></td>
+          </tr>
+          <tr>
+            <td><%= t(".by") %></td>
+            <td><%= presenter.user_name %></td>
+          </tr>
+        </table>
+      </section>
+      <br />
+      <% if presenter.changes.present? %>
+        <section class="log-changes">
+          <header>
+            <%= t(".log_changes") %>
+          </header>
+          <hr />
+          <table>
+            <thead>
+              <tr>
+                <td><%= t(".field") %></td>
+                <td><%= t(".old_value") %></td>
+                <td><%= t(".new_value") %></td>
+              </tr>
+            </thead>
+            <tbody>
+              <% presenter.changes.each do |change_key, change| %>
+                <tr>
+                  <td><%= change_key %></td>
+                  <td><code><%= change[0].present? ? change[0] : "nil" %></code></td>
+                  <td><code><%= change[1] %></code></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </section>
+      <% end %>
+    </section>
+  </div>
+</turbo-frame>

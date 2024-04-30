@@ -36,21 +36,23 @@
         </tr>
       </table>
     </section>
-    <section class="log-changes">
-      <p><%= t(".log_changes") %></p>
-      <hr>
-      <table>
-        <thead>
-          <tr>
-            <td><%= t(".field") %></td>
-            <td><%= t(".old_value") %></td>
-            <td><%= t(".new_value") %></td>
-          </tr>
-        </thead>
-        <tbody>
-          <%= render partial: 'modals/changed_attribute', collection: presenter.changes, as: :change %>
-        </tbody>
-      </table>
-    </section>
+    <% if presenter.changes.present? %>
+      <section class="log-changes">
+        <p><%= t(".log_changes") %></p>
+        <hr>
+        <table>
+          <thead>
+            <tr>
+              <td><%= t(".field") %></td>
+              <td><%= t(".old_value") %></td>
+              <td><%= t(".new_value") %></td>
+            </tr>
+          </thead>
+          <tbody>
+            <%= render partial: 'modals/changed_attribute', collection: presenter.changes, as: :change %>
+          </tbody>
+        </table>
+      </section>
+    <% end %>
   </div>
 </turbo-frame>
