@@ -60,26 +60,39 @@
   }
 
   .instructions {
+    background-color: $light-gray;
+    border-radius: $border-radius;
     display: flex;
-    gap: 3rem;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 30px;
+
+    .title {
+      font-size: 1.25rem;
+      margin-top: 0;
+    }
+
+    .comment {
+      color: $dark-gray;
+    }
 
     > section {
       flex-basis: 50%;
 
       > header {
+        align-items: center;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         font-size: 1.25rem;
         font-weight: 600;
-        justify-content: center;
+        gap: 8px;
+        justify-content: start;
         text-align: center;
-
-        svg {
-          margin: 1rem auto;
-        }
       }
 
       ul.instruction-list {
+        margin-left: 16px;
+        margin-top: 5px;
         padding-left: 1rem;
       }
     }

@@ -136,6 +136,7 @@ en:
     select_one: "Please Select One"
   dashboard:
     index:
+      await_approval: "Await approval"
       create_a_project: "Create a Project"
       create_a_project_instruction:
         1: "Indicate your project type (research, university-class, etc.)"
@@ -154,7 +155,7 @@ en:
       my_visits_description: "See the reserve visits you have already scheduled."
       please_contact_reserve_staff: "Please contact reserve staff at any time during this project to discuss
         feasibility and logistics"
-      reserve_use_is_managed: "Reserve use is managed through the two-step process detailed below."
+      reserve_use_is_managed: "Reserve use is managed through the steps detailed below."
       schedule_a_visit: "Schedule a Visit"
       schedule_a_visit_description: "You must create a project before scheduling a visit."
       schedule_a_visit_instruction:
