@@ -1,7 +1,7 @@
 class Manager::ReserveInfo::AmenitiesAndRates::AmenityRateCategoriesController < Manager::ApplicationController
   before_action :authenticate_user!
   before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
-  before_action :is_administrator!, only: [:edit, :update]
+  before_action :is_administrator!, only: [:edit, :update], unless: -> { super_admin? }
 
   layout "manager"
 
