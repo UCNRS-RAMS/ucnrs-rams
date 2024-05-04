@@ -73,9 +73,39 @@ section.reserve-notes {
   }
 }
 
-.modal {
-  section {
-    margin-bottom: 0px;
+.log-modal {
+  padding: 1.25rem;
+
+  > header {
+    align-items: center;
+    display: flex;
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: $semi-bold;
+      margin: 0;
+    }
+
+    img.close {
+      background-color: rgba($gray, 0.36);
+      border-radius: 50%;
+      cursor: pointer;
+      margin-left: auto;
+      padding: 0.5rem;
+    }
+
+  }
+
+  hr {
+    border-bottom: 1px solid $gray;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+
+  table {
+    width: 100%;
   }
 
   .log, .log-changes {
@@ -88,7 +118,27 @@ section.reserve-notes {
 
   .log-changes {
     table {
-      .highlight {
+      border-spacing: 0 8px;
+
+      th {
+        font-weight: $semi-bold;
+        text-align: left;
+      }
+
+      td {
+        vertical-align: top;
+      }
+
+      .log-field {
+        width: 20%
+      }
+
+      .old-value,
+      .new-value {
+        width: 40%
+      }
+
+      code {
         color: $red;
       }
     }

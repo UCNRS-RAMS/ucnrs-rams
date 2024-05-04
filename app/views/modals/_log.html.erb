@@ -5,35 +5,40 @@
   aria-describedby="modal-description"
 >
   <div data-modal-target="dialog openOnLoad" data-action="mousedown@window->modal#closeBackground">
-    <section class="text">
+    <section class="log-modal">
       <header>
         <h2 id="modal-title"><%= t(".log") %></h2>
-        <div class="close">
-          <%= image_tag "x.svg", height: "16px", width: "16px", data: { action: "click->modal#close" } %>
-        </div>
+        <%= image_tag "x.svg", height: "16px", width: "16px", class: "close", data: { action: "click->modal#close" } %>
       </header>
 
       <section class="log">
         <table>
           <tr>
-            <td><%= t(".log") %></td>
-            <td><%= presenter.date %></td>
+            <td><%= t(".time") %></td>
+            <td><%= presenter.time %></td>
           </tr>
           <tr>
             <td><%= t(".action") %></td>
-            <td><%= presenter.action %></td>
+            <td><%= presenter.action_name %></td>
           </tr>
-          <tr>
-            <td><%= t(".details") %></td>
-            <td><%= presenter.details %></td>
-          </tr>
+          <% if presenter.details.present? %>
+            <tr>
+              <td><%= t(".action") %></td>
+              <td><%= presenter.details %></td>
+            </tr>
+          <% end %>
           <tr>
             <td><%= t(".id") %></td>
-            <td>Visit # <%= presenter.id %></td>
+            <td><%= presenter.record_about_id %></td>
           </tr>
           <tr>
             <td><%= t(".by") %></td>
-            <td><%= presenter.user_name %></td>
+            <td>
+              <%= link_to presenter.user_name,
+                edit_manager_reserve_user_path(current_reserve, presenter.user_id),
+                data: { turbo_frame: "_top" }
+              %>
+            </td>
           </tr>
         </table>
       </section>
@@ -47,9 +52,9 @@
           <table>
             <thead>
               <tr>
-                <td><%= t(".field") %></td>
-                <td><%= t(".old_value") %></td>
-                <td><%= t(".new_value") %></td>
+                <th class="log-field"><%= t(".field") %></th>
+                <th class="old-value"><%= t(".old_value") %></th>
+                <th class="new-value"><%= t(".new_value") %></th>
               </tr>
             </thead>
             <tbody>

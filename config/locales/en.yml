@@ -400,10 +400,10 @@ en:
       id: "Id:"
       by: "By:"
       log_changes: "Changes"
-      field: "Field"
+      field: "Field:"
       status: "Status"
-      old_value: "Old value"
-      new_value: "New value"
+      old_value: "Old value:"
+      new_value: "New value:"
     staff_and_notifications:
       edit_reserve_personnel:
         title: "Edit Reserve Personnel"

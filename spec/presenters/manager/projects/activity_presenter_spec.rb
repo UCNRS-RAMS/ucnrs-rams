@@ -8,12 +8,13 @@ RSpec.describe Manager::Projects::ActivityPresenter do
   describe "#action_name" do
     it "should return the action name for log record based on about" do
       metadata = {
-        "action"=>"application submitted",
-        "comment"=>"", "about_type"=>"Application",
-        "about_id"=>45075,
-        "changes"=>{
-          "ApplicationStatus"=>["Temp", "Open"],
-          "submitted_at"=>[nil, "2020-05-23T16:03:56.000-07:00"]
+        "action" => "submitted",
+        "comment" => "",
+        "about_type" => "Application",
+        "about_id" => 45075,
+        "changes" => {
+          "ApplicationStatus" => ["Temp", "Open"],
+          "submitted_at" => [nil, "2020-05-23T16:03:56.000-07:00"]
         }
       }
       log1 = project.logs.create(user: user, reserve_id: reserve.id, metadata: metadata.to_json)
@@ -22,8 +23,8 @@ RSpec.describe Manager::Projects::ActivityPresenter do
       presenter1 = Manager::Projects::ActivityPresenter.new(record: log1)
       presenter2 = Manager::Projects::ActivityPresenter.new(record: log2)
 
-      expect(presenter1.action_name).to eq("application submitted 45075")
-      expect(presenter2.action_name).to eq("test 45075 application submitted")
+      expect(presenter1.action_name).to eq("submitted")
+      expect(presenter2.action_name).to eq("test submitted")
     end
   end
 
@@ -39,7 +40,10 @@ RSpec.describe Manager::Projects::ActivityPresenter do
 
   describe "#details" do
     it "should return the log details" do
-      log = project.logs.create(user: user, reserve_id: reserve.id, log: "test log details")
+      metadata = {
+        "details"=>"test log details",
+      }
+      log = create(:log, metadata: metadata.to_json)
       presenter = Manager::Projects::ActivityPresenter.new(record: log)
 
       expect(presenter.details).to eq("test log details")
