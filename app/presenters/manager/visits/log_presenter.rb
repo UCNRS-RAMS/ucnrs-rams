@@ -12,9 +12,9 @@ class Manager::Visits::LogPresenter
 
   def action_name
     if data["about"]
-      "#{data["about"]} #{data["about_id"]} #{data["action"]}"
+      "#{data["about"]} #{data["action"]}"
     else
-      "#{data["action"]} #{data["about_id"]}"
+      "#{data["action"]}"
     end
   end
 
@@ -22,8 +22,12 @@ class Manager::Visits::LogPresenter
     I18n.l(created_at, format: :project_summary_date_time)
   end
 
+  def time
+    created_at
+  end
+
   def details
-    log
+    data["details"]
   end
 
   def user_name
