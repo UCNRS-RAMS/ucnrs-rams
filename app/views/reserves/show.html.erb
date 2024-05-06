@@ -5,7 +5,9 @@
       <span><%= @presenter.reserve_managing_campus&.name %></span>
     </section>
     <section class="left-side">
-      <section class="reserve-message"><%= @presenter.reserve_alert_message %></section>
+      <% if @presenter.reserve_alert_message_enabled? %>
+        <section class="reserve-message"><%= @presenter.reserve_alert_message %></section>
+      <% end %>
       <section class="reserve-description"><%= @presenter.reserve_description %></section>
       <div>
         <ul class="navbar-nav" class="tab-bar">
