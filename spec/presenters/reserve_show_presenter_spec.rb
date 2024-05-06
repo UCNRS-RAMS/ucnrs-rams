@@ -16,6 +16,7 @@ RSpec.describe ReserveShowPresenter do
     it { is_expected.to delegate_method(:description).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:large_hero_photo_src).to(:reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:home_page_url).to(:reserve).with_prefix(true) }
+    it { is_expected.to delegate_missing_methods_to(:reserve) }
   end
 
   describe "#reserve" do

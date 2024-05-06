@@ -23,6 +23,8 @@ class ReserveShowPresenter
     :home_page_url,
     to: :reserve, prefix: true
 
+  delegate_missing_to :reserve
+
   attr_accessor :selected_tab
 
   def reserve_personnel
