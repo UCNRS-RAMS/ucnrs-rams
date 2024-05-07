@@ -154,12 +154,12 @@
     border: 1px solid $dark-bluegray;
     margin-bottom: 3rem;
     padding: 1.25rem;
-  
+
     .display-flex {
       display: flex;
       justify-content: space-between;
     }
-  
+
     .info-block {
       display: flex;
       margin-bottom: 12px;
@@ -191,28 +191,28 @@
       padding: 0.2rem 1rem;
       text-decoration-line: none;
       width: 8rem;
-  
+
       &:hover {
         cursor: pointer;
       }
     }
-  
+
     .bg-approved {
       background-color: $green;
     }
-  
+
     .bg-in_review {
       background-color: $yellow;
     }
-  
+
     .bg-cancelled {
       background-color: $pink;
     }
-  
+
     .bg-denied {
       background-color: $blue;
     }
-  
+
     .bg-incomplete {
       background-color: $red-alert;
     }
@@ -223,7 +223,7 @@
       padding: 10px;
       text-align: center;
     }
-  
+
     p.alert {
       background-color: $pink;
       border-radius: 10px;
@@ -300,52 +300,52 @@
       flex-wrap: wrap;
       justify-content: space-between;
       margin-bottom: 3rem;
-  
+
       .reserve-field {
         width: 23rem;
       }
-  
+
       .display-row-flex {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-  
+
         a {
           padding: 0px;
         }
       }
-  
+
       .error {
         color: $red;
       }
     }
-  
+
     .flex-break {
       flex-basis: 100%;
       height: 0;
     }
-  
+
     .reserve-message {
       background-color: $gold;
       border-radius: 0.3125rem;
       font-size: 0.8125rem;
       margin-bottom: 1rem;
       padding: 1.5rem;
-  
+
       > p:first-of-type {
         margin-top: 0;
       }
-  
+
       > p:last-of-type {
         margin-bottom: 0;
       }
-  
+
       p {
         line-height: 1.5rem;
         margin-bottom: 1.2rem;
       }
     }
-  
+
     .special-needs-statement:empty {
       display: none;
     }
@@ -392,8 +392,9 @@
           border: 1px solid $dark-bluegray;
           border-radius: 1.5rem;
           color: unset;
-          padding: 0.2rem 1.5rem;
+          padding: 0.2rem 1rem;
           text-decoration: none;
+          text-wrap: nowrap;
         }
       }
 
