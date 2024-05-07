@@ -376,11 +376,12 @@ main {
     filter: drop-shadow(0px 0px 7px $black);
     padding: 0 1.25rem;
     position: absolute;
-    top: 180px;
+    top: 170px;
+    transition: all .15s ease-in-out;
 
     h1 {
       color: $white;
-      font-size: 3.75rem;
+      font-size: 3.5rem;
       font-weight: $semi-bold;
       margin: 0.25rem 0;
     }
@@ -768,6 +769,19 @@ main {
     .right-side {
       min-width: 280px;
     }
+
+    .reserve-name {
+      top: 150px;
+      transition: all .15s ease-in-out;
+
+      h1 {
+        font-size: 3rem;
+      }
+
+      span {
+        font-size: 1rem;
+      }
+    }
   }
 }
 
@@ -785,6 +799,7 @@ main {
 
     .reserve-name {
       top: 125px;
+      transition: all .15s ease-in-out;
 
       h1 {
         font-size: 1.625rem;
