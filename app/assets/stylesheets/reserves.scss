@@ -305,6 +305,10 @@ main {
             filter: invert(1);
           }
         }
+
+        .dropdown-item {
+          color: $navy-blue;
+        }
       }
     }
 
