@@ -28,8 +28,16 @@
                 class: ["nav-link", active_class_for("registrations")] %>
             </li>
             <li>
-              <%= link_to I18n.t(".navbar.link.help"), "https://ramshelp.ucnrs.org/",
-                class: ["nav-link", active_class_for("helps")], target: "_blank" %>
+              <%= link_to "https://ramshelp.ucnrs.org/", id: "help-link", class: ["nav-link", active_class_for("helps")],
+                target: "_blank" do %>
+                <%= I18n.t(".navbar.link.help") %>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              <% end %>
             </li>
             <li>
               <%= link_to I18n.t(".navbar.link.sign_out"), destroy_user_session_path,
