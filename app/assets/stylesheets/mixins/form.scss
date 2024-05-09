@@ -259,16 +259,13 @@
     border: 1px solid $darker-gray;
     border-radius: 3px;
     box-sizing: border-box;
-    height: 2rem;
     padding: 0.25rem 0.625rem;
     width: 100%;
   }
 
-  .form-textarea {
-    height: 12rem;
-    max-width: 100%;
-    min-width: 100%;
+  textarea.form-textarea {
     min-height: 6rem;
+    resize: vertical;
   }
 
   .form-input {
