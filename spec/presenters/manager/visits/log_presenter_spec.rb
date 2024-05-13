@@ -14,12 +14,12 @@ RSpec.describe Manager::Visits::LogPresenter do
         }
       }
       log1 = create(:log, metadata: metadata.to_json)
-      metadata["about"] = "test"
+      metadata["about_type"] = "test"
       log2 = create(:log, metadata: metadata.to_json)
       presenter1 = Manager::Visits::LogPresenter.new(record: log1)
       presenter2 = Manager::Visits::LogPresenter.new(record: log2)
 
-      expect(presenter1.action_name).to eq("submitted")
+      expect(presenter1.action_name).to eq("Application submitted")
       expect(presenter2.action_name).to eq("test submitted")
     end
   end

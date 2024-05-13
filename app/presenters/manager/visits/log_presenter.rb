@@ -11,8 +11,8 @@ class Manager::Visits::LogPresenter
   delegate_missing_to :record
 
   def action_name
-    if data["about"]
-      "#{data["about"]} #{data["action"]}"
+    if data["about_type"]
+      "#{data["about_type"]} #{data["action"]}"
     else
       "#{data["action"]}"
     end
