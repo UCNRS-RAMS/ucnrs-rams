@@ -20,8 +20,9 @@ class ProjectsController < ApplicationController
 
   def create
     form = ProjectForm.new(user: current_user, params: project_params)
+
     if form.save
-      create_log(action: :created, project: form.project)
+      create_log2(action: :created, project: form.project, user: current_user)
       redirect_to project_team_memberships_path(form.project, format: :html)
     else
       @presenter = ProjectFormPresenter.new(
@@ -138,11 +139,23 @@ class ProjectsController < ApplicationController
   end
 
   def create_log(action:, project:)
-    LogForm.create(params: {
+    LogForm.create(
+      params: {
         action: action,
         user_id: current_user.id,
       },
       record: project,
+    )
+  end
+
+  def create_log2(action:, project:, user:)
+    LogForm2.create(
+      params: {
+        action: action,
+        record: project,
+        record_about: project,
+        user: user,
+      }
     )
   end
 

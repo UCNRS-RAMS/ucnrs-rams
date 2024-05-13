@@ -18,6 +18,7 @@ class Manager::VisitsController < Manager::ApplicationController
   def create
     @form = VisitForm.new(user: user, params: visit_params)
     if @form.save
+      create_log2(action: :created, visit: @form.visit, user: current_user)
       redirect_to manager_reserve_visit_user_visits_path(reserve_id: reserve_id, visit_id: @form.visit, format: :html)
     else
       @presenter = Manager::VisitsFormPresenter.new(user: user, form: @form)
@@ -33,6 +34,7 @@ class Manager::VisitsController < Manager::ApplicationController
   def update
     @form = VisitForm.new(user: current_user, params: visit_params)
     if @form.save
+      create_log2(action: :updated, visit: @form.visit, user: current_user)
       redirect_to manager_reserve_visit_user_visits_path(reserve_id: reserve_id, visit_id: @form.visit, format: :html)
     else
       @form.editing = true
@@ -47,6 +49,7 @@ class Manager::VisitsController < Manager::ApplicationController
 
   def destroy
     if visit.destroy
+      create_log2(action: :deleted, visit: visit, user: current_user)
       flash[:notice] = I18n.t("manager.visits.successfully_deleted_visit")
       redirect_to manager_reserve_dashboard_path(format: :html)
     else
@@ -58,7 +61,7 @@ class Manager::VisitsController < Manager::ApplicationController
   private
 
   def visit
-    Visit.find(params[:id])
+    @visit ||= Visit.find(params[:id])
   rescue ActiveRecord::RecordNotFound => e
     flash[:alert] = I18n.t("manager.visits.cannot_find_visit")
     redirect_to manager_reserve_dashboard_path
@@ -105,5 +108,16 @@ class Manager::VisitsController < Manager::ApplicationController
 
   def amenity_booking_params
     params.permit(:amenity_id, :amenity_rate_id)
+  end
+
+  def create_log2(action:, visit:, user:)
+    LogForm2.create(
+      params: {
+        action: action,
+        record: visit.project,
+        record_about: visit,
+        user: user,
+      }
+    )
   end
 end
