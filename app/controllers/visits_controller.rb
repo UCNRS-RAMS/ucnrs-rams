@@ -10,7 +10,7 @@ class VisitsController < ApplicationController
   def create
     @form = VisitForm.new(user: current_user, params: visit_params)
     if @form.save
-      create_log(action: :created, visit: @form.visit, project: @form.project)
+      create_log2(action: :created, visit: @form.visit, user: current_user)
       redirect_to visit_user_visits_path(@form.visit, format: :html)
     else
       @presenter = VisitsFormPresenter.new(user: current_user, form: @form)
@@ -26,7 +26,7 @@ class VisitsController < ApplicationController
   def update
     @form = VisitForm.new(user: current_user, params: visit_params)
     if @form.save
-      create_log(action: :updated, visit: @form.visit, project: @form.project)
+      create_log2(action: :updated, visit: @form.visit, user: current_user)
       redirect_to visit_user_visits_path(@form.visit, format: :html)
     else
       @form.editing = true
@@ -47,7 +47,7 @@ class VisitsController < ApplicationController
   def cancel
     form = VisitForm.new(user: current_user, params: {id: visit_id})
     if form.cancel_visit
-      create_log(action: :cancelled, visit: form.visit, project: form.project)
+      create_log2(action: :cancelled, visit: form.visit, user: current_user)
       redirect_to visit_path, notice: I18n.translate("visits.show.successfully_cancelled")
     else
       flash.now[:alert] = I18n.translate("visits.show.could_not_cancel")
@@ -116,6 +116,17 @@ class VisitsController < ApplicationController
       },
       record: visit,
       record_about: project
+    )
+  end
+
+  def create_log2(action:, visit:, user:)
+    LogForm2.create(
+      params: {
+        action: action,
+        record: visit.project,
+        record_about: visit,
+        user: user,
+      }
     )
   end
 end

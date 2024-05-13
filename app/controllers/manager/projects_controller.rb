@@ -32,6 +32,7 @@ class Manager::ProjectsController < Manager::ApplicationController
   def create
     form = ProjectForm.new(user: user, params: project_params)
     if form.save
+      create_log(action: :created, project: form.project, user: current_user)
       redirect_to manager_reserve_project_team_memberships_path(
         reserve_id: current_reserve,
         project_id: form.project,
@@ -162,5 +163,16 @@ class Manager::ProjectsController < Manager::ApplicationController
 
   def project_type
     params[:project_type]
+  end
+
+  def create_log(action:, project:, user:)
+    LogForm2.create(
+      params: {
+        action: action,
+        record: project,
+        record_about: project,
+        user: user,
+      }
+    )
   end
 end
