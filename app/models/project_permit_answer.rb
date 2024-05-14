@@ -52,4 +52,9 @@ class ProjectPermitAnswer < ApplicationRecord
       end_sql
     end
   end
+
+  def self.of_iacuc_type
+    left_joins(:permit)
+      .merge(Permit.of_iacuc_type)
+  end
 end

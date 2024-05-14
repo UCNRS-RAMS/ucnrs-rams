@@ -33,4 +33,8 @@ class ReservePersonnel < ApplicationRecord
   def self.visible
     where(visible: true)
   end
+
+  def self.receiving_iacuc_email
+    where(receive_iacuc_email: true)
+  end
 end

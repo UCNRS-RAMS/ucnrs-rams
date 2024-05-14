@@ -10,8 +10,11 @@ class Visits::WaiversPoliciesController < ApplicationController
     @form = VisitCompleteForm.new(params: { id: visit.id })
 
     if visit_update_params[:policy_agreement] == "1" && @form.save
-      create_log(action: :updated, visit: @form.visit, project: @form.project) if @form.status == "approved"
-      send_email!(visit: @form.visit) if @form.visit.submitted_at_before_last_save.nil?
+      if @form.visit.submitted_at_before_last_save.nil?
+        create_log2(action: :submitted, visit: @form.visit, user: current_user)
+        send_emails!(visit: @form.visit)
+      end
+
       redirect_to @form.visit
     else
       @presenter = Visits::UsePolicyPresenter.new(current_user: current_user, current_step: 4, visit: visit)
@@ -30,17 +33,18 @@ class Visits::WaiversPoliciesController < ApplicationController
     params.require(:visit).permit(:policy_agreement, :id)
   end
 
-  def create_log(action:, visit:, project:)
-    LogForm.create(params: {
+  def create_log2(action:, visit:, user:)
+    LogForm2.create(
+      params: {
         action: action,
-        user_id: current_user.id,
-      },
-      record: visit,
-      record_about: project
+        record: visit.project,
+        record_about: visit,
+        user: user,
+      }
     )
   end
 
-  def send_email!(visit:)
+  def send_emails!(visit:)
     ManagerMailer
       .with(presenter: Mail::Manager::VisitNewPresenter.new(visit))
       .visit_new
@@ -50,5 +54,24 @@ class Visits::WaiversPoliciesController < ApplicationController
       .with(presenter: Mail::User::VisitNewPresenter.new(visit))
       .visit_new
       .deliver_now
+
+    if visit.project.have_yes_iacuc_answer? && visit_reserve_receiving_iacuc_personnel_email_list.present?
+      send_iacuc_email!(visit: visit)
+    end
+  end
+
+  def send_iacuc_email!(visit:)
+    ManagerMailer
+      .with(visit: visit, personnel_email_list: visit_reserve_receiving_iacuc_personnel_email_list)
+      .iacuc_notification_email
+      .deliver_now
+  end
+
+  def visit_reserve_receiving_iacuc_personnel_email_list
+    visit
+      .reserve
+      .personnel
+      .receiving_iacuc_email
+      .map(&:email)
   end
 end
