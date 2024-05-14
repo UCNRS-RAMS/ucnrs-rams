@@ -32,4 +32,29 @@ class ManagerMailer < ApplicationMailer
       content_type: "text/html",
     )
   end
+
+  def iacuc_notification_email
+    @presenter = Mail::Manager::IacucNotificationEmailPresenter.new(
+      params[:visit],
+    )
+
+    mail(
+      to: params[:personnel_email_list],
+      subject: "IACUC notification",
+    )
+    # create_log2(action: "IACUC email sent", visit: @form.visit, user: 0)
+  end
+
+  private
+
+  def create_log2(action:, visit:, user:)
+    LogForm2.create(
+      params: {
+        action: action,
+        record: visit.project,
+        record_about: visit,
+        user: user,
+      }
+    )
+  end
 end

@@ -79,4 +79,8 @@ class Permit < ApplicationRecord
         AND project_permit_answers.project_id = #{project.id.to_i}
       end_sql
   end
+
+  def self.of_iacuc_type
+    where(iacuc: true)
+  end
 end
