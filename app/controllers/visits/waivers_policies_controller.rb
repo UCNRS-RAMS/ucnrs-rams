@@ -26,7 +26,7 @@ class Visits::WaiversPoliciesController < ApplicationController
   private
 
   def visit
-    Visit.find_by(id: params[:visit_id])
+    @visit ||= Visit.find_by(id: params[:visit_id])
   end
 
   def visit_update_params

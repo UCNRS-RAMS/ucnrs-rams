@@ -13,6 +13,11 @@ class Manager::Visits::WaiversPoliciesController < Manager::ApplicationControlle
     @form = VisitCompleteForm.new(params: { id: visit.id })
 
     if visit_update_params[:policy_agreement] == "1" && @form.save
+      if @form.visit.submitted_at_before_last_save.nil?
+        create_log2(action: :submitted, visit: @form.visit, user: current_user)
+
+      end
+
       redirect_to manager_reserve_visit_path(id: visit.id)
     else
       @presenter = Visits::UsePolicyPresenter.new(current_user: current_user, current_step: 4, visit: visit)
@@ -24,10 +29,21 @@ class Manager::Visits::WaiversPoliciesController < Manager::ApplicationControlle
   private
 
   def visit
-    Visit.find_by(id: params[:visit_id])
+    @visit ||= Visit.find_by(id: params[:visit_id])
   end
 
   def visit_update_params
     params.require(:visit).permit(:policy_agreement, :id)
+  end
+
+  def create_log2(action:, visit:, user:)
+    LogForm2.create(
+      params: {
+        action: action,
+        record: visit.project,
+        record_about: visit,
+        user: user,
+      }
+    )
   end
 end
