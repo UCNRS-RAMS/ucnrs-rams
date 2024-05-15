@@ -43,6 +43,7 @@ class Manager::Visits::WaiversPoliciesController < Manager::ApplicationControlle
         record: visit.project,
         record_about: visit,
         user: user,
+        reserve: visit.reserve,
       }
     )
   end

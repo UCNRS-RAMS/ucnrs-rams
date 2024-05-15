@@ -40,6 +40,7 @@ class Visits::WaiversPoliciesController < ApplicationController
         record: visit.project,
         record_about: visit,
         user: user,
+        reserve: visit.reserve,
       }
     )
   end
