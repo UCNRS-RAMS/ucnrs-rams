@@ -57,13 +57,13 @@ class Visits::WaiversPoliciesController < ApplicationController
       .deliver_now
 
     if visit.project.have_yes_iacuc_answer? && visit_reserve_receiving_iacuc_personnel_email_list.present?
-      send_iacuc_email!(visit: visit)
+      send_iacuc_email!(visit: visit, personnel_email_list: visit_reserve_receiving_iacuc_personnel_email_list)
     end
   end
 
-  def send_iacuc_email!(visit:)
+  def send_iacuc_email!(visit:, personnel_email_list:)
     ManagerMailer
-      .with(visit: visit, personnel_email_list: visit_reserve_receiving_iacuc_personnel_email_list)
+      .with(visit: visit, personnel_email_list: personnel_email_list)
       .iacuc_notification_email
       .deliver_now
   end

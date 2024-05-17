@@ -42,19 +42,18 @@ class ManagerMailer < ApplicationMailer
       to: params[:personnel_email_list],
       subject: "IACUC notification",
     )
-    # create_log2(action: "IACUC email sent", visit: @form.visit, user: 0)
-  end
 
-  private
-
-  def create_log2(action:, visit:, user:)
     LogForm2.create(
       params: {
-        action: action,
-        record: visit.project,
-        record_about: visit,
-        user: user,
+        about: "iacuc",
+        action: "email sent",
+        record: @presenter.visit.project,
+        user: :system,
+        reserve: @presenter.visit.reserve,
+        comment: "::email:: sent to #{params[:personnel_email_list]}"
       }
     )
   end
+
+  private
 end
