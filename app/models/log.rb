@@ -1,7 +1,7 @@
 class Log < ApplicationRecord
   belongs_to :record, polymorphic: true
   belongs_to :record_about, polymorphic: true, optional: true
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :reserve, optional: true
 
   ACTIONS = {
