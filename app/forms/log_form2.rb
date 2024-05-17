@@ -20,6 +20,7 @@ class LogForm2
     @log.log = log_details.squish
   end
 
+  attr_accessor :about
   attr_reader :log
 
   def save
@@ -36,10 +37,10 @@ class LogForm2
 
   def metadata(params)
     {
-      about: record_type,
+      about: about,
       action: action,
       details: log_details,
-      comment: "",
+      comment: comment,
       about_type: record_about_type,
       about_id: record_about_id,
       changes: record.changes
@@ -60,11 +61,33 @@ class LogForm2
     end
   end
 
+  def user=(value)
+    if value == :system
+      log.user_id = 0
+    elsif value.is_a?(ActiveRecord::Base)
+      log.user = value
+    end
+  end
+
   def log_details
-    "* #{Time.now.utc}
-    | #{log.record_about.class} #{action} ::by:: ##{log.user_id} #{log.user.full_name}
-    | #{log.record_about.class} ##{log.record_about.id}"
-      .squish
+    [].tap do |details|
+      details << "* #{Time.now.utc}"
+      details << "| #{log_action}"
+
+      if log.user.present?
+        details << "::by:: ##{log.user_id} #{log.user.full_name}"
+      else
+        details << "::by:: system"
+      end
+
+      if log.record_about.present?
+        details << "| #{log.record_about.class} ##{log.record_about.id}"
+      end
+    end.join(" ").squish
+  end
+
+  def log_action
+    "#{ log.record_about.present? ? log.record_about.class : about} #{action}"
   end
 
   def changes_except_list
