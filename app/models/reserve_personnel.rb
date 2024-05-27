@@ -34,7 +34,9 @@ class ReservePersonnel < ApplicationRecord
     where(visible: true)
   end
 
-  def self.receiving_iacuc_email
-    where(receive_iacuc_email: true)
+  def self.receiving_email_type(email_type)
+    where("((? = 'receive_iacuc_email') AND receive_iacuc_email = 1)", [email_type.downcase])
+      .or(where("((? = 'receive_drone_email') AND receive_drone_email = 1)", [email_type.downcase]))
+      .or(where("((? = 'receive_scuba_email') AND receive_scuba_email = 1)", [email_type.downcase]))
   end
 end

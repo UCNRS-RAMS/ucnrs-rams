@@ -57,4 +57,8 @@ class ProjectPermitAnswer < ApplicationRecord
     left_joins(:permit)
       .merge(Permit.of_iacuc_type)
   end
+
+  def self.with_flag_type(flag_type)
+    left_joins(:permit).merge(Permit.with_flag_type(flag_type))
+  end
 end

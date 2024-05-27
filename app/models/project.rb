@@ -310,10 +310,6 @@ class Project < ApplicationRecord
       )
   end
 
-  def have_yes_iacuc_answer?
-    project_permit_answers.of_iacuc_type.for_answer(true)
-  end
-
   private
 
   def other_discipline?
