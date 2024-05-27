@@ -83,4 +83,10 @@ class Permit < ApplicationRecord
   def self.of_iacuc_type
     where(iacuc: true)
   end
+
+  def self.with_flag_type(flag_type)
+    where("((? = 'iacuc_flag') AND permits.iacuc = 1)", [flag_type.downcase])
+      .or(where("((? = 'drone_flag') AND permits.drone_flag = 1)", [flag_type.downcase]))
+      .or(where("((? = 'scuba_flag') AND permits.drone_flag = 1)", [flag_type.downcase]))
+  end
 end

@@ -56,8 +56,12 @@ class Visits::WaiversPoliciesController < ApplicationController
       .visit_new
       .deliver_now
 
-    if visit.project.have_yes_iacuc_answer? && visit_reserve_receiving_iacuc_personnel_email_list.present?
-      send_iacuc_email!(visit: visit, personnel_email_list: visit_reserve_receiving_iacuc_personnel_email_list)
+    if have_yes_iacuc_answer? && visit_reserve_receiving_iacuc_personnel.present?
+      send_iacuc_email!(visit: visit, personnel_email_list: visit_reserve_receiving_iacuc_personnel.map(&:email))
+    end
+
+    if have_yes_drone_answer? && visit_reserve_drone_personnel.present?
+      send_drone_email!(visit: visit, personnel_email_list: visit_reserve_drone_personnel.map(&:email))
     end
   end
 
@@ -68,11 +72,39 @@ class Visits::WaiversPoliciesController < ApplicationController
       .deliver_now
   end
 
-  def visit_reserve_receiving_iacuc_personnel_email_list
+  def send_drone_email!(visit:, personnel_email_list:)
+    ManagerMailer
+      .with(visit: visit, personnel_email_list: personnel_email_list)
+      .drone_notification_email
+      .deliver_now
+  end
+
+  def visit_reserve_receiving_iacuc_personnel
+    ReservePersonnel
+      .where(reserve: visit.reserve)
+      .receiving_email_type(:receive_iacuc_email)
+  end
+
+  def visit_reserve_drone_personnel
+    ReservePersonnel
+      .where(reserve: visit.reserve)
+      .receiving_email_type(:receive_drone_email)
+  end
+
+  def have_yes_iacuc_answer?
+    ProjectPermitAnswer
+      .where(project: visit.project)
+      .with_flag_type(:iacuc_flag)
+      .for_answer(true)
+      .present?
+  end
+
+  def have_yes_drone_answer?
     visit
-      .reserve
-      .personnel
-      .receiving_iacuc_email
-      .map(&:email)
+      .project
+      .project_permit_answers
+      .with_flag_type(:drone_flag)
+      .for_answer(true)
+      .present?
   end
 end
