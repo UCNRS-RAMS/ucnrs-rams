@@ -63,6 +63,13 @@ class Visits::WaiversPoliciesController < ApplicationController
     if have_yes_drone_answer? && visit_reserve_drone_personnel.present?
       send_drone_email!(visit: visit, personnel_email_list: visit_reserve_drone_personnel.map(&:email))
     end
+
+    if have_yes_answer_for?(:scuba_flag) && visit_reserve_personnel_for(:receive_scuba_email).present?
+      send_scuba_email!(
+        visit: visit,
+        personnel_email_list: visit_reserve_personnel_for(:receive_scuba_email).map(&:email),
+      )
+    end
   end
 
   def send_iacuc_email!(visit:, personnel_email_list:)
@@ -76,6 +83,13 @@ class Visits::WaiversPoliciesController < ApplicationController
     ManagerMailer
       .with(visit: visit, personnel_email_list: personnel_email_list)
       .drone_notification_email
+      .deliver_now
+  end
+
+  def send_scuba_email!(visit:, personnel_email_list:)
+    ManagerMailer
+      .with(visit: visit, personnel_email_list: personnel_email_list)
+      .scuba_notification_email
       .deliver_now
   end
 
@@ -104,6 +118,20 @@ class Visits::WaiversPoliciesController < ApplicationController
       .project
       .project_permit_answers
       .with_flag_type(:drone_flag)
+      .for_answer(true)
+      .present?
+  end
+
+  def visit_reserve_personnel_for(email_type)
+    ReservePersonnel
+      .where(reserve: visit.reserve)
+      .receiving_email_type(email_type)
+  end
+
+  def have_yes_answer_for?(flag_type)
+    ProjectPermitAnswer
+      .where(project: visit.project)
+      .with_flag_type(flag_type)
       .for_answer(true)
       .present?
   end

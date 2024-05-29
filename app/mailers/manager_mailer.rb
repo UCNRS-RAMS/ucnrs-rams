@@ -77,5 +77,27 @@ class ManagerMailer < ApplicationMailer
     )
   end
 
+  def scuba_notification_email
+    @presenter = Mail::Manager::ScubaNotificationEmailPresenter.new(
+      params[:visit],
+    )
+
+    mail(
+      to: params[:personnel_email_list],
+      subject: "Scuba notification",
+    )
+
+    LogForm2.create(
+      params: {
+        about: "scuba",
+        action: "email sent",
+        record: @presenter.visit.project,
+        user: :system,
+        reserve: @presenter.visit.reserve,
+        comment: "::email:: sent to #{params[:personnel_email_list]}"
+      }
+    )
+  end
+
   private
 end
