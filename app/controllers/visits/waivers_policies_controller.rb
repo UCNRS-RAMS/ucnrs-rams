@@ -56,20 +56,32 @@ class Visits::WaiversPoliciesController < ApplicationController
       .visit_new
       .deliver_now
 
-    if have_yes_iacuc_answer? && visit_reserve_receiving_iacuc_personnel.present?
-      send_iacuc_email!(visit: visit, personnel_email_list: visit_reserve_receiving_iacuc_personnel.map(&:email))
-    end
+    if first_reserve_visit_on_project?
+      if have_yes_answer_for?(:iacuc_flag) && visit_reserve_personnel_for(:receive_iacuc_email).present?
+        send_iacuc_email!(
+          visit: visit,
+          personnel_email_list: visit_reserve_personnel_for(:receive_iacuc_email).map(&:email)
+        )
+      end
 
-    if have_yes_drone_answer? && visit_reserve_drone_personnel.present?
-      send_drone_email!(visit: visit, personnel_email_list: visit_reserve_drone_personnel.map(&:email))
-    end
+      if have_yes_answer_for?(:drone_flag) && visit_reserve_personnel_for(:receive_drone_email).present?
+        send_drone_email!(
+          visit: visit,
+          personnel_email_list: visit_reserve_personnel_for(:receive_drone_email).map(&:email)
+        )
+      end
 
-    if have_yes_answer_for?(:scuba_flag) && visit_reserve_personnel_for(:receive_scuba_email).present?
-      send_scuba_email!(
-        visit: visit,
-        personnel_email_list: visit_reserve_personnel_for(:receive_scuba_email).map(&:email),
-      )
+      if have_yes_answer_for?(:scuba_flag) && visit_reserve_personnel_for(:receive_scuba_email).present?
+        send_scuba_email!(
+          visit: visit,
+          personnel_email_list: visit_reserve_personnel_for(:receive_scuba_email).map(&:email),
+        )
+      end
     end
+  end
+
+  def first_reserve_visit_on_project?
+    Visit.where(project: visit.project, reserve: visit.reserve).where.not(id: visit).blank?
   end
 
   def send_iacuc_email!(visit:, personnel_email_list:)
@@ -91,35 +103,6 @@ class Visits::WaiversPoliciesController < ApplicationController
       .with(visit: visit, personnel_email_list: personnel_email_list)
       .scuba_notification_email
       .deliver_now
-  end
-
-  def visit_reserve_receiving_iacuc_personnel
-    ReservePersonnel
-      .where(reserve: visit.reserve)
-      .receiving_email_type(:receive_iacuc_email)
-  end
-
-  def visit_reserve_drone_personnel
-    ReservePersonnel
-      .where(reserve: visit.reserve)
-      .receiving_email_type(:receive_drone_email)
-  end
-
-  def have_yes_iacuc_answer?
-    ProjectPermitAnswer
-      .where(project: visit.project)
-      .with_flag_type(:iacuc_flag)
-      .for_answer(true)
-      .present?
-  end
-
-  def have_yes_drone_answer?
-    visit
-      .project
-      .project_permit_answers
-      .with_flag_type(:drone_flag)
-      .for_answer(true)
-      .present?
   end
 
   def visit_reserve_personnel_for(email_type)
