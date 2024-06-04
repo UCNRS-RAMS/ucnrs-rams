@@ -7,7 +7,7 @@ class ManagerMailerPreview < ActionMailer::Preview
             .in_review
             .submitted_recent_first
             .where(reserve_id: reserve_ids_with_personnel_email)
-            .last
+            .first
         )
       )
       .visit_new
@@ -40,7 +40,7 @@ class ManagerMailerPreview < ActionMailer::Preview
   private
 
   def reserve_ids_with_personnel_email
-    ReservePersonnel
+    @reserve_ids ||= ReservePersonnel
       .where.not(email: nil)
       .map(&:reserve_id)
       .uniq
