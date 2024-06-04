@@ -7,7 +7,7 @@ class UserMailerPreview < ActionMailer::Preview
             .in_review
             .submitted_recent_first
             .where(reserve_id: reserve_ids_with_personnel_email)
-            .last
+            .first
         )
       )
       .visit_new
