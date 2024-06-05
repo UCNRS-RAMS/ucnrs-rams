@@ -1,0 +1,32 @@
+<section class="project-permits" style="margin-bottom: 3em;">
+  <header>
+    <h2 class="main-header" style="font-size: 1.5em; font-weight: 500;">
+      <%= t(".project_permit_questions") %>
+    </h2>
+  </header>
+  <% if presenter.have_permit_questions_for_project? %>
+    <% presenter.permit_questions_by_authority.each do |authority, questions| %>
+      <%= render partial: "mails/shared/questions/group",
+        locals: { title: t(".authority.#{authority}"), questions: questions }
+      %>
+    <% end %>
+  <% else %>
+    <section>
+      <p><%= t(".no_questions") %></p>
+    </section>
+  <% end %>
+
+  <% if presenter.have_reserve_questions_for_project? %>
+    <section class="questions">
+      <header>
+        <h2 class="main-header" style="font-size: 1.5em; font-weight: 500;">
+          <%= t(".project_reserve_questions") %>
+        </h2>
+      </header>
+      <% presenter.reserve_questions_by_reserve.each do |reserve, questions| %>
+        <%= render partial:  "mails/shared/questions/group",
+          locals: { title: reserve, questions: questions } %>
+      <% end %>
+    </section>
+  <% end %>
+</section>

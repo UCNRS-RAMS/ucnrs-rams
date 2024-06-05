@@ -1,6 +1,6 @@
 <header style="margin-bottom: 3em;">
   <h2 class="main-header" style="font-size: 1.5em; font-weight: 500;">
-    <%= t(".visit_summary") %>
+    <%= t(".brief_visit_summary") %>
   </h2>
   <div class="subheader" style="align-items: center; display: flex; font-weight: 600;">
     <span style="margin-right: 1.5em;"><%= visit.applicant_name %></span>
@@ -22,12 +22,4 @@
       <td style="padding-bottom: 0.3em; padding-top: 0.3em; font-weight: 600;"><%= visit.project_title %></td>
     </tr>
   </table>
-</section>
-<section class="visit-visitors" style="margin-bottom: 3em;">
-  <h2 class="main-header" style="font-size: 1.5em; font-weight: 500;"><%= t(".visitors", size: visit.visitor_count) %></h2>
-  <%= render partial: "mails/shared/user_visits", locals: { visit: visit } %>
-</section>
-<section class="visit-amenities" style="margin-bottom: 3em;">
-  <h2 class="main-header" style="font-size: 1.5em; font-weight: 500;"><%= t(".amenities", size: visit.amenity_count) %></h2>
-  <%= render partial: "mails/shared/amenity_visits", locals: { visit: visit } %>
 </section>
