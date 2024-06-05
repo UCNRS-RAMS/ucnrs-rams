@@ -2608,6 +2608,110 @@ en:
     invoicing_submenu:
       invoices: "Invoices"
       uninvoiced_visits: "Uninvoiced Visits"
+  mails:
+    shared:
+      amenity_visits:
+        name: "Name"
+        rate: "Rate"
+        count: "Count"
+        cost: "Cost"
+        total: "Total"
+      header_user:
+        phone: "Phone:"
+      project_brief:
+        brief_project_info: "Brief Project Information"
+        principal_investigators: "Principal Investigators"
+        project_title: "Project Title"
+        thesis_title: "Thesis Title"
+        project_abstract: "Project Abstract"
+        applicant: "Applicant"
+        project_duration: "Project Duration"
+        discipline: "Discipline"
+        project_involves: "Project Involves"
+        project_summary: "Project Summary"
+        project_status_request: "%{project_type} Request"
+        edit_project: "Edit Project"
+        mammals: "Mammals"
+        reptiles: "Reptiles"
+        amphibians: "Amphibians"
+        fish: "Fish"
+        birds: "Birds"
+        plants: "Plants"
+        fungi: "Fungi"
+        soil: "Soil"
+        threatened: "Threatened"
+        endangered: "Endangered"
+        species_of_special_concern: "Species of Special Concern"
+        method_remove_organisms: "Remove organisms or materials from the reserve"
+        method_transfer_organisms:
+          "Involves the transfer of animals, plants, and/or microorganisms
+          from outside the reserve to within the reserve, or between different parts of the reserve."
+        method_chemicals:
+          "Use of radioactive isotopes or other chemicals? (e.g., pesticides,
+          herbicides, fertilizers, tracers) <br /> %{chemical_list}"
+        method_study_non_native_species: "Manipulation of non-native species"
+        method_soil_disturbance: "Soil Disturbance"
+        method_long_term_structures:
+          "Erect structures or deploy long term equipment, such as
+          markers, fences, enclosures, cages, data-loggers, antennas, or buoys"
+        method_description: "Detailed description of environmental manipulations"
+        method_study_area: "Reserve area(s) you plan to visit or conduct manipulations"
+      project_questions:
+        authority:
+          federal: "Federal"
+          institution: "Institution"
+          local: "Local"
+          state: "State"
+        project_permit_questions: "Project Permit Questions"
+        project_reserve_questions: "Project Reserve Questions"
+      user_visits:
+        name: "Name"
+        institution: "Institution"
+        project_role: "Role"
+      visit_detail:
+        visit_summary: "Visit Summary"
+        request_submitted: "Request Submitted"
+        arrival_and_departure: "Arrival and Departure"
+        purpose: "Purpose"
+        project: "Project"
+        visitors: "Visitors (%{size})"
+        amenities: "Amenities (%{size})"
+      visit_brief:
+        brief_visit_summary: "Brief Visit Summary"
+        request_submitted: "Request Submitted"
+        arrival_and_departure: "Arrival and Departure"
+        purpose: "Purpose"
+        project: "Project"
+  manager_mailer:
+    iacuc_notification_email:
+      email_explanation: "You are receiving this email because you are listed as one of the
+        IACUC contact person for this reserve."
+    visit_new:
+      login_and_view_visit: "Login and view Visit"
+    visit_update:
+      login_and_view_visit: "Login and view Visit"
+      visit_status_has_been_updated: "Visit status has been UPDATED."
+  user_mailer:
+    project_complete:
+      added_to_project: "You have been added to the project."
+      login_and_view_project: "Login and view Project"
+    project_contact_manager:
+      contact_manager_header:
+        "This email is being sent to facilitate communications between
+        the applicant of the following project and the reserve to determine the project’s
+        suitability."
+      the_user: "The user %{user_full_name}"
+      user_discuss: "would like to discuss the"
+      with_reserve: "with reserve %{reserve_name}"
+    visit_new:
+      your_visit_request_has_been_submitted: "Your Visit request has been Submitted."
+      your_visit_evaluated:
+        "This visit request will be <strong>evaluated and an email will
+        be sent to you</strong> once the status of your visit changes."
+      login_and_view_visit: "Login and view Visit"
+    visit_update:
+      login_and_view_visit: "Login and view Visit"
+      visit_status_has_been_updated: "Visit status has been UPDATED."
   shared:
     manager:
       dashboard:
@@ -3199,64 +3303,6 @@ en:
         part_6_narrative: "Part 6. Narrative"
       report_part_7:
         part_7_nrs_campus_committee: "Part 7. NRS Campus Committee Roster"
-    project_brief:
-      brief_project_info: "Brief Project Information"
-      principal_investigators: "Principal Investigators"
-      project_title: "Project Title"
-      thesis_title: "Thesis Title"
-      project_abstract: "Project Abstract"
-      applicant: "Applicant"
-      project_duration: "Project Duration"
-      discipline: "Discipline"
-      project_involves: "Project Involves"
-      project_summary: "Project Summary"
-      project_status_request: "%{project_type} Request"
-      edit_project: "Edit Project"
-      mammals: "Mammals"
-      reptiles: "Reptiles"
-      amphibians: "Amphibians"
-      fish: "Fish"
-      birds: "Birds"
-      plants: "Plants"
-      fungi: "Fungi"
-      soil: "Soil"
-      threatened: "Threatened"
-      endangered: "Endangered"
-      species_of_special_concern: "Species of Special Concern"
-      method_remove_organisms: "Remove organisms or materials from the reserve"
-      method_transfer_organisms:
-        "Involves the transfer of animals, plants, and/or microorganisms
-        from outside the reserve to within the reserve, or between different parts of the reserve."
-      method_chemicals:
-        "Use of radioactive isotopes or other chemicals? (e.g., pesticides,
-        herbicides, fertilizers, tracers) <br /> %{chemical_list}"
-      method_study_non_native_species: "Manipulation of non-native species"
-      method_soil_disturbance: "Soil Disturbance"
-      method_long_term_structures:
-        "Erect structures or deploy long term equipment, such as
-        markers, fences, enclosures, cages, data-loggers, antennas, or buoys"
-      method_description: "Detailed description of environmental manipulations"
-      method_study_area: "Reserve area(s) you plan to visit or conduct manipulations"
-    visit_detail:
-      visit_summary: "Visit Summary"
-      request_submitted: "Request Submitted"
-      arrival_and_departure: "Arrival and Departure"
-      purpose: "Purpose"
-      project: "Project"
-      visitors: "Visitors (%{size})"
-      amenities: "Amenities (%{size})"
-    user_visits:
-      name: "Name"
-      institution: "Institution"
-      project_role: "Role"
-    amenity_visits:
-      name: "Name"
-      rate: "Rate"
-      count: "Count"
-      cost: "Cost"
-      total: "Total"
-    header_user:
-      phone: "Phone:"
   reports:
     part_1:
       uc_home: "UC Home"
@@ -3274,33 +3320,6 @@ en:
       total: "Total"
       users: "Users"
       user_days: "UDs"
-  manager_mailer:
-    visit_new:
-      login_and_view_visit: "Login and view Visit"
-    visit_update:
-      login_and_view_visit: "Login and view Visit"
-      visit_status_has_been_updated: "Visit status has been UPDATED."
-  user_mailer:
-    project_complete:
-      added_to_project: "You have been added to the project."
-      login_and_view_project: "Login and view Project"
-    project_contact_manager:
-      contact_manager_header:
-        "This email is being sent to facilitate communications between
-        the applicant of the following project and the reserve to determine the project’s
-        suitability."
-      the_user: "The user %{user_full_name}"
-      user_discuss: "would like to discuss the"
-      with_reserve: "with reserve %{reserve_name}"
-    visit_new:
-      your_visit_request_has_been_submitted: "Your Visit request has been Submitted."
-      your_visit_evaluated:
-        "This visit request will be <strong>evaluated and an email will
-        be sent to you</strong> once the status of your visit changes."
-      login_and_view_visit: "Login and view Visit"
-    visit_update:
-      login_and_view_visit: "Login and view Visit"
-      visit_status_has_been_updated: "Visit status has been UPDATED."
   navbar:
     alt_text:
       mobile_menu: "Mobile Menu"

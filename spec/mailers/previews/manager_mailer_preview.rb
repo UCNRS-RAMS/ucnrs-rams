@@ -37,6 +37,23 @@ class ManagerMailerPreview < ActionMailer::Preview
       .invoice_email
   end
 
+  def iacuc_notification_email
+    project = ProjectPermitAnswer
+      .with_flag_type(:drone_flag)
+      .for_answer(true)
+      .last
+      .project
+
+    visit = project.visits.last
+
+    ManagerMailer
+      .with(
+        visit: visit,
+        personnel_email_list: ["email_recipient1@abc.com", "email_recipient2@abc.com"]
+      )
+      .iacuc_notification_email
+  end
+
   private
 
   def reserve_ids_with_personnel_email

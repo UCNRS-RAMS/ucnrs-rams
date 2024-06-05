@@ -1,5 +1,5 @@
 <div style="max-width: 800px; margin: 0 auto; color: #002045; font-size: 14px; font-family: 'Sora', sans-serif" >
-  <%= render partial: "shared/header_user", locals: { presenter: @presenter } %>
+  <%= render partial: "mails/shared/header_user", locals: { presenter: @presenter } %>
   <hr style="border-top: none; border-bottom: 2px solid #002045; margin-top: 1em; margin-bottom: 2.5em;" />
   <p style="color: red;">
     <%= t(".your_visit_request_has_been_submitted") %>
@@ -11,6 +11,6 @@
     <%= link_to t(".login_and_view_visit"), visit_url(@presenter.id) %>
   </p>
   <hr style="border-top: none; border-bottom: 2px solid #002045; margin-top: 1em; margin-bottom: 2.5em;" />
-  <%= render partial: "shared/visit_detail", locals: { visit: @presenter.visit } %>
-  <%= render partial: "shared/project_brief", locals: { project: @presenter.visit_project } %>
+  <%= render partial: "mails/shared/visit_detail", locals: { visit: @presenter.visit } %>
+  <%= render partial: "mails/shared/project_brief", locals: { project: @presenter.visit_project } %>
 </div>

@@ -1,0 +1,10 @@
+<section class="questions">
+  <header>
+    <h2 style="font-size: 1.2em; font-weight: 500;"><%= title %></h2>
+  </header>
+  <ul class=<%= "#{title.parameterize.underscore}_questions" %> style="padding-left:14px; margin-bottom:25px; margin-top:5px;">
+    <% questions.each do |question| %>
+      <%= render question.render_values %>
+    <% end %>
+  </ul>
+</section>
