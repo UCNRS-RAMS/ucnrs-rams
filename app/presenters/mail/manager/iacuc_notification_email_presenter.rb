@@ -27,4 +27,8 @@ class Mail::Manager::IacucNotificationEmailPresenter < Mail::VisitNewPresenter
   def project_questions_presenter
     Mail::ProjectQuestionsPresenter.new(project: visit.project)
   end
+
+  def visit_questions_presenter
+    Mail::VisitQuestionsPresenter.new(visit: visit)
+  end
 end

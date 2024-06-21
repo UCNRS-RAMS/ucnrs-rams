@@ -83,6 +83,16 @@ class ReserveQuestion < ApplicationRecord
     left_joins(:visit_reserve_answers).where(visit_reserve_answers: { visit: visit })
   end
 
+  def self.with_answers_for_visit(visit)
+    left_joins(:visit_reserve_answers)
+      .where(visit_reserve_answers: { visit: visit })
+      .select(
+        arel_table[Arel.star],
+        VisitReserveAnswer.arel_table["text_answer"],
+        VisitReserveAnswer.arel_table["boolean_answer"]
+      )
+  end
+
   def reserve_name
     reserve.name
   end
