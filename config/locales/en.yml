@@ -2682,6 +2682,8 @@ en:
         arrival_and_departure: "Arrival and Departure"
         purpose: "Purpose"
         project: "Project"
+      visit_questions:
+        visit_reserve_questions: "Visit Reserve Questions"
   manager_mailer:
     iacuc_notification_email:
       email_explanation: "You are receiving this email because you are listed as one of the
