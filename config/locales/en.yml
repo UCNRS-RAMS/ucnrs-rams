@@ -2685,6 +2685,9 @@ en:
       visit_questions:
         visit_reserve_questions: "Visit Reserve Questions"
   manager_mailer:
+    drone_notification_email:
+      email_explanation: "You are receiving this email because you are listed as one of the
+        drone contact person for this reserve."
     iacuc_notification_email:
       email_explanation: "You are receiving this email because you are listed as one of the
         IACUC contact person for this reserve."
@@ -3486,7 +3489,9 @@ en:
     back: "Back"
     go_back: "Go Back"
     next_step: "Next Step"
+    project: "Project"
     submit: "Submit"
+    visit: "Visit"
   edit: "Edit"
   research: "Research"
   university_class: "University Class"
