@@ -71,6 +71,23 @@ class ManagerMailerPreview < ActionMailer::Preview
       .drone_notification_email
   end
 
+  def scuba_notification_email
+    project = ProjectPermitAnswer
+      .with_flag_type(:scuba_flag)
+      .for_answer(true)
+      .last
+      .project
+
+    visit = project.visits.last
+
+    ManagerMailer
+      .with(
+        visit: visit,
+        personnel_email_list: ["email_recipient1@abc.com", "email_recipient2@abc.com"]
+      )
+      .scuba_notification_email
+  end
+
   private
 
   def reserve_ids_with_personnel_email
