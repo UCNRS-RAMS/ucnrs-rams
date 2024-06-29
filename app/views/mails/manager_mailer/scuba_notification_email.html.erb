@@ -1,0 +1,24 @@
+<div style="max-width: 800px; margin: 0 auto; color: #002045; font-size: 14px; font-family: 'Sora', sans-serif" >
+  <%= render partial: "mails/shared/header_user", locals: { presenter: @presenter } %>
+  <hr style="border-top: none; border-bottom: 2px solid #002045; margin-top: 1em; margin-bottom: 2.5em;" />
+
+  <p style="font-size: 1.2em;">
+    <span style="color: red"><%= t(".email_explanation") %></span>
+  </p>
+
+  <div style="font-size:1em; line-height:2em; font-weight: bold; clear: both; text-transform: uppercase; margin-bottom:.5em;">
+      <%= t("sitewide.visit") %>: <%= link_to manager_reserve_visit_url(@presenter.visit.reserve, @presenter.visit.id),
+        manager_reserve_visit_url(@presenter.visit.reserve, @presenter.visit.id) %>
+  </div>
+  <div style="font-size:1em; line-height:2em; font-weight: bold; clear: both; text-transform: uppercase; margin-bottom:.5em;">
+      <%= t("sitewide.project") %>: <%= link_to manager_reserve_project_url(@presenter.visit.reserve, @presenter.project.id),
+        manager_reserve_project_url(@presenter.visit.reserve, @presenter.project.id) %>
+  </div>
+
+  <hr style="border-top: none; border-bottom: 2px solid #002045; margin-top: 1em; margin-bottom: 2.5em;" />
+
+  <%= render partial: "mails/shared/visit_brief", locals: { visit: @presenter.visit } %>
+  <%= render partial: "mails/shared/project_brief", locals: { project: @presenter.visit_project } %>
+  <%= render partial: "mails/shared/project_questions", locals: { presenter: @presenter.project_questions_presenter } %>
+  <%= render partial: "mails/shared/visit_questions", locals: { presenter: @presenter.visit_questions_presenter } %>
+</div>
