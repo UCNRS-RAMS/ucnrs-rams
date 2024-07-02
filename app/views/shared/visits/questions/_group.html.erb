@@ -1,5 +1,8 @@
-<div class="questions">
+<section class="questions-group">
+  <header>
+    <h2><%= title %></h2>
+  </header>
   <% questions.each do |question| %>
     <%= render question.render_values %>
   <% end %>
-</div>
+</section>

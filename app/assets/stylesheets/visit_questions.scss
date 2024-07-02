@@ -14,5 +14,11 @@
 
   .visit-questions-form {
     @include projects-visits-form-layout;
+
+    .questions-group {
+      header h2 {
+        font-size: 1rem;
+      }
+    }
   }
 }

@@ -5,8 +5,13 @@
     </header>
 
     <% if presenter.has_reserve_questions_for_visit? %>
-      <% presenter.reserve_questions_by_authority.each do |reserve, questions| %>
-        <%= render partial:  "shared/visits/questions/group", locals: { title: reserve, questions: questions } %>
+      <% presenter.reserve_questions_by_location.each do |location, questions| %>
+        <%= render partial:  "shared/visits/questions/group",
+          locals: {
+            title: t(".location.#{location}"),
+            questions: questions
+          }
+        %>
       <% end %>
 
     <% else %>
@@ -23,7 +28,12 @@
     <% if presenter.has_permit_questions_for_project? %>
       <section>
         <% presenter.permit_questions_by_authority.each do |authority, questions| %>
-          <%= render partial: "projects/questions/group", locals: { title: t(".authority.#{authority}"), questions: questions } %>
+          <%= render partial: "projects/questions/group",
+            locals: {
+              title: t(".authority.#{authority}"),
+              questions: questions
+            }
+          %>
         <% end %>
       </section>
       <section>
