@@ -63,9 +63,11 @@ class Visits::QuestionsIndexPresenter
       .in_order
       .visible
       .include_answers_for(visit)
+
     if Visit.where(project_id: visit.project_id, reserve_id: visit.reserve_id).count > 1
       scope = scope.for_visits
     end
+
     scope
   end
 
