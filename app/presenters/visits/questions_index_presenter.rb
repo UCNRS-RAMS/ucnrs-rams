@@ -20,10 +20,10 @@ class Visits::QuestionsIndexPresenter
       .reject { |_k, v| v.empty? }
   end
 
-  def reserve_questions_by_authority
+  def reserve_questions_by_location
     reserve_question_scope
       .map(&method(:wrap_question_in_presenter))
-      .group_by(&:authority)
+      .group_by(&:location)
       .reject { |k, v| v.empty? }
   end
 
@@ -56,15 +56,14 @@ class Visits::QuestionsIndexPresenter
   end
 
   def reserve_question_scope
-    scope = visit
-      .reserve
-      .reserve_questions
-      .sort_by_authority
+    scope = ReserveQuestion
+      .where(reserve: visit.reserve)
+      .by_location
       .in_order
       .visible
       .include_answers_for(visit)
 
-    if Visit.where(project_id: visit.project_id, reserve_id: visit.reserve_id).count > 1
+    if !first_reserve_visit_on_project?
       scope = scope.for_visits
     end
 
@@ -77,6 +76,10 @@ class Visits::QuestionsIndexPresenter
     else
       Visits::QuestionPresenter.new(question)
     end
+  end
+
+  def first_reserve_visit_on_project?
+    Visit.where(project_id: visit.project_id, reserve_id: visit.reserve_id).count < 2
   end
 
   attr_reader :steps_presenter, :current_step

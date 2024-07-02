@@ -2846,6 +2846,9 @@ en:
           add_group: "Add Group"
       questions:
         questions:
+          location:
+            project: "Reserve question(s) about your project"
+            visit: "Reserve question(s) about this visit"
           reserve_questions: "Reserve-specific Questions"
           no_reserve_questions: "This reserve has no additional questions at this time."
           permit_questions: "Permit Questions"

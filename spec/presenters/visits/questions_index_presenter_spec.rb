@@ -6,16 +6,17 @@ RSpec.describe Visits::QuestionsIndexPresenter do
     it { is_expected.to delegate_method(:step_class).to(:steps_presenter) }
   end
 
-  describe "#reserve_questions_by_authority" do
-    it "groups questions according to authority" do
-      reserve1 = create(:reserve, name: "Reserve 1")
-      visit = create(:visit, reserve_id: reserve1.id)
-      create(:reserve_question, reserve_id: reserve1.id, authority: "Federal")
-      create(:reserve_question, reserve_id: reserve1.id, authority: "State")
+  describe "#reserve_questions_by_location" do
+    it "groups questions according to location" do
+      reserve = create(:reserve)
+      visit = create(:visit, reserve: reserve)
+      create(:reserve_question, reserve: reserve, location: "visit")
+      create(:reserve_question, reserve: reserve, location: "project")
+
       presenter = Visits::QuestionsIndexPresenter.new(current_step: 3, visit: visit)
 
-      results = presenter.reserve_questions_by_authority
-      expect(results.keys).to eq %w[federal state]
+      results = presenter.reserve_questions_by_location
+      expect(results.keys).to match_array %w[visit project]
     end
   end
 

@@ -39,7 +39,7 @@ class Visits::QuestionPresenter
       raise <<~end_error
         This Question does not have an answer. To have an answer, you
         probably want to query Questions with
-        Projects::QuestionsIndexPresenter#reserve_questions_by_authority (or, internally,
+        Projects::QuestionsIndexPresenter#reserve_questions_by_location (or, internally,
         with #reserve_questions_scope)
 
         In tests, you should use mocking to verify correctness.

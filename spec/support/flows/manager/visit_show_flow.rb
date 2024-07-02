@@ -114,7 +114,7 @@ class VisitShowFlow
   end
 
   def showing_reserve_specific_questions?
-    page.has_css?(".questions")
+    page.has_css?(".questions-group")
   end
 
   def success_message?
