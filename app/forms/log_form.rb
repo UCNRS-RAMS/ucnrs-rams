@@ -21,11 +21,14 @@ class LogForm
     @log.metadata = metadata.to_json
     @log.log = log_details
   end
-  
+
   attr_reader :log, :record, :params, :action
 
   def save
-    return false if action == "updated" && record.previous_changes.reject! {|k, v| %w"updated_at sign_token".include? k }.blank?
+    if action == "updated" && record.previous_changes.reject! {|k, v| %w"updated_at sign_token".include? k }.blank?
+      return false
+    end
+
     log.save
   end
 

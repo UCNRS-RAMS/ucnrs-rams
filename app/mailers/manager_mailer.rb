@@ -50,7 +50,7 @@ class ManagerMailer < ApplicationMailer
         record: @presenter.visit.project,
         user: :system,
         reserve: @presenter.visit.reserve,
-        comment: "::email:: sent to #{params[:personnel_email_list]}"
+        comment: "::email:: sent to #{ params[:personnel_email_list] }"
       }
     )
   end
@@ -72,7 +72,7 @@ class ManagerMailer < ApplicationMailer
         record: @presenter.visit.project,
         user: :system,
         reserve: @presenter.visit.reserve,
-        comment: "::email:: sent to #{params[:personnel_email_list]}"
+        comment: "::email:: sent to #{ params[:personnel_email_list] }"
       }
     )
   end
@@ -94,7 +94,7 @@ class ManagerMailer < ApplicationMailer
         record: @presenter.visit.project,
         user: :system,
         reserve: @presenter.visit.reserve,
-        comment: "::email:: sent to #{params[:personnel_email_list]}"
+        comment: "::email:: sent to #{ params[:personnel_email_list] }"
       }
     )
   end
