@@ -6,7 +6,9 @@ class Visits::QuestionPresenter
   def render_values
     {
       partial: "shared/visits/questions/question",
-      locals: { question: self },
+      locals: {
+        question: self
+      },
     }
   end
 

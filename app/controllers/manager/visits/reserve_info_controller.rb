@@ -36,6 +36,8 @@ class Manager::Visits::ReserveInfoController < Manager::ApplicationController
     params.require(:visit).permit(
       permit_answers: {},
       reserve_answers: {},
+      project_reserve_answers: {},
+      visit_reserve_answers: {},
     )
   end
 end
