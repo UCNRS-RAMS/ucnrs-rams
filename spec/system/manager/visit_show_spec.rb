@@ -332,7 +332,7 @@ RSpec.describe "Manager Visit Show" do
       end
     end
 
-    describe "when click on update button" do
+    context "when click on update button" do
       it "should display success flash message for successful update", js: true do
         create(:reserve_question, reserve_id: reserve.id)
         sign_in(user)
@@ -345,8 +345,9 @@ RSpec.describe "Manager Visit Show" do
       end
 
       it "should display error flash message for unsucessfull update", js: true do
-        create(:reserve_question, reserve_id: reserve.id, question_type: "text",
-          answer_required: true)
+        reserve_question = create(:reserve_question, reserve_id: reserve.id, question_type: "text",
+          location: "visit", question: "test question", answer_required: true)
+        create(:visit_reserve_answer, reserve_question: reserve_question, text_answer: "answer")
         sign_in(user)
         flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 

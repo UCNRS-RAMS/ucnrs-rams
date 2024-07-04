@@ -2,6 +2,9 @@ class ProjectReserveAnswer < ApplicationRecord
   belongs_to :project
   belongs_to :reserve_question
 
+  validates :text_answer, presence: true, if: :required_text_answer
+  validates :boolean_answer, inclusion: { in: [true, false] }, if: :required_boolean_answer
+
   def self.for_project(project)
     if project.present?
       where(project_id: project)
@@ -51,5 +54,15 @@ class ProjectReserveAnswer < ApplicationRecord
         updated_at = new.updated_at
       end_sql
     end
+  end
+
+  private
+
+  def required_text_answer
+    reserve_question&.answer_required && reserve_question.question_type == "text"
+  end
+
+  def required_boolean_answer
+    reserve_question&.answer_required && reserve_question.question_type == "boolean"
   end
 end

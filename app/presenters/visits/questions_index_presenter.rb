@@ -56,18 +56,11 @@ class Visits::QuestionsIndexPresenter
   end
 
   def reserve_question_scope
-    scope = ReserveQuestion
-      .where(reserve: visit.reserve)
-      .by_location
-      .in_order
-      .visible
-      .include_answers_for(visit)
-
-    if !first_reserve_visit_on_project?
-      scope = scope.for_visits
+    if !visit.submitted_at? && !visit_reserve_answer_exist? && !project_reserve_answer_exist?
+      reserve_question_scope_from_questions
+    else
+      reserve_question_scope_from_answers
     end
-
-    scope
   end
 
   def wrap_question_in_presenter(question)
@@ -80,6 +73,56 @@ class Visits::QuestionsIndexPresenter
 
   def first_reserve_visit_on_project?
     Visit.where(project_id: visit.project_id, reserve_id: visit.reserve_id).count < 2
+  end
+
+  def visit_reserve_answer_exist?
+    visit.visit_reserve_answers.present?
+  end
+
+  def project_reserve_answer_exist?
+    ProjectReserveAnswer.where(id: visit.project_id).present?
+  end
+
+  def reserve_question_scope_from_questions
+    scope = ReserveQuestion
+    .where(reserve: visit.reserve)
+    .by_location
+    .in_order
+    .visible
+    .include_answers_for(visit)
+
+    scope = scope.for_visits if !first_reserve_visit_on_project?
+
+    scope
+  end
+
+  def reserve_question_scope_from_answers
+    visit_reserve_questions = ReserveQuestion
+      .select(
+        ReserveQuestion.arel_table[Arel.star],
+        VisitReserveAnswer.arel_table["text_answer"],
+        VisitReserveAnswer.arel_table["boolean_answer"]
+      )
+      .joins(:visit_reserve_answers)
+      .where(visit_reserve_answers: { visit_id: visit.id })
+
+    if visit.submitted_at?
+      visit_reserve_questions
+
+    else
+      project_reserve_questions = ReserveQuestion
+        .select(
+          ReserveQuestion.arel_table[Arel.star],
+          ProjectReserveAnswer.arel_table["text_answer"],
+          ProjectReserveAnswer.arel_table["boolean_answer"]
+        )
+        .joins(:project_reserve_answers)
+        .where(project_reserve_answers: { project_id: visit.project_id })
+
+      ReserveQuestion.from(
+        "(#{visit_reserve_questions.to_sql} UNION #{project_reserve_questions.to_sql}) AS reserve_questions"
+      )
+    end
   end
 
   attr_reader :steps_presenter, :current_step

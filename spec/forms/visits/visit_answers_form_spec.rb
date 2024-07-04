@@ -4,12 +4,15 @@ RSpec.describe Visits::VisitAnswersForm do
   describe "#save" do
     context "when the records are valid" do
       it "save answers" do
-        visit = create(:visit)
+        project = create(:project)
+        visit = create(:visit, project: project)
         answer1 = create(:visit_reserve_answer, visit: visit, boolean_answer: false)
-        answer2 = create(:visit_reserve_answer, visit: visit, text_answer: "LOL")
+        answer2 = create(:project_reserve_answer, project: visit.project, text_answer: "LOL")
         form = Visits::VisitAnswersForm.new(visit: visit, params: {
-          reserve_answers: {
+          visit_reserve_answers: {
             answer1.reserve_question_id.to_s => { boolean_answer: "1" },
+          },
+          project_reserve_answers: {
             answer2.reserve_question_id.to_s => { text_answer: "OMG" },
           },
         })
@@ -22,9 +25,10 @@ RSpec.describe Visits::VisitAnswersForm do
           visit_id: visit.id,
           boolean_answer: true,
         })
-        expect(visit_reserve_answers[1]).to have_attributes({
+        project_reserve_answers = project.project_reserve_answers
+        expect(project_reserve_answers[0]).to have_attributes({
           reserve_question_id: answer2.reserve_question_id,
-          visit_id: visit.id,
+          project_id: visit.project_id,
           text_answer: "OMG",
         })
       end
