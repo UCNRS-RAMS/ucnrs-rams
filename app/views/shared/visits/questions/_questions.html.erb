@@ -6,7 +6,7 @@
 
     <% if presenter.has_reserve_questions_for_visit? %>
       <% presenter.reserve_questions_by_location.each do |location, questions| %>
-        <%= render partial:  "shared/visits/questions/group",
+        <%= render partial: "shared/visits/questions/group",
           locals: {
             title: t(".location.#{location}"),
             questions: questions,

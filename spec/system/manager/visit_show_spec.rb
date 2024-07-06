@@ -8,9 +8,9 @@ RSpec.describe "Manager Visit Show" do
 
   describe "it displays project show page" do
     it "includes summary box and menu bar", js: true do
-      sign_in(user)
       flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+      sign_in(user)
       flow.visit_show_page
 
       expect(flow).to be_showing_summary_box
@@ -20,9 +20,10 @@ RSpec.describe "Manager Visit Show" do
     it "includes only summary box and do not have menu bar and status button", js: true do
       local_reserve = create(:reserve)
       local_visit = create(:visit, reserve: local_reserve)
-      sign_in(user)
+
       flow = VisitShowFlow.new(page: page, visit_id: local_visit.id, reserve_id: local_reserve.id)
 
+      sign_in(user)
       flow.visit_show_page
 
       expect(flow).to be_showing_summary_box
@@ -31,9 +32,9 @@ RSpec.describe "Manager Visit Show" do
     end
 
     it "render summary partial when click on status button", js: true do
-      sign_in(user)
       flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+      sign_in(user)
       flow.visit_show_page
       flow.click_on_status_btn
 
@@ -43,9 +44,9 @@ RSpec.describe "Manager Visit Show" do
 
   describe "deleting a visit", js: true do
     it "open a confirmation modal by clicking the trash icon" do
-      sign_in(user)
       flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+      sign_in(user)
       flow.visit_show_page
       flow.click_on_trash_icon
 
@@ -54,9 +55,9 @@ RSpec.describe "Manager Visit Show" do
 
     context "confirmation modal", js: true do
       it "displays invoices associated with the current visit" do
-        sign_in(user)
         flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+        sign_in(user)
         flow.visit_show_page
         flow.click_on_trash_icon
 
@@ -67,9 +68,9 @@ RSpec.describe "Manager Visit Show" do
 
     context "Confirmation of deletion", js: true do
       it "delete a visit and its invoices" do
-        sign_in(user)
         flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+        sign_in(user)
         flow.visit_show_page
         flow.click_on_trash_icon
         flow.click_on_delete_button
@@ -106,9 +107,9 @@ RSpec.describe "Manager Visit Show" do
 
   describe "when click on visitor tab" do
     it "should display the visitors in the visitor list", js: true do
-      sign_in(user)
       flow = VisitShowVisitorTabFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+      sign_in(user)
       flow.visit_show_page
       flow.click_on_vistors_tab
 
@@ -119,9 +120,9 @@ RSpec.describe "Manager Visit Show" do
       visitor1 = create(:user, :confirmed, first_name: "user1", last_name: "test1")
       user_visit1 = create(:user_visit, visit: visit, user: visitor1, role: "Other")
 
-      sign_in(user)
       flow = VisitShowVisitorTabFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+      sign_in(user)
       flow.visit_show_page
       flow.click_on_vistors_tab
 
@@ -132,9 +133,9 @@ RSpec.describe "Manager Visit Show" do
       visitor1 = create(:user, :confirmed, first_name: "user1", last_name: "test1")
       user_visit1 = create(:user_visit, visit: visit, user: visitor1, role: "Other")
 
-      sign_in(user)
       flow = VisitShowVisitorTabFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+      sign_in(user)
       flow.visit_show_page
       flow.click_on_vistors_tab
 
@@ -145,12 +146,12 @@ RSpec.describe "Manager Visit Show" do
 
     it "should be able to change the add visitor form by clicking on action buttons", js: true do
       create(:institution, id: 2368)
-      sign_in(user)
+
       flow = VisitShowVisitorTabFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+      sign_in(user)
       flow.visit_show_page
       flow.click_on_vistors_tab
-
       expect(flow).to have_selected_add_team_member
       expect(flow).to have_section("#add-team-member")
       expect(flow).not_to have_section("#add-guest")
@@ -171,9 +172,9 @@ RSpec.describe "Manager Visit Show" do
       visitor = create(:user, :confirmed, first_name: "user1", last_name: "test1")
       user_visit = create(:user_visit, visit: visit, user: visitor, role: "Other")
 
-      sign_in(user)
       flow = VisitShowVisitorTabFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+      sign_in(user)
       flow.visit_show_page
       flow.click_on_vistors_tab
 
@@ -192,9 +193,9 @@ RSpec.describe "Manager Visit Show" do
       visitor = create(:user, :confirmed, first_name: "user1", last_name: "test1")
       create(:user_visit, visit: visit, user: visitor, role: "Other")
 
-      sign_in(user)
       flow = VisitShowVisitorTabFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+      sign_in(user)
       flow.visit_show_page
       flow.click_on_vistors_tab
 
@@ -207,9 +208,9 @@ RSpec.describe "Manager Visit Show" do
       visitor = create(:user, :confirmed, first_name: "user1", last_name: "test1")
       create(:user_visit, visit: visit, user: visitor, role: "Other")
 
-      sign_in(user)
       flow = VisitShowVisitorTabFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+      sign_in(user)
       flow.visit_show_page
       flow.click_on_vistors_tab
       flow.click_on_change
@@ -222,9 +223,9 @@ RSpec.describe "Manager Visit Show" do
     it "adds the team member to the visitors list when 'Add To Visitor List' is clicked" do
       create(:project_team_membership, user: user, project: visit.project)
 
-      sign_in(user)
       flow = VisitShowVisitorTabFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+      sign_in(user)
       flow.visit_show_page
       flow.click_on_vistors_tab
       flow.click_add_to_visitor_list
@@ -238,9 +239,9 @@ RSpec.describe "Manager Visit Show" do
       create(:user, id: 1)
       create(:institution, id: 2368)
 
-      sign_in(user)
       flow = VisitShowVisitorTabFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+      sign_in(user)
       flow.visit_show_page
       flow.click_on_vistors_tab
       flow.click_on_add_group
@@ -255,9 +256,9 @@ RSpec.describe "Manager Visit Show" do
 
   describe "when on add guest form" do
     it "shows suggestions when user name is typed", js: true do
-      sign_in(user)
       flow = VisitShowVisitorTabFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+      sign_in(user)
       flow.visit_show_page
       flow.click_on_vistors_tab
       flow.click_on_add_individual
@@ -268,9 +269,9 @@ RSpec.describe "Manager Visit Show" do
     end
 
     it "adds user to the visitors list when a user is selected from the suggestions list", js: true do
-      sign_in(user)
       flow = VisitShowVisitorTabFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+      sign_in(user)
       flow.visit_show_page
       flow.click_on_vistors_tab
 
@@ -287,9 +288,9 @@ RSpec.describe "Manager Visit Show" do
       create(:user, id: 1)
       create(:institution, id: 2368)
 
-      sign_in(user)
       flow = VisitShowVisitorTabFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+      sign_in(user)
       flow.visit_show_page
       flow.click_on_vistors_tab
       flow.click_on_add_individual
@@ -308,12 +309,12 @@ RSpec.describe "Manager Visit Show" do
 
   describe "when click on reserve_info tab" do
     it "should display reserve specific questions", js: true do
-      create(:reserve_question, reserve_id: reserve.id)
-      sign_in(user)
+      create(:reserve_question, reserve: reserve)
+
       flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+      sign_in(user)
       flow.visit_show_page
-
       flow.click_on_reserve_info_btn
 
       expect(flow.showing_reserve_specific_questions?).to eq true
@@ -321,11 +322,10 @@ RSpec.describe "Manager Visit Show" do
 
     context "when there is no reserve_questions for the visit's reserve" do
       it "should display a text 'This reserve has no additional questions at this time.'", js: true do
-        sign_in(user)
         flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+        sign_in(user)
         flow.visit_show_page
-
         flow.click_on_reserve_info_btn
 
         expect(flow.no_question_message?).to eq true
@@ -334,9 +334,13 @@ RSpec.describe "Manager Visit Show" do
 
     context "when click on update button" do
       it "should display success flash message for successful update", js: true do
-        create(:reserve_question, reserve_id: reserve.id)
-        sign_in(user)
+        reserve_question = create(:reserve_question, reserve: reserve,
+          location: "visit", question_type: "text")
+        create(:visit_reserve_answer, reserve_question: reserve_question, visit: visit, text_answer: "answer")
+
         flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
+
+        sign_in(user)
         flow.visit_show_page
         flow.click_on_reserve_info_btn
         flow.click_on_submit_btn
@@ -345,14 +349,16 @@ RSpec.describe "Manager Visit Show" do
       end
 
       it "should display error flash message for unsucessfull update", js: true do
-        reserve_question = create(:reserve_question, reserve_id: reserve.id, question_type: "text",
+        reserve_question = create(:reserve_question, reserve: reserve, question_type: "text",
           location: "visit", question: "test question", answer_required: true)
-        create(:visit_reserve_answer, reserve_question: reserve_question, text_answer: "answer")
-        sign_in(user)
+        create(:visit_reserve_answer, reserve_question: reserve_question, visit: visit, text_answer: "answer")
+
         flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+        sign_in(user)
         flow.visit_show_page
         flow.click_on_reserve_info_btn
+        page.fill_in("test question", with: "")
         flow.click_on_submit_btn
 
         expect(flow.error_message?).to eq true
@@ -362,12 +368,12 @@ RSpec.describe "Manager Visit Show" do
 
   describe "when click on invoices tab" do
     it "should display invoices information", js: true do
-      create(:reserve_question, reserve_id: reserve.id)
-      sign_in(user)
+      create(:reserve_question, reserve: reserve)
+
       flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+      sign_in(user)
       flow.visit_show_page
-
       flow.click_on_invoices_btn
 
       expect(flow.showing_invoice_info?).to eq true
@@ -378,9 +384,9 @@ RSpec.describe "Manager Visit Show" do
 
   describe "when visit status is incomplete" do
     it "status bar will disable", js: true do
-      sign_in(user)
       flow = VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
+      sign_in(user)
       flow.visit_show_page
       expect(flow).to be_selected_incomplete
 
@@ -390,10 +396,11 @@ RSpec.describe "Manager Visit Show" do
 
   describe "when visit status is not incomplete" do
     it "status bar will not disable", js: true do
-      sign_in(user)
       approved_visit = create(:visit, reserve: reserve, status: "approved")
+
       flow = VisitShowFlow.new(page: page, visit_id: approved_visit.id, reserve_id: reserve.id)
 
+      sign_in(user)
       flow.visit_show_page
 
       expect(flow).to be_clickable_status_bar
@@ -402,10 +409,11 @@ RSpec.describe "Manager Visit Show" do
 
   describe "when email option is default" do
     it "it display text box to compose email", js: true do
-      sign_in(user)
       approved_visit = create(:visit, reserve: reserve, status: "approved")
+
       flow = VisitShowFlow.new(page: page, visit_id: approved_visit.id, reserve_id: reserve.id)
 
+      sign_in(user)
       flow.visit_show_page
       expect(flow).to be_showing_text_area
     end
