@@ -50,7 +50,7 @@ class Visits::QuestionsIndexPresenter
       .in_order
       .for_visits
       .visible
-      .matching_project_type(visit.project_type)
+      .matching_project_type(visit.project.project_type)
       .involving_related(visit.project)
       .include_answers_for(visit.project)
   end
@@ -85,11 +85,11 @@ class Visits::QuestionsIndexPresenter
 
   def reserve_question_scope_from_questions
     scope = ReserveQuestion
-    .where(reserve: visit.reserve)
-    .by_location
-    .in_order
-    .visible
-    .include_answers_for(visit)
+      .where(reserve: visit.reserve)
+      .by_location
+      .in_order
+      .visible
+      .include_answers_for(visit)
 
     scope = scope.for_visits if !first_reserve_visit_on_project?
 
@@ -107,7 +107,7 @@ class Visits::QuestionsIndexPresenter
       .where(visit_reserve_answers: { visit_id: visit.id })
 
     if visit.submitted_at?
-      visit_reserve_questions
+      visit_reserve_questions.in_order
 
     else
       project_reserve_questions = ReserveQuestion
@@ -119,9 +119,12 @@ class Visits::QuestionsIndexPresenter
         .joins(:project_reserve_answers)
         .where(project_reserve_answers: { project_id: visit.project_id })
 
-      ReserveQuestion.from(
-        "(#{visit_reserve_questions.to_sql} UNION #{project_reserve_questions.to_sql}) AS reserve_questions"
-      )
+      ReserveQuestion
+        .from(
+          "(#{visit_reserve_questions.to_sql} UNION #{project_reserve_questions.to_sql}) AS reserve_questions"
+        )
+        .by_location
+        .in_order
     end
   end
 
