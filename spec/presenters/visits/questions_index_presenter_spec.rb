@@ -83,12 +83,30 @@ RSpec.describe Visits::QuestionsIndexPresenter do
         expect(results["visit"].map(&:id)).to match_array [visit_question2.id]
         expect(results["project"].map(&:id)).to match_array [project_question1.id]
       end
+
+      it "return the answers from project answer and visit answer table" do
+        reserve = create(:reserve)
+        visit = create(:visit, reserve: reserve, submitted_at: nil)
+        visit_question1 = create(:reserve_question, location: :visit, question_type: :text)
+        visit_question2 = create(:reserve_question, reserve: reserve, location: :visit, question_type: :text)
+        project_question1 = create(:reserve_question, reserve: reserve, location: :project, question_type: :text)
+        project_question2 = create(:reserve_question, location: :project, question_type: :text)
+        visit_answer2 = create(:visit_reserve_answer, visit: visit, reserve_question: visit_question2,
+          text_answer: "answer for visit question")
+        project_answer1 = create(:project_reserve_answer, project: visit.project, reserve_question: project_question1,
+          text_answer: "answer for project question")
+        presenter = Visits::QuestionsIndexPresenter.new(current_step: 3, visit: visit)
+
+        results = presenter.reserve_questions_by_location
+
+        expect(results.keys).to match_array %w[visit project]
+        expect(results["visit"].map(&:text_answer)).to match_array [visit_answer2.text_answer]
+        expect(results["project"].map(&:text_answer)).to match_array [project_answer1.text_answer]
+      end
     end
 
-
-
     context "if visit is submitted" do
-      it "locates questions only from visit answer table" do
+      it "returns questions only from visit answer table" do
         reserve = create(:reserve)
         visit = create(:visit, reserve: reserve, submitted_at: Time.current)
         visit_question1 = create(:reserve_question, reserve: reserve, location: :visit)
@@ -102,6 +120,25 @@ RSpec.describe Visits::QuestionsIndexPresenter do
 
         expect(results.keys).to match_array %w[visit]
         expect(results["visit"].map(&:id)).to match_array [visit_question1.id]
+      end
+
+      it "return the answers only from visit answer table" do
+        reserve = create(:reserve)
+        visit = create(:visit, reserve: reserve, submitted_at: Time.current)
+        visit_question1 = create(:reserve_question, location: :visit, question_type: :text)
+        visit_question2 = create(:reserve_question, reserve: reserve, location: :visit, question_type: :text)
+        project_question1 = create(:reserve_question, reserve: reserve, location: :project, question_type: :text)
+        project_question2 = create(:reserve_question, location: :project, question_type: :text)
+        visit_answer2 = create(:visit_reserve_answer, visit: visit, reserve_question: visit_question2,
+          text_answer: "answer for visit question")
+        project_answer1 = create(:project_reserve_answer, project: visit.project, reserve_question: project_question1,
+          text_answer: "answer for project question")
+        presenter = Visits::QuestionsIndexPresenter.new(current_step: 3, visit: visit)
+
+        results = presenter.reserve_questions_by_location
+
+        expect(results.keys).to match_array %w[visit]
+        expect(results["visit"].map(&:text_answer)).to match_array [visit_answer2.text_answer]
       end
     end
 
