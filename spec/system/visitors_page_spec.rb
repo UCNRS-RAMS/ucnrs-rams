@@ -8,9 +8,9 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
     visitor1 = create(:user, :confirmed, first_name: "user1", last_name: "test1")
     user_visit1 = create(:user_visit, visit: visit, user: visitor1, role: "Other")
 
-    sign_in(user)
     flow = AddVisitorsFlow.new(page)
 
+    sign_in(user)
     flow.visit_add_visitors_page(visit.id)
     expect(flow).to have_a_visitor(visitor1, user_visit1)
   end
@@ -19,9 +19,9 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
     visitor1 = create(:user, :confirmed, first_name: "user1", last_name: "test1")
     user_visit1 = create(:user_visit, visit: visit, user: visitor1, role: "Other")
 
-    sign_in(user)
     flow = AddVisitorsFlow.new(page)
 
+    sign_in(user)
     flow.visit_add_visitors_page(visit.id)
     expect(flow).to have_a_visitor(visitor1, user_visit1)
 
@@ -32,9 +32,10 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
   it "should be able to change the add visitor form by clicking on action buttons" do
     institution = create(:institution, id: 2368)
     user = create(:user, :confirmed, institution: institution)
-    sign_in(user)
+
     flow = AddVisitorsFlow.new(page)
 
+    sign_in(user)
     flow.visit_add_visitors_page(visit.id)
 
     expect(flow).to have_selected_add_team_member
@@ -57,9 +58,9 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
     visitor = create(:user, :confirmed, first_name: "user1", last_name: "test1")
     user_visit = create(:user_visit, visit: visit, user: visitor, role: "Other")
 
-    sign_in(user)
     flow = AddVisitorsFlow.new(page)
 
+    sign_in(user)
     flow.visit_add_visitors_page(visit.id)
 
     flow.click_on_change(user_visit)
@@ -73,9 +74,9 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
     visitor = create(:user, :confirmed, first_name: "user1", last_name: "test1")
     user_visit = create(:user_visit, visit: visit, user: visitor, role: "Other")
 
-    sign_in(user)
     flow = AddVisitorsFlow.new(page)
 
+    sign_in(user)
     flow.visit_add_visitors_page(visit.id)
 
     flow.click_on_change(user_visit)
@@ -88,9 +89,9 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
       user = create(:user, :confirmed, first_name: "user1", last_name: "test1")
       create(:project_team_membership, user: user, project: visit.project)
 
-      sign_in(user)
       flow = AddVisitorsFlow.new(page)
 
+      sign_in(user)
       flow.visit_add_visitors_page(visit.id)
       page.click_on("Add To Visitor List")
 
@@ -119,10 +120,9 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
 
   describe "when on add guest form" do
     it "shows suggestions when user name is typed" do
-      user = create(:user, :confirmed)
+      flow = AddVisitorsFlow.new(page)
 
       sign_in(user)
-      flow = AddVisitorsFlow.new(page)
       flow.visit_add_visitors_page(visit.id)
       flow.click_on_add_individual
 
@@ -134,10 +134,9 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
     end
 
     it "adds user to the visitors list when a user is selected from the suggestions list" do
-      user = create(:user, :confirmed)
+      flow = AddVisitorsFlow.new(page)
 
       sign_in(user)
-      flow = AddVisitorsFlow.new(page)
       flow.visit_add_visitors_page(visit.id)
 
       flow.click_on_add_individual
@@ -154,8 +153,9 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
       institution = create(:institution, id: 2368)
       user = create(:user, :confirmed, institution: institution)
 
-      sign_in(user)
       flow = AddVisitorsFlow.new(page)
+
+      sign_in(user)
       flow.visit_add_visitors_page(visit.id)
       flow.click_on_add_individual
 
@@ -175,9 +175,10 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
     it "previous form will swap with another form to create institute" do
       visitor = create(:user, :confirmed, first_name: "user1", last_name: "test1")
       user_visit = create(:user_visit, visit: visit, user: visitor, role: "Other")
-      sign_in(user)
+
       flow = AddVisitorsFlow.new(page)
 
+      sign_in(user)
       flow.visit_add_visitors_page(visit.id)
 
       flow.click_on_change(user_visit)
@@ -192,9 +193,10 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
         institution = create(:institution, name: "university-abc", city: "houstan")
         user_visit = create(:user_visit, visit: visit, user: visitor, institution: institution,
           role: "Other")
-        sign_in(user)
+
         flow = AddVisitorsFlow.new(page)
 
+        sign_in(user)
         flow.visit_add_visitors_page(visit.id)
 
         flow.click_on_change(user_visit)
@@ -214,16 +216,17 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
         institution = create(:institution, name: "university-xyz")
         user_visit = create(:user_visit, visit: visit, user: visitor, institution: institution,
           role: "Other")
-        sign_in(user)
+
         flow = AddVisitorsFlow.new(page)
 
+        sign_in(user)
         flow.visit_add_visitors_page(visit.id)
         flow.click_on_change(user_visit)
         flow.click_on_new_institution_link
-        flow.fill_form_for_institution
 
+        sleep(0.5)
+        flow.fill_form_for_institution
         flow.click_on_save_btn
-        sleep(0.3)
 
         expect(page).to have_css("td", text: "university-abc")
       end
