@@ -282,9 +282,20 @@
       background-color: $white;
       border: 1px solid $darker-gray;
       border-radius: 3px;
+      cursor: pointer;
       font-size: 0.8125rem;
       font-weight: $medium;
+      margin: 0;
       padding: 0.625rem;
+      transition: all .15s ease-in-out;
+    }
+
+    button:hover {
+      filter: brightness(95%);
+    }
+
+    button:active {
+      filter: brightness(75%);
     }
   }
 }

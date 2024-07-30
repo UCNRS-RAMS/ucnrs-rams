@@ -142,6 +142,10 @@
       background-color: $gold;
       padding: 10px;
     }
+
+    .close a {
+      text-decoration: underline;
+    }
   }
 
   a {

@@ -8,12 +8,12 @@
         <div class="row-auto">
           <%= link_to t(".show_options"), "#",
             "data-action": "click->toggle#toggle", "data-toggle-target": "toggle", "data-toggle-class": "show",
-            class: "button button-inline button-clear #{ presenter.show_options_class }",
+            class: "button-inline button-clear #{ presenter.show_options_class }",
             id: "show_button"
           %>
           <%= link_to t(".hide_options"), "#",
             "data-action": "click->toggle#toggle", "data-toggle-target": "toggle", "data-toggle-class": "show",
-            class: "button button-inline button-clear #{ presenter.hide_options_class }",
+            class: "button-inline button-clear #{ presenter.hide_options_class }",
             id: "hide_button"
           %>
         </div>
@@ -43,7 +43,10 @@
       </div>
     </div>
     <div>
-      <%= link_to t(".clear"), manager_reserve_users_path(current_reserve) %>
+      <%= link_to t(".clear"),
+        manager_reserve_users_path(current_reserve),
+        class: "button-subtle"
+      %>
     </div>
   </div>
 </form>

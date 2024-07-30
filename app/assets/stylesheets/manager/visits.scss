@@ -106,6 +106,10 @@
 
     @include search-subsection;
     @include pagination;
+
+    .search-subsection {
+      font-size: 0.875rem;
+    }
   }
 
   header.content-header {

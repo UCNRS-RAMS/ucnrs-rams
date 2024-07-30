@@ -47,6 +47,7 @@
   }
 
   .report {
+    font-size: 0.875rem;
     margin-top: .125rem;
     width: 100%;
 
@@ -79,10 +80,20 @@
       background-color: $white;
       border: 1px solid $gray;
       border-radius: 3px;
+      cursor: pointer;
       font-size: 0.8125rem;
-      font-weight: 500;
+      font-weight: $medium;
       margin: 0;
-      padding: .625rem;
+      padding: 0.625rem;
+      transition: all .15s ease-in-out;
+    }
+
+    button:hover {
+      filter: brightness(95%);
+    }
+
+    button:active {
+      filter: brightness(75%);
     }
 
     .form-textarea {

@@ -8,6 +8,7 @@ input[type="submit"] {
   border-radius: 2.25rem;
   border: 0;
   color: $active-button-text !important;
+  cursor: pointer;
   display: flex;
   flex-direction: row;
   font-size: 1rem;
@@ -15,14 +16,29 @@ input[type="submit"] {
   justify-content: center;
   padding: 0.75rem 1.25rem;
   text-decoration: none;
+  transition: all .15s ease-in-out;
 
   img {
     margin-left: 1rem;
   }
 }
 
+button.active:hover,
+a.button:hover,
+input[type="submit"]:hover {
+  filter: brightness(108%);
+}
+
+button.active:active,
+a.button:active,
+input[type="submit"]:active {
+  filter: brightness(112%);
+}
+
+
 a.button.button-inline {
   color: $active-button-text !important;
+  cursor: pointer;
   display: inline-block;
   padding-left: 2.5rem;
   padding-right: 2.5rem;
@@ -49,7 +65,30 @@ a.button.button-inline {
   color: #002045 !important;
   cursor: pointer;
   display: inline-block;
-  font-size: 0.8125rem !important;
   padding: 0.5rem 1.5rem !important;
   text-decoration: none;
+  transition: all .15s ease-in-out;
+}
+
+.button-clear:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+.button-clear:active {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+a.button-subtle {
+  border-radius: $border-radius;
+  padding: 6px;
+  transition: all .15s ease-in-out;
+}
+
+a.button-subtle:hover {
+  background-color: rgba(0, 0, 0, 0.05)
+}
+
+a.button-subtle:active {
+  background-color: rgba(0, 0, 0, 0.1)
+
 }
