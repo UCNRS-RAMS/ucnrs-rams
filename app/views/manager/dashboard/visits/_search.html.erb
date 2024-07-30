@@ -8,12 +8,12 @@
         <div class="row-auto">
           <%= link_to t(".show_options"), "#",
             "data-action": "click->toggle#toggle", "data-toggle-target": "toggle", "data-toggle-class": "show",
-            class: "button button-inline button-clear #{ presenter.filter_present? ? "loadhide" : "show" }",
+            class: "button-inline button-clear #{ presenter.filter_present? ? "loadhide" : "show" }",
             id: "show_button"
           %>
           <%= link_to t(".hide_options"), "#",
             "data-action": "click->toggle#toggle", "data-toggle-target": "toggle", "data-toggle-class": "show",
-            class: "button button-inline button-clear #{ presenter.filter_present? ? "show" : "loadhide" }",
+            class: "button-inline button-clear #{ presenter.filter_present? ? "show" : "loadhide" }",
             id: "hide_button"
           %>
         </div>
@@ -72,7 +72,10 @@
       </div>
     </div>
     <div>
-      <%= link_to t(".clear_all_and_start_over"), manager_reserve_dashboard_visits_path(current_reserve, filter: { visit_search: nil }) %>
+      <%= link_to t(".clear_all_and_start_over"),
+        manager_reserve_dashboard_visits_path(current_reserve, filter: { visit_search: nil }),
+        class: "button-subtle"
+      %>
     </div>
   </div>
 </form>

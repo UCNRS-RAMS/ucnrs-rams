@@ -86,11 +86,11 @@
 
     #horizontal-line::after {
       border-top: 3px solid;
+      bottom: 1rem;
       content: "";
       display: block;
       position: absolute;
       right: -1.5rem;
-      top: 2rem;
       width: 1rem;
     }
 

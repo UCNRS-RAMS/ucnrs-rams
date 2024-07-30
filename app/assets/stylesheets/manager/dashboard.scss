@@ -172,6 +172,10 @@
 
   @include search-subsection;
 
+  .search-subsection {
+    font-size: 0.875rem;
+  }
+
   .calendar-container {
     .display-none {
       display: none;
