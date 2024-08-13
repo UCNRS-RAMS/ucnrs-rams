@@ -1,42 +1,52 @@
-<turbo-frame id="modal-content" class="modal-content" role="dialog" aria-labelledby="modal-title">
-  <div data-modal-target="dialog openOnLoad" data-action="mousedown@window->modal#closeBackground", class="spacer" >
-    <h1><%= t(".record_payment") %></h1>
-    <div class="d-flex-column spacer-y">
-      <span class="label"><%= t(".invoice") %></span>
-      <h3><%= @presenter.title.delete("Invoice") %></h3>
+<turbo-frame id="modal-content">
+  <div class="modal-content" data-modal-target="dialog openOnLoad">
+    <div class="close">
+      <%= image_tag "x.svg", height: "16px", width: "16px",
+        id: "x-icon",
+        data: { action: "click->modal#close" },
+        alt: t("alt.icon_x")
+      %>
     </div>
-    <div class="d-flex-column spacer-y">
-      <span class="label"><%= t(".visit_date") %></span>
-      <h3><%= @presenter.visit_date_range %></h3>
-    </div>
-    <div class="d-flex-column spacer-y">
-      <span class="label"><%= t(".project_title") %></span>
-      <h3><%= @presenter.project_title %></h3>
-    </div>
+
     <%= form_with model: @form.invoice_payment, url: @form.editing ? manager_reserve_visit_invoice_payment_path : manager_reserve_visit_invoice_payments_path do |f| %>
-      <div class="d-flex spacer-y">
-        <%= f.hidden_field :id %>
-        <%= f.hidden_field :invoice_id, value: @presenter.invoice_id %>
+      <section>
+        <header class="modal-header">
+          <h2><%= t(".record_payment") %></h2>
+        </header>
+
         <div class="d-flex-column spacer-y">
-          <%= f.label :paid_on, t(".payment_date"), for: t(".paid_on_for"), class: "label" %>
-          <%= f.date_field :paid_on, onclick: "showPicker()", class: "input-field" %>
+          <span class="label"><%= t(".invoice") %></span>
+          <h3><%= @presenter.title.delete("Invoice") %></h3>
         </div>
         <div class="d-flex-column spacer-y">
-          <%= f.label :amount, t(".payment_amount"), for: t(".amount_for"), class: "label" %>
-          <%= f.text_field :amount, class: "input-field" %>
+          <span class="label"><%= t(".visit_date") %></span>
+          <h3><%= @presenter.visit_date_range %></h3>
         </div>
-      </div>
-      <div class="d-flex-column spacer-y">
-        <%= f.label t(".notes"), for: t(".notes_for"), class: "label" %>
-        <%= f.text_field :notes, class: "input-field" %>
-      </div>
+        <div class="d-flex-column spacer-y">
+          <span class="label"><%= t(".project_title") %></span>
+          <h3><%= @presenter.project_title %></h3>
+        </div>
+
+        <div class="d-flex spacer-y">
+          <%= f.hidden_field :id %>
+          <%= f.hidden_field :invoice_id, value: @presenter.invoice_id %>
+          <div class="d-flex-column spacer-y">
+            <%= f.label :paid_on, t(".payment_date"), for: t(".paid_on_for"), class: "label" %>
+            <%= f.date_field :paid_on, onclick: "showPicker()", class: "input-field" %>
+          </div>
+          <div class="d-flex-column spacer-y">
+            <%= f.label :amount, t(".payment_amount"), for: t(".amount_for"), class: "label" %>
+            <%= f.text_field :amount, class: "input-field" %>
+          </div>
+        </div>
+        <div class="d-flex-column spacer-y">
+          <%= f.label t(".notes"), for: t(".notes_for"), class: "label" %>
+          <%= f.text_field :notes, class: "input-field" %>
+        </div>
+      </section>
       <section class="buttons">
-        <div class="close">
-          <%= link_to t(".cancel"), "#", data: { action: "click->modal#close" } %>
-        </div>
-        <button class="active" type="submit" data-turbo-frame= "_top" >
-          <%= t(".save") %>
-        </button>
+        <%= link_to t("cancel"), "#", class: "close", data: { action: "click->modal#close" } %>
+        <%= button_tag t("sitewide.save"), class: "active", type: "submit" %>
       </section>
     <% end %>
   </div>

@@ -4,15 +4,22 @@
 @import "mixins/date_fields";
 
 .modal {
+  @include form2;
+  @include date_fields;
+
   background: rgba($navy-blue, 0.85);
   bottom: 0;
   display: none;
   left: 0;
+  overflow: hidden;
   position: fixed;
   right: 0;
   top: 0;
   z-index: 2;
-  overflow: hidden;
+
+  a, a:visited {
+    color: $dark-sky-blue;
+  }
 
   .modal-container {
     align-items: center;
@@ -22,43 +29,91 @@
     min-height: calc(100% - 4rem);
   }
 
-  @include form2;
-  @include date_fields;
+  .close {
+    img#x-icon {
+      background-color: rgba($gray, 0.36);
+      border-radius: 50%;
+      padding: 0.5rem;
+      transition: all .15s ease-in-out;
+    }
+
+    img#x-icon:hover {
+      background-color: rgba($gray, 0.6);
+    }
+
+    img#x-icon:active {
+      background-color: rgba($gray, 0.75);
+    }
+  }
+
+  .modal-content{
+    background: #fff;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+    position: relative;
+    width: 100%;
+
+    > .close {
+      cursor: pointer;
+      top: 0;
+      right: 0;
+      padding-top: 1rem;
+      padding-right: 1rem;
+      position: absolute;
+    }
+
+    header.modal-header {
+      margin-bottom: 1.25rem;
+      margin-right: 3rem;
+
+      > h2 {
+        margin: 0;
+      }
+    }
+
+    header.modal-header.with-links {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .buttons {
+      margin: 1.5rem 0 0 0;
+
+      display: flex;
+      justify-content: end;
+
+      align-items: center;
+      padding: 0;
+
+      a, a:visited {
+        margin: 0 1rem;
+        text-decoration: none;
+      }
+
+      a.button {
+        background-color: $gold;
+        padding: 10px;
+      }
+
+      a.close {
+        text-decoration: underline;
+      }
+    }
+  }
 
   .screenreader-text {
     display: none;
-  }
-
-  .heading {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    a {
-      color: $dark-sky-blue;
-      font-size: 12px;
-      text-decoration: none;
-
-      &:visited {
-        color: $navy-blue;
-      }
-    }
   }
 
   &.visible {
     display: block;
     overflow-x: hidden;
     overflow-y: auto;
-  }
-
-  .modal-content {
-    background: #fff;
-    border-radius: 10px;
-    border: 1px solid #808080;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
   }
 
   .d-flex {
@@ -123,33 +178,6 @@
     line-height: 1.5rem;
     margin: 0 3rem;
     padding: 0;
-  }
-
-  .buttons {
-    display: flex;
-    justify-content: end;
-    margin: 0 3rem 2rem 3rem;
-    align-items: center;
-    padding: 0;
-
-    a, a:visited {
-      color: $dark-sky-blue;
-      margin: 0 1rem;
-      text-decoration: none;
-    }
-
-    a.button {
-      background-color: $gold;
-      padding: 10px;
-    }
-
-    .close a {
-      text-decoration: underline;
-    }
-  }
-
-  a {
-    color: $sky-blue;
   }
 
   header.modal-header {

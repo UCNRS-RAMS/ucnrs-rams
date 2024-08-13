@@ -54,7 +54,7 @@ class ProjectShowFlow
   end
 
   def has_navigation_link?(text)
-    page.has_css?("a", text: text)
+    page.has_css?("a", text:)
   end
 
   def has_team_membership_edit_link?(team_membership)
@@ -82,7 +82,7 @@ class ProjectShowFlow
   end
 
   def showing_text?(text)
-    page.has_css?("p", text: text)
+    page.has_css?("p", text:)
   end
 
   def showing_form?(form)
@@ -118,7 +118,7 @@ class ProjectShowFlow
   end
 
   def showing_funding_edit_modal?
-    page.has_css?("section.text")
+    page.has_css?("div.modal-content")
   end
 
   def has_text_field?(value)
@@ -137,12 +137,12 @@ class ProjectShowFlow
     page.all("#{css_class} tr").count.eql? count
   end
 
-  def in_visits_section(&block)
-    page.within(".project-visits-index", &block)
+  def in_visits_section(&)
+    page.within(".project-visits-index", &)
   end
 
   def has_table_data_text?(child:, text:)
-    page.has_css?("td:nth-child(#{child})", text: text)
+    page.has_css?("td:nth-child(#{child})", text:)
   end
 
   def not_showing_activity_and_notes?

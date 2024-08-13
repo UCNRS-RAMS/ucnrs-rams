@@ -12,7 +12,7 @@ class Manager::ReserveInfo::WaiversController < Manager::ApplicationController
   end
 
   def new
-    @form = WaiverFormPresenter.new
+    @presenter = WaiverFormPresenter.new
   end
 
   def create

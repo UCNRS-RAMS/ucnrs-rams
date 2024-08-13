@@ -1,14 +1,25 @@
-<turbo-frame id="modal-content" class="modal-content" role="dialog" aria-labelledby="modal-title">
-  <div data-modal-target="dialog openOnLoad" data-action="mousedown@window->modal#closeBackground" data-controller="user-days">
+<turbo-frame id="modal-content">
+  <div class="modal-content" data-modal-target="dialog openOnLoad" data-controller="user-days">
+    <p class="screenreader-text">
+      <span id="modal-title"><%= t(".title") %></span>
+      <span id="modal-description"><%= t(".accessible_description") %></span>
+    </p>
+    <div class="close">
+      <%= image_tag "x.svg", height: "16px", width: "16px",
+        id: "x-icon",
+        data: { action: "click->modal#close" },
+        alt: t("alt.icon_x")
+      %>
+    </div>
+
     <%= form_with model: presenter.form, url: presenter.user_visit_form_path, method: "patch" do |form| %>
       <%= form.hidden_field :id %>
       <%= form.hidden_field :count, data: { "user-days-target": "count" } %>
-      <p class="screenreader-text">
-        <span id="modal-title"><%= t(".title") %></span>
-        <span id="modal-description"><%= t(".accessible_description") %></span>
-      </p>
-      <section class="text">
-        <h2><%= t(".title") %></h2>
+
+      <section>
+        <header class="modal-header">
+          <h2><%= t(".title") %></h2>
+        </header>
         <div class="field">
           <%= form.label :role %>
           <%= form.select :role, presenter.user_role_options %>
@@ -41,12 +52,8 @@
         <%= render partial: presenter.user_days_partial, locals: { presenter: presenter, form: form } %>
       </section>
       <section class="buttons">
-        <div class="close">
-          <%= link_to t(".cancel"), "#", data: { action: "click->modal#close" } %>
-        </div>
-        <button class="active" type="submit">
-          <%= t(".save") %>
-        </button>
+        <%= link_to t("cancel"), "#", class: "close", data: { action: "click->modal#close" } %>
+        <%= button_tag t("update"), class: "active", type: "submit" %>
       </section>
     <% end %>
   </div>

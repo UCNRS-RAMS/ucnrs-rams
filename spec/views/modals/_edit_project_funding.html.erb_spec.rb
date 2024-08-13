@@ -32,6 +32,6 @@ RSpec.describe "modals/edit_project_funding.html.erb", type: :view do
     expect(doc).to have_field("Start Date", type: "date")
     expect(doc).to have_field("End Date", type: "date")
     expect(doc).to have_link("Cancel")
-    expect(doc).to have_button("Save")
+    expect(doc).to have_button("Update")
   end
 end
