@@ -1,24 +1,32 @@
-<turbo-frame id="modal-content" class="modal-content" role="dialog" aria-labelledby="modal-title">
-  <div data-modal-target="dialog openOnLoad" data-action="mousedown@window->modal#closeBackground">
+<turbo-frame id="modal-content">
+  <div class="modal-content" data-modal-target="dialog openOnLoad">
+    <p class="screenreader-text">
+      <span id="modal-title"><%= t(".title") %></span>
+      <span id="modal-description"><%= t(".accessible_description") %></span>
+    </p>
+    <div class="close">
+      <%= image_tag "x.svg", height: "16px", width: "16px",
+        id: "x-icon",
+        data: { action: "click->modal#close" },
+        alt: t("alt.icon_x")
+      %>
+    </div>
+
     <%= form_with model: presenter.form, url: presenter.funding_form_path, method: "patch", id: "edit-project-funding", namespace: "edit" do |form| %>
-      <p class="screenreader-text">
-        <span id="modal-title"><%= t(".title", funding_title: presenter.funding_title) %></span>
-        <span id="modal-description"><%= t(".accessible_description") %></span>
-      </p>
-      <section class="text">
-        <div class="heading">
+      <section>
+        <header class="modal-header with-links">
           <h2><%= t(".title", funding_title: presenter.funding_title) %></h2>
-          <%= link_to t(".remove_funding"), presenter.funding_form_path, method: :delete, data: { confirm: t(".confirm_removal", title: presenter.funding_title) } %>
-        </div>
+          <%= link_to t(".remove_funding"),
+            presenter.funding_form_path,
+            method: :delete,
+            data: { confirm: t(".confirm_removal", title: presenter.funding_title) }
+          %>
+        </header>
         <%= render partial: "shared/projects/fundings/form_fields", locals: { presenter: presenter, form: form } %>
       </section>
       <section class="buttons">
-        <div class="close">
-          <%= link_to t(".cancel"), "#", data: { action: "click->modal#close" } %>
-        </div>
-        <button form="edit-project-funding" class="active" type="submit">
-          <%= t(".save") %>
-        </button>
+        <%= link_to t("cancel"), "#", class: "close", data: { action: "click->modal#close" } %>
+        <%= button_tag t("update"), form: "edit-project-funding", class: "active", type: "submit" %>
       </section>
     <% end %>
   </div>

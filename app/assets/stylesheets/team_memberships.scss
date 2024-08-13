@@ -42,25 +42,4 @@
       padding: 0px;
     }
   }
-
-  .modal-content {
-    form {
-      padding: 1rem;
-
-      p {
-        color: $navy-blue;
-        font-size: 0.625rem;
-        line-height: initial;
-        text-align: left;
-      }
-
-      .autocomplete input {
-        width: auto;
-      }
-    }
-
-    .field {
-      margin-bottom: 1.25rem;
-    }
-  }
 }

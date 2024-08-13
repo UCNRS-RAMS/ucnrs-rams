@@ -1,16 +1,20 @@
-<turbo-frame id="modal-content"
-  class="modal-content"
-  role="dialog"
-  aria-labelledby="modal-title"
-  aria-describedby="modal-description"
->
-  <div data-modal-target="dialog openOnLoad" data-action="mousedown@window->modal#closeBackground">
-    <section class="log-modal">
-      <header>
-        <h2 id="modal-title"><%= t(".log") %></h2>
-        <%= image_tag "x.svg", height: "16px", width: "16px", class: "close", data: { action: "click->modal#close" } %>
-      </header>
+<turbo-frame id="modal-content">
+  <div class="modal-content" data-modal-target="dialog openOnLoad">
+    <p class="screenreader-text">
+      <span id="modal-title"><%= t(".log") %></span>
+    </p>
+    <div class="close">
+      <%= image_tag "x.svg", height: "16px", width: "16px",
+        id: "x-icon",
+        data: { action: "click->modal#close" },
+        alt: t("alt.icon_x")
+      %>
+    </div>
 
+    <section>
+      <header class="modal-header">
+        <h2><%= t(".log") %></h2>
+      </header>
       <section class="log">
         <table>
           <tr>

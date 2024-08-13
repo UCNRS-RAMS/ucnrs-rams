@@ -10,10 +10,10 @@ RSpec.describe "projects/fundings/index.turbo_stream.erb", type: :view do
     render template: "projects/fundings/index", formats: [:turbo_stream]
 
     expect(rendered).to include(
-      '<turbo-stream action="replace" target="modal-content"'
+      '<turbo-stream action="replace" target="modal-content"',
     )
     expect(rendered).to include(
-      '<turbo-frame id="modal-content" class="modal-content empty"'
+      '<turbo-frame id="modal-content" class="empty"',
     )
   end
 
@@ -26,10 +26,10 @@ RSpec.describe "projects/fundings/index.turbo_stream.erb", type: :view do
     render template: "projects/fundings/index", formats: [:turbo_stream]
 
     expect(rendered).to include(
-      '<turbo-stream action="replace" target="funding-table"'
+      '<turbo-stream action="replace" target="funding-table"',
     )
     expect(rendered).to include(
-      '<turbo-frame id="funding-table'
+      '<turbo-frame id="funding-table',
     )
   end
 end

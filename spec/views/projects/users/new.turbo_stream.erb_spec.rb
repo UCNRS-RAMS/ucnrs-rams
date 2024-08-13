@@ -14,7 +14,7 @@ RSpec.describe "projects/users/new.turbo_stream.erb", type: :view do
       formats: [:turbo_stream]
 
     expect(rendered).to include(
-      '<turbo-stream action="replace" target="modal-content"'
+      '<turbo-stream action="update" target="modal-content"'
     )
     expect(rendered).to include( '<turbo-frame id="modal-content"')
   end

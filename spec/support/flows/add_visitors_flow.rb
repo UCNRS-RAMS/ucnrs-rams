@@ -16,19 +16,19 @@ class AddVisitorsFlow
     end
   end
 
-  def within(selector, &block)
-    begin
-      @page_scope = selector
-      block.call
-    ensure
-      @page_scope = nil
-    end
+  def within(selector)
+    @page_scope = selector
+    yield
+  ensure
+    @page_scope = nil
   end
 
   def has_a_visitor?(visitor, user_visit)
     within("#user_visit_#{user_visit.id}") do
       page.has_css?("td:nth-child(2)", text: "#{visitor.first_name} #{visitor.last_name}")
-      page.has_css?("td:nth-child(5)", text: DateRangePresenter.value(start_date: user_visit.arrives_at, end_date: user_visit.departs_at))
+      page.has_css?("td:nth-child(5)",
+        text: DateRangePresenter.value(start_date: user_visit.arrives_at,
+          end_date: user_visit.departs_at))
     end
   end
 
@@ -60,9 +60,7 @@ class AddVisitorsFlow
     page.has_css?(css)
   end
 
-  def has_css?(css_class)
-    page.has_css?(css_class)
-  end
+  delegate :has_css?, to: :page
 
   def click_on_change(user_visit)
     within "#user_visit_#{user_visit.id}" do
@@ -81,8 +79,8 @@ class AddVisitorsFlow
     page.find("#user_visit_institution_country_id").find(:xpath, "option[4]").select_option
   end
 
-  def click_on_save_btn
-    page.click_on("Save")
+  def click_on_update_btn
+    page.click_on("Update")
   end
 
   def change_user_visit_dates(arrives_at:, departs_at:)
@@ -93,12 +91,12 @@ class AddVisitorsFlow
 
   def has_visitor_dates?(user_visit, text)
     within "#user_visit_#{user_visit.id}" do
-      page.has_css?("td:nth-child(5)", text: text)
+      page.has_css?("td:nth-child(5)", text:)
     end
   end
 
   def has_error_message?(text)
-    page.has_css?(".error_messages", text: text)
+    page.has_css?(".error_messages", text:)
   end
 
   private

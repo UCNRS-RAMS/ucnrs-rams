@@ -1,9 +1,23 @@
-<turbo-frame id="modal-content" class="modal-content" role="dialog" aria-labelledby="modal-title">
-  <div data-modal-target="dialog openOnLoad" data-action="mousedown@window->modal#closeBackground" data-controller="user-days">
+<turbo-frame id="modal-content">
+  <div class="modal-content" data-modal-target="dialog openOnLoad" data-controller="user-days">
+    <p class="screenreader-text">
+      <span id="modal-title"><%= t(".title") %></span>
+      <span id="modal-description"><%= t(".accessible_description") %></span>
+    </p>
+    <div class="close">
+      <%= image_tag "x.svg", height: "16px", width: "16px",
+        id: "x-icon",
+        data: { action: "click->modal#close" },
+        alt: t("alt.icon_x")
+      %>
+    </div>
+
     <%= form_with model: presenter.form.user_visit, url: presenter.user_visit_form_path do |form| %>
-      <section class="text">
-        <h2><%= t(".title") %></h2>
-        <div class="field"> 
+      <section>
+        <header class="modal-header">
+          <h2><%= t(".title") %></h2>
+        </header>
+        <div class="field">
           <%= form.hidden_field :visit_id %>
           <%= form.hidden_field :user_id %>
           <%= form.hidden_field :institution_id %>
@@ -34,12 +48,8 @@
         </table>
       </section>
       <section class="buttons">
-        <div class="close">
-          <%= link_to t(".cancel"), "#", data: { action: "click->modal#close" } %>
-        </div>
-        <button class="active" type="submit">
-          <%= t(".save") %>
-        </button>
+        <%= link_to t("cancel"), "#", class: "close", data: { action: "click->modal#close" } %>
+        <%= button_tag t("sitewide.save"), class: "active", type: "submit" %>
       </section>
     <% end %>
   </div>

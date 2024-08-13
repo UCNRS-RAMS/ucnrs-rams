@@ -21,7 +21,8 @@ Rails.application.routes.draw do
   end
   resources :users, only: [:index]
 
-  resources :team_memberships, only: [:edit, :update, :destroy], controller: "projects/team_memberships"
+  resources :team_memberships, only: [:edit, :update, :destroy],
+    controller: "projects/team_memberships"
   resources :fundings, only: [:edit, :update, :destroy], controller: "projects/fundings"
   resources :projects, only: [:index, :new, :create, :show, :edit, :update] do
     post :contact_manager
@@ -58,16 +59,18 @@ Rails.application.routes.draw do
   resources :visits, only: [:new, :create, :show, :edit, :update] do
     get :amenity_booking, on: :new
     put :cancel, on: :member
-    resources :user_visits, only: [:new, :index, :create, :destroy], controller: "visits/user_visits"
+    resources :user_visits, only: [:new, :index, :create, :destroy],
+      controller: "visits/user_visits"
     resources :questions, only: [:index], controller: "visits/questions"
     resources :answers, only: [:create], controller: "visits/answers"
     resource :waivers_policies, only: [:show, :update], controller: "visits/waivers_policies"
     resource :project, only: [] do
-      resources :team_memberships, only: [:index, :create], controller: "visits/project/team_memberships"
+      resources :team_memberships, only: [:index, :create],
+        controller: "visits/project/team_memberships"
     end
   end
 
-  resource :helps , only: [:show]
+  resource :helps, only: [:show]
 
   devise_scope :user do
     resources :password, only: [:new, :create]
@@ -83,7 +86,8 @@ Rails.application.routes.draw do
     end
 
     resources :reserves, only: [:show] do
-      resources :team_memberships, only: [:edit, :update, :destroy], controller: "projects/team_memberships"
+      resources :team_memberships, only: [:edit, :update, :destroy],
+        controller: "projects/team_memberships"
       resource :dashboard, only: [:show], controller: "dashboard" do
         resources :visits, only: [:index], controller: "dashboard/visits"
         resource :calendar, only: [:show], controller: "dashboard/calendar" do
@@ -107,15 +111,18 @@ Rails.application.routes.draw do
         resource :permit, only: [:edit, :create], controller: "projects/permit"
         resources :fundings, except: [:show], controller: "projects/fundings"
         resources :visits, only: [:index], controller: "projects/visits"
-        resources :team_memberships, only: [:index, :create], controller: "projects/team_memberships"
+        resources :team_memberships, only: [:index, :create],
+          controller: "projects/team_memberships"
         resources :users, only: [:new, :create], controller: "projects/users"
-        resources :activity_and_notes, only: [:index, :create], controller: "projects/activity_and_notes"
+        resources :activity_and_notes, only: [:index, :create],
+          controller: "projects/activity_and_notes"
         resources :logs, only: [:show], controller: "projects/logs"
       end
 
       resources :user_visits, only: [:edit, :update], controller: "visits/user_visits"
       resources :visits do
-        resources :user_visits, only: [:new, :index, :create, :destroy], controller: "visits/user_visits"
+        resources :user_visits, only: [:new, :index, :create, :destroy],
+          controller: "visits/user_visits"
         resources :questions, only: [:index], controller: "visits/questions"
         resources :answers, only: [:create], controller: "visits/answers"
         resource :waivers_policies, only: [:show, :update], controller: "visits/waivers_policies"
@@ -126,7 +133,8 @@ Rails.application.routes.draw do
         resource :amenity_visits, only: [:update], controller: "visits/amenity_visits"
         resource :summary, only: [:edit, :update, :show], controller: "visits/summary"
         resource :detail, only: [:edit, :update], controller: "visits/detail"
-        resources :activity_and_notes, only: [:index, :create], controller: "visits/activity_and_notes"
+        resources :activity_and_notes, only: [:index, :create],
+          controller: "visits/activity_and_notes"
         resources :logs, only: [:show], controller: "visits/logs"
         resources :reserve_info, only: [:index, :create], controller: "visits/reserve_info"
         resources :invoices, only: [:index], as: "invoice", controller: "visits/invoices"
@@ -147,9 +155,12 @@ Rails.application.routes.draw do
         resource :reserve_tags, only: [:create, :new]
         resource :reserve_details, only: [:edit, :update]
         resources :amenities_and_rates, only: [:index]
-        resources :amenity_rates, only: [:edit, :update], controller: "amenities_and_rates/amenity_rates"
-        resources :amenities, only: [:new, :create, :edit, :update], controller: "amenities_and_rates/amenities"
-        resources :amenity_rate_categories, only: [:edit, :update], controller: "amenities_and_rates/amenity_rate_categories"
+        resources :amenity_rates, only: [:edit, :update],
+          controller: "amenities_and_rates/amenity_rates"
+        resources :amenities, only: [:new, :create, :edit, :update],
+          controller: "amenities_and_rates/amenities"
+        resources :amenity_rate_categories, only: [:edit, :update],
+          controller: "amenities_and_rates/amenity_rate_categories"
         resources :waivers, only: [:index, :edit, :update, :new, :create]
         resource :rules_and_regulations, only: [:edit, :update]
         resource :directions, only: [:edit, :update]

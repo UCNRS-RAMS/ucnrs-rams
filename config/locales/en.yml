@@ -3411,6 +3411,7 @@ en:
     instagram_logo: "instagram logo"
     youtube_logo: "youtube logo"
     reload_icon: "reload icon"
+    icon_x: "X icon"
   universal:
     institution_types:
       university_of_california: "University of California"
@@ -3496,6 +3497,7 @@ en:
     go_back: "Go Back"
     next_step: "Next Step"
     project: "Project"
+    save: "Save"
     submit: "Submit"
     visit: "Visit"
   edit: "Edit"

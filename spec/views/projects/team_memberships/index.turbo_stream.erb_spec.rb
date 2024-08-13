@@ -10,10 +10,10 @@ RSpec.describe "projects/team_memberships/index.turbo_stream.erb", type: :view d
     render template: "projects/team_memberships/index", formats: [:turbo_stream]
 
     expect(rendered).to include(
-      '<turbo-stream action="replace" target="modal-content"'
+      '<turbo-stream action="replace" target="modal-content"',
     )
     expect(rendered).to include(
-      '<turbo-frame id="modal-content" class="modal-content empty"'
+      '<turbo-frame id="modal-content" class="empty"',
     )
   end
 
@@ -26,10 +26,10 @@ RSpec.describe "projects/team_memberships/index.turbo_stream.erb", type: :view d
     render template: "projects/team_memberships/index", formats: [:turbo_stream]
 
     expect(rendered).to include(
-      '<turbo-stream action="replace" target="add-user-form"'
+      '<turbo-stream action="replace" target="add-user-form"',
     )
     expect(rendered).to include(
-      '<turbo-frame id="add-user-form"'
+      '<turbo-frame id="add-user-form"',
     )
   end
 
@@ -42,10 +42,10 @@ RSpec.describe "projects/team_memberships/index.turbo_stream.erb", type: :view d
     render template: "projects/team_memberships/index", formats: [:turbo_stream]
 
     expect(rendered).to include(
-      '<turbo-stream action="replace" target="team-member-table"'
+      '<turbo-stream action="replace" target="team-member-table"',
     )
     expect(rendered).to include(
-      '<turbo-frame id="team-member-table'
+      '<turbo-frame id="team-member-table',
     )
   end
 end

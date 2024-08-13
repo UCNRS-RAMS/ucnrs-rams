@@ -1,17 +1,30 @@
-<turbo-frame id="modal-content" class="modal-content" role="dialog" aria-labelledby="modal-title">
-  <div data-modal-target="dialog openOnLoad" data-action="mousedown@window->modal#closeBackground">
-    <%= form_with model: presenter.form, url: manager_reserve_reserve_info_amenity_path(reserve, presenter.form_amenity.id), method: :patch do |form| %>
-      <p class="screenreader-text">
-        <span id="modal-title"><%= t(".title") %></span>
-        <span id="modal-description"><%= t(".accessible_description") %></span>
-      </p>
-      <section class="text">
-        <h2><%= t(".title") %></h2>
+<turbo-frame id="modal-content">
+  <div class="modal-content" data-modal-target="dialog openOnLoad">
+    <p class="screenreader-text">
+      <span id="modal-title"><%= t(".title") %></span>
+      <span id="modal-description"><%= t(".accessible_description") %></span>
+    </p>
+    <div class="close">
+      <%= image_tag "x.svg", height: "16px", width: "16px",
+        id: "x-icon",
+        data: { action: "click->modal#close" },
+        alt: t("alt.icon_x")
+      %>
+    </div>
+
+    <%= form_with model: presenter.form,
+      url: manager_reserve_reserve_info_amenity_path(reserve, presenter.form_amenity.id),
+      method: :patch do |form|
+    %>
+      <section>
+        <header class="modal-header">
+          <h2 class="modal-title"><%= t(".title") %></h2>
+        </header>
         <%= render partial: "amenity_field", locals: { form: form, presenter: presenter } %>
       </section>
       <section class="buttons">
-        <div class="close"><%= link_to t("cancel"), "#", data: { action: "click->modal#close" } %></div>
-        <button class="active" type="submit"><%= t("update") %></button>
+        <%= link_to t("cancel"), "#", class: "close", data: { action: "click->modal#close" } %>
+        <%= button_tag t("update"), class: "active", type: "submit" %>
       </section>
     <% end %>
   </div>

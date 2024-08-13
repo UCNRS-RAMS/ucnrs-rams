@@ -1,12 +1,22 @@
-<turbo-frame id="modal-content" class="modal-content" role="dialog" aria-labelledby="modal-title">
-  <div data-modal-target="dialog openOnLoad" data-action="mousedown@window->modal#closeBackground">
+<turbo-frame id="modal-content">
+  <div class="modal-content" data-modal-target="dialog openOnLoad">
+    <p class="screenreader-text">
+      <span id="modal-title"><%= t(".title") %></span>
+      <span id="modal-description"><%= t(".accessible_description") %></span>
+    </p>
+    <div class="close">
+      <%= image_tag "x.svg", height: "16px", width: "16px",
+        id: "x-icon",
+        data: { action: "click->modal#close" },
+        alt: t("alt.icon_x")
+      %>
+    </div>
+
     <%= form_with model: presenter.form, url: presenter.user_form_path do |form| %>
-      <p class="screenreader-text">
-        <span id="modal-title"><%= t(".title") %></span>
-        <span id="modal-description"><%= t(".accessible_description") %></span>
-      </p>
-      <section class="text" data-controller="followup-content">
-        <h2><%= t(".title") %></h2>
+      <section data-controller="followup-content">
+        <header class="modal-header">
+          <h2 class="modal-title"><%= t(".title") %></h2>
+        </header>
         <div class="field">
           <%= form.label :first_name %>
           <%= form.text_field :first_name %>
@@ -48,7 +58,7 @@
           <%= form.select :project_role, presenter.project_role_options, prompt: t(".select_project_role") %>
         </div>
 
-        <h3>current address</h3>
+        <h3>Current Address</h3>
         <div class="field">
           <%= form.label :address_country_id %>
           <%= form.collection_select(:address_country_id, Country.alphabetical_by_name,
@@ -80,13 +90,10 @@
           <%= form.text_field :address_postal_code %>
         </div>
       </section>
+
       <section class="buttons">
-        <div class="close">
-          <%= link_to t(".cancel"), "#", data: { action: "click->modal#close" } %>
-        </div>
-        <button class="active" type="submit">
-          <%= t(".save") %>
-        </button>
+        <%= link_to t("cancel"), "#", class: "close", data: { action: "click->modal#close" } %>
+        <%= button_tag t("sitewide.save"), class: "active", type: "submit" %>
       </section>
     <% end %>
   </div>
