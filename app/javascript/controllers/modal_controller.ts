@@ -42,7 +42,10 @@ export default class extends Controller {
   }
 
   closeBackground(e) {
-    if (e && (!this.inDocument(e.target) || this.inModal(e.target)) || !this.modalVisible()) {
+    if (e && !this.modalVisible()) {
+      return
+    }
+    else if (!this.inDocument(e.target) || this.inModal(e.target)) {
       return
     }
     this.close()
