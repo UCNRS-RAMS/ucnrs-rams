@@ -1,0 +1,11 @@
+<turbo-stream action="replace" target="flash">
+  <template>
+    <%= render partial: "shared/flash", locals: { flash: flash } %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="update" target="user-edit-form">
+  <template>
+    <%= render partial: "user_form", locals: { presenter: @presenter } %>
+  </template>
+</turbo-stream>

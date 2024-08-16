@@ -1,0 +1,3 @@
+<%= form_with model: presenter.form_reserve, url: manager_reserve_reserve_info_reserve_details_path(current_reserve) do |f| %>
+  <%= render partial: "reserve_details_field", locals: { f: f } %>
+<% end %>
