@@ -2203,6 +2203,7 @@ en:
       reserve_details:
         edit:
           reserve_details: "Reserve Details"
+        reserve_details_field:
           alert_message: "Alert Message"
           alert_message_subheader: "Special message for users about the reserve. This Message
             appears to user when initially selecting this reserve when creating a visit, and the

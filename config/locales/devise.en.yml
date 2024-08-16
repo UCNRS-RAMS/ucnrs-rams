@@ -97,7 +97,9 @@ en:
           institution: "search institution"
         helper_text:
           tip: "TIP:"
-          institution: 'Your institution is likely already in our database. Start typing in the full name of your Institution e.g "University of California, Davis". If you cannot find your institution,'
+          institution: 'Your institution is likely already in our database. Start typing in the
+            full name of your Institution e.g "University of California, Davis".
+            If you cannot find your institution,'
           emergency_contact: "In case we need to notify someone while you’re at the reserve."
           receive_nrs_updates: "If you would like to receive updates from the NRS please sign up for the"
           age_range: "This helps with demographic reporting"
@@ -163,7 +165,9 @@ en:
           institution: "search institution"
         helper_text:
           tip: "TIP:"
-          institution: 'Your institution is likely already in our database. Start typing in the full name of your Institution e.g "University of California, Davis". If you cannot find your institution,'
+          institution: 'Your institution is likely already in our database. Start typing
+            in the full name of your Institution e.g "University of California, Davis".
+            If you cannot find your institution,'
           emergency_contact: "In case we need to notify someone while you’re at the reserve."
           receive_nrs_updates: "If you would like to receive updates from the NRS please sign up for the"
           age_range: "This helps with demographic reporting"
@@ -175,12 +179,20 @@ en:
           orcid: "https://orcid.org/"
       destroyed: "Bye! Your account has been successfully cancelled. We hope to see you again soon."
       signed_up: "Welcome! You have signed up successfully."
-      signed_up_but_inactive: "You have signed up successfully. However, we could not sign you in because your account is not yet activated."
-      signed_up_but_locked: "You have signed up successfully. However, we could not sign you in because your account is locked."
-      signed_up_but_unconfirmed: "A message with a confirmation link has been sent to your email address. Please follow the link to activate your account."
-      update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and follow the confirmation link to confirm your new email address."
-      updated: "Your account has been updated successfully."
-      updated_but_not_signed_in: "Your account has been updated successfully, but since your password was changed, you need to sign in again."
+      signed_up_but_inactive: "You have signed up successfully. However, we could not
+        sign you in because your account is not yet activated."
+      signed_up_but_locked: "You have signed up successfully. However, we could not
+        sign you in because your account is locked."
+      signed_up_but_unconfirmed: "A message with a confirmation link has been sent to your
+        email address. Please follow the link to activate your account."
+      update_needs_confirmation: "You updated your account successfully, but we need to verify
+        your new email address. Please check your email and follow the confirmation link to
+        confirm your new email address."
+      updated_but_not_signed_in: "Your account has been updated successfully,
+        but since your password was changed, you need to sign in again."
+      flash:
+        error: "Your account information has failed to update, please check all the fields required."
+        updated: "Your account information has been updated successfully."
     sessions:
       signed_in: "Signed in successfully."
       signed_out: "Signed out successfully."
@@ -195,8 +207,10 @@ en:
         submit: Sign In
         forgot_password: Forgot Password?
     unlocks:
-      send_instructions: "You will receive an email with instructions for how to unlock your account in a few minutes."
-      send_paranoid_instructions: "If your account exists, you will receive an email with instructions for how to unlock it in a few minutes."
+      send_instructions: "You will receive an email with instructions for how to unlock
+        your account in a few minutes."
+      send_paranoid_instructions: "If your account exists, you will receive an email with
+        instructions for how to unlock it in a few minutes."
       unlocked: "Your account has been unlocked successfully. Please sign in to continue."
   errors:
     messages:

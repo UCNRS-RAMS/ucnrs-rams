@@ -20,16 +20,16 @@ module Unauthenticated
       form = RegistrationForm.new(user: current_user)
       @presenter = RegistrationFormPresenter.new(form)
     end
-  
+
     def update
       @form = RegistrationForm.new(user: current_user, params: edit_user_params)
-  
+      @presenter = RegistrationFormPresenter.new(@form)
+
       if @form.submit
-        flash.now[:notice] = I18n.t(".devise.registrations.updated")
-        @presenter = RegistrationFormPresenter.new(@form)
+        flash.now[:notice] = I18n.t(".devise.registrations.flash.updated")
         render :edit
       else
-        @presenter = RegistrationFormPresenter.new(@form)
+        flash.now[:error] = I18n.t(".devise.registrations.flash.error")
         render :edit, status: :unprocessable_entity
       end
     end

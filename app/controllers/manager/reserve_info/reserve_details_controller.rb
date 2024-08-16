@@ -12,16 +12,14 @@ class Manager::ReserveInfo::ReserveDetailsController < Manager::ApplicationContr
 
   def update
     form = ReserveForm.new(reserve: current_reserve, params: reserve_params)
+    @presenter = Manager::ReserveInfo::ReserveFormPresenter.new(form)
+
     if form.save
-      flash[:notice] = "Update success."
-      redirect_to edit_manager_reserve_reserve_info_reserve_details_path(
-        form.reserve,
-        format: :html
-      )
+      flash.now[:notice] = "Update success."
+      render template: "manager/reserve_info/reserve_details/edit"
     else
-      @presenter = Manager::ReserveInfo::ReserveFormPresenter.new(form)
-      render template: "manager/reserve_info/reserve_details/edit",
-        status: :unprocessable_entity
+      flash.now[:error] = "Update fail."
+      render template: "manager/reserve_info/reserve_details/edit", status: :unprocessable_entity
     end
   end
 

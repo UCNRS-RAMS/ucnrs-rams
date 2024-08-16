@@ -22,9 +22,10 @@ class Manager::UsersController < Manager::ApplicationController
     @presenter = Manager::UserEditPresenter.new(form)
 
     if form.submit
-      flash.now[:notice] = I18n.t(".devise.registrations.updated")
+      flash.now[:notice] = I18n.t(".devise.registrations.flash.updated")
       render :edit
     else
+      flash.now[:error] = I18n.t(".devise.registrations.flash.error")
       render :edit, status: :unprocessable_entity
     end
   end
