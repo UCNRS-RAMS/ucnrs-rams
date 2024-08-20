@@ -22,8 +22,10 @@ class Manager::ReserveInfo::StaffAndNotificationsController < Manager::Applicati
     )
 
     if form.save
+      flash[:notice] = t(".flash.create_success")
       redirect_to manager_reserve_reserve_info_staff_and_notifications_path(current_reserve)
     else
+      flash.now[:error] = t(".flash.create_error")
       @presenter = Manager::ReserveInfo::StaffAndNotificationNewPresenter.new(form: form)
       render :new, status: :unprocessable_entity
     end
@@ -41,22 +43,25 @@ class Manager::ReserveInfo::StaffAndNotificationsController < Manager::Applicati
     )
 
     if form.save
+      flash[:notice] = t(".flash.update_success")
       redirect_to(
         manager_reserve_reserve_info_staff_and_notifications_path(current_reserve),
       )
     else
+      flash.now[:error] = t(".flash.update_error")
       @presenter = Manager::ReserveInfo::StaffAndNotificationEditPresenter.new(form: form)
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-
     if reserve_personnel.destroy
+      flash[:notice] = t(".flash.destroy_success")
       redirect_to(
         manager_reserve_reserve_info_staff_and_notifications_path(current_reserve),
       )
     else
+      flash[:error] = t(".flash.destroy_error")
       redirect_to(
         manager_reserve_reserve_info_staff_and_notifications_path(current_reserve),
         status: :unprocessable_entity,

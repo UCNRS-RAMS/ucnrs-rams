@@ -2496,6 +2496,18 @@ en:
       staff_and_notifications:
         index:
           staff_and_notifications: "Staff & Notifications"
+        create:
+          flash:
+            create_error: "Create error, please check all the required fields."
+            create_success: "Created Successfully"
+        destroy:
+          flash:
+            destroy_error: "Delete error."
+            destroy_success: "Delete Successful."
+        update:
+          flash:
+            update_error: "Update error, please check all the required fields."
+            update_success: "Updated Successfully"
         personnels:
           email_settings_for_reserve_personnel: "Email settings for reserve personnel"
           name: "Name"

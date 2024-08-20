@@ -1,3 +1,9 @@
+<turbo-stream action="update" target="flash-modal-frame">
+  <template>
+    <%= render partial: "shared/flash/flash", locals: { flash: flash } %>
+  </template>
+</turbo-stream>
+
 <turbo-stream action="update" target="modal-content">
   <template>
     <%= render partial: "modals/staff_and_notifications/edit_reserve_personnel", locals: { presenter: @presenter }, formats: [:html] %>

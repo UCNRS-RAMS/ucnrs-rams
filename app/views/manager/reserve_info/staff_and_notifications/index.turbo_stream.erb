@@ -9,3 +9,9 @@
     <%= render partial: "personnels", formats: [:html], locals: { personnels: @presenter.personnel } %>
   </template>
 </turbo-stream>
+
+<turbo-stream action="update" target="flash">
+  <template>
+    <%= render partial: "shared/flash/flash", locals: { flash: flash } %>
+  </template>
+</turbo-stream>

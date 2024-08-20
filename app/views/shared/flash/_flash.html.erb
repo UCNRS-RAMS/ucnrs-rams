@@ -1,0 +1,5 @@
+<section role="region" aria-label="errors" class="flash">
+  <% flash.each do |type, message| %>
+    <%= tag.p message, class: type %>
+  <% end %>
+</section>
