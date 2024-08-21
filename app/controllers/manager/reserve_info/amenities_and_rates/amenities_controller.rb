@@ -20,8 +20,10 @@ module Manager
           )
 
           if form.save
+            flash[:notice] = t(".flash.create_success")
             redirect_to manager_reserve_reserve_info_amenities_and_rates_path(current_reserve)
           else
+            flash.now[:error] = t(".flash.create_error")
             @presenter =
               Manager::ReserveInfo::AmenitiesAndRates::AmenityNewPresenter.new(form: form)
             render :new, status: :unprocessable_entity
@@ -38,8 +40,10 @@ module Manager
           form = AmenityForm.new(amenity: amenity, params: amenity_params)
 
           if form.save
+            flash[:notice] = t(".flash.update_success")
             redirect_to manager_reserve_reserve_info_amenities_and_rates_path(current_reserve)
           else
+            flash.now[:error] = t(".flash.update_error")
             @presenter =
               Manager::ReserveInfo::AmenitiesAndRates::AmenityEditPresenter.new(form: form)
             render :edit, status: :unprocessable_entity
