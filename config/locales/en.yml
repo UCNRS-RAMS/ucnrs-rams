@@ -2344,9 +2344,9 @@ en:
           edit: "Edit"
         amenity_rate_categories:
           active_categories: "Active Categories"
+          category: "Category"
           disabled_categories: "Disabled Categories"
           order: "Order"
-          category: "Category"
           univ_of_ca: "Univ of CA"
           ca_state_univ: "CA State Univ"
           ca_community_college: "CA Community College"
@@ -2375,9 +2375,17 @@ en:
             individual_or_other_entity: "Individual or Other Entity"
         amenity_rate_category:
           edit: "Edit"
+          update:
+            flash:
+              update_error: "Update error, please check all the required fields."
+              update_success: "Updated Successfully"
         amenity_rates:
           amenity_name: "Amenity Name"
           edit: "Edit"
+          update:
+            flash:
+              update_error: "Update error, please check all the required fields."
+              update_success: "Updated Successfully"
       waivers:
         index:
           waivers: "Waivers"

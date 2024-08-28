@@ -18,8 +18,10 @@ class Manager::ReserveInfo::AmenitiesAndRates::AmenityRatesController < Manager:
     )
 
     if form.save
+      flash[:notice] = t(".flash.update_success")
       redirect_to manager_reserve_reserve_info_amenities_and_rates_path(current_reserve)
     else
+      flash.now[:error] = t(".flash.update_error")
       @presenter =
         Manager::ReserveInfo::AmenitiesAndRates::AmenityRatesEditPresenter.new(form: form)
       render :edit, status: :unprocessable_entity
