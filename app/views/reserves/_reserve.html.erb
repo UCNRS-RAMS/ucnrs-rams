@@ -1,7 +1,12 @@
 <div class="card">
   <%= link_to reserve_path(reserve.id), data: { "turbo-frame" =>  "_top" } do %>
     <div class="image">
-      <%= image_tag reserve.listing_photo_src, alt: t(".alt_text.reserve_picture"), class: "reserve-image", height: 165, width: 270 %>
+      <%= image_tag reserve.listing_photo_src,
+        loading: "lazy",
+        alt: t(".alt_text.reserve_picture"),
+        class: "reserve-image",
+        height: 165, width: 270
+      %>
     </div>
     <h2><%= reserve.name %></h2>
   <% end %>
