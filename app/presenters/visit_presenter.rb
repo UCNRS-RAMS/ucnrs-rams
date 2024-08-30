@@ -44,6 +44,10 @@ class VisitPresenter
     reserve.name
   end
 
+  def reserve_short_name
+    reserve.short_name
+  end
+
   def applicant_name
     user.full_name
   end
@@ -89,7 +93,7 @@ class VisitPresenter
 
   def visitor_count_on_date(date)
     user_visits.on_date(date).sum(&:count)
-  end 
+  end
 
   def amenity_count
     amenity_visits.pluck(:amenity_id).uniq.length

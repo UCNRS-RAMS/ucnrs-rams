@@ -1,5 +1,13 @@
 <turbo-frame id="uninvoiced-visit">
   <table class="uninvoiced-visit table-style1">
+    <thead>
+      <tr>
+        <th class="uninvoiced-date"><%= t(".visit_dates") %></th>
+        <th class="uninvoiced-user"><%= t(".user") %></th>
+        <th class="uninvoiced-visit"><%= t(".visit") %></th>
+        <th class="uninvoiced-actions"><%= t(".actions") %></th>
+      </tr>
+    </thead>
     <tbody>
       <%= render partial: "uninvoiced_visit", collection: visits, as: :visit %>
     <tbody>

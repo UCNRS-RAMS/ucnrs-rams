@@ -1,24 +1,25 @@
 <tr id="<%= dom_id project %>" class="project">
-  <td>
-    <strong>
-      <%= link_to truncate(project.title, length: 50),
-        manager_reserve_project_path(current_reserve, project.id),
-        data: { "turbo-frame" => "_top" }
-      %>
-    </strong>
-  </td>
+  <td><%= tag.strong project.submitted_at %></td>
   <td>
     <%= link_to project.applicant_name,
       edit_manager_reserve_user_path(current_reserve, project.applicant_id),
       data: { "turbo-frame" => "_top" }
     %>
   </td>
-  <td><%= project.recent_visit_date %></td>
-  <td><%= project.project_type %></td>
+  <td>
+    <%= project.project_type %>
+    |
+    <%= link_to project.title,
+      manager_reserve_project_path(current_reserve, project.id),
+      data: { "turbo-frame" => "_top" }
+    %>
+  </td>
   <td>
     <%= link_to pluralize(project.visits_count, "visit"),
       manager_reserve_user_activities_path(current_reserve, project.applicant_id)
     %>
+    |
+    <%= project.recent_visit_date %>
   </td>
   <td>
     <%= link_to manager_reserve_project_path(current_reserve, project.id), target: "_top" do %>

@@ -77,7 +77,7 @@ RSpec.describe Manager::Visits::InvoicesIndexPresenter do
       create(:amenity_visit, visit: visit, invoice_id: invoice.id, number_of_people: 10, manual_units_of_time: 10, rate: 10)
       form = InvoiceForm.new(params: {visit_id: visit.id})
       presenter = Manager::Visits::InvoicesIndexPresenter.new(visit: visit, user: user, form: form)
-      output = "$ 2000.00"
+      output = "$2,000.00"
 
       expect(presenter.visit_total).to eq output
     end
@@ -90,7 +90,7 @@ RSpec.describe Manager::Visits::InvoicesIndexPresenter do
       create(:amenity_visit, visit: visit, number_of_people: 10, manual_units_of_time: 10, rate: 10)
       form = InvoiceForm.new(params: {visit_id: visit.id})
       presenter = Manager::Visits::InvoicesIndexPresenter.new(visit: visit, user: user, form: form)
-      output = "$ 1000.00"
+      output = "$1,000.00"
 
       expect(presenter.invoiced).to eq output
     end
@@ -105,7 +105,7 @@ RSpec.describe Manager::Visits::InvoicesIndexPresenter do
       create(:invoice_payment, invoice: invoice, user: user, amount: 10)
       form = InvoiceForm.new(params: {visit_id: visit.id})
       presenter = Manager::Visits::InvoicesIndexPresenter.new(visit: visit, user: user, form: form)
-      output = "- $ 15.00"
+      output = "-$15.00"
 
       expect(presenter.paid).to eq output
     end
@@ -120,7 +120,7 @@ RSpec.describe Manager::Visits::InvoicesIndexPresenter do
       create(:invoice_payment, invoice: invoice, user: user, amount: 10)
       form = InvoiceForm.new(params: {visit_id: visit.id})
       presenter = Manager::Visits::InvoicesIndexPresenter.new(visit: visit, user: user, form: form)
-      output = "$ 1985.00"
+      output = "$1,985.00"
 
       expect(presenter.total_balance).to eq output
     end

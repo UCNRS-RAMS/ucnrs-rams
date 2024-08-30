@@ -46,6 +46,10 @@ class ProjectPresenter
     end
   end
 
+  def submitted_at
+    I18n.l(project.submitted_at, format: :visit_submitted_date)
+  end
+
   def project_type
     project.project_type.titleize
   end

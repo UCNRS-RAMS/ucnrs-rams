@@ -105,7 +105,6 @@
     }
 
     @include search-subsection;
-    @include pagination;
 
     .search-subsection {
       font-size: 0.875rem;
@@ -134,15 +133,23 @@
       vertical-align: middle;
     }
   }
+}
 
-  table.visit-requests {
-    td.sumbitted-at {
-      width: 85px
-    }
+table.visit-requests {
+  .visit-dates {
+    width: 125px
+  }
 
-    td.menu-icons {
-      width: 115px;
-    }
+  .visit-submitter {
+    width: 120px;
+  }
+
+  .visit-submit-date {
+    width: 85px;
+  }
+
+  .visit-actions {
+    width: 85px;
   }
 }
 

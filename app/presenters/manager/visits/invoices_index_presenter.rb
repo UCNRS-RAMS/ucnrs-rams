@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Manager::Visits::InvoicesIndexPresenter
+  include ActionView::Helpers::NumberHelper
+
   DEFAULT_PAGE_LIMIT = 10
 
   def initialize(visit:, form: nil, invoice_filter: nil, user: nil)
@@ -36,19 +38,19 @@ class Manager::Visits::InvoicesIndexPresenter
   end
 
   def visit_total
-    "$ #{value(amenity_visits_total)}"
+    number_to_currency amenity_visits_total
   end
 
   def invoiced
-    "$ #{value(invoices_total)}"
+    number_to_currency invoices_total
   end
 
   def paid
-    "- $ #{value(payments_total)}"
+    number_to_currency (payments_total * -1)
   end
 
   def total_balance
-    "$ #{value(amenity_visits_total - payments_total)}"
+    number_to_currency (amenity_visits_total - payments_total)
   end
 
   def amenity_visit_presenters

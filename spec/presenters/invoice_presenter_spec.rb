@@ -98,7 +98,7 @@ RSpec.describe InvoicePresenter do
       invoice = create(:invoice, balance_due: 10)
 
       presenter = InvoicePresenter.new(invoice)
-      output =  "$ %0.2f" % [invoice.balance_due]
+      output =  "$10.00"
 
       expect(presenter.amount).to eq output
     end

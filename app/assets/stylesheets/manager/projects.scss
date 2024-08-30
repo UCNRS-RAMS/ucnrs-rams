@@ -255,10 +255,20 @@
     }
 
     table.projects-table {
-      @include table-style1;
+      .project-date {
+        width: 100px;
+      }
 
-      td > img {
-        vertical-align: middle;
+      .project-user {
+        width: 150px;
+      }
+
+      .project-num-visits {
+        width: 150px;
+      }
+
+      .project-actions {
+        width: 25px;
       }
 
       tbody > tr:not(.header):hover {
@@ -271,46 +281,9 @@
     }
 
     @include search-subsection;
-    @include pagination;
 
     .search-subsection {
       font-size: 0.875rem;
-    }
-  }
-}
-
-.modal-content.project {
-  color: $navy-blue;
-  display: flex;
-  flex-direction: column;
-
-  .close {
-    display: flex;
-    justify-content: flex-end;
-
-    img {
-      background-color: rgba($gray, 0.36);
-      border-radius: 50%;
-      padding: 0.5rem;
-    }
-  }
-
-  h1 {
-    color: $navy-blue;
-    font-size: 2.25rem;
-    line-height: 2.688rem;
-    margin-left: 3rem;
-    text-align: left;
-  }
-
-  div {
-    width: 100%;
-
-    p {
-      font-size: 0.813rem;
-      line-height: 1.438rem;
-      margin-bottom: 1.438rem;
-      text-align: left;
     }
   }
 }
