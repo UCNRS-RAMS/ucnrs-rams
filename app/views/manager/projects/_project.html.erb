@@ -16,7 +16,8 @@
   </td>
   <td>
     <%= link_to pluralize(project.visits_count, "visit"),
-      manager_reserve_user_activities_path(current_reserve, project.applicant_id)
+      manager_reserve_user_activities_path(current_reserve, project.applicant_id),
+      target: "_top"
     %>
     |
     <%= project.recent_visit_date %>

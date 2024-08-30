@@ -1,14 +1,14 @@
 @import "variables";
 
 .pill {
-  background: 0.5rem / 1rem 1rem no-repeat url(asset-path("check.svg")) $pill-background-neutral;
+  background: 0.75rem 50% / 1rem no-repeat url(asset-path("check.svg")) $pill-background-neutral;
   border: 1px solid $pill-border-neutral;
   border-radius: 1rem;
   flex: 1;
   font-size: 0.625rem;
   font-weight: 600;
   line-height: 1rem;
-  padding: .3125rem 0.75rem 0.25rem 2rem;
+  padding: 0.3125rem 0.75rem 0.3125rem 2rem;
   text-transform: uppercase;
 
   &.in_review {

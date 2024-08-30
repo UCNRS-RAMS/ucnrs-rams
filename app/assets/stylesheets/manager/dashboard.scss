@@ -22,7 +22,9 @@
       }
 
       a.active {
-        background-color: $gray;
+        background-color: $navy-blue;
+        border-color: $navy-blue;
+
         .tab-icon {
           filter: brightness(0) invert(1);
         }
@@ -44,13 +46,13 @@
     li:first-child a {
       border-bottom-left-radius: $border-radius;
       border-top-left-radius: $border-radius;
-      padding-left: 2px;
+      padding-right: 1px;
     }
 
     li:last-child a {
       border-bottom-right-radius: $border-radius;
       border-top-right-radius: $border-radius;
-      padding-right: 2px;
+      padding-left: 1px;
     }
 
     li:not(:first-child) a {
