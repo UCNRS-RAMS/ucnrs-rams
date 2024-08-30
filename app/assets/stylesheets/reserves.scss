@@ -413,7 +413,8 @@ main {
     }
 
     .reserve-message {
-      background-color: $gold;
+      background-color: $medium-light-gold;
+      border: 1px solid $gold;
       border-radius: 0.3125rem;
       font-size: 0.8125rem;
       margin-bottom: -50px;

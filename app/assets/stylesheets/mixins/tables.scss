@@ -21,11 +21,11 @@
     text-align: left;
 
     &:first-of-type {
-      padding-left: 1.25rem;
+      padding-left: 1rem;
     }
 
     &:last-of-type {
-      padding-right: 1.25rem;
+      padding-right: 1rem;
       text-align: right;
     }
   }
@@ -46,7 +46,7 @@
         border-left: 1px solid $gray;
         border-top-left-radius: $border-radius;
         max-width: 150px;
-        padding-left: 1.25rem;
+        padding-left: 1rem;
         padding-right: 1rem;
       }
 
@@ -54,7 +54,7 @@
         border-bottom-right-radius: $border-radius;
         border-right: 1px solid $gray;
         border-top-right-radius: $border-radius;
-        padding-right: 1.25rem;
+        padding-right: 1rem;
         text-align: right;
       }
 
@@ -97,12 +97,12 @@
 
         &:first-of-type {
           border-left: 2px solid $gold;
-          padding-left: 1.1875rem;
+          padding-left: 0.9375rem;
         }
 
         &:last-of-type {
           border-right: 2px solid $gold;
-          padding-right: 1.1875rem;
+          padding-right: 0.9375rem;
         }
       }
     }
