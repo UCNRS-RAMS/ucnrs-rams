@@ -1,5 +1,6 @@
 class InvoicePresenter
   include Rails.application.routes.url_helpers
+  include ActionView::Helpers::NumberHelper
 
   def initialize(invoice)
     @invoice = invoice
@@ -8,7 +9,7 @@ class InvoicePresenter
   attr_reader :invoice
 
   delegate :id, :modify_number, :amenity_visits, :invoice_payments, :status, :balance_due, to: :invoice
-  delegate :id, :user_id, to: :visit, prefix: true
+  delegate :id, :user_id, :purpose_of_visit, :project_type, to: :visit, prefix: true
   delegate :reserve_id, :reserve, to: :visit
   delegate :reserve_name, :project_title, :project_id, :user_full_name, to: :visit, allow_nil: true
 
@@ -40,11 +41,11 @@ class InvoicePresenter
   end
 
   def amenities_total
-    "$#{value(invoice_total)}"
+    number_to_currency invoice_total
   end
 
   def amount
-    "$ #{value(balance_due)}"
+    number_to_currency balance_due
   end
 
   private

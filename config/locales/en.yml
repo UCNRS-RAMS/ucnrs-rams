@@ -1338,6 +1338,57 @@ en:
       download_pdf: "Download PDF"
   manager:
     no_amenity_visit: "Invoice has no amenity visit"
+    dashboard:
+      dashboard:
+        todays_visit_and_resources: "Today's Visit & Resources"
+        last_24_hours: "Last 24 Hours"
+        last_7_days: "Last 7 Days"
+        visitor: "Visitor"
+        amenity: "Amenity"
+        visit_request: "Visit Request"
+        booked_visit: "Booked Visit"
+      list:
+        title: "List"
+      show:
+        todays_visit_and_resources: "Today's Visit & Resources"
+        last_24_hours: "Last 24 Hours"
+        last_7_days: "Last 7 Days"
+        visit_request: "Visit Request"
+        booked_visit: "Booked Visit"
+      visit_day_list:
+        no_visitors_amenities_day: "No visitors or amenities for the day."
+      user_visit:
+        from: "from %{time}"
+        until: "until %{time}"
+      amenity_visit:
+        from: "from %{time}"
+        until: "until %{time}"
+      visits:
+        index:
+          visits: "Visits"
+          date_submitted: "Date Submitted"
+          visit_start_date: "Visit Start Date"
+          visit: "Visit"
+          found: "%{name} found."
+        search:
+          show_options: "Show Options"
+          hide_options: "Hide Options"
+          visit_status: "Visit Status"
+          report_access: "Annual Report Access"
+          earliest_arrival_date: "Visit On or After"
+          latest_departure_date: "Visit On or Before"
+          reserve: "Reserve"
+          amenity_requested: "Amenity Requested"
+          clear_all_and_start_over: "Clear All and Start Over"
+          search_for_incomplete_visits: "Search for Incomplete Visits"
+        visits:
+          actions: "Actions"
+          purpose: "Purpose"
+          reserve: "Reserve"
+          status: "Status"
+          submitted_by: "Submitted By"
+          submit_date: "Submit Date"
+          visit_dates: "Visit Dates"
     invoices:
       index:
         all: "All"
@@ -1430,14 +1481,14 @@ en:
         amenities: "Amenities"
         total: "Total"
       invoices:
+        applicant: "Applicant"
+        balance_due: "Balance Due"
+        invoice_date: "Invoice Date"
         invoice_number: "Invoice Number"
         invoices: "Invoices"
         status: "Status"
-        invoice_date: "Invoice Date"
-        applicant: "Applicant"
-        project: "Project"
         user: "User"
-        balance_due: "Balance Due"
+        visit: "Visit"
       emails:
         new:
           invoice: "Invoice"
@@ -1707,50 +1758,6 @@ en:
         incomplete: "Incomplete"
         cancelled: "Cancelled"
         denied: "Declined"
-    dashboard:
-      dashboard:
-        todays_visit_and_resources: "Today's Visit & Resources"
-        last_24_hours: "Last 24 Hours"
-        last_7_days: "Last 7 Days"
-        visitor: "Visitor"
-        amenity: "Amenity"
-        visit_request: "Visit Request"
-        booked_visit: "Booked Visit"
-      list:
-        title: "List"
-      show:
-        todays_visit_and_resources: "Today's Visit & Resources"
-        last_24_hours: "Last 24 Hours"
-        last_7_days: "Last 7 Days"
-        visit_request: "Visit Request"
-        booked_visit: "Booked Visit"
-      visit_day_list:
-        no_visitors_amenities_day: "No visitors or amenities for the day."
-      user_visit:
-        from: "from %{time}"
-        until: "until %{time}"
-      amenity_visit:
-        from: "from %{time}"
-        until: "until %{time}"
-      visits:
-        index:
-          visits: "Visits"
-          date_submitted: "Date Submitted"
-          visit_start_date: "Visit Start Date"
-          visit: "Visit"
-          found: "%{name} found."
-        search:
-          show_options: "Show Options"
-          hide_options: "Hide Options"
-          visit_status: "Visit Status"
-          report_access: "Annual Report Access"
-          earliest_arrival_date: "Visit On or After"
-          latest_departure_date: "Visit On or Before"
-          reserve: "Reserve"
-          amenity_requested: "Amenity Requested"
-          clear_all_and_start_over: "Clear All and Start Over"
-          search_for_incomplete_visits: "Search for Incomplete Visits"
-        visit:
     projects:
       not_authorized: "You are not authorized to edit this project."
       cannot_add_users: "You are not authorized to add users."
@@ -1824,6 +1831,13 @@ en:
         not_applicable: "N/A"
         alt:
           right_facing_arrow: "A right facing arrow enclosed in a circle"
+      projects_table:
+        actions: "Actions"
+        last_visit: "Last Visit"
+        num_of_visits: "# of Visits"
+        project_title: "Project Title"
+        owner: "Owner"
+        submit_date: "Submit Date"
       summary_box:
         number: "Project Number"
         title: "Project Title"
@@ -2566,6 +2580,12 @@ en:
           sort_order: "Sort Order"
           name: "Name"
           description_helper_text: ""
+    uninvoiced:
+      uninvoiced_visits:
+        actions: "Actions"
+        user: "User"
+        visit: "Visit"
+        visit_dates: "Visit Dates"
     users:
       edit:
         delete_user: "Delete User"

@@ -1,4 +1,13 @@
-<table class="projects-table">
+<table class="projects-table table-style1">
+  <thead>
+    <tr>
+      <th class="project-date"><%= t(".submit_date") %></th>
+      <th class="project-user"><%= t(".owner") %></th>
+      <th class="project-title"><%= t(".project_title") %></th>
+      <th class="project-num-visits"><%= t(".num_of_visits") %> | <%= t(".last_visit") %></th>
+      <th class="project-actions"><%= t(".actions") %></th>
+    </tr>
+  </thead>
   <tbody>
     <%= render partial: "project", collection: projects %>
   </tbody>

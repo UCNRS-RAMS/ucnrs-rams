@@ -1,26 +1,24 @@
 <tr class="visit <%= visit.status_class %>">
-  <td>
-    <span class="<%= visit.status_class %> pill"><%= visit.status %></span>
-  </td>
-  <td class="date-range"><%= visit.requested_date_range %></td>
-  <td><%= truncate(visit.purpose_of_visit, length: 50) %></td>
+  <td class="date-range"><%= tag.strong visit.requested_date_range %></td>
   <td>
     <%= link_to visit.applicant_name,
       edit_manager_reserve_user_path(current_reserve, visit.user_id),
       data: { "turbo-frame" => "_top" }
     %>
   </td>
-  <td><%= visit.submitted_at %></td>
+  <td>
+    <%= t("universal.project.project_types.#{visit.project_type}") %>
+    |
+    <%= link_to visit.purpose_of_visit,
+      manager_reserve_visit_path(current_reserve, visit.id),
+      data: { "turbo-frame" => "_top" }
+    %>
+  </td>
   <td>
     <%= link_to manager_reserve_visit_path(current_reserve, visit.id, selected_tab: "invoices"),
       data: { "turbo-frame" => "_top" } do
     %>
-      <%= image_tag "dollar_icon.svg", alt: t("alt.dollar_sign"), height: "20", width: "20" %>
-    <% end %>
-    <%= link_to manager_reserve_visit_path(current_reserve, visit.id),
-      data: { "turbo-frame" => "_top" } do
-    %>
-      <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"), height: "20", width: "20" %>
+      <%= image_tag "arrow-right-circle.svg", class: "right-arrow", alt: t("alt.right_facing_arrow"), height: "20", width: "20" %>
     <% end %>
   </td>
 </tr>

@@ -1,11 +1,13 @@
 <tr class="invoice" id="<%= "invoice-#{ invoice.id }" %>">
   <td class="invoice-number">
-    <%= link_to invoice.invoice_id,
-      manager_reserve_visit_invoice_path(invoice.reserve_id, invoice.visit_id, invoice.id),
-      data: { "turbo-frame" => "_top" }
-    %>
+    <strong>
+      <%= link_to invoice.invoice_id,
+        manager_reserve_visit_invoice_path(invoice.reserve_id, invoice.visit_id, invoice.id),
+        data: { "turbo-frame" => "_top" }
+      %>
+    </strong>
   </td>
-  <td class="invoice-date"><%= invoice.invoiced_on %></td>
+  <td class="invoice-date"><strong><%= invoice.invoiced_on %></strong></td>
   <td class="invoice-user">
     <%= link_to invoice.user_full_name,
       edit_manager_reserve_user_path(current_reserve, invoice.visit_user_id),
@@ -13,8 +15,10 @@
     %>
   </td>
   <td class="invoice-project">
-    <%= link_to invoice.project_title,
-      manager_reserve_project_path(current_reserve, invoice.project_id),
+    <%= t("universal.project.project_types.#{invoice.visit_project_type}") %>
+    |
+    <%= link_to invoice.visit_purpose_of_visit,
+      manager_reserve_visit_path(current_reserve, invoice.visit_id),
       data: { "turbo-frame" => "_top" }
     %>
   </td>
