@@ -24,7 +24,7 @@ jobs:
       # Bundle install dependencies
       - run:
           name: Install dependencies
-          command: bundle install --path vendor/bundle
+          command:  bundle config set --local path 'vendor/bundle' && bundle install
 
       # Store bundle cache
       - save_cache:
