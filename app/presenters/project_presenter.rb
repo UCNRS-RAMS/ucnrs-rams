@@ -47,7 +47,11 @@ class ProjectPresenter
   end
 
   def submitted_at
-    I18n.l(project.submitted_at, format: :visit_submitted_date)
+    if project.submitted_at.nil?
+      "-"
+    else
+      I18n.l(project.submitted_at, format: :visit_submitted_date)
+    end
   end
 
   def project_type

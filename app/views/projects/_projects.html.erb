@@ -1,12 +1,13 @@
-<table class="projects">
+<table class="projects-table table-style1">
   <thead>
     <tr>
-      <th id="project-title"><%= t(".table_headers.title") %></th>
+      <th id="project-date"><%= t(".table_headers.submit_date") %></th>
       <th id="project-type"><%= t(".table_headers.type") %></th>
-      <th id="project-num-visits"><%= t(".table_headers.num_visits") %></th>
-      <th id="project-visit-date"><%= t(".table_headers.recent_visit_date") %></th>
+      <th id="project-title"><%= t(".table_headers.title") %></th>
+      <th id="project-visit-date"><%= t(".table_headers.num_visits") %>|<%= t(".table_headers.last_visit") %></th>
       <th id="project-recent-visit-reserve"><%= t(".table_headers.recent_visit_reserve") %></th>
-      <th></th>
+
+      <th id="project-actions"><%= t(".table_headers.actions") %></th>
     </tr>
   <thead>
   <tbody>

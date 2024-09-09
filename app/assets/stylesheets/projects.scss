@@ -51,8 +51,14 @@
           }
         }
 
-        table {
-          @include table-style1;
+        table.projects-table {
+          #project-actions {
+            width: 45px;
+          }
+
+          #project-date {
+            width: 95px;
+          }
 
           #project-num-visits {
             width: 50px;

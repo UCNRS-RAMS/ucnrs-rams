@@ -886,12 +886,14 @@ en:
       title: "My Projects"
     projects:
       table_headers:
-        title: "Title"
-        timeframe: "Timeframe"
-        type: "Type"
+        actions: "Actions"
+        last_visit: "Last Visit"
         num_visits: "No. of Visits"
-        recent_visit_date: "Most Recent Visit"
-        recent_visit_reserve: "Reserve Name"
+        recent_visit_reserve: "Reserve"
+        submit_date: "Submit Date"
+        timeframe: "Timeframe"
+        title: "Title"
+        type: "Type"
     project:
       not_applicable: "N/A"
       alt:
