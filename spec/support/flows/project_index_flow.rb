@@ -65,7 +65,7 @@ class ProjectIndexFlow
 
   def go_to_page(page_number)
     resize_window
-    page.find("a", text: page_number).click
+    page.find("span.page a", text: page_number).click
   end
 
   def has_no_pagination_links?

@@ -1,9 +1,9 @@
 <tr id="project_<%= project.id %>" class="project">
-  <td><%= truncate(project.title, length: 50) %></td>
+  <td><%= tag.strong project.submitted_at %></td>
   <td><%= project.project_type %></td>
-  <td><%= project.visits_count %></td>
-  <td><%= project.recent_visit_date %></td>
-  <td><%= project.recent_visit_reserve %></td>
+  <td><%= link_to project.title, project_path(project.id), target: "_top" %></td>
+  <td><%= pluralize(project.visits_count, "visit") %> | <%= project.recent_visit_date %></td>
+  <td>@ <%= project.recent_visit_reserve %></td>
   <td>
     <%= link_to project_path(project.id), target: "_top" do %>
       <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"),
