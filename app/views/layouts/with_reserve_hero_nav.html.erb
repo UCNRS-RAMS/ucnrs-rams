@@ -14,6 +14,7 @@
 
   <body class="<%= body_class %>">
     <header>
+      <%= render partial: 'layouts/open_beta' %>
       <%= render partial: 'layouts/reserve_hero_nav', locals: { layout_presenter: @layout_presenter } %>
       <%= render "shared/flash", formats: [:html] %>
     </header>
