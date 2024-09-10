@@ -1,0 +1,11 @@
+@import "variables";
+
+.open-beta {
+  background-color: $green;
+
+  p {
+    font-size: 0.9375rem;
+    margin: 0;
+    padding: 1rem;
+  }
+}
