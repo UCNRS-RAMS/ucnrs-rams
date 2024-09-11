@@ -123,10 +123,6 @@
           }
         }
       }
-
-      .invoices {
-        @include table-style1;
-      }
     }
 
     > .invoices {
@@ -362,6 +358,13 @@
           border-radius: 1rem;
           filter: invert(1);
         }
+      }
+    }
+
+    table.visit-requests {
+      .reserve-name {
+        width: 70px;
+        text-wrap: nowrap;
       }
     }
   }

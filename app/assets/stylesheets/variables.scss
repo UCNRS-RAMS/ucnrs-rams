@@ -28,9 +28,12 @@ $bluegray: lighten($dark-bluegray, 20%);
 $light-bluegray: lighten($dark-bluegray, 40%);
 $extra-light-bluegray: lighten($dark-bluegray, 52%);
 $semidark-bluegray: #5D747C;
+
 $gold: #ffb511;
-$medium-light-gold: lighten($gold, 25%);
 $light-gold: lighten($gold, 35%);
+$medium-light-gold: lighten($gold, 25%);
+$medium-dark-gold: darken($gold, 5%);
+
 $blue: #84d7f5;
 $yellow: #fefea4;
 $pink: #f9c;
@@ -85,6 +88,7 @@ $navbar-shadow-gradient-start: $navy-blue-20;
 $navbar-shadow-gradient-end: $navy-blue-025;
 $navbar-link-underline-active: $gold;
 $navbar-link-color: $navy-blue;
+$navbar-link-color-hover: $medium-dark-gold;
 $navbar-link-schedule-hover-background-color: $gold;
 $navbar-link-schedule-hover-border-color: $gold;
 $news-headline-color: $navy-blue;

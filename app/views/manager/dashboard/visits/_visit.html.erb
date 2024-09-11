@@ -5,11 +5,19 @@
     </span>
   </td>
   <td><%= tag.strong visit.requested_date_range %></td>
-  <td><%= link_to visit.applicant_name, edit_manager_reserve_user_path(current_reserve, visit.user_id) %></td>
+  <td>
+    <%= link_to visit.applicant_name,
+      edit_manager_reserve_user_path(current_reserve, visit.user_id),
+      data: { "turbo-frame" => "_top" }
+    %>
+  </td>
   <td>
     <%= t("universal.project.project_types.#{visit.project_type}") %>
     |
-    <%= link_to visit.purpose_of_visit, manager_reserve_visit_path(current_reserve, visit.id) %>
+    <%= link_to visit.purpose_of_visit,
+      manager_reserve_visit_path(current_reserve, visit.id),
+      data: { "turbo-frame" => "_top" }
+    %>
   </td>
   <td><%= visit.reserve_short_name %></td>
   <td><%= visit.submitted_at %></td>

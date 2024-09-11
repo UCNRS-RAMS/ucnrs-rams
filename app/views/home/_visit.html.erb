@@ -9,7 +9,9 @@
     <br />
     <%= t("universal.project.project_types.#{visit.project_type}") %>
     |
-    <%= truncate visit.project_title, length: 50, omission: '...' %>
+    <%= link_to truncate(visit.purpose_of_visit, length: 50, omission: '...'),
+      visit_path(visit.id),
+      target: "_top" %>
   </td>
   <td class="reserve-name">
     @ <%= visit.reserve_short_name %>
