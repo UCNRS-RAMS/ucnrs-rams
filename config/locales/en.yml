@@ -142,7 +142,7 @@ en:
         1: "Indicate your project type (research, university-class, etc.)"
         2: "Describe what you plan to do, why you want to conduct this activity, and how you will accomplish it."
         3: "List members of your team."
-        4: "Upload all required permit."
+        4: "Upload all required permits."
       create_a_project_description: "Describe what you plan to do, why you want to conduct this
         activity, and how you will accomplish it."
       my_calendar: "My Calendar"
@@ -153,15 +153,15 @@ en:
       my_projects_description: "See the projects you have already submitted."
       my_visits: "My Visits"
       my_visits_description: "See the reserve visits you have already scheduled."
-      please_contact_reserve_staff: "Please contact reserve staff at any time during this project to discuss
+      please_contact_reserve_staff: "You may contact reserve staff at any time during this project to discuss
         feasibility and logistics"
       reserve_use_is_managed: "Reserve use is managed through the steps detailed below."
       schedule_a_visit: "Schedule a Visit"
       schedule_a_visit_description: "You must create a project before scheduling a visit."
       schedule_a_visit_instruction:
-        1: "Visit type must match an active project type."
+        1: "The type of a visit must match the type of the project it belongs to."
         2: "Enter details of your visit: dates, times, participants."
-        3: "Read and sign waivers and the NRS code of conduct."
+        3: "Read and sign waivers and the NRS Code of Conduct."
   home:
     visit_filter:
       labels:

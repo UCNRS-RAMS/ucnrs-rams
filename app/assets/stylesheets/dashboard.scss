@@ -23,6 +23,7 @@
     a {
       color: $navy-blue;
       background-color: $light-gray;
+      border: 1px solid $light-gray;
       border-radius: $border-radius;
       box-sizing: border-box;
       display: flex;
@@ -43,19 +44,30 @@
 
       div.title {
         margin-top: 1rem;
+        text-decoration-color: $transparent;
       }
 
       p.description {
-        color: $black;
+        color: $navy-blue;
         font-size: 0.9375rem;
         line-height: 1.5rem;
       }
     }
 
     a:hover {
-      text-decoration: underline;
-      text-decoration-thickness: 2px;
+      background-color: $light-gold;
+      border:1px solid $gold;
+      text-decoration: none;
       transition: all .15s ease-in-out;
+
+      .title {
+        text-decoration: underline;
+        text-decoration-color: $gold;
+        text-decoration-skip-ink: none;
+        text-decoration-thickness: 16px;
+        text-underline-offset: -12px;
+        transition: all .15s ease-in-out;
+      }
     }
   }
 

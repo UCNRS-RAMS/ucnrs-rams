@@ -314,6 +314,10 @@ main {
 
     .left-side {
       filter: drop-shadow(0px 0px 7px $black);
+
+      .title-link {
+        color: $white;
+      }
     }
 
     .navbar-nav {
