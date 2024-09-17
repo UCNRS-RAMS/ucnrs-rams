@@ -1,15 +1,21 @@
 @import "variables";
 
-.dashboard-index {
-  .content {
-    font-size: 0.9375rem;
-    margin-bottom: 3rem;
-    margin-top: 3rem;
-    max-width: 900px;
-    padding: 1rem;
-  }
+div.modal-container:has(section.dashboard-content) {
+  max-width: 1000px;
+}
 
-  .main-section {
+div.modal-content:has(section.dashboard-content) {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.dashboard-content {
+  font-size: 0.9375rem;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+  max-width: 900px;
+  padding: 1rem;
+
+  .dashboard-main-section {
     margin-bottom: 3rem;
   }
 
@@ -20,7 +26,7 @@
     margin-bottom: 2rem;
     padding: 0;
 
-    a {
+    a, a:visited {
       color: $navy-blue;
       background-color: $light-gray;
       border: 1px solid $light-gray;
@@ -32,6 +38,7 @@
       flex-grow: 1;
       font-size: 1.25rem;
       padding: 30px;
+      text-decoration: none;
 
       > div {
         text-align: center;
@@ -51,6 +58,7 @@
         color: $navy-blue;
         font-size: 0.9375rem;
         line-height: 1.5rem;
+        margin: 1rem 0;
       }
     }
 
@@ -71,7 +79,7 @@
     }
   }
 
-  .instructions {
+  .dashboard-instructions {
     background-color: $light-gray;
     border-radius: $border-radius;
     display: flex;

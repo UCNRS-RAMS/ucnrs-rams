@@ -30,8 +30,16 @@
                 class: ["nav-link", active_class_for("reserves")] %>
             </li>
             <li>
+              <%= link_to "Shortcut", dashboard_index_path, data: { "turbo-frame": "modal-content" },
+                class: ["nav-link"], method: :get %>
+            </li>
+            <li>
               <%= link_to I18n.t(".navbar.link.my_profile"), edit_user_registration_path,
                 class: ["nav-link", active_class_for("registrations")] %>
+            </li>
+            <li>
+              <%= link_to I18n.t(".navbar.link.sign_out"), destroy_user_session_path,
+                class: ["nav-link", active_class_for("sessions")], data: { turbo: false } %>
             </li>
             <li>
               <%= link_to "https://ramshelp.ucnrs.org/", id: "help-link", class: ["nav-link", active_class_for("helps")],
@@ -45,10 +53,7 @@
                 </svg>
               <% end %>
             </li>
-            <li>
-              <%= link_to I18n.t(".navbar.link.sign_out"), destroy_user_session_path,
-                class: ["nav-link", active_class_for("sessions")], data: { turbo: false } %>
-            </li>
+
             <li>
               <%= link_to I18n.t(".navbar.link.schedule_visit"), new_visit_path,
                 class: ["nav-link", "schedule", active_class_for("visits")] %>
