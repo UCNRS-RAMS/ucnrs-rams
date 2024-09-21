@@ -1,7 +1,7 @@
 <div class="manager-navbar upper">
   <div class="container">
     <ul class="navbar-nav">
-      <li><%= I18n.t(".navbar.link.welcome_back", name: layout_presenter.current_user_full_name) %></li>
+      <li><%= t(".link.welcome_back", name: layout_presenter.current_user_full_name) %></li>
       <% if layout_presenter.in_manager_namespace? %>
         <li class="dropdown" data-controller="dropdown">
           <%= link_to layout_presenter.current_reserve_name,
@@ -11,7 +11,7 @@
           %>
             <% if layout_presenter.current_user_is_admin? %>
               <div class="dropdown-menu" data-dropdown-class="show" data-dropdown-target= "dropdown">
-                <header><%= I18n.t(".navbar.link.your_managed_reserves") %></header>
+                <header><%= t(".link.your_managed_reserves") %></header>
                 <hr />
                 <% layout_presenter.admin_reserves.each do |reserve| %>
                   <%= link_to reserve.name, manager_reserve_dashboard_path(reserve), class: "dropdown-item" %>
@@ -20,7 +20,7 @@
 
             <% else %>
               <div class="dropdown-menu" data-dropdown-class="show" data-dropdown-target= "dropdown">
-                <header><%= I18n.t(".navbar.link.your_managed_reserves") %></header>
+                <header><%= t(".link.your_managed_reserves") %></header>
                 <hr />
                 <% layout_presenter.current_user_managed_reserves.each do |reserve| %>
                   <%= link_to reserve.name, manager_reserve_dashboard_path(reserve), class: "dropdown-item" %>
@@ -33,7 +33,7 @@
 
       <li class="dropdown" data-controller="dropdown">
         <%= link_to (layout_presenter.in_manager_namespace? ?
-            I18n.t(".navbar.link.manager_view") : I18n.t(".navbar.link.public_view")
+            t(".link.manager_view") : t(".link.public_view")
           ),
           "#",
           class: "dropdown-toggle",
@@ -41,12 +41,12 @@
         %>
         <div class="dropdown-menu" data-dropdown-class="show" data-dropdown-target= "dropdown">
           <% if layout_presenter.in_manager_namespace? %>
-            <%= link_to I18n.t(".navbar.link.go_to_public_view"),
+            <%= link_to t(".link.go_to_public_view"),
               root_path,
               class: "dropdown-item" %>
 
           <% else %>
-            <%= link_to I18n.t(".navbar.link.go_to_manager_view"),
+            <%= link_to t(".link.go_to_manager_view"),
               manager_reserve_dashboard_path(layout_presenter.current_user_first_managed_reserve || Reserve.first),
               class: "dropdown-item" %>
 
@@ -54,7 +54,7 @@
         </div>
       </li>
       <li>
-        <%= link_to image_tag("icon-user-navbar.svg", alt: I18n.t(".navbar.alt_text.icon_user")),
+        <%= link_to image_tag("icon-user-navbar.svg", alt: t(".alt_text.icon_user")),
           layout_presenter.in_manager_namespace? ?
             edit_manager_reserve_user_path(layout_presenter.current_reserve, layout_presenter.current_user) :
             edit_user_registration_path,
@@ -62,7 +62,7 @@
         %>
       </li>
       <li>
-        <%= link_to image_tag("icon-sign-out-navbar.svg", alt: I18n.t(".navbar.alt_text.icon_sign_out")),
+        <%= link_to image_tag("icon-sign-out-navbar.svg", alt: t(".alt_text.icon_sign_out")),
           destroy_user_session_path,
           class: "icon-only"
         %>

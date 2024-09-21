@@ -17,7 +17,7 @@ RSpec.describe "Home Index" do
       flow.visit_home_index_page
       flow.dismiss_modal
       expect(flow).to be_on_home_index_page
-      expect(flow).to have_active_my_visits_tab
+      expect(flow).to have_active_home_tab
       expect(flow).to have_displayed_visits(10)
       expect(flow).to have_pagination_link("next")
       expect(flow).to have_pagination_link("last")
