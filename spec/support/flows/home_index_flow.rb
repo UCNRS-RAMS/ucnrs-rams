@@ -56,8 +56,8 @@ class HomeIndexFlow
     page.all("tr.visit", count: count)
   end
 
-  def has_active_my_visits_tab?
-    page.has_css?("a.nav-link.active", text: "Visits")
+  def has_active_home_tab?
+    page.has_css?("a.nav-link.active", text: "Home")
   end
 
   def has_displayed_visits?(number)

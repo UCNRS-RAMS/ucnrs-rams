@@ -107,6 +107,25 @@ nav.main-navigation {
         margin-left: 2px;
       }
     }
+
+    .nav-link.nav-link-icon {
+      margin-right: 0;
+    }
+
+    #user-initials, #grid-icon {
+      padding: 5px;
+      text-wrap: nowrap;
+      background: aliceblue;
+      border-radius: 5rem;
+      width: 1.75rem;
+      height: 1.75rem;
+      display: flex;
+      align-items: center;
+      letter-spacing: -1px;
+      text-align: center;
+      font-size: 13px;
+      justify-content: center;
+    }
   }
 }
 

@@ -18,33 +18,25 @@
         <ul class="navbar-nav">
           <% if layout_presenter.current_user_logged_in? %>
             <li>
-              <%= link_to I18n.t(".navbar.link.visits"), root_path,
+              <%= link_to t(".link.home"), root_path,
                 class: ["nav-link", active_class_for("visits"), active_class_for("home")] %>
             </li>
             <li>
-              <%= link_to I18n.t(".navbar.link.projects"), projects_path,
+              <%= link_to t(".link.projects"), projects_path,
                 class: ["nav-link", active_class_for("projects")] %>
             </li>
             <li>
-              <%= link_to I18n.t(".navbar.link.reserves"), reserves_path,
+              <%= link_to t(".link.reserves"), reserves_path,
                 class: ["nav-link", active_class_for("reserves")] %>
             </li>
             <li>
-              <%= link_to "Shortcut", dashboard_index_path, data: { "turbo-frame": "modal-content" },
-                class: ["nav-link"], method: :get %>
-            </li>
-            <li>
-              <%= link_to I18n.t(".navbar.link.my_profile"), edit_user_registration_path,
-                class: ["nav-link", active_class_for("registrations")] %>
-            </li>
-            <li>
-              <%= link_to I18n.t(".navbar.link.sign_out"), destroy_user_session_path,
+              <%= link_to t(".link.sign_out"), destroy_user_session_path,
                 class: ["nav-link", active_class_for("sessions")], data: { turbo: false } %>
             </li>
             <li>
               <%= link_to "https://ramshelp.ucnrs.org/", id: "help-link", class: ["nav-link", active_class_for("helps")],
                 target: "_blank" do %>
-                <%= I18n.t(".navbar.link.help") %>
+                <%= t(".link.help") %>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22" fill="none" stroke="currentColor"
                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
@@ -53,30 +45,54 @@
                 </svg>
               <% end %>
             </li>
-
             <li>
-              <%= link_to I18n.t(".navbar.link.schedule_visit"), new_visit_path,
+              <%= link_to t(".link.schedule_visit"), new_visit_path,
                 class: ["nav-link", "schedule", active_class_for("visits")] %>
             </li>
+            <li>
+              <%= link_to dashboard_index_path, data: { "turbo-frame": "modal-content" },
+                class: ["nav-link", "nav-link-icon"], "aria-label": t(".link.dashboard"),
+                method: :get do
+              %>
+                <span id="grid-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                  </svg>
+                </span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to t(".link.my_profile"), href: edit_user_registration_path,
+                class: ["nav-link", "nav-link-icon"], "aria-label": t(".link.my_profile") do
+              %>
+                <%= tag.span layout_presenter.current_user.initials, id: "user-initials" %>
+              <% end %>
+            </li>
+
+
 
           <% else %>
             <li>
-              <%= link_to I18n.t(".navbar.link.reserves"), reserves_path,
+              <%= link_to t(".link.reserves"), reserves_path,
                 class: ["nav-link", active_class_for("reserves")] %>
             </li>
             <li>
-              <%= link_to I18n.t(".navbar.link.project_search"), "#",
+              <%= link_to t(".link.project_search"), "#",
                 class: ["nav-link", active_class_for("project_search")] %>
             </li>
             <li>
-              <%= link_to I18n.t(".navbar.link.schedule_visit"), new_visit_path,
+              <%= link_to t(".link.schedule_visit"), new_visit_path,
                 class: ["nav-link", "schedule", active_class_for("visits")] %>
             </li>
 
           <% end %>
         </ul>
 
-        <%= image_tag 'hamburger.svg', alt: I18n.t(".navbar.alt_text.mobile_menu"),
+        <%= image_tag 'hamburger.svg', alt: t(".alt_text.mobile_menu"),
           class: "navbar-hamburger display-none"
         %>
       </div>

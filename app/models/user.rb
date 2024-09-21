@@ -130,6 +130,10 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def initials
+    "#{first_name[0,1]} #{last_name[0,1]}"
+  end
+
   def able_to_edit?(project)
     project_team_memberships
       .where(project: project, active: true)
