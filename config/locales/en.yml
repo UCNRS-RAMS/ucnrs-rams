@@ -3420,10 +3420,12 @@ en:
     manager_navbar:
       alt_text:
         mobile_menu: "Mobile Menu"
+      aria:
+        my_profile: "My Profile"
+        sign_out: "Sign Out"
       link:
         help: "Help"
         invoices: "Invoices"
-        my_profile: "My Profile"
         projects: "Projects"
         project_search: "Project Search"
         reports: "Reports"
@@ -3431,29 +3433,26 @@ en:
         users: "Users"
         visits: "Visits"
     manager_superbar:
-      alt_text:
-        icon_user: "user icon"
-        icon_sign_out: "sign out icon"
       link:
         go_to_manager_view: "Go To: Manager View"
         go_to_public_view: "Go To: Public View"
         manager_view: "Manager view"
         public_view: "Public view"
-        welcome_back: "Welcome back, %{name}"
         your_managed_reserves: "Your Managed Reserves"
     navbar:
       alt_text:
         mobile_menu: "Mobile Menu"
-      link:
+      aria:
         dashboard: "Dashboard"
+        sign_out: "Sign Out"
+        my_profile: "My Profile"
+      link:
         help: "Help"
         home: "Home"
-        my_profile: "My Profile"
         projects: "Projects"
         project_search: "Project Search"
         reserves: "Reserves"
         schedule_visit: "Schedule a Visit"
-        sign_out: "Sign Out"
         visits: "Visits"
     unauthenticated:
       alt-text:

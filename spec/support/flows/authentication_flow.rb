@@ -90,7 +90,7 @@ class AuthenticationFlow
   alias_method :hide_password, :show_password
 
   def sign_out
-    page.find("a", text: "Sign Out").click
+    page.find_link(href: "/users/sign_out").click
   end
 
   def signed_in?

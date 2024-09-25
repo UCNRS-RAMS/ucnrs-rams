@@ -1,7 +1,7 @@
 <div class="manager-navbar upper">
   <div class="container">
     <ul class="navbar-nav">
-      <li><%= t(".link.welcome_back", name: layout_presenter.current_user_full_name) %></li>
+
       <% if layout_presenter.in_manager_namespace? %>
         <li class="dropdown" data-controller="dropdown">
           <%= link_to layout_presenter.current_reserve_name,
@@ -52,20 +52,6 @@
 
           <% end %>
         </div>
-      </li>
-      <li>
-        <%= link_to image_tag("icon-user-navbar.svg", alt: t(".alt_text.icon_user")),
-          layout_presenter.in_manager_namespace? ?
-            edit_manager_reserve_user_path(layout_presenter.current_reserve, layout_presenter.current_user) :
-            edit_user_registration_path,
-          class: "icon-only"
-        %>
-      </li>
-      <li>
-        <%= link_to image_tag("icon-sign-out-navbar.svg", alt: t(".alt_text.icon_sign_out")),
-          destroy_user_session_path,
-          class: "icon-only"
-        %>
       </li>
     </ul>
   </div>
