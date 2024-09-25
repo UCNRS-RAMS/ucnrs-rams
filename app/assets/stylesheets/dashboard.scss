@@ -52,6 +52,9 @@ div.modal-content:has(section.dashboard-content) {
       div.title {
         margin-top: 1rem;
         text-decoration-color: $transparent;
+        text-decoration-skip-ink: none;
+        text-decoration-thickness: 16px;
+        text-underline-offset: -12px;
       }
 
       p.description {
@@ -68,12 +71,9 @@ div.modal-content:has(section.dashboard-content) {
       text-decoration: none;
       transition: all .15s ease-in-out;
 
-      .title {
+      div.title {
         text-decoration: underline;
         text-decoration-color: $gold;
-        text-decoration-skip-ink: none;
-        text-decoration-thickness: 16px;
-        text-underline-offset: -12px;
         transition: all .15s ease-in-out;
       }
     }
