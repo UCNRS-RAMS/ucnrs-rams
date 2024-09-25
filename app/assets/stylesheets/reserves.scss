@@ -321,7 +321,7 @@ main {
     }
 
     .navbar-nav {
-      .nav-link {
+      .nav-link:not(.nav-link-icon) {
         color: $white;
         filter: drop-shadow(0px 0px 7px $black);
 
@@ -330,7 +330,7 @@ main {
           filter: unset;
         }
 
-        &:hover {
+        &:hover:not(.schedule) {
           color: $gold;
         }
       }

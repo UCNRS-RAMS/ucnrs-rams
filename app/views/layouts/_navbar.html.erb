@@ -30,10 +30,6 @@
                 class: ["nav-link", active_class_for("reserves")] %>
             </li>
             <li>
-              <%= link_to t(".link.sign_out"), destroy_user_session_path,
-                class: ["nav-link", active_class_for("sessions")], data: { turbo: false } %>
-            </li>
-            <li>
               <%= link_to "https://ramshelp.ucnrs.org/", id: "help-link", class: ["nav-link", active_class_for("helps")],
                 target: "_blank" do %>
                 <%= t(".link.help") %>
@@ -50,9 +46,10 @@
                 class: ["nav-link", "schedule", active_class_for("visits")] %>
             </li>
             <li>
-              <%= link_to dashboard_index_path, data: { "turbo-frame": "modal-content" },
-                class: ["nav-link", "nav-link-icon"], "aria-label": t(".link.dashboard"),
-                method: :get do
+              <%= link_to t(".aria.dashboard"), href: dashboard_index_path,
+                title: t(".aria.dashboard"), "aria-label": t(".aria.dashboard"),
+                class: ["nav-link", "nav-link-icon"],
+                data: { "turbo-frame": "modal-content" }, method: :get do
               %>
                 <span id="grid-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -66,14 +63,28 @@
               <% end %>
             </li>
             <li>
-              <%= link_to t(".link.my_profile"), href: edit_user_registration_path,
-                class: ["nav-link", "nav-link-icon"], "aria-label": t(".link.my_profile") do
+              <%= link_to t(".aria.sign_out"), href: destroy_user_session_path,
+                title: t(".aria.sign_out"), "aria-label": t(".aria.sign_out"),
+                class: ["nav-link", "nav-link-icon"], id: "log-out" do
+              %>
+                <span id="log-out-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                  </svg>
+                </span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to t(".aria.my_profile"), href: edit_user_registration_path,
+                title: t(".aria.my_profile"), "aria-label": t(".aria.my_profile"),
+                class: ["nav-link", "nav-link-icon"] do
               %>
                 <%= tag.span layout_presenter.current_user.initials, id: "user-initials" %>
               <% end %>
             </li>
-
-
 
           <% else %>
             <li>
