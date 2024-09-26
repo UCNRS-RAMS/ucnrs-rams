@@ -21,13 +21,13 @@ RSpec.describe Manager::Reports::ReportBasePresenter do
 
   describe "#fiscal_year_ending_options" do
     it "is an array of fiscal year options" do
-      fiscal_year_options = (2000..(Date.current.year + 1))
+      fiscal_year_options = ((Date.current.year + 1).downto(2000))
         .map { |year_end| ["#{year_end - 1}-#{year_end}", year_end] }
       presenter = Manager::Reports::ReportBasePresenter.new(form: :form)
 
       fiscal_year_ending_options = presenter.fiscal_year_ending_options
 
-      expect(fiscal_year_ending_options).to match_array fiscal_year_options
+      expect(fiscal_year_ending_options).to eq fiscal_year_options
     end
   end
 end

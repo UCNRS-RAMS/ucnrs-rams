@@ -12,6 +12,11 @@
     min-height: 100vh;
     width: 100vw;
 
+    a {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+    }
+
     .left-side {
       flex: 6;
       padding: 13.75rem 10rem;
@@ -134,10 +139,11 @@
         @include errors;
 
         .instructions {
-          font-size: 0.75rem;
+          font-size: 0.8125rem;
           margin-bottom: 2rem;
 
           a {
+            font-weight: $semi-bold;
             margin-left: 0.5rem;
           }
         }
@@ -145,7 +151,7 @@
         .field {
           label {
             display: block;
-            font-size: 0.75rem;
+            font-size: 0.8125rem;
             font-weight: $semi-bold;
           }
 
@@ -188,12 +194,16 @@
 
         .extra_actions {
           color: $form-copy-color;
-          font-size: 0.75rem;
+          font-size: 0.8125rem;
           margin-bottom: 2.5rem;
 
           a {
             color: $form-copy-color;
-            font-size: 0.75rem;
+            font-size: 0.8125rem;
+          }
+
+          a:hover {
+            text-decoration: underline;
           }
         }
       }

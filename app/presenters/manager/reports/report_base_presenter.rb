@@ -15,7 +15,7 @@ class Manager::Reports::ReportBasePresenter
   end
 
   def fiscal_year_ending_options
-    (2000..(Date.current.year + 1))
+    ((Date.current.year + 1).downto(2000))
       .map { |year_end| ["#{year_end - 1}-#{year_end}", year_end] }
   end
 

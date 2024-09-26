@@ -18,8 +18,12 @@
         <ul class="navbar-nav">
           <% if layout_presenter.current_user_logged_in? %>
             <li>
-              <%= link_to t(".link.home"), root_path,
-                class: ["nav-link", active_class_for("visits"), active_class_for("home")] %>
+              <%= link_to t(".link.home"), dashboard_index_path,
+                class: ["nav-link", active_class_for("dashboard"), active_class_for("home")] %>
+            </li>
+            <li>
+              <%= link_to t(".link.visits"), root_path,
+                class: ["nav-link", active_class_for("visits")] %>
             </li>
             <li>
               <%= link_to t(".link.projects"), projects_path,
@@ -44,23 +48,6 @@
             <li>
               <%= link_to t(".link.schedule_visit"), new_visit_path,
                 class: ["nav-link", "schedule", active_class_for("visits")] %>
-            </li>
-            <li>
-              <%= link_to t(".aria.dashboard"), href: dashboard_index_path,
-                title: t(".aria.dashboard"), "aria-label": t(".aria.dashboard"),
-                class: ["nav-link", "nav-link-icon"],
-                data: { "turbo-frame": "modal-content" }, method: :get do
-              %>
-                <span id="grid-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid">
-                    <rect x="3" y="3" width="7" height="7"></rect>
-                    <rect x="14" y="3" width="7" height="7"></rect>
-                    <rect x="14" y="14" width="7" height="7"></rect>
-                    <rect x="3" y="14" width="7" height="7"></rect>
-                  </svg>
-                </span>
-              <% end %>
             </li>
             <li>
               <%= link_to t(".aria.sign_out"), href: destroy_user_session_path,

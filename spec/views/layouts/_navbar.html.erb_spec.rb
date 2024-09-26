@@ -12,12 +12,12 @@ RSpec.describe "navbar", type: :view do
 
     render partial: 'layouts/navbar', locals: { layout_presenter: layout_presenter }
 
-    expect(rendered).to have_link("Home", href: "/")
+    expect(rendered).to have_link("Visits", href: "/")
     expect(rendered).to have_link("Reserves", href: "/reserves")
     expect(rendered).to have_link("Projects", href: "/projects")
     expect(rendered).to have_link("Help", href: "https://ramshelp.ucnrs.org/")
     expect(rendered).to have_link("", href: "/users/edit")
-    expect(rendered).to have_link("", href: "/dashboard")
+    expect(rendered).to have_link("Home", href: "/dashboard")
     expect(rendered).to have_link("", href: "/users/sign_out")
 
     expect(rendered).to have_link("Schedule a Visit", href: "/visits/new")
