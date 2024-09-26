@@ -5,9 +5,10 @@ Rails.application.routes.draw do
     registrations: "unauthenticated/registrations",
     sessions: "unauthenticated/sessions",
   }
-  root to: "home#index"
+  root to: "dashboard#index"
 
   resources :dashboard, only: [:index]
+  resources :home, only: [:index]
 
   namespace :home do
     resource :calendar, only: [:show], controller: "calendar"

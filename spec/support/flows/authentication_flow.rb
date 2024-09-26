@@ -40,7 +40,7 @@ class AuthenticationFlow
   end
 
   def visit_homepage
-    page.visit("/")
+    page.visit("/home")
   end
 
   def fill_out_account_creation_form(email:, password:)

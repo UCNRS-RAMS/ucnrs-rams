@@ -72,6 +72,7 @@ div.modal-content:has(section.dashboard-content) {
       div.title {
         text-decoration: underline;
         text-decoration-color: $gold;
+        text-decoration-thickness: 16px;
         transition: all .15s ease-in-out;
       }
     }
