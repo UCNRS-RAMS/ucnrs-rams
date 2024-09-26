@@ -2104,7 +2104,10 @@ en:
             institution: "Institution Permits"
           permit_information: "Permit Information"
           no_questions: "There are no necessary permit questions for this project at this time."
-          permit_statement: "If you have any approved permits, please provide the type of permit, permit number, permit dates, and any other relevant information. You may be asked to provide a copy of the approved permit prior to or upon your arrival. If you have your IACUC permit please also state the institution name that issued that permit."
+          permit_statement: "If you have any approved permits, please provide the type of permit,
+            permit number, permit dates, and any other relevant information. You may be asked to
+            provide a copy of the approved permit prior to or upon your arrival. If you have your
+            IACUC permit please also state the institution name that issued that permit."
           back: "Go Back"
           alt:
             right_facing_arrow: "Right-facing arrow"
@@ -2195,15 +2198,23 @@ en:
       report_part_5:
         part_5_publications: "Part 5. Publications"
         report_has_been_reviewed: "This page of the report has been reviewed and is ready for UCOP."
-        direction_1: "Publications are now handled through Zotero. UCOP will retrieve publication data from your individual Zotero library for your reserve."
-        direction_2: "This section is meant to provide tips on finding and adding publications to your reserve's Zotero library."
+        direction_1: "Publications are now handled through Zotero. UCOP will retrieve publication
+          data from your individual Zotero library for your reserve."
+        direction_2: "This section is meant to provide tips on finding and adding publications
+          to your reserve's Zotero library."
         direction_3: "To update your reserve's Zotero library, follow these steps:"
-        step_1: "Access to reserve's Zotero bibliographic database: <strong>%{zotero_url}</strong> | Username: <strong>%{zotero_login}</strong> Password: <strong>%{zotero_password}</strong>"
-        step_2: 'Use internet search engines (Google Scholar, ProQuest, research gate, JSTOR) to search for publications that include your reserve name as key words (e.g. "Sedgwick Reserve") and on individual researchers.'
-        step_3: "You may find additional citations by reviewing Publications included in a researcher's RAMS applications."
+        step_1: "Access to reserve's Zotero bibliographic database: <strong>%{zotero_url}</strong>
+          | Username: <strong>%{zotero_login}</strong> Password: <strong>%{zotero_password}</strong>"
+        step_2: 'Use internet search engines (Google Scholar, ProQuest, research gate, JSTOR) to
+          search for publications that include your reserve name as key words
+          (e.g. "Sedgwick Reserve") and on individual researchers.'
+        step_3: "You may find additional citations by reviewing Publications included in a
+          researcher's RAMS applications."
         step_4: "Set up a <strong>Google Scholar</strong> search alert for your reserve."
-        step_5: "Add a Zotero connector to your browser or install the standalone Zotero application to easily add publications to your Zotero library."
-        step_6: "Do not wait until September to update your Zotero library - better to do it throughout the year!"
+        step_5: "Add a Zotero connector to your browser or install the standalone Zotero
+          application to easily add publications to your Zotero library."
+        step_6: "Do not wait until September to update your Zotero library - better to do it
+          throughout the year!"
       report_part_6:
         part_6_narrative: "Part 6. Narrative"
         report_has_been_reviewed: "This page of the report has been reviewed and is ready for UCOP."
@@ -2312,9 +2323,9 @@ en:
           message: "Message"
           please_select: "Please Select"
           amenities: "Amenities"
-          amenities_small_info: "Amenities can be put into 1 of 5 group to better manage them.
-            While the group name is determined here, putting amenities into the group is set
-            in the Amenities & Rates page."
+          amenities_small_info: "Establish up to five groups, such as \"housing\" or \"vehicles\",
+            to categorize your reserve's amenities. While the group name is determined here, an
+            amenity is placed into a group in the Amenities & Rates page."
           amenities_and_rates: "Amenities & Rates"
           amenity_group_name_1: "Amenity Group Name 1"
           amenity_group_name_2: "Amenity Group Name 2"
@@ -2326,12 +2337,23 @@ en:
         index:
           amenities_and_rates: "Amenities & Rates"
           about_amenities: "About Amenities"
-          about_amenities_paragraph1: "A reserve amenity can be anything that you wish to charge for or to keep track of it's use. Some common examples are lodging, vehicles, services, people's time/assistance. They can be visible or invisible to the user, but all will remain visible to the manager - for invoicing or management purposes."
-          about_amenities_paragraph2: "You have the option to have a resource selected by default for a user e.g. day use only. You can also retire a resource, which preserves the record of the resource use in the database for past visits, but it will not show up in the system. Any retired amenity can be un-retired through editing the amenity information."
+          about_amenities_paragraph1: "A reserve amenity can be anything that you wish to charge
+            for or to keep track of its use. Some common examples are lodging, vehicles,
+            services, people's time/assistance. They can be visible or invisible to the user, but
+            all will remain visible to the manager for invoicing or management purposes."
+          about_amenities_paragraph2: "You can make an amenity selected by default for users, such
+            as “day use only.” You can also retire an amenity, which preserves a record of past
+            visit resource use in the database, but the amenity will no longer appear to users.
+            A retired amenity can be un-retired by editing the amenity information."
           about_amenity_categories: "About Amenity Categories"
-          about_amenity_categories_paragraph1: "For invoicing purposes a specific rate category for an asset will be chosen based on the applicant's institution type. These rate categories can be specified here, a standard break down is UC, Non UC Academic, and Other."
+          about_amenity_categories_paragraph1: "For invoicing purposes a specific rate category for
+            an asset will be chosen based on the applicant's institution type. These rate categories
+            can be specified here, a standard break down is UC, Non UC Academic, and Other."
           about_amenity_rates: "About Amenity Rates"
-          about_amenity_rates_paragraph1: "For each rate category you can specify the amount charged for each amenity. You can edit these amounts directly on an invoice if you would like to make an adjustment. In the case of amenities that either have no charge, or that you would like to enter in manually, please enter in the rate as 0."
+          about_amenity_rates_paragraph1: "For each rate category you can specify the amount charged
+            for each amenity. You can edit these amounts directly on an invoice if you would like to
+            make an adjustment. In the case of amenities that either have no charge, or that you
+            would like to enter in manually, please enter in the rate as 0."
         amenities:
           active_amenities: "Active Amenities"
           capacity: "Capacity"
@@ -2936,7 +2958,10 @@ en:
             next_step: "Next: Waivers & Policies"
         permit_questions:
           no_questions: "There are no necessary permit questions for this project at this time."
-          permit_statement: "If you have any approved permits, please provide the type of permit, permit number, permit dates, and any other relevant information. You may be asked to provide a copy of the approved permit prior to or upon your arrival. If you have your IACUC permit please also state the institution name that issued that permit."
+          permit_statement: "If you have any approved permits, please provide the type of permit,
+            permit number, permit dates, and any other relevant information. You may be asked to
+            provide a copy of the approved permit prior to or upon your arrival. If you have your
+            IACUC permit please also state the institution name that issued that permit."
           authority:
             federal: "Federal Permits"
             state: "State Permits"
@@ -3436,8 +3461,8 @@ en:
       link:
         go_to_manager_view: "Go To: Manager View"
         go_to_public_view: "Go To: Public View"
-        manager_view: "Manager view"
-        public_view: "Public view"
+        manager_view: "Manager View"
+        public_view: "Public View"
         your_managed_reserves: "Your Managed Reserves"
     navbar:
       alt_text:

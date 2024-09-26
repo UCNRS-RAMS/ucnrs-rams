@@ -22,7 +22,7 @@ class Manager::Reports::ShowPresenter
 
   def fiscal_year_ending_options
     [].tap do |arr|
-      (2000..(Date.current.year + 1)).each { |year_end| arr << ["#{year_end - 1}-#{year_end}", year_end] }
+      ((Date.current.year + 1).downto(2000)).each { |year_end| arr << ["#{year_end - 1}-#{year_end}", year_end] }
     end
   end
 

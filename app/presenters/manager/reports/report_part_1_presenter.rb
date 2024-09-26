@@ -28,7 +28,7 @@ class Manager::Reports::ReportPart1Presenter
   end
 
   def fiscal_year_ending_options
-    (2000..(Date.current.year + 1)).map { |year_end| ["#{year_end - 1}-#{year_end}", year_end] }
+    ((Date.current.year + 1).downto(2000)).map { |year_end| ["#{year_end - 1}-#{year_end}", year_end] }
   end
 
   def reserve_name
