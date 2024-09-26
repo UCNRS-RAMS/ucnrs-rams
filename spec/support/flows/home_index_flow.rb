@@ -4,7 +4,7 @@ class HomeIndexFlow
   end
 
   def visit_home_index_page
-    page.visit("/")
+    page.visit("/home")
   end
 
   def has_welcome_modal?
@@ -57,7 +57,7 @@ class HomeIndexFlow
   end
 
   def has_active_home_tab?
-    page.has_css?("a.nav-link.active", text: "Home")
+    page.has_css?("a.nav-link.active", text: "Visits")
   end
 
   def has_displayed_visits?(number)

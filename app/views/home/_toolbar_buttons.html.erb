@@ -2,14 +2,14 @@
   <ul class="link-group">
     <li id="list">
       <%= link_to image_tag("icon-list-off.svg", alt: t("alt.icon_dash"), class: "tab-icon"),
-        root_path,
+        home_index_path,
         class: presenter.list_button_class,
         data: { turbo_frame: "home-visits" }
       %>
     </li>
     <li id="calendar">
       <%= link_to image_tag("icon-calendar-off.svg", alt: t("alt.icon_calendar"), class: "tab-icon"),
-        root_path(partial_name: "calendar"),
+        home_index_path(partial_name: "calendar"),
         class: presenter.calendar_button_class,
         data: { turbo_frame: "calendar" }
       %>

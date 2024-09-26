@@ -19,11 +19,11 @@
           <% if layout_presenter.current_user_logged_in? %>
             <li>
               <%= link_to t(".link.home"), dashboard_index_path,
-                class: ["nav-link", active_class_for("dashboard"), active_class_for("home")] %>
+                class: ["nav-link", active_class_for("dashboard")] %>
             </li>
             <li>
-              <%= link_to t(".link.visits"), root_path,
-                class: ["nav-link", active_class_for("visits")] %>
+              <%= link_to t(".link.visits"), home_index_path,
+                class: ["nav-link", active_class_for("home")] %>
             </li>
             <li>
               <%= link_to t(".link.projects"), projects_path,

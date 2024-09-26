@@ -12,7 +12,7 @@ class ConfirmManagerFlow
   end
 
   def on_root_home_page?
-    page.has_css?("body.home")
+    page.has_css?("body.dashboard")
   end
 
   private
