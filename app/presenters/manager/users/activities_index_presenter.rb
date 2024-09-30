@@ -21,7 +21,7 @@ class Manager::Users::ActivitiesIndexPresenter
   end
 
   def reserve_manager?(reserve)
-    user.manager_of_reserve?(reserve)
+    user.admin_or_manage_reserve?(reserve)
   end
 
   def visits
