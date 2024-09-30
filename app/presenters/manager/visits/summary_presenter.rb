@@ -17,7 +17,7 @@ class Manager::Visits::SummaryPresenter
   end
 
   def reserve_manager?
-    user.manager_of_reserve?(visit.reserve)
+    user.admin_or_manage_reserve?(visit.reserve)
   end
 
   def submitted_date

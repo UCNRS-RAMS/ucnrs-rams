@@ -48,7 +48,7 @@ class Manager::VisitShowPresenter
   end
 
   def reserve_manager?
-    user.manager_of_reserve?(reserve)
+    user.admin_or_manage_reserve?(visit.reserve)
   end
 
   def btn_class

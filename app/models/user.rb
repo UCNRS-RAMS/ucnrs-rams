@@ -152,6 +152,10 @@ class User < ApplicationRecord
     managed_reserve_ids.include?(reserve&.id)
   end
 
+  def admin_or_manage_reserve?(reserve)
+    admin? || manager_of_reserve?(reserve)
+  end
+
   def is_manager?
     managed_reserve_ids.present?
   end
