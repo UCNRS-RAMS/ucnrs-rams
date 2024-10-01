@@ -55,7 +55,7 @@ class Manager::DashboardShowPresenter
       .count
   end
 
-  def chart_data 
+  def chart_data
     [
       { name: I18n.t("manager.dashboard.show.visit_request"), data: visit_week_perday },
       { name: I18n.t("manager.dashboard.show.booked_visit"), data: visit_booked_week_perday },
@@ -87,5 +87,6 @@ class Manager::DashboardShowPresenter
   def visit_request_today
     @visit_request_today ||= Visit
       .where(submitted_at: Time.current.beginning_of_day..Time.current.end_of_day)
+      .at_reserve(reserve)
   end
 end
