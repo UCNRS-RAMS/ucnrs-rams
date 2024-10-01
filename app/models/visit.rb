@@ -92,6 +92,14 @@ class Visit < ApplicationRecord
     end
   end
 
+  def self.at_reserve(reserve)
+    if reserve.present?
+      where(reserve: reserve)
+    else
+      all
+    end
+  end
+
   def self.reserve_list_for_user(user)
     where(id: participating_visit_ids(user) | applicant_visit_ids(user))
       .includes(:reserve)
