@@ -11,7 +11,7 @@ class VisitForm
 
   def initialize(user: User.new, params: {}, editing: false )
     @visit = Visit.where(id: params[:id]).first || Visit.new
-    @visit.user = user
+    @visit.user = user if visit.new_record?
     @project_type = params.delete(:project_type) || visit.project_type
     @visit.sign_token = SecureRandom.urlsafe_base64(48)
     @amenities_params = params.delete(:amenities) || {}
