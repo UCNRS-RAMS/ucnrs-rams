@@ -16,6 +16,7 @@ class Manager::ReserveInfo::AmenitiesAndRates::AmenityRatesEditPresenter
   def amenity_rates
     form_amenity
       .amenity_rates
+      .with_only_enabled_rate_category
       .map{ |amenity_rate| AmenityRatePresenter.new(amenity_rate) }
   end
 end

@@ -3,7 +3,9 @@
     <thead>
       <tr>
         <th><%= t(".amenity_name") %></th>
-        <th></th>
+        <% if !amenity_rates.empty? %>
+          <%= amenity_rates.first[1].each { |amenity_rate| tag.th(amenity_rate.category_rate_name) } %>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -13,7 +15,12 @@
           <% amenity_rates.each do |amenity_rate| %>
             <td><%= amenity_rate.amount %></td>
           <% end %>
-          <td><%= link_to t("edit"), edit_manager_reserve_reserve_info_amenity_rate_path(current_reserve, amenity_rates.first.amenity_id), data: { "turbo-frame": "modal-content" } %></td>
+          <td>
+            <%= link_to t("edit"),
+              edit_manager_reserve_reserve_info_amenity_rate_path(current_reserve, amenity_rates.first.amenity_id),
+              data: { "turbo-frame": "modal-content" }
+            %>
+          </td>
         </tr>
       <% end %>
     </tbody>
