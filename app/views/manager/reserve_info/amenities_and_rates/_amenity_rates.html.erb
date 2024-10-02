@@ -4,7 +4,9 @@
       <tr>
         <th><%= t(".amenity_name") %></th>
         <% if !amenity_rates.empty? %>
-          <%= amenity_rates.first[1].each { |amenity_rate| tag.th(amenity_rate.category_rate_name) } %>
+          <% amenity_rates.first[1].each do |amenity_rate| %>
+            <%= tag.th amenity_rate.category_rate_name %>
+          <% end %>
         <% end %>
       </tr>
     </thead>
