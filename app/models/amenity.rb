@@ -12,7 +12,7 @@ class Amenity < ApplicationRecord
   validates :title, presence: true
   validates :units_type, presence: true
   validates :time_type, presence: true
-  validates :sort_order, uniqueness: { scope: [:disable, :reserve_id] }
+  # validates :sort_order, uniqueness: { scope: [:disable, :reserve_id] }
   validates :group_number, presence: true
 
   after_create :create_rates_for_each_categories

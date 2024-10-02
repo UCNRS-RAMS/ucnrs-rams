@@ -44,6 +44,11 @@ class AmenityRate < ApplicationRecord
       .left_joins(:amenity)
   end
 
+  def self.with_category_rates_description_column
+    select("amenity_rates.*, amenity_rate_categories.description AS category_rate_name")
+      .left_joins(:amenity_rate_category)
+  end
+
   def self.for_reserve(reserve)
     if reserve.present?
       joins(:amenity)

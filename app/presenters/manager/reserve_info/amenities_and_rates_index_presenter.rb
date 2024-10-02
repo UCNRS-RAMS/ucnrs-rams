@@ -32,7 +32,9 @@ class Manager::ReserveInfo::AmenitiesAndRatesIndexPresenter
   def amenity_rates
     amenity_rates_scope
       .map{ |amenity_rate| AmenityRatePresenter.new(amenity_rate) }
-      .group_by(&:amenity_title)
+      .group_by{ |amenity_rate| [amenity_rate.amenity_id, amenity_rate.amenity_title]}
+      .map{ |(amenity_id, amenity_title), amenity_rates| [amenity_title, amenity_rates] }
+      .to_h
   end
 
   private
@@ -54,6 +56,8 @@ class Manager::ReserveInfo::AmenitiesAndRatesIndexPresenter
   def amenity_rates_scope
     AmenityRate
       .with_amenity_title_column
+      .with_category_rates_description_column
+      .with_only_enabled_rate_category
       .for_reserve(reserve)
       .in_order
   end
