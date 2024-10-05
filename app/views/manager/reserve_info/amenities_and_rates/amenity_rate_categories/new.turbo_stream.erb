@@ -1,0 +1,15 @@
+<turbo-stream action="update" target="flash">
+  <template></template>
+</turbo-stream>
+
+<turbo-stream action="update" target="flash-modal-frame">
+  <template>
+    <%= render partial: "shared/flash/flash", locals: { flash: flash } %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="update" target="modal-content">
+  <template>
+    <%= render partial: "modals/amenities/new_amenity_rate_category", locals: { presenter: @presenter }, formats: [:html] %>
+  </template>
+</turbo-stream>

@@ -160,7 +160,7 @@ Rails.application.routes.draw do
           controller: "amenities_and_rates/amenity_rates"
         resources :amenities, only: [:new, :create, :edit, :update],
           controller: "amenities_and_rates/amenities"
-        resources :amenity_rate_categories, only: [:edit, :update],
+        resources :amenity_rate_categories, only: [:new, :create, :edit, :update],
           controller: "amenities_and_rates/amenity_rate_categories"
         resources :waivers, only: [:index, :edit, :update, :new, :create]
         resource :rules_and_regulations, only: [:edit, :update]

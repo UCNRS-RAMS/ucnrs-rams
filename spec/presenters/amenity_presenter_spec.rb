@@ -10,56 +10,54 @@ RSpec.describe AmenityPresenter do
 
   describe "#rates" do
     it "presents its rates in order" do
-      amenity = AmenityPresenter.new(create(:amenity))
-      rates = [
-        create(:amenity_rate, amenity: amenity.amenity, sort_order: 1),
-        create(:amenity_rate, amenity: amenity.amenity, sort_order: 3),
-        create(:amenity_rate, amenity: amenity.amenity, sort_order: 2),
-      ]
+      reserve = create(:reserve)
+      amenity = create(:amenity, reserve: reserve)
+      rate_category1 = create(:amenity_rate_category, reserve: reserve, sort_order: 1)
+      rate_category2 = create(:amenity_rate_category, reserve: reserve, sort_order: 3)
+      rate_category3 = create(:amenity_rate_category, reserve: reserve, sort_order: 2)
+      presenter = AmenityPresenter.new(amenity)
 
-      presented_rates = amenity.rates
+      presented_rates = presenter.rates
 
       expect(presented_rates.map(&:id))
-        .to eq [rates[0].id, rates[2].id, rates[1].id]
+        .to eq [
+          rate_category1.amenity_rates[0].id,
+          rate_category3.amenity_rates[0].id,
+          rate_category2.amenity_rates[0].id,
+        ]
     end
   end
 
   describe "#rates_with_enabled_rate_category" do
     it "presents only amenity rates that has its rate_category enabled" do
-      amenity = create(:amenity)
-      enabled_rate_category = create(:amenity_rate_category, visible: true)
-      disabled_rate_category = create(:amenity_rate_category, visible: false)
-      amenity_rate1 = create(:amenity_rate,
-        amenity: amenity,
-        amenity_rate_category: enabled_rate_category
-      )
-      amenity_rate2 =  create(:amenity_rate,
-        amenity: amenity,
-        amenity_rate_category: disabled_rate_category
-      )
-      amenity_rate3 =  create(:amenity_rate,
-        amenity: amenity,
-        amenity_rate_category: enabled_rate_category
-      )
+      reserve = create(:reserve)
+      amenity = create(:amenity, reserve: reserve)
+      enabled_rate_category = create(:amenity_rate_category, reserve: reserve, visible: true)
+      disabled_rate_category = create(:amenity_rate_category, reserve: reserve, visible: false)
       presenter = AmenityPresenter.new(amenity)
 
       presented_rates = presenter.rates_with_enabled_rate_category
 
       expect(presented_rates.map(&:id))
-        .to match_array [amenity_rate1.id, amenity_rate3.id]
+        .to match_array [enabled_rate_category.amenity_rates[0].id]
     end
 
     it "presents the rates in order" do
-      amenity = create(:amenity)
-      amenity_rate1 = create(:amenity_rate, amenity: amenity, sort_order: 1)
-      amenity_rate2 = create(:amenity_rate, amenity: amenity, sort_order: 3)
-      amenity_rate3 = create(:amenity_rate, amenity: amenity, sort_order: 2)
+      reserve = create(:reserve)
+      amenity = create(:amenity, reserve: reserve)
+      rate_category1 = create(:amenity_rate_category, reserve: reserve, sort_order: 1)
+      rate_category2 = create(:amenity_rate_category, reserve: reserve, sort_order: 3)
+      rate_category3 = create(:amenity_rate_category, reserve: reserve, sort_order: 2)
       presenter = AmenityPresenter.new(amenity)
 
       presented_rates = presenter.rates_with_enabled_rate_category
 
       expect(presented_rates.map(&:id))
-        .to eq [amenity_rate1.id, amenity_rate3.id, amenity_rate2.id]
+        .to eq [
+          rate_category1.amenity_rates[0].id,
+          rate_category3.amenity_rates[0].id,
+          rate_category2.amenity_rates[0].id,
+        ]
     end
   end
 

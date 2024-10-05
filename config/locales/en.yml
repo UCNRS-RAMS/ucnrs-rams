@@ -395,15 +395,18 @@ en:
       alt:
         close_modal_icon: "Cancel Editing and Close Modal"
     amenities:
+      new_amenity_rate_category:
+        title: "New Rate Category"
+        accessible_description: "A modal pop-up form to create rate category for this reserve."
       edit_amenity_rate_category:
         title: "Edit Rate Category"
-        accessible_description: "A modal pop-up form to edit rate category of an amenity for this reserve."
-      edit_amenity:
-        title: "Edit Amenity"
-        accessible_description: "A modal pop-up form to edit details of an amenity of this reserve."
+        accessible_description: "A modal pop-up form to edit rate category for this reserve."
       new_amenity:
         title: "New Amenity"
         accessible_description: "A modal pop-up form to create amenity for this reserve."
+      edit_amenity:
+        title: "Edit Amenity"
+        accessible_description: "A modal pop-up form to edit details of an amenity of this reserve."
       edit_amenity_rates:
         title: "Edit Amenity Rates"
         accessible_description: A modal pop-up form to edit amenity rates of an amenity.
@@ -2438,12 +2441,16 @@ en:
             governmental_agency_or_entity: "Governmental Agency or Entity"
             business_entity: "Business Entity"
             individual_or_other_entity: "Individual or Other Entity"
-        amenity_rate_category:
-          edit: "Edit"
+          create:
+            flash:
+              create_error: "Create error, please check all the required fields."
+              create_success: "Created Successfully"
           update:
             flash:
               update_error: "Update error, please check all the required fields."
               update_success: "Updated Successfully"
+        amenity_rate_category:
+          edit: "Edit"
         amenity_rates:
           amenity_name: "Amenity Name"
           edit: "Edit"

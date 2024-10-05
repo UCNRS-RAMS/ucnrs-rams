@@ -39,12 +39,14 @@ RSpec.describe AmenityRate, type: :model do
 
   describe ".visible" do
     it "returns records marked as `visible`" do
-      one = create(:amenity_rate, visible: true)
-      two = create(:amenity_rate, visible: false)
+      reserve = create(:reserve)
+      amenity = create(:amenity, reserve: reserve)
+      rate_category1 = create(:amenity_rate_category, reserve: reserve, visible: true)
+      rate_category2 = create(:amenity_rate_category, reserve: reserve, visible: false)
 
       results = AmenityRate.visible
 
-      expect(results).to eq [one]
+      expect(results).to eq [rate_category1.amenity_rates.first]
     end
   end
 
@@ -53,10 +55,12 @@ RSpec.describe AmenityRate, type: :model do
       user = create(:user, institution: build(
         :institution, institution_type: :governmental_organization_or_entity
       ))
-      one = create(:amenity_rate, governmental: true, k12: true)
-      two = create(:amenity_rate, governmental: false, business: true)
-      three = create(:amenity_rate, governmental: true)
-      four = create(:amenity_rate, governmental: false, other: true, k12: true)
+      reserve = create(:reserve)
+      amenity = create(:amenity, reserve: reserve)
+      rate_category1 = create(:amenity_rate_category, reserve: reserve, governmental: true, k12: true)
+      rate_category2 = create(:amenity_rate_category, reserve: reserve, governmental: false, business: true)
+      rate_category3 = create(:amenity_rate_category, reserve: reserve, governmental: true)
+      rate_category4 = create(:amenity_rate_category, reserve: reserve, governmental: false, other: true, k12: true)
 
       results = AmenityRate.with_default_for_user(user)
 
@@ -80,28 +84,12 @@ RSpec.describe AmenityRate, type: :model do
       reserve = create(:reserve)
       amenity1 = create(:amenity, reserve: reserve)
       amenity2 = create(:amenity)
-      amenity_rate1 = create(:amenity_rate, amenity: amenity2)
-      amenity_rate2 = create(:amenity_rate)
-      amenity_rate3 = create(:amenity_rate, amenity: amenity1)
+      rate_category1 = create(:amenity_rate_category, reserve: reserve)
+      rate_category2 = create(:amenity_rate_category)
 
       results = AmenityRate.for_reserve(reserve)
 
-      expect(results).to match_array [amenity_rate3]
-    end
-  end
-
-  describe ".for_reserve" do
-    it "returns records for given associated amenity reserve" do
-      reserve = create(:reserve)
-      amenity1 = create(:amenity, reserve: reserve)
-      amenity2 = create(:amenity)
-      amenity_rate1 = create(:amenity_rate, amenity: amenity2)
-      amenity_rate2 = create(:amenity_rate)
-      amenity_rate3 = create(:amenity_rate, amenity: amenity1)
-
-      results = AmenityRate.for_reserve(reserve)
-
-      expect(results).to match_array [amenity_rate3]
+      expect(results).to match_array amenity1.amenity_rates.to_a
     end
   end
 

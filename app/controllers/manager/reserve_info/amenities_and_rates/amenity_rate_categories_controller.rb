@@ -5,6 +5,28 @@ class Manager::ReserveInfo::AmenitiesAndRates::AmenityRateCategoriesController <
 
   layout "manager"
 
+  def new
+    form = AmenityRateCategoryForm.new(params: { reserve_id: current_reserve.id })
+    @presenter =
+      Manager::ReserveInfo::AmenitiesAndRates::AmenityRateCategoryNewPresenter.new(form: form)
+  end
+
+  def create
+    form = AmenityRateCategoryForm.new(
+      params: amenity_rate_category_params.merge(reserve_id: current_reserve.id),
+    )
+
+    if form.save
+      flash[:notice] = t(".flash.create_success")
+      redirect_to manager_reserve_reserve_info_amenities_and_rates_path(current_reserve)
+    else
+      flash.now[:error] = t(".flash.create_error")
+      @presenter =
+        Manager::ReserveInfo::AmenitiesAndRates::AmenityRateCategoryNewPresenter.new(form: form)
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def edit
     form = AmenityRateCategoryForm.new(amenity_rate_category: amenity_rate_category)
     @presenter =

@@ -246,7 +246,7 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     create(:project, reserve: reserve)
     amenity = create(:amenity, reserve: reserve, title: "title 1")
     amenity_rate_category = create(:amenity_rate_category, reserve: reserve, state_university: true)
-    create(:amenity_rate, amenity: amenity, amenity_rate_category: amenity_rate_category, rate: 10)
+    amenity.amenity_rates.first.update(rate: 10)
     user = create(:user, :confirmed)
 
     sign_in(user)

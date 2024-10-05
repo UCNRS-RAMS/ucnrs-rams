@@ -1,5 +1,6 @@
 class AmenityRateCategory < ApplicationRecord
   belongs_to :reserve
+  has_many :amenity_rates, -> { in_order }
 
   validates :sort_order, uniqueness: { scope: [:visible, :reserve_id] }
   validates :description, presence: true
@@ -16,6 +17,8 @@ class AmenityRateCategory < ApplicationRecord
   validates :business, inclusion: [true, false]
   validates :other, inclusion: [true, false]
 
+  after_create :create_rates_for_each_amenities
+
   def self.for_reserve(reserve)
     where(reserve: reserve)
   end
@@ -30,5 +33,19 @@ class AmenityRateCategory < ApplicationRecord
 
   def self.sort_by_visible
     order(visible: :desc)
+  end
+
+  private
+
+  def create_rates_for_each_amenities
+    Amenity.where(reserve_id: self.reserve_id).each do |amenity|
+      next if rate_with_amenity_exist?(amenity)
+
+      AmenityRate.create(amenity_id: amenity.id, amenity_rate_category_id: self.id, rate: 0.0)
+    end
+  end
+
+  def rate_with_amenity_exist?(amenity)
+    self.amenity_rates.find_by(amenity_id: amenity.id).present?
   end
 end
