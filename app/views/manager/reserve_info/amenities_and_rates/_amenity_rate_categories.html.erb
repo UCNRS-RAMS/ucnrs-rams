@@ -15,7 +15,12 @@
         <th><%= t(".gov_agency") %></th>
         <th><%= t(".business") %></th>
         <th><%= t(".individual") %></th>
-        <th></th>
+        <th>
+          <%= link_to t("new"),
+            new_manager_reserve_reserve_info_amenity_rate_category_path(current_reserve),
+            data: { "turbo-frame": "modal-content" }
+          %>
+        </th>
       </tr>
     </thead>
     <tbody>

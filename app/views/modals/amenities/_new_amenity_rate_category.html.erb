@@ -1,0 +1,35 @@
+<turbo-frame id="modal-content">
+  <div class="modal-content" data-modal-target="dialog openOnLoad">
+    <p class="screenreader-text">
+      <span id="modal-title"><%= t(".title") %></span>
+      <span id="modal-description"><%= t(".accessible_description") %></span>
+    </p>
+    <div class="close">
+      <%= image_tag "x.svg", height: "16px", width: "16px",
+        id: "x-icon",
+        data: { action: "click->modal#close" },
+        alt: t("alt.icon_x")
+      %>
+    </div>
+
+    <%= form_with model: presenter.form,
+      url: manager_reserve_reserve_info_amenity_rate_categories_path(current_reserve) do |form|
+    %>
+      <section>
+        <header class="modal-header">
+          <h2 class="modal-title"><%= t(".title") %></h2>
+        </header>
+        <%= render partial: "amenity_rate_category_field", locals: { form: form, presenter: presenter } %>
+      </section>
+
+      <section id="modal-footer" class="modal-footer">
+        <%= render partial: "shared/turbo_frame/flash-modal", locals: { flash: flash } %>
+
+        <section class="buttons">
+          <%= link_to t("cancel"), "#", class: "close", data: { action: "click->modal#close" } %>
+          <%= button_tag t("create"), class: "active", type: "submit" %>
+        </section>
+      </section>
+    <% end %>
+  </div>
+</turbo-frame>

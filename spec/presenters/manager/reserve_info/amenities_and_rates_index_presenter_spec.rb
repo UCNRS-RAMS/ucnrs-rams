@@ -58,18 +58,18 @@ RSpec.describe Manager::ReserveInfo::AmenitiesAndRatesIndexPresenter, type: :pre
       amenity_b = create(:amenity, reserve: reserve, title: "amenity b", sort_order: 2)
       amenity_rate_category1 = create(:amenity_rate_category, reserve: reserve, sort_order: 1)
       amenity_rate_category2 = create(:amenity_rate_category, reserve: reserve, sort_order: 2)
-      amenity_rate1 = create(:amenity_rate, amenity: amenity_a, amenity_rate_category: amenity_rate_category2)
-      amenity_rate2 = create(:amenity_rate, amenity: amenity_b, amenity_rate_category: amenity_rate_category1)
-      amenity_rate3 = create(:amenity_rate, amenity: amenity_a, amenity_rate_category: amenity_rate_category1)
-      amenity_rate4 = create(:amenity_rate, amenity: amenity_b, amenity_rate_category: amenity_rate_category2)
+      amenity_rate1 = amenity_a.amenity_rates[0]
+      amenity_rate2 = amenity_a.amenity_rates[1]
+      amenity_rate3 = amenity_b.amenity_rates[0]
+      amenity_rate4 = amenity_b.amenity_rates[1]
       presenter = Manager::ReserveInfo::AmenitiesAndRatesIndexPresenter.new(reserve: reserve)
 
       results = presenter.amenity_rates
 
       expect(results.keys).to match_array ["amenity a", "amenity b"]
       expect(results.values.flatten).to all(be_a(AmenityRatePresenter))
-      expect(results["amenity a"].map(&:id)).to eq [amenity_rate3.id, amenity_rate1.id]
-      expect(results["amenity b"].map(&:id)).to eq [amenity_rate2.id, amenity_rate4.id]
+      expect(results["amenity a"].map(&:id)).to eq [amenity_rate1.id, amenity_rate2.id]
+      expect(results["amenity b"].map(&:id)).to eq [amenity_rate3.id, amenity_rate4.id]
     end
   end
 end

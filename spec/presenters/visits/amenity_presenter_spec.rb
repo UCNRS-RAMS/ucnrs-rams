@@ -27,50 +27,33 @@ RSpec.describe Visits::AmenityPresenter do
     it "presents its visible, applicable rates in order" do
       insitiution = create(:institution, institution_type: :k_12_education )
       user = create(:user, institution: insitiution)
-      amenity = Visits::AmenityPresenter.new(create(:amenity), user: user)
-      rates = [
-        create(
-          :amenity_rate,
-          amenity: amenity.amenity,
-          sort_order: 1,
-          visible: true,
-          k12: true,
-        ),
-        create(
-          :amenity_rate,
-          amenity: amenity.amenity,
-          sort_order: 4,
-          visible: true,
-          business: true,
-        ),
-        create(
-          :amenity_rate,
-          amenity: amenity.amenity,
-          sort_order: 2,
-          visible: false,
-          k12: true
-        ),
-        create(
-          :amenity_rate,
-          amenity: amenity.amenity,
-          sort_order: 3,
-          visible: true,
-          k12: true,
-        ),
-      ]
+      reserve = create(:reserve)
+      amenity = create(:amenity, reserve: reserve)
+      rate_category1 = create(:amenity_rate_category, reserve: reserve, sort_order: 1, visible: true, k12: true)
+      rate_category2 = create(:amenity_rate_category, reserve: reserve, sort_order: 4, visible: true, business: true)
+      rate_category3 = create(:amenity_rate_category, reserve: reserve, sort_order: 2, visible: false, k12: true)
+      rate_category4 = create(:amenity_rate_category, reserve: reserve, sort_order: 3, visible: true, k12: true)
+      presenter = Visits::AmenityPresenter.new(amenity, user: user)
 
-      presented_rates = amenity.rates
+      presented_rates = presenter.rates
 
       expect(presented_rates.map(&:id))
-        .to eq [rates[0].id, rates[3].id, rates[1].id]
+        .to eq [
+          rate_category1.amenity_rates[0].id,
+          rate_category4.amenity_rates[0].id,
+          rate_category2.amenity_rates[0].id,
+        ]
     end
   end
 
   describe "#rate_descriptions" do
     it "generates the right descriptions for time-period-based rates" do
-      amenity = create(:amenity, units_type: :use, time_type: :four_hours)
-      create(:amenity_rate, amenity: amenity, rate: "12.34", description: "Rate 1")
-      create(:amenity_rate, amenity: amenity, rate: "0.01", description: "Rate 2")
+      reserve = create(:reserve)
+      amenity = create(:amenity, reserve: reserve, units_type: :use, time_type: :four_hours)
+      rate_category1 = create(:amenity_rate_category, reserve: reserve, sort_order: 1, description: "Rate 1")
+      rate_category2 = create(:amenity_rate_category, reserve: reserve, sort_order: 2, description: "Rate 2")
+      rate_category1.amenity_rates[0].update(rate: "12.34")
+      rate_category2.amenity_rates[0].update(rate: "0.01")
       presenter = Visits::AmenityPresenter.new(amenity)
 
       rate_descriptions = presenter.rate_descriptions
@@ -82,9 +65,12 @@ RSpec.describe Visits::AmenityPresenter do
     end
 
     it "generates the right descriptions for individual rates" do
-      amenity = create(:amenity, units_type: :use, time_type: :each)
-      create(:amenity_rate, amenity: amenity, rate: "12.34", description: "Rate 1")
-      create(:amenity_rate, amenity: amenity, rate: "0.01", description: "Rate 2")
+      reserve = create(:reserve)
+      amenity = create(:amenity, reserve: reserve, units_type: :use, time_type: :each)
+      rate_category1 = create(:amenity_rate_category, reserve: reserve, sort_order: 1, description: "Rate 1")
+      rate_category2 = create(:amenity_rate_category, reserve: reserve, sort_order: 2, description: "Rate 2")
+      rate_category1.amenity_rates[0].update(rate: "12.34")
+      rate_category2.amenity_rates[0].update(rate: "0.01")
       presenter = Visits::AmenityPresenter.new(amenity)
 
       rate_descriptions = presenter.rate_descriptions
