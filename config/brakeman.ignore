@@ -7,7 +7,7 @@
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/modals/_edit_user_visit.html.erb",
-      "line": 27,
+      "line": 38,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(partial => Manager::Visits::UserVisitEditPresenter.new(:form => UserVisitForm.new(:params => ({ :id => params[:id] })), :display_institution_form => display_institution_form?).institution_fields_path, { :locals => ({ :presenter => Manager::Visits::UserVisitEditPresenter.new(:form => UserVisitForm.new(:params => ({ :id => params[:id] })), :display_institution_form => display_institution_form?), :form => form }) })",
       "render_path": [
@@ -245,7 +245,7 @@
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/modals/_edit_user_visit.html.erb",
-      "line": 41,
+      "line": 52,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(partial => Manager::Visits::UserVisitEditPresenter.new(:form => UserVisitForm.new(:params => ({ :id => params[:id] })), :display_institution_form => display_institution_form?).user_days_partial, { :locals => ({ :presenter => Manager::Visits::UserVisitEditPresenter.new(:form => UserVisitForm.new(:params => ({ :id => params[:id] })), :display_institution_form => display_institution_form?), :form => form }) })",
       "render_path": [
@@ -739,7 +739,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/project_reserve_answer.rb",
-      "line": 46,
+      "line": 49,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "connection.execute(\"INSERT INTO #{table_name} (\\n  #{arel_table[:project_id].name},\\n  #{arel_table[:reserve_question_id].name},\\n  #{arel_table[:text_answer].name},\\n  #{arel_table[:boolean_answer].name},\\n  #{arel_table[:created_at].name},\\n  #{arel_table[:updated_at].name})\\nVALUES\\n  #{project_reserve_answers.map do\n ActiveRecord::Base.sanitize_sql([\"(?,?,?,?,?,?)\", answer.project_id, answer.reserve_question_id, answer.text_answer, answer.boolean_answer, Time.current, Time.current])\n end.join(\",\\n  \")}\\nAS new\\nON DUPLICATE KEY UPDATE\\n  text_answer = new.text_answer,\\n  boolean_answer = new.boolean_answer,\\n  updated_at = new.updated_at\\n\")",
       "render_path": null,
@@ -762,7 +762,7 @@
       "check_name": "PermitAttributes",
       "message": "Potentially dangerous key allowed for mass assignment",
       "file": "app/controllers/manager/users_controller.rb",
-      "line": 52,
+      "line": 53,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :gender_identity, :age_range, :phone_number, :secondary_phone_number, :accessibility_requirements, :backup_email_address, :role, :institution, :orcid, :advisor, :emergency_contact_full_name, :emergency_contact_phone_number, :address_country_id, :address_line_1, :address_line_2, :address_city, :address_state_id, :address_postal_code, :billing_address_same_as_current, :billing_address_country_id, :billing_address_line_1, :billing_address_line_2, :billing_address_city, :billing_address_state_id, :billing_address_postal_code, :billing_person_full_name, :billing_person_email, :billing_person_phone_number)",
       "render_path": null,
@@ -983,6 +983,25 @@
       "note": "\"Dynamic render path\""
     },
     {
+      "warning_type": "Unmaintained Dependency",
+      "warning_code": 120,
+      "fingerprint": "d84924377155b41e094acae7404ec2e521629d86f97b0ff628e3d1b263f8101c",
+      "check_name": "EOLRails",
+      "message": "Support for Rails 6.1.7.10 ended on 2024-10-01",
+      "file": "Gemfile.lock",
+      "line": 305,
+      "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        1104
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Mass Assignment",
       "warning_code": 105,
       "fingerprint": "d89fa6b758ef56b068fcd34bd2144f73767b273ee07babca63b835aa402d1eb5",
@@ -1118,6 +1137,6 @@
       "note": ""
     }
   ],
-  "updated": "2024-04-29 20:51:08 -0700",
-  "brakeman_version": "5.4.0"
+  "updated": "2024-10-23 22:05:05 -0700",
+  "brakeman_version": "6.2.2"
 }
