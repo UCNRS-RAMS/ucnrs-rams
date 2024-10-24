@@ -560,8 +560,11 @@ main {
 
       .tag-btn.category {
         label {
+          align-items: center;
           background: unset;
           border: 1px solid $gold;
+          display: flex;
+          justify-content: space-between;
         }
 
         label:hover {
@@ -569,11 +572,40 @@ main {
           color: $white;
         }
 
+        label::after {
+          content: "";
+          display: block;
+          height: 1rem;
+          margin-left: .5rem;
+          width: 1rem;
+        }
+
         input:checked ~ label {
           background: $gold;
-          color: $white;
+          color: $navy-blue;
+        }
+
+        input:not(:checked) ~ label::after {
+          background: no-repeat center/16px url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><line x1='12' y1='5' x2='12' y2='19'></line><line x1='5' y1='12' x2='19' y2='12'></line></svg>");
+        }
+
+        input:not(:checked) ~ label:hover::after {
+          background: no-repeat center/16px url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' style='color: white;'><line x1='12' y1='5' x2='12' y2='19'></line><line x1='5' y1='12' x2='19' y2='12'></line></svg>");
+        }
+
+        input:checked ~ label::after {
+          background: no-repeat center/16px url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' style='color: white;'><line x1='5' y1='12' x2='19' y2='12'></line></svg>");
         }
       }
+
+      .tag-group:has(.tag-btn.category input:checked) .tags-container {
+        display: flex;
+      }
+
+      .tag-group:has(.tag-btn.category input:not(:checked)) .tags-container {
+        display: none;
+      }
+
 
       .tag-btn {
         input {
@@ -581,11 +613,10 @@ main {
         }
 
         label {
-          align-items: center;
           background: $lightgray;
           border: 1px solid $gray;
           border-radius: 3px;
-          color: $semidark-bluegray;
+          color: $dark-bluegray;
           cursor: pointer;
           display: inline-block;
           font-size: 0.875rem;
@@ -601,7 +632,6 @@ main {
         label:active {
           background: $gray;
           color: $white;
-
         }
 
         input:checked ~ label {

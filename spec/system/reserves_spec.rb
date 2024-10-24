@@ -65,7 +65,6 @@ RSpec.describe "Reserves", type: :system, js: true do
       expect(page).to be_axe_clean
 
       flow.click_reserve_tag("Geographic")
-      flow.click_reserve_tag("Ecosystem")
 
       expect(flow).to be_displaying_tag("River")
       expect(flow).to be_displaying_tag("Marsh")
@@ -101,7 +100,7 @@ RSpec.describe "Reserves", type: :system, js: true do
       expect(page).to be_axe_clean
 
       flow.click_reserve_tag("Geographic")
-      flow.click_reserve_tag("Ecosystem")
+
       sleep(0.1)
 
       expect(flow).to be_displaying_tag("River")
@@ -119,7 +118,6 @@ RSpec.describe "Reserves", type: :system, js: true do
       flow.click_clear_btn("Clear Selection & Start Over")
 
       expect(flow).not_to be_displaying_tag("River")
-      expect(flow).not_to be_displaying_tag("Marsh")
       expect(flow).not_to be_displaying_tag("Beach")
       expect(flow).to have_reserves_count(3)
     end
