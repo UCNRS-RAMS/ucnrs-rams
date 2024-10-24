@@ -1,4 +1,8 @@
-<div class="tag-btn category">
-  <%= check_box( option, "selected", { id: "tags_selected_#{tag}", data: data }, tag, nil) %>
-  <label for="tags_selected_<%= tag %>" ><%= tag.capitalize %></label>
-</div>
+<%= tag.div class: "tag-btn category", id: tag_name do %>
+  <%= check_box( name, "selected",
+    { id: "tags_selected_#{tag_name}", data: data , checked: (tag_name == "ecosystem") },
+    tag_name,
+    nil
+  ) %>
+  <%= tag.label tag_name.capitalize, for: "tags_selected_#{tag_name}" %>
+<% end %>

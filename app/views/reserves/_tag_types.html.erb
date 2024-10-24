@@ -1,8 +1,8 @@
-<div data-controller="reserve-tag">
-  <%= render partial: "shared/reserves/tag", locals: { tag: tag_type, option: "tag_type", data: { action: "change->reserve-tag#toggle" } } %>
-  <div data-reserve-tag-target = "tagsDiv" data-reserve-target = "tagsDiv">
-    <div class="<%= tag_type %> tags-container tags-names" >
-      <%= render partial: "reserve_tag_name", collection: tag_names, locals: { reserve_tag_category: tag_type } %>
-    </div>
+<div class="tag-group">
+  <%= render partial: "shared/reserves/tag",
+    locals: { tag_name: tag_type, name: "tag_type", data: { action: "change->reserve-tag#toggle" } }
+  %>
+  <div class="<%= tag_type %> tags-container tags-names" >
+    <%= render partial: "reserve_tag_name", collection: tag_names, locals: { reserve_tag_category: tag_type } %>
   </div>
 </div>

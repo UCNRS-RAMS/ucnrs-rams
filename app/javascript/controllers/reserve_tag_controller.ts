@@ -21,5 +21,7 @@ export default class extends Controller {
     checkboxes.forEach((checkbox) => {
       checkbox.checked = false
     })
+
+    this.tagsDivTarget.querySelector("input").form.requestSubmit()
   }
 }
