@@ -116,6 +116,10 @@ class Reserve < ApplicationRecord
   end
 
   def self.with_name(tag_name)
-    joins(:reserve_tags).where(reserve_tags: { name: tag_name })
+    if tag_name.present?
+      joins(:reserve_tags).where(reserve_tags: { name: tag_name }).distinct
+    else
+      all
+    end
   end
 end
