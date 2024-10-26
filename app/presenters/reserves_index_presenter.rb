@@ -29,7 +29,7 @@ class ReservesIndexPresenter
   def reserve_scope
     Reserve
       .searching_term(search_filter)
-      .with_names(selected_tags)
+      .with_name(selected_tags)
       .alphabetized
   end
 end

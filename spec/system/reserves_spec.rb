@@ -51,8 +51,8 @@ RSpec.describe "Reserves", type: :system, js: true do
       create(:reserve_tag, reserve: reserve2, category: :geographic, name: "River")
       create(:reserve_tag, reserve: reserve2, category: :ecosystem, name: "Marsh")
       create(:reserve_tag, reserve: reserve2, category: :geographic, name: "Beach")
-      create(:reserve_tag, reserve: reserve3, category: :geographic, name: "Beach")
       create(:reserve_tag, reserve: reserve3, category: :ecosystem, name: "Marsh")
+      create(:reserve_tag, reserve: reserve3, category: :geographic, name: "Beach")
 
       flow = ReservesFlow.new(page)
 
@@ -71,10 +71,10 @@ RSpec.describe "Reserves", type: :system, js: true do
       expect(flow).to be_displaying_tag("Beach")
 
       flow.click_reserve_tag("River")
-      flow.click_reserve_tag("Marsh")
+      flow.click_reserve_tag("Beach")
       sleep(0.1)
 
-      expect(flow).to have_reserves_count(2)
+      expect(flow).to have_reserves_count(3)
     end
 
     it "reset filters and shows all the reserves when click on 'Clear Selection & Start Over'", js: true do
@@ -86,8 +86,9 @@ RSpec.describe "Reserves", type: :system, js: true do
       create(:reserve_tag, reserve: reserve2, category: :geographic, name: "River")
       create(:reserve_tag, reserve: reserve2, category: :ecosystem, name: "Marsh")
       create(:reserve_tag, reserve: reserve2, category: :geographic, name: "Beach")
-      create(:reserve_tag, reserve: reserve3, category: :geographic, name: "Beach")
       create(:reserve_tag, reserve: reserve3, category: :ecosystem, name: "Marsh")
+      create(:reserve_tag, reserve: reserve3, category: :geographic, name: "Beach")
+
 
       flow = ReservesFlow.new(page)
 
@@ -110,7 +111,6 @@ RSpec.describe "Reserves", type: :system, js: true do
       expect(flow).to have_reserves_count(3)
 
       flow.click_reserve_tag("River")
-      flow.click_reserve_tag("Marsh")
       sleep(0.1)
 
       expect(flow).to have_reserves_count(2)
