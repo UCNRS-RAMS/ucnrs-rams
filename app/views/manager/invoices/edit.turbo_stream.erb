@@ -1,0 +1,27 @@
+<turbo-stream action="replace" target="modal-content">
+  <template>
+    <%= render partial: "modals/empty", formats: [:html] %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="invoice-payments-section">
+  <template>
+    <%= render partial: "invoice_edit_payment_table",
+      locals: { invoice_payments: @presenter.invoice_payments, presenter: @presenter }
+    %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="invoice-balance-section">
+  <template>
+    <%= render partial: "balance",
+      locals: { presenter: @presenter }
+    %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="update" target="flash">
+  <template>
+    <%= render partial: "shared/flash/flash", locals: { flash: flash } %>
+  </template>
+</turbo-stream>

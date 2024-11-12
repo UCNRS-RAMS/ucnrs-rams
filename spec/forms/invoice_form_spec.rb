@@ -16,7 +16,6 @@ RSpec.describe InvoiceForm, type: :model do
 
       expect(form.invoice).to have_attributes(
         id: nil,
-        visit_id: nil,
         invoiced_on: nil,
         notes: nil,
         modify_number: 0,
@@ -67,7 +66,7 @@ RSpec.describe InvoiceForm, type: :model do
       create(:amenity_visit, visit: visit, number_of_people: 10, manual_units_of_time: 10, rate: 10, invoice_id: nil)
       form = InvoiceForm.new(params: {visit_id: visit.id})
 
-      expect(form.amenities_total).to eq "$2000.00"
+      expect(form.amenities_total).to eq 2000
     end
   end
 

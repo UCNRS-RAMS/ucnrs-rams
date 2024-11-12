@@ -58,7 +58,6 @@ class Manager::Invoices::InvoiceShowPresenter
 
   def balance
     balance ||= calculate_balance
-    I18n.t("manager.invoices.edit.balance",sign: sign(balance), balance: balance.abs)
   end
 
   def balance_class
@@ -74,9 +73,20 @@ class Manager::Invoices::InvoiceShowPresenter
 
   private
 
-  delegate :reserve, :project, to: :visit, private: true
-  delegate :invoice_recipients, :id, :modify_number, :visit, :amenity_visits, to: :invoice, private: true
-  delegate :id, to: :project , prefix: true, private: true
+  delegate :reserve,
+    :project,
+    to: :visit
+
+  delegate :invoice_recipients,
+    :id,
+    :modify_number,
+    :visit,
+    :amenity_visits,
+    to: :invoice
+
+  delegate :id,
+    to: :project,
+    prefix: true
 
   def recipients_user_ids
     invoice_recipients.pluck(:user_id)

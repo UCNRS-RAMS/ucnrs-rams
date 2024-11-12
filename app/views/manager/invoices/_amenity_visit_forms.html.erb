@@ -25,9 +25,10 @@
     </tbody>
     <tfoot>
       <tr>
-        <td><strong><%= t(".total") %></strong></td>
-        <td colspan="3"></td>
-        <td class="amenity-visit-subtotal"><strong id="total"><%= presenter.amenities_total %></strong></td>
+        <td><strong>Subtotal:</strong></td>
+        <td colspan="4" class="amenity-visit-subtotal">
+          <strong id="total"><%= number_to_currency presenter.amenities_total %></strong>
+        </td>
       </tr>
     </tfoot>
   </table>

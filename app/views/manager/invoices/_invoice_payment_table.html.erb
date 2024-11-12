@@ -14,10 +14,11 @@
       <%= render partial: "manager/invoices/invoice_payment", collection: invoice_payments %>
     </tbody>
     <tfoot>
-      <tr class="payment-total">
-        <td class="balance-title"><%= t(".balance") %></td>
-        <td></td>
-        <td class='<%= "balance #{@presenter.balance_class}"  %>'><strong><%= @presenter.balance %></strong></td>
+      <tr>
+        <td><strong>Subtotal:</strong></td>
+        <td colspan="2" class="balance invoice-payments-balance">
+          <strong id="payments-total"><%= number_to_currency invoice_payments.pluck(:amount).sum %></strong>
+        </td>
       </tr>
     </tfoot>
   </table>
