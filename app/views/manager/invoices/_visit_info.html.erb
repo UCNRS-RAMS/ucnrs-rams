@@ -6,11 +6,17 @@
     </tr>
     <tr>
       <td><%= t(".project") %></td>
-      <td class="project-name"><%= presenter.project_title %></td>
+      <td class="project-name">
+        <%= link_to presenter.project_title,
+          manager_reserve_project_path(current_reserve, presenter.visit.project) %>
+      </td>
     </tr>
     <tr>
       <td><%= t(".visit") %></td>
-      <td class="visit-purpose"><%= truncate(presenter.purpose_of_visit, length: 100) %></td>
+      <td class="visit-purpose">
+        <%= link_to truncate(presenter.purpose_of_visit, length: 100),
+          manager_reserve_visit_path(current_reserve, presenter.visit) %>
+      </td>
     </tr>
     <tr>
       <td><%= t(".date_of_use") %></td>

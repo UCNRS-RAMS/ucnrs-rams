@@ -69,7 +69,7 @@ RSpec.describe "Invoice Detail" do
       sign_in(user)
 
       flow.visit_manager_projects_invoice_edit_page
-      expect(flow).to have_submit_button("Edit Invoice")
+      expect(flow).to have_submit_button("Update")
     end
 
     it "includes back button", js: true do

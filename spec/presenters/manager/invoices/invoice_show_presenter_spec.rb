@@ -84,7 +84,7 @@ RSpec.describe Manager::Invoices::InvoiceShowPresenter do
       presenter = Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: :user)
       amenity_visit_total = format("%0.2f", invoice.amenity_visits.sum(&:subtotal)).to_i
       payments_amount_total = format("%0.2f", invoice.invoice_payments.pluck(:amount).sum).to_i
-      output = "-$ #{(amenity_visit_total - payments_amount_total).abs}"
+      output = (amenity_visit_total - payments_amount_total)
 
       expect(presenter.balance).to eq output
     end

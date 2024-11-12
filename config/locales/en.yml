@@ -1434,9 +1434,9 @@ en:
       edit:
         record_payment: "Record Payment"
         invoice: "Edit Invoice %{id}-%{version}"
-        balance: "%{sign}$ %{balance}"
+        balance: "Balance"
         back: "Cancel & Go Back"
-        submit: "Edit Invoice"
+        submit: "Update"
       search:
         show_options: "Show options"
         hide_options: "Hide options"

@@ -18,16 +18,9 @@
     data: { turbo: false },
     id: "invoices-edit" do |form|
   %>
-    <%= render partial: "project_team_members",
-      locals: { team_members: @presenter.project_team_members, form: @presenter.form }
+    <%= render partial: "invoice_field",
+      locals: { presenter: @presenter, form: form }
     %>
-    <%= render partial: "amenity_visit_forms",
-      locals: { presenter: @presenter, forms: @presenter.form }
-    %>
-    <%= render partial: "invoice_edit_payment_table",
-      locals: { invoice_payments: @presenter.invoice_payments, presenter: @presenter }
-    %>
-    <%= render partial: "invoice_notes", locals: { form: form } %>
   <% end %>
 </section>
 

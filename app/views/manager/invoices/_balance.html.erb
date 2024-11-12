@@ -1,0 +1,17 @@
+<turbo-frame id="invoice-balance-section">
+  <section class="invoice-payments subsection">
+    <header>
+      <h3>Balance</h3>
+    </header>
+    <table>
+      <tfoot>
+        <tr class="payment-total">
+          <td><strong>Total:</strong></td>
+          <td class="balance <%= presenter.balance_class %>">
+            <strong class="balance" id="balance"><%= number_to_currency presenter.balance %></strong>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </section>
+</turbo-frame>

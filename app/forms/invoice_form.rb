@@ -44,7 +44,7 @@ class InvoiceForm
   end
 
   def amenities_total
-    "$#{value(amenity_visits.sum(&:subtotal))}"
+    amenity_visits.sum(&:subtotal)
   end
 
   def amenity_visit_checked?(is_invoiced)
@@ -115,7 +115,7 @@ class InvoiceForm
   def unchecked_amenity_visits
     visit.amenity_visits.uninvoiced
   end
-  
+
   def value(num)
     format("%0.2f", num)
   end

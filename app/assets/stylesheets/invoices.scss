@@ -56,11 +56,29 @@
       }
     }
 
-    .invoice-amenity-visits {
-      table {
+    .invoice-amenity-visits,
+    .invoice-payments {
+      table{
         @include summary-table-style;
 
-        tr .amenity-visit-unit, tr .amenity-visit-count {
+        tfoot {
+          tr {
+            td {
+              border-top: 2px solid $gray;
+            }
+
+            td.balance {
+              text-align: right;
+            }
+          }
+        }
+      }
+    }
+
+    .invoice-amenity-visits {
+      table {
+        tr .amenity-visit-unit,
+        tr .amenity-visit-count {
           width: 70px;
         }
 
@@ -68,29 +86,14 @@
           text-align: right;
         }
 
-        tbody tr .amenity-visit-subtotal,
         tfoot tr .amenity-visit-subtotal {
-          color: red;
-        }
-
-        tfoot {
-          tr {
-            td {
-              border-top: 2px solid $gray;
-
-              strong {
-                font-weight: $semi-bold;
-              }
-            }
-          }
+          color: $red;
         }
       }
     }
 
     .invoice-payments {
       table{
-        @include summary-table-style;
-
         tr .payment-date {
           width: 100px;
         }
@@ -103,18 +106,6 @@
         tbody tr .payment-subtotal,
         tfoot tr .payment-subtotal {
           color: green;
-        }
-
-        tfoot {
-          tr {
-            td {
-              border-top: 2px solid $gray;
-
-              strong {
-                font-weight: $semi-bold;
-              }
-            }
-          }
         }
       }
 
@@ -165,7 +156,7 @@
         }
 
         .positive-balance {
-          color: red;
+          color: $red;
         }
       }
     }

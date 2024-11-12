@@ -10,6 +10,21 @@
     <% if @presenter.invoice_payments.present? %>
       <%= render partial: "invoice_payment_table", locals: { invoice_payments: @presenter.invoice_payments } %>
     <% end %>
+    <section class="invoice-payments subsection">
+      <header>
+        <h3>Balance</h3>
+      </header>
+      <table>
+        <tfoot>
+          <tr class="payment-total">
+            <td>Total:</td>
+            <td class="balance <%= @presenter.balance_class %>">
+              <strong><%= number_to_currency @presenter.balance %></strong>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </section>
     <%= render partial: "notes", locals: { presenter: @presenter } %>
   </turbo-frame>
 </section>
