@@ -1352,7 +1352,7 @@ en:
       not_saved: "This project could not be saved as 'open'"
     contact_manager:
       sent_message:
-        "A message have been sent to the reserve: %{reserve_name} regarding your
+        "A message has been sent to the reserve: %{reserve_name} regarding your
         request."
   waivers:
     index:
