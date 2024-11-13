@@ -23,53 +23,58 @@
           %>
         </header>
         <%= form.hidden_field :id %>
-        <div class="field autocomplete" data-controller="autocomplete" data-autocomplete-url-value="<%= institutions_path %>">
-          <%= form.label :institution_name %>
-          <%= form.text_field :institution_name, placeholder: t(".search_by_name"), value: presenter.institution_name, data: { "autocomplete-target": "input" } %>
+        <div class="autocomplete form-group" data-controller="autocomplete" data-autocomplete-url-value="<%= institutions_path %>">
+          <%= form.label :institution_name, class:"form-label" %>
+          <%= form.text_field :institution_name,
+            placeholder: t(".search_by_name"),
+            value: presenter.institution_name,
+            data: { "autocomplete-target": "input" },
+            class: "form-input"
+          %>
           <%= form.hidden_field :institution_id, data: { "autocomplete-target": "hidden" } %>
           <div class="autocomplete-results-container">
             <ul class="autocomplete-results" data-autocomplete-target="results"></ul>
           </div>
         </div>
-        <div class="field">
-          <%= form.label :user_role %>
-          <%= form.select :user_role, presenter.user_role_options %>
+        <div class="form-group">
+          <%= form.label :user_role, class: "form-label" %>
+          <%= form.select :user_role, presenter.user_role_options, {}, class: "form-input" %>
         </div>
-        <fieldset>
-          <legend><%= t(".permissions") %></legend>
-          <div class="field checkbox">
-            <%= form.label :active %>
+        <div class="form-group">
+          <div class="form-label"><%= t(".permissions") %></div>
+          <div>
             <%= form.check_box :active %>
+            <%= form.label :active, class: "form-inline-label" %>
           </div>
-          <div class="field checkbox">
-            <%= form.label :is_principal_investigator %>
+          <div>
             <%= form.check_box :is_principal_investigator %>
+            <%= form.label :is_principal_investigator, class: "form-inline-label" %>
           </div>
-          <div class="field checkbox">
-            <%= form.label :can_edit_project %>
+          <div>
             <%= form.check_box :can_edit_project %>
+            <%= form.label :can_edit_project, class: "form-inline-label" %>
           </div>
-          <div class="field checkbox">
-            <%= form.label :can_add_project_user %>
+          <div>
             <%= form.check_box :can_add_project_user %>
+            <%= form.label :can_add_project_user, class: "form-inline-label" %>
           </div>
-          <div class="field checkbox">
-            <%= form.label :can_add_visit %>
+          <div>
             <%= form.check_box :can_add_visit %>
+            <%= form.label :can_add_visit, class: "form-inline-label" %>
           </div>
-          <div class="field checkbox">
-            <%= form.label :can_receive_invoice %>
+          <div>
             <%= form.check_box :can_receive_invoice %>
+            <%= form.label :can_receive_invoice, class: "form-inline-label" %>
           </div>
-        </fieldset>
+        </div>
         <% if presenter.able_to_change_owner? %>
-          <fieldset>
-            <legend><%= t(".ownership") %></legend>
-            <div class="field checkbox">
-              <%= form.label :assigned_as_project_owner?, t(".assigned_as_project_owner") %>
+          <div class="form-group">
+            <div class="form-label"><%= t(".ownership") %></div>
+            <div>
               <%= form.check_box :assigned_as_project_owner?, {}, true, false %>
+              <%= form.label :assigned_as_project_owner?, t(".assigned_as_project_owner"), class: "form-inline-label" %>
             </div>
-          </fieldset>
+          </div>
         <% end %>
       </section>
       <section class="buttons">
