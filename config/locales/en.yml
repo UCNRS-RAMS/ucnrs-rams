@@ -2858,7 +2858,6 @@ en:
             calendar: "Calendar Icon"
             left_arrow: "Left Arrow to Go Back"
             right_arrow: "Right Arrow"
-            optional: "Optional"
             rate_determined: "Rate determined automatically from your Institution (%{institution})"
           links:
             go_back: "Go Back"
@@ -3003,7 +3002,7 @@ en:
           calendar: "Calendar Icon"
           left_arrow: "Left Arrow to Go Back"
           right_arrow: "Right Arrow"
-          optional: "Optional"
+          required: "Required"
           rate_determined: "Rate determined automatically from your Institution (%{institution})"
         links:
           go_back: "Go Back"
