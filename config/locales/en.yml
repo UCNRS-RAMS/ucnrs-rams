@@ -3147,11 +3147,21 @@ en:
             to future visits. A team member is not intended to be used to add groups of people or
             guests (which is done when adding a visit) but intended for repeat user or users
             requiring specific authorization within RAMS."
-          cannot_find_them: "Can't find them?"
-          create_new_user: "Create new user"
-          search_by_name: "Search by name"
-          choose_role: "Choose Role"
           add_team_member_submit: "Add Team Member"
+          book_visit: "Book Visit"
+          cannot_find_them: "Can't find them?"
+          choose_role: "Choose Role"
+          create_new_user: "Create new user"
+          edit_project: "Edit Project"
+          receive_invoice: "Receive Invoice"
+          search_by_name: "Search by name"
+          pi_principal_investigator: "PI - Principal Investigator"
+          project_manager: "Project Manager"
+          team_member: "Team Member"
+          billing: "Billing"
+          alt-text:
+            allowed: "Allowed"
+            disallowed: "Disallowed"
         index:
           title: "Team"
           back: "Go Back"
