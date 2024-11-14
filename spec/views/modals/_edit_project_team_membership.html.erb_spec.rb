@@ -55,7 +55,6 @@ RSpec.describe "modals/_edit_project_team_membership.html.erb", type: :view do
     expect(doc).to have_field("Is principal investigator", checked: true)
     expect(doc).to have_field("Can edit project", checked: true)
     expect(doc).to have_field("Can add visit", checked: false)
-    expect(doc).to have_field("Can add project user", checked: true)
     expect(doc).to have_no_field("Change this user to this project's owner")
   end
 
@@ -94,7 +93,6 @@ RSpec.describe "modals/_edit_project_team_membership.html.erb", type: :view do
     expect(doc).to have_field("Is principal investigator", checked: true)
     expect(doc).to have_field("Can edit project", checked: true)
     expect(doc).to have_field("Can add visit", checked: false)
-    expect(doc).to have_field("Can add project user", checked: true)
     expect(doc).to have_field("Change ownership of the project to this user", checked: true)
   end
 
@@ -133,7 +131,6 @@ RSpec.describe "modals/_edit_project_team_membership.html.erb", type: :view do
     expect(doc).to have_field("Is principal investigator", checked: true)
     expect(doc).to have_field("Can edit project", checked: true)
     expect(doc).to have_field("Can add visit", checked: false)
-    expect(doc).to have_field("Can add project user", checked: true)
     expect(doc).to have_no_field("Change ownership of the project to this user", checked: false)
   end
 end
