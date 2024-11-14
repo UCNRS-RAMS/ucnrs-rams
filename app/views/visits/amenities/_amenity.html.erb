@@ -16,8 +16,14 @@
       %>
       <div class="content" data-controller="toggle">
         <h3><%= presenter.title %></h3>
-        <p class="description"><%= truncate(presenter.comment, length: 150) %></p>
+        <p class="description showing" data-toggle-class="showing" data-toggle-target="toggle">
+          <%= truncate(presenter.comment, length: 150) %>
+        </p>
+        <p class="description" data-toggle-class="showing" data-toggle-target="toggle">
+          <%= presenter.comment %>
+        </p>
         <div class="comment-and-rates" data-toggle-target="toggle" data-toggle-class="showing">
+          <p class="description"><%= presenter.comment %></p>
           <hr />
           <% presenter.rate_descriptions.each do |rate| %>
             <p><%= rate %></p>
