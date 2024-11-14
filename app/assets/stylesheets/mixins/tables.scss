@@ -391,3 +391,19 @@
     border:none;
   }
 }
+
+@mixin summary-table-style2 {
+  color: $dark-bluegray;
+  font-size: 0.75rem;
+  width: 100%;
+
+  img[src*="check"] {
+    height: 0.875rem;
+    width: 0.875rem;
+  }
+
+  img[src*="dot"] {
+    height: 0.875rem;
+    width: 0.875rem;
+  }
+}

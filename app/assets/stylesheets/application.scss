@@ -19,6 +19,7 @@
 @import "mixins/dropdown";
 @import "simple_calendar";
 @import "mixins/input";
+@import "mixins/tables";
 
 html {
   height: 100%;
@@ -224,4 +225,17 @@ table.summary-table {
       }
     }
   }
+}
+
+table.summary-table-style2 {
+  @include summary-table-style2;
+}
+
+hr.subtle {
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+  border-top: 1px solid $bluegray;
+  margin-block-end: 1em;
+  margin-block-start: 1em;
 }

@@ -4,6 +4,40 @@
       <h2><%= t(".add_team_member_title") %></h2>
     </div>
     <span class="header-info"><%= t(".add_team_member_description") %></span>
+    <hr class="subtle" />
+    <table class="summary-table-style2">
+      <tr>
+        <td></td>
+        <td><%= t(".edit_project")%></td>
+        <td><%= t(".book_visit")%></td>
+        <td><%= t(".receive_invoice")%></td>
+      </tr>
+      <tr>
+        <td><%= t(".pi_principal_investigator")%></td>
+        <td><%= image_tag "check.svg", alt: t(".alt-text.allowed") %></td>
+        <td><%= image_tag "check.svg", alt: t(".alt-text.allowed") %></td>
+        <td><%= image_tag "check.svg", alt: t(".alt-text.allowed") %></td>
+      </tr>
+      <tr>
+        <td><%= t(".project_manager")%></td>
+        <td><%= image_tag "check.svg", alt: t(".alt-text.allowed") %></td>
+        <td><%= image_tag "check.svg", alt: t(".alt-text.allowed") %></td>
+        <td><%= image_tag "dot.svg", alt: t(".alt-text.disallowed") %></td>
+      </tr>
+      <tr>
+        <td><%= t(".team_member")%></td>
+        <td><%= image_tag "dot.svg", alt: t(".alt-text.disallowed") %></td>
+        <td><%= image_tag "check.svg", alt: t(".alt-text.allowed") %></td>
+        <td><%= image_tag "dot.svg", alt: t(".alt-text.disallowed") %></td>
+      </tr>
+      <tr>
+        <td><%= t(".billing")%></td>
+        <td><%= image_tag "dot.svg", alt: t(".alt-text.disallowed") %></td>
+        <td><%= image_tag "check.svg", alt: t(".alt-text.allowed") %></td>
+        <td><%= image_tag "check.svg", alt: t(".alt-text.allowed") %></td>
+      </tr>
+    </table>
+    <hr class="subtle" />
   </header>
   <%= form_with model: presenter.form, url: presenter.team_memberships_form_path do |form| %>
     <div class="field autocomplete" data-controller="autocomplete" data-autocomplete-url-value="<%= users_path %>">
