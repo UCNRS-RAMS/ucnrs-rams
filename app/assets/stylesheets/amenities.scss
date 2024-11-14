@@ -140,6 +140,10 @@
         border-right: none;
       }
 
+      .amenity-header .content .description:not(.showing) {
+        display: none;
+      }
+
       .bookings {
         background: lighten($bluegray, 30%);
         border-bottom-left-radius: $border-radius;
