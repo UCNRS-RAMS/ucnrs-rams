@@ -15,6 +15,10 @@ class Reserves::Calendar::Unauthorize::ShowPresenter < Home::CalendarShowPresent
     reserve_calendar_path(reserve_id: current_reserve)
   end
 
+  def public_calendar_access
+    current_reserve.public_calendar_access
+  end
+
   private
 
   def visit_scope
