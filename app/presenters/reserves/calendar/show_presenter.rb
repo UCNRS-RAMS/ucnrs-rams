@@ -24,4 +24,8 @@ class Reserves::Calendar::ShowPresenter < Manager::Dashboard::CalendarShowPresen
       Reserves::Calendar::VisitPresenter.new(visit: visit, type: type, status: status)
     end
   end
+
+  def public_calendar_access
+    reserve.public_calendar_access
+  end
 end

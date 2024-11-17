@@ -552,6 +552,8 @@ en:
     calendar:
       show:
         title: "Reserve Calendar"
+        public_calendar_not_available: "A public calendar is not available this reserve, please
+          contact staff with questions re: availability."
     rules_and_directions:
       show:
         title: "Rules and Directions"
@@ -565,8 +567,9 @@ en:
       waivers:
         direction_title: "All visitors must sign and return a waiver agreement prior to visiting a reserve."
         direction_body:
-          "If your application is approved, the group leader (person who is listed as contact for the requested activity) will be responsible
-          for ensuring that all necessary waivers are submitted to reserve staff prior to the proposed visit. Waiver agreements for minors
+          "If your application is approved, the group leader (person who is listed as contact for
+          the requested activity) will be responsible for ensuring that all necessary waivers are
+          submitted to reserve staff prior to the proposed visit. Waiver agreements for minors
           must be signed by the parent or legal guardian."
       waiver:
         download_pdf: "Download PDF"

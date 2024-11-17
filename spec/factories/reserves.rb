@@ -4,6 +4,7 @@ FactoryBot.define do
     sequence(:name) { |n| "Reserve #{n}" }
     address_state { association(:state) }
     amenity_group_label_1 { "Label 1" }
+    public_calendar_access { true }
 
     transient do
       amenities_named { [] }
