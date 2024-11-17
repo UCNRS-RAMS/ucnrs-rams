@@ -377,11 +377,7 @@ en:
         demand for reserves, and validate the need for financial and staffing support.
         The information you enter may be be included in reports and other communications,
         and shared with the public."
-      content_middle:
-        "If you have a research project, the California Digital Library
-        Data Management Plan (DMP) Tool can help you complete your data management plan.
-        RAMS has an active connection to the DMP Tool, which allows real-time tracking of data
-        and journal publications."
+      content_middle: ""
       okay: "Okay, Got It"
       alt:
         right_facing_arrow: "A right facing arrow"
@@ -770,12 +766,11 @@ en:
       fields:
         labels:
           special_needs: "Special Needs"
-          study_area: "Study Area"
+          use_area: "Use Area"
           study_area_description:
-            "If known please provide a general description of the geographic
-            area in which the data is being collected for the entire project. It can be a simple
-            place name or a full description. This information helps the reserve staff manage
-            the different class and research activities on the reserve."
+            "It can be a simple place name or a full description. This information
+            helps the reserve staff manage the different class and research activities
+            on the reserve."
     show:
       successfully_cancelled: "Visit Successfully Cancelled"
       could_not_cancel: "Could Not Cancel"
@@ -881,7 +876,7 @@ en:
     completed_project_sidebar:
       sidebar_title:
         "Congratulations on successfully creating your project. Now schedule your
-        visit(s)"
+        visit(s)."
       sidebar_next_steps: "Next Steps"
       sidebar_next_steps_1: "Determine which reserves you plan to work at."
       sidebar_next_steps_2: "Create a visit for that reserve."
@@ -1180,8 +1175,9 @@ en:
         description:
           "If you wish to attach any files to this project, such as permits or
           other information requested by a manager, do so here.
-          These files will be available to the reserve administration when reviewing your
-          project. (allowed file types: doc, txt, pdf, jpg, gif, png)"
+          These files will be viewable to the reserve administration and anyone with
+          the link to them."
+        file_types_accepted: "(allowed file types: doc, txt, pdf, jpg, gif, png)"
         plus_icon: "Plus Icon"
         authority:
           federal: "Federal Permits"
@@ -1229,9 +1225,9 @@ en:
       project_status_request: "%{project_type} Request"
       edit_project: "Edit Project"
       information:
-        "This information you have provided will be used to determine whether
+        "The information you have provided will be used to determine whether
         your project is suitable for each reserve you propose to visit. Inaccurate or missing data
-        may result in your visit request being denied."
+        may result in delayed processing of your request and additional discussions with staff."
       mammals: "Mammals"
       reptiles: "Reptiles"
       amphibians: "Amphibians"

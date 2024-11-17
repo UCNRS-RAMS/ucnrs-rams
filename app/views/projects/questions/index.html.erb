@@ -13,7 +13,11 @@
     </header>
     <%= form_with model: Project, url: project_file_upload_url(@presenter.id), method: :put do |f| %>
       <div class="upload-files">
-        <p><%= t(".description") %></p>
+        <p>
+          <%= t(".description") %>
+          <br /><br />
+          <%= t(".file_types_accepted") %>
+        </p>
         <label for="files" class="button">
           <%= image_tag "icon-plus.svg", alt: t(".plus_icon"), class: "plus" %>
           <%= t(".upload_files") %>
