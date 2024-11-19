@@ -9,7 +9,6 @@ class Visits::ProjectsPresenter
 
   def projects
     [
-      Project.blank,
       *projects_scope,
     ]
   end

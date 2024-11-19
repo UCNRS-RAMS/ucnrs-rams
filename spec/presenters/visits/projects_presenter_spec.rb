@@ -14,8 +14,8 @@ RSpec.describe Visits::ProjectsPresenter do
 
       projects = presenter.projects
 
-      expect(projects.length).to eq 2
-      expect(projects.map(&:id)).to match_array [-1, first_active_project.id]
+      expect(projects.length).to eq 1
+      expect(projects.map(&:id)).to match_array [first_active_project.id]
     end
 
     it "orders the projects alphabetically by title" do
@@ -30,7 +30,7 @@ RSpec.describe Visits::ProjectsPresenter do
 
       projects = presenter.projects
 
-      expect(projects.map(&:title)).to eq ["", "Project A", "Project B", "Project C"]
+      expect(projects.map(&:title)).to eq ["Project A", "Project B", "Project C"]
     end
   end
 end
