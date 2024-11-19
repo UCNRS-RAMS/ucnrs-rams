@@ -9,7 +9,9 @@ class AmenityVisit < ApplicationRecord
   validates :departs_on, must_be_after: :arrives_on
   validates :departs, must_be_after: :arrives
   validates :number_of_people, numericality: { greater_than: 0 }
-  validate :date_range_within_visit_range
+  # validate :date_range_within_visit_range
+
+  after_commit :visit_update_datetime
 
   enum status: {
     approved: "Approved",
@@ -97,5 +99,9 @@ class AmenityVisit < ApplicationRecord
       errors.add(:departs_on, :must_be_before_visit_end_date)
       errors.add(:departs_at, :must_be_before_visit_end_date)
     end
+  end
+
+  def visit_update_datetime
+    self.visit.update_datetime
   end
 end

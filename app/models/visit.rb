@@ -22,7 +22,7 @@ class Visit < ApplicationRecord
   validates :end_date, must_be_after: :start_date
   validates :public_use_category, presence: true, if: :public_use?
 
-  validate :user_visits_ranges_within_date_range
+  # validate :user_visits_ranges_within_date_range
 
   delegate :short_name, :name, to: :reserve, prefix: true
   delegate :title, to: :project, prefix: true
@@ -220,6 +220,16 @@ class Visit < ApplicationRecord
       .merge(AmenityVisit.uninvoiced)
   end
 
+  def update_datetime
+    starts = [*user_visits.find_each.map(&:arrives_at), *amenity_visits.find_each.map(&:arrives)]
+    ends = [*user_visits.find_each.map(&:departs_at), *amenity_visits.find_each.map(&:departs)]
+
+    update_columns(
+      starts_at: starts.min,
+      ends_at: ends.max,
+    )
+  end
+
   private
 
   def change_date_for_datetime(datetime, date)
@@ -235,4 +245,6 @@ class Visit < ApplicationRecord
       errors.add(:end_date, :must_be_after_user_visits_departs_at)
     end
   end
+
+
 end
