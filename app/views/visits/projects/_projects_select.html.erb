@@ -2,8 +2,9 @@
   data-pattern="<%= visits_projects_path(project_type: "VALUE", project_id: presenter.project_id) %>"
   data-turbo-content-target="destination"
 >
-  <% if presenter.projects.size > 1 %>
+  <% if presenter.projects.size > 0 %>
     <select id="visit_project_id" name="visit[project_id]">
+      <option value="">Please select one</option>
       <% presenter.projects.each do |project| %>
         <option value="<%= project.id %>" <%= presenter.selected_project(project) %> ><%= project.title %></option>
       <% end %>

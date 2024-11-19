@@ -7,7 +7,7 @@ RSpec.describe Manager::VisitsFormPresenter do
 
       visit_projects_presenter = presenter.projects
 
-      expect(visit_projects_presenter.projects).to eq [Project.blank]
+      expect(visit_projects_presenter.projects).to eq []
       expect(visit_projects_presenter.project_id).to be_nil
       expect(visit_projects_presenter.project_type).to be_nil
     end
