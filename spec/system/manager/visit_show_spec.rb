@@ -189,21 +189,6 @@ RSpec.describe "Manager Visit Show" do
       )
     end
 
-    it "should return an error if the visitors date is out of the visit date range", js: true do
-      visitor = create(:user, :confirmed, first_name: "user1", last_name: "test1")
-      create(:user_visit, visit: visit, user: visitor, role: "Other")
-
-      flow = VisitShowVisitorTabFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
-
-      sign_in(user)
-      flow.visit_show_page
-      flow.click_on_vistors_tab
-
-      flow.click_on_change
-      flow.change_user_visit_dates(arrives_at: visit.start_date - 1.day, departs_at: visit.end_date)
-      expect(flow).to have_error_message("must be after visit start date")
-    end
-
     it "has manual user day filed", js: true do
       visitor = create(:user, :confirmed, first_name: "user1", last_name: "test1")
       create(:user_visit, visit: visit, user: visitor, role: "Other")

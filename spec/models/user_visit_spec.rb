@@ -52,46 +52,6 @@ RSpec.describe UserVisit, type: :model do
         end
       end
     end
-
-    describe "date_range_within_visit_range" do
-      context "when the arrives_at is before visit start_date" do
-        it "adds error for arrives_at" do
-          visit = build(:visit, starts_at: Date.current, ends_at: Date.current + 5.days)
-          user_visit = build(:user_visit, arrives_at: visit.starts_at - 1.day,
-            departs_at: visit.ends_at, visit: visit)
-
-          user_visit.save
-
-          expect(user_visit).not_to be_valid
-          expect(user_visit.errors.messages[:arrives_at]).to include("must be after visit start date")
-        end
-      end
-
-      context "when the departs_at is after end_date" do
-        it "adds error for departs_at" do
-          visit = build(:visit, starts_at: Date.current, ends_at: Date.current + 5.days)
-          user_visit = build(:user_visit, arrives_at: visit.starts_at,
-            departs_at: visit.ends_at + 1.day, visit: visit)
-
-          user_visit.save
-
-          expect(user_visit).not_to be_valid
-          expect(user_visit.errors.messages[:departs_at]).to include("must be before visit end date")
-        end
-      end
-
-      context "when the arrives_at and departs_at are within the visit start_date and end_date" do
-        it "is valid" do
-          visit = build(:visit, starts_at: Date.current, ends_at: Date.current + 5.days)
-          user_visit = build(:user_visit, arrives_at: visit.starts_at + 1.day,
-            departs_at: visit.ends_at, visit: visit)
-
-          user_visit.save
-
-          expect(user_visit).to be_valid
-        end
-      end
-    end
   end
 
   it do

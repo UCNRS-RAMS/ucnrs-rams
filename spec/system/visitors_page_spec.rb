@@ -70,20 +70,6 @@ RSpec.describe "Schedule a visit - Add visitors page", type: :system, js: true d
     expect(flow).to have_visitor_dates(user_visit, "#{date_range}")
   end
 
-  it "should return an error if the visitors date is out of the visit date range" do
-    visitor = create(:user, :confirmed, first_name: "user1", last_name: "test1")
-    user_visit = create(:user_visit, visit: visit, user: visitor, role: "Other")
-
-    flow = AddVisitorsFlow.new(page)
-
-    sign_in(user)
-    flow.visit_add_visitors_page(visit.id)
-
-    flow.click_on_change(user_visit)
-    flow.change_user_visit_dates(arrives_at: visit.start_date - 1.day, departs_at: visit.end_date)
-    expect(flow).to have_error_message("must be after visit start date")
-  end
-
   describe "when on add a team member form" do
     it "adds the team member to the visitors list when 'Add To Visitor List' is clicked" do
       user = create(:user, :confirmed, first_name: "user1", last_name: "test1")

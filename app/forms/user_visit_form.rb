@@ -29,12 +29,12 @@ class UserVisitForm
   alias valid_form? valid?
 
   def arrives_at=(date)
-    date = add_default_time(date&.to_date, arrives_time(date&.to_s))
+    date = add_default_time(date&.to_date, arrives_time(date&.to_date))
     user_visit.arrives_at = date
   end
 
   def departs_at=(date)
-    date = add_default_time(date&.to_date, departs_time(date&.to_s))
+    date = add_default_time(date&.to_date, departs_time(date&.to_date))
     user_visit.departs_at = date
   end
 
@@ -67,10 +67,10 @@ class UserVisitForm
   def arrives_time(date)
     return nil if date.blank?
 
-    if date == visit&.starts_at&.to_date.to_s
+    if date == visit&.starts_at&.to_date
       visit.starts_at
     else
-      Date.parse(date).beginning_of_day
+      date.beginning_of_day
     end
   end
 
@@ -81,10 +81,10 @@ class UserVisitForm
   def departs_time(date)
     return nil if date.blank?
 
-    if date == visit&.ends_at&.to_date.to_s
+    if date == visit&.ends_at&.to_date
       visit&.ends_at
     else
-      Date.parse(date).end_of_day
+      date.end_of_day
     end
   end
 
@@ -111,8 +111,8 @@ class UserVisitForm
 
   def new_user_visit_params
     {
-      arrives_at: add_default_time(visit&.start_date, visit&.start_time),
-      departs_at: add_default_time(visit&.end_date, visit&.end_time),
+      arrives_at: visit&.starts_at,
+      departs_at: visit&.ends_at,
     }
   end
 

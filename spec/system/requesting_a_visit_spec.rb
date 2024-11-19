@@ -44,10 +44,6 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
 
     flow.select_project_type("University Class")
     flow.set_purpose("To swim")
-    flow.set_usage_dates(
-      arrival: now + 1.hour,
-      departure: now + 2.hours,
-    )
 
     flow.select_reserve("Silver Lake Area")
     flow.set_special_needs("None")
@@ -66,10 +62,7 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     expect(flow).to be_showing_project_selection
     expect(flow).to be_showing_project_selection_link
     expect(flow).to have_purpose("To swim")
-    expect(flow).to have_usage_dates(
-      arrival: now + 1.hour,
-      departure: now + 2.hours,
-    )
+
     expect(flow).to have_special_needs("None")
     expect(flow).to have_selected_amenity("Beach Access")
   end
@@ -101,22 +94,6 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     expect(flow).to have_error_on("What do you plan to do on this visit?", I18n.t("activerecord.errors.messages.blank"))
     expect(flow).to have_error_on("Research Project", "must exist")
     expect(flow).to have_error_on("Which reserve would you like to visit?", "must exist")
-
-    flow.select_project_type("University Class")
-    flow.select_reserve("Silver Lake Area")
-    click_on("Fun Things")
-    flow.select_amenity("Beach Access")
-    flow.set_usage_dates(
-      arrival: now + 1.week,
-      departure: now + 1.day,
-    )
-    flow.submit_visit_request
-    flow.inside_reserve_section do
-      expect(flow).to have_error_on("Departure", "must be after start date")
-    end
-    flow.inside_amenity(amenity) do
-      expect(flow).to have_error_on("Departs on", "must be after start date")
-    end
   end
 
   it "successfully submits and proceeds when fully complete" do
@@ -164,10 +141,6 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     flow.select_project_type("University Class")
     flow.select_project("Fun")
     flow.select_reserve("Silver Lake Area")
-    flow.set_usage_dates(
-      arrival: now + 1.day,
-      departure: now + 5.days,
-    )
     flow.set_purpose("To swim")
     click_on("Fun Things")
     flow.select_amenity("Beach Access")

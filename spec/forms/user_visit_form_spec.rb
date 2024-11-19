@@ -104,7 +104,8 @@ RSpec.describe UserVisitForm, type: :model do
     end
 
     it "sets arrives_at nil when nil date is set" do
-      form = UserVisitForm.new(params: { id: create(:user_visit).id })
+      user_visit = create(:user_visit)
+      form = UserVisitForm.new(params: { id: user_visit.id })
 
       form.arrives_at = nil
 
@@ -124,7 +125,8 @@ RSpec.describe UserVisitForm, type: :model do
     end
 
     it "sets departs_at nil when nil date is set" do
-      form = UserVisitForm.new(params: { id: create(:user_visit).id })
+      user_visit = create(:user_visit)
+      form = UserVisitForm.new(params: { id: user_visit.id })
 
       form.departs_at = nil
 

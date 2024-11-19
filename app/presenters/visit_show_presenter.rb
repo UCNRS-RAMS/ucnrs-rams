@@ -96,15 +96,15 @@ class VisitShowPresenter
   end
 
   def visitor_count
-    visit.user_visits.sum(&:count)
+    user_visits.sum(&:count)
   end
 
   def amenity_count
-    visit.amenity_visits.pluck(:amenity_id).uniq.length
+    amenity_visits.pluck(:amenity_id).uniq.length
   end
 
   def user_visits?
-    visit.user_visits.present?
+    user_visits.present?
   end
 
   def user_visits(includes = [:user, :institution])

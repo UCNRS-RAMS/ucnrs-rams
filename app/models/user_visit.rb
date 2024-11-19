@@ -9,10 +9,12 @@ class UserVisit < ApplicationRecord
   validates :count, numericality: { greater_than_or_equal_to: 1 }
   validates :arrives_at, :departs_at, presence: true
   validates :departs_at, must_be_after: :arrives_at
-  validate :arrives_at_overlap_date_range
-  validate :departs_at_overlap_date_range
-  validate :date_range_within_visit_range
+  # validate :arrives_at_overlap_date_range
+  # validate :departs_at_overlap_date_range
+  # validate :date_range_within_visit_range
   validates :role, presence: true
+
+  after_commit :visit_update_datetime
 
   delegate :full_name, to: :user, prefix: true
 
@@ -129,5 +131,9 @@ class UserVisit < ApplicationRecord
 
   def user_visits_arrives_within_range
     UserVisit.where(visit_id: visit&.id, arrives_at: arrives_at..departs_at, user_id: user_id)
+  end
+
+  def visit_update_datetime
+    self.visit.update_datetime
   end
 end
