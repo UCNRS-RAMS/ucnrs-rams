@@ -2246,7 +2246,7 @@ en:
         permits: "Permits"
         reserve_questions: "Reserve Questions"
         staff_and_notifications: "Staff & Notifications"
-        reserve_addendums: "Reserve Addendums"
+        reserve_addendums: "More Information"
       reserve_tags:
         create:
           reserve_tags_updated: "Reserve Tags Updated"
@@ -2627,8 +2627,10 @@ en:
           receive_scuba_email: "SCUBA"
       reserve_addendums:
         index:
-          reserve_addendums: "Reserve Addendums"
-          about_addendums: "About Addendums"
+          reserve_addendums: "More Information"
+          about_addendums: "Appears in the More Information section of your reserve information
+            page. Add miscellaneous information such as links to field safety resources,
+            the NRS policy of acknowledging the use of reserves in research publications, etc."
           about_addendums_paragraph1: ""
         reserve_addendums:
           sort_order: "Sort Order"
