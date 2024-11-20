@@ -1863,7 +1863,6 @@ en:
         alt:
           right_facing_arrow: "A right facing arrow enclosed in a circle"
       projects_table:
-        actions: "Actions"
         last_visit: "Last Visit"
         num_of_visits: "# of Visits"
         project_title: "Project Title"
