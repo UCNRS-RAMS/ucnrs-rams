@@ -20,9 +20,11 @@
       </div>
     </div>
     <div class="second">
+      <label for="status"><%= t(".project_type") %></label>
       <select id="status" name="filter[project_type]" aria-label="project_type" onchange="this.form.requestSubmit()">
         <%= options_for_select @presenter.project_type_options, @presenter.project_type_filter %>
       </select>
+      <label for="search_sort_by"><%= t(".sort_by") %></label>
       <select id="search_sort_by" name="filter[sort_by]" aria-label="sort_by" onchange="this.form.requestSubmit()">
         <%= options_for_select(@presenter.sort_by_options, @presenter.sort_by_filter) %>
       </select>
