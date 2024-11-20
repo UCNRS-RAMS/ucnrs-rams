@@ -2606,25 +2606,25 @@ en:
           receive_drone: "Receive drone"
           receive_scuba: "Receive scuba"
         reserve_personnel_field:
+          avatar: "Avatar"
+          description_avatar_text: "Please be patient when adding large image
+            files after pressing Create/Update button."
           email: "Email"
           email_description: "This Email will be shown on the
-            <a href='%{href}' target='_blank'>reserve information</a>
-            page and can be different than your personnal profile one."
+            <a href='%{href}' target='_blank'>reserve information</a> page and can be different
+            than the email listed in your personnel profile."
           phone_number: "Phone Number"
           phone_number_description: "This Phone Number will be shown on the
             <a href='%{href}' target='_blank'>reserve information</a>
-            page and can be different than your personnal profile one."
+            page and can be different from the phone number listed in your personnel profile."
           email_notifications: "Email Notifications"
           receive_new_visit_email: "New Visit"
-          receive_incomplete_visit_email: "Incomplete visit"
+          receive_incomplete_visit_email: "Incomplete Visit"
           receive_update_email: "Visit Updates"
           receive_approval_email: "Visit Approval"
           receive_iacuc_email: "IACUC"
           receive_drone_email: "Drone"
-          receive_scuba_email: "Scuba"
-          avatar: "Avatar"
-          description_avatar_text: "Please be patient when adding large image
-            files after pressing Create/Update button."
+          receive_scuba_email: "SCUBA"
       reserve_addendums:
         index:
           reserve_addendums: "Reserve Addendums"
