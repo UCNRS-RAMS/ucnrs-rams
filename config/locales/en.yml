@@ -2604,7 +2604,7 @@ en:
           receive_approval_only: "Receive approval only"
           receive_iacuc: "Receive IACUC"
           receive_drone: "Receive drone"
-          receive_scuba: "Receive scuba"
+          receive_scuba: "Receive SCUBA"
         reserve_personnel_field:
           avatar: "Avatar"
           description_avatar_text: "Please be patient when adding large image
