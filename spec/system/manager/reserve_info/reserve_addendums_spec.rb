@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Manager - Reserve Info - Reserve Addendums" do
+RSpec.describe "Manager - Reserve Info - More Information" do
   describe "new" do
     it "successfully create reserve addendum", js: true do
       user = create(:user, :confirmed)

@@ -27,7 +27,7 @@ RSpec.describe Manager::ReserveInfo::ReserveAddendumsIndexPresenter do
       expect(scope).to match_array [reserve_addendum1, reserve_addendum3]
     end
 
-    it "returns reserve addendums in sort_order" do
+    it "returns reserve more information in sort_order" do
       reserve = create :reserve
       reserve_addendum1 = create(:reserve_addendum, reserve: reserve, sort_order: 3)
       reserve_addendum2 = create(:reserve_addendum, reserve: reserve, sort_order: 1)
