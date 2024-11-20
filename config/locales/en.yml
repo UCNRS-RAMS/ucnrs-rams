@@ -2607,8 +2607,8 @@ en:
           receive_scuba: "Receive SCUBA"
         reserve_personnel_field:
           avatar: "Avatar"
-          description_avatar_text: "Please be patient when adding large image
-            files after pressing Create/Update button."
+          description_avatar_text: "Square images will work best for the avatar. Please be patient
+            when adding large image files after pressing Create/Update button."
           email: "Email"
           email_description: "This Email will be shown on the
             <a href='%{href}' target='_blank'>reserve information</a> page and can be different
