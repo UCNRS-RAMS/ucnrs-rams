@@ -230,6 +230,10 @@ en:
       index:
         latest_news: "Latest News"
         view_all: "view all"
+    toolbar_buttons:
+      title:
+        visit_calendar: "Visit Calendar"
+        visit_list: "Visit List"
   invoices:
     show:
       invoice: "Invoice %{id}-%{version}"
@@ -2837,6 +2841,10 @@ en:
         header:
           new_visit_request: "New Visit Request"
           visits: "Visits"
+          title:
+            dashboard: "Dashboard"
+            visit_list: "Visit List"
+            visit_calendar: "Visit Calendar"
       visits:
         form:
           aria:

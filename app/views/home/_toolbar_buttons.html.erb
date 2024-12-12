@@ -3,6 +3,7 @@
     <li id="list">
       <%= link_to image_tag("icon-list-off.svg", alt: t("alt.icon_dash"), class: "tab-icon"),
         home_index_path,
+        title: t(".title.visit_list"),
         class: presenter.list_button_class,
         data: { turbo_frame: "home-visits" }
       %>
@@ -10,6 +11,7 @@
     <li id="calendar">
       <%= link_to image_tag("icon-calendar-off.svg", alt: t("alt.icon_calendar"), class: "tab-icon"),
         home_index_path(partial_name: "calendar"),
+        title: t(".title.visit_calendar"),
         class: presenter.calendar_button_class,
         data: { turbo_frame: "calendar" }
       %>
