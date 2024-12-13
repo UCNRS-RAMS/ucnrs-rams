@@ -66,8 +66,8 @@ RSpec.describe ProjectPresenter do
     context "when the project has visits" do
       it "is the correctly formatted start_date of the most recent visit" do
         project = create(:project)
-        create(:visit, project: project, start_date: Date.new(2019, 10, 1))
-        create(:visit, project: project, start_date: Date.new(2021, 10, 1))
+        create(:visit, project: project, starts_at: Time.zone.local(2019, 10, 1), submitted_at: Time.current)
+        create(:visit, project: project, starts_at: Time.zone.local(2021, 10, 1), submitted_at: Time.current)
         project_presenter = ProjectPresenter.new(project: project)
 
         expect(project_presenter.recent_visit_date).to eq "Oct 01, 2021"

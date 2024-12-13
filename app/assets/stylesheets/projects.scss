@@ -56,6 +56,10 @@
             width: 45px;
           }
 
+          #project-type {
+            width: 90px;
+          }
+
           #project-date {
             width: 95px;
           }
@@ -64,8 +68,14 @@
             width: 50px;
           }
 
-          #project-visit-date {
-            width: 110px;
+          #project-visit-date,
+          .project-visit-date {
+            width: 145px;
+            text-align: right;
+          }
+
+          #project-recent-visit-reserve {
+            width: 120px;
           }
 
           tbody > tr:not(.header):hover {

@@ -73,30 +73,33 @@ RSpec.describe ProjectsIndexPresenter do
       future_visit = create(
         :visit,
         project: project_with_future_visit,
-        start_date: Date.current + 1.year,
-        end_date: Date.current + 2.years,
+        starts_at: Time.current + 1.year,
+        ends_at: Time.current + 2.years,
+        submitted_at: Time.current,
       )
       current_visit = create(
         :visit,
         project: project_with_current_visit,
-        start_date: Date.current - 1.year,
-        end_date: Date.current + 2.months,
+        starts_at: Time.current - 1.year,
+        ends_at: Time.current + 2.months,
+        submitted_at: Time.current,
       )
       past_visit = create(
         :visit,
         project: project_with_past_visit,
-        start_date: Date.current - 1.year,
-        end_date: Date.current - 6.months,
+        starts_at: Time.current - 1.year,
+        ends_at: Time.current - 6.months,
+        submitted_at: Time.current,
       )
       presenter = ProjectsIndexPresenter.new(user: user, page: 1, status_filter: "All Projects")
 
       scope = presenter.project_scope
 
       expect(scope.map(&:id)).to eq [
-        project_with_no_visit.id,
-        project_with_current_visit.id,
         project_with_future_visit.id,
+        project_with_current_visit.id,
         project_with_past_visit.id,
+        project_with_no_visit.id,
       ]
     end
 

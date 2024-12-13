@@ -106,6 +106,7 @@ en:
       visit_form_output_time_human: "%-I:%M %p"
       project_summary_date_time: "%b. %d, %Y at %l:%M %p"
       project_summary_date: "%b. %d, %Y"
+      project_visit_start_date: "%b %d, %Y"
       visit_submitted_date: "%b, %d, %Y"
       visit_summary_time: "%b. %d, %Y at %l:%M %p"
       hours_minutes_seconds: "%H:%M:%S"
@@ -919,8 +920,8 @@ en:
     projects:
       table_headers:
         actions: "Actions"
-        last_visit: "Last Visit"
         num_visits: "No. of Visits"
+        recent_visit: "Recent Visit"
         recent_visit_reserve: "Reserve"
         submit_date: "Submit Date"
         timeframe: "Timeframe"

@@ -169,6 +169,18 @@ class Project < ApplicationRecord
       .order("ordered_visits")
   end
 
+  def self.ordered_by_visit_start
+    left_joins(:visits)
+      .select(
+        Arel.sql(<<-end_sql)
+        projects.*,
+        MAX(visits.starts_at) as ordered_visits
+        end_sql
+      )
+      .group(:id)
+      .order("ordered_visits DESC")
+  end
+
   def self.for_status(status_filter)
     if status_filter == ALL_FILTER
       all
