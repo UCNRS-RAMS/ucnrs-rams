@@ -1,5 +1,5 @@
 <tr id="<%= dom_id project %>" class="project">
-  <td><%= tag.strong project.submitted_at %></td>
+
   <td>
     <%= link_to project.applicant_name,
       edit_manager_reserve_user_path(current_reserve, project.applicant_id),
@@ -20,6 +20,7 @@
       target: "_top"
     %>
     |
-    <%= project.recent_visit_date %>
+    <%= tag.strong project.recent_visit_date %>
   </td>
+  <td><%= project.submitted_at %></td>
 </tr>

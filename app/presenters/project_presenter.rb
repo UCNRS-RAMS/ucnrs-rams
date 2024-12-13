@@ -31,8 +31,8 @@ class ProjectPresenter
   end
 
   def recent_visit_date
-    if with_visits? && most_recent_visit.start_date.present?
-      I18n.l(most_recent_visit.start_date, format: :project_visit_start_date)
+    if with_visits? && most_recent_visit.submitted_at.present? && most_recent_visit.starts_at.present?
+      I18n.l(most_recent_visit.starts_at, format: :project_visit_start_date)
     else
       not_applicable
     end

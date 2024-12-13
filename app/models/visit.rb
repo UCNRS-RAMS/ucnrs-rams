@@ -57,7 +57,7 @@ class Visit < ApplicationRecord
   end
 
   def self.recent_start_date_first
-    order(start_date: :desc)
+    order(starts_at: :desc)
   end
 
   def self.visit_requests_for_user(user)
