@@ -1,26 +1,27 @@
-<div class="invoice-list">
-  <table class="invoice-totals">
-    <tbody>
-      <tr class="total">
-        <td><%= t(".visit_total") %></td>
-        <td><%= presenter.visit_total %></td>
-      </tr>
-      <tr class="total">
-        <td><%= t(".invoiced") %></td>
-        <td><%= presenter.invoiced %></td>
-      </tr>
-      <tr class="total">
-        <td><%= t(".paid") %></td>
-        <td><%= presenter.paid %></td>
-      </tr>
-      <tr class="invoice-total">
-        <td><%= t(".total_balance") %></td>
-        <td><%= presenter.total_balance %></td>
-      </tr>
-    </tbody>
-  </table>
-  <%= link_to t(".create"), new_manager_reserve_visit_invoice_path,
-    class:"create-invoice",
-    data: { turbo_frame: "_top" }
-  %>
-</div>
+<section>
+  <h2 class="main-header">
+    <%= t(".summary") %>
+  </h2>
+  <div class="summary-container">
+    <table class="invoice-totals">
+      <tbody>
+        <tr class="total">
+          <td><%= t(".visit_total") %></td>
+          <td><%= presenter.visit_total %></td>
+        </tr>
+        <tr class="total">
+          <td><%= t(".invoiced") %></td>
+          <td><%= presenter.invoiced %></td>
+        </tr>
+        <tr class="total">
+          <td><%= t(".paid") %></td>
+          <td><%= presenter.paid %></td>
+        </tr>
+        <tr class="invoice-total">
+          <td><%= t(".total_balance") %></td>
+          <td><%= presenter.total_balance %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

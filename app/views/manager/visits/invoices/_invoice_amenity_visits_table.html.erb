@@ -31,9 +31,15 @@
         <tr class="amenity-total">
           <td colspan=5></td>
           <td><%= t(".total") %></td>
-          <td><strong><%= @form.amenities_total %></strong></td>
+          <td><strong><%= number_to_currency @form.amenities_total %></strong></td>
         </tr>
       </tbody>
     </table>
+    <div class="buttons">
+      <%= link_to t(".create_an_invoice"), new_manager_reserve_visit_invoice_path,
+        class:"create-invoice",
+        data: { turbo_frame: "_top" }
+      %>
+    </div>
   </section>
 </turbo-frame>
