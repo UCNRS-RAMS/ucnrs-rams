@@ -205,6 +205,11 @@
       <%= f.label(:public_projects_accepted_false, t("no"), class:"custom-control-label") %>
     </div>
   </div>
+  <div class="form-group">
+    <%= f.label :approval_message, t(".visit_email_acceptance_message"), class: "form-label" %>
+    <%= f.text_area :approval_message, class: "form-textarea" %>
+    <small><%= t(".visit_email_acceptance_message_description") %></small>
+  </div>
   <div class="with-form-group-pad">
     <button><%= t(".save_changes") %></button>
   </div>

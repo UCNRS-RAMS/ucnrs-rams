@@ -2344,6 +2344,9 @@ en:
           amenity_group_name_4: "Amenity Group Name 4"
           amenity_group_name_5: "Amenity Group Name 5"
           save_changes: "Save Changes"
+          visit_email_acceptance_message: "Visit Automatic Email Acceptance Message"
+          visit_email_acceptance_message_description: "Text that is added to email automatically when a visit
+            is approved (this is a good area to add additional directions or a gate combination if needed)."
       amenities_and_rates:
         index:
           amenities_and_rates: "Amenities & Rates"
