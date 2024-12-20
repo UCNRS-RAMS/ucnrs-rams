@@ -7,17 +7,17 @@
   <td class="date-range"><%= visit.requested_date_range %></td>
   <td><%= visit.requested_reserve_name %></td>
   <td>
-    <%= "#{pluralize(visit.visitor_count, t('.visitor'))}, 
-      #{pluralize(visit.amenity_count, t('.amenity'))}" 
+    <%= "#{pluralize(visit.visitor_count, t('.visitor'))},
+      #{pluralize(visit.amenity_count, t('.amenity'))}"
     %>
   </td>
   <td>
-    <%= link_to_if visit.reserve_manager?, 
-      image_tag("dollar_icon.svg", alt: t("alt.dollar_sign"), height: "18", width: "18"), 
-      "#" do 
+    <%= link_to_if visit.reserve_manager?,
+      image_tag("dollar_icon.svg", alt: t("alt.dollar_sign"), height: "18", width: "18"),
+      manager_reserve_visit_path(visit.reserve_id, visit.id, selected_tab: "invoices") do
     %>
-      <%= image_tag "dollar_icon.svg", alt: t("alt.dollar_sign"), 
-        height: "18", width: "18", class: "disabled-link" 
+      <%= image_tag "dollar_icon.svg", alt: t("alt.dollar_sign"),
+        height: "18", width: "18", class: "disabled-link"
       %>
     <% end %>
     &nbsp;
