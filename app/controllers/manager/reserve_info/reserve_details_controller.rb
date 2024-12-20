@@ -27,6 +27,7 @@ class Manager::ReserveInfo::ReserveDetailsController < Manager::ApplicationContr
 
   def reserve_params
     params.require(:reserve).permit(
+      :approval_message,
       :short_name,
       :pulldown_name,
       :rules,
