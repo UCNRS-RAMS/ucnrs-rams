@@ -1,6 +1,11 @@
 <tr class="team-membership">
   <% if user_visit.actual_user? %>
-    <td> <%= link_to user_visit.user_full_name, "#" %> </td>
+    <td>
+      <%= link_to user_visit.user_full_name,
+        edit_manager_reserve_user_path(id: user_visit.user_id),
+        target: "_top"
+      %>
+    </td>
   <% else %>
     <td> <%= user_visit.user_full_name %> </td>
   <% end %>
