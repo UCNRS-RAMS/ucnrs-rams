@@ -1375,6 +1375,10 @@ en:
   manager:
     no_amenity_visit: "Invoice has no amenity visit"
     dashboard:
+      calendar:
+        show:
+          display: "Display"
+          with_the_status: "with the status"
       dashboard:
         todays_visit_and_resources: "Today's Visit & Resources"
         last_24_hours: "Last 24 Hours"

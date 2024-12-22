@@ -10,11 +10,13 @@
             <%= form_with url: manager_reserve_dashboard_calendar_path, method: :get do |f| %>
               <%= hidden_field_tag 'start_date', @presenter.start_date %>
               <%= hidden_field_tag 'partial_name', "calendar" %>
+              <%= f.label :type, t(".display") %>
               <%= f.select :type,
                 options_for_select(@presenter.type_options, @presenter.type),
                 {},
                 onchange: "this.form.requestSubmit();"
               %>
+              <%= f.label :status, t(".with_the_status") %>
               <%= f.select :status,
                 options_for_select(@presenter.status_options, @presenter.status),
                 {},
