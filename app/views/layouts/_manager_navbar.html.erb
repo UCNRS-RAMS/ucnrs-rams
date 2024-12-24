@@ -26,7 +26,7 @@
             <% end %>
 
             <%= link_to t(".link.visits"), dashboard_path,
-              class:"nav-link #{active_class_for("dashboard")}" %>
+              class:"nav-link #{active_class_for(["dashboard", "visits"])}" %>
           </li>
           <li>
             <%= link_to t(".link.projects"),
@@ -49,7 +49,7 @@
           <li>
             <%= link_to t(".link.reserve_info"),
               edit_manager_reserve_reserve_info_reserve_details_path(layout_presenter.current_reserve),
-              class:"nav-link #{active_class_for("reserve_details")}"
+              class:"nav-link #{active_class_for("reserve_info")}"
             %>
           </li>
           <li>
