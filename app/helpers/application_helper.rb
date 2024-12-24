@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def active_class_for(resource)
-    "active" if controller.controller_name == resource
+    "active" if ([*resource] & controller_path.split('/')).present?
   end
 
   def active_link_to_by_url(name = nil, options = nil, html_options = nil, &block)
