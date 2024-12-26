@@ -21,6 +21,16 @@
       font-size: 0.75rem;
       margin-top: 0.25rem;
     }
+
+    textarea {
+      min-height: 6rem;
+      padding: 0.5rem;
+    }
+
+    #project_abstract,
+    #project_method_description {
+      min-height: 12rem;
+    }
   }
 
   header {
