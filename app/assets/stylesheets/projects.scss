@@ -167,6 +167,11 @@
       .field ul.involvements {
         max-height: 160px;
       }
+
+      #project_abstract,
+      #project_method_description {
+        min-height: 12rem;
+      }
     }
 
     header {
