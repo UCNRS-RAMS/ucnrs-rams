@@ -114,6 +114,10 @@
     flex-direction: row;
 
     .content {
+      > header {
+        margin-bottom: 1.5rem;
+      }
+
       .summary-header {
         display: flex;
         justify-content: space-between;
@@ -148,15 +152,17 @@
       }
 
       .visit-summary-table {
+        border-collapse: collapse;
         margin-bottom: 2rem;
 
         td {
           padding-bottom: 0.3rem;
+          padding-left: 0;
           padding-right: 2rem;
           padding-top: 0.3rem;
         }
 
-        td:nth-child(2) {
+        td:nth-child(1) {
           font-weight: $semi-bold;
         }
       }

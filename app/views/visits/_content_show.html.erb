@@ -1,7 +1,11 @@
 <header>
   <div class="subheader">
-    <span><%= presenter.applicant_name %></span>
-    <span><%= t(".request_submitted") %>: <%= presenter.submitted_at %></span>
+    <span>
+      <%= tag.strong t(".request_submitted") %>:
+      <%= presenter.submitted_at %>
+      <%= t(".by") %>
+      <%= presenter.applicant_name %>
+    </span>
     <% if presenter.visit_is_user_editable? %>
       <%= tag.span(link_to t(".edit_visit"), edit_visit_path(presenter.id), class: "edit-btn") %>
     <% end %>
@@ -18,12 +22,12 @@
       <td><%= presenter.timeframe %></td>
     </tr>
     <tr>
-      <td><%= t(".purpose") %></td>
-      <td><%= presenter.purpose_of_visit %></td>
-    </tr>
-    <tr>
       <td><%= t(".project") %></td>
       <td><%= link_to presenter.project_title, project_path(presenter.project_id) %></td>
+    </tr>
+    <tr>
+      <td><%= t(".purpose") %></td>
+      <td><%= presenter.purpose_of_visit %></td>
     </tr>
   </table>
 </section>
