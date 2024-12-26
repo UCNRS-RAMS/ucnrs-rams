@@ -821,12 +821,13 @@ en:
       contact_us: "Contact Us"
       help_topics: "Help Topics"
     content_show:
+      arrival_and_departure: "Arrival and Departure"
+      by: "by"
       edit_visit: "Edit Visit"
+      project: "Under Project"
+      purpose: "Purpose"
       request_submitted: "Request Submitted"
       reserve: "Reserve"
-      arrival_and_departure: "Arrival and Departure"
-      purpose: "Purpose"
-      project: "Project"
     content_approved_show:
       edit_visit: "Edit Visit"
       visitor: "Visitor"
