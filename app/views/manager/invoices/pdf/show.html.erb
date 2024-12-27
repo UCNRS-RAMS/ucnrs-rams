@@ -17,6 +17,7 @@
 <div class="invoice-body">
   <%= tag.div t(".invoice"), class: "invoice-body-header" %>
   <%= render partial: "manager/invoices/pdf/invoice_info", locals: { presenter: presenter } %>
+  <%= tag.div simple_format(presenter.invoice_message), class: "invoice-summary" %>
   <%= render partial: "manager/invoices/pdf/bill_to", locals: { presenter: presenter } %>
   <%= render partial: "manager/invoices/pdf/invoiced_amenities", locals: { presenter: presenter } %>
   <%= render partial: "manager/invoices/pdf/invoice_payments", locals: { presenter: presenter } %>

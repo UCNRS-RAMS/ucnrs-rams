@@ -42,11 +42,11 @@ class Manager::Invoices::PdfShowPresenter
       if invoice_visit_reserve.tax_id_number.present?
         body << "Tax ID: #{invoice_visit_reserve.tax_id_number}"
       end
-
-      if invoice_visit_reserve.invoice_message.present?
-        body << invoice_visit_reserve.invoice_message
-      end
     end.join("\n\n")
+  end
+
+  def invoice_message
+    invoice_visit_reserve.invoice_message
   end
 
   def invoice_date

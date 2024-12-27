@@ -150,10 +150,12 @@
     margin-bottom: 3rem;
 
     .project-summary-table {
+      border-collapse: collapse;
       margin-bottom: 2rem;
-  
+
       td {
         padding-bottom: 0.3rem;
+        padding-left: 0;
         padding-right: 2rem;
         padding-top: 0.3rem;
         vertical-align: top;
@@ -162,9 +164,9 @@
           margin-top: 0;
         }
       }
-  
-      td:nth-child(2) {
-        font-weight: $medium;
+
+      td:nth-child(1) {
+        font-weight: $semi-bold;
       }
     }
 
@@ -173,13 +175,13 @@
         list-style: none;
         margin-bottom: 2.25rem;
         padding-left: 0;
-  
+
         li {
           align-items: center;
           display: flex;
           margin: .75rem 0;
         }
-  
+
         li::before {
           background: no-repeat center/22px url(asset-path("icon-alert-circle-blue.svg"));
           content: "";
@@ -188,23 +190,23 @@
           margin-right: .5rem;
           width: 22px;
         }
-  
+
         li:empty {
           display: none;
         }
       }
-  
+
       .project-methods-detail {
         margin-bottom: 1.25rem;
-  
+
         span {
           display: block;
         }
-  
+
         span:nth-child(1) {
           margin-bottom: .5rem;
         }
-  
+
         p {
           font-weight: $medium;
         }
