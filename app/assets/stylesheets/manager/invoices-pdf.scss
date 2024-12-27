@@ -44,12 +44,14 @@
       text-transform: uppercase;
     }
 
-    table.invoice-summary {
+    .invoice-summary {
       background: #ddd;
       margin: 0 auto 30px auto;
       padding: 15px;
       width: 100%;
+    }
 
+    table.invoice-summary {
       td:first-of-type {
         font-weight: bold;
         text-align: right;
