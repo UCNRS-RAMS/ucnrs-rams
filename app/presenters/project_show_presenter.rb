@@ -14,6 +14,23 @@ class ProjectShowPresenter
 
   delegate_missing_to :project
 
+  def project_type_for_new_visit_link
+    case project.project_type
+    when "research"
+      "research"
+    when "class"
+      "university_class"
+    when "meeting"
+      "meeting"
+    when "public_use"
+      "public_use"
+    when "housing"
+      "housing"
+    else
+      nil
+    end
+  end
+
   def project_status
     "#{status&.capitalize} Application"
   end

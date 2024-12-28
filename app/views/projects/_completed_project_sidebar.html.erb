@@ -5,7 +5,11 @@
     </h2>
   </header>
   <div class="schedule">
-    <%= link_to new_visit_path(visit: { project_type: presenter.project_type }), class: "button" do %>
+    <%= link_to new_visit_path(
+        visit: { project_type: presenter.project_type_for_new_visit_link, project_id: presenter.project_id }
+      ),
+      class: "button" do
+    %>
       <%= t(".schedule_a_visit") %>
       <%= image_tag("arrow-right.svg", width: "20px", height: "20px", alt: t("alt.right_facing_arrow")) %>
     <% end %>

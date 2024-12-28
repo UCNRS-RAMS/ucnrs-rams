@@ -1,6 +1,11 @@
 <% presenter.project_type_options.each do |value| %>
   <label for="project-type-<%= value %>">
-    <%= form.radio_button :project_type, value, id: "project-type-#{value}", data: { action: "click->value-projection#change click->turbo-content#change" }, checked: form.object.project_type == value, disabled: presenter.editing %>
+    <%= form.radio_button :project_type, value,
+      id: "project-type-#{value}",
+      data: { action: "click->value-projection#change click->turbo-content#change" },
+      checked: form.object.project_type == value,
+      disabled: presenter.editing
+    %>
     <div class="project-type-label">
       <h3><%= t(".project_type_options.labels.#{value}") %></h3>
       <p><%= t(".project_type_options.explanation.#{value}") %></p>
