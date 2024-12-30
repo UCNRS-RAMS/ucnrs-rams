@@ -6,6 +6,10 @@
     </tr>
   </thead>
   <tbody>
-    <%= render partial: "projects/file", collection: presenter.project.files %>
+    <% if presenter.project.files.present? %>
+      <%= render partial: "projects/file", collection: presenter.project.files %>
+    <% else %>
+      <td colspan="2" class="empty">No Files</td>
+    <% end %>
   </tbody>
 </table>

@@ -380,12 +380,13 @@ div#reserve_question-summary-list {
     border-left: 2px solid $gray;
     padding-left: 1rem;
     margin-bottom: 1.5rem;
-    margin-left: 2rem;
+    margin-left: .75rem;
 
     .question-answer {
       margin-bottom: 1.5rem;
 
       .question {
+        font-weight: $semi-bold;
         margin-bottom: 0;
       }
 

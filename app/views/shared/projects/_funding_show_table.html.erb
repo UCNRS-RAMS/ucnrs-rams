@@ -10,7 +10,11 @@
       </tr>
     </thead>
     <tbody>
-      <%= render partial: "shared/projects/funding", collection: presenter.fundings %>
+      <% if presenter.fundings.present? %>
+        <%= render partial: "shared/projects/funding", collection: presenter.fundings %>
+      <% else %>
+        <td colspan="3" class="empty" style="text-align:center;">No Funding</td>
+      <% end %>
     </tbody>
   </table>
 </section>
