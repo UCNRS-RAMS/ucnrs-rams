@@ -356,7 +356,7 @@ class EditProjectFlow
   end
 
   def has_open_project_status?
-    page.has_css?("div.subheader span", text: "Open Application")
+    page.has_css?("div.subheader span", text: "Open Project")
   end
 
   def has_reserve_questions?

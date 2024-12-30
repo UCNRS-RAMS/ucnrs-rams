@@ -146,6 +146,10 @@
 }
 
 @mixin project-summary {
+  h3 {
+    margin-top: 0;
+  }
+
   .project-summary {
     margin-bottom: 3rem;
 
@@ -201,16 +205,31 @@
 
         span {
           display: block;
+          font-weight: $semi-bold;
         }
 
         span:nth-child(1) {
           margin-bottom: .5rem;
         }
-
-        p {
-          font-weight: $medium;
-        }
       }
+    }
+  }
+
+  .project-permit {
+    ul.summary-list {
+      padding-inline-start: 25px;
+    }
+  }
+
+  .project-funding {
+    td.empty {
+      text-align: center;
+    }
+  }
+
+  .project-files {
+    td.empty {
+      text-align: center;
     }
   }
 }

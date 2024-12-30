@@ -6,7 +6,7 @@ RSpec.describe ProjectShowPresenter do
       project = create(:project)
       presenter = ProjectShowPresenter.new(project)
 
-      expect(presenter.project_status).to eq "Open Application"
+      expect(presenter.project_status).to eq "Open Project"
     end
   end
 

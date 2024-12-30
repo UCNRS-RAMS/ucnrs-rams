@@ -358,7 +358,7 @@ class CreateProjectFlow
   end
 
   def has_open_project_status?
-    page.has_css?("div.subheader span", text: "Open Application")
+    page.has_css?("div.subheader span", text: "Open Project")
   end
 
   private

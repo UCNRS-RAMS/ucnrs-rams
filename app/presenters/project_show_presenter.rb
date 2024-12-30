@@ -32,11 +32,11 @@ class ProjectShowPresenter
   end
 
   def project_status
-    "#{status&.capitalize} Application"
+    "#{status&.capitalize} Project"
   end
 
   def submitted_at
-    project.submitted_at ? I18n.l(project.submitted_at, format: :project_summary_date_time) : ""
+    project.submitted_at ? I18n.l(project.submitted_at, format: :project_summary_date_time) : "Not yet submitted"
   end
 
   def principal_investigators_list
@@ -47,8 +47,20 @@ class ProjectShowPresenter
     applicant.full_name
   end
 
+  def abstract
+    project.abstract.present? ? project.abstract : not_applicable
+  end
+
+  def thesis_title
+    project.thesis_title.present? ? project.thesis_title : not_applicable
+  end
+
   def project_involves
-    involves&.to_sentence
+    involves.present? ? involves&.to_sentence : none
+  end
+
+  def discipline
+    project.discipline.present? ? project.discipline : not_applicable
   end
 
   def display_approved_permits?
@@ -93,6 +105,14 @@ class ProjectShowPresenter
 
   def method_long_term_structures_statement
     I18n.t("projects.show.method_long_term_structures") if method_long_term_structures
+  end
+
+  def method_description
+    project.method_description.present? ? project.method_description : not_applicable
+  end
+
+  def method_study_area
+    project.method_study_area.present? ? project.method_study_area : not_applicable
   end
 
   def team_memberships
@@ -182,5 +202,9 @@ class ProjectShowPresenter
 
   def not_applicable
     I18n.t("not_applicable")
+  end
+
+  def none
+    I18n.t("none")
   end
 end
