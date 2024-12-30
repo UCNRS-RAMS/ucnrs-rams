@@ -34,7 +34,9 @@ class UserVisitPresenter
 
   def name
     if count > 1
-      user_full_name
+      "Group of #{role} (#{count})"
+    elsif count == 1 && guest_name.present?
+      "#{guest_name.capitalize} (Guest)"
     else
       "<a href=\"mailto:#{user_email}\">#{user_full_name}</a>".html_safe
     end
