@@ -76,6 +76,19 @@ class Visit < ApplicationRecord
       .order("ordered_visits DESC")
   end
 
+  def self.ordered_by_submit_date
+    order(submitted_at: :DESC)
+  end
+
+  def self.ordered_by(order)
+    case order
+    when "visit_date" then ordered_by_visit_date
+    when "submitted" then ordered_by_submit_date
+    else
+      ordered_by_visit_date
+    end
+  end
+
   def self.for_status(status)
     if status.present?
       where(status: status)

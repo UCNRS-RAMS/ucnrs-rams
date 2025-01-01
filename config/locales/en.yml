@@ -193,8 +193,9 @@ en:
   home:
     visit_filter:
       labels:
-        by_status: "By status:"
+        by_order: "By order:"
         by_reserve: "By reserve:"
+        by_status: "By status:"
     calendar:
       show:
         title: "Visit Requests"

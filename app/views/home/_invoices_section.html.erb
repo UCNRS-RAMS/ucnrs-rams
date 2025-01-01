@@ -2,7 +2,7 @@
   <section class="invoices">
     <header>
       <h1><%= t(".invoices.title") %></h1>
-      <%= form_with url: root_path,
+      <%= form_with url: home_index_path,
         method: :get,
         data: { "turbo-frame": "invoice", "turbo-action": "advance" } do
       %>

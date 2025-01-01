@@ -2,7 +2,7 @@
   <section class="visits">
     <header>
       <h1><%= t(".title") %></h1>
-      <%= form_with url: root_path,
+      <%= form_with url: home_index_path,
         method: :get,
         data: { "turbo-frame": "home-visits", "turbo-action": "advance" } do
       %>
