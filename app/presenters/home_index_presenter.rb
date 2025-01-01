@@ -12,6 +12,10 @@ class HomeIndexPresenter
     "incomplete" => "incomplete",
   }.freeze
 
+  ORDER_FILTERS = {
+    "submit date" => "order_submitted_at"
+  }
+
   def initialize(user:, visit_page: nil, invoice_page: nil, visit_filter: nil,
     invoice_filter: nil, news_articles: nil, partial: "visits")
 
@@ -22,15 +26,17 @@ class HomeIndexPresenter
     @invoice_filter = invoice_filter
     @invoice_page = invoice_page || 1
     @invoice_status_filter = filter_type(invoice_filter) == :status ? invoice_filter : nil
-    @invoice_reserve_filter = filter_type(invoice_filter) == :reserve ? reserve_id(invoice_filter) : nil
+    @invoice_reserve_filter = filter_type(invoice_filter) == :reserve ? filter_value(invoice_filter) : nil
     @visit_status_filter = filter_type(visit_filter) == :status ? visit_filter : nil
-    @visit_reserve_filter = filter_type(visit_filter) == :reserve ? reserve_id(visit_filter) : nil
+    @visit_reserve_filter = filter_type(visit_filter) == :reserve ? filter_value(visit_filter) : nil
+    @visit_order_filter = filter_type(visit_filter) == :order ? filter_value(visit_filter) : nil
     @partial_name = partial || "visits_section"
   end
 
   attr_reader :visit_filter,
     :visit_status_filter,
     :visit_reserve_filter,
+    :visit_order_filter,
     :user,
     :visit_page,
     :invoice_page,
@@ -48,7 +54,7 @@ class HomeIndexPresenter
   def visit_scope
     Visit
       .visit_requests_for_user(user)
-      .ordered_by_visit_date
+      .ordered_by(visit_order_filter)
       .for_status(visit_status_filter)
       .by_reserve(visit_reserve_filter)
       .page(visit_page)
@@ -98,6 +104,10 @@ class HomeIndexPresenter
     STATUS_FILTERS
   end
 
+  def visit_order_filter_options
+    ORDER_FILTERS
+  end
+
   def invoice_filter_options
     {
       I18n.t("home.index.recent_invoices") => nil,
@@ -119,15 +129,18 @@ class HomeIndexPresenter
   end
 
   private
+
   def filter_type(filter)
-    if filter.present? && filter.split("_")[0] == "reserve"
+    if filter&.split("_").try(:first) == "reserve"
       :reserve
+    elsif filter&.split("_").try(:first) == "order"
+      :order
     else
       :status
     end
   end
 
-  def reserve_id(filter)
-    filter.split("_")[1].to_i
+  def filter_value(filter)
+    filter&.split("_").try(:second)
   end
 end

@@ -20,7 +20,15 @@ class Home::CalendarShowPresenter
     @visit_reserve_filter = filter_type(visit_filter) == :reserve ? reserve_id(visit_filter) : nil
   end
 
-  attr_reader :current_date, :start_date, :month_visits, :current_date_visits, :user, :visit_filter, :visit_status_filter, :visit_reserve_filter
+  attr_reader :current_date,
+    :start_date,
+    :month_visits,
+    :current_date_visits,
+    :user,
+    :visit_filter,
+    :visit_status_filter,
+    :visit_reserve_filter,
+    :visit_order_filter
 
   def calendar_params
     {
@@ -56,6 +64,10 @@ class Home::CalendarShowPresenter
 
   def visit_filter_options
     CALENDAR_FILTERS
+  end
+
+  def visit_order_filter_options
+    []
   end
 
   def visits_reserve_list
