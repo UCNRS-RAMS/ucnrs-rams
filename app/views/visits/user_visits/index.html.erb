@@ -9,7 +9,7 @@
   <div class="form-container">
     <section class="form-subsection uneditable-visit-project-info">
       <header>
-        <h2>Visit Summary</h2>
+        <h2><%= t(".visit_summary") %></h2>
       </header>
       <section>
         <section style="margin-bottom:1rem;">
@@ -17,10 +17,6 @@
             <tr>
               <td><%= t(".reserve") %></td>
               <td><%= @presenter.visit_reserve_name %></td>
-            </tr>
-            <tr>
-              <td><%= t(".arrive_departs_date") %></td>
-              <td><%= @presenter.visit_date_range %></td>
             </tr>
           </table>
         </section>
@@ -33,7 +29,11 @@
               </tr>
             </thead>
             <tbody>
-              <%= render partial: "shared/visits/amenity_visit", collection: @presenter.amenity_visits %>
+              <% if @presenter.amenity_visits.present? %>
+                <%= render partial: "shared/visits/amenity_visit", collection: @presenter.amenity_visits %>
+              <% else %>
+                <tr class="no-entry"><td colspan=2><%= t(".no_amenity") %></td></tr>
+              <% end %>
             </tbody>
           </table>
         </section>

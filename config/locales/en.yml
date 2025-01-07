@@ -731,14 +731,16 @@ en:
     user_visits:
       no_visitor: "Please enter your visitor information before advancing"
       index:
-        title: "Who is going on this visit?"
-        reserve: "Reserve"
-        arrive_departs_date: "Arrival & Departure"
-        next_step: "Next: Reserve Info"
-        back: "Go Back"
-        amenity_visits: "Amenity Visits"
         amenity: "Amenity"
+        amenity_visits: "Amenity Visits"
+        arrive_departs_date: "Arrival & Departure"
+        back: "Go Back"
         date_of_use: "Date of Use"
+        next_step: "Next: Reserve Info"
+        no_amenity: "No Amenity"
+        reserve: "Reserve"
+        title: "Who is going on this visit?"
+        visit_summary: "Visit Summary"
         visitor_table: "Visitor List"
         warning:
           "Dates selected for visitors exceeds the specified dates entered for your amenities.

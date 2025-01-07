@@ -175,6 +175,11 @@
     table.visit-info {
       margin-bottom: 1rem;
 
+      tr.no-entry td {
+        font-weight: $normal;
+        text-align: center;
+      }
+
       td {
         font-size: 0.8125rem;
         padding: 0.375rem 0;
@@ -182,9 +187,6 @@
 
       td:first-child {
         padding-right: 2rem;
-      }
-
-      td:last-child {
         font-weight: $bold;
       }
     }
