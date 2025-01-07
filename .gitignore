@@ -36,6 +36,9 @@ public/packs
 .env
 .env.development
 
+# Ignore vscode files
+.vscode
+
 # Ignore uploaded files in development
 /storage/*
 !/storage/.keep
