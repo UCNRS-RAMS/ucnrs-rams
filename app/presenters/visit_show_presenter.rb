@@ -70,7 +70,7 @@ class VisitShowPresenter
   end
 
   def visit_reserve_personnel
-    reserve.personnel.map do |personnel|
+    reserve_personnel_scope.map do |personnel|
       ReservePersonnelPresenter.new(personnel)
     end
   end
@@ -151,5 +151,11 @@ class VisitShowPresenter
 
   def value(num)
     "%0.2f" % [num]
+  end
+
+  def reserve_personnel_scope
+    reserve
+      .personnel
+      .visible
   end
 end
