@@ -14,7 +14,7 @@ class UserVisit < ApplicationRecord
   # validate :date_range_within_visit_range
   validates :role, presence: true
 
-  after_commit :visit_update_datetime
+  after_commit :visit_update_datetime, if: :persisted?
 
   delegate :full_name, to: :user, prefix: true
 
