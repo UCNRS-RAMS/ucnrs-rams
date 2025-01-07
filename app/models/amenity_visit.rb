@@ -11,7 +11,7 @@ class AmenityVisit < ApplicationRecord
   validates :number_of_people, numericality: { greater_than: 0 }
   # validate :date_range_within_visit_range
 
-  after_commit :visit_update_datetime
+  after_commit :visit_update_datetime, if: :persisted?
 
   enum status: {
     approved: "Approved",
