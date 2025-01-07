@@ -190,7 +190,11 @@ class VisitForm
   end
 
   def change_date_for_datetime(datetime, date)
-    date.blank? ? datetime : datetime&.change(year: date.year, month: date.month, day: date.day)
+    if date.blank?
+      datetime&.change(year: today.year, month: today.month, day: today.day)
+    else
+      datetime&.change(year: date.year, month: date.month, day: date.day)
+    end
   end
 
   def amenities_params
@@ -250,5 +254,9 @@ class VisitForm
       Rails.logger.error(e)
       false
     end
+  end
+
+  def today
+    Time.zone.today
   end
 end

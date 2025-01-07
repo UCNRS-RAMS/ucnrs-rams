@@ -9,14 +9,6 @@ class Visits::UserVisitsController < ApplicationController
     @presenter = initialize_form_presenter(new_user_visit_params)
   end
 
-  def edit
-    form = UserVisitForm.new(params: { id: params[:id] })
-    @presenter = Visits::UserVisitEditPresenter.new(
-      form: form,
-      display_institution_form: display_institution_form?,
-    )
-  end
-
   def create
     @presenter = initialize_form_presenter(user_visit_params)
     if @presenter.form.save
@@ -31,6 +23,14 @@ class Visits::UserVisitsController < ApplicationController
     else
       render status: :unprocessable_entity
     end
+  end
+
+  def edit
+    form = UserVisitForm.new(params: { id: params[:id] })
+    @presenter = Visits::UserVisitEditPresenter.new(
+      form: form,
+      display_institution_form: display_institution_form?,
+    )
   end
 
   def update

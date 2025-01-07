@@ -111,8 +111,8 @@ class UserVisitForm
 
   def new_user_visit_params
     {
-      arrives_at: visit&.starts_at,
-      departs_at: visit&.ends_at,
+      arrives_at: visit&.starts_at == Visit.new.starts_at ? Time.zone.now.at_midday : visit&.starts_at,
+      departs_at: visit&.ends_at == Visit.new.ends_at ? Time.zone.now.at_midday : visit&.ends_at,
     }
   end
 
