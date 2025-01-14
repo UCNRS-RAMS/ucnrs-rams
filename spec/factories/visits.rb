@@ -18,5 +18,9 @@ FactoryBot.define do
 
     starts_at { Time.current - 5.day }
     ends_at { Time.current + 5.days }
+
+    trait :without_validations do
+      to_create { |instance| instance.save(validate: false) }
+    end
   end
 end

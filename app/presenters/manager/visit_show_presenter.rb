@@ -56,9 +56,19 @@ class Manager::VisitShowPresenter
   end
 
   def visit_date_range
-    DateRangePresenter.new(
-      start_date: starts_at,
-      end_date: ends_at,
-    ).value("date_range.different_years")
+    if starts_at.present? && ends_at.present?
+      DateRangePresenter.new(
+        start_date: starts_at,
+        end_date: ends_at,
+      ).value("date_range.different_years")
+    else
+      not_applicable
+    end
+  end
+
+  private
+
+  def not_applicable
+    I18n.t("not_applicable")
   end
 end

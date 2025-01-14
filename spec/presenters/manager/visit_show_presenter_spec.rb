@@ -7,12 +7,38 @@ RSpec.describe Manager::VisitShowPresenter do
   end
 
   describe "#visit_date_range" do
-    it "return visit overall date range" do
-      visit = create(:visit, starts_at: "20 sep 2022", ends_at: "22 sep 2022")
-      user = create(:user, :confirmed)
-      show_presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: user)
+    context "when visit starts_at and ends_at present" do
+      it "return visit overall date range" do
+        visit = create(:visit, starts_at: "20 sep 2022", ends_at: "22 sep 2022")
+        user = create(:user, :confirmed)
+        show_presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: user)
 
-      expect(show_presenter.visit_date_range).to eq "Sep 20, 2022 - Sep 22, 2022"
+        expect(show_presenter.visit_date_range).to eq "Sep 20, 2022 - Sep 22, 2022"
+      end
+    end
+
+    context "when visit starts_at or ends_at are not present" do
+      it "returns not applicable" do
+        visit = create(:visit, :without_validations,
+          starts_at: Time.current, ends_at: nil, end_date: nil, end_time: nil
+        )
+        user = create(:user, :confirmed)
+        allow(I18n).to receive(:t).with("not_applicable").and_return("not applicable")
+        show_presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: user)
+
+        expect(show_presenter.visit_date_range).to eq "not applicable"
+      end
+
+      it "returns not applicable" do
+        visit = create(:visit, :without_validations,
+          ends_at: Time.current, starts_at: nil, start_date: nil, start_time: nil
+        )
+        user = create(:user, :confirmed)
+        allow(I18n).to receive(:t).with("not_applicable").and_return("not applicable")
+        show_presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: user)
+
+        expect(show_presenter.visit_date_range).to eq "not applicable"
+      end
     end
   end
 
@@ -108,7 +134,7 @@ RSpec.describe Manager::VisitShowPresenter do
 
       expect(show_presenter.reserve_manager?).to eq true
     end
-    
+
     it "return false if current user is not a staff member of reserve" do
       user = create(:user, :confirmed)
       reserve = create(:reserve)
