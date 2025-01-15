@@ -9,10 +9,12 @@
   <td>
     <%= project.project_type %>
     |
-    <%= link_to project.title,
-      manager_reserve_project_path(current_reserve, project.id),
-      data: { "turbo-frame" => "_top" }
-    %>
+    <strong>
+      <%= link_to project.title,
+        manager_reserve_project_path(current_reserve, project.id),
+        data: { "turbo-frame" => "_top" }
+      %>
+    </strong>
   </td>
   <td>
     <%= link_to pluralize(project.visits_count, "visit"),
