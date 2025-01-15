@@ -28,18 +28,22 @@
       <p><%= t('.project_title') %></p>
       <p class="title"><%= presenter.project_title %></p>
     </div>
-    <div >
-      <p class="text-center"><%= t('.visit_dates') %></p>
-      <p class="title">
-        <%= presenter.visit_date_range %>
-      </p>
-    </div>
     <div class="load-hide">
       <%= render partial: "manager/visits/icon_links", locals: { path: "#", icon_name: "calendar.svg" } %>
       <%= render partial: "manager/visits/icon_links", locals: { path: "#", icon_name: "ical.svg" } %>
     </div>
   </div>
+  <div class="info-block display-flex">
+    <div>
+      <p><%= t('.visit_purpose') %></p>
+      <p class="title"><%= presenter.purpose_of_visit %></p>
+    </div>
+  </div>
   <div class="info-block">
+    <div class="w-200" >
+      <p><%= t('.visit_dates') %></p>
+      <p class="title"><%= presenter.visit_date_range %></p>
+    </div>
     <div class="w-200">
       <p><%= t('.date_submitted') %></p>
       <p class="title"><%= presenter.submitted_date %></p>
@@ -50,7 +54,7 @@
     </div>
     <div class="w-200">
       <p><%= t('.visit_type') %></p>
-      <p class="title"><%= presenter.project_type %></p>
+      <p class="title"><%= presenter.project_type&.capitalize %></p>
     </div>
     <div class="w-200">
       <p><%= t('.visitors') %></p>
