@@ -78,4 +78,8 @@ class Mail::User::ProjectPresenter
       involves << I18n.t("projects.show.species_of_special_concern") if involves_threatened_endangered_species
     end.flatten
   end
+
+  def not_applicable
+    I18n.t("not_applicable")
+  end
 end

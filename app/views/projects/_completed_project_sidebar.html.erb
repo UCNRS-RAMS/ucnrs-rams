@@ -25,8 +25,8 @@
   </section>
 </section>
 <section>
-  <h2><%= t(".or_you_can") %></h2>
-  <%= simple_format t(".contact_reserve")%>
+  <h2><%= t(".contact_reserve") %></h2>
+  <%= simple_format t(".contact_reserve_description")%>
   <%= form_with scope: :email_manager,
     url: project_contact_manager_path(presenter.project),
     method: :post  do |form|

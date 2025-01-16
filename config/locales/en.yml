@@ -888,17 +888,15 @@ en:
         visit(s)."
       sidebar_next_steps: "Next Steps"
       sidebar_next_steps_1: "Determine which reserves you plan to work at."
-      sidebar_next_steps_2: "Create a visit for that reserve."
+      sidebar_next_steps_2: "Create a visit for each reserve you'd like to work at."
       sidebar_next_steps_3:
-        "You may visit a reserve only after your Project and Visit have been
-        approved."
-      sidebar_next_steps_4:
         "You may be asked to provide permits and sign waivers prior to
         visiting a reserve."
+      sidebar_next_steps_4: "You may go to a reserve only after your visit has been approved."
       schedule_a_visit: "Schedule a Visit"
       view_our_reserves: "View our reserves."
-      or_you_can: "-Or you can-"
-      contact_reserve:
+      contact_reserve: "Contact Reserve"
+      contact_reserve_description:
         "Contact reserve administrator if you wish to discuss your project before
         scheduling a visit."
       select_a_reserve: "Select a reserve"
@@ -1360,7 +1358,7 @@ en:
       not_saved: "This project could not be saved as 'open'"
     contact_manager:
       sent_message:
-        "A message has been sent to the reserve: %{reserve_name} regarding your
+        "An email has been sent to the reserve %{reserve_name} administrator regarding your
         request."
   waivers:
     index:
@@ -2828,26 +2826,26 @@ en:
       login_and_view_visit: "Login and view Visit"
       visit_status_has_been_updated: "Visit status has been UPDATED."
   user_mailer:
-    project_complete:
-      added_to_project: "You have been added to the project."
-      login_and_view_project: "Login and view Project"
-    project_contact_manager:
-      contact_manager_header:
-        "This email is being sent to facilitate communications between
-        the applicant of the following project and the reserve to determine the project’s
-        suitability."
-      the_user: "The user %{user_full_name}"
-      user_discuss: "would like to discuss the"
-      with_reserve: "with reserve %{reserve_name}"
-    visit_new:
-      your_visit_request_has_been_submitted: "Your Visit request has been Submitted."
-      your_visit_evaluated:
-        "This visit request will be <strong>evaluated and an email will
-        be sent to you</strong> once the status of your visit changes."
-      login_and_view_visit: "Login and view Visit"
-    visit_update:
-      login_and_view_visit: "Login and view Visit"
-      visit_status_has_been_updated: "Visit status has been UPDATED."
+      project_complete:
+        added_to_project: "You have been added to the project."
+        login_and_view_project: "Login and view Project"
+      project_contact_manager:
+        contact_manager_header:
+          "This email is being sent to facilitate communications between
+          the applicant of the following project and the reserve to determine the project’s
+          suitability."
+        the_user: "The user %{user_full_name}"
+        user_discuss: "would like to discuss the"
+        with_reserve: "with reserve %{reserve_name}"
+      visit_new:
+        your_visit_request_has_been_submitted: "Your Visit request has been Submitted."
+        your_visit_evaluated:
+          "This visit request will be <strong>evaluated and an email will
+          be sent to you</strong> once the status of your visit changes."
+        login_and_view_visit: "Login and view Visit"
+      visit_update:
+        login_and_view_visit: "Login and view Visit"
+        visit_status_has_been_updated: "Visit status has been UPDATED."
   shared:
     manager:
       dashboard:
