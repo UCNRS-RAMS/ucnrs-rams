@@ -3,8 +3,6 @@
     <%= question.question %>
     <%= tag.span " *", class: "clr-red" if question.answer_required %>
   <% end %>
-  <p>
-    <%= f.text_area :text_answer, aria: { label: t(".aria_label_for", question: question.id) } %>
-    <span class="explanation"><%= question.statement %></span>
-  </p>
+  <span class="explanation"><%= question.statement %></span>
+  <%= f.text_area :text_answer, aria: { label: t(".aria_label_for", question: question.id) } %>
 </div>
