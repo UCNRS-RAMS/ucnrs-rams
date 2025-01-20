@@ -1,4 +1,8 @@
 <%= fields_for "visit[#{question.location}_reserve_answers][#{question.id}]", question.form do |f| %>
+  <div class="question"
+    data-controller="value-projection"
+    data-value-projection-projected-value="<%= f.object.answer if question.question_type == 'boolean' %>"
+  >
     <%= render partial: "shared/visits/questions/#{question.question_type}", locals: { question: question, f: f } %>
     <div class="description">
       <%= question.description %>
@@ -8,4 +12,5 @@
         <% end %>
       </ul>
     </div>
+  </div>
 <% end %>

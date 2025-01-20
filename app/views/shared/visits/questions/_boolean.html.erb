@@ -1,15 +1,15 @@
 <div class="field">
-  <label for="<%= question.question %>">
+  <label>
     <%= question.question %>
     <%= tag.span " *", class: "clr-red" if question.answer_required %>
   </label>
+  <span class="explanation"><%= question.statement %></span>
   <div class="yes-no-row">
     <div class="yes-no-options">
       <%= f.radio_button :boolean_answer, "1", data: { action: "change->value-projection#change" } %>
-      <%= f.label :boolean_answer, t("yes"), for: "visit_reserve_answers_#{question.id}_boolean_answer_1" %>
+      <%= f.label :boolean_answer, t("yes"), for: "visit_#{question.location}_reserve_answers_#{question.id}_boolean_answer_1" %>
       <%= f.radio_button :boolean_answer, "0", data: { action: "change->value-projection#change" } %>
-      <%= f.label :boolean_answer, t("no"), for: "visit_reserve_answers_#{question.id}_boolean_answer_0" %>
+      <%= f.label :boolean_answer, t("no"), for: "visit_#{question.location}_reserve_answers_#{question.id}_boolean_answer_0" %>
     </div>
-    <span class="explanation"><%= question.statement %></span>
   </div>
 </div>

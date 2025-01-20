@@ -20,5 +20,42 @@
         font-size: 1rem;
       }
     }
+
+    .question {
+      margin-bottom: 2rem;
+
+      .field {
+        margin-bottom: 0.25rem;
+
+        .explanation {
+          width: unset;
+          margin: 0 0 4px 0;
+        }
+      }
+
+      .description {
+        font-size: 0.75rem;
+
+        ul {
+          font-weight: $semi-bold;
+          list-style-type: none;
+          margin-block-start: 0;
+          margin-block-end: 0;
+          padding-inline-start: 0;
+        }
+      }
+
+      &[data-value-projection-projected-value="1"] {
+        .description {
+          display: block;
+        }
+      }
+
+      &[data-value-projection-projected-value="0"] {
+        .description {
+          display: none;
+        }
+      }
+    }
   }
 }
