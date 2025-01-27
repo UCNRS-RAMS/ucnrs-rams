@@ -1885,13 +1885,13 @@ en:
         owner: "Owner"
         submit_date: "Submit Date"
       summary_box:
-        number: "Project Number"
-        title: "Project Title"
-        reserves: "Reserve(s)"
         date_created: "Date Created"
         last_edited: "Last Edited"
-        creator: "Creator"
+        number: "Project Number"
+        owner: "Owner"
         project_type: "Project Type"
+        reserves: "Reserve(s)"
+        title: "Project Title"
       menu:
         summary: "Summary"
         visits: "Visits"
