@@ -21,6 +21,10 @@ class Manager::ProjectShowPresenter < ProjectShowPresenter
     owner.full_name
   end
 
+  def owner_id
+    owner.id
+  end
+
   def project_type
     project.project_type.titleize
   end

@@ -2,14 +2,20 @@ require "rails_helper"
 
 RSpec.describe "show.html.erb" do
   let!(:user) { create(:user) }
-  
+  let!(:reserve) { create(:reserve) }
+
+  before do
+    without_partial_double_verification do
+      allow(view).to receive(:current_reserve).and_return(reserve)
+    end
+  end
+
   describe "on any render" do
     it "includes summary box" do
-      reserve = create(:reserve)
       project = create(:project)
       assign(:presenter, Manager::ProjectShowPresenter.new(project: project, reserve: reserve, current_user: user))
 
-      render template: "manager/projects/show"
+      render template: "manager/projects/show", locals: { current_reserve: reserve }
 
       doc = Capybara.string(rendered)
 
@@ -21,17 +27,16 @@ RSpec.describe "show.html.erb" do
       expect(doc).to have_css("p", text: "Reserve(s)")
       expect(doc).to have_css("p", text: "Date Created")
       expect(doc).to have_css("p", text: "Last Edited")
-      expect(doc).to have_css("p", text: "Creator")
+      expect(doc).to have_css("p", text: "Owner")
       expect(doc).to have_css("p", text: "Project Type")
     end
 
     describe "includes menu bar" do
       it "includes links" do
-        reserve = create(:reserve)
         project = create(:project)
         assign(:presenter, Manager::ProjectShowPresenter.new(project: project, reserve: reserve, current_user: user))
 
-        render template: "manager/projects/show"
+        render template: "manager/projects/show", locals: { current_reserve: reserve }
 
         doc = Capybara.string(rendered)
 
@@ -47,7 +52,6 @@ RSpec.describe "show.html.erb" do
       end
 
       it "select summary by default" do
-        reserve = create(:reserve)
         project = create(:project)
         assign(:presenter, Manager::ProjectShowPresenter.new(project: project, reserve: reserve, current_user: user))
 

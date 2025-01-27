@@ -66,6 +66,18 @@ class Manager::VisitShowPresenter
     end
   end
 
+  def project_type
+    I18n.t("universal.project.project_types.#{project.project_type}")
+  end
+
+  def applicant_full_name
+    user.full_name
+  end
+
+  def applicant_id
+    user.id
+  end
+
   private
 
   def not_applicable

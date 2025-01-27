@@ -26,7 +26,11 @@
   <div class="info-block display-flex">
     <div >
       <p><%= t('.project_title') %></p>
-      <p class="title"><%= presenter.project_title %></p>
+      <p class="title">
+        <%= link_to presenter.project_title,
+          manager_reserve_project_path(current_reserve, presenter.project_id),
+          target: "_top" %>
+      </p>
     </div>
     <div class="load-hide">
       <%= render partial: "manager/visits/icon_links", locals: { path: "#", icon_name: "calendar.svg" } %>
@@ -50,11 +54,15 @@
     </div>
     <div class="w-200">
       <p><%= t('.applicant') %></p>
-      <p class="title"><%= presenter.user_full_name %></p>
+      <p class="title">
+        <%= link_to presenter.applicant_full_name,
+          manager_reserve_user_path(current_reserve, presenter.applicant_id),
+          target: "_top" %>
+      </p>
     </div>
     <div class="w-200">
       <p><%= t('.visit_type') %></p>
-      <p class="title"><%= presenter.project_type&.capitalize %></p>
+      <p class="title"><%= presenter.project_type %></p>
     </div>
     <div class="w-200">
       <p><%= t('.visitors') %></p>
