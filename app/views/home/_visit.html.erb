@@ -7,11 +7,11 @@
   <td>
     <span class="date-range"><%= visit.requested_date_range %></span>
     <br />
-    <%= t("universal.project.project_types.#{visit.project_type}") %>
-    |
     <%= link_to truncate(visit.purpose_of_visit, length: 50, omission: '...'),
       visit_path(visit.id),
       target: "_top" %>
+    |
+    <%= t("universal.project.project_types.#{visit.project_type}") %>
   </td>
   <td class="reserve-name">
     @ <%= visit.reserve_short_name %>
