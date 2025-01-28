@@ -15,12 +15,12 @@
     %>
   </td>
   <td class="invoice-project">
-    <%= t("universal.project.project_types.#{invoice.visit_project_type}") %>
-    |
-    <%= link_to invoice.visit_purpose_of_visit,
+    <%= link_to truncate(invoice.visit_purpose_of_visit, length: 250, omission: '...'),
       manager_reserve_visit_path(current_reserve, invoice.visit_id),
       data: { "turbo-frame" => "_top" }
     %>
+    |
+    <%= t("universal.project.project_types.#{invoice.visit_project_type}") %>
   </td>
   <td class="invoice-balance"><%= invoice.amount %></td>
   <td class="invoice-status"><%= invoice.invoice_status %></td>
