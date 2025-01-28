@@ -28,7 +28,7 @@
       <p><%= t(".owner") %></p>
       <p class="title">
         <%= link_to presenter.owner_name,
-          manager_reserve_user_path(current_reserve, presenter.owner_id),
+          edit_manager_reserve_user_path(current_reserve, presenter.owner_id),
           target: "_top" %>
       </p>
     </div>

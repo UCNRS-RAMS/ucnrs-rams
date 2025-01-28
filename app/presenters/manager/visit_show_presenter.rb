@@ -3,13 +3,13 @@
 class Manager::VisitShowPresenter
   def initialize(visit:, current_user:, selected_tab: nil)
     @visit = VisitPresenter.new(visit)
-    @user = current_user
+    @current_user = current_user
     @selected_tab = selected_tab
   end
 
   delegate_missing_to :visit
 
-  attr_reader :visit, :user, :selected_tab
+  attr_reader :visit, :current_user, :selected_tab
 
   def status_classes
     "btn-status bg-#{status_class}"
@@ -48,7 +48,7 @@ class Manager::VisitShowPresenter
   end
 
   def reserve_manager?
-    user.admin_or_manage_reserve?(visit.reserve)
+    current_user.admin_or_manage_reserve?(visit.reserve)
   end
 
   def btn_class

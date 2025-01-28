@@ -56,7 +56,7 @@
       <p><%= t('.applicant') %></p>
       <p class="title">
         <%= link_to presenter.applicant_full_name,
-          manager_reserve_user_path(current_reserve, presenter.applicant_id),
+          edit_manager_reserve_user_path(current_reserve, presenter.applicant_id),
           target: "_top" %>
       </p>
     </div>
