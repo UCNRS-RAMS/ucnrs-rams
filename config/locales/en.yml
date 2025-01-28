@@ -897,8 +897,8 @@ en:
       view_our_reserves: "View our reserves."
       contact_reserve: "Contact Reserve"
       contact_reserve_description:
-        "Contact reserve administrator if you wish to discuss your project before
-        scheduling a visit."
+        "To discuss your project with reserve stafff before scheduling a visit, use this tool.
+        Staff will receive your project description and a note to contact you."
       select_a_reserve: "Select a reserve"
     not_authorized: "You are not authorized to edit this project."
     cannot_add_users: "You are not authorized to add users."
@@ -1358,8 +1358,7 @@ en:
       not_saved: "This project could not be saved as 'open'"
     contact_manager:
       sent_message:
-        "An email has been sent to the reserve %{reserve_name} administrator regarding your
-        request."
+        "An email has been sent to %{reserve_name} staff regarding your request."
   waivers:
     index:
       title: "Waivers"
