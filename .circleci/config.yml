@@ -18,7 +18,7 @@ jobs:
 
       - run:
           name: Update key
-          command: ​wget -q -O - https://dl.google.com/linux/linux_signing_key.pub
+          command: wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/google.gpg
 
       # cmake is required by Rugged, a dependency of Pronto
       - run:
