@@ -177,13 +177,13 @@
     .project-methods {
       ul {
         list-style: none;
-        margin-bottom: 2.25rem;
+        margin: 0;
         padding-left: 0;
 
         li {
           align-items: center;
           display: flex;
-          margin: .75rem 0;
+          margin: 0 0 14px 0;
         }
 
         li::before {
@@ -200,6 +200,10 @@
         }
       }
 
+      ul:empty {
+        display: none;
+      }
+
       .project-methods-detail {
         margin-bottom: 1.25rem;
 
@@ -210,6 +214,10 @@
 
         span:nth-child(1) {
           margin-bottom: .5rem;
+        }
+
+        p {
+          margin: 0.5rem 0
         }
       }
     }
