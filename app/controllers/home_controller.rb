@@ -12,10 +12,11 @@ class HomeController < ApplicationController
       partial: params[:partial_name]
     )
 
-    if session[:welcome].nil? && session[:welcome] = true && !current_user.managed_reserves.present?
-      @display_welcome_modal = true
-    else
+    if !session[:welcome].nil? || current_user.managed_reserves.present?
       @display_welcome_modal = false
+    else
+      session[:welcome] = true
+      @display_welcome_modal = true
     end
   end
 
