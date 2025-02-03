@@ -3,8 +3,18 @@ class HomeIndexFlow
     @page = page
   end
 
+  def visit_sign_in_page
+    page.visit("/")
+  end
+
   def visit_home_index_page
     page.visit("/home")
+  end
+
+  def sign_in_as(email:, password:)
+    page.fill_in("Email", with: email)
+    page.fill_in("Password", with: password)
+    page.find("input[type='submit']").click
   end
 
   def has_welcome_modal?

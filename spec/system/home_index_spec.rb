@@ -2,8 +2,11 @@ require "rails_helper"
 
 RSpec.describe "Home Index" do
   describe "paginated visits" do
+    let(:email) { "test@test.test" }
+    let(:password) { "Password1" }
+
     it "paginates visits displaying 10 at a time", js: true do
-      user = create(:user, :confirmed)
+      user = create(:user, :confirmed, email: email, password: password)
       25.times do |n|
         visit = create(:visit, user: user, starts_at: Time.current, ends_at: 1.week.from_now)
         user_visit = create(:user_visit, user: user, visit: visit)
@@ -13,7 +16,8 @@ RSpec.describe "Home Index" do
 
       flow = HomeIndexFlow.new(page)
 
-      sign_in(user)
+      flow.visit_sign_in_page
+      flow.sign_in_as(email: email, password: password)
       flow.visit_home_index_page
       flow.dismiss_modal
       expect(flow).to be_on_home_index_page
@@ -37,12 +41,16 @@ RSpec.describe "Home Index" do
   end
 
   describe "home calendar" do
+    let(:email) { "test@test.test" }
+    let(:password) { "Password1" }
+
     it "show visit calendar", js: true do
-      user = create(:user, :confirmed)
+      user = create(:user, :confirmed, email: email, password: password)
 
       flow = HomeIndexFlow.new(page)
 
-      sign_in(user)
+      flow.visit_sign_in_page
+      flow.sign_in_as(email: email, password: password)
       flow.visit_home_index_page
       flow.dismiss_modal
       flow.click_calendar_button
@@ -52,13 +60,14 @@ RSpec.describe "Home Index" do
     end
 
     it "display visit bars from visit start_date and end_date", js: true do
-      user = create(:user, :confirmed)
+      user = create(:user, :confirmed, email: email, password: password)
       visit = create(:visit, user: user, starts_at: Time.current, ends_at: 1.week.from_now)
       visit_date_range = (visit.starts_at.to_date..visit.ends_at.to_date).map{ |date| date.strftime("%Y-%m-%d") }
 
       flow = HomeIndexFlow.new(page)
 
-      sign_in(user)
+      flow.visit_sign_in_page
+      flow.sign_in_as(email: email, password: password)
       flow.visit_home_index_page
       flow.dismiss_modal
       flow.click_calendar_button
@@ -74,8 +83,11 @@ RSpec.describe "Home Index" do
   end
 
   describe "home calendar filters" do
+    let(:email) { "test@test.test" }
+    let(:password) { "Password1" }
+
     it "display data on calendar after filtering visit status", js: true do
-      user = create(:user, :confirmed)
+      user = create(:user, :confirmed, email: email, password: password)
       visit1 = create(:visit, starts_at: Time.current, ends_at: Time.current.end_of_week,
         user: user, status: :incomplete)
       visit2 = create(:visit, starts_at: Time.current.beginning_of_month, ends_at: Time.current.end_of_week,
@@ -85,11 +97,10 @@ RSpec.describe "Home Index" do
 
       flow = HomeIndexFlow.new(page)
 
-      sign_in(user)
+      flow.visit_sign_in_page
+      flow.sign_in_as(email: email, password: password)
       flow.visit_home_index_page
       flow.dismiss_modal
-      sleep(0.5)
-
       flow.click_calendar_button
       sleep(0.5)
 
@@ -103,7 +114,7 @@ RSpec.describe "Home Index" do
     end
 
     it "display data on calendar after filtering reserve", js: true do
-      user = create(:user, :confirmed)
+      user = create(:user, :confirmed, email: email, password: password)
       reserve1 = create(:reserve, short_name: "reserve1")
       reserve2 = create(:reserve, short_name: "reserve2")
       visit1 = create(:visit, starts_at: Time.current, ends_at: Time.current.end_of_week,
@@ -115,11 +126,10 @@ RSpec.describe "Home Index" do
 
       flow = HomeIndexFlow.new(page)
 
-      sign_in(user)
+      flow.visit_sign_in_page
+      flow.sign_in_as(email: email, password: password)
       flow.visit_home_index_page
       flow.dismiss_modal
-      sleep(0.5)
-
       flow.click_calendar_button
       sleep(0.5)
 
@@ -134,12 +144,16 @@ RSpec.describe "Home Index" do
   end
 
   describe "welcome modal" do
+    let(:email) { "test@test.test" }
+    let(:password) { "Password1" }
+
     it "should display on login only", js: true do
-      user = create(:user, :confirmed)
+      user = create(:user, :confirmed, email: email, password: password)
 
       flow = HomeIndexFlow.new(page)
 
-      sign_in(user)
+      flow.visit_sign_in_page
+      flow.sign_in_as(email: email, password: password)
       flow.visit_home_index_page
       expect(flow).to have_welcome_modal
 
