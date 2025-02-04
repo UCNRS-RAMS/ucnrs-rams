@@ -452,6 +452,25 @@
       "note": ""
     },
     {
+      "warning_type": "Unmaintained Dependency",
+      "warning_code": 123,
+      "fingerprint": "715ee6d743a8af33c7b930d728708ce19c765fb40e2ad9d2b974db04d92dc7d1",
+      "check_name": "EOLRuby",
+      "message": "Support for Ruby 3.1.4 ends on 2025-03-31",
+      "file": ".ruby-version",
+      "line": 1,
+      "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "Weak",
+      "cwe_id": [
+        1104
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "77c24bc8d2f0c7414a12b2e8993496337612916d0701f772d0613658dbb21232",
@@ -613,7 +632,7 @@
         {
           "type": "template",
           "name": "projects/_file_table",
-          "line": 9,
+          "line": 10,
           "file": "app/views/projects/_file_table.html.erb",
           "rendered": {
             "name": "projects/_file",
@@ -1137,6 +1156,6 @@
       "note": ""
     }
   ],
-  "updated": "2024-10-23 22:05:05 -0700",
+  "updated": "2025-02-04 12:00:55 -0800",
   "brakeman_version": "6.2.2"
 }
