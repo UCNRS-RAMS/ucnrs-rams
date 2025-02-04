@@ -11,7 +11,6 @@
     <p class="screenreader-text" id="modal-description"><%= t(".accessible_description") %></p>
     <p><%= t(".content") %></p>
   </section>
-  <h1>User: <%= current_user.managed_reserves.present? %> - welcome:<%= session[:welcome] %></h1>
   <section class="buttons">
     <button class="active" data-action="click->modal#close">
       <%= t(".continue") %>

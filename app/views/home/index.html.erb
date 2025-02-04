@@ -2,7 +2,7 @@
   <%= render partial: @presenter.partial_name, locals: { presenter: @presenter } %>
   <%= render partial: "invoices_section", locals: { presenter: @presenter } %>
 </section>
-<h1>User:<%= current_user.managed_reserves.present? %> - welcome:<%= session[:welcome] %></h1>
+
 <turbo-frame id="ucnrs_latest_news" src="/home/latest_news"></turbo-frame>
 
 <% if @display_welcome_modal %>
