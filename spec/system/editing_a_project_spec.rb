@@ -87,7 +87,7 @@ RSpec.describe "Editing a project", type: :system, js: true do
         involves_birds: false,
         involves_plants_fungi_soil: true,
         involves_threatened_endangered_species: true,
-        involves_none: true,
+        involves_none: false,
         method_description: "It takes 2 arguments: a string and a number",
         method_remove_organisms: "No",
         method_transfer_organisms: "No",
