@@ -1,2 +1,5 @@
-<%= form.label :reserve, t(".labels.reserve"), for: "visit_reserve_id" %>
+<%= form.label :reserve,
+  t(".labels.reserve_html", addition: "<span class=\"required\">*</span>".html_safe),
+  for: "visit_reserve_id"
+%>
 <%= render partial: "visits/reserves/reserves_select", locals: { presenter: presenter.reserves } %>

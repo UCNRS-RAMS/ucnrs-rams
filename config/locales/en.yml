@@ -669,16 +669,16 @@ en:
           visitors: "Next: Visitors"
     reserve:
       labels:
-        reserve: "Which reserve would you like to visit?"
+        reserve_html: "Which reserve would you like to visit? %{addition}"
     project:
       links:
         create_a_new_project: "Create A New Project"
       project_type_options:
         labels:
-          research: "Research"
-          university_class: "University Class"
-          meeting_or_conference: "Meeting or Conference"
-          public_use: "Public Use"
+          research_html: "Research Project %{addition}"
+          university_class_html: "University Class Project %{addition}"
+          meeting_or_conference_html: "Meeting or Conference Project %{addition}"
+          public_use_html: "Public Use Project %{addition}"
       team_memberships:
         index:
           back_to_schedule_visit: "BACK to Schedule Visit"
@@ -978,167 +978,6 @@ en:
       step_2: "Team"
       step_3: "Permits"
       step_4: "Funding"
-    research_form:
-      details: "Details"
-      choose_discipline: "Choose a discipline that best describes your project"
-      methods: "Methods"
-      planning: "Are you planning to..."
-      project_title:
-        field_name: "Project or Event Title"
-        explanation: "Enter a short descriptive title to uniquely identify your application."
-      thesis_title:
-        field_name: "Thesis Title"
-        explanation:
-          "Please provide the most complete version of your thesis title.
-          If this project does not support work toward an academic thesis, leave this field blank."
-      abstract:
-        field_name: "Project Abstract"
-        explanation: "Enter a short summary of your project."
-      project_keywords:
-        field_name: "Project Keywords (Optional)"
-        explanation: "Please separate keywords/phrases with commas."
-        placeholder: "Ex: Earthquakes,Weather"
-      taxonomic_keywords:
-        field_name: "Taxonomic Keywords (Optional)"
-        explanation: "Please provide taxonomic names for any species involved in your project."
-        placeholder: "Ex: Quercus lobata,Picoides nuttallii"
-      recent_publications:
-        field_name: "Recent Publications (Optional)"
-        explanation:
-          "Enter recent publications that resulted from research done on the reserve.
-          If submitting a new project, fill in later when applicable."
-        placeholder: "DOI (Digital Object Identifier)"
-      method_description:
-        field_name:
-          "Please provide a detailed description of environmental manipulations needed
-          for your research."
-        explanation:
-          "Include objects or organisms to be collected, animal and plant populations
-          that may be affected, disturbances of cultural resources, introductions of any
-          species or genotypes, etc."
-      method_study_area:
-        field_name:
-          "List the name of each reserve you would like to visit and describe
-          where you plan to work on that reserve."
-        explanation:
-          "A general description of the geographic area from which you will be
-          collecting data for the project. Could be a place name or a detailed list of sites."
-      start_date: "Start Date"
-      end_date: "End Date"
-      select_involvements: "Will your project involve any of the following?"
-      all_that_apply: "Select all that apply."
-      involvement_flags:
-        involves_mammals: "Mammals"
-        involves_reptiles: "Reptiles"
-        involves_amphibians: "Amphibians"
-        involves_fish: "Fish"
-        involves_birds: "Birds"
-        involves_plants_fungi_soil: "Plants, Fungi, or Soils"
-        involves_none: "None of the Above"
-        involves_threatened_endangered_species:
-          "Threatened, Endangered, or Species of
-          Special Concern"
-      planning_questions:
-        method_remove_organisms: "Remove organisms or materials from the reserve?"
-        method_transfer_organisms:
-          "Transfer animals and plants from outside the reserve to
-          within the reserve, or between different parts of the reserve?"
-        method_study_non_native_species: "Study or manipulate non-native species?"
-        method_chemicals:
-          "Use radioactive isotopes or other chemicals? (e.g., pesticides,
-          herbicides, fertilizers, tracers)"
-        method_chemicals_list: "Please list the chemicals"
-        method_soil_disturbance: "Disturb the soil?"
-        method_long_term_structures:
-          "Erect structures or deploy long term equipment, such as
-          markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
-      yes_option: "Yes"
-      no_option: "No"
-    meeting_form:
-      details: "Details"
-      choose_discipline: "Choose a discipline that best describes your meeting or conference."
-      event_title:
-        field_name: "Event Title"
-        explanation: "Enter a short descriptive title to uniquely identify your application."
-      event_description:
-        field_name: "Event Description"
-        explanation: "Enter a short description describing the purpose of your meeting or conference."
-      start_date: "Start Date"
-      end_date: "End Date"
-    class_form:
-      details: "Details"
-      choose_discipline: "Choose a discipline that best describes your project"
-      class_activities: "Class Activities"
-      planning: "Are you planning to..."
-      project_title:
-        field_name: "Project or Event Title"
-        explanation: "Enter a short descriptive title to uniquely identify your application."
-      course_title:
-        field_name: "Course Name"
-        explanation: "Please provide the complete course name as described by your university."
-      course_number:
-        field_name: "Course Number"
-        explanation: "Offical course number as described by your university."
-      project_keywords:
-        field_name: "Project Keywords (Optional)"
-        explanation: "Please separate keywords/phrases with commas."
-        placeholder: "Ex: Earthquakes,Weather"
-      taxonomic_keywords:
-        field_name: "Taxonomic Keywords (Optional)"
-        explanation: "Please provide taxonomic names for any species involved in your project."
-        placeholder: "Ex: Quercus lobata,Picoides nuttallii"
-      recent_publications:
-        field_name: "Recent Publications (Optional)"
-        explanation:
-          "Enter recent publications that resulted from research done on the reserve.
-          If submitting a new project, fill in later when applicable."
-        placeholder: "DOI (Digital Object Identifier)"
-      method_description:
-        field_name:
-          "Please provide a detailed description of environmental manipulations needed
-          for your research."
-        explanation:
-          "Include objects or organisms to be collected, animal and plant
-          populations that may be affected, disturbances of cultural resources, introductions
-          of any species or genotypes, etc."
-      method_study_area:
-        field_name:
-          "List the name of each reserve you would like to visit and describe where
-          you plan to work on that reserve."
-        explanation:
-          "A general description of the geographic area from which you will be
-          collecting data for the project. Could be a place name or a detailed list of sites."
-      start_date: "Start Date"
-      end_date: "End Date"
-      select_involvements: "Will your project involve any of the following?"
-      all_that_apply: "Select all that apply."
-      involvement_flags:
-        involves_mammals: "Mammals"
-        involves_reptiles: "Reptiles"
-        involves_amphibians: "Amphibians"
-        involves_fish: "Fish"
-        involves_birds: "Birds"
-        involves_plants_fungi_soil: "Plants, Fungi, or Soils"
-        involves_none: "None of the Above"
-        involves_threatened_endangered_species:
-          "Threatened, Endangered, or Species of
-          Special Concern"
-      planning_questions:
-        method_remove_organisms: "Remove organisms or materials from the reserve?"
-        method_transfer_organisms:
-          "Transfer animals and plants from outside the reserve to
-          within the reserve, or between different parts of the reserve?"
-        method_study_non_native_species: "Study or manipulate non-native species?"
-        method_chemicals:
-          "Use radioactive isotopes or other chemicals? (e.g., pesticides,
-          herbicides, fertilizers, tracers)"
-        method_chemicals_list: "Please list the chemicals"
-        method_soil_disturbance: "Disturb the soil?"
-        method_long_term_structures:
-          "Erect structures or deploy long term equipment, such as
-          markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
-      yes_option: "Yes"
-      no_option: "No"
     team_memberships:
       form:
         add_team_member_title: "Add a Team Member"
@@ -2949,9 +2788,8 @@ en:
           select_amenities: "Select Amenities"
         labels:
           public_use_category: "Choose a category that best describes your visit"
-          purpose_of_visit: "What do you plan to do on this visit?"
+          purpose_of_visit_html: "What do you plan to do on this visit? %{addition}"
           select_project: "Select Project"
-          reserve: "Which reserve would you like to visit?"
           arrival: "Arrival"
           departure: "Departure"
           next_page:
@@ -3158,15 +2996,15 @@ en:
         methods: "Methods"
         planning: "Are you planning to..."
         project_title:
-          field_name: "Project or Event Title"
+          field_name_html: "Project or Event Title %{addition}"
           explanation: "Enter a short descriptive title to uniquely identify your application."
         thesis_title:
-          field_name: "Thesis Title"
+          field_name_html: "Thesis Title %{addition}"
           explanation:
             "Please provide the most complete version of your thesis title.
             If this project does not support work toward an academic thesis, leave this field blank."
         abstract:
-          field_name: "Project Abstract"
+          field_name_html: "Project Abstract %{addition}"
           explanation: "Enter a short summary of your project."
         project_keywords:
           field_name: "Project Keywords (Optional)"
@@ -3183,9 +3021,9 @@ en:
             If submitting a new project, fill in later when applicable."
           placeholder: "DOI (Digital Object Identifier)"
         method_description:
-          field_name:
+          field_name_html:
             "Please provide a detailed description of environmental manipulations needed
-            for your research."
+            for your research. %{addition}"
           explanation:
             "Include objects or organisms to be collected, animal and plant populations
             that may be affected, disturbances of cultural resources, introductions of any
@@ -3199,7 +3037,7 @@ en:
             collecting data for the project. Could be a place name or a detailed list of sites."
         start_date: "Start Date"
         end_date: "End Date"
-        select_involvements: "Will your project involve any of the following?"
+        select_involvements_html: "Will your project involve any of the following? %{addition}"
         all_that_apply: "Select all that apply."
         involvement_flags:
           involves_mammals: "Mammals"
@@ -3213,29 +3051,29 @@ en:
             "Threatened, Endangered, or Species of
             Special Concern"
         planning_questions:
-          method_remove_organisms: "Remove organisms or materials from the reserve?"
-          method_transfer_organisms:
+          method_remove_organisms_html: "Remove organisms or materials from the reserve? %{addition}"
+          method_transfer_organisms_html:
             "Transfer animals and plants from outside the reserve to
-            within the reserve, or between different parts of the reserve?"
-          method_study_non_native_species: "Study or manipulate non-native species?"
-          method_chemicals:
+            within the reserve, or between different parts of the reserve? %{addition}"
+          method_study_non_native_species_html: "Study or manipulate non-native species? %{addition}"
+          method_chemicals_html:
             "Use radioactive isotopes or other chemicals? (e.g., pesticides,
-            herbicides, fertilizers, tracers)"
-          method_chemicals_list: "Please list the chemicals"
-          method_soil_disturbance: "Disturb the soil?"
-          method_long_term_structures:
+            herbicides, fertilizers, tracers) %{addition}"
+          method_chemicals_list_html: "Please list the chemicals %{addition}"
+          method_soil_disturbance_html: "Disturb the soil? %{addition}"
+          method_long_term_structures_html:
             "Erect structures or deploy long term equipment, such as
-            markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
+            markers, fences, enclosures, cages, data-loggers, antennas, or buoys? %{addition}"
         yes_option: "Yes"
         no_option: "No"
       meeting_form:
         details: "Details"
         choose_discipline: "Choose a discipline that best describes your meeting or conference."
         event_title:
-          field_name: "Event Title"
+          field_name_html: "Event Title %{addition}"
           explanation: "Enter a short descriptive title to uniquely identify your application."
         event_description:
-          field_name: "Event Description"
+          field_name_html: "Event Description %{addition}"
           explanation: "Enter a short description describing the purpose of your meeting or conference."
         start_date: "Start Date"
         end_date: "End Date"
@@ -3243,10 +3081,10 @@ en:
         details: "Details"
         choose_discipline: "Choose a discipline that best describes your public use."
         event_title:
-          field_name: "Event Title"
+          field_name_html: "Event Title %{addition}"
           explanation: "Enter a short descriptive title to uniquely identify your application."
         event_description:
-          field_name: "Event Description"
+          field_name_html: "Event Description %{addition}"
           explanation: "Enter a short description describing the purpose of your public use."
         start_date: "Start Date"
         end_date: "End Date"
@@ -3267,13 +3105,13 @@ en:
         class_activities: "Class Activities"
         planning: "Are you planning to..."
         project_title:
-          field_name: "Project or Event Title"
+          field_name_html: "Project or Event Title %{addition}"
           explanation: "Enter a short descriptive title to uniquely identify your application."
         course_title:
-          field_name: "Course Name"
+          field_name_html: "Course Name %{addition}"
           explanation: "Please provide the complete course name as described by your university."
         course_number:
-          field_name: "Course Number"
+          field_name_html: "Course Number %{addition}"
           explanation: "Offical course number as described by your university."
         project_keywords:
           field_name: "Project Keywords (Optional)"
@@ -3306,7 +3144,7 @@ en:
             collecting data for the project. Could be a place name or a detailed list of sites."
         start_date: "Start Date"
         end_date: "End Date"
-        select_involvements: "Will your project involve any of the following?"
+        select_involvements_html: "Will your project involve any of the following? %{addition}"
         all_that_apply: "Select all that apply."
         involvement_flags:
           involves_mammals: "Mammals"
@@ -3320,19 +3158,19 @@ en:
             "Threatened, Endangered, or Species of
             Special Concern"
         planning_questions:
-          method_remove_organisms: "Remove organisms or materials from the reserve?"
-          method_transfer_organisms:
+          method_remove_organisms_html: "Remove organisms or materials from the reserve? %{addition}"
+          method_transfer_organisms_html:
             "Transfer animals and plants from outside the reserve to
-            within the reserve, or between different parts of the reserve?"
-          method_study_non_native_species: "Study or manipulate non-native species?"
-          method_chemicals:
+            within the reserve, or between different parts of the reserve? %{addition}"
+          method_study_non_native_species_html: "Study or manipulate non-native species? %{addition}"
+          method_chemicals_html:
             "Use radioactive isotopes or other chemicals? (e.g., pesticides,
-            herbicides, fertilizers, tracers)"
-          method_chemicals_list: "Please list the chemicals"
-          method_soil_disturbance: "Disturb the soil?"
-          method_long_term_structures:
+            herbicides, fertilizers, tracers) %{addition}"
+          method_chemicals_list_html: "Please list the chemicals %{addition}"
+          method_soil_disturbance_html: "Disturb the soil? %{addition}"
+          method_long_term_structures_html:
             "Erect structures or deploy long term equipment, such
-            as markers, fences, enclosures, cages, data-loggers, antennas, or buoys?"
+            as markers, fences, enclosures, cages, data-loggers, antennas, or buoys? %{addition}"
         yes_option: "Yes"
         no_option: "No"
       fundings:

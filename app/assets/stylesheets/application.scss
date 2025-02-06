@@ -78,6 +78,10 @@ turbo-frame {
   width: 100%;
 }
 
+span.required {
+  color: $red;
+}
+
 .load-hide {
   display: none !important;
 }
