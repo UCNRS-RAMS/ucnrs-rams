@@ -4,7 +4,9 @@
   </header>
   <section>
     <div class="field">
-      <%= form.label :title, t(".project_title.field_name") %>
+      <%= form.label :title,
+        t(".project_title.field_name_html", addition: "<span class=\"required\">*</span>".html_safe)
+      %>
       <p>
         <%= form.text_field :title %>
         <span class="explanation"><%= t(".project_title.explanation") %></span>
@@ -12,7 +14,9 @@
     </div>
 
     <div class="field">
-      <%= form.label :course_title, t(".course_title.field_name") %>
+      <%= form.label :course_title,
+        t(".course_title.field_name_html", addition: "<span class=\"required\">*</span>".html_safe)
+      %>
       <p>
         <%= form.text_field :course_title %>
         <span class="explanation"><%= t(".course_title.explanation") %></span>
@@ -20,7 +24,9 @@
     </div>
 
     <div class="field">
-      <%= form.label :course_number, t(".course_number.field_name") %>
+      <%= form.label :course_number,
+        t(".course_number.field_name_html", addition: "<span class=\"required\">*</span>".html_safe)
+      %>
       <p>
         <%= form.text_field :course_number %>
         <span class="explanation"><%= t(".course_number.explanation") %></span>
@@ -53,7 +59,9 @@
 
   <section>
     <div class="field">
-      <%= form.label :involvements, t(".select_involvements") %>
+      <%= form.label :involvements,
+        t(".select_involvements_html", addition: "<span class=\"required\">*</span>".html_safe)
+      %>
       <ul class="involvements">
         <% presenter.involvement_flags.each do |involvement_flag| %>
           <li>
@@ -123,8 +131,10 @@
   </header>
   <% presenter.planning_questions.each do |planning_question| %>
     <div class="field" data-controller="value-projection" data-value-projection-projected-value="<%= form.object.send(planning_question) %>">
-      <%= form.label planning_question, t(".planning_questions.#{planning_question}"), class: "planning-question-label" %>
-
+      <%= form.label planning_question,
+        t(".planning_questions.#{planning_question}_html", addition: "<span class=\"required\">*</span>".html_safe),
+        class: "planning-question-label"
+      %>
       <div class="yes-no-options">
         <%= form.radio_button planning_question, t(".yes_option"), data: { action: "click->value-projection#change" } %>
         <%= form.label "#{planning_question}_yes".to_sym, t(".yes_option") %>
@@ -134,8 +144,11 @@
 
       <% if presenter.chemical_question?(planning_question) %>
         <div class="additional-question">
-          <%= form.label :method_chemicals_list, t(".planning_questions.method_chemicals_list"),
-            class: "planning-question-label", id: "method_chemicals_list" %>
+          <%= form.label :method_chemicals_list,
+            t(".planning_questions.method_chemicals_list_html", addition: "<span class=\"required\">*</span>".html_safe),
+            class: "planning-question-label",
+            id: "method_chemicals_list"
+          %>
           <%= form.text_field :method_chemicals_list %>
         </div>
       <% end %>

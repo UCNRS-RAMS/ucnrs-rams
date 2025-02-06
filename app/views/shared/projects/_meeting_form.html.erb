@@ -4,7 +4,7 @@
   </header>
   <section>
     <div class="field">
-      <%= form.label :title, t(".event_title.field_name") %>
+      <%= form.label :title, t(".event_title.field_name_html", addition: "<span class=\"required\">*</span>".html_safe) %>
       <p>
         <%= form.text_field :title %>
         <span class="explanation"><%= t(".event_title.explanation") %></span>
@@ -12,7 +12,7 @@
     </div>
 
     <div class="field">
-      <%= form.label :abstract, t(".event_description.field_name") %>
+      <%= form.label :abstract, t(".event_description.field_name_html", addition: "<span class=\"required\">*</span>".html_safe) %>
       <p>
         <%= form.text_area :abstract %>
         <span class="explanation"><%= t(".event_description.explanation") %></span>
