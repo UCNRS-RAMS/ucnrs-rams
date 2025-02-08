@@ -2641,7 +2641,7 @@ en:
             purpose: "Purpose of Visit"
             reserves: "Reserves"
             reserve: "Reserve"
-            select_amenities: "Select Amenities"
+            request_amenities: "Request Amenities"
           labels:
             public_use_category: "Choose a category that best describes your visit"
             purpose_of_visit: "What do you plan to do on this visit?"
@@ -2655,7 +2655,9 @@ en:
             calendar: "Calendar Icon"
             left_arrow: "Left Arrow to Go Back"
             right_arrow: "Right Arrow"
-            rate_determined: "Rate determined automatically from your Institution (%{institution})"
+            rate_determined: "Amenities may include lodging, vehicles, laboratories,
+              meeting rooms, staff assistance, and other facilities and services available
+              at reserves. Rate determined automatically from your Institution (%{institution})"
           links:
             go_back: "Go Back"
             create_a_new_project: "or Create a new Project"
@@ -2785,7 +2787,7 @@ en:
           purpose: "Purpose of Visit"
           reserves: "Reserves"
           reserve: "Reserve"
-          select_amenities: "Select Amenities"
+          request_amenities: "Request Amenities"
         labels:
           public_use_category: "Choose a category that best describes your visit"
           purpose_of_visit_html: "What do you plan to do on this visit? %{addition}"
@@ -2799,7 +2801,9 @@ en:
           left_arrow: "Left Arrow to Go Back"
           right_arrow: "Right Arrow"
           required: "Required"
-          rate_determined: "Rate determined automatically from your Institution (%{institution})"
+          rate_determined: "Amenities may include lodging, vehicles, laboratories,
+            meeting rooms, staff assistance, and other facilities and services available
+            at reserves. Rate determined automatically from your Institution (%{institution})"
         links:
           go_back: "Go Back"
           create_a_new_project: "or Create a new Project"
