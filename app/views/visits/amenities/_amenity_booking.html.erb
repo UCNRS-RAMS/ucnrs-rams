@@ -6,35 +6,17 @@
     <div class="flex-row-field">
       <div class="flex-column-field">
         <%= form.label :arrives_on, class: "label-error" %>
-        <%= form.date_field :arrives_on,
-          value: presenter.default_date(form.object.amenity_visit.arrives_on),
-          data: {
-            "copy-first-target": "destination",
-            "amenity-booking-target": "arriveOn",
-            "amenity-visit-target": "arriveOn",
-            "subtotal-target": "arriveOn",
-            action: "change->subtotal#calculateSubtotal",
-          }
-        %>
-      </div>
-      <div class="flex-column-field">
-        <%= form.label :departs_on, class: "label-error" %>
-        <%= form.date_field :departs_on,
-          value: presenter.default_date(form.object.amenity_visit.departs_on),
-          data: {
-            "copy-second-target": "destination",
-            "amenity-booking-target": "departsOn",
-            "amenity-visit-target": "departsOn",
-            "subtotal-target": "departsOn",
-            action: "change->subtotal#calculateSubtotal",
-          }
-        %>
-      </div>
-    </div>
-    <div class="flex-row-field">
-      <div class="flex-column-field">
-        <%= form.label :arrive_at, t(".time_of_use") %>
         <div class="flex-row-field">
+          <%= form.date_field :arrives_on,
+            value: presenter.default_date(form.object.amenity_visit.arrives_on),
+            data: {
+              "copy-first-target": "destination",
+              "amenity-booking-target": "arriveOn",
+              "amenity-visit-target": "arriveOn",
+              "subtotal-target": "arriveOn",
+              action: "change->subtotal#calculateSubtotal",
+            }
+          %>
           <%= form.collection_select :arrives_at,
             presenter.time_options,
             :value,
@@ -44,6 +26,23 @@
               "amenity-booking-target": "arriveAt",
               "subtotal-target": "arriveAt",
               action: "change->subtotal#calculateSubtotal"
+            }
+          %>
+        </div>
+      </div>
+    </div>
+    <div class="flex-row-field">
+      <div class="flex-column-field">
+        <%= form.label :departs_on, class: "label-error" %>
+        <div class="flex-row-field">
+          <%= form.date_field :departs_on,
+            value: presenter.default_date(form.object.amenity_visit.departs_on),
+            data: {
+              "copy-second-target": "destination",
+              "amenity-booking-target": "departsOn",
+              "amenity-visit-target": "departsOn",
+              "subtotal-target": "departsOn",
+              action: "change->subtotal#calculateSubtotal",
             }
           %>
           <%= form.collection_select :departs_at,

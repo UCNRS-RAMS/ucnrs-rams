@@ -72,6 +72,7 @@
     <%= render partial: "shared/visits/visitors_table",
       locals: { presenter: presenter } if presenter.user_visits.present?
     %>
+
     <section id="amenities-select" class="amenities form-container form-subsection"
       data-followup-content-target="destination"
       data-followup-content-url-value="<%= visits_amenities_url(reserve_id: "VALUE") %>"
@@ -91,6 +92,6 @@
         <% end %>
       </div>
     </section>
-  </div>
 
+  </div>
 </div>
