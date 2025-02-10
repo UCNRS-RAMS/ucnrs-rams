@@ -32,7 +32,7 @@ class Visits::AmenityForm
   end
 
   def invoiced?
-    amenity_visit.invoice_id.present?
+    amenity_visit.invoice_id.present? && amenity_visit.invoice_id > 0
   end
 
   def arrives_on
