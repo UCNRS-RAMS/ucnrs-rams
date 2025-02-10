@@ -84,6 +84,10 @@ class AmenityVisit < ApplicationRecord
     end
   end
 
+  def invoiced?
+    self.invoice_id.present? && self.invoice_id > 0
+  end
+
   private
 
   def date_range_within_visit_range

@@ -72,7 +72,7 @@ class AmenityVisitPresenter
   end
 
   def invoiced?
-    Visits::AmenityForm.new(params: { amenity_visit_id: amenity_visit.id }).invoiced?
+    amenity_visit.invoiced?
   end
 
   private
