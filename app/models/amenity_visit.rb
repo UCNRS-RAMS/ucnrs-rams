@@ -28,7 +28,7 @@ class AmenityVisit < ApplicationRecord
     ApplicationController.helpers.num_of_units(
       self.arrives,
       self.departs,
-      amenity.time_type,
+      amenity&.time_type,
     )
   end
 
