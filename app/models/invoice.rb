@@ -52,6 +52,10 @@ class Invoice < ApplicationRecord
     self.save
   end
 
+  def update_balance_due
+    update_columns(balance_due: invoice_total - payments_amount_total)
+  end
+
   def payments_amount_total
     invoice_payments.sum(&:amount)
   end

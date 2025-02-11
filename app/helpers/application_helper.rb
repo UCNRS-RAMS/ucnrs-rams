@@ -89,6 +89,8 @@ module ApplicationHelper
                           (arrival_date.year * 12 + arrival_date.month)).abs - 1
       num_units       = (full_months + arrival_full_month + departure_full_month +
                           ((arrival_partial + departure_partial) * 12.0 / 365.0)).ceil
+    else
+      num_units = 0
     end
 
     num_units
