@@ -18,11 +18,11 @@
   </td>
   <td>
     <%= link_to pluralize(project.visits_count, "visit"),
-      manager_reserve_user_activities_path(current_reserve, project.applicant_id),
+      manager_reserve_project_visits_path(current_reserve, project.id),
       target: "_top"
     %>
     |
-    <%= tag.strong project.recent_visit_date %>
+    <%= project.recent_visit_date %>
   </td>
   <td><%= project.submitted_at %></td>
 </tr>
