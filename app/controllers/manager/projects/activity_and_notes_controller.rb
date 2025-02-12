@@ -3,12 +3,20 @@ class Manager::Projects::ActivityAndNotesController < Manager::ApplicationContro
   before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
   before_action :is_administrator!, unless: -> { super_admin? }, only: [:create]
 
+  layout "manager"
+
   def index
     @presenter = Manager::Projects::ActivityAndNotesIndexPresenter.new(
       project: project,
       logs_page: params[:logs_page],
       notes_page: params[:notes_page],
       reserve: current_reserve,
+    )
+
+    @project_summary_presenter = Manager::ProjectShowPresenter.new(
+      project: project,
+      reserve: current_reserve,
+      current_user: current_user,
     )
   end
 

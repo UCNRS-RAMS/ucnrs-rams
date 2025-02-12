@@ -1,48 +1,48 @@
 <section>
   <ul class="project-menu-bar" data-controller="tab-bar">
-    <li><%= link_to( t(".summary"),
-      manager_reserve_project_summary_path(@presenter.reserve_id, @presenter.id),
-      { class: "nav-link active",
+    <li><%= active_link_to_by_url( t(".summary"),
+      manager_reserve_project_path(@presenter.reserve_id, @presenter.id),
+      { class: "nav-link",
         id: "summary",
         data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "project-details" }
       })%>
     </li>
-    <li><%= link_to( t(".visits"),
+    <li><%= active_link_to_by_url( t(".visits"),
       manager_reserve_project_visits_path(@presenter.reserve_id, @presenter.id),
       { class: "nav-link",
         id: "visits",
         data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "project-details" }
       })%>
     </li>
-    <li><%= link_to( t(".details"),
+    <li><%= active_link_to_by_url( t(".details"),
       edit_manager_reserve_project_detail_path(@presenter.reserve_id, @presenter.id),
       { class: "nav-link",
         id: "details",
         data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "project-details" }
       })%>
     </li>
-    <li><%= link_to( t(".team"),
+    <li><%= active_link_to_by_url( t(".team"),
       manager_reserve_project_team_memberships_path(@presenter.reserve_id, @presenter.id),
       { class: "nav-link",
         id: "team_memberships",
         data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "project-details" }
       })%>
     </li>
-    <li><%= link_to( t(".permits"),
+    <li><%= active_link_to_by_url( t(".permits"),
       edit_manager_reserve_project_permit_path(@presenter.reserve_id, @presenter.id),
       { class: "nav-link",
         id: "permits",
         data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "project-details" }
       })%>
     </li>
-    <li><%= link_to( t(".funding"),
+    <li><%= active_link_to_by_url( t(".funding"),
       manager_reserve_project_fundings_path(@presenter.reserve_id, @presenter.id),
       { class: "nav-link",
         id: "funding",
         data: { action: "click->tab-bar#changeTab", "tab-bar-target": "tab", "turbo-frame": "project-details" }
       })%>
     </li>
-   <li><%= link_to( t(".activity_and_notes"),
+   <li><%= active_link_to_by_url( t(".activity_and_notes"),
       manager_reserve_project_activity_and_notes_path(@presenter.reserve_id, @presenter.id),
       { class: "nav-link",
         id: "activity_and_notes",

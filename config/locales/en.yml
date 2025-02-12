@@ -1907,7 +1907,7 @@ en:
           yes_option: "Yes"
           no_option: "No"
       summary:
-        show:
+        content:
           upload_file: "Uploaded Files"
     reports:
       show:

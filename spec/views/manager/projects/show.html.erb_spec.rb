@@ -50,17 +50,6 @@ RSpec.describe "show.html.erb" do
         expect(doc).to have_css("a", text: "Funding")
         expect(doc).to have_css("a", text: "Activity & Notes")
       end
-
-      it "select summary by default" do
-        project = create(:project)
-        assign(:presenter, Manager::ProjectShowPresenter.new(project: project, reserve: reserve, current_user: user))
-
-        render template: "manager/projects/show"
-
-        doc = Capybara.string(rendered)
-
-        expect(doc).to have_css("a.active", text: "Summary")
-      end
     end
   end
 end

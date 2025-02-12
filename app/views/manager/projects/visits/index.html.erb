@@ -1,8 +1,12 @@
-<turbo-frame id="project-details">
-  <section class="project-visits-index">
-    <header>
-      <h2 class="main-header"><%= t(".visits", size: @presenter.visits.size) %></h2>
-    </header>
-    <%= render partial: 'manager/projects/visits/visit_show_table', locals: { visits: @presenter.visits } %>
-  </section>
-</turbo-frame>
+<section class="content">
+  <%= render partial: "manager/projects/summary_box", locals: { presenter: @project_summary_presenter } %>
+  <%= render "manager/projects/menu" %>
+  <%= turbo_frame_tag "project-details" do %>
+    <section class="project-visits-index">
+      <header>
+        <h2 class="main-header"><%= t(".visits", size: @presenter.visits.size) %></h2>
+      </header>
+      <%= render partial: 'manager/projects/visits/visit_show_table', locals: { visits: @presenter.visits } %>
+    </section>
+  <% end %>
+</section>
