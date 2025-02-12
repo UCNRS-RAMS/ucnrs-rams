@@ -1,15 +1,11 @@
-<turbo-stream action="replace" target="reserve_notes">
+<turbo-stream action="update" target="reserve_notes">
   <template>
-    <turbo-frame id="reserve_notes">
-      <%= render partial: "reserve_notes", locals: { presenter: @presenter } %>
-    </turbo-frame>
+    <%= render partial: "reserve_notes", locals: { presenter: @presenter } %>
   </template>
 </turbo-stream>
 
-<turbo-stream action="replace" target="activity_logs">
+<turbo-stream action="update" target="activity_logs">
   <template>
-    <turbo-frame id="activity_logs">
-      <%= render partial: "activity_table", locals: { presenter: @presenter } %>
-    </turbo-frame>
+    <%= render partial: "activity_table", locals: { presenter: @presenter } %>
   </template>
 </turbo-stream>

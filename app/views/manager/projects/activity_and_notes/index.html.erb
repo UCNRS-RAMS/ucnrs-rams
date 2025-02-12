@@ -1,10 +1,14 @@
-<turbo-frame id="project-details">
-  <section class="activity-and-notes">
-    <turbo-frame id="activity_logs">
-      <%= render partial: "activity_table", locals: { presenter: @presenter } %>
-    </turbo-frame>
-    <turbo-frame id="reserve_notes">
-      <%= render partial: "reserve_notes", locals: { presenter: @presenter } %>
-    </turbo-frame>
-  </section>
-</turbo-frame>
+<section class="content">
+  <%= render partial: "manager/projects/summary_box", locals: { presenter: @project_summary_presenter } %>
+  <%= render "manager/projects/menu" %>
+  <%= turbo_frame_tag "project-details" do %>
+    <section class="activity-and-notes">
+      <turbo-frame id="activity_logs">
+        <%= render partial: "activity_table", locals: { presenter: @presenter } %>
+      </turbo-frame>
+      <turbo-frame id="reserve_notes">
+        <%= render partial: "reserve_notes", locals: { presenter: @presenter } %>
+      </turbo-frame>
+    </section>
+  <% end %>
+</section>

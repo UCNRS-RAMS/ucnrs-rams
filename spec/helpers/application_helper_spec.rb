@@ -5,8 +5,9 @@ RSpec.describe ApplicationHelper, type: :helper do
     it "generates the class names based on controller and action" do
       allow(controller).to receive(:controller_name).and_return("application")
       allow(controller).to receive(:action_name).and_return("action")
+      allow(controller).to receive(:controller_path).and_return("namepath/controller/action")
 
-      expect(body_class).to eq("application application-action")
+      expect(body_class).to eq("namepath-controller-action application application-action")
     end
   end
 
