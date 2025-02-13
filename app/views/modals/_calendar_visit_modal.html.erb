@@ -39,7 +39,7 @@
       <hr />
       <section class="visitor-amenity-list-section">
         <header>
-          <h2><%= t(".reservation_member") %></h2>
+          <h2><%= t(".visitor_list") %></h2>
         </header>
         <% presenter.user_visits? && presenter.user_visits.each do |user_visit| %>
           <div class="visitor-amenity-list">
@@ -59,7 +59,8 @@
       <section class="visitor-amenity-list-section">
         <header>
           <h2>
-            <%= t(".reserve_resource") %>
+            <%= t(".reserve_amenities") %>
+            |
             <%= link_to t(".create_invoice"),
               manager_reserve_visit_path(current_reserve, presenter.id, selected_tab: "invoices"),
               data: { turbo_frame: "_top" }
