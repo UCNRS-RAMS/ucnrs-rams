@@ -310,8 +310,8 @@ en:
         project: "Under Project # %{id} | %{project_type}"
     calendar_visit_modal:
       visit: "Visit #%{id} @%{reserve_name}"
-      reservation_member: "Reservation Members(s)"
-      reserve_resource: "Reserve Resources(s) | "
+      visitor_list: "Visitor List"
+      reserve_amenities: "Reserve Amenities"
       create_invoice: "Create Invoice"
       close: "Close"
       project: "Under Project # %{id} | %{project_type}"
