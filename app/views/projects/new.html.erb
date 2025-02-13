@@ -9,7 +9,13 @@
     <section class="form-subsection">
       <header>
         <h2><%= t(".project_type_options.title") %></h2>
+        <small>
+          <%= link_to t(".project_types_accepted"),
+            reserves_project_types_path(),
+            data: { "turbo-frame": "modal-content" } %>
+        </small>
       </header>
+
       <div class="project-type-options" data-controller="value-projection"
         data-value-projection-projected-value="<%= form.object.project_type %>">
         <% @presenter.project_type_options.each do |project_type| %>
