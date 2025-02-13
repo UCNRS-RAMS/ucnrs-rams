@@ -37,6 +37,10 @@ Rails.application.routes.draw do
     resource :file_upload, only: [:update], controller: "projects/file_upload"
   end
 
+  namespace :reserves do
+    resources :project_types, only: [:index]
+  end
+
   resources :reserves, only: [:index, :show] do
     resources :amenities, only: [:index], controller: "reserves/amenities"
     resource :reserve_inputs, only: [:show], controller: "reserves/reserve_inputs"
@@ -47,6 +51,8 @@ Rails.application.routes.draw do
     resource :rules_and_directions, only: [:show], controller: "reserves/rules_and_directions"
     resources :more_information, only: [:index], controller: "reserves/addendums"
   end
+
+
 
   namespace :visits do
     resources :reserve_inputs, only: [:show]

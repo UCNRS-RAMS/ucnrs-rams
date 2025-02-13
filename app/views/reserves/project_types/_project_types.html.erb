@@ -1,0 +1,36 @@
+<table id="reserve-project-types" class="summary-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th class="project-type"><%= t("universal.project.project_types.research") %></th>
+      <th class="project-type"><%= t("universal.project.project_types.university_class") %></th>
+      <th class="project-type"><%= t("universal.project.project_types.meeting_or_conference") %></th>
+      <th class="project-type"><%= t("universal.project.project_types.public_use") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% presenter.reserves.each do |reserve| %>
+      <tr>
+        <td>
+          <%= reserve.name %>
+        </td>
+        <td class="project-type">
+          <%= image_tag presenter.icon(reserve.research_projects_accepted),
+            alt: t(presenter.icon_alt_i18n_key(reserve.research_projects_accepted)) %>
+        </td>
+        <td class="project-type">
+          <%= image_tag presenter.icon(reserve.class_projects_accepted),
+            alt: t(presenter.icon_alt_i18n_key(reserve.class_projects_accepted)) %>
+        </td>
+        <td class="project-type">
+          <%= image_tag presenter.icon(reserve.conference_projects_accepted),
+            alt: t(presenter.icon_alt_i18n_key(reserve.conference_projects_accepted)) %>
+        </td>
+        <td class="project-type">
+          <%= image_tag presenter.icon(reserve.public_projects_accepted),
+            alt: t(presenter.icon_alt_i18n_key(reserve.public_projects_accepted)) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,21 @@
+<turbo-frame id="modal-content">
+  <div class="modal-content" data-modal-target="dialog openOnLoad">
+    <p class="screenreader-text">
+      <span id="modal-title"><%= modal_title %></span>
+      <span id="modal-description"><%= modal_description %></span>
+    </p>
+    <div class="close">
+      <%= image_tag "x.svg", height: "16px", width: "16px",
+        id: "x-icon",
+        data: { action: "click->modal#close" },
+        alt: t("alt.icon_x")
+      %>
+    </div>
+    <section>
+      <header class="modal-header">
+        <h2 class="modal-title"><%= modal_title %></h2>
+      </header>
+      <%= render partial: modal_partial, locals: { presenter: presenter } %>
+    </section>
+  </div>
+</turbo-frame>

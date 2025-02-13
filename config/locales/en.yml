@@ -959,6 +959,7 @@ en:
         step_1: "Next: Team"
       alt:
         right_facing_arrow: "A right facing arrow"
+      project_types_accepted: "Project types each reserve will accept"
       project_type_options:
         title: "Project Type"
         labels:
