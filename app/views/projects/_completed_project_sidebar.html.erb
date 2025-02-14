@@ -4,6 +4,21 @@
       <%= t(".sidebar_title") %>
     </h2>
   </header>
+  <section>
+    <h3 class="subheader"><%= t(".sidebar_next_steps") %></h3>
+    <ul class="next-steps-list">
+      <li><%= t(".sidebar_next_steps_1_html") %> <%= link_to t(".view_our_reserves"), reserves_path %></li>
+      <li>
+        <%= t(".sidebar_next_steps_2_html",
+          link: link_to("These reserves",
+            reserves_contact_reserves_path,
+            data: { "turbo-frame": "modal-content" })
+        ) %>
+      </li>
+      <li><%= t(".sidebar_next_steps_3_html") %></li>
+      <li><%= t(".sidebar_next_steps_4_html") %></li>
+    </ul>
+  </section>
   <div class="schedule">
     <%= link_to new_visit_path(
         visit: { project_type: presenter.project_type_for_new_visit_link, project_id: presenter.project_id }
@@ -14,15 +29,6 @@
       <%= image_tag("arrow-right.svg", width: "20px", height: "20px", alt: t("alt.right_facing_arrow")) %>
     <% end %>
   </div>
-  <section>
-    <h3 class="subheader"><%= t(".sidebar_next_steps") %></h3>
-    <ul class="next-steps-list">
-      <li><%= t(".sidebar_next_steps_1") %> <%= link_to t(".view_our_reserves"), reserves_path %></li>
-      <li><%= t(".sidebar_next_steps_2") %></li>
-      <li><%= t(".sidebar_next_steps_3") %></li>
-      <li><%= t(".sidebar_next_steps_4") %></li>
-    </ul>
-  </section>
 </section>
 <section id="project-contact-reserve">
   <h2><%= t(".contact_reserve") %></h2>

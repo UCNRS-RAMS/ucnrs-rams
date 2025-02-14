@@ -39,6 +39,7 @@ Rails.application.routes.draw do
 
   namespace :reserves do
     resources :project_types, only: [:index]
+    resources :contact_reserves, only: [:index]
   end
 
   resources :reserves, only: [:index, :show] do
