@@ -576,6 +576,11 @@ en:
       waiver:
         download_pdf: "Download PDF"
         show_more: "Show more information"
+    contact_reserves:
+      index:
+        contact_reserve_list: Contact Reserve List
+      contact_reserves:
+        contact_reserve: Contact reserve
   amenities:
     alt_text:
       amenity_picture: "picture of a reserve amenity"
@@ -776,9 +781,8 @@ en:
           special_needs: "Special Needs"
           use_area: "Use Area"
           study_area_description:
-            "It can be a simple place name or a full description. This information
-            helps the reserve staff manage the different class and research activities
-            on the reserve."
+            "Can be a place name or full description. Helps reserve staff manage the
+            activities of different user parties."
     show:
       successfully_cancelled: "Visit Successfully Cancelled"
       could_not_cancel: "Could Not Cancel"
@@ -793,7 +797,8 @@ en:
       sidebar_title: "Your visit request was submitted."
       sidebar_next_steps: "Next Steps"
       sidebar_next_steps_1: "The reserve manager will review your request."
-      sidebar_next_steps_2: "You will receive an email notification once your request has been accepted or denied."
+      sidebar_next_steps_2: "You will receive an email notification once your request has been
+        accepted or denied."
       contact_us: "Contact Us"
       help_topics: "Help Topics"
     sidebar_approved_show:
@@ -877,28 +882,26 @@ en:
     incomplete_project_sidebar:
       sidebar_title: "Incomplete"
       edit_project: "Edit Project"
-      sidebar_information:
-        "The project is incomplete at this time. Visits can not be submitted to
+      sidebar_information: "The project is incomplete at this time. Visits can not be submitted to
         incomplete projects. Once completed it will show up as a valid project to apply to your
         visit requests. Once you are ready please complete all the project page information and
         submit."
     completed_project_sidebar:
-      sidebar_title:
-        "Congratulations on successfully creating your project. Now schedule your
+      sidebar_title: "Congratulations on successfully creating your project. Now schedule your
         visit(s)."
       sidebar_next_steps: "Next Steps"
-      sidebar_next_steps_1: "Determine which reserves you plan to work at."
-      sidebar_next_steps_2: "Create a visit for each reserve you'd like to work at."
-      sidebar_next_steps_3:
-        "You may be asked to provide permits and sign waivers prior to
+      sidebar_next_steps_1_html: "Determine which reserves you plan to work at."
+      sidebar_next_steps_2_html: "%{link} require you to discuss your project with staff before
+        scheduling a visit. Use the <strong>Contact Reserve</strong> tool below to initiate this
+        discussion."
+      sidebar_next_steps_3_html: "You may be asked to provide permits and sign waivers prior to
         visiting a reserve."
-      sidebar_next_steps_4: "You may go to a reserve only after your visit has been approved."
+      sidebar_next_steps_4_html: "You may go to a reserve only after your visit has been approved."
       schedule_a_visit: "Schedule a Visit"
       view_our_reserves: "View our reserves."
       contact_reserve: "Contact Reserve"
-      contact_reserve_description:
-        "To discuss your project with reserve stafff before scheduling a visit, use this tool.
-        Staff will receive your project description and a note to contact you."
+      contact_reserve_description: "To discuss your project with reserve stafff before scheduling
+        a visit, use this tool. Staff will receive your project description and a note to contact you."
       select_a_reserve: "Select a reserve"
     not_authorized: "You are not authorized to edit this project."
     cannot_add_users: "You are not authorized to add users."
@@ -2054,6 +2057,9 @@ en:
           alert_message_subheader: "Special message for users about the reserve. This Message
             appears to user when initially selecting this reserve when creating a visit, and the
             reserve page."
+          contact_for_project_review: "Contact for project review"
+          contact_for_project_review_description: "This information will be posted as a link to the
+            new visit page to inform user if this reserve required a project to be reviewed before visits"
           general_information: "General Information"
           reserve_logo: "Reserve Logo"
           description_reserve_logo_text: "Please be patient when adding large image

@@ -52,6 +52,11 @@ main {
     color: $dark-sky-blue;
     text-decoration: none;
   }
+
+  li > a,
+  span > a {
+    text-decoration: underline;
+  }
 }
 
 select:focus,

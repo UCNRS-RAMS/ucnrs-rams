@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_01_17_225343) do
+ActiveRecord::Schema.define(version: 2025_02_13_220711) do
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
@@ -881,6 +881,7 @@ ActiveRecord::Schema.define(version: 2025_01_17_225343) do
     t.string "listing_photo"
     t.string "large_hero_photo"
     t.string "logo"
+    t.boolean "contact_for_project_review", default: false, null: false
     t.index ["managing_campus_id", "name"], name: "ManagingCampus"
     t.index ["name"], name: "Name"
   end

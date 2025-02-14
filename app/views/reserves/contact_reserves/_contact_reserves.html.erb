@@ -1,0 +1,21 @@
+<table id="reserve-project-types" class="summary-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th class="project-type"><%= t(".contact_reserve") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% presenter.reserves.each do |reserve| %>
+      <tr>
+        <td>
+          <%= reserve.name %>
+        </td>
+        <td class="project-type">
+          <%= image_tag presenter.icon(reserve.contact_for_project_review),
+            alt: t(presenter.icon_alt_i18n_key(reserve.contact_for_project_review)) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

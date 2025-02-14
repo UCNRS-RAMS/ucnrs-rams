@@ -210,6 +210,16 @@
     <%= f.text_area :approval_message, class: "form-textarea" %>
     <small><%= t(".visit_email_acceptance_message_description") %></small>
   </div>
+  <div class="form-group">
+    <%= f.label(:contact_for_project_review, t(".contact_for_project_review"), class:"form-label") %>
+    <div>
+      <%= f.radio_button(:contact_for_project_review, true, class: "custom-control-input") %>
+      <%= f.label(:contact_for_project_review_true, t("yes"), class:"custom-control-label") %>
+      <%= f.radio_button(:contact_for_project_review, false, class: "custom-control-input") %>
+      <%= f.label(:contact_for_project_review_false, t("no"), class:"custom-control-label") %>
+    </div>
+    <small><%= t(".contact_for_project_review_description") %></small>
+  </div>
   <div class="with-form-group-pad">
     <button><%= t(".save_changes") %></button>
   </div>

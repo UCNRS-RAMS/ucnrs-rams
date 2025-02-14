@@ -116,6 +116,7 @@ class Manager::ReserveInfo::ReserveDetailsController < Manager::ApplicationContr
       :logo_cache,
       :listing_photo_cache,
       :large_hero_photo_cache,
+      :contact_for_project_review,
     )
   end
 end
