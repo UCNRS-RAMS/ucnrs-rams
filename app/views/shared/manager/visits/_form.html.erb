@@ -33,7 +33,7 @@
         <div class="display-row-flex">
           <%= form.hidden_field(:reserve_id, value: current_reserve.id) %>
           <h3><%= current_reserve.name %></h3>
-          <div class="date-range-select">
+          <div class="date-range-select load-hide">
             <div class="field">
               <%= form.label :start_date, t(".labels.arrival"), class:"reserve-label" %>
               <div class="date-time-select">
@@ -59,9 +59,11 @@
         </div>
       </div>
     </section>
+
     <%= render partial: "shared/visits/visitors_table",
       locals: { presenter: presenter } if presenter.user_visits.present?
     %>
+
     <section id="amenities-select" class="amenities form-container form-subsection"
       data-followup-content-target="destination"
       data-followup-content-url-value="<%= visits_amenities_url(reserve_id: "VALUE") %>"

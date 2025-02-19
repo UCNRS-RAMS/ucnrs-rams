@@ -5,7 +5,7 @@
       url: manager_reserve_visit_detail_path(@presenter.reserve.id, @presenter.id),
       method: :put, id: "form-visits-edit" do |form|
     %>
-      <%= render partial: "shared/visits/form", locals: { presenter: @presenter, form: form } %>
+      <%= render partial: "shared/manager/visits/form", locals: { presenter: @presenter, form: form } %>
     <% end %>
   </section>
   <section class="controls">
