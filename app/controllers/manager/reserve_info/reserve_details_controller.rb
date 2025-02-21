@@ -117,6 +117,8 @@ class Manager::ReserveInfo::ReserveDetailsController < Manager::ApplicationContr
       :listing_photo_cache,
       :large_hero_photo_cache,
       :contact_for_project_review,
+      :outside_reservation_system_url,
+      :outside_reservation_system_text,
     )
   end
 end

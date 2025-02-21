@@ -104,4 +104,21 @@
     </div>
     <small><%=t(".description_invoiceable_text")%></small>
   </div>
+
+  <hr />
+
+  <div class="form-group">
+    <div class="form-label"><%= t(".trigger_outside_hotel_system") %></div>
+    <div>
+      <div class="form-inline">
+        <%= form.radio_button(:outside_reservation_system, true) %>
+        <%= form.label(:outside_reservation_system_true, t("yes"), class: "form-label") %>
+      </div>
+      <div class="form-inline">
+        <%= form.radio_button(:outside_reservation_system, false) %>
+        <%= form.label(:outside_reservation_system_false, t("no"), class: "form-label") %>
+      </div>
+    </div>
+    <small><%=t(".trigger_outside_hotel_system_description")%></small>
+  </div>
 </div>

@@ -15,6 +15,14 @@ class Visits::WaiversPoliciesController < ApplicationController
         send_emails!(visit: @form.visit)
       end
 
+      if visit_trigger_outside_hotel?
+        flash[:notice] = "<p>#{ @form.visit.reserve.outside_reservation_system_text }</p>
+          <p>#{ I18n.t(".visits.waivers_policies.update.outside_reservation_flash_html",
+            href: @form.visit.reserve.outside_reservation_system_url) }</p>
+          <meta HTTP-EQUIV='REFRESH' content='10; url=#{@form.visit.reserve.outside_reservation_system_url}'>"
+
+      end
+
       redirect_to @form.visit
     else
       @presenter = Visits::UsePolicyPresenter.new(current_user: current_user, current_step: 4, visit: visit)
@@ -117,5 +125,9 @@ class Visits::WaiversPoliciesController < ApplicationController
       .with_flag_type(flag_type)
       .for_answer(true)
       .present?
+  end
+
+  def visit_trigger_outside_hotel?
+    visit.amenity_visits.map { |amenity_visit| amenity_visit.amenity.outside_reservation_system }.include? true
   end
 end
