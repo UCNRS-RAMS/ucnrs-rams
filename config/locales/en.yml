@@ -707,6 +707,9 @@ en:
     waivers_policies:
       checkbox:
         yes_agree: "Yes, I agree"
+      update:
+        outside_reservation_flash_html: "You will be forwarded in 10 seconds automatically,
+          or click <a href='%{href}' target='_blank'>Here</a> if it does not."
       show:
         visit_agreements_flash_notice:
           "You are almost done. You MUST check off each Agreement sections
@@ -2134,6 +2137,13 @@ en:
           visit_email_acceptance_message: "Visit Automatic Email Acceptance Message"
           visit_email_acceptance_message_description: "Text that is added to email automatically when a visit
             is approved (this is a good area to add additional directions or a gate combination if needed)."
+          outside_hotel_system: "Outside Hotel System"
+          outside_hotel_system_description: "This option is mainly for Bodega reserve, a workaround to integrate their
+            external hotel system. Please consult ramshelp if you wish to use it for your reserve."
+          outside_hotel_system_url: "Outside Hotel System URL"
+          outside_hotel_system_text: "Message"
+          outside_hotel_system_text_description: "Message to display to user if they select a
+            trigger asset to use outside reservation system link."
       amenities_and_rates:
         index:
           amenities_and_rates: "Amenities & Rates"
@@ -2187,25 +2197,26 @@ en:
               "Optional text to describe and or give instruction for the
               amenity. (255 characters or less.)"
             maximum_capacity: "Maximum Capacity"
-            description_capacity_text:
-              "If capacity is set to 1, user input will automatically
+            description_capacity_text: "If capacity is set to 1, user input will automatically
               be 1 if amenity selected. Useful for amenities that are not charged by the person.
               Setting the capacity to 0, is equal to unlimited."
             amenity_units_type: "Amenity Units Type"
-            description_units_type_text:
-              "Equation is as follows: (number of amenity) per
+            description_units_type_text: "Equation is as follows: (number of amenity) per
               (amenity unit type) per (amenity time interval)."
             amenity_time_interval: "Amenity Time Interval"
-            description_time_type_text:
-              "'Each' is a special time unit. By using 'each', start
+            description_time_type_text: "'Each' is a special time unit. By using 'each', start
               and end time are not calculated for the subtotal."
             visible: "Visible"
             invoiceable: "Invoiceable"
             description_invoiceable_text: "Determines if amenity will show on invoice."
             amenity_listing_photo: "Amenity listing photo"
-            description_amenity_listing_photo_text:
-              "Please be patient when adding large image
+            description_amenity_listing_photo_text: "Please be patient when adding large image
               files after pressing create/update button."
+            trigger_outside_hotel_system: "Trigger Outside Hotel System URL Link?"
+            trigger_outside_hotel_system_description: "This option is mainly for Bodega reserve,
+              a workaround to integrate their external hotel system. If set to yes, when this
+              amenity is choosen for a visit, after the submit visit, it will trigger a new
+              window displaying the external webpage."
         amenity:
           edit: "Edit"
         amenity_rate_categories:

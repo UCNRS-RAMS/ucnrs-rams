@@ -1,4 +1,4 @@
-<section class="reserve-info-subsection">
+<section id="alert-msg" class="reserve-info-subsection">
   <header class="with-form-group-pad">
     <%= t(".alert_message") %>
     <small><%= t(".alert_message_subheader") %></small>
@@ -21,7 +21,7 @@
     <button><%= t(".save_changes") %></button>
   </div>
 </section>
-<section class="reserve-info-subsection">
+<section id="general-info" class="reserve-info-subsection">
   <header class="with-form-group-pad"><%= t(".general_information") %></header>
   <div class="row">
     <div class="col form-group">
@@ -163,7 +163,7 @@
     <button><%= t(".save_changes") %></button>
   </div>
 </section>
-<section class="reserve-info-subsection">
+<section id="visit-settings" class="reserve-info-subsection">
   <header><%= t(".visits") %></header>
 
   <div class="form-group">
@@ -224,7 +224,7 @@
     <button><%= t(".save_changes") %></button>
   </div>
 </section>
-<section class="reserve-info-subsection">
+<section id="billing-info" class="reserve-info-subsection">
   <header class="with-form-group-pad"><%= t(".billing_information") %></header>
   <div data-controller="followup-content" class="row input-group">
     <div class="col-50">
@@ -300,7 +300,7 @@
     <button><%= t(".save_changes") %></button>
   </div>
 </section>
-<section class="reserve-info-subsection site-content">
+<section id="site-content" class="reserve-info-subsection site-content">
   <header class="with-form-group-pad">
     <h1><%= t(".site_content") %></h1>
     <p class="support-text"><%= t(".upload_support_text") %></p>
@@ -333,7 +333,7 @@
     <button><%= t(".save_changes") %></button>
   </div>
 </section>
-<section class="reserve-info-subsection">
+<section id="location" class="reserve-info-subsection">
   <header class="with-form-group-pad"><%= t(".location") %></header>
   <div class="row">
     <div class="col form-group">
@@ -391,7 +391,7 @@
     <button><%= t(".save_changes") %></button>
   </div>
 </section>
-<section class="reserve-info-subsection">
+<section id="amenity-settings" class="reserve-info-subsection">
   <header class="with-form-group-pad">
     <%= t(".amenities") %>
     <small>
@@ -418,6 +418,28 @@
     <%= f.label :amenity_group_label_5, t(".amenity_group_name_5"), class: "form-label" %>
     <%= f.text_field :amenity_group_label_5, class: "form-input" %>
   </div>
+  <div class="with-form-group-pad">
+    <button><%= t(".save_changes") %></button>
+  </div>
+</section>
+<section id="outside-hotel" class="reserve-info-subsection">
+  <header class="with-form-group-pad">
+    <%= t(".outside_hotel_system") %>
+    <small>
+      <%= t(".outside_hotel_system_description") %>
+    </small>
+  </header>
+
+  <div class="col form-group">
+    <%= f.label(:outside_reservation_system_url, t(".outside_hotel_system_url"), class:"form-label") %>
+    <%= f.text_field :outside_reservation_system_url, class: "form-input" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :outside_reservation_system_text, t(".outside_hotel_system_text"), class: "form-label" %>
+    <%= f.text_area :outside_reservation_system_text, class: "form-textarea" %>
+    <%= tag.small t(".outside_hotel_system_text_description") %>
+  </div>
+
   <div class="with-form-group-pad">
     <button><%= t(".save_changes") %></button>
   </div>
