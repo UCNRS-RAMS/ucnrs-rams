@@ -14,14 +14,15 @@
   <td>
     <%= link_to_if visit.reserve_manager?,
       image_tag("dollar_icon.svg", alt: t("alt.dollar_sign"), height: "18", width: "18"),
-      manager_reserve_visit_path(visit.reserve_id, visit.id, selected_tab: "invoices") do
+      manager_reserve_visit_path(visit.reserve_id, visit.id, selected_tab: "invoices"),
+      target: "_top" do
     %>
       <%= image_tag "dollar_icon.svg", alt: t("alt.dollar_sign"),
         height: "18", width: "18", class: "disabled-link"
       %>
     <% end %>
     &nbsp;
-    <%= link_to manager_reserve_visit_path(current_reserve.id, visit.id) do %>
+    <%= link_to manager_reserve_visit_path(current_reserve.id, visit.id), target: "_top" do %>
       <%= image_tag "arrow-right-circle.svg", alt: t("alt.right_facing_arrow"), height: "18", width: "18" %>
     <% end %>
   </td>
