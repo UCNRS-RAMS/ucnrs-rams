@@ -86,7 +86,7 @@ Rails.application.routes.draw do
 
   resources :invoices, only: [:show]
 
-  namespace :manager do
+  namespace :manager, namespace: :manager do
     resources :amenities, only: [:index]
 
     namespace :visits do
