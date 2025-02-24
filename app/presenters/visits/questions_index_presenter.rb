@@ -45,6 +45,8 @@ class Visits::QuestionsIndexPresenter
 
   private
 
+  attr_reader :steps_presenter, :current_step
+
   def permit_scope
     Permit
       .in_order
@@ -97,7 +99,26 @@ class Visits::QuestionsIndexPresenter
   end
 
   def reserve_question_scope_from_answers
-    visit_reserve_questions = ReserveQuestion
+    if visit.submitted_at?
+      visit_reserve_questions_from_answers.in_order
+
+    else
+      ReserveQuestion
+        .from("
+          (
+            #{visit_reserve_questions_from_answers.to_sql}
+            UNION
+            #{project_reserve_questions_from_answers.to_sql}
+          )
+          AS reserve_questions
+        ")
+        .by_location
+        .in_order
+    end
+  end
+
+  def visit_reserve_questions_from_answers
+    ReserveQuestion
       .select(
         ReserveQuestion.arel_table[Arel.star],
         VisitReserveAnswer.arel_table["text_answer"],
@@ -105,28 +126,17 @@ class Visits::QuestionsIndexPresenter
       )
       .joins(:visit_reserve_answers)
       .where(visit_reserve_answers: { visit_id: visit.id })
-
-    if visit.submitted_at?
-      visit_reserve_questions.in_order
-
-    else
-      project_reserve_questions = ReserveQuestion
-        .select(
-          ReserveQuestion.arel_table[Arel.star],
-          ProjectReserveAnswer.arel_table["text_answer"],
-          ProjectReserveAnswer.arel_table["boolean_answer"]
-        )
-        .joins(:project_reserve_answers)
-        .where(project_reserve_answers: { project_id: visit.project_id })
-
-      ReserveQuestion
-        .from(
-          "(#{visit_reserve_questions.to_sql} UNION #{project_reserve_questions.to_sql}) AS reserve_questions"
-        )
-        .by_location
-        .in_order
-    end
   end
 
-  attr_reader :steps_presenter, :current_step
+  def project_reserve_questions_from_answers
+    ReserveQuestion
+      .select(
+        ReserveQuestion.arel_table[Arel.star],
+        ProjectReserveAnswer.arel_table["text_answer"],
+        ProjectReserveAnswer.arel_table["boolean_answer"]
+      )
+      .joins(:project_reserve_answers)
+      .where(reserve_questions: { reserve_id: visit.reserve_id })
+      .where(project_reserve_answers: { project_id: visit.project_id })
+  end
 end
