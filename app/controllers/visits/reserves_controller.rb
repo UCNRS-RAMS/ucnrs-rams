@@ -6,10 +6,15 @@ class Visits::ReservesController < ApplicationController
     @presenter = Visits::ReservesPresenter.new(
       reserve_id: reserve_id,
       project_type: project_type,
+      project_id: project_id,
     )
   end
 
   private
+
+  def project_id
+    params[:project_id]
+  end
 
   def project_type
     params[:project_type]

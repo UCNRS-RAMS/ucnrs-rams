@@ -1,21 +1,13 @@
-<turbo-frame id="project_select"
-  data-pattern="<%= visits_projects_path(project_type: "VALUE", project_id: presenter.project_id) %>"
-  data-turbo-content-target="destination"
->
-  <% if presenter.projects.size > 0 %>
-    <select id="visit_project_id" name="visit[project_id]">
-      <option value="">Please select one</option>
-      <% presenter.projects.each do |project| %>
-        <option value="<%= project.id %>" <%= presenter.selected_project(project) %> ><%= project.title %></option>
-      <% end %>
-    </select>
-  <% else %>
-    <div class="initial-info">
-    <p>
-      You have no project under the project type
-      <%= t("universal.project.project_types")[presenter.project_type&.to_sym] %>.
-      A valid project is required.
-    </p>
-    </div>
-  <% end %>
-</turbo-frame>
+<% if presenter.projects.size > 0 %>
+  <select id="visit_project_id" name="visit[project_id]" data-action="turbo-content#change">
+    <option value=""><%= t("sitewide.please_select_one") %></option>
+    <% presenter.projects.each do |project| %>
+      <option value="<%= project.id %>" <%= presenter.selected_project(project) %> ><%= t("universal.project.project_types.#{project.project_type}") %> - <%= project.title %></option>
+    <% end %>
+  </select>
+<% else %>
+  <div class="initial-info">
+    <p><%= t(".no_project") %></p>
+  </div>
+<% end %>
+

@@ -678,12 +678,8 @@ en:
     project:
       links:
         create_a_new_project: "Create A New Project"
-      project_type_options:
-        labels:
-          research_html: "Research Project %{addition}"
-          university_class_html: "University Class Project %{addition}"
-          meeting_or_conference_html: "Meeting or Conference Project %{addition}"
-          public_use_html: "Public Use Project %{addition}"
+      project_html: "Project %{addition}"
+      project_description: "Please find and select the project you want to create a visit under."
       team_memberships:
         index:
           back_to_schedule_visit: "BACK to Schedule Visit"
@@ -699,6 +695,9 @@ en:
           university_class: "University or college course or class"
           meeting_or_conference: "Symposia, lab retreats, and academic meetings"
           public_use: "Community events, fundraising, K-12, or other classes, volunteer use"
+    projects:
+      projects_select:
+        no_project: "You have no valid project. Plese create a project first to make a visit."
     edit:
       title: "Visit Details"
     index:
@@ -2806,6 +2805,7 @@ en:
           reserves: "Reserves"
           reserve: "Reserve"
           request_amenities: "Request Amenities"
+          select_project: "Select Project"
         labels:
           public_use_category: "Choose a category that best describes your visit"
           purpose_of_visit_html: "What do you plan to do on this visit? %{addition}"
@@ -3448,6 +3448,7 @@ en:
     back: "Back"
     go_back: "Go Back"
     next_step: "Next Step"
+    please_select_one: "Please Select One"
     project: "Project"
     save: "Save"
     submit: "Submit"

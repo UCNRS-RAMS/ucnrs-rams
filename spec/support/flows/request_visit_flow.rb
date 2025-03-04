@@ -54,7 +54,7 @@ class RequestVisitFlow
   end
 
   def showing_project_selection_link?
-    page.has_css?(".project_select a")
+    page.has_css?("a.project-create-link")
   end
 
   def has_special_needs_section?(content = nil)
@@ -96,7 +96,7 @@ class RequestVisitFlow
   end
 
   def select_project(name)
-    page.select name, from: "Research Project"
+    page.select name, from: "Project"
   end
 
   def set_purpose(purpose)

@@ -27,7 +27,7 @@ RSpec.describe Visits::ProjectsController, type: :request do
       get "/visits/projects?project_type=research&project_id=#{project.id}"
 
       page = Capybara.string(response.body)
-      expect(page).to have_select("visit_project_id", selected: "Project 1")
+      expect(page).to have_select("visit_project_id", selected: "Research - Project 1")
     end
   end
 end

@@ -13,13 +13,14 @@ class VisitForm
     @visit = Visit.where(id: params[:id]).first || Visit.new
     @visit.user = user if visit.new_record?
     @project_type = params.delete(:project_type) || visit.project_type
+    @project_id = params[:project_id] || visit.project_id
     @visit.sign_token = SecureRandom.urlsafe_base64(48)
     @amenities_params = params.delete(:amenities) || {}
     @editing = editing
     assign(params)
   end
 
-  attr_reader :visit, :editing, :project_type
+  attr_reader :visit, :editing, :project_type, :project_id
 
   delegate_missing_to :visit
 
