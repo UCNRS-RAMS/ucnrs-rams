@@ -283,6 +283,25 @@
       "note": ""
     },
     {
+      "warning_type": "Unmaintained Dependency",
+      "warning_code": 123,
+      "fingerprint": "40be17ee84017c91503dab23873e24bdd71665ab665bf6f351cfc09ff83e6582",
+      "check_name": "EOLRuby",
+      "message": "Support for Ruby 3.1.4 ends on 2025-03-31",
+      "file": ".ruby-version",
+      "line": 1,
+      "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "Medium",
+      "cwe_id": [
+        1104
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
       "fingerprint": "54b6afd25f88e8916d9b7857dd2fad433e7a4501484fc4fc15bc755aa3a812f0",
@@ -448,25 +467,6 @@
       "confidence": "Medium",
       "cwe_id": [
         89
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Unmaintained Dependency",
-      "warning_code": 123,
-      "fingerprint": "715ee6d743a8af33c7b930d728708ce19c765fb40e2ad9d2b974db04d92dc7d1",
-      "check_name": "EOLRuby",
-      "message": "Support for Ruby 3.1.4 ends on 2025-03-31",
-      "file": ".ruby-version",
-      "line": 1,
-      "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
-      "code": null,
-      "render_path": null,
-      "location": null,
-      "user_input": null,
-      "confidence": "Weak",
-      "cwe_id": [
-        1104
       ],
       "note": ""
     },
@@ -1122,6 +1122,6 @@
       "note": ""
     }
   ],
-  "updated": "2025-02-25 22:41:59 -0800",
+  "updated": "2025-03-04 02:47:25 -0800",
   "brakeman_version": "6.2.2"
 }
