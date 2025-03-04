@@ -42,6 +42,7 @@ class Reserve < ApplicationRecord
     when "university_class" then where(class_projects_accepted: true)
     when "meeting_or_conference" then where(conference_projects_accepted: true)
     when "public_use" then where(public_projects_accepted: true)
+    when "housing" then where(housing_projects_accepted: true)
     else
       none
     end

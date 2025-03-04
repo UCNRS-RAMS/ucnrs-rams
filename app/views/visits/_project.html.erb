@@ -1,14 +1,11 @@
-<div class="project_select select_or_new project-container">
+<div class="select_or_new project-container">
   <div class="field">
-    <% presenter.project_type_options.each do |type| %>
-      <div id="project-label-<%= type %>" class="label_container">
-        <%= form.label :project,
-          t(".project_type_options.labels.#{type}_html", addition: "<span class=\"required\">*</span>".html_safe),
-          for: "visit_project_id"
-        %>
-      </div>
-    <% end %>
+    <%= form.label :project,
+      t(".project_html", addition: "<span class=\"required\">*</span>".html_safe),
+      for: "visit_project_id"
+    %>
     <%= render partial: "visits/projects/projects_select", locals: { presenter: presenter.projects } %>
+    <small><%= t(".project_description") %></small>
   </div>
   <%= link_to t(".links.create_a_new_project"), presenter.project_url, class: "project-create-link" %>
 </div>

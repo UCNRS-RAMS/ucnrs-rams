@@ -66,6 +66,7 @@ class VisitsFormPresenter
     Visits::ReservesPresenter.new(
       project_type: form.project_type,
       reserve_id: reserve&.id,
+      project_id: form.project_id,
     )
   end
 
