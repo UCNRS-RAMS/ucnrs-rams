@@ -317,7 +317,7 @@ RSpec.describe VisitsFormPresenter do
       form = VisitForm.new(params: {project_id: project.id}, editing: true)
       presenter = VisitsFormPresenter.new(user: build(:user), form: form)
 
-      expect(presenter.project_type).to eq "Research"
+      expect(presenter.project_type).to eq "research"
     end
   end
 
