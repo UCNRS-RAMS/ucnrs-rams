@@ -1,11 +1,8 @@
 <section class="uneditable-visit-project-info">
-  <header>
-    <h2><%= t(".project_title") %></h2>
-  </header>
   <section>
     <header>
       <h3>
-        <%= presenter.project_type %>
+        <%= t("universal.project.project_types.#{presenter.project_type}") %>
         -
         <%= link_to presenter.project_summary_path, target: :_blank, class: "display-link" do %>
           <%= presenter.project_title %>

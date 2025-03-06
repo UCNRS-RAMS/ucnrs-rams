@@ -679,7 +679,8 @@ en:
       links:
         create_a_new_project: "Create A New Project"
       project_html: "Project %{addition}"
-      project_description: "Please find and select the project you want to create a visit under."
+      project_description: "Select the project associated with this visit.
+        If you have not yet created a project for this visit, click: "
       team_memberships:
         index:
           back_to_schedule_visit: "BACK to Schedule Visit"
@@ -2727,8 +2728,6 @@ en:
         cancelled: "Cancelled by Applicant"
         denied: "Deny"
         incomplete: "Incomplete"
-      project:
-        project_title: "Visit for Project"
       user_visits:
         click_add_visitor:
           "%{or}Click (Add Visitor) button to add this person as a one time guest

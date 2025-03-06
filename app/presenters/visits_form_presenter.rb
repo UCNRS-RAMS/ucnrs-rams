@@ -109,7 +109,7 @@ class VisitsFormPresenter
   end
 
   def project_type
-    Project.project_types[visit.project.project_type]
+    visit.project.project_type
   end
 
   def applicant_description

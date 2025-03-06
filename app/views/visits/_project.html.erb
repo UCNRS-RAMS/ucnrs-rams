@@ -5,7 +5,9 @@
       for: "visit_project_id"
     %>
     <%= render partial: "visits/projects/projects_select", locals: { presenter: presenter.projects } %>
-    <small><%= t(".project_description") %></small>
+    <small>
+      <%= t(".project_description") %>
+      <%= link_to t(".links.create_a_new_project"), presenter.project_url, class: "project-create-link" %>.
+    </small>
   </div>
-  <%= link_to t(".links.create_a_new_project"), presenter.project_url, class: "project-create-link" %>
 </div>
