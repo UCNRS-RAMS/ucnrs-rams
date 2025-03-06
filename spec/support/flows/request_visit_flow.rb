@@ -59,9 +59,9 @@ class RequestVisitFlow
 
   def has_special_needs_section?(content = nil)
     if content
-      page.has_css?("p.special-needs-statement", text: content)
+      page.has_css?("small.special-needs-statement", text: content)
     else
-      page.has_css?("p.special-needs-statement")
+      page.has_css?("small.special-needs-statement")
     end
   end
 

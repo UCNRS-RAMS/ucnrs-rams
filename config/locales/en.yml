@@ -782,8 +782,10 @@ en:
       fields:
         labels:
           special_needs: "Special Needs"
+          special_needs_description: "Indicate any specific or unusual requirements you might have
+            during your visit."
           use_area: "Use Area"
-          study_area_description:
+          use_area_description:
             "Can be a place name or full description. Helps reserve staff manage the
             activities of different user parties."
     show:

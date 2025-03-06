@@ -2,14 +2,15 @@
   <%= tag.div simple_format(presenter.alert_message), class: "reserve-message" if presenter.alert_message.present? %>
 
   <div class="field">
-    <label for="reserve-special-needs"><%= t(".labels.special_needs") %></label>
-    <p class="special-needs-statement"><%= presenter.special_needs_statement %></p>
-    <textarea name="visit[special_needs]" id="reserve-special-needs"><%= form_values.special_needs %></textarea>
+    <%= tag.label t(".labels.special_needs"), for: "reserve-special-needs" %>
+    <%= tag.textarea form_values.special_needs, name: "visit[special_needs]", id: "reserve-special-needs" %>
+    <%= tag.small presenter.special_needs_statement.present? ? presenter.special_needs_statement : t(".labels.special_needs_description"),
+      class: "label-description special-needs-statement" %>
   </div>
 
   <div class="field">
-    <label for="visit_study_area"><%= t(".labels.use_area") %></label>
-    <input name="visit[study_area]" id="visit_study_area" value="<%= form_values.study_area %>"/>
-    <small class="label-description"><%= t(".labels.study_area_description") %></small>
+    <%= tag.label t(".labels.use_area") , for: "visit_study_area" %>
+    <%= text_field_tag "visit[study_area]", form_values.study_area, id: "visit_study_area" %>
+    <%= tag.small t(".labels.use_area_description"), class: "label-description" %>
   </div>
 <% end %>
