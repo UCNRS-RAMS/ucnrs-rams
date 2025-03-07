@@ -83,7 +83,8 @@ nav.main-navigation {
     }
 
     .nav-link.schedule {
-      border: 1px solid $navbar-link-color;
+      background: $navbar-link-schedule-background-color;
+      border: 1px solid $navbar-link-schedule-border-color;
       border-radius: 50px;
       font-size: .8125rem;
       font-weight: $normal;
@@ -96,8 +97,11 @@ nav.main-navigation {
 
     .nav-link.schedule:hover {
       color: $navbar-link-color;
-      background: $navbar-link-schedule-hover-background-color;
-      border: 1px solid $navbar-link-schedule-hover-border-color;
+      filter: brightness(108%);
+    }
+
+    .nav-link.schedule:active {
+      filter: brightness(112%);
     }
 
     #help-link.nav-link {
