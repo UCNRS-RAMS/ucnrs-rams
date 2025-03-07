@@ -16,9 +16,14 @@
   }
 
   &.due {
-    background-color: $pill-background-active;
+    background-color: $pill-background-due;
     background-image: url(asset-path("clock.svg"));
-    border-color: $pill-border-active;
+    border-color: $pill-border-due;
+  }
+
+  &.paid {
+    background-color: $pill-background-paid;
+    border-color: $pill-border-paid;
   }
 
   &.denied {
