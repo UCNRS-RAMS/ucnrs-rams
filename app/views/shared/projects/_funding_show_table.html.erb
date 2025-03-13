@@ -1,20 +1,16 @@
-<section class="project-funding">
-  <h2 class="main-header"><%= t(".funding", size: presenter.fundings.size) %></h2>
-  <%= link_to t(".edit_funding"), presenter.edit_funding_path %>
-  <table id="funding-summary-table" class="summary-table">
-    <thead>
-      <tr>
-        <th><%= t(".title") %></th>
-        <th><%= t(".funding_agency") %></th>
-        <th><%= t(".award_amount") %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% if presenter.fundings.present? %>
-        <%= render partial: "shared/projects/funding", collection: presenter.fundings %>
-      <% else %>
-        <td colspan="3" class="empty" style="text-align:center;">No Funding</td>
-      <% end %>
-    </tbody>
-  </table>
-</section>
+<table id="funding-summary-table" class="summary-table">
+  <thead>
+    <tr>
+      <th><%= t(".title") %></th>
+      <th><%= t(".funding_agency") %></th>
+      <th><%= t(".award_amount") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if presenter.fundings.present? %>
+      <%= render partial: "shared/projects/funding", collection: presenter.fundings %>
+    <% else %>
+      <td colspan="3" class="empty" style="text-align:center;">No Funding</td>
+    <% end %>
+  </tbody>
+</table>

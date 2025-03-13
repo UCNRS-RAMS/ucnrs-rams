@@ -24,11 +24,50 @@
         </header>
         <%= render partial: "projects/file_table", locals: { presenter: @presenter } %>
       </section>
-      <%= render partial: "shared/projects/team_member_show_table", locals: { presenter: @presenter } %>
-      <%= render partial: "shared/projects/funding_show_table", locals: { presenter: @presenter } %>
-      <%= render partial: "shared/projects/permit_show", locals: { presenter: @presenter } %>
-      <%= render partial: "shared/projects/reserve_question_show", locals: { presenter: @presenter } %>
-      <%= render partial: "shared/projects/visit_show_table", locals: { presenter: @presenter } %>
+
+      <section class="project-team">
+        <header>
+          <h2 class="main-header"><%= t(".project_team", size: @presenter.team_memberships.size) %></h2>
+          <%= link_to t(".edit_team"), @presenter.edit_team_membership_path %>
+        </header>
+        <%= render partial: "shared/projects/team_member_show_table", locals: { presenter: @presenter } %>
+      </section>
+
+      <section class="project-funding">
+        <header>
+          <h2 class="main-header"><%= t(".funding", size: @presenter.fundings.size) %></h2>
+          <%= link_to t(".edit_funding"), @presenter.edit_funding_path %>
+        </header>
+        <%= render partial: "shared/projects/funding_show_table", locals: { presenter: @presenter } %>
+      </section>
+
+      <section class="project-permit">
+        <header>
+          <h2 class="main-header"><%= t(".permits") %></h2>
+          <%= link_to t(".edit_permits"), @presenter.edit_questions_path %>
+          <% if @presenter.display_approved_permits? %>
+            <h3 class="subheader"><%= t(".approved_permits") %></h3>
+            <p><%= @presenter.approved_permits %></p>
+          <% end %>
+        </header>
+        <%= render partial: "shared/projects/permit_show", locals: { presenter: @presenter } %>
+      </section>
+
+      <section class="project-reserve_question">
+        <header>
+          <h2 class="main-header"><%= t(".reserve_questions") %></h2>
+          <%= link_to t(".edit_reserve_questions"), @presenter.edit_questions_path %>
+        </header>
+        <%= render partial: "shared/projects/reserve_question_show", locals: { presenter: @presenter } %>
+      </section>
+
+      <section class="project-visits">
+        <header>
+          <h2 class="main-header"><%= t(".visits", size: @presenter.visits.size) %></h2>
+          <%= link_to t(".schedule_a_visit"), new_visit_path %>
+        </header>
+        <%= render partial: "shared/projects/visit_show_table", locals: { presenter: @presenter } %>
+      </section>
     </section>
   </div>
 </div>

@@ -1,16 +1,12 @@
-<section class="project-team">
-  <h2 class="main-header"><%= t(".project_team", size: presenter.team_memberships.size) %></h2>
-  <%= link_to t(".edit_team"), presenter.edit_team_membership_path %>
-  <table id="team-summary-table" class="summary-table">
-    <thead>
-      <tr>
-        <th><%= t(".name") %></th>
-        <th><%= t(".institution") %></th>
-        <th><%= t(".project_role") %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <%= render partial: "shared/projects/team_membership", collection: presenter.team_memberships %>
-    </tbody>
-  </table>
-</section>
+<table id="team-summary-table" class="summary-table">
+  <thead>
+    <tr>
+      <th><%= t(".name") %></th>
+      <th><%= t(".institution") %></th>
+      <th><%= t(".project_role") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render partial: "shared/projects/team_membership", collection: presenter.team_memberships %>
+  </tbody>
+</table>

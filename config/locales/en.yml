@@ -1110,31 +1110,17 @@ en:
       threatened: "Threatened"
       upload_file: "Uploaded Files"
       view_our_reserves: "View Our Reserves"
-    team_member_show_table:
       project_team: "Project Team (%{size})"
       edit_team: "Edit Team"
-      name: "Name"
-      institution: "Institution"
-      project_role: "Project Role"
-    funding_show_table:
       edit_funding: "Edit Funding"
       funding: "Funding (%{size})"
-      title: "Title"
-      funding_agency: "Funding Agency"
-      award_amount: "Award Amount"
-    permit_show:
       edit_permits: "Edit Permits"
       approved_permits: "Approved Permits"
       permits: "Permits"
-      approved_permits_information:
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat"
-    reserve_question_show:
       reserve_questions: "Additional Reserve Questions"
       edit_reserve_questions: "Edit Reserve Questions"
-    visit_show_table:
       visits: "Visits (%{size})"
-      schedule_a_visit: "Schedule a Visit"
+      schedule_a_visit: "Schedule a new Visit"
     visit:
       visitor: "Visitor"
       amenity: "Amenity"
@@ -1918,6 +1904,17 @@ en:
       summary:
         content:
           upload_file: "Uploaded Files"
+          project_team: "Project Team (%{size})"
+          edit_team: "Edit Team"
+          edit_funding: "Edit Funding"
+          funding: "Funding (%{size})"
+          edit_permits: "Edit Permits"
+          approved_permits: "Approved Permits"
+          permits: "Permits"
+          reserve_questions: "Additional Reserve Questions"
+          edit_reserve_questions: "Edit Reserve Questions"
+          visits: "Visits (%{size})"
+          schedule_a_visit: "Schedule a new Visit"
     reports:
       show:
         report_status: "Report Status"
@@ -2930,28 +2927,16 @@ en:
         discipline: "Discipline"
         project_involves: "Project Involves"
       team_member_show_table:
-        project_team: "Project Team (%{size})"
-        edit_team: "Edit Team"
         name: "Name"
         institution: "Institution"
         project_role: "Project Role"
       funding_show_table:
-        edit_funding: "Edit Funding"
-        funding: "Funding (%{size})"
         title: "Title"
         funding_agency: "Funding Agency"
         award_amount: "Award Amount"
       permit_show:
-        edit_permits: "Edit Permits"
-        approved_permits: "Approved Permits"
         permits: "Permits"
         approved_permits_information: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-      reserve_question_show:
-        reserve_questions: "Additional Reserve Questions"
-        edit_reserve_questions: "Edit Reserve Questions"
-      visit_show_table:
-        visits: "Visits (%{size})"
-        schedule_a_visit: "Schedule a Visit"
       visit:
         visitor: "Visitor"
         amenity: "Amenity"
