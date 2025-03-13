@@ -179,6 +179,8 @@ RSpec.describe "Editing a project", type: :system, js: true do
 
       flow.edit_funding("Give me money for birdwatching")
       expect(flow).to be_showing_popup_editing_user("Give me money for birdwatching")
+
+      sleep(0.5)
       expect(page).to be_axe_clean
 
       flow.click_cancel
