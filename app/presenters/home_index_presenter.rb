@@ -4,16 +4,11 @@ class HomeIndexPresenter
   VISIT_LIMIT_FOR_INDEX = 10.freeze
   INVOICE_LIMIT_FOR_INDEX = 10.freeze
 
-  STATUS_FILTERS = {
-    "visit_date" => nil,
-    "approved" => "approved",
-    "in_review" => "in_review",
-    "cancelled" => "cancelled",
-    "incomplete" => "incomplete",
-  }.freeze
+  STATUS_FILTERS = Visit.statuses
 
   ORDER_FILTERS = {
-    "submit date" => "order_submitted_at"
+    "visit_date" => nil,
+    "submit date" => "order_submitted_at",
   }
 
   def initialize(user:, visit_page: nil, invoice_page: nil, visit_filter: nil,

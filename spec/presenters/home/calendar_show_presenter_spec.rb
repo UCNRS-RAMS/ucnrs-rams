@@ -55,7 +55,7 @@ RSpec.describe Home::CalendarShowPresenter do
       show_presenter.add_date_visits(date: date, visits: [visit])
 
       expect(show_presenter.visits_link_params.first).to eq show_presenter.month_visits[date.to_s].first.visit_link_params
-    end    
+    end
   end
 
   describe "#current_date_visits" do
@@ -106,12 +106,7 @@ RSpec.describe Home::CalendarShowPresenter do
     it "return hash for types" do
       show_presenter = Home::CalendarShowPresenter.new(user: user)
 
-      expected_value = {
-        "all" => nil,
-        "approved" => "approved",
-        "in_review" => "in_review",
-        "denied" => "cancelled"
-      }
+      expected_value = { "approved"=>"approved", "in_review"=>"in_review", "cancelled"=>"cancelled", "incomplete"=>"incomplete", "denied"=>"denied" }
 
       expect(show_presenter.visit_filter_options).to eq expected_value
     end
@@ -140,7 +135,7 @@ RSpec.describe Home::CalendarShowPresenter do
     it "return '' if visit_filter is not equal to given option" do
       presenter = Home::CalendarShowPresenter.new(user: user, visit_filter: "reserve" )
       output = ""
-      
+
       expect(presenter.visit_selected("status")).to eq output
     end
   end
