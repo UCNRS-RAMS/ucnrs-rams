@@ -6,7 +6,7 @@ RSpec.describe HomeIndexPresenter do
   describe "#visit_filter_options" do
     it "generates a date range" do
       presenter = HomeIndexPresenter.new(user: user)
-      output = { "visit_date"=>nil, "approved"=>"approved", "in_review"=>"in_review", "cancelled"=>"cancelled", "incomplete"=>"incomplete" }
+      output = { "approved"=>"approved", "in_review"=>"in_review", "cancelled"=>"cancelled", "incomplete"=>"incomplete", "denied"=>"denied" }
 
       expect(presenter.visit_filter_options).to eq output
     end

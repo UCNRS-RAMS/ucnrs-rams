@@ -1,12 +1,7 @@
 class Home::CalendarShowPresenter
   include Rails.application.routes.url_helpers
 
-  CALENDAR_FILTERS = {
-    "all" => nil,
-    "approved" => "approved",
-    "in_review" => "in_review",
-    "denied" => "cancelled",
-  }.freeze
+  CALENDAR_FILTERS = Visit.statuses
 
   def initialize(start_date: nil, user:, visit_filter: nil)
     @user = user
