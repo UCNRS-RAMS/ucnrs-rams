@@ -16,8 +16,8 @@ RSpec.describe VisitShowPresenter do
     it { is_expected.to delegate_method(:logo_src).to(:visit_reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:managing_campus).to(:visit_reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:reserve_alert_message).to(:visit_reserve).with_prefix(true) }
-    it { is_expected.to delegate_method(:rules).to(:visit_reserve).with_prefix(true) }
-    it { is_expected.to delegate_method(:rules_url).to(:visit_reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:rules_and_regulations).to(:visit_reserve).with_prefix(true) }
+    it { is_expected.to delegate_method(:directions).to(:visit_reserve).with_prefix(true) }
     it { is_expected.to delegate_method(:id).to(:visit).with_prefix(true) }
     it { is_expected.to delegate_method(:title).to(:project).with_prefix(true) }
     it { is_expected.to delegate_method(:project_type).to(:project).with_prefix(true) }
