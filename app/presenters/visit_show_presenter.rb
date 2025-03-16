@@ -17,9 +17,9 @@ class VisitShowPresenter
     :logo_src,
     :managing_campus,
     :reserve_alert_message,
-    :rules,
-    :rules_url,
     :email_address,
+    :rules_and_regulations,
+    :directions,
     to: :visit_reserve, prefix: true
 
   delegate :id, to: :visit, prefix: true
