@@ -33,7 +33,7 @@ class Visits::QuestionPresenter
   end
 
   def boolean_answer
-    question.boolean_answer == 1 ? "1" : "0"
+    question.boolean_answer
   end
 
   def answer
