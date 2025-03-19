@@ -72,7 +72,7 @@ RSpec.describe Visits::QuestionPresenter do
       mock_reserve_answer(question, boolean: true)
       presenter = Visits::QuestionPresenter.new(question)
 
-      expect(presenter.answer).to eq("1")
+      expect(presenter.answer).to eq(1)
     end
 
     it "returns the text_answer if the question type is not boolean" do
@@ -90,7 +90,7 @@ RSpec.describe Visits::QuestionPresenter do
       mock_reserve_answer(question, boolean: true)
       presenter = Visits::QuestionPresenter.new(question)
 
-      expect(presenter.boolean_answer).to eq("1")
+      expect(presenter.boolean_answer).to eq(1)
     end
 
     it "returns '0' if the answer is false" do
@@ -98,7 +98,7 @@ RSpec.describe Visits::QuestionPresenter do
       mock_reserve_answer(question, boolean: false)
       presenter = Visits::QuestionPresenter.new(question)
 
-      expect(presenter.boolean_answer).to eq("0")
+      expect(presenter.boolean_answer).to eq(0)
     end
   end
 end
