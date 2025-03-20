@@ -7,19 +7,19 @@
     <section class="reserve-info">
       <header><%= t(".amenities_and_rates") %></header>
       <section class="reserve-info-subsection">
-        <header><%= t(".about_amenities") %></header>
-        <p><%= t(".about_amenities_paragraph1") %></p>
-        <p><%= t(".about_amenities_paragraph2") %></p>
+        <header><%= t(".amenities_list") %></header>
+        <p><%= t(".amenities_list_paragraph1") %></p>
+        <p><%= t(".amenities_list_paragraph2") %></p>
         <%= render partial: "amenities", locals: { amenities: @presenter.amenities } %>
       </section>
       <section class="reserve-info-subsection">
-        <header><%= t(".about_amenity_categories") %></header>
-        <p><%= t(".about_amenity_categories_paragraph1") %></p>
+        <header><%= t(".rate_categories") %></header>
+        <p><%= t(".rate_categories_paragraph1") %></p>
         <%= render partial: "amenity_rate_categories", locals: { amenity_rate_categories: @presenter.amenity_rate_categories } %>
       </section>
       <section class="reserve-info-subsection">
-        <header><%= t(".about_amenity_rates") %></header>
-        <p><%= t(".about_amenity_rates_paragraph1") %></p>
+        <header><%= t(".amenity_rates") %></header>
+        <p><%= t(".amenity_rates_paragraph1") %></p>
         <%= render partial: "amenity_rates", locals: { amenity_rates: @presenter.amenity_rates } %>
       </section>
     </section>
