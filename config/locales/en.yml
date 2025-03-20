@@ -2316,10 +2316,9 @@ en:
       reserve_questions:
         index:
           reserve_questions: "Reserve Questions"
-          about_questions: "About Questions"
           about_questions_paragraph1:
-            "Add additional questions to projects visits specific for
-            your reserve. They can be yes/no questions or text based answer."
+            "Ask more questions about visits requested at your reserve.
+            Answers can be yes/no or text-based."
         new:
           visit: "Visits"
           project: "Projects"
