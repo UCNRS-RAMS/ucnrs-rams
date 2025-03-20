@@ -2142,21 +2142,21 @@ en:
       amenities_and_rates:
         index:
           amenities_and_rates: "Amenities & Rates"
-          about_amenities: "About Amenities"
-          about_amenities_paragraph1: "A reserve amenity can be anything that you wish to charge
+          amenities_list: "Amenities List"
+          amenities_list_paragraph1: "A reserve amenity can be anything that you wish to charge
             for or to keep track of its use. Some common examples are lodging, vehicles,
             services, people's time/assistance. They can be visible or invisible to the user, but
             all will remain visible to the manager for invoicing or management purposes."
-          about_amenities_paragraph2: "You can make an amenity selected by default for users, such
+          amenities_list_paragraph2: "You can make an amenity selected by default for users, such
             as “day use only.” You can also retire an amenity, which preserves a record of past
             visit resource use in the database, but the amenity will no longer appear to users.
             A retired amenity can be un-retired by editing the amenity information."
-          about_amenity_categories: "About Amenity Categories"
-          about_amenity_categories_paragraph1: "For invoicing purposes a specific rate category for
+          rate_categories: "Rate Categories"
+          rate_categories_paragraph1: "For invoicing purposes a specific rate category for
             an asset will be chosen based on the applicant's institution type. These rate categories
             can be specified here, a standard break down is UC, Non UC Academic, and Other."
-          about_amenity_rates: "About Amenity Rates"
-          about_amenity_rates_paragraph1: "For each rate category you can specify the amount charged
+          amenity_rates: "Amenity Rates"
+          amenity_rates_paragraph1: "For each rate category you can specify the amount charged
             for each amenity. You can edit these amounts directly on an invoice if you would like to
             make an adjustment. In the case of amenities that either have no charge, or that you
             would like to enter in manually, please enter in the rate as 0."
