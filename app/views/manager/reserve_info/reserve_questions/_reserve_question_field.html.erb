@@ -20,9 +20,10 @@
   </div>
   <hr />
   <div class="row">
-    <div class="form-group col-50">
+    <div class="form-group">
       <%= form.label :location, t(".labels.question_location"), class: "form-label" %>
       <%= form.select :location, presenter.location_options, { include_blank: "Select one" }, class: "form-input" %>
+      <%= tag.small t(".labels.question_location_description") %>
     </div>
   </div>
   <hr />

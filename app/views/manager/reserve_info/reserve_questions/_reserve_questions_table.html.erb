@@ -18,7 +18,7 @@
     </thead>
     <tbody>
       <% reserve_questions.each do |location, reserve_questions | %>
-        <tr class="header"><th colspan="6"><%= location.capitalize %></th></tr>
+        <tr class="header"><th colspan="6"><%= t(".#{location}") %></th></tr>
         <%= render partial: "reserve_question_row", collection: reserve_questions %>
       <% end %>
     </tbody>
