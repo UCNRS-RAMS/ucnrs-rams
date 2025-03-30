@@ -979,7 +979,8 @@ en:
           research: "Field or lab-based research in any discipline"
           class: "University or college course or class"
           meeting: "Symposia, lab retreats, and academic meetings"
-          public_use: "Community events, fundraising, K-12, or other classes, volunteer use"
+          public_use: "All other uses, including; community events, fundraising, volunteer use,
+            tribal use, K-12, or other classes."
           housing: "Housing only"
     steps:
       step_1: "Project Details"
