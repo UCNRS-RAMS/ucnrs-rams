@@ -1717,7 +1717,7 @@ en:
         planning: "Are you planning to..."
         project_title:
           field_name: "Project or Event Title"
-          explanation: "Enter a short descriptive title to uniquely identify your application."
+          explanation: "Enter a short descriptive title to uniquely identify your project."
         thesis_title:
           field_name: "Thesis Title"
           explanation:
@@ -1782,7 +1782,7 @@ en:
         choose_discipline: "Choose a discipline that best describes your meeting or conference."
         event_title:
           field_name: "Event Title"
-          explanation: "Enter a short descriptive title to uniquely identify your application."
+          explanation: "Enter a short descriptive title to uniquely identify your project."
         event_description:
           field_name: "Event Description"
           explanation: "Enter a short description describing the purpose of your meeting or conference."
@@ -1795,7 +1795,7 @@ en:
         planning: "Are you planning to..."
         project_title:
           field_name: "Project or Event Title"
-          explanation: "Enter a short descriptive title to uniquely identify your application."
+          explanation: "Enter a short descriptive title to uniquely identify your project."
         course_title:
           field_name: "Course Name"
           explanation: "Please provide the complete course name as described by your university."
@@ -3001,7 +3001,7 @@ en:
         planning: "Are you planning to..."
         project_title:
           field_name_html: "Project or Event Title %{addition}"
-          explanation: "Enter a short descriptive title to uniquely identify your application."
+          explanation: "Enter a short descriptive title to uniquely identify your project."
         thesis_title:
           field_name_html: "Thesis Title %{addition}"
           explanation:
@@ -3075,7 +3075,7 @@ en:
         choose_discipline: "Choose a discipline that best describes your meeting or conference."
         event_title:
           field_name_html: "Event Title %{addition}"
-          explanation: "Enter a short descriptive title to uniquely identify your application."
+          explanation: "Enter a short descriptive title to uniquely identify your project."
         event_description:
           field_name_html: "Event Description %{addition}"
           explanation: "Enter a short description describing the purpose of your meeting or conference."
@@ -3086,7 +3086,7 @@ en:
         choose_discipline: "Choose a discipline that best describes your public use."
         event_title:
           field_name_html: "Event Title %{addition}"
-          explanation: "Enter a short descriptive title to uniquely identify your application."
+          explanation: "Enter a short descriptive title to uniquely identify your project."
         event_description:
           field_name_html: "Event Description %{addition}"
           explanation: "Enter a short description describing the purpose of your public use."
@@ -3110,7 +3110,7 @@ en:
         planning: "Are you planning to..."
         project_title:
           field_name_html: "Project or Event Title %{addition}"
-          explanation: "Enter a short descriptive title to uniquely identify your application."
+          explanation: "Enter a short descriptive title to uniquely identify your project."
         course_title:
           field_name_html: "Course Name %{addition}"
           explanation: "Please provide the complete course name as described by your university."
