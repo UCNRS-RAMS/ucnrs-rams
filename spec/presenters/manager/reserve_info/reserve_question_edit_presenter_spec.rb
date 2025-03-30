@@ -40,8 +40,8 @@ RSpec.describe Manager::ReserveInfo::ReserveQuestionEditPresenter do
       location_options = presenter.location_options
 
       expect(location_options.to_a).to match_array [
-        ["Projects", "project"],
-        ["Visits", "visit"],
+        ["Every visit requests to the reserve", "visit"],
+        ["Only on a project first visit request to the reserve", "project"],
       ]
     end
   end

@@ -2321,22 +2321,24 @@ en:
             "Ask more questions about visits requested at your reserve.
             Answers can be yes/no or text-based."
         new:
-          visit: "Visits"
-          project: "Projects"
+          visit: "Every visit requests to the reserve"
+          project: "Only on a project first visit request to the reserve"
           boolean: "Yes/No"
           text: "Text"
         edit:
-          visit: "Visits"
-          project: "Projects"
+          visit: "Every visit requests to the reserve"
+          project: "Only on a project first visit request to the reserve"
           boolean: "Yes/No"
           text: "Text"
         reserve_questions_table:
           location: "Location"
+          new: "New"
+          project: "Appears only on first visit request"
           order: "Order"
-          type: "Type"
           question: "Question"
           status: "Status"
-          new: "New"
+          type: "Type"
+          visit: "Appears on every visit requests"
         reserve_question_row:
           enabled: "Enabled"
           disabled: "Disabled"
@@ -2346,7 +2348,12 @@ en:
         reserve_question_field:
           labels:
             sort_order: "Sort Order"
-            question_location: "Question Location"
+            question_location: "Question Appearance"
+            question_location_description: "This setting is the replacement of 'project' and
+              'visit' reserve questions in RAMS2. The setting 'Every visit requests to the
+              reserve' should be set for questions dealing with visits, whereas the setting
+              'Only on a project first visit request to the reserve' should be set for
+              questions dealing with a project."
             question_type: "Question Type"
             reserve_question: "Reserve question"
             additional_information: "Additional Information"
