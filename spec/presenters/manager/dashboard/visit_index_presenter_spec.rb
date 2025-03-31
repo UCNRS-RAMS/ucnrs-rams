@@ -78,10 +78,10 @@ RSpec.describe Manager::Dashboard::VisitsIndexPresenter do
       allow(I18n).to receive(:t)
         .and_call_original
       allow(I18n).to receive(:t)
-        .with("universal.project.project_types.project_type_1_key")
+        .with("universal.project.project_types_formal.project_type_1_key")
         .and_return("project_type_1_key_translate")
       allow(I18n).to receive(:t)
-        .with("universal.project.project_types.project_type_2_key")
+        .with("universal.project.project_types_formal.project_type_2_key")
         .and_return("project_type_2_key_translate")
       presenter = Manager::Dashboard::VisitsIndexPresenter.new()
 

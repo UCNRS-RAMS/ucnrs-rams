@@ -3392,6 +3392,14 @@ en:
         meeting_or_conference: "Meeting or Conference"
         public_use: "Public Use"
         housing: "Housing"
+      project_types_formal:
+        research: "Research"
+        class: "University Class"
+        university_class: "University Class"
+        meeting: "Meeting or Conference"
+        meeting_or_conference: "Meeting or Conference"
+        public_use: "Public Use"
+        housing: "Housing Only"
     visit:
       statuses:
         approved: "Approved"
