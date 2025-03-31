@@ -51,7 +51,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/reserve.rb",
-      "line": 55,
+      "line": 56,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "Arel.sql(\"          reserves.name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.short_name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.pulldown_name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.rules LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.rates LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.department LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.address_line_1 LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.address_line_2 LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.address_city LIKE \\\"%#{search_filter}%\\\" OR\\n          states.name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.address_postal_code LIKE \\\"%#{search_filter}%\\\" OR\\n          countries.name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.home_page_url LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.special_needs_statement LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.doi LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.administrative_group_name LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.administrative_group_name_acronym LIKE \\\"%#{search_filter}%\\\" OR\\n          reserves.administrative_group_state LIKE \\\"%#{search_filter}%\\\"\\n\")",
       "render_path": null,
@@ -279,25 +279,6 @@
       "confidence": "Medium",
       "cwe_id": [
         89
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Unmaintained Dependency",
-      "warning_code": 123,
-      "fingerprint": "40be17ee84017c91503dab23873e24bdd71665ab665bf6f351cfc09ff83e6582",
-      "check_name": "EOLRuby",
-      "message": "Support for Ruby 3.1.4 ends on 2025-03-31",
-      "file": ".ruby-version",
-      "line": 1,
-      "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
-      "code": null,
-      "render_path": null,
-      "location": null,
-      "user_input": null,
-      "confidence": "Medium",
-      "cwe_id": [
-        1104
       ],
       "note": ""
     },
@@ -632,7 +613,7 @@
         {
           "type": "template",
           "name": "manager/projects/summary/_content",
-          "line": 10,
+          "line": 11,
           "file": "app/views/manager/projects/summary/_content.html.erb",
           "rendered": {
             "name": "projects/_file_table",
@@ -1099,6 +1080,25 @@
       "note": "Todo"
     },
     {
+      "warning_type": "Unmaintained Dependency",
+      "warning_code": 121,
+      "fingerprint": "edf687f759ec9765bd5db185dbc615c80af77d6e7e19386fc42934e7a80307af",
+      "check_name": "EOLRuby",
+      "message": "Support for Ruby 3.1.4 ended on 2025-03-31",
+      "file": ".ruby-version",
+      "line": 1,
+      "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        1104
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "fd192b11c691de9705eda00e1dbc0f95e5f9bdddb6e84c8d1589bf87af4601fb",
@@ -1122,6 +1122,5 @@
       "note": ""
     }
   ],
-  "updated": "2025-03-04 02:47:25 -0800",
-  "brakeman_version": "6.2.2"
+  "brakeman_version": "7.0.0"
 }
