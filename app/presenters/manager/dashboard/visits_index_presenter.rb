@@ -48,7 +48,7 @@ class Manager::Dashboard::VisitsIndexPresenter
     Project
       .project_types
       .inject({ I18n.t("all") => nil }) do |memo, (key, value)|
-        memo.merge!( I18n.t("universal.project.project_types.#{key}") => key)
+        memo.merge!( I18n.t("universal.project.project_types_formal.#{key}") => key)
       end
   end
 
