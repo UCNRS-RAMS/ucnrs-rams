@@ -20,6 +20,10 @@
           </div>
         <% end %>
       </section>
+      <section class="reserve-info-subsection">
+        <%= tag.h4 t(".migration_helper_explanation") %>
+        <%= simple_format @presenter.reserve_directions_old %>
+      </section>
     </section>
   </div>
 </section>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_02_13_220711) do
+ActiveRecord::Schema.define(version: 2025_04_01_023643) do
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
@@ -740,7 +740,7 @@ ActiveRecord::Schema.define(version: 2025_02_13_220711) do
     t.string "name", limit: 80
     t.string "short_name", limit: 20
     t.string "pulldown_name", limit: 80, default: "Pulldown", null: false, comment: "Pulldown Name Sorted Alphabetically"
-    t.text "directions"
+    t.text "directions_old"
     t.text "rules"
     t.text "rates"
     t.integer "managing_campus_id"

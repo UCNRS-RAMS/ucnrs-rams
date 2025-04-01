@@ -2291,6 +2291,10 @@ en:
         edit:
           reserve_directions: "Reserve Directions"
           save_changes: "Save Changes"
+          migration_helper_explanation:
+            "Below are the reserve directions
+            displayed to help move the content to the new rules and regulations. It will be
+            removed in the future."
       permits:
         index:
           permits: "Permits"
