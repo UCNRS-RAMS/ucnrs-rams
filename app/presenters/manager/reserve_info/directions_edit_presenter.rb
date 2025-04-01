@@ -7,6 +7,7 @@ class Manager::ReserveInfo::DirectionsEditPresenter
   attr_reader :form
 
   delegate :id, :errors, to: :form
+  delegate :directions_old, to: :reserve, prefix: true
 
   private
 
