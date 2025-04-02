@@ -47,12 +47,14 @@ RSpec.describe Mail::Manager::VisitNewPresenter do
   describe "#visit_reserve_personnel_emails" do
     it "presents sentence string for email subject" do
       reserve = create(:reserve)
+      user1 = create(:user, email: "user1@email.com")
+      user2 = create(:user, email: "user2@email.com")
       reserve_personnel1 = create(:reserve_personnel,
-        user: create(:user), reserve: reserve, receive_new_visit_email: true,
+        user: user1, reserve: reserve, receive_new_visit_email: true,
         email: "i_receive_new_visit@email"
       )
       reserve_personnel2 = create(:reserve_personnel,
-        user: create(:user), reserve: reserve, receive_new_visit_email: false,
+        user: user2, reserve: reserve, receive_new_visit_email: false,
         email: "some@email"
       )
       visit = create(:visit, reserve: reserve)
@@ -60,7 +62,7 @@ RSpec.describe Mail::Manager::VisitNewPresenter do
 
       visit_reserve_personnel_emails = presenter.visit_reserve_personnel_emails
 
-      expect(visit_reserve_personnel_emails).to match_array ["i_receive_new_visit@email"]
+      expect(visit_reserve_personnel_emails).to match_array ["user1@email.com"]
     end
   end
 end

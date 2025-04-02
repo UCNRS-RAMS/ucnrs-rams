@@ -16,14 +16,16 @@ class Mail::Manager::VisitNewPresenter < Mail::VisitNewPresenter
   end
 
   def visit_reserve_personnel
-    visit_reserve.personnel
+    visit_reserve
+      .personnel
+      .includes(:user)
       .receiving_new_visit_email
       .map { |personnel| PersonnelPresenter.new(personnel) }
   end
 
   def visit_reserve_personnel_emails
     visit_reserve_personnel
-      .map { |personnel| personnel.email }
+      .map { |personnel| personnel.user.email }
       .reject(&:blank?)
   end
 end
