@@ -5,7 +5,7 @@ RSpec.describe Manager::Visits::VisitsFormPresenter do
 
   describe "#project_type_partial_path" do
     it "should return project_type_partial_path" do
-      expect(presenter.project_type_partial_path).to eq "manager/visits/detail/project_type"
+      expect(presenter.project_type_partial_path).to eq "visits/project_type"
     end
   end
 

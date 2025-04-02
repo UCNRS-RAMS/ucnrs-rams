@@ -7,7 +7,6 @@ class Manager::Visits::ProjectsPresenter < Visits::ProjectsPresenter
 
   def projects_scope
     Project
-      .of_type(project_type)
       .alphabetized
       .with_active_team_member(user: user, can_add_visit: false)
       .for_status("Active Projects")

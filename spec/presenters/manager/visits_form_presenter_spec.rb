@@ -25,7 +25,7 @@ RSpec.describe Manager::VisitsFormPresenter do
       form = VisitForm.new(params: { reserve_id: create(:reserve).id }, editing: false)
       presenter = Manager::VisitsFormPresenter.new(user: build(:user), form: form)
 
-      expect(presenter.project_partial_path).to eq "manager/visits/project"
+      expect(presenter.project_partial_path).to eq "visits/project"
     end
   end
 end

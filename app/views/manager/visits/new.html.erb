@@ -9,7 +9,7 @@
     url: manager_reserve_visits_path(current_reserve, user_id: @presenter.user.id),
     id: "visits-new" do |form|
   %>
-    <%= render partial: "shared/manager/visits/form", locals: { presenter: @presenter, form: form } %>
+    <%= render partial: "shared/visits/form", locals: { presenter: @presenter, form: form } %>
   <% end %>
 </section>
 
