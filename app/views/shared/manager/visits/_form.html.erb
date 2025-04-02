@@ -6,11 +6,9 @@
       data-purpose="project_type" data-controller="value-projection"
       data-value-projection-projected-value="<%= form.object.project_type %>"
     >
-      <% unless presenter.editing %>
-        <div class="project-type-options">
-          <%= render partial: presenter.project_type_partial_path, locals: { presenter: presenter, form: form} %>
-        </div>
-      <% end %>
+      <header>
+        <h2>Select Project</h2>
+      </header>
       <%= render partial: presenter.project_partial_path, locals: { presenter: presenter, form: form} %>
     </section>
     <section class="form-subsection">

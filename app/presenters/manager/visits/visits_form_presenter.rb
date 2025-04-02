@@ -10,9 +10,9 @@ class Manager::Visits::VisitsFormPresenter < VisitsFormPresenter
 
   delegate :reserve, to: :visit
 
-  def project_type_partial_path
-    "manager/visits/detail/project_type"
-  end
+  #def project_type_partial_path
+  #  "manager/visits/detail/project_type"
+  #end
 
   def project_summary_path
     manager_reserve_project_path(reserve, project)
