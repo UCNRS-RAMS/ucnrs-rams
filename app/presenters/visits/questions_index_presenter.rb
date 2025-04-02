@@ -88,6 +88,7 @@ class Visits::QuestionsIndexPresenter
   def reserve_question_scope_from_questions
     scope = ReserveQuestion
       .where(reserve: visit.reserve)
+      .for_project_type(visit.project.project_type)
       .by_location
       .in_order
       .visible

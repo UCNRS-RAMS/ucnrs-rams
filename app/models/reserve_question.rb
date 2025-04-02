@@ -100,4 +100,16 @@ class ReserveQuestion < ApplicationRecord
   def self.by_location
     order(:location)
   end
+
+  def self.for_project_type(project_type)
+    case project_type
+    when "research" then where(research: true)
+    when "class" then where(university_class: true)
+    when "meeting" then where(conference: true)
+    when "public_use" then where(public_use: true)
+    when "housing" then where(housing: true)
+    else
+      all
+    end
+  end
 end
