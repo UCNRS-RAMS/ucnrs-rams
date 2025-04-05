@@ -22,7 +22,7 @@ module Unauthenticated
     end
 
     def update
-      @form = RegistrationForm.new(user: current_user, params: edit_user_params)
+      @form = RegistrationForm.new(user: current_user, params: user_params)
       @presenter = RegistrationFormPresenter.new(@form)
 
       if @form.submit
@@ -73,10 +73,6 @@ module Unauthenticated
         :billing_person_phone_number,
         :terms_accepted_at,
       )
-    end
-
-    def edit_user_params
-      user_params.except(:terms_accepted_at)
     end
   end
 end
