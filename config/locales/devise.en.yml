@@ -177,6 +177,13 @@ en:
           orcid: "What is an ORCID?"
         urls:
           orcid: "https://orcid.org/"
+      terms_accepted_at_field:
+        labels:
+          agree_to_terms_of_use: "I agree to the %{link} of the UC RAMS website."
+        links:
+          terms_of_use: "Terms of Use"
+        urls:
+          ucnrs_terms_of_use: "https://ucnrs.org/ucnrs-websites-terms-of-use/"
       destroyed: "Bye! Your account has been successfully cancelled. We hope to see you again soon."
       signed_up: "Welcome! You have signed up successfully."
       signed_up_but_inactive: "You have signed up successfully. However, we could not

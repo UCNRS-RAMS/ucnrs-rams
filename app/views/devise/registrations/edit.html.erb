@@ -11,6 +11,9 @@
 
   <%= form_with model: @presenter.form_user, url: user_registration_path, data: { turbo: false } do |f| %>
     <%= render partial: "user_fields", locals: { f: f, presenter: @presenter } %>
+    <% if @presenter.form_user.terms_accepted_at == nil %>
+      <%= render partial: "terms_accepted_at_field", locals: { f: f, presenter: @presenter } %>
+    <% end %>
     <div class="section-container blue-bg">
       <section class="actions blue-bg">
         <div class="actions">
