@@ -71,6 +71,7 @@ class Manager::UsersController < Manager::ApplicationController
       :billing_person_full_name,
       :billing_person_email,
       :billing_person_phone_number,
+      :terms_accepted_at,
     )
   end
 
