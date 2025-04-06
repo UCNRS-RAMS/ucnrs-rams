@@ -12,8 +12,8 @@ class PersonnelPresenter
     @personnel = personnel
   end
 
-  delegate :full_name, to: :user, prefix: true
-  
+  delegate :full_name, :email, to: :user, prefix: true
+
   delegate :user, to: :personnel
 
   delegate_missing_to :personnel

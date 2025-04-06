@@ -36,19 +36,19 @@ RSpec.describe Mail::User::VisitUpdatePresenter do
 
   describe "#email_bcc_to_list" do
     it "presents list of visit reserve personnel email to bcc" do
-      user1 = create(:user)
-      user2 = create(:user)
+      user1 = create(:user, email: "john.doe@small_island.com")
+      user2 = create(:user, email: "jane.doe@small_island.com")
       reserve = create(:reserve)
       create(:reserve_personnel,
         reserve: reserve,
         user: user1,
-        email: "john.doe@small_island.com",
+        email: "john.doe@personnel.com",
         receive_update_email: true,
       )
       create(:reserve_personnel,
         reserve: reserve,
         user: user2,
-        email: "jane.doe@small_island.com",
+        email: "jane.doe@personnel.com",
         receive_update_email: true,
       )
       visit = create(:visit, reserve: reserve)
