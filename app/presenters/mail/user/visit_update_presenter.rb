@@ -33,7 +33,7 @@ class Mail::User::VisitUpdatePresenter
 
   def email_bcc_to_list
     personnel_receiving_update_email
-      .map(&:email)
+      .map{ |personnel| personnel.user_email }
       .reject(&:blank?)
   end
 
@@ -44,7 +44,9 @@ class Mail::User::VisitUpdatePresenter
   private
 
   def personnel_receiving_update_email
-    visit_reserve.personnel
+    visit_reserve
+      .personnel
+      .includes(:user)
       .where(receive_update_email: true)
       .map { |personnel| PersonnelPresenter.new(personnel) }
   end
