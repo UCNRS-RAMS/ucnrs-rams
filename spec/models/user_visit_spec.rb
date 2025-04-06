@@ -60,7 +60,7 @@ RSpec.describe UserVisit, type: :model do
         approved: "Approved",
         in_review: "Pending approval",
         cancelled: "Cancelled",
-        declined: "Rejected",
+        denied: "Rejected",
       ).backed_by_column_of_type(:string)
       .with_suffix(true)
   end

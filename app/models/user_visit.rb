@@ -37,7 +37,7 @@ class UserVisit < ApplicationRecord
     approved: "Approved",
     in_review: "Pending approval",
     cancelled: "Cancelled",
-    declined: "Rejected",
+    denied: "Rejected",
   }, _suffix: true
 
   def arrival_date

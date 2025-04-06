@@ -33,7 +33,7 @@ RSpec.describe Manager::Reports::ReportPart2Presenter do
       )
       create(:user_visit,
         visit: reserve1_visit, institution: k12_type_institution,
-        arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :declined
+        arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :denied
       )
       create(:user_visit,
         visit: reserve1_visit, institution: k12_type_institution,
@@ -166,7 +166,7 @@ RSpec.describe Manager::Reports::ReportPart2Presenter do
       )
       create(:user_visit,
         visit: reserve1_visit, institution: create(:institution),
-        arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :declined
+        arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :denied
       )
       create(:user_visit,
         visit: reserve1_visit, institution: create(:institution),
