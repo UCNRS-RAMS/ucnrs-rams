@@ -146,7 +146,7 @@ RSpec.describe Manager::Reports::ReportPart8Presenter do
             reserve: reserve, report_access: true,
             starts_at: 4.year.ago, ends_at: 4.year.from_now,
             user_visits: [
-              create(:user_visit, arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :declined),
+              create(:user_visit, arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :denied),
             ]
           ),
         ]
