@@ -222,7 +222,7 @@
       "check_name": "Render",
       "message": "Render path contains parameter value",
       "file": "app/views/shared/manager/visits/_form.html.erb",
-      "line": 14,
+      "line": 12,
       "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
       "code": "render(partial => Manager::Visits::VisitsFormPresenter.new(:user => current_user, :form => VisitForm.new(:user => current_user, :params => ({ :id => params[:visit_id] }), :editing => true)).project_partial_path, { :locals => ({ :presenter => Manager::Visits::VisitsFormPresenter.new(:user => current_user, :form => VisitForm.new(:user => current_user, :params => ({ :id => params[:visit_id] }), :editing => true)), :form => form }) })",
       "render_path": [
@@ -498,6 +498,29 @@
       "note": ""
     },
     {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "78ae3a984ba3ed6424466ac339dd6ced922b9154213002a5bc4e010664b6c7de",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/manager/users_controller.rb",
+      "line": 52,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :gender_identity, :age_range, :phone_number, :secondary_phone_number, :accessibility_requirements, :backup_email_address, :role, :institution, :orcid, :advisor, :emergency_contact_full_name, :emergency_contact_phone_number, :address_country_id, :address_line_1, :address_line_2, :address_city, :address_state_id, :address_postal_code, :billing_address_same_as_current, :billing_address_country_id, :billing_address_line_1, :billing_address_line_2, :billing_address_city, :billing_address_state_id, :billing_address_postal_code, :billing_person_full_name, :billing_person_email, :billing_person_phone_number, :terms_accepted_at)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Manager::UsersController",
+        "method": "user_params"
+      },
+      "user_input": ":role",
+      "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "7b97d09ede49e8f8ca62248d02df61a772e5aa7bc0c581654a13f04331e2ba27",
@@ -718,29 +741,6 @@
       "confidence": "Medium",
       "cwe_id": [
         89
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Mass Assignment",
-      "warning_code": 105,
-      "fingerprint": "afa1d15269c74751d4d88fc885446ea91db426ec3839c06855f6553b541b9496",
-      "check_name": "PermitAttributes",
-      "message": "Potentially dangerous key allowed for mass assignment",
-      "file": "app/controllers/manager/users_controller.rb",
-      "line": 53,
-      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
-      "code": "params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :gender_identity, :age_range, :phone_number, :secondary_phone_number, :accessibility_requirements, :backup_email_address, :role, :institution, :orcid, :advisor, :emergency_contact_full_name, :emergency_contact_phone_number, :address_country_id, :address_line_1, :address_line_2, :address_city, :address_state_id, :address_postal_code, :billing_address_same_as_current, :billing_address_country_id, :billing_address_line_1, :billing_address_line_2, :billing_address_city, :billing_address_state_id, :billing_address_postal_code, :billing_person_full_name, :billing_person_email, :billing_person_phone_number)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Manager::UsersController",
-        "method": "user_params"
-      },
-      "user_input": ":role",
-      "confidence": "Medium",
-      "cwe_id": [
-        915
       ],
       "note": ""
     },
@@ -976,50 +976,6 @@
       "confidence": "Weak",
       "cwe_id": [
         79
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "d92f7c54e0d132c4d4a03d28f3c793a71934f0480fe9c0b14839517861be58e8",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/shared/manager/visits/_form.html.erb",
-      "line": 11,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(partial => Manager::Visits::VisitsFormPresenter.new(:user => current_user, :form => VisitForm.new(:user => current_user, :params => ({ :id => params[:visit_id] }), :editing => true)).project_type_partial_path, { :locals => ({ :presenter => Manager::Visits::VisitsFormPresenter.new(:user => current_user, :form => VisitForm.new(:user => current_user, :params => ({ :id => params[:visit_id] }), :editing => true)), :form => form }) })",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Manager::Visits::DetailController",
-          "method": "edit",
-          "line": 9,
-          "file": "app/controllers/manager/visits/detail_controller.rb",
-          "rendered": {
-            "name": "manager/visits/detail/edit",
-            "file": "app/views/manager/visits/detail/edit.html.erb"
-          }
-        },
-        {
-          "type": "template",
-          "name": "manager/visits/detail/edit",
-          "line": 8,
-          "file": "app/views/manager/visits/detail/edit.html.erb",
-          "rendered": {
-            "name": "shared/manager/visits/_form",
-            "file": "app/views/shared/manager/visits/_form.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "shared/manager/visits/_form"
-      },
-      "user_input": "params[:visit_id]",
-      "confidence": "Weak",
-      "cwe_id": [
-        22
       ],
       "note": ""
     },
