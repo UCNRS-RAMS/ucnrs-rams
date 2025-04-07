@@ -12,7 +12,9 @@ class Mail::Manager::InvoiceEmailPresenter
 
   def email_cc
     if email_params[:cc_personnel]
-      personnel_receiving_invoice_email.map(&:email)
+      personnel_receiving_invoice_email
+        .map { |personnel| personnel.user.email }
+        .reject(&:blank?)
 
     else
       []
@@ -42,6 +44,7 @@ class Mail::Manager::InvoiceEmailPresenter
 
   def personnel_receiving_invoice_email
     ReservePersonnel
+      .includes(:user)
       .where(
         reserve: invoice.visit.reserve,
         receive_invoice_email: true,

@@ -22,7 +22,7 @@ class ManagerMailer < ApplicationMailer
 
     attachments[@presenter.email_attachment_name] = {
       mime_type: "application/pdf",
-      content: params[@presenter.email_attachment],
+      content: @presenter.email_attachment,
     }
 
     mail(
