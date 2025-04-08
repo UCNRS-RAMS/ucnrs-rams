@@ -22,14 +22,13 @@ class ManagerMailer < ApplicationMailer
 
     attachments[@presenter.email_attachment_name] = {
       mime_type: "application/pdf",
-      content: create_invoice_pdf(params[:invoice]),
+      content: @presenter.email_attachment,
     }
 
     mail(
       to: @presenter.email_to,
       cc: @presenter.email_cc,
       subject: @presenter.email_subject,
-      content_type: "text/html",
     )
   end
 
@@ -100,11 +99,4 @@ class ManagerMailer < ApplicationMailer
   end
 
   private
-
-  def create_invoice_pdf(invoice)
-    pdf_presenter = Manager::Invoices::PdfShowPresenter.new(invoice: invoice)
-    html = render_to_string("manager/invoices/pdf/show", layout: "pdf.html", locals: { presenter: pdf_presenter })
-
-    return WickedPdf.new.pdf_from_string(html)
-  end
 end
