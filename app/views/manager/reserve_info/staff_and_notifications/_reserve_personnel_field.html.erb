@@ -35,16 +35,16 @@
       <%= form.label(:receive_new_visit_email, t(".receive_new_visit_email"), class: "form-inline-label") %>
     </div>
     <div>
-      <%= form.check_box(:receive_incomplete_visit_email) %>
-      <%= form.label(:receive_incomplete_visit_email, t(".receive_incomplete_visit_email"), class: "form-inline-label") %>
-    </div>
-    <div>
       <%= form.check_box(:receive_update_email) %>
       <%= form.label(:receive_update_email, t(".receive_update_email"), class: "form-inline-label") %>
     </div>
     <div>
       <%= form.check_box(:receive_approval_email) %>
       <%= form.label(:receive_approval_email, t(".receive_approval_email"), class: "form-inline-label") %>
+    </div>
+    <div>
+      <%= form.check_box(:receive_invoice_email) %>
+      <%= form.label(:receive_invoice_email, t(".receive_invoice"), class: "form-inline-label") %>
     </div>
     <div>
       <%= form.check_box(:receive_iacuc_email) %>
