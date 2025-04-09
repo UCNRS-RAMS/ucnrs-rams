@@ -1,8 +1,8 @@
 require "rails_helper"
 
-RSpec.describe Visits::ProjectsPresenter do
+RSpec.describe Manager::Visits::ProjectsPresenter do
   describe "#projects" do
-    it "is the projects where the project type matches the supplied type, the user has an active membership, and has the ability to add visits" do
+    it "is the projects where the project type matches the supplied type, the user has an active membership" do
       user = create(:user)
       first_active_project = create(:project, project_type: "research")
       second_active_project = create(:project, project_type: "research")
@@ -10,12 +10,12 @@ RSpec.describe Visits::ProjectsPresenter do
       create(:project_team_membership, user: user, project: first_active_project, active: true, can_add_visit: true)
       create(:project_team_membership, user: user, project: second_active_project, active: true, can_add_visit: false)
       create(:project_team_membership, user: user, project: inactive_project, active: false, can_add_visit: true)
-      presenter = Visits::ProjectsPresenter.new(user: user, project_type: "research", project_id: nil)
+      presenter = Manager::Visits::ProjectsPresenter.new(user: user, project_type: "research", project_id: nil)
 
       projects = presenter.projects
 
-      expect(projects.length).to eq 1
-      expect(projects.map(&:id)).to match_array [first_active_project.id]
+      expect(projects.length).to eq 2
+      expect(projects.map(&:id)).to match_array [second_active_project.id, first_active_project.id]
     end
 
     it "orders the projects by project type [Research, Class, Conference, Public Use]" do
@@ -28,7 +28,7 @@ RSpec.describe Visits::ProjectsPresenter do
       create(:project_team_membership, project: project_class, user: user, active: true, can_add_visit: true)
       create(:project_team_membership, project: project_research, user: user, active: true, can_add_visit: true)
       create(:project_team_membership, project: project_conference, user: user, active: true, can_add_visit: true)
-      presenter = Visits::ProjectsPresenter.new(user: user, project_type: "university_class", project_id: nil)
+      presenter = Manager::Visits::ProjectsPresenter.new(user: user, project_type: "university_class", project_id: nil)
 
       projects = presenter.projects
 
@@ -45,7 +45,7 @@ RSpec.describe Visits::ProjectsPresenter do
       create(:project_team_membership, project: project_2, user: user, active: true, can_add_visit: true)
       create(:project_team_membership, project: project_3, user: user, active: true, can_add_visit: true)
       create(:project_team_membership, project: project_4, user: user, active: true, can_add_visit: true)
-      presenter = Visits::ProjectsPresenter.new(user: user, project_type: "university_class", project_id: nil)
+      presenter = Manager::Visits::ProjectsPresenter.new(user: user, project_type: "university_class", project_id: nil)
 
       projects = presenter.projects
 
@@ -62,7 +62,7 @@ RSpec.describe Visits::ProjectsPresenter do
       create(:project_team_membership, project: project_class_2, user: user, active: true, can_add_visit: true)
       create(:project_team_membership, project: project_research_1, user: user, active: true, can_add_visit: true)
       create(:project_team_membership, project: project_research_2, user: user, active: true, can_add_visit: true)
-      presenter = Visits::ProjectsPresenter.new(user: user, project_type: "university_class", project_id: nil)
+      presenter = Manager::Visits::ProjectsPresenter.new(user: user, project_type: "university_class", project_id: nil)
 
       projects = presenter.projects
 

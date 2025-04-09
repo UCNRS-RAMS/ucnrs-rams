@@ -25,8 +25,19 @@ class Visits::ProjectsPresenter
 
   def projects_scope
     Project
-      .alphabetized
       .with_active_team_member(user: user, can_add_visit: true)
       .for_status("Active Projects")
+      .order(
+        Arel.sql(<<-end_sql)
+        FIELD(
+          project_type,
+          '#{Project.project_types["public_use"]}',
+          '#{Project.project_types["meeting"]}',
+          '#{Project.project_types["class"]}',
+          '#{Project.project_types["research"]}'
+        ) DESC
+        end_sql
+      )
+      .order(id: :desc)
   end
 end
