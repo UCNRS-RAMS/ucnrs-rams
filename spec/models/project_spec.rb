@@ -266,7 +266,7 @@ RSpec.describe Project, type: :model do
   end
 
   describe ".ordered_by_visit_date" do
-    it "orders the project records by the associated visits start_dates" do
+    it "orders the project records by the associated visits start_dates then by id decending" do
       project1 = create(:project, title: "P1")
       project2 = create(:project, title: "P2")
       project3 = create(:project, title: "P3")
@@ -284,9 +284,9 @@ RSpec.describe Project, type: :model do
       results = Project.ordered_by_visit_date
 
       expect(results.map(&:title)).to eq [
-        "P1",
-        "P3",
         "P5",
+        "P3",
+        "P1",
         "P6",
         "P2",
         "P4",
