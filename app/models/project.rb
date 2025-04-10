@@ -167,6 +167,7 @@ class Project < ApplicationRecord
       )
       .group(:id)
       .order("ordered_visits")
+      .order(id: :DESC)
   end
 
   def self.ordered_by_visit_start
