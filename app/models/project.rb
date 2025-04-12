@@ -157,11 +157,11 @@ class Project < ApplicationRecord
         Arel.sql(<<-end_sql)
         projects.*,
         MIN(CASE
-            WHEN(visits.start_date IS NULL) THEN CONCAT('1-', DATE_FORMAT(visits.created_at, '%Y-%m-%d'))
-            WHEN(#{date} BETWEEN visits.start_date AND visits.end_date) THEN CONCAT('2-', DATE_FORMAT(visits.start_date, '%Y-%m-%d'))
-            WHEN(visits.start_date > #{date}) THEN CONCAT('3-', DATE_FORMAT(visits.start_date, '%Y-%m-%d'))
-            WHEN(visits.end_date < #{date}) THEN CONCAT('4-', DATE_FORMAT(visits.start_date, '%Y-%m-%d'))
-            ELSE CONCAT('5-', DATE_FORMAT(visits.start_date, '%Y-%m-%d'))
+            WHEN(visits.starts_at IS NULL) THEN CONCAT('1-', DATE_FORMAT(visits.created_at, '%Y-%m-%d'))
+            WHEN(#{date} BETWEEN visits.starts_at AND visits.ends_at) THEN CONCAT('3-', DATE_FORMAT(visits.starts_at, '%Y-%m-%d'))
+            WHEN(visits.ends_at > #{date}) THEN CONCAT('2-', DATE_FORMAT(visits.starts_at, '%Y-%m-%d'))
+            WHEN(visits.starts_at < #{date}) THEN CONCAT('4-', DATE_FORMAT(visits.starts_at, '%Y-%m-%d'))
+            ELSE CONCAT('5-', DATE_FORMAT(visits.starts_at, '%Y-%m-%d'))
         END) as ordered_visits
         end_sql
       )
@@ -180,6 +180,7 @@ class Project < ApplicationRecord
       )
       .group(:id)
       .order("ordered_visits DESC")
+      .order(id: :DESC)
   end
 
   def self.for_status(status_filter)
