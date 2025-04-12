@@ -6,10 +6,10 @@ RSpec.describe "Projects Index" do
       user = create(:user, :confirmed)
       reserve1 = create(:reserve, short_name: "Bodega Bay")
       reserve2 = create(:reserve, short_name: "Alpine Heights")
-      project1 = create(:project, title: "Project 1", status: "Open", project_type: "Research", start_date: Date.new(2021, 12, 31), end_date: Date.new(2023, 12, 31))
-      project2 = create(:project, title: "Project 2", status: "Open", project_type: "Research", start_date: Date.new(2021, 8, 1), end_date: Date.new(2021, 12, 1))
-      project3 = create(:project, title: "Project 3", status: "Incomplete", project_type: "Class", start_date: Date.new(2021, 8, 1), end_date: Date.new(2021, 12, 1))
-      project4 = create(:project, title: "Project 4", status: "Closed", project_type: "Class", start_date: Date.new(2019, 12, 31), end_date: Date.new(2021, 1, 2))
+      project1 = create(:project, title: "Project 1", status: "Open", project_type: "Research")
+      project2 = create(:project, title: "Project 2", status: "Open", project_type: "Research")
+      project3 = create(:project, title: "Project 3", status: "Incomplete", project_type: "Class")
+      project4 = create(:project, title: "Project 4", status: "Closed", project_type: "Class")
       Project.find_each { |project| create(:project_team_membership, project: project, user: user, active: true) }
       travel_to Date.new(2021, 10, 1) do
         create(:visit, reserve: reserve2, project: project1, starts_at: Time.zone.local(2021, 12, 31), ends_at: Time.zone.local(2022, 12, 31), submitted_at: Time.current)
@@ -23,7 +23,7 @@ RSpec.describe "Projects Index" do
         expect(flow).to be_on_projects_index_page
         expect(flow).to have_active_projects_tab
         expect(flow).to have_projects_count(4)
-        expect(flow).to have_projects_in_order([project1, project2, project4, project3])
+        expect(flow).to have_projects_in_order([project3, project2, project1, project4])
         expect(flow).to have_project_with(
           id: project1.id,
           title: "Project 1",
@@ -61,7 +61,7 @@ RSpec.describe "Projects Index" do
 
         flow.filter_by_status("Active Projects")
         expect(flow).to have_projects_count(2)
-        expect(flow).to have_projects_in_order([project1, project2])
+        expect(flow).to have_projects_in_order([project2, project1])
         expect(flow).to have_project_with(
           id: project2.id,
           title: "Project 2",

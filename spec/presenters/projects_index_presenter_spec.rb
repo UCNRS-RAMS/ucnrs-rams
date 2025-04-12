@@ -96,10 +96,10 @@ RSpec.describe ProjectsIndexPresenter do
       scope = presenter.project_scope
 
       expect(scope.map(&:id)).to eq [
+        project_with_no_visit.id,
         project_with_future_visit.id,
         project_with_current_visit.id,
         project_with_past_visit.id,
-        project_with_no_visit.id,
       ]
     end
 

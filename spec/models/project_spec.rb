@@ -273,13 +273,13 @@ RSpec.describe Project, type: :model do
       project4 = create(:project, title: "P4")
       project5 = create(:project, title: "P5")
       project6 = create(:project, title: "P6")
-      past_visit = create(:visit, project: project1, start_date: Date.current - 1.year, end_date: Date.current - 6.months)
-      ongoing_visit = create(:visit, project: project2, start_date: Date.current - 1.day, end_date: Date.current + 3.days)
-      null_start_date = create(:visit, project: project3, start_date: nil, end_date: nil)
-      future_visit = create(:visit, project: project4, start_date: Date.current + 1.year, end_date: Date.current + 2.years)
-      other_null_start_date = create(:visit, project: project5, start_date: nil, end_date: nil)
-      other_ongoing_visit = create(:visit, project: project6, start_date: Date.current - 3.days, end_date: Date.current + 3.days)
-      other_null_start_date2 = create(:visit, project: project1, start_date: nil, end_date: nil)
+      past_visit = create(:visit, project: project1, starts_at: Date.current - 1.year, ends_at: Date.current - 6.months)
+      ongoing_visit = create(:visit, project: project2, starts_at: Date.current - 1.day, ends_at: Date.current + 3.days)
+      null_start_date = create(:visit, project: project3, starts_at: nil, ends_at: nil)
+      future_visit = create(:visit, project: project4, starts_at: Date.current + 1.year, ends_at: Date.current + 2.years)
+      other_null_start_date = create(:visit, project: project5, starts_at: nil, ends_at: nil)
+      other_ongoing_visit = create(:visit, project: project6, starts_at: Date.current - 3.days, ends_at: Date.current + 3.days)
+      other_null_start_date2 = create(:visit, project: project1, starts_at: nil, ends_at: nil)
 
       results = Project.ordered_by_visit_date
 
@@ -287,9 +287,9 @@ RSpec.describe Project, type: :model do
         "P5",
         "P3",
         "P1",
+        "P4",
         "P6",
         "P2",
-        "P4",
       ]
     end
   end
