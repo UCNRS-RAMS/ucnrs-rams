@@ -64,7 +64,7 @@
       <section class="project-visits">
         <header>
           <h2 class="main-header"><%= t(".visits", size: @presenter.visits.size) %></h2>
-          <%= link_to t(".schedule_a_visit"), new_visit_path %>
+          <%= link_to t(".schedule_a_visit"), new_visit_path(visit: { project_id: @presenter.project_id }) %>
         </header>
         <%= render partial: "shared/projects/visit_show_table", locals: { presenter: @presenter } %>
       </section>
