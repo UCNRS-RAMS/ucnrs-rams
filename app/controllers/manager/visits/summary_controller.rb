@@ -45,8 +45,8 @@ class Manager::Visits::SummaryController < Manager::ApplicationController
     params.require(:visit).permit(
       :email_notification_method,
       :approval_message,
-      :email_to_list,
       :bcc_personnel,
+      email_to_list: [],
     )
   end
 
