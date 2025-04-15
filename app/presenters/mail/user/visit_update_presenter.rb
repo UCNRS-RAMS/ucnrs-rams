@@ -28,7 +28,7 @@ class Mail::User::VisitUpdatePresenter
   delegate :name, to: :visit_reserve_managing_campus, prefix: true
 
   def email_subject
-    "New Visit to the #{visit_reserve_short_name} - #{timeframe} - #{applicant_name}".squish
+    "Update for Visit to the #{visit_reserve_short_name} - #{timeframe} - #{applicant_name}".squish
   end
 
   def email_bcc_to_list

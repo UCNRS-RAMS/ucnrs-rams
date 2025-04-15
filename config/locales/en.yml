@@ -2643,7 +2643,7 @@ en:
         login_and_view_visit: "Login and view Visit"
       visit_update:
         login_and_view_visit: "Login and view Visit"
-        visit_status_has_been_updated: "Visit status has been UPDATED."
+        visit_status_has_been_updated_to: "Visit status has been UPDATED to:"
   shared:
     manager:
       dashboard:
