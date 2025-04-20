@@ -57,7 +57,7 @@ class ReservesFlow
   end
 
   def displaying_calendar_section?
-    page.has_css?(".simple-calendar")
+    page.has_css?("turbo-frame#calendar")
   end
 
   def go_to_waivers

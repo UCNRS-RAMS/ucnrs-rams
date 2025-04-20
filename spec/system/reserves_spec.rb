@@ -217,30 +217,4 @@ RSpec.describe "Reserves", type: :system, js: true do
       expect(flow).not_to have_modal
     end
   end
-
-  describe "reserve calendar with user is not login" do
-    it "display approved visits for reserve", js: true do
-      reserve = create(:reserve)
-      visit = create(:visit, reserve: reserve, status: "approved", starts_at: Time.current, ends_at: Time.current+1)
-
-      flow = ReservesFlow.new(page)
-
-      flow.visit_reserves_show_page(reserve.id)
-      flow.go_to_calendar
-
-      expect(flow).to have_approved_visit_bar
-    end
-
-    it "do not display visits which are not approved", js: true do
-      reserve = create(:reserve)
-      visit = create(:visit, reserve: reserve, status: "incomplete")
-
-      flow = ReservesFlow.new(page)
-
-      flow.visit_reserves_show_page(reserve.id)
-      flow.go_to_calendar
-
-      expect(flow).not_to have_approved_visit_bar
-    end
-  end
 end

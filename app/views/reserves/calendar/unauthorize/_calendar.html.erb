@@ -1,12 +1,3 @@
 <%= turbo_frame_tag 'calendar' do %>
-  <header>
-    <%= form_with url: reserve_path(id: @presenter.current_reserve), method: :get, data: { "turbo-frame": "_top" } do %>
-      <%= hidden_field_tag "start_date", @presenter.start_date %>
-    <% end %>
-  </header>
-  <%= month_calendar @presenter.calendar_params do |date, visits| %>
-    <% @presenter.add_date_visits(date: date, visits: visits) %>
-    <span class="date-text" ><strong><%= date.day %></strong></span>
-    <%= render partial: "reserves/calendar/unauthorize/bar", collection: @presenter.visits_link_params %>
-  <% end %>
+  <span>A public calendar is not available this reserve, please contact staff with questions re: availability.</span>
 <% end %>
