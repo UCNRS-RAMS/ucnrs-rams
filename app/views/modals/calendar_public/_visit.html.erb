@@ -1,0 +1,16 @@
+<section class="calendar-visit">
+  <header>
+    <h2><%= truncate(visit.purpose_of_visit, length: 50) %></h2>
+  </header>
+  <div class="calendar-visit-body">
+    <div>
+      <p><%= "@ #{visit.reserve_name}" %></p>
+      <p><%= visit.user_info %> - <%= visit.institution_name %></p>
+    </div>
+
+    <div class="visit-status">
+      <%= tag.span t("universal.visit.statuses.#{visit.status_class}"), class: "pill #{visit.status_class}" %>
+      <%= tag.p pluralize(visit.visitor_count_on_date(begin_date), "visitor") %>
+    </div>
+  </div>
+</section>

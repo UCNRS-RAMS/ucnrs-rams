@@ -52,7 +52,7 @@ RSpec.describe Manager::Dashboard::CalendarShowPresenter do
       show_presenter.add_date_visits(date: date, visits: [visit])
 
       expect(show_presenter.amenities_link_params.first).to eq show_presenter.month_amenities[date.to_s].first.visit_link_params
-    end    
+    end
   end
 
   describe "#current_date_visits" do
@@ -142,7 +142,7 @@ RSpec.describe Manager::Dashboard::CalendarShowPresenter do
     it "returns params for visits_link method" do
       show_presenter = Manager::Dashboard::CalendarShowPresenter.new(reserve: reserve)
 
-      output = Manager::Dashboard::BarPresenter.new(
+      output = CalendarBarPresenter.new(
         link_classes: " disable-link",
         background_classes: "visitor-count left-radius right-radius",
         text_classes: "",

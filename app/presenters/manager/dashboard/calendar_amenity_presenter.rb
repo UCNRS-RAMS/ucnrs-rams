@@ -11,7 +11,7 @@ class Manager::Dashboard::CalendarAmenityPresenter < AmenityPresenter
   attr_accessor :position, :visit
 
   def visit_link_params
-    Manager::Dashboard::BarPresenter.new(
+    CalendarBarPresenter.new(
       link_classes: "",
       background_classes: info_link_background_classes,
       text_classes: info_link_text_classes,

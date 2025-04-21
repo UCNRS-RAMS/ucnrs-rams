@@ -6,7 +6,7 @@ class Reserves::Calendar::ShowPresenter < Manager::Dashboard::CalendarShowPresen
   end
 
   def visits_link_params
-    Reserves::Calendar::BarPresenter.new(
+    CalendarBarPresenter.new(
       link_classes: visits_link_classes,
       background_classes: visits_link_background_classes,
       text_classes: "",
@@ -27,5 +27,17 @@ class Reserves::Calendar::ShowPresenter < Manager::Dashboard::CalendarShowPresen
 
   def public_calendar_access
     reserve.public_calendar_access
+  end
+
+  private
+
+  def visit_scope
+    @visit_scope ||= reserve
+      .visits
+      .for_status([:approved, :in_review])
+      .where(
+        starts_at: ..start_date.end_of_month.end_of_week,
+        ends_at: start_date.beginning_of_month.beginning_of_week..,
+      )
   end
 end

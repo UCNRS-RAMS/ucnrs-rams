@@ -2,7 +2,7 @@ class Reserves::Calendar::AmenityPresenter < Manager::Dashboard::CalendarAmenity
   include Rails.application.routes.url_helpers
 
   def visit_link_params
-    Reserves::Calendar::BarPresenter.new(
+    CalendarBarPresenter.new(
       link_classes: "",
       background_classes: info_link_background_classes,
       text_classes: info_link_text_classes,

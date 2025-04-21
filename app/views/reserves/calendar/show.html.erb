@@ -4,6 +4,7 @@
   <%= turbo_frame_tag "details" do %>
     <% if @presenter.public_calendar_access %>
       <%= render partial: @presenter.calendar_partial_name %>
+
     <% else %>
       <%= t(".public_calendar_not_available") %>
     <% end %>
