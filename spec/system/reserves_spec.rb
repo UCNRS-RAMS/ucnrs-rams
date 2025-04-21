@@ -162,7 +162,7 @@ RSpec.describe "Reserves", type: :system, js: true do
       user = create(:user, :confirmed)
       sign_in(user)
       reserve = create(:reserve)
-      visit = create(:visit, reserve: reserve)
+      visit = create(:visit, reserve: reserve, status: :approved)
       create(:user_visit, visit: visit )
 
       flow = ReservesFlow.new(page)
@@ -178,7 +178,7 @@ RSpec.describe "Reserves", type: :system, js: true do
       user = create(:user, :confirmed)
       sign_in(user)
       reserve = create(:reserve)
-      visit = create(:visit, reserve: reserve)
+      visit = create(:visit, reserve: reserve, status: :approved)
       create(:user_visit, visit: visit)
       create(:amenity_visit, visit: visit)
       flow = ReservesFlow.new(page)
@@ -196,7 +196,7 @@ RSpec.describe "Reserves", type: :system, js: true do
       reserve = create(:reserve)
       user = create(:user, :confirmed)
       sign_in(user)
-      visit = create(:visit, reserve: reserve)
+      visit = create(:visit, reserve: reserve, status: :approved)
       create(:user_visit, visit: visit, arrives_at: visit.starts_at, departs_at: visit.ends_at)
       create(:amenity_visit, visit: visit)
       flow = ReservesFlow.new(page)
@@ -207,13 +207,13 @@ RSpec.describe "Reserves", type: :system, js: true do
       page.first(".visitor-count").click
       expect(flow).to have_modal
 
-      page.click_on("Close")
+      page.find(".close").click
       expect(flow).not_to have_modal
 
       page.first(".amenity-count").click
       expect(flow).to have_modal
 
-      page.click_on("Close")
+      page.find(".close").click
       expect(flow).not_to have_modal
     end
   end

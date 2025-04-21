@@ -1,4 +1,4 @@
-Manager::Dashboard::BarPresenter = Struct.new(
+CalendarBarPresenter = Struct.new(
   :link_classes,
   :background_classes,
   :text_classes,

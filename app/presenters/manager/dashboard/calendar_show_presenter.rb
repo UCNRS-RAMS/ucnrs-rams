@@ -26,11 +26,12 @@ class Manager::Dashboard::CalendarShowPresenter
     @current_date_visits = []
   end
 
+  attr_reader :type, :status, :current_date, :reserve, :start_date, :month_amenities, :current_date_visits
+
   def calendar_path
-    manager_reserve_dashboard_calendar_path(reserve_id: reserve.id)
+    manager_reserve_dashboard_calendar_path(reserve_id: reserve)
   end
 
-  attr_reader :type, :status, :current_date, :reserve, :start_date, :month_amenities, :current_date_visits
   def calendar_params
     {
       attribute: :starts_at,
@@ -60,7 +61,7 @@ class Manager::Dashboard::CalendarShowPresenter
   end
 
   def visits_link_params
-    Manager::Dashboard::BarPresenter.new(
+    CalendarBarPresenter.new(
       link_classes: visits_link_classes,
       background_classes: visits_link_background_classes,
       text_classes: "",
@@ -68,10 +69,6 @@ class Manager::Dashboard::CalendarShowPresenter
       path: manager_reserve_dashboard_calendar_visits_path(reserve_id: reserve.id,
         date: current_date, status: status),
     )
-  end
-
-  def calendar_path
-    manager_reserve_dashboard_calendar_path(reserve_id: reserve)
   end
 
   private
@@ -154,7 +151,7 @@ class Manager::Dashboard::CalendarShowPresenter
   end
 
   def hidden_link_params
-    Manager::Dashboard::BarPresenter.new(
+    CalendarBarPresenter.new(
       link_classes: "disable-link",
       background_classes: "",
       text_classes: "",

@@ -27,7 +27,7 @@ RSpec.describe Reserves::Calendar::ShowPresenter do
     it "returns params for visits_link method" do
       show_presenter = Reserves::Calendar::ShowPresenter.new(reserve: reserve)
 
-      output = Reserves::Calendar::BarPresenter.new(
+      output = CalendarBarPresenter.new(
         link_classes: " disable-link",
         background_classes: "visitor-count left-radius right-radius",
         text_classes: "",

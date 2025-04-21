@@ -1,0 +1,19 @@
+<turbo-frame id="modal-content">
+  <div class="modal-content" data-modal-target="dialog openOnLoad">
+    <div class="close">
+      <%= image_tag "x.svg", height: "16px", width: "16px",
+        id: "x-icon",
+        data: { action: "click->modal#close" },
+        alt: t("alt.icon_x")
+      %>
+    </div>
+    <section class="calendar-modal calendar-visit-day-modal">
+      <%= render partial: "modals/calendar_public/visit",
+        collection: presenter.visits,
+        spacer_template: "shared/divider",
+        locals: { begin_date: presenter.date_begin_filter }
+      %>
+      <%= paginate presenter.visit_scope %>
+    </section>
+  </div>
+</turbo-frame>

@@ -1,3 +1,1 @@
-<%= turbo_frame_tag  "modal-content" do %>
-  <%= render partial: "modals/calendar_visit_modal", locals: { presenter: @presenter }, formats: [:html] %>
-<% end %>
+<%= render partial: "modals/calendar_public/show_visit", locals: { presenter: @presenter }, formats: [:html] %>
