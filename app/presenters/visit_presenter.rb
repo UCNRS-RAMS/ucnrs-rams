@@ -7,6 +7,7 @@ class VisitPresenter
     @visit = visit
   end
 
+  delegate :role, to: :user, prefix: true
   delegate_missing_to :visit
 
   def status_class
