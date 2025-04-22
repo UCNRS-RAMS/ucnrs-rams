@@ -26,16 +26,14 @@
 
       <section class="visitor-amenity-list-section">
         <header>
-          <h2>Visitor List</h2>
+          <h2>Visitor List<%= t(".visitor_list") %></h2>
         </header>
         <% presenter.user_visits? && presenter.user_visits.each do |user_visit| %>
           <div class="visitor-amenity-list">
             <span>
+              <%= t("universal.roles.#{user_visit.role}") %>
               <% if user_visit.count > 1 %>
-                <%= t("universal.roles.#{user_visit.role}") %>
-                <%= "(Group of #{user_visit.count})" %>
-              <% else %>
-                <%= t("universal.roles.#{user_visit.role}") %>
+                <%= t(".group_of", count: user_visit.count) %>
               <% end %>
             </span>
             <span><%= user_visit.date_range %></span>
@@ -45,7 +43,7 @@
 
       <section class="visitor-amenity-list-section">
         <header>
-          <h2>Amenities</h2>
+          <h2>Amenities<%= t(".amenities") %></h2>
         </header>
         <% presenter.amenity_visits.each do |amenity_visit| %>
           <div class="visitor-amenity-list">

@@ -308,6 +308,11 @@ en:
         visitor: "visitor"
         id_with_reserve_name: "Visit # %{id} @ %{reserve_name}"
         project: "Under Project # %{id} | %{project_type}"
+    calendar_public:
+      show_visit:
+        amenities: "Amenities"
+        group_of: "Group of %{count}"
+        visitor_list: "Visitor List"
     calendar_visit_modal:
       visit: "Visit #%{id} @%{reserve_name}"
       visitor_list: "Visitor List"
@@ -3454,6 +3459,7 @@ en:
     save: "Save"
     submit: "Submit"
     visit: "Visit"
+    visitor: "visitor"
   edit: "Edit"
   research: "Research"
   university_class: "University Class"
