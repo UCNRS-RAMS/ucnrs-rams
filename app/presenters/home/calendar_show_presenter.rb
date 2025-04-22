@@ -131,7 +131,7 @@ class Home::CalendarShowPresenter
   end
 
   def hidden_link_params
-    Home::BarPresenter.new(
+    CalendarBarPresenter.new(
       link_classes: "disable-link",
       background_classes: "border",
       text_classes: "",
