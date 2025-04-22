@@ -1,8 +1,22 @@
 class Reserves::Calendar::ShowPresenter < Manager::Dashboard::CalendarShowPresenter
   include Rails.application.routes.url_helpers
 
+  def calendar_partial_name
+    "calendar"
+  end
+
   def calendar_path
     reserve_calendar_path(reserve_id: reserve)
+  end
+
+  def public_calendar_access
+    reserve.public_calendar_access
+  end
+
+  def visits
+    visit_scope.map do |visit|
+      Reserves::Calendar::VisitPresenter.new(visit: visit, type: type, status: status)
+    end
   end
 
   def visits_link_params
@@ -13,20 +27,6 @@ class Reserves::Calendar::ShowPresenter < Manager::Dashboard::CalendarShowPresen
       text: visits_link_text,
       path: reserve_calendar_visits_path(reserve_id: reserve.id, date: current_date, status: status),
     )
-  end
-
-  def calendar_partial_name
-    "calendar"
-  end
-
-  def visits
-    visit_scope.map do |visit|
-      Reserves::Calendar::VisitPresenter.new(visit: visit, type: type, status: status)
-    end
-  end
-
-  def public_calendar_access
-    reserve.public_calendar_access
   end
 
   private
