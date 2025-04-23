@@ -26,7 +26,7 @@
 
       <section class="visitor-amenity-list-section">
         <header>
-          <h2>Visitor List<%= t(".visitor_list") %></h2>
+          <h2><%= t(".visitor_list") %></h2>
         </header>
         <% presenter.user_visits? && presenter.user_visits.each do |user_visit| %>
           <div class="visitor-amenity-list">
@@ -43,7 +43,7 @@
 
       <section class="visitor-amenity-list-section">
         <header>
-          <h2>Amenities<%= t(".amenities") %></h2>
+          <h2><%= t(".amenities") %></h2>
         </header>
         <% presenter.amenity_visits.each do |amenity_visit| %>
           <div class="visitor-amenity-list">
