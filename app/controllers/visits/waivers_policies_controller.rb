@@ -68,21 +68,21 @@ class Visits::WaiversPoliciesController < ApplicationController
       if have_yes_answer_for?(:iacuc_flag) && visit_reserve_personnel_for(:receive_iacuc_email).present?
         send_iacuc_email!(
           visit: visit,
-          personnel_email_list: visit_reserve_personnel_for(:receive_iacuc_email).map(&:email)
+          personnel_email_list: visit_reserve_personnel_for(:receive_iacuc_email).map{ |personnel| personnel.user_email }
         )
       end
 
       if have_yes_answer_for?(:drone_flag) && visit_reserve_personnel_for(:receive_drone_email).present?
         send_drone_email!(
           visit: visit,
-          personnel_email_list: visit_reserve_personnel_for(:receive_drone_email).map(&:email)
+          personnel_email_list: visit_reserve_personnel_for(:receive_drone_email).map{ |personnel| personnel.user_email }
         )
       end
 
       if have_yes_answer_for?(:scuba_flag) && visit_reserve_personnel_for(:receive_scuba_email).present?
         send_scuba_email!(
           visit: visit,
-          personnel_email_list: visit_reserve_personnel_for(:receive_scuba_email).map(&:email),
+          personnel_email_list: visit_reserve_personnel_for(:receive_scuba_email).map{ |personnel| personnel.user_email },
         )
       end
     end
@@ -117,6 +117,7 @@ class Visits::WaiversPoliciesController < ApplicationController
     ReservePersonnel
       .where(reserve: visit.reserve)
       .receiving_email_type(email_type)
+      .map { |personnel| PersonnelPresenter.new(personnel) }
   end
 
   def have_yes_answer_for?(flag_type)
