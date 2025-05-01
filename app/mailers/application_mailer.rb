@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "donotreply@ucnrs.com"
+  default from: "no-reply@#{ENV.fetch("SMTP_DOMAIN", "example.com")}"
   layout "mailer"
   prepend_view_path "app/views/mails"
 end
