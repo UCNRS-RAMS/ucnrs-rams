@@ -22,6 +22,12 @@
       <td style="padding-bottom: 0.3em; padding-top: 0.3em; font-weight: 600;"><%= visit.study_area %></td>
     </tr>
     <tr>
+      <td style="padding-bottom: 0.3em; padding-right: 2em; padding-top: 0.3em;"><%= t(".special_needs") %></td>
+      <td style="padding-bottom: 0.3em; padding-top: 0.3em; font-weight: 600;">
+        <%= simple_format visit.special_needs, style: "margin-top:0; margin-bottom:0;" %>
+      </td>
+    </tr>
+    <tr>
       <td style="padding-bottom: 0.3em; padding-right: 2em; padding-top: 0.3em;"><%= t(".project") %></td>
       <td style="padding-bottom: 0.3em; padding-top: 0.3em; font-weight: 600;"><%= visit.project_title %></td>
     </tr>

@@ -2604,6 +2604,7 @@ en:
         project: "Project"
         purpose: "Purpose"
         request_submitted: "Request Submitted"
+        special_needs: "Special Needs"
         visitors: "Visitors (%{size})"
         visit_summary: "Visit Summary"
       visit_brief:
@@ -2613,6 +2614,7 @@ en:
         project: "Project"
         purpose: "Purpose"
         request_submitted: "Request Submitted"
+        special_needs: "Special Needs"
       visit_questions:
         visit_reserve_questions: "Visit Reserve Questions"
   manager_mailer:
