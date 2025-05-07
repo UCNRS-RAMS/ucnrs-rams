@@ -75,9 +75,11 @@
       <span style="display:block; margin-bottom: 0.5em;"><%= t(".method_description") %></span>
       <span style="display:block; margin-bottom: 0.5em; font-weight: 600;"><%= project.method_description %></span>
     </div>
-    <div class="project-methods-detail" style="margin-bottom: 1.25em;">
-      <span style="display:block; margin-bottom: 0.5em;"><%= t(".method_study_area") %></span>
-      <span style="display:block; margin-bottom: 0.5em; font-weight: 600;"><%= project.method_study_area %></span>
-    </div>
+    <% if project.method_study_area.present? %>
+      <div class="project-methods-detail" style="margin-bottom: 1.25em;">
+        <span style="display:block; margin-bottom: 0.5em;"><%= t(".method_study_area") %></span>
+        <span style="display:block; margin-bottom: 0.5em; font-weight: 600;"><%= project.method_study_area %></span>
+      </div>
+    <% end %>
   </div>
 </section>

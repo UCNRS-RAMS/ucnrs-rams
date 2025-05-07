@@ -2598,19 +2598,21 @@ en:
         institution: "Institution"
         project_role: "Role"
       visit_detail:
-        visit_summary: "Visit Summary"
-        request_submitted: "Request Submitted"
-        arrival_and_departure: "Arrival and Departure"
-        purpose: "Purpose"
-        project: "Project"
-        visitors: "Visitors (%{size})"
         amenities: "Amenities (%{size})"
-      visit_brief:
-        brief_visit_summary: "Brief Visit Summary"
-        request_submitted: "Request Submitted"
+        area_of_study: "Area of Study"
         arrival_and_departure: "Arrival and Departure"
-        purpose: "Purpose"
         project: "Project"
+        purpose: "Purpose"
+        request_submitted: "Request Submitted"
+        visitors: "Visitors (%{size})"
+        visit_summary: "Visit Summary"
+      visit_brief:
+        area_of_study: "Area of Study"
+        arrival_and_departure: "Arrival and Departure"
+        brief_visit_summary: "Brief Visit Summary"
+        project: "Project"
+        purpose: "Purpose"
+        request_submitted: "Request Submitted"
       visit_questions:
         visit_reserve_questions: "Visit Reserve Questions"
   manager_mailer:
