@@ -5,10 +5,24 @@
     </span>
   </td>
   <td class="date-range"><%= visit.requested_date_range %></td>
-  <td><%= truncate(visit.purpose_of_visit, length: 50) %></td>
+  <td>
+    <%= link_to_if current_user.admin_or_manage_reserve?(visit.reserve), 
+      truncate(visit.purpose_of_visit, length: 50), 
+      manager_reserve_visit_path(current_reserve, visit.id) , 
+      data: { turbo_frame: "_top" } do 
+    %>
+      <%= truncate(visit.purpose_of_visit, length: 50) %>
+    <% end %>
+  </td>
   <td><%= visit.requested_reserve_name %></td>
   <td><%= visit.submitted_at %></td>
   <td>
-    <%= render partial: "link", locals: { presenter: presenter, reserve: visit.reserve, link_path: manager_reserve_visit_path(current_reserve, visit.id) } %>
+    <%= render partial: "link", 
+      locals: { 
+        presenter: presenter, 
+        reserve: visit.reserve, 
+        link_path: manager_reserve_visit_path(current_reserve, visit.id) 
+      } 
+    %>
   </td>
 </tr>
