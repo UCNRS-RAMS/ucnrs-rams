@@ -9,7 +9,4 @@ class Manager::ReserveInfo::AmenitiesAndRatesController < Manager::ApplicationCo
       reserve: current_reserve,
     )
   end
-
-  private
-
 end
