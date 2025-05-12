@@ -66,10 +66,48 @@ RSpec.describe Manager::ReserveInfo::AmenitiesAndRatesIndexPresenter, type: :pre
 
       results = presenter.amenity_rates
 
-      expect(results.keys).to match_array ["amenity a", "amenity b"]
-      expect(results.values.flatten).to all(be_a(AmenityRatePresenter))
-      expect(results["amenity a"].map(&:id)).to eq [amenity_rate1.id, amenity_rate2.id]
-      expect(results["amenity b"].map(&:id)).to eq [amenity_rate3.id, amenity_rate4.id]
+      expect(results.keys).to match_array [amenity_a.id, amenity_b.id]
+      expect(results[amenity_a.id][1].map(&:id)).to eq [amenity_rate1.id, amenity_rate2.id]
+      expect(results[amenity_b.id][1].map(&:id)).to eq [amenity_rate3.id, amenity_rate4.id]
+    end
+
+    it "returns given reserve amenity_rates with amenity name" do
+      reserve = create(:reserve)
+      create(:amenity, reserve: reserve, title: "amenity a", sort_order: 1)
+      create(:amenity, reserve: reserve, title: "amenity b", sort_order: 2)
+      create(:amenity_rate_category, reserve: reserve, sort_order: 1)
+      create(:amenity_rate_category, reserve: reserve, sort_order: 2)
+      presenter = Manager::ReserveInfo::AmenitiesAndRatesIndexPresenter.new(reserve: reserve)
+
+      results = presenter.amenity_rates
+
+      expect(results.values.map { |key, _value| key }).to match_array ["amenity a", "amenity b"]
+    end
+
+    it "returns given reserve amenity_rates with amenity category name" do
+      reserve = create(:reserve)
+      create(:amenity, reserve: reserve, title: "amenity a", sort_order: 1)
+      create(:amenity_rate_category, reserve: reserve, description: "category 1")
+      create(:amenity_rate_category, reserve: reserve, description: "category 2")
+      presenter = Manager::ReserveInfo::AmenitiesAndRatesIndexPresenter.new(reserve: reserve)
+
+      results = presenter.amenity_rates
+
+      expect(results.first[1][1].map(&:category_rate_name)).to match_array ["category 1", "category 2"]
+    end
+
+    it "only returns given reserve amenity_rates with active amenity category rate" do
+      reserve = create(:reserve)
+      create(:amenity, reserve: reserve, title: "amenity a", sort_order: 1)
+      create(:amenity_rate_category, reserve: reserve, description: "category 1", visible: true)
+      create(:amenity_rate_category, reserve: reserve, description: "category 2", visible: false)
+      create(:amenity_rate_category, reserve: reserve, description: "category 3", visible: true)
+      create(:amenity_rate_category, reserve: reserve, description: "category 4", visible: false)
+      presenter = Manager::ReserveInfo::AmenitiesAndRatesIndexPresenter.new(reserve: reserve)
+
+      results = presenter.amenity_rates
+
+      expect(results.first[1][1].map(&:category_rate_name)).to match_array ["category 1", "category 3"]
     end
   end
 end

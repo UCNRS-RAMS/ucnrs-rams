@@ -31,10 +31,11 @@ class Manager::ReserveInfo::AmenitiesAndRatesIndexPresenter
 
   def amenity_rates
     amenity_rates_scope
-      .map{ |amenity_rate| AmenityRatePresenter.new(amenity_rate) }
-      .group_by{ |amenity_rate| [amenity_rate.amenity_id, amenity_rate.amenity_title]}
-      .map{ |(amenity_id, amenity_title), amenity_rates| [amenity_title, amenity_rates] }
-      .to_h
+      .map { |amenity_rate| AmenityRatePresenter.new(amenity_rate) }
+      .group_by { |amenity_rate| [amenity_rate.amenity_id, amenity_rate.amenity_title] }
+      .to_h do |(amenity_id, amenity_title), amenity_rates|
+        [amenity_id, [amenity_title, amenity_rates]]
+      end
   end
 
   private

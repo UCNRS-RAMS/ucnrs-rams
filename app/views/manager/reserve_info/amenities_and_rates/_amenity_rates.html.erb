@@ -4,14 +4,14 @@
       <tr>
         <th><%= t(".amenity_name") %></th>
         <% if !amenity_rates.empty? %>
-          <% amenity_rates.first[1].each do |amenity_rate| %>
+          <% amenity_rates.first[1][1].each do |amenity_rate| %>
             <%= tag.th amenity_rate.category_rate_name %>
           <% end %>
         <% end %>
       </tr>
     </thead>
     <tbody>
-      <% amenity_rates.each do |amenity_name, amenity_rates| %>
+      <% amenity_rates.each do |amenity_id, (amenity_name, amenity_rates)| %>
         <tr>
           <td><%= amenity_name %></td>
           <% amenity_rates.each do |amenity_rate| %>
