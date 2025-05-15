@@ -97,15 +97,15 @@ class Manager::Invoices::InvoiceShowPresenter
   end
 
   def payments_amount_total
-    value(invoice_payments.pluck(:amount).sum).to_i
+    invoice_payments.pluck(:amount).sum
   end
 
   def amenity_visit_total
-    "#{value(invoice.amenity_visits.sum(&:subtotal))}"
+    amenity_visits.sum(&:subtotal)
   end
 
   def calculate_balance
-    amenity_visit_total.to_i - payments_amount_total
+    amenity_visit_total - payments_amount_total
   end
 
   def value(num)
