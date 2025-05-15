@@ -6,7 +6,6 @@ class ManagerMailerPreview < ActionMailer::Preview
           Visit
             .in_review
             .submitted_recent_first
-            .where(reserve_id: reserve_ids_with_personnel_email)
             .first
         )
       )
@@ -26,7 +25,7 @@ class ManagerMailerPreview < ActionMailer::Preview
     email_params.merge!(
       default_subject: email_new_presenter.email_default_subject,
       attachment: pdf,
-      attachment_name: email_new_presenter.email_attachment_name
+      attachment_name: email_new_presenter.email_attachment_name,
     )
 
     ManagerMailer
@@ -49,7 +48,7 @@ class ManagerMailerPreview < ActionMailer::Preview
     ManagerMailer
       .with(
         visit: visit,
-        personnel_email_list: ["email_recipient1@abc.com", "email_recipient2@abc.com"]
+        personnel_email_list: ["email_recipient1@abc.com", "email_recipient2@abc.com"],
       )
       .iacuc_notification_email
   end
@@ -66,7 +65,7 @@ class ManagerMailerPreview < ActionMailer::Preview
     ManagerMailer
       .with(
         visit: visit,
-        personnel_email_list: ["email_recipient1@abc.com", "email_recipient2@abc.com"]
+        personnel_email_list: ["email_recipient1@abc.com", "email_recipient2@abc.com"],
       )
       .drone_notification_email
   end
@@ -83,7 +82,7 @@ class ManagerMailerPreview < ActionMailer::Preview
     ManagerMailer
       .with(
         visit: visit,
-        personnel_email_list: ["email_recipient1@abc.com", "email_recipient2@abc.com"]
+        personnel_email_list: ["email_recipient1@abc.com", "email_recipient2@abc.com"],
       )
       .scuba_notification_email
   end
@@ -91,7 +90,7 @@ class ManagerMailerPreview < ActionMailer::Preview
   private
 
   def reserve_ids_with_personnel_email
-    @reserve_ids ||= ReservePersonnel
+    @reserve_ids_with_personnel_email ||= ReservePersonnel
       .where.not(email: nil)
       .map(&:reserve_id)
       .uniq

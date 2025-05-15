@@ -28,8 +28,7 @@ RSpec.describe Mail::User::VisitNewPresenter do
       email_subject = presenter.email_subject
 
       expect(email_subject)
-        .to eq "New Visit to the small island - Nov. 24, 2004 at 1:04 AM -
-          Nov. 25, 2004 at 1:04 AM - john doe".squish
+        .to eq "New Visit to the small island - Nov 24 - 25, 2004 - john doe".squish
     end
   end
 

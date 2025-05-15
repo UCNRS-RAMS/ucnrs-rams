@@ -6,7 +6,6 @@ class UserMailerPreview < ActionMailer::Preview
           Visit
             .in_review
             .submitted_recent_first
-            .where(reserve_id: reserve_ids_with_personnel_email)
             .first
         )
       )
@@ -14,17 +13,17 @@ class UserMailerPreview < ActionMailer::Preview
   end
 
   def visit_update
-    test_approval_message = <<-approval_message
+    test_approval_message = <<-APPROVAL_MESSAGE
       approval message here
       line 2
       line 3
       *************
       line 4
-    approval_message
+    APPROVAL_MESSAGE
 
     UserMailer
       .with(
-        visit: Visit.where(reserve_id: reserve_ids_with_personnel_email).last,
+        visit: Visit.last,
         approval_message: test_approval_message,
         email_to_list: ["user0@not.real", "user1@not.real"]
       )
