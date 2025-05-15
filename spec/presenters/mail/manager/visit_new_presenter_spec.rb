@@ -20,8 +20,7 @@ RSpec.describe Mail::Manager::VisitNewPresenter do
       email_subject = presenter.email_subject
 
       expect(email_subject)
-        .to eq "New Visit - small island - Nov. 24, 2004 at 1:04 AM -
-          Nov. 25, 2004 at 1:04 AM - john doe".squish
+        .to eq "New Visit - small island - Nov 24 - 25, 2004 - john doe".squish
     end
   end
 
@@ -29,10 +28,10 @@ RSpec.describe Mail::Manager::VisitNewPresenter do
     it "presents visit reserve personnel that receive new visit email only wrapped in PersonnelPresenter" do
       reserve = create(:reserve)
       reserve_personnel1 = create(:reserve_personnel,
-        user: create(:user), reserve: reserve, receive_new_visit_email: true
+        user: create(:user), reserve: reserve, receive_new_visit_email: true,
       )
       reserve_personnel2 = create(:reserve_personnel,
-        user: create(:user), reserve: reserve, receive_new_visit_email: false
+        user: create(:user), reserve: reserve, receive_new_visit_email: false,
       )
       visit = create(:visit, reserve: reserve)
       presenter = Mail::Manager::VisitNewPresenter.new(visit)

@@ -28,12 +28,12 @@ class Mail::User::VisitUpdatePresenter
   delegate :name, to: :visit_reserve_managing_campus, prefix: true
 
   def email_subject
-    "Update for Visit to the #{visit_reserve_short_name} - #{timeframe} - #{applicant_name}".squish
+    "Update for Visit to the #{visit_reserve_short_name} - #{visit_time_range} - #{applicant_name}".squish
   end
 
   def email_bcc_to_list
     personnel_receiving_update_email
-      .map{ |personnel| personnel.user_email }
+      .map { |personnel| personnel.user_email }
       .reject(&:blank?)
   end
 
@@ -49,5 +49,9 @@ class Mail::User::VisitUpdatePresenter
       .includes(:user)
       .where(receive_update_email: true)
       .map { |personnel| PersonnelPresenter.new(personnel) }
+  end
+
+  def visit_time_range
+    DateRangePresenter.value(start_date: visit.starts_at, end_date: visit.ends_at)
   end
 end

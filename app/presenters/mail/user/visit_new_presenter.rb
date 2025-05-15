@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 class Mail::User::VisitNewPresenter < Mail::VisitNewPresenter
-  def initialize(visit)
-    super(visit)
-  end
-
   delegate :name,
     :short_name,
     :address_line_1,
@@ -19,10 +15,16 @@ class Mail::User::VisitNewPresenter < Mail::VisitNewPresenter
     prefix: true
 
   def email_subject
-    "New Visit to the #{reserve_short_name} - #{timeframe} - #{visit_applicant_name}".squish
+    "New Visit to the #{reserve_short_name} - #{visit_time_range} - #{visit_applicant_name}".squish
   end
 
   def visit_reserve_managing_campus_name
     visit_reserve_managing_campus.name
+  end
+
+  private
+
+  def visit_time_range
+    DateRangePresenter.value(start_date: visit.starts_at, end_date: visit.ends_at)
   end
 end
