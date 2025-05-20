@@ -16,16 +16,11 @@ class ProjectShowPresenter
 
   def project_type_for_new_visit_link
     case project.project_type
-    when "research"
-      "research"
-    when "class"
-      "university_class"
-    when "meeting"
-      "meeting"
-    when "public_use"
-      "public_use"
-    when "housing"
-      "housing"
+    when "research" then "research"
+    when "class" then "university_class"
+    when "meeting" then "meeting_or_conference"
+    when "public_use" then "public_use"
+    when "housing" then "housing"
     else
       nil
     end
