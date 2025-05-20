@@ -62,10 +62,18 @@
       <%= form.label :involvements,
         t(".select_involvements_html", addition: "<span class=\"required\">*</span>".html_safe)
       %>
-      <ul class="involvements">
+      <ul class="involvements" data-controller="exclusive-toggle">
         <% presenter.involvement_flags.each do |involvement_flag| %>
           <li>
-            <%= form.check_box involvement_flag %>
+            <% if involvement_flag == :involves_none %>
+              <%= form.check_box involvement_flag,
+                data: { "exclusive-toggle-target" => "toggle2", "action": "click->exclusive-toggle#toggle" }
+              %>
+            <% else %>
+              <%= form.check_box involvement_flag,
+                data: { "exclusive-toggle-target" => "toggle1", "action": "click->exclusive-toggle#toggle" }
+              %>
+            <% end %>
             <%= form.label involvement_flag, t(".involvement_flags.#{involvement_flag}") %>
           </li>
         <% end %>
