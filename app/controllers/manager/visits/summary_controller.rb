@@ -19,6 +19,7 @@ class Manager::Visits::SummaryController < Manager::ApplicationController
 
     if @form.update_status
       flash.now[:notice] = I18n.t("manager.visits.summary.update.flash_message")
+      create_log2(action: :updated, visit: @form.visit, user: current_user)
       @presenter = Manager::VisitShowPresenter.new(visit: visit, current_user: current_user)
 
       if email_params[:email_notification_method] == "composed_email"
@@ -68,5 +69,16 @@ class Manager::Visits::SummaryController < Manager::ApplicationController
       )
       .visit_update
       .deliver_now
+  end
+
+  def create_log2(action:, visit:, user:)
+    LogForm2.create(
+      params: {
+        action: action,
+        record: visit.project,
+        record_about: visit,
+        user: user,
+      }
+    )
   end
 end
