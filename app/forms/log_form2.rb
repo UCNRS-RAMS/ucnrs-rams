@@ -43,7 +43,7 @@ class LogForm2
       comment: comment,
       about_type: record_about_type,
       about_id: record_about_id,
-      changes: record.changes
+      changes: changes
     }
   end
 
