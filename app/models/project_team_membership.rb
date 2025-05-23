@@ -43,14 +43,14 @@ class ProjectTeamMembership < ApplicationRecord
   def self.by_project_role
     select(
       Arel.sql(<<~end_sql)
-      project_team_memberships.*,
-      (CASE
-        WHEN(project_team_memberships.is_principal_investigator = 1 AND project_team_memberships.can_edit_project = 1 AND project_team_memberships.can_add_project_user = 1 AND project_team_memberships.can_add_visit = 1 AND project_team_memberships.can_receive_invoice = 1) THEN 1
-        WHEN(project_team_memberships.is_principal_investigator = 0 AND project_team_memberships.can_edit_project = 1 AND project_team_memberships.can_add_project_user = 1 AND project_team_memberships.can_add_visit = 1 AND project_team_memberships.can_receive_invoice = 0) THEN 2
-        WHEN(project_team_memberships.is_principal_investigator = 0 AND project_team_memberships.can_edit_project = 0 AND project_team_memberships.can_add_project_user = 1 AND project_team_memberships.can_add_visit = 1 AND project_team_memberships.can_receive_invoice = 0) THEN 3
-        WHEN(project_team_memberships.is_principal_investigator = 0 AND project_team_memberships.can_edit_project = 0 AND project_team_memberships.can_add_project_user = 0 AND project_team_memberships.can_add_visit = 1 AND project_team_memberships.can_receive_invoice = 1) THEN 4
-        ELSE 5
-      END) AS project_role_order
+        project_team_memberships.*,
+        (CASE
+          WHEN(project_team_memberships.is_principal_investigator = 1 AND project_team_memberships.can_edit_project = 1 AND project_team_memberships.can_add_project_user = 1 AND project_team_memberships.can_add_visit = 1 AND project_team_memberships.can_receive_invoice = 1) THEN 1
+          WHEN(project_team_memberships.is_principal_investigator = 0 AND project_team_memberships.can_edit_project = 1 AND project_team_memberships.can_add_project_user = 1 AND project_team_memberships.can_add_visit = 1 AND project_team_memberships.can_receive_invoice = 0) THEN 2
+          WHEN(project_team_memberships.is_principal_investigator = 0 AND project_team_memberships.can_edit_project = 0 AND project_team_memberships.can_add_project_user = 1 AND project_team_memberships.can_add_visit = 1 AND project_team_memberships.can_receive_invoice = 0) THEN 3
+          WHEN(project_team_memberships.is_principal_investigator = 0 AND project_team_memberships.can_edit_project = 0 AND project_team_memberships.can_add_project_user = 0 AND project_team_memberships.can_add_visit = 1 AND project_team_memberships.can_receive_invoice = 1) THEN 4
+          ELSE 5
+        END) AS project_role_order
       end_sql
     )
       .order("project_team_memberships.active DESC, project_role_order")
