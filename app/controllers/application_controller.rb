@@ -28,12 +28,26 @@ class ApplicationController < ActionController::Base
       current_user: current_user,
       current_reserve: current_reserve,
       controller_path: controller_path,
-      dashboard: session[:dashboard]
+      dashboard: session[:dashboard],
     )
   end
 
   def turbo_frame_request_variant
     request.variant = :turbo_frame if turbo_frame_request?
+  end
+
+  def validate_user_as_visit_project_member!
+    valid_visit_project_member = current_user
+      .project_team_memberships
+      .is_active
+      .joins(project: :visits)
+      .where(project: { visits: { id: params[:id] } })
+      .first
+
+    if !valid_visit_project_member
+      flash[:alert] = "You are not authorized."
+      redirect_to home_index_path
+    end
   end
 
   protected
