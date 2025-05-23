@@ -1,5 +1,6 @@
 class VisitsController < ApplicationController
   before_action :authenticate_user!
+  before_action :validate_user_as_visit_project_member!, only: [:show, :edit, :update, :cancel]
   before_action :check_edit_access, only: [:edit]
 
   def new
@@ -60,7 +61,7 @@ class VisitsController < ApplicationController
   def check_edit_access
     return if visit.status == "incomplete"
 
-    unless visit.starts_at.to_date > Date.today && visit.status == "in_review"
+    unless visit.starts_at.to_date > Time.zone.today && visit.status == "in_review"
       flash[:alert] = I18n.translate("manager.not_editable")
       redirect_to visit_path(id: visit.id)
     end
@@ -98,7 +99,7 @@ class VisitsController < ApplicationController
   end
 
   def visit
-    Visit.find(visit_id)
+    @visit ||= Visit.find(visit_id)
   end
 
   def visit_id
