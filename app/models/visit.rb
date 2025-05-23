@@ -67,10 +67,10 @@ class Visit < ApplicationRecord
   def self.ordered_by_visit_date
     left_joins(:user_visits)
       .select(
-        Arel.sql(<<-end_sql)
-        visits.*,
-        MIN(user_visits.arrives_at) as ordered_visits
-        end_sql
+        Arel.sql(<<-END_SQL)
+          visits.*,
+          MIN(user_visits.arrives_at) as ordered_visits
+        END_SQL
       )
       .group("visits.id")
       .order("ordered_visits DESC")
@@ -165,12 +165,12 @@ class Visit < ApplicationRecord
     elsif search_term.present?
       left_joins(:user)
         .where(
-          Arel.sql(<<-end_sql)
+          Arel.sql(<<-END_SQL)
             visits.purpose_of_visit LIKE "%#{search_term}%" OR
             users.first_name LIKE "%#{search_term}%" OR
             users.last_name LIKE "%#{search_term}%" OR
             users.email LIKE "%#{search_term}%"
-          end_sql
+          END_SQL
         )
         .group(:id)
     else
@@ -204,7 +204,7 @@ class Visit < ApplicationRecord
   end
 
   def self.using_amenity(amenity)
-    if amenity.present? && amenity != 'all'
+    if amenity.present? && amenity != "all"
       left_joins(:amenities)
         .merge(Amenity.where(id: amenity))
         .group(:id)
@@ -258,6 +258,4 @@ class Visit < ApplicationRecord
       errors.add(:end_date, :must_be_after_user_visits_departs_at)
     end
   end
-
-
 end
