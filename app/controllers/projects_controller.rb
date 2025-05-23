@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
+  before_action :validate_user_as_project_member!, only: [:show, :edit, :update]
   before_action :authorize_user, only: [:edit, :update]
 
   def index

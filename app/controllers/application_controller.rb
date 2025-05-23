@@ -50,6 +50,20 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def validate_user_as_project_member!
+    valid_project_member = current_user
+      .project_team_memberships
+      .is_active
+      .joins(:project)
+      .where(project: { id: params[:id] } )
+      .first
+
+    if !valid_project_member
+      flash[:alert] = "You are not authorized."
+      redirect_to home_index_path
+    end
+  end
+
   protected
 
   def configure_permitted_parameters
