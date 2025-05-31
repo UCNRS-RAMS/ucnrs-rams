@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_04_01_023643) do
+ActiveRecord::Schema.define(version: 2025_05_31_120837) do
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
@@ -1034,7 +1034,7 @@ ActiveRecord::Schema.define(version: 2025_04_01_023643) do
   end
 
   create_table "visits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "project_id", null: false
+    t.integer "project_id", null: false, unsigned: true
     t.integer "reserve_id"
     t.integer "user_id", comment: "THis is the ID of the person that submitted the activity (may be diffferent than Application's user_id)"
     t.date "DateSubmitted", comment: "DEPRICATED"
@@ -1089,4 +1089,5 @@ ActiveRecord::Schema.define(version: 2025_04_01_023643) do
   add_foreign_key "project_permit_answers", "permits"
   add_foreign_key "project_permit_answers", "projects"
   add_foreign_key "reserve_tags", "reserves"
+  add_foreign_key "visits", "projects"
 end

@@ -36,13 +36,13 @@ class Project < ApplicationRecord
   belongs_to :owner, class_name: "User", foreign_key: :user_id
   belongs_to :applicant, class_name: "User", foreign_key: :applicant_id
   has_many :visits
-  has_many :team_memberships, class_name: "ProjectTeamMembership"
+  has_many :team_memberships, class_name: "ProjectTeamMembership", dependent: :destroy
   has_many :team_members, through: :team_memberships, source: :user
-  has_many :project_permit_answers
-  has_many :fundings
-  has_many :project_reserve_answers
-  has_many :reserve_notes, as: :record
-  has_many :logs, as: :record
+  has_many :project_permit_answers, dependent: :destroy
+  has_many :fundings, dependent: :destroy
+  has_many :project_reserve_answers, dependent: :destroy
+  has_many :reserve_notes, as: :record, dependent: :destroy
+  has_many :logs, as: :record, dependent: :destroy
 
   with_options(if: :project_type_research?) do
     validates :title, presence: true
