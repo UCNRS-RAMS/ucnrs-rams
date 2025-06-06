@@ -205,8 +205,15 @@
             }
 
             .counter {
+              -moz-appearance: textfield;
               text-align: center;
               width: 45px;
+
+              &::-webkit-outer-spin-button,
+              &::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+              }
             }
 
             .more, .less, .cross-button {

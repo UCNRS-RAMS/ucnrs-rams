@@ -110,7 +110,8 @@ RSpec.describe "Requesting a Visit", type: :system, js: true do
     )
     amenity = create(
       :amenity,
-      title: "Beach Access", reserve: reserve,
+      title: "Beach Access",
+      reserve: reserve,
       group_number: "1",
     )
     amenity_rate = create(
