@@ -142,4 +142,8 @@ class Visits::AmenityPresenter
     rate = rates.find { |rate| rate.id == selected_amenity_rate_id }
     "#{rate.amount} " << per_sentence
   end
+
+  def input_total_capacity
+    amenity.total_capacity > 0 ? amenity.total_capacity : nil
+  end
 end
