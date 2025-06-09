@@ -32,9 +32,16 @@
           target: "_top" %>
       </p>
     </div>
-    <div class="w-200 ">
+    <div class="w-200">
       <p><%= t(".project_type") %></p>
       <p class="title"><%= presenter.project_type %></p>
+    </div>
+    <div class="w-200 ">
+      <p class="title">
+        <%= link_to "Submit Visit for #{presenter.owner_name}",
+          new_manager_reserve_visit_path(current_reserve, user_id: presenter.owner_id),
+          target: "_top" %>
+      </p>
     </div>
   </div>
 </section>
