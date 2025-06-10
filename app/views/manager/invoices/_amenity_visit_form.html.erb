@@ -1,14 +1,14 @@
 <%= fields_for "amenity_visit[#{amenity_visit.id}]", amenity_visit do |f| %>
-  <tr data-controller="subtotal">
+  <tr data-controller="subtotal-invoice">
     <td>
       <%= f.hidden_field "amenity_visit_id", value: amenity_visit.id %>
-      <%= f.hidden_field :arrives_at, value: amenity_visit.arrives_at, data: { "subtotal-target": "arriveAt" } %>
-      <%= f.hidden_field :departs_at, value: amenity_visit.departs_at, data: { "subtotal-target": "departsAt" } %>
+      <%= f.hidden_field :arrives_at, value: amenity_visit.arrives_at, data: { "subtotal-invoice-target": "arriveAt" } %>
+      <%= f.hidden_field :departs_at, value: amenity_visit.departs_at, data: { "subtotal-invoice-target": "departsAt" } %>
       <%= f.hidden_field :status, value: "approved" %>
       <%= f.check_box "checked", checked: form.amenity_visit_checked?(amenity_visit.invoiced?),
         data: {
-          action: "change->subtotal#calculateSubtotal change->subtotal#toggle",
-          "subtotal-target": "checkBox",
+          action: "change->subtotal-invoice#calculateSubtotal change->subtotal-invoice#toggle",
+          "subtotal-invoice-target": "checkBox",
         }
       %>
       <strong><%= f.label "checked", presenter.title %></strong>
@@ -20,8 +20,8 @@
         class: "select-field",
         onclick: "showPicker()",
         data: {
-          action: "change->subtotal#calculateSubtotal",
-          "subtotal-target": "arriveOn",
+          action: "change->subtotal-invoice#calculateSubtotal",
+          "subtotal-invoice-target": "arriveOn",
         }
       %>
       <%= t(".spacer") %>
@@ -31,14 +31,14 @@
         class: "select-field",
         onclick: "showPicker()",
         data: {
-          action: "change->subtotal#calculateSubtotal",
-          "subtotal-target": "departsOn",
+          action: "change->subtotal-invoice#calculateSubtotal",
+          "subtotal-invoice-target": "departsOn",
         }
       %>
       <strong class="amenity-visit-duration">
         <%= t(".left_bracket") %>
-        <span data-subtotal-target="unitType"><%= presenter.period.humanize %></span>
-        <span data-subtotal-target="days"></span>
+        <span data-subtotal-invoice-target="unitType"><%= presenter.period.humanize %></span>
+        <span data-subtotal-invoice-target="days"></span>
         <%= t(".right_bracket") %>
       </strong>
     </td>
@@ -48,24 +48,23 @@
         id: "number_of_people#{amenity_visit.id}",
         class: "input-field",
         data: {
-          action: "input->subtotal#calculateSubtotal",
-          "subtotal-target": "count"
+          action: "input->subtotal-invoice#calculateSubtotal",
+          "subtotal-invoice-target": "count"
         }
       %>
     </td>
     <td>
-      <%= f.select :amenity_rate_id,
-        options_for_select(presenter.amenity_rate_options, presenter.selected_amenity_rate_id),
-        {},
+      <%= f.number_field :rate,
+        min: 0,
         class: "",
         data: {
-          action: "change->subtotal#calculateSubtotal",
-          "subtotal-target": "initialVal",
+          action: "change->subtotal-invoice#calculateSubtotal",
+          "subtotal-invoice-target": "initialVal",
         }
       %>
     </td>
-    <td class="amenity-visit-subtotal">
-      <%= t(".dollar") %><span data-subtotal-target="subtotal" class="subtotal"></span>
+    <td class="amenity-visit-subtotal-invoice">
+      <%= t(".dollar") %><span data-subtotal-invoice-target="subtotal" class="subtotal"></span>
     </td>
   </tr>
 <% end %>
