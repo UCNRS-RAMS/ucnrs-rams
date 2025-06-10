@@ -14,6 +14,10 @@ export default class extends Controller {
 
   change(amount: number) {
     const current = parseInt(this.outputTarget.value) || 0
-    this.outputTarget.value = Math.max(current + amount, 1).toString();
+    const maxValue = parseInt(this.outputTarget.max) || Infinity
+
+    if (Math.max(current + amount, 1) <= maxValue) {
+      this.outputTarget.value = Math.max(current + amount, 1).toString();
+    }
   }
 }
