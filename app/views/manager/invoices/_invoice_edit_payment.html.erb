@@ -1,4 +1,4 @@
-<tr>
+<tr data-controller="subtotal-invoice" data-subtotal-invoice-target="paymentRow">
   <td class="payment-action">
     <%= link_to edit_manager_reserve_visit_invoice_payment_path(invoice_id: presenter.invoice_id, id: invoice_payment.id),
       data: { turbo_frame: "modal-content" }, method: :get do
