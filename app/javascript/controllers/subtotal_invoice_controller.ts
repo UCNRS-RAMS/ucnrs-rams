@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["initialVal", "subtotal", "rate", "days", "count", "arriveOn", "departsOn", "arriveAt", "departsAt", "unitType", "checkBox"]
+  static targets = ["initialVal", "subtotal", "rate", "days", "count", "arriveOn", "departsOn", "arriveAt", "departsAt", "unitType", "checkBox", "paymentRow"]
   declare countTarget: HTMLInputElement
   declare subtotalTarget: HTMLInputElement
   declare daysTargets: HTMLInputElement[]
@@ -12,17 +12,30 @@ export default class extends Controller {
   declare departsOnTarget: HTMLInputElement
   declare unitTypeTarget: HTMLInputElement
   declare checkBoxTarget: HTMLInputElement
+  declare paymentRowTarget: HTMLInputElement
 
-  async connect() {
-    await this.calculateSubtotal()
+  connect() {
   }
 
   checkBoxTargetConnected() {
-    this.calculateTotal()
-    this.calculateBalance()
+    this.calculateAll()
   }
 
-  async calculateSubtotal() {
+  paymentRowTargetConnected() {
+    setTimeout(() => {
+      this.calculateTotal()
+      this.calculateBalance()
+    }, 500)
+  }
+
+  paymentRowTargetDisconnected() {
+    setTimeout(() => {
+      this.calculateTotal()
+      this.calculateBalance()
+    }, 500)
+  }
+
+  async calculateAll() {
     const units = Math.max(await this.getSubtotal(), 0);
     const rate = this.rate()
 
@@ -30,6 +43,7 @@ export default class extends Controller {
       this.countTarget.value = '1'
 
     this.subtotalTarget.innerText = (parseFloat(this.countTarget.value) * parseFloat(rate) * units).toFixed(2)
+
     this.calculateTotal()
     this.calculateBalance()
     this.updateDays(units)
@@ -37,17 +51,17 @@ export default class extends Controller {
 
   setRate(rateValue) {
     this.initialValTarget.innerText = rateValue
-    this.calculateSubtotal()
+    this.calculateAll()
   }
 
-  async getSubtotal() {
+  getSubtotal() {
     const arrives = `${this.arriveOnTarget.value} ${this.arriveAtTarget.value}`
     const departs = `${this.departsOnTarget.value} ${this.departsAtTarget.value}`
 
-    return await this.fetchSubtotal(arrives, departs)
+    return this.fetchSubtotal(arrives, departs)
   }
 
-  async fetchSubtotal(arrives, departs) {
+  fetchSubtotal(arrives, departs) {
     const url = `/visits/units?arrive=${encodeURIComponent(arrives)}&departs=${encodeURIComponent(departs)}&unit=${this.unitTypeTarget.textContent.trim()}`
     return fetch(url,
         {
@@ -71,9 +85,10 @@ export default class extends Controller {
 
   calculateTotal() {
     let subtotal
-    if (document.getElementById('total') != null)
+    if (document.getElementById('total') != null) {
       subtotal = Array.from(document.querySelectorAll('.subtotal'))
         .reduce((total, arg) => total + parseFloat(arg.innerHTML), 0.0).toFixed(2).toString();
+    }
 
     document.getElementById('total').innerHTML = '$' + subtotal
 
@@ -82,8 +97,7 @@ export default class extends Controller {
 
   toggle() {
     this.checkBoxTarget.checked ? this.subtotalTarget.setAttribute('class', 'subtotal') : this.subtotalTarget.removeAttribute('class')
-    this.calculateTotal()
-    this.calculateBalance()
+    this.calculateAll()
   }
 
   calculateBalance() {

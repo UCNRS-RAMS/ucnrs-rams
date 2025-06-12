@@ -1,5 +1,5 @@
 <%= fields_for "amenity_visit[#{amenity_visit.id}]", amenity_visit do |f| %>
-  <tr data-controller="subtotal-invoice">
+  <tr data-controller="subtotal-invoice" id="<%= dom_id amenity_visit %>">
     <td>
       <%= f.hidden_field "amenity_visit_id", value: amenity_visit.id %>
       <%= f.hidden_field :arrives_at, value: amenity_visit.arrives_at, data: { "subtotal-invoice-target": "arriveAt" } %>
@@ -7,7 +7,7 @@
       <%= f.hidden_field :status, value: "approved" %>
       <%= f.check_box "checked", checked: form.amenity_visit_checked?(amenity_visit.invoiced?),
         data: {
-          action: "change->subtotal-invoice#calculateSubtotal change->subtotal-invoice#toggle",
+          action: "change->subtotal-invoice#toggle",
           "subtotal-invoice-target": "checkBox",
         }
       %>
@@ -20,7 +20,7 @@
         class: "select-field",
         onclick: "showPicker()",
         data: {
-          action: "change->subtotal-invoice#calculateSubtotal",
+          action: "change->subtotal-invoice#calculateAll",
           "subtotal-invoice-target": "arriveOn",
         }
       %>
@@ -31,7 +31,7 @@
         class: "select-field",
         onclick: "showPicker()",
         data: {
-          action: "change->subtotal-invoice#calculateSubtotal",
+          action: "change->subtotal-invoice#calculateAll",
           "subtotal-invoice-target": "departsOn",
         }
       %>
@@ -48,7 +48,7 @@
         id: "number_of_people#{amenity_visit.id}",
         class: "input-field",
         data: {
-          action: "input->subtotal-invoice#calculateSubtotal",
+          action: "input->subtotal-invoice#calculateAll",
           "subtotal-invoice-target": "count"
         }
       %>
@@ -58,7 +58,7 @@
         min: 0,
         class: "",
         data: {
-          action: "change->subtotal-invoice#calculateSubtotal",
+          action: "change->subtotal-invoice#calculateAll",
           "subtotal-invoice-target": "initialVal",
         }
       %>
