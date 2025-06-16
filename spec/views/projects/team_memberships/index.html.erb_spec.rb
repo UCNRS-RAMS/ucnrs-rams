@@ -74,9 +74,9 @@ RSpec.describe "index.html.erb" do
     expect(doc).to display_error(I18n.t("activerecord.errors.models.project_team_membership_form.attributes.project_role.inclusion")).for_field("Project Role")
   end
 
-  describe "if the user does not have can_add_project_user permission" do
+  describe "if the user does not have can_edit_project permission" do
     it "does not show the add user form" do
-      membership = create(:project_team_membership, active: true, can_add_project_user: false)
+      membership = create(:project_team_membership, active: true, can_edit_project: false)
       project = membership.project
       assign(:presenter, Projects::TeamMembershipsIndexPresenter.new(
         current_step: 2,
