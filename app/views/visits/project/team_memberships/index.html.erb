@@ -3,7 +3,7 @@
 <section class="project-form add-user-form">
   <section class="form-subsection background-1">
     <div class="form-container">
-      <% if @presenter.able_to_add_user? %>
+      <% if @presenter.able_to_edit? %>
         <%= render partial: "shared/projects/team_memberships/form", locals: { presenter: @presenter } %>
       <% end %>
     </div>
