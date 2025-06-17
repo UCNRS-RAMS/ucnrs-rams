@@ -1,9 +1,9 @@
 module ReportQueries
   def query_part_1(reserve, begin_date, end_date)
-    id = if defined?(request) && request&.session.present?
-      ActiveRecord::Base.sanitize_sql(request.session[:session_id])
+    if defined?(request) && request&.session.present?
+      id = ActiveRecord::Base.sanitize_sql(request.session[:session_id])
     else
-      SecureRandom.hex
+      id = SecureRandom.hex
     end
 
     begin_date  = ActiveRecord::Base.sanitize_sql(begin_date)
@@ -378,7 +378,7 @@ module ReportQueries
           'Class',
           'Public Use',
           'Housing',
-          
+
           'TOTAL'
         ),
 
@@ -410,6 +410,7 @@ module ReportQueries
           'Other',
           'Docent',
           'Volunteer',
+          'Staff',
 
           'SUBTOTAL'
         ),

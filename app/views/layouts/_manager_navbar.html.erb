@@ -14,15 +14,11 @@
       <div class="right-side">
         <ul class="navbar-nav">
           <li>
-            <% if layout_presenter.current_user_dashboard == :visits %>
-              <% dashboard_path = manager_reserve_dashboard_visits_path(layout_presenter.current_reserve) %>
-
-            <% elsif layout_presenter.current_user_dashboard == :calendar %>
-              <% dashboard_path = manager_reserve_dashboard_calendar_path(layout_presenter.current_reserve) %>
-
+            <% case layout_presenter.current_user_dashboard %>
+            <% when :visits then dashboard_path = manager_reserve_dashboard_visits_path(layout_presenter.current_reserve) %>
+            <% when :calendar then dashboard_path = manager_reserve_dashboard_calendar_path(layout_presenter.current_reserve) %>
             <% else %>
               <% dashboard_path = manager_reserve_dashboard_path(layout_presenter.current_reserve) %>
-
             <% end %>
 
             <%= link_to t(".link.visits"), dashboard_path,

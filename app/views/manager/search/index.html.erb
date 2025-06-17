@@ -1,0 +1,78 @@
+<h1>Annual Report Part 1 Search</h1>
+<%#= form_with scope: :filter, method: :get, data: { controller: "toggle", "turbo-action": "advance" } do |form| %>
+  <%#= form.check_box :is_principal_investigator %>
+  <%#= form.label :is_principal_investigator, class: "form-inline-label" %>
+<%# end %>
+<form method="get" data-controller="toggle" data-turbo-action="advance">
+  <div class="row">
+    <label for="visit_project_type"><%= t(".project_type") %></label>
+    <select id="visit_project_type" name="filter[visit_project_type]" aria-label="visit_project_type" onchange="this.form.requestSubmit()">
+      <%= options_for_select @presenter.visit_project_type_options, @presenter.filter&.dig(:visit_project_type) %>
+    </select>
+  </div>
+  <div class="row">
+    <label for="user_type"><%= t(".user_type") %></label>
+    <select id="user_type" name="filter[user_type]" aria-label="user_type" onchange="this.form.requestSubmit()">
+      <%= options_for_select @presenter.user_type_options, @presenter.filter&.dig(:user_type) %>
+    </select>
+  </div>
+  <div class="row">
+    <label for="institution_type"><%= t(".institution_type") %></label>
+    <select id="institution_type" name="filter[institution_type]" aria-label="institution_type" onchange="this.form.requestSubmit()">
+      <%= options_for_select @presenter.institution_type_options, @presenter.filter&.dig(:institution_type) %>
+    </select>
+  </div>
+  <div class="row">
+    <%= label_tag "filter[exclude_reserve_institution]", "#{t(".exclude_reserve_institution")} #{current_reserve.managing_campus.name}" %>
+    <%= check_box_tag "filter[exclude_reserve_institution]", 1, @presenter.filter&.dig(:exclude_reserve_institution),
+      { "aria-label": "exclude_reserve_institution", onchange: "this.form.requestSubmit()" } %>
+  </div>
+    <div class="row">
+      <div class="row-medium">
+        <label for="visit_status"><%= t(".visit_status") %></label>
+        <select id="visit_status" name="filter[visit_status]" aria-label="show" onchange="this.form.requestSubmit()">
+          <%= options_for_select(@presenter.visit_status_options, @presenter.filter&.dig(:visit_status)) %>
+        </select>
+      </div>
+      <div class="row-auto">
+        <label for="report_access"><%= t(".report_access") %></label>
+        <select id="report_access" name="filter[report_access]" aria-label="show" onchange="this.form.requestSubmit()">
+          <%= options_for_select(@presenter.report_access_options, ActiveModel::Type::Boolean.new.cast(@presenter.filter&.dig(:report_access))) %>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-auto" id="horizontal-line">
+        <label for="date_begin"><%= t(".earliest_arrival_date") %></label>
+        <div class="input-with-buttons calendar">
+          <input type="date" name="filter[date_begin]" value="<%= @presenter.filter&.dig(:date_begin) %>" onchange="this.form.requestSubmit()">
+        </div>
+      </div>
+      <div class="row-auto">
+        <label for="date_end"><%= t(".latest_departure_date") %></label>
+        <div class="input-with-buttons calendar">
+          <input type="date" name="filter[date_end]" value="<%= @presenter.filter&.dig(:date_end) %>" onchange="this.form.requestSubmit()">
+        </div>
+      </div>
+    </div>
+</form>
+
+
+<turbo-frame id="visit-requests">
+  <table class="visit-requests table-style1">
+    <thead>
+      <tr>
+        <th class="visit-status"><%= t(".status") %></th>
+        <th class="visit-dates"><%= t(".visit_dates") %></th>
+        <th class="visit-purpose"><%= t(".purpose") %></th>
+        <th class="visit-reserve"><%= t(".reserve") %></th>
+        <th class="visit-submitter"><%= t(".submitted_by") %></th>
+        <th class="visit-submit-date"><%= t(".submit_date") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "visit", collection: @presenter.visits %>
+    <tbody>
+  </table>
+  <%= paginate @presenter.visit_scope, data: { "turbo-action": "advance" } %>
+</turbo-frame>

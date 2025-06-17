@@ -119,8 +119,7 @@ class Visit < ApplicationRecord
       .left_joins(:reserve)
       .select("reserves.id as reserve_id, reserves.name as reserve_name")
       .group("reserves.id").order("reserves.name")
-      .map { |x| [x.reserve_short_name, x.reserve_id] }
-      .to_h
+      .to_h { |x| [x.reserve_short_name, x.reserve_id] }
   end
 
   def self.participating_visit_ids(user)
@@ -231,6 +230,30 @@ class Visit < ApplicationRecord
   def self.having_uninvoiced_amenities
     joins(:amenity_visits)
       .merge(AmenityVisit.uninvoiced)
+  end
+
+  def self.having_visitor_with_user_type(user_type)
+    left_joins(:user_visits).merge(UserVisit.with_user_type(user_type))
+  end
+
+  def self.having_visitor_with_institution_type(institution_type)
+    left_joins(:user_visits).merge(UserVisit.with_institution_type(institution_type))
+  end
+
+  def self.having_visitor_with_institution_id(institution_id)
+    left_joins(:user_visits).merge(UserVisit.with_institution_id(institution_id))
+  end
+
+  def self.having_visitor_without_institution_id(institution_id)
+    left_joins(:user_visits).merge(UserVisit.without_institution_id(institution_id))
+  end
+
+  def self.having_visitor_with_status(status)
+    left_joins(:user_visits).merge(UserVisit.with_status(status))
+  end
+
+  def self.having_visitor_between_dates(date_begin: nil, date_end: nil)
+    left_joins(:user_visits).merge(UserVisit.having_between_time(date_start: date_begin, date_end: date_end))
   end
 
   def update_datetime

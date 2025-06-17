@@ -59,15 +59,17 @@ class UserVisit < ApplicationRecord
       date_start_type: :departs_at,
       date_start: date&.to_date&.beginning_of_day,
       date_end_type: :arrives_at,
-      date_end: date&.to_date&.end_of_day
+      date_end: date&.to_date&.end_of_day,
     )
   end
 
   def self.having_between_time(date_start: nil, date_end: nil)
     DateQuery.call(
       self,
-      date_start_type: :departs_at, date_start: date_start&.midnight,
-      date_end_type: :arrives_at, date_end: date_end&.midnight&.tomorrow
+      date_start_type: :departs_at,
+      date_start: date_start&.to_date&.midnight,
+      date_end_type: :arrives_at,
+      date_end: date_end&.to_date&.end_of_day,
     )
   end
 
@@ -84,11 +86,46 @@ class UserVisit < ApplicationRecord
     return false if visit.amenity_visits.blank?
 
     where(
-      'arrives_at >= ? OR departs_at <= ?',
+      "arrives_at >= ? OR departs_at <= ?",
       visit.amenity_visits.earliest_arrives_date,
-      visit.amenity_visits.latest_departs_date
-    )
-    .present?
+      visit.amenity_visits.latest_departs_date,
+    ).present?
+  end
+
+  def self.with_user_type(user_type)
+    if user_type.present? && user_type != "all"
+      where(role: user_type)
+    else
+      all
+    end
+  end
+
+  def self.with_institution_type(institution_type)
+    left_joins(:institution).merge(Institution.with_institution_type(institution_type))
+  end
+
+  def self.with_institution_id(institution_id)
+    if institution_id.present? && institution_id != "all"
+      left_joins(:institution).merge(Institution.where(id: institution_id))
+    else
+      all
+    end
+  end
+
+  def self.without_institution_id(institution_id)
+    if institution_id.present? && institution_id != "all"
+      left_joins(:institution).merge(Institution.where.not(id: institution_id))
+    else
+      all
+    end
+  end
+
+  def self.with_status(status)
+    if status.present? && status != "all"
+      where(status: status)
+    else
+      all
+    end
   end
 
   private
@@ -122,8 +159,6 @@ class UserVisit < ApplicationRecord
       errors.add(:arrives_at, :must_be_before_visit_end_date)
     end
   end
-
-  private
 
   def user_visits_departs_within_range
     UserVisit.where(visit_id: visit&.id, departs_at: arrives_at..departs_at, user_id: user_id)

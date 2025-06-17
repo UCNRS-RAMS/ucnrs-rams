@@ -183,6 +183,7 @@ Rails.application.routes.draw do
       end
 
       resources :institutions, only: [:index, :edit, :update]
+      resources :search, only: [:index]
     end
   end
 end
