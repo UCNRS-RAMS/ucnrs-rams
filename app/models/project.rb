@@ -196,7 +196,7 @@ class Project < ApplicationRecord
   end
 
   def self.of_type(project_type)
-    case project_type
+    case project_type.to_s
     when "all" then all
     when "research" then where(project_type: "Research")
     when "university_class" then where(project_type: "Class")
@@ -204,6 +204,7 @@ class Project < ApplicationRecord
     when "meeting_or_conference" then where(project_type: "Meeting")
     when "meeting" then where(project_type: "Meeting")
     when "public_use" then where(project_type: "Public Use")
+    when "housing" then where(project_type: "Housing")
     else
       none
     end

@@ -153,7 +153,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/helpers/report_queries.rb",
-      "line": 423,
+      "line": 424,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS temptableusersdays#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
       "render_path": null,
@@ -199,7 +199,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/helpers/report_queries.rb",
-      "line": 424,
+      "line": 425,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS MergedTables1#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
       "render_path": null,
@@ -412,7 +412,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/helpers/report_queries.rb",
-      "line": 422,
+      "line": 423,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS tempusercounttable2#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
       "render_path": null,
@@ -481,7 +481,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/helpers/report_queries.rb",
-      "line": 425,
+      "line": 426,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS ResultsTable#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
       "render_path": null,
@@ -596,7 +596,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/helpers/report_queries.rb",
-      "line": 420,
+      "line": 421,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS temptableuserscount#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
       "render_path": null,
@@ -701,29 +701,6 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
-      "fingerprint": "9be5ffe98c87f3f062270eef52cb62e7a03db49493e19eaccf87ca4fa28eacdb",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/helpers/report_queries.rb",
-      "line": 373,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "ActiveRecord::Base.connection.exec_query(\"SELECT\\n  *\\nFROM\\n  ResultsTable#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nORDER BY\\n  FIELD(\\n    project_type,\\n    'Research',\\n    'Class',\\n    'Public Use',\\n    'Housing',\\n    \\n    'TOTAL'\\n  ),\\n\\n  FIELD(\\n    role,\\n    '',\\n    'No selection',\\n    'Research Faculty',\\n    'Faculty',\\n    'Research Scientist',\\n    'Research Scientist/Post Doc',\\n    'Research Assistant',\\n    'Research Assistant - Non Academic',\\n    'Research Assistant (non-student/faculty/postdoc)',\\n    'Graduate Student',\\n    'Graduate Student Researcher',\\n    'Undergraduate Student Researcher',\\n    'Undergraduate Student',\\n    'College Class Instructor',\\n    'College Class Student',\\n    'College Class Graduate Student',\\n    'College Class Undergraduate Student',\\n    'K-12 Instructor',\\n    'K-12 Student',\\n    'Arts or Humanities',\\n    'Arts or Humanities - Non Academic',\\n    'Arts/Humanities (non-student/faculty/postdoc)' ,\\n    'Professional',\\n    'Other',\\n    'Docent',\\n    'Volunteer',\\n\\n    'SUBTOTAL'\\n  ),\\n\\n  role;\\n\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "ReportQueries",
-        "method": "query_part_1"
-      },
-      "user_input": "SecureRandom.hex",
-      "confidence": "Medium",
-      "cwe_id": [
-        89
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
       "fingerprint": "abe3ef189f8998d604a08ad5faa180bb10f91eb38648737f30be800175909dc6",
       "check_name": "SQL",
       "message": "Possible SQL injection",
@@ -738,6 +715,29 @@
         "method": "ProjectReserveAnswer.replace_all"
       },
       "user_input": "project_reserve_answers.map do\n ActiveRecord::Base.sanitize_sql([\"(?,?,?,?,?,?)\", answer.project_id, answer.reserve_question_id, answer.text_answer, answer.boolean_answer, Time.current, Time.current])\n end.join(\",\\n  \")",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "bf2d73cce3f6d3d9c79db169facd6d572b4b8a5bbf918d3a865628cb0342dfce",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_queries.rb",
+      "line": 373,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"SELECT\\n  *\\nFROM\\n  ResultsTable#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nORDER BY\\n  FIELD(\\n    project_type,\\n    'Research',\\n    'Class',\\n    'Public Use',\\n    'Housing',\\n\\n    'TOTAL'\\n  ),\\n\\n  FIELD(\\n    role,\\n    '',\\n    'No selection',\\n    'Research Faculty',\\n    'Faculty',\\n    'Research Scientist',\\n    'Research Scientist/Post Doc',\\n    'Research Assistant',\\n    'Research Assistant - Non Academic',\\n    'Research Assistant (non-student/faculty/postdoc)',\\n    'Graduate Student',\\n    'Graduate Student Researcher',\\n    'Undergraduate Student Researcher',\\n    'Undergraduate Student',\\n    'College Class Instructor',\\n    'College Class Student',\\n    'College Class Graduate Student',\\n    'College Class Undergraduate Student',\\n    'K-12 Instructor',\\n    'K-12 Student',\\n    'Arts or Humanities',\\n    'Arts or Humanities - Non Academic',\\n    'Arts/Humanities (non-student/faculty/postdoc)' ,\\n    'Professional',\\n    'Other',\\n    'Docent',\\n    'Volunteer',\\n    'Staff',\\n\\n    'SUBTOTAL'\\n  ),\\n\\n  role;\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportQueries",
+        "method": "query_part_1"
+      },
+      "user_input": "SecureRandom.hex",
       "confidence": "Medium",
       "cwe_id": [
         89
@@ -774,7 +774,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/helpers/report_queries.rb",
-      "line": 421,
+      "line": 422,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS tempusercounttable1#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
       "render_path": null,
@@ -911,7 +911,7 @@
       "check_name": "EOLRails",
       "message": "Support for Rails 6.1.7.10 ended on 2024-10-01",
       "file": "Gemfile.lock",
-      "line": 305,
+      "line": 306,
       "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
       "code": null,
       "render_path": null,

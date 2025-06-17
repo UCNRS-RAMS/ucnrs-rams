@@ -1,5 +1,5 @@
 class Manager::ReportsController < Manager::ApplicationController
-  require 'csv'
+  require "csv"
 
   include ReportQueries
 
@@ -28,7 +28,7 @@ class Manager::ReportsController < Manager::ApplicationController
         current_reserve,
         report_start_date,
         report_stop_date,
-      )
+      ),
     )
 
     respond_to do |format|
@@ -43,8 +43,8 @@ class Manager::ReportsController < Manager::ApplicationController
 
       format.csv do
         filename = "annual_report_#{current_reserve.name.downcase.tr(' ', '_')}_part_1"
-        response.headers['Content-Type'] = 'text/csv'
-        response.headers['Content-Disposition'] = "attachment; filename=#{filename}.csv"
+        response.headers["Content-Type"] = "text/csv"
+        response.headers["Content-Disposition"] = "attachment; filename=#{filename}.csv"
         render layout: nil
       end
     end
