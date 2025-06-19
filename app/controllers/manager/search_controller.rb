@@ -34,6 +34,7 @@ class Manager::SearchController < Manager::ApplicationController
         :reserve,
         :amenity,
         :user_type,
+        :institution_name,
         :institution_type,
         :exclude_reserve_institution,
       )

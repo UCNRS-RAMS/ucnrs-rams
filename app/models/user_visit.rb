@@ -100,6 +100,14 @@ class UserVisit < ApplicationRecord
     end
   end
 
+  def self.with_institution_name(institution_name)
+    if institution_name.present? && institution_name != "all"
+      left_joins(:institution).merge(Institution.where(name: institution_name))
+    else
+      all
+    end
+  end
+
   def self.with_institution_type(institution_type)
     left_joins(:institution).merge(Institution.with_institution_type(institution_type))
   end

@@ -23,7 +23,7 @@ class Manager::Reports::ReportPart2Presenter < Manager::Reports::ReportBasePrese
           .having_between_time(date_start: start_date, date_end: stop_date)
           .joins(:visit)
           .merge(
-            Visit.where(report_access: true)
+            Visit.where(report_access: true),
           )
       )
       .group(:id)

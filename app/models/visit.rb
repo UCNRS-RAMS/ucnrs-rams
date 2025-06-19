@@ -236,6 +236,10 @@ class Visit < ApplicationRecord
     left_joins(:user_visits).merge(UserVisit.with_user_type(user_type))
   end
 
+  def self.having_visitor_with_institution_name(institution_name)
+    left_joins(:user_visits).merge(UserVisit.with_institution_name(institution_name))
+  end
+
   def self.having_visitor_with_institution_type(institution_type)
     left_joins(:user_visits).merge(UserVisit.with_institution_type(institution_type))
   end

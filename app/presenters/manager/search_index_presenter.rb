@@ -24,6 +24,7 @@ class Manager::SearchIndexPresenter
     @visit_scope ||= Visit
       .by_reserve(reserve)
       .of_project_type(filter&.dig(:visit_project_type))
+      .having_visitor_with_institution_name(filter&.dig(:institution_name))
       .having_visitor_with_institution_type(@institution_type)
       .having_visitor_with_institution_id(@institution_id)
       .having_visitor_without_institution_id(@without_institution_id)
