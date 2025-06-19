@@ -2798,6 +2798,7 @@ en:
         institution_type: Institution type
         user_type: User type
         exclude_reserve_institution: Exclude reserve institution?
+        institution_name: Institution Name
   mails:
     shared:
       amenity_visits:

@@ -1,4 +1,4 @@
-<h1>Annual Report Part 1 Search</h1>
+<h1>Visit Advanced Search</h1>
 <%#= form_with scope: :filter, method: :get, data: { controller: "toggle", "turbo-action": "advance" } do |form| %>
   <%#= form.check_box :is_principal_investigator %>
   <%#= form.label :is_principal_investigator, class: "form-inline-label" %>
@@ -15,6 +15,10 @@
     <select id="user_type" name="filter[user_type]" aria-label="user_type" onchange="this.form.requestSubmit()">
       <%= options_for_select @presenter.user_type_options, @presenter.filter&.dig(:user_type) %>
     </select>
+  </div>
+  <div class="row">
+    <label for="institution_name"><%= t(".institution_name") %></label>
+    <input type="text" id="institution_name" name="filter[institution_name]" value="<%= @presenter.filter&.dig(:institution_name) %>" aria-label="institution_name" onchange="this.form.requestSubmit()">
   </div>
   <div class="row">
     <label for="institution_type"><%= t(".institution_type") %></label>

@@ -12,7 +12,7 @@
       </tr>
       <% institutions.each do |institution|  %>
         <tr class="text-muted">
-          <td><%= institution.name %></td>
+          <td><%= link_to(institution.name, manager_reserve_search_index_path(current_reserve, filter: { institution_name: institution.name, date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })) %></td>
           <td><%= institution.address_line_3 %></td>
         </tr>
       <% end %>
