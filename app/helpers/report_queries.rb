@@ -6,8 +6,8 @@ module ReportQueries
       id = SecureRandom.hex
     end
 
-    begin_date  = ActiveRecord::Base.sanitize_sql(begin_date)
-    end_date    = ActiveRecord::Base.sanitize_sql(end_date)
+    begin_date  = ActiveRecord::Base.sanitize_sql("#{begin_date} 00:00:00")
+    end_date    = ActiveRecord::Base.sanitize_sql("#{end_date} 23:59:59")
 
     ActiveRecord::Base.connection.exec_query("DROP TEMPORARY TABLE IF EXISTS temptableuserscount#{id};")
     ActiveRecord::Base.connection.exec_query("DROP TEMPORARY TABLE IF EXISTS tempusercounttable1#{id};")
