@@ -1,7 +1,7 @@
 class Manager::Reports::ReportPart2Presenter < Manager::Reports::ReportBasePresenter
   def report_part2_data
     report_part2_data_scope
-      .map{ |institution| InstitutionPresenter.new(institution) }
+      .map { |institution| InstitutionPresenter.new(institution) }
       .group_by(&:institution_type)
   end
 

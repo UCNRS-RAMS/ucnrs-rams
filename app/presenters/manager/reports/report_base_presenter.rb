@@ -47,10 +47,10 @@ class Manager::Reports::ReportBasePresenter
   end
 
   def start_date
-    Date.new(fiscal_year_ending - 1, 7, 1)
+    Date.new(fiscal_year_ending - 1, FISCAL_MONTH_BEGIN, FISCAL_DAY_BEGIN)
   end
 
   def stop_date
-    Date.new(fiscal_year_ending, 6, 30)
+    Date.new(fiscal_year_ending, FISCAL_MONTH_END, FISCAL_DAY_END)
   end
 end
