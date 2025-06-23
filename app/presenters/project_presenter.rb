@@ -66,16 +66,16 @@ class ProjectPresenter
     owner&.full_name
   end
 
-  def principal_investigators_names
+  def principal_investigators
     team_memberships
-      .select { |x| x.is_principal_investigator == true }
-      &.map { |membership| membership.user.full_name }
+      .select(&:is_principal_investigator)
+      &.map(&:user)
   end
 
-  def other_team_members_names
+  def other_team_members
     team_memberships
-      .reject { |x| x.is_principal_investigator }
-      &.map { |membership| membership.user.full_name }
+      .reject(&:is_principal_investigator)
+      &.map(&:user)
   end
 
   def team_members_affiliations

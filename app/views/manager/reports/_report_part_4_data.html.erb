@@ -4,7 +4,9 @@
     <col>
   </colgroup>
   <thead>
-    <tr><th colspan="2"><%= project.title %></th></tr>
+    <tr>
+      <th colspan="2"><%= link_to project.title, manager_reserve_project_path(current_reserve, project.id) %></th>
+    </tr>
   </thead>
   <tbody>
     <tr>
@@ -13,12 +15,22 @@
     </tr>
     <tr>
       <td><%= t(".principal_investigators") %>:</td>
-      <td><%= project.principal_investigators_names.join(" | ") %></td>
+      <td>
+        <%= project.principal_investigators
+          .map { |user| link_to(user.full_name, edit_manager_reserve_user_path(user.id)) }
+          .join(" | ").html_safe %>
+      </td>
     </tr>
     <tr>
       <td><%= t(".other_members") %>:</td>
       <td>
-        <%= project.other_team_members_names.present? ? project.other_team_members_names.join(" | ") : t(".none") %>
+        <% if project.other_team_members.present? %>
+          <%= project.other_team_members
+            .map { |user| link_to(user.full_name, edit_manager_reserve_user_path(user.id)) }
+            .join(" | ").html_safe %>
+        <% else %>
+          <%= t(".none") %>
+        <% end %>
       </td>
     </tr>
     <tr>
