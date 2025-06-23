@@ -13,9 +13,9 @@
       </tr>
       <% projects.each do |project|  %>
         <tr class="text-muted">
-          <td><%= link_to project.course_title, manager_reserve_project_path(current_reserve, project.id) %></td>
+          <td><%= link_to project.title, manager_reserve_project_path(current_reserve, project.id) %></td>
           <td><%= project.owner_institution.name %></td>
-          <td><%= project.owner_role.capitalize %></td>
+          <td><%= t("universal.roles.#{project.owner_role}") %></td>
         </tr>
       <% end %>
     <% end %>
