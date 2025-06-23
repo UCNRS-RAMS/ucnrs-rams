@@ -56,6 +56,10 @@
     margin-top: .125rem;
     width: 100%;
 
+    a {
+      text-decoration: underline;
+    }
+
     > header {
       font-size: 1.5rem;
       font-style: italic;
@@ -240,6 +244,10 @@ table.report-part-4-table {
     col:first-child {
       width: 200px;
     }
+  }
+
+  thead th a {
+    color: $white;
   }
 }
 

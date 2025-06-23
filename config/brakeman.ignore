@@ -45,6 +45,39 @@
       "note": "Dynamic Render Path"
     },
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "03a37105b7640af2c281ec53519ed8cf46e7bf70c9d1189da005cce5da629f41",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/manager/reports/_report_part_4_data.html.erb",
+      "line": 28,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "(Unresolved Model).new.other_team_members.map do\n link_to(user.full_name, edit_manager_reserve_user_path(user.id))\n end.join(\" | \")",
+      "render_path": [
+        {
+          "type": "template",
+          "name": "manager/reports/report_part_4",
+          "line": 12,
+          "file": "app/views/manager/reports/report_part_4.html.erb",
+          "rendered": {
+            "name": "manager/reports/_report_part_4_data",
+            "file": "app/views/manager/reports/_report_part_4_data.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "manager/reports/_report_part_4_data"
+      },
+      "user_input": "(Unresolved Model).new.other_team_members",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "0a152eca6ee196426f2d0f9739668ecc9b5f68f5815d5b12f3f601190e857061",
@@ -189,6 +222,39 @@
       "confidence": "Medium",
       "cwe_id": [
         89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "19001fa4611cc3972bf73af598482d44b9a00ec614dad4965666f604410bc2b6",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/manager/reports/_report_part_4_data.html.erb",
+      "line": 19,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "(Unresolved Model).new.principal_investigators.map do\n link_to(user.full_name, edit_manager_reserve_user_path(user.id))\n end.join(\" | \")",
+      "render_path": [
+        {
+          "type": "template",
+          "name": "manager/reports/report_part_4",
+          "line": 12,
+          "file": "app/views/manager/reports/report_part_4.html.erb",
+          "rendered": {
+            "name": "manager/reports/_report_part_4_data",
+            "file": "app/views/manager/reports/_report_part_4_data.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "manager/reports/_report_part_4_data"
+      },
+      "user_input": "(Unresolved Model).new.principal_investigators",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
       ],
       "note": ""
     },

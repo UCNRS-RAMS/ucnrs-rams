@@ -36,7 +36,7 @@ RSpec.describe ProjectPresenter do
         start_date = Date.today
         end_date = Date.today + 1.day
         project_presenter = ProjectPresenter.new(
-          project: create(:project, start_date: start_date, end_date: end_date)
+          project: create(:project, start_date: start_date, end_date: end_date),
         )
         allow(DateRangePresenter).to receive(:value)
 
@@ -50,7 +50,7 @@ RSpec.describe ProjectPresenter do
     context "when values for start_date and end_date are not present" do
       it "is 'N/A'" do
         project_presenter = ProjectPresenter.new(
-          project: build(:project, start_date: nil, end_date: nil)
+          project: build(:project, start_date: nil, end_date: nil),
         )
         allow(DateRangePresenter).to receive(:value)
 
@@ -107,7 +107,7 @@ RSpec.describe ProjectPresenter do
   describe "#applicant_name" do
     it "returns the project applicant full name" do
       user = create(:user, first_name: "Scrooge", last_name: "McDuck")
-      project  = create(:project, applicant: user)
+      project = create(:project, applicant: user)
 
       project_presenter = ProjectPresenter.new(project: project)
 
@@ -118,7 +118,7 @@ RSpec.describe ProjectPresenter do
   describe "#owner_name" do
     it "returns the project owner full name" do
       user = create(:user, first_name: "Scrooge", last_name: "McDuck")
-      project  = create(:project, owner: user)
+      project = create(:project, owner: user)
 
       project_presenter = ProjectPresenter.new(project: project)
 
@@ -126,58 +126,54 @@ RSpec.describe ProjectPresenter do
     end
   end
 
-  describe "#principal_investigators_names" do
-  it "returns array of project principal investigators names" do
-    project  = create(:project)
-    user1 = create(:user, first_name: "Scrooge", last_name: "McDuck")
-    membership1 = create(:project_team_membership,
-      project: project, user: user1, is_principal_investigator: false
-    )
-    user2 = create(:user, first_name: "Donald", last_name: "Duck")
-    membership2 = create(:project_team_membership,
-      project: project, user: user2, is_principal_investigator: true
-    )
+  describe "#principal_investigators" do
+    it "returns array of project principal investigators names" do
+      project = create(:project)
+      user1 = create(:user, first_name: "Scrooge", last_name: "McDuck")
+      create(:project_team_membership,
+        project: project, user: user1, is_principal_investigator: false)
+      user2 = create(:user, first_name: "Donald", last_name: "Duck")
+      create(:project_team_membership,
+        project: project, user: user2, is_principal_investigator: true)
 
-    project_presenter = ProjectPresenter.new(project: project)
+      project_presenter = ProjectPresenter.new(project: project)
 
-    expect(project_presenter.principal_investigators_names).to match_array ["Donald Duck"]
+      expect(project_presenter.principal_investigators).to match_array [user2]
+    end
   end
-end
 
-describe "#other_team_members_names" do
-  it "returns array of project non principal investigator team members names" do
-    project  = create(:project)
-    user1 = create(:user, first_name: "Scrooge", last_name: "McDuck")
-    membership1 = create(:project_team_membership,
-      project: project, user: user1, is_principal_investigator: false
-    )
-    user2 = create(:user, first_name: "Donald", last_name: "Duck")
-    membership2 = create(:project_team_membership,
-      project: project, user: user2, is_principal_investigator: true
-    )
+  describe "#other_team_members" do
+    it "returns array of project non principal investigator team members users" do
+      project = create(:project)
+      user1 = create(:user, first_name: "Scrooge", last_name: "McDuck")
+      create(:project_team_membership,
+        project: project, user: user1, is_principal_investigator: false)
+      user2 = create(:user, first_name: "Donald", last_name: "Duck")
+      create(:project_team_membership,
+        project: project, user: user2, is_principal_investigator: true)
 
-    project_presenter = ProjectPresenter.new(project: project)
+      project_presenter = ProjectPresenter.new(project: project)
 
-    expect(project_presenter.other_team_members_names).to match_array ["Scrooge McDuck"]
+      expect(project_presenter.other_team_members).to match_array [user1]
+    end
   end
-end
 
-describe "#team_members_affiliations" do
-  it "returns array of team members' institution names" do
-    project  = create(:project)
-    institution1 = create(:institution, name: "Two Trees University")
-    membership1 = create(:project_team_membership,
-      project: project, institution: institution1, is_principal_investigator: false
-    )
-    institution2 = create(:institution, name: "Three Ducks University")
-    membership2 = create(:project_team_membership,
-      project: project, institution: institution2, is_principal_investigator: true
-    )
+  describe "#team_members_affiliations" do
+    it "returns array of team members' institution names" do
+      project  = create(:project)
+      institution1 = create(:institution, name: "Two Trees University")
+      membership1 = create(:project_team_membership,
+        project: project, institution: institution1, is_principal_investigator: false
+      )
+      institution2 = create(:institution, name: "Three Ducks University")
+      membership2 = create(:project_team_membership,
+        project: project, institution: institution2, is_principal_investigator: true
+      )
 
-    project_presenter = ProjectPresenter.new(project: project)
+      project_presenter = ProjectPresenter.new(project: project)
 
-    expect(project_presenter.team_members_affiliations)
-      .to match_array ["Two Trees University", "Three Ducks University"]
+      expect(project_presenter.team_members_affiliations)
+        .to match_array ["Two Trees University", "Three Ducks University"]
+    end
   end
-end
 end
