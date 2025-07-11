@@ -14,7 +14,9 @@ describe("UserDaysController", () => {
   beforeEach(() => {
     renderDOM(`
     <div data-modal-target="dialog openOnLoad" data-controller="user-days">
-      <form action="/manager/reserves/1/user_visits/39" accept-charset="UTF-8" method="post"><input type="hidden" name="_method" value="patch" autocomplete="off"><input type="hidden" name="authenticity_token" value="30G7_jH04ncvHuaPGRFSWqZ5uiq3O73fnB73FuCTdmDn8XluO3t0G7skRYOPTZMemH-s9OmuVfwQA_3HADhYgQ" autocomplete="off">
+      <form action="/manager/reserves/1/user_visits/39" accept-charset="UTF-8" method="post">
+        <input type="hidden" name="_method" value="patch" autocomplete="off">
+        <input type="hidden" name="authenticity_token" value="30G7_jH04ncvHuaPGRFSWqZ5uiq3O73fnB73FuCTdmDn8XluO3t0G7skRYOPTZMemH-s9OmuVfwQA_3HADhYgQ" autocomplete="off">
         <input autocomplete="off" type="hidden" value="39" name="user_visit[id]" id="user_visit_id">
         <p class="screenreader-text">
           <span id="modal-title">Change Date Range</span>
@@ -73,7 +75,7 @@ describe("UserDaysController", () => {
           </tbody></table>
             <div class="d-flex">
               <div>
-                <input id="user_visit_auto-calculate" data-action="input->user-days#disable" type="radio" value="auto_calculate" checked="checked" name="user_visit[userdays]">
+                <input id="user_visit_auto-calculate" data-action="click->user-days#disable" type="radio" value="auto_calculate" checked="checked" name="user_visit[userdays]">
                 <label for="user_visit_auto-calculate">Use Arrival and Departure datetime:</label>
               </div>
               <div>
@@ -82,11 +84,11 @@ describe("UserDaysController", () => {
             </div>
             <div class="d-flex">
               <div>
-                <input id="user_visit_manual" data-action="input->user-days#enable" type="radio" value="auto_calculate" name="user_visit[userdays]">
+                <input id="user_visit_manual" data-action="click->user-days#enable" type="radio" value="auto_calculate" name="user_visit[userdays]">
                 <label for="user_visit_manual">Manual enter number of userdays:</label>
               </div>
               <div>
-                <input min="1" step="1" value="1" data-user-days-target="outputVal" class="m-right apply-padding" type="number" name="user_visit[actual_days]" id="user_visit_actual_days" readonly="true">
+                <input min="1" step="1" value="1" data-user-days-target="outputVal" class="m-right apply-padding" type="number" name="user_visit[actual_days]" id="user_visit_actual_days">
               </div>
             </div>
         </section>
@@ -101,35 +103,35 @@ describe("UserDaysController", () => {
       </form>
     </div>`)
   })
-  
+
   describe("#calculate", () => {
     it("it set the default value for text", async () => {
       const departsAt = document.getElementById("user_visit_departs_at")
       const actualDays = document.getElementById("user_visit_actual_days")
-      
+
       departsAt.value = '2022-09-29'
       departsAt.dispatchEvent(new Event("input"))
-      expect(actualDays.value).toEqual("3")       
+      expect(actualDays.value).toEqual("3")
     })
   })
-  
+
   describe("#enable", () => {
     it("it remove readonly property of actual days input field", async () => {
       const radioBtnEnable = document.getElementById("user_visit_manual")
       const actualDays = document.getElementById("user_visit_actual_days")
 
       radioBtnEnable.click()
-      expect(actualDays.getAttribute("readonly")).toEqual(null)   
+      expect(actualDays.getAttribute("disabled")).toEqual(null)
     })
   })
-  
+
   describe("#disable", () => {
     it("it set the readonly property of actual days input field", async () => {
       const radioBtnDisable = document.getElementById("user_visit_auto-calculate")
       const actualDays = document.getElementById("user_visit_actual_days")
 
       radioBtnDisable.click()
-      expect(actualDays.getAttribute("readonly")).toEqual("true")   
+      expect(actualDays.disabled).toEqual(true)
     })
   })
 

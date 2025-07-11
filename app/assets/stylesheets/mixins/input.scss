@@ -20,6 +20,10 @@
     height: 2rem;
   }
 
+  input:disabled {
+    background-color: $light-gray;
+  }
+
   select {
     font-weight: $normal;
     max-width: 100%;
