@@ -15,9 +15,8 @@ class Manager::Visits::UserVisitEditPresenter < Visits::UserVisitEditPresenter
     manager_reserve_user_visit_path(visit.reserve_id, id)
   end
 
-  def manual_days_same_as_calculated?
-    actual_days = "%0.2f" % form.actual_days
-    user_days == actual_days.to_i
+  def manual_days?
+    form.actual_days > 0
   end
 
   def user_days_description
