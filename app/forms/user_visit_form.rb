@@ -42,6 +42,14 @@ class UserVisitForm
     user_visit.role = UserVisit.roles[role] || "other"
   end
 
+  def actual_days=(actual_days)
+    user_visit.actual_days = actual_days.to_f / user_visit.count
+  end
+
+  def actual_days
+    user_visit.actual_days * user_visit.count
+  end
+
   def validate
     validate_form
     validate_user_visit
