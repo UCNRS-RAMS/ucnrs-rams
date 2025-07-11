@@ -4,7 +4,7 @@
     <div>
       <%= form.radio_button :userdays, :auto_calculate, id: "user_visit_auto-calculate",
         checked: !presenter.manual_days?,
-        data: { action: "input->user-days#disable input->user-days#calculate" }
+        data: { action: "click->user-days#disable input->user-days#reset" }
       %>
       <%= form.label "auto-calculate", t(".use_arrival_and_departure") %>
     </div>
@@ -14,12 +14,12 @@
     <div>
       <%= form.radio_button :userdays, :manual, id: "user_visit_manual",
         checked: presenter.manual_days?,
-        data: { action: "input->user-days#enable" }
+        data: { action: "click->user-days#enable" }
       %>
       <%= form.label "manual", t(".manual_userdays") %>
     </div>
     <%= form.number_field :actual_days, min: 1, step: 1, data: {"user-days-target": "outputVal"},
-      readonly: !presenter.manual_days?, class: "m-rights apply-padding"
+      disabled: !presenter.manual_days?, class: "m-rights apply-padding"
     %>
   </div>
 </div>
