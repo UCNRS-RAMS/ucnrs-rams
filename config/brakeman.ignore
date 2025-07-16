@@ -347,29 +347,6 @@
       "note": "Dynamic Render Path"
     },
     {
-      "warning_type": "Mass Assignment",
-      "warning_code": 105,
-      "fingerprint": "54b87c0786df42a24be0d878c07eaca8bd6386040829dcf2be6691265fdc3b50",
-      "check_name": "PermitAttributes",
-      "message": "Potentially dangerous key allowed for mass assignment",
-      "file": "app/controllers/manager/visits/user_visits_controller.rb",
-      "line": 69,
-      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
-      "code": "params.require(:user_visit).permit(:id, :arrives_at, :departs_at, :count, :role, :actual_days, :institution_id, :user_id, :visit_id, :guest_name, :institution => ([:id, :name, :city, :country_id, :state_id, :institution_type]))",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Manager::Visits::UserVisitsController",
-        "method": "user_visit_params"
-      },
-      "user_input": ":role",
-      "confidence": "Medium",
-      "cwe_id": [
-        915
-      ],
-      "note": "Ignore role in user-visit related strong params assignment"
-    },
-    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
       "fingerprint": "6447bb863ac283787cd838b99cff2c78c316eeea8bd99dca576f9b4348a8acf7",
@@ -887,6 +864,29 @@
       "confidence": "Weak",
       "cwe_id": [
         22
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "c8f7a0183569b76ee87b389c72e3bfdbcbbf23f501f623ae60f1ca6b52970ffc",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/manager/visits/user_visits_controller.rb",
+      "line": 69,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:user_visit).permit(:id, :arrives_at, :departs_at, :count, :role, :actual_days, :institution_id, :user_id, :visit_id, :guest_name, :userdays, :manual_user_days, :institution => ([:id, :name, :city, :country_id, :state_id, :institution_type]))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Manager::Visits::UserVisitsController",
+        "method": "user_visit_params"
+      },
+      "user_input": ":role",
+      "confidence": "Medium",
+      "cwe_id": [
+        915
       ],
       "note": ""
     },

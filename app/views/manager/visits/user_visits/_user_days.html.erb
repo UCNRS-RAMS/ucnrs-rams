@@ -18,7 +18,7 @@
       %>
       <%= form.label "manual", t(".manual_userdays") %>
     </div>
-    <%= form.number_field :actual_days, min: 1, step: 1, data: {"user-days-target": "outputVal"},
+    <%= form.number_field :manual_user_days, min: 1, step: 1, data: {"user-days-target": "outputVal"},
       disabled: !presenter.manual_days?, class: "m-rights apply-padding"
     %>
   </div>

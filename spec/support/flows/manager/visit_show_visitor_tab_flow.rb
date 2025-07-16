@@ -110,7 +110,7 @@ class VisitShowVisitorTabFlow
   end
 
   def has_manual_input_field?
-    page.find("#user_visit_actual_days")
+    page.find("#user_visit_manual_user_days")
   end
 
   def click_add_to_visitor_list

@@ -23,7 +23,9 @@ class UserVisitForm
   validates :user_id, presence: true
   validates :institution_id, presence: true
 
+  attr_accessor :userdays
   attr_reader :user_visit, :visit, :user, :institution_form
+  attr_writer :manual_user_days
 
   alias validate_form validate
   alias valid_form? valid?
@@ -42,12 +44,12 @@ class UserVisitForm
     user_visit.role = UserVisit.roles[role] || "other"
   end
 
-  def actual_days=(actual_days)
-    user_visit.actual_days = actual_days.to_f / user_visit.count
-  end
-
-  def actual_days
-    user_visit.actual_days * user_visit.count
+  def manual_user_days
+    if params[:manual_user_days].present?
+      @manual_user_days
+    elsif user_visit.actual_days > 0
+      user_visit.actual_days * user_visit.count
+    end
   end
 
   def validate
@@ -71,6 +73,8 @@ class UserVisitForm
   end
 
   private
+
+  attr_reader :params
 
   def arrives_time(date)
     return nil if date.blank?
@@ -147,7 +151,16 @@ class UserVisitForm
     params.each do |key, value|
       public_send("#{key}=", value)
     end
+
+    assign_manual_actual_days
   end
 
-  attr_reader :params
+  def assign_manual_actual_days
+    case userdays
+    when "manual"
+      user_visit.actual_days = manual_user_days.to_f / user_visit.count
+    when "auto_calculate"
+      user_visit.actual_days = 0
+    end
+  end
 end
