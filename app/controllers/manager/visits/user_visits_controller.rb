@@ -72,6 +72,8 @@ class Manager::Visits::UserVisitsController < Manager::ApplicationController
       :user_id,
       :visit_id,
       :guest_name,
+      :userdays,
+      :manual_user_days,
       institution: [
         :id,
         :name,
