@@ -1,6 +1,6 @@
 <div class="part-3-content">
   <div><%= link_to project.course_title, manager_reserve_project_path(current_reserve, project.id) %></div>
-  <span><%= t(".course_number") %>: <%= project.course_number? ? project.course_number : "N/A" %></span>
+  <span><%= t(".course_number") %>: <%= project.course_number || project.abstract || "N/A" %></span>
   <span>
     <%= t(".instructor") %>:
     <%= link_to project.owner_name, edit_manager_reserve_user_path(current_reserve, project.owner.id) %>
