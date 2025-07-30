@@ -50,6 +50,10 @@ class ProjectShowPresenter
     project.thesis_title.present? ? project.thesis_title : not_applicable
   end
 
+  def course_number
+    project.course_number || project.abstract || not_applicable
+  end
+
   def project_involves
     involves.present? ? involves&.to_sentence : none
   end
