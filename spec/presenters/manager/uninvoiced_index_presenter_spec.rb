@@ -61,5 +61,37 @@ RSpec.describe Manager::UninvoicedIndexPresenter do
 
       expect(scope).to match_array [visit1, visit2]
     end
+
+    it "returns only visits with uninvoiced amenities" do
+      reserve = create(:reserve)
+      visit1 = create(:visit, reserve: reserve, status: :approved)
+      visit2 = create(:visit, reserve: reserve, status: :approved)
+      visit3 = create(:visit, reserve: reserve, status: :approved)
+      invoice1 = create(:invoice, visit: visit1)
+      invoice2 = create(:invoice, visit: visit3)
+      create(:amenity_visit, visit: visit1, invoice: invoice1)
+      create(:amenity_visit, visit: visit2, invoice_id: nil)
+      create(:amenity_visit, visit: visit3, invoice: invoice2)
+      presenter = Manager::UninvoicedIndexPresenter.new(reserve: reserve)
+
+      scope = presenter.visit_scope
+
+      expect(scope).to match_array [visit2]
+    end
+
+    it "returns only visits not with never invoice amenities" do
+      reserve = create(:reserve)
+      visit1 = create(:visit, reserve: reserve, status: :approved)
+      visit2 = create(:visit, reserve: reserve, status: :approved)
+      visit3 = create(:visit, reserve: reserve, status: :approved)
+      create(:amenity_visit, visit: visit1, invoice_id: nil, invoice_now: false)
+      create(:amenity_visit, visit: visit2, invoice_id: nil, invoice_now: true)
+      create(:amenity_visit, visit: visit3, invoice_id: nil, invoice_now: true)
+      presenter = Manager::UninvoicedIndexPresenter.new(reserve: reserve)
+
+      scope = presenter.visit_scope
+
+      expect(scope).to match_array [visit2, visit3]
+    end
   end
 end
