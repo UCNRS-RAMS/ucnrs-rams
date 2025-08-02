@@ -229,7 +229,7 @@ class Visit < ApplicationRecord
 
   def self.having_uninvoiced_amenities
     joins(:amenity_visits)
-      .merge(AmenityVisit.uninvoiced)
+      .merge(AmenityVisit.uninvoiced.can_invoice_now(nil))
   end
 
   def self.having_visitor_with_user_type(user_type)
