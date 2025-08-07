@@ -1,0 +1,15 @@
+<section class="content full">
+  <header>
+    <h1>Flex Report</h1>
+  </header>
+
+  <hr />
+
+  <section class="search-subsection">
+    <%= render partial: "flex_options", locals: { presenter: @presenter } %>
+  </section>
+  <hr />
+  <section class="reserve-info-subsection">
+    <%= render partial: "table", locals: { data: @presenter.funding_scope } %>
+  </section>
+</section>

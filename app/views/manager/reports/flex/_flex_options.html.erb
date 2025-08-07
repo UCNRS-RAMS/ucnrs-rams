@@ -1,0 +1,36 @@
+<form method="get" data-controller="toggle" data-turbo-action="advance">
+
+    <div class="row">
+      <div class="row-medium">
+        <label for="project_status"><%= t(".flex_report_type") %></label>
+        <select id="project_status" name="filter[project_status]" aria-label="show" onchange="this.form.requestSubmit()">
+          <%= tag.option t("sitewide.please_select_one") %>
+          <%= options_for_select(@presenter.project_status_options, @presenter.project_status_filter) %>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-auto" id="horizontal-line">
+        <label for="date_begin"><%= t(".date_range") %></label>
+        <div class="input-with-buttons calendar">
+          <input type="date" name="filter[date_begin]" value="<%= @presenter.date_begin_filter %>" onchange="this.form.requestSubmit()">
+        </div>
+      </div>
+      <div class="row-auto">
+        <label for="date_end"></label>
+        <div class="input-with-buttons calendar">
+          <input type="date" name="filter[date_end]" value="<%= @presenter.date_end_filter %>" onchange="this.form.requestSubmit()">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-medium">
+        <label for="reserve"><%= t(".reserve") %></label>
+        <select name="filter[reserve]" aria-label="reserve" onchange="this.form.requestSubmit()">
+          <%= tag.option t("sitewide.please_select_one") %>
+          <%= options_for_select(@presenter.reserve_options, @presenter.reserve_filter) %>
+        </select>
+      </div>
+    </div>
+
+</form>

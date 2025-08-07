@@ -1,0 +1,39 @@
+<div class="card mb-5">
+  <div class="card-body" style="background-color:#eee;">
+    <p class="text-muted m-0">Data is drawn from project (having funding) that have an
+    approved visit(s) with arrival and departure dates within the selected
+    date range.</p>
+  </div>
+</div>
+
+<table class="project-funding-report summary-table-style2">
+  <thead>
+    <tr>
+      <th colspan="2">Project Funding</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% data.each do |data| %>
+      <tr>
+        <td>
+          <div class="project-funding-report-title">
+            <%= data.title.present? ? data.title : "N/A" %>
+          </div>
+          <div  class="project-funding-report-description">
+            <%= link_to data.project.title, manager_reserve_project_path(current_reserve, data.project_id) %> |
+            <%= data.project.project_type %> |
+            <%= "Project ##{data.project_id}" %>
+          </div>
+        </td>
+        <td class="project-funding-report-amount"><%= number_to_currency data.award_amount.to_f %>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td>Total</td>
+      <td class="project-funding-report-amount"><%= number_to_currency data.sum { |funding| funding.award_amount.to_f } %></td>
+    </tr>
+  </tfoot>
+</table>
+<br /><br />
