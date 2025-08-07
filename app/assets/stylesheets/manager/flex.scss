@@ -1,0 +1,30 @@
+@import "variables";
+
+table.project-funding-report {
+  thead th {
+    font-size: 16px;
+    text-align: left;
+  }
+
+  tfoot td {
+    font-size: 16px;
+  }
+
+  thead td, tbody td {
+    border-bottom: 1px solid;
+  }
+
+  td {
+    padding-bottom: 4px;
+    padding-top: 4px;
+  }
+
+  .project-funding-report-title {
+    font-size: 14px;
+  }
+
+  .project-funding-report-amount {
+    text-align: right;
+  }
+
+}

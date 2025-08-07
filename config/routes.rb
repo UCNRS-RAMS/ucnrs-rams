@@ -53,8 +53,6 @@ Rails.application.routes.draw do
     resources :more_information, only: [:index], controller: "reserves/addendums"
   end
 
-
-
   namespace :visits do
     resources :reserve_inputs, only: [:show]
     resources :amenities, only: [:index]
@@ -146,6 +144,10 @@ Rails.application.routes.draw do
         resources :logs, only: [:show], controller: "visits/logs"
         resources :reserve_info, only: [:index, :create], controller: "visits/reserve_info"
         resources :invoices, only: [:index], as: "invoice", controller: "visits/invoices"
+      end
+
+      namespace :reports do
+        resources :flex, only: [:index]
       end
 
       resources :reports, only: [:show, :update] do

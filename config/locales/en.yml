@@ -2237,6 +2237,11 @@ en:
         fiscal_year: Fiscal Year
       report_approval_form:
         report_has_been_reviewed: This page of the report has been reviewed and is ready for UCOP.
+      flex:
+        flex_options:
+          flex_report_type: Flex Report Type
+          date_range: Date Range
+          reserve: Reserve
     reserve_info:
       header:
         reserve_info: Reserve Info
