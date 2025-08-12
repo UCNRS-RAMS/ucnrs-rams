@@ -1,30 +1,90 @@
 @import "variables";
+@import "mixins/search";
+
+body.flex {
+  @include search-subsection;
+
+  header {
+    margin: 0.5rem 0;
+
+    h1 {
+      font-size: 1.85rem;
+      font-weight: $medium;
+      margin: 0.5rem 0;
+    }
+
+    .list-count {
+      font-size: 0.9375rem;
+    }
+  }
+
+  hr {
+    border-bottom: 2px solid #aab7bb;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    margin: 0;
+  }
+
+  div.search {
+    background-color: $light-gray;
+    padding: 1.5rem;
+  }
+
+  .card {
+    background-color: $light-gray;
+    border-radius: $border-radius;
+    margin: 2rem 0rem 2rem 0rem;
+
+    .card-body {
+      padding: 1rem;
+
+      p:first-child {
+        margin-top: 0;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .text-muted{
+    color: #556b72;
+  }
+}
 
 table.project-funding-report {
+  border-spacing: 0;
+  color: #556b72;
+  font-size: 0.875rem;
+
   thead th {
-    font-size: 16px;
+    font-size: 1.125rem;
+    font-weight: $semi-bold;
+    padding: .75rem 0;
     text-align: left;
   }
 
   tfoot td {
-    font-size: 16px;
+    font-size: 1rem;
+    font-weight: $semi-bold;
   }
 
   thead td, tbody td {
-    border-bottom: 1px solid;
+    border-bottom: 1px solid $gray;
   }
 
   td {
-    padding-bottom: 4px;
-    padding-top: 4px;
+    padding-bottom: 6px;
+    padding-top: 6px;
   }
 
-  .project-funding-report-title {
-    font-size: 14px;
+  small {
+    font-size: 0.75rem;
   }
 
   .project-funding-report-amount {
     text-align: right;
   }
-
 }

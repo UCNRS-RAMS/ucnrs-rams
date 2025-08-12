@@ -13,7 +13,6 @@ class Manager::Reports::FlexIndexPresenter
   attr_reader :reserve, :page, :filter
 
   def funding_scope
-    #binding.pry
     Funding
       .select("fundings.*, visits.reserve_id")
       .left_outer_joins(project: [visits: :user_visits])
@@ -24,12 +23,10 @@ class Manager::Reports::FlexIndexPresenter
         AND user_visits.status = 'Approved'
         AND projects.project_type = 'Research'
         AND projects.AnnualReportAccess = 1
-        AND (
-            projects.status = 'Open'
-            OR projects.status = 'Closed'
-        )",
+        AND projects.status IN ('Open', 'Closed')",
         { start_date: start_date, stop_date: stop_date },
       )
+      .includes(:project)
       .group(:id)
       .order("visits.reserve_id")
   end
@@ -37,23 +34,6 @@ class Manager::Reports::FlexIndexPresenter
   def project_status_options
     {
       "Grant funding" => "funding",
-    }
-  end
-
-  def sort_by_options
-    {
-      I18n.t("manager.projects.index.date_submitted") => :submitted_recent_first,
-      I18n.t("manager.projects.index.project_title") => :sort_by_project_title,
-      I18n.t("manager.projects.index.owner_last_name") => :sort_by_owner_last_name,
-    }
-  end
-
-  def show_date_range_options
-    {
-      I18n.t("manager.projects.index.date_project_submitted") => :project_submitted_date_range,
-      I18n.t("manager.projects.index.project_date_range") => :project_date_range,
-      I18n.t("manager.projects.index.visit_date_range") => :visit_date_range,
-      I18n.t("manager.projects.index.invoice_created_at_date_range") => :invoice_created_at_date_range,
     }
   end
 
@@ -78,14 +58,18 @@ class Manager::Reports::FlexIndexPresenter
   delegate :present?, to: :filter, prefix: true
 
   def reserve_query
-    @params&.dig(:reserve) ? "visits.reserve_id = #{@params&.dig(:reserve)}" : nil
+    if @params&.dig(:reserve).present?
+      "visits.reserve_id = #{@params&.dig(:reserve)}"
+    else
+      "visits.reserve_id = NULL"
+    end
   end
 
   def start_date
-    @params&.dig(:date_begin)
+    @params&.dig(:date_begin).presence
   end
 
   def stop_date
-    @params&.dig(:date_end)
+    @params&.dig(:date_end).presence
   end
 end

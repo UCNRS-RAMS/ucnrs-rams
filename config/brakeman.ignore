@@ -303,6 +303,29 @@
       "note": ""
     },
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "2d6ee9ec8ac4b9495fe81456cf0eb8b54abec47504c58c1e99cfcaca86371934",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/presenters/manager/reports/flex_index_presenter.rb",
+      "line": 20,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Funding.select(\"fundings.*, visits.reserve_id\").left_outer_joins(:project => ([{ :visits => :user_visits }])).where(\"#{reserve_query}\\n        AND user_visits.arrives_at >= :start_date\\n        AND user_visits.departs_at <= :stop_date\\n        AND user_visits.status = 'Approved'\\n        AND projects.project_type = 'Research'\\n        AND projects.AnnualReportAccess = 1\\n        AND projects.status IN ('Open', 'Closed')\", :start_date => start_date, :stop_date => stop_date)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Manager::Reports::FlexIndexPresenter",
+        "method": "funding_scope"
+      },
+      "user_input": "reserve_query",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
       "fingerprint": "54b6afd25f88e8916d9b7857dd2fad433e7a4501484fc4fc15bc755aa3a812f0",
@@ -442,29 +465,6 @@
         "method": "ProjectPermitAnswer.replace_all"
       },
       "user_input": "project_permit_answers.map do\n ActiveRecord::Base.sanitize_sql([\"(?,?,?,NOW(),NOW())\", answer.project_id, answer.permit_id, answer.answer])\n end.join(\",\\n  \")",
-      "confidence": "Medium",
-      "cwe_id": [
-        89
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "69cd82b19b1fc3ab771dda7ac2f5f38abf01c25461b2fd9c99ed32c00f5c7f40",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/presenters/manager/reports/flex_index_presenter.rb",
-      "line": 21,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "Funding.select(\"fundings.*, visits.reserve_id\").left_outer_joins(:project => ([{ :visits => :user_visits }])).where(\"#{reserve_query}\\n        AND user_visits.arrives_at >= :start_date\\n        AND user_visits.departs_at <= :stop_date\\n        AND user_visits.status = 'Approved'\\n        AND projects.project_type = 'Research'\\n        AND projects.AnnualReportAccess = 1\\n        AND (\\n            projects.status = 'Open'\\n            OR projects.status = 'Closed'\\n        )\", :start_date => start_date, :stop_date => stop_date)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Manager::Reports::FlexIndexPresenter",
-        "method": "funding_scope"
-      },
-      "user_input": "reserve_query",
       "confidence": "Medium",
       "cwe_id": [
         89
@@ -1167,6 +1167,6 @@
       "note": ""
     }
   ],
-  "updated": "2025-08-07 13:40:36 -0700",
+  "updated": "2025-08-11 19:39:43 -0700",
   "brakeman_version": "6.2.2"
 }
