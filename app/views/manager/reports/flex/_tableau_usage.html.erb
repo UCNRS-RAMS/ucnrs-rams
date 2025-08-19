@@ -1,0 +1,55 @@
+<div class="card">
+  <div class="card-body">
+    <p class="text-muted">User count and user days for research, class, and public visitors
+        to each reserve.</p>
+  </div>
+</div>
+
+<table class="project-funding-report">
+  <thead>
+    <tr><th colspan="12" class="title">Total Usage for All NRS Reserves </th></tr>
+    <tr>
+      <th rowspan="2">
+        Reserve Name
+      </th>
+      <th colspan="5">
+        User Count
+      </th>
+      <th colspan="5">
+        User Days
+      </th>
+    <tr>
+    <th>Research</th>
+      <th>Class</th>
+      <th>Public</th>
+      <th>Housing</th>
+      <th style="background:#fafafa;">Count All</th>
+
+      <th>Research</th>
+      <th>Class</th>
+      <th>Public</th>
+      <th>Housing</th>
+      <th style="background:#fafafa;">Days All</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% data.each do |row| %>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+
+        <td align=right><%= row['research_uc_user_count'].to_i %></td>
+        <td align=right><%= row['class_uc_user_count'].to_i %></td>
+        <td align=right><%= row['public_uc_user_count'].to_i %></td>
+        <td align=right><%= row['housing_uc_user_count'].to_i %></td>
+        <td style="background:#fafafa;" align=right><%= row['all_uc_user_count'].to_i %></td>
+
+        <td align=right><%= row['research_uc_user_days'].to_i %></td>
+        <td align=right><%= row['class_uc_user_days'].to_i %></td>
+        <td align=right><%= row['public_uc_user_days'].to_i %></td>
+        <td align=right><%= row['housing_uc_user_days'].to_i %></td>
+        <td style="background:#fafafa;"align=right><%= row['all_uc_user_days'].to_i %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br /><br />

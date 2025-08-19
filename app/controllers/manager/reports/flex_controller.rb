@@ -1,7 +1,6 @@
 class Manager::Reports::FlexController < Manager::ApplicationController
-  require "csv"
-
-  include ReportQueries
+  include ProjectFundingQuery
+  include TableauUsageQuery
 
   before_action :authenticate_user!
   before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
@@ -18,8 +17,14 @@ class Manager::Reports::FlexController < Manager::ApplicationController
   $FLEX_ALL_RESERVES_ARRAY = []
 
   def index
+    case filter[:project_status]
+    when "funding" then data = project_funding(reserve: filter[:reserve], begin_date: filter&.dig(:date_begin).presence, end_date: filter&.dig(:date_end).presence)
+    when "tableau_usage" then data = tableau_usage(filter&.dig(:date_begin).presence, filter&.dig(:date_end).presence)
+    end
+
     @presenter = Manager::Reports::FlexIndexPresenter.new(
       filter: filter,
+      data: data,
     )
   end
 

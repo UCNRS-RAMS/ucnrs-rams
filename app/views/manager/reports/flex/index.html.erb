@@ -10,6 +10,6 @@
   </section>
 
   <section class="reserve-info-subsection">
-    <%= render partial: "table", locals: { data: @presenter.funding_scope } %>
+    <%= render partial: @presenter.html, locals: { data: @presenter.data } %>
   </section>
 </section>
