@@ -182,6 +182,52 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "159fc05be78df7008e739e662d638102029612148bacd80499f618d270ac05e1",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 18,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS nrs_reserves_table#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "159fc05be78df7008e739e662d638102029612148bacd80499f618d270ac05e1",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 222,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS nrs_reserves_table#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "18de4b7e03850682fee412ca8991aecb9662d6daf098ba65eea05a8750d8468b",
       "check_name": "SQL",
       "message": "Possible SQL injection",
@@ -305,11 +351,57 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "1d229228af391e2204775156f76a2752d269845f2b196bb8dd8a34d308e563a5",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/project_funding_query.rb",
+      "line": 14,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Funding.select(\"fundings.*, visits.reserve_id\").left_outer_joins(:project => ([{ :visits => :user_visits }])).where(\"#{(\"visits.reserve_id = #{reserve}\" or \"visits.reserve_id = NULL\")}\\n        AND user_visits.arrives_at >= :start_date\\n        AND user_visits.departs_at <= :stop_date\\n        AND user_visits.status = 'Approved'\\n        AND projects.project_type = 'Research'\\n        AND projects.AnnualReportAccess = 1\\n        AND projects.status IN ('Open', 'Closed')\", :start_date => begin_date, :stop_date => end_date)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ProjectFundingQuery",
+        "method": "project_funding"
+      },
+      "user_input": "reserve",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "24ca441cbdeeed3bfb56092daba64694c4b4c968d42d796b8fc1ed907d45f19c",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 194,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"SELECT\\n  nrs_reserves_table#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}.reserve_id,\\n  nrs_reserves_table#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}.reserve_name,\\n  IF(nrs_reserves_table#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}.reserve_id < 500, 0, 1) AS reserve_satellite,\\n  IFNULL(results_table_transposed#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}.ResearchUserCount, 0) AS research_uc_user_count,\\n  IFNULL(results_table_transposed#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}.ClassUserCount, 0) AS class_uc_user_count,\\n  IFNULL(results_table_transposed#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}.PublicUserCount, 0) AS public_uc_user_count,\\n  IFNULL(results_table_transposed#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}.HousingUserCount, 0) AS housing_uc_user_count,\\n  IFNULL(results_table_transposed#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}.CountAll, 0) AS all_uc_user_count,\\n  IFNULL(results_table_transposed#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}.ResearchUCDays, 0) AS research_uc_user_days,\\n  IFNULL(results_table_transposed#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}.ClassUCDays, 0) AS class_uc_user_days,\\n  IFNULL(results_table_transposed#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}.PublicUCDays, 0) AS public_uc_user_days,\\n  IFNULL(results_table_transposed#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}.HousingUCDays, 0) AS housing_uc_user_days,\\n  IFNULL(results_table_transposed#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}.DaysAll, 0) AS all_uc_user_days\\nFROM\\n  nrs_reserves_table#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\n  LEFT JOIN results_table_transposed#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)} ON nrs_reserves_table#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}.reserve_id = results_table_transposed#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}.reserve_id\\nORDER BY\\n  reserve_satellite,\\n  reserve_campus,\\n  reserve_name ASC;\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "2d6ee9ec8ac4b9495fe81456cf0eb8b54abec47504c58c1e99cfcaca86371934",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/presenters/manager/reports/flex_index_presenter.rb",
-      "line": 20,
+      "line": 21,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "Funding.select(\"fundings.*, visits.reserve_id\").left_outer_joins(:project => ([{ :visits => :user_visits }])).where(\"#{reserve_query}\\n        AND user_visits.arrives_at >= :start_date\\n        AND user_visits.departs_at <= :stop_date\\n        AND user_visits.status = 'Approved'\\n        AND projects.project_type = 'Research'\\n        AND projects.AnnualReportAccess = 1\\n        AND projects.status IN ('Open', 'Closed')\", :start_date => start_date, :stop_date => stop_date)",
       "render_path": null,
@@ -566,6 +658,52 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "79d687480ee8959713b9914be3945c081fab1c146b5763220da313d2b3e636f8",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 14,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS user_count_groups#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "79d687480ee8959713b9914be3945c081fab1c146b5763220da313d2b3e636f8",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 218,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS user_count_groups#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "7b97d09ede49e8f8ca62248d02df61a772e5aa7bc0c581654a13f04331e2ba27",
       "check_name": "SQL",
       "message": "Possible SQL injection",
@@ -647,6 +785,52 @@
         "type": "method",
         "class": "ReportQueries",
         "method": "query_part_1"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "85c35a078140396c92a53dfa3bce9c931101603e61c5579a2f058518dd951b6a",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 46,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"CREATE TEMPORARY TABLE user_count_individuals#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nSELECT\\n  *\\nFROM\\n  user_count_raw#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nWHERE\\n  user_id != 1\\nGROUP BY\\n  reserve_id,\\n  project_type,\\n  user_id,\\n  role,\\n  user_count,\\n  user_days;\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "8b02b95ec93b3a6b86e9f9b5870825e01f8f5ce27da4d4f38e11391146feeb79",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 141,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"CREATE TEMPORARY TABLE results_table_transposed#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nSELECT\\n  reserve_id,\\n  max(\\n    CASE project_type\\n      WHEN 'Research' THEN CountAll\\n    END\\n  ) AS ResearchUserCount,\\n  max(\\n    CASE project_type\\n      WHEN 'Class' THEN CountAll\\n    END\\n  ) AS ClassUserCount,\\n  max(\\n    CASE project_type\\n      WHEN 'Public' THEN CountAll\\n    END\\n  ) AS PublicUserCount,\\n  max(\\n    CASE project_type\\n      WHEN 'Housing' THEN CountAll\\n    END\\n  ) AS HousingUserCount,\\n  SUM(CountAll) AS CountAll,\\n  max(\\n    CASE project_type\\n      WHEN 'Research' THEN DaysAll\\n    END\\n  ) AS ResearchUCDays,\\n  max(\\n    CASE project_type\\n      WHEN 'Class' THEN DaysAll\\n    END\\n  ) AS ClassUCDays,\\n  max(\\n    CASE project_type\\n      WHEN 'Public' THEN DaysAll\\n    END\\n  ) AS PublicUCDays,\\n  max(\\n    CASE project_type\\n      WHEN 'Housing' THEN DaysAll\\n    END\\n  ) AS HousingUCDays,\\n  SUM(DaysAll) AS DaysAll\\nFROM\\n  results_table#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nGROUP BY\\n  reserve_id;\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
       },
       "user_input": "SecureRandom.hex",
       "confidence": "Medium",
@@ -767,6 +951,213 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "95a55531cad28b1f593aa925fb15e72a85ef08a5029258f439ec54932fa22c6d",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 16,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS user_count_days_merged#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "95a55531cad28b1f593aa925fb15e72a85ef08a5029258f439ec54932fa22c6d",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 220,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS user_count_days_merged#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "98bc83c17faa73bf109e65fcc83551932fe36c039af95c51458acfed7fcbbfd5",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 63,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"CREATE TEMPORARY TABLE user_count_groups#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nSELECT\\n  *\\nFROM\\n  user_count_raw#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nWHERE\\n  user_id = 1;\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "9a08948d19a72895ba223463d49d1fd6a447d3a00b051d15a8507d4d84fbc02f",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 13,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS user_count_individuals#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "9a08948d19a72895ba223463d49d1fd6a447d3a00b051d15a8507d4d84fbc02f",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 217,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS user_count_individuals#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "9e266fd7628e8a20a4bf2cfb5364cc3ebb1e79372d6258b3e19cc13bb5916c2e",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 12,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS user_count_raw#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "9e266fd7628e8a20a4bf2cfb5364cc3ebb1e79372d6258b3e19cc13bb5916c2e",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 216,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS user_count_raw#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "a32680bfb1295473151620ecb7091fa230fa3ea7b4c26fb8c666ba5082c6cd8a",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 23,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"CREATE TEMPORARY TABLE user_count_raw#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nSELECT\\n  visits.reserve_id AS reserve_id,\\n  user_visits.user_id AS user_id,\\n  user_visits.`role` AS role,\\n  projects.project_type,\\n  user_visits.`count` AS user_count,\\n  0 AS user_days\\nFROM\\n  user_visits\\n  INNER JOIN visits ON user_visits.visit_id = visits.id\\n  INNER JOIN projects ON visits.project_id = projects.id\\nWHERE\\n  user_visits.status = 'Approved'\\n  AND visits.status IN ('Approved', 'Pending Approval')\\n  AND projects.AnnualReportAccess = 1\\n  AND visits.report_access = 1\\n  AND user_visits.departs_at >= '#{ActiveRecord::Base.sanitize_sql(\"#{begin_date} 00:00:00\")}'\\n  AND user_visits.arrives_at <= '#{ActiveRecord::Base.sanitize_sql(\"#{end_date} 23:59:59\")}'\\n  AND visits.reserve_id < 100000;\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "ab1757556c8abd31474a19bf3e175752f956c4234d640ede34c4a8c234c35f3d",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 128,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"CREATE TEMPORARY TABLE nrs_reserves_table#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nSELECT\\n  reserves.id AS reserve_id,\\n  reserves.`name` AS reserve_name,\\n  institutions.`name` AS reserve_campus\\nFROM\\n  reserves\\n  LEFT JOIN institutions ON reserves.managing_campus_id = institutions.id\\nWHERE\\n  reserves.id < 100000;\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "abe3ef189f8998d604a08ad5faa180bb10f91eb38648737f30be800175909dc6",
       "check_name": "SQL",
       "message": "Possible SQL injection",
@@ -781,6 +1172,121 @@
         "method": "ProjectReserveAnswer.replace_all"
       },
       "user_input": "project_reserve_answers.map do\n ActiveRecord::Base.sanitize_sql([\"(?,?,?,?,?,?)\", answer.project_id, answer.reserve_question_id, answer.text_answer, answer.boolean_answer, Time.current, Time.current])\n end.join(\",\\n  \")",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "ac0c67d8d9537d3cbd6f3bdc1e610397d6b98609c5233b331bf7a87e7a92fef7",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 17,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS results_table#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "ac0c67d8d9537d3cbd6f3bdc1e610397d6b98609c5233b331bf7a87e7a92fef7",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 221,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS results_table#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "ad509dd302987241932517392a5fdf248546c48877bf692cae8eb5649a56d8b6",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 15,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS user_days_raw#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "ad509dd302987241932517392a5fdf248546c48877bf692cae8eb5649a56d8b6",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 219,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS user_days_raw#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "be5216479c6cd8ad75ddc0fddd61ca202ae9a945827eada5c78bfab9358a991a",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 73,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"CREATE TEMPORARY TABLE user_days_raw#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nSELECT\\n  visits.reserve_id AS reserve_id,\\n  user_visits.user_id AS user_id,\\n  user_visits.`role` AS role,\\n  projects.project_type,\\n  0 AS user_count,\\n  get_visit_days_in_period (ArrivalDate, DepartureDate, '#{ActiveRecord::Base.sanitize_sql(\"#{begin_date} 00:00:00\")}', '#{ActiveRecord::Base.sanitize_sql(\"#{end_date} 23:59:59\")}', `count`, actual_days) AS user_days\\nFROM\\n  user_visits\\n  INNER JOIN visits ON user_visits.visit_id = visits.id\\n  INNER JOIN projects ON visits.project_id = projects.id\\nWHERE\\n  user_visits.status = 'Approved'\\n  AND visits.status IN ('Approved', 'Pending Approval')\\n  AND projects.AnnualReportAccess = 1\\n  AND visits.report_access = 1\\n  AND user_visits.departs_at >= '#{ActiveRecord::Base.sanitize_sql(\"#{begin_date} 00:00:00\")}'\\n  AND user_visits.arrives_at <= '#{ActiveRecord::Base.sanitize_sql(\"#{end_date} 23:59:59\")}'\\n  AND visits.reserve_id < 100000;\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
       "confidence": "Medium",
       "cwe_id": [
         89
@@ -857,6 +1363,29 @@
       "note": ""
     },
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "c4133d6cc6f0431f4127f8f5f66dcdbaad1a12da7bff06bc24e64069163e0a8d",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 96,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"CREATE TEMPORARY TABLE user_count_days_merged#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nSELECT\\n  *\\nFROM\\n  user_count_individuals#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nUNION ALL\\nSELECT\\n  *\\nFROM\\n  user_count_groups#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nUNION ALL\\nSELECT\\n  *\\nFROM\\n  user_days_raw#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
       "fingerprint": "c48fce694e840a18ae8d6a5761eb8260874a15cbdaadfb42c63dcc12638249ad",
@@ -910,6 +1439,29 @@
       "confidence": "Medium",
       "cwe_id": [
         915
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "ce8fced38d8a8eb1bf04f5a52620022448ab65c9272f5467c6c70fad325de326",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 114,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"CREATE TEMPORARY TABLE results_table#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nSELECT\\n  reserve_id,\\n  IFNULL(project_type, 'TOTAL') AS project_type,\\n  SUM(user_count) AS CountAll,\\n  SUM(user_days) AS DaysAll\\nFROM\\n  user_count_days_merged#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)}\\nGROUP BY\\n  reserve_id,\\n  project_type;\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
       ],
       "note": ""
     },
@@ -1071,6 +1623,52 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "dbfd4c5edf50545c9e99e02aa81a4a0a9612f6f0ccaf7955445fe609a97cfdbe",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 19,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS results_table_transposed#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "dbfd4c5edf50545c9e99e02aa81a4a0a9612f6f0ccaf7955445fe609a97cfdbe",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/tableau_usage_query.rb",
+      "line": 223,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.exec_query(\"DROP TEMPORARY TABLE IF EXISTS results_table_transposed#{(ActiveRecord::Base.sanitize_sql(request.session[:session_id]) or SecureRandom.hex)};\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "TableauUsageQuery",
+        "method": "tableau_usage"
+      },
+      "user_input": "SecureRandom.hex",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "e17c5d359e0adffb9e651c0358ad21214ee0421f4280cb4f42f80d3febdfdf56",
       "check_name": "SQL",
       "message": "Possible SQL injection",
@@ -1167,6 +1765,6 @@
       "note": ""
     }
   ],
-  "updated": "2025-08-11 19:39:43 -0700",
+  "updated": "2025-08-19 15:57:51 -0700",
   "brakeman_version": "6.2.2"
 }

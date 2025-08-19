@@ -3,11 +3,12 @@
 class Manager::Reports::FlexIndexPresenter
   DEFAULT_LIMIT_FOR_INDEX = 10
 
-  def initialize(reserve: nil, page: 1, filter: nil)
+  def initialize(reserve: nil, page: 1, filter: nil, data: nil)
     @page = page
     @reserve = reserve
     @filter = ProjectFilter.new(filter, reserve)
     @params = filter
+    @data = data
   end
 
   attr_reader :reserve, :page, :filter
@@ -31,9 +32,18 @@ class Manager::Reports::FlexIndexPresenter
       .order("visits.reserve_id")
   end
 
+  def html
+    @params&.dig(:project_status)
+  end
+
+  def data
+    @data
+  end
+
   def project_status_options
     {
       "Grant funding" => "funding",
+      "Tableau #1,2,3 Reserve Users and User Days" => "tableau_usage",
     }
   end
 
