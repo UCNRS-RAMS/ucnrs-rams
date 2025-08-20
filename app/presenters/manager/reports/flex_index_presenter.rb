@@ -33,7 +33,7 @@ class Manager::Reports::FlexIndexPresenter
   end
 
   def html
-    @params&.dig(:project_status)
+    @params&.dig(:project_status) || "blank"
   end
 
   def data
@@ -44,6 +44,7 @@ class Manager::Reports::FlexIndexPresenter
     {
       "Grant funding" => "funding",
       "Tableau #1,2,3 Reserve Users and User Days" => "tableau_usage",
+      "Tableau #5 Faculty Count - All Institutions" => "tableau_faculty_count",
     }
   end
 
