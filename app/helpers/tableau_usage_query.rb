@@ -1,13 +1,22 @@
 module TableauUsageQuery
-  def tableau_usage(begin_date, end_date)
+  def tableau_usage(date_begin, date_end)
     if defined?(request) && request&.session.present?
       id = ActiveRecord::Base.sanitize_sql(request.session[:session_id])
     else
       id = SecureRandom.hex
     end
 
-    begin_date  = ActiveRecord::Base.sanitize_sql("#{begin_date} 00:00:00")
-    end_date    = ActiveRecord::Base.sanitize_sql("#{end_date} 23:59:59")
+    if date_begin.present?
+      date_begin = ActiveRecord::Base.sanitize_sql("'#{date_begin} 00:00:00'")
+    else
+      date_begin = "NULL"
+    end
+
+    if date_end.present?
+      date_end = ActiveRecord::Base.sanitize_sql("'#{date_end} 23:59:59'")
+    else
+      date_end = "NULL"
+    end
 
     ActiveRecord::Base.connection.exec_query("DROP TEMPORARY TABLE IF EXISTS user_count_raw#{id};")
     ActiveRecord::Base.connection.exec_query("DROP TEMPORARY TABLE IF EXISTS user_count_individuals#{id};")
@@ -37,8 +46,8 @@ module TableauUsageQuery
         AND visits.status IN ('Approved', 'Pending Approval')
         AND projects.AnnualReportAccess = 1
         AND visits.report_access = 1
-        AND user_visits.departs_at >= '#{begin_date}'
-        AND user_visits.arrives_at <= '#{end_date}'
+        AND user_visits.departs_at >= #{date_begin}
+        AND user_visits.arrives_at <= #{date_end}
         AND visits.reserve_id < 100000;
     end_sql
 
@@ -77,7 +86,7 @@ module TableauUsageQuery
         user_visits.`role` AS role,
         projects.project_type,
         0 AS user_count,
-        get_visit_days_in_period (ArrivalDate, DepartureDate, '#{begin_date}', '#{end_date}', `count`, actual_days) AS user_days
+        get_visit_days_in_period (ArrivalDate, DepartureDate, #{date_begin}, #{date_end}, `count`, actual_days) AS user_days
       FROM
         user_visits
         INNER JOIN visits ON user_visits.visit_id = visits.id
@@ -87,8 +96,8 @@ module TableauUsageQuery
         AND visits.status IN ('Approved', 'Pending Approval')
         AND projects.AnnualReportAccess = 1
         AND visits.report_access = 1
-        AND user_visits.departs_at >= '#{begin_date}'
-        AND user_visits.arrives_at <= '#{end_date}'
+        AND user_visits.departs_at >= #{date_begin}
+        AND user_visits.arrives_at <= #{date_end}
         AND visits.reserve_id < 100000;
     end_sql
 

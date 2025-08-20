@@ -1,0 +1,147 @@
+<div class="card">
+  <div class="card-body">
+    <p class="text-muted">Tableau Faculty Researchers — All Institutions
+      Number of faculty from all institutions, including UC, Cal State, community colleges,
+      other California colleges, out of state colleges, government,
+      nonprofit/NGO, business, and private individuals who used each reserve that fiscal year.
+      Data is used for
+      <a href="https://ucnrs.org/use-data/faculty-users-all-institutions/" target="_BLANK">Faculty users, all institutions</a>
+      visualization.</p>
+  </div>
+</div>
+
+<div>
+  <%= data.map{|x| x['reserve_campus']}.uniq.compact.map{|x| link_to x, "##{x.parameterize.underscore}" }.join(' | ').html_safe %>
+</div>
+
+<table class="project-funding-report" style="width: 100%;">
+  <thead>
+    <tr><th colspan="3" class="title">Total FACULTY visits to each reserve </th></tr>
+  </thead>
+  <tbody>
+    <% reserve_campus = '' %>
+    <% data.each do |row| %>
+      <% if reserve_campus != row['reserve_campus'] %>
+        <% reserve_campus = row['reserve_campus'] %>
+        <thead>
+          <tr>
+            <th colspan="3"><br/><br />
+              <%= content_tag(:a, "", class: "anchor-offset", id:reserve_campus.to_s.parameterize.underscore ) %>
+              <%= reserve_campus %> - <%= link_to "Back to Top", '#top' %>
+            </th>
+          </tr>
+          <tr>
+            <th>Reserve Name</th>
+            <th>Faculty Institution</th>
+            <th>Faculty Total Count</th>
+          </tr>
+        </thead>
+      <% end %>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+        <td align=right>UC Berkeley</td>
+        <td align=right><%= row['CountUCBerkeley'] %></td>
+      </tr>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+        <td align=right>UC Davis</td>
+        <td align=right><%= row['CountUCDavis'] %></td>
+      </tr>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+        <td align=right>UC Irvine</td>
+        <td align=right><%= row['CountUCIrvine'] %></td>
+      </tr>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+        <td align=right>UC Los Angeles</td>
+        <td align=right><%= row['CountUCLosAngeles'] %></td>
+      </tr>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+        <td align=right>UC Merced</td>
+        <td align=right><%= row['CountUCMerced'] %></td>
+      </tr>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+        <td align=right>UC Riverside</td>
+        <td align=right><%= row['CountUCRiverside'] %></td>
+      </tr>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+        <td align=right>UC San Diego</td>
+        <td align=right><%= row['CountUCSanDiego'] %></td>
+      </tr>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+        <td align=right>UC San Francisco</td>
+        <td align=right><%= row['CountUCSanFrancisco'] %></td>
+      </tr>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+        <td align=right>UC Santa Barbara</td>
+        <td align=right><%= row['CountUCSantaBarbara'] %></td>
+      </tr>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+        <td align=right>UC Santa Cruz</td>
+        <td align=right><%= row['CountUCSantaCruz'] %></td>
+      </tr>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+        <td align=right>UC Office of the President</td>
+        <td align=right><%= row['CountUCUCOP'] %></td>
+      </tr>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+        <td align=right>CSU System</td>
+        <td align=right><%= row['CountCSU'] %></td>
+      </tr>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+        <td align=right>CA Comm College</td>
+        <td align=right><%= row['CountComCol'] %></td>
+      </tr>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+        <td align=right>Other CA College</td>
+        <td align=right><%= row['CountOthCA'] %></td>
+      </tr>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+        <td align=right>Out of State College</td>
+        <td align=right><%= row['CountOthUS'] %></td>
+      </tr>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+        <td align=right>International University</td>
+        <td align=right><%= row['CountIntl'] %></td>
+      </tr>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+        <td align=right>Government</td>
+        <td align=right><%= row['CountGov'] %></td>
+      </tr>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+        <td align=right>NGO/Non-Profit</td>
+        <td align=right><%= row['CountNGO'] %></td>
+      </tr>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+        <td align=right>For-profit Business</td>
+        <td align=right><%= row['CountBus'] %></td>
+      </tr>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+        <td align=right>K-12 School</td>
+        <td align=right><%= row['CountK12'] %></td>
+      </tr>
+      <tr height=20>
+        <td><%= row['reserve_name'] %></td>
+        <td align=right>Other</td>
+        <td align=right><%= row['CountOthers'] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

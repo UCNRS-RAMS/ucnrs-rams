@@ -1,6 +1,7 @@
 class Manager::Reports::FlexController < Manager::ApplicationController
   include ProjectFundingQuery
   include TableauUsageQuery
+  include TableauFacultyCountQuery
 
   before_action :authenticate_user!
   before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
@@ -17,9 +18,10 @@ class Manager::Reports::FlexController < Manager::ApplicationController
   $FLEX_ALL_RESERVES_ARRAY = []
 
   def index
-    case filter[:project_status]
-    when "funding" then data = project_funding(reserve: filter[:reserve], begin_date: filter&.dig(:date_begin).presence, end_date: filter&.dig(:date_end).presence)
-    when "tableau_usage" then data = tableau_usage(filter&.dig(:date_begin).presence, filter&.dig(:date_end).presence)
+    case filter&.dig(:project_status)
+    when "funding" then data = project_funding(reserve: filter[:reserve], begin_date: filter[:date_begin], end_date: filter[:date_end])
+    when "tableau_usage" then data = tableau_usage(filter[:date_begin], filter[:date_end])
+    when "tableau_faculty_count" then data = tableau_faculty_count(date_begin: filter[:date_begin], date_end: filter[:date_end])
     end
 
     @presenter = Manager::Reports::FlexIndexPresenter.new(
