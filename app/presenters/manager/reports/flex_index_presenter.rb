@@ -13,25 +13,6 @@ class Manager::Reports::FlexIndexPresenter
 
   attr_reader :reserve, :page, :filter
 
-  def funding_scope
-    Funding
-      .select("fundings.*, visits.reserve_id")
-      .left_outer_joins(project: [visits: :user_visits])
-      .where(
-        "#{reserve_query}
-        AND user_visits.arrives_at >= :start_date
-        AND user_visits.departs_at <= :stop_date
-        AND user_visits.status = 'Approved'
-        AND projects.project_type = 'Research'
-        AND projects.AnnualReportAccess = 1
-        AND projects.status IN ('Open', 'Closed')",
-        { start_date: start_date, stop_date: stop_date },
-      )
-      .includes(:project)
-      .group(:id)
-      .order("visits.reserve_id")
-  end
-
   def html
     @params&.dig(:project_status) || "blank"
   end
@@ -45,6 +26,7 @@ class Manager::Reports::FlexIndexPresenter
       "Grant funding" => "funding",
       "Tableau #1,2,3 Reserve Users and User Days" => "tableau_usage",
       "Tableau #5 Faculty Count - All Institutions" => "tableau_faculty_count",
+      "Tableau #6 UC Faculty-Led Reserve Use by Campus" => "tableau_uc_faculty_campus",
     }
   end
 
