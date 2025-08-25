@@ -1,0 +1,53 @@
+<div class="card mb-5" id="top">
+  <div class="card-body" style="background-color:#eee;">
+    <p class="mb-0">
+      Tableau Faculty Led Reserve Use<br />
+      Number of people from each campus involved in faculty-led projects (including research, class,
+      and public service uses) who visited each reserve that fiscal year. Data is used for faculty
+      led reserve use visualization.
+    </p>
+  </div>
+</div>
+
+<table class="project-funding-report">
+  <thead>
+    <tr class="AR_Header">
+      <th colspan="31" class="center">TOTAL UC Faculty Lead Usage Data for Each Reserve</th>
+    </tr>
+    <tr>
+      <th rowspan="3" height="29" class="center subtitle">Reserve Name</th>
+      <th colspan="12" class="center subtitle">Faculty Institution</th>
+    </tr>
+    <tr id="tablefont">
+      <th class="center subtitle">UC Berkeley Users</th>
+      <th class="center subtitle">UC Davis Users</th>
+      <th class="center subtitle">UC Irvine Users</th>
+      <th class="center subtitle">UC LosAngeles Users</th>
+      <th class="center subtitle">UC Merced Users</th>
+      <th class="center subtitle">UC Riverside Users</th>
+      <th class="center subtitle">UC SanDiego Users</th>
+      <th class="center subtitle">UC SanFrancisco Users</th>
+      <th class="center subtitle">UC SantaBarbara Users</th>
+      <th class="center subtitle">UC SantaCruz Users</th>
+      <th class="center subtitle">UC Generic Users</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% data.each do |row| %>
+      <tr >
+        <td><%= row['reserve_name'] %></td>
+        <td class="center"><%= row['CountUCBerkeley'] %></td>
+        <td class="center"><%= row['CountUCDavis'] %></td>
+        <td class="center"><%= row['CountUCIrvine'] %></td>
+        <td class="center"><%= row['CountUCLosAngeles'] %></td>
+        <td class="center"><%= row['CountUCMerced'] %></td>
+        <td class="center"><%= row['CountUCRiverside'] %></td>
+        <td class="center"><%= row['CountUCSanDiego'] %></td>
+        <td class="center"><%= row['CountUCSanFrancisco'] %></td>
+        <td class="center"><%= row['CountUCSantaBarbara'] %></td>
+        <td class="center"><%= row['CountUCSantaCruz'] %></td>
+        <td class="center"><%= row['CountUCOP'] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
