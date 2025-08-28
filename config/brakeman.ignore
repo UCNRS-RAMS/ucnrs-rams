@@ -911,6 +911,29 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "7996919264ec1121d115ed34c98cef412ed5ba501cc5313a502339f449c9289c",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_affiliation_query.rb",
+      "line": 57,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Institution.find_by_sql(\"SELECT\\n  user_visits.institution_id,\\n  institutions.*\\nFROM\\n  user_visits\\n  INNER JOIN institutions ON user_visits.institution_id = institutions.id\\n  INNER JOIN visits ON user_visits.visit_id = visits.id\\n  INNER JOIN projects ON visits.project_id = projects.id\\nWHERE\\n  visits.reserve_id IN (\\n    SELECT CAST(j.id AS UNSIGNED) AS user_id\\n    FROM JSON_TABLE(\\n        CONCAT('[\\\"', REPLACE(#{(reserve.to_s or \"NULL\")}, ',', '\\\",\\\"'), '\\\"]'),\\n        '$[*]' COLUMNS (id VARCHAR(20) PATH '$')\\n    ) AS j\\n  )\\n  AND user_visits.departs_at >= #{(ActiveRecord::Base.sanitize_sql(\"'#{date_begin} 00:00:00'\") or \"NULL\")}\\n  AND user_visits.arrives_at <= #{(ActiveRecord::Base.sanitize_sql(\"'#{date_end} 23:59:59'\") or \"NULL\")}\\n  AND user_visits.status = 'Approved'\\n  AND projects.AnnualReportAccess = 1\\n  AND visits.report_access = 1\\nGROUP BY\\n  user_visits.institution_id\\nORDER BY\\n  institutions.institution_type,\\n  institutions.`name`;\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportAffiliationQuery",
+        "method": "affiliation"
+      },
+      "user_input": "reserve",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "79d687480ee8959713b9914be3945c081fab1c146b5763220da313d2b3e636f8",
       "check_name": "SQL",
       "message": "Possible SQL injection",
@@ -2340,6 +2363,6 @@
       "note": ""
     }
   ],
-  "updated": "2025-08-22 06:15:42 -0700",
+  "updated": "2025-08-30 17:10:20 -0700",
   "brakeman_version": "6.2.2"
 }
