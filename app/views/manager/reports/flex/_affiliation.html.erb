@@ -1,0 +1,40 @@
+<div class="card mb-5">
+  <div class="card-body" style="background-color:#eee;">
+    <p class="text-muted m-0">
+      Data is drawn from approved reservation participants with start and end dates within the selected date range.
+    </p>
+  </div>
+</div>
+<div class="table-responsive">
+  <table class="project-funding-report" style="width: 100%;">
+    <thead>
+      <tr>
+        <th>Users Affiliation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% Institution.institution_types.each do |key, value| %>
+        <tr class="Header">
+            <th colspan="2"><%= value %></th>
+        </tr>
+        <% data.select{ |v| v[:institution_type] == key }.each do |institution| %>
+          <tr >
+            <td>
+              <%= institution.name %><br />
+              <small class="text-muted">
+                <%= institution.city %>,
+                <%= "#{institution.state.name}," if institution.state.present? %>
+                <%= institution.country.name %>
+              </small>
+            </td>
+          </tr>
+        <% end %>
+        <% if data.select{ |v| v[:institution_type] == key }.blank? %>
+          <tr class="List">
+            <td colspan="2">none</td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

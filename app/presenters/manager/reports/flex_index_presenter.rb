@@ -24,6 +24,7 @@ class Manager::Reports::FlexIndexPresenter
   def project_status_options
     {
       "Grant funding" => "funding",
+      "User Affiliations" => "affiliation",
       "Tableau #1,2,3 Reserve Users and User Days" => "tableau_usage",
       "Tableau #5 Faculty Count - All Institutions" => "tableau_faculty_count",
       "Tableau #6 UC Faculty-Led Reserve Use by Campus" => "tableau_uc_faculty_campus",
