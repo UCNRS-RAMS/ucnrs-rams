@@ -417,9 +417,9 @@ RSpec.describe Visit, type: :model do
       it "returns all visits" do
         date1 = Date.new(1969, 7, 20)
         date2 = Date.new(1980, 7, 31)
-  
+
         results = Visit.having_between_time_for(date_range_option: :non_existent_case, date_start: date1, date_end: date2)
-  
+
         expect(results).to eq Visit.all
       end
     end
@@ -478,7 +478,7 @@ RSpec.describe Visit, type: :model do
       it "returns datetime from the attributes end_date + end_time" do
         date = 1.week.ago.to_date
         time = Time.current.round
-        visit = create(:visit, ends_at: nil, start_date: 2.week.ago.to_date, end_time: Time.current, end_date: date, end_time: time)
+        visit = create(:visit, ends_at: nil, start_date: 2.weeks.ago.to_date, end_date: date, end_time: time)
 
         results = visit.ends_at
 
