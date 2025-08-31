@@ -5,7 +5,7 @@ RSpec.describe Home::CalendarShowPresenter do
   let(:reserve) { create(:reserve, short_name: "HRM") }
   let!(:visit) do
     create(:visit, user: user, start_date: Date.current.beginning_of_month.yesterday,
-      end_date: Date.current.end_of_month.tomorrow, user: user, reserve: reserve)
+      end_date: Date.current.end_of_month.tomorrow, reserve: reserve)
   end
 
   describe "#calendar_params" do
@@ -45,13 +45,13 @@ RSpec.describe Home::CalendarShowPresenter do
 
   describe "#visits_link_params" do
     it "updates the current date visit and amenities" do
-      visit = create(:visit, starts_at: 3.week.ago, ends_at: 3.week.from_now)
+      visit = create(:visit, starts_at: 3.weeks.ago, ends_at: 3.weeks.from_now)
       amenity = create(:amenity)
       create(:amenity_visit, visit: visit, amenity: amenity, arrives: 1.week.ago, departs: 1.week.from_now)
       date = 1.week.ago
 
-      visit = Home::Calendar::VisitPresenter.new(visit: visit, date: 3.week.ago)
-      show_presenter = Home::CalendarShowPresenter.new(user: user, start_date: 3.week.ago)
+      visit = Home::Calendar::VisitPresenter.new(visit: visit, date: 3.weeks.ago)
+      show_presenter = Home::CalendarShowPresenter.new(user: user, start_date: 3.weeks.ago)
       show_presenter.add_date_visits(date: date, visits: [visit])
 
       expect(show_presenter.visits_link_params.first).to eq show_presenter.month_visits[date.to_s].first.visit_link_params
@@ -106,7 +106,9 @@ RSpec.describe Home::CalendarShowPresenter do
     it "return hash for types" do
       show_presenter = Home::CalendarShowPresenter.new(user: user)
 
-      expected_value = { "approved"=>"approved", "in_review"=>"in_review", "cancelled"=>"cancelled", "incomplete"=>"incomplete", "denied"=>"denied" }
+      expected_value = { "approved" => "approved", "in_review" => "in_review",
+                         "cancelled" => "cancelled", "incomplete" => "incomplete",
+                         "denied" => "denied" }
 
       expect(show_presenter.visit_filter_options).to eq expected_value
     end
@@ -117,7 +119,7 @@ RSpec.describe Home::CalendarShowPresenter do
       show_presenter = Home::CalendarShowPresenter.new(user: user)
 
       expected_value = {
-        "HRM" => reserve.id
+        "HRM" => reserve.id,
       }
 
       expect(show_presenter.visits_reserve_list).to eq expected_value
@@ -126,14 +128,14 @@ RSpec.describe Home::CalendarShowPresenter do
 
   describe "#visit_selected" do
     it "return 'selected' if visit_filter is equal to given option" do
-      presenter = Home::CalendarShowPresenter.new(user: user, visit_filter: "status" )
+      presenter = Home::CalendarShowPresenter.new(user: user, visit_filter: "status")
       output = "selected"
 
       expect(presenter.visit_selected("status")).to eq output
     end
 
     it "return '' if visit_filter is not equal to given option" do
-      presenter = Home::CalendarShowPresenter.new(user: user, visit_filter: "reserve" )
+      presenter = Home::CalendarShowPresenter.new(user: user, visit_filter: "reserve")
       output = ""
 
       expect(presenter.visit_selected("status")).to eq output
