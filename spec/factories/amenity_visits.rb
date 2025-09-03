@@ -1,5 +1,8 @@
 FactoryBot.define do
   factory :amenity_visit do
+    arrives_on { Time.current.to_date }
+    departs_on { Time.current.to_date + 1.day }
+
     arrives_at { Time.current }
     departs_at { Time.current + 1.day }
 

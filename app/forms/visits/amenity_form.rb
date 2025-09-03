@@ -22,8 +22,6 @@ class Visits::AmenityForm
   delegate_missing_to :amenity_visit
 
   validates :amenity_id, presence: true
-  validates :arrives_on, presence: true
-  validates :departs_on, presence: true
 
   def checked
     if amenity_id.present?
