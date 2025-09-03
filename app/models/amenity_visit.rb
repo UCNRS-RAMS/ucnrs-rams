@@ -6,6 +6,8 @@ class AmenityVisit < ApplicationRecord
   belongs_to :invoice, optional: true
   has_many :logs, as: :record_about
 
+  validates :arrives_on, presence: true
+  validates :departs_on, presence: true
   validates :departs_on, must_be_after: :arrives_on
   validates :departs, must_be_after: :arrives
   validates :number_of_people, numericality: { greater_than: 0 }
