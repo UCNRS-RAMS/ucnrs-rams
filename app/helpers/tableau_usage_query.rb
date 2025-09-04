@@ -43,7 +43,7 @@ module TableauUsageQuery
         INNER JOIN projects ON visits.project_id = projects.id
       WHERE
         user_visits.status = 'Approved'
-        AND visits.status IN ('Approved', 'Pending Approval')
+        AND visits.status IN ('approved', 'in_review')
         AND projects.AnnualReportAccess = 1
         AND visits.report_access = 1
         AND user_visits.departs_at >= #{date_begin}
@@ -86,14 +86,21 @@ module TableauUsageQuery
         user_visits.`role` AS role,
         projects.project_type,
         0 AS user_count,
-        get_visit_days_in_period (ArrivalDate, DepartureDate, #{date_begin}, #{date_end}, `count`, actual_days) AS user_days
-      FROM
+        get_visit_days_in_period (
+          user_visits.arrives_at,
+          user_visits.departs_at,
+          #{date_begin},
+          #{date_end},
+          `count`,
+          actual_days
+        ) AS user_days
+        FROM
         user_visits
         INNER JOIN visits ON user_visits.visit_id = visits.id
         INNER JOIN projects ON visits.project_id = projects.id
       WHERE
         user_visits.status = 'Approved'
-        AND visits.status IN ('Approved', 'Pending Approval')
+        AND visits.status IN ('approved', 'in_review')
         AND projects.AnnualReportAccess = 1
         AND visits.report_access = 1
         AND user_visits.departs_at >= #{date_begin}
@@ -162,7 +169,7 @@ module TableauUsageQuery
         ) AS ClassUserCount,
         max(
           CASE project_type
-            WHEN 'Public' THEN CountAll
+            WHEN 'Public Use' THEN CountAll
           END
         ) AS PublicUserCount,
         max(
@@ -183,7 +190,7 @@ module TableauUsageQuery
         ) AS ClassUCDays,
         max(
           CASE project_type
-            WHEN 'Public' THEN DaysAll
+            WHEN 'Public Use' THEN DaysAll
           END
         ) AS PublicUCDays,
         max(
