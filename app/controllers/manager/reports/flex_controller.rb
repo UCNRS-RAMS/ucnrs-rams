@@ -1,6 +1,7 @@
 class Manager::Reports::FlexController < Manager::ApplicationController
   include ProjectFundingQuery
   include ReportAffiliationQuery
+  include ReportUserListByRoleQuery
   include TableauUsageQuery
   include TableauFacultyCountQuery
   include TableauUCFacultyCampusQuery
@@ -23,6 +24,7 @@ class Manager::Reports::FlexController < Manager::ApplicationController
     case filter&.dig(:project_status)
     when "funding" then data = project_funding(reserve: filter[:reserve], begin_date: filter[:date_begin], end_date: filter[:date_end])
     when "affiliation" then data = affiliation(reserve: filter[:reserve], date_begin: filter[:date_begin], date_end: filter[:date_end])
+    when "user_list_by_role" then data = user_list_by_role(reserve: filter[:reserve], date_begin: filter[:date_begin], date_end: filter[:date_end])
     when "tableau_usage" then data = tableau_usage(filter[:date_begin], filter[:date_end])
     when "tableau_faculty_count" then data = tableau_faculty_count(date_begin: filter[:date_begin], date_end: filter[:date_end])
     when "tableau_uc_faculty_campus" then data = tableau_uc_faculty_campus(date_begin: filter[:date_begin], date_end: filter[:date_end])

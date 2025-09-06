@@ -1049,6 +1049,29 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "7eba75ac3a43d7e1194fd13347dc6d53f5673d0e21c20c54e853bc4d4a6941e2",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/report_user_list_by_role_query.rb",
+      "line": 30,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "UserVisit.select(\"user_visits.user_id, user_visits.role, user_visits.institution_id\").left_outer_joins(:visit => :project).where(\"visits.reserve_id IN (\\n  SELECT CAST(j.id AS UNSIGNED) AS user_id\\n  FROM JSON_TABLE(\\n      CONCAT('[\\\"', REPLACE(#{(reserve.to_s or \"NULL\")}, ',', '\\\",\\\"'), '\\\"]'),\\n      '$[*]' COLUMNS (id VARCHAR(20) PATH '$')\\n  ) AS j\\n)\\nAND user_visits.departs_at >= #{(ActiveRecord::Base.sanitize_sql(\"'#{date_begin} 00:00:00'\") or \"NULL\")}\\nAND user_visits.arrives_at <= #{(ActiveRecord::Base.sanitize_sql(\"'#{date_end} 23:59:59'\") or \"NULL\")}\\nAND user_visits.status = 'Approved'\\nAND projects.AnnualReportAccess = 1\\nAND visits.report_access = 1\\nAND user_visits.user_id != 1\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ReportUserListByRoleQuery",
+        "method": "user_list_by_role"
+      },
+      "user_input": "reserve",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "853b18358ee3f30b3b3f0f73db6c4e634cbd435b6d5b817959781d990215c416",
       "check_name": "SQL",
       "message": "Possible SQL injection",
@@ -2363,6 +2386,6 @@
       "note": ""
     }
   ],
-  "updated": "2025-09-04 15:26:28 -0700",
+  "updated": "2025-09-05 16:18:17 -0700",
   "brakeman_version": "6.2.2"
 }
