@@ -420,29 +420,6 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
-      "fingerprint": "1d229228af391e2204775156f76a2752d269845f2b196bb8dd8a34d308e563a5",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/helpers/project_funding_query.rb",
-      "line": 14,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "Funding.select(\"fundings.*, visits.reserve_id\").left_outer_joins(:project => ([{ :visits => :user_visits }])).where(\"#{(\"visits.reserve_id = #{reserve}\" or \"visits.reserve_id = NULL\")}\\n        AND user_visits.arrives_at >= :start_date\\n        AND user_visits.departs_at <= :stop_date\\n        AND user_visits.status = 'Approved'\\n        AND projects.project_type = 'Research'\\n        AND projects.AnnualReportAccess = 1\\n        AND projects.status IN ('Open', 'Closed')\", :start_date => begin_date, :stop_date => end_date)",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "ProjectFundingQuery",
-        "method": "project_funding"
-      },
-      "user_input": "reserve",
-      "confidence": "Medium",
-      "cwe_id": [
-        89
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
       "fingerprint": "22bbf08d109738adef2dcac324e5800b846f175c6e1213f77599246d598ec364",
       "check_name": "SQL",
       "message": "Possible SQL injection",
@@ -2342,6 +2319,29 @@
     {
       "warning_type": "SQL Injection",
       "warning_code": 0,
+      "fingerprint": "fd0f7198fada263ad754ab1541735e0ec62cd548fce5497492fedd4a4682d892",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/project_funding_query.rb",
+      "line": 26,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Funding.select(\"fundings.*, visits.reserve_id\").left_outer_joins(:project => ([{ :visits => :user_visits }])).where(\"#{(\"visits.reserve_id = #{reserve}\" or \"visits.reserve_id = NULL\")}\\n        AND user_visits.departs_at >= #{(ActiveRecord::Base.sanitize_sql(\"'#{date_begin} 00:00:00'\") or \"NULL\")}\\n        AND user_visits.arrives_at <= #{(ActiveRecord::Base.sanitize_sql(\"'#{date_end} 23:59:59'\") or \"NULL\")}\\n        AND user_visits.status = 'Approved'\\n        AND projects.project_type = 'Research'\\n        AND projects.AnnualReportAccess = 1\\n        AND projects.status IN ('Open', 'Closed')\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ProjectFundingQuery",
+        "method": "project_funding"
+      },
+      "user_input": "reserve",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
       "fingerprint": "fd192b11c691de9705eda00e1dbc0f95e5f9bdddb6e84c8d1589bf87af4601fb",
       "check_name": "SQL",
       "message": "Possible SQL injection",
@@ -2386,6 +2386,6 @@
       "note": ""
     }
   ],
-  "updated": "2025-09-05 16:18:17 -0700",
+  "updated": "2025-09-06 00:36:42 -0700",
   "brakeman_version": "6.2.2"
 }

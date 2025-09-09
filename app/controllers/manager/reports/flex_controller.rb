@@ -22,7 +22,7 @@ class Manager::Reports::FlexController < Manager::ApplicationController
 
   def index
     case filter&.dig(:project_status)
-    when "funding" then data = project_funding(reserve: filter[:reserve], begin_date: filter[:date_begin], end_date: filter[:date_end])
+    when "funding" then data = project_funding(reserve: filter[:reserve], date_begin: filter[:date_begin], date_end: filter[:date_end])
     when "affiliation" then data = affiliation(reserve: filter[:reserve], date_begin: filter[:date_begin], date_end: filter[:date_end])
     when "user_list_by_role" then data = user_list_by_role(reserve: filter[:reserve], date_begin: filter[:date_begin], date_end: filter[:date_end])
     when "tableau_usage" then data = tableau_usage(filter[:date_begin], filter[:date_end])
