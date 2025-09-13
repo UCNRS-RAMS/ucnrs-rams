@@ -19,6 +19,7 @@ RSpec.describe "Home Index" do
       flow.visit_sign_in_page
       flow.sign_in_as(email: email, password: password)
       flow.visit_home_index_page
+      sleep(0.5)
       flow.dismiss_modal
       expect(flow).to be_on_home_index_page
       expect(flow).to have_active_home_tab
@@ -52,6 +53,7 @@ RSpec.describe "Home Index" do
       flow.visit_sign_in_page
       flow.sign_in_as(email: email, password: password)
       flow.visit_home_index_page
+      sleep(0.5)
       flow.dismiss_modal
       flow.click_calendar_button
 
@@ -69,6 +71,7 @@ RSpec.describe "Home Index" do
       flow.visit_sign_in_page
       flow.sign_in_as(email: email, password: password)
       flow.visit_home_index_page
+      sleep(0.5)
       flow.dismiss_modal
       flow.click_calendar_button
 
@@ -100,6 +103,7 @@ RSpec.describe "Home Index" do
       flow.visit_sign_in_page
       flow.sign_in_as(email: email, password: password)
       flow.visit_home_index_page
+      sleep(0.5)
       flow.dismiss_modal
       flow.click_calendar_button
       sleep(0.5)
@@ -129,6 +133,7 @@ RSpec.describe "Home Index" do
       flow.visit_sign_in_page
       flow.sign_in_as(email: email, password: password)
       flow.visit_home_index_page
+      sleep(0.5)
       flow.dismiss_modal
       flow.click_calendar_button
       sleep(0.5)
