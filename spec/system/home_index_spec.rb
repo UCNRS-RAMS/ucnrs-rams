@@ -30,6 +30,7 @@ RSpec.describe "Home Index" do
       expect(flow).to have_page_number_link(3)
       expect(page).to be_axe_clean
 
+
       flow.go_to_page(3)
       expect(flow).to have_displayed_visits(5)
       expect(flow).to have_pagination_link("first")
