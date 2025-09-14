@@ -14,16 +14,18 @@ class Manager::Reports::ReportPart4Presenter < Manager::Reports::ReportBasePrese
 
   def report_part4_data_scope
     Project
+      .of_type(:research)
       .joins(:visits)
       .merge(
         Visit
           .by_reserve(reserve_id)
+          .for_status(:approved)
           .where(report_access: true)
           .joins(:user_visits)
           .merge(
             UserVisit
               .approved_status
-              .having_between_time(date_start: start_date, date_end: stop_date)
+              .having_between_time(date_start: start_date, date_end: stop_date),
           )
       )
       .group(:id)

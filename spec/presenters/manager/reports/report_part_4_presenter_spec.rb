@@ -7,13 +7,13 @@ RSpec.describe Manager::Reports::ReportPart4Presenter do
       reserve1 = create(:reserve)
       visit1 = create(:visit,
         reserve: reserve1, report_access: true,
-        starts_at: 4.year.ago, ends_at: 4.year.from_now,
-        start_date: 4.year.ago.to_date, end_date: 4.year.from_now.to_date
+        starts_at: 4.years.ago, ends_at: 4.years.from_now,
+        start_date: 4.years.ago.to_date, end_date: 4.years.from_now.to_date
       )
       project1 = create(:project, visits: [visit1])
       create(:user_visit,
         visit: visit1,
-        arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :approved
+        arrives_at: 2.days.ago, departs_at: 1.day.ago, status: :approved
       )
       annual_report = double AnnualReport
       allow(annual_report).to receive(:reserve_id).and_return(reserve1.id)
@@ -53,21 +53,18 @@ RSpec.describe Manager::Reports::ReportPart4Presenter do
       reserve1 = create(:reserve)
       reserve2 = create(:reserve)
       reserve1_visit = create(:visit,
-        reserve: reserve1, report_access: true,
-        starts_at: 4.year.ago, ends_at: 4.year.from_now,
-        start_date: 4.year.ago.to_date, end_date: 4.year.from_now.to_date
-      )
+        reserve: reserve1, report_access: true, status: :approved,
+        starts_at: 4.years.ago, ends_at: 4.years.from_now,
+        start_date: 4.years.ago.to_date, end_date: 4.years.from_now.to_date)
       reserve2_visit = create(:visit,
-        reserve: reserve2, report_access: true,
-        starts_at: 4.year.ago, ends_at: 4.year.from_now,
-        start_date: 4.year.ago.to_date, end_date: 4.year.from_now.to_date
-      )
+        reserve: reserve2, report_access: true, status: :approved,
+        starts_at: 4.years.ago, ends_at: 4.years.from_now,
+        start_date: 4.years.ago.to_date, end_date: 4.years.from_now.to_date)
       project1 = create(:project, visits: [reserve1_visit])
       project2 = create(:project, visits: [reserve2_visit])
       create(:user_visit,
         visit: reserve1_visit,
-        arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :approved
-      )
+        arrives_at: 2.days.ago, departs_at: 1.day.ago, status: :approved)
       annual_report = double AnnualReport
       allow(annual_report).to receive(:reserve_id).and_return(reserve1.id)
       allow(annual_report).to receive(:fiscal_year_ending).and_return(Date.current.year)
@@ -79,28 +76,66 @@ RSpec.describe Manager::Reports::ReportPart4Presenter do
       expect(report_part4_data_scope).to match_array [project1]
     end
 
+    it "returns only research projects" do
+      travel_to Time.zone.local(2022, 2, 22)
+      reserve1 = create(:reserve)
+      project1 = create(:project, project_type: :research)
+      project2 = create(:project, project_type: :class)
+      project3 = create(:project, project_type: :research)
+      reserve1_visit1 = create(:visit, project: project1,
+        reserve: reserve1, report_access: true, status: :approved,
+        starts_at: 4.years.ago, ends_at: 4.years.from_now,
+        start_date: 4.years.ago.to_date, end_date: 4.years.from_now.to_date)
+      reserve1_visit2 = create(:visit, project: project2,
+        reserve: reserve1, report_access: true, status: :approved,
+        starts_at: 4.years.ago, ends_at: 4.years.from_now,
+        start_date: 4.years.ago.to_date, end_date: 4.years.from_now.to_date)
+      reserve1_visit3 = create(:visit, project: project3,
+        reserve: reserve1, report_access: true, status: :approved,
+        starts_at: 4.years.ago, ends_at: 4.years.from_now,
+        start_date: 4.years.ago.to_date, end_date: 4.years.from_now.to_date)
+      create(:user_visit,
+        visit: reserve1_visit1,
+        arrives_at: 2.days.ago, departs_at: 1.day.ago, status: :approved)
+      create(:user_visit,
+        visit: reserve1_visit2,
+        arrives_at: 2.days.ago, departs_at: 1.day.ago, status: :approved)
+      create(:user_visit,
+        visit: reserve1_visit3,
+        arrives_at: 2.days.ago, departs_at: 1.day.ago, status: :approved)
+      annual_report = double AnnualReport
+      allow(annual_report).to receive(:reserve_id).and_return(reserve1.id)
+      allow(annual_report).to receive(:fiscal_year_ending).and_return(Date.current.year)
+      form = AnnualReportForm.new(annual_report: annual_report)
+      presenter = Manager::Reports::ReportPart4Presenter.new(form: form)
+
+      report_part4_data_scope = presenter.report_part4_data_scope
+
+      expect(report_part4_data_scope).to match_array [project1, project3]
+    end
+
     it "returns only projects having having associated with visit with enabled report_access" do
       travel_to Time.zone.local(2022, 2, 22)
       reserve1 = create(:reserve)
       visit1 = create(:visit,
-        reserve: reserve1, report_access: false,
-        starts_at: 4.year.ago, ends_at: 4.year.from_now,
-        start_date: 4.year.ago.to_date, end_date: 4.year.from_now.to_date
+        reserve: reserve1, report_access: false, status: :approved,
+        starts_at: 4.years.ago, ends_at: 4.years.from_now,
+        start_date: 4.years.ago.to_date, end_date: 4.years.from_now.to_date
       )
       visit2 = create(:visit,
-        reserve: reserve1, report_access: true,
-        starts_at: 4.year.ago, ends_at: 4.year.from_now,
-        start_date: 4.year.ago.to_date, end_date: 4.year.from_now.to_date
+        reserve: reserve1, report_access: true, status: :approved,
+        starts_at: 4.years.ago, ends_at: 4.years.from_now,
+        start_date: 4.years.ago.to_date, end_date: 4.years.from_now.to_date
       )
       project1 = create(:project, visits: [visit1])
       project2 = create(:project, visits: [visit2])
       create(:user_visit,
         visit: visit1,
-        arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :approved
+        arrives_at: 2.days.ago, departs_at: 1.day.ago, status: :approved
       )
       create(:user_visit,
         visit: visit2,
-        arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :approved
+        arrives_at: 2.days.ago, departs_at: 1.day.ago, status: :approved
       )
       annual_report = double AnnualReport
       allow(annual_report).to receive(:reserve_id).and_return(reserve1.id)
@@ -117,24 +152,24 @@ RSpec.describe Manager::Reports::ReportPart4Presenter do
       travel_to Time.zone.local(2022, 2, 22)
       reserve1 = create(:reserve)
       visit1 = create(:visit,
-        reserve: reserve1, report_access: true,
-        starts_at: 4.year.ago, ends_at: 4.year.from_now,
-        start_date: 4.year.ago.to_date, end_date: 4.year.from_now.to_date
+        reserve: reserve1, report_access: true, status: :approved,
+        starts_at: 4.years.ago, ends_at: 4.years.from_now,
+        start_date: 4.years.ago.to_date, end_date: 4.years.from_now.to_date
       )
       visit2 = create(:visit,
-        reserve: reserve1, report_access: true,
-        starts_at: 4.year.ago, ends_at: 4.year.from_now,
-        start_date: 4.year.ago.to_date, end_date: 4.year.from_now.to_date
+        reserve: reserve1, report_access: true, status: :approved,
+        starts_at: 4.years.ago, ends_at: 4.years.from_now,
+        start_date: 4.years.ago.to_date, end_date: 4.years.from_now.to_date
       )
       project1 = create(:project, visits: [visit1])
       project2 = create(:project, visits: [visit2])
       create(:user_visit,
         visit: visit1,
-        arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :in_review
+        arrives_at: 2.days.ago, departs_at: 1.day.ago, status: :in_review
       )
       create(:user_visit,
         visit: visit2,
-        arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :approved
+        arrives_at: 2.days.ago, departs_at: 1.day.ago, status: :approved
       )
       annual_report = double AnnualReport
       allow(annual_report).to receive(:reserve_id).and_return(reserve1.id)
@@ -151,29 +186,29 @@ RSpec.describe Manager::Reports::ReportPart4Presenter do
       travel_to Time.zone.local(2022, 2, 22)
       reserve1 = create(:reserve)
       visit1 = create(:visit,
-        reserve: reserve1, report_access: true,
-        starts_at: 4.year.ago, ends_at: 4.year.from_now,
-        start_date: 4.year.ago.to_date, end_date: 4.year.from_now.to_date
+        reserve: reserve1, report_access: true, status: :approved,
+        starts_at: 4.years.ago, ends_at: 4.years.from_now,
+        start_date: 4.years.ago.to_date, end_date: 4.years.from_now.to_date
       )
       visit2 = create(:visit,
-        reserve: reserve1, report_access: true,
-        starts_at: 4.year.ago, ends_at: 4.year.from_now,
-        start_date: 4.year.ago.to_date, end_date: 4.year.from_now.to_date
+        reserve: reserve1, report_access: true, status: :approved,
+        starts_at: 4.years.ago, ends_at: 4.years.from_now,
+        start_date: 4.years.ago.to_date, end_date: 4.years.from_now.to_date
       )
       visit3 = create(:visit,
-        reserve: reserve1, report_access: true,
-        starts_at: 4.year.ago, ends_at: 4.year.from_now,
-        start_date: 4.year.ago.to_date, end_date: 4.year.from_now.to_date
+        reserve: reserve1, report_access: true, status: :approved,
+        starts_at: 4.years.ago, ends_at: 4.years.from_now,
+        start_date: 4.years.ago.to_date, end_date: 4.years.from_now.to_date
       )
       visit4 = create(:visit,
-        reserve: reserve1, report_access: true,
-        starts_at: 4.year.ago, ends_at: 4.year.from_now,
-        start_date: 4.year.ago.to_date, end_date: 4.year.from_now.to_date
+        reserve: reserve1, report_access: true, status: :approved,
+        starts_at: 4.years.ago, ends_at: 4.years.from_now,
+        start_date: 4.years.ago.to_date, end_date: 4.years.from_now.to_date
       )
       visit5 = create(:visit,
-        reserve: reserve1, report_access: true,
-        starts_at: 4.year.ago, ends_at: 4.year.from_now,
-        start_date: 4.year.ago.to_date, end_date: 4.year.from_now.to_date
+        reserve: reserve1, report_access: true, status: :approved,
+        starts_at: 4.years.ago, ends_at: 4.years.from_now,
+        start_date: 4.years.ago.to_date, end_date: 4.years.from_now.to_date
       )
       project1 = create(:project, visits: [visit1])
       project2 = create(:project, visits: [visit2])
@@ -182,19 +217,19 @@ RSpec.describe Manager::Reports::ReportPart4Presenter do
       project5 = create(:project, visits: [visit5])
       create(:user_visit,
         visit: visit1,
-        arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :approved
+        arrives_at: 2.days.ago, departs_at: 1.day.ago, status: :approved
       )
       create(:user_visit,
         visit: visit2,
-        arrives_at: 3.year.ago, departs_at: 2.year.ago, status: :approved
+        arrives_at: 3.years.ago, departs_at: 2.year.ago, status: :approved
       )
       create(:user_visit,
         visit: visit3,
-        arrives_at: 2.year.from_now, departs_at: 3.year.from_now, status: :approved
+        arrives_at: 2.year.from_now, departs_at: 3.years.from_now, status: :approved
       )
       create(:user_visit,
         visit: visit4,
-        arrives_at: 2.day.ago, departs_at: 2.year.from_now, status: :approved
+        arrives_at: 2.days.ago, departs_at: 2.year.from_now, status: :approved
       )
       create(:user_visit,
         visit: visit5,
