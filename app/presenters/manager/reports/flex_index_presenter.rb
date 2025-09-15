@@ -23,6 +23,7 @@ class Manager::Reports::FlexIndexPresenter
 
   def project_status_options
     {
+      "AR Part 3: Use by Instructional Groups" => "a_r_part_3",
       "Grant funding" => "funding",
       "User Affiliations" => "affiliation",
       "User List by Role" => "user_list_by_role",
@@ -66,5 +67,16 @@ class Manager::Reports::FlexIndexPresenter
 
   def stop_date
     @params&.dig(:date_end).presence
+  end
+
+  def project_user_details(project)
+    UserVisit
+      .joins(:visit)
+      .merge(
+        Visit.where(project: project),
+      )
+      .having_between_time(date_start: start_date, date_end: stop_date)
+      .group(:role)
+      .sum(:count)
   end
 end
