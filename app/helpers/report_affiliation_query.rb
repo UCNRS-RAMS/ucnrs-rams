@@ -1,12 +1,6 @@
 module ReportAffiliationQuery
   def affiliation(reserve: [], date_begin: nil, date_end: nil)
 
-    if defined?(request) && request&.session.present?
-      id = ActiveRecord::Base.sanitize_sql(request.session[:session_id])
-    else
-      id = SecureRandom.hex
-    end
-
     if reserve.present?
       reserve = reserve.to_s
     else

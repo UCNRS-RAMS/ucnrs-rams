@@ -1,4 +1,5 @@
 class Manager::Reports::FlexController < Manager::ApplicationController
+  include ARPart3Query
   include ProjectFundingQuery
   include ReportAffiliationQuery
   include ReportUserListByRoleQuery
@@ -22,6 +23,7 @@ class Manager::Reports::FlexController < Manager::ApplicationController
 
   def index
     case filter&.dig(:project_status)
+    when "a_r_part_3" then data = a_r_part_3(reserve: filter[:reserve], date_begin: filter[:date_begin], date_end: filter[:date_end])
     when "funding" then data = project_funding(reserve: filter[:reserve], date_begin: filter[:date_begin], date_end: filter[:date_end])
     when "affiliation" then data = affiliation(reserve: filter[:reserve], date_begin: filter[:date_begin], date_end: filter[:date_end])
     when "user_list_by_role" then data = user_list_by_role(reserve: filter[:reserve], date_begin: filter[:date_begin], date_end: filter[:date_end])

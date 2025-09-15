@@ -859,7 +859,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/helpers/report_affiliation_query.rb",
-      "line": 57,
+      "line": 51,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "Institution.find_by_sql(\"SELECT\\n  user_visits.institution_id,\\n  institutions.*\\nFROM\\n  user_visits\\n  INNER JOIN institutions ON user_visits.institution_id = institutions.id\\n  INNER JOIN visits ON user_visits.visit_id = visits.id\\n  INNER JOIN projects ON visits.project_id = projects.id\\nWHERE\\n  visits.reserve_id IN (\\n    SELECT CAST(j.id AS UNSIGNED) AS user_id\\n    FROM JSON_TABLE(\\n        CONCAT('[\\\"', REPLACE(#{(reserve.to_s or \"NULL\")}, ',', '\\\",\\\"'), '\\\"]'),\\n        '$[*]' COLUMNS (id VARCHAR(20) PATH '$')\\n    ) AS j\\n  )\\n  AND user_visits.departs_at >= #{(ActiveRecord::Base.sanitize_sql(\"'#{date_begin} 00:00:00'\") or \"NULL\")}\\n  AND user_visits.arrives_at <= #{(ActiveRecord::Base.sanitize_sql(\"'#{date_end} 23:59:59'\") or \"NULL\")}\\n  AND user_visits.status = 'Approved'\\n  AND projects.AnnualReportAccess = 1\\n  AND visits.report_access = 1\\nGROUP BY\\n  user_visits.institution_id\\nORDER BY\\n  institutions.institution_type,\\n  institutions.`name`;\\n\")",
       "render_path": null,
@@ -2117,6 +2117,29 @@
       "note": ""
     },
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "deee8a2322296bbb5c58b9d09012142c09a21e44dd48eeef53660201cc4655f7",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/helpers/a_r_part_3_query.rb",
+      "line": 32,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "Visit.with_report_access(true).where(\"visits.reserve_id IN (\\n  SELECT CAST(j.id AS UNSIGNED) AS user_id\\n  FROM JSON_TABLE(\\n      CONCAT('[\\\"', REPLACE(#{(reserve.to_s or \"NULL\")}, ',', '\\\",\\\"'), '\\\"]'),\\n      '$[*]' COLUMNS (id VARCHAR(20) PATH '$')\\n  ) AS j\\n)\\n\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ARPart3Query",
+        "method": "a_r_part_3"
+      },
+      "user_input": "reserve",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
       "fingerprint": "e0ae52756f1915b5f3fd96b888c99e7514d22cb7032bb02a6f6decf9d5a4deb8",
@@ -2386,6 +2409,6 @@
       "note": ""
     }
   ],
-  "updated": "2025-09-09 00:34:20 -0700",
+  "updated": "2025-09-15 14:43:52 -0700",
   "brakeman_version": "6.2.2"
 }
