@@ -17,37 +17,40 @@ RSpec.describe Manager::Reports::ReportPart8Presenter do
       reserve1 = create(:reserve)
       reserve2 = create(:reserve)
       reserve3 = create(:reserve)
-      project1 = create(:project, project_type: :public_use,
+      project1_owner = create(:user)
+      project2_owner = create(:user)
+      project3_owner = create(:user)
+      project1 = create(:project, project_type: :public_use, owner: project1_owner,
+        members: [project1_owner],
         visits: [
           create(:visit,
             reserve: reserve1, report_access: true,
-            starts_at: 4.year.ago, ends_at: 4.year.from_now,
             user_visits: [
-              create(:user_visit, arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :approved),
-            ]
-          ),
+              create(:user_visit, arrives_at: 2.days.ago, departs_at: 1.day.ago,
+                status: :approved),
+            ]),
         ]
       )
-      project2 = create(:project, project_type: :public_use,
+      project2 = create(:project, project_type: :public_use, owner: project2_owner,
+        members: [project2_owner],
         visits: [
           create(:visit,
             reserve: reserve2, report_access: true,
-            starts_at: 4.year.ago, ends_at: 4.year.from_now,
             user_visits: [
-              create(:user_visit, arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :approved),
-            ]
-          ),
+              create(:user_visit, arrives_at: 2.days.ago, departs_at: 1.day.ago,
+                status: :approved),
+            ]),
         ]
       )
-      project3 = create(:project, project_type: :public_use,
+      project3 = create(:project, project_type: :public_use, owner: project3_owner,
+        members: [project3_owner],
         visits: [
           create(:visit,
             reserve: reserve1, report_access: true,
-            starts_at: 4.year.ago, ends_at: 4.year.from_now,
             user_visits: [
-              create(:user_visit, arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :approved),
-            ]
-          ),
+              create(:user_visit, arrives_at: 2.days.ago, departs_at: 1.day.ago,
+                status: :approved),
+            ]),
         ]
       )
       annual_report1 = double AnnualReport
@@ -71,37 +74,37 @@ RSpec.describe Manager::Reports::ReportPart8Presenter do
     it "returns only projects with project_type public_use" do
       travel_to Time.zone.local(2022, 2, 22)
       reserve = create(:reserve)
-      project1 = create(:project, project_type: :public_use,
+      project1_owner = create(:user)
+      project2_owner = create(:user)
+      project3_owner = create(:user)
+      project1 = create(:project, project_type: :public_use, owner: project1_owner,
+        members: [project1_owner],
         visits: [
           create(:visit,
             reserve: reserve, report_access: true,
-            starts_at: 4.year.ago, ends_at: 4.year.from_now,
             user_visits: [
-              create(:user_visit, arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :approved),
-            ]
-          ),
+              create(:user_visit, arrives_at: 2.days.ago, departs_at: 1.day.ago, status: :approved),
+            ]),
         ]
       )
-      project2 = create(:project, project_type: :research,
+      project2 = create(:project, project_type: :research, owner: project2_owner,
+        members: [project2_owner],
         visits: [
           create(:visit,
             reserve: reserve, report_access: true,
-            starts_at: 4.year.ago, ends_at: 4.year.from_now,
             user_visits: [
-              create(:user_visit, arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :approved),
-            ]
-          ),
+              create(:user_visit, arrives_at: 2.days.ago, departs_at: 1.day.ago, status: :approved),
+            ]),
         ]
       )
-      project3 = create(:project, project_type: :public_use,
+      project3 = create(:project, project_type: :public_use, owner: project3_owner,
+        members: [project3_owner],
         visits: [
           create(:visit,
             reserve: reserve, report_access: true,
-            starts_at: 4.year.ago, ends_at: 4.year.from_now,
             user_visits: [
-              create(:user_visit, arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :approved),
-            ]
-          ),
+              create(:user_visit, arrives_at: 2.days.ago, departs_at: 1.day.ago, status: :approved),
+            ]),
         ]
       )
       annual_report = double AnnualReport
@@ -118,48 +121,48 @@ RSpec.describe Manager::Reports::ReportPart8Presenter do
     it "returns only projects having associated with approved status user_visits" do
       travel_to Time.zone.local(2022, 2, 22)
       reserve = create(:reserve)
-      project1 = create(:project, project_type: :public_use,
+      project1_owner = create(:user)
+      project2_owner = create(:user)
+      project3_owner = create(:user)
+      project4_owner = create(:user)
+      project1 = create(:project, project_type: :public_use, owner: project1_owner,
+        members: [project1_owner],
         visits: [
           create(:visit,
             reserve: reserve, report_access: true,
-            starts_at: 4.year.ago, ends_at: 4.year.from_now,
             user_visits: [
-              create(:user_visit, arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :cancelled),
-            ]
-          ),
+              create(:user_visit, arrives_at: 2.days.ago, departs_at: 1.day.ago, status: :cancelled),
+            ]),
         ]
       )
-      project2 = create(:project, project_type: :public_use,
+      project2 = create(:project, project_type: :public_use, owner: project2_owner,
+        members: [project2_owner],
         visits: [
           create(:visit,
             reserve: reserve, report_access: true,
-            starts_at: 4.year.ago, ends_at: 4.year.from_now,
             user_visits: [
-              create(:user_visit, arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :approved),
-            ]
-          ),
+              create(:user_visit, arrives_at: 2.days.ago, departs_at: 1.day.ago, status: :approved),
+            ]),
         ]
       )
-      project3 = create(:project, project_type: :public_use,
+      project3 = create(:project, project_type: :public_use, owner: project3_owner,
+        members: [project3_owner],
         visits: [
           create(:visit,
             reserve: reserve, report_access: true,
-            starts_at: 4.year.ago, ends_at: 4.year.from_now,
             user_visits: [
-              create(:user_visit, arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :denied),
-            ]
-          ),
+              create(:user_visit, arrives_at: 2.days.ago, departs_at: 1.day.ago, status: :denied),
+            ]),
         ]
       )
-      project4 = create(:project, project_type: :public_use,
+      project4 = create(:project, project_type: :public_use, owner: project4_owner,
+        members: [project4_owner],
         visits: [
           create(:visit,
             reserve: reserve, report_access: true,
-            starts_at: 4.year.ago, ends_at: 4.year.from_now,
             user_visits: [
-              create(:user_visit, arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :in_review),
-            ]
-          ),
+              create(:user_visit, arrives_at: 2.days.ago, departs_at: 1.day.ago, status: :in_review),
+            ]),
         ]
       )
       annual_report = double AnnualReport
@@ -176,45 +179,60 @@ RSpec.describe Manager::Reports::ReportPart8Presenter do
     it "returns only projects having user_visits arrives_at and departs_at within the annual_report fiscal dates" do
       travel_to Time.zone.local(2022, 2, 22)
       reserve = create(:reserve)
-      project1 = create(:project, project_type: :public_use)
-      project1_visit = create(:visit, project: project1, reserve: reserve,
-        report_access: true,
-        starts_at: 4.year.ago, ends_at: 4.year.from_now,
+      project1_owner = create(:user)
+      project2_owner = create(:user)
+      project3_owner = create(:user)
+      project4_owner = create(:user)
+      project5_owner = create(:user)
+      project1 = create(:project, project_type: :public_use,
+        owner: project1_owner, members: [project1_owner],
+        visits: [
+          create(:visit,
+            reserve: reserve, report_access: true,
+            user_visits: [
+              create(:user_visit, arrives_at: 2.days.ago, departs_at: 1.day.ago, status: :approved),
+            ]),
+        ]
       )
-      create(:user_visit, visit: project1_visit,
-        arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :approved
+      project2 = create(:project, project_type: :public_use,
+        owner: project2_owner, members: [project2_owner],
+        visits: [
+          create(:visit,
+            reserve: reserve, report_access: true,
+            user_visits: [
+              create(:user_visit, arrives_at: 3.years.ago, departs_at: 2.years.ago, status: :approved),
+            ]),
+        ]
       )
-      project2 = create(:project, project_type: :public_use)
-      project2_visit = create(:visit, project: project2, reserve: reserve,
-        report_access: true,
-        starts_at: 4.year.ago, ends_at: 4.year.from_now,
+      project3 = create(:project, project_type: :public_use,
+        owner: project3_owner, members: [project3_owner],
+        visits: [
+          create(:visit,
+            reserve: reserve, report_access: true,
+            user_visits: [
+              create(:user_visit, arrives_at: 2.years.from_now, departs_at: 3.years.from_now, status: :approved),
+            ]),
+        ]
       )
-      create(:user_visit, visit: project2_visit,
-        arrives_at: 3.year.ago, departs_at: 2.year.ago, status: :approved
+      project4 = create(:project, project_type: :public_use,
+        owner: project4_owner, members: [project4_owner],
+        visits: [
+          create(:visit,
+            reserve: reserve, report_access: true,
+            user_visits: [
+              create(:user_visit, arrives_at: 2.days.ago, departs_at: 2.years.from_now, status: :approved),
+            ]),
+        ]
       )
-      project3 = create(:project, project_type: :public_use)
-      project3_visit = create(:visit, project: project3, reserve: reserve,
-        report_access: true,
-        starts_at: 4.year.ago, ends_at: 4.year.from_now,
-      )
-      create(:user_visit, visit: project3_visit,
-        arrives_at: 2.year.from_now, departs_at: 3.year.from_now, status: :approved
-      )
-      project4 = create(:project, project_type: :public_use)
-      project4_visit = create(:visit, project: project4, reserve: reserve,
-        report_access: true,
-        starts_at: 4.year.ago, ends_at: 4.year.from_now,
-      )
-      create(:user_visit, visit: project4_visit,
-        arrives_at: 2.day.ago, departs_at: 2.year.from_now, status: :approved
-      )
-      project5 = create(:project, project_type: :public_use)
-      project5_visit = create(:visit, project: project5, reserve: reserve,
-        report_access: true,
-        starts_at: 4.year.ago, ends_at: 4.year.from_now,
-      )
-      create(:user_visit, visit: project5_visit,
-        arrives_at: 2.year.ago, departs_at: 1.day.ago, status: :approved
+      project5 = create(:project, project_type: :public_use,
+        owner: project5_owner, members: [project5_owner],
+        visits: [
+          create(:visit,
+            reserve: reserve, report_access: true,
+            user_visits: [
+              create(:user_visit, arrives_at: 2.years.ago, departs_at: 1.day.ago, status: :approved),
+            ]),
+        ]
       )
       annual_report = double AnnualReport
       allow(annual_report).to receive(:fiscal_year_ending).and_return(Date.current.year)
@@ -230,36 +248,33 @@ RSpec.describe Manager::Reports::ReportPart8Presenter do
     it "returns only institutions having associated with report_access=true visits through user_visit " do
       travel_to Time.zone.local(2022, 2, 22)
       reserve = create(:reserve)
-      project1 = create(:project, project_type: :public_use,
+      project1_owner = create(:user)
+      project2_owner = create(:user)
+      project1 = create(:project, project_type: :public_use, owner: project1_owner,
+        members: [project1_owner],
         visits: [
           create(:visit,
             reserve: reserve, report_access: false,
-            starts_at: 4.year.ago, ends_at: 4.year.from_now,
             user_visits: [
-              create(:user_visit, arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :approved),
-            ]
-          ),
+              create(:user_visit, arrives_at: 2.days.ago, departs_at: 1.day.ago, status: :approved),
+            ]),
         ]
       )
-      project2 = create(:project, project_type: :public_use,
+      project2 = create(:project, project_type: :public_use, owner: project2_owner,
+        members: [project2_owner],
         visits: [
           create(:visit,
             reserve: reserve, report_access: true,
-            starts_at: 4.year.ago, ends_at: 4.year.from_now,
             user_visits: [
-              create(:user_visit, arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :approved),
-            ]
-          ),
+              create(:user_visit, arrives_at: 2.days.ago, departs_at: 1.day.ago, status: :approved),
+            ]),
           create(:visit,
             reserve: reserve, report_access: false,
-            starts_at: 4.year.ago, ends_at: 4.year.from_now,
             user_visits: [
-              create(:user_visit, arrives_at: 2.day.ago, departs_at: 1.day.ago, status: :approved),
-            ]
-          ),
+              create(:user_visit, arrives_at: 2.days.ago, departs_at: 1.day.ago, status: :approved),
+            ]),
         ]
       )
-      project3 = create(:project)
       annual_report = double AnnualReport
       allow(annual_report).to receive(:fiscal_year_ending).and_return(Date.current.year)
       allow(annual_report).to receive(:reserve_id).and_return(reserve.id)
