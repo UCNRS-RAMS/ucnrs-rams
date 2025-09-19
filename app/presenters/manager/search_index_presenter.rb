@@ -34,6 +34,7 @@ class Manager::SearchIndexPresenter
         date_end: filter&.dig(:date_end),
       )
       .having_visitor_with_status(filter&.dig(:visit_status))
+      .group(:id)
       .page(page)
       .per(DEFAULT_LIMIT_FOR_INDEX)
       .includes([:reserve, :user, :project])
