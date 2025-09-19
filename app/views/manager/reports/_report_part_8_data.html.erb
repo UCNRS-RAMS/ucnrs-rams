@@ -14,7 +14,7 @@
       <% projects.each do |project|  %>
         <tr class="text-muted">
           <td><%= link_to project.title, manager_reserve_project_path(current_reserve, project.id) %></td>
-          <td><%= project.owner_institution.name %></td>
+          <td><%= project.institution_name %></td>
           <td><%= t("universal.roles.#{ProjectTeamMembership.user_roles.key(project.user_role)}") %></td>
         </tr>
       <% end %>
