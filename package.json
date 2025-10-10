@@ -7,10 +7,10 @@
   },
   "dependencies": {
     "@babel/core": "7",
-    "@babel/plugin-transform-typescript": "^7.15.0",
-    "@babel/preset-typescript": "^7.23.2",
     "@babel/plugin-transform-runtime": "7",
+    "@babel/plugin-transform-typescript": "^7.15.0",
     "@babel/preset-env": "7",
+    "@babel/preset-typescript": "^7.23.2",
     "@babel/runtime": "7",
     "@hotwired/stimulus": "^3.0.1",
     "@hotwired/stimulus-webpack-helpers": "^1.0.1",
@@ -20,20 +20,20 @@
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "babel-loader": "8",
+    "chart.js": "4.4.9",
+    "chartkick": "^5.0.1",
     "compression-webpack-plugin": "9",
+    "fork-ts-checker-webpack-plugin": "^9.0.2",
     "pnp-webpack-plugin": "1",
     "shakapacker": "6",
+    "stimulus-autocomplete": "^3.0.0-rc.5",
     "terser-webpack-plugin": "5",
+    "trix": "^2.0.2",
+    "typescript": "^5.2.2",
     "webpack": "5",
     "webpack-assets-manifest": "5",
     "webpack-cli": "4",
-    "webpack-merge": "5",
-    "chart.js": "4.3.1",
-    "chartkick": "^5.0.1",
-    "fork-ts-checker-webpack-plugin": "^9.0.2",
-    "stimulus-autocomplete": "^3.0.0-rc.5",
-    "trix": "^2.0.2",
-    "typescript": "^5.2.2"
+    "webpack-merge": "5"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",
@@ -49,7 +49,12 @@
       "./node_modules/shakapacker/package/babel/preset.js"
     ],
     "plugins": [
-      ["@babel/plugin-transform-typescript", { "allowDeclareFields": true }]
+      [
+        "@babel/plugin-transform-typescript",
+        {
+          "allowDeclareFields": true
+        }
+      ]
     ]
   },
   "browserslist": [
