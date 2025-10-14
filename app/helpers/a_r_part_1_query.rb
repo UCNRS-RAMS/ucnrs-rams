@@ -11,13 +11,13 @@ module ARPart1Query
     end
 
     if date_begin.present?
-      date_begin = ActiveRecord::Base.sanitize_sql("#{date_begin} 00:00:00")
+      date_begin = ActiveRecord::Base.sanitize_sql("'#{date_begin} 00:00:00'")
     else
       date_begin = "NULL"
     end
 
     if date_end.present?
-      date_end = ActiveRecord::Base.sanitize_sql("#{date_end} 23:59:59")
+      date_end = ActiveRecord::Base.sanitize_sql("'#{date_end} 23:59:59'")
     else
       date_end = "NULL"
     end
@@ -115,8 +115,8 @@ module ARPart1Query
             OR visits.`status`        = 'in_review'
           )
           AND visits.report_access    = 1
-          AND user_visits.departs_at  >= '#{date_begin}'
-          AND user_visits.arrives_at  <= '#{date_end}'
+          AND user_visits.departs_at  >= #{date_begin}
+          AND user_visits.arrives_at  <= #{date_end}
           AND visits.reserve_id       = #{reserve&.id};
       end_sql
 
@@ -177,8 +177,8 @@ module ARPart1Query
             get_visit_days_in_period(
               user_visits.arrives_at,
               user_visits.departs_at,
-              '#{date_begin}',
-              '#{date_end}',
+              #{date_begin},
+              #{date_end},
               user_visits.count,
               user_visits.actual_days
             ),
@@ -190,8 +190,8 @@ module ARPart1Query
             get_visit_days_in_period(
               user_visits.arrives_at,
               user_visits.departs_at,
-              '#{date_begin}',
-              '#{date_end}',
+              #{date_begin},
+              #{date_end},
               user_visits.count,
               user_visits.actual_days
             ),
@@ -203,8 +203,8 @@ module ARPart1Query
             get_visit_days_in_period(
               user_visits.arrives_at,
               user_visits.departs_at,
-              '#{date_begin}',
-              '#{date_end}',
+              #{date_begin},
+              #{date_end},
               user_visits.count,
               user_visits.actual_days
             )
@@ -214,8 +214,8 @@ module ARPart1Query
             get_visit_days_in_period(
               user_visits.arrives_at,
               user_visits.departs_at,
-              '#{date_begin}',
-              '#{date_end}',
+              #{date_begin},
+              #{date_end},
               user_visits.count,
               user_visits.actual_days
             )
@@ -225,8 +225,8 @@ module ARPart1Query
             get_visit_days_in_period(
               user_visits.arrives_at,
               user_visits.departs_at,
-              '#{date_begin}',
-              '#{date_end}',
+              #{date_begin},
+              #{date_end},
               user_visits.count,
               user_visits.actual_days
             )
@@ -236,8 +236,8 @@ module ARPart1Query
             get_visit_days_in_period(
               user_visits.arrives_at,
               user_visits.departs_at,
-              '#{date_begin}',
-              '#{date_end}',
+              #{date_begin},
+              #{date_end},
               user_visits.count,
               user_visits.actual_days
             )
@@ -247,8 +247,8 @@ module ARPart1Query
             get_visit_days_in_period(
               user_visits.arrives_at,
               user_visits.departs_at,
-              '#{date_begin}',
-              '#{date_end}',
+              #{date_begin},
+              #{date_end},
               user_visits.count,
               user_visits.actual_days
             )
@@ -258,8 +258,8 @@ module ARPart1Query
             get_visit_days_in_period(
               user_visits.arrives_at,
               user_visits.departs_at,
-              '#{date_begin}',
-              '#{date_end}',
+              #{date_begin},
+              #{date_end},
               user_visits.count,
               user_visits.actual_days
             )
@@ -269,8 +269,8 @@ module ARPart1Query
             get_visit_days_in_period(
               user_visits.arrives_at,
               user_visits.departs_at,
-              '#{date_begin}',
-              '#{date_end}',
+              #{date_begin},
+              #{date_end},
               user_visits.count,
               user_visits.actual_days
             )
@@ -280,8 +280,8 @@ module ARPart1Query
             get_visit_days_in_period(
               user_visits.arrives_at,
               user_visits.departs_at,
-              '#{date_begin}',
-              '#{date_end}',
+              #{date_begin},
+              #{date_end},
               user_visits.count,
               user_visits.actual_days
             )
@@ -291,8 +291,8 @@ module ARPart1Query
             get_visit_days_in_period(
               user_visits.arrives_at,
               user_visits.departs_at,
-              '#{date_begin}',
-              '#{date_end}',
+              #{date_begin},
+              #{date_end},
               user_visits.count,
               user_visits.actual_days
             )
@@ -302,8 +302,8 @@ module ARPart1Query
             get_visit_days_in_period(
               user_visits.arrives_at,
               user_visits.departs_at,
-              '#{date_begin}',
-              '#{date_end}',
+              #{date_begin},
+              #{date_end},
               user_visits.count,
               user_visits.actual_days
             )
@@ -311,8 +311,8 @@ module ARPart1Query
           get_visit_days_in_period(
             user_visits.arrives_at,
             user_visits.departs_at,
-            '#{date_begin}',
-            '#{date_end}',
+            #{date_begin},
+            #{date_end},
             user_visits.count,
             user_visits.actual_days
           )                                        AS All1
@@ -328,8 +328,8 @@ module ARPart1Query
             OR visits.`status`        = 'in_review'
           )
           AND visits.report_access    = 1
-          AND user_visits.departs_at  >= '#{date_begin}'
-          AND user_visits.arrives_at  <= '#{date_end}'
+          AND user_visits.departs_at  >= #{date_begin}
+          AND user_visits.arrives_at  <= #{date_end}
           AND visits.reserve_id       = #{reserve&.id};
       end_sql
 
