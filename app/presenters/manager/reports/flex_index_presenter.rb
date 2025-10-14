@@ -23,6 +23,7 @@ class Manager::Reports::FlexIndexPresenter
 
   def project_status_options
     {
+      "AR Part 1: Reserve Use" => "a_r_part_1",
       "AR Part 3: Use by Instructional Groups" => "a_r_part_3",
       "Grant funding" => "funding",
       "User Affiliations" => "affiliation",
