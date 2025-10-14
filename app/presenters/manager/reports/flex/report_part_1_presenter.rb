@@ -11,12 +11,12 @@ class Manager::Reports::Flex::ReportPart1Presenter
 
   def report_part1
     @report_part1 ||= report_part1_data
-      .map { |row| Manager::Reports::ReportPart1RowPresenter.new(row) }
-      .group_by { |row| row["project_type"] }
+      &.map { |row| Manager::Reports::ReportPart1RowPresenter.new(row) }
+      &.group_by { |row| row["project_type"] }
   end
 
   def row_total
-    report_part1["TOTAL"]&.first
+    report_part1&.dig("TOTAL")&.first
   end
 
   def report_part1_columns

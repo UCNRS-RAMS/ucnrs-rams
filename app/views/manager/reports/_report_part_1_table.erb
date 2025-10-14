@@ -1,68 +1,70 @@
-<table class="annual-report">
-  <colgroup>
-    <col class="first-col" span="1" />
-    <col class="body-col" span="24" />
-    <col class="subtotal-col" span="2" />
-  </colgroup>
+<% if presenter.report_part1.present? %>
+  <table class="annual-report">
+    <colgroup>
+      <col class="first-col" span="1" />
+      <col class="body-col" span="24" />
+      <col class="subtotal-col" span="2" />
+    </colgroup>
 
-  <% presenter.report_part1.except("TOTAL").each do | project_type, rows | %>
-    <thead>
-      <tr>
-        <%= tag.th "&nbsp;".html_safe %>
-        <%= tag.th link_to(t(".uc_home"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: current_reserve.managing_campus.id, date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
-        <%= tag.th link_to(t(".uc_other"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "university_of_california", exclude_reserve_institution: 1, date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
-        <%= tag.th link_to(t(".csu_system"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "california_state_university_system", date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
-        <%= tag.th link_to(t(".ca_community_college"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "california_community_college", date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
-        <%= tag.th link_to(t(".ca_other_college"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "other_california_university_or_college", date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
-        <%= tag.th link_to(t(".out_of_state_college"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "non_california_us_university_or_college", date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
-        <%= tag.th link_to(t(".international_university"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "international_university_or_college", date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
-        <%= tag.th link_to(t(".k12_school"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "k_12_education", date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
-        <%= tag.th link_to(t(".ngo_non_profit"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "non_governmental_organization_or_entity", date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
-        <%= tag.th link_to(t(".government"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "governmental_organization_or_entity", date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
-        <%= tag.th link_to(t(".business_entity"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "business_entity", date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
-        <%= tag.th link_to(t(".other"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "individual_or_other_entity", date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
-        <%= tag.th t(".total"), colspan: 2 %>
-      </tr>
-      <tr>
-        <%= tag.th %>
-        <% 13.times do %>
-          <%= tag.th t(".users") %><%= tag.th t(".user_days") %>
-        <% end %>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="group-header">
-        <%= tag.th project_type, colspan: 27 %>
-      </tr>
-      <% rows.each do | row | %>
-        <%= tag.tr class: ("row-subtotal" if row.role.downcase == "subtotal") do %>
-          <%= tag.td link_to(row.role, manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), user_type: row.user_role_key, date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), class: "col-1" %>
+    <% presenter.report_part1.except("TOTAL").each do | project_type, rows | %>
+      <thead>
+        <tr>
+          <%= tag.th "&nbsp;".html_safe %>
+          <%= tag.th link_to(t(".uc_home"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: current_reserve.managing_campus.id, date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
+          <%= tag.th link_to(t(".uc_other"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "university_of_california", exclude_reserve_institution: 1, date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
+          <%= tag.th link_to(t(".csu_system"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "california_state_university_system", date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
+          <%= tag.th link_to(t(".ca_community_college"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "california_community_college", date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
+          <%= tag.th link_to(t(".ca_other_college"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "other_california_university_or_college", date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
+          <%= tag.th link_to(t(".out_of_state_college"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "non_california_us_university_or_college", date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
+          <%= tag.th link_to(t(".international_university"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "international_university_or_college", date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
+          <%= tag.th link_to(t(".k12_school"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "k_12_education", date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
+          <%= tag.th link_to(t(".ngo_non_profit"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "non_governmental_organization_or_entity", date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
+          <%= tag.th link_to(t(".government"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "governmental_organization_or_entity", date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
+          <%= tag.th link_to(t(".business_entity"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "business_entity", date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
+          <%= tag.th link_to(t(".other"), manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), institution_type: "individual_or_other_entity", date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), colspan: 2 %>
+          <%= tag.th t(".total"), colspan: 2 %>
+        </tr>
+        <tr>
+          <%= tag.th %>
+          <% 13.times do %>
+            <%= tag.th t(".users") %><%= tag.th t(".user_days") %>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="group-header">
+          <%= tag.th project_type, colspan: 27 %>
+        </tr>
+        <% rows.each do | row | %>
+          <%= tag.tr class: ("row-subtotal" if row.role.downcase == "subtotal") do %>
+            <%= tag.td link_to(row.role, manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), user_type: row.user_role_key, date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })), class: "col-1" %>
 
-          <% presenter.report_part1_columns.each_with_index do |column, index| %>
-            <% if index %2 == 0 && column == "CountUCHome" %>
-              <%= tag.td link_to(row[column], manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), user_type: row.user_role_key, institution_type: current_reserve.managing_campus.id, date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })) %>
-            <% elsif index %2 == 0 && column == "CountUCAway" %>
-              <%= tag.td link_to(row[column], manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), user_type: row.user_role_key, institution_type: presenter.inst_type_translate(column), exclude_reserve_institution: 1, date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })) %>
-            <% elsif index %2 == 0 %>
-              <%= tag.td link_to(row[column], manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), user_type: row.user_role_key, institution_type: presenter.inst_type_translate(column), date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })) %>
-            <% else %>
-              <%= tag.td row[column] %>
+            <% presenter.report_part1_columns.each_with_index do |column, index| %>
+              <% if index %2 == 0 && column == "CountUCHome" %>
+                <%= tag.td link_to(row[column], manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), user_type: row.user_role_key, institution_type: current_reserve.managing_campus.id, date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })) %>
+              <% elsif index %2 == 0 && column == "CountUCAway" %>
+                <%= tag.td link_to(row[column], manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), user_type: row.user_role_key, institution_type: presenter.inst_type_translate(column), exclude_reserve_institution: 1, date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })) %>
+              <% elsif index %2 == 0 %>
+                <%= tag.td link_to(row[column], manager_reserve_search_index_path(current_reserve, filter: { visit_project_type: project_type.parameterize(separator: "_"), user_type: row.user_role_key, institution_type: presenter.inst_type_translate(column), date_begin: presenter.report_begin_date, date_end: presenter.report_end_date, visit_status: "approved", report_access: true })) %>
+              <% else %>
+                <%= tag.td row[column] %>
+              <% end %>
             <% end %>
           <% end %>
         <% end %>
-      <% end %>
 
-      <tr class="spacer"><td>&nbsp;</td></tr>
-      <tr class="spacer"><td>&nbsp;</td></tr>
-    </tbody>
-  <% end %>
+        <tr class="spacer"><td>&nbsp;</td></tr>
+        <tr class="spacer"><td>&nbsp;</td></tr>
+      </tbody>
+    <% end %>
 
-  <% if presenter.row_total.present? %>
-    <%= tag.tr class: "row-total" do %>
-      <%= tag.td t(".total"), class: "col-1" %>
-      <% presenter.report_part1_columns.each do |column| %>
-        <%= tag.td presenter.row_total[column] %>
+    <% if presenter.row_total.present? %>
+      <%= tag.tr class: "row-total" do %>
+        <%= tag.td t(".total"), class: "col-1" %>
+        <% presenter.report_part1_columns.each do |column| %>
+          <%= tag.td presenter.row_total[column] %>
+        <% end %>
       <% end %>
     <% end %>
-  <% end %>
-</table>
+  </table>
+<% end %>
