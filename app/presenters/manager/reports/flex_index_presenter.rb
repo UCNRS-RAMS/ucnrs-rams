@@ -14,7 +14,7 @@ class Manager::Reports::FlexIndexPresenter
   attr_reader :reserve, :page, :filter
 
   def html
-    @params&.dig(:project_status) || "blank"
+    @params&.dig(:project_status).presence || "blank"
   end
 
   def data
