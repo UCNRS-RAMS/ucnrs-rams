@@ -30,7 +30,9 @@ body {
   @include input_default;
   @include dropdown;
 
+  background-color: $white;
   border: 0;
+  color: $navy-blue;
   display: flex;
   flex-direction: column;
   font-family: $sora, $sans-serif;
