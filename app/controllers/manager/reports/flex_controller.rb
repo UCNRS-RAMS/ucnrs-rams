@@ -1,8 +1,8 @@
 class Manager::Reports::FlexController < Manager::ApplicationController
   include ARPart1Query
+  include ReportAffiliationQuery
   include ARPart3Query
   include ProjectFundingQuery
-  include ReportAffiliationQuery
   include ReportUserListByRoleQuery
   include TableauUsageQuery
   include TableauFacultyCountQuery
@@ -27,9 +27,9 @@ class Manager::Reports::FlexController < Manager::ApplicationController
     when "a_r_part_1"
       data = a_r_part_1(reserve: filter[:reserve], date_begin: filter[:date_begin], date_end: filter[:date_end])
       data = Manager::Reports::Flex::ReportPart1Presenter.new(report_part1_data: data, date_begin: filter[:date_begin], date_end: filter[:date_end])
+    when "affiliation" then data = affiliation(reserve: filter[:reserve], date_begin: filter[:date_begin], date_end: filter[:date_end])
     when "a_r_part_3" then data = a_r_part_3(reserve: filter[:reserve], date_begin: filter[:date_begin], date_end: filter[:date_end])
     when "funding" then data = project_funding(reserve: filter[:reserve], date_begin: filter[:date_begin], date_end: filter[:date_end])
-    when "affiliation" then data = affiliation(reserve: filter[:reserve], date_begin: filter[:date_begin], date_end: filter[:date_end])
     when "user_list_by_role" then data = user_list_by_role(reserve: filter[:reserve], date_begin: filter[:date_begin], date_end: filter[:date_end])
     when "tableau_usage" then data = tableau_usage(filter[:date_begin], filter[:date_end])
     when "tableau_faculty_count" then data = tableau_faculty_count(date_begin: filter[:date_begin], date_end: filter[:date_end])

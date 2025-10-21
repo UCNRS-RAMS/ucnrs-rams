@@ -24,9 +24,9 @@ class Manager::Reports::FlexIndexPresenter
   def project_status_options
     {
       "AR Part 1: Reserve Use" => "a_r_part_1",
+      "AR Part 2: User Affiliation" => "affiliation",
       "AR Part 3: Use by Instructional Groups" => "a_r_part_3",
       "Grant funding" => "funding",
-      "User Affiliations" => "affiliation",
       "User List by Role" => "user_list_by_role",
       "Tableau #1,2,3 Reserve Users and User Days" => "tableau_usage",
       "Tableau #5 Faculty Count - All Institutions" => "tableau_faculty_count",
