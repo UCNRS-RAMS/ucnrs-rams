@@ -188,4 +188,8 @@ Rails.application.routes.draw do
       resources :search, only: [:index]
     end
   end
+
+  namespace :admin do
+    resources :reports, only: [:index]
+  end
 end
