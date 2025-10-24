@@ -17,6 +17,14 @@ class ApplicationController < ActionController::Base
     redirect_to root_url and return false
   end
 
+  def confirm_admin!
+    return true if super_admin?
+
+    respond_to_modal_turbo_frame(
+      flash_msg: "You are not an admin",
+    )
+  end
+
   def super_admin?
     current_user.admin?
   end
@@ -34,6 +42,21 @@ class ApplicationController < ActionController::Base
 
   def turbo_frame_request_variant
     request.variant = :turbo_frame if turbo_frame_request?
+  end
+
+  def respond_to_modal_turbo_frame(flash_msg: nil)
+    respond_to do |format|
+      format.html do |variant|
+        variant.turbo_frame {
+          flash.now[:alert] = flash_msg
+          render partial: "modals/flash", status: :unprocessable_entity and return
+        }
+        variant.none {
+          flash[:alert] = flash_msg
+          redirect_back fallback_location: root_url and return
+        }
+      end
+    end
   end
 
   def validate_user_as_visit_project_member!

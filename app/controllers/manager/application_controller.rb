@@ -25,21 +25,6 @@ class Manager::ApplicationController < ApplicationController
 
   private
 
-  def respond_to_modal_turbo_frame(flash_msg: nil)
-    respond_to do |format|
-      format.html do |variant|
-        variant.turbo_frame {
-          flash.now[:alert] = flash_msg
-          render partial: "modals/flash", status: :unprocessable_entity and return
-        }
-        variant.none {
-          flash[:alert] = flash_msg
-          redirect_back fallback_location: root_url and return
-        }
-      end
-    end
-  end
-
   def user
     params[:user_id].present? ? User.find_by(id: params[:user_id]) : current_user
   end

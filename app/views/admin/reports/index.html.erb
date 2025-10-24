@@ -1,0 +1,30 @@
+<h1>Fiscal 2024-2025 Annual Report</h1>
+
+<table border="1" style="width: 100%;">
+  <thead>
+    <tr>
+      <td>RESERVE</td>
+      <td>Part 1</td>
+      <td>Part 2</td>
+      <td>Part 3</td>
+      <td>Part 4</td>
+      <td>Part 5</td>
+      <td>Part 6</td>
+      <td>Part 7</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @presenter.each do |ar_report| %>
+      <tr>
+        <%= tag.td ar_report.reserve.name %>
+        <%= tag.td ar_report.part_1_approved %>
+        <%= tag.td ar_report.part_2_approved %>
+        <%= tag.td ar_report.part_3_approved %>
+        <%= tag.td ar_report.part_4_approved %>
+        <%= tag.td ar_report.part_5_approved %>
+        <%= tag.td ar_report.part_6_approved %>
+        <%= tag.td ar_report.part_7_approved %>
+      <tr/
+    <% end %>
+  </tbody>
+</table>
