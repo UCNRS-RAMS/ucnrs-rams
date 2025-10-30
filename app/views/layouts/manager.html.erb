@@ -14,6 +14,7 @@
 
   <body class="manager <%= body_class %>">
     <header>
+      <%= render partial: 'layouts/domain_banner' %>
       <%= render partial: 'layouts/manager_nav', locals: { layout_presenter: @layout_presenter } %>
       <%= render "shared/flash" %>
     </header>
