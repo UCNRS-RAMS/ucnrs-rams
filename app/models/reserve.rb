@@ -87,7 +87,7 @@ class Reserve < ApplicationRecord
   end
 
   def logo_exists?
-    logo_url && logo.file.exists?
+    logo_url && logo.file.present?
   end
 
   def logo_src(size = :medium)
@@ -95,7 +95,7 @@ class Reserve < ApplicationRecord
   end
 
   def listing_photo_exists?
-    listing_photo_url && listing_photo.file.exists?
+    listing_photo_url && listing_photo.file.present?
   end
 
   def listing_photo_src(size = :medium)
@@ -103,7 +103,7 @@ class Reserve < ApplicationRecord
   end
 
   def large_hero_photo_exists?
-    large_hero_photo_url && large_hero_photo.file.exists?
+    large_hero_photo_url && large_hero_photo.file.present?
   end
 
   def large_hero_photo_src(size = :medium)
