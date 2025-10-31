@@ -69,7 +69,6 @@ RSpec.describe UserVisitForm, type: :model do
   describe "initialize" do
     it "tries to load the UserVisit with id of params[:id]" do
       user_visit = create(:user_visit)
-
       form = UserVisitForm.new(
         params: { id: user_visit.id },
       )
@@ -79,10 +78,39 @@ RSpec.describe UserVisitForm, type: :model do
 
     it "initializes a new UserVisit if the id is not available" do
       form = UserVisitForm.new(
-      params: { id: -1 },
-    )
+        params: { id: -1 },
+      )
 
       expect(form.user_visit).to_not be_persisted
+    end
+
+    context "when the UserVisit is attached to a Visit with a status of 'incomplete'" do
+      it "status is set to default" do
+        visit = create(:visit, status: :incomplete)
+        form = UserVisitForm.new(
+          params: { visit_id: visit.id },
+        )
+
+        expect(form.status).to eq(UserVisit.new.status)
+      end
+    end
+
+    context "when the UserVisit is attached to a Visit with a status that is not 'incomplete'" do
+      it "status is set to the same as the Visit status" do
+        visit1 = create(:visit, status: :approved)
+        visit2 = create(:visit, status: :in_review)
+        visit3 = create(:visit, status: :cancelled)
+        visit4 = create(:visit, status: :denied)
+        form1 = UserVisitForm.new(params: { visit_id: visit1.id })
+        form2 = UserVisitForm.new(params: { visit_id: visit2.id })
+        form3 = UserVisitForm.new(params: { visit_id: visit3.id })
+        form4 = UserVisitForm.new(params: { visit_id: visit4.id })
+
+        expect(form1.status).to eq(visit1.status)
+        expect(form2.status).to eq(visit2.status)
+        expect(form3.status).to eq(visit3.status)
+        expect(form4.status).to eq(visit4.status)
+      end
     end
   end
 
@@ -97,7 +125,7 @@ RSpec.describe UserVisitForm, type: :model do
       user_visit = create(:user_visit)
       form = UserVisitForm.new(params: { id: user_visit.id })
       visit_starts_at = user_visit.visit.starts_at
-      arrives_at = Date.current
+      arrives_at = Time.current
       form.arrives_at = arrives_at
 
       expect(form.arrives_at.to_s).to eq(arrives_at.beginning_of_day.to_s)
@@ -118,7 +146,7 @@ RSpec.describe UserVisitForm, type: :model do
       user_visit = create(:user_visit)
       form = UserVisitForm.new(params: { id: user_visit.id })
       visit_end_time = user_visit.visit.end_time
-      departs_at = Date.current
+      departs_at = Time.current
       form.departs_at = departs_at
 
       expect(form.departs_at.to_s).to eq(departs_at.end_of_day.to_s)
