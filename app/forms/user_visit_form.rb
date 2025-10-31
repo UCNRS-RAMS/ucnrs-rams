@@ -24,20 +24,24 @@ class UserVisitForm
   validates :institution_id, presence: true
 
   attr_accessor :userdays
-  attr_reader :user_visit, :visit, :user, :institution_form
+  attr_reader :user_visit, :user, :institution_form
   attr_writer :manual_user_days
 
   alias validate_form validate
   alias valid_form? valid?
 
-  def arrives_at=(date)
-    date = add_default_time(date&.to_date, arrives_time(date&.to_date))
-    user_visit.arrives_at = date
+  def arrives_at=(arrival_date)
+    user_visit.arrives_at = append_time_to_date(
+      date: arrival_date&.to_date,
+      time: check_visit_begin(arrival_date&.to_time),
+    )
   end
 
-  def departs_at=(date)
-    date = add_default_time(date&.to_date, departs_time(date&.to_date))
-    user_visit.departs_at = date
+  def departs_at=(depart_date)
+    user_visit.departs_at = append_time_to_date(
+      date: depart_date&.to_date,
+      time: check_visit_end(depart_date&.to_time),
+    )
   end
 
   def role=(role)
@@ -76,27 +80,27 @@ class UserVisitForm
 
   attr_reader :params
 
-  def arrives_time(date)
-    return nil if date.blank?
-
-    if date == visit&.starts_at&.to_date
-      visit.starts_at
-    else
-      date.beginning_of_day
-    end
-  end
-
   def visit
     @visit ||= Visit.find_by(id: params[:visit_id]) || user_visit&.visit
   end
 
-  def departs_time(date)
-    return nil if date.blank?
+  def check_visit_begin(time)
+    return nil if time.blank?
 
-    if date == visit&.ends_at&.to_date
+    if time.to_date == visit&.starts_at&.to_date
+      visit.starts_at
+    else
+      time.beginning_of_day
+    end
+  end
+
+  def check_visit_end(time)
+    return nil if time.blank?
+
+    if time.to_date == visit&.ends_at&.to_date
       visit&.ends_at
     else
-      date.end_of_day
+      time.end_of_day
     end
   end
 
@@ -125,11 +129,12 @@ class UserVisitForm
     {
       arrives_at: visit&.starts_at == Visit.new.starts_at ? Time.zone.now.at_midday : visit&.starts_at,
       departs_at: visit&.ends_at == Visit.new.ends_at ? Time.zone.now.at_midday : visit&.ends_at,
-    }
+      status: (visit&.status if !visit&.incomplete?),
+    }.compact
   end
 
-  def add_default_time(date, time)
-    return nil if date.blank?
+  def append_time_to_date(date: nil, time: nil)
+    return nil if date.blank? || time.blank?
 
     time.change(day: date.day, month: date.month, year: date.year)
   end
