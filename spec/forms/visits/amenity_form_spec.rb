@@ -36,6 +36,34 @@ RSpec.describe Visits::AmenityForm, type: :model do
         departs_on: Date.new(2021, 1, 2),
       )
     end
+
+    context "when the UserVisit is attached to a Visit with a status of 'incomplete'" do
+      it "status is set to default" do
+        visit = create(:visit, status: :incomplete)
+        params = { visit_id: visit.id }
+        form = Visits::AmenityForm.new(params: params)
+
+        expect(form.status).to eq(UserVisit.new.status)
+      end
+    end
+
+    context "when the UserVisit is attached to a Visit with a status that is not 'incomplete'" do
+      it "status is set to the same as the Visit status" do
+        visit1 = create(:visit, status: :approved)
+        visit2 = create(:visit, status: :in_review)
+        visit3 = create(:visit, status: :cancelled)
+        visit4 = create(:visit, status: :denied)
+        form1 = UserVisitForm.new(params: { visit_id: visit1.id })
+        form2 = UserVisitForm.new(params: { visit_id: visit2.id })
+        form3 = UserVisitForm.new(params: { visit_id: visit3.id })
+        form4 = UserVisitForm.new(params: { visit_id: visit4.id })
+
+        expect(form1.status).to eq(visit1.status)
+        expect(form2.status).to eq(visit2.status)
+        expect(form3.status).to eq(visit3.status)
+        expect(form4.status).to eq(visit4.status)
+      end
+    end
   end
 
   describe "date presentation" do

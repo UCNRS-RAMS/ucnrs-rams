@@ -10,9 +10,10 @@ class Visits::AmenityForm
   end
 
   def initialize(user: User.new, params: {}, create_invoice: false)
+    @params = params
     @amenity_visit = AmenityVisit.where(
       id: params[:amenity_visit_id]
-    ).first || AmenityVisit.new
+    ).first || AmenityVisit.new(new_amenity_visit_params)
     @amenity_visit.user = user
     @create_invoice = create_invoice
     assign(params)
@@ -99,6 +100,8 @@ class Visits::AmenityForm
 
   private
 
+  attr_reader :params
+
   def validate_amenity_visit
     amenity_visit.validate
   end
@@ -139,6 +142,16 @@ class Visits::AmenityForm
     rescue ArgumentError, TypeError
       nil
     end
+  end
+
+  def new_amenity_visit_params
+    {
+      status: (visit&.status if !visit&.incomplete?),
+    }.compact
+  end
+
+  def visit
+    @visit ||= Visit.find_by(id: params[:amenity_visit_id]) || amenity_visit&.visit
   end
 
   private :valid_form?, :validate_form
