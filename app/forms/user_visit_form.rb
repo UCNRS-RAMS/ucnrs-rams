@@ -33,14 +33,14 @@ class UserVisitForm
   def arrives_at=(arrival_date)
     user_visit.arrives_at = append_time_to_date(
       date: arrival_date&.to_date,
-      time: check_visit_begin(arrival_date&.to_time),
+      time: check_visit_begin(arrival_date&.to_date),
     )
   end
 
   def departs_at=(depart_date)
     user_visit.departs_at = append_time_to_date(
       date: depart_date&.to_date,
-      time: check_visit_end(depart_date&.to_time),
+      time: check_visit_end(depart_date&.to_date),
     )
   end
 
@@ -84,23 +84,23 @@ class UserVisitForm
     @visit ||= Visit.find_by(id: params[:visit_id]) || user_visit&.visit
   end
 
-  def check_visit_begin(time)
-    return nil if time.blank?
+  def check_visit_begin(arrival_date)
+    return nil if arrival_date.blank?
 
-    if time.to_date == visit&.starts_at&.to_date
+    if arrival_date == visit&.starts_at&.to_date
       visit.starts_at
     else
-      time.beginning_of_day
+      arrival_date.beginning_of_day
     end
   end
 
-  def check_visit_end(time)
-    return nil if time.blank?
+  def check_visit_end(depart_date)
+    return nil if depart_date.blank?
 
-    if time.to_date == visit&.ends_at&.to_date
+    if depart_date == visit&.ends_at&.to_date
       visit&.ends_at
     else
-      time.end_of_day
+      depart_date.end_of_day
     end
   end
 
