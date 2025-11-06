@@ -24,6 +24,9 @@ gem 'shakapacker', '6.0.0'
 gem "wicked_pdf", "~> 2.7"
 gem "wkhtmltopdf-binary", "~> 0.12.6"
 
+#temporary to resolve Logger problem before upgrade to Rails >= 7
+gem 'concurrent-ruby', '1.3.4'
+
 # charting
 gem "chartkick"
 gem "groupdate"
