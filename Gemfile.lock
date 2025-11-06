@@ -189,7 +189,7 @@ GEM
       csv
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
-    i18n (1.14.6)
+    i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     image_processing (1.14.0)
@@ -240,7 +240,7 @@ GEM
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
-    minitest (5.25.4)
+    minitest (5.26.0)
     msgpack (1.8.0)
     multi_json (1.17.0)
     multi_xml (0.7.1)
@@ -270,6 +270,7 @@ GEM
       sawyer (~> 0.9)
     okcomputer (1.18.4)
     orm_adapter (0.5.0)
+    ostruct (0.6.3)
     parallel (1.22.1)
     paranoia (2.6.1)
       activerecord (>= 5.1, < 7.1)
@@ -477,8 +478,9 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    wicked_pdf (2.7.0)
+    wicked_pdf (2.8.2)
       activesupport
+      ostruct
     wkhtmltopdf-binary (0.12.6.6)
     xpath (3.2.0)
       nokogiri (~> 1.8)
@@ -505,6 +507,7 @@ DEPENDENCIES
   capybara (>= 3.26)
   carrierwave
   chartkick
+  concurrent-ruby (= 1.3.4)
   devise (~> 4.8)
   dotenv-rails
   factory_bot_rails
