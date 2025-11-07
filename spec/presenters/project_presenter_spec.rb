@@ -15,7 +15,7 @@ RSpec.describe ProjectPresenter do
   describe "#project_type" do
     it "capitalizes the first letter of the project type" do
       project_presenter = ProjectPresenter.new(
-        project: create(:project, project_type: "research")
+        project: create(:project, project_type: "research"),
       )
 
       expect(project_presenter.project_type).to eq "Research"
@@ -23,7 +23,7 @@ RSpec.describe ProjectPresenter do
 
     it "converts underscores in the project type to spaces and capitalizes the first letter of each word" do
       project_presenter = ProjectPresenter.new(
-        project: create(:project, project_type: "public_use")
+        project: create(:project, project_type: "public_use"),
       )
 
       expect(project_presenter.project_type).to eq "Public Use"
@@ -31,26 +31,29 @@ RSpec.describe ProjectPresenter do
   end
 
   describe "#timeframe" do
-    context "when values for start_date and end_date are present" do
+    context "when project have visitor(s) in any of its visits" do
       it "has a timeframe" do
-        start_date = Date.today
-        end_date = Date.today + 1.day
-        project_presenter = ProjectPresenter.new(
-          project: create(:project, start_date: start_date, end_date: end_date),
-        )
+        project = create(:project)
+        visit1 = create(:visit, project: project)
+        visit2 = create(:visit, project: project)
+        user_visit1 = create(:user_visit, visit: visit1,
+          arrives_at: Time.zone.yesterday, departs_at: Time.zone.today)
+        user_visit2 = create(:user_visit, visit: visit2,
+          arrives_at: Time.zone.today, departs_at: Time.zone.tomorrow)
+        project_presenter = ProjectPresenter.new(project: project)
         allow(DateRangePresenter).to receive(:value)
 
         project_presenter.timeframe
 
         expect(DateRangePresenter).to have_received(:value)
-          .with(start_date: start_date, end_date: end_date)
+          .with(start_date: user_visit1.arrives_at.to_date, end_date: user_visit2.departs_at.to_date)
       end
     end
 
-    context "when values for start_date and end_date are not present" do
+    context "when project doesnt have visitors in any of its visits" do
       it "is 'N/A'" do
         project_presenter = ProjectPresenter.new(
-          project: build(:project, start_date: nil, end_date: nil),
+          project: build(:project),
         )
         allow(DateRangePresenter).to receive(:value)
 
@@ -66,8 +69,10 @@ RSpec.describe ProjectPresenter do
     context "when the project has visits" do
       it "is the correctly formatted start_date of the most recent visit" do
         project = create(:project)
-        create(:visit, project: project, starts_at: Time.zone.local(2019, 10, 1), submitted_at: Time.current)
-        create(:visit, project: project, starts_at: Time.zone.local(2021, 10, 1), submitted_at: Time.current)
+        create(:visit, project: project, starts_at: Time.zone.local(2019, 10, 1),
+          submitted_at: Time.current)
+        create(:visit, project: project, starts_at: Time.zone.local(2021, 10, 1),
+          submitted_at: Time.current)
         project_presenter = ProjectPresenter.new(project: project)
 
         expect(project_presenter.recent_visit_date).to eq "Oct 01, 2021"
@@ -163,11 +168,11 @@ RSpec.describe ProjectPresenter do
       project  = create(:project)
       institution1 = create(:institution, name: "Two Trees University")
       membership1 = create(:project_team_membership,
-        project: project, institution: institution1, is_principal_investigator: false
+        project: project, institution: institution1, is_principal_investigator: false,
       )
       institution2 = create(:institution, name: "Three Ducks University")
       membership2 = create(:project_team_membership,
-        project: project, institution: institution2, is_principal_investigator: true
+        project: project, institution: institution2, is_principal_investigator: true,
       )
 
       project_presenter = ProjectPresenter.new(project: project)

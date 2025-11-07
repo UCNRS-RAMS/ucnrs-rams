@@ -23,8 +23,11 @@ class ProjectPresenter
   delegate_missing_to :project
 
   def timeframe
-    if project_requires_dates?
-      DateRangePresenter.value(start_date: start_date, end_date: end_date)
+    if earliest_user_visit_time.present? && latest_user_visit_time.present?
+      DateRangePresenter.value(
+        start_date: earliest_user_visit_time.to_date,
+        end_date: latest_user_visit_time.to_date,
+      )
     else
       not_applicable
     end
@@ -100,6 +103,14 @@ class ProjectPresenter
 
   def visits
     @visits ||= project.visits
+  end
+
+  def earliest_user_visit_time
+    @earliest_user_visit_time ||= project.earliest_user_visit_time
+  end
+
+  def latest_user_visit_time
+    @latest_user_visit_time ||= project.latest_user_visit_time
   end
 
   def not_applicable

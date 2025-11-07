@@ -49,14 +49,37 @@ RSpec.describe Mail::User::ProjectPresenter do
   end
 
   describe "#timeframe" do
-    it "display a formatted project start and end date" do
-      project = create(:project, start_date: Date.today, end_date: Date.tomorrow)
-      presenter = Mail::User::ProjectPresenter.new(project)
+    context "when project have visitor(s) in any of its visits" do
+      it "has a timeframe" do
+        project = create(:project, start_date: Time.zone.today, end_date: Time.zone.tomorrow)
+        visit1 = create(:visit, project: project)
+        visit2 = create(:visit, project: project)
+        user_visit1 = create(:user_visit, visit: visit1,
+          arrives_at: Time.zone.yesterday, departs_at: Time.zone.today)
+        user_visit2 = create(:user_visit, visit: visit2,
+          arrives_at: Time.zone.today, departs_at: Time.zone.tomorrow)
+        presenter = Mail::User::ProjectPresenter.new(project)
+        allow(DateRangePresenter).to receive(:value)
 
-      timeframe = presenter.timeframe
+        presenter.timeframe
 
-      expect(presenter.timeframe)
-        .to eq DateRangePresenter.value(start_date: Date.today, end_date: Date.tomorrow)
+        expect(DateRangePresenter).to have_received(:value)
+          .with(start_date: user_visit1.arrives_at.to_date, end_date: user_visit2.departs_at.to_date)
+      end
+    end
+
+    context "when project doesnt have visitors in any of its visits" do
+      it "is 'N/A'" do
+        project_presenter = ProjectPresenter.new(
+          project: build(:project),
+        )
+        allow(DateRangePresenter).to receive(:value)
+
+        result = project_presenter.timeframe
+
+        expect(result).to eq "N/A"
+        expect(DateRangePresenter).not_to have_received(:value)
+      end
     end
   end
 end
