@@ -325,6 +325,14 @@ class Project < ApplicationRecord
       )
   end
 
+  def earliest_user_visit_time
+    [*UserVisit.where(visit_id: visits.ids).find_each.map(&:arrives_at)].min
+  end
+
+  def latest_user_visit_time
+    [*UserVisit.where(visit_id: visits.ids).find_each.map(&:departs_at)].max
+  end
+
   private
 
   def other_discipline?

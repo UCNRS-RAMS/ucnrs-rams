@@ -22,8 +22,11 @@ class Mail::User::ProjectPresenter
   end
 
   def timeframe
-    if project_requires_dates?
-      DateRangePresenter.value(start_date: start_date, end_date: end_date)
+    if earliest_user_visit_time.present? && latest_user_visit_time.present?
+      DateRangePresenter.value(
+        start_date: earliest_user_visit_time.to_date,
+        end_date: latest_user_visit_time.to_date,
+      )
     else
       not_applicable
     end
@@ -77,6 +80,14 @@ class Mail::User::ProjectPresenter
       involves << I18n.t("projects.show.endangered") if involves_threatened_endangered_species
       involves << I18n.t("projects.show.species_of_special_concern") if involves_threatened_endangered_species
     end.flatten
+  end
+
+  def earliest_user_visit_time
+    @earliest_user_visit_time ||= project.earliest_user_visit_time
+  end
+
+  def latest_user_visit_time
+    @latest_user_visit_time ||= project.latest_user_visit_time
   end
 
   def not_applicable
