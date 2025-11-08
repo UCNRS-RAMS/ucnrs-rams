@@ -86,28 +86,28 @@ class Reserve < ApplicationRecord
     end
   end
 
-  def logo_exists?
+  def logo_present?
     logo_url && logo.file.present?
   end
 
   def logo_src(size = :medium)
-    logo_exists? ? logo_url(size) : LOGO_PLACEHOLDER
+    logo_present? ? logo_url(size) : LOGO_PLACEHOLDER
   end
 
-  def listing_photo_exists?
+  def listing_photo_present?
     listing_photo_url && listing_photo.file.present?
   end
 
   def listing_photo_src(size = :medium)
-    listing_photo_exists? ? listing_photo_url(size) : LISTING_PHOTO_PLACEHOLDER
+    listing_photo_present? ? listing_photo_url(size) : LISTING_PHOTO_PLACEHOLDER
   end
 
-  def large_hero_photo_exists?
+  def large_hero_photo_present?
     large_hero_photo_url && large_hero_photo.file.present?
   end
 
   def large_hero_photo_src(size = :medium)
-    large_hero_photo_exists? ? large_hero_photo_url(size) : LARGE_HERO_PHOTO_PLACEHOLDER
+    large_hero_photo_present? ? large_hero_photo_url(size) : LARGE_HERO_PHOTO_PLACEHOLDER
   end
 
   def self.reserve_ids_with_tag_names(tag_names)
