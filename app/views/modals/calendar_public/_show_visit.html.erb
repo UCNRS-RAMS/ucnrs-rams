@@ -14,7 +14,7 @@
       </header>
       <section class="visit-information">
         <div>
-          <%= presenter.purpose_of_visit %>
+          <%= t("universal.project.project_types.#{presenter.project_type}") %> Visit
         </div>
         <div>
           <%= tag.span t("universal.visit.statuses.#{presenter.status}"),
