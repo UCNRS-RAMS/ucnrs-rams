@@ -71,7 +71,7 @@ Rails.application.configure do
   # Default Mailer Host
   config.action_mailer.default_url_options = {
     host: ENV.fetch("HOST"),
-    protocol: ENV.fetch("PROTOCOL", "https")
+    protocol: ENV.fetch("PROTOCOL", "https"),
   }
 
   config.action_mailer.delivery_method = :smtp
@@ -82,7 +82,7 @@ Rails.application.configure do
     user_name: ENV.fetch("SMTP_USERNAME"),
     password: ENV.fetch("SMTP_PASSWORD"),
     authentication: :login,
-    enable_starttls_auto: true
+    enable_starttls_auto: true,
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
