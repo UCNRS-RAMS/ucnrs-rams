@@ -200,7 +200,7 @@ GEM
       mini_magick (>= 4.9.5, < 6)
       ruby-vips (>= 2.0.17, < 3)
     io-console (0.8.1)
-    jbuilder (2.11.5)
+    jbuilder (2.13.0)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
     json (2.16.0)
@@ -530,7 +530,7 @@ DEPENDENCIES
   foreman
   gnar-style
   groupdate
-  jbuilder (~> 2.7)
+  jbuilder
   kaminari
   launchy
   listen (~> 3.3)
