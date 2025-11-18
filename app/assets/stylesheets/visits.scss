@@ -81,11 +81,13 @@
   }
 
   .reserve-message {
-    background-color: $gold;
+    background-color: $light-gold;
+    border: 1px solid $gold;
     border-radius: 0.3125rem;
     font-size: 0.8125rem;
     margin-bottom: 1rem;
-    padding: 1.5rem;
+    margin-top: .5rem;
+    padding: 1rem;
 
     > p:first-of-type {
       margin-top: 0;

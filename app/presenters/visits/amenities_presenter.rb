@@ -18,4 +18,8 @@ class Visits::AmenitiesPresenter
       .map { |amenity| Visits::AmenityPresenter.new(amenity, user: @user) }
       .group_by(&:group_label)
   end
+
+  def reserve
+    @reserve ||= Reserve.find(@reserve_id)
+  end
 end

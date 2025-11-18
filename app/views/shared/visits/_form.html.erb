@@ -79,18 +79,19 @@
       <header class="amenities-header">
         <h2>
           <%= t(".titles.request_amenities") %>
-          <span><%= t(".alt_text.required")%></span>
         </h2>
         <span><%= t(".alt_text.rate_determined", institution: presenter.user_institution_type) %></span>
+        <% if presenter&.reserve&.amenity_required? %>
+          <%= tag.div simple_format(presenter.reserve.amenity_required_text), class: "reserve-message" %>
+        <% end %>
       </header>
-      <div class="amenity-options">
+      <section class="amenity-options">
         <% presenter.amenities_by_group_label.each do |group_label, amenities| %>
           <%= render partial: "visits/amenities/amenities",
             locals: { group_label: group_label, amenities: amenities }
           %>
         <% end %>
-      </div>
+      </section>
     </section>
-
   </div>
 </div>

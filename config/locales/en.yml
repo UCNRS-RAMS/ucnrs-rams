@@ -46,7 +46,7 @@ en:
         project:
           attributes:
             involvements:
-              must_select_at_least_one: 'required: must select at least one'
+              must_select_at_least_one: "required: must select at least one"
             discipline:
               blank: must select one
             method_remove_organisms:
@@ -138,7 +138,7 @@ en:
         project:
           attributes:
             involvements:
-              must_select_at_least_one: 'required: must select at least one'
+              must_select_at_least_one: "required: must select at least one"
             discipline:
               blank: must select one
             method_remove_organisms:
@@ -190,47 +190,47 @@ en:
               must_be_before_visit_end_date: must be before visit end date
   time:
     formats:
-      form_input_date: '%Y-%m-%d'
-      form_input_time: '%H:%M %z'
-      form_output_date: '%Y-%m-%d'
-      form_output_time: '%H:%M'
-      form_output_time_human: '%-I:%M %p'
-      visit_form_input_date: '%Y-%m-%d'
-      visit_form_input_time: '%H:%M'
-      visit_form_output_date: '%Y-%m-%d'
-      visit_form_output_time: '%H:%M'
-      visit_form_output_time_human: '%-I:%M %p'
-      project_summary_date_time: '%b. %d, %Y at %l:%M %p'
-      project_summary_date: '%b. %d, %Y'
-      project_visit_start_date: '%b %d, %Y'
-      visit_submitted_date: '%b, %d, %Y'
-      visit_summary_time: '%b. %d, %Y at %l:%M %p'
-      hours_minutes_seconds: '%H:%M:%S'
-      submitted_date: '%b %d,%Y at %I %p'
-      date_month_hour: '%d %b, %I %p'
+      form_input_date: "%Y-%m-%d"
+      form_input_time: "%H:%M %z"
+      form_output_date: "%Y-%m-%d"
+      form_output_time: "%H:%M"
+      form_output_time_human: "%-I:%M %p"
+      visit_form_input_date: "%Y-%m-%d"
+      visit_form_input_time: "%H:%M"
+      visit_form_output_date: "%Y-%m-%d"
+      visit_form_output_time: "%H:%M"
+      visit_form_output_time_human: "%-I:%M %p"
+      project_summary_date_time: "%b. %d, %Y at %l:%M %p"
+      project_summary_date: "%b. %d, %Y"
+      project_visit_start_date: "%b %d, %Y"
+      visit_submitted_date: "%b, %d, %Y"
+      visit_summary_time: "%b. %d, %Y at %l:%M %p"
+      hours_minutes_seconds: "%H:%M:%S"
+      submitted_date: "%b %d,%Y at %I %p"
+      date_month_hour: "%d %b, %I %p"
       date_range:
-        month_name: '%b'
+        month_name: "%b"
   date:
     formats:
-      form_input_date: '%Y-%m-%d'
-      form_output_date: '%Y-%m-%d'
-      visit_form_input_date: '%Y-%m-%d'
-      visit_form_output_date: '%Y-%m-%d'
-      project_visit_start_date: '%b %d, %Y'
-      user_visit_date: '%m/%d/%Y'
+      form_input_date: "%Y-%m-%d"
+      form_output_date: "%Y-%m-%d"
+      visit_form_input_date: "%Y-%m-%d"
+      visit_form_output_date: "%Y-%m-%d"
+      project_visit_start_date: "%b %d, %Y"
+      user_visit_date: "%m/%d/%Y"
       date_range:
-        month_name: '%b'
-        month_in_digit: '%m'
-        day_in_digit: '%d'
+        month_name: "%b"
+        month_in_digit: "%m"
+        day_in_digit: "%d"
   date_range:
-    same_day: '%{start_month} %{start_day}, %{start_year}'
-    different_days_same_month: '%{start_month} %{start_day} - %{end_day}, %{start_year}'
-    different_months_same_year: '%{start_month} %{start_day} - %{end_month} %{end_day}, %{start_year}'
+    same_day: "%{start_month} %{start_day}, %{start_year}"
+    different_days_same_month: "%{start_month} %{start_day} - %{end_day}, %{start_year}"
+    different_months_same_year: "%{start_month} %{start_day} - %{end_month} %{end_day}, %{start_year}"
     different_years: >-
       %{start_month} %{start_day}, %{start_year} - %{end_month} %{end_day},
       %{end_year}
-    same_day_hour_difference: '%{start_month} %{start_day} (%{hours} hours)'
-    short_date: '%{start_month} / %{start_day} - %{end_month} / %{end_day}'
+    same_day_hour_difference: "%{start_month} %{start_day} (%{hours} hours)"
+    short_date: "%{start_month} / %{start_day} - %{end_month} / %{end_day}"
   forms:
     select_one: Please Select One
   dashboard:
@@ -238,12 +238,12 @@ en:
       await_approval: Await approval
       create_a_project: Create a Project
       create_a_project_instruction:
-        '1': Indicate your project type (research, university-class, etc.)
-        '2': >-
+        "1": Indicate your project type (research, university-class, etc.)
+        "2": >-
           Describe what you plan to do, why you want to conduct this activity,
           and how you will accomplish it.
-        '3': List members of your team.
-        '4': Upload all required permits.
+        "3": List members of your team.
+        "4": Upload all required permits.
       create_a_project_description: >-
         Describe what you plan to do, why you want to conduct this activity, and
         how you will accomplish it.
@@ -262,19 +262,19 @@ en:
       schedule_a_visit: Schedule a Visit
       schedule_a_visit_description: You must create a project before scheduling a visit.
       schedule_a_visit_instruction:
-        '1': The type of a visit must match the type of the project it belongs to.
-        '2': 'Enter details of your visit: dates, times, participants.'
-        '3': Read and sign waivers and the NRS Code of Conduct.
+        "1": The type of a visit must match the type of the project it belongs to.
+        "2": "Enter details of your visit: dates, times, participants."
+        "3": Read and sign waivers and the NRS Code of Conduct.
     index_content:
       await_approval: Await approval
       create_a_project: Create a Project
       create_a_project_instruction:
-        '1': Indicate your project type (research, university-class, etc.)
-        '2': >-
+        "1": Indicate your project type (research, university-class, etc.)
+        "2": >-
           Describe what you plan to do, why you want to conduct this activity,
           and how you will accomplish it.
-        '3': List members of your team.
-        '4': Upload all required permits.
+        "3": List members of your team.
+        "4": Upload all required permits.
       create_a_project_description: >-
         Describe what you plan to do, why you want to conduct this activity, and
         how you will accomplish it.
@@ -293,15 +293,15 @@ en:
       schedule_a_visit: Schedule a Visit
       schedule_a_visit_description: You must create a project before scheduling a visit.
       schedule_a_visit_instruction:
-        '1': The type of a visit must match the type of the project it belongs to.
-        '2': 'Enter details of your visit: dates, times, participants.'
-        '3': Read and sign waivers and the NRS Code of Conduct.
+        "1": The type of a visit must match the type of the project it belongs to.
+        "2": "Enter details of your visit: dates, times, participants."
+        "3": Read and sign waivers and the NRS Code of Conduct.
   home:
     visit_filter:
       labels:
-        by_order: 'By order:'
-        by_reserve: 'By reserve:'
-        by_status: 'By status:'
+        by_order: "By order:"
+        by_reserve: "By reserve:"
+        by_status: "By status:"
     calendar:
       show:
         title: Visit Requests
@@ -309,8 +309,8 @@ en:
       title: My Visit Requests
       most_recent_filter: Most recent
       labels:
-        by: 'By:'
-        by_reserve: 'By reserve:'
+        by: "By:"
+        by_reserve: "By reserve:"
       no_visits_1: >-
         You currently are not part of any Visits. To create a visit please click
         on the (Schedule a Visit) button located at the top right of this page.
@@ -320,8 +320,8 @@ en:
         pane above, then click on the (Create A New Project) button.
     invoice_filter:
       labels:
-        by: 'By:'
-        by_reserve: 'By reserve:'
+        by: "By:"
+        by_reserve: "By reserve:"
     invoices_section:
       title: Visit Requests
       invoices:
@@ -415,20 +415,20 @@ en:
     calendar:
       visit:
         visitor: visitor
-        id_with_reserve_name: 'Visit # %{id} @ %{reserve_name}'
-        project: 'Under Project # %{id} | %{project_type}'
+        id_with_reserve_name: "Visit # %{id} @ %{reserve_name}"
+        project: "Under Project # %{id} | %{project_type}"
     calendar_public:
       show_visit:
         amenities: Amenities
         group_of: Group of %{count}
         visitor_list: Visitor List
     calendar_visit_modal:
-      visit: 'Visit #%{id} @%{reserve_name}'
+      visit: "Visit #%{id} @%{reserve_name}"
       visitor_list: Visitor List
       reserve_amenities: Reserve Amenities
       create_invoice: Create Invoice
       close: Close
-      project: 'Under Project # %{id} | %{project_type}'
+      project: "Under Project # %{id} | %{project_type}"
     edit_project_team_membership:
       title: Edit Team Member
       accessible_description: A modal pop-up form to edit details of a team member on this project.
@@ -506,7 +506,7 @@ en:
         need for financial and staffing support. The information you enter may
         be be included in reports and other communications, and shared with the
         public.
-      content_middle: ''
+      content_middle: ""
       okay: Okay, Got It
       alt:
         right_facing_arrow: A right facing arrow
@@ -514,7 +514,7 @@ en:
     edit_team_member:
       accessible_description: Edit Team Member
       title: Edit Team Member
-      content: ''
+      content: ""
       continue: Save
       search_by_name: Search by name
       alt:
@@ -537,28 +537,28 @@ en:
         accessible_description: A modal pop-up form to edit amenity rates of an amenity.
     activity:
       log: Log
-      time: 'Time:'
-      action: 'Action:'
-      details: 'Details:'
-      id: 'Id:'
-      by: 'By:'
+      time: "Time:"
+      action: "Action:"
+      details: "Details:"
+      id: "Id:"
+      by: "By:"
       log_changes: Log Changes
-      field: 'Field:'
+      field: "Field:"
       status: Status
-      old_value: 'Old value:'
-      new_value: 'New value:'
+      old_value: "Old value:"
+      new_value: "New value:"
     log:
       log: Log
-      time: 'Time:'
-      action: 'Action:'
-      details: 'Details:'
-      id: 'Id:'
-      by: 'By:'
+      time: "Time:"
+      action: "Action:"
+      details: "Details:"
+      id: "Id:"
+      by: "By:"
       log_changes: Changes
-      field: 'Field:'
+      field: "Field:"
       status: Status
-      old_value: 'Old value:'
-      new_value: 'New value:'
+      old_value: "Old value:"
+      new_value: "New value:"
     staff_and_notifications:
       edit_reserve_personnel:
         title: Edit Reserve Personnel
@@ -621,8 +621,8 @@ en:
       accessible_description: A modal pop-up form to add new guest as visitor on this project.
       subtitle: You are adding a Guest. Please add the following information
       institution_name: Institution Name
-      select_user_role: '- Select Role -'
-      select_institution: '- Select Institution -'
+      select_user_role: "- Select Role -"
+      select_institution: "- Select Institution -"
       role: Role
       alt:
         close_modal_icon: Close Modal Icon
@@ -798,7 +798,7 @@ en:
     questions:
       save_btn:
         back: Go Back
-        next_step: 'Next: Waivers & Policies'
+        next_step: "Next: Waivers & Policies"
       index:
         title: Additional Questions
       text:
@@ -808,7 +808,7 @@ en:
         right_arrow: Right Arrow
       labels:
         next_page:
-          visitors: 'Next: Visitors'
+          visitors: "Next: Visitors"
     reserve:
       labels:
         reserve_html: Which reserve would you like to visit? %{addition}
@@ -870,7 +870,7 @@ en:
           any reserve-specific policies appended to this application, and am
           aware that it is my responsibility to disseminate this information to
           all members of my party.
-        signature: '* Checking the box is equivalent to your signature'
+        signature: "* Checking the box is equivalent to your signature"
         check_button: Check to Agree
         back: Go Back
         submit: Submit New Visit Request
@@ -888,7 +888,7 @@ en:
         arrive_departs_date: Arrival & Departure
         back: Go Back
         date_of_use: Date of Use
-        next_step: 'Next: Reserve Info'
+        next_step: "Next: Reserve Info"
         no_amenity: No Amenity
         reserve: Reserve
         title: Who is going on this visit?
@@ -906,7 +906,6 @@ en:
         add_another: Add Another Date Range
       index:
         select_amenities: Select Amenities
-        optional: (Optional)
         rate_determined: Rate determined automatically from your Institution (%{institution})
       amenity:
         more_info: Learn More
@@ -1101,7 +1100,7 @@ en:
     edit:
       title: Edit Project Details
       submit:
-        step_1: 'Next: Team'
+        step_1: "Next: Team"
       alt:
         right_facing_arrow: A right facing arrow
       project_type_options:
@@ -1121,7 +1120,7 @@ en:
     new:
       title: Project Details
       submit:
-        step_1: 'Next: Team'
+        step_1: "Next: Team"
       alt:
         right_facing_arrow: A right facing arrow
       project_types_accepted: Project types each reserve will accept
@@ -1177,7 +1176,7 @@ en:
       finish_button:
         complete: Save Memberships
       next_step_button:
-        next_step: 'Next: Permits'
+        next_step: "Next: Permits"
         alt:
           right_facing_arrow: A right facing arrow
     questions:
@@ -1191,7 +1190,7 @@ en:
           other information requested by a manager, do so here. These files will
           be viewable to the reserve administration and anyone with the link to
           them.
-        file_types_accepted: '(allowed file types: doc, txt, pdf, jpg, gif, png)'
+        file_types_accepted: "(allowed file types: doc, txt, pdf, jpg, gif, png)"
         plus_icon: Plus Icon
         authority:
           federal: Federal Permits
@@ -1212,9 +1211,9 @@ en:
           right_facing_arrow: Right-facing arrow
           left_facing_arrow: Left-facing arrow
         go_back: Go Back
-        next_step: 'Next: Funding'
-        yes_option: 'Yes'
-        no_option: 'No'
+        next_step: "Next: Funding"
+        yes_option: "Yes"
+        no_option: "No"
       text:
         aria_label_for: textarea answer field for question %{question}
     fundings:
@@ -1265,7 +1264,7 @@ en:
       method_description: Detailed description of environmental manipulations
       method_study_area: Reserve area(s) you plan to visit or conduct manipulations
       plants: Plants
-      project_status_request: '%{project_type} Request'
+      project_status_request: "%{project_type} Request"
       project_summary: Project Summary
       reptiles: Reptiles
       soil: Soil
@@ -1343,7 +1342,7 @@ en:
           date_submitted: Date Submitted
           visit_start_date: Visit Start Date
           visit: Visit
-          found: '%{name} found.'
+          found: "%{name} found."
         search:
           amenity_requested: Amenity Requested
           clear_all_and_start_over: Clear All and Start Over
@@ -1448,10 +1447,10 @@ en:
         bill_to: Bill To
         recipient_email: recipient_email
       amenity_visit_form:
-        dollar: '$ '
+        dollar: "$ "
         left_bracket: (
         right_bracket: )
-        spacer: '-'
+        spacer: "-"
       amenity_visit_forms:
         amenities: Amenities
         total: Total
@@ -1478,11 +1477,11 @@ en:
         modal:
           new_email:
             title: Email Invoice
-            accessible_description: ''
+            accessible_description: ""
       pdf:
         show:
           invoice: Invoice
-          invoice_note: 'Invoice Note:'
+          invoice_note: "Invoice Note:"
           balance: Balance
           billing_address: Billing Address
           notes: Notes
@@ -1506,10 +1505,10 @@ en:
         invoice_info:
           description: Description
           invoice_date: Invoice Date
-          invoice_number: 'Invoice #'
-          project_number: 'Project #'
+          invoice_number: "Invoice #"
+          project_number: "Project #"
           purpose: Purpose
-          visit_number: 'Visit #'
+          visit_number: "Visit #"
     not_a_manager: You are not a manager
     not_a_manager_of_reserve: You are not a manager of the reserve.
     not_editable: Visit is not editable after due date
@@ -1546,7 +1545,7 @@ en:
             any reserve-specific policies appended to this application, and am
             aware that it is my responsibility to disseminate this information
             to all members of my party.
-          signature: '* Checking the box is equivalent to your signature'
+          signature: "* Checking the box is equivalent to your signature"
           check_button: Check to Agree
           back: Go Back
           submit: Submit New Visit Request
@@ -1566,8 +1565,8 @@ en:
           balance: Balance
           project_invoices: Project Invoices
         invoice_amenity_visit_table_row:
-          yes_opt: 'yes'
-          no_opt: 'no'
+          yes_opt: "yes"
+          no_opt: "no"
         totals:
           invoiced: Invoiced
           paid: Paid
@@ -1632,8 +1631,8 @@ en:
                 use
       summary:
         show:
-          submit_date: 'Request Submitted:'
-          overall_date: 'Visit overall date:'
+          submit_date: "Request Submitted:"
+          overall_date: "Visit overall date:"
           user_visits: Visitors (%{size})
           edit_visitor: Edit Visitors
           amenity_visits: Amenities (%{size})
@@ -1701,7 +1700,7 @@ en:
           visit_summary: Visit Summary
           reserve: Reserve
           arrive_departs_date: Arrival & Departure
-          next_step: 'Next: Reserve Info'
+          next_step: "Next: Reserve Info"
           back: Go Back
           amenity_visits: Amenity Visits
           amenity: Amenity
@@ -1711,15 +1710,15 @@ en:
             Dates selected for visitors exceeds the specified dates entered for
             your amenities. Please check your dates in both amenities and
             visitors areas for accuracy.
-        total_days: ' (%{total_days} days)'
-        user_days_description: '%{total_days} days x %{count} users = %{user_days} userdays'
+        total_days: " (%{total_days} days)"
+        user_days_description: "%{total_days} days x %{count} users = %{user_days} userdays"
         user_days:
-          use_arrival_and_departure: 'Use Arrival and Departure datetime:'
-          manual_userdays: 'Manual enter number of userdays:'
+          use_arrival_and_departure: "Use Arrival and Departure datetime:"
+          manual_userdays: "Manual enter number of userdays:"
       questions:
         save_btn:
           back: Go Back
-          next_step: 'Next: Waivers & Policies'
+          next_step: "Next: Waivers & Policies"
         index:
           title: Additional Questions
       project:
@@ -1763,7 +1762,7 @@ en:
         visit_date_range: Visit Date Range
         invoice_created_at_date_range: Invoice Created At Date Range
         project: Project
-        found: '%{name} found.'
+        found: "%{name} found."
         table_headers:
           title: Title
           timeframe: Timeframe
@@ -1820,7 +1819,7 @@ en:
           right_facing_arrow: A right facing arrow enclosed in a circle
       projects_table:
         last_visit: Last Visit
-        num_of_visits: '# of Visits'
+        num_of_visits: "# of Visits"
         project_title: Project Title
         owner: Owner
         submit_date: Submit Date
@@ -1843,7 +1842,7 @@ en:
       edit:
         title: Edit Project Details
         submit:
-          step_1: 'Next: Team'
+          step_1: "Next: Team"
         alt:
           right_facing_arrow: A right facing arrow
         project_type_options:
@@ -1861,7 +1860,7 @@ en:
       new:
         title: Project Details
         submit:
-          step_1: 'Next: Team'
+          step_1: "Next: Team"
         alt:
           right_facing_arrow: A right facing arrow
         project_type_options:
@@ -1901,13 +1900,13 @@ en:
         project_keywords:
           field_name: Project Keywords (Optional)
           explanation: Please separate keywords/phrases with commas.
-          placeholder: 'Ex: Earthquakes,Weather'
+          placeholder: "Ex: Earthquakes,Weather"
         taxonomic_keywords:
           field_name: Taxonomic Keywords (Optional)
           explanation: >-
             Please provide taxonomic names for any species involved in your
             project.
-          placeholder: 'Ex: Quercus lobata,Picoides nuttallii'
+          placeholder: "Ex: Quercus lobata,Picoides nuttallii"
         recent_publications:
           field_name: Recent Publications (Optional)
           explanation: >-
@@ -1956,8 +1955,8 @@ en:
           method_long_term_structures: >-
             Erect structures or deploy long term equipment, such as markers,
             fences, enclosures, cages, data-loggers, antennas, or buoys?
-        yes_option: 'Yes'
-        no_option: 'No'
+        yes_option: "Yes"
+        no_option: "No"
       meeting_form:
         details: Details
         choose_discipline: Choose a discipline that best describes your meeting or conference.
@@ -1990,13 +1989,13 @@ en:
         project_keywords:
           field_name: Project Keywords (Optional)
           explanation: Please separate keywords/phrases with commas.
-          placeholder: 'Ex: Earthquakes,Weather'
+          placeholder: "Ex: Earthquakes,Weather"
         taxonomic_keywords:
           field_name: Taxonomic Keywords (Optional)
           explanation: >-
             Please provide taxonomic names for any species involved in your
             project.
-          placeholder: 'Ex: Quercus lobata,Picoides nuttallii'
+          placeholder: "Ex: Quercus lobata,Picoides nuttallii"
         recent_publications:
           field_name: Recent Publications (Optional)
           explanation: >-
@@ -2045,8 +2044,8 @@ en:
           method_long_term_structures: >-
             Erect structures or deploy long term equipment, such as markers,
             fences, enclosures, cages, data-loggers, antennas, or buoys?
-        yes_option: 'Yes'
-        no_option: 'No'
+        yes_option: "Yes"
+        no_option: "No"
       complete:
         not_saved: This project could not be saved as 'open'
       visits:
@@ -2096,9 +2095,9 @@ en:
           alt:
             right_facing_arrow: Right-facing arrow
             left_facing_arrow: Left-facing arrow
-          next_step: 'Next: Funding'
-          yes_option: 'Yes'
-          no_option: 'No'
+          next_step: "Next: Funding"
+          yes_option: "Yes"
+          no_option: "No"
       summary:
         content:
           upload_file: Uploaded Files
@@ -2145,9 +2144,9 @@ en:
         part_1_reserve_use_data: Part 1. Reserve Use Data - Using Unique People Roles
         report_has_been_reviewed: This page of the report has been reviewed and is ready for UCOP.
         pdf:
-          campus: 'Campus: %{campus}'
-          fiscal_year: 'Fiscal year: %{fiscal_year}'
-          reserve: 'Reserve: %{reserve}'
+          campus: "Campus: %{campus}"
+          fiscal_year: "Fiscal year: %{fiscal_year}"
+          reserve: "Reserve: %{reserve}"
           reserve_use_data: RESERVE USE DATA
       report_part_1_table:
         uc_home: UC Home
@@ -2168,9 +2167,9 @@ en:
       report_part_2:
         part_2_reserve_users_affiliation: Part 2. Reserve Users' Affiliation
         pdf:
-          campus: 'Campus: %{campus}'
-          fiscal_year: 'Fiscal year: %{fiscal_year}'
-          reserve: 'Reserve: %{reserve}'
+          campus: "Campus: %{campus}"
+          fiscal_year: "Fiscal year: %{fiscal_year}"
+          reserve: "Reserve: %{reserve}"
           reserve_users_affiliation: Reserve Users' Affiliation
       report_part_2_table:
         institution_name: Institution Name
@@ -2199,7 +2198,7 @@ en:
         direction_2: >-
           This section is meant to provide tips on finding and adding
           publications to your reserve's Zotero library.
-        direction_3: 'To update your reserve''s Zotero library, follow these steps:'
+        direction_3: "To update your reserve's Zotero library, follow these steps:"
         step_1: >-
           Access to reserve's Zotero bibliographic database:
           <strong>%{zotero_url}</strong> | Username:
@@ -2274,6 +2273,8 @@ en:
             Special message for users about the reserve. This Message appears to
             user when initially selecting this reserve when creating a visit,
             and the reserve page.
+          amenity_required: Amenity required for a visit?
+          amenity_required_description: Text shown when "Amenity are required" for a visit is set to yes.
           contact_for_project_review: Contact for project review
           contact_for_project_review_description: >-
             This information will be posted as a link to the new visit page to
@@ -2695,14 +2696,14 @@ en:
             page. Add miscellaneous information such as links to field safety
             resources, the NRS policy of acknowledging the use of reserves in
             research publications, etc.
-          about_addendums_paragraph1: ''
+          about_addendums_paragraph1: ""
         reserve_addendums:
           sort_order: Sort Order
           name: Name
         reserve_addendum_field:
           sort_order: Sort Order
           name: Name
-          description_helper_text: ''
+          description_helper_text: ""
     uninvoiced:
       uninvoiced_visits:
         actions: Actions
@@ -2813,7 +2814,7 @@ en:
         cost: Cost
         total: Total
       header_user:
-        phone: 'Phone:'
+        phone: "Phone:"
       project_brief:
         brief_project_info: Brief Project Information
         principal_investigators: Principal Investigators
@@ -2825,7 +2826,7 @@ en:
         discipline: Discipline
         project_involves: Project Involves
         project_summary: Project Summary
-        project_status_request: '%{project_type} Request'
+        project_status_request: "%{project_type} Request"
         edit_project: Edit Project
         mammals: Mammals
         reptiles: Reptiles
@@ -2923,7 +2924,7 @@ en:
       login_and_view_visit: Login and view Visit
     visit_update:
       login_and_view_visit: Login and view Visit
-      visit_status_has_been_updated_to: 'Visit status has been UPDATED to:'
+      visit_status_has_been_updated_to: "Visit status has been UPDATED to:"
   shared:
     manager:
       dashboard:
@@ -2954,7 +2955,7 @@ en:
             arrival: Arrival
             departure: Departure
             next_page:
-              visitors: 'Next: Visitors'
+              visitors: "Next: Visitors"
           alt_text:
             calendar: Calendar Icon
             left_arrow: Left Arrow to Go Back
@@ -3032,7 +3033,7 @@ en:
           guest_name: Visitor Name
           role: Role
           search_by_name: Search by name
-          select_user_role: '- Select Role -'
+          select_user_role: "- Select Role -"
           add_visitor: Add Visitor
           cannot_find_them: Can't find then in database?
           new_team_member: Create a New Team Member
@@ -3041,10 +3042,10 @@ en:
           number_in_group: Number in Group
           institution_name: Institution Name
           role: Role
-          select_user_role: '- Select Role -'
+          select_user_role: "- Select Role -"
           add_group: Add Group
           search_by_name: Search by name
-          select_institution: '- Select Institution -'
+          select_institution: "- Select Institution -"
           add_group_info: Add people as a group, eg. students, TAs, volunteers, etc.
         user_visit:
           change: Change
@@ -3066,7 +3067,7 @@ en:
           no_permit_questions: There are no necessary permit questions for this visit at this time.
           save_btn:
             back: Go Back
-            next_step: 'Next: Waivers & Policies'
+            next_step: "Next: Waivers & Policies"
         permit_questions:
           no_questions: >-
             There are no necessary permit questions for this project at this
@@ -3106,12 +3107,11 @@ en:
           arrival: Arrival
           departure: Departure
           next_page:
-            visitors: 'Next: Visitors'
+            visitors: "Next: Visitors"
         alt_text:
           calendar: Calendar Icon
           left_arrow: Left Arrow to Go Back
           right_arrow: Right Arrow
-          required: Required
           rate_determined: >-
             Amenities may include lodging, vehicles, laboratories, meeting
             rooms, staff assistance, and other facilities and services available
@@ -3298,7 +3298,7 @@ en:
         finish_button:
           complete: Save Memberships
         next_step_button:
-          next_step: 'Next: Permits'
+          next_step: "Next: Permits"
           alt:
             right_facing_arrow: A right facing arrow
       complete:
@@ -3323,13 +3323,13 @@ en:
         project_keywords:
           field_name: Project Keywords (Optional)
           explanation: Please separate keywords/phrases with commas.
-          placeholder: 'Ex: Earthquakes,Weather'
+          placeholder: "Ex: Earthquakes,Weather"
         taxonomic_keywords:
           field_name: Taxonomic Keywords (Optional)
           explanation: >-
             Please provide taxonomic names for any species involved in your
             project.
-          placeholder: 'Ex: Quercus lobata,Picoides nuttallii'
+          placeholder: "Ex: Quercus lobata,Picoides nuttallii"
         recent_publications:
           field_name: Recent Publications (Optional)
           explanation: >-
@@ -3380,8 +3380,8 @@ en:
             Erect structures or deploy long term equipment, such as markers,
             fences, enclosures, cages, data-loggers, antennas, or buoys?
             %{addition}
-        yes_option: 'Yes'
-        no_option: 'No'
+        yes_option: "Yes"
+        no_option: "No"
       meeting_form:
         details: Details
         choose_discipline: Choose a discipline that best describes your meeting or conference.
@@ -3436,13 +3436,13 @@ en:
         project_keywords:
           field_name: Project Keywords (Optional)
           explanation: Please separate keywords/phrases with commas.
-          placeholder: 'Ex: Earthquakes,Weather'
+          placeholder: "Ex: Earthquakes,Weather"
         taxonomic_keywords:
           field_name: Taxonomic Keywords (Optional)
           explanation: >-
             Please provide taxonomic names for any species involved in your
             project.
-          placeholder: 'Ex: Quercus lobata,Picoides nuttallii'
+          placeholder: "Ex: Quercus lobata,Picoides nuttallii"
         recent_publications:
           field_name: Recent Publications (Optional)
           explanation: >-
@@ -3493,8 +3493,8 @@ en:
             Erect structures or deploy long term equipment, such as markers,
             fences, enclosures, cages, data-loggers, antennas, or buoys?
             %{addition}
-        yes_option: 'Yes'
-        no_option: 'No'
+        yes_option: "Yes"
+        no_option: "No"
       fundings:
         form_fields:
           funding_status: Funding Status
@@ -3595,8 +3595,8 @@ en:
         visits: Visits
     manager_superbar:
       link:
-        go_to_manager_view: 'Go To: Manager View'
-        go_to_public_view: 'Go To: Public View'
+        go_to_manager_view: "Go To: Manager View"
+        go_to_public_view: "Go To: Public View"
         manager_view: Manager View
         public_view: Public View
         your_managed_reserves: Your Managed Reserves
@@ -3695,7 +3695,7 @@ en:
       reserve_staff: Reserve Staff
       staff: Reserve Staff
       no_selection: No Selection
-      '': Not Available
+      "": Not Available
       subtotal: Subtotal
     project:
       project_types:
@@ -3779,8 +3779,8 @@ en:
   yes_no: Yes/No
   checked: checked icon
   unchecked: unchecked icon
-  'yes': 'Yes'
-  'no': 'No'
+  "yes": "Yes"
+  "no": "No"
   submit: Submit
   cancel: Cancel
   update: Update
