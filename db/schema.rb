@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_05_31_120837) do
+ActiveRecord::Schema.define(version: 2025_10_16_085050) do
 
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
@@ -862,6 +862,8 @@ ActiveRecord::Schema.define(version: 2025_05_31_120837) do
     t.datetime "updated_at"
     t.string "bill_name", limit: 200
     t.column "Ecosystem", "enum('Undefined','Open Water','Perennial Ice/Snow','Develope','Open Space','Developed Low Intensity','Developed Medium Intensity','Developed High Intensity','Barren Land (Rock/Sand/Clay)','Unconsolidated Shore','Deciduous Forest','Evergreen Forest','Mixed Forest','Dwarf Scrub','Shrub/Scrub','Grasslands/Herbaceous','Sedge/Herbaceous','Lichens','Moss','Pasture/Hay','Cultivated Crops','Woody Wetlands','Emergent Herbaceous Wetlands')", default: "Undefined", collation: "ascii_general_ci"
+    t.boolean "amenity_required", default: false, null: false
+    t.text "amenity_required_text"
     t.string "administrative_group_name"
     t.string "administrative_group_name_acronym"
     t.string "administrative_group_state"

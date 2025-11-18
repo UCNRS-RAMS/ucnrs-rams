@@ -386,6 +386,20 @@
       <%= t(".amenities_small_info") %>
     </small>
   </header>
+  <div class="form-group">
+    <%= f.label(:amenity_required, t(".amenity_required"), class:"form-label") %>
+    <div>
+      <%= f.radio_button(:amenity_required, true, class: "custom-control-input") %>
+      <%= f.label(:amenity_required_true, t("yes"), class:"custom-control-label") %>
+      <%= f.radio_button(:amenity_required, false, class: "custom-control-input") %>
+      <%= f.label(:amenity_required_false, t("no"), class:"custom-control-label") %>
+    </div>
+  </div>
+  <div class="col form-group">
+    <%= f.label :amenity_required_text, t(".amenity_required_description"), class: "form-label" %>
+    <%= f.text_area :amenity_required_text, class: "form-textarea" %>
+  </div>
+  <br />
   <div class="col form-group">
     <%= f.label :amenity_group_label_1, t(".amenity_group_name_1"), class: "form-label" %>
     <%= f.text_field :amenity_group_label_1, class: "form-input" %>

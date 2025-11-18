@@ -1,9 +1,11 @@
 <header class="amenities-header">
   <h2>
     <%= t(".select_amenities") %>
-    <span><%= t(".optional")%></span>
   </h2>
   <span><%= t(".rate_determined", institution: @presenter.institution_name) %></span>
+  <% if @presenter&.reserve&.amenity_required? %>
+    <%= tag.div simple_format(@presenter.reserve.amenity_required_text), class: "reserve-message" %>
+  <% end %>
 </header>
 <section class="amenity-options">
   <% @presenter.amenities_by_group_label.each do |group_label, amenities| %>
