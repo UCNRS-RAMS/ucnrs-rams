@@ -827,13 +827,17 @@ en:
         labels:
           research: Research
           university_class: University Class
-          meeting_or_conference: Meeting or Conference
+          meeting_or_conference: All Academic Meeting or Conference
           public_use: Public Use
         explanation:
           research: Field or lab-based research in any discipline
           university_class: University or college course or class
-          meeting_or_conference: Symposia, lab retreats, and academic meetings
-          public_use: Community events, fundraising, K-12, or other classes, volunteer use
+          meeting_or_conference: >-
+            Symposia, lab retreats, and meetings for university or college groups
+          public_use: >-
+            All non-university uses, including community events, fundraising, volunteer use,
+            Tribal use, K-12 classes, and meetings for groups unaffiliated with a university
+            or college.
     projects:
       projects_select:
         no_project: >-
@@ -1108,14 +1112,18 @@ en:
         labels:
           research: Research
           class: University Class
-          meeting: Meeting or Conference
+          meeting: All Academic Meeting or Conference
           public_use: Public Use
           housing: Housing
         explanation:
           research: Field or lab-based research in any discipline
           class: University or college course or class
-          meeting: Symposia, lab retreats, and academic meetings
-          public_use: Community events, fundraising, K-12, or other classes, volunteer use
+          meeting: >-
+            Symposia, lab retreats, and meetings for university or college groups
+          public_use: >-
+            All non-university uses, including community events, fundraising, volunteer use,
+            Tribal use, K-12 classes, and meetings for groups unaffiliated with a university
+            or college.
           housing: Housing only
     new:
       title: Project Details
@@ -1129,16 +1137,18 @@ en:
         labels:
           research: Research
           class: University Class
-          meeting: Meeting or Conference
+          meeting: All Academic Meeting or Conference
           public_use: Public Use
           housing: Housing
         explanation:
           research: Field or lab-based research in any discipline
           class: University or college course or class
-          meeting: Symposia, lab retreats, and academic meetings
+          meeting: >-
+            Symposia, lab retreats, and meetings for university or college groups
           public_use: >-
-            All other uses, including; community events, fundraising, volunteer
-            use, tribal use, K-12, or other classes.
+            All non-university uses, including community events, fundraising, volunteer use,
+            Tribal use, K-12 classes, and meetings for groups unaffiliated with a university
+            or college.
           housing: Housing only
     steps:
       step_1: Project Details
@@ -1620,15 +1630,17 @@ en:
             labels:
               research: Research
               university_class: University Class
-              meeting_or_conference: Meeting or Conference
+              meeting_or_conference: All Academic Meeting or Conference
               public_use: Public Use
             explanation:
               research: Field or lab-based research in any discipline
               university_class: University or college course or class
-              meeting_or_conference: Symposia, lab retreats, and academic meetings
+              meeting_or_conference: >-
+                Symposia, lab retreats, and meetings for university or college groups
               public_use: >-
-                Community events, fundraising, K-12, or other classes, volunteer
-                use
+                All non-university uses, including community events, fundraising, volunteer use,
+                Tribal use, K-12 classes, and meetings for groups unaffiliated with a university
+                or college.
       summary:
         show:
           submit_date: "Request Submitted:"
@@ -2981,15 +2993,17 @@ en:
             labels:
               research: Research
               university_class: University Class
-              meeting_or_conference: Meeting or Conference
+              meeting_or_conference: All Academic Meeting or Conference
               public_use: Public Use
             explanation:
               research: Field or lab-based research in any discipline
               university_class: University or college course or class
-              meeting_or_conference: Symposia, lab retreates, and academic meetings
+              meeting_or_conference: >-
+                Symposia, lab retreats, and meetings for university or college groups
               public_use: >-
-                Community events, fundraising, K-12, or other classes, volunteer
-                use
+                All non-university uses, including community events, fundraising, volunteer use,
+                Tribal use, K-12 classes, and meetings for groups unaffiliated with a university
+                or college.
       invoices:
         invoice_table:
           status: Status
@@ -3133,15 +3147,17 @@ en:
           labels:
             research: Research
             university_class: University Class
-            meeting_or_conference: Meeting or Conference
+            meeting_or_conference: All Academic Meeting or Conference
             public_use: Public Use
           explanation:
             research: Field or lab-based research in any discipline
             university_class: University or college course or class
-            meeting_or_conference: Symposia, lab retreats, and academic meetings
+            meeting_or_conference: >-
+              Symposia, lab retreats, and meetings for university or college groups
             public_use: >-
-              Community events, fundraising, K-12, or other classes, volunteer
-              use
+              All non-university uses, including community events, fundraising, volunteer use,
+              Tribal use, K-12 classes, and meetings for groups unaffiliated with a university
+              or college.
     projects:
       permit_questions:
         reserve_section_title: Reserve-specific Questions
