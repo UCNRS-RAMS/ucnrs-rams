@@ -43,6 +43,7 @@ group :development, :test do
   gem 'launchy'
   gem 'lol_dba'
   gem 'okcomputer'
+  gem 'openssl' # remove when rails rebuilt
   gem 'pronto'
   gem 'pronto-brakeman', require: false
   gem 'pronto-rubocop', require: false
