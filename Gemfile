@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.4'
+ruby '3.1.7'
 
 gem "amazing_print"
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -18,14 +18,18 @@ gem "paranoia", "~> 2.2"
 gem 'puma', '>= 5.0'
 gem 'rails', '~> 6.1.7'
 gem 'sass-rails', '>= 6'
+gem 'shakapacker'
 gem 'simple_calendar', '~> 2.4'
 gem 'turbo-rails', '~> 1.4'
-gem 'shakapacker', '6.0.0'
 gem "wicked_pdf", "~> 2.7"
 gem "wkhtmltopdf-binary", "~> 0.12.6"
 
-#temporary to resolve Logger problem before upgrade to Rails >= 7
+# temporary added to resolve Logger problem before upgrade to Rails >= 7.
+# remove after upgrading to rails 7+
 gem 'concurrent-ruby', '1.3.4'
+
+# temporary added to resolve openssl 3.6 regression. remove when openssl is fixed
+gem 'openssl'
 
 # charting
 gem "chartkick"
