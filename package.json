@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "18.x"
+    "node": "22.x"
   },
+  "packageManager": "yarn@1.22.22",
   "dependencies": {
     "@babel/core": "7",
     "@babel/plugin-transform-runtime": "7",
@@ -25,24 +26,23 @@
     "compression-webpack-plugin": "9",
     "fork-ts-checker-webpack-plugin": "^9.0.2",
     "pnp-webpack-plugin": "1",
-    "shakapacker": "6",
+    "shakapacker": "9",
     "stimulus-autocomplete": "^3.0.0-rc.5",
     "terser-webpack-plugin": "5",
     "trix": "^2.0.2",
     "typescript": "^5.2.2",
     "webpack": "5",
-    "webpack-assets-manifest": "5",
-    "webpack-cli": "4",
-    "webpack-merge": "5"
+    "webpack-assets-manifest": "6",
+    "webpack-cli": "6",
+    "webpack-merge": "6"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",
-    "@webpack-cli/serve": "^2.0.5",
     "babel-jest": "^27.2.2",
     "babel-preset-env": "^1.7.0",
     "jest": "^27.2.2",
     "mutationobserver-shim": "^0.3.7",
-    "webpack-dev-server": "^4.15.1"
+    "webpack-dev-server": "^5.2.2"
   },
   "babel": {
     "presets": [
