@@ -16,7 +16,7 @@ gem 'mysql2', '~> 0.5'
 gem 'nokogiri', '>= 1.16.5'
 gem "paranoia", "~> 2.2"
 gem 'puma', '>= 5.0'
-gem 'rails', '~> 6.1.7'
+gem 'rails', '~> 7.0.0'
 gem 'sass-rails', '>= 6'
 gem 'shakapacker'
 gem 'simple_calendar', '~> 2.4'
@@ -47,7 +47,6 @@ group :development, :test do
   gem 'launchy'
   gem 'lol_dba'
   gem 'okcomputer'
-  gem 'openssl' # remove when rails rebuilt
   gem 'pronto'
   gem 'pronto-brakeman', require: false
   gem 'pronto-rubocop', require: false
