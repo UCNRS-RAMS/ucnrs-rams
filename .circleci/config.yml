@@ -4,7 +4,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/ruby:3.1.7-browsers
+      - image: cimg/ruby:3.2.9-browsers
         environment:
           RAILS_ENV: test
       - image: cimg/mysql:8.0
@@ -39,6 +39,12 @@ jobs:
       - run:
           name: Load database schema
           command: bundle exec rake db:schema:load
+
+      # After rails 7 yarn install is not run with assets:precompile
+      # Use --frozen-lockfile for CI
+      - run:
+          name: Yarn Install
+          command: yarn install --frozen-lockfile
 
       # Assets setup
       - run:
