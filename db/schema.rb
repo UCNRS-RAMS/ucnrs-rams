@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_10_16_085050) do
-
+ActiveRecord::Schema[7.0].define(version: 2025_11_28_101029) do
   create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.integer "project_id", null: false
@@ -34,8 +33,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.text "body", size: :long
     t.string "record_type", null: false
     t.integer "record_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
   end
 
@@ -44,7 +43,7 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -55,8 +54,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.string "content_type"
     t.text "metadata"
     t.bigint "byte_size", null: false
-    t.string "checksum", null: false
-    t.datetime "created_at", null: false
+    t.string "checksum"
+    t.datetime "created_at", precision: nil, null: false
     t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
@@ -85,8 +84,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.string "email_notification_address", limit: 50
     t.string "amenities_code", limit: 10, default: "-", null: false, comment: "Abbreviation"
     t.column "group_number", "enum('1','2','3','4','5')"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "description"
     t.column "amenities_type", "enum('Housing & Camping','Classroom & Meeting Space','Laboratory & Storage Space','Vehicles & Boats','Other Amenity')"
     t.string "image_url"
@@ -114,8 +113,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.boolean "governmental", default: false, null: false
     t.boolean "business", default: false, null: false
     t.boolean "other", default: false, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["reserve_id", "sort_order"], name: "SortOrderReserves"
     t.index ["sort_order", "description"], name: "RSODescription"
     t.index ["sort_order"], name: "SortOrderPlain"
@@ -127,8 +126,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.integer "amenity_rate_category_id", null: false
     t.decimal "rate", precision: 10, scale: 2
     t.column "rate_type", "enum('value','free','tbd')", default: "value", null: false, comment: "Specify how the value is displayed to the public"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["amenity_id"], name: "amenity"
     t.index ["id"], name: "PrimaryKey", unique: true
   end
@@ -152,10 +151,10 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.decimal "rate", precision: 10, scale: 4, default: "0.0"
     t.decimal "manual_units_of_time", precision: 10, scale: 4, default: "0.0"
     t.boolean "invoice_now", default: true
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "arrives"
-    t.datetime "departs"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.datetime "arrives", precision: nil
+    t.datetime "departs", precision: nil
     t.index ["arrives_on", "arrives_at", "departs_on", "departs_at"], name: "ArrivalDateTime"
     t.index ["invoice_id"], name: "index_amenity_visits_on_invoice_id"
     t.index ["need_rating", "visit_id"], name: "Priority"
@@ -179,8 +178,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.boolean "part_6_approved", default: false, null: false, comment: "Boolean"
     t.boolean "part_7_approved", default: false, null: false, comment: "Boolean"
     t.text "part_6_narrative_file"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["reserve_id", "fiscal_year_ending"], name: "unique_reserve_annual_reports", unique: true
     t.index ["reserve_id", "year_old"], name: "reserve_year"
   end
@@ -240,8 +239,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.boolean "is_self_funded", comment: "DEPRECATED"
     t.boolean "is_submitted", comment: "At least one grant or contract application has been submitted but has not yet been approved"
     t.boolean "will_be_submitted", comment: "At least one grant or contract application will be submitted in the future"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "was_denied", comment: "Project grant or contract application was denied by the funding agency"
     t.string "funding_opportunity_number", comment: "Funding opportunity numbers (FON) is a number that a federal agency assigns to its grant announcement. FON are currently unique within the fundings.Gov System"
     t.column "sponsor", "enum('National Science Foundation (NSF)','National Institute of Health (NIH)','U.S. Geological Survey (USGS)','U.S. Forest Service (USFS)','U.S. Department of Agriculture (USDA)','California Department of Fish and Wildlife','Other')"
@@ -260,8 +259,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.boolean "agreed_upon"
     t.integer "age"
     t.string "guardian_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "institutions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -273,8 +272,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.column "institution_type", "enum('University of California','California State University System','California Community College','California - Other University or College','U.S. - University or College Outside of California','International University or College','K-12 Education','Non-Governmental Organization or Non-Profit Entity','Governmental Agency or Entity','Business Entity','Individual or Other Entity')"
     t.string "acronym", limit: 10
     t.string "doi", limit: 25, default: "0000", comment: "Unique ID"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["institution_type", "name"], name: "institution_type"
     t.index ["name"], name: "name"
   end
@@ -287,8 +286,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.column "payment_type", "enum('cash','check','credit card','debit card','campus','purchase order','pay later','no charge','inter-campus recharge','no selection made','')"
     t.string "notes"
     t.string "payor", limit: 50
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["invoice_id"], name: "invoice_id"
     t.index ["paid_on"], name: "Date"
   end
@@ -302,15 +301,15 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.string "payor", limit: 50, default: ""
     t.column "payment_type", "enum('cash','check','credit card','debit card','campus','purchase order','pay later','no charge','inter-campus recharge','no selection made','')"
     t.text "session_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "invoice_recipients", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "invoice_id", null: false
     t.integer "user_id", null: false
     t.integer "visit_id"
-    t.datetime "deleted_at"
+    t.datetime "deleted_at", precision: nil
     t.index ["deleted_at"], name: "index_invoice_recipients_on_deleted_at"
     t.index ["invoice_id"], name: "invoice"
     t.index ["user_id"], name: "user"
@@ -324,9 +323,9 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.integer "modify_number", default: 0, unsigned: true
     t.decimal "rams1_billed_amount", precision: 10, scale: 2
     t.decimal "balance_due", precision: 10, scale: 2, comment: "This is a field that contains the balance due of the invoice. It's only purpose is to make sorting by balance due faster. Do not trust this field when calculating real balance due, calculate it from the InvAssetReservation directly. "
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "deleted_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.datetime "deleted_at", precision: nil
     t.index ["deleted_at"], name: "index_invoices_on_deleted_at"
     t.index ["id"], name: "InvoiceID"
     t.index ["visit_id", "id"], name: "ReservePlus"
@@ -378,7 +377,7 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.bigint "visit_id"
     t.bigint "invoice_id"
     t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["invoice_id"], name: "index_logs_on_invoice_id"
     t.index ["project_id"], name: "index_logs_on_project_id"
     t.index ["record_about_type", "record_about_id"], name: "index_logs_on_record_about_type_and_record_about_id"
@@ -390,8 +389,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
   create_table "logs-old", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", comment: "DEPRECATED", force: :cascade do |t|
     t.text "text"
     t.string "type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "old_waivers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -404,8 +403,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.boolean "online", default: false, null: false
     t.text "online_html_text", comment: "Use HTML code"
     t.integer "years_until_expire", default: 3, comment: "How many years can a waiver be helpd until you require applicant to submit a new one"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["reserve_id", "sort_order"], name: "reserve_and_sort_order"
     t.index ["reserve_id"], name: "reserve_id"
     t.index ["sort_order"], name: "sort_order"
@@ -424,8 +423,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.text "url3_description"
     t.integer "sort_order"
     t.boolean "iacuc", default: false, null: false, comment: "Institutional Animal Care and Use Committee"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "drone_flag", default: false
     t.boolean "scuba_flag", default: false
     t.boolean "vertebrate_flag", default: false
@@ -456,8 +455,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.integer "project_id", null: false, unsigned: true
     t.integer "permit_id", null: false, unsigned: true
     t.boolean "answer", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["permit_id"], name: "index_project_permit_answers_on_permit_id"
     t.index ["project_id", "permit_id"], name: "index_project_permit_answers_on_project_id_and_permit_id", unique: true
     t.index ["project_id"], name: "index_project_permit_answers_on_project_id"
@@ -468,8 +467,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.integer "project_id", null: false
     t.boolean "boolean_answer", comment: "Boolean"
     t.text "text_answer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["project_id", "reserve_question_id"], name: "Applications"
     t.index ["project_id", "reserve_question_id"], name: "unique_project_reserve_answers", unique: true
     t.index ["reserve_question_id", "project_id"], name: "Questions"
@@ -489,8 +488,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.column "invoice_delivery", "enum('pdf','paper','none')", default: "pdf", null: false, comment: "DEPRECATED"
     t.boolean "viewed_project", default: false, null: false, comment: "DEPRECATED"
     t.boolean "active", default: true, null: false, comment: "Boolean to show or hide team member, for the purpose of hiding team members who is not active anymore on the application."
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["institution_id", "user_id", "project_id"], name: "Institutions"
     t.index ["is_principal_investigator", "user_id"], name: "PI"
     t.index ["project_id"], name: "projects"
@@ -546,10 +545,10 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.integer "AnnualReportAccessTEMP", limit: 1, default: 1, null: false, comment: "DEPRECATED"
     t.integer "Discipline1", comment: "DEPRECATED Discipline of this application, if > 0 then discipline is found in the discipline table, if 0 then discipline is found in application table under column disciplineOther"
     t.string "discipline_other", limit: 30, comment: "If Discipline1 is 0 then this is the name of the discipline input by user"
-    t.datetime "created_at"
-    t.datetime "updated_at", default: "0001-01-01 00:00:00", null: false
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil, default: "0001-01-01 00:00:00", null: false
     t.bigint "log_id"
-    t.datetime "submitted_at"
+    t.datetime "submitted_at", precision: nil
     t.string "discipline"
     t.string "course_number", comment: "You will find this info in the abstract field for a CLASS type project in RAM2 data"
     t.string "approved_permits"
@@ -614,8 +613,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.bigint "reserve_id", null: false
     t.integer "sort_order", default: 1, null: false
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["reserve_id"], name: "index_reserve_addendums_on_reserve_id"
   end
 
@@ -626,8 +625,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.bigint "record_id", null: false
     t.bigint "reserve_id", null: false
     t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["record_type", "record_id"], name: "index_reserve_notes_on_record"
     t.index ["reserve_id"], name: "index_reserve_notes_on_reserve_id"
     t.index ["user_id"], name: "index_reserve_notes_on_user_id"
@@ -646,8 +645,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.boolean "public_project", default: false, null: false
     t.boolean "housing_only_project", default: false, null: false
     t.boolean "conference_project", default: false, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["reserve_id", "permit_id"], name: "ReservesPermitID"
     t.index ["visible", "sort_order_override"], name: "VisibleSortOrder"
   end
@@ -690,8 +689,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.boolean "research", default: true, null: false
     t.boolean "housing", default: true, null: false
     t.boolean "conference", default: false, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "visible"
     t.column "authority", "enum('Federal','State','Local','Institution','Reserve')"
     t.text "description"
@@ -722,8 +721,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
 
   create_table "reserve_settings", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.boolean "req_resource", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "reserve_id", null: false
   end
 
@@ -731,8 +730,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.integer "reserve_id", null: false
     t.column "category", "enum('ecosystem','geographic','organization','amenities','internet','other','facility')", null: false
     t.string "name", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["reserve_id"], name: "index_reserve_tags_on_reserve_id"
   end
 
@@ -858,8 +857,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.string "UAVContactPersonEmail", limit: 40, comment: "DEPRECATED"
     t.string "IACUCContactPerson", limit: 40, comment: "DEPRECATED"
     t.string "IACUCContactPersonEmail", limit: 40, comment: "DEPRECATED"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "bill_name", limit: 200
     t.column "Ecosystem", "enum('Undefined','Open Water','Perennial Ice/Snow','Develope','Open Space','Developed Low Intensity','Developed Medium Intensity','Developed High Intensity','Barren Land (Rock/Sand/Clay)','Unconsolidated Shore','Deciduous Forest','Evergreen Forest','Mixed Forest','Dwarf Scrub','Shrub/Scrub','Grasslands/Herbaceous','Sedge/Herbaceous','Lichens','Moss','Pasture/Hay','Cultivated Crops','Woody Wetlands','Emergent Herbaceous Wetlands')", default: "Undefined", collation: "ascii_general_ci"
     t.boolean "amenity_required", default: false, null: false
@@ -891,8 +890,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
   create_table "reserves_waivers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "reserve_id"
     t.bigint "waiver_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "signatures", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -901,8 +900,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.string "agreed_upon"
     t.integer "age"
     t.string "guardian_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["person_id"], name: "index_signatures_on_person_id"
     t.index ["waiver_id"], name: "index_signatures_on_waiver_id"
   end
@@ -913,6 +912,18 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.string "code", limit: 10
     t.index ["country_id", "name"], name: "country"
     t.index ["name"], name: "name"
+  end
+
+  create_table "use_policies", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "title"
+    t.text "description"
+    t.text "policy_link_text"
+    t.column "agreement_type", "enum('Reserve Use Agreement','Code of Conduct Agreement','Data Management Agreement')"
+    t.text "image_url"
+    t.integer "sort_order"
+    t.string "policy_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_visits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -931,10 +942,10 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.integer "count"
     t.decimal "actual_days", precision: 6, scale: 3, default: "0.0"
     t.column "status", "enum('Pending approval','Approved','Cancelled','Rejected','Bodega Laboratory only','Approved conditionally')", default: "Pending approval", null: false, comment: "Status of each Entry in the Activity"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "arrives_at"
-    t.datetime "departs_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.datetime "arrives_at", precision: nil
+    t.datetime "departs_at", precision: nil
     t.string "guest_name"
     t.index ["ArrivalDate"], name: "ArrivalDate"
     t.index ["DepartureDate"], name: "DepartureDate"
@@ -945,18 +956,6 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.index ["visit_id", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "visit_arrival_date"
     t.index ["visit_id", "DepartureDate", "DepartureTime"], name: "visit_departure_date"
     t.index ["visit_id"], name: "visit_id"
-  end
-
-  create_table "use_policies", charset: "utf8mb4", force: :cascade do |t|
-    t.text "title"
-    t.text "description"
-    t.text "policy_link_text"
-    t.column "agreement_type", "enum('Reserve Use Agreement','Code of Conduct Agreement','Data Management Agreement')"
-    t.text "image_url"
-    t.integer "sort_order"
-    t.string "policy_url"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -996,22 +995,22 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.integer "DefaultReserveID", default: 0, null: false, comment: "This value will determain which reserve the user is placed by default when they log in."
     t.string "advisor", limit: 100, comment: "Advisor or Supervisor"
     t.string "orcid", limit: 50, comment: "Unique ID for Researchers https://orcid.org/"
-    t.datetime "date_created", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Use to determain if need to update record"
+    t.datetime "date_created", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Use to determain if need to update record"
     t.string "confirmation_token", limit: 100
     t.string "reset_password_token", limit: 100
-    t.datetime "reset_password_sent_at"
+    t.datetime "reset_password_sent_at", precision: nil
     t.boolean "admin", default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "encrypted_password", null: false
-    t.datetime "remember_created_at"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
+    t.datetime "remember_created_at", precision: nil
+    t.datetime "confirmed_at", precision: nil
+    t.datetime "confirmation_sent_at", precision: nil
     t.string "unconfirmed_email"
     t.text "accessibility_requirements"
     t.boolean "billing_address_same_as_current", default: false
     t.string "backup_email_address"
-    t.datetime "terms_accepted_at"
+    t.datetime "terms_accepted_at", precision: nil
     t.column "age_range", "enum('1-17','18-25','25-50','50 or older')"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -1028,8 +1027,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.integer "visit_id", null: false
     t.boolean "boolean_answer", comment: "Boolean"
     t.text "text_answer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["reserve_question_id", "visit_id"], name: "Question"
     t.index ["visit_id", "reserve_question_id"], name: "unique_visit_reserve_answers", unique: true
     t.index ["visit_id", "reserve_question_id"], name: "visit"
@@ -1055,11 +1054,11 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.text "UpdateInformation", comment: "DEPRICATED"
     t.text "CommunicationLog", comment: "DEPRICATED"
     t.integer "report_access", limit: 1, default: 1, null: false, comment: "Apply to Annual Report"
-    t.datetime "created_at"
-    t.datetime "updated_at", default: "0001-01-01 00:00:00", null: false
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil, default: "0001-01-01 00:00:00", null: false
     t.string "sign_token", limit: 64, null: false
     t.bigint "log_id"
-    t.datetime "submitted_at"
+    t.datetime "submitted_at", precision: nil
     t.date "start_date"
     t.date "end_date"
     t.time "start_time"
@@ -1067,8 +1066,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.column "project_type", "enum('research','university class','meeting or conference','public use')"
     t.column "public_use_category", "enum('general-use','community-event','fundraiser','k-12-class','private-class','volunteer')", default: "general-use"
     t.string "study_area"
-    t.datetime "starts_at"
-    t.datetime "ends_at"
+    t.datetime "starts_at", precision: nil
+    t.datetime "ends_at", precision: nil
     t.index ["DateSubmitted", "project_id", "id"], name: "Date"
     t.index ["id"], name: "id"
     t.index ["project_id", "id"], name: "Application"
@@ -1081,8 +1080,8 @@ ActiveRecord::Schema.define(version: 2025_10_16_085050) do
     t.text "description"
     t.string "url"
     t.integer "years_to_expiration"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.column "url_type", "enum('link','pdf')", default: "link", null: false
   end
 
