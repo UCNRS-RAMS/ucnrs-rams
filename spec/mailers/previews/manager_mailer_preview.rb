@@ -18,7 +18,7 @@ class ManagerMailerPreview < ActionMailer::Preview
 
     pdf_presenter = Manager::Invoices::PdfShowPresenter.new(invoice: invoice)
     html = ActionController::Base.new.render_to_string(
-      "manager/invoices/pdf/show", layout: "pdf.html", locals: { presenter: pdf_presenter }
+      "manager/invoices/pdf/show", layout: "pdf", locals: { presenter: pdf_presenter }
     )
     pdf = WickedPdf.new.pdf_from_string(html)
 
