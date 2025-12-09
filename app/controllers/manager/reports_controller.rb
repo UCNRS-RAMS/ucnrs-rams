@@ -36,7 +36,7 @@ class Manager::ReportsController < Manager::ApplicationController
       format.pdf do
         render pdf: "annual_report_#{current_reserve.name.downcase.tr(' ', '_')}_part_1",
           disposition: "inline",
-          layout: "pdf.html",
+          layout: "pdf",
           orientation: "landscape",
           show_as_html: params[:debug].present?
       end
@@ -61,7 +61,7 @@ class Manager::ReportsController < Manager::ApplicationController
       format.pdf do
         render pdf: "annual_report_#{current_reserve.name.downcase.tr(' ', '_')}_part_2",
           disposition: "inline",
-          layout: "pdf.html",
+          layout: "pdf",
           show_as_html: params[:debug].present?
       end
     end

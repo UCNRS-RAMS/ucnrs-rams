@@ -33,7 +33,7 @@ class Manager::Invoices::EmailsController < Manager::ApplicationController
 
   def create_invoice_pdf(invoice)
     pdf_presenter = Manager::Invoices::PdfShowPresenter.new(invoice: invoice)
-    html = render_to_string("manager/invoices/pdf/show", layout: "pdf.html", locals: { presenter: pdf_presenter })
+    html = render_to_string("manager/invoices/pdf/show", layout: "pdf", locals: { presenter: pdf_presenter })
 
     return WickedPdf.new.pdf_from_string(html)
   end
