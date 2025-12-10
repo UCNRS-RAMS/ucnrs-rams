@@ -90,6 +90,7 @@ RSpec.describe "Manager Dashboard" do
       page.find("#calendar").click
 
       page.first(".visitor-count").click
+      sleep(0.5) # important, gives modal time to load.
       expect(flow).to have_modal
 
       page.click_on("Close")

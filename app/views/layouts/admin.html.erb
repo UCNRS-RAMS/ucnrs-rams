@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>UCNRS RAMS | Admin</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_pack_tag 'application' %>
+
+    <%= render partial: "layouts/fonts" %>
+  </head>
+
+  <body class="admin <%= body_class %>">
+    <header>
+      <%= render partial: 'layouts/domain_banner' %>
+      <h1>Admin</h1>
+      <%= render "shared/flash" %>
+    </header>
+    <main role="main">
+      <div class="container">
+        <%= yield %>
+      </div>
+    </main>
+    <%= render partial: "layouts/modal" %>
+  </body>
+</html>

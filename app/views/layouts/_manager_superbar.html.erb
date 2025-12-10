@@ -3,6 +3,7 @@
     <ul class="navbar-nav">
 
       <% if layout_presenter.in_manager_namespace? %>
+        <li><%= link_to "Whats New/Changed!", manager_reserve_new_features_path(layout_presenter.current_reserve) %></li>
         <li class="dropdown" data-controller="dropdown">
           <%= link_to layout_presenter.current_reserve_name,
             "#",

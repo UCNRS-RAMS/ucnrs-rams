@@ -62,7 +62,9 @@ class VisitShowVisitorTabFlow
   end
 
   def click_on_change
-    page.click_link "Change"
+    within("#visitors-summary") do
+      page.click_link "Change"
+    end
   end
 
   def click_add_visitor
