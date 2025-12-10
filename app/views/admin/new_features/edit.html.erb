@@ -1,0 +1,11 @@
+<%= form_with model: @presenter.form,
+  url: admin_new_feature_path(@presenter.form_new_feature.id),
+  method: :patch do |form|
+%>
+  <h2>Edit new feature announcement</h2>
+  <%= render partial: "new_feature_field", locals: { form: form } %>
+
+  <section class="buttons">
+    <%= button_tag t("update"), class: "active", type: "submit" %>
+  </section>
+<% end %>

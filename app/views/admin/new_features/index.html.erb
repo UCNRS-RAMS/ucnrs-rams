@@ -1,0 +1,10 @@
+<%= @presenter.new_features.length %>
+
+<% @presenter.new_features.each do |new_feature| %>
+  <section>
+    <%= new_feature.title %> | <%= link_to t("edit"), edit_admin_new_feature_path(new_feature) %>
+  </section>
+<% end %>
+
+<%= link_to "new", new_admin_new_feature_path %>
+<% console %>

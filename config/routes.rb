@@ -191,5 +191,6 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :reports, only: [:index]
+    resources :new_features
   end
 end
