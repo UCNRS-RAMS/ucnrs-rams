@@ -10,29 +10,120 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-  create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
 ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
+  create_table "ActPeople_copy1", primary_key: "ActPeopleID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "ActivityID", null: false
+    t.integer "PeopleID", null: false
+    t.column "Role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')", null: false
+    t.integer "ReserveID"
+    t.integer "InstitutionID"
+    t.date "ArrivalDate", default: "1999-12-31"
+    t.time "ArrivalTime", default: "2000-01-01 00:00:00"
+    t.date "DepartureDate", default: "1999-12-31"
+    t.time "DepartureTime", default: "2000-01-01 00:00:00"
+    t.boolean "UsageConfirmed", default: false, comment: "Boolean"
+    t.integer "ConfirmedByID"
+    t.text "UsageNotes"
+    t.integer "ActualCount"
+    t.decimal "ActualDays", precision: 6, scale: 3, default: "0.0"
+    t.column "Status", "enum('Pending approval','Approved','Cancelled','Rejected','Bodega Laboratory only','Approved conditionally')", default: "Pending approval", null: false, comment: "Status of each Entry in the Activity"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.index ["ActivityID", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "ActivityArrivalDate"
+    t.index ["ActivityID", "DepartureDate", "DepartureTime"], name: "ActivityDepartureDate"
+    t.index ["ActivityID"], name: "ActivityID"
+    t.index ["ArrivalDate"], name: "ArrivalDate"
+    t.index ["DepartureDate"], name: "DepartureDate"
+    t.index ["PeopleID", "ActivityID", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "People"
+    t.index ["PeopleID"], name: "PeopleID"
+    t.index ["ReserveID", "ArrivalDate", "ActivityID"], name: "Reserves"
+    t.index ["Status", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "StatusAndDate"
+  end
+
+  create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.integer "project_id", null: false
     t.integer "user_id", null: false
-    t.string "Owner", limit: 100, null: false
-    t.string "DeviceDescription", limit: 100, null: false
-    t.string "DataCollected", limit: 200, null: false
-    t.string "ArchivedDataLocation", limit: 200, null: false
-    t.string "DOI", limit: 50, null: false
-    t.string "LocationDescription", limit: 200, null: false
-    t.string "LocationLatitude", limit: 10, null: false
-    t.string "LocationLongitude", limit: 10, null: false
-    t.integer "DaysOnReserve", null: false
-    t.string "DataCollectionInterval", limit: 100, null: false, comment: "How often is the data collected"
-    t.date "DateOfDeployment", default: "1900-01-01", null: false
+    t.string "owner", limit: 100, null: false, comment: "Who owns this equipment"
+    t.string "device_description", limit: 100, null: false, comment: "Device Description"
+    t.string "data_collected", limit: 200, null: false, comment: "What data is collected"
+    t.string "archived_data_location", limit: 200, null: false, comment: "Where is data archived"
+    t.string "doi", limit: 50, null: false, comment: "Equipment DOI #"
+    t.string "location_description", limit: 200, null: false, comment: "Where is equipment located"
+    t.string "location_latitude", limit: 10, null: false
+    t.string "location_longitude", limit: 10, null: false
+    t.integer "days_on_reserve", null: false, comment: "# days on the reserve"
+    t.string "data_collection_interval", limit: 100, null: false, comment: "How often is the data collected"
+    t.date "deployment_date", default: "1900-01-01", null: false, comment: "Date the equipment was deployed on the reserve"
   end
 
-  create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "People_copy1", primary_key: "PeopleID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.column "Gender", "enum('Female','Male','Non-binary','')"
+    t.string "NameFirst", limit: 100
+    t.string "NameMiddle", limit: 20
+    t.string "NameLast", limit: 100
+    t.string "NameGroup", limit: 40
+    t.integer "Count", limit: 2, default: 1, null: false
+    t.string "Title", limit: 30
+    t.string "AddrLine1", limit: 100
+    t.string "AddrLine2", limit: 100
+    t.string "AddrCity", limit: 100
+    t.string "AddrPostalCode", limit: 20
+    t.integer "AddrStateID"
+    t.integer "AddrCountryID"
+    t.string "PermAddrLine1", limit: 100
+    t.string "PermAddrLine2", limit: 100
+    t.string "PermAddrCity", limit: 100
+    t.string "PermAddrPostalCode", limit: 20
+    t.integer "PermAddrStateID"
+    t.integer "PermAddrCountryID"
+    t.string "EmailAddress", limit: 100
+    t.string "CellPhone", limit: 20
+    t.string "FaxPhone", limit: 20
+    t.string "OtherPhone", limit: 20
+    t.string "EmergencyContact", limit: 100
+    t.string "EmergencyTelephone", limit: 60
+    t.integer "InstitutionID"
+    t.column "Role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')"
+    t.date "Birthdate"
+    t.string "IdentificationNumber", limit: 20
+    t.string "HousingConcerns", limit: 1000
+    t.string "Department", limit: 200
+    t.string "BillingPersonName", limit: 100
+    t.string "BillingPersonPhone", limit: 20
+    t.string "BillingPersonEmail", limit: 100
+    t.string "BillingAddrLine1", limit: 100
+    t.string "BillingAddrLine2", limit: 100
+    t.string "BillingAddrCity", limit: 100
+    t.string "BillingAddrPostalCode", limit: 20
+    t.integer "BillingAddrStateID"
+    t.integer "BillingAddrCountryID"
+    t.boolean "RecordComplete", default: false, null: false, comment: "This is to check if user has completed their information entry."
+    t.string "AdministrativeNotes", limit: 100, default: "", comment: "notes about the user (not intended to be public)"
+    t.integer "DefaultReserveID", default: 0, null: false, comment: "This value will determain which reserve the user is placed by default when they log in."
+    t.string "Advisor", limit: 100, comment: "Advisor or Supervisor"
+    t.string "ORCID", limit: 50, comment: "Unique ID for Researchers https://orcid.org/"
+    t.datetime "DateCreated", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Use to determain if need to update record"
+    t.string "activation_digest", limit: 100
+    t.boolean "activated", default: false
+    t.string "reset_digest", limit: 100
+    t.datetime "reset_sent_at", precision: nil
+    t.boolean "admin", default: false
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.string "password_digest"
+    t.index ["InstitutionID", "NameLast", "NameFirst", "NameMiddle"], name: "Institution+Name"
+    t.index ["InstitutionID"], name: "Institution"
+    t.index ["NameGroup", "NameLast", "NameFirst"], name: "Group"
+    t.index ["NameLast", "NameFirst", "NameMiddle"], name: "Name"
+    t.index ["PeopleID"], name: "People"
+  end
+
+  create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
     t.string "record_type", null: false
-    t.integer "record_id", null: false
+    t.bigint "record_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
@@ -67,6 +158,37 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
   end
 
   create_table "amenities", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "reserve_id", null: false
+    t.string "title", limit: 200, default: ""
+    t.string "comment", default: ""
+    t.integer "total_capacity", limit: 2, default: 0, null: false
+    t.column "units_type", "enum('session','use','person','mile','square foot','unit','facility')"
+    t.column "time_type", "enum('hour','day','night','week','month','quarter','semi-annual','year','4 hours','8 hours','each')", default: "day"
+    t.integer "sort_order", limit: 3, default: 255, null: false, unsigned: true
+    t.boolean "visible", default: true, null: false, comment: "Visable to Admin and User (1) or just Admin (0)"
+    t.boolean "disable", default: false, null: false, comment: "Asset used in the past, but won't be used in the future"
+    t.integer "reserve_id_temp"
+    t.boolean "default_select", default: false, null: false, comment: "Allows manager to choose if this asset is selected by default when the page is loaded"
+    t.boolean "show_on_invoice", default: true, null: false, comment: "Allow admin to determain if an asset will show up as an univoiced item"
+    t.boolean "outside_reservation_system", default: false, null: false, comment: "THis asset requires outside reservation system"
+    t.boolean "email_notification_system", default: false, null: false
+    t.string "email_notification_address", limit: 50
+    t.string "amenities_code", limit: 10, default: "-", null: false, comment: "Abbreviation"
+    t.column "group_number", "enum('1','2','3','4','5')"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.string "description"
+    t.column "amenities_type", "enum('Housing & Camping','Classroom & Meeting Space','Laboratory & Storage Space','Vehicles & Boats','Other Amenity')"
+    t.string "image_url"
+    t.string "listing_photo"
+    t.index ["disable", "sort_order", "title"], name: "DisableSortDescription"
+    t.index ["reserve_id", "sort_order"], name: "reserve_sort_order"
+    t.index ["reserve_id", "title"], name: "reserve"
+    t.index ["sort_order", "title"], name: "SortOrderDescription"
+    t.index ["sort_order"], name: "PlainSortOrder"
+  end
+
+  create_table "amenities_clone", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.string "title", limit: 200, default: ""
     t.string "comment", default: ""
@@ -196,6 +318,70 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.index ["project_id"], name: "reserve"
   end
 
+  create_table "applications_before_delete_reserve_42", primary_key: "ApplicationID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "ReserveID", null: false
+    t.integer "PeopleID", null: false, comment: "This person can be selected by the manager and can change over time.\nThis is the name that shows up on reports and in calendars."
+    t.integer "ApplicantID", null: false, comment: "This is the original applicant and cannot be edited."
+    t.text "ProjectTitle"
+    t.text "ThesisTitle"
+    t.string "CourseName"
+    t.text "ProjectAbstract", comment: "Project abstract for RESEARCH applications, course number for CLASS applications"
+    t.text "KeyWordSearch"
+    t.text "TaxonomicSearch"
+    t.text "MethodDescription"
+    t.boolean "MethodRemoveOrganisms", comment: "Boolean"
+    t.boolean "MethodTransferOrganisms", comment: "Boolean"
+    t.boolean "MethodStudyNonNativeSpecies", comment: "Boolean"
+    t.boolean "MethodChemicals", comment: "Boolean"
+    t.text "MethodChemicalsList"
+    t.boolean "MethodSoilDisturbance", comment: "Boolean"
+    t.boolean "MethodLongTermStructures", comment: "Boolean"
+    t.boolean "MethodAnchorCollectShoreline", comment: "Boolean"
+    t.string "MethodStudyArea", limit: 10000
+    t.boolean "NonNativeGenotype", default: false, comment: "Boolean"
+    t.date "DateSubmitted"
+    t.column "ApplicationType", "enum('Research','Class','Public','Housing','Meeting','All')", default: "Research"
+    t.column "app_html_type", "enum('research','class','other','housing','conference')"
+    t.column "ApplicationSubType", "enum('Default','Meeting','Housing')", default: "Default"
+    t.date "ProjectStartDate"
+    t.date "ProjectEndDate"
+    t.text "ProjectChanges"
+    t.string "ApplicationPassword", limit: 100
+    t.column "USDACategories", "set('AES: Agricultural Experiment Station','CE: Cooperative Extension','ANR: Division of Agriculture and Natural Resources','USDA: U. S. Department of Agriculture','USFS: U. S. Forest Service','CSREES: Cooperative State Research Education and Extension Service','College of Agricultural and Natural Science (Riverside)','College of Agricultural and Environmental Science (Davis)','College of Natural Resources (Berkeley)','School of Forestry','Veterinary School of Medicine','Other','No USDA category applicable')"
+    t.boolean "ApprovalStatus", default: false, null: false, comment: "Pending or Approved"
+    t.string "ApprovedBy", limit: 30
+    t.date "ApprovalDate"
+    t.column "ApplicationStatus", "enum('Closed','Open','Rejected','Cancelled','Updating','Temp','All')"
+    t.column "EMailType", "enum('Automatic','Compose','Silent')"
+    t.text "MissingData"
+    t.boolean "Page1Complete", default: false, null: false
+    t.boolean "Page2Complete", default: false, null: false
+    t.boolean "Page3Complete", default: false, null: false
+    t.boolean "Page4Complete", default: false, null: false
+    t.boolean "Page5Complete", default: false, null: false
+    t.boolean "AnnualReportAccess", default: true, null: false
+    t.boolean "ARPart1Access", default: true, null: false
+    t.boolean "PermitsMade", default: false, null: false
+    t.text "RecentPublications", comment: "Publication list"
+    t.column "MetaFData", "enum('Unnecessary','Required','Submitted')", default: "Unnecessary", null: false
+    t.text "CommunicationLog", comment: "Log of activity and notes made by administrator"
+    t.integer "AnnualReportAccessTEMP", limit: 1, default: 1, null: false
+    t.integer "Discipline1", comment: "Discipline of this application, if > 0 then discipline is found in the discipline table, if 0 then discipline is found in application table under column disciplineOther"
+    t.string "DisciplineOther", limit: 30, comment: "If Discipline1 is 0 then this is the name of the discipline input by user"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil, default: "0001-01-01 00:00:00", null: false
+    t.bigint "log_id"
+    t.datetime "submitted_at", precision: nil
+    t.index ["ApplicationID"], name: "ApplicationID"
+    t.index ["ApplicationStatus", "ReserveID", "ApplicationID"], name: "ApplicationStatus"
+    t.index ["ApplicationType", "ApplicationID"], name: "ApplicationType"
+    t.index ["CourseName"], name: "CourseName"
+    t.index ["DateSubmitted"], name: "DateSubmitted"
+    t.index ["ProjectStartDate"], name: "ProjectStart"
+    t.index ["ReserveID", "ApplicationStatus", "ApplicationID"], name: "Reserve"
+    t.index ["ReserveID"], name: "reserve_id"
+  end
+
   create_table "applications_disciplines", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "project_id"
     t.integer "discipline_id"
@@ -276,6 +462,35 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.datetime "updated_at", null: false
     t.index ["institution_type", "name"], name: "institution_type"
     t.index ["name"], name: "name"
+  end
+
+  create_table "invassetreservation_copy1", primary_key: "AssetActivityID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "AssetID", null: false
+    t.integer "ActivityID", null: false
+    t.integer "AssetRateID", null: false
+    t.integer "PeopleID"
+    t.bigint "InvoiceID", default: 0
+    t.integer "RateCategoryID", comment: "Rate Category that is selected from INVRateCategories for that reserve"
+    t.date "ArrivalDate"
+    t.time "ArrivalTime", default: "2000-01-01 00:00:00"
+    t.date "DepartureDate"
+    t.time "DepartureTime", default: "2000-01-01 00:00:00"
+    t.integer "NumberOfPeople"
+    t.column "NeedRating", "enum('Required','High','Medium','Low','NA','')"
+    t.string "UserComments", limit: 80
+    t.column "Status", "enum('Pending approval','Approved','Cancelled','Rejected')", default: "Pending approval"
+    t.integer "ManualPeople", default: 0
+    t.decimal "ManualRate", precision: 10, scale: 4, default: "0.0"
+    t.decimal "ManualUnits", precision: 10, scale: 4, default: "0.0"
+    t.boolean "InvoiceNow", default: true
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.index ["ActivityID", "NeedRating"], name: "Facility"
+    t.index ["ActivityID"], name: "Activity"
+    t.index ["ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "ArrivalDateTime"
+    t.index ["InvoiceID"], name: "index_InvAssetReservation_on_InvoiceID"
+    t.index ["NeedRating", "ActivityID"], name: "Priority"
+    t.index ["Status", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "StatusAndDates"
   end
 
   create_table "invoice_payments", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -393,7 +608,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.datetime "updated_at", precision: nil, null: false
   end
 
-  create_table "new_features", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "new_features", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -526,6 +741,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.date "date_submitted", comment: "Move data to submitted_at with default time"
     t.column "project_type", "enum('Research','Class','Public Use','Housing','Meeting')"
     t.column "app_html_type", "enum('research','class','other','housing','conference')", comment: "DEPRECATED"
+    t.column "ApplicationSubType", "enum('Default','Meeting','Housing')", default: "Default"
     t.date "start_date"
     t.date "end_date"
     t.text "ProjectChanges", comment: "DEPRECATED"
@@ -547,7 +763,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.boolean "permits_completed", default: false, null: false
     t.text "recent_publications", comment: "Publication list"
     t.column "data_submitted", "enum('Unnecessary','Required','Submitted')", default: "Unnecessary", null: false
-    t.text "CommunicationLog", comment: "DEPRECATED"
+    t.text "CommunicationLog", size: :medium, comment: "DEPRECATED"
     t.integer "AnnualReportAccessTEMP", limit: 1, default: 1, null: false, comment: "DEPRECATED"
     t.integer "Discipline1", comment: "DEPRECATED Discipline of this application, if > 0 then discipline is found in the discipline table, if 0 then discipline is found in application table under column disciplineOther"
     t.string "discipline_other", limit: 30, comment: "If Discipline1 is 0 then this is the name of the discipline input by user"
@@ -555,6 +771,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.datetime "updated_at", precision: nil, default: "0001-01-01 00:00:00", null: false
     t.bigint "log_id"
     t.datetime "submitted_at", precision: nil
+    t.string "metadata", default: "{}"
     t.string "discipline"
     t.string "course_number", comment: "You will find this info in the abstract field for a CLASS type project in RAM2 data"
     t.string "approved_permits"
@@ -624,7 +841,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.index ["reserve_id"], name: "index_reserve_addendums_on_reserve_id"
   end
 
-  create_table "reserve_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "reserve_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
     t.text "note"
     t.string "action", default: "reserve note"
     t.string "record_type", null: false
@@ -658,6 +875,31 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
   end
 
   create_table "reserve_personnel", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "reserve_id", null: false
+    t.integer "user_id", null: false
+    t.column "role", "enum('Administrator','View Only','Accountant')", default: "Administrator"
+    t.string "supervisor_name", limit: 50
+    t.boolean "receive_project_email", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "receive_invoice_email", default: false, null: false, comment: "Set checkbox if Recieve email of invoice"
+    t.boolean "receive_update_email", default: false, null: false, comment: "Recieve Email when user updates an app or res"
+    t.boolean "receive_iacuc_email", default: false, null: false
+    t.boolean "receive_incomplete_visit_email", default: false, null: false, comment: "Get emailed when applicant starts a reservation"
+    t.boolean "receive_approval_email", default: false, null: false
+    t.boolean "receive_drone_email", default: false, null: false
+    t.boolean "receive_scuba_email", default: false, null: false
+    t.boolean "receive_new_project_email", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "receive_new_visit_email", default: false, null: false
+    t.string "phone_number", limit: 25
+    t.string "email"
+    t.string "avatar"
+    t.boolean "visible", default: true, null: false
+    t.string "role_title"
+    t.index ["reserve_id"], name: "reserve"
+    t.index ["user_id", "reserve_id"], name: "index_reserve_personnel_on_user_id_and_reserve_id", unique: true
+    t.index ["user_id"], name: "user"
+  end
+
+  create_table "reserve_personnel_clone", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.integer "user_id", null: false
     t.column "role", "enum('Administrator','View Only','Accountant')", default: "Administrator"
@@ -732,7 +974,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.integer "reserve_id", null: false
   end
 
-  create_table "reserve_tags", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "reserve_tags", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.column "category", "enum('ecosystem','geographic','organization','amenities','internet','other','facility')", null: false
     t.string "name", null: false
@@ -867,8 +1109,160 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.datetime "updated_at", precision: nil
     t.string "bill_name", limit: 200
     t.column "Ecosystem", "enum('Undefined','Open Water','Perennial Ice/Snow','Develope','Open Space','Developed Low Intensity','Developed Medium Intensity','Developed High Intensity','Barren Land (Rock/Sand/Clay)','Unconsolidated Shore','Deciduous Forest','Evergreen Forest','Mixed Forest','Dwarf Scrub','Shrub/Scrub','Grasslands/Herbaceous','Sedge/Herbaceous','Lichens','Moss','Pasture/Hay','Cultivated Crops','Woody Wetlands','Emergent Herbaceous Wetlands')", default: "Undefined", collation: "ascii_general_ci"
+    t.boolean "always_send_visit_asset_email", default: false, null: false
+    t.string "administrative_group_name"
+    t.string "administrative_group_name_acronym"
+    t.string "administrative_group_state"
+    t.integer "address_state_id"
+    t.integer "address_country_id"
+    t.integer "billing_address_state_id"
+    t.integer "billing_address_country_id"
+    t.virtual "latitude_degrees", type: :integer, as: "floor(abs(`latitude`))"
+    t.virtual "latitude_minutes", type: :integer, as: "floor(((abs(`latitude`) % 1) * 60))"
+    t.virtual "latitude_seconds", type: :float, as: "((((abs(`latitude`) % 1) * 60) % 1) * 60)"
+    t.virtual "latitude_hemisphere", type: :string, limit: 50, as: "if((`latitude` > 0),_utf8mb3'N',_utf8mb3'S')"
+    t.virtual "longitude_degrees", type: :integer, as: "floor(abs(`longitude`))"
+    t.virtual "longitude_minutes", type: :integer, as: "floor(((abs(`longitude`) % 1) * 60))"
+    t.virtual "longitude_seconds", type: :float, as: "((((abs(`longitude`) % 1) * 60) % 1) * 60)"
+    t.virtual "longitude_hemisphere", type: :string, limit: 50, as: "if((`longitude` > 0),_utf8mb3'E',_utf8mb3'W')"
+    t.text "description"
+    t.string "listing_photo"
+    t.string "large_hero_photo"
+    t.string "logo"
+    t.boolean "contact_for_project_review", default: false, null: false
     t.boolean "amenity_required", default: false, null: false
     t.text "amenity_required_text"
+    t.index ["managing_campus_id", "name"], name: "ManagingCampus"
+    t.index ["name"], name: "Name"
+  end
+
+  create_table "reserves_clone", id: { type: :integer, comment: "NRS reserves listed in order of inclusion in the system" }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name", limit: 80
+    t.string "short_name", limit: 20
+    t.string "pulldown_name", limit: 80, default: "Pulldown", null: false, comment: "Pulldown Name Sorted Alphabetically"
+    t.text "directions"
+    t.text "rules"
+    t.text "rates"
+    t.integer "managing_campus_id"
+    t.string "department", limit: 100
+    t.string "address_line_1", limit: 100
+    t.string "address_line_2", limit: 100
+    t.string "address_city", limit: 50
+    t.string "State", limit: 50
+    t.string "address_postal_code", limit: 15
+    t.string "Country", limit: 100
+    t.string "billing_address_line_1", limit: 100
+    t.string "billing_address_line_2", limit: 100
+    t.string "billing_city", limit: 50
+    t.string "BillState", limit: 50
+    t.string "billing_address_postal_code", limit: 15
+    t.string "BillCountry", limit: 100
+    t.string "applicaton_email_address", limit: 100
+    t.string "email_address", limit: 50, comment: "Generic Email Address"
+    t.boolean "EmailAttachment", comment: "DEPRECATED"
+    t.column "EmailFormat", "enum('Full','Short')", default: "Full", null: false, comment: "DEPRECATED"
+    t.string "phone_number", limit: 20
+    t.string "fax_number", limit: 20
+    t.string "check_payable_to_name", limit: 50
+    t.string "home_page_url"
+    t.string "logo_url_old", comment: "URL of reserve Icon"
+    t.string "directions_url"
+    t.string "rules_url"
+    t.string "rates_url", default: ""
+    t.boolean "research_projects_accepted", default: true, null: false, comment: "Boolean"
+    t.boolean "class_projects_accepted", default: true, null: false, comment: "Boolean"
+    t.boolean "public_projects_accepted", default: true, null: false, comment: "Boolean"
+    t.boolean "housing_projects_accepted"
+    t.boolean "conference_projects_accepted", default: false, null: false
+    t.boolean "MeetingAppsAccepted", default: false, comment: "Boolean"
+    t.boolean "PublicAppFormat", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "PublicDayUseAppsAccepted", default: false, null: false, comment: "DEPRECATED"
+    t.integer "PublicDayUseAppNumber", comment: "DEPRECATED"
+    t.boolean "public_calendar_access", default: false, null: false, comment: "Boolean"
+    t.boolean "CollectBirthDate", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "CollectCAProjectSponsor", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "CollectCellPhone", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "CollectGender", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "CollectHousingConcerns", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "CollectIDNumber", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "CollectPermanentAddress", default: false, null: false, comment: "DEPRECATED"
+    t.boolean "CollectSensorData", default: false, null: false, comment: "DEPRECATED"
+    t.column "UserMailingListSettings", "set('Research','Class','Public')", comment: "DEPRECATED"
+    t.text "how_to_contact"
+    t.text "approval_message"
+    t.text "email_message_2"
+    t.text "email_message_3"
+    t.text "email_message_4"
+    t.boolean "AllowMailSpoofing", default: true, null: false, comment: "DEPRECATED"
+    t.float "latitude", limit: 53, default: 0.0, null: false
+    t.float "longitude", limit: 53, default: 0.0, null: false
+    t.float "LatDeg", limit: 53, default: 0.0, null: false, comment: "DEPRECATED moved to reserve_locations"
+    t.float "LatMin", limit: 53, default: 0.0, null: false, comment: "DEPRECATED moved to reserve_locations"
+    t.float "LatSec", limit: 53, default: 0.0, null: false, comment: "DEPRECATED moved to reserve_locations"
+    t.string "LatHemisphere", limit: 50, default: "N", null: false, comment: "DEPRECATED moved to reserve_locations"
+    t.float "LongDeg", limit: 53, default: 0.0, null: false, comment: "DEPRECATED moved to reserve_locations"
+    t.float "LongMin", limit: 53, default: 0.0, null: false, comment: "DEPRECATED moved to reserve_locations"
+    t.float "LongSec", limit: 53, default: 0.0, null: false, comment: "DEPRECATED moved to reserve_locations"
+    t.string "LongHemisphere", limit: 50, default: "W", null: false, comment: "DEPRECATED moved to reserve_locations"
+    t.text "UTMX", comment: "DEPRECATED moved to reserve_locations"
+    t.text "UTMY", comment: "DEPRECATED moved to reserve_locations"
+    t.integer "UTMZone", limit: 2, comment: "DEPRECATED moved to reserve_locations"
+    t.string "Map1URL", comment: "DEPRECATED - WIll store in separate table."
+    t.string "Map2URL", comment: "DEPRECATED - WIll store in separate table."
+    t.string "Map3URL", comment: "DEPRECATED - WIll store in separate table."
+    t.string "Map1Caption", limit: 200, comment: "DEPRECATED - WIll store in separate table."
+    t.string "Map2Caption", limit: 200, comment: "DEPRECATED - WIll store in separate table."
+    t.string "Map3Caption", limit: 200, comment: "DEPRECATED - WIll store in separate table."
+    t.text "special_needs_statement", comment: "Reserve personalized message text dispalyed with this field"
+    t.text "invoice_message"
+    t.string "tax_id_number", limit: 20
+    t.boolean "UseCAPermitQuestions", comment: "DEPRECATED"
+    t.boolean "UseAdditionalAppQuestions", comment: "DEPRECATED"
+    t.integer "AccountantID", comment: "DEPRECATED"
+    t.string "invoice_message_footer", limit: 12
+    t.integer "year_reserve_established"
+    t.boolean "show_rate_table", default: true, null: false, comment: "Show or hide rate table in reserve info page"
+    t.string "ldap_address", limit: 100, default: "uid=nrsadmin,o=unaffiliated,dc=ecoinformatics,dc=org", null: false
+    t.string "outside_reservation_system_url", default: "0", null: false
+    t.text "outside_reservation_system_text", comment: "Text displayed when user selects a trigger Asset"
+    t.string "doi", limit: 100, default: "0", null: false, comment: "Reserve DOI"
+    t.string "google_calendar_id", limit: 100, default: "0", null: false, comment: "Calendar ID value"
+    t.boolean "reserve_alert_message_enabled"
+    t.text "reserve_alert_message"
+    t.string "code_of_conduct_url", default: "http://rams.ucnrs.org/PDF/nrs-codeofconduct.pdf", null: false, comment: "Code of Conduct"
+    t.string "zotero_url", limit: 200, default: "https://www.zotero.org/groups/"
+    t.string "zotero_login", limit: 50
+    t.string "zotero_password", limit: 50
+    t.column "facility_group_name", "enum('No Facilities','Less Than 30 Overnight Facilities','Over 30 Overnight Facilities','Lab Facility')", default: "No Facilities"
+    t.column "internet_status", "enum('No Network','Cell Phone Only','DSL Internet','Satellite Internet','Broadband Internet','Cable Internet','High Speed Internet','Unknown')", default: "Unknown"
+    t.integer "DistanceToManagingCampus", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.integer "AverageDistanceToCampus", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.integer "DistanceToUCB", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.integer "DistanceToUCD", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.integer "DistanceToUCI", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.integer "DistanceToUCM", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.integer "DistanceToUCLA", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.integer "DistanceToUCR", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.integer "DistanceToUCSB", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.integer "DistanceToUCSC", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.integer "DistanceToUCSD", default: 0, comment: "DEPRECATED moved to reserve_locations"
+    t.string "drop_box_login", limit: 40, default: ""
+    t.string "drop_box_password", limit: 40, default: ""
+    t.string "drop_box_request_url", default: "https://www.dropbox.com/l/"
+    t.string "amenity_group_label_1", limit: 40, default: "1"
+    t.string "amenity_group_label_2", limit: 40, default: "2"
+    t.string "amenity_group_label_3", limit: 40, default: "3"
+    t.string "amenity_group_label_4", limit: 40, default: "4"
+    t.string "amenity_group_label_5", limit: 40, default: "5"
+    t.string "UAVContactPerson", limit: 40, comment: "DEPRECATED"
+    t.string "UAVContactPersonEmail", limit: 40, comment: "DEPRECATED"
+    t.string "IACUCContactPerson", limit: 40, comment: "DEPRECATED"
+    t.string "IACUCContactPersonEmail", limit: 40, comment: "DEPRECATED"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.string "bill_name", limit: 200
+    t.column "Ecosystem", "enum('Undefined','Open Water','Perennial Ice/Snow','Develope','Open Space','Developed Low Intensity','Developed Medium Intensity','Developed High Intensity','Barren Land (Rock/Sand/Clay)','Unconsolidated Shore','Deciduous Forest','Evergreen Forest','Mixed Forest','Dwarf Scrub','Shrub/Scrub','Grasslands/Herbaceous','Sedge/Herbaceous','Lichens','Moss','Pasture/Hay','Cultivated Crops','Woody Wetlands','Emergent Herbaceous Wetlands')", default: "Undefined", collation: "ascii_general_ci"
+    t.boolean "always_send_visit_asset_email", default: false, null: false
     t.string "administrative_group_name"
     t.string "administrative_group_name_acronym"
     t.string "administrative_group_state"
@@ -896,6 +1290,14 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
   create_table "reserves_waivers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "reserve_id"
     t.bigint "waiver_id"
+    t.integer "sort_order", default: 1, null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+  end
+
+  create_table "reserves_waivers_clone", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "reserve_id"
+    t.bigint "waiver_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
   end
@@ -920,16 +1322,19 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.index ["name"], name: "name"
   end
 
-  create_table "use_policies", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "untitled_table_59", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
+  end
+
+  create_table "use_policies", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
     t.text "title"
     t.text "description"
     t.text "policy_link_text"
     t.column "agreement_type", "enum('Reserve Use Agreement','Code of Conduct Agreement','Data Management Agreement')"
     t.text "image_url"
     t.integer "sort_order"
-    t.string "policy_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "policy_url"
   end
 
   create_table "user_visits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -969,7 +1374,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.string "first_name", limit: 100
     t.string "middle_name", limit: 20
     t.string "last_name", limit: 100
-    t.string "title", limit: 30
+    t.string "title", limit: 100
     t.string "address_line_1", limit: 100
     t.string "address_line_2", limit: 100
     t.string "address_city", limit: 100
@@ -997,7 +1402,71 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.integer "billing_address_state_id"
     t.integer "billing_address_country_id"
     t.boolean "record_complete", default: false, null: false, comment: "This is to check if user has completed their information entry."
-    t.string "administrative_notes", limit: 100, default: "", comment: "notes about the user (not intended to be public)"
+    t.string "administrative_notes", limit: 1000, default: "", comment: "notes about the user (not intended to be public)"
+    t.integer "DefaultReserveID", default: 0, null: false, comment: "This value will determain which reserve the user is placed by default when they log in."
+    t.string "advisor", limit: 100, comment: "Advisor or Supervisor"
+    t.string "orcid", limit: 50, comment: "Unique ID for Researchers https://orcid.org/"
+    t.datetime "date_created", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Use to determain if need to update record"
+    t.string "confirmation_token", limit: 100
+    t.string "reset_password_token", limit: 100
+    t.datetime "reset_password_sent_at", precision: nil
+    t.boolean "admin", default: false
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.string "encrypted_password", null: false
+    t.datetime "remember_created_at", precision: nil
+    t.datetime "confirmed_at", precision: nil
+    t.datetime "confirmation_sent_at", precision: nil
+    t.string "unconfirmed_email"
+    t.text "accessibility_requirements"
+    t.boolean "billing_address_same_as_current", default: false
+    t.string "backup_email_address"
+    t.datetime "terms_accepted_at", precision: nil
+    t.column "age_range", "enum('1-17','18-25','25-50','50 or older')"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["id"], name: "user"
+    t.index ["institution_id", "last_name", "first_name", "middle_name"], name: "Institution+Name"
+    t.index ["institution_id"], name: "Institution"
+    t.index ["last_name", "first_name", "middle_name"], name: "Name"
+    t.index ["last_name", "first_name"], name: "Group"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "users_clone", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.column "gender_identity", "enum('Male','Female','Non-binary','Other','Prefer not to state')"
+    t.string "first_name", limit: 100
+    t.string "middle_name", limit: 20
+    t.string "last_name", limit: 100
+    t.string "title", limit: 100
+    t.string "address_line_1", limit: 100
+    t.string "address_line_2", limit: 100
+    t.string "address_city", limit: 100
+    t.string "address_postal_code", limit: 20
+    t.integer "address_state_id"
+    t.integer "address_country_id"
+    t.string "email", limit: 100, null: false
+    t.string "phone_number", limit: 20
+    t.string "secondary_phone_number", limit: 20
+    t.string "emergency_contact_full_name", limit: 100
+    t.string "emergency_contact_phone_number", limit: 60
+    t.integer "institution_id"
+    t.column "role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')"
+    t.date "date_of_birth", default: "2000-01-01"
+    t.string "identification_number", limit: 20
+    t.string "housing_concerns", limit: 1000
+    t.string "department", limit: 200
+    t.string "billing_person_full_name", limit: 100
+    t.string "billing_person_phone_number", limit: 20
+    t.string "billing_person_email", limit: 100
+    t.string "billing_address_line_1", limit: 100
+    t.string "billing_address_line_2", limit: 100
+    t.string "billing_address_city", limit: 100
+    t.string "billing_address_postal_code", limit: 20
+    t.integer "billing_address_state_id"
+    t.integer "billing_address_country_id"
+    t.boolean "record_complete", default: false, null: false, comment: "This is to check if user has completed their information entry."
+    t.string "administrative_notes", limit: 1000, default: "", comment: "notes about the user (not intended to be public)"
     t.integer "DefaultReserveID", default: 0, null: false, comment: "This value will determain which reserve the user is placed by default when they log in."
     t.string "advisor", limit: 100, comment: "Advisor or Supervisor"
     t.string "orcid", limit: 50, comment: "Unique ID for Researchers https://orcid.org/"
@@ -1058,7 +1527,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.boolean "Page3Complete", default: false, comment: "DEPRICATED"
     t.boolean "Page4Complete", default: false, comment: "DEPRICATED"
     t.text "UpdateInformation", comment: "DEPRICATED"
-    t.text "CommunicationLog", comment: "DEPRICATED"
+    t.text "CommunicationLog", size: :medium, comment: "DEPRICATED"
     t.integer "report_access", limit: 1, default: 1, null: false, comment: "Apply to Annual Report"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil, default: "0001-01-01 00:00:00", null: false
@@ -1082,6 +1551,16 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
   end
 
   create_table "waivers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.string "url"
+    t.integer "years_to_expiration"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.column "url_type", "enum('link','pdf')", default: "link", null: false
+  end
+
+  create_table "waivers_clone", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
     t.string "url"
