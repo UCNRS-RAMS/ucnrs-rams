@@ -20,13 +20,9 @@ gem 'rails', '~> 7.0.0'
 gem 'sass-rails', '>= 6'
 gem 'shakapacker'
 gem 'simple_calendar', '~> 2.4'
-gem 'turbo-rails', '~> 1.4'
+gem 'turbo-rails'
 gem "wicked_pdf", "~> 2.7"
 gem "wkhtmltopdf-binary", "~> 0.12.6"
-
-# temporary added to resolve Logger problem before upgrade to Rails >= 7.
-# remove after upgrading to rails 7+
-gem 'concurrent-ruby', '1.3.4'
 
 # temporary added to resolve openssl 3.6 regression. remove when openssl is fixed
 gem 'openssl'
@@ -53,7 +49,7 @@ group :development, :test do
   gem 'pronto-scss', require: false
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 6.0'
+  gem 'rspec-rails', '~> 7.0'
   gem 'scss_lint', require: false
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
@@ -67,6 +63,5 @@ end
 
 group :test do
   gem 'capybara', '>= 3.26'
-  gem 'selenium-webdriver', '~> 4.10'
-  gem 'webdrivers', '~> 5.3'
+  gem 'selenium-webdriver'
 end
