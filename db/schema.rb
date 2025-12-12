@@ -10,29 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-  create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
 ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
+  create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.integer "project_id", null: false
     t.integer "user_id", null: false
-    t.string "Owner", limit: 100, null: false
-    t.string "DeviceDescription", limit: 100, null: false
-    t.string "DataCollected", limit: 200, null: false
-    t.string "ArchivedDataLocation", limit: 200, null: false
-    t.string "DOI", limit: 50, null: false
-    t.string "LocationDescription", limit: 200, null: false
-    t.string "LocationLatitude", limit: 10, null: false
-    t.string "LocationLongitude", limit: 10, null: false
-    t.integer "DaysOnReserve", null: false
-    t.string "DataCollectionInterval", limit: 100, null: false, comment: "How often is the data collected"
-    t.date "DateOfDeployment", default: "1900-01-01", null: false
+    t.string "owner", limit: 100, null: false, comment: "Who owns this equipment"
+    t.string "device_description", limit: 100, null: false, comment: "Device Description"
+    t.string "data_collected", limit: 200, null: false, comment: "What data is collected"
+    t.string "archived_data_location", limit: 200, null: false, comment: "Where is data archived"
+    t.string "doi", limit: 50, null: false, comment: "Equipment DOI #"
+    t.string "location_description", limit: 200, null: false, comment: "Where is equipment located"
+    t.string "location_latitude", limit: 10, null: false
+    t.string "location_longitude", limit: 10, null: false
+    t.integer "days_on_reserve", null: false, comment: "# days on the reserve"
+    t.string "data_collection_interval", limit: 100, null: false, comment: "How often is the data collected"
+    t.date "deployment_date", default: "1900-01-01", null: false, comment: "Date the equipment was deployed on the reserve"
   end
 
-  create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
     t.string "record_type", null: false
-    t.integer "record_id", null: false
+    t.bigint "record_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
@@ -60,7 +60,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "active_storage_variant_records", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "active_storage_variant_records", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
@@ -526,6 +526,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.date "date_submitted", comment: "Move data to submitted_at with default time"
     t.column "project_type", "enum('Research','Class','Public Use','Housing','Meeting')"
     t.column "app_html_type", "enum('research','class','other','housing','conference')", comment: "DEPRECATED"
+    t.column "ApplicationSubType", "enum('Default','Meeting','Housing')", default: "Default"
     t.date "start_date"
     t.date "end_date"
     t.text "ProjectChanges", comment: "DEPRECATED"
@@ -547,7 +548,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.boolean "permits_completed", default: false, null: false
     t.text "recent_publications", comment: "Publication list"
     t.column "data_submitted", "enum('Unnecessary','Required','Submitted')", default: "Unnecessary", null: false
-    t.text "CommunicationLog", comment: "DEPRECATED"
+    t.text "CommunicationLog", size: :medium, comment: "DEPRECATED"
     t.integer "AnnualReportAccessTEMP", limit: 1, default: 1, null: false, comment: "DEPRECATED"
     t.integer "Discipline1", comment: "DEPRECATED Discipline of this application, if > 0 then discipline is found in the discipline table, if 0 then discipline is found in application table under column disciplineOther"
     t.string "discipline_other", limit: 30, comment: "If Discipline1 is 0 then this is the name of the discipline input by user"
@@ -555,6 +556,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.datetime "updated_at", precision: nil, default: "0001-01-01 00:00:00", null: false
     t.bigint "log_id"
     t.datetime "submitted_at", precision: nil
+    t.string "metadata", default: "{}"
     t.string "discipline"
     t.string "course_number", comment: "You will find this info in the abstract field for a CLASS type project in RAM2 data"
     t.string "approved_permits"
@@ -624,7 +626,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.index ["reserve_id"], name: "index_reserve_addendums_on_reserve_id"
   end
 
-  create_table "reserve_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "reserve_notes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "note"
     t.string "action", default: "reserve note"
     t.string "record_type", null: false
@@ -732,7 +734,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.integer "reserve_id", null: false
   end
 
-  create_table "reserve_tags", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "reserve_tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.column "category", "enum('ecosystem','geographic','organization','amenities','internet','other','facility')", null: false
     t.string "name", null: false
@@ -867,8 +869,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.datetime "updated_at", precision: nil
     t.string "bill_name", limit: 200
     t.column "Ecosystem", "enum('Undefined','Open Water','Perennial Ice/Snow','Develope','Open Space','Developed Low Intensity','Developed Medium Intensity','Developed High Intensity','Barren Land (Rock/Sand/Clay)','Unconsolidated Shore','Deciduous Forest','Evergreen Forest','Mixed Forest','Dwarf Scrub','Shrub/Scrub','Grasslands/Herbaceous','Sedge/Herbaceous','Lichens','Moss','Pasture/Hay','Cultivated Crops','Woody Wetlands','Emergent Herbaceous Wetlands')", default: "Undefined", collation: "ascii_general_ci"
-    t.boolean "amenity_required", default: false, null: false
-    t.text "amenity_required_text"
+    t.boolean "always_send_visit_asset_email", default: false, null: false
     t.string "administrative_group_name"
     t.string "administrative_group_name_acronym"
     t.string "administrative_group_state"
@@ -889,6 +890,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.string "large_hero_photo"
     t.string "logo"
     t.boolean "contact_for_project_review", default: false, null: false
+    t.boolean "amenity_required", default: false, null: false
+    t.text "amenity_required_text"
     t.index ["managing_campus_id", "name"], name: "ManagingCampus"
     t.index ["name"], name: "Name"
   end
@@ -927,9 +930,9 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.column "agreement_type", "enum('Reserve Use Agreement','Code of Conduct Agreement','Data Management Agreement')"
     t.text "image_url"
     t.integer "sort_order"
-    t.string "policy_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "policy_url"
   end
 
   create_table "user_visits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -969,7 +972,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.string "first_name", limit: 100
     t.string "middle_name", limit: 20
     t.string "last_name", limit: 100
-    t.string "title", limit: 30
+    t.string "title", limit: 100
     t.string "address_line_1", limit: 100
     t.string "address_line_2", limit: 100
     t.string "address_city", limit: 100
@@ -1058,7 +1061,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.boolean "Page3Complete", default: false, comment: "DEPRICATED"
     t.boolean "Page4Complete", default: false, comment: "DEPRICATED"
     t.text "UpdateInformation", comment: "DEPRICATED"
-    t.text "CommunicationLog", comment: "DEPRICATED"
+    t.text "CommunicationLog", size: :medium, comment: "DEPRICATED"
     t.integer "report_access", limit: 1, default: 1, null: false, comment: "Apply to Annual Report"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil, default: "0001-01-01 00:00:00", null: false

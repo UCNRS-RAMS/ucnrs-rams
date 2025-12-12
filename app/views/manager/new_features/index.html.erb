@@ -1,0 +1,17 @@
+<section class="content">
+  <header class="content-header">
+    <h2>What's New/Changed</h2>
+  </header>
+  <hr />
+  <div>
+    <% @presenter.new_features.each do |new_feature| %>
+      <section class="feature">
+        <header>
+          <h3><%= new_feature.title %></h3>
+        </header>
+        <%= new_feature.feature %>
+      </section>
+      <hr />
+    <% end %>
+  </div>
+</section>

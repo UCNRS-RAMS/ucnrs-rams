@@ -191,6 +191,7 @@ RSpec.describe "Manager Visit Show" do
 
     it "has manual user day filed", js: true do
       visitor = create(:user, :confirmed, first_name: "user1", last_name: "test1")
+      create(:project_team_membership, project: visit.project, user: visitor)
       create(:user_visit, visit: visit, user: visitor, role: "Other")
 
       flow = VisitShowVisitorTabFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
@@ -198,6 +199,7 @@ RSpec.describe "Manager Visit Show" do
       sign_in(user)
       flow.visit_show_page
       flow.click_on_vistors_tab
+      sleep(0.5) # important, gives visitor table time to load.
       flow.click_on_change
 
       expect(flow).to have_manual_input_field
