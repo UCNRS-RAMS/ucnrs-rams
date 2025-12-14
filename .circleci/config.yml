@@ -81,5 +81,5 @@ jobs:
 
       # Save Capybara Screenshots
       - store_artifacts:
-          path: tmp/screenshots
+          path: tmp/capybara
           destination: capybara/screenshots
