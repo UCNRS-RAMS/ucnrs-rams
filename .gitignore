@@ -44,6 +44,9 @@ public/packs
 !/storage/.keep
 /public/uploads
 
+# Ignore platform specific files
+.DS_Store
+
 /public/packs
 /public/packs-test
 /node_modules
