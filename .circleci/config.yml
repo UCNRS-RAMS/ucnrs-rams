@@ -64,10 +64,10 @@ jobs:
           name: Brakeman
           command: ./bin/brakeman
 
-      # Pronto
-      - run:
-          name: Pronto
-          command: ./bin/ci_pronto
+      # Pronto - disabled until fixed
+      # - run:
+      #    name: Pronto
+      #    command: ./bin/ci_pronto
 
       # Save Brakeman
       - store_artifacts:

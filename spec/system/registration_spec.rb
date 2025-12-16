@@ -166,6 +166,7 @@ RSpec.describe "Registration" do
         institution: "",
       )
       flow.submit_account_edit_form
+      sleep 0.5
       expect(page).to be_axe_clean
       expect(flow).to have_form_error(I18n.t("activerecord.errors.messages.blank"), on_field_with_id: "user_first_name")
       expect(flow).to have_form_error(I18n.t("activerecord.errors.messages.blank"), on_field_with_id: "user_last_name")

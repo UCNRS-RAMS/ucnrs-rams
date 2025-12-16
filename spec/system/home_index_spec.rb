@@ -18,6 +18,7 @@ RSpec.describe "Home Index" do
 
       flow.visit_sign_in_page
       flow.sign_in_as(email: email, password: password)
+      sleep 0.5
       flow.visit_home_index_page
       flow.dismiss_modal
       expect(flow).to be_on_home_index_page
@@ -51,6 +52,7 @@ RSpec.describe "Home Index" do
 
       flow.visit_sign_in_page
       flow.sign_in_as(email: email, password: password)
+      sleep 0.5
       flow.visit_home_index_page
       flow.dismiss_modal
       flow.click_calendar_button
@@ -68,6 +70,7 @@ RSpec.describe "Home Index" do
 
       flow.visit_sign_in_page
       flow.sign_in_as(email: email, password: password)
+      sleep 0.5
       flow.visit_home_index_page
       flow.dismiss_modal
       flow.click_calendar_button
@@ -99,10 +102,11 @@ RSpec.describe "Home Index" do
 
       flow.visit_sign_in_page
       flow.sign_in_as(email: email, password: password)
+      sleep 0.5
       flow.visit_home_index_page
       flow.dismiss_modal
       flow.click_calendar_button
-      sleep(0.5)
+      sleep 0.5
 
       page.find("#visit_status").select("Approved")
 
@@ -128,10 +132,11 @@ RSpec.describe "Home Index" do
 
       flow.visit_sign_in_page
       flow.sign_in_as(email: email, password: password)
+      sleep 0.5
       flow.visit_home_index_page
       flow.dismiss_modal
       flow.click_calendar_button
-      sleep(0.5)
+      sleep 0.5
 
       page.find("#visit_status").select("reserve1")
 
@@ -148,12 +153,13 @@ RSpec.describe "Home Index" do
     let(:password) { "Password1" }
 
     it "should display on login only", js: true do
-      user = create(:user, :confirmed, email: email, password: password)
+      create(:user, :confirmed, email: email, password: password)
 
       flow = HomeIndexFlow.new(page)
 
       flow.visit_sign_in_page
       flow.sign_in_as(email: email, password: password)
+      sleep 0.5
       flow.visit_home_index_page
       expect(flow).to have_welcome_modal
 
