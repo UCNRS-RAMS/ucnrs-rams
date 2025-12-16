@@ -22,7 +22,9 @@ RSpec.describe "Viewing Passwords", type: :system, js: true do
       flow = AuthenticationFlow.new(page)
 
       flow.visit_forgot_password_page
+      sleep 0.5
       flow.reset_password_for(user.email)
+      sleep 0.5
       flow.follow_reset_password_email_link
 
       expect(flow).to be_hiding_contents_of_field("Create a New Password")
