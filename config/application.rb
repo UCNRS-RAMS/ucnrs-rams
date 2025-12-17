@@ -20,5 +20,8 @@ module UcnrsRams
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.action_view.automatically_disable_submit_tag = false
+
+    config.active_support.disable_to_s_conversion = true
+    config.active_support.cache_format_version = 7.0
   end
 end
