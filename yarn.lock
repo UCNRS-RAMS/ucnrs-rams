@@ -4431,9 +4431,9 @@ js-yaml@^3.13.1:
     esprima "^4.0.0"
 
 js-yaml@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-4.1.0.tgz#c1fb65f8f5017901cdd2c951864ba18458a10602"
-  integrity sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-4.1.1.tgz#854c292467705b699476e1a2decc0c8a3458806b"
+  integrity sha512-qQKT4zQxXl8lLwBtHMWwaTcGfFOZviOJet3Oy/xmGk2gZH677CJM9EvtfdSkgWcATZhj/55JZ0rmy3myCT5lsA==
   dependencies:
     argparse "^2.0.1"
 
@@ -5390,9 +5390,9 @@ setprototypeof@1.2.0:
   integrity sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==
 
 shakapacker@9:
-  version "9.3.3"
-  resolved "https://registry.yarnpkg.com/shakapacker/-/shakapacker-9.3.3.tgz#aed2070eb6136f75cf3e92ace740764bacefc7de"
-  integrity sha512-u2SSKb2d1wgMqcvUcg2XT1h9rJzHvGBssFnTO/gvTz3mvnrJAL71A6CVGSDe25gcOkt6TpeBDCxqfaKBXtjJnw==
+  version "9.5.0"
+  resolved "https://registry.yarnpkg.com/shakapacker/-/shakapacker-9.5.0.tgz#761aee7f4c01d8a37b13d628968b6730897c967b"
+  integrity sha512-pTGHzHCc74CIoXeg8otCoBa8DjGWZUoYVKu9eyWwpdO9Jq6yHxSD9u5Qp36nXjC9jupd9gnfhCY5YHqkJHpfLA==
   dependencies:
     js-yaml "^4.1.0"
     path-complete-extname "^1.0.0"
