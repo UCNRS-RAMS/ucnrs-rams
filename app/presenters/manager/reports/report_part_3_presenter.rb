@@ -4,7 +4,7 @@ class Manager::Reports::ReportPart3Presenter < Manager::Reports::ReportBasePrese
 
   def report_part3_data
     report_part3_data_scope
-      .map { |project| ProjectPresenter.new(project: project) }
+      .map { |project| Manager::Reports::ReportPart3ProjectPresenter.new(project: project, start_date: start_date, stop_date: stop_date) }
       .group_by(&:institution_type)
       .each_with_object({}) do |(institution_type, projects), hash|
         hash[institution_type] = projects.group_by(&:institution_name)
@@ -53,15 +53,5 @@ class Manager::Reports::ReportPart3Presenter < Manager::Reports::ReportBasePrese
       .having_between_time(date_start: start_date, date_end: stop_date)
       .group(:role)
       .sum(:count)
-  end
-
-  private
-
-  def start_date
-    Date.new(fiscal_year_ending - 1, FISCAL_MONTH_BEGIN, FISCAL_DAY_BEGIN)
-  end
-
-  def stop_date
-    Date.new(fiscal_year_ending, FISCAL_MONTH_END, FISCAL_DAY_END)
   end
 end
