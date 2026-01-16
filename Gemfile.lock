@@ -98,7 +98,7 @@ GEM
     base64 (0.3.0)
     bcrypt (3.1.20)
     benchmark (0.5.0)
-    bigdecimal (3.3.1)
+    bigdecimal (4.0.1)
     bindex (0.8.1)
     bootsnap (1.19.0)
       msgpack (~> 1.2)
@@ -205,7 +205,7 @@ GEM
       thor
     groupdate (6.1.0)
       activesupport (>= 5.2)
-    httparty (0.23.2)
+    httparty (0.24.2)
       csv
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
@@ -268,8 +268,8 @@ GEM
     minitest (5.26.2)
     msgpack (1.8.0)
     multi_json (1.17.0)
-    multi_xml (0.7.1)
-      bigdecimal (~> 3.1)
+    multi_xml (0.8.1)
+      bigdecimal (>= 3.1, < 5)
     mutex_m (0.3.0)
     mysql2 (0.5.7)
       bigdecimal
