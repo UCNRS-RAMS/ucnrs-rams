@@ -1,4 +1,4 @@
-class Manager::Reports::ReportPart3ProjectPresenter < ProjectPresenter
+class Manager::Reports::ReportPart3::ProjectPresenter < ProjectPresenter
   def initialize(project:, status_filter: Project::ALL_FILTER, start_date: nil, stop_date: nil)
     super(project:, status_filter:)
 

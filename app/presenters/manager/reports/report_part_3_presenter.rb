@@ -4,7 +4,7 @@ class Manager::Reports::ReportPart3Presenter < Manager::Reports::ReportBasePrese
 
   def report_part3_data
     report_part3_data_scope
-      .map { |project| Manager::Reports::ReportPart3ProjectPresenter.new(project: project, start_date: start_date, stop_date: stop_date) }
+      .map { |project| Manager::Reports::ReportPart3::ProjectPresenter.new(project: project, start_date: start_date, stop_date: stop_date) }
       .group_by(&:institution_type)
       .each_with_object({}) do |(institution_type, projects), hash|
         hash[institution_type] = projects.group_by(&:institution_name)
