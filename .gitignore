@@ -36,6 +36,9 @@ public/packs
 .env
 .env.development
 
+# Ignore key
+/config/master.key
+
 # Ignore vscode files
 .vscode
 

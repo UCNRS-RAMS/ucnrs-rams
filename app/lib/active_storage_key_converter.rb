@@ -17,7 +17,7 @@ class ActiveStorageKeyConverter
       key_generator =
         ActiveSupport::CachingKeyGenerator.new(
           ActiveSupport::KeyGenerator.new(
-            Rails.application.secrets.secret_key_base,
+            Rails.application.secret_key_base,
             iterations: 1000,
             hash_digest_class: OpenSSL::Digest::SHA1
           )
