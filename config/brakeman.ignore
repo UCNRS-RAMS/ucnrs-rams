@@ -1,50 +1,6 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "01f782403953177859620cc6d9e3ec67226e78d4f19ee9f0190f596fe4da8776",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/modals/_edit_user_visit.html.erb",
-      "line": 38,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(partial => Manager::Visits::UserVisitEditPresenter.new(:form => UserVisitForm.new(:params => ({ :id => params[:id] })), :display_institution_form => display_institution_form?).institution_fields_path, { :locals => ({ :presenter => Manager::Visits::UserVisitEditPresenter.new(:form => UserVisitForm.new(:params => ({ :id => params[:id] })), :display_institution_form => display_institution_form?), :form => form }) })",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Manager::Visits::UserVisitsController",
-          "method": "edit",
-          "line": 15,
-          "file": "app/controllers/manager/visits/user_visits_controller.rb",
-          "rendered": {
-            "name": "manager/visits/user_visits/edit",
-            "file": "app/views/manager/visits/user_visits/edit.html.erb"
-          }
-        },
-        {
-          "type": "template",
-          "name": "manager/visits/user_visits/edit",
-          "line": 1,
-          "file": "app/views/manager/visits/user_visits/edit.html.erb",
-          "rendered": {
-            "name": "modals/_edit_user_visit",
-            "file": "app/views/modals/_edit_user_visit.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "modals/_edit_user_visit"
-      },
-      "user_input": "params[:id]",
-      "confidence": "Weak",
-      "cwe_id": [
-        22
-      ],
-      "note": "Dynamic Render Path"
-    },
-    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "0a152eca6ee196426f2d0f9739668ecc9b5f68f5815d5b12f3f601190e857061",
@@ -304,50 +260,6 @@
       "confidence": "Medium",
       "cwe_id": [
         89
-      ],
-      "note": ""
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "1c98ed0c6580a1612dbc3226a6aa5f9d3c00d482f86bb3cd31d35a053cc1322d",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/shared/manager/visits/_form.html.erb",
-      "line": 12,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(partial => Manager::Visits::VisitsFormPresenter.new(:user => current_user, :form => VisitForm.new(:user => current_user, :params => ({ :id => params[:visit_id] }), :editing => true)).project_partial_path, { :locals => ({ :presenter => Manager::Visits::VisitsFormPresenter.new(:user => current_user, :form => VisitForm.new(:user => current_user, :params => ({ :id => params[:visit_id] }), :editing => true)), :form => form }) })",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Manager::Visits::DetailController",
-          "method": "edit",
-          "line": 9,
-          "file": "app/controllers/manager/visits/detail_controller.rb",
-          "rendered": {
-            "name": "manager/visits/detail/edit",
-            "file": "app/views/manager/visits/detail/edit.html.erb"
-          }
-        },
-        {
-          "type": "template",
-          "name": "manager/visits/detail/edit",
-          "line": 8,
-          "file": "app/views/manager/visits/detail/edit.html.erb",
-          "rendered": {
-            "name": "shared/manager/visits/_form",
-            "file": "app/views/shared/manager/visits/_form.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "shared/manager/visits/_form"
-      },
-      "user_input": "params[:visit_id]",
-      "confidence": "Weak",
-      "cwe_id": [
-        22
       ],
       "note": ""
     },
@@ -615,50 +527,6 @@
       "note": ""
     },
     {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "54b6afd25f88e8916d9b7857dd2fad433e7a4501484fc4fc15bc755aa3a812f0",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/modals/_edit_user_visit.html.erb",
-      "line": 52,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(partial => Manager::Visits::UserVisitEditPresenter.new(:form => UserVisitForm.new(:params => ({ :id => params[:id] })), :display_institution_form => display_institution_form?).user_days_partial, { :locals => ({ :presenter => Manager::Visits::UserVisitEditPresenter.new(:form => UserVisitForm.new(:params => ({ :id => params[:id] })), :display_institution_form => display_institution_form?), :form => form }) })",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Manager::Visits::UserVisitsController",
-          "method": "edit",
-          "line": 15,
-          "file": "app/controllers/manager/visits/user_visits_controller.rb",
-          "rendered": {
-            "name": "manager/visits/user_visits/edit",
-            "file": "app/views/manager/visits/user_visits/edit.html.erb"
-          }
-        },
-        {
-          "type": "template",
-          "name": "manager/visits/user_visits/edit",
-          "line": 1,
-          "file": "app/views/manager/visits/user_visits/edit.html.erb",
-          "rendered": {
-            "name": "modals/_edit_user_visit",
-            "file": "app/views/modals/_edit_user_visit.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "modals/_edit_user_visit"
-      },
-      "user_input": "params[:id]",
-      "confidence": "Weak",
-      "cwe_id": [
-        22
-      ],
-      "note": "Dynamic Render Path"
-    },
-    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "5e56510dbe85a5496126ceb5d43feb98d2154dcaf37ce5f6a028ae5a3709e8fa",
@@ -849,6 +717,25 @@
       "confidence": "Medium",
       "cwe_id": [
         89
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Unmaintained Dependency",
+      "warning_code": 123,
+      "fingerprint": "715ee6d743a8af33c7b930d728708ce19c765fb40e2ad9d2b974db04d92dc7d1",
+      "check_name": "EOLRuby",
+      "message": "Support for Ruby 3.2.9 ends on 2026-03-31",
+      "file": ".ruby-version",
+      "line": 1,
+      "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "Weak",
+      "cwe_id": [
+        1104
       ],
       "note": ""
     },
@@ -2181,40 +2068,6 @@
       "note": ""
     },
     {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "c48fce694e840a18ae8d6a5761eb8260874a15cbdaadfb42c63dcc12638249ad",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/manager/visits/detail/edit.html.erb",
-      "line": 12,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(partial => Manager::Visits::VisitsFormPresenter.new(:user => current_user, :form => VisitForm.new(:user => current_user, :params => ({ :id => params[:visit_id] }), :editing => true)).save_partial_path, { :locals => ({ :form_id => \"form-visits-edit\" }) })",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Manager::Visits::DetailController",
-          "method": "edit",
-          "line": 9,
-          "file": "app/controllers/manager/visits/detail_controller.rb",
-          "rendered": {
-            "name": "manager/visits/detail/edit",
-            "file": "app/views/manager/visits/detail/edit.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "manager/visits/detail/edit"
-      },
-      "user_input": "params[:visit_id]",
-      "confidence": "Weak",
-      "cwe_id": [
-        22
-      ],
-      "note": ""
-    },
-    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "c57ec2bad6a1d8d52b4d7e49703a6eca44be535bbf5acc547bb3e7670e892dac",
@@ -2376,47 +2229,13 @@
       "note": ""
     },
     {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "d72950254cf979d53d6f4dadf1f847a60f42c20bae4259a27864759d7457e289",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/home/index.html.erb",
-      "line": 2,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(partial => HomeIndexPresenter.new(:news_articles => NewsArticle.fake, :user => current_user, :visit_filter => visit_filter, :visit_page => visit_page_number, :invoice_filter => invoice_filter, :invoice_page => invoice_page_number, :partial => params[:partial_name]).partial_name, { :locals => ({ :presenter => HomeIndexPresenter.new(:news_articles => NewsArticle.fake, :user => current_user, :visit_filter => visit_filter, :visit_page => visit_page_number, :invoice_filter => invoice_filter, :invoice_page => invoice_page_number, :partial => params[:partial_name]) }) })",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "HomeController",
-          "method": "index",
-          "line": 16,
-          "file": "app/controllers/home_controller.rb",
-          "rendered": {
-            "name": "home/index",
-            "file": "app/views/home/index.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "home/index"
-      },
-      "user_input": "params[:partial_name]",
-      "confidence": "Weak",
-      "cwe_id": [
-        22
-      ],
-      "note": "\"Dynamic render path\""
-    },
-    {
       "warning_type": "Unmaintained Dependency",
       "warning_code": 120,
       "fingerprint": "d84924377155b41e094acae7404ec2e521629d86f97b0ff628e3d1b263f8101c",
       "check_name": "EOLRails",
-      "message": "Support for Rails 6.1.7.10 ended on 2024-10-01",
+      "message": "Support for Rails 7.0.10 ended on 2025-04-01",
       "file": "Gemfile.lock",
-      "line": 314,
+      "line": 346,
       "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
       "code": null,
       "render_path": null,
@@ -2689,25 +2508,6 @@
       "note": "Todo"
     },
     {
-      "warning_type": "Unmaintained Dependency",
-      "warning_code": 121,
-      "fingerprint": "edf687f759ec9765bd5db185dbc615c80af77d6e7e19386fc42934e7a80307af",
-      "check_name": "EOLRuby",
-      "message": "Support for Ruby 3.1.4 ended on 2025-03-31",
-      "file": ".ruby-version",
-      "line": 1,
-      "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
-      "code": null,
-      "render_path": null,
-      "location": null,
-      "user_input": null,
-      "confidence": "High",
-      "cwe_id": [
-        1104
-      ],
-      "note": ""
-    },
-    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "f10e59ab1b5a00e836f262268419dcd951967c8bff27e2f5a28126a153338f3e",
@@ -2846,5 +2646,5 @@
       "note": ""
     }
   ],
-  "brakeman_version": "7.1.0"
+  "brakeman_version": "8.0.1"
 }
