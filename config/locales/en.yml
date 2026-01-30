@@ -2154,12 +2154,12 @@ en:
       report_part_1:
         fiscal_year: Fiscal year
         part_1_reserve_use_data: Part 1. Reserve Use Data - Using Unique People Roles
-        report_has_been_reviewed: This page of the report has been reviewed and is ready for UCOP.
         pdf:
           campus: "Campus: %{campus}"
           fiscal_year: "Fiscal year: %{fiscal_year}"
           reserve: "Reserve: %{reserve}"
           reserve_use_data: RESERVE USE DATA
+        report_has_been_reviewed: This page of the report has been reviewed and is ready for UCOP.
       report_part_1_table:
         uc_home: UC Home
         uc_other: UC Other
@@ -2202,8 +2202,6 @@ en:
         project_abstract: Project Abstract
         none: None
       report_part_5:
-        part_5_publications: Part 5. Publications
-        report_has_been_reviewed: This page of the report has been reviewed and is ready for UCOP.
         direction_1: >-
           Publications are now handled through Zotero. UCOP will retrieve
           publication data from your individual Zotero library for your reserve.
@@ -2211,6 +2209,8 @@ en:
           This section is meant to provide tips on finding and adding
           publications to your reserve's Zotero library.
         direction_3: "To update your reserve's Zotero library, follow these steps:"
+        part_5_publications: Part 5. Publications
+        report_has_been_reviewed: This page of the report has been reviewed and is ready for UCOP.
         step_1: >-
           Access to reserve's Zotero bibliographic database:
           <strong>%{zotero_url}</strong> | Username:
