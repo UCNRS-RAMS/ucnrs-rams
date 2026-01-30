@@ -2,6 +2,7 @@
 #
 # Script for running Brakeman tests
 # Brakeman is a security scanner https://github.com/presidentbeef/brakeman.
+gem install prism --no-document
 gem install brakeman --no-document
 
 brakeman --exit-on-warn --separate-models -o tmp/brakeman.html -o tmp/brakeman.text .
