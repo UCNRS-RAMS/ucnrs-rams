@@ -1,8 +1,11 @@
 class Manager::Reports::ReportPart8Presenter < Manager::Reports::ReportBasePresenter
   def report_part8_data
     report_part8_data_scope
-      .map{ |project| Manager::Reports::ReportPart8::ProjectPresenter.new(project) }
+      .map{ |project| Manager::Reports::ReportPart8::ProjectPresenter.new(project: project, start_date: start_date, stop_date: stop_date,) }
       .group_by(&:institution_type)
+      .each_with_object({}) do |(institution_type, projects), hash|
+        hash[institution_type] = projects.group_by(&:institution_name)
+      end
   end
 
   def fiscal_year_select_path
@@ -14,19 +17,10 @@ class Manager::Reports::ReportPart8Presenter < Manager::Reports::ReportBasePrese
       .select("
         projects.*,
         institutions.institution_type,
-        institutions.name AS institution_name,
-        project_team_memberships.user_role AS user_role
+        institutions.name AS institution_name
       ")
       .project_type_public_use
-      .joins("
-        INNER JOIN users
-          ON projects.user_id = users.id
-        INNER JOIN project_team_memberships
-          ON project_team_memberships.user_id = users.id AND project_team_memberships.project_id = projects.id
-        INNER JOIN institutions
-          ON project_team_memberships.institution_id = institutions.id
-      ")
-      .joins(:visits)
+      .joins(:visits, owner: :institution)
       .merge(
         Visit
           .by_reserve(reserve_id)
@@ -38,12 +32,23 @@ class Manager::Reports::ReportPart8Presenter < Manager::Reports::ReportBasePrese
               .where(status: :approved),
           )
       )
-      .group(:id, :institution_type, :institution_name, :user_role)
+      .group(:id)
       .order(
         Institution.arel_table[:institution_type],
         Institution.arel_table[:name],
         Project.arel_table[:course_title],
       )
       .includes([:owner])
+  end
+
+  def project_user_details(project)
+    UserVisit
+      .joins(:visit)
+      .merge(
+        Visit.where(project: project),
+      )
+      .having_between_time(date_start: start_date, date_end: stop_date)
+      .group(:role)
+      .sum(:count)
   end
 end

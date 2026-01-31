@@ -202,7 +202,8 @@ table.report-part-2-table {
   @include rams-2-list-table;
 }
 
-div.report-part-3-data {
+div.report-part-3-data,
+div.report-part-8-data {
   h3 {
     background-color: $dark-bluegray;
     color: $white;
@@ -217,12 +218,14 @@ div.report-part-3-data {
     border-top: none;
   }
 
-  .part-3-subheader {
+  .part-3-subheader,
+  .part-8-subheader {
     background-color: $gray;
     padding: 8px;
   }
 
-  .part-3-content {
+  .part-3-content,
+  .part-8-content {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
@@ -249,8 +252,4 @@ table.report-part-4-table {
   thead th a {
     color: $white;
   }
-}
-
-table.report-part-8-table {
-  @include rams-2-list-table;
 }

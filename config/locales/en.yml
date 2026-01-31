@@ -2244,6 +2244,9 @@ en:
         project_title: Project Title
         institution: Institution
         role: Role
+      report_part_8_content:
+        owner: Owner
+        date: Date
       fiscal_year_select:
         fiscal_year: Fiscal Year
       report_approval_form:

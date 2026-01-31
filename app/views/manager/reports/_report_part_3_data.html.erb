@@ -1,10 +1,11 @@
 <div class="report-part-3-data">
-  <% presenter.report_part3_data.each do |institution_type, values| %>
+  <% presenter.report_part3_data.each do |institution_type, institution| %>
     <%= tag.h3 institution_type %>
-    <% values.each do |institution_name, projects| %>
+    <% institution.each do |institution_name, projects| %>
       <div class="part-3-subheader">
         <%= institution_name %>
       </div>
+
       <%= render partial: "report_part_3_content",
         collection: projects,
         as: :project,
