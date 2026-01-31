@@ -1,23 +1,19 @@
-<table class="report-part-8-table">
-  <thead>
-    <tr>
-      <th><%= t(".project_title") %></th>
-      <th><%= t(".institution") %></th>
-      <th><%= t(".role") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% report_part8_data.each do |institution_type, projects| %>
-      <tr class="subheader">
-        <td colspan="3"><%= institution_type %></td>
-      </tr>
-      <% projects.each do |project|  %>
-        <tr class="text-muted">
-          <td><%= link_to project.title, manager_reserve_project_path(current_reserve, project.id) %></td>
-          <td><%= project.institution_name %></td>
-          <td><%= t("universal.roles.#{ProjectTeamMembership.user_roles.key(project.user_role)}") %></td>
-        </tr>
-      <% end %>
+
+
+<div class="report-part-8-data">
+  <% presenter.report_part8_data.each do |institution_type, institution| %>
+    <%= tag.h3 institution_type %>
+    <% institution.each do |institution_name, projects| %>
+      <div class="part-8-subheader">
+        <%= institution_name %>
+      </div>
+
+      <%= render partial: "report_part_8_content",
+        collection: projects,
+        as: :project,
+        spacer_template: "shared/divider",
+        locals: { presenter: presenter }
+      %>
     <% end %>
-  </tbody>
-</table>
+  <% end %>
+</div>

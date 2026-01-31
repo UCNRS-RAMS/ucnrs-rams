@@ -1,0 +1,14 @@
+<div class="part-8-content">
+  <div><%= link_to project.title, manager_reserve_project_path(current_reserve, project.id) %></div>
+  <span><%= project.abstract || "N/A" %></span>
+  <span>
+    <%= t(".owner") %>:
+    <%= link_to project.owner_name, edit_manager_reserve_user_path(current_reserve, project.owner.id) %>
+    <%= " - #{project.owner.department}" if project.owner.department.present? %>
+  </span>
+  <span><%= t(".date") %>: <%= project.timeframe %></span>
+
+  <% presenter.project_user_details(project).each do |user_role, user_count| %>
+    <span><%= "#{ t("universal.roles.#{user_role}")}: #{user_count}" %></span>
+  <% end %>
+</div>
