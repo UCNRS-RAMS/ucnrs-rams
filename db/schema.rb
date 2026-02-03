@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
+ActiveRecord::Schema[7.0].define(version: 2026_02_24_020401) do
+
   create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.integer "project_id", null: false
@@ -28,7 +29,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.date "deployment_date", default: "1900-01-01", null: false, comment: "Date the equipment was deployed on the reserve"
   end
 
-  create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
     t.string "record_type", null: false
@@ -60,7 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "active_storage_variant_records", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "active_storage_variant_records", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
@@ -393,7 +394,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.datetime "updated_at", precision: nil, null: false
   end
 
-  create_table "new_features", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "new_features", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
     t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -626,7 +627,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.index ["reserve_id"], name: "index_reserve_addendums_on_reserve_id"
   end
 
-  create_table "reserve_notes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "reserve_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
     t.text "note"
     t.string "action", default: "reserve note"
     t.string "record_type", null: false
@@ -734,7 +735,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.integer "reserve_id", null: false
   end
 
-  create_table "reserve_tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "reserve_tags", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.column "category", "enum('ecosystem','geographic','organization','amenities','internet','other','facility')", null: false
     t.string "name", null: false
@@ -899,6 +900,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
   create_table "reserves_waivers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "reserve_id"
     t.bigint "waiver_id"
+    t.integer "sort_order", default: 1, null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
   end
@@ -923,7 +925,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.index ["name"], name: "name"
   end
 
-  create_table "use_policies", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "use_policies", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
     t.text "title"
     t.text "description"
     t.text "policy_link_text"
@@ -1000,7 +1002,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.integer "billing_address_state_id"
     t.integer "billing_address_country_id"
     t.boolean "record_complete", default: false, null: false, comment: "This is to check if user has completed their information entry."
-    t.string "administrative_notes", limit: 100, default: "", comment: "notes about the user (not intended to be public)"
+    t.string "administrative_notes", limit: 1000, default: "", comment: "notes about the user (not intended to be public)"
     t.integer "DefaultReserveID", default: 0, null: false, comment: "This value will determain which reserve the user is placed by default when they log in."
     t.string "advisor", limit: 100, comment: "Advisor or Supervisor"
     t.string "orcid", limit: 50, comment: "Unique ID for Researchers https://orcid.org/"
