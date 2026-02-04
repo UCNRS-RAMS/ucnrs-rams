@@ -17,9 +17,6 @@ class UseConventionalNamesForReserves < ActiveRecord::Migration[6.1]
 
     rename_column :visits, :ReserveID, :reserve_id
     rename_index :visits, :ReserveID, :reserve
-    add_index reserves, ["reserve_id", "status", "id"], name: "Reserve"
-    add_index reserves, ["reserve_id"], name: "reserve_id"
-    add_index reserves, ["status", "reserve_id", "id"], name: "project_status"
 
     add_column :reserves, :administrative_group_name, :string 
     add_column :reserves, :administrative_group_name_acronym, :string 
