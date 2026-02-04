@@ -163,6 +163,7 @@ class CopyExistingSchema < ActiveRecord::Migration[6.1]
       t.date "DateSubmitted"
       t.column "ApplicationType", "enum('Research','Class','Public','Housing','All')", default: "Research"
       t.column "app_html_type", "enum('research','class','other','housing','conference')"
+      t.column "ApplicationSubType", "enum('Default','Meeting','Housing')", default: "Default"
       t.date "ProjectStartDate"
       t.date "ProjectEndDate"
       t.text "ProjectChanges"
@@ -184,7 +185,7 @@ class CopyExistingSchema < ActiveRecord::Migration[6.1]
       t.boolean "PermitsMade", default: false, null: false
       t.text "RecentPublications", comment: "Publication list"
       t.column "MetaFData", "enum('Unnecessary','Required','Submitted')", default: "Unnecessary", null: false
-      t.text "CommunicationLog", comment: "Log of activity and notes made by administrator"
+      t.text "CommunicationLog", size: :medium, comment: "Log of activity and notes made by administrator"
       t.integer "AnnualReportAccessTEMP", limit: 1, default: 1, null: false
       t.integer "Discipline1", comment: "Discipline of this application, if > 0 then discipline is found in the discipline table, if 0 then discipline is found in application table under column disciplineOther"
       t.string "DisciplineOther", limit: 30, comment: "If Discipline1 is 0 then this is the name of the discipline input by user"
@@ -192,6 +193,7 @@ class CopyExistingSchema < ActiveRecord::Migration[6.1]
       t.datetime "updated_at", default: "0001-01-01 00:00:00", null: false
       t.bigint "log_id"
       t.datetime "submitted_at"
+      t.string "metadata", default: "{}"
       t.index ["ApplicationID", "ReserveID"], name: "applicationid_reserveid"
       t.index ["ApplicationID"], name: "ApplicationID"
       t.index ["ApplicationStatus"], name: "ApplicationStatus"
@@ -199,7 +201,6 @@ class CopyExistingSchema < ActiveRecord::Migration[6.1]
       t.index ["CourseName"], name: "CourseName"
       t.index ["DateSubmitted"], name: "DateSubmitted"
       t.index ["ProjectStartDate"], name: "ProjectStart"
-      t.index ["ReserveID"], name: "ReserveID"
     end
 
     create_table "Countries", primary_key: "CountryID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -214,21 +215,21 @@ class CopyExistingSchema < ActiveRecord::Migration[6.1]
       t.string "DisciplineCategory", limit: 50, default: "Other", null: false
     end
 
-    create_table "Equipment", primary_key: "EquipmentID", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
       t.integer "ReserveID", null: false
       t.integer "ApplicationID", null: false
       t.integer "PeopleID", null: false
-      t.string "Owner", limit: 100, null: false
-      t.string "DeviceDescription", limit: 100, null: false
-      t.string "DataCollected", limit: 200, null: false
-      t.string "ArchivedDataLocation", limit: 200, null: false
-      t.string "DOI", limit: 50, null: false
-      t.string "LocationDescription", limit: 200, null: false
-      t.string "LocationLatitude", limit: 10, null: false
-      t.string "LocationLongitude", limit: 10, null: false
-      t.integer "DaysOnReserve", null: false
-      t.string "DataCollectionInterval", limit: 100, null: false, comment: "How often is the data collected"
-      t.date "DateOfDeployment", default: "1900-01-01", null: false
+      t.string "owner", limit: 100, null: false, comment: "Who owns this equipment"
+      t.string "device_description", limit: 100, null: false, comment: "Device Description"
+      t.string "data_collected", limit: 200, null: false, comment: "What data is collected"
+      t.string "archived_data_location", limit: 200, null: false, comment: "Where is data archived"
+      t.string "doi", limit: 50, null: false, comment: "Equipment DOI #"
+      t.string "location_description", limit: 200, null: false, comment: "Where is equipment located"
+      t.string "location_latitude", limit: 10, null: false
+      t.string "location_longitude", limit: 10, null: false
+      t.integer "days_on_reserve", null: false, comment: "# days on the reserve"
+      t.string "data_collection_interval", limit: 100, null: false, comment: "How often is the data collected"
+      t.date "deployment_date", default: "1900-01-01", null: false, comment: "Date the equipment was deployed on the reserve"
     end
 
     create_table "GrantPIs", primary_key: "GrantPIID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
