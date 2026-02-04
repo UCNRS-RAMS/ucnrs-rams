@@ -403,7 +403,7 @@ class CopyExistingSchema < ActiveRecord::Migration[6.1]
       t.string "NameLast", limit: 100
       t.string "NameGroup", limit: 40
       t.integer "Count", limit: 2, default: 1, null: false
-      t.string "Title", limit: 30
+      t.string "Title", limit: 100
       t.string "AddrLine1", limit: 100
       t.string "AddrLine2", limit: 100
       t.string "AddrCity", limit: 100
@@ -654,7 +654,7 @@ class CopyExistingSchema < ActiveRecord::Migration[6.1]
       t.boolean "Page3Complete", default: false, comment: "Boolean flagging if page 3 of the Reservation is complete or not."
       t.boolean "Page4Complete", default: false, comment: "Boolean flagging if page 4 of the Reservation is complete or not."
       t.text "UpdateInformation"
-      t.text "CommunicationLog", comment: "Log of past communications with users.  Records Date and Manager name with each status update."
+      t.text "CommunicationLog", size: :medium, comment: "Log of past communications with users.  Records Date and Manager name with each status update."
       t.integer "AnnualReportAccess", limit: 1, default: 1, null: false, comment: "Apply to Annual Report"
       t.datetime "created_at"
       t.datetime "updated_at", default: "0001-01-01 00:00:00", null: false
