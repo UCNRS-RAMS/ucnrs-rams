@@ -160,6 +160,7 @@ Rails.application.routes.draw do
         get "report_part_6", on: :member
         get "report_part_7", on: :member
         get "report_part_8", on: :member
+        get "report_part_9", on: :member
       end
 
       namespace :reserve_info do
