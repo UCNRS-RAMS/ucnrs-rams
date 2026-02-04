@@ -1,0 +1,17 @@
+<div class="report-part-8-data">
+  <% presenter.report_part9_data.each do |institution_type, institution| %>
+    <%= tag.h3 institution_type %>
+    <% institution.each do |institution_name, projects| %>
+      <div class="part-8-subheader">
+        <%= institution_name %>
+      </div>
+
+      <%= render partial: "report_part_9_content",
+        collection: projects,
+        as: :project,
+        spacer_template: "shared/divider",
+        locals: { presenter: presenter }
+      %>
+    <% end %>
+  <% end %>
+</div>

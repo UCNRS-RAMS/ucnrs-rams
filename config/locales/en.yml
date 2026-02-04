@@ -2146,6 +2146,7 @@ en:
         use_by_instructional_groups: Use By Instructional Groups
         current_research: Current Research
         publications: Publications
+        meeting_use: Meeting Use
         narrative: Narrative
         nrs_campus_committee: NRS Campus Committee
         report_status: Report Status
@@ -2245,6 +2246,15 @@ en:
         institution: Institution
         role: Role
       report_part_8_content:
+        owner: Owner
+        date: Date
+      report_part_9:
+        part_9_meeting: Part 9. Meeting Use
+      report_part_9_data:
+        project_title: Project Title
+        institution: Institution
+        role: Role
+      report_part_9_content:
         owner: Owner
         date: Date
       fiscal_year_select:

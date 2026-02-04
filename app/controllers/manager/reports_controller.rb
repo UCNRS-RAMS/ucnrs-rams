@@ -109,6 +109,13 @@ class Manager::ReportsController < Manager::ApplicationController
     )
   end
 
+  def report_part_9
+    form = AnnualReportForm.new(annual_report: annual_report)
+    @presenter = Manager::Reports::ReportPart9Presenter.new(
+      form: form,
+    )
+  end
+
   def update
     form = AnnualReportForm.new(
       annual_report: annual_report,
