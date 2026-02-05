@@ -6,7 +6,7 @@
 ActiveRecord::Base.transaction do
   ["base", Rails.env].each do |env|
     seed_file = "#{Rails.root}/db/seeds/#{env}.rb"
-    if File.exists?(seed_file)
+    if File.exist?(seed_file)
       puts "Seeding #{env}"
       require seed_file
     end
