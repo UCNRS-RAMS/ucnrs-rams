@@ -2,11 +2,22 @@
 
 class Manager::Reports::FlexIndexPresenter
   DEFAULT_LIMIT_FOR_INDEX = 10
+  FLEX_REPORT_TYPE_OPTIONS = {
+    "AR Part 1: Reserve Use" => "a_r_part_1",
+    "AR Part 2: User Affiliation" => "affiliation",
+    "AR Part 3: Use by Instructional Groups" => "a_r_part_3",
+    "Grant funding" => "funding",
+    "User List by Role" => "user_list_by_role",
+    "Tableau Zotero Publication Count" => "tableau_zotero_count",
+    "Tableau #1,2,3 Reserve Users and User Days" => "tableau_usage",
+    "Tableau #5 Faculty Count - All Institutions" => "tableau_faculty_count",
+    "Tableau #6 UC Faculty-Led Reserve Use by Campus" => "tableau_uc_faculty_campus",
+  }.freeze
 
   def initialize(reserve: nil, page: 1, filter: nil, data: nil)
     @page = page
     @reserve = reserve
-    @filter = ProjectFilter.new(filter, reserve)
+    @filter = FlexReportFilter.new(filter, reserve)
     @params = filter
     @data = data
   end
@@ -14,24 +25,15 @@ class Manager::Reports::FlexIndexPresenter
   attr_reader :reserve, :page, :filter
 
   def html
-    @params&.dig(:project_status).presence || "blank"
+    @params&.dig(:flex_report_type).presence || "blank"
   end
 
   def data
     @data
   end
 
-  def project_status_options
-    {
-      "AR Part 1: Reserve Use" => "a_r_part_1",
-      "AR Part 2: User Affiliation" => "affiliation",
-      "AR Part 3: Use by Instructional Groups" => "a_r_part_3",
-      "Grant funding" => "funding",
-      "User List by Role" => "user_list_by_role",
-      "Tableau #1,2,3 Reserve Users and User Days" => "tableau_usage",
-      "Tableau #5 Faculty Count - All Institutions" => "tableau_faculty_count",
-      "Tableau #6 UC Faculty-Led Reserve Use by Campus" => "tableau_uc_faculty_campus",
-    }
+  def flex_report_type_options
+    FLEX_REPORT_TYPE_OPTIONS
   end
 
   def reserve_options
@@ -42,14 +44,10 @@ class Manager::Reports::FlexIndexPresenter
       .inject({}) { |memo, reserve| memo.merge!(reserve.name => reserve.id) }
   end
 
-  delegate :project_search_filter,
-    :sort_by_filter,
+  delegate :flex_report_type_filter,
     :reserve_filter,
-    :date_range_type_filter,
-    :project_type_filter,
     :date_begin_filter,
     :date_end_filter,
-    :project_status_filter,
     to: :filter
 
   delegate :present?, to: :filter, prefix: true
