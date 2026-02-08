@@ -23,7 +23,7 @@ class Manager::Reports::FlexController < Manager::ApplicationController
   $FLEX_ALL_RESERVES_ARRAY = []
 
   def index
-    case filter&.dig(:project_status)
+    case filter&.dig(:flex_report_type)
     when "a_r_part_1"
       data = a_r_part_1(reserve: filter[:reserve], date_begin: filter[:date_begin], date_end: filter[:date_end])
       data = Manager::Reports::Flex::ReportPart1Presenter.new(report_part1_data: data, date_begin: filter[:date_begin], date_end: filter[:date_end])
@@ -46,7 +46,7 @@ class Manager::Reports::FlexController < Manager::ApplicationController
     if params[:filter].present?
       params.require(:filter).permit(
         :project_search,
-        :project_status,
+        :flex_report_type,
         :sort_by,
         :project_type,
         :date_range_type,
