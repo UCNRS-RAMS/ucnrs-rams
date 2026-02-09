@@ -1,13 +1,14 @@
-require 'faraday'
-
 class HttpGetter
-  def self.get(url: nil, params: nil)
-    new(url: url, params: params).get
+  require "faraday"
+
+  def self.get(url: nil, params: nil, headers: nil)
+    new(url: url, params: params, headers: headers).get
   end
 
-  def initialize(url:, params: nil)
+  def initialize(url:, params: nil, headers: nil)
     @url = url
     @params = params
+    @headers = headers
   end
 
   def get
@@ -20,6 +21,7 @@ class HttpGetter
     Faraday.new(
       url: @url,
       params: @params,
+      headers: @headers,
     )
   end
 end

@@ -18,10 +18,6 @@ class Manager::Reports::FlexController < Manager::ApplicationController
   FISCAL_MONTH_END = 6
   FISCAL_DAY_END = 30
 
-  $FLEX_TYPE_ARRAY = []
-  $RESERVES_ARRAY = []
-  $FLEX_ALL_RESERVES_ARRAY = []
-
   def index
     case filter&.dig(:flex_report_type)
     when "a_r_part_1"
@@ -31,6 +27,8 @@ class Manager::Reports::FlexController < Manager::ApplicationController
     when "a_r_part_3" then data = a_r_part_3(reserve: filter[:reserve], date_begin: filter[:date_begin], date_end: filter[:date_end])
     when "funding" then data = project_funding(reserve: filter[:reserve], date_begin: filter[:date_begin], date_end: filter[:date_end])
     when "user_list_by_role" then data = user_list_by_role(reserve: filter[:reserve], date_begin: filter[:date_begin], date_end: filter[:date_end])
+    when "tableau_zotero_count"
+      data = Manager::Reports::Flex::ZoteroPublicationPresenter.new
     when "tableau_usage" then data = tableau_usage(filter[:date_begin], filter[:date_end])
     when "tableau_faculty_count" then data = tableau_faculty_count(date_begin: filter[:date_begin], date_end: filter[:date_end])
     when "tableau_uc_faculty_campus" then data = tableau_uc_faculty_campus(date_begin: filter[:date_begin], date_end: filter[:date_end])
