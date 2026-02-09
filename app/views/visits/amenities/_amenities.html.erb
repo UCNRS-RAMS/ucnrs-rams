@@ -1,11 +1,9 @@
 <section class="amenity_group" data-controller = "amenity-category" >
-  <%= link_to '#', remote: true, data: { action: "click->amenity-category#toggle" } do %>
-    <header>
-      <h3><%= group_label %></h3>
-      <%= image_tag "icon-maximize.svg", size: "24x24", data: { "amenity-category-target": "maxImage" } %>
-      <%= image_tag "icon-minimize.svg", size: "24x24", data: { "amenity-category-target": "minImage" } %>
-    </header>
-  <% end %>
+  <header data-action="click->amenity-category#toggle">
+    <h3><%= group_label %></h3>
+    <%= image_tag "icon-maximize.svg", size: "24x24", data: { "amenity-category-target": "maxImage" } %>
+    <%= image_tag "icon-minimize.svg", size: "24x24", data: { "amenity-category-target": "minImage" } %>
+  </header>
   <div data-amenity-category-target = "amenitiesDiv" >
     <% amenities.each do |amenity| %>
       <%= fields_for "visit[amenities][#{ amenity.amenity_id }]", amenity.form.first do |form| %>
