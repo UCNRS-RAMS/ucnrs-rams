@@ -76,12 +76,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :helps, only: [:show]
-
   devise_scope :user do
     resources :password, only: [:new, :create]
   end
 
+  resource :helps, only: [:show]
+  resource :get_zotero_publication_count, only: [:show]
   resources :invoices, only: [:show]
 
   namespace :manager, namespace: :manager do

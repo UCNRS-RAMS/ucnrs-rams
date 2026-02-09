@@ -20,6 +20,7 @@
 @import "simple_calendar";
 @import "mixins/input";
 @import "mixins/tables";
+@import "base/*";
 
 
 html {
@@ -100,7 +101,8 @@ span.required {
   padding-top: 1rem;
 }
 
-.display-none {
+.display-none,
+.hidden {
   display: none;
 }
 

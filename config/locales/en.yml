@@ -2266,6 +2266,14 @@ en:
           flex_report_type: Flex Report Type
           date_range: Date Range
           reserve: Reserve
+        tableau_zotero_count:
+          description: >-
+            Zotero publication counts for all NRS reserves. Data loads progressively below.
+          loading: Loading reserves…
+          fetched: fetched
+          reserve: Reserve
+          title: Zotero Publication Count by Reserve
+          zotero_count: Zotero Count
     reserve_info:
       header:
         reserve_info: Reserve Info

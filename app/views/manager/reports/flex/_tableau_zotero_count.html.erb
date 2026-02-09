@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="card-body">
+    <p class="text-muted"><%= t('.description') %></p>
+  </div>
+</div>
+
+<div class="table-responsive"
+     data-controller="zotero-publication"
+     data-zotero-publication-reserve-ids-value="<%= data.reserve_ids.to_json %>"
+     data-zotero-publication-url-value="<%= get_zotero_publication_count_path() %>">
+
+  <p data-zotero-publication-target="progress" class="text-muted" style="padding: 0.5rem;">
+    <%= t('.loading') %>
+    <strong data-zotero-publication-target="count">0</strong> /
+    <strong data-zotero-publication-target="total">0</strong>
+    <%= t('.fetched') %>
+  </p>
+
+  <table class="project-funding-report">
+    <thead>
+      <tr><th colspan="2" class="title"><%= t('.title') %></th></tr>
+      <tr>
+        <th class="subtitle"><%= t('.reserve') %></th>
+        <th class="subtitle"><%= t('.zotero_count') %></th>
+      </tr>
+    </thead>
+
+    <tbody data-zotero-publication-target="tbody">
+    </tbody>
+  </table>
+</div>
