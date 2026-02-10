@@ -28,7 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.date "deployment_date", default: "1900-01-01", null: false, comment: "Date the equipment was deployed on the reserve"
   end
 
-  create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
+  create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
     t.string "record_type", null: false
@@ -393,7 +393,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.datetime "updated_at", precision: nil, null: false
   end
 
-  create_table "new_features", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
+  create_table "new_features", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -571,6 +571,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.json "files"
     t.index ["course_title"], name: "project_course_name"
     t.index ["date_submitted"], name: "project_date_submitted"
+    t.index ["id", "reserve_id"], name: "applicationid_reserveid"
     t.index ["id"], name: "project_id"
     t.index ["project_type", "id"], name: "project_type"
     t.index ["reserve_id", "status", "id"], name: "Reserve"
@@ -626,7 +627,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.index ["reserve_id"], name: "index_reserve_addendums_on_reserve_id"
   end
 
-  create_table "reserve_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
+  create_table "reserve_notes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "note"
     t.string "action", default: "reserve note"
     t.string "record_type", null: false
@@ -734,7 +735,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.integer "reserve_id", null: false
   end
 
-  create_table "reserve_tags", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
+  create_table "reserve_tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.column "category", "enum('ecosystem','geographic','organization','amenities','internet','other','facility')", null: false
     t.string "name", null: false
@@ -880,11 +881,11 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.virtual "latitude_degrees", type: :integer, as: "floor(abs(`latitude`))"
     t.virtual "latitude_minutes", type: :integer, as: "floor(((abs(`latitude`) % 1) * 60))"
     t.virtual "latitude_seconds", type: :float, as: "((((abs(`latitude`) % 1) * 60) % 1) * 60)"
-    t.virtual "latitude_hemisphere", type: :string, limit: 50, as: "if((`latitude` > 0),_utf8mb3'N',_utf8mb3'S')"
+    t.virtual "latitude_hemisphere", type: :string, limit: 50, as: "if((`latitude` > 0),_utf8mb4'N',_utf8mb4'S')"
     t.virtual "longitude_degrees", type: :integer, as: "floor(abs(`longitude`))"
     t.virtual "longitude_minutes", type: :integer, as: "floor(((abs(`longitude`) % 1) * 60))"
     t.virtual "longitude_seconds", type: :float, as: "((((abs(`longitude`) % 1) * 60) % 1) * 60)"
-    t.virtual "longitude_hemisphere", type: :string, limit: 50, as: "if((`longitude` > 0),_utf8mb3'E',_utf8mb3'W')"
+    t.virtual "longitude_hemisphere", type: :string, limit: 50, as: "if((`longitude` > 0),_utf8mb4'E',_utf8mb4'W')"
     t.text "description"
     t.string "listing_photo"
     t.string "large_hero_photo"
@@ -923,7 +924,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.index ["name"], name: "name"
   end
 
-  create_table "use_policies", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
+  create_table "use_policies", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "title"
     t.text "description"
     t.text "policy_link_text"
@@ -960,6 +961,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.index ["DepartureDate"], name: "DepartureDate"
     t.index ["reserve_id", "ArrivalDate", "visit_id"], name: "reserve"
     t.index ["status", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "StatusAndDate"
+    t.index ["status"], name: "status"
     t.index ["user_id", "visit_id", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "user_visit_date_range"
     t.index ["user_id"], name: "user"
     t.index ["visit_id", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "visit_arrival_date"
@@ -1000,7 +1002,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.integer "billing_address_state_id"
     t.integer "billing_address_country_id"
     t.boolean "record_complete", default: false, null: false, comment: "This is to check if user has completed their information entry."
-    t.string "administrative_notes", limit: 1000, default: "", comment: "notes about the user (not intended to be public)"
+    t.string "administrative_notes", limit: 100, default: "", comment: "notes about the user (not intended to be public)"
     t.integer "DefaultReserveID", default: 0, null: false, comment: "This value will determain which reserve the user is placed by default when they log in."
     t.string "advisor", limit: 100, comment: "Advisor or Supervisor"
     t.string "orcid", limit: 50, comment: "Unique ID for Researchers https://orcid.org/"
@@ -1078,9 +1080,10 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_01_171553) do
     t.datetime "starts_at", precision: nil
     t.datetime "ends_at", precision: nil
     t.index ["DateSubmitted", "project_id", "id"], name: "Date"
-    t.index ["id"], name: "id"
+    t.index ["id"], name: "ActivityID"
     t.index ["project_id", "id"], name: "Application"
     t.index ["reserve_id"], name: "reserve"
+    t.index ["status"], name: "status"
     t.index ["user_id"], name: "user"
   end
 
