@@ -16,7 +16,7 @@ class Service::GetZoteroPublicationCountPresenter
     name = fetch_reserve_name(@reserve_id)
     pub_count = fetch_reserve_pub_count(@reserve_id)
 
-    { name: name, pub_count: pub_count } if name
+    { name: name, pub_count: pub_count }
   end
 
   private
@@ -27,8 +27,8 @@ class Service::GetZoteroPublicationCountPresenter
       headers: HEADERS,
     )
 
-    JSON.parse(response.body)["data"]["name"] if response.success?
-  rescue Faraday::ConnectionFailed
+    JSON.parse(response.body).dig("data", "name") if response.success?
+  rescue StandardError
     nil
   end
 
@@ -39,7 +39,7 @@ class Service::GetZoteroPublicationCountPresenter
     )
 
     response.headers["total-results"] if response.success?
-  rescue Faraday::ConnectionFailed
+  rescue StandardError
     nil
   end
 end
