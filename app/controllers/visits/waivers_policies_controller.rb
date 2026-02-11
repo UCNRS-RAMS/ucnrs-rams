@@ -15,13 +15,7 @@ class Visits::WaiversPoliciesController < ApplicationController
         send_emails!(visit: @form.visit)
       end
 
-      if visit_trigger_outside_hotel?
-        flash[:notice] = "<p>#{ @form.visit.reserve.outside_reservation_system_text }</p>
-          <p>#{ I18n.t(".visits.waivers_policies.update.outside_reservation_flash_html",
-            href: @form.visit.reserve.outside_reservation_system_url) }</p>
-          <meta HTTP-EQUIV='REFRESH' content='10; url=#{@form.visit.reserve.outside_reservation_system_url}'>"
-
-      end
+      set_outside_hotel_flash if @form.visit.triggers_outside_hotel?
 
       redirect_to @form.visit
     else
@@ -127,8 +121,12 @@ class Visits::WaiversPoliciesController < ApplicationController
       .for_answer(true)
       .present?
   end
+  def set_outside_hotel_flash
+    reserve = @form.visit.reserve
 
-  def visit_trigger_outside_hotel?
-    visit.amenity_visits.map { |amenity_visit| amenity_visit.amenity.outside_reservation_system }.include? true
+    flash[:notice] = "<p>#{ reserve.outside_reservation_system_text }</p>
+      <p>#{ I18n.t(".visits.waivers_policies.update.outside_reservation_flash_html",
+        href: reserve.outside_reservation_system_url) }</p>
+      <meta HTTP-EQUIV='REFRESH' content='10; url=#{reserve.outside_reservation_system_url}'>"
   end
 end
