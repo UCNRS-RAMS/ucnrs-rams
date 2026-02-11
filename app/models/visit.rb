@@ -270,6 +270,14 @@ class Visit < ApplicationRecord
     )
   end
 
+  def first_reserve_visit_on_project?
+    Visit.where(project: project, reserve: reserve).where.not(id: id).none?
+  end
+
+  def triggers_outside_hotel?
+    amenity_visits.joins(:amenity).where(amenities: { outside_reservation_system: true }).exists?
+  end
+
   private
 
   def change_date_for_datetime(datetime, date)
