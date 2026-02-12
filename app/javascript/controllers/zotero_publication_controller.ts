@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["tbody", "progress", "count", "total"]
+  static targets = ["tbody", "progress", "count", "total", "itemType"]
   static values = {
     reserveIds: Array,
     url: String,
@@ -11,31 +11,59 @@ export default class extends Controller {
   declare progressTarget: HTMLElement
   declare countTarget: HTMLElement
   declare totalTarget: HTMLElement
+  declare itemTypeTarget: HTMLSelectElement
   declare reserveIdsValue: number[]
   declare urlValue: string
+
+  private abortController: AbortController | null = null
 
   connect() {
     this.fetchAllReserves()
   }
 
+  refetch() {
+    if (this.abortController) {
+      this.abortController.abort()
+    }
+    this.tbodyTarget.innerHTML = ""
+    this.progressTarget.classList.remove("hidden")
+    this.fetchAllReserves()
+  }
+
   async fetchAllReserves() {
+    this.abortController = new AbortController()
+    const signal = this.abortController.signal
     const ids = this.reserveIdsValue
+    const itemType = this.itemTypeTarget.value
     this.totalTarget.textContent = ids.length.toString()
     let loaded = 0
 
     for (const id of ids) {
+      if (signal.aborted) return
+
       try {
-        const response = await fetch(`${this.urlValue}?zotero_id=${id}`, {
+        let fetchUrl = `${this.urlValue}?zotero_id=${id}`
+        if (itemType) {
+          fetchUrl += `&item_type=${encodeURIComponent(itemType)}`
+        }
+
+        const response = await fetch(fetchUrl, {
           headers: { "Accept": "application/json" },
+          signal,
         })
+
+        if (signal.aborted) return
 
         if (response.ok) {
           const data = await response.json()
+          if (signal.aborted) return
           this.appendRow(data.name, data.pub_count)
         } else {
           this.appendErrorRow(id)
         }
-      } catch {
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") return
+        if (signal.aborted) return
         this.appendErrorRow(id)
       }
 
@@ -43,7 +71,9 @@ export default class extends Controller {
       this.countTarget.textContent = loaded.toString()
     }
 
-    this.progressTarget.classList.add("hidden")
+    if (!signal.aborted) {
+      this.progressTarget.classList.add("hidden")
+    }
   }
 
   appendRow(name: string, pubCount: string) {
