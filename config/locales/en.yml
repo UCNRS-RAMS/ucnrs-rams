@@ -2269,10 +2269,29 @@ en:
         tableau_zotero_count:
           description: >-
             Zotero publication counts for all NRS reserves. Data loads progressively below.
-          loading: Loading reserves…
+          all_item_types: All Types
+          attachment: "Attachment"
+          book: "Book"
+          bookSection: "Book Section"
+          computerProgram: "Computer Program"
+          email: "Email"
           fetched: fetched
+          filmRecording: "Film/Recording"
+          interview: "Interview"
+          item_type_label: "Item Type:"
+          journalArticle: "Journal Article"
+          letter: "Letter"
+          loading: Loading reserves…
+          magazineArticle: "Magazine Article"
+          manuscript: "Manuscript"
+          newspaperArticle: "Newspaper Article"
+          note: "Note"
+          patent: "Patent"
+          podcast: "Podcast"
           reserve: Reserve
+          thesis: "Thesis"
           title: Zotero Publication Count by Reserve
+          webpage: "Web Page"
           zotero_count: Zotero Count
     reserve_info:
       header:

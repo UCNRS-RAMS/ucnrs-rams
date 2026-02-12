@@ -9,6 +9,19 @@
      data-zotero-publication-reserve-ids-value="<%= data.reserve_ids.to_json %>"
      data-zotero-publication-url-value="<%= get_zotero_publication_count_path() %>">
 
+  <div style="padding: 0.5rem; margin-bottom: 0.5rem;">
+    <label for="zotero-item-type"><%= t('.item_type_label') %></label>
+    <select id="zotero-item-type"
+            data-zotero-publication-target="itemType"
+            data-action="change->zotero-publication#refetch"
+            class="form-control" style="display: inline-block; width: auto; margin-left: 0.5rem;">
+      <option value=""><%= t('.all_item_types') %></option>
+      <% data.item_type_options.each do |option| %>
+        <option value="<%= option[0] %>"><%= t(".#{option[0]}") %></option>
+      <% end %>
+    </select>
+  </div>
+
   <p data-zotero-publication-target="progress" class="text-muted" style="padding: 0.5rem;">
     <%= t('.loading') %>
     <strong data-zotero-publication-target="count">0</strong> /
