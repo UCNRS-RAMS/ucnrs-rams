@@ -10,4 +10,12 @@ class Manager::Reports::Flex::ZoteroPublicationPresenter
   def reserve_ids
     RESERVE_IDS
   end
+
+  def item_type_options
+    [
+      ["book"], ["bookSection"], ["journalArticle"], ["magazineArticle"], ["newspaperArticle"],
+      ["thesis"], ["manuscript"], ["patent"], ["webpage"], ["computerProgram"], ["filmRecording"],
+      ["interview"], ["podcast"], ["letter"], ["email"], ["attachment"], ["note"]
+    ]
+  end
 end

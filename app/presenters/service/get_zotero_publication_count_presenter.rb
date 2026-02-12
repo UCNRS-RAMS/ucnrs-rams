@@ -7,9 +7,10 @@ class Service::GetZoteroPublicationCountPresenter
     "Zotero-API-Key": "fXVnV4ZyNyK3k2XSFkiLfiK4",
   }.freeze
 
-  def initialize(getter = HttpGetter, reserve_id: nil)
+  def initialize(getter = HttpGetter, reserve_id: nil, item_type: nil)
     @getter = getter
     @reserve_id = reserve_id
+    @item_type = item_type
   end
 
   def fetch_reserve
@@ -33,8 +34,11 @@ class Service::GetZoteroPublicationCountPresenter
   end
 
   def fetch_reserve_pub_count(id)
+    url = "#{ZOTERO_URL}#{id}/items/top"
+    url += "?itemType=#{@item_type}" if @item_type.present?
+
     response = @getter.get(
-      url: "#{ZOTERO_URL}#{id}/items/top",
+      url: url,
       headers: HEADERS,
     )
 
