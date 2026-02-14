@@ -24,7 +24,10 @@ class LogForm2
   attr_reader :log
 
   def save
-    if action == "updated" && record_about.previous_changes.reject! {|k, v| %w[updated_at sign_token].include? k }.blank?
+    if action == "updated" &&
+       record_about.previous_changes
+         .reject! { |k, _| %w[updated_at sign_token].include? k }
+         .blank?
       return false
     end
 
@@ -43,12 +46,12 @@ class LogForm2
       comment: comment,
       about_type: record_about_type,
       about_id: record_about_id,
-      changes: changes
+      changes: changes,
     }
   end
 
   def changes
-    if action != "created"
+    if action == "updated"
       record_about.previous_changes.except(*changes_except_list)
     else
       {}
@@ -87,7 +90,7 @@ class LogForm2
   end
 
   def log_action
-    "#{ log.record_about.present? ? log.record_about.class : about} #{action}"
+    "#{log.record_about.present? ? log.record_about.class : about} #{action}"
   end
 
   def changes_except_list

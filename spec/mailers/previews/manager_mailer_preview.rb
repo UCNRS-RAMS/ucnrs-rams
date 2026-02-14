@@ -37,13 +37,11 @@ class ManagerMailerPreview < ActionMailer::Preview
   end
 
   def iacuc_notification_email
-    project = ProjectPermitAnswer
-      .with_flag_type(:iacuc_flag)
-      .for_answer(true)
+    visit = Visit
+      .joins(project: :project_permit_answers)
+      .merge(ProjectPermitAnswer.with_flag_type(:iacuc_flag).for_answer(true))
+      .distinct
       .last
-      .project
-
-    visit = project.visits.last
 
     ManagerMailer
       .with(
@@ -54,13 +52,11 @@ class ManagerMailerPreview < ActionMailer::Preview
   end
 
   def drone_notification_email
-    project = ProjectPermitAnswer
-      .with_flag_type(:drone_flag)
-      .for_answer(true)
+    visit = Visit
+      .joins(project: :project_permit_answers)
+      .merge(ProjectPermitAnswer.with_flag_type(:drone_flag).for_answer(true))
+      .distinct
       .last
-      .project
-
-    visit = project.visits.last
 
     ManagerMailer
       .with(
@@ -71,13 +67,11 @@ class ManagerMailerPreview < ActionMailer::Preview
   end
 
   def scuba_notification_email
-    project = ProjectPermitAnswer
-      .with_flag_type(:scuba_flag)
-      .for_answer(true)
+    visit = Visit
+      .joins(project: :project_permit_answers)
+      .merge(ProjectPermitAnswer.with_flag_type(:scuba_flag).for_answer(true))
+      .distinct
       .last
-      .project
-
-    visit = project.visits.last
 
     ManagerMailer
       .with(
