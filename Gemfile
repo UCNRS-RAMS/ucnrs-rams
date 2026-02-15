@@ -24,9 +24,6 @@ gem 'turbo-rails', '~> 1.4'
 gem "wicked_pdf", "~> 2.7"
 gem "wkhtmltopdf-binary", "~> 0.12.6"
 
-# temporary added to resolve openssl 3.6 regression. remove when openssl is fixed
-gem 'openssl'
-
 # charting
 gem "chartkick"
 gem "groupdate"
