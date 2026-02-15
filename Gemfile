@@ -24,10 +24,6 @@ gem 'turbo-rails', '~> 1.4'
 gem "wicked_pdf", "~> 2.7"
 gem "wkhtmltopdf-binary", "~> 0.12.6"
 
-# temporary added to resolve Logger problem before upgrade to Rails >= 7.
-# remove after upgrading to rails 7+
-gem 'concurrent-ruby', '1.3.4'
-
 # temporary added to resolve openssl 3.6 regression. remove when openssl is fixed
 gem 'openssl'
 
