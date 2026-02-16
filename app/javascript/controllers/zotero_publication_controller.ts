@@ -15,31 +15,36 @@ export default class extends Controller {
   declare reserveIdsValue: number[]
   declare urlValue: string
 
-  private abortController: AbortController | null = null
+  private fetchGeneration = 0
 
   connect() {
     this.fetchAllReserves()
   }
 
+  disconnect() {
+    this.cancelPendingFetches()
+  }
+
   refetch() {
-    if (this.abortController) {
-      this.abortController.abort()
-    }
+    this.cancelPendingFetches()
     this.tbodyTarget.innerHTML = ""
     this.progressTarget.classList.remove("hidden")
     this.fetchAllReserves()
   }
 
+  private cancelPendingFetches() {
+    this.fetchGeneration++
+  }
+
   async fetchAllReserves() {
-    this.abortController = new AbortController()
-    const signal = this.abortController.signal
+    const generation = this.fetchGeneration
     const ids = this.reserveIdsValue
     const itemType = this.itemTypeTarget.value
     this.totalTarget.textContent = ids.length.toString()
     let loaded = 0
 
     for (const id of ids) {
-      if (signal.aborted) return
+      if (this.fetchGeneration !== generation) return
 
       try {
         let fetchUrl = `${this.urlValue}?zotero_id=${id}`
@@ -49,21 +54,19 @@ export default class extends Controller {
 
         const response = await fetch(fetchUrl, {
           headers: { "Accept": "application/json" },
-          signal,
         })
 
-        if (signal.aborted) return
+        if (this.fetchGeneration !== generation) return
 
         if (response.ok) {
           const data = await response.json()
-          if (signal.aborted) return
+          if (this.fetchGeneration !== generation) return
           this.appendRow(data.name, data.pub_count)
         } else {
           this.appendErrorRow(id)
         }
-      } catch (error) {
-        if (error instanceof DOMException && error.name === "AbortError") return
-        if (signal.aborted) return
+      } catch {
+        if (this.fetchGeneration !== generation) return
         this.appendErrorRow(id)
       }
 
@@ -71,7 +74,7 @@ export default class extends Controller {
       this.countTarget.textContent = loaded.toString()
     }
 
-    if (!signal.aborted) {
+    if (this.fetchGeneration === generation) {
       this.progressTarget.classList.add("hidden")
     }
   }
