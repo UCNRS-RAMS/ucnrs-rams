@@ -26,7 +26,7 @@ gem "wkhtmltopdf-binary", "~> 0.12.6"
 
 # charting
 gem "chartkick"
-gem "groupdate"
+gem "groupdate", '~> 6.5'
 
 group :development, :test do
   gem 'axe-core-capybara'
