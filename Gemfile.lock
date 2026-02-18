@@ -129,7 +129,7 @@ GEM
       image_processing (~> 1.1)
       marcel (~> 1.0.0)
       ssrf_filter (~> 1.0)
-    chartkick (5.1.5)
+    chartkick (5.2.1)
     childprocess (5.1.0)
       logger (~> 1.5)
     coderay (1.1.3)
@@ -204,8 +204,8 @@ GEM
       rubocop-performance
       rubocop-rails (~> 2.2.0)
       thor
-    groupdate (6.1.0)
-      activesupport (>= 5.2)
+    groupdate (6.5.1)
+      activesupport (>= 7)
     httparty (0.24.2)
       csv
       mini_mime (>= 1.0.0)
@@ -554,7 +554,7 @@ DEPENDENCIES
   fog-aws
   foreman
   gnar-style
-  groupdate
+  groupdate (~> 6.5)
   jbuilder
   kaminari
   launchy
