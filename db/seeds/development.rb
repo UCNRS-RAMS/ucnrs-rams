@@ -29,6 +29,7 @@ fake_user.confirm
 a_single_tree = Reserve.where(name: "A Single Tree").first_or_create(
   short_name: "Tree",
   pulldown_name: "Single Tree, A",
+  address_country: Country.coded("US"),
   address_state: State.coded("MA"),
   research_projects_accepted: true,
   class_projects_accepted: false,
@@ -41,6 +42,7 @@ a_single_tree = Reserve.where(name: "A Single Tree").first_or_create(
 oak_ridge = Reserve.where(name: "Oak Ridge").first_or_create(
   short_name: "Oak Ridge",
   pulldown_name: "Oak Ridge",
+  address_country: Country.coded("US"),
   address_state: State.coded("CA"),
   research_projects_accepted: false,
   class_projects_accepted: true,
@@ -51,308 +53,190 @@ oak_ridge = Reserve.where(name: "Oak Ridge").first_or_create(
   amenity_group_label_3: "(Not) Spooky Cabin",
 )
 
+# Amenity Rate Categories for A Single Tree
+tree_normal_price = AmenityRateCategory.where(description: "Normal Price", reserve_id: a_single_tree.id).first_or_create(
+  reserve: a_single_tree,
+  sort_order: 1,
+  state_university: false,
+  state_college: true,
+  community_college: true,
+  other_state_institution: true,
+  outside_state: true,
+  international: true,
+  K12: true,
+  nongovernmental: true,
+  governmental: true,
+  business: true,
+  other: true,
+)
+
+tree_uc_rate = AmenityRateCategory.where(description: "UC Rate", reserve_id: a_single_tree.id).first_or_create(
+  reserve: a_single_tree,
+  sort_order: 2,
+  state_university: true,
+  state_college: false,
+  community_college: false,
+  other_state_institution: false,
+  outside_state: false,
+  international: false,
+  K12: false,
+  nongovernmental: false,
+  governmental: false,
+  business: false,
+  other: false,
+)
+
+tree_edu_rate = AmenityRateCategory.where(description: "EDU Rate", reserve_id: a_single_tree.id).first_or_create(
+  reserve: a_single_tree,
+  sort_order: 3,
+  state_university: true,
+  state_college: true,
+  community_college: true,
+  other_state_institution: false,
+  outside_state: true,
+  international: false,
+  K12: true,
+  nongovernmental: false,
+  governmental: false,
+  business: false,
+  other: false,
+)
+
+tree_govt_rate = AmenityRateCategory.where(description: "Gov't Rate", reserve_id: a_single_tree.id).first_or_create(
+  reserve: a_single_tree,
+  sort_order: 4,
+  state_university: false,
+  state_college: false,
+  community_college: false,
+  other_state_institution: false,
+  outside_state: false,
+  international: false,
+  K12: false,
+  nongovernmental: false,
+  governmental: true,
+  business: false,
+  other: false,
+)
+
+# Amenity Rate Categories for Oak Ridge
+oak_normal_price = AmenityRateCategory.where(description: "Normal Price", reserve_id: oak_ridge.id).first_or_create(
+  reserve: oak_ridge,
+  sort_order: 1,
+  state_university: false,
+  state_college: true,
+  community_college: true,
+  other_state_institution: true,
+  outside_state: true,
+  international: true,
+  K12: true,
+  nongovernmental: true,
+  governmental: true,
+  business: true,
+  other: true,
+)
+
+oak_edu_rate = AmenityRateCategory.where(description: "EDU Rate", reserve_id: oak_ridge.id).first_or_create(
+  reserve: oak_ridge,
+  sort_order: 2,
+  state_university: true,
+  state_college: true,
+  community_college: true,
+  other_state_institution: false,
+  outside_state: false,
+  international: false,
+  K12: true,
+  nongovernmental: false,
+  governmental: true,
+  business: false,
+  other: false,
+)
+
 # Amenities
-leaf_pile = Amenity.where(title: "Leaf Pile").first_or_create(
+# Note: after_create callbacks automatically create AmenityRate records with rate: 0.0
+# for all existing categories when an Amenity is created
+leaf_pile = Amenity.where(title: "Leaf Pile", reserve: a_single_tree).first_or_create(
   sort_order: 2,
   units_type: "person",
   time_type: "4 hours",
   reserve: a_single_tree,
   visible: true,
   group_number: "1",
-  amenity_rates: [AmenityRate.new(
-    rate: 10.01,
-    amenity_rate_category: AmenityRateCategory.new(
-      description: "Normal Price",
-      reserve: a_single_tree,
-      sort_order: 1,
-      state_university: false,
-      state_college: true,
-      community_college: true,
-      other_state_institution: true,
-      outside_state: true,
-      international: true,
-      K12: true,
-      nongovernmental: true,
-      governmental: true,
-      business: true,
-      other: true,
-    )
-  )]
 )
-day_use = Amenity.where(title: "Day Use").first_or_create(
+AmenityRate.find_by(amenity: leaf_pile, amenity_rate_category: tree_normal_price)&.update(rate: 10.01)
+
+day_use = Amenity.where(title: "Day Use", reserve: a_single_tree).first_or_create(
   sort_order: 1,
   units_type: "person",
   time_type: "day",
   reserve: a_single_tree,
   visible: true,
   group_number: "1",
-  amenity_rates: [AmenityRate.new(
-    rate: 0,
-    amenity_rate_category: AmenityRateCategory.new(
-      description: "Normal Price",
-      reserve: a_single_tree,
-      sort_order: 1,
-      state_university: false,
-      state_college: true,
-      community_college: true,
-      other_state_institution: true,
-      outside_state: true,
-      international: true,
-      K12: true,
-      nongovernmental: true,
-      governmental: true,
-      business: true,
-      other: true,
-    )
-  )]
 )
-your_own_leaf = Amenity.where(title: "Your Own Leaf").first_or_create(
+# Day Use stays at 0 by default
+
+your_own_leaf = Amenity.where(title: "Your Own Leaf", reserve: a_single_tree).first_or_create(
   sort_order: 1,
   units_type: "person",
   time_type: "each",
   reserve: a_single_tree,
   visible: true,
   group_number: "2",
-  amenity_rates: [
-    AmenityRate.new(
-      rate: 999.99,
-      amenity_rate_category: AmenityRateCategory.new(
-        description: "Normal Price",
-        reserve: a_single_tree,
-        sort_order: 1,
-        state_university: false,
-        state_college: true,
-        community_college: true,
-        other_state_institution: true,
-        outside_state: true,
-        international: true,
-        K12: true,
-        nongovernmental: true,
-        governmental: true,
-        business: true,
-        other: true,
-      )
-    ),
-    AmenityRate.new(
-      rate: 1.00,
-      amenity_rate_category: AmenityRateCategory.new(
-        description: "UC Rate",
-        reserve: a_single_tree,
-        sort_order: 2,
-        state_university: true,
-        state_college: false,
-        community_college: false,
-        other_state_institution: false,
-        outside_state: false,
-        international: false,
-        K12: false,
-        nongovernmental: false,
-        governmental: false,
-        business: false,
-        other: false,
-      )
-    ),
-  ]
 )
-hotel_accomodations = Amenity.where(title: "Hotel Accomodations").first_or_create(
+AmenityRate.find_by(amenity: your_own_leaf, amenity_rate_category: tree_normal_price)&.update(rate: 999.99)
+AmenityRate.find_by(amenity: your_own_leaf, amenity_rate_category: tree_uc_rate)&.update(rate: 1.00)
+
+hotel_accomodations = Amenity.where(title: "Hotel Accomodations", reserve: a_single_tree).first_or_create(
   sort_order: 1,
   units_type: "person",
   time_type: "night",
   reserve: a_single_tree,
   visible: true,
   group_number: "3",
-  amenity_rates: [AmenityRate.new(
-    rate: 15.44,
-    amenity_rate_category:
-      AmenityRateCategory.new(
-        description: "Normal Price",
-        reserve: a_single_tree,
-        sort_order: 1,
-        state_university: false,
-        state_college: false,
-        community_college: false,
-        other_state_institution: true,
-        outside_state: false,
-        international: true,
-        K12: false,
-        nongovernmental: true,
-        governmental: true,
-        business: true,
-        other: true,
-      ),
-    ),
-  AmenityRate.new(
-    rate: 1.00,
-    amenity_rate_category: 
-      AmenityRateCategory.new(
-        description: "EDU Rate",
-        reserve: a_single_tree,
-        sort_order: 2,
-        state_university: true,
-        state_college: true,
-        community_college: true,
-        other_state_institution: false,
-        outside_state: true,
-        international: false,
-        K12: true,
-        nongovernmental: false,
-        governmental: false,
-        business: false,
-        other: false,
-      ),
-    )
-  ]
 )
-friendly_squirrel = Amenity.where(title: "Friendly Squirrel").first_or_create(
+AmenityRate.find_by(amenity: hotel_accomodations, amenity_rate_category: tree_normal_price)&.update(rate: 15.44)
+AmenityRate.find_by(amenity: hotel_accomodations, amenity_rate_category: tree_edu_rate)&.update(rate: 1.00)
+
+friendly_squirrel = Amenity.where(title: "Friendly Squirrel", reserve: a_single_tree).first_or_create(
   sort_order: 5,
   units_type: "person",
   time_type: "night",
   reserve: a_single_tree,
   visible: true,
   group_number: "3",
-  amenity_rates: [
-    AmenityRate.new(
-      rate: 1.23,
-      amenity_rate_category: AmenityRateCategory.new(
-        description: "Normal Price",
-        reserve: a_single_tree,
-        sort_order: 1,
-        state_university: true,
-        state_college: true,
-        community_college: true,
-        other_state_institution: true,
-        outside_state: true,
-        international: true,
-        K12: true,
-        nongovernmental: true,
-        governmental: false,
-        business: true,
-        other: true,
-      )
-    ),
-    AmenityRate.new(
-      rate: 500.00,
-      amenity_rate_category: AmenityRateCategory.new(
-        description: "Gov't Rate",
-        reserve: a_single_tree,
-        sort_order: 2,
-        state_university: false,
-        state_college: false,
-        community_college: false,
-        other_state_institution: false,
-        outside_state: false,
-        international: false,
-        K12: false,
-        nongovernmental: false,
-        governmental: true,
-        business: false,
-        other: false,
-      )
-    ),
-  ]
 )
-atv_rental = Amenity.where(title: "ATV Rental").first_or_create(
+AmenityRate.find_by(amenity: friendly_squirrel, amenity_rate_category: tree_normal_price)&.update(rate: 1.23)
+AmenityRate.find_by(amenity: friendly_squirrel, amenity_rate_category: tree_govt_rate)&.update(rate: 500.00)
+
+atv_rental = Amenity.where(title: "ATV Rental", reserve: oak_ridge).first_or_create(
   sort_order: 1,
   units_type: "person",
   time_type: "day",
   reserve: oak_ridge,
   visible: true,
   group_number: "1",
-  amenity_rates: [AmenityRate.new(
-    rate: 30,
-    amenity_rate_category: AmenityRateCategory.new(
-      description: "Normal Price",
-      reserve: oak_ridge,
-      sort_order: 1,
-      state_university: false,
-      state_college: true,
-      community_college: true,
-      other_state_institution: true,
-      outside_state: true,
-      international: true,
-      K12: true,
-      nongovernmental: true,
-      governmental: true,
-      business: true,
-      other: true,
-    )
-  )]
 )
-your_own_acorn = Amenity.where(title: "Your Own Acorn").first_or_create(
+AmenityRate.find_by(amenity: atv_rental, amenity_rate_category: oak_normal_price)&.update(rate: 30)
+
+your_own_acorn = Amenity.where(title: "Your Own Acorn", reserve: oak_ridge).first_or_create(
   sort_order: 1,
   units_type: "person",
   time_type: "each",
   reserve: oak_ridge,
   visible: true,
   group_number: "2",
-  amenity_rates: [AmenityRate.new(
-    rate: 0.5,
-    amenity_rate_category: AmenityRateCategory.new(
-      description: "Normal Price",
-      reserve: oak_ridge,
-      sort_order: 1,
-      state_university: false,
-      state_college: true,
-      community_college: true,
-      other_state_institution: true,
-      outside_state: true,
-      international: true,
-      K12: true,
-      nongovernmental: true,
-      governmental: true,
-      business: true,
-      other: true,
-    )
-  )]
 )
-cabin_in_the_woods = Amenity.where(title: "Cabin in the Woods").first_or_create(
+AmenityRate.find_by(amenity: your_own_acorn, amenity_rate_category: oak_normal_price)&.update(rate: 0.5)
+
+cabin_in_the_woods = Amenity.where(title: "Cabin in the Woods", reserve: oak_ridge).first_or_create(
   sort_order: 1,
   units_type: "person",
   time_type: "night",
   reserve: oak_ridge,
   visible: true,
   group_number: "3",
-  amenity_rates: [
-    AmenityRate.new(
-      rate: 78,
-      amenity_rate_category: AmenityRateCategory.new(
-        description: "Normal Price",
-        reserve: oak_ridge,
-        sort_order: 1,
-        state_university: false,
-        state_college: true,
-        community_college: true,
-        other_state_institution: true,
-        outside_state: true,
-        international: true,
-        K12: true,
-        nongovernmental: true,
-        governmental: true,
-        business: true,
-        other: true,
-      )
-    ),
-    AmenityRate.new(
-      rate: 30.25,
-      amenity_rate_category: AmenityRateCategory.new(
-        description: "EDU Rate",
-        reserve: a_single_tree,
-        sort_order: 2,
-        state_university: true,
-        state_college: true,
-        community_college: true,
-        other_state_institution: false,
-        outside_state: false,
-        international: false,
-        K12: true,
-        nongovernmental: false,
-        governmental: true,
-        business: false,
-        other: false,
-      )
-    ),
-  ]
 )
+AmenityRate.find_by(amenity: cabin_in_the_woods, amenity_rate_category: oak_normal_price)&.update(rate: 78)
+AmenityRate.find_by(amenity: cabin_in_the_woods, amenity_rate_category: oak_edu_rate)&.update(rate: 30.25)
 
 # Projects
 sap_study = Project.where(title: "Concentrations of Bovine Matter In Sapwood of A Single Tree Over The Course Of 30 Years").first_or_create(
