@@ -196,7 +196,7 @@ class Visit < ApplicationRecord
 
   def self.with_report_access(status)
     if status.present?
-      where(report_access: status)
+      where(report_access: ActiveModel::Type::Boolean.new.cast(status))
     else
       all
     end
