@@ -560,6 +560,7 @@ DEPENDENCIES
   launchy
   listen
   lol_dba
+  mini_magick
   mysql2 (~> 0.5)
   nokogiri (>= 1.16.5)
   okcomputer

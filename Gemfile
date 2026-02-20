@@ -6,6 +6,7 @@ ruby '3.2.9'
 gem "amazing_print"
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'carrierwave'
+gem 'mini_magick'
 gem "devise", '~> 4.8'
 gem 'faraday-retry'
 gem 'fog-aws'
