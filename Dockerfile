@@ -4,15 +4,16 @@ FROM node:22.21.1-slim AS node
 # Stage 2: Build the Rails environment
 FROM ruby:3.2.9
 
-# Copy Node and Yarn from the 'node' stage into our Ruby stage
-COPY --from=node /usr/local/bin/node /usr/local/bin/
+# Copy Node.js and package managers from the 'node' stage
+COPY --from=node /usr/local/bin/ /usr/local/bin/
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
-COPY --from=node /usr/local/bin/npm /usr/local/bin/
-COPY --from=node /usr/local/bin/yarn /usr/local/bin/
+COPY --from=node /usr/local/include/node /usr/local/include/node
+COPY --from=node /usr/local/share/man /usr/local/share/man
 
-# Create symlinks so the system finds them
-RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm && \
-    ln -s /usr/local/lib/node_modules/yarn/bin/yarn.js /usr/local/bin/yarn
+# Remove existing yarn/npm symlinks and enable corepack
+RUN rm -f /usr/local/bin/yarn /usr/local/bin/yarnpkg /usr/local/bin/npm /usr/local/bin/npx && \
+    corepack enable && corepack prepare yarn@stable --activate
+
 
 # Install dependencies:
 # ImageMagick for image processing, libmariadb-dev for the mysql2 gem
