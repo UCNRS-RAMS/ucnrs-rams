@@ -1,7 +1,17 @@
-version: '3'
+version: '3.8'
+
 services:
   db:
-    image: postgres
+    image: mysql:8.4
+    volumes:
+      - db_data:/var/lib/mysql
+      # Automatically populate timezones on first boot
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+    environment:
+      # This loads timezone data into the MySQL container
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: my_app_development
+
   web:
     build: .
     command: bash -c 'rm -f tmp/pids/server.pid && bundle exec rails s --port 3000 --binding 0.0.0.0'
@@ -9,7 +19,15 @@ services:
       - .:/app
     ports:
       - 3000:3000
+    # These override your local .env values ONLY inside the container
+    environment:
+      - DATABASE_NAME=my_app_development
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWORD=password
+      - DATABASE_HOST=db
+      - DATABASE_PORT=3306
     depends_on:
       - db
-    env_file:
-      - .env.docker
+
+volumes:
+    db_data:
