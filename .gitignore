@@ -38,6 +38,7 @@ public/packs
 # Ignore some .env files
 .env
 .env.development
+.env.docker
 
 # Ignore key
 /config/master.key
