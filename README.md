@@ -95,7 +95,9 @@ Prerequisite: Docker compose container is running (because you did `docker-compo
    terminal remains attached to break for other places in the future unless you
    kill it.
 
-Lastly, set `binding.pry` in the usual fashion, and use the new image specific terminal to interact with your breakpoint.
+If you want to debug in VS-Code or JetBrains RubyMine there are some plugins that enable that
+but may require a gem in the `development` group in the Gemfile as well as plugin install
+in the IDE.
 
 ## Testing (locally)
 
