@@ -1,7 +1,37 @@
 # ucnrs_rams
 
-## Setup
+## Local setup on mac
 
+Operating system dependencies:
+
+```bash
+# mysql db locally, imagemagick for mini_magic in app, 
+brew install mysql imagemagick
+
+# start mysql so you can use use it
+brew services start mysql
+
+# install rbenv for managing ruby versions
+brew install rbenv
+
+# install rbenv into your shell such as
+# .bash_profile
+eval "$(rbenv init -)"
+
+# or zsh in .zshrc
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init - zsh)"
+
+# it should automatically read .ruby-version in your application directory and
+# use correct ruby version
+
+# change to directory and install correct ruby verison
+rbenv install <version-listed-in-ruby-version>
+
+gem install bundler  # to get bundler ready
+```
+
+Rails application dependencies and setup
  ```sh
 $ bundle install
 $ bundle exec rake db:create
@@ -20,6 +50,7 @@ To run acceptance tests chromedriver is required.
 If using macOS and homebrew, you can install chromedriver with the following
 command:
 ```sh
+# note, I don't believe this was necessary for me
 $ brew tap homebrew/cask
 $ brew cask install chromedriver
 ```
@@ -27,7 +58,11 @@ $ brew cask install chromedriver
 To run the full test suite:
 
 ```sh
-$ bundle exec rake
+# from install on mac
+bundle exec rspec
+
+# from a running docker-compose container
+docker compose exec web bundle exec rspec
 ```
 
 ### Switching out Capybara Driver:
