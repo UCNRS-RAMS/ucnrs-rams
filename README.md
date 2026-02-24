@@ -23,9 +23,10 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init - zsh)"
 
 # it should automatically read .ruby-version in your application directory and
-# use correct ruby version
+# use correct ruby version or prompt you to install it, but if not install manually
+# like below
 
-# change to directory and install correct ruby verison
+# change to rails application directory and install correct ruby version
 rbenv install <version-listed-in-ruby-version>
 
 gem install bundler  # to get bundler ready
@@ -38,12 +39,67 @@ $ bundle exec rake db:create
 $ bundle exec rake db:migrate
 $ bundle exec rake db:seed
 $ bundle exec rails s
-$ open http://localhost:3000
+
+# open http://localhost:3000 in a browser to verify it's up
 ```
 
-## Testing
+## Development setup in Docker 
 
-### Testing Dependency:
+The application may be run via [docker](https://docs.docker.com/) and [docker-compose](https://docs.docker.com/compose/).
+
+First install docker desktop and get it running then in your shell:
+
+```sh
+$ docker-compose build
+```
+
+### Bring up the container and set up the database
+
+The setup of the database probably only needs to be done the first time you run
+unless you wipe out your database or its container.
+
+You can connect to the database with the info in the docker compose file from
+outside your container on port 3007 (to avoid conflicts with the default MySQL)
+which might be running on port 3006 on your machine.
+
+```sh
+# bring up the docker container and leave it running while you do other steps
+$ docker compose up
+
+# Create and initialize the database
+$ docker compose exec web bundle exec rails db:create db:migrate
+
+# populate seed data for development
+$ docker compose exec web bundle exec rails db:seed
+
+# open http://localhost:3000 in a browser to verify it's up
+```
+
+### Running rspec tests inside the docker container
+The container needs to be running to use `exec`.  If you want to start the container,
+use `run` instead.
+
+```sh
+$ docker-compose exec web bundle exec rspec
+# or an individual test like
+$ docker-compose exec web bundle exec rspec ./spec/system/authentication_spec.rb:19
+```
+
+### Using pry with Docker
+
+Prerequisite: Docker compose container is running (because you did `docker-compose up`).
+
+1. Add the `binding.pry` statement to your code where you'd like to break.
+2. Open a terminal and type `docker attach $(docker compose ps -q web)`.
+3. Debug as normal with things like inspecting variables, continuing etc.  This
+   terminal remains attached to break for other places in the future unless you
+   kill it.
+
+Lastly, set `binding.pry` in the usual fashion, and use the new image specific terminal to interact with your breakpoint.
+
+## Testing (locally)
+
+### Testing dependency for Mac:
 
 To run acceptance tests chromedriver is required.
 
@@ -78,41 +134,6 @@ end
 ## Dependencies
 
 [Ruby Version](.ruby-version)
-
-## Docker
-
-The application may be run via [docker](https://docs.docker.com/) and [docker-compose](https://docs.docker.com/compose/). Once installed run:
-
-```sh
-$ docker-compose build
-```
-
-To run the application for the first time:
-
-```sh
-# Create the database
-$ docker-compose run web rake db:setup
-
-# Start the application
-$ docker-compose up
-```
-
-To run rspec:
-```sh
-$ docker-compose run web bundle exec rspec
-```
-
-### Using pry with Docker
-
-Once docker is running, type `docker ps` in the terminal and copy the ID of the `ucnrs_rams_web` image.
-
-Then, in a new terminal window, use the container ID you copied to open an image specific terminal...
-
-```sh
-$ docker attach COPIED_CONTAINER_ID
-```
-
-Lastly, set `binding.pry` in the usual fashion, and use the new image specific terminal to interact with your breakpoint.
 
 ## Updating gnar-style
 
