@@ -30,13 +30,8 @@ services:
     ports:
       - 3000:3000
     # These override your local .env values ONLY inside the container
-    environment:
-      - DATABASE_NAME=unnrs_rams_development
-      - DATABASE_USERNAME=root
-      - DATABASE_PASSWORD=password
-      - DATABASE_HOST=db
-      - DATABASE_PORT=3306
-      - SHAKAPACKER_DEV_SERVER_HOST=webpack
+    env_file:
+      - .env.docker
     depends_on:
       - db
       - webpack
