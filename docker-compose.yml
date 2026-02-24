@@ -1,8 +1,15 @@
-version: '3.8'
+# NOTE::
+#
+# The services, settings and environment setup in this compose file is
+# for DEVELOPMENT ONLY!
+#
+# Do not use this compose file in a live environment.
 
 services:
   db:
     image: mysql:8.4
+    ports:
+      - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
       # Automatically populate timezones on first boot
@@ -10,7 +17,7 @@ services:
     environment:
       # This loads timezone data into the MySQL container
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: my_app_development
+      MYSQL_DATABASE: ucnrs_rams_development
 
   web:
     build: .
@@ -21,7 +28,7 @@ services:
       - 3000:3000
     # These override your local .env values ONLY inside the container
     environment:
-      - DATABASE_NAME=my_app_development
+      - DATABASE_NAME=unnrs_rams_development
       - DATABASE_USERNAME=root
       - DATABASE_PASSWORD=password
       - DATABASE_HOST=db
