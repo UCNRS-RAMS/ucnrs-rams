@@ -23,7 +23,9 @@ RUN apt-get update -qq && apt-get install -y \
     libmariadb-dev \
     imagemagick \
     cmake \
-    git
+    git \
+    chromium \
+    chromium-driver
 
 # Set the working directory inside the container
 WORKDIR /app
