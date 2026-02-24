@@ -36,8 +36,21 @@ services:
       - DATABASE_PASSWORD=password
       - DATABASE_HOST=db
       - DATABASE_PORT=3306
+      - SHAKAPACKER_DEV_SERVER_HOST=webpack
     depends_on:
       - db
+      - webpack
+
+  webpack:
+    build: .
+    command: bin/shakapacker-dev-server
+    volumes:
+      - .:/app
+    ports:
+      - 3035:3035
+    environment:
+      - SHAKAPACKER_DEV_SERVER_HOST=0.0.0.0
+      - NODE_ENV=development
 
 volumes:
     db_data:
