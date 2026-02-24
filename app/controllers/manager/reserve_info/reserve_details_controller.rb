@@ -119,8 +119,8 @@ class Manager::ReserveInfo::ReserveDetailsController < Manager::ApplicationContr
       :contact_for_project_review,
       :outside_reservation_system_url,
       :outside_reservation_system_text,
-      :amenity_required,
-      :amenity_required_text,
+      :amenity_for_visit_message_enabled,
+      :amenity_for_visit_message,
     )
   end
 end

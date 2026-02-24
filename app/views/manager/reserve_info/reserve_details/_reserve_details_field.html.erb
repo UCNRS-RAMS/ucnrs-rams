@@ -387,17 +387,17 @@
     </small>
   </header>
   <div class="form-group">
-    <%= f.label(:amenity_required, t(".amenity_required"), class:"form-label") %>
+    <%= f.label(:amenity_for_visit_message_enabled, t(".amenity_for_visit_message_enabled"), class:"form-label") %>
     <div>
-      <%= f.radio_button(:amenity_required, true, class: "custom-control-input") %>
-      <%= f.label(:amenity_required_true, t("yes"), class:"custom-control-label") %>
-      <%= f.radio_button(:amenity_required, false, class: "custom-control-input") %>
-      <%= f.label(:amenity_required_false, t("no"), class:"custom-control-label") %>
+      <%= f.radio_button(:amenity_for_visit_message_enabled, true, class: "custom-control-input") %>
+      <%= f.label(:amenity_for_visit_message_enabled_true, t("yes"), class:"custom-control-label") %>
+      <%= f.radio_button(:amenity_for_visit_message_enabled, false, class: "custom-control-input") %>
+      <%= f.label(:amenity_for_visit_message_enabled_false, t("no"), class:"custom-control-label") %>
     </div>
   </div>
   <div class="col form-group">
-    <%= f.label :amenity_required_text, t(".amenity_required_description"), class: "form-label" %>
-    <%= f.text_area :amenity_required_text, class: "form-textarea" %>
+    <%= f.label :amenity_for_visit_message, t(".amenity_for_visit_message_description"), class: "form-label" %>
+    <%= f.text_area :amenity_for_visit_message, class: "form-textarea" %>
   </div>
   <br />
   <div class="col form-group">
