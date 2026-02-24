@@ -2325,8 +2325,13 @@ en:
             Special message for users about the reserve. This Message appears to
             user when initially selecting this reserve when creating a visit,
             and the reserve page.
-          amenity_required: Amenity required for a visit?
-          amenity_required_description: Text shown when "Amenity are required" for a visit is set to yes.
+          amenity_for_visit_message_enabled: Display a message when user is selecting amenity for Visit?
+          amenity_for_visit_message_description: >-
+            This message will be shown to users when they are selecting an amenity for their visit when the option
+            above is set to "Yes".
+            This message is useful, for example, if you want to inform users that selecting an amenity is required
+            for a visit, or if you want to provide specific instructions for users when they are selecting amenities
+            for their visit.
           contact_for_project_review: Contact for project review
           contact_for_project_review_description: >-
             This information will be posted as a link to the new visit page to

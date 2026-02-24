@@ -3,8 +3,8 @@
     <%= t(".select_amenities") %>
   </h2>
   <span><%= t(".rate_determined", institution: @presenter.institution_name) %></span>
-  <% if @presenter&.reserve&.amenity_required? %>
-    <%= tag.div simple_format(@presenter.reserve.amenity_required_text), class: "reserve-message" %>
+  <% if @presenter&.reserve&.amenity_for_visit_message_enabled? %>
+    <%= tag.div simple_format(@presenter.reserve.amenity_for_visit_message), class: "reserve-message" %>
   <% end %>
 </header>
 <section class="amenity-options">
