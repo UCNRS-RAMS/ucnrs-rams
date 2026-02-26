@@ -5,7 +5,7 @@
     </div>
   </td>
   <td class="card-date">
-    <%= tag.span t(".from", time: amenity_visit.arrives.to_s(:time)), class: "text-nowrap" if amenity_visit.arrives_today? %>
-    <%= tag.span t(".until", time: amenity_visit.departs.to_s(:time)), class: "text-nowrap" if amenity_visit.departs_today? %>
+    <%= tag.span t(".from", time: amenity_visit.arrives.to_fs(:time)), class: "text-nowrap" if amenity_visit.arrives_today? %>
+    <%= tag.span t(".until", time: amenity_visit.departs.to_fs(:time)), class: "text-nowrap" if amenity_visit.departs_today? %>
   </td>
 </tr>

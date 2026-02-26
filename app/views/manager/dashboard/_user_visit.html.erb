@@ -8,7 +8,7 @@
     </div>
   </td>
   <td class="card-date">
-    <%= tag.span t(".from", time: user_visit.arrives_at.to_s(:time)), class: "text-nowrap" if user_visit.arrives_today? %>
-    <%= tag.span t(".until", time: user_visit.departs_at.to_s(:time)), class: "text-nowrap" if user_visit.departs_today? %>
+    <%= tag.span t(".from", time: user_visit.arrives_at.to_fs(:time)), class: "text-nowrap" if user_visit.arrives_today? %>
+    <%= tag.span t(".until", time: user_visit.departs_at.to_fs(:time)), class: "text-nowrap" if user_visit.departs_today? %>
   </td>
 </tr>
