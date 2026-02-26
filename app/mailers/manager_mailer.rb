@@ -1,6 +1,8 @@
 class ManagerMailer < ApplicationMailer
   layout "mailer"
 
+  after_deliver :log_notification_email, if: :notification_email?
+
   def visit_new
     @presenter = params[:presenter]
 
@@ -41,17 +43,6 @@ class ManagerMailer < ApplicationMailer
       to: params[:personnel_email_list],
       subject: "IACUC notification",
     )
-
-    LogForm2.create(
-      params: {
-        about: "iacuc",
-        action: "email sent",
-        record: @presenter.visit.project,
-        user: :system,
-        reserve: @presenter.visit.reserve,
-        comment: "::email:: sent to #{ params[:personnel_email_list] }"
-      }
-    )
   end
 
   def drone_notification_email
@@ -62,17 +53,6 @@ class ManagerMailer < ApplicationMailer
     mail(
       to: params[:personnel_email_list],
       subject: "Drone notification",
-    )
-
-    LogForm2.create(
-      params: {
-        about: "drone",
-        action: "email sent",
-        record: @presenter.visit.project,
-        user: :system,
-        reserve: @presenter.visit.reserve,
-        comment: "::email:: sent to #{ params[:personnel_email_list] }"
-      }
     )
   end
 
@@ -85,18 +65,32 @@ class ManagerMailer < ApplicationMailer
       to: params[:personnel_email_list],
       subject: "Scuba notification",
     )
+  end
 
+  private
+
+  NOTIFICATION_ACTIONS = %w[iacuc_notification_email drone_notification_email
+                            scuba_notification_email].freeze
+  private_constant :NOTIFICATION_ACTIONS
+
+  def notification_email?
+    NOTIFICATION_ACTIONS.include?(action_name)
+  end
+
+  def notification_about
+    action_name.delete_suffix("_notification_email")
+  end
+
+  def log_notification_email
     LogForm2.create(
       params: {
-        about: "scuba",
+        about: notification_about,
         action: "email sent",
         record: @presenter.visit.project,
         user: :system,
         reserve: @presenter.visit.reserve,
-        comment: "::email:: sent to #{ params[:personnel_email_list] }"
+        comment: "::email:: sent to #{params[:personnel_email_list]}",
       }
     )
   end
-
-  private
 end
