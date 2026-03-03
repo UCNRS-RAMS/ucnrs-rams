@@ -33,6 +33,14 @@ class Mail::VisitPresenter
     "$#{value(amenity_visits.sum(&:subtotal))}"
   end
 
+  def visit_type
+    if project.present? && project.project_type.present?
+      I18n.t("universal.project.project_types.#{project.project_type}")
+    else
+      not_applicable
+    end
+  end
+
   def visit_applicant
     UserPresenter.new(visit.user)
   end
