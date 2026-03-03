@@ -37,22 +37,15 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: ENV.fetch("DEV_SMTP_HOST"),
-    port: ENV.fetch("DEV_SMTP_PORT"),
-    domain: ENV.fetch("DEV_SMTP_DOMAIN"),
-    user_name: ENV.fetch("DEV_SMTP_USERNAME"),
-    password: ENV.fetch("DEV_SMTP_PASSWORD"),
-    authentication: :login,
-    enable_starttls_auto: true,
-  }
+  # Use letter_opener to preview emails in browser instead of sending them
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
