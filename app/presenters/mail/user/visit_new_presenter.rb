@@ -19,7 +19,7 @@ class Mail::User::VisitNewPresenter < Mail::VisitNewPresenter
   end
 
   def visit_reserve_managing_campus_name
-    visit_reserve_managing_campus.name
+    visit_reserve_managing_campus&.name
   end
 
   private

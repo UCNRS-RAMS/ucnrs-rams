@@ -95,6 +95,14 @@ class VisitShowPresenter
     "#{project_project_type.capitalize} Project"
   end
 
+  def visit_type
+    if project.present? && project.project_type.present?
+      I18n.t("universal.project.project_types.#{project.project_type}")
+    else
+      not_applicable
+    end
+  end
+
   def visitor_count
     user_visits.sum(&:count)
   end

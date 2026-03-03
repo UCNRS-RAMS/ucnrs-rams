@@ -50,7 +50,7 @@ class Mail::VisitPresenter
   end
 
   def visit_reserve_managing_campus
-    InstitutionPresenter.new(visit.reserve.managing_campus)
+    InstitutionPresenter.new(visit.reserve.managing_campus) if visit.reserve.managing_campus.present?
   end
 
   def visit_project
