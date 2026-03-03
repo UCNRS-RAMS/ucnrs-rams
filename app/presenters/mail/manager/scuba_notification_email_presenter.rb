@@ -21,7 +21,7 @@ class Mail::Manager::ScubaNotificationEmailPresenter < Mail::VisitNewPresenter
   delegate_missing_to :visit
 
   def visit_reserve_managing_campus_name
-    visit_reserve_managing_campus.name
+    visit_reserve_managing_campus&.name
   end
 
   def project_questions_presenter
