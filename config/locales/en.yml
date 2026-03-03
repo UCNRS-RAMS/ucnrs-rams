@@ -2931,6 +2931,7 @@ en:
         purpose: Purpose
         request_submitted: Request Submitted
         special_needs: Special Needs
+        visit_type: Visit Type
         visitors: Visitors (%{size})
         visit_summary: Visit Summary
       visit_brief:

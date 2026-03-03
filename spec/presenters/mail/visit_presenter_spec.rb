@@ -66,6 +66,48 @@ RSpec.describe Mail::VisitPresenter do
     end
   end
 
+  describe "#visit_type" do
+    it "display formatted visit type from the project" do
+      project = create(:project, project_type: :research)
+      visit = create(:visit, project: project)
+      presenter = Mail::VisitPresenter.new(visit)
+
+      expect(presenter.visit_type).to eq "Research"
+    end
+
+    it "display formatted visit type for class" do
+      project = create(:project, project_type: :class)
+      visit = create(:visit, project: project)
+      presenter = Mail::VisitPresenter.new(visit)
+
+      expect(presenter.visit_type).to eq "Class"
+    end
+
+    it "display formatted visit type for meeting" do
+      project = create(:project, project_type: :meeting)
+      visit = create(:visit, project: project)
+      presenter = Mail::VisitPresenter.new(visit)
+
+      expect(presenter.visit_type).to eq "Meeting or Conference"
+    end
+
+    it "display formatted visit type for public use" do
+      project = create(:project, project_type: :public_use)
+      visit = create(:visit, project: project)
+      presenter = Mail::VisitPresenter.new(visit)
+
+      expect(presenter.visit_type).to eq "Public Use"
+    end
+
+    it "displays not applicable when project is nil" do
+      visit = build(:visit)
+      visit.project = nil
+      presenter = Mail::VisitPresenter.new(visit)
+
+      expect(presenter.visit_type).to eq I18n.t("not_applicable")
+    end
+  end
+
   describe "#visit_reserve" do
     it "presents the visit reserve wrapped in ReservePresenter" do
       reserve = create(:reserve)
