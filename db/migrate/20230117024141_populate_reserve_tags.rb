@@ -1,9 +1,8 @@
 class PopulateReserveTags < ActiveRecord::Migration[6.1]
   def up
-    time_current = Time.current.to_s(:db)
+    time_current = Time.current.to_fs(:db)
 
     without_foreign_keys do
-
       execute(<<-END_SQL)
       INSERT INTO `reserve_tags` (`id`, `reserve_id`, `category`, `name`, `created_at`, `updated_at`) VALUES
       (1, 29, 'ecosystem', 'Chaparral', '#{time_current}', '#{time_current}'),
