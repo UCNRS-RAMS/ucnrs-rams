@@ -1,6 +1,6 @@
-# Docker Compose configuration for production deployment testing
-# This is NOT for production use, but for testing the production Docker image locally
-# For actual production deployment, use ECS, EKS, or other orchestration platform
+# Docker Compose configuration for server deployments
+# Used for development (preview), staging, and production environments on remote servers
+# For local development, use docker-compose.yml instead
 
 version: '3.8'
 
@@ -8,7 +8,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile.production
+      dockerfile: Dockerfile.server
     ports:
       - "3000:3000"
     environment:
@@ -87,9 +87,9 @@ networks:
     driver: bridge
 
 # Usage:
-# 1. Create a .env.production file with required environment variables
-# 2. Build and start: docker-compose -f docker-compose.production.yml up --build
-# 3. Run migrations: docker-compose -f docker-compose.production.yml exec app bundle exec rails db:migrate
-# 4. Create admin user: docker-compose -f docker-compose.production.yml exec app bundle exec rails console
+# 1. Create a .env.server file with required environment variables
+# 2. Build and start: docker-compose -f docker-compose.server.yml up --build
+# 3. Run migrations: docker-compose -f docker-compose.server.yml exec app bundle exec rails db:migrate
+# 4. Create admin user: docker-compose -f docker-compose.server.yml exec app bundle exec rails console
 # 5. Access app at http://localhost:3000
 

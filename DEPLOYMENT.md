@@ -1,10 +1,10 @@
-# Production Docker Deployment Guide
+# Server Deployment Guide
 
-This guide covers deploying the UCNRS RAMS application using the production Dockerfile to AWS or other cloud providers.
+This guide covers deploying the UCNRS RAMS application using the server Dockerfile to AWS, development preview servers, staging, or other cloud providers. The `Dockerfile.server` is optimized for remote server deployments across all non-local environments.
 
 ## Overview
 
-The production Dockerfile (`Dockerfile.production`) is optimized for production deployments with the following features:
+The server Dockerfile (`Dockerfile.server`) is optimized for remote server deployments with the following features:
 
 - **Multi-stage build**: Separates build and runtime environments to minimize final image size
 - **Production dependencies only**: Excludes development and test gems/packages
@@ -14,24 +14,24 @@ The production Dockerfile (`Dockerfile.production`) is optimized for production 
 - **Health checks**: Built-in health check endpoint
 - **Minimal runtime image**: Only includes necessary runtime dependencies
 
-## Building the Production Image
+## Building the Server Image
 
 ### Basic Build
 
 ```bash
-docker build -f Dockerfile.production -t ucnrs-rams:latest .
+docker build -f Dockerfile.server -t ucnrs-rams:latest .
 ```
 
 ### Build with Version Tag
 
 ```bash
-docker build -f Dockerfile.production -t ucnrs-rams:v1.0.0 .
+docker build -f Dockerfile.server -t ucnrs-rams:v1.0.0 .
 ```
 
 ### Build for Different Architecture (e.g., ARM64 for AWS Graviton)
 
 ```bash
-docker buildx build --platform linux/amd64 -f Dockerfile.production -t ucnrs-rams:latest .
+docker buildx build --platform linux/amd64 -f Dockerfile.server -t ucnrs-rams:latest .
 ```
 
 ## Required Environment Variables
@@ -73,7 +73,7 @@ The application requires the following environment variables to run in productio
 
 ## Running the Container Locally
 
-For local testing of the production image:
+For local testing of the server image:
 
 ```bash
 docker run -p 3000:3000 \
@@ -354,7 +354,7 @@ jobs:
           ECR_REPOSITORY: ucnrs-rams
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -f Dockerfile.production -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker build -f Dockerfile.server -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name: Deploy to ECS
