@@ -1,22 +1,25 @@
 name: Build and Deploy to Production
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Deployment environment'
-        required: true
-        default: 'staging'
-        type: choice
-        options:
-          - staging
-          - production
+# NOTE: I've commented out the 'on' key below since I don't want github actions to start running this until
+# we have verified and tested and know this is the way we want to do things.  This is just an example for now and
+# may be helpful in the future.
+#on:
+#  push:
+#    branches:
+#      - main
+#  pull_request:
+#    branches:
+#      - main
+#  workflow_dispatch:
+#    inputs:
+#      environment:
+#        description: 'Deployment environment'
+#        required: true
+#        default: 'staging'
+#        type: choice
+#        options:
+#          - staging
+#          - production
 
 env:
   AWS_REGION: us-west-2
