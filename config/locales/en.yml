@@ -1366,6 +1366,8 @@ en:
           show_options: Show Options
           sort_by: Sort By
           visit_status: Visit Status
+        visit:
+          annual_report_disabled: Annual Report disabled
         visits:
           purpose: Purpose
           reserve: Reserve
