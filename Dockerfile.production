@@ -1,0 +1,97 @@
+# Stage 1: Get Node and Yarn binaries
+FROM node:22.21.1-slim AS node
+
+# Stage 2: Build the Rails environment
+FROM ruby:3.2.9-slim AS builder
+
+# Install build dependencies
+RUN apt-get update -qq && apt-get install -y \
+    build-essential \
+    libmariadb-dev \
+    imagemagick \
+    cmake \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy Node.js and package managers from the 'node' stage
+COPY --from=node /usr/local/bin/ /usr/local/bin/
+COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
+COPY --from=node /usr/local/include/node /usr/local/include/node
+COPY --from=node /usr/local/share/man /usr/local/share/man
+
+# Remove existing yarn/npm symlinks and enable corepack
+RUN rm -f /usr/local/bin/yarn /usr/local/bin/yarnpkg /usr/local/bin/npm /usr/local/bin/npx && \
+    corepack enable && corepack prepare yarn@stable --activate
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy dependency files
+COPY Gemfile Gemfile.lock ./
+
+# Install production gems only
+RUN bundle config set --local without 'development test' && \
+    bundle install --jobs 4 --retry 3
+
+# Copy package files
+COPY package.json yarn.lock ./
+
+# Install production JS dependencies only
+RUN yarn install --production --frozen-lockfile --non-interactive
+
+# Copy the rest of the application code
+COPY . .
+
+# Precompile assets
+RUN RAILS_ENV=production SECRET_KEY_BASE=placeholder bundle exec rails assets:precompile
+
+# Stage 3: Production runtime image
+FROM ruby:3.2.9-slim
+
+# Install runtime dependencies only
+RUN apt-get update -qq && apt-get install -y \
+    libmariadb-dev-compat \
+    imagemagick \
+    curl \
+    tzdata \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy Node.js from node stage (needed for runtime if any JS execution is required)
+COPY --from=node /usr/local/bin/node /usr/local/bin/node
+COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
+
+# Create a non-root user to run the application
+RUN groupadd -r rails && useradd -r -g rails rails
+
+# Set the working directory
+WORKDIR /app
+
+# Copy installed gems from builder
+COPY --from=builder /usr/local/bundle /usr/local/bundle
+
+# Copy application code from builder
+COPY --from=builder --chown=rails:rails /app /app
+
+# Create necessary directories and set permissions
+RUN mkdir -p tmp/pids tmp/sockets log storage && \
+    chown -R rails:rails tmp log storage
+
+# Switch to non-root user
+USER rails
+
+# Expose the Rails port
+EXPOSE 3000
+
+# Set production environment
+ENV RAILS_ENV=production \
+    RAILS_LOG_TO_STDOUT=true \
+    RAILS_SERVE_STATIC_FILES=true
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost:3000/up || exit 1
+
+# Start Puma web server with production configuration
+CMD ["bundle", "exec", "puma", "-C", "config/puma.production.rb"]
+

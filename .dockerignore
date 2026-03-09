@@ -1,0 +1,86 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Development environment
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules
+vendor/bundle
+
+# Logs
+log/*
+*.log
+
+# Temporary files
+tmp/*
+!tmp/.keep
+!tmp/pids/.keep
+
+# Storage (user uploads - should be on S3 in production)
+storage/*
+!storage/.keep
+
+# Test coverage
+coverage
+
+# Test files
+spec
+test
+
+# Documentation
+README.md
+CHANGELOG.md
+doc
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Cache
+tmp/cache
+public/packs
+public/packs-test
+
+# Development database
+*.sqlite3
+*.sqlite3-journal
+
+# Development secrets
+config/master.key
+config/credentials/development.key
+config/credentials/test.key
+
+# Local development files
+.byebug_history
+.pry_history
+
+# Screenshots (from tests)
+tmp/screenshots
+
+# Compiled assets (will be built during Docker build)
+public/assets
+public/packs
+public/packs-test
+
+# Capybara artifacts
+tmp/capybara
+

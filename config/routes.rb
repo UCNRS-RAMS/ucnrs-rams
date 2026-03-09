@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # Health check endpoint for container orchestration (ECS, K8s, etc.)
+  get "up" => "rails/health#show", as: :rails_health_check
+
   devise_for :users, controllers: {
     confirmations: "unauthenticated/confirmations",
     passwords: "unauthenticated/passwords",
