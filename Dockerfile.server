@@ -55,7 +55,15 @@ RUN yarn install --production --frozen-lockfile --non-interactive
 COPY . .
 
 # Precompile assets
-RUN RAILS_ENV=production SECRET_KEY_BASE=placeholder bundle exec rails assets:precompile
+RUN RAILS_ENV=production \
+    SECRET_KEY_BASE=placeholder \
+    HOST=placeholder \
+    SMTP_HOST=placeholder \
+    SMTP_PORT=placeholder \
+    SMTP_DOMAIN=placeholder \
+    SMTP_USERNAME=placeholder \
+    SMTP_PASSWORD=placeholder \
+    bundle exec rails assets:precompile
 
 # Stage 3: Production runtime image
 FROM ruby:3.2.9-slim
@@ -105,4 +113,3 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
 
 # Start Puma web server with production configuration
 CMD ["bundle", "exec", "puma", "-C", "config/puma.production.rb"]
-
