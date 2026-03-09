@@ -1,22 +1,22 @@
-# Production Dockerfile - Summary of Changes
+# Server Dockerfile - Summary of Changes
 
-This document outlines the production Docker setup created for the UCNRS RAMS application.
+This document outlines the server Docker setup created for the UCNRS RAMS application, used for development preview, staging, and production environments.
 
 ## Files Created
 
-1. **Dockerfile.production** - Production-optimized Dockerfile
+1. **Dockerfile.server** - Server-optimized Dockerfile for remote deployments
 2. **config/puma.production.rb** - Production Puma configuration
 3. **.dockerignore** - Excludes unnecessary files from Docker build context
-4. **docker-compose.production.yml** - For local testing of production image
+4. **docker-compose.server.yml** - For local testing of server image
 5. **.env.production.template** - Template for environment variables
 6. **DEPLOYMENT.md** - Comprehensive deployment guide
 7. **config/routes.rb** - Modified to add health check endpoint
 
-## Key Differences: Development vs Production Dockerfile
+## Key Differences: Development vs Server Dockerfile
 
 ### Multi-Stage Build
 - **Development**: Single-stage build, installs everything
-- **Production**: Three-stage build (node → builder → runtime)
+- **Server**: Three-stage build (node → builder → runtime)
   - Separates build-time and runtime dependencies
   - Significantly smaller final image size
   - Only includes what's needed to run the app
@@ -27,7 +27,7 @@ This document outlines the production Docker setup created for the UCNRS RAMS ap
   bundle install
   yarn install --check-files
   ```
-- **Production**: Excludes development and test dependencies
+- **Server**: Excludes development and test dependencies
   ```ruby
   bundle config set --local without 'development test'
   bundle install --jobs 4 --retry 3
@@ -39,14 +39,14 @@ This document outlines the production Docker setup created for the UCNRS RAMS ap
   - Includes full build-essential
   - Chromium and chromium-driver for testing
   - All development libraries
-- **Production**:
+- **Server**:
   - Builder stage: Full build tools for compilation
   - Runtime stage: Only minimal runtime libraries
   - No testing frameworks or browsers
 
 ### Asset Compilation
 - **Development**: Assets compiled on-demand by Rails
-- **Production**: Assets precompiled during Docker build
+- **Server**: Assets precompiled during Docker build
   ```bash
   RAILS_ENV=production SECRET_KEY_BASE=placeholder bundle exec rails assets:precompile
   ```
@@ -56,7 +56,7 @@ This document outlines the production Docker setup created for the UCNRS RAMS ap
   - Single worker (or workers commented out)
   - Long worker timeout (3600s) for debugging
   - Development environment defaults
-- **Production**:
+- **Server**:
   - Multiple workers (default 2, configurable via WEB_CONCURRENCY)
   - Worker clustering with preload_app!
   - Optimized for production traffic
@@ -65,21 +65,21 @@ This document outlines the production Docker setup created for the UCNRS RAMS ap
 
 ### Security
 - **Development**: Runs as root user
-- **Production**:
+- **Server**:
   - Creates and uses non-root 'rails' user
   - Restricts file permissions
   - Follows security best practices
 
 ### Image Size Optimization
 - **Development**: ~1.5-2GB (includes all dependencies and tools)
-- **Production**: ~800MB-1GB (minimal runtime image)
+- **Server**: ~800MB-1GB (minimal runtime image)
   - Multi-stage build discards build tools
   - No dev/test dependencies
   - Cleaned apt cache and temporary files
 
 ### Environment Variables
 - **Development**: Minimal required, uses defaults
-- **Production**: Explicit configuration required:
+- **Server**: Explicit configuration required:
   - SECRET_KEY_BASE
   - Database credentials
   - SMTP configuration
@@ -89,7 +89,7 @@ This document outlines the production Docker setup created for the UCNRS RAMS ap
 
 ### Health Checks
 - **Development**: No health checks
-- **Production**:
+- **Server**:
   - Built-in Docker HEALTHCHECK directive
   - Checks /up endpoint every 30 seconds
   - Used by orchestration platforms (ECS, K8s) for container health
@@ -98,14 +98,14 @@ This document outlines the production Docker setup created for the UCNRS RAMS ap
 - **Development**:
   - Mounts entire codebase for live reloading
   - Database persisted in named volume
-- **Production**:
+- **Server**:
   - Code copied into image (immutable)
   - Only data volumes for uploads/storage
   - Database external (RDS, managed service)
 
 ### Logging
 - **Development**: Logs to files in log/ directory
-- **Production**:
+- **Server**:
   - STDOUT/STDERR for container log aggregation
   - Compatible with CloudWatch, Datadog, etc.
   - JSON-formatted logs (optional)
@@ -115,7 +115,7 @@ This document outlines the production Docker setup created for the UCNRS RAMS ap
   ```dockerfile
   CMD ["rails", "server", "-b", "0.0.0.0"]
   ```
-- **Production**:
+- **Server**:
   ```dockerfile
   CMD ["bundle", "exec", "puma", "-C", "config/puma.production.rb"]
   ```
@@ -129,8 +129,8 @@ This document outlines the production Docker setup created for the UCNRS RAMS ap
 - **Concurrency**: Single-threaded or minimal
 - **Caching**: Disabled or minimal
 
-### Production
-- **Purpose**: Maximum performance and reliability
+### Server
+- **Purpose**: Maximum performance and reliability across dev preview, staging, and production
 - **Startup**: Faster (preloaded application)
 - **Memory**: Higher baseline (preloaded), more stable
 - **Concurrency**: Multi-worker, multi-threaded
@@ -142,9 +142,9 @@ This document outlines the production Docker setup created for the UCNRS RAMS ap
 - **Minimum**: 512MB RAM, 1 CPU
 - **Recommended**: 1GB RAM, 1-2 CPU
 
-### Production Container
+### Server Container
 - **Minimum**: 1GB RAM, 1 CPU (for 2 workers)
-- **Recommended**: 2GB RAM, 2 CPU (for production traffic)
+- **Recommended**: 2GB RAM, 2 CPU (for staging/production traffic)
 - **Scaling**: Add workers as you add CPU cores
   - 1 vCPU → 1 worker
   - 2 vCPU → 2 workers
@@ -157,7 +157,7 @@ This document outlines the production Docker setup created for the UCNRS RAMS ap
 - **Rebuild**: Fast (uses cached layers)
 - **Code changes**: No rebuild needed (mounted volumes)
 
-### Production
+### Server
 - **Initial build**: 8-15 minutes (includes asset compilation)
 - **Rebuild**: 8-15 minutes (immutable, no shortcuts)
 - **Code changes**: Full rebuild required
@@ -170,8 +170,8 @@ This document outlines the production Docker setup created for the UCNRS RAMS ap
 3. Changes reflected immediately
 4. Test in browser
 
-### Production
-1. Build production image with version tag
+### Server (Dev Preview, Staging, Production)
+1. Build server image with version tag
 2. Run automated tests (CI/CD)
 3. Push to container registry (ECR)
 4. Run database migrations (if needed)
@@ -180,29 +180,29 @@ This document outlines the production Docker setup created for the UCNRS RAMS ap
 7. Load balancer routes traffic to new containers
 8. Monitor logs and metrics
 
-## Testing Production Image Locally
+## Testing Server Image Locally
 
 ```bash
-# Build production image
-docker build -f Dockerfile.production -t ucnrs-rams:test .
+# Build server image
+docker build -f Dockerfile.server -t ucnrs-rams:test .
 
 # Test with docker-compose
-cp .env.production.template .env.production
-# Edit .env.production with test values
-docker-compose -f docker-compose.production.yml up
+cp .env.production.template .env.server
+# Edit .env.server with test values
+docker-compose -f docker-compose.server.yml up
 
 # Run migrations
-docker-compose -f docker-compose.production.yml exec app bundle exec rails db:migrate
+docker-compose -f docker-compose.server.yml exec app bundle exec rails db:migrate
 
 # Access at http://localhost:3000
 ```
 
 ## Migration Path
 
-To move from development to production deployment:
+To move from development to remote server deployment:
 
-1. **Test locally**: Use docker-compose.production.yml
-2. **Set up AWS infrastructure**:
+1. **Test locally**: Use docker-compose.server.yml
+2. **Set up AWS infrastructure** (for the target environment):
    - RDS for database
    - ECR for container registry
    - ECS/EKS/App Runner for orchestration
@@ -210,7 +210,7 @@ To move from development to production deployment:
    - ALB for load balancing
 3. **Configure secrets**: Use AWS Secrets Manager
 4. **Set up CI/CD**: GitHub Actions, CodePipeline, etc.
-5. **Deploy**: Push to production
+5. **Deploy**: Push to your environment (dev preview, staging, or production)
 6. **Monitor**: Set up logging and metrics
 
 ## Rollback Procedures
@@ -219,7 +219,7 @@ To move from development to production deployment:
 - Revert code changes
 - Restart container
 
-### Production
+### Server
 - Tag images with versions
 - Keep previous versions in ECR
 - Update orchestration to use previous image tag
@@ -250,14 +250,14 @@ To move from development to production deployment:
 - Debug tools enabled
 - Secrets in plain .env files (acceptable for local dev)
 
-### Production
+### Server (Dev Preview, Staging, Production)
 - Publicly accessible (needs hardening)
 - Debug tools disabled
 - Secrets in encrypted storage (Secrets Manager)
 - Regular security updates required
 - Image scanning for vulnerabilities
 - Network isolation (VPC, security groups)
-- HTTPS enforced
+- HTTPS enforced (especially for production)
 - Non-root user
 
 ## Cost Implications
@@ -266,33 +266,42 @@ To move from development to production deployment:
 - **Cost**: $0 (runs locally)
 - **Resource**: Uses your laptop/desktop
 
-### Production
+### Server Deployment
 - **Compute**: ECS/EKS charges (varies by instance type)
 - **Database**: RDS charges
 - **Storage**: S3, EBS charges
 - **Network**: Data transfer charges
-- **Example monthly cost** (small deployment):
+- **Example monthly cost** (small dev preview/staging):
   - ECS Fargate (0.5 vCPU, 1GB): ~$15-30/mo
   - RDS MySQL (db.t3.small): ~$30-50/mo
   - S3 storage: ~$1-5/mo
   - ALB: ~$20/mo
   - **Total**: ~$70-110/mo (varies by traffic and region)
+- **Example monthly cost** (production):
+  - ECS Fargate (2 vCPU, 4GB with 3 tasks): ~$90-150/mo
+  - RDS MySQL (db.t3.medium): ~$100-150/mo
+  - S3 storage: ~$5-20/mo
+  - ALB: ~$20/mo
+  - **Total**: ~$215-340/mo (varies by traffic and region)
 
 ## Next Steps
 
 1. Review DEPLOYMENT.md for detailed AWS deployment instructions
-2. Test production image locally with docker-compose.production.yml
+2. Test server image locally with docker-compose.server.yml
 3. Set up AWS infrastructure (RDS, ECR, ECS/EKS)
 4. Configure environment variables and secrets
 5. Set up CI/CD pipeline
-6. Deploy to staging environment first
-7. Monitor and optimize based on real traffic
-8. Set up automated backups and disaster recovery
+6. Deploy to development preview server first
+7. Deploy to staging environment second
+8. Monitor and optimize based on real traffic
+9. Deploy to production
+10. Set up automated backups and disaster recovery
 
 ## Additional Resources
 
-- Production Dockerfile: `Dockerfile.production`
+- Server Dockerfile: `Dockerfile.server`
 - Deployment Guide: `DEPLOYMENT.md`
+- Docker Compose: `docker-compose.server.yml`
 - Puma Config: `config/puma.production.rb`
 - Environment Template: `.env.production.template`
 

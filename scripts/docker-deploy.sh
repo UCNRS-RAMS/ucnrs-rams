@@ -1,6 +1,7 @@
 #!/bin/bash
-# Production Docker Build and Deploy Script
-# This script helps build and deploy the production Docker image
+# Server Docker Build and Deploy Script
+# This script helps build and deploy the server Docker image for AWS and other cloud platforms
+# Used for development preview, staging, and production environments
 
 set -e  # Exit on error
 
@@ -13,7 +14,7 @@ NC='\033[0m' # No Color
 
 # Configuration
 APP_NAME="ucnrs-rams"
-DOCKERFILE="Dockerfile.production"
+DOCKERFILE="Dockerfile.server"
 
 # Helper functions
 print_info() {
@@ -61,7 +62,7 @@ get_git_version() {
 build_image() {
     local VERSION_TAG=${1:-$(get_git_version)}
 
-    print_info "Building production Docker image..."
+    print_info "Building server Docker image..."
     print_info "Version tag: ${VERSION_TAG}"
 
     docker build \
@@ -158,11 +159,11 @@ show_info() {
 run_migrations() {
     print_info "Running database migrations..."
 
-    if [ -f "docker-compose.production.yml" ]; then
-        docker-compose -f docker-compose.production.yml exec app bundle exec rails db:migrate
+    if [ -f "docker-compose.server.yml" ]; then
+        docker-compose -f docker-compose.server.yml exec app bundle exec rails db:migrate
         print_success "Migrations completed"
     else
-        print_warning "docker-compose.production.yml not found"
+        print_warning "docker-compose.server.yml not found"
         print_info "Run migrations manually with:"
         print_info "  docker run --rm -e RAILS_ENV=production [env vars] ${APP_NAME}:latest bundle exec rails db:migrate"
     fi
