@@ -8,10 +8,21 @@ FROM ruby:3.2.9-slim AS builder
 RUN apt-get update -qq && apt-get install -y \
     build-essential \
     libmariadb-dev \
+    libyaml-dev \
+    pkg-config \
     imagemagick \
     cmake \
     git \
     curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# runtime
+RUN apt-get update -qq && apt-get install -y \
+    libmariadb-dev-compat \
+    libyaml-0-2 \
+    imagemagick \
+    curl \
+    tzdata \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy Node.js and package managers from the 'node' stage
