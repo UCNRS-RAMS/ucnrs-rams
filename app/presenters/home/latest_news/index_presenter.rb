@@ -1,5 +1,5 @@
 class Home::LatestNews::IndexPresenter
-  LATEST_NEWS_URL = "https://ucnrs.org/wp-json/wp/v2/posts".freeze
+  LATEST_NEWS_URL = "https://ucnature.org/wp-json/wp/v2/posts".freeze
   NUM_OF_NEWS = 3
   DEFAULT_IMG = "fake-article-image-1.jpg".freeze
 
