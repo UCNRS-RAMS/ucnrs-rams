@@ -12,6 +12,10 @@ development:
   <<: *default
   database: ucnrs_rams_development
 
+dev_server:
+  <<: *default
+  database: ucnrs_rams_development
+
 test:
   <<: *default
   database: ucnrs_rams_test
