@@ -1,10 +1,15 @@
 development:
   adapter: async
 
+dev_server:
+  adapter: <%= ENV.fetch("CABLE_ADAPTER") { "async" } %>
+  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
+  channel_prefix: <%= ENV.fetch("REDIS_CHANNEL_PREFIX") { "ucnrs_rams_dev_server" } %>
+
 test:
   adapter: test
 
 production:
   adapter: redis
   url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
-  channel_prefix: ucnrs_rams_production
+  channel_prefix: <%= ENV.fetch("REDIS_CHANNEL_PREFIX") { "ucnrs_rams_production" } %>
