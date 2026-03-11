@@ -56,7 +56,13 @@ end
 
 # Puma can bind to a tcp socket or a unix socket
 # For containerized environments, TCP is typically preferred
-bind "tcp://0.0.0.0:#{ENV.fetch('PORT') { 3000 }}"
+
+# remove the bind line and rely solely on the port directive.
+# In modern Puma versions, port correctly binds to 0.0.0.0
+# (all interfaces) which allows Docker to map the port.
+# If both are present then you'll get port already in use error.
+
+# bind "tcp://0.0.0.0:#{ENV.fetch('PORT') { 3000 }}"
 
 # Use json format for easier parsing in log aggregation systems
 log_formatter do |str|

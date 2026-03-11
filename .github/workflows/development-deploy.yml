@@ -1,4 +1,4 @@
-name: Build and Deploy to Production
+name: Build and Deploy to development server
 
 # NOTE: I've commented out the 'on' key below since I don't want github actions to start running this until
 # we have verified and tested and know this is the way we want to do things.  This is just an example for now and
@@ -18,8 +18,8 @@ name: Build and Deploy to Production
 #        default: 'staging'
 #        type: choice
 #        options:
+#          - development
 #          - staging
-#          - production
 
 env:
   AWS_REGION: us-west-2
@@ -121,7 +121,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker buildx build \
-            --file Dockerfile.production \
+            --file Dockerfile.development \
             --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
             --tag $ECR_REGISTRY/$ECR_REPOSITORY:latest \
             --push \
@@ -187,14 +187,14 @@ jobs:
           # Add your smoke tests here
           curl -f https://staging.rams.ucnrs.org/up || exit 1
 
-  deploy-production:
-    name: Deploy to Production
+  deploy-development:
+    name: Deploy to development server
     runs-on: ubuntu-latest
     needs: [build-and-push, deploy-staging]
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'production'
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'development'
     environment:
-      name: production
-      url: https://rams.ucnrs.org
+      name: development
+      url: https://rams-dev.cdlib.org
 
     steps:
       - name: Configure AWS credentials
@@ -212,7 +212,7 @@ jobs:
             --launch-type FARGATE \
             --network-configuration "awsvpcConfiguration={subnets=[subnet-xxx],securityGroups=[sg-xxx],assignPublicIp=DISABLED}"
 
-      - name: Deploy to ECS Production
+      - name: Deploy to ECS development
         run: |
           aws ecs update-service \
             --cluster ${{ env.ECS_CLUSTER }} \
@@ -235,13 +235,13 @@ jobs:
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
-          text: 'Production deployment ${{ job.status }}'
+          text: 'development deployment ${{ job.status }}'
           webhook_url: ${{ secrets.SLACK_WEBHOOK }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
 
   rollback:
-    name: Rollback Production
+    name: Rollback development
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'rollback'
 
