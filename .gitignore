@@ -43,6 +43,7 @@ public/packs
 .env
 .env.development
 .env.docker
+.env.server
 
 # Ignore key
 /config/master.key
