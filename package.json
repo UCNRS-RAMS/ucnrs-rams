@@ -23,7 +23,7 @@
     "babel-loader": "10",
     "chart.js": "4.4.9",
     "chartkick": "^5.0.1",
-    "compression-webpack-plugin": "11",
+    "compression-webpack-plugin": "12",
     "fork-ts-checker-webpack-plugin": "^9.0.2",
     "pnp-webpack-plugin": "1",
     "shakapacker": "9",
