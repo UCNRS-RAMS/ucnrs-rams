@@ -2,15 +2,13 @@
   <div class="container">
     <div class="navbar-content">
       <div class="left-side">
-        <%= link_to dashboard_index_path, class: "title-link" do %>
-          <%= image_tag "ucnrs-logo.svg", alt: t("alt.ucnrs_logo"), height: "57px", class: "logo" %>
-        <% end %>
         <h1 class="title">
           <%= link_to "RAMS", dashboard_index_path, class: "title-link" %>
         </h1>
         <small id="title-extra">
           <%= link_to dashboard_index_path, class: "title-link" do %>
-            University of California<br />Nature
+            <%= image_tag('uc-nature-lockup-hori-ucblue.png', alt: 'UC Nature Logo') %>
+            <!-- University of California<br />Nature -->
           <% end %>
         </small>
       </div>

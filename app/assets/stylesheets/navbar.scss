@@ -13,7 +13,26 @@ nav.main-navigation {
   color: $navbar-link-color;
   font-size: 1rem;
 
+  .logo {
+    display: block;
+    flex-shrink: 0;
+    height: auto;
+    max-height: 57px;
+    width: auto;
+  }
+
   #title-extra {
+    align-items: center;
+    display: inline-flex;
+
+    img {
+      display: block;
+      height: auto;
+      max-height: 2rem;
+      max-width: 180px;
+      width: auto;
+    }
+
     strong {
       font-size: 0.8125rem;
       font-weight: $medium;
@@ -28,6 +47,10 @@ nav.main-navigation {
   .left-side {
     align-items: center;
     display: flex;
+
+    img {
+      max-width: 100%;
+    }
   }
 
   .left-side > * {
@@ -145,7 +168,13 @@ nav.main-navigation::after {
 @media screen and (max-width: 1280px) {
   nav.main-navigation {
     #title-extra {
-      display: none;
+      display: inline-flex;
+      width: clamp(90px, 11vw, 150px);
+
+      img {
+        max-height: 1.75rem;
+        max-width: 100%;
+      }
     }
 
     .navbar-nav {
@@ -208,6 +237,10 @@ nav.main-navigation::after {
     #title-extra {
       display: unset;
       width: 100px;
+
+      img {
+        max-width: 100%;
+      }
     }
 
     .left-side * {
