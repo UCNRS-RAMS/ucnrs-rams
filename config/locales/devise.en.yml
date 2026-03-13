@@ -108,11 +108,11 @@ en:
           go_back: "Cancel, Go Back"
           create_account: "Create Account %{icon}"
           orcid: "What is an ORCID?"
-          ucnrs_newsletter: "NRS Newsletter."
+          ucnrs_newsletter: "UC Nature Newsletter."
           terms_of_use: "Terms of Use"
         urls:
-          ucnrs_terms_of_use: "https://ucnrs.org/ucnrs-websites-terms-of-use/"
-          ucnrs_newsletter: "https://ucnrs.org/subscribe-to-our-monthly-newsletter/"
+          ucnrs_terms_of_use: "https://ucnature.org/ucnrs-websites-terms-of-use/"
+          ucnrs_newsletter: "https://ucnature.org/subscribe-to-our-monthly-newsletter/"
           orcid: "https://orcid.org/"
           new_institution: "#"
       create:
@@ -183,7 +183,7 @@ en:
         links:
           terms_of_use: "Terms of Use"
         urls:
-          ucnrs_terms_of_use: "https://ucnrs.org/ucnrs-websites-terms-of-use/"
+          ucnrs_terms_of_use: "https://ucnature.org/ucnrs-websites-terms-of-use/"
       destroyed: "Bye! Your account has been successfully cancelled. We hope to see you again soon."
       signed_up: "Welcome! You have signed up successfully."
       signed_up_but_inactive: "You have signed up successfully. However, we could not

@@ -596,7 +596,7 @@ california = State.where(name: "California").first_or_create(
 )
 
 # Institutions
-ucnrs = Institution.where(name: "UCNRS").first_or_create(
+ucnrs = Institution.where(name: "UC Nature").first_or_create(
   city: "Oakland",
   state: california,
   country: united_states,
@@ -1045,7 +1045,7 @@ AmenityRate
   )
 
 # Users
-public_project_owner = User.where(email: "public-project@ucnrs.org").first_or_create(
+public_project_owner = User.where(email: "public-project@ucnature.org").first_or_create(
   first_name: "Public",
   last_name: "Use",
   role: "Faculty",
@@ -1062,7 +1062,7 @@ public_project_owner = User.where(email: "public-project@ucnrs.org").first_or_cr
   institution: ucnrs,
   password: "PUBL1Cpassword",
 )
-user = User.where(email: "project-owner@ucnrs.org").first_or_create(
+user = User.where(email: "project-owner@ucnature.org").first_or_create(
   first_name: "Project",
   last_name: "Owner",
   role: "Docent",

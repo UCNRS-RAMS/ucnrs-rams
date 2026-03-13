@@ -110,7 +110,7 @@ class UserForm
 
   def maybe_assign_placeholder_email
     if user.email.blank? && applicant.present?
-      user.email = "user-#{SecureRandom.hex(10)}-#{applicant.id}@ucnrs.org"
+      user.email = "user-#{SecureRandom.hex(10)}-#{applicant.id}@ucnature.org"
     end
   end
 
