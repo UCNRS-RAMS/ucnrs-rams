@@ -10,6 +10,10 @@
 # ignore jetbrains IDE files
 .idea/
 
+# ignore .env files
+.env.docker
+.env.server
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
