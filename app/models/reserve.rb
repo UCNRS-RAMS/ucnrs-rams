@@ -1,5 +1,5 @@
 class Reserve < ApplicationRecord
-  LOGO_PLACEHOLDER = "ucnrs-logo.svg".freeze
+  LOGO_PLACEHOLDER = "ucnrs-logo.png".freeze
   LISTING_PHOTO_PLACEHOLDER = "reserve_placeholder.jpg".freeze
   LARGE_HERO_PHOTO_PLACEHOLDER = "reserve-hero-placeholder.jpg".freeze
 

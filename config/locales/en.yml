@@ -652,7 +652,7 @@ en:
     show:
       alt_text:
         reserve_logo: small picture of reserve logo
-        ucnrs_logo: small picture of UC Nature logo
+        ucnrs_logo: small UC Nature logo
       schedule_a_visit: Schedule a Visit
       get_directions: Get Directions
       visit_reserve_website: Visit Reserve Website
@@ -961,7 +961,7 @@ en:
       sidebar_next_steps: Your visit request was approved.
       alt_text:
         reserve_logo: small picture of reserve logo
-        ucnrs_logo: small picture of UC Nature logo
+        ucnrs_logo: small UC Nature logo
       more_information: Get More Reserve Information
       visit_reserve_website: Visit RAMS's Reserve Webpage
       mailing_address: Mailing Address

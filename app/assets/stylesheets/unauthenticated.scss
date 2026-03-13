@@ -45,10 +45,11 @@
         }
 
         .logo {
-          left: -4.75rem;
+          left: 10px;
           margin-bottom: 0.5rem;
-          position: absolute;
-          top: -4rem;
+          position: fixed;
+          top: 10px;
+          z-index: 100;
         }
       }
 
@@ -241,6 +242,23 @@
         padding: 6.875rem 4.25rem;
         min-width: 232px;
       }
+
+      .hero {
+        header {
+          .big-logo {
+            display: none;
+          }
+
+          .small-logo {
+            display: block;
+          }
+
+          .logo {
+            height: 3rem !important;
+            width: 3rem !important;
+          }
+        }
+      }
     }
   }
 }
@@ -268,6 +286,8 @@
         background-size: cover;
 
         header {
+          padding-top: 3.5rem;
+
           .big-logo {
             display: none;
           }
@@ -277,9 +297,10 @@
           }
 
           .logo {
-            height: 2.75rem;
-            position: initial;
-            width: 2.75rem;
+            height: 2.75rem !important;
+            position: fixed;
+            width: 2.75rem !important;
+            z-index: 100;
           }
         }
 
