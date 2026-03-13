@@ -7,7 +7,7 @@ class User < ApplicationRecord
   UCNRS_CITY = "Oakland"
   UCNRS_POSTAL_CODE = "94607"
   FAKE_PHONE_NUMBER = "111-111-1111"
-  FAKE_EMERGENCY_CONTACT = "UCNRS Emergency Contact"
+  FAKE_EMERGENCY_CONTACT = "UC Nature Emergency Contact"
   FAKE_EMERGENCY_CONTACT_PHONE_NUMBER = "222-222-2222"
 
   devise :confirmable,

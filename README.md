@@ -1,4 +1,4 @@
-# ucnrs_rams
+# uc_nature_rams
 
 ## Local setup on mac
 

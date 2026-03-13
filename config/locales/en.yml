@@ -652,7 +652,7 @@ en:
     show:
       alt_text:
         reserve_logo: small picture of reserve logo
-        ucnrs_logo: small picture of ucnrs logo
+        ucnrs_logo: small picture of UC Nature logo
       schedule_a_visit: Schedule a Visit
       get_directions: Get Directions
       visit_reserve_website: Visit Reserve Website
@@ -785,7 +785,7 @@ en:
         go_back: Cancel, Go Back
         create_account: Create Account -->
         orcid: What is an ORCID?
-        ucnrs_newsletter: NRS Newsletter.
+        ucnrs_newsletter: UC Nature Newsletter.
         terms_of_use: Terms of Use
   visits:
     reserve_info:
@@ -865,7 +865,7 @@ en:
           Please note if your application is approved, you will be required to
           abide by the following policies. Failure to comply may lead to denial
           or termination of reserve use. Know and abide by University of
-          California Natural Reserve System, and reserve specific rules and
+          California Nature, and reserve specific rules and
           regulations.
         title: Waivers and Policies
         waivers_information: Waivers Information
@@ -961,7 +961,7 @@ en:
       sidebar_next_steps: Your visit request was approved.
       alt_text:
         reserve_logo: small picture of reserve logo
-        ucnrs_logo: small picture of ucnrs logo
+        ucnrs_logo: small picture of UC Nature logo
       more_information: Get More Reserve Information
       visit_reserve_website: Visit RAMS's Reserve Webpage
       mailing_address: Mailing Address
@@ -1548,7 +1548,7 @@ en:
             Please note if your application is approved, you will be required to
             abide by the following policies. Failure to comply may lead to
             denial or termination of reserve use. Know and abide by University
-            of California, Natural Reserve System, and reserve specific rules
+            of California Nature, and reserve specific rules
             and regulations.
           title: Waivers and Policies
           waivers_information: Waivers Information
@@ -3636,7 +3636,7 @@ en:
       user_days: UDs
   footer:
     link:
-      all_rights: © %{year} UCNRS. All rights reserved.
+      all_rights: © %{year} UC Nature. All rights reserved.
       sign_up_newsletter: Sign Up for the Newsletter
       terms_of_use: Terms of Use
       privacy_policy: Privacy Policy
@@ -3681,11 +3681,11 @@ en:
         visits: Visits
     unauthenticated:
       alt-text:
-        logo: Swirling UCNRS Logo
+        logo: UC Nature Logo
       hero:
         title: Plan Your Visit
         emphasized: >-
-          The University of California Natural Reserve System is the world’s
+          University of California Nature is the world’s
           largest network of university-administered field stations and
           protected lands.
         explanation1: >-
@@ -3697,8 +3697,8 @@ en:
           Reserves are available for teaching, research, and public service, but
           not general recreation. Access is by permission only.
         more_information: >-
-          For more information about the UC Natural Reserve System (or UC NRS),
-          visit <a href='https://ucnrs.org'>UCNRS.ORG</a>
+          For more information about UC Nature,
+          visit <a href='https://ucnature.org'>ucnature.org</a>
         public_information: >-
           For RAMS public information, %{reserves_info_link}
           %{project_search_link}
@@ -3722,7 +3722,7 @@ en:
     trash_icon: a trash icon
     dollar_sign: dollar icon
     pencil_sign: a pencil icon
-    ucnrs_logo: UCNRS logo
+    ucnrs_logo: UC Nature logo
     reserve_logo: logo of reserve
     checked: checked icon
     unchecked: unckecked icon
