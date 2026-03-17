@@ -10,9 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
-
-  create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+ActiveRecord::Schema[7.1].define(version: 2026_03_17_120000) do
+  create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.integer "project_id", null: false
     t.integer "user_id", null: false
@@ -29,7 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.date "deployment_date", default: "1900-01-01", null: false, comment: "Date the equipment was deployed on the reserve"
   end
 
-  create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
+  create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
     t.string "record_type", null: false
@@ -39,7 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
   end
 
-  create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -49,7 +48,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "active_storage_blobs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -61,13 +60,13 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "active_storage_variant_records", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "active_storage_variant_records", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "amenities", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "amenities", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.string "title", limit: 200, default: ""
     t.string "comment", default: ""
@@ -98,7 +97,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["sort_order"], name: "PlainSortOrder"
   end
 
-  create_table "amenity_rate_categories", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "amenity_rate_categories", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.string "description"
     t.integer "sort_order", default: 0, null: false
@@ -122,7 +121,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["visible", "sort_order", "description"], name: "Visible"
   end
 
-  create_table "amenity_rates", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "amenity_rates", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "amenity_id", null: false
     t.integer "amenity_rate_category_id", null: false
     t.decimal "rate", precision: 10, scale: 2
@@ -133,7 +132,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["id"], name: "PrimaryKey", unique: true
   end
 
-  create_table "amenity_visits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "amenity_visits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "amenity_id", null: false
     t.integer "visit_id", null: false
     t.integer "amenity_rate_id", null: false
@@ -164,7 +163,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["visit_id"], name: "visit"
   end
 
-  create_table "annual_reports", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", comment: "renamed from ARParts.", force: :cascade do |t|
+  create_table "annual_reports", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", comment: "renamed from ARParts.", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.integer "fiscal_year_ending", null: false
     t.column "year_old", "enum('2000-01','2001-02','2002-03','2003-04','2004-05','2005-06','2006-07','2007-08','2008-09','2009-10','2010-11','2011-12','2012-13','2013-14','2014-15','2015-16','2016-17','2017-18','2018-19','2019-20')", comment: "DEPRECATED"
@@ -185,7 +184,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["reserve_id", "year_old"], name: "reserve_year"
   end
 
-  create_table "application_permit_answers", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", comment: "Obsolete table, use project_permit_answers.", force: :cascade do |t|
+  create_table "application_permit_answers", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", comment: "Obsolete table, use project_permit_answers.", force: :cascade do |t|
     t.integer "reserve_permit_id", null: false
     t.integer "project_id"
     t.text "permit_number"
@@ -197,25 +196,25 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["project_id"], name: "reserve"
   end
 
-  create_table "applications_disciplines", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "applications_disciplines", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "project_id"
     t.integer "discipline_id"
     t.index ["id"], name: "project_disciplines_id"
   end
 
-  create_table "countries", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "countries", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "code", limit: 2
     t.string "subunit", default: "-"
     t.index ["name"], name: "name"
   end
 
-  create_table "disciplines", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "disciplines", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", limit: 50, default: "Other", null: false
     t.string "category", limit: 50, default: "Other", null: false
   end
 
-  create_table "funding_principal_investigators", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", comment: "Obsolete table.", force: :cascade do |t|
+  create_table "funding_principal_investigators", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", comment: "Obsolete table.", force: :cascade do |t|
     t.integer "funding_id"
     t.integer "user_id"
     t.integer "institution_id"
@@ -224,7 +223,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["user_id"], name: "user"
   end
 
-  create_table "fundings", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "fundings", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "reserve_id"
     t.integer "project_id", null: false
     t.float "award_amount", limit: 53, unsigned: true
@@ -253,7 +252,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["start_date"], name: "Start"
   end
 
-  create_table "group_signatures", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "group_signatures", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "visit_id"
     t.bigint "waiver_id"
     t.string "name"
@@ -264,7 +263,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.datetime "updated_at", precision: nil, null: false
   end
 
-  create_table "institutions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "institutions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "managing_institution_id", default: 0
     t.string "name", limit: 80
     t.string "city", limit: 30
@@ -279,7 +278,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["name"], name: "name"
   end
 
-  create_table "invoice_payments", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "invoice_payments", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "invoice_id"
     t.integer "user_id"
     t.decimal "amount", precision: 10, scale: 2
@@ -293,7 +292,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["paid_on"], name: "Date"
   end
 
-  create_table "invoice_payments_temporary", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "invoice_payments_temporary", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "visit_id"
     t.integer "user_id"
     t.decimal "amount", precision: 10, scale: 2
@@ -306,7 +305,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.datetime "updated_at", precision: nil
   end
 
-  create_table "invoice_recipients", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "invoice_recipients", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "invoice_id", null: false
     t.integer "user_id", null: false
     t.integer "visit_id"
@@ -317,7 +316,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["visit_id"], name: "visit"
   end
 
-  create_table "invoices", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "invoices", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "visit_id", null: false
     t.date "invoiced_on"
     t.text "notes"
@@ -333,14 +332,14 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["visit_id"], name: "visit"
   end
 
-  create_table "invoices_edit", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", comment: "Obsolete table.", force: :cascade do |t|
+  create_table "invoices_edit", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", comment: "Obsolete table.", force: :cascade do |t|
     t.integer "invoice_id"
     t.integer "edit_number", unsigned: true
     t.timestamp "edited_on"
     t.text "reason"
   end
 
-  create_table "invoices_temporary", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", comment: "Obsolete table.", force: :cascade do |t|
+  create_table "invoices_temporary", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", comment: "Obsolete table.", force: :cascade do |t|
     t.integer "invoice_id", null: false
     t.integer "visit_id", null: false
     t.integer "amenity_visit_id"
@@ -348,7 +347,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.decimal "balance_due", precision: 10, scale: 2
   end
 
-  create_table "invoices_transition", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", comment: "Obsolete table.", force: :cascade do |t|
+  create_table "invoices_transition", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", comment: "Obsolete table.", force: :cascade do |t|
     t.integer "visit_id"
     t.integer "reserve_id"
     t.date "InvoiceDate"
@@ -364,7 +363,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["visit_id"], name: "visit"
   end
 
-  create_table "logs", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "logs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "action"
     t.text "metadata"
     t.text "log"
@@ -387,20 +386,20 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["visit_id"], name: "index_logs_on_visit_id"
   end
 
-  create_table "logs-old", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", comment: "DEPRECATED", force: :cascade do |t|
+  create_table "logs-old", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", comment: "DEPRECATED", force: :cascade do |t|
     t.text "text"
     t.string "type"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
   end
 
-  create_table "new_features", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
+  create_table "new_features", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "old_waivers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "old_waivers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "reserve_id"
     t.string "name"
     t.text "description"
@@ -417,7 +416,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["sort_order"], name: "sort_order"
   end
 
-  create_table "permits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "permits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.column "authority", "enum('Federal','State','Local','Institution')", default: "Federal", null: false
     t.text "question", comment: "The Answer will be a BOOLEAN so phrase in the form of a Yes No Question."
     t.text "description"
@@ -458,7 +457,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["state_id"], name: "index_permits_on_state_id"
   end
 
-  create_table "project_permit_answers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "project_permit_answers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "project_id", null: false, unsigned: true
     t.integer "permit_id", null: false, unsigned: true
     t.boolean "answer", null: false
@@ -469,7 +468,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["project_id"], name: "index_project_permit_answers_on_project_id"
   end
 
-  create_table "project_reserve_answers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "project_reserve_answers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "reserve_question_id", null: false
     t.integer "project_id", null: false
     t.boolean "boolean_answer", comment: "Boolean"
@@ -481,7 +480,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["reserve_question_id", "project_id"], name: "Questions"
   end
 
-  create_table "project_team_memberships", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "project_team_memberships", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "project_id", null: false
     t.integer "user_id", null: false
     t.integer "institution_id"
@@ -503,7 +502,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["user_id", "project_id"], name: "user_application"
   end
 
-  create_table "projects", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "projects", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "reserve_id"
     t.integer "user_id", null: false, comment: "This person can be selected by the manager and can change over time.\nThis is the name that shows up on reports and in calendars."
     t.integer "applicant_id", null: false, comment: "This is the original applicant and cannot be edited."
@@ -580,7 +579,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["status", "reserve_id", "id"], name: "project_status"
   end
 
-  create_table "publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", comment: "Obsolete table.", force: :cascade do |t|
+  create_table "publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", comment: "Obsolete table.", force: :cascade do |t|
     t.integer "reserve_id"
     t.column "ReferenceType", "enum('Audiovisual Material','Book','Book Section','Computer Program','Conference Proceedings','Ecological Studies','Edited Book','Electronic Source','Generic','Journal Article','Magazine Article','Manuscript','Map','Newspaper Article','Personal Communication','Report','Thesis')"
     t.string "Author"
@@ -613,12 +612,12 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["reserve_id"], name: "reserve"
   end
 
-  create_table "rams_options", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "rams_options", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "option_name"
     t.text "option_value"
   end
 
-  create_table "reserve_addendums", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "reserve_addendums", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "reserve_id", null: false
     t.integer "sort_order", default: 1, null: false
     t.string "name"
@@ -627,8 +626,8 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["reserve_id"], name: "index_reserve_addendums_on_reserve_id"
   end
 
-  create_table "reserve_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
-    t.text "note"
+  create_table "reserve_notes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "note", size: :medium
     t.string "action", default: "reserve note"
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -641,7 +640,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["user_id"], name: "index_reserve_notes_on_user_id"
   end
 
-  create_table "reserve_permits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "reserve_permits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.integer "permit_id", null: false
     t.text "reserve_specific_text", comment: "Instructions about this permit which are unique to this particular reserve"
@@ -660,7 +659,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["visible", "sort_order_override"], name: "VisibleSortOrder"
   end
 
-  create_table "reserve_personnel", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "reserve_personnel", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.integer "user_id", null: false
     t.column "role", "enum('Administrator','View Only','Accountant')", default: "Administrator"
@@ -685,7 +684,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["user_id"], name: "user"
   end
 
-  create_table "reserve_questions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "reserve_questions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.column "question_type", "enum('Boolean','Text')", null: false
     t.column "location", "enum('project','visit')"
@@ -728,14 +727,14 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["sort_order"], name: "SortOrderPlain"
   end
 
-  create_table "reserve_settings", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "reserve_settings", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.boolean "req_resource", default: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "reserve_id", null: false
   end
 
-  create_table "reserve_tags", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
+  create_table "reserve_tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.column "category", "enum('ecosystem','geographic','organization','amenities','internet','other','facility')", null: false
     t.string "name", null: false
@@ -744,7 +743,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["reserve_id"], name: "index_reserve_tags_on_reserve_id"
   end
 
-  create_table "reserves", id: { type: :integer, comment: "NRS reserves listed in order of inclusion in the system" }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "reserves", id: { type: :integer, comment: "NRS reserves listed in order of inclusion in the system" }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", limit: 80
     t.string "short_name", limit: 20
     t.string "pulldown_name", limit: 80, default: "Pulldown", null: false, comment: "Pulldown Name Sorted Alphabetically"
@@ -837,7 +836,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.string "google_calendar_id", limit: 100, default: "0", null: false, comment: "Calendar ID value"
     t.boolean "reserve_alert_message_enabled"
     t.text "reserve_alert_message"
-    t.string "code_of_conduct_url", default: "http://rams.ucnrs.org/PDF/nrs-codeofconduct.pdf", null: false, comment: "Code of Conduct"
+    t.string "code_of_conduct_url", default: "http://rams.ucnature.org/PDF/nrs-codeofconduct.pdf", null: false, comment: "Code of Conduct"
     t.string "zotero_url", limit: 200, default: "https://www.zotero.org/groups/"
     t.string "zotero_login", limit: 50
     t.string "zotero_password", limit: 50
@@ -869,7 +868,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.string "bill_name", limit: 200
-    t.column "Ecosystem", "enum('Undefined','Open Water','Perennial Ice/Snow','Develope','Open Space','Developed Low Intensity','Developed Medium Intensity','Developed High Intensity','Barren Land (Rock/Sand/Clay)','Unconsolidated Shore','Deciduous Forest','Evergreen Forest','Mixed Forest','Dwarf Scrub','Shrub/Scrub','Grasslands/Herbaceous','Sedge/Herbaceous','Lichens','Moss','Pasture/Hay','Cultivated Crops','Woody Wetlands','Emergent Herbaceous Wetlands')", default: "Undefined", collation: "ascii_general_ci"
+    t.column "Ecosystem", "enum('Undefined','Open Water','Perennial Ice/Snow','Develope','Open Space','Developed Low Intensity','Developed Medium Intensity','Developed High Intensity','Barren Land (Rock/Sand/Clay)','Unconsolidated Shore','Deciduous Forest','Evergreen Forest','Mixed Forest','Dwarf Scrub','Shrub/Scrub','Grasslands/Herbaceous','Sedge/Herbaceous','Lichens','Moss','Pasture/Hay','Cultivated Crops','Woody Wetlands','Emergent Herbaceous Wetlands')", default: "Undefined"
     t.boolean "always_send_visit_asset_email", default: false, null: false
     t.string "administrative_group_name"
     t.string "administrative_group_name_acronym"
@@ -897,7 +896,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["name"], name: "Name"
   end
 
-  create_table "reserves_waivers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "reserves_waivers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "reserve_id"
     t.bigint "waiver_id"
     t.integer "sort_order", default: 1, null: false
@@ -905,7 +904,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.datetime "updated_at", precision: nil, null: false
   end
 
-  create_table "signatures", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "signatures", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "person_id"
     t.bigint "waiver_id"
     t.string "agreed_upon"
@@ -917,7 +916,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["waiver_id"], name: "index_signatures_on_waiver_id"
   end
 
-  create_table "states", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "states", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "country_id", default: 235
     t.string "name"
     t.string "code", limit: 10
@@ -925,19 +924,19 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["name"], name: "name"
   end
 
-  create_table "use_policies", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
-    t.text "title"
-    t.text "description"
-    t.text "policy_link_text"
+  create_table "use_policies", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "title", size: :medium
+    t.text "description", size: :medium
+    t.text "policy_link_text", size: :medium
     t.column "agreement_type", "enum('Reserve Use Agreement','Code of Conduct Agreement','Data Management Agreement')"
-    t.text "image_url"
+    t.text "image_url", size: :medium
     t.integer "sort_order"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "policy_url"
   end
 
-  create_table "user_visits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "user_visits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "visit_id", null: false
     t.integer "user_id", null: false
     t.column "role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')", null: false
@@ -969,7 +968,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["visit_id"], name: "visit_id"
   end
 
-  create_table "users", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "users", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.column "gender_identity", "enum('Male','Female','Non-binary','Other','Prefer not to state')"
     t.string "first_name", limit: 100
     t.string "middle_name", limit: 20
@@ -1033,7 +1032,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "visit_reserve_answers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", comment: "renamed from ActAnswers.", force: :cascade do |t|
+  create_table "visit_reserve_answers", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", comment: "renamed from ActAnswers.", force: :cascade do |t|
     t.integer "reserve_question_id", null: false
     t.integer "visit_id", null: false
     t.boolean "boolean_answer", comment: "Boolean"
@@ -1045,7 +1044,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["visit_id", "reserve_question_id"], name: "visit"
   end
 
-  create_table "visits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "visits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "project_id", null: false, unsigned: true
     t.integer "reserve_id"
     t.integer "user_id", comment: "THis is the ID of the person that submitted the activity (may be diffferent than Application's user_id)"
@@ -1086,7 +1085,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_24_120240) do
     t.index ["user_id"], name: "user"
   end
 
-  create_table "waivers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "waivers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
     t.string "url"
