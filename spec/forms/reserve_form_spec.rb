@@ -64,7 +64,7 @@ RSpec.describe ReserveForm, type: :model do
         google_calendar_id: "0",
         reserve_alert_message_enabled: nil,
         reserve_alert_message: nil,
-        code_of_conduct_url: "http://rams.ucnrs.org/PDF/nrs-codeofconduct.pdf",
+        code_of_conduct_url: a_string_matching(%r{https?://rams\.ucnature\.org/PDF/nrs-codeofconduct\.pdf}),
         zotero_url: "https://www.zotero.org/groups/",
         zotero_login: nil,
         zotero_password: nil,
