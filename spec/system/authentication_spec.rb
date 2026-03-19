@@ -43,7 +43,7 @@ RSpec.describe "Authentication", type: :system, js: true do
     let(:password) { "Password1" }
 
     it "can sign the user out" do
-      user = FactoryBot.create(:user, :confirmed, email: email, password: password)
+      FactoryBot.create(:user, :confirmed, email: email, password: password)
       flow = AuthenticationFlow.new(page)
 
       flow.visit_homepage
@@ -53,10 +53,8 @@ RSpec.describe "Authentication", type: :system, js: true do
       flow.visit_homepage
       flow.dismiss_modal
       flow.sign_out
-      # expect(flow).to_not be_signed_in  # Doesn't work after turbo
-      expect(page).to_not have_css("body.home")
 
-      flow.visit_homepage
+      expect(flow).to be_on_sign_in_page
       expect(flow).to_not be_signed_in
     end
   end

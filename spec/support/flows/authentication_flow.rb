@@ -69,7 +69,10 @@ class AuthenticationFlow
   end
 
   def dismiss_modal
-    page.find(".modal button.active", text: "Let's go!").click
+    return unless page.has_css?(".modal button.active", text: "Let's go!", wait: 2)
+
+    page.find(".modal button.active", text: "Let's go!", visible: :visible).click
+    page.has_no_css?(".modal", wait: Capybara.default_max_wait_time)
   end
 
   def hiding_contents_of_field?(field_name)
@@ -90,15 +93,20 @@ class AuthenticationFlow
   alias_method :hide_password, :show_password
 
   def sign_out
-    page.find_link(href: "/users/sign_out").click
+    page.find("a#log-out", visible: :visible, wait: Capybara.default_max_wait_time).click
+
+    # Turbo navigation can be async; wait until the browser is on the sign-in route.
+    page.has_current_path?(%r{/users/sign_in}, wait: Capybara.default_max_wait_time)
   end
 
   def signed_in?
-    page.has_css?("body.home") || page.has_css?("body.dashboard")
+    page.has_css?("a#log-out")
   end
 
   def on_sign_in_page?
-    page.has_css?("body.sessions.sessions-new")
+    page.has_current_path?(%r{/users/sign_in}, wait: Capybara.default_max_wait_time) &&
+      page.has_field?("Email") &&
+      page.has_field?("Password")
   end
 
   private
