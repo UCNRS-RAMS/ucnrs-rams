@@ -14,7 +14,7 @@ gem 'jbuilder'
 gem 'kaminari'
 gem 'mysql2', '~> 0.5'
 gem 'nokogiri', '>= 1.16.5'
-gem "paranoia", "~> 2.2"
+gem "paranoia", "~> 3"
 gem 'puma', '>= 5.0'
 gem 'rails', '~> 7.1.0'
 gem 'sass-rails', '>= 6'
