@@ -16,7 +16,7 @@ gem 'mysql2', '~> 0.5'
 gem 'nokogiri', '>= 1.16.5'
 gem "paranoia", "~> 3"
 gem 'puma', '>= 5.0'
-gem 'rails', '~> 7.1.0'
+gem 'rails', '~> 7.2.0'
 gem 'sass-rails', '>= 6'
 gem 'shakapacker'
 gem 'simple_calendar', '~> 2.4'
