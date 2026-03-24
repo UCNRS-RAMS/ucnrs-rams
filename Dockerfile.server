@@ -1,8 +1,13 @@
+# At the very top, before any FROM:
+ARG ECR_REGISTRY=""
+ARG NODE_IMAGE=node:22.21.1-slim
+ARG RUBY_IMAGE=ruby:3.2.9-slim
+
 # Stage 1: Get Node and Yarn binaries
-FROM node:22.21.1-slim AS node
+FROM ${NODE_IMAGE} AS node
 
 # Stage 2: Build the Rails environment
-FROM ruby:3.2.9-slim AS builder
+FROM ${RUBY_IMAGE} AS builder
 
 # Install build dependencies
 RUN apt-get update -qq && apt-get install -y \
@@ -66,7 +71,7 @@ RUN RAILS_ENV=production \
     bundle exec rails assets:precompile
 
 # Stage 3: Production runtime image
-FROM ruby:3.2.9-slim
+FROM ${RUBY_IMAGE}
 
 # Install runtime dependencies only
 RUN apt-get update -qq && apt-get install -y \
