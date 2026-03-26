@@ -8,6 +8,7 @@ jobs:
         environment:
           RAILS_ENV: test
       - image: cimg/mysql:8.0
+    resource_class: medium+
     steps:
       - checkout
       - browser-tools/install_chrome
@@ -24,7 +25,7 @@ jobs:
       # Bundle install dependencies
       - run:
           name: Install dependencies
-          command:  bundle config set --local path 'vendor/bundle' && bundle install
+          command:  bundle config set --local path 'vendor/bundle' && bundle install --jobs=4
 
       # Store bundle cache
       - save_cache:
