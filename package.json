@@ -30,10 +30,10 @@
     "stimulus-autocomplete": "^3.0.0-rc.5",
     "terser-webpack-plugin": "5",
     "trix": "^2.0.2",
-    "typescript": "^5.2.2",
+    "typescript": "^6.0",
     "webpack": "5",
     "webpack-assets-manifest": "6",
-    "webpack-cli": "6",
+    "webpack-cli": "7.0",
     "webpack-merge": "6"
   },
   "devDependencies": {
@@ -42,7 +42,7 @@
     "jest": "^30.0",
     "jest-environment-jsdom": "^30.2.0",
     "mutationobserver-shim": "^0.3.7",
-    "webpack-dev-server": "^5.2.2"
+    "webpack-dev-server": "^5.0"
   },
   "babel": {
     "presets": [
