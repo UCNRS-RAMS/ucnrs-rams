@@ -1,5 +1,5 @@
 class UsePolicy < ApplicationRecord
-  enum agreement_type: {
+  enum :agreement_type, {
     reserve_use_agreement: "Reserve Use Agreement",
     code_of_conduct_agreement: "Code of Conduct Agreement",
     data_management_agreement: "Data Management Agreement"

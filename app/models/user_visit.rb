@@ -18,7 +18,7 @@ class UserVisit < ApplicationRecord
 
   delegate :full_name, to: :user, prefix: true
 
-  enum role: {
+  enum :role, {
     faculty: "Faculty",
     research_scientist: "Research Scientist/Post Doc",
     research_assistant: "Research Assistant (non-student/faculty/postdoc)",
@@ -33,12 +33,12 @@ class UserVisit < ApplicationRecord
     reserve_staff: "Staff",
   }
 
-  enum status: {
+  enum :status, {
     approved: "Approved",
     in_review: "Pending approval",
     cancelled: "Cancelled",
     denied: "Rejected",
-  }, _suffix: true
+  }, suffix: true
 
   def arrival_date
     arrives_at.to_date

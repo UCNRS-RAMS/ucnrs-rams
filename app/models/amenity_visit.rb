@@ -15,7 +15,7 @@ class AmenityVisit < ApplicationRecord
 
   after_commit :visit_update_datetime, if: :persisted?
 
-  enum status: {
+  enum :status, {
     approved: "Approved",
     in_review: "Pending approval",
     cancelled: "Cancelled",

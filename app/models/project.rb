@@ -102,19 +102,19 @@ class Project < ApplicationRecord
     validates :end_date, must_be_after: :start_date
   end
 
-  enum status: {
+  enum :status, {
     open: "Open",
     closed: "Closed",
     incomplete: "Incomplete",
   }
 
-  enum project_type: {
+  enum :project_type, {
     research: "Research",
     class: "Class",
     meeting: "Meeting",
     public_use: "Public Use",
     housing: "Housing",
-  }, _prefix: true
+  }, prefix: true
 
   def self.blank
     Project.new(id: -1, title: "")

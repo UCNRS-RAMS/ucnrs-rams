@@ -28,7 +28,7 @@ class Visit < ApplicationRecord
   delegate :title, to: :project, prefix: true
   delegate :full_name, :role, to: :user, prefix: true
 
-  enum status: {
+  enum :status, {
     approved: "approved",
     in_review: "in_review",
     cancelled: "cancelled",
@@ -36,14 +36,14 @@ class Visit < ApplicationRecord
     denied: "denied",
   }
 
-  enum project_type: {
+  enum :project_type, {
     research: "research",
     university_class: "university class",
     meeting_or_conference: "meeting or conference",
     public_use: "public use",
   }
 
-  enum public_use_category: {
+  enum :public_use_category, {
     general_use: "general-use",
     community_event: "community-event",
     fundraiser: "fundraiser",

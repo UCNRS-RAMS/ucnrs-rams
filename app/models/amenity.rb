@@ -33,7 +33,7 @@ class Amenity < ApplicationRecord
     reorder(:group_number, :sort_order)
   end
 
-  enum units_type: {
+  enum :units_type, {
     unit: "unit",
     session: "session",
     use: "use",
@@ -41,10 +41,9 @@ class Amenity < ApplicationRecord
     mile: "mile",
     square_foot: "square foot",
     facility: "facility"
-  },
-  _prefix: :unit
+  }, prefix: :unit
 
-  enum time_type: {
+  enum :time_type, {
     hour: "hour",
     day: "day",
     night: "night",
@@ -56,10 +55,9 @@ class Amenity < ApplicationRecord
     four_hours: "4 hours",
     eight_hours: "8 hours",
     each: "each"
-  },
-  _prefix: :time
+  }, prefix: :time
 
-  enum amenities_type: {
+  enum :amenities_type, {
     housing_and_camping: "Housing & Camping",
     classroom_and_meeting_space: "Classroom & Meeting Space",
     laboratory_and_storage_space: "Laboratory & Storage Space",

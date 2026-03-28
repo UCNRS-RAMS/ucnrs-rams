@@ -24,7 +24,7 @@ class ProjectTeamMembership < ApplicationRecord
 
   delegate :id, to: :project, prefix: true
 
-  enum user_role: {
+  enum :user_role, {
     no_selection: "No selection",
     faculty: "Faculty",
     research_scientist: "Research Scientist/Post Doc",

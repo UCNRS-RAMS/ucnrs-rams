@@ -15,7 +15,7 @@ class Funding < ApplicationRecord
   validates :sponsor_other, presence: true, if: :other?
   validates :award_amount, numericality: true, allow_nil: true
 
-  enum sponsor: {
+  enum :sponsor, {
     national_science_foundation: "National Science Foundation (NSF)",
     national_institute_of_health: "National Institute of Health (NIH)",
     us_geological_survey: "U.S. Geological Survey (USGS)",

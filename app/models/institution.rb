@@ -16,7 +16,7 @@ class Institution < ApplicationRecord
   has_many :project_team_memberships, inverse_of: :institution, dependent: :restrict_with_error
   has_many :user_visits, inverse_of: :institution, dependent: :restrict_with_error
 
-  enum institution_type: {
+  enum :institution_type, {
     university_of_california: "University of California",
     california_state_university_system: "California State University System",
     california_community_college: "California Community College",
