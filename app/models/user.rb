@@ -68,7 +68,7 @@ class User < ApplicationRecord
     read_attribute(:institution_name) || institution.name
   end
 
-  enum gender_identity: {
+  enum :gender_identity, {
     male: "Male",
     female: "Female",
     non_binary: "Non-binary",
@@ -76,7 +76,7 @@ class User < ApplicationRecord
     prefer_not_to_state: "Prefer not to state",
   }
 
-  enum role: {
+  enum :role, {
     no_selection: "No selection",
     faculty: "Faculty",
     research_scientist: "Research Scientist/Post Doc",
@@ -92,7 +92,7 @@ class User < ApplicationRecord
     reserve_staff: "Staff",
   }
 
-  enum age_range: {
+  enum :age_range, {
     one_to_seventeen: "1-17",
     eighteen_to_twenty_five: "18-25",
     twenty_five_to_fifty: "25-50",

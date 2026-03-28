@@ -17,12 +17,12 @@ class ReserveQuestion < ApplicationRecord
   has_many :project_reserve_answers
   has_many :visit_reserve_answers
 
-  enum location: {
+  enum :location, {
     visit: "visit",
     project: "project",
   }
 
-  enum authority: {
+  enum :authority, {
     federal: "Federal",
     state: "State",
     local: "Local",
@@ -30,7 +30,7 @@ class ReserveQuestion < ApplicationRecord
     reserve: "Reserve",
   }
 
-  enum question_type: {
+  enum :question_type, {
     boolean: "Boolean",
     text: "Text",
   }

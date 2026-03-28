@@ -1,7 +1,7 @@
 class ReserveTag < ApplicationRecord
   belongs_to :reserve
 
-  enum category: {
+  enum :category, {
     ecosystem: "ecosystem",
     geographic: "geographic",
     organization: "organization",

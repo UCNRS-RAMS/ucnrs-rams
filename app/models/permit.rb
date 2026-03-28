@@ -11,12 +11,12 @@ class Permit < ApplicationRecord
   has_many :reserve_permits
   has_many :reserves, through: :reserve_permits
 
-  enum location: {
+  enum :location, {
     visit: "visit",
     project: "project",
   }
 
-  enum authority: {
+  enum :authority, {
     federal: "Federal",
     state: "State",
     local: "Local",
