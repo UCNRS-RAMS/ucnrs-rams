@@ -1,4 +1,10 @@
 class Permit < ApplicationRecord
+  FLAG_TYPE_COLUMN_MAP = {
+    "iacuc_flag" => :iacuc,
+    "drone_flag" => :drone_flag,
+    "scuba_flag" => :scuba_flag,
+  }.freeze
+
   belongs_to :state, optional: true
   has_many :project_permit_answers
   has_many :projects, through: :project_permit_answers
@@ -85,8 +91,10 @@ class Permit < ApplicationRecord
   end
 
   def self.with_flag_type(flag_type)
-    where("((? = 'iacuc_flag') AND permits.iacuc = 1)", [flag_type.downcase])
-      .or(where("((? = 'drone_flag') AND permits.drone_flag = 1)", [flag_type.downcase]))
-      .or(where("((? = 'scuba_flag') AND permits.drone_flag = 1)", [flag_type.downcase]))
+    if FLAG_TYPE_COLUMN_MAP[flag_type.downcase]
+      where(FLAG_TYPE_COLUMN_MAP[flag_type.downcase] => true)
+    else
+      none
+    end
   end
 end
