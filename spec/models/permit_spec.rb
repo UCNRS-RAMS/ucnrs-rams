@@ -5,8 +5,8 @@ RSpec.describe Permit, type: :model do
     it do
       is_expected.to define_enum_for(:location)
         .with_values(
-           visit: "visit",
-           project: "project",
+          visit: "visit",
+          project: "project",
         ).backed_by_column_of_type(:string)
     end
 
@@ -52,6 +52,15 @@ RSpec.describe Permit, type: :model do
     end
   end
 
+  describe ".for_visits" do
+    it "only selects permits with a location of visit" do
+      visit_permit = create(:permit, location: :visit)
+      project_permit = create(:permit, location: :project)
+
+      expect(Permit.for_visits).to eq [visit_permit]
+    end
+  end
+
   describe ".visible" do
     it "only selects visible permits" do
       showing = create(:permit, visible: true)
@@ -87,7 +96,7 @@ RSpec.describe Permit, type: :model do
       expect(Permit.involving_related(project)).to eq [all_permit, fish_permit]
     end
 
-    def project(boolean_key, value = true)
+    def project(boolean_key, value: true)
       build(:project, involves_none: false, boolean_key => value)
     end
 
@@ -155,6 +164,40 @@ RSpec.describe Permit, type: :model do
 
       expect(permits.length).to eq 1
       expect(permits[0].answer_id).to be_nil
+    end
+  end
+
+  describe ".of_iacuc_type" do
+    it "only selects permits where iacuc is true" do
+      iacuc_permit = create(:permit, iacuc: true)
+      non_iacuc_permit = create(:permit, iacuc: false)
+
+      expect(Permit.of_iacuc_type).to eq [iacuc_permit]
+    end
+  end
+
+  describe ".with_flag_type" do
+    it "filters permits by the given flag type" do
+      iacuc_permit = create(:permit, iacuc: true)
+      drone_permit = create(:permit, drone_flag: true)
+      scuba_permit = create(:permit, scuba_flag: true)
+      unflagged_permit = create(:permit, iacuc: false, drone_flag: false, scuba_flag: false)
+
+      expect(Permit.with_flag_type("iacuc_flag")).to eq [iacuc_permit]
+      expect(Permit.with_flag_type("drone_flag")).to eq [drone_permit]
+      expect(Permit.with_flag_type("scuba_flag")).to eq [scuba_permit]
+    end
+
+    it "is case-insensitive" do
+      iacuc_permit = create(:permit, iacuc: true)
+
+      expect(Permit.with_flag_type("IACUC_FLAG")).to eq [iacuc_permit]
+    end
+
+    it "returns no results for an unknown flag type" do
+      create(:permit, iacuc: true)
+
+      expect(Permit.with_flag_type("unknown_flag")).to be_empty
     end
   end
 end
