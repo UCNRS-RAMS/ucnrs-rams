@@ -40,7 +40,13 @@
   <div class="info-block display-flex">
     <div>
       <p><%= t('.visit_purpose') %></p>
-      <p class="title"><%= presenter.purpose_of_visit %></p>
+      <p class="title">
+        <% if presenter.report_access_disabled? %>
+          <%= tag.span "X", class: "ar-access", alt: t(".annual_report_disabled"), title: t(".annual_report_disabled") %>
+          |
+        <% end %>
+        <%= presenter.purpose_of_visit %>
+      </p>
     </div>
   </div>
   <div class="info-block">

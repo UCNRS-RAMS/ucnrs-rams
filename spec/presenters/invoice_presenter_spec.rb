@@ -19,6 +19,7 @@ RSpec.describe InvoicePresenter do
     it { is_expected.to delegate_method(:reserve_name).to(:visit) }
     it { is_expected.to delegate_method(:id).to(:visit).with_prefix(true) }
     it { is_expected.to delegate_method(:user_id).to(:visit).with_prefix(true) }
+    it { is_expected.to delegate_method(:report_access_disabled?).to(:visit).with_prefix(true) }
     it { is_expected.to delegate_method(:reserve_id).to(:visit) }
     it { is_expected.to delegate_method(:reserve_name).to(:visit).allow_nil }
     it { is_expected.to delegate_method(:project_id).to(:visit).allow_nil }

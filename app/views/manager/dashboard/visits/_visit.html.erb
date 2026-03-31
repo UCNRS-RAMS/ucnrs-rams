@@ -6,7 +6,7 @@
   </td>
   <td><%= tag.strong visit.requested_date_range %></td>
   <td>
-    <% if ActiveModel::Type::Boolean.new.cast(visit.report_access) == false %>
+    <% if visit.report_access_disabled? %>
       <%= tag.span "X", class: "ar-access", alt: t(".annual_report_disabled"), title: t(".annual_report_disabled") %>
       |
     <% end %>
