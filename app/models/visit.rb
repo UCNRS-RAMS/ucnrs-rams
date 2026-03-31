@@ -202,6 +202,10 @@ class Visit < ApplicationRecord
     end
   end
 
+  def report_access_disabled?
+    report_access.zero?
+  end
+
   def self.using_amenity(amenity)
     if amenity.present? && amenity != "all"
       left_joins(:amenities)

@@ -15,6 +15,10 @@
     %>
   </td>
   <td class="invoice-project">
+    <% if invoice.visit_report_access_disabled? %>
+      <%= tag.span "X", class: "ar-access", alt: t(".annual_report_disabled"), title: t(".annual_report_disabled") %>
+      |
+    <% end %>
     <%= link_to truncate(invoice.visit_purpose_of_visit, length: 250, omission: '...'),
       manager_reserve_visit_path(current_reserve, invoice.visit_id),
       data: { "turbo-frame" => "_top" }

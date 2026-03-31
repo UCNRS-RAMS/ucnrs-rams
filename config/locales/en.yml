@@ -1376,6 +1376,8 @@ en:
           submit_date: Submit Date
           visit_dates: Visit Dates
     invoices:
+      invoice:
+        annual_report_disabled: Annual Report disabled
       index:
         all: All
         paid: Paid
@@ -1698,6 +1700,7 @@ en:
         invoices: Invoices
       summary_box:
         amenities: Amenities
+        annual_report_disabled: Annual Report disabled
         applicant: Applicant
         confirm_removal: Are you sure you want to delete visit number %{visit_id}
         date_submitted: Date Submitted

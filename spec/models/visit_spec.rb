@@ -365,6 +365,20 @@ RSpec.describe Visit, type: :model do
     end
   end
 
+  describe "#report_access_disabled?" do
+    it "returns true when report_access is 0" do
+      visit = create(:visit, report_access: 0)
+
+      expect(visit.report_access_disabled?).to be true
+    end
+
+    it "returns false when report_access is 1" do
+      visit = create(:visit, report_access: 1)
+
+      expect(visit.report_access_disabled?).to be false
+    end
+  end
+
   describe ".using_amenity" do
     context "when the input is not 'present?'" do
       it "returns all visit records" do

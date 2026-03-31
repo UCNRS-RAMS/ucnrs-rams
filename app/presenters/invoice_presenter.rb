@@ -9,7 +9,7 @@ class InvoicePresenter
   attr_reader :invoice
 
   delegate :id, :modify_number, :amenity_visits, :invoice_payments, :status, :balance_due, to: :invoice
-  delegate :id, :user_id, :purpose_of_visit, :project_type, to: :visit, prefix: true
+  delegate :id, :user_id, :purpose_of_visit, :project_type, :report_access_disabled?, to: :visit, prefix: true
   delegate :reserve_id, :reserve, to: :visit
   delegate :reserve_name, :project_title, :project_id, :user_full_name, to: :visit, allow_nil: true
 
