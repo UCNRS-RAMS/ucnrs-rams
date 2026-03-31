@@ -12,10 +12,17 @@ RSpec.describe "navbar", type: :view do
 
     render partial: 'layouts/navbar', locals: { layout_presenter: layout_presenter }
 
+    left_side_children = Capybara.string(rendered).all(".left-side > *")
+
     expect(rendered).to have_link("Visits", href: "/home")
     expect(rendered).to have_link("Reserves", href: "/reserves")
     expect(rendered).to have_link("Projects", href: "/projects")
     expect(rendered).to have_link("Help", href: "https://ramshelp.ucnature.org/")
+    expect(rendered).to have_link("RAMS", href: "/dashboard")
+    expect(rendered).to have_css("img[alt='UC Nature Logo']")
+    expect(left_side_children.map(&:tag_name)).to eq(%w[small h1])
+    expect(left_side_children.first).to have_css("img[alt='UC Nature Logo']")
+    expect(left_side_children.last).to have_link("RAMS", href: "/dashboard")
     expect(rendered).to have_link("", href: "/users/edit")
     expect(rendered).to have_link("Home", href: "/dashboard")
     expect(rendered).to have_link("", href: "/users/sign_out")
