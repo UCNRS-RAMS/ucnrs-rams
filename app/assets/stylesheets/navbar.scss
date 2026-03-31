@@ -24,11 +24,19 @@ nav.main-navigation {
   #title-extra {
     align-items: center;
     display: inline-flex;
+    flex-shrink: 0;
+    line-height: 0;
+    margin: 0;
+
+    .title-link {
+      align-items: center;
+      display: inline-flex;
+    }
 
     img {
       display: block;
       height: auto;
-      max-height: 2rem;
+      max-height: 2.25rem;
       max-width: 180px;
       width: auto;
     }
@@ -47,14 +55,11 @@ nav.main-navigation {
   .left-side {
     align-items: center;
     display: flex;
+    gap: 1rem;
 
     img {
       max-width: 100%;
     }
-  }
-
-  .left-side > * {
-    margin-right: 1rem;
   }
 
   .right-side {
@@ -64,7 +69,18 @@ nav.main-navigation {
 
   h1 {
     font-size: 1.75rem;
+    line-height: 1;
     margin: 0;
+  }
+
+  .navbar {
+    .left-side {
+      gap: 1.25rem;
+    }
+
+    h1.title {
+      font-size: 1.875rem;
+    }
   }
 
   small {
@@ -172,7 +188,7 @@ nav.main-navigation::after {
       width: clamp(90px, 11vw, 150px);
 
       img {
-        max-height: 1.75rem;
+        max-height: 2rem;
         max-width: 100%;
       }
     }
@@ -190,8 +206,18 @@ nav.main-navigation::after {
     font-size: .875rem;
     transition: all .15s ease-in-out;
 
-    .left-side > * {
-      margin-right: 0.75rem;
+    .left-side {
+      gap: 0.75rem;
+    }
+
+    .navbar {
+      .left-side {
+        gap: 0.875rem;
+      }
+
+      h1.title {
+        font-size: 1.625rem;
+      }
     }
 
     .navbar-container {
@@ -235,7 +261,7 @@ nav.main-navigation::after {
 @media screen and (max-width: 768px) {
   nav.main-navigation {
     #title-extra {
-      display: unset;
+      display: inline-flex;
       width: 100px;
 
       img {
@@ -243,8 +269,18 @@ nav.main-navigation::after {
       }
     }
 
-    .left-side * {
-      margin-right: .625rem;
+    .left-side {
+      gap: .625rem;
+    }
+
+    .navbar {
+      .left-side {
+        gap: .75rem;
+      }
+
+      h1.title {
+        font-size: 1.375rem;
+      }
     }
 
     .logo {
@@ -253,10 +289,6 @@ nav.main-navigation::after {
       transition: all .15s ease-in-out;
     }
 
-    h1.title {
-      font-size: 1.25rem;
-      margin-right: 10px;
-    }
 
     small {
       font-size: .5rem;
