@@ -36,19 +36,13 @@
       header {
         position: relative;
 
-        .big-logo {
-          display: block;
-        }
-
-        .small-logo {
-          display: none;
-        }
-
         .logo {
+          height: 3rem;
           left: 10px;
           margin-bottom: 0.5rem;
           position: fixed;
           top: 10px;
+          width: 3rem;
           z-index: 100;
         }
       }
@@ -62,7 +56,7 @@
       }
 
       p {
-        backround-color: transparent;
+        background-color: transparent;
         color: $hero-copy;
         font-size: 0.875rem;
         margin-top: 0;
@@ -78,7 +72,7 @@
         }
 
         a {
-          backround-color: transparent;
+          background-color: transparent;
           color: $hero-link;
           font-size: 0.75rem;
           font-weight: $bold;
@@ -245,17 +239,9 @@
 
       .hero {
         header {
-          .big-logo {
-            display: none;
-          }
-
-          .small-logo {
-            display: block;
-          }
-
           .logo {
-            height: 3rem !important;
-            width: 3rem !important;
+            height: 3rem;
+            width: 3rem;
           }
         }
       }
@@ -288,18 +274,10 @@
         header {
           padding-top: 3.5rem;
 
-          .big-logo {
-            display: none;
-          }
-
-          .small-logo {
-            display: block;
-          }
-
           .logo {
-            height: 2.75rem !important;
+            height: 2.75rem;
             position: fixed;
-            width: 2.75rem !important;
+            width: 2.75rem;
             z-index: 100;
           }
         }
