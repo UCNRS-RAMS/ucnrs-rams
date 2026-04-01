@@ -223,7 +223,7 @@ RSpec.describe LayoutPresenter do
 
         current_reserve_logo = presenter.current_reserve_logo
 
-        expect(current_reserve_logo).to eq("ucnrs-logo.png")
+        expect(current_reserve_logo).to eq("ucnature-logo.png")
       end
     end
   end
