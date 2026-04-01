@@ -22,12 +22,6 @@ nav.main-navigation {
   }
 
   #title-extra {
-    align-items: center;
-    display: inline-flex;
-    flex-shrink: 0;
-    line-height: 0;
-    margin: 0;
-
     .title-link {
       align-items: center;
       display: inline-flex;
@@ -36,8 +30,7 @@ nav.main-navigation {
     img {
       display: block;
       height: auto;
-      max-height: 2.25rem;
-      max-width: 180px;
+      max-height: 3rem;
       width: auto;
     }
 
