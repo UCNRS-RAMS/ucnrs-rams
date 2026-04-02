@@ -16,7 +16,7 @@ gem 'mysql2', '~> 0.5'
 gem 'nokogiri', '>= 1.16.5'
 gem "paranoia", "~> 3"
 gem 'puma', '>= 5.0'
-gem 'rails', '~> 7.2.3.1'
+gem 'rails', '~> 8.0.0'
 gem 'sass-rails', '>= 6'
 gem 'shakapacker'
 gem 'simple_calendar', '~> 2.4'
@@ -33,7 +33,7 @@ group :development, :test do
   gem 'axe-core-rspec'
   gem 'bullet'
   gem 'bundler-audit'
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: [:mri, :windows]
   gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'gnar-style', require: false
