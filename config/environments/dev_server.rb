@@ -77,22 +77,10 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  # Default Mailer Host
-  config.action_mailer.default_url_options = {
-    host: ENV.fetch("HOST"),
-    protocol: ENV.fetch("PROTOCOL", "https"),
-  }
-
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: ENV.fetch("SMTP_HOST"),
-    port: ENV.fetch("SMTP_PORT"),
-    domain: ENV.fetch("SMTP_DOMAIN"),
-    user_name: ENV.fetch("SMTP_USERNAME"),
-    password: ENV.fetch("SMTP_PASSWORD"),
-    authentication: :login,
-    enable_starttls_auto: true,
-  }
+  # Use letter_opener to preview emails in browser instead of sending them
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
