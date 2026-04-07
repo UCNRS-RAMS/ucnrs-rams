@@ -1,8 +1,8 @@
 # Stage 1: Get Node and Yarn binaries
-FROM node:22.21.1-slim AS node
+FROM node:24-slim AS node
 
 # Stage 2: Build the Rails environment
-FROM ruby:3.2.9
+FROM ruby:3.3.11
 
 # Copy Node.js and package managers from the 'node' stage
 COPY --from=node /usr/local/bin/ /usr/local/bin/
