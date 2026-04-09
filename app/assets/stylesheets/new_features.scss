@@ -1,4 +1,4 @@
-@import "variables";
+@use "variables" as *;
 
 body.new_features {
   section header h2 {

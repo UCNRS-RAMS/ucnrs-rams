@@ -1,5 +1,5 @@
-@import "variables";
-@import "mixins/tables";
+@use "variables" as *;
+@use "mixins/tables" as *;
 
 .visit-summary-edit {
   background-color: lighten($bluegray, 35%);

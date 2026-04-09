@@ -6,6 +6,7 @@ ruby '3.3.11'
 gem "amazing_print"
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'carrierwave'
+gem "cssbundling-rails"
 gem "devise", '~> 5.0'
 gem 'faraday-retry'
 gem 'fog-aws'
@@ -15,11 +16,11 @@ gem 'kaminari'
 gem 'mysql2', '~> 0.5'
 gem 'nokogiri', '>= 1.16.5'
 gem "paranoia", "~> 3"
+gem "propshaft"
 gem 'puma', '>= 5.0'
 gem 'rails', '~> 8.0.0'
-gem 'sass-rails', '>= 6'
 gem 'shakapacker'
-gem 'simple_calendar', '~> 2.4'
+gem 'simple_calendar', '~> 3.0'
 gem 'turbo-rails', '~> 1.4'
 gem "wicked_pdf", "~> 2.7"
 gem "wkhtmltopdf-binary", "~> 0.12.6"

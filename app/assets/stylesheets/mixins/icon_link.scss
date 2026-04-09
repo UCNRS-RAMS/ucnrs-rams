@@ -1,9 +1,9 @@
-@import "variables";
+@use "variables" as *;
 
 @mixin icon-link($icons) {
   @each $name, $size in $icons {
     a.icon-#{$name}:before {
-      background: no-repeat center/$size url(asset-path("icon-#{$name}.svg"));
+      background: no-repeat center/$size url("icon-#{$name}.svg");
       content: "";
       display: block;
       height: 1.125rem;

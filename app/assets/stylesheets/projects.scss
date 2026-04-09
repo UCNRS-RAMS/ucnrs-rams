@@ -1,11 +1,11 @@
-@import "variables";
-@import "mixins/date_fields";
-@import "mixins/form";
-@import "mixins/controls";
-@import "mixins/summary";
-@import "mixins/tables";
-@import "mixins/pagination";
-@import "mixins/input";
+@use "variables" as *;
+@use "mixins/date_fields" as *;
+@use "mixins/form" as *;
+@use "mixins/controls" as *;
+@use "mixins/summary" as *;
+@use "mixins/tables" as *;
+@use "mixins/pagination" as *;
+@use "mixins/input" as *;
 
 .projects-index {
   @include pagination;

@@ -1,5 +1,5 @@
-@import "variables";
-@import "mixins/errors";
+@use "variables" as *;
+@use "mixins/errors" as *;
 
 .unauthenticated {
   height: 100%;
@@ -31,7 +31,7 @@
     }
 
     .hero {
-      background: no-repeat top left / cover url(asset-path("hero-background.jpg")) $black;
+      background: no-repeat top left / cover url("hero-background.jpg") $black;
 
       header {
         position: relative;

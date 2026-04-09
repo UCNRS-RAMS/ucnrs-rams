@@ -1,6 +1,6 @@
-@import "variables";
-@import "mixins/tables";
-@import "mixins/pagination";
+@use "variables" as *;
+@use "mixins/tables" as *;
+@use "mixins/pagination" as *;
 
 .manager.activities-index {
   section.content {

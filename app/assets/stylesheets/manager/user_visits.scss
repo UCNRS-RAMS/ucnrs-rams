@@ -1,7 +1,8 @@
-@import "variables";
-@import "mixins/layouts";
-@import "mixins/controls";
-@import "mixins/tables";
+@use "variables" as *;
+@use "mixins/form" as *;
+@use "mixins/layouts" as *;
+@use "mixins/controls" as *;
+@use "mixins/tables" as *;
 
 
 .manager.user_visits-index {
@@ -220,7 +221,7 @@
       }
 
       .user-visits-warning::before {
-        background: no-repeat center/18px url(asset-path("icon-alert-circle.svg"));
+        background: no-repeat center/18px url("icon-alert-circle.svg");
         content: "";
         display: block;
         height: 1.125rem;

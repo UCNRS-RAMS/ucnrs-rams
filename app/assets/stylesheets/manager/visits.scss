@@ -1,12 +1,12 @@
-@import "variables";
-@import "mixins/date_fields";
-@import "mixins/form";
-@import "mixins/summary";
-@import "mixins/tables";
-@import "mixins/search";
-@import "mixins/pagination";
-@import "mixins/layouts";
-@import "mixins/controls";
+@use "variables" as *;
+@use "mixins/date_fields" as *;
+@use "mixins/form" as *;
+@use "mixins/summary" as *;
+@use "mixins/tables" as *;
+@use "mixins/search" as *;
+@use "mixins/pagination" as *;
+@use "mixins/layouts" as *;
+@use "mixins/controls" as *;
 
 .manager.visits-new,
 .manager.visits-create,

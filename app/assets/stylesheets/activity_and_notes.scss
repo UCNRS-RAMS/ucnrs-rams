@@ -1,7 +1,7 @@
-@import "variables";
-@import "mixins/form";
-@import "mixins/tables";
-@import "mixins/pagination";
+@use "variables" as *;
+@use "mixins/form" as *;
+@use "mixins/tables" as *;
+@use "mixins/pagination" as *;
 
 section.logs {
   @include pagination;

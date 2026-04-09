@@ -1,9 +1,9 @@
-@import "variables";
-@import "mixins/tables";
-@import "mixins/search";
-@import "mixins/pagination";
-@import "mixins/form";
-@import "mixins/flex";
+@use "variables" as *;
+@use "mixins/tables" as *;
+@use "mixins/search" as *;
+@use "mixins/pagination" as *;
+@use "mixins/form" as *;
+@use "mixins/flex" as *;
 
 .manager.institutions-index {
   @include search-subsection;

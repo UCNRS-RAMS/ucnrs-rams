@@ -1,6 +1,6 @@
-@import "variables";
-@import "mixins/errors";
-@import "mixins/controls";
+@use "variables" as *;
+@use "mixins/errors" as *;
+@use "mixins/controls" as *;
 
 @mixin form {
   @include errors;
