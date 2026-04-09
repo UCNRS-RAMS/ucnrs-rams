@@ -1,4 +1,4 @@
-@import "../variables";
+@use "../variables" as *;
 
 @mixin search-subsection {
   .search-subsection {
@@ -72,11 +72,11 @@
     }
 
     .input-with-buttons.search::before {
-      background: no-repeat center/12px url(asset-path("icon-search.svg"));
+      background: no-repeat center/12px url("icon-search.svg");
     }
 
     .input-with-buttons.calendar::before {
-      background: no-repeat center/14px url(asset-path("icon-calendar.svg"));
+      background: no-repeat center/14px url("icon-calendar.svg");
     }
 
     #horizontal-line {

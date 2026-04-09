@@ -1,6 +1,6 @@
-@import "variables";
-@import "mixins/tables";
-@import "mixins/flex";
+@use "variables" as *;
+@use "mixins/tables" as *;
+@use "mixins/flex" as *;
 
 .manager.reserve_details,
 .manager.reserve_tags,

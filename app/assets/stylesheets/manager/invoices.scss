@@ -1,11 +1,11 @@
-@import "variables";
-@import "mixins/summary";
-@import "mixins/date_fields";
-@import "mixins/form";
-@import "mixins/flex";
-@import "mixins/tables";
-@import "mixins/search";
-@import "mixins/pagination";
+@use "variables" as *;
+@use "mixins/summary" as *;
+@use "mixins/date_fields" as *;
+@use "mixins/form" as *;
+@use "mixins/flex" as *;
+@use "mixins/tables" as *;
+@use "mixins/search" as *;
+@use "mixins/pagination" as *;
 
 .manager.invoices-new,
 .manager.invoices-create,

@@ -1,9 +1,9 @@
-@import "variables";
-@import "mixins/tables";
-@import "mixins/search";
-@import "mixins/pagination";
-@import "mixins/errors";
-@import "mixins/flex";
+@use "variables" as *;
+@use "mixins/tables" as *;
+@use "mixins/search" as *;
+@use "mixins/pagination" as *;
+@use "mixins/errors" as *;
+@use "mixins/flex" as *;
 
 .manager.users-index {
   @include search-subsection;

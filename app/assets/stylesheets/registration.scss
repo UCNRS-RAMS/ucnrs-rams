@@ -1,6 +1,6 @@
-@import "variables";
-@import "mixins/icon_link";
-@import "mixins/errors";
+@use "variables" as *;
+@use "mixins/icon_link" as *;
+@use "mixins/errors" as *;
 
 .registrations .modal-content {
   background: rgba($navy-blue, 0.85);

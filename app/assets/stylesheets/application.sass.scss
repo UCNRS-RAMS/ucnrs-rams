@@ -1,26 +1,74 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- *= require simple_calendar
- */
+// Entry point for your Sass build
 
-@import "variables";
-@import "mixins/dropdown";
-@import "simple_calendar";
-@import "mixins/input";
-@import "mixins/tables";
-@import "base/*";
+// Variables and mixins (used in this file)
+@use "variables" as *;
+@use "mixins/dropdown" as *;
+@use "mixins/input" as *;
+@use "mixins/tables" as *;
+@use "mixins/summary" as *;
+
+// Base styles
+@use "base/animation" as *;
+@use "base/site" as *;
+
+// Component styles
+@use "actiontext" as *;
+@use "activity_and_notes" as *;
+@use "amenities" as *;
+@use "autocomplete" as *;
+@use "buttons" as *;
+@use "calendar" as *;
+@use "container" as *;
+@use "dashboard" as *;
+@use "flash" as *;
+@use "footer" as *;
+@use "fundings" as *;
+@use "homepage" as *;
+@use "icon-buttons" as *;
+@use "invoices" as *;
+@use "modal" as *;
+@use "navbar" as *;
+@use "new_features" as *;
+@use "password" as *;
+@use "pill" as *;
+@use "project_questions" as *;
+@use "projects" as *;
+@use "registration" as *;
+@use "reserves" as *;
+@use "shared" as *;
+@use "steps" as *;
+@use "team_memberships" as *;
+@use "toolbar-buttons" as *;
+@use "unauthenticated" as *;
+@use "user_visits" as *;
+@use "value-projection" as *;
+@use "visit_questions" as *;
+@use "visits" as *;
+@use "waivers_policies" as *;
+
+// Manager styles
+@use "manager/activities" as *;
+@use "manager/dashboard" as *;
+@use "manager/flex" as *;
+@use "manager/footer" as *;
+@use "manager/fundings" as *;
+@use "manager/institutions" as *;
+@use "manager/invoices" as *;
+@use "manager/invoices-pdf" as *;
+@use "manager/manager" as *;
+@use "manager/navbar" as *;
+@use "manager/project_questions" as *;
+@use "manager/projects" as *;
+@use "manager/reports" as *;
+@use "manager/reserve_info" as *;
+@use "manager/summary" as *;
+@use "manager/team-memberships" as *;
+@use "manager/uninvoiced" as *;
+@use "manager/user_visits" as *;
+@use "manager/users" as *;
+@use "manager/visit_questions" as *;
+@use "manager/visits" as *;
+@use "manager/waivers_policies" as *;
 
 
 html {
@@ -159,7 +207,7 @@ table.summary-table {
       }
 
       .invoiced {
-        background: 0.5rem / 1rem 1rem no-repeat url(asset-path("check.svg")) $pill-background-neutral;
+        background: 0.5rem / 1rem 1rem no-repeat url("check.svg") $pill-background-neutral;
       }
 
       .margin-left {

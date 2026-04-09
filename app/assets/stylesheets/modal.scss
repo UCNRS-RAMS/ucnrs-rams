@@ -1,7 +1,7 @@
-@import "variables";
-@import "mixins/form";
-@import "mixins/flex";
-@import "mixins/date_fields";
+@use "variables" as *;
+@use "mixins/form" as *;
+@use "mixins/flex" as *;
+@use "mixins/date_fields" as *;
 
 .modal {
   @include form2;

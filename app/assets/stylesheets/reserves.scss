@@ -1,7 +1,7 @@
-@import "variables";
-@import "mixins/icon_link";
-@import "mixins/calendar";
-@import "mixins/flex.scss";
+@use "variables" as *;
+@use "mixins/icon_link" as *;
+@use "mixins/calendar" as *;
+@use "mixins/flex.scss" as *;
 
 main {
   ul.navbar-nav {
@@ -441,7 +441,7 @@ main {
     }
 
     .reserve-message::before {
-      background: no-repeat center/18px url(asset-path("icon-alert-circle.svg"));
+      background: no-repeat center/18px url("icon-alert-circle.svg");
       content: "";
       display: block;
       height: 1.125rem;
@@ -502,7 +502,7 @@ main {
     }
 
     .input-with-buttons::before {
-      background: no-repeat center/12px url(asset-path("icon-search.svg"));
+      background: no-repeat center/12px url("icon-search.svg");
       content: "";
       display: block;
       height: 0.75rem;
@@ -944,24 +944,24 @@ table#reserve-project-types {
     }
 
     a.icon-map::before {
-      background: no-repeat center/14px url(asset-path("icon-map.svg"));
+      background: no-repeat center/14px url("icon-map.svg");
     }
 
     a.icon-external-link::before {
       background: no-repeat center/14px
-        url(asset-path("icon-external-link.svg"));
+        url("icon-external-link.svg");
     }
 
     a.icon-email::before {
-      background: no-repeat center/14px url(asset-path("icon-email.svg"));
+      background: no-repeat center/14px url("icon-email.svg");
     }
 
     a.icon-document-a::before {
-      background: no-repeat center/12px url(asset-path("icon-document-a.svg"));
+      background: no-repeat center/12px url("icon-document-a.svg");
     }
 
     a.icon-refresh-a::before {
-      background: no-repeat center/16px url(asset-path("icon-refresh-a.svg"));
+      background: no-repeat center/16px url("icon-refresh-a.svg");
     }
   }
 
