@@ -1,6 +1,6 @@
-@import "variables";
-@import "mixins/controls";
-@import "mixins/layouts";
+@use "variables" as *;
+@use "mixins/controls" as *;
+@use "mixins/layouts" as *;
 
 .questions-index,
 .questions {

@@ -1,4 +1,4 @@
-@import "variables";
+@use "variables" as *;
 
 [data-value-projection-projected-value] {
   .project_select {

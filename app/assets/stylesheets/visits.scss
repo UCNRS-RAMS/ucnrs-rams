@@ -1,11 +1,11 @@
-@import "variables";
-@import "mixins/summary";
-@import "mixins/date_fields";
-@import "mixins/form";
-@import "mixins/controls";
-@import "mixins/tables";
-@import "mixins/flex";
-@import "mixins/layouts";
+@use "variables" as *;
+@use "mixins/summary" as *;
+@use "mixins/date_fields" as *;
+@use "mixins/form" as *;
+@use "mixins/controls" as *;
+@use "mixins/tables" as *;
+@use "mixins/flex" as *;
+@use "mixins/layouts" as *;
 
 .visits-new,
 .visits-edit,

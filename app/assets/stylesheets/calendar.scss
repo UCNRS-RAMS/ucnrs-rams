@@ -1,7 +1,7 @@
-@import "variables";
-@import "mixins/search";
-@import "mixins/tables";
-@import "mixins/input";
+@use "variables" as *;
+@use "mixins/search" as *;
+@use "mixins/tables" as *;
+@use "mixins/input" as *;
 
 .manager.calendar {
   .content {

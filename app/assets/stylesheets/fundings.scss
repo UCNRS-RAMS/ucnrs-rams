@@ -1,9 +1,9 @@
-@import "variables";
-@import "mixins/form";
-@import "mixins/tables";
-@import "mixins/date_fields";
-@import "mixins/layouts";
-@import "mixins/controls";
+@use "variables" as *;
+@use "mixins/form" as *;
+@use "mixins/tables" as *;
+@use "mixins/date_fields" as *;
+@use "mixins/layouts" as *;
+@use "mixins/controls" as *;
 
 .fundings-index,
 .fundings-create,

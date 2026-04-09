@@ -1,6 +1,6 @@
-@import "variables";
-@import "mixins/date_fields";
-@import "mixins/form";
+@use "../variables" as *;
+@use "mixins/date_fields" as *;
+@use "mixins/form" as *;
 
 @mixin inline-between {
   align-items: center;

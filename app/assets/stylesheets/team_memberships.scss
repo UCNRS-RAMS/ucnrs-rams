@@ -1,8 +1,8 @@
-@import "mixins/layouts";
-@import "mixins/form";
-@import "variables";
-@import "mixins/tables";
-@import "mixins/controls";
+@use "mixins/layouts" as *;
+@use "mixins/form" as *;
+@use "variables" as *;
+@use "mixins/tables" as *;
+@use "mixins/controls" as *;
 
 .team_memberships-index,
 .team_memberships-edit,
