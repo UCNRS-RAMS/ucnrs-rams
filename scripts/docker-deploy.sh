@@ -1,4 +1,13 @@
 #!/bin/bash
+
+# NOTE:  This is an example script for doing a deploy to ECS directly with a docker image
+# It has not been tested since we have an Automated AWS deploy pipeline from development.
+# This was LLM suggested, but HAS NOT been tested.  I'm keeping it around in case it may be useful in the future.
+# I've commented out all the dangerous commands of actually deploying, but possible the build and test commands could
+# be helpful on a local machine for testing.
+
+# If preferred we can remove the script but may be useful in the future.
+
 # Server Docker Build and Deploy Script
 # This script helps build and deploy the server Docker image for AWS and other cloud platforms
 # Used for development preview, staging, and production environments
@@ -211,25 +220,25 @@ main() {
             test_image ${VERSION}
             ;;
         push-ecr)
-            check_requirements
-            push_to_ecr ${2} ${3} ${4}
+            # check_requirements
+            # push_to_ecr ${2} ${3} ${4}
             ;;
         deploy-ecr)
-            check_requirements
-            VERSION=${2:-$(get_git_version)}
-            AWS_REGION=${3:-us-west-2}
-            AWS_ACCOUNT_ID=${4}
+#            check_requirements
+#            VERSION=${2:-$(get_git_version)}
+#            AWS_REGION=${3:-us-west-2}
+#            AWS_ACCOUNT_ID=${4}
 
-            if [ -z "${AWS_ACCOUNT_ID}" ]; then
-                print_error "AWS Account ID is required"
-                usage
-                exit 1
-            fi
-
-            build_image ${VERSION}
-            test_image ${VERSION}
-            push_to_ecr ${VERSION} ${AWS_REGION} ${AWS_ACCOUNT_ID}
-            ;;
+#            if [ -z "${AWS_ACCOUNT_ID}" ]; then
+#                print_error "AWS Account ID is required"
+#                usage
+#                exit 1
+#            fi
+#
+#            build_image ${VERSION}
+#            test_image ${VERSION}
+#            push_to_ecr ${VERSION} ${AWS_REGION} ${AWS_ACCOUNT_ID}
+#            ;;
         info)
             show_info
             ;;
