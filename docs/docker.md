@@ -3,6 +3,7 @@
 ```bash
 docker-compose -f docker-compose.yml up
 ```
+Or just `docker-compoose up` since docker-compose.yml is the default file.
 
 
 ### Docker for server type environment
@@ -31,23 +32,9 @@ AWS email service). It sounds like there is currently a SendGrid account that al
 send emails in production. It's possible we could send from that for other environments also. (?)
 
 
-
-### Probably whatever deploys new should run database migrations or trigger something when run
-
-how would this work?  The example LLM gave is
-
-```bash
-# For ECS/Fargate, create a one-off task:
-docker run --rm \
-  -e RAILS_ENV=production \
-  -e DATABASE_HOST=... \
-  # ... other env vars
-  ucnrs-rams:latest \
-  bundle exec rails db:migrate
-```
-
 ### build for Different Architecture (e.g., Intel or ARM64 for AWS Graviton)
 
+(if you need to do that, for example a mac is arm and a AWS server may be Linux amd64)
 ```bash
 # values could be linux/arm64 or linux/amd64 for example or separate by commas for multiple
 docker buildx build --platform linux/amd64,linux/amd64 -f Dockerfile.server -t ucnrs-rams:latest .
@@ -99,6 +86,7 @@ docker push ACCOUNT.dkr.ecr.REGION.amazonaws.com/ucnrs-rams:v1.0.0
   - Database loaded up alongside with docker compose
   - Logs to log/ directory
 
+
 - **Server**: Excludes development and test dependencies
   ```ruby
   bundle config set --local without 'development test'
@@ -124,11 +112,11 @@ docker push ACCOUNT.dkr.ecr.REGION.amazonaws.com/ucnrs-rams:v1.0.0
   - Volume with what's needed to run the app and expects external server or RDS, perhaps external SMTP (TBD)
   - May want to look into JSON formatted logs or pushing them to observability layer such as OpenSearch (TBD)
 
-### Resources & files
+### Resources & Files
 - Dockerfile.server -- used for compiling/running docker in a server-way (shared dev preview, staging)
 - config/puma.production.rb -- uses production-like settings for puma (w/o code reloading etc, multiple workers)
-  Note, this isn't a Rails production environment necessarily, but just to get Puma to optimize for production-like server environment
-
+- but isn't automatically used just because a rails "production" environment is used
+  
 ## Performance Tuning
 
 ### Puma Workers and Threads

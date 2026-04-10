@@ -1,6 +1,14 @@
 # Puma configuration for production deployment
 # This file is optimized for containerized production environments
 
+# config/puma.production.rb is not automatically used just because RAILS_ENV=production.
+
+# config/puma.production.rb is used only when Puma is started with that config file (e.g. -C config/puma.production.rb),
+# as in Dockerfile.server (line 118).
+
+# If you start via bundle exec rails server (like Procfile line 1), Rails/Puma typically uses
+# config/puma.rb by default, unless you explicitly override it.
+
 # The `threads` method setting takes two numbers: a minimum and maximum.
 # Configure thread pool to handle concurrent requests efficiently
 max_threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
