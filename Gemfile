@@ -62,7 +62,7 @@ end
 group :dev_server do
   # gem 'dotenv-rails'
   gem 'letter_opener_web'  # standard letter_opener requires a browser on the machine that is running the code
-  # gem 'lograge'
+  gem 'lograge'
 end
 
 group :test do
