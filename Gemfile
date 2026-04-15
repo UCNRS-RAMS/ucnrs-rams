@@ -63,10 +63,14 @@ end
 group :dev_server do
   # gem 'dotenv-rails'
 <<<<<<< HEAD
+<<<<<<< HEAD
   gem 'letter_opener_web'  # standard letter_opener requires a browser on the machine that is running the code
   gem 'lograge'
 =======
   gem 'letter_opener'
+=======
+  gem 'letter_opener_web'  # standard letter_opener requires a browser on the machine that is running the code
+>>>>>>> 790bb0f4 (attempts to get letter_opener_web available for dev_server)
   # gem 'lograge'
 >>>>>>> 1a2695cf (I hope this gets sign up working.)
 end
