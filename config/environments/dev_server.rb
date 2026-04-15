@@ -78,9 +78,27 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Use letter_opener to preview emails in browser instead of sending them
-  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.delivery_method = :letter_opener_web
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+
+  # External URL settings for links in emails/routes.
+  app_host = ENV.fetch("MAILER_HOST", ENV.fetch("HOST", "rams-dev.uc3dev.cdlib.net"))
+  app_protocol = ENV.fetch("MAILER_PROTOCOL", ENV.fetch("PROTOCOL", "https"))
+  app_port = ENV["MAILER_PORT"].presence # do NOT fall back to internal PORT
+
+  default_port = app_protocol == "https" ? 443 : 80
+
+  url_options = {
+    host: app_host,
+    protocol: app_protocol,
+  }.tap do |options|
+    if app_port.present? && app_port.to_i != default_port
+      options[:port] = app_port.to_i
+    end
+  end
+
+  config.action_mailer.default_url_options = url_options
+  Rails.application.routes.default_url_options = url_options
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

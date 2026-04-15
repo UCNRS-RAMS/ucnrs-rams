@@ -198,4 +198,7 @@ Rails.application.routes.draw do
     resources :reports, only: [:index]
     resources :new_features
   end
+  if Rails.env.dev_server?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 end

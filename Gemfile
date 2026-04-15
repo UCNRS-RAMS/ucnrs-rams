@@ -60,6 +60,12 @@ group :development do
   gem 'web-console', '>= 4.1.0'
 end
 
+group :dev_server do
+  # gem 'dotenv-rails'
+  gem 'letter_opener_web'  # standard letter_opener requires a browser on the machine that is running the code
+  # gem 'lograge'
+end
+
 group :test do
   gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver'
