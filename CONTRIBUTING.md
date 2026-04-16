@@ -111,7 +111,43 @@ git push origin feature/your-feature-name
 
 ### 9. Create a Pull Request
 Go to the original repository and create a pull request from your forked repository. Follow the template provided and include as much detail as possible including instructions for how to test the change if applicable.
-Be sure to reference the issue number if your pull request addresses a specific issue!
+Be sure to reference the issue number if your pull request addresses a specific issue.
+
+### Pull Request Review Process
+
+All changes to the codebase must be submitted through a pull request (PR). 
+
+#### Review Requirements
+
+* Each pull request must be reviewed and approved by at least one other contributor before it can be merged.
+* Reviewers should verify:
+
+  * Code quality and readability
+  * Alignment with existing architecture and patterns
+  * Adequate test coverage or validation steps
+  * That any related documentation is updated as needed
+
+#### Status Checks
+
+* All automated checks (e.g., CI tests, linting) must pass before a pull request can be merged.
+* Pull requests that fail checks should not be merged until issues are resolved.
+
+#### Testing & Validation
+
+* PRs should include clear instructions for testing, where applicable.
+* Contributors are encouraged to validate changes in a local or staging environment prior to requesting review.
+
+#### Timeliness & Collaboration
+
+* Reviewers should aim to provide feedback within a reasonable timeframe (1-2 business days).
+* If feedback is not received after a reasonable period, contributors may follow up or proceed with additional reviewers as needed.
+
+#### Merging
+
+* Once approval has been obtained and all checks have passed, the pull request may be merged.
+* The person merging the PR is responsible for ensuring that all requirements have been met.
+
+This process is intended to ensure code quality, maintain system stability, and support effective collaboration across teams.
 
 ### 10. Address Feedback
 We may request changes or provide feedback on your pull request. Please address any feedback promptly to help us review and merge your changes.
