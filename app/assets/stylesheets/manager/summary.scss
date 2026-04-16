@@ -1,8 +1,9 @@
+@use "sass:color";
 @use "variables" as *;
 @use "mixins/tables" as *;
 
 .visit-summary-edit {
-  background-color: lighten($bluegray, 35%);
+  background-color: color.adjust($bluegray, $lightness: 35%);
   font-size: 0.875rem;
   margin-bottom: 3rem;
   padding: 30px;

@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Font Names
 $sans-serif: sans-serif;
 $sora: "Sora";
@@ -26,15 +28,15 @@ $black: #000000;
 $darker-gray: #1D1D1D;
 $cornflower: #6dccf6;
 $dark-bluegray: #556b72;
-$bluegray: lighten($dark-bluegray, 20%);
-$light-bluegray: lighten($dark-bluegray, 40%);
-$extra-light-bluegray: lighten($dark-bluegray, 52%);
+$bluegray: color.adjust($dark-bluegray, $lightness: 20%);
+$light-bluegray: color.adjust($dark-bluegray, $lightness: 40%);
+$extra-light-bluegray: color.adjust($dark-bluegray, $lightness: 52%);
 $semidark-bluegray: #5D747C;
 
 $gold: #ffb511;
-$light-gold: lighten($gold, 30%);
-$medium-light-gold: lighten($gold, 25%);
-$medium-dark-gold: darken($gold, 5%);
+$light-gold: color.adjust($gold, $lightness: 30%);
+$medium-light-gold: color.adjust($gold, $lightness: 25%);
+$medium-dark-gold: color.adjust($gold, $lightness: -5%);
 
 $blue: #84d7f5;
 $yellow: #fefea4;
@@ -42,7 +44,7 @@ $pink: #f9c;
 $gray: #aab7bb;
 $green: #c4fcb9;
 $red-alert: #ff9e9e;
-$dark-gray: darken($gray, 25%);
+$dark-gray: color.adjust($gray, $lightness: -25%);
 $darker-gray: #1D1D1D;
 $light-gray: #f3f6f7;
 $light-light-blue: #f3f6f7;
@@ -50,7 +52,7 @@ $navy-blue: #002045;
 $navy-blue-025: rgba($navy-blue, .025);
 $navy-blue-20: rgba($navy-blue, .20);
 $red: #c03e2d;
-$light-red: lighten($red, 45%);
+$light-red: color.adjust($red, $lightness: 45%);
 $sky-blue: rgba(18, 149, 216, 1);
 $dark-sky-blue: rgba(14, 118, 170, 1);
 $white: #ffffff;
