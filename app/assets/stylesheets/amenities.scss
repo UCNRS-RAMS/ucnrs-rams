@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "variables" as *;
 
 .amenity_group{
@@ -10,7 +11,7 @@
 
   header {
     align-items: center;
-    background-color: lighten($bluegray, 35%);
+    background-color: color.adjust($bluegray, $lightness: 35%);
     border-radius: $border-radius;
     display: flex;
     justify-content: space-between;
@@ -31,7 +32,7 @@
   }
 
   header:hover {
-    background-color: lighten($bluegray, 30%);
+    background-color: color.adjust($bluegray, $lightness: 30%);
 
     h3 {
       color: $black;
@@ -145,7 +146,7 @@
       }
 
       .bookings {
-        background: lighten($bluegray, 30%);
+        background: color.adjust($bluegray, $lightness: 30%);
         border-bottom-left-radius: $border-radius;
         border-bottom-right-radius: $border-radius;
         width: 100%;
@@ -288,7 +289,7 @@
     }
 
     input:checked + label.amenity-label {
-      background: lighten($bluegray, 35%);
+      background: color.adjust($bluegray, $lightness: 35%);
       border: 2px solid $black;
       color: $black;
 
@@ -314,7 +315,7 @@
       }
 
       .content {
-        background: lighten($bluegray, 35%);
+        background: color.adjust($bluegray, $lightness: 35%);
 
         a.showing {
           color: $dark-bluegray;
