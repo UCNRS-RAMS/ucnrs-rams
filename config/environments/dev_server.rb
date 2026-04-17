@@ -69,8 +69,18 @@ Rails.application.configure do
   end
 
   # Skip the health check endpoint — the load balancer pings it constantly and it's noisy.
-  # This matches the route: get "up" => "rails/health#show"
-  config.lograge.ignore_actions = ['rails/health#show']
+  # Depending on Rails/Lograge internals, controller can appear as route-style
+  # (rails/health#show) or class-style (Rails::HealthController#show).
+  config.lograge.ignore_actions = [
+    "rails/health#show",
+    "Rails::HealthController#show",
+  ]
+
+  # Path-based fallback in case controller naming differs across environments.
+  config.lograge.ignore_custom = ->(event) do
+    request_path = event.payload[:path] || event.payload[:original_fullpath]
+    request_path == "/up"
+  end
 
   config.lograge.custom_options = ->(event) do
     params_to_skip = %w[_method action authenticity_token commit controller format id]
