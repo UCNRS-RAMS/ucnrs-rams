@@ -52,6 +52,11 @@ group :development, :test do
   gem 'simplecov', require: false
 end
 
+# this is for testing when needed
+# group :development, :test, :dev_server do
+#   gem 'dotenv-rails'
+# end
+
 group :development do
   gem 'letter_opener'
   gem 'listen'
@@ -60,6 +65,7 @@ group :development do
 end
 
 group :dev_server do
+<<<<<<< HEAD
   # gem 'dotenv-rails'
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -72,6 +78,11 @@ group :dev_server do
 >>>>>>> 790bb0f4 (attempts to get letter_opener_web available for dev_server)
   # gem 'lograge'
 >>>>>>> 1a2695cf (I hope this gets sign up working.)
+=======
+  gem 'letter_opener_web'  # standard letter_opener requires a browser on the machine that is running the code
+  gem 'lograge'
+  gem 'logstash-event'  # required by Lograge::Formatters::Logstash for OpenSearch-compatible JSON output
+>>>>>>> 6c9cce41 (Lograge and logstash for sending to OpenSearch)
 end
 
 group :test do
