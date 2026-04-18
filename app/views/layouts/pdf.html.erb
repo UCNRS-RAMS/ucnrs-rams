@@ -5,8 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <%= wicked_pdf_stylesheet_link_tag 'application' %>
-    <%= wicked_pdf_stylesheet_link_tag 'application_pdf' %>
+    <%= stylesheet_link_tag "application", media: "all", host: ENV.fetch("HOST") %>
   </head>
   <body class="pdf-show">
     <%= yield %>
