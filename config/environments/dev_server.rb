@@ -1,4 +1,5 @@
 require "active_support/core_ext/integer/time"
+require Rails.root.join("lib/dev_server_structured_logging")
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -84,11 +85,10 @@ Rails.application.configure do
 
   config.lograge.custom_options = ->(event) do
     params_to_skip = %w[_method action authenticity_token commit controller format id]
-    event_time = event.time.respond_to?(:iso8601) ? event.time : Time.at(event.time.to_f).utc
 
     {
-      time: event_time.iso8601(6), # ISO8601 string for proper JSON/OpenSearch timestamp
       params: (event.payload[:params] || {}).except(*params_to_skip),
+      request_id: event.payload[:request_id],
     }
   end
 
@@ -143,16 +143,16 @@ Rails.application.configure do
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
-  # Use default logging formatter so that PID and timestamp are not suppressed.
-  # Note: this applies to non-request log lines (startup, ActiveRecord, etc.).
-  # Lograge handles request lines and formats them as JSON.
-  config.log_formatter = ::Logger::Formatter.new
+  # JSON formatter for non-request logs and parsed request logs.
+  # Implementation lives in lib/ for reuse and cleaner environment config.
+  config.log_formatter = DevServerStructuredLogging.json_formatter
 
   # Always log to STDOUT in this environment so logs are captured by the container
   # runtime and forwarded to OpenSearch.
   logger           = ActiveSupport::Logger.new(STDOUT)
   logger.formatter = config.log_formatter
-  config.logger    = ActiveSupport::TaggedLogging.new(logger)
+  config.logger    = logger
+  config.lograge.logger = logger
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
