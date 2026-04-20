@@ -54,9 +54,9 @@ group :development, :test do
 end
 
 # this is for testing when needed
-# group :development, :test, :dev_server do
-#   gem 'dotenv-rails'
-# end
+group :development, :test, :dev_server do
+  gem 'dotenv-rails'
+end
 
 group :development do
   gem 'letter_opener'
