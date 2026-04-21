@@ -66,24 +66,10 @@ group :development do
 end
 
 group :dev_server do
-<<<<<<< HEAD
-  # gem 'dotenv-rails'
-<<<<<<< HEAD
-<<<<<<< HEAD
+  gem 'dotenv-rails'
   gem 'letter_opener_web'  # standard letter_opener requires a browser on the machine that is running the code
   gem 'lograge'
-=======
-  gem 'letter_opener'
-=======
-  gem 'letter_opener_web'  # standard letter_opener requires a browser on the machine that is running the code
->>>>>>> 790bb0f4 (attempts to get letter_opener_web available for dev_server)
-  # gem 'lograge'
->>>>>>> 1a2695cf (I hope this gets sign up working.)
-=======
-  gem 'letter_opener_web'  # standard letter_opener requires a browser on the machine that is running the code
-  gem 'lograge'
-  gem 'logstash-event'  # required by Lograge::Formatters::Logstash for OpenSearch-compatible JSON output
->>>>>>> 6c9cce41 (Lograge and logstash for sending to OpenSearch)
+  gem 'logstash-event'
 end
 
 group :test do
