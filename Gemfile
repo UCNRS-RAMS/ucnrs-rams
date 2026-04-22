@@ -18,7 +18,7 @@ gem 'nokogiri', '>= 1.16.5'
 gem "paranoia", "~> 3"
 gem "propshaft"
 gem 'puma', '>= 5.0'
-gem 'rails', '~> 8.0.0'
+gem 'rails', '~> 8.1.0'
 gem 'shakapacker'
 gem 'simple_calendar', '~> 3.0'
 gem 'turbo-rails', '~> 1.4'
