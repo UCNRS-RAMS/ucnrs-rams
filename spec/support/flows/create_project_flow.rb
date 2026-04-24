@@ -52,6 +52,13 @@ class CreateProjectFlow
       .has_css?("input:checked")
   end
 
+  def has_no_selected_project_type?(name)
+    page
+      .first("label", text: name)
+      .first(:xpath, ".//..")
+      .has_no_css?("input:checked")
+  end
+
   def showing_project_form?(name)
     type = name.downcase.tr(" ", "_")
     page.has_css?("form div.#{type}")

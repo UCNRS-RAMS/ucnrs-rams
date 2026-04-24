@@ -7,9 +7,8 @@ class ProjectForm
     ActiveModel::Name.new(Project)
   end
 
-  def initialize(user: User.new, params: {}, file_index: nil )
-    @project = Project.where(id: params[:id]).first ||
-      Project.new(project_type: :research)
+  def initialize(user: User.new, params: {}, file_index: nil)
+    @project = Project.where(id: params[:id]).first || Project.new
     @project.applicant ||= user
     @project.owner ||= user
     @project.status ||= :incomplete
@@ -19,6 +18,7 @@ class ProjectForm
   end
 
   attr_reader :project, :file_index
+
   delegate :valid?, :validate, :errors, to: :project
   delegate_missing_to :project
 
