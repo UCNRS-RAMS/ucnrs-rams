@@ -160,7 +160,7 @@ RSpec.describe ProjectForm, type: :model do
 
       expect(Rails.logger).to have_received(:error)
       expect(result).to be false
-    end 
+    end
   end
 
   describe "initializing" do
@@ -171,7 +171,7 @@ RSpec.describe ProjectForm, type: :model do
         title: nil,
         thesis_title: nil,
         abstract: nil,
-        project_type: "research",
+        project_type: nil,
         start_date: "",
         end_date: "",
         discipline: nil,

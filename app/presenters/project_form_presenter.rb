@@ -3,7 +3,7 @@
 class ProjectFormPresenter
   def initialize(user:, current_step:, form: nil, project_type: nil, show_modal: true)
     @user = user
-    @project_type = project_type || :research
+    @project_type = project_type
     @form = form || ProjectForm.new(params: { project_type: @project_type })
     @current_step = current_step
     @steps_presenter = StepsPresenter.new(@current_step)
@@ -11,6 +11,7 @@ class ProjectFormPresenter
   end
 
   attr_reader :form, :project_type, :show_modal
+
   delegate :svg, :step_class, to: :steps_presenter
   delegate :id, to: :form
 

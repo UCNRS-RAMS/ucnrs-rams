@@ -8,7 +8,9 @@
   <%= form_with model: @presenter.form, data: { controller: "turbo-content" }, id: "projects-new" do |form| %>
     <section class="form-subsection">
       <header>
-        <h2><%= t(".project_type_options.title") %></h2>
+        <h2>
+          <%= form.label(:project_type, t(".project_type_options.title")) %>
+        </h2>
         <small>
           <%= link_to t(".project_types_accepted"),
             reserves_project_types_path(),
@@ -18,6 +20,7 @@
 
       <div class="project-type-options" data-controller="value-projection"
         data-value-projection-projected-value="<%= form.object.project_type %>">
+        <%= form.hidden_field :project_type, value: "" %>
         <% @presenter.project_type_options.each do |project_type| %>
           <label for="project-type-<%= project_type %>">
             <%= form.radio_button :project_type, project_type, id: "project-type-#{project_type}",

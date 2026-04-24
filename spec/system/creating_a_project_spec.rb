@@ -26,6 +26,12 @@ RSpec.describe "Creating a project", type: :system, js: true do
 
     flow.visit_new_project_page
     flow.dismiss_modal
+    expect(flow).to have_no_selected_project_type("Research")
+    expect(flow).to have_no_selected_project_type("Meeting")
+    expect(flow).to have_no_selected_project_type("Class")
+    expect(flow).to have_no_selected_project_type("Public Use")
+
+    flow.select_project_type("Research")
     expect(flow).to have_selected_project_type("Research")
     expect(flow).to be_showing_project_form("Research")
 
@@ -71,6 +77,7 @@ RSpec.describe "Creating a project", type: :system, js: true do
     flow.dismiss_modal
     expect(page).to be_axe_clean
 
+    flow.select_project_type("Research")
     flow.fill_out_new_project_form(
       title: "Project Title",
       thesis_title: "Thesis Title",

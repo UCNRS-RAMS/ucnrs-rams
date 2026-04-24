@@ -44,6 +44,8 @@ class Project < ApplicationRecord
   has_many :reserve_notes, as: :record, dependent: :destroy
   has_many :logs, as: :record, dependent: :destroy
 
+  validates :project_type, presence: true
+
   with_options(if: :project_type_research?) do
     validates :title, presence: true
     validates :abstract, presence: true

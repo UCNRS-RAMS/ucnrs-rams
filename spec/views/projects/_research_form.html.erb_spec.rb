@@ -114,7 +114,7 @@ RSpec.describe "app/views/projects/_research_form.html.erb", type: :view do
   context "when displaying errors" do
     it "displays errors on all validated fields" do
       user = User.new
-      project_form = ProjectForm.new(params: {}, user: user)
+      project_form = ProjectForm.new(params: { project_type: :research }, user: user)
       project_form.validate
       presenter = ProjectFormPresenter.new(
         user: user,

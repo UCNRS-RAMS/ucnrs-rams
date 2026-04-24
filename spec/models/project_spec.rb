@@ -14,6 +14,8 @@ RSpec.describe Project, type: :model do
   end
 
   describe "validations" do
+    it { is_expected.to validate_presence_of(:project_type) }
+
     context "when the project_type is research" do
       subject { Project.new(project_type: :research) }
       it { is_expected.to validate_presence_of(:title) }
