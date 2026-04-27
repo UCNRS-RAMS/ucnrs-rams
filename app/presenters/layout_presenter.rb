@@ -36,7 +36,7 @@ class LayoutPresenter
   end
 
   def current_user_first_managed_reserve
-    current_user.managed_reserve_ids.first
+    current_user.managed_reserves.alphabetized.ids.first
   end
 
   def in_manager_namespace?

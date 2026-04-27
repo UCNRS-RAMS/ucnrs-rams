@@ -8,7 +8,7 @@ RSpec.describe ProjectShowPresenter do
       travel_to Time.zone.local(2004, 11, 24)
       project = create(:project, created_at: Time.current)
       reserve = create(:reserve)
-      presenter = Manager::ProjectShowPresenter.new(project: project, reserve: reserve, current_user: user) 
+      presenter = Manager::ProjectShowPresenter.new(project: project, reserve: reserve, current_user: user)
 
       expect(presenter.created_at).to eq "Nov. 24, 2004"
     end
@@ -66,15 +66,18 @@ RSpec.describe ProjectShowPresenter do
 
   describe "#reserve_names" do
     it "display the reserves name of visits for project" do
-      project = create(:project)
+      project1 = create(:project)
+      project2 = create(:project)
       reserve1 = create(:reserve, name: "Test Reserve 1")
       reserve2 = create(:reserve, name: "Test Reserve 2")
-      create(:visit, project: project, reserve: reserve1)
-      create(:visit, project: project, reserve: reserve2)
+      reserve3 = create(:reserve, name: "Test Reserve 3")
+      create(:visit, project: project1, reserve: reserve1, starts_at: 3.days.ago)
+      create(:visit, project: project1, reserve: reserve2, starts_at: 2.days.ago)
+      create(:visit, project: project2, reserve: reserve3, starts_at: 1.day.ago)
       reserve = create(:reserve)
-      presenter = Manager::ProjectShowPresenter.new(project: project, reserve: reserve, current_user: user)
+      presenter = Manager::ProjectShowPresenter.new(project: project1, reserve: reserve, current_user: user)
 
-      expect(presenter.reserve_names).to eq "Test Reserve 1, Test Reserve 2"
+      expect(presenter.reserve_names).to eq "Test Reserve 2, Test Reserve 1"
     end
   end
 
