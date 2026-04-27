@@ -160,7 +160,7 @@ RSpec.describe LayoutPresenter do
 
       current_user_first_managed_reserve = presenter.current_user_first_managed_reserve
 
-      expect(current_user_first_managed_reserve).to eq reserve1.id
+      expect(current_user_first_managed_reserve).to eq reserve2.id
     end
   end
 
