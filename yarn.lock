@@ -1741,29 +1741,22 @@
   resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.2.301.tgz#63035b8e00790343148457cc6dd8b391d1161720"
   integrity sha512-tFLZ5tocUeUkyQeHjN5l/lL7Jnvy0eeQZlwyq4pe4Ggew+rGdiKYudG3mHMqfKHBzmC4nV31aRhnsSjrNmNBGQ==
 
-"@rails/actioncable@~8.0.0":
-  version "8.0.500"
-  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-8.0.500.tgz#a1865ef3719c3dfc4184c80cc21fa3cc69904d27"
-  integrity sha512-XxcbptAQlKBy71CwIvakNCwKbJNBSpFGqJNe6WOjhrdh5drqITGQjD8eegfD7yrhqgbJ87YBGR5SgVDCH1l8cQ==
+"@rails/actioncable@~8.1.0":
+  version "8.1.300"
+  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-8.1.300.tgz#bfd50813be0225a0403bddb11e8ba9a00b1fb135"
+  integrity sha512-zOENQsq3NM2jyBY6Z2qtZa3V/R/6OEqA+LGKixQbBMl7kk/J3FXDRcszPe74LsHNgB01jCl/DXu/xA8sHt4I/g==
 
-"@rails/actiontext@~8.0.0":
-  version "8.0.500"
-  resolved "https://registry.yarnpkg.com/@rails/actiontext/-/actiontext-8.0.500.tgz#886e8a8b108a9382bd75caccb14a1b0e88101bce"
-  integrity sha512-btM3XWB+8+HFAW5AaIVH9kY8YSm7sigIOeKOYdUGvYZxqcuoFGsn0qU8P8PiP26rGJP4J/QKsuWLJAewHB4MKQ==
+"@rails/actiontext@~8.1.0":
+  version "8.1.300"
+  resolved "https://registry.yarnpkg.com/@rails/actiontext/-/actiontext-8.1.300.tgz#0b6d0a40e8ca8ba2caf5a0077e10b5503183a044"
+  integrity sha512-KPbLfZTt6aFKbdeTlU7ZzmX0uSSNhhfZx3G+2lfa6HltQ/r23HDcJnJOEVt72WKJo13IS5C5HK0sYwplVMCdNw==
   dependencies:
-    "@rails/activestorage" ">= 8.0.0-alpha"
+    "@rails/activestorage" ">= 8.1.0-alpha"
 
-"@rails/activestorage@>= 8.0.0-alpha":
+"@rails/activestorage@>= 8.1.0-alpha", "@rails/activestorage@~8.1.0":
   version "8.1.300"
   resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-8.1.300.tgz#624a6f291e0414c07c3d02ed3d1e6ee85c94277b"
   integrity sha512-AOv3zZrTJjQlzm4L9uzOQtCz6zaM4IqUyux6yzSqmS+PZ8EzwD1F2JAc4LlJNJAv4MSyNYriG+CaCm1QbQTjsA==
-  dependencies:
-    spark-md5 "^3.0.1"
-
-"@rails/activestorage@~8.0.0":
-  version "8.0.500"
-  resolved "https://registry.yarnpkg.com/@rails/activestorage/-/activestorage-8.0.500.tgz#fcd70930a79aa1eaa4387d1c4141f235fb4199cc"
-  integrity sha512-GZZCA93MlzlIg3/p5hPXJNYy9U0QclloAZ4UA2UJT9IEzNjogwrtTrVdRfYaX+/w8gBT2AZnuggiggpnD1gSzg==
   dependencies:
     spark-md5 "^3.0.1"
 
