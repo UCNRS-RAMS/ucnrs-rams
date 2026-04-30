@@ -11,11 +11,11 @@ class Manager::InvoiceFLow
   end
 
   def visit_manager_projects_invoice_detail_page
-    page.visit("/manager/reserves/#{reserve_id}/visits/#{visit_id}/invoices/#{invoice_id}")
+    page.visit("/manager/reserves/#{reserve_id}/invoices/#{invoice_id}")
   end
 
   def visit_manager_projects_invoice_edit_page
-    page.visit("/manager/reserves/#{reserve_id}/visits/#{visit_id}/invoices/#{invoice_id}/edit")
+    page.visit("/manager/reserves/#{reserve_id}/invoices/#{invoice_id}/edit")
   end
 
   def showing_visit_info?

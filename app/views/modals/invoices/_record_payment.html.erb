@@ -8,7 +8,7 @@
       %>
     </div>
 
-    <%= form_with model: @form.invoice_payment, url: @form.editing ? manager_reserve_visit_invoice_payment_path : manager_reserve_visit_invoice_payments_path do |f| %>
+    <%= form_with model: @form.invoice_payment, url: @form.editing ? manager_reserve_invoice_payment_path : manager_reserve_invoice_payments_path do |f| %>
       <section>
         <header class="modal-header">
           <h2><%= t(".record_payment") %></h2>

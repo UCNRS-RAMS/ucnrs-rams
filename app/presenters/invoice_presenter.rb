@@ -33,7 +33,7 @@ class InvoicePresenter
   end
 
   def manager_show_path
-    manager_reserve_visit_invoice_path(reserve_id: reserve_id, visit_id: visit_id, id: id)
+    manager_reserve_invoice_path(reserve_id: reserve_id, id: id)
   end
 
   def invoice_status

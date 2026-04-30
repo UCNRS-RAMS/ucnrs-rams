@@ -23,7 +23,7 @@ class Manager::InvoicesController < Manager::ApplicationController
     @form = InvoiceForm.new(invoice: invoice, params: params)
     if @form.save
       create_log(action: :created, invoice: @form.invoice, visit: @form.visit)
-      redirect_to manager_reserve_visit_invoice_path(id: @form.invoice_id)
+      redirect_to manager_reserve_invoice_path(current_reserve, @form.invoice_id)
     else
       @presenter = Manager::Invoices::InvoicesFormPresenter.new(visit: visit, form: @form)
       flash.now[:alert] = I18n.translate("manager.no_amenity_visit") if !@form.has_amenity_visit?
@@ -34,7 +34,7 @@ class Manager::InvoicesController < Manager::ApplicationController
   def edit
     form = InvoiceForm.new(
       invoice: invoice,
-      params: { visit_id: params[:visit_id] },
+      params: { visit_id: invoice.visit_id },
       editing: true,
       remove_filter: true
     )
@@ -48,7 +48,7 @@ class Manager::InvoicesController < Manager::ApplicationController
   def update
     @form = InvoiceForm.new(invoice: invoice, params: params, editing: true)
     if @form.save
-      redirect_to manager_reserve_visit_invoice_path(id: @form.invoice_id)
+      redirect_to manager_reserve_invoice_path(current_reserve, @form.invoice_id)
     else
       @presenter = Manager::Invoices::InvoiceEditPresenter.new(
         visit: visit,
@@ -67,19 +67,22 @@ class Manager::InvoicesController < Manager::ApplicationController
   end
 
   def destroy
+    visit_id = invoice.visit_id
     if invoice.destroy
-      redirect_to new_manager_reserve_visit_invoice_path
+      redirect_to new_manager_reserve_visit_invoice_path(current_reserve, visit_id)
     end
   end
 
   private
 
   def invoice
-    visit.invoices.find_by(id: params[:id])
+    return nil if params[:id].blank?
+
+    @invoice ||= Invoice.find(params[:id])
   end
 
   def visit
-    Visit.find(params[:visit_id])
+    @visit ||= params[:visit_id] ? Visit.find(params[:visit_id]) : invoice.visit
   end
 
   def page_number

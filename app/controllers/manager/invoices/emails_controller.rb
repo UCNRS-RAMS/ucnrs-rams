@@ -22,7 +22,7 @@ class Manager::Invoices::EmailsController < Manager::ApplicationController
     send_invoice_email!(invoice: invoice, email_params: email_params)
 
     flash[:notice] = "Invoice has been successfully emailed."
-    redirect_to manager_reserve_visit_invoice_path(current_reserve, invoice.visit, invoice)
+    redirect_to manager_reserve_invoice_path(current_reserve, invoice)
   end
 
   private
