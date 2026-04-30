@@ -2,7 +2,7 @@
   <td class="invoice-number">
     <strong>
       <%= link_to invoice.invoice_id,
-        manager_reserve_visit_invoice_path(invoice.reserve_id, invoice.visit_id, invoice.id),
+        manager_reserve_invoice_path(invoice.reserve_id, invoice.id),
         data: { "turbo-frame" => "_top" }
       %>
     </strong>
@@ -29,7 +29,7 @@
   <td class="invoice-balance"><%= invoice.amount %></td>
   <td class="invoice-status"><%= invoice.invoice_status %></td>
   <td class="invoice-actions">
-    <%= link_to manager_reserve_visit_invoice_path(invoice.reserve_id, invoice.visit_id, invoice.id),
+    <%= link_to manager_reserve_invoice_path(invoice.reserve_id, invoice.id),
       data: { "turbo-frame" => "_top" } do
     %>
       <%= image_tag "arrow-right-circle.svg",

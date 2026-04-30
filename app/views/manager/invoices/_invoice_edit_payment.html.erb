@@ -1,11 +1,11 @@
 <tr data-controller="subtotal-invoice" data-subtotal-invoice-target="paymentRow">
   <td class="payment-action">
-    <%= link_to edit_manager_reserve_visit_invoice_payment_path(invoice_id: presenter.invoice_id, id: invoice_payment.id),
+    <%= link_to edit_manager_reserve_invoice_payment_path(invoice_id: presenter.invoice_id, id: invoice_payment.id),
       data: { turbo_frame: "modal-content" }, method: :get do
     %>
       <%= image_tag "edit_icon.svg", height: "24px", width: "24px", alt: "edit-icon" %>
     <% end %>
-    <%= link_to manager_reserve_visit_invoice_payment_path(invoice_id: presenter.invoice_id, id: invoice_payment.id),
+    <%= link_to manager_reserve_invoice_payment_path(invoice_id: presenter.invoice_id, id: invoice_payment.id),
       method: :delete  do
     %>
       <%= image_tag "icon-trash.svg", height: "24px", width: "24px", alt: "edit-icon" %>

@@ -12,7 +12,7 @@
     <%= render partial: "link", locals: { 
       presenter: presenter, 
       reserve: invoice.reserve, 
-      link_path: manager_reserve_visit_invoice_path(invoice.reserve, invoice.visit_id, invoice.id), 
+      link_path: manager_reserve_invoice_path(invoice.reserve, invoice.id),
     } %>
   </td>
 </tr>

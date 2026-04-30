@@ -105,9 +105,10 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :invoices, only: [:index] do
+      resources :invoices, only: [:index, :show, :edit, :update, :destroy] do
         resource :email, only: [:new, :create], controller: "invoices/emails"
         resource :pdf, only: [:show], controller: "invoices/pdf"
+        resources :payments, controller: "invoices/payments"
       end
 
       resources :uninvoiced, only: [:index]
@@ -136,9 +137,7 @@ Rails.application.routes.draw do
         resources :questions, only: [:index], controller: "visits/questions"
         resources :answers, only: [:create], controller: "visits/answers"
         resource :waivers_policies, only: [:show, :update], controller: "visits/waivers_policies"
-        resources :invoices, except: [:index] do
-          resources :payments, controller: "invoices/payments"
-        end
+        resources :invoices, only: [:new, :create]
 
         resource :amenity_visits, only: [:update], controller: "visits/amenity_visits"
         resource :summary, only: [:edit, :update, :show], controller: "visits/summary"

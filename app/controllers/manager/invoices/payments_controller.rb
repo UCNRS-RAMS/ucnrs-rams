@@ -12,7 +12,7 @@ class Manager::Invoices::PaymentsController < Manager::ApplicationController
     @form = InvoicePaymentForm.new(params: invoice_payment_params)
     if @form.save
       invoice.updated_balance
-      redirect_to edit_manager_reserve_visit_invoice_path(id: @form.invoice_id)
+      redirect_to edit_manager_reserve_invoice_path(current_reserve, @form.invoice_id)
     else
       @presenter = Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: current_user)
       render :new
@@ -28,7 +28,7 @@ class Manager::Invoices::PaymentsController < Manager::ApplicationController
     @form = InvoicePaymentForm.new(params: invoice_payment_params, editing: true)
     if @form.save
       invoice.updated_balance
-      redirect_to edit_manager_reserve_visit_invoice_path(id: @form.invoice_id)
+      redirect_to edit_manager_reserve_invoice_path(current_reserve, @form.invoice_id)
     else
       @presenter = Manager::Invoices::InvoiceShowPresenter.new(invoice: invoice, current_user: current_user)
       render :edit
@@ -37,7 +37,7 @@ class Manager::Invoices::PaymentsController < Manager::ApplicationController
 
   def destroy
     if invoice_payment.destroy
-      redirect_to edit_manager_reserve_visit_invoice_path(id: params[:invoice_id])
+      redirect_to edit_manager_reserve_invoice_path(current_reserve, params[:invoice_id])
     end
   end
 

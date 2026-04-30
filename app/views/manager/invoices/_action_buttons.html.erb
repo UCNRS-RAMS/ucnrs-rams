@@ -1,7 +1,7 @@
 <div class="action-buttons">
   <%= render partial: "manager/invoices/link_icon",
     locals: presenter.link_params(
-      path: manager_reserve_visit_invoice_path(id: presenter.invoice_id),
+      path: manager_reserve_invoice_path(id: presenter.invoice_id),
       method: :delete, data: {confirm: t(".confirmation_message")},
       icon: t(".delete_icon"),
       icon_alt: t(".delete_alt"),
@@ -25,7 +25,7 @@
   %>
   <%= render partial: "manager/invoices/link_icon",
     locals: presenter.link_params(
-      path: edit_manager_reserve_visit_invoice_path(id: presenter.invoice_id),
+      path: edit_manager_reserve_invoice_path(id: presenter.invoice_id),
       icon: t(".edit_icon"),
       icon_alt: t(".edit_alt"),
       classes: "edit"

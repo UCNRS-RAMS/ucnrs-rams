@@ -61,7 +61,7 @@ RSpec.describe InvoicePresenter do
   describe "#manager_show_path" do
     it "return invoice show page path" do
       presenter = InvoicePresenter.new(invoice)
-      output = "/manager/reserves/#{reserve.id}/visits/#{visit.id}/invoices/#{invoice.id}"
+      output = "/manager/reserves/#{reserve.id}/invoices/#{invoice.id}"
 
       expect(presenter.manager_show_path).to eq output
     end
