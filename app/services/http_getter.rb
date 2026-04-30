@@ -1,11 +1,14 @@
 class HttpGetter
   require "faraday"
 
+  OPEN_TIMEOUT = 5
+  TIMEOUT = 10
+
   ConnectionError = Class.new(StandardError)
 
   Response = Struct.new(:success?, :body, :headers, keyword_init: true)
 
-  def self.get(url: nil, params: nil, headers: nil)
+  def self.get(url:, params: nil, headers: nil)
     new(url: url, params: params, headers: headers).get
   end
 
@@ -22,7 +25,7 @@ class HttpGetter
       body: raw.body,
       headers: raw.headers,
     )
-  rescue Faraday::ConnectionFailed => e
+  rescue Faraday::Error => e
     raise ConnectionError, e.message
   end
 
@@ -33,6 +36,7 @@ class HttpGetter
       url: @url,
       params: @params,
       headers: @headers,
+      request: { open_timeout: OPEN_TIMEOUT, timeout: TIMEOUT },
     )
   end
 end
