@@ -4,7 +4,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/ruby:3.3.11-browsers
+      - image: cimg/ruby:3.4.9-browsers
         environment:
           RAILS_ENV: test
       - image: cimg/mysql:9.6
