@@ -44,11 +44,9 @@ group :development, :test do
   gem 'pronto'
   gem 'pronto-brakeman', require: false
   gem 'pronto-rubocop', require: false
-  gem 'pronto-scss', require: false
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 7.0'
-  gem 'scss_lint', require: false
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
 end
