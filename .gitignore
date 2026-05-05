@@ -70,3 +70,8 @@ yarn-debug.log*
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# Ignore kamal secrets file and personnal dev
+.kamal/secrets.*
+/config/deploy.*.dev.yml
+Dockerfile.*.dev.kamal
