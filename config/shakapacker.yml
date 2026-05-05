@@ -190,3 +190,11 @@ production:
     # css: "preload"
     # js: "preload"
     # debug: false
+
+dev_server:
+  <<: *default
+
+  compile: false
+  cache_manifest: true
+  early_hints:
+    enabled: false

@@ -31,6 +31,10 @@ gem "wkhtmltopdf-binary", "~> 0.12.6"
 gem "chartkick"
 gem "groupdate", '~> 6.5'
 
+# kamal + thruster for development and deployment
+gem "kamal", require: false
+gem "thruster", require: false
+
 group :development, :test do
   gem 'axe-core-capybara'
   gem 'axe-core-rspec'
