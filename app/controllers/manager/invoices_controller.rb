@@ -1,6 +1,10 @@
 class Manager::InvoicesController < Manager::ApplicationController
+  include VisitScopedToReserve
+
   before_action :authenticate_user!
   before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
+  before_action :confirm_visit_in_reserve!, only: [:new, :create]
+  before_action :confirm_invoice_in_reserve!, only: [:show, :edit, :update, :destroy]
   before_action :is_administrator_or_accountant!, only: [:create, :update, :destroy], unless: -> { super_admin? }
 
   layout "manager"
@@ -10,7 +14,7 @@ class Manager::InvoicesController < Manager::ApplicationController
       reserve: current_reserve,
       user: current_user,
       page: page_number,
-      filter: filter
+      filter: filter,
     )
   end
 
@@ -21,6 +25,7 @@ class Manager::InvoicesController < Manager::ApplicationController
 
   def create
     @form = InvoiceForm.new(invoice: invoice, params: params)
+
     if @form.save
       create_log(action: :created, invoice: @form.invoice, visit: @form.visit)
       redirect_to manager_reserve_invoice_path(current_reserve, @form.invoice_id)
@@ -36,12 +41,12 @@ class Manager::InvoicesController < Manager::ApplicationController
       invoice: invoice,
       params: { visit_id: invoice.visit_id },
       editing: true,
-      remove_filter: true
+      remove_filter: true,
     )
     @presenter = Manager::Invoices::InvoiceEditPresenter.new(
       visit: visit,
       invoice: invoice,
-      form: form
+      form: form,
     )
   end
 
@@ -53,7 +58,7 @@ class Manager::InvoicesController < Manager::ApplicationController
       @presenter = Manager::Invoices::InvoiceEditPresenter.new(
         visit: visit,
         invoice: invoice,
-        form: @form
+        form: @form,
       )
       render :edit
     end
@@ -62,7 +67,7 @@ class Manager::InvoicesController < Manager::ApplicationController
   def show
     @presenter = Manager::Invoices::InvoiceShowPresenter.new(
       invoice: invoice,
-      current_user: current_user
+      current_user: current_user,
     )
   end
 
@@ -74,6 +79,12 @@ class Manager::InvoicesController < Manager::ApplicationController
   end
 
   private
+
+  def confirm_invoice_in_reserve!
+    return true if invoice.visit.reserve_id == current_reserve.id
+
+    respond_to_modal_turbo_frame(flash_msg: I18n.translate("manager.not_authorize"))
+  end
 
   def invoice
     return nil if params[:id].blank?
@@ -100,7 +111,7 @@ class Manager::InvoicesController < Manager::ApplicationController
         :visit_date_end,
         :invoice_date_end,
         :invoice_date_begin,
-        :sort_by
+        :sort_by,
       )
     end
   end
@@ -108,12 +119,13 @@ class Manager::InvoicesController < Manager::ApplicationController
   private
 
   def create_log(action:, invoice:, visit: nil)
-    LogForm.create(params: {
+    LogForm.create(
+      params: {
         action: action,
         user_id: current_user.id,
       },
       record: invoice,
-      record_about: visit
+      record_about: visit,
     )
   end
 end
