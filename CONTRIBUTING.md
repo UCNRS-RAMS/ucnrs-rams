@@ -64,8 +64,8 @@ RAMS uses a **pull request (PR)-based workflow**.
 Start by forking this repository to your own GitHub account:
 
 ```bash
-git clone https://github.com/CDLUC3/dmptool-api.git
-cd dmptool-api
+git clone https://github.com/UCNRS-RAMS/ucnrs-rams.git
+cd ucnrs-rams
 ```
 
 ### 3. Create a Branch
