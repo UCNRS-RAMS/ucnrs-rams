@@ -6,6 +6,7 @@ ruby '3.4.9'
 gem "amazing_print"
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'carrierwave'
+gem 'csv'
 gem "cssbundling-rails"
 gem "devise", '~> 5.0'
 gem 'faraday-retry'
