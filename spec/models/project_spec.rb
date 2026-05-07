@@ -15,6 +15,7 @@ RSpec.describe Project, type: :model do
 
   describe "validations" do
     it { is_expected.to validate_presence_of(:project_type) }
+    it { is_expected.to validate_length_of(:approved_permits).is_at_most(5000) }
 
     context "when the project_type is research" do
       subject { Project.new(project_type: :research) }
