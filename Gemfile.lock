@@ -565,6 +565,7 @@ DEPENDENCIES
   carrierwave
   chartkick
   cssbundling-rails
+  csv
   devise (~> 5.0)
   dotenv-rails
   factory_bot_rails
