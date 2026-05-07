@@ -45,6 +45,7 @@ class Project < ApplicationRecord
   has_many :logs, as: :record, dependent: :destroy
 
   validates :project_type, presence: true
+  validates :approved_permits, length: { maximum: 5000 }
 
   with_options(if: :project_type_research?) do
     validates :title, presence: true

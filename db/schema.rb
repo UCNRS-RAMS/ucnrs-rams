@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_03_17_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_06_211631) do
   create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.integer "project_id", null: false
@@ -552,6 +552,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_17_120000) do
     t.integer "AnnualReportAccessTEMP", limit: 1, default: 1, null: false, comment: "DEPRECATED"
     t.integer "Discipline1", comment: "DEPRECATED Discipline of this application, if > 0 then discipline is found in the discipline table, if 0 then discipline is found in application table under column disciplineOther"
     t.string "discipline_other", limit: 30, comment: "If Discipline1 is 0 then this is the name of the discipline input by user"
+    t.text "approved_permits"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil, default: "0001-01-01 00:00:00", null: false
     t.bigint "log_id"
@@ -559,7 +560,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_17_120000) do
     t.string "metadata", default: "{}"
     t.string "discipline"
     t.string "course_number", comment: "You will find this info in the abstract field for a CLASS type project in RAM2 data"
-    t.string "approved_permits"
     t.boolean "involves_mammals"
     t.boolean "involves_reptiles"
     t.boolean "involves_amphibians"
