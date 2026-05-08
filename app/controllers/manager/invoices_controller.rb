@@ -83,7 +83,13 @@ class Manager::InvoicesController < Manager::ApplicationController
   def confirm_invoice_in_reserve!
     return true if invoice.visit.reserve_id == current_reserve.id
 
-    respond_to_modal_turbo_frame(flash_msg: I18n.translate("manager.not_authorize"))
+    respond_to_modal_turbo_frame(
+      flash_msg: I18n.translate(
+        "manager.permission.invoice_not_in_reserve",
+        id: invoice.id,
+        reserve: current_reserve.name,
+      ),
+    )
   end
 
   def invoice
@@ -115,8 +121,6 @@ class Manager::InvoicesController < Manager::ApplicationController
       )
     end
   end
-
-  private
 
   def create_log(action:, invoice:, visit: nil)
     LogForm.create(

@@ -1528,6 +1528,9 @@ en:
     not_editable: Visit is not editable after due date
     update_message: Updates were successfully made.
     not_authorize: You are not authorize to do that
+    permission:
+      visit_not_in_reserve: "Visit %{id} does not belong to %{reserve}"
+      invoice_not_in_reserve: "Invoice %{id} does not belong to %{reserve}"
     not_reserve_administrator: >-
       You do not have authorization to do this because you do not have
       administrator role
