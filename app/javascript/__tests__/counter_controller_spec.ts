@@ -21,10 +21,10 @@ describe("CounterController", () => {
 
   describe("#increment and #decrement", () => {
     it("increments and decrements the input's value", () => {
-      const output = document.getElementById("output")
+      const output = document.getElementById("output") as HTMLInputElement
       output.value = "3"
-      const down = document.getElementById("down")
-      const up = document.getElementById("up")
+      const down = document.getElementById("down") as HTMLInputElement
+      const up = document.getElementById("up") as HTMLInputElement
 
       up.click()
       expect(output.value).toEqual("4")
@@ -37,9 +37,9 @@ describe("CounterController", () => {
 
   describe("edge cases", () => {
     it("treats NaN as 0", () => {
-      const output = document.getElementById("output")
+      const output = document.getElementById("output") as HTMLInputElement
       output.value = "NoN"
-      const up = document.getElementById("up")
+      const up = document.getElementById("up") as HTMLInputElement
 
       up.click()
 
@@ -47,13 +47,24 @@ describe("CounterController", () => {
     })
 
     it("does not go below 0", () => {
-      const output = document.getElementById("output")
+      const output = document.getElementById("output") as HTMLInputElement
       output.value = "0"
-      const down = document.getElementById("down")
+      const down = document.getElementById("down") as HTMLInputElement
 
       down.click()
 
       expect(output.value).toEqual("1")
+    })
+
+    it("does not exceed the max value", () => {
+      const output = document.getElementById("output") as HTMLInputElement
+      output.max = "5"
+      output.value = "5"
+      const up = document.getElementById("up") as HTMLInputElement
+
+      up.click()
+
+      expect(output.value).toEqual("5")
     })
   })
 })
