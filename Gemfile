@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.4.9'
+ruby '4.0.3'
 
 gem "amazing_print"
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -36,7 +36,6 @@ group :development, :test do
   gem 'bullet'
   gem 'bundler-audit'
   gem 'byebug', platforms: [:mri, :windows]
-  gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'gnar-style', require: false
   gem 'launchy'
