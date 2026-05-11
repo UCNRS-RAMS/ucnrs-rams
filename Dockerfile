@@ -2,7 +2,7 @@
 FROM node:24-slim AS node
 
 # Stage 2: Build the Rails environment
-FROM ruby:3.3.11
+FROM ruby:4.0.3
 
 # Copy Node.js and package managers from the 'node' stage
 COPY --from=node /usr/local/bin/ /usr/local/bin/
@@ -47,7 +47,7 @@ RUN bundle install
 
 COPY package.json yarn.lock ./
 # Install JS dependencies
-RUN yarn install --check-files
+RUN yarn install
 
 # Copy the rest of the application code
 COPY . .
