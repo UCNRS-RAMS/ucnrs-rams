@@ -5,7 +5,7 @@ ARG BASE_IMAGE_PREFIX=""
 FROM ${BASE_IMAGE_PREFIX}node:24-slim AS node
 
 # Stage 2: Build the Rails environment
-FROM ${BASE_IMAGE_PREFIX}ruby:3.3.11-slim AS builder
+FROM ${BASE_IMAGE_PREFIX}ruby:4.0.3-slim AS builder
 
 # Install build dependencies
 RUN apt-get update -qq && apt-get install -y \
@@ -69,7 +69,7 @@ RUN RAILS_ENV=production \
     bundle exec rails assets:precompile
 
 # Stage 3: Production runtime image
-FROM ${BASE_IMAGE_PREFIX}ruby:3.3.11-slim
+FROM ${BASE_IMAGE_PREFIX}ruby:4.0.3-slim
 
 # Install runtime dependencies only
 RUN apt-get update -qq && apt-get install -y \
