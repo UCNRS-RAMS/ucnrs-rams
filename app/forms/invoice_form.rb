@@ -11,8 +11,8 @@ class InvoiceForm
     @remove_filter = remove_filter
     @editing = editing
     @params = params
-    @visit = Visit.where(id: params[:visit_id]).first
-    @invoice = invoice || @visit.invoices.new
+    @invoice = invoice || Visit.find(params[:visit_id]).invoices.new
+    @visit = @invoice.visit
     @amenity_visit_params = params.delete(:amenity_visit) || {}
     @amenity_visits ||= filtered_amenity_visits&.can_invoice_now(remove_filter)&.map(&method(:wrap_amenity_in_form))
     assign(invoice_params)
