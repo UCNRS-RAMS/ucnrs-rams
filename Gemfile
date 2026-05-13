@@ -37,7 +37,6 @@ group :development, :test do
   gem 'bundler-audit'
   gem 'byebug', platforms: [:mri, :windows]
   gem 'factory_bot_rails'
-  gem 'gnar-style', require: false
   gem 'launchy'
   gem 'lol_dba'
   gem 'okcomputer'
@@ -47,6 +46,8 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 7.0'
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
 end
