@@ -7,7 +7,7 @@ export default class extends Controller {
 
   signatureHandler() {
     const unCheckedCheckBoxes = this.agreementTargets.filter(
-      (target) => !target.checked
+      (target: HTMLInputElement) => !target.checked
     )
 
     if (unCheckedCheckBoxes.length > 0) {
@@ -16,15 +16,20 @@ export default class extends Controller {
     }
   }
 
-  agreementHandler(event) {
-    if (event.target.checked) {
-      event.target.parentElement.className = "agree"
+  agreementHandler(event: Event) {
+    const target = event.target as HTMLInputElement
+    if (target.checked) {
+      if (target.parentElement) {
+        target.parentElement.className = "agree"
+      }
     } else {
       this.signatureTarget.checked = false
     }
   }
 
   setError(target: HTMLInputElement) {
-    target.parentElement.className = "agree-error"
+    if (target.parentElement) {
+      target.parentElement.className = "agree-error"
+    }
   }
 }

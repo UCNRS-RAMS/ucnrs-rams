@@ -3,13 +3,14 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["tagsDiv", "tagCheckBox"]
   declare tagsDivTarget: HTMLDivElement
+  declare tagCheckBoxTarget: HTMLInputElement
 
   connect(): void {
     this.tagsDivTarget.style.display = "none"
   }
 
-  toggle(event: Event): void {
-    if (!this.tagsDivTarget.checked) {
+  toggle(): void {
+    if (!this.tagCheckBoxTarget.checked) {
       this.resetNamedTags()
     }
     const display = this.tagsDivTarget.style.display
@@ -17,11 +18,11 @@ export default class extends Controller {
   }
 
   resetNamedTags() {
-    let checkboxes = this.tagsDivTarget.querySelectorAll("input[type=checkbox]")
+    let checkboxes = this.tagsDivTarget.querySelectorAll<HTMLInputElement>("input[type=checkbox]")
     checkboxes.forEach((checkbox) => {
       checkbox.checked = false
     })
 
-    this.tagsDivTarget.querySelector("input").form.requestSubmit()
+    this.tagsDivTarget.querySelector<HTMLInputElement>("input")?.form?.requestSubmit()
   }
 }
