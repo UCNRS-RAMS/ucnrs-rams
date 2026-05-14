@@ -54,14 +54,14 @@ class User < ApplicationRecord
   belongs_to :billing_address_country, class_name: "Country", optional: true
   belongs_to :address_state, class_name: "State", optional: true
   belongs_to :billing_address_state, class_name: "State", optional: true
-  has_many :project_team_memberships, class_name: "ProjectTeamMembership"
+  has_many :project_team_memberships, class_name: "ProjectTeamMembership", dependent: :destroy
   has_many :projects, through: :project_team_memberships, class_name: "Project"
-  has_many :reserve_personnel
-  has_many :managed_reserves, through: :reserve_personnel, source: :reserve
-  has_many :user_visits
-  has_many :logs
-  has_many :invoice_recipients
-  has_many :invoice_payments
+  has_many :reserve_personnel, dependent: :restrict_with_error
+  has_many :managed_reserves, through: :reserve_personnel, source: :reserve, dependent: :restrict_with_error
+  has_many :user_visits, dependent: :destroy
+  has_many :logs, dependent: :destroy
+  has_many :invoice_recipients, dependent: :destroy
+  has_many :invoice_payments, dependent: :restrict_with_error
   has_many :invoices, through: :invoice_recipients
 
   def institution_name

@@ -11,7 +11,8 @@ RSpec.describe Reserve, type: :model do
     it { is_expected.to belong_to(:address_state).optional(true) }
     it { is_expected.to have_many(:amenity_rate_categories) }
     it { is_expected.to have_many(:personnel).class_name("ReservePersonnel") }
-    it { is_expected.to have_and_belong_to_many(:waivers) }
+    it { is_expected.to have_many(:reserve_waivers).dependent(:destroy) }
+    it { is_expected.to have_many(:waivers).through(:reserve_waivers) }
     it { is_expected.to have_many(:fundings) }
     it { is_expected.to have_many(:reserve_questions) }
     it { is_expected.to have_many(:addendums).class_name("ReserveAddendum") }

@@ -26,7 +26,7 @@ class ProjectPermitAnswer < ApplicationRecord
   end
 
   def self.replace_all(project_permit_answers)
-    if !project_permit_answers.blank?
+    if project_permit_answers.present?
       rows = project_permit_answers.map do |answer|
         ActiveRecord::Base.sanitize_sql([
           "(?,?,?,NOW(),NOW())",

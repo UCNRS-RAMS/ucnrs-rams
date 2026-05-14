@@ -6,7 +6,7 @@ class VisitReserveAnswer < ApplicationRecord
   validates :boolean_answer, inclusion: { in: [true, false] }, if: :required_boolean_answer
 
   def self.replace_all(visit_reserve_answers)
-    if !visit_reserve_answers.blank?
+    if visit_reserve_answers.present?
       rows = visit_reserve_answers.map do |answer|
         ActiveRecord::Base.sanitize_sql([
           "(?,?,?,?,?,?)",
