@@ -10,7 +10,7 @@ RSpec.describe "Invoice Detail" do
 
   describe "it displays visit info" do
     it "includes invoice id, modified number, reserve name, project title, purpose of visit and visit date range", js: true do
-      flow = Manager::InvoiceFLow.new(page: page, visit_id: visit.id, reserve_id: reserve.id, invoice_id: invoice.id)
+      flow = Manager::InvoiceFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id, invoice_id: invoice.id)
       sign_in(user)
 
       flow.visit_manager_projects_invoice_detail_page
@@ -27,7 +27,7 @@ RSpec.describe "Invoice Detail" do
     it " includes invoice recipients table", js: true do
       create(:project_team_membership, project: project, can_receive_invoice: true)
 
-      flow = Manager::InvoiceFLow.new(page: page, visit_id: visit.id, reserve_id: reserve.id, invoice_id: invoice.id)
+      flow = Manager::InvoiceFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id, invoice_id: invoice.id)
       sign_in(user)
 
       flow.visit_manager_projects_invoice_detail_page
@@ -41,7 +41,7 @@ RSpec.describe "Invoice Detail" do
         rate: 10, arrives: visit.starts_at, departs: visit.ends_at
       )
 
-      flow = Manager::InvoiceFLow.new(page: page, visit_id: visit.id, reserve_id: reserve.id, invoice_id: invoice.id)
+      flow = Manager::InvoiceFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id, invoice_id: invoice.id)
       sign_in(user)
 
       flow.visit_manager_projects_invoice_detail_page
@@ -51,7 +51,7 @@ RSpec.describe "Invoice Detail" do
 
   describe "it display invoice notes" do
     it "includes note message", js: true do
-      flow = Manager::InvoiceFLow.new(page: page, visit_id: visit.id, reserve_id: reserve.id, invoice_id: invoice.id)
+      flow = Manager::InvoiceFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id, invoice_id: invoice.id)
       sign_in(user)
 
       flow.visit_manager_projects_invoice_detail_page
@@ -63,7 +63,7 @@ RSpec.describe "Invoice Detail" do
   describe "Invoice detail page action buttons" do
     context "when click on trash icon" do
       it "invoice will delete after confirmation ", js: true do
-        flow = Manager::InvoiceFLow.new(page: page, visit_id: visit.id, reserve_id: reserve.id, invoice_id: invoice.id)
+        flow = Manager::InvoiceFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id, invoice_id: invoice.id)
         sign_in(user)
 
         flow.visit_manager_projects_invoice_detail_page
