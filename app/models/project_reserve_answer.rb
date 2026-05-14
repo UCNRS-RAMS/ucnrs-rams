@@ -24,7 +24,7 @@ class ProjectReserveAnswer < ApplicationRecord
   end
 
   def self.replace_all(project_reserve_answers)
-    if !project_reserve_answers.blank?
+    if project_reserve_answers.present?
       rows = project_reserve_answers.map do |answer|
         ActiveRecord::Base.sanitize_sql([
           "(?,?,?,?,?,?)",

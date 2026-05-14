@@ -16,16 +16,17 @@ class Reserve < ApplicationRecord
   belongs_to :billing_address_country, class_name: "Country", optional: true
   belongs_to :address_state, class_name: "State", optional: true
   belongs_to :billing_address_state, class_name: "State", optional: true
-  has_many :amenities
-  has_many :amenity_rate_categories
-  has_many :personnel, class_name: "ReservePersonnel"
-  has_and_belongs_to_many :waivers
-  has_many :fundings
-  has_many :reserve_questions
-  has_many :addendums, class_name: "ReserveAddendum"
-  has_many :reserve_permits
-  has_many :permits, through: :reserve_permits
-  has_many :visits
+  has_many :amenities, dependent: :destroy
+  has_many :amenity_rate_categories, dependent: :destroy
+  has_many :personnel, class_name: "ReservePersonnel", dependent: :destroy
+  has_many :reserve_waivers, dependent: :destroy
+  has_many :waivers, through: :reserve_waivers
+  has_many :fundings, dependent: :destroy
+  has_many :reserve_questions, dependent: :destroy
+  has_many :addendums, class_name: "ReserveAddendum", dependent: :destroy
+  has_many :reserve_permits, dependent: :destroy
+  has_many :permits, through: :reserve_permits, dependent: :destroy
+  has_many :visits, dependent: :destroy
   has_many :reserve_tags, dependent: :destroy
 
   def self.blank

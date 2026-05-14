@@ -90,6 +90,12 @@ class Institution < ApplicationRecord
     end
   end
 
+  def self.tokenize(query)
+    URI.decode_www_form_component(query).strip.split
+  end
+
+  private_class_method :tokenize
+
   private
 
   def required_for_country?
@@ -102,7 +108,4 @@ class Institution < ApplicationRecord
     end
   end
 
-  def self.tokenize(query)
-    return URI.decode_www_form_component(query).strip.split
-  end
 end

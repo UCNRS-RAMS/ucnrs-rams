@@ -2,7 +2,8 @@ require "rails_helper"
 
 RSpec.describe Waiver, type: :model do
   describe "associations" do
-    it { is_expected.to have_and_belong_to_many(:reserves) }
+    it { is_expected.to have_many(:reserve_waivers).dependent(:destroy) }
+    it { is_expected.to have_many(:reserves).through(:reserve_waivers) }
   end
 
   describe "validations" do
