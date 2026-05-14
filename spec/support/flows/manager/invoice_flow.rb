@@ -1,4 +1,4 @@
-class Manager::InvoiceFLow
+class Manager::InvoiceFlow
   def initialize(page:, visit_id:, reserve_id:, invoice_id: nil)
     @page = page
     @visit_id = visit_id
@@ -64,11 +64,26 @@ class Manager::InvoiceFLow
     page.click_on("Save")
   end
 
+  def click_update_btn
+    page.click_on("Update")
+  end
+
+  def fill_notes(text)
+    page.fill_in("invoice_notes", with: text)
+  end
+
+  def on_invoice_show_page?
+    page.has_current_path?(
+      "/manager/reserves/#{reserve_id}/invoices/#{invoice_id}",
+      wait: Capybara.default_max_wait_time,
+    )
+  end
+
   def showing_errors?
     page.has_css?(".error")
   end
 
-  def showing_payment_madal?
+  def showing_payment_modal?
     page.has_css?(".modal-content")
   end
 
