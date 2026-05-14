@@ -10,8 +10,8 @@ class Visit < ApplicationRecord
   has_many :amenities, through: :amenity_visits
   has_many :user_visits, dependent: :destroy
   has_many :visitors, through: :user_visits, source: :user
-  has_many :reserve_notes, as: :record
-  has_many :logs, as: :record
+  has_many :reserve_notes, as: :record, dependent: :destroy
+  has_many :logs, as: :record, dependent: :destroy
   has_many :visit_reserve_answers, dependent: :destroy
   has_many :invoices, dependent: :destroy
 
@@ -53,7 +53,7 @@ class Visit < ApplicationRecord
   }
 
   def project_type
-    project.project_type if project.present?
+    project.presence&.project_type
   end
 
   def self.recent_start_date_first
@@ -135,19 +135,11 @@ class Visit < ApplicationRecord
   end
 
   def starts_at
-    if read_attribute(:starts_at).present?
-      read_attribute(:starts_at)
-    else
-      change_date_for_datetime(start_time, start_date)
-    end
+    read_attribute(:starts_at).presence || change_date_for_datetime(start_time, start_date)
   end
 
   def ends_at
-    if read_attribute(:ends_at).present?
-      read_attribute(:ends_at)
-    else
-      change_date_for_datetime(end_time, end_date)
-    end
+    read_attribute(:ends_at).presence || change_date_for_datetime(end_time, end_date)
   end
 
   def update_visit_status
@@ -268,10 +260,13 @@ class Visit < ApplicationRecord
     starts = [*user_visits.find_each.map(&:arrives_at), *amenity_visits.find_each.map(&:arrives)]
     ends = [*user_visits.find_each.map(&:departs_at), *amenity_visits.find_each.map(&:departs)]
 
+    # I don't know if this needs to have the callbacks but leaving it alone
+    # rubocop:disable Rails/SkipsModelValidations
     update_columns(
       starts_at: starts.min,
       ends_at: ends.max,
     )
+    # rubocop:enable Rails/SkipsModelValidations
   end
 
   def first_reserve_visit_on_project?

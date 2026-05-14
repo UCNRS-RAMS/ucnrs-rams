@@ -1,3 +1,86 @@
-inherit_gem:
-  gnar-style:
-    - "rubocop/rubocop_rails.yml"
+plugins:
+  - rubocop-rails
+
+AllCops:
+  # RuboCop 1.81.7's KNOWN_RUBIES goes up to 3.5, and Ruby 4.0 is not yet listed.
+  # However, rubocop-ast 1.48.0 loads `prism/translation/parserXX` for targets >= 3.4,
+  # and those adapters are not available in the prism bundled with Ruby 4.0.
+  # 3.3 uses the legacy `parser` gem backend which works fine. Revisit when
+  # rubocop-ast ships a Ruby 4.0-native adapter.
+  TargetRubyVersion: 3.3
+  NewCops: disable
+  SuggestExtensions: false
+  DisabledByDefault: true
+  Exclude:
+    - 'bin/*'
+    - 'db/schema.rb'
+    - 'db/seeds.rb'
+    - 'node_modules/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+
+# Keep linting focused on correctness first.
+Lint:
+  Enabled: true
+
+Security:
+  Enabled: true
+
+Rails:
+  Enabled: true
+
+Metrics:
+  Enabled: true
+
+# Relax complexity limits to fit existing app shape.
+Metrics/AbcSize:
+  Max: 45
+
+Metrics/BlockLength:
+  Max: 80
+  Exclude:
+    - 'config/routes.rb'
+    - 'config/environments/*.rb'
+    - 'config/initializers/*.rb'
+    - 'spec/**/*.rb'
+
+Metrics/ClassLength:
+  Max: 300
+
+Metrics/CyclomaticComplexity:
+  Max: 12
+
+Metrics/MethodLength:
+  Max: 30
+  CountAsOne: ['array', 'hash', 'heredoc', 'method_call']
+
+Metrics/ModuleLength:
+  Max: 300
+
+Metrics/ParameterLists:
+  Max: 8
+  CountKeywordArgs: false
+
+Metrics/PerceivedComplexity:
+  Max: 15
+
+# Too noisy for this codebase as a starting point; revisit later.
+Lint/UselessAssignment:
+  Enabled: false
+
+Rails/PluralizationGrammar:
+  Enabled: false
+
+# Legacy migrations often intentionally violate these style-focused cops.
+Rails/BulkChangeTable:
+  Exclude:
+    - 'db/migrate/*.rb'
+
+Rails/CreateTableWithTimestamps:
+  Exclude:
+    - 'db/migrate/*.rb'
+
+Rails/ReversibleMigration:
+  Exclude:
+    - 'db/migrate/*.rb'
+

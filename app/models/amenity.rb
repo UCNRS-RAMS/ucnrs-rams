@@ -4,9 +4,9 @@ class Amenity < ApplicationRecord
   mount_uploader :listing_photo, AmenityUploader
 
   belongs_to :reserve
-  has_many :amenity_visits
+  has_many :amenity_visits, dependent: :destroy
   has_many :visits, through: :amenity_visits
-  has_many :amenity_rates, -> { in_order }
+  has_many :amenity_rates, -> { in_order }, dependent: :destroy, inverse_of: :amenity
   accepts_nested_attributes_for :amenity_rates
 
   validates :title, presence: true
@@ -72,7 +72,7 @@ class Amenity < ApplicationRecord
   private
 
   def create_rates_for_each_categories
-    AmenityRateCategory.where(reserve_id: self.reserve_id).each do |category|
+    AmenityRateCategory.where(reserve_id: self.reserve_id).find_each do |category|
       next if rate_with_category_exist?(category)
 
       AmenityRate.create(amenity_id: self.id, amenity_rate_category_id: category.id, rate: 0.0)

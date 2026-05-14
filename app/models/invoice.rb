@@ -13,7 +13,7 @@ class Invoice < ApplicationRecord
   has_many :invoice_payments, dependent: :destroy
   has_many :amenity_visits, dependent: :nullify
   belongs_to :visit
-  has_many :logs, as: :record_about
+  has_many :logs, as: :record_about, dependent: :destroy
 
   def self.recent_first
     order(created_at: :desc)
@@ -53,7 +53,10 @@ class Invoice < ApplicationRecord
   end
 
   def update_balance_due
+    # not sure if this is being done for a reason so disabling check temporarily
+    # rubocop:disable Rails/SkipsModelValidations
     update_columns(balance_due: invoice_total - payments_amount_total)
+    # rubocop:enable Rails/SkipsModelValidations
   end
 
   def payments_amount_total
@@ -125,7 +128,6 @@ class Invoice < ApplicationRecord
     end
   end
 
-  private
 
   def self.having_invoiced_date_after(date_var)
     if date_var.present?
