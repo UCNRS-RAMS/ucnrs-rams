@@ -10,7 +10,9 @@ namespace :db do
 
         new_body = ActiveStorageKeyConverter.new(content).process
 
+        # rubocop:disable Rails/SkipsModelValidations
         rich_text.update_column(:body, new_body)
+        # rubocop:enable Rails/SkipsModelValidations
       end
   end
 end

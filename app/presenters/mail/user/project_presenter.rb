@@ -14,7 +14,7 @@ class Mail::User::ProjectPresenter
       .includes(:user)
       .select(&:is_principal_investigator)
       &.map { |membership| membership.user.full_name }
-      .to_sentence
+      &.to_sentence
   end
 
   def project_involves
@@ -57,8 +57,6 @@ class Mail::User::ProjectPresenter
   end
 
   private
-
-  attr_reader :project
 
   delegate :team_memberships, to: :project, prefix: true
 

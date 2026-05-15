@@ -24,7 +24,7 @@ class Visits::QuestionsIndexPresenter
     reserve_question_scope
       .map(&method(:wrap_question_in_presenter))
       .group_by(&:location)
-      .reject { |k, v| v.empty? }
+      .reject { |_k, v| v.empty? }
   end
 
   def has_permit_questions_for_project?

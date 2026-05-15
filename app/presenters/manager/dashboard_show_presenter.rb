@@ -36,7 +36,7 @@ class Manager::DashboardShowPresenter
 
   def visit_day_list
     @visit_day_list ||= visitors_today.group_by(&:visit_id)
-      .merge(amenities_today.group_by(&:visit_id)) { |k, o, n| o + n }
+      .merge(amenities_today.group_by(&:visit_id)) { |_k, o, n| o + n }
       .each_with_object({}) { |(k, v), h| h[visit_day.detect { |visit| visit.id == k }] = v }
   end
 

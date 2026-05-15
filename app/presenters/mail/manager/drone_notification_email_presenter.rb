@@ -1,7 +1,5 @@
 class Mail::Manager::DroneNotificationEmailPresenter < Mail::VisitNewPresenter
-  def initialize(visit)
-    super(visit)
-  end
+  
 
   delegate :name,
     :short_name,

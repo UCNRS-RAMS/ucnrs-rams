@@ -9,7 +9,7 @@ RSpec.describe Reserve::LogoUploader do
 
   before do
     described_class.enable_processing = true
-    File.open(Rails.root.join("spec", "support", "assets", "test-image.jpeg")) do |f|
+    File.open(Rails.root.join("spec/support/assets/test-image.jpeg")) do |f|
       uploader.store!(f)
     end
   end

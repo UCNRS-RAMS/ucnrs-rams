@@ -24,9 +24,7 @@ class FlexReportFilter
     filter&.dig(:date_end)
   end
 
-  def present?
-    filter.present?
-  end
+  delegate :present?, to: :filter
 
   private
 

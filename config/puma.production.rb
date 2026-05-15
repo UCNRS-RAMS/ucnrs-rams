@@ -58,7 +58,7 @@ worker_shutdown_timeout 30
 # and maximum number of threads to use to answer requests.
 # This is the default and should be fine for most applications.
 on_restart do
-  puts 'Refreshing Gemfile'
+  Rails.logger.debug 'Refreshing Gemfile'
   ENV["BUNDLE_GEMFILE"] = "/app/Gemfile"
 end
 

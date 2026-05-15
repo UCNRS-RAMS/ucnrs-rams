@@ -72,7 +72,6 @@ class Manager::InvoicesIndexPresenter
     :invoice_type_filter,
     :visit_date_end_filter,
     :visit_date_begin_filter,
-    :reserve_filter,
     :date_range_type_filter,
     :sort_by_filter,
     :invoice_date_end_filter,

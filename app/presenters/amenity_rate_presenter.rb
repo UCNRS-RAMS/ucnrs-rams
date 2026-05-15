@@ -28,7 +28,6 @@ class AmenityRatePresenter
     AmenityPresenter.new(amenity_rate_amenity)
   end
 
-  private
 
   delegate :amenity,
     to: :amenity_rate, prefix: true

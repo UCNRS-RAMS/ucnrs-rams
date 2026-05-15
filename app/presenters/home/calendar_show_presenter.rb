@@ -118,7 +118,7 @@ class Home::CalendarShowPresenter
     prev_date_visits.blank? || current_date.monday?
   end
 
-  def visit_position(amenity, amenities, index)
+  def visit_position(amenity, _amenities, index)
     return index if reset_positions_with_index?
 
     prev_date_visits.find do |prev_date_visit|

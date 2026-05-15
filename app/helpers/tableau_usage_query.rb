@@ -1,4 +1,8 @@
 module TableauUsageQuery
+
+  # this does seem like maybe a code smell, but IDK about Tableau and if there is a better way to do it
+
+  # rubocop:disable Metrics/AbcSize
   def tableau_usage(date_begin, date_end)
     if defined?(request) && request&.session.present?
       id = ActiveRecord::Base.sanitize_sql(request.session[:session_id])
@@ -240,4 +244,5 @@ module TableauUsageQuery
 
     return data
   end
+  # rubocop:enable Metrics/AbcSize
 end

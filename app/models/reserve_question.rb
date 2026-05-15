@@ -14,8 +14,8 @@ class ReserveQuestion < ApplicationRecord
   validates :conference, inclusion: [true, false]
 
   belongs_to :reserve
-  has_many :project_reserve_answers
-  has_many :visit_reserve_answers
+  has_many :project_reserve_answers, dependent: :destroy
+  has_many :visit_reserve_answers, dependent: :destroy
 
   enum :location, {
     visit: "visit",
@@ -93,9 +93,7 @@ class ReserveQuestion < ApplicationRecord
       )
   end
 
-  def reserve_name
-    reserve.name
-  end
+  delegate :name, to: :reserve, prefix: true
 
   def self.by_location
     order(:location)

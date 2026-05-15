@@ -12,7 +12,8 @@ RSpec.describe "app/views/visits/amenities/_amenity.html.erb", type: :view do
 
 
     FakeForm.fields_for(form) do |form|
-      form.object = form.object
+      # commenting out.  Why assign the item to itself?  Is there some reason?
+      # form.object = form.object
       render partial: "visits/amenities/amenity",
         locals: { presenter: presenter, form: form, group_label: "Home", forms: presenter.form }
     end

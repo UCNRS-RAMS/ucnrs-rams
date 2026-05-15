@@ -1,12 +1,13 @@
 class Waiver < ApplicationRecord
   validates :name, presence: true
 
-  has_and_belongs_to_many :reserves
+  has_many :reserve_waivers, dependent: :destroy
+  has_many :reserves, through: :reserve_waivers
 
   def self.for_reserve(reserve)
     if reserve.present?
-      left_joins(:reserves_waivers)
-        .where(reserves_waivers: { reserve_id: reserve })
+      joins(:reserves)
+        .where(reserves: { id: reserve })
     else
       all
     end

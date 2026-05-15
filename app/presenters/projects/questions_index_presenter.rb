@@ -18,14 +18,14 @@ class Projects::QuestionsIndexPresenter
     permit_scope
       .map(&method(:wrap_question_in_presenter))
       .group_by(&:authority)
-      .reject { |k, v| v.empty? }
+      .reject { |_k, v| v.empty? }
   end
 
   def questions_by_reserve
     reserve_question_scope
       .map(&method(:wrap_question_in_presenter))
       .group_by(&:reserve_name)
-      .reject { |k, v| v.empty? }
+      .reject { |_k, v| v.empty? }
   end
 
   def has_permit_questions_for_project?

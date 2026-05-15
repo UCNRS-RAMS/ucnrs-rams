@@ -68,10 +68,10 @@ RSpec.describe ProjectShowPresenter do
 
   describe "#timeframe" do
     it "display a formatted project start and end date" do
-      project = create(:project, start_date: Date.today, end_date: Date.tomorrow)
+      project = create(:project, start_date: Time.zone.today, end_date: Date.tomorrow)
       presenter = ProjectShowPresenter.new(project)
 
-      expect(presenter.timeframe).to eq DateRangePresenter.value(start_date: Date.today, end_date: Date.tomorrow)
+      expect(presenter.timeframe).to eq DateRangePresenter.value(start_date: Time.zone.today, end_date: Date.tomorrow)
     end
   end
 

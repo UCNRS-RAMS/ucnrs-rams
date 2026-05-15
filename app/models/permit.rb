@@ -6,9 +6,9 @@ class Permit < ApplicationRecord
   }.freeze
 
   belongs_to :state, optional: true
-  has_many :project_permit_answers
+  has_many :project_permit_answers, dependent: :destroy
   has_many :projects, through: :project_permit_answers
-  has_many :reserve_permits
+  has_many :reserve_permits, dependent: :destroy
   has_many :reserves, through: :reserve_permits
 
   enum :location, {

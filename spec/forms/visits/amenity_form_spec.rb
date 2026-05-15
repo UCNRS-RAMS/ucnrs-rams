@@ -118,7 +118,7 @@ RSpec.describe Visits::AmenityForm, type: :model do
 
       form.validate
 
-      expect(form.errors.to_hash).to eq ({
+      expect(form.errors.to_hash).to eq({
         amenity: ["must exist"],
         amenity_id: [I18n.t("activerecord.errors.messages.blank")],
         amenity_rate: ["must exist"],

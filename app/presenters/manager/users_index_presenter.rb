@@ -39,13 +39,13 @@ class Manager::UsersIndexPresenter
   def user_role_options
     User.roles
       .except(:no_selection)
-      .map { |key, value| [I18n.t("universal.roles.#{key}"), key] }
+      .map { |key, _value| [I18n.t("universal.roles.#{key}"), key] }
       .unshift([I18n.t("all"), nil])
   end
 
   def user_institution_type_options
     Institution.institution_types
-      .map { |key, value| [I18n.t("universal.institution_types.#{key}"), key] }
+      .map { |key, _value| [I18n.t("universal.institution_types.#{key}"), key] }
       .unshift([I18n.t("all"), nil])
   end
 

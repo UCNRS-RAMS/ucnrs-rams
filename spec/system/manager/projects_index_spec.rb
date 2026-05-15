@@ -8,7 +8,7 @@ RSpec.describe "Manager Projects Index" do
       create(:reserve_personnel, user: user, reserve: reserve)
       25.times do |n|
         project = create(:project, title: "Project #{n}")
-        create(:visit, project: project, reserve: reserve, start_date: Date.today, end_date: Date.tomorrow)
+        create(:visit, project: project, reserve: reserve, start_date: Time.zone.today, end_date: Date.tomorrow)
       end
 
       flow = Manager::ProjectIndexFlow.new(page)

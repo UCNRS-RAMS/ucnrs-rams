@@ -18,7 +18,7 @@ class PasswordController < Devise::PasswordsController
   private
 
   def user
-    @user ||=  params[:user_id].present? ? User.find_by_id(params[:user_id]) : current_user
+    @user ||=  params[:user_id].present? ? User.find_by(id: params[:user_id]) : current_user
   end
 
 end

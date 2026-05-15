@@ -49,11 +49,11 @@ class ApplicationController < ActionController::Base
       format.html do |variant|
         variant.turbo_frame {
           flash.now[:alert] = flash_msg
-          render partial: "modals/flash", status: :unprocessable_entity and return
+          render partial: "modals/flash", status: :unprocessable_entity
         }
         variant.none {
           flash[:alert] = flash_msg
-          redirect_back fallback_location: root_url and return
+          redirect_back fallback_location: root_url
         }
       end
     end

@@ -143,6 +143,11 @@ span.required {
   display: none !important;
 }
 
+.inline-link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .background-1 {
   background-color: $light-light-blue;
   padding-bottom: 1rem;

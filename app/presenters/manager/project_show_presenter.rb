@@ -21,9 +21,7 @@ class Manager::ProjectShowPresenter < ProjectShowPresenter
     owner.full_name
   end
 
-  def owner_id
-    owner.id
-  end
+  delegate :id, to: :owner, prefix: true
 
   def project_type
     project.project_type.titleize

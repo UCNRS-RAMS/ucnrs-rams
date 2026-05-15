@@ -74,6 +74,8 @@
         data-controller="autocomplete"
         data-autocomplete-url-value="<%= institutions_url %>"
         data-autocomplete-min-length-value="3"
+        role="combobox"
+        aria-haspopup="listbox"
 
       >
       <%= f.label :institution, t(".labels.institution") %>

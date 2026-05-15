@@ -15,9 +15,7 @@ class InstitutionPresenter
     state&.name
   end
 
-  def users_count
-    users.count
-  end
+  delegate :count, to: :users, prefix: true
 
   def address_line_3
     "#{city},#{" #{state_name}," if state.present?} #{country_name}".squish

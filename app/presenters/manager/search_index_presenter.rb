@@ -53,7 +53,7 @@ class Manager::SearchIndexPresenter
   def visit_status_options
     Visit
       .statuses
-      .inject({ I18n.t("all") => nil }) do |memo, (key, value)|
+      .inject({ I18n.t("all") => nil }) do |memo, (key, _value)|
         memo.merge!(I18n.t("universal.visit.statuses.#{key}") => key)
       end
   end
@@ -61,7 +61,7 @@ class Manager::SearchIndexPresenter
   def visit_project_type_options
     Project
       .project_types
-      .inject({ I18n.t("all") => nil }) do |memo, (key, value)|
+      .inject({ I18n.t("all") => nil }) do |memo, (key, _value)|
         memo.merge!(I18n.t("universal.project.project_types_formal.#{key}") => key)
       end
   end

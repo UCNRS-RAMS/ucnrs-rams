@@ -52,6 +52,7 @@ module DevServerStructuredLogging
     value.gsub(ANSI_ESCAPE, "")
   end
 
+  # rubocop:disable Metrics/AbcSize
   def ecs_enrich_payload(raw_payload)
     payload = raw_payload.transform_keys(&:to_s)
 
@@ -96,5 +97,6 @@ module DevServerStructuredLogging
 
     payload
   end
+  # rubocop:enable Metrics/AbcSize
 end
 

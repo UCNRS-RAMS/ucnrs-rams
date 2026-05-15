@@ -1,4 +1,5 @@
 class UseConventionalNamesForReserves < ActiveRecord::Migration[6.1]
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def change
     rename_column :reserves, :ReserveID, :id
     reversible do |dir|
@@ -204,4 +205,5 @@ class UseConventionalNamesForReserves < ActiveRecord::Migration[6.1]
     rename_index :ReserveAssets, :Reserve, :reserve
     rename_index :ReserveAssets, :ReserveSortOrder, :reserve_sort_order
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end

@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class EditProjectFlow
   def initialize(page)
     @page = ScopablePage.new(page)
@@ -10,11 +11,7 @@ class EditProjectFlow
 
   def has_form_already_filled_out?(
     title:,
-    thesis_title:,
     abstract:,
-    project_type:,
-    start_date:,
-    end_date:,
     involves_mammals:,
     involves_reptiles:,
     involves_amphibians:,
@@ -30,7 +27,8 @@ class EditProjectFlow
     method_chemicals:,
     method_chemicals_list:,
     method_soil_disturbance:,
-    method_long_term_structures:
+    method_long_term_structures:,
+    **_unused
   )
     Assertions.all(page) do |assert|
       assert.has_field?("Project or Event Title", with: title)
@@ -58,11 +56,7 @@ class EditProjectFlow
 
   def fill_out_project_form(
     title:,
-    thesis_title:,
     abstract:,
-    project_type:,
-    start_date:,
-    end_date:,
     involves_mammals:,
     involves_reptiles:,
     involves_amphibians:,
@@ -78,7 +72,8 @@ class EditProjectFlow
     method_chemicals:,
     method_chemicals_list:,
     method_soil_disturbance:,
-    method_long_term_structures:
+    method_long_term_structures:,
+    **_unused
   )
     page.fill_in("Project or Event Title", with: title)
     page.fill_in("Project Abstract", with: abstract)
@@ -157,11 +152,6 @@ class EditProjectFlow
     page.select(address_state, from: "Address state")
   end
 
-  def save_project_team_member
-    page.find(".modal.visible .buttons button").click
-    page.has_no_css?(".modal.visible")
-  end
-
   def has_team_member?(name)
     page.has_css?("tr.team-membership td", text: name)
   end
@@ -185,10 +175,6 @@ class EditProjectFlow
 
   def add_user_to_team
     page.find("input[value='Add Team Member']").click
-  end
-
-  def has_team_member?(name)
-    page.has_css?("tr.team-membership td", text: name)
   end
 
   def has_no_team_member?(name)
@@ -386,3 +372,5 @@ class EditProjectFlow
 
   attr_reader :page
 end
+
+# rubocop:enable Metrics/ClassLength

@@ -80,11 +80,11 @@ RSpec.describe "Creating a project", type: :system, js: true do
     flow.select_project_type("Research")
     flow.fill_out_new_project_form(
       title: "Project Title",
-      thesis_title: "Thesis Title",
+      # thesis_title: "Thesis Title",  # these are not used so no reason to send them
       abstract: "Project Abstract",
-      project_type: "research",
-      start_date: Date.current,
-      end_date: Date.current + 1.day,
+      # project_type: "research",
+      # start_date: Date.current,
+      # end_date: Date.current + 1.day,
       involves_mammals: nil,
       involves_reptiles: nil,
       involves_amphibians: nil,

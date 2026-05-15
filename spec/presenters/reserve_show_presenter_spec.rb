@@ -59,7 +59,7 @@ RSpec.describe ReserveShowPresenter do
 
     it "return 'reserve_calendar_path' if selected_tab is calendar" do
       reserve = create(:reserve)
-      output = "/reserves/#{reserve.id}/calendar?partial_name=calendar&start_date=#{Date.today}"
+      output = "/reserves/#{reserve.id}/calendar?partial_name=calendar&start_date=#{Time.zone.today}"
 
       show_presenter = ReserveShowPresenter.new(reserve: reserve, selected_tab: "calendar")
 

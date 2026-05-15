@@ -1,6 +1,6 @@
 class AmenityRateCategory < ApplicationRecord
   belongs_to :reserve
-  has_many :amenity_rates, -> { in_order }
+  has_many :amenity_rates, -> { in_order }, dependent: :destroy, inverse_of: :amenity
 
   validates :sort_order, uniqueness: { scope: [:visible, :reserve_id] }
   validates :description, presence: true
@@ -38,7 +38,7 @@ class AmenityRateCategory < ApplicationRecord
   private
 
   def create_rates_for_each_amenities
-    Amenity.where(reserve_id: self.reserve_id).each do |amenity|
+    Amenity.where(reserve_id: self.reserve_id).find_each do |amenity|
       next if rate_with_amenity_exist?(amenity)
 
       AmenityRate.create(amenity_id: amenity.id, amenity_rate_category_id: self.id, rate: 0.0)

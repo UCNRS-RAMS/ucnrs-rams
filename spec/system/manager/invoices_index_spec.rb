@@ -6,7 +6,7 @@ RSpec.describe "Manager Invoices Index" do
       reserve = create(:reserve)
       user = create(:user, :confirmed, managed_reserves: [reserve])
       visit = create(:visit, reserve: reserve)
-      25.times do |n|
+      25.times do |_n|
         create(:invoice, visit: visit)
       end
 

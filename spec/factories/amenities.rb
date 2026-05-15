@@ -15,7 +15,7 @@ FactoryBot.define do
 
     trait :with_listing_photo do
       after(:build) do |amenity|
-        File.open(Rails.root.join('spec', 'support', 'assets', 'test-image.jpeg')) do |f|
+        File.open(Rails.root.join("spec/support/assets/test-image.jpeg")) do |f|
           amenity.listing_photo = f
         end
       end

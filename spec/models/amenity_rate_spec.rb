@@ -12,11 +12,20 @@ RSpec.describe AmenityRate, type: :model do
 
   describe ".in_order" do
     it "returns records in order by category.visible -> category.sort_order -> category.id -> amenity.sort" do
-      amenity1 = create(:amenity, sort_order: 1)
-      amenity2 = create(:amenity, sort_order: 2)
-      amenity_rate_category1 = create(:amenity_rate_category, sort_order: 2, visible: false)
-      amenity_rate_category2 = create(:amenity_rate_category, sort_order: 1)
-      amenity_rate_category3 = create(:amenity_rate_category, sort_order: 3)
+      reserve = create(:reserve)
+      amenity1 = create(:amenity, reserve: reserve, sort_order: 1, title: "Amenity #{SecureRandom.hex(6)}")
+      amenity2 = create(:amenity, reserve: reserve, sort_order: 2, title: "Amenity #{SecureRandom.hex(6)}")
+      amenity_rate_category1 = create(:amenity_rate_category, reserve: reserve, sort_order: 2, visible: false)
+      amenity_rate_category2 = create(:amenity_rate_category, reserve: reserve, sort_order: 1)
+      amenity_rate_category3 = create(:amenity_rate_category, reserve: reserve, sort_order: 3)
+
+      AmenityRate.where(amenity: amenity1, amenity_rate_category: amenity_rate_category1).delete_all
+      AmenityRate.where(amenity: amenity1, amenity_rate_category: amenity_rate_category2).delete_all
+      AmenityRate.where(amenity: amenity1, amenity_rate_category: amenity_rate_category3).delete_all
+      AmenityRate.where(amenity: amenity2, amenity_rate_category: amenity_rate_category1).delete_all
+      AmenityRate.where(amenity: amenity2, amenity_rate_category: amenity_rate_category2).delete_all
+      AmenityRate.where(amenity: amenity2, amenity_rate_category: amenity_rate_category3).delete_all
+
       amenity_rate1 = create(:amenity_rate, amenity: amenity1, amenity_rate_category: amenity_rate_category1)
       amenity_rate2 = create(:amenity_rate, amenity: amenity1, amenity_rate_category: amenity_rate_category2)
       amenity_rate3 = create(:amenity_rate, amenity: amenity1, amenity_rate_category: amenity_rate_category3)
@@ -24,7 +33,16 @@ RSpec.describe AmenityRate, type: :model do
       amenity_rate5 = create(:amenity_rate, amenity: amenity2, amenity_rate_category: amenity_rate_category2)
       amenity_rate6 = create(:amenity_rate, amenity: amenity2, amenity_rate_category: amenity_rate_category3)
 
-      results = AmenityRate.in_order
+      results = AmenityRate.in_order.where(
+        id: [
+          amenity_rate1.id,
+          amenity_rate2.id,
+          amenity_rate3.id,
+          amenity_rate4.id,
+          amenity_rate5.id,
+          amenity_rate6.id,
+        ]
+      )
 
       expect(results).to eq [
         amenity_rate2,
@@ -43,10 +61,14 @@ RSpec.describe AmenityRate, type: :model do
       amenity = create(:amenity, reserve: reserve)
       rate_category1 = create(:amenity_rate_category, reserve: reserve, visible: true)
       rate_category2 = create(:amenity_rate_category, reserve: reserve, visible: false)
+      AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category1).delete_all
+      AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category2).delete_all
+      visible_rate = create(:amenity_rate, amenity: amenity, amenity_rate_category: rate_category1)
+      hidden_rate = create(:amenity_rate, amenity: amenity, amenity_rate_category: rate_category2)
 
-      results = AmenityRate.visible
+      results = AmenityRate.visible.where(id: [visible_rate.id, hidden_rate.id])
 
-      expect(results).to eq [rate_category1.amenity_rates.first]
+      expect(results).to eq [visible_rate]
     end
   end
 
@@ -61,8 +83,18 @@ RSpec.describe AmenityRate, type: :model do
       rate_category2 = create(:amenity_rate_category, reserve: reserve, governmental: false, business: true)
       rate_category3 = create(:amenity_rate_category, reserve: reserve, governmental: true)
       rate_category4 = create(:amenity_rate_category, reserve: reserve, governmental: false, other: true, k12: true)
+      AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category1).delete_all
+      AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category2).delete_all
+      AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category3).delete_all
+      AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category4).delete_all
+      rate1 = create(:amenity_rate, amenity: amenity, amenity_rate_category: rate_category1)
+      rate2 = create(:amenity_rate, amenity: amenity, amenity_rate_category: rate_category2)
+      rate3 = create(:amenity_rate, amenity: amenity, amenity_rate_category: rate_category3)
+      rate4 = create(:amenity_rate, amenity: amenity, amenity_rate_category: rate_category4)
 
       results = AmenityRate.with_default_for_user(user)
+        .where(id: [rate1.id, rate2.id, rate3.id, rate4.id])
+        .order(:id)
 
       expect(results.map(&:default_for_user)).to eq [1, 0, 1, 0]
     end
@@ -73,7 +105,7 @@ RSpec.describe AmenityRate, type: :model do
       amenity = create(:amenity, title: "cabin in the woods")
       amenity_rate = create(:amenity_rate, amenity: amenity)
 
-      results = AmenityRate.with_amenity_title_column
+      results = AmenityRate.with_amenity_title_column.where(id: amenity_rate.id)
 
       expect(results.first.amenity_title).to eq "cabin in the woods"
     end
@@ -101,7 +133,7 @@ RSpec.describe AmenityRate, type: :model do
       amenity_rate2 = create(:amenity_rate, amenity_rate_category: disabled_rate_category)
       amenity_rate3 = create(:amenity_rate, amenity_rate_category: enabled_rate_category)
 
-      results = AmenityRate.with_only_enabled_rate_category
+      results = AmenityRate.with_only_enabled_rate_category.where(id: [amenity_rate1.id, amenity_rate2.id, amenity_rate3.id])
 
       expect(results).to match_array [amenity_rate1, amenity_rate3]
     end

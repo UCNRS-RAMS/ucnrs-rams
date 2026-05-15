@@ -29,7 +29,7 @@ class Manager::Visits::InvoicesIndexPresenter
     end
   end
 
-  def reserve_manager?(reserve)
+  def reserve_manager?(_reserve)
     user.admin_or_manage_reserve?(visit.reserve)
   end
 
@@ -46,11 +46,11 @@ class Manager::Visits::InvoicesIndexPresenter
   end
 
   def paid
-    number_to_currency (payments_total * -1)
+    number_to_currency(payments_total * -1)
   end
 
   def total_balance
-    number_to_currency (amenity_visits_total - payments_total)
+    number_to_currency(amenity_visits_total - payments_total)
   end
 
   def amenity_visit_presenters

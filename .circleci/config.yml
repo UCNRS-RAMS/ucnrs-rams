@@ -54,6 +54,10 @@ jobs:
 
       # Tests
       - run:
+          name: RuboCop
+          command: ./bin/rubocop
+
+      - run:
           name: rake
           command: bundle exec rake
 

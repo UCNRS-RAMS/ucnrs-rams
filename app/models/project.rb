@@ -1,4 +1,5 @@
 #frozen_string_literal: true
+# rubodop:disable Metrics/ClassLength
 
 class Project < ApplicationRecord
   mount_uploaders :files, ProjectFileUploader
@@ -33,9 +34,9 @@ class Project < ApplicationRecord
   ].freeze
 
   belongs_to :reserve, optional: true
-  belongs_to :owner, class_name: "User", foreign_key: :user_id
-  belongs_to :applicant, class_name: "User", foreign_key: :applicant_id
-  has_many :visits
+  belongs_to :owner, class_name: "User", foreign_key: :user_id, inverse_of: false
+  belongs_to :applicant, class_name: "User"
+  has_many :visits, dependent: :destroy
   has_many :team_memberships, class_name: "ProjectTeamMembership", dependent: :destroy
   has_many :team_members, through: :team_memberships, source: :user
   has_many :project_permit_answers, dependent: :destroy
@@ -194,9 +195,7 @@ class Project < ApplicationRecord
     end
   end
 
-  def visits_count
-    visits.count
-  end
+  delegate :count, to: :visits, prefix: true
 
   def self.of_type(project_type)
     case project_type.to_s
@@ -269,12 +268,14 @@ class Project < ApplicationRecord
     end
   end
 
-  def self.having_invoice_created_start_date_after(date_start)
+  # date_start seems unused in code
+  def self.having_invoice_created_start_date_after(_date_start)
     # todo: after invoice is added
     all
   end
 
-  def self.having_invoice_created_end_date_before(date_end)
+  # date_end seems unused in code
+  def self.having_invoice_created_end_date_before(_date_end)
     # todo: after invoice is added
     all
   end

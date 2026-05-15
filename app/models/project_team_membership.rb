@@ -4,7 +4,7 @@ class ProjectTeamMembership < ApplicationRecord
   belongs_to :user
   belongs_to :project
   belongs_to :institution
-  has_many :logs, as: :record_about
+  has_many :logs, as: :record_about, dependent: :destroy
 
   validates :user, uniqueness: { scope: :project }
   validates :user_role, presence: true

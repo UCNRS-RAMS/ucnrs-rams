@@ -1,7 +1,7 @@
 namespace :db do
   desc "Convert logs to rams3 naming convention."
   task convert_log_names: :environment do
-    CONVERT_MAP = {
+    convert_map = {
       "application submitted" => "submitted",
       "application updated" => "updated",
       "application deleted" => "deleted",
@@ -34,7 +34,7 @@ namespace :db do
       "asset" => "AmenityVisit",
       "resource request" => "AmenityVisit",
       "invoice" => "Invoice",
-    }
+    }.freeze
 
     ActiveRecord::Base.connection.exec_query("SET FOREIGN_KEY_CHECKS=0;")
     ActiveRecord::Base.connection.exec_query("DROP TABLE IF EXISTS `logs_backup`;")
@@ -48,13 +48,13 @@ namespace :db do
       metadata = metadata.to_json if metadata.is_a?(Hash)
       metadata = JSON.parse(metadata, object_class: OpenStruct)
 
-      log.action = CONVERT_MAP[log.action] if CONVERT_MAP[log.action].present?
-      log.record_type = CONVERT_MAP[log.record_type] if CONVERT_MAP[log.record_type].present?
-      log.record_about_type = CONVERT_MAP[log.record_about_type] if CONVERT_MAP[log.record_about_type].present?
+      log.action = convert_map[log.action] if convert_map[log.action].present?
+      log.record_type = convert_map[log.record_type] if convert_map[log.record_type].present?
+      log.record_about_type = convert_map[log.record_about_type] if convert_map[log.record_about_type].present?
 
-      metadata.action = CONVERT_MAP[metadata.action] if CONVERT_MAP[metadata.action].present?
-      metadata.about = CONVERT_MAP[metadata.about] if CONVERT_MAP[metadata.about].present?
-      metadata.about_type = CONVERT_MAP[metadata.about_type] if CONVERT_MAP[metadata.about_type].present?
+      metadata.action = convert_map[metadata.action] if convert_map[metadata.action].present?
+      metadata.about = convert_map[metadata.about] if convert_map[metadata.about].present?
+      metadata.about_type = convert_map[metadata.about_type] if convert_map[metadata.about_type].present?
 
       metadata = metadata.deep_to_h
 
