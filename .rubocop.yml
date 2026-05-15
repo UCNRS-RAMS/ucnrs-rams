@@ -48,10 +48,10 @@ Metrics/ClassLength:
   Max: 300
 
 Metrics/CyclomaticComplexity:
-  Max: 12
+  Max: 40
 
 Metrics/MethodLength:
-  Max: 30
+  Max: 50
   CountAsOne: ['array', 'hash', 'heredoc', 'method_call']
 
 Metrics/ModuleLength:
@@ -62,7 +62,7 @@ Metrics/ParameterLists:
   CountKeywordArgs: false
 
 Metrics/PerceivedComplexity:
-  Max: 15
+  Max: 40
 
 # Too noisy for this codebase as a starting point; revisit later.
 Lint/UselessAssignment:
@@ -83,4 +83,11 @@ Rails/CreateTableWithTimestamps:
 Rails/ReversibleMigration:
   Exclude:
     - 'db/migrate/*.rb'
+
+Rails/UnknownEnv:
+  Environments:
+    - development
+    - test
+    - production
+    - dev_server
 

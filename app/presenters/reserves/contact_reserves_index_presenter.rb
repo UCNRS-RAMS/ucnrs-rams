@@ -30,5 +30,4 @@ class Reserves::ContactReservesIndexPresenter
     ICON_TO_ALT[icon(for_column)]
   end
 
-  private
 end

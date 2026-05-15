@@ -10,9 +10,7 @@ class Projects::TeamMembershipEditPresenter
   attr_reader :form
   delegate :id, :errors, to: :form
 
-  def project_id
-    editing_team_membership.project_id
-  end
+  delegate :project_id, to: :editing_team_membership
 
   def editing_team_membership
     Projects::TeamMembershipPresenter.new(
@@ -20,16 +18,14 @@ class Projects::TeamMembershipEditPresenter
     )
   end
 
-  def user_full_name
-    editing_team_membership.user_full_name
-  end
+  delegate :user_full_name, to: :editing_team_membership
 
   def institution_name
     form.institution_name || editing_team_membership.institution_name
   end
 
   def user_role_options
-    User.roles.except(:no_selection).map do |key, value|
+    User.roles.except(:no_selection).map do |key, _value|
       [I18n.t("universal.roles.#{key}"), key]
     end
   end

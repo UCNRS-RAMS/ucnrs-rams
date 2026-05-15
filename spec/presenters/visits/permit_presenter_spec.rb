@@ -10,7 +10,7 @@ RSpec.describe Visits::PermitPresenter do
     it "is a hash containing a path to the partial and locals" do
       presenter = Visits::PermitPresenter.new(build_stubbed(:permit))
 
-      expect(presenter.render_values).to eq ({
+      expect(presenter.render_values).to eq({
         partial: "shared/visits/questions/permit",
         locals: { permit: presenter },
       })

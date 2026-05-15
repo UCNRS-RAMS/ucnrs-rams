@@ -10,7 +10,7 @@ class AddFullTextIndexToCountries < ActiveRecord::Migration[6.1]
     begin
       execute("ALTER TABLE countries DROP INDEX country_search")
     rescue ActiveRecord::StatementInvalid => e
-      puts "country_search index does not exist"
+      Rails.logger.debug "country_search index does not exist"
     end
   end
 end

@@ -17,9 +17,8 @@ class UserForm
     @project_team_membership = initialize_project_team_membership
   end
 
-  attr_reader :user, :applicant, :project_team_membership, :project
+  attr_reader :user, :project_role, :applicant, :project_team_membership, :project
   attr_accessor :is_principal_investigator,
-    :project_role,
     :can_edit_project,
     :can_add_project_user,
     :can_add_visit,

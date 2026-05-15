@@ -60,9 +60,7 @@ class VisitFilter
     end
   end
 
-  def present?
-    filter.present?
-  end
+  delegate :present?, to: :filter
 
   private
 

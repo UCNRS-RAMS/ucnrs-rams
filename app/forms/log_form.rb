@@ -25,7 +25,7 @@ class LogForm
   attr_reader :log, :record, :params, :action
 
   def save
-    if action == "updated" && record.previous_changes.reject! {|k, v| %w"updated_at sign_token".include? k }.blank?
+    if action == "updated" && record.previous_changes.reject! {|k, _v| %w"updated_at sign_token".include? k }.blank?
       return false
     end
 

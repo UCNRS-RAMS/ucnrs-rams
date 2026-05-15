@@ -43,11 +43,11 @@ class ProjectShowPresenter
   end
 
   def abstract
-    project.abstract.present? ? project.abstract : not_applicable
+    project.abstract.presence || not_applicable
   end
 
   def thesis_title
-    project.thesis_title.present? ? project.thesis_title : not_applicable
+    project.thesis_title.presence || not_applicable
   end
 
   def course_number
@@ -59,7 +59,7 @@ class ProjectShowPresenter
   end
 
   def discipline
-    project.discipline.present? ? project.discipline : not_applicable
+    project.discipline.presence || not_applicable
   end
 
   def display_approved_permits?
@@ -107,11 +107,11 @@ class ProjectShowPresenter
   end
 
   def method_description
-    project.method_description.present? ? project.method_description : not_applicable
+    project.method_description.presence || not_applicable
   end
 
   def method_study_area
-    project.method_study_area.present? ? project.method_study_area : not_applicable
+    project.method_study_area.presence || not_applicable
   end
 
   def team_memberships

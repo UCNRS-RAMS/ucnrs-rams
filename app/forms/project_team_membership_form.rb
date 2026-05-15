@@ -113,16 +113,14 @@ class ProjectTeamMembershipForm
       self.institution_id = Institution
         .joins(:users)
         .where(users: { id: user_id })
-        .pluck(:id)
-        .first
+        .pick(:id)
     end
   end
 
   def maybe_set_user_role_from_user
     self.user_role ||= User
       .where(id: user_id)
-      .pluck(:role)
-      .first
+      .pick(:role)
   end
 
   def assign(params)

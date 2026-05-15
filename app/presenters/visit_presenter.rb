@@ -45,9 +45,7 @@ class VisitPresenter
     reserve.name
   end
 
-  def reserve_short_name
-    reserve.short_name
-  end
+  delegate :short_name, to: :reserve, prefix: true
 
   def applicant_name
     user.full_name
@@ -65,11 +63,11 @@ class VisitPresenter
   end
 
   def earliest_arrival
-    user_visits.min_by(&:arrives_at) if user_visits.present?
+    user_visits.presence&.min_by(&:arrives_at)
   end
 
   def latest_departure
-    user_visits.max_by(&:departs_at) if user_visits.present?
+    user_visits.presence&.max_by(&:departs_at)
   end
 
   def earliest_arrival_date

@@ -29,16 +29,14 @@ class Visits::AmenityPresenter
     listing_photo.url(:medium) || listing_photo_placeholder
   end
 
-  def amenity_id
-    amenity.id
-  end
+  delegate :id, to: :amenity, prefix: true
 
   def amenity_visit_id
     form.id
   end
 
   def default_count(count)
-    count.present? ? count : "1"
+    count.presence || "1"
   end
 
   def default_date(date)

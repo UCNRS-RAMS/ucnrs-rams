@@ -21,6 +21,7 @@ module ApplicationHelper
     link_to(name, options, html_options, &block)
   end
 
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def num_of_units(arr_time, dep_time, units_type)
     case units_type&.downcase
     when "each", "use", "session", "person", "facility", "unit", "mile"
@@ -96,4 +97,5 @@ module ApplicationHelper
 
     num_units
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 end

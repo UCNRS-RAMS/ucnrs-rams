@@ -33,13 +33,9 @@ class Home::Calendar::VisitPresenter < VisitPresenter
     else
       "display-none"
     end
-  end
-  
-  def info_link_background_classes
-    border_radius_classes
-  end
+   end
 
-  def info_link_text_classes
+   def info_link_text_classes
     display_visits_text? ? "" : "display-none"
   end
 

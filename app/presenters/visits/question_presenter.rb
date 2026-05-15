@@ -32,9 +32,7 @@ class Visits::QuestionPresenter
     self
   end
 
-  def boolean_answer
-    question.boolean_answer
-  end
+  delegate :boolean_answer, to: :question
 
   def answer
     if !respond_to?(:boolean_answer) || !respond_to?(:text_answer)

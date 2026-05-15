@@ -1,7 +1,5 @@
 class Manager::UserEditPresenter < RegistrationFormPresenter
-  def initialize(user)
-    super(user)
-  end
+  
 
   def change_password
     link_to I18n.t(".password.change_password"), password_index_path(user_id: form_user.id), method: :post

@@ -38,7 +38,7 @@ class LogForm2
 
   delegate_missing_to :log
 
-  def metadata(params)
+  def metadata(_params)
     {
       about: about,
       action: action,

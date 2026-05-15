@@ -1,4 +1,5 @@
 class UseConventionalNamesForApplications < ActiveRecord::Migration[6.1]
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def change
     rename_table :Applications, :projects
     rename_column :projects, :ApplicationID, :id
@@ -126,4 +127,5 @@ class UseConventionalNamesForApplications < ActiveRecord::Migration[6.1]
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 end

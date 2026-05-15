@@ -39,7 +39,7 @@ class Manager::InstitutionsIndexPresenter
 
   def institution_type_options
     Institution.institution_types
-      .map { |key, value| [I18n.t("universal.institution_types.#{key}"), key] }
+      .map { |key, _value| [I18n.t("universal.institution_types.#{key}"), key] }
       .unshift([I18n.t("all"), nil])
   end
 

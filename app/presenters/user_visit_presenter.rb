@@ -38,7 +38,7 @@ class UserVisitPresenter
     elsif count == 1 && guest_name.present?
       "#{guest_name.capitalize} (Guest)"
     else
-      "<a href=\"mailto:#{user_email}\">#{user_full_name}</a>".html_safe
+      mail_to(user_email, user_full_name)
     end
   end
 

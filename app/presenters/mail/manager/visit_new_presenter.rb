@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class Mail::Manager::VisitNewPresenter < Mail::VisitNewPresenter
-  def initialize(visit)
-    super(visit)
-  end
+  
 
   delegate :name,
     :short_name,

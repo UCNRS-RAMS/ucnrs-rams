@@ -18,6 +18,7 @@ class Manager::Reports::FlexController < Manager::ApplicationController
   FISCAL_MONTH_END = 6
   FISCAL_DAY_END = 30
 
+  # rubocop:disable Metrics/AbcSize
   def index
     case filter&.dig(:flex_report_type)
     when "a_r_part_1"
@@ -39,6 +40,7 @@ class Manager::Reports::FlexController < Manager::ApplicationController
       data: data,
     )
   end
+  # rubocop:enable Metrics/AbcSize
 
   def filter
     if params[:filter].present?

@@ -50,7 +50,7 @@ class Manager::ReserveInfo::ReserveDetailsFlow
   end
 
   def select_photo_to_upload(photo_type)
-    page.attach_file("reserve[#{photo_type}_photo]", Rails.root.join("spec", "support", "assets", "test-image.jpeg"))
+    page.attach_file("reserve[#{photo_type}_photo]", Rails.root.join("spec/support/assets/test-image.jpeg"))
   end
 
   def click_save_changes_button

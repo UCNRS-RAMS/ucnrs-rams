@@ -147,7 +147,7 @@ RSpec.describe Manager::Dashboard::CalendarShowPresenter do
         background_classes: "visitor-count left-radius right-radius",
         text_classes: "",
         text: "0 Visitors",
-        path: "/manager/reserves/#{reserve.id}/dashboard/calendar/visits?date=#{Date.current.to_s}&status=#{show_presenter.status}",
+        path: "/manager/reserves/#{reserve.id}/dashboard/calendar/visits?date=#{Date.current}&status=#{show_presenter.status}",
       )
 
       expect(show_presenter.visits_link_params).to eq output

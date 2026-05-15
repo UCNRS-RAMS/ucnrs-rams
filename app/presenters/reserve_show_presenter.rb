@@ -18,7 +18,7 @@ class ReserveShowPresenter
     :country,
     :logo_src,
     :managing_campus,
-    :description,
+           # :description, -- remove this since this collides with the reserve_description method later
     :large_hero_photo_src,
     :home_page_url,
     to: :reserve, prefix: true
@@ -38,7 +38,7 @@ class ReserveShowPresenter
     when "more_information"
       reserve_more_information_index_path(reserve_id)
     when "calendar"
-      reserve_calendar_path(reserve_id, partial_name: "calendar", start_date: Date.today)
+      reserve_calendar_path(reserve_id, partial_name: "calendar", start_date: Time.zone.today)
     when "waivers"
       reserve_waivers_path(reserve_id)
     when "rules_and_directions"

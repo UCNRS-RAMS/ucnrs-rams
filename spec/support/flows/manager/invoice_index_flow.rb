@@ -41,11 +41,6 @@ class Manager::InvoiceIndexFlow
     page.find("span.last a").click
   end
 
-  def go_to_last_page
-    resize_window
-    page.find("span.last a").click
-  end
-
   private
 
   attr_reader :page
