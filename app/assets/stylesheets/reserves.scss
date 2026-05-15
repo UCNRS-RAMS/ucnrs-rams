@@ -326,6 +326,7 @@ main {
         filter: drop-shadow(0px 0px 7px $black);
 
         &.schedule {
+          color: $navy-blue;
           border-color: $white;
           filter: unset;
         }
@@ -718,7 +719,7 @@ main {
   }
 
   a {
-    color: $sky-blue;
+    color: $dark-sky-blue;
     font-size: 0.875rem;
     font-weight: $medium;
     margin: 1rem 0;
