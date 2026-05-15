@@ -10,36 +10,58 @@ RSpec.describe AmenityPresenter do
 
   describe "#rates" do
     it "presents its rates in order" do
-      reserve = create(:reserve)
+      reserve = create(
+        :reserve,
+        name: "Reserve #{rand(1_000_000_000)}",
+        managing_campus: create(:institution, name: "Campus #{rand(1_000_000_000)}"),
+      )
       amenity = create(:amenity, reserve: reserve)
       rate_category1 = create(:amenity_rate_category, reserve: reserve, sort_order: 1)
       rate_category2 = create(:amenity_rate_category, reserve: reserve, sort_order: 3)
       rate_category3 = create(:amenity_rate_category, reserve: reserve, sort_order: 2)
       presenter = AmenityPresenter.new(amenity)
+      AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category1).delete_all
+      AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category2).delete_all
+      AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category3).delete_all
+      AmenityRate.create!(amenity: amenity, amenity_rate_category: rate_category1, rate: 0.0)
+      AmenityRate.create!(amenity: amenity, amenity_rate_category: rate_category2, rate: 0.0)
+      AmenityRate.create!(amenity: amenity, amenity_rate_category: rate_category3, rate: 0.0)
+      rate1 = AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category1).first
+      rate2 = AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category2).first
+      rate3 = AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category3).first
 
       presented_rates = presenter.rates
 
       expect(presented_rates.map(&:id))
         .to eq [
-          rate_category1.amenity_rates[0].id,
-          rate_category3.amenity_rates[0].id,
-          rate_category2.amenity_rates[0].id,
+          rate1.id,
+          rate3.id,
+          rate2.id,
         ]
     end
   end
 
   describe "#rates_with_enabled_rate_category" do
     it "presents only amenity rates that has its rate_category enabled" do
-      reserve = create(:reserve)
+      reserve = create(
+        :reserve,
+        name: "Reserve #{rand(1_000_000_000)}",
+        managing_campus: create(:institution, name: "Campus #{rand(1_000_000_000)}"),
+      )
       amenity = create(:amenity, reserve: reserve)
       enabled_rate_category = create(:amenity_rate_category, reserve: reserve, visible: true)
       disabled_rate_category = create(:amenity_rate_category, reserve: reserve, visible: false)
       presenter = AmenityPresenter.new(amenity)
+      AmenityRate.where(amenity: amenity, amenity_rate_category: enabled_rate_category).delete_all
+      AmenityRate.where(amenity: amenity, amenity_rate_category: disabled_rate_category).delete_all
+      AmenityRate.create!(amenity: amenity, amenity_rate_category: enabled_rate_category, rate: 0.0)
+      AmenityRate.create!(amenity: amenity, amenity_rate_category: disabled_rate_category, rate: 0.0)
+      enabled_rate = AmenityRate.where(amenity: amenity, amenity_rate_category: enabled_rate_category).first
 
       presented_rates = presenter.rates_with_enabled_rate_category
 
       expect(presented_rates.map(&:id))
-        .to match_array [enabled_rate_category.amenity_rates[0].id]
+        .to match_array [enabled_rate.id]
     end
 
     it "presents the rates in order" do
@@ -49,28 +71,37 @@ RSpec.describe AmenityPresenter do
       rate_category2 = create(:amenity_rate_category, reserve: reserve, sort_order: 3)
       rate_category3 = create(:amenity_rate_category, reserve: reserve, sort_order: 2)
       presenter = AmenityPresenter.new(amenity)
+      AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category1).delete_all
+      AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category2).delete_all
+      AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category3).delete_all
+      AmenityRate.create!(amenity: amenity, amenity_rate_category: rate_category1, rate: 0.0)
+      AmenityRate.create!(amenity: amenity, amenity_rate_category: rate_category2, rate: 0.0)
+      AmenityRate.create!(amenity: amenity, amenity_rate_category: rate_category3, rate: 0.0)
+      rate1 = AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category1).first
+      rate2 = AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category2).first
+      rate3 = AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category3).first
 
       presented_rates = presenter.rates_with_enabled_rate_category
 
       expect(presented_rates.map(&:id))
         .to eq [
-          rate_category1.amenity_rates[0].id,
-          rate_category3.amenity_rates[0].id,
-          rate_category2.amenity_rates[0].id,
+          rate1.id,
+          rate3.id,
+          rate2.id,
         ]
     end
   end
 
   describe "#per_sentence" do
     it "displays per units/per time sentence" do
-      amenity = create(:amenity, units_type: "person", time_type: "day")
+      amenity = build(:amenity, units_type: "person", time_type: "day")
       presenter = AmenityPresenter.new(amenity)
 
       expect(presenter.per_sentence).to eq "per person/per day"
     end
 
     it "displays sentence with only per units when time_type is 'each'" do
-      amenity = create(:amenity, units_type: "facility", time_type: "each")
+      amenity = build(:amenity, units_type: "facility", time_type: "each")
       presenter = AmenityPresenter.new(amenity)
 
       expect(presenter.per_sentence).to eq "per facility"
