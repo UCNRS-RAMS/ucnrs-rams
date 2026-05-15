@@ -294,7 +294,7 @@ main {
     height: 450px;
 
     .manager-navbar {
-      .navbar-nav {
+      ul.navbar-nav {
         color: $white;
         filter: drop-shadow(0px 0px 7px $black);
 
@@ -308,6 +308,10 @@ main {
 
         .dropdown-item {
           color: $navy-blue;
+
+          &:hover {
+            color: $white;
+          }
         }
       }
     }
@@ -327,7 +331,12 @@ main {
 
         &.schedule {
           border-color: $white;
+          color: $black;
           filter: unset;
+
+          &:hover {
+            border-color: $gold;
+          }
         }
 
         &:hover:not(.schedule) {
@@ -473,13 +482,16 @@ main {
       margin: 2.5rem auto;
     }
 
-    .button-main {
-      text-align: center;
-      text-decoration: none;
+    a {
+      color: $dark-sky-blue;
+      display: block;
+      text-decoration: underline;
     }
 
-    a {
-      display: block;
+    .button-main {
+      color: $navy-blue;
+      text-align: center;
+      text-decoration: none;
     }
 
     .search input {

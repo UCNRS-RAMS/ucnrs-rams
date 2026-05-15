@@ -74,11 +74,12 @@
           </p>
         </div>
         <div
-            class="field institution-field large"
-            data-controller="autocomplete"
-            data-autocomplete-url-value="<%= institutions_url %>"
-            data-autocomplete-min-length-value="3"
-          >
+          role="combobox"
+          class="field institution-field large"
+          data-controller="autocomplete"
+          data-autocomplete-url-value="<%= institutions_url %>"
+          data-autocomplete-min-length-value="3"
+        >
           <%= f.label :institution, t(".labels.institution") %>
           <p class="helper-text">
             <strong><%= t(".helper_text.tip") %></strong>
@@ -228,8 +229,8 @@
         <div class="field">
           <%= f.check_box :terms_accepted_at, {checked: @presenter.form.terms_accepted?} %>
           <%= f.label :terms_accepted_at,
-                t(".labels.agree_to_terms_of_use",
-                link: link_to(t(".links.terms_of_use"), t(".urls.ucnrs_terms_of_use"), target: "_blank")).html_safe
+            t(".labels.agree_to_terms_of_use",
+            link: link_to(t(".links.terms_of_use"), t(".urls.ucnrs_terms_of_use"), target: "_blank")).html_safe
           %>
         </div>
         <p class="helper-text">
