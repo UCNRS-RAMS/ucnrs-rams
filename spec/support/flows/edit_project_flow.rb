@@ -11,11 +11,7 @@ class EditProjectFlow
 
   def has_form_already_filled_out?(
     title:,
-    thesis_title: nil,
     abstract:,
-    project_type: nil,
-    start_date: nil,
-    end_date: nil,
     involves_mammals:,
     involves_reptiles:,
     involves_amphibians:,
@@ -31,7 +27,8 @@ class EditProjectFlow
     method_chemicals:,
     method_chemicals_list:,
     method_soil_disturbance:,
-    method_long_term_structures:
+    method_long_term_structures:,
+    **_unused
   )
     Assertions.all(page) do |assert|
       assert.has_field?("Project or Event Title", with: title)
@@ -59,11 +56,7 @@ class EditProjectFlow
 
   def fill_out_project_form(
     title:,
-    thesis_title: nil,
     abstract:,
-    project_type: nil,
-    start_date: nil,
-    end_date: nil,
     involves_mammals:,
     involves_reptiles:,
     involves_amphibians:,
@@ -79,7 +72,8 @@ class EditProjectFlow
     method_chemicals:,
     method_chemicals_list:,
     method_soil_disturbance:,
-    method_long_term_structures:
+    method_long_term_structures:,
+    **_unused
   )
     page.fill_in("Project or Event Title", with: title)
     page.fill_in("Project Abstract", with: abstract)
