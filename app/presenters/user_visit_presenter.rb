@@ -1,4 +1,5 @@
 class UserVisitPresenter
+  include ActionView::Helpers::UrlHelper
   def initialize(user_visit)
     @user_visit = user_visit
   end

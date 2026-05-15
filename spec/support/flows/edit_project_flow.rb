@@ -11,11 +11,11 @@ class EditProjectFlow
 
   def has_form_already_filled_out?(
     title:,
-    # thesis_title:,
+    thesis_title: nil,
     abstract:,
-    # project_type:,
-    # start_date:,
-    # end_date:,
+    project_type: nil,
+    start_date: nil,
+    end_date: nil,
     involves_mammals:,
     involves_reptiles:,
     involves_amphibians:,
@@ -59,11 +59,11 @@ class EditProjectFlow
 
   def fill_out_project_form(
     title:,
-    # thesis_title:,
+    thesis_title: nil,
     abstract:,
-    # project_type:,
-    # start_date:,
-    # end_date:,
+    project_type: nil,
+    start_date: nil,
+    end_date: nil,
     involves_mammals:,
     involves_reptiles:,
     involves_amphibians:,

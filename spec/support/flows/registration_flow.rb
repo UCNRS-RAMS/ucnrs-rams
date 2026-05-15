@@ -62,7 +62,8 @@ class RegistrationFlow
     billing_address_postal_code: "",
     billing_person_full_name: "",
     billing_person_email: "",
-    billing_person_phone_number: ""
+    billing_person_phone_number: "",
+    **_unused
   )
     page.fill_in("First Name", with: first_name)
     page.fill_in("Last Name", with: last_name)
@@ -83,8 +84,8 @@ class RegistrationFlow
     page.fill_in("Address", id: "user_address_line_1", with: address_line_1)
     page.fill_in("user_address_line_2", with: address_line_2)
     page.fill_in("City", id: "user_address_city", with: address_city)
-    page.select(address_country, from: "user_address_country_id")
-    page.select(address_state, from: "user_address_state_id")
+    select_first_matching_option(select_field: "user_address_country_id", option_text: address_country)
+    select_first_matching_option(select_field: "user_address_state_id", option_text: address_state)
     page.fill_in("Zip/Postcode", id: "user_address_postal_code", with: address_postal_code)
     page.fill_in("Address", id: "user_billing_address_line_1", with: billing_address_line_1)
     page.fill_in("user_billing_address_line_2", with: billing_address_line_2)
@@ -140,7 +141,8 @@ class RegistrationFlow
     billing_address_postal_code: "",
     billing_person_full_name: "",
     billing_person_email: "",
-    billing_person_phone_number: ""
+    billing_person_phone_number: "",
+    **_unused
   )
     page.fill_in("First Name", with: first_name)
     page.fill_in("Last Name", with: last_name)
@@ -158,8 +160,8 @@ class RegistrationFlow
     page.fill_in("Address", id: "user_address_line_1", with: address_line_1)
     page.fill_in("user_address_line_2", with: address_line_2)
     page.fill_in("City", id: "user_address_city", with: address_city)
-    page.select(address_country, from: "user_address_country_id")
-    page.select(address_state, from: "user_address_state_id")
+    select_first_matching_option(select_field: "user_address_country_id", option_text: address_country)
+    select_first_matching_option(select_field: "user_address_state_id", option_text: address_state)
     page.fill_in("Zip/Postcode", id: "user_address_postal_code", with: address_postal_code)
     page.fill_in("Address", id: "user_billing_address_line_1", with: billing_address_line_1)
     page.fill_in("user_billing_address_line_2", with: billing_address_line_2)
@@ -229,10 +231,18 @@ class RegistrationFlow
   end
 
   def change_country_to(select_field:, country_name:)
-    page.select(country_name, from: select_field)
+    select_first_matching_option(select_field: select_field, option_text: country_name)
   end
 
   private
+
+  def select_first_matching_option(select_field:, option_text:)
+    select = page.find("##{select_field}")
+    option = select.all("option").find { |candidate| candidate.text == option_text }
+    raise Capybara::ElementNotFound, "Could not find option '#{option_text}' in ##{select_field}" unless option
+
+    option.select_option
+  end
 
   attr_reader :page
 end
