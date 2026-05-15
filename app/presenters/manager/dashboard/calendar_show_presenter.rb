@@ -141,7 +141,7 @@ class Manager::Dashboard::CalendarShowPresenter
     prev_date_amenities.blank? || current_date.monday?
   end
 
-  def amenity_position(amenity, amenities, index)
+  def amenity_position(amenity, _amenities, index)
     return index if reset_positions_with_index?
 
     prev_date_amenities.find do |prev_date_amenity|

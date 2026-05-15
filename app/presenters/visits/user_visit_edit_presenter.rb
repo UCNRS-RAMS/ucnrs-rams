@@ -37,7 +37,7 @@ class Visits::UserVisitEditPresenter
   end
 
   def user_role_options
-    UserVisit.roles.except(:no_selection).map do |key, value|
+    UserVisit.roles.except(:no_selection).map do |key, _value|
       [I18n.t("universal.roles.#{key}"), key]
     end
   end

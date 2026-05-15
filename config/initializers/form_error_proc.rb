@@ -1,4 +1,4 @@
-ActionView::Base.field_error_proc = proc do |html_tag, instance, *args|
+ActionView::Base.field_error_proc = proc do |html_tag, instance, *_args|
   fragment = Nokogiri::HTML.fragment(html_tag)
   field = fragment.at("label,input,select,textarea")
 

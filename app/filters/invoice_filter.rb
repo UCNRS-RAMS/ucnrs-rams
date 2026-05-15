@@ -14,7 +14,7 @@ class InvoiceFilter
   end
 
   def sort_by_filter
-    filter&.dig(:sort_by).present? ? filter&.dig(:sort_by) : DEFAULT_SORT_BY_FILTER
+    filter&.dig(:sort_by).presence || DEFAULT_SORT_BY_FILTER
   end
 
   def reserve_filter
@@ -38,12 +38,10 @@ class InvoiceFilter
   end
 
   def invoice_status_filter
-    filter&.dig(:invoice_status).present? ? filter&.dig(:invoice_status) : DEFAULT_INVOICE_STATUS_FILTER
+    filter&.dig(:invoice_status).presence || DEFAULT_INVOICE_STATUS_FILTER
   end
 
-  def present?
-    filter.present?
-  end
+  delegate :present?, to: :filter
 
   private
 

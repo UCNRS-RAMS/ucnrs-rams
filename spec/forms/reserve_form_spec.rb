@@ -101,7 +101,7 @@ RSpec.describe ReserveForm, type: :model do
     end
 
     it "makes a new ReserveForm from params" do
-      image = File.open(Rails.root.join('spec', 'support', 'assets', 'test-image.jpeg'))
+      image = File.open(Rails.root.join("spec/support/assets/test-image.jpeg"))
       params = {
         id: 5,
         name: "reserve1",
@@ -281,7 +281,7 @@ RSpec.describe ReserveForm, type: :model do
 
   describe "#save" do
     it "update the given reserve if there are no errors" do
-      image = File.open(Rails.root.join('spec', 'support', 'assets', 'test-image.jpeg'))
+      image = File.open(Rails.root.join("spec/support/assets/test-image.jpeg"))
       reserve = create(:reserve)
       country = create(:country)
       state = create(:state, country: country)
@@ -448,7 +448,7 @@ RSpec.describe ReserveForm, type: :model do
     end
 
     it "creates new reserve if there are no errors" do
-      image = File.open(Rails.root.join('spec', 'support', 'assets', 'test-image.jpeg'))
+      image = File.open(Rails.root.join("spec/support/assets/test-image.jpeg"))
       country = create(:country)
       state = create(:state, country: country)
       form = ReserveForm.new(params: {

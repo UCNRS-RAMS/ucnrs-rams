@@ -21,7 +21,7 @@ FactoryBot.define do
 
     trait :with_logo do
       after(:build) do |reserve|
-        File.open(Rails.root.join('spec', 'support', 'assets', 'test-image.jpeg')) do |f|
+        File.open(Rails.root.join("spec/support/assets/test-image.jpeg")) do |f|
           reserve.logo = f
         end
       end
@@ -29,7 +29,7 @@ FactoryBot.define do
 
     trait :with_hero_photo do
       after(:build) do |reserve|
-        File.open(Rails.root.join('spec', 'support', 'assets', 'test-image.jpeg')) do |f|
+        File.open(Rails.root.join("spec/support/assets/test-image.jpeg")) do |f|
           reserve.large_hero_photo = f
         end
       end
@@ -37,7 +37,7 @@ FactoryBot.define do
 
     trait :with_listing_photo do
       after(:build) do |reserve|
-        File.open(Rails.root.join('spec', 'support', 'assets', 'test-image.jpeg')) do |f|
+        File.open(Rails.root.join("spec/support/assets/test-image.jpeg")) do |f|
           reserve.listing_photo = f
         end
       end
@@ -45,7 +45,7 @@ FactoryBot.define do
 
     trait :with_invalid_file_format do
       after(:build) do |reserve|
-        File.open(Rails.root.join("spec", "support", "assets", "test-file.pdf")) do |f|
+        File.open(Rails.root.join("spec/support/assets/test-file.pdf")) do |f|
           reserve.listing_photo = f
           reserve.large_hero_photo = f
         end

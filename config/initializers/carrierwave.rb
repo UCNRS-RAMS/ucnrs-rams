@@ -11,7 +11,7 @@ if Rails.env.test?
   CarrierWave.configure do |config|
     config.storage = :file
     config.enable_processing = false
-    config.root = "#{Rails.root}/tmp/ucnrs-test".freeze
+    config.root = "#{Rails.root.join("tmp/ucnrs-test")}".freeze
     config.cache_dir = "uploads/cache".freeze
   end
 end

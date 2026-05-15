@@ -32,7 +32,7 @@ RSpec.describe Reserves::Calendar::ShowPresenter do
         background_classes: "visitor-count left-radius right-radius",
         text_classes: "",
         text: "0 Visitors",
-        path: "/reserves/#{reserve.id}/calendar/visits?date=#{Date.current.to_s}&status=#{show_presenter.status}",
+        path: "/reserves/#{reserve.id}/calendar/visits?date=#{Date.current}&status=#{show_presenter.status}",
       )
 
       expect(show_presenter.visits_link_params).to eq output

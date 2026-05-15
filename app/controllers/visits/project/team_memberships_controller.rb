@@ -16,6 +16,11 @@ class Visits::Project::TeamMembershipsController < ApplicationController
     end
   end
 
+  def edit
+    form = ProjectTeamMembershipForm.new(params: { id: project_team_membership.id })
+    @presenter = Visits::Project::TeamMembershipEditPresenter.new(form: form, visit: visit)
+  end
+
   def create
     form = ProjectTeamMembershipForm.new(
       project: project,
@@ -38,6 +43,48 @@ class Visits::Project::TeamMembershipsController < ApplicationController
     end
 
     render :index, status: :unprocessable_entity
+  end
+
+  def update
+    form = ProjectTeamMembershipForm.new(
+      params: project_team_memberships_params
+    )
+
+    respond_to do |format|
+      if form.save
+        visit_project = project_team_membership.project
+        format.turbo_stream { redirect_to visit_project_team_memberships_path(visit, visit_project) }
+        format.html { redirect_to visit_project_team_memberships_path(visit, visit_project) }
+      else
+        @presenter = Visits::Project::TeamMembershipEditPresenter.new(form: form, visit: visit)
+        format.turbo_stream do
+          render template: "shared/projects/team_memberships/edit",
+            status: :unprocessable_entity
+        end
+        format.html do
+          render template: "shared/projects/team_memberships/edit",
+            status: :unprocessable_entity
+        end
+      end
+    end
+  end
+
+  def destroy
+    visit_id = visit.id
+    project_id = project_team_membership.project_id
+    respond_to do |format|
+      if project_team_membership.destroy
+        format.turbo_stream { redirect_to visit_project_team_memberships_path(visit_id, project_id) }
+        format.html { redirect_to visit_project_team_memberships_path(visit_id, project_id) }
+      else
+        @presenter = Visits::Project::TeamMembershipEditPresenter.new(form: form, visit: visit)
+        format.turbo_stream do
+          render template: "shared/projects/team_memberships/edit",
+            status: :unprocessable_entity
+        end
+        format.html { render status: :unprocessable_entity }
+      end
+    end
   end
 
   private

@@ -121,7 +121,7 @@ class VisitForm
   end
 
   def validate_amenities
-    amenity_forms.each do |key, amenity_visits|
+    amenity_forms.each do |_key, amenity_visits|
       amenity_visits.each do |amenity_visit|
         amenity_visit.visit_id = visit.id
         amenity_visit.validate
@@ -139,7 +139,7 @@ class VisitForm
 
   def save_amenities!
     destroy_removed_amenity_visits
-    amenity_forms.each do |key, amenity_visits|
+    amenity_forms.each do |_key, amenity_visits|
       amenity_visits.each do |amenity_visit|
         amenity_visit.visit_id = visit.id
         amenity_visit.save!
@@ -239,8 +239,9 @@ class VisitForm
 
   def update_user_visits_status
     begin
+      # rubocop:disable Rails/SkipsModelValidations
       user_visits.update_all(status: UserVisit.statuses[status])
-      true
+            true
     rescue ActiveRecord::ActiveRecordError => e
       Rails.logger.error(e)
       false
@@ -250,6 +251,7 @@ class VisitForm
   def update_amenity_visits_status
     begin
       amenity_visits.update_all(status: AmenityVisit.statuses[status])
+      # rubocop:enable Rails/SkipsModelValidations
       true
     rescue ActiveRecord::ActiveRecordError => e
       Rails.logger.error(e)

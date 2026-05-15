@@ -120,7 +120,6 @@ class Visits::UserVisitsController < ApplicationController
     )
   end
 
-  private
 
   def create_log(action:, user_visit:, visit:)
     LogForm.create(params: {

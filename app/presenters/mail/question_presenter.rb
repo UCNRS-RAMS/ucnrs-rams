@@ -22,9 +22,7 @@ class Mail::QuestionPresenter
     end
   end
 
-  def reserve_name
-    reserve.name
-  end
+  delegate :name, to: :reserve, prefix: true
 
   def boolean_answer
     if ActiveModel::Type::Boolean.new.cast(question.boolean_answer) == true

@@ -12,7 +12,7 @@ class Mail::VisitQuestionsPresenter
     reserve_question_scope
       .map(&method(:wrap_question_in_presenter))
       .group_by(&:reserve_name)
-      .reject { |k, v| v.empty? }
+      .reject { |_k, v| v.empty? }
   end
 
   def have_reserve_questions_for_visit?

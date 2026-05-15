@@ -9,7 +9,7 @@ RSpec.describe ProjectFileUploader do
 
   before do
     described_class.enable_processing = true
-    File.open(Rails.root.join("spec", "support", "assets", "test-file.pdf")) do |f|
+    File.open(Rails.root.join("spec/support/assets/test-file.pdf")) do |f|
       uploader.store!(f)
     end
   end

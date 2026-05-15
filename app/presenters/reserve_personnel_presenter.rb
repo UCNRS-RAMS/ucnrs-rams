@@ -13,7 +13,5 @@ class ReservePersonnelPresenter
     :avatar_src,
     to: :reserve_personnel
 
-  def full_name
-    user.full_name
-  end
+  delegate :full_name, to: :user
 end

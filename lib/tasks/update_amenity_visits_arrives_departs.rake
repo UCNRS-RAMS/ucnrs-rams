@@ -13,10 +13,12 @@ namespace :db do
         departs = amenity_visit.departs_on.to_time.in_time_zone("Pacific Time (US & Canada)") +
           amenity_visit.departs_at.in_time_zone("Pacific Time (US & Canada)").hour.hour
 
+        # rubocop:disable Rails/SkipsModelValidations
         amenity_visit.update_columns(
           arrives: arrives,
           departs: departs
         )
+        # rubocop:enable Rails/SkipsModelValidations
       end
   end
 end

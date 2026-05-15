@@ -40,7 +40,7 @@ class ProjectFileUploader < CarrierWave::Uploader::Base
   private
 
   def file_name
-    self.file&.filename.split(".")[0]
+    self.file&.filename&.split(".")&.[](0)
   end
 
   def file_date

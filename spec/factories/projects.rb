@@ -25,7 +25,7 @@ FactoryBot.define do
     method_long_term_structures { false }
     course_title { "Art Observation 101" }
     course_number { "1234" }
-    submitted_at { Date.today }
+    submitted_at { Time.zone.today }
 
     association :reserve
     association :owner, factory: :user

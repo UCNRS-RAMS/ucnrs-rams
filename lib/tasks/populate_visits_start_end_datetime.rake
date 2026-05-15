@@ -7,10 +7,12 @@ namespace :db do
       visit_starts_at = visit.user_visits.min_by(&:arrives_at).arrives_at
       visit_ends_at = visit.user_visits.max_by(&:departs_at).departs_at
 
+      # rubocop:disable Rails/SkipsModelValidations
       visit.update_columns(
         starts_at: visit_starts_at, start_date: visit_starts_at.to_date, start_time: visit_starts_at,
         ends_at: visit_ends_at, end_date: visit_ends_at.to_date, end_time: visit_ends_at
       )
+      # rubocop:enable Rails/SkipsModelValidations
     end
   end
 end

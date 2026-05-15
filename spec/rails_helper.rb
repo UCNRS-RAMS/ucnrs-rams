@@ -89,7 +89,7 @@ RSpec.configure do |config|
   # Remove images generated during test runs
   config.after(:all) do
     if Rails.env.test?
-      FileUtils.rm_rf(Dir["#{Rails.root}/tmp/ucnrs-test"])
+      FileUtils.rm_rf(Dir["#{Rails.root.join("tmp/ucnrs-test")}"])
     end
   end
 end

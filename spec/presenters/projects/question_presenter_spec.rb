@@ -10,7 +10,7 @@ RSpec.describe Projects::QuestionPresenter do
     it "is a hash containing a path to the partial and locals" do
       presenter = Projects::QuestionPresenter.new(build_stubbed(:permit))
 
-      expect(presenter.render_values).to eq ({
+      expect(presenter.render_values).to eq({
         partial: "projects/questions/question",
         locals: { question: presenter },
       })

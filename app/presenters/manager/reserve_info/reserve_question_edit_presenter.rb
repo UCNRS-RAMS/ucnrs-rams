@@ -8,11 +8,11 @@ class Manager::ReserveInfo::ReserveQuestionEditPresenter
   delegate :reserve_question, to: :form, prefix: true
 
   def question_type_options
-    ReserveQuestion.question_types.map {|key, value| [translate(key), key]}
+    ReserveQuestion.question_types.map {|key, _value| [translate(key), key]}
   end
 
   def location_options
-    ReserveQuestion.locations.map {|key, value| [translate(key), key]}
+    ReserveQuestion.locations.map {|key, _value| [translate(key), key]}
   end
 
   def reserve_question_id

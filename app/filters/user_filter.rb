@@ -14,20 +14,18 @@ class UserFilter
   end
 
   def sort_by_filter
-    filter&.dig(:sort_by).present? ? filter&.dig(:sort_by) : DEFAULT_SORT_BY_FILTER
+    filter&.dig(:sort_by).presence || DEFAULT_SORT_BY_FILTER
   end
 
   def user_role_filter
-    filter&.dig(:user_role).present? ? filter&.dig(:user_role) : DEFAULT_USER_ROLE_FILTER
+    filter&.dig(:user_role).presence || DEFAULT_USER_ROLE_FILTER
   end
 
   def user_institution_type_filter
-    filter&.dig(:user_institution_type).present? ? filter&.dig(:user_institution_type) : DEFAULT_USER_INSTITUTION_TYPE_FILTER
+    filter&.dig(:user_institution_type).presence || DEFAULT_USER_INSTITUTION_TYPE_FILTER
   end
 
-  def present?
-    filter.present?
-  end
+  delegate :present?, to: :filter
 
   private
 

@@ -9,9 +9,7 @@ class Reserves::Calendar::ShowPresenter < Manager::Dashboard::CalendarShowPresen
     reserve_calendar_path(reserve_id: reserve)
   end
 
-  def public_calendar_access
-    reserve.public_calendar_access
-  end
+  delegate :public_calendar_access, to: :reserve
 
   def visits
     visit_scope.map do |visit|
