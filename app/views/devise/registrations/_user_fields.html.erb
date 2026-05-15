@@ -70,12 +70,12 @@
       </p>
     </div>
     <div
-        class="field institution-field large"
-        data-controller="autocomplete"
-        data-autocomplete-url-value="<%= institutions_url %>"
-        data-autocomplete-min-length-value="3"
-
-      >
+      role="combobox"
+      class="field institution-field large"
+      data-controller="autocomplete"
+      data-autocomplete-url-value="<%= institutions_url %>"
+      data-autocomplete-min-length-value="3"
+    >
       <%= f.label :institution, t(".labels.institution") %>
       <p class="helper-text">
         <strong><%= t(".helper_text.tip") %></strong>
