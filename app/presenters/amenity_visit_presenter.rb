@@ -71,9 +71,7 @@ class AmenityVisitPresenter
     end
   end
 
-  def invoiced?
-    amenity_visit.invoiced?
-  end
+  delegate :invoiced?, to: :amenity_visit
 
   private
 

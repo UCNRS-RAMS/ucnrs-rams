@@ -513,7 +513,7 @@ RSpec.describe User, type: :model do
 
   describe ".non_group_users" do
     it "only returns user records of users that are not group" do
-      create(:user, :non_group_user) unless User.where(id: 1).present?
+      create(:user, :non_group_user) if User.where(id: 1).blank?
       user1 = create(:user)
       user2 = create(:user)
 

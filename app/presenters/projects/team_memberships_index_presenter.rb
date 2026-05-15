@@ -28,7 +28,7 @@ class Projects::TeamMembershipsIndexPresenter
   end
 
   def user_role_options
-    User.roles.except(:no_selection).map do |key, value|
+    User.roles.except(:no_selection).map do |key, _value|
       [I18n.t("universal.roles.#{key}"), key]
     end
   end

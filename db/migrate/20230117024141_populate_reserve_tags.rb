@@ -1,7 +1,9 @@
+# rubocop:disable Metrics/ClassLength
 class PopulateReserveTags < ActiveRecord::Migration[6.1]
   def up
     time_current = Time.current.to_fs(:db)
 
+    # rubocop:disable Metrics/BlockLength
     without_foreign_keys do
       execute(<<-END_SQL)
       INSERT INTO `reserve_tags` (`id`, `reserve_id`, `category`, `name`, `created_at`, `updated_at`) VALUES
@@ -508,6 +510,7 @@ class PopulateReserveTags < ActiveRecord::Migration[6.1]
       (501, 25, 'amenities', 'Climate station', '#{time_current}', '#{time_current}');
       END_SQL
     end
+    # rubocop:enable Metrics/BlockLength
   end
 
   private
@@ -533,3 +536,4 @@ class PopulateReserveTags < ActiveRecord::Migration[6.1]
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

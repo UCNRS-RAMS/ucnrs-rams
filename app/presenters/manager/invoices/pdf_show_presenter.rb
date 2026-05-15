@@ -8,9 +8,7 @@ class Manager::Invoices::PdfShowPresenter
 
   attr_reader :invoice
 
-  def invoice_visit_project
-    invoice_visit.project
-  end
+  delegate :project, to: :invoice_visit, prefix: true
 
   def invoice_visit_reserve
     ReservePresenter.new invoice_visit.reserve
@@ -45,9 +43,7 @@ class Manager::Invoices::PdfShowPresenter
     end.join("\n\n")
   end
 
-  def invoice_message
-    invoice_visit_reserve.invoice_message
-  end
+  delegate :invoice_message, to: :invoice_visit_reserve
 
   def invoice_date
     invoice.invoiced_on

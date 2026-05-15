@@ -7,7 +7,7 @@ RSpec.describe "Home Index" do
 
     it "paginates visits displaying 10 at a time", js: true do
       user = create(:user, :confirmed, email: email, password: password)
-      25.times do |n|
+      25.times do |_n|
         visit = create(:visit, user: user, starts_at: Time.current, ends_at: 1.week.from_now)
         user_visit = create(:user_visit, user: user, visit: visit)
 

@@ -15,7 +15,7 @@ class Manager::Invoices::InvoiceEditPresenter < Manager::Invoices::InvoicesFormP
   end
 
   def invoice_payments
-    @invoice_payments ||= @invoice&.invoice_payments.map { |payment| InvoicePaymentPresenter.new(payment) }
+    @invoice_payments ||= @invoice&.invoice_payments&.map { |payment| InvoicePaymentPresenter.new(payment) }
   end
 
   def payments_total
@@ -30,7 +30,6 @@ class Manager::Invoices::InvoiceEditPresenter < Manager::Invoices::InvoicesFormP
     balance >= 0 ? "positive_balance" : "negative_balance"
   end
 
-  private
 
   delegate :modify_number, :id, to: :invoice
 end

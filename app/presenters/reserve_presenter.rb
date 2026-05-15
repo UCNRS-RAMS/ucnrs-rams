@@ -7,7 +7,7 @@ class ReservePresenter
 
   delegate_missing_to :reserve
 
-  delegate :name, to: :billing_address_state, prefix: :true
+  delegate :name, to: :billing_address_state, prefix: true
 
   def address_line_3
     "#{address_city}, #{state} #{address_postal_code}".squish

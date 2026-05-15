@@ -15,7 +15,7 @@ class ProjectFilter
   end
 
   def sort_by_filter
-    filter&.dig(:sort_by).present? ? filter&.dig(:sort_by) : DEFAULT_SORT_BY_FILTER
+    filter&.dig(:sort_by).presence || DEFAULT_SORT_BY_FILTER
   end
 
   def reserve_filter
@@ -27,7 +27,7 @@ class ProjectFilter
   end
 
   def project_type_filter
-    filter&.dig(:project_type).present? ? filter&.dig(:project_type) : DEFAULT_PROJECT_TYPE_FILTER
+    filter&.dig(:project_type).presence || DEFAULT_PROJECT_TYPE_FILTER
   end
 
   def date_begin_filter
@@ -39,12 +39,10 @@ class ProjectFilter
   end
 
   def project_status_filter
-    filter&.dig(:project_status).present? ? filter&.dig(:project_status) : DEFAULT_PROJECT_STATUS_FILTER
+    filter&.dig(:project_status).presence || DEFAULT_PROJECT_STATUS_FILTER
   end
 
-  def present?
-    filter.present?
-  end
+  delegate :present?, to: :filter
 
   private
   

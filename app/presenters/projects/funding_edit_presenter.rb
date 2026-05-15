@@ -10,9 +10,7 @@ class Projects::FundingEditPresenter
   attr_reader :form
   delegate :id, :errors, :project, to: :form
 
-  def project_id
-    editing_funding.project_id
-  end
+  delegate :project_id, to: :editing_funding
 
   def editing_funding
     Projects::FundingPresenter.new(

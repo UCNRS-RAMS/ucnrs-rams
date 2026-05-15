@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class CreateProjectFlow
   def initialize(page)
     @capybara_page = page
@@ -68,13 +69,14 @@ class CreateProjectFlow
     page.first("label", text: name).click
   end
 
+  # some items are nevewr used, so commenting out
   def fill_out_new_project_form(
     title:,
-    thesis_title:,
+    # thesis_title:,
     abstract:,
-    project_type:,
-    start_date:,
-    end_date:,
+    # project_type:,
+    # start_date:,
+    # end_date:,
     involves_mammals:,
     involves_reptiles:,
     involves_amphibians:,
@@ -358,7 +360,7 @@ class CreateProjectFlow
     end
   end
 
-  def able_to_go_back_to?(resource, project)
+  def able_to_go_back_to?(resource, _project)
     page.click_link("Go Back")
     page.has_css?("body.#{resource}") ||
       page.has_css?("body.projects-#{resource}")
@@ -372,3 +374,4 @@ class CreateProjectFlow
 
   attr_reader :capybara_page
 end
+# rubocop:enable Metrics/ClassLength

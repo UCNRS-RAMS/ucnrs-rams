@@ -71,11 +71,6 @@ class Manager::ProjectIndexFlow
     page.find("span.last a").click
   end
 
-  def go_to_last_page
-    resize_window
-    page.find("span.last a").click
-  end
-
   def has_no_pagination_links?
     page.has_no_selector?("nav.pagination")
   end

@@ -53,7 +53,7 @@ class Manager::Invoices::InvoiceShowPresenter
   end
 
   def invoice_payments
-    @invoice_payments ||= @invoice&.invoice_payments.map { |payment| InvoicePaymentPresenter.new(payment) }
+    @invoice_payments ||= @invoice&.invoice_payments&.map { |payment| InvoicePaymentPresenter.new(payment) }
   end
 
   def balance

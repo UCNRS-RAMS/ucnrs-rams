@@ -10,7 +10,7 @@ class AddFullTextIndexToUsers < ActiveRecord::Migration[6.1]
     begin
       execute("ALTER TABLE users DROP INDEX user_search")
     rescue ActiveRecord::StatementInvalid => e
-      puts "user_search index does not exist"
+      Rails.logger.debug "user_search index does not exist"
     end
   end
 end

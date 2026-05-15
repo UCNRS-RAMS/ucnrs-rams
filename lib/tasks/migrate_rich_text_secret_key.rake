@@ -27,7 +27,9 @@ namespace :db do
         new_body = RichTextSecretKeyMigrator.new(content, old_secret_key_base: old_secret).process
 
         if new_body != content
+          # rubocop:disable Rails/SkipsModelValidations
           rich_text.update_column(:body, new_body)
+          # rubocop:enable Rails/SkipsModelValidations
           updated += 1
           puts "Updated RichText ##{rich_text.id}"
         end

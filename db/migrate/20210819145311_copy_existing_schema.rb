@@ -1,4 +1,6 @@
+# rubocop:disable Metrics/ClassLength
 class CopyExistingSchema < ActiveRecord::Migration[6.1]
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def change
     create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
       t.integer "ReserveID"
@@ -754,6 +756,7 @@ class CopyExistingSchema < ActiveRecord::Migration[6.1]
       t.integer "reserve_id", null: false
     end
 
+    # rubocop:disable Metrics/BlockLength
     create_table "reserves", primary_key: "ReserveID", id: { type: :integer, comment: "NRS reserves listed in order of inclusion in the system", default: nil }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
       t.string "Name", limit: 80
       t.string "NickName", limit: 20
@@ -881,6 +884,7 @@ class CopyExistingSchema < ActiveRecord::Migration[6.1]
       t.index ["ManagingCampus", "Name"], name: "ManagingCampus"
       t.index ["Name"], name: "Name"
     end
+    # rubocop:enable Metrics/BlockLength
 
     create_table "reserves_waivers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
       t.bigint "reserve_id"
@@ -905,4 +909,6 @@ class CopyExistingSchema < ActiveRecord::Migration[6.1]
     add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
     add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end
+# rubocop:enable Metrics/ClassLength

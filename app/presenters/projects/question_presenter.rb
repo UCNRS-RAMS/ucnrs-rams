@@ -22,9 +22,7 @@ class Projects::QuestionPresenter
     end
   end
 
-  def reserve_name
-    reserve.name
-  end
+  delegate :name, to: :reserve, prefix: true
 
   def form
     self

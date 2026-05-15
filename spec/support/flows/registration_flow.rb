@@ -31,6 +31,8 @@ class RegistrationFlow
     page.has_css?("body.registrations.registrations-create")
   end
 
+  # I believe this long method is fine for running test and filling form
+  # rubocop:disable Metrics/AbcSize
   def fill_out_account_creation_form(
     first_name: "John",
     last_name: "Muir",
@@ -38,7 +40,7 @@ class RegistrationFlow
     gender_identity: "Male",
     email: "john@muirwoods.test",
     password: "Password1",
-    password_confirmation: "Password1",
+    # password_confirmation: "Password1",
     secondary_phone_number: "",
     backup_email_address: "",
     role: "Docent",
@@ -53,7 +55,7 @@ class RegistrationFlow
     address_postal_code: "94941",
     address_country: "United States",
     address_state: "California",
-    billing_address_same_as_current: "1",
+    # billing_address_same_as_current: "1",
     billing_address_line_1: "",
     billing_address_line_2: "",
     billing_address_city: "",
@@ -93,6 +95,7 @@ class RegistrationFlow
     page.fill_in("Billing Phone Number (Optional)", with: billing_person_phone_number)
     page.check("user_terms_accepted_at")
   end
+  # rubocop:enable Metrics/AbcSize
 
   def select_billing_state
     page.find("#user_billing_address_state_id").select("California")
@@ -106,19 +109,21 @@ class RegistrationFlow
     page.has_css?("#billingAddress")
   end
 
+  # I think this AbcSize is fine for this kind of test which fills a number of steps
+  # rubocop:disable Metrics/AbcSize
   def fill_out_account_edit_form(
     first_name: "John",
     last_name: "Muir",
     phone_number: "(111) 111 - 1111",
     gender_identity: "Male",
     email: "john@muirwoods.test",
-    age_range: "50 or older",
+    # age_range: "50 or older",
     secondary_phone_number: "",
-    accessibility_requirements: "",
+    # accessibility_requirements: "",
     backup_email_address: "",
     role: "Docent",
     orcid: "",
-    advisor: "",
+    # advisor: "",
     institution: "",
     emergency_contact_full_name: "Louisa Wanda Strentzel",
     emergency_contact_phone_number: "(222) 222 - 2222",
@@ -128,7 +133,7 @@ class RegistrationFlow
     address_postal_code: "94941",
     address_country: "United States",
     address_state: "California",
-    billing_address_same_as_current: "1",
+    # billing_address_same_as_current: "1",
     billing_address_line_1: "",
     billing_address_line_2: "",
     billing_address_city: "",
@@ -164,6 +169,7 @@ class RegistrationFlow
     page.fill_in("Billing Email Address (Optional)", with: billing_person_email)
     page.fill_in("Billing Phone Number (Optional)", with: billing_person_phone_number)
   end
+  # rubocop:enable Metrics/AbcSize
 
   def submit_account_creation_form
     page.find("button[type='submit']").click

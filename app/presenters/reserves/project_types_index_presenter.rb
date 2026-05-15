@@ -36,5 +36,4 @@ class Reserves::ProjectTypesIndexPresenter
     ICON_TO_ALT[icon(for_column)]
   end
 
-  private
 end

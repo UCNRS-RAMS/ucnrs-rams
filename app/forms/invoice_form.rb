@@ -67,8 +67,8 @@ class InvoiceForm
     end
   end
 
-  def invoiced_on=(value)
-    invoice.invoiced_on = Date.today unless editing
+  def invoiced_on=(_value)
+    invoice.invoiced_on = Time.zone.today unless editing
   end
 
   def save_invoice_recipients

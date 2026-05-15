@@ -10,7 +10,7 @@ class AddFullTextIndexToInstitutions < ActiveRecord::Migration[6.1]
     begin
       execute("ALTER TABLE institutions DROP INDEX institution_search")
     rescue ActiveRecord::StatementInvalid => e
-      puts "institution_search index does not exist"
+      Rails.logger.debug "institution_search index does not exist"
     end
   end
 end

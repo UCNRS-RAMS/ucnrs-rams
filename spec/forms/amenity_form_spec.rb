@@ -38,7 +38,7 @@ RSpec.describe AmenityForm, type: :model do
     end
 
     it "makes a new AmenityForm from params" do
-      image = File.open(Rails.root.join('spec', 'support', 'assets', 'test-image.jpeg'))
+      image = File.open(Rails.root.join("spec/support/assets/test-image.jpeg"))
       params = {
         id: 4,
         reserve_id: 4,
