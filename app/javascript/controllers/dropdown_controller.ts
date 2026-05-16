@@ -10,13 +10,17 @@ export default class extends Controller {
     this.toggleCSSClass(this.dropdownTarget)
   }
 
-  hide(event) {
-    if (!this.element.contains(event.target) && !this.dropdownTarget.classList.contains(this.dropdownTarget.dataset.toggleClass)) {
-      this.dropdownTarget.classList.remove(this.dropdownTarget.dataset.dropdownClass)
+  hide(event: Event) {
+    const dropdown = this.dropdownTarget
+    const toggleClass = dropdown.dataset.toggleClass ?? ""
+    const dropdownClass = dropdown.dataset.dropdownClass ?? ""
+
+    if (!this.element.contains(event.target as Node) && !dropdown.classList.contains(toggleClass)) {
+      dropdown.classList.remove(dropdownClass)
     }
   }
 
-  toggleCSSClass(target) {
-    target.classList.toggle(target.dataset.dropdownClass)
+  toggleCSSClass(target: HTMLElement) {
+    target.classList.toggle(target.dataset.dropdownClass ?? "")
   }
 }

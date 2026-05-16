@@ -49,7 +49,7 @@ export default class extends Controller {
     this.updateDays(units)
   }
 
-  setRate(rateValue) {
+  setRate(rateValue: string) {
     this.initialValTarget.innerText = rateValue
     this.calculateAll()
   }
@@ -61,8 +61,9 @@ export default class extends Controller {
     return this.fetchSubtotal(arrives, departs)
   }
 
-  fetchSubtotal(arrives, departs) {
-    const url = `/visits/units?arrive=${encodeURIComponent(arrives)}&departs=${encodeURIComponent(departs)}&unit=${this.unitTypeTarget.textContent.trim()}`
+  fetchSubtotal(arrives: string, departs: string) {
+    const unit = this.unitTypeTarget.textContent?.trim() ?? ""
+    const url = `/visits/units?arrive=${encodeURIComponent(arrives)}&departs=${encodeURIComponent(departs)}&unit=${unit}`
     return fetch(url,
         {
           headers: {
@@ -84,13 +85,13 @@ export default class extends Controller {
   }
 
   calculateTotal() {
-    let subtotal
-    if (document.getElementById('total') != null) {
+    let subtotal = '0'
+    const totalElement = document.getElementById('total')
+    if (totalElement != null) {
       subtotal = Array.from(document.querySelectorAll('.subtotal'))
         .reduce((total, arg) => total + parseFloat(arg.innerHTML), 0.0).toFixed(2).toString();
+      totalElement.innerHTML = '$' + subtotal
     }
-
-    document.getElementById('total').innerHTML = '$' + subtotal
 
     return parseFloat(subtotal)
   }
@@ -111,7 +112,7 @@ export default class extends Controller {
       currency: 'USD',
     });
 
-    if (balanceElement) {
+    if (balanceElement && balanceElement.parentElement) {
       balanceElement.innerHTML = USDollar.format(balance)
       balanceElement.parentElement.className = `balance ${this.getBalanceColorClass(
         balance
@@ -146,7 +147,7 @@ export default class extends Controller {
     }
   }
 
-  updateDays(num_of_days) {
+  updateDays(num_of_days: number) {
     this.daysTargets.forEach(target => target.innerHTML = num_of_days.toString())
   }
 }
