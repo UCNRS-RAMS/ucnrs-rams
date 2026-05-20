@@ -22,6 +22,7 @@ gem 'puma', '>= 5.0'
 gem 'rails', '~> 8.1.0'
 gem 'shakapacker'
 gem 'simple_calendar', '~> 3.0'
+gem 'solid_cable'
 gem 'turbo-rails', '~> 1.4'
 gem "wicked_pdf", "~> 2.7"
 gem "wkhtmltopdf-binary", "~> 0.12.6"
