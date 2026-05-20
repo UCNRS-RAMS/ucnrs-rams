@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_13_130000) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_20_174728) do
   create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "archived_data_location", limit: 200, null: false, comment: "Where is data archived"
     t.string "data_collected", limit: 200, null: false, comment: "What data is collected"
@@ -921,6 +921,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_13_130000) do
     t.bigint "waiver_id"
     t.index ["person_id"], name: "index_signatures_on_person_id"
     t.index ["waiver_id"], name: "index_signatures_on_waiver_id"
+  end
+
+  create_table "solid_cable_messages", charset: "utf8mb3", force: :cascade do |t|
+    t.binary "channel", limit: 1024, null: false
+    t.bigint "channel_hash", null: false
+    t.datetime "created_at", null: false
+    t.binary "payload", size: :long, null: false
+    t.index ["channel"], name: "index_solid_cable_messages_on_channel"
+    t.index ["channel_hash"], name: "index_solid_cable_messages_on_channel_hash"
+    t.index ["created_at"], name: "index_solid_cable_messages_on_created_at"
   end
 
   create_table "states", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
