@@ -1,15 +1,25 @@
+# Async adapter only works within the same process, so for manually triggering cable updates from a console,
+# and seeing results in the browser, you must do so from the web console (running inside the dev process),
+# not a terminal started via bin/rails console! Add "console" to any action or any ERB template view
+# to make the web console appear.
 development:
   adapter: async
-
-dev_server:
-  adapter: <%= ENV.fetch("CABLE_ADAPTER") { "async" } %>
-  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
-  channel_prefix: <%= ENV.fetch("REDIS_CHANNEL_PREFIX") { "ucnrs_rams_dev_server" } %>
 
 test:
   adapter: test
 
+dev_server:
+  adapter: solid_cable
+  connects_to:
+    database:
+      writing: cable
+  polling_interval: 0.3.seconds
+  message_retention: 1.day
+
 production:
-  adapter: redis
-  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
-  channel_prefix: <%= ENV.fetch("REDIS_CHANNEL_PREFIX") { "ucnrs_rams_production" } %>
+  adapter: solid_cable
+  connects_to:
+    database:
+      writing: cable
+  polling_interval: 0.3.seconds
+  message_retention: 1.day
