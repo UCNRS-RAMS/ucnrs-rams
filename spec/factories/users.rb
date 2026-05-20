@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
     first_name { "John" }
-    last_name { "Muir" }
+    sequence(:last_name) { |n| "Muir#{n}" }
     role { :research_scientist }
     emergency_contact_full_name { "Louisa Wanda Strentzel" }
     emergency_contact_phone_number { "111-111-1111" }

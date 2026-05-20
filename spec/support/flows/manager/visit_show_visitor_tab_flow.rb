@@ -1,4 +1,4 @@
-class VisitShowVisitorTabFlow
+class Manager::VisitShowVisitorTabFlow
   def initialize(page:, visit_id:, reserve_id:)
     @page = page
     @visit_id = visit_id

@@ -19,6 +19,19 @@ FactoryBot.define do
     association :address_country, factory: :country
     association :managing_campus, factory: :institution
 
+    trait :with_full_address do
+      address_line_1 { "123 Reserve Road" }
+      address_line_2 { "Suite 100" }
+      address_city { "Berkeley" }
+      address_postal_code { "94720" }
+      association :managing_campus, factory: :institution
+    end
+
+    trait :with_rules_and_directions do
+      rules_and_regulations { "All visitors must sign in at the station before entering the reserve." }
+      directions { "Take Highway 1 north, turn left at the reserve entrance sign." }
+    end
+
     trait :with_logo do
       after(:build) do |reserve|
         File.open(Rails.root.join("spec/support/assets/test-image.jpeg")) do |f|

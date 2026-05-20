@@ -6,5 +6,10 @@ FactoryBot.define do
 
     association :country
     association :state
+
+    trait :with_full_address do
+      acronym { "UCSF" }
+      doi { "1234" }
+    end
   end
 end
