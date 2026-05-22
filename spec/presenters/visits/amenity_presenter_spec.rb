@@ -25,61 +25,36 @@ RSpec.describe Visits::AmenityPresenter do
 
   describe "#rates" do
     it "presents its visible, applicable rates in order" do
-      insitiution = create(
-        :institution,
-        institution_type: :k_12_education,
-        name: "Institution #{rand(1_000_000_000)}",
-      )
-      user = create(:user, institution: insitiution)
-      reserve = create(
-        :reserve,
-        name: "Reserve #{rand(1_000_000_000)}",
-        managing_campus: create(:institution, name: "Campus #{rand(1_000_000_000)}"),
-      )
+      institution = create(:institution, institution_type: :k_12_education )
+      user = create(:user, institution: institution)
+      reserve = create(:reserve)
       amenity = create(:amenity, reserve: reserve)
       rate_category1 = create(:amenity_rate_category, reserve: reserve, sort_order: 1, visible: true, k12: true)
       rate_category2 = create(:amenity_rate_category, reserve: reserve, sort_order: 4, visible: true, business: true)
       rate_category3 = create(:amenity_rate_category, reserve: reserve, sort_order: 2, visible: false, k12: true)
       rate_category4 = create(:amenity_rate_category, reserve: reserve, sort_order: 3, visible: true, k12: true)
       presenter = Visits::AmenityPresenter.new(amenity, user: user)
-      AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category1).delete_all
-      AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category2).delete_all
-      AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category3).delete_all
-      AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category4).delete_all
-      AmenityRate.create!(amenity: amenity, amenity_rate_category: rate_category1, rate: 0.0)
-      AmenityRate.create!(amenity: amenity, amenity_rate_category: rate_category2, rate: 0.0)
-      AmenityRate.create!(amenity: amenity, amenity_rate_category: rate_category3, rate: 0.0)
-      AmenityRate.create!(amenity: amenity, amenity_rate_category: rate_category4, rate: 0.0)
-      rate1 = AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category1).first
-      rate2 = AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category2).first
-      rate4 = AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category4).first
 
       presented_rates = presenter.rates
 
       expect(presented_rates.map(&:id))
         .to eq [
-          rate1.id,
-          rate4.id,
-          rate2.id,
+          rate_category1.amenity_rates[0].id,
+          rate_category4.amenity_rates[0].id,
+          rate_category2.amenity_rates[0].id,
         ]
     end
   end
 
   describe "#rate_descriptions" do
     it "generates the right descriptions for time-period-based rates" do
-      reserve = create(
-        :reserve,
-        name: "Reserve #{rand(1_000_000_000)}",
-        managing_campus: create(:institution, name: "Campus #{rand(1_000_000_000)}"),
-      )
+      reserve = create(:reserve)
       amenity = create(:amenity, reserve: reserve, units_type: :use, time_type: :four_hours)
       rate_category1 = create(:amenity_rate_category, reserve: reserve, sort_order: 1, description: "Rate 1")
       rate_category2 = create(:amenity_rate_category, reserve: reserve, sort_order: 2, description: "Rate 2")
+      rate_category1.amenity_rates[0].update(rate: "12.34")
+      rate_category2.amenity_rates[0].update(rate: "0.01")
       presenter = Visits::AmenityPresenter.new(amenity)
-      AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category1).delete_all
-      AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category2).delete_all
-      AmenityRate.create!(amenity: amenity, amenity_rate_category: rate_category1, rate: "12.34")
-      AmenityRate.create!(amenity: amenity, amenity_rate_category: rate_category2, rate: "0.01")
 
       rate_descriptions = presenter.rate_descriptions
 
@@ -94,11 +69,9 @@ RSpec.describe Visits::AmenityPresenter do
       amenity = create(:amenity, reserve: reserve, units_type: :use, time_type: :each)
       rate_category1 = create(:amenity_rate_category, reserve: reserve, sort_order: 1, description: "Rate 1")
       rate_category2 = create(:amenity_rate_category, reserve: reserve, sort_order: 2, description: "Rate 2")
+      rate_category1.amenity_rates[0].update(rate: "12.34")
+      rate_category2.amenity_rates[0].update(rate: "0.01")
       presenter = Visits::AmenityPresenter.new(amenity)
-      AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category1).delete_all
-      AmenityRate.where(amenity: amenity, amenity_rate_category: rate_category2).delete_all
-      AmenityRate.create!(amenity: amenity, amenity_rate_category: rate_category1, rate: "12.34")
-      AmenityRate.create!(amenity: amenity, amenity_rate_category: rate_category2, rate: "0.01")
 
       rate_descriptions = presenter.rate_descriptions
 
@@ -377,12 +350,12 @@ RSpec.describe Visits::AmenityPresenter do
 
   describe "#selected_rate_description" do
     it "should return rate with description" do
-      insitiution = create(
+      institution = create(
         :institution,
         institution_type: :k_12_education,
         name: "Institution #{SecureRandom.hex(6)}",
       )
-      user = create(:user, institution: insitiution)
+      user = create(:user, institution: institution)
       presenter = Visits::AmenityPresenter.new(create(:amenity), user: user)
       rates = [
         create(
