@@ -32,7 +32,6 @@ class RegistrationFlow
   end
 
   # I believe this long method is fine for running test and filling form
-  # rubocop:disable Metrics/AbcSize
   def fill_out_account_creation_form(
     first_name: "John",
     last_name: "Muir",

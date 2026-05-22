@@ -266,11 +266,11 @@ RSpec.describe Visits::AmenityPresenter do
   end
 
   describe "#default_count" do
-    COUNT = 10
+    let(:count) { 10 }
     it "should return given count when count is present" do
       amenity = create(:amenity)
       presenter = Visits::AmenityPresenter.new(amenity)
-      expect(presenter.default_count(COUNT)).to eq(COUNT)
+      expect(presenter.default_count(count)).to eq(count)
     end
 
     it "should return 1 when count is not present" do

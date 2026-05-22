@@ -1,5 +1,5 @@
 class ChangeActivitiesToVisits < ActiveRecord::Migration[6.1]
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength
   def change
     rename_table :activities, :visits
 
