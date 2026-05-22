@@ -27,7 +27,7 @@ RSpec.describe AmenityRatesForm, type: :model do
           params: { amenity_rates_attributes: { "0"=> { rate: 1.0, id: amenity_rate.id } } }
         )
 
-        expect(amenity_rate).to have_attributes(rate: 0.1e3)
+        expect(amenity_rate).to have_attributes(rate: 1.0)
       end
     end
   end
@@ -48,7 +48,7 @@ RSpec.describe AmenityRatesForm, type: :model do
       expect(result).to be_truthy
       expect(form.amenity).to be_persisted
       expect(form.amenity).to have_attributes(id: amenity.id)
-      expect(amenity_rate).to have_attributes(rate: 0.1e3)
+      expect(amenity_rate).to have_attributes(rate: 1.0)
     end
 
     it "makes sure errors are visible when save fails" do
