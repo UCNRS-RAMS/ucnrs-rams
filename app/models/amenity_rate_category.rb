@@ -1,6 +1,6 @@
 class AmenityRateCategory < ApplicationRecord
   belongs_to :reserve
-  has_many :amenity_rates, -> { in_order }, dependent: :destroy, inverse_of: :amenity
+  has_many :amenity_rates, -> { in_order }, dependent: :destroy, inverse_of: :amenity_rate_category
 
   validates :sort_order, uniqueness: { scope: [:visible, :reserve_id] }
   validates :description, presence: true
