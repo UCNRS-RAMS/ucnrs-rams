@@ -18,8 +18,7 @@ class Manager::Reports::FlexController < Manager::ApplicationController
   FISCAL_MONTH_END = 6
   FISCAL_DAY_END = 30
 
-  # rubocop:disable Metrics/AbcSize
-  def index
+    def index
     case filter&.dig(:flex_report_type)
     when "a_r_part_1"
       data = a_r_part_1(reserve: filter[:reserve], date_begin: filter[:date_begin], date_end: filter[:date_end])

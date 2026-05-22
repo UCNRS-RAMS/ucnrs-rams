@@ -1,5 +1,5 @@
 class UseConventionalSyntaxForReserveQuestions < ActiveRecord::Migration[6.1]
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
   def change
     rename_table :ReserveQuestions, :reserve_questions
     rename_column :reserve_questions, :ResQuestionID, :id

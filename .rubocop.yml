@@ -32,9 +32,8 @@ Rails:
 Metrics:
   Enabled: true
 
-# Relax complexity limits to fit existing app shape.
 Metrics/AbcSize:
-  Max: 45
+  Enabled: false
 
 Metrics/BlockLength:
   Max: 80

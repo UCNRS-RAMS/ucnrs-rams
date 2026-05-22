@@ -1,6 +1,5 @@
 # rubocop:disable Metrics/ModuleLength
 module ReportQueries
-  # rubocop:disable Metrics/AbcSize
   def query_part_1(reserve, begin_date, end_date)
     if defined?(request) && request&.session.present?
       id = ActiveRecord::Base.sanitize_sql(request.session[:session_id])

@@ -1,6 +1,6 @@
 # rubocop:disable Metrics/ClassLength
 class CopyExistingSchema < ActiveRecord::Migration[6.1]
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength
   def change
     create_table "ARPart5Publications", primary_key: "EndNoteID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
       t.integer "ReserveID"

@@ -1,5 +1,4 @@
 class UseConventionalNamesForAmenities < ActiveRecord::Migration[6.1]
-  # rubocop:disable Metrics/AbcSize
   def change
     rename_table :ReserveAssets, :amenities
     rename_column :amenities, :ReserveAssetID, :id

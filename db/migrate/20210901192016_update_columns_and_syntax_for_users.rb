@@ -1,5 +1,5 @@
 class UpdateColumnsAndSyntaxForUsers < ActiveRecord::Migration[6.1]
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength
   def change
     rename_column :users, :Gender, :gender_identity
     reversible do |dir|
