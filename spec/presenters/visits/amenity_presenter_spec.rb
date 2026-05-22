@@ -25,8 +25,8 @@ RSpec.describe Visits::AmenityPresenter do
 
   describe "#rates" do
     it "presents its visible, applicable rates in order" do
-      institution = create(:institution, institution_type: :k_12_education )
-      user = create(:user, institution: institution)
+      insitiution = create(:institution, institution_type: :k_12_education )
+      user = create(:user, institution: insitiution)
       reserve = create(:reserve)
       amenity = create(:amenity, reserve: reserve)
       rate_category1 = create(:amenity_rate_category, reserve: reserve, sort_order: 1, visible: true, k12: true)
@@ -145,16 +145,16 @@ RSpec.describe Visits::AmenityPresenter do
 
   describe "#group_label" do
     it "is the label that corresponds to the amenity's group_number" do
-      reserve = build(:reserve, amenity_group_label_1: "Housing & Lodging")
-      amenity = build(:amenity, group_number: 1, reserve: reserve)
+      reserve = create(:reserve, amenity_group_label_1: "Housing & Lodging")
+      amenity = create(:amenity, group_number: 1, reserve: reserve)
       presenter = Visits::AmenityPresenter.new(amenity)
 
       expect(presenter.group_label).to eq "Housing & Lodging"
     end
 
     it "returns the default value for the amenity_group_label if the group number doesn't match" do
-      reserve = build(:reserve, amenity_group_label_1: "Housing & Lodging")
-      amenity = build(:amenity, group_number: 2, reserve: reserve)
+      reserve = create(:reserve, amenity_group_label_1: "Housing & Lodging")
+      amenity = create(:amenity, group_number: 2, reserve: reserve)
       presenter = Visits::AmenityPresenter.new(amenity)
 
       expect(presenter.group_label).to eq "2"
@@ -266,12 +266,11 @@ RSpec.describe Visits::AmenityPresenter do
   end
 
   describe "#default_count" do
-    let(:count) { 10 }
-
+    COUNT = 10
     it "should return given count when count is present" do
       amenity = create(:amenity)
       presenter = Visits::AmenityPresenter.new(amenity)
-      expect(presenter.default_count(count)).to eq(count)
+      expect(presenter.default_count(COUNT)).to eq(COUNT)
     end
 
     it "should return 1 when count is not present" do
@@ -297,7 +296,7 @@ RSpec.describe Visits::AmenityPresenter do
 
   describe "#per" do
     it "should return 'per'" do
-      amenity = build(:amenity)
+      amenity = create(:amenity)
       presenter = Visits::AmenityPresenter.new(amenity)
 
       expect(presenter.per).to eq("per")
@@ -306,11 +305,7 @@ RSpec.describe Visits::AmenityPresenter do
 
   describe "#selected_rate_in_number" do
     it "should return rate in number" do
-      insitiution = create(
-        :institution,
-        institution_type: :k_12_education,
-        name: "Institution #{SecureRandom.hex(6)}",
-      )
+      insitiution = create(:institution, institution_type: :k_12_education )
       user = create(:user, institution: insitiution)
       presenter = Visits::AmenityPresenter.new(create(:amenity), user: user)
       rates = [
@@ -350,12 +345,8 @@ RSpec.describe Visits::AmenityPresenter do
 
   describe "#selected_rate_description" do
     it "should return rate with description" do
-      institution = create(
-        :institution,
-        institution_type: :k_12_education,
-        name: "Institution #{SecureRandom.hex(6)}",
-      )
-      user = create(:user, institution: institution)
+      insitiution = create(:institution, institution_type: :k_12_education )
+      user = create(:user, institution: insitiution)
       presenter = Visits::AmenityPresenter.new(create(:amenity), user: user)
       rates = [
         create(

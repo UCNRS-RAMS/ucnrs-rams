@@ -1,5 +1,5 @@
 class AmenityRate < ApplicationRecord
-  belongs_to :amenity
+  belongs_to :amenity, inverse_of: :amenity_rates
   belongs_to :amenity_rate_category
 
   validates :rate, presence: true
