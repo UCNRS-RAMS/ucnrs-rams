@@ -3798,6 +3798,34 @@ en:
       privacy_policy_short: Privacy
       cookie_settings: Cookie Settings
   layouts:
+    admin_navbar:
+      brand: UC Nature RAMS
+      title: Admin
+      aria:
+        account: Account
+        help: Help
+        sign_out: Sign Out
+    admin_account_drawer:
+      role: Super admin
+      links:
+        my_profile: My profile
+        user_view: "Go to: user view"
+        manager_view: "Go to: manager view"
+      aria:
+        close: Close account panel
+        account_links: Account links
+    admin_sidebar:
+      groups:
+        overview: Overview
+        reporting: Reporting
+        content: Content
+      links:
+        dashboard: Dashboard
+        reports: Reports
+        new_features: New features
+      aria:
+        section_navigation: Section navigation
+        admin_sections: Admin sections
     manager_navbar:
       alt_text:
         mobile_menu: Mobile Menu
@@ -3980,9 +4008,28 @@ en:
           future
         was_denied: Project grant or contract application was denied by the funding agency
   admin:
+    shared:
+      breadcrumb_root: Admin
+      page_header:
+        aria:
+          breadcrumb: Breadcrumb
+    dashboard:
+      index:
+        title: Dashboard
+        area: Overview
+        blurb: Start here for admin tasks across RAMS.
+    reports:
+      index:
+        title: Annual reports
+        area: Reporting
+        blurb: Which parts of each reserve's annual report are approved.
+        fiscal_year: "Fiscal year:"
     new_features:
       index:
         title: What's New/Changed
+        area: Content
+        blurb: Announcements that tell users what's new or changed in RAMS.
+        new: Add New
         table_headers:
           title: Title
           posted: Posted

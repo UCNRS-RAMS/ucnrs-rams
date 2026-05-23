@@ -1,0 +1,86 @@
+@use "variables" as *;
+
+.drawer {
+  background: $white;
+  border: 0;
+  border-left: 1px solid $gray;
+  box-shadow: -6px 0 12px -6px $navy-blue-20;
+  box-sizing: border-box;
+  color: $navy-blue;
+  flex-direction: column;
+  height: 100%;
+  inset: 0 0 0 auto;
+  margin: 0;
+  max-height: none;
+  max-width: 100%;
+  padding: 0;
+  width: 320px;
+
+  &[open] {
+    animation: drawer-in 0.25s ease-in-out;
+    display: flex;
+  }
+
+  &::backdrop {
+    background: $navy-blue-20;
+  }
+}
+
+.drawer-panel {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.drawer-header {
+  align-items: center;
+  border-bottom: 1px solid $gray;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  padding: 1.25rem 0.75rem 1.25rem 1.5rem;
+}
+
+.drawer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 0.75rem;
+}
+
+.drawer-link {
+  align-items: center;
+  border-radius: $border-radius;
+  color: $navy-blue;
+  display: flex;
+  font-size: 0.8125rem;
+  gap: 0.75rem;
+  min-height: 44px;
+  padding: 0 0.75rem;
+  text-decoration: none;
+
+  &:hover {
+    background: $light-gray;
+  }
+}
+
+.drawer-footer {
+  border-top: 1px solid $gray;
+  margin-top: auto;
+  padding: 1rem 1.5rem 1.5rem;
+
+  form {
+    margin: 0;
+  }
+}
+
+@keyframes drawer-in {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}

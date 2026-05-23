@@ -19,15 +19,18 @@
 @use "activity_and_notes" as *;
 @use "amenities" as *;
 @use "autocomplete" as *;
+@use "avatar" as *;
 @use "buttons" as *;
 @use "calendar" as *;
 @use "container" as *;
 @use "dashboard" as *;
+@use "drawer" as *;
 @use "flash" as *;
 @use "footer" as *;
 @use "fundings" as *;
 @use "homepage" as *;
 @use "icon-buttons" as *;
+@use "icon_button" as *;
 @use "invoices" as *;
 @use "klaro" as *;
 @use "modal" as *;
@@ -50,9 +53,12 @@
 @use "visit_questions" as *;
 @use "visits" as *;
 @use "waivers_policies" as *;
+@use "with_sidebar" as *;
 
 // Admin styles
 @use "admin/reports" as *;
+@use "admin/admin" as *;
+@use "admin/page_header" as *;
 
 // Manager styles
 @use "manager/activities" as *;
@@ -82,7 +88,6 @@
 @use "manager/waivers_policies" as *;
 
 // Admin styles
-@use "admin/new_features" as *;
 
 
 html {

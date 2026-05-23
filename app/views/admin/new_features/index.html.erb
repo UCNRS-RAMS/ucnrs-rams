@@ -1,31 +1,30 @@
-<section class="content">
-  <header>
-    <%= t(".title") %>
-  </header>
-  <table class="table-style1">
-    <thead>
-      <tr>
-        <th><%= t(".table_headers.title") %></th>
-        <th><%= t(".table_headers.posted") %></th>
-        <th><%= t(".table_headers.actions") %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @presenter.new_features.each do |new_feature| %>
-        <tr>
-          <td class="title"><%= new_feature.title %></td>
-          <td><%= l(new_feature.created_at.to_date, format: :long) %></td>
-          <td>
-            <%= link_to t("edit"), edit_admin_new_feature_path(new_feature) %>
-            <%= button_to t("delete"), admin_new_feature_path(new_feature),
-              method: :delete,
-              form: { data: { turbo_confirm: t("confirm_removal", name: new_feature.title) } },
-              class: "link-button" %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+<%= render "admin/shared/page_header",
+  title: t(".title"), blurb: t(".blurb"),
+  crumbs: [[t("admin.shared.breadcrumb_root"), admin_root_path], [t(".area")]] do %>
+  <%= link_to t("admin.new_features.index.new"), new_admin_new_feature_path, class: "page-header-button" %>
+<% end %>
 
-  <%= link_to t("new"), new_admin_new_feature_path %>
-</section>
+<table class="table-style1">
+  <thead>
+    <tr>
+      <th><%= t(".table_headers.title") %></th>
+      <th><%= t(".table_headers.posted") %></th>
+      <th><%= t(".table_headers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @presenter.new_features.each do |new_feature| %>
+      <tr>
+        <td class="title"><%= new_feature.title %></td>
+        <td><%= l(new_feature.created_at.to_date, format: :long) %></td>
+        <td>
+          <%= link_to t("edit"), edit_admin_new_feature_path(new_feature) %>
+          <%= button_to t("delete"), admin_new_feature_path(new_feature),
+            method: :delete,
+            form: { data: { turbo_confirm: t("confirm_removal", name: new_feature.title) } },
+            class: "link-button" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
