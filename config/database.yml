@@ -18,6 +18,10 @@ dev_server:
   # No reason to change this on servers which should give correct name (really no need to change it at all when
   # the databases are on different hosts)
 
+staging:
+  <<: *default
+  # use the database passed in as ENV Variable and don't override it.
+
 test:
   <<: *default
   database: ucnrs_rams_test
