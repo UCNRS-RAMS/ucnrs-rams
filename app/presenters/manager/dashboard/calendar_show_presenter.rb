@@ -101,9 +101,17 @@ class Manager::Dashboard::CalendarShowPresenter
     @visit_scope ||= reserve
       .visits
       .where(
-        starts_at: ..start_date.end_of_month.end_of_week,
-        ends_at: start_date.beginning_of_month.beginning_of_week..,
+        starts_at: ..calendar_range_end,
+        ends_at: calendar_range_start..,
       )
+  end
+
+  def calendar_range_start
+    start_date.beginning_of_month.beginning_of_week.beginning_of_day
+  end
+
+  def calendar_range_end
+    start_date.end_of_month.end_of_week.end_of_day
   end
 
   def lowest_available(arr)
