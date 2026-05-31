@@ -67,8 +67,8 @@ class Home::CalendarShowPresenter
 
   def visits_reserve_list
     Visit.where(
-      starts_at: ..start_date.end_of_month.end_of_week,
-      ends_at: start_date.beginning_of_month.beginning_of_week..,
+      starts_at: ..calendar_range_end,
+      ends_at: calendar_range_start..,
     ).reserve_list_for_user(user)
   end
 
@@ -90,9 +90,17 @@ class Home::CalendarShowPresenter
       .for_status(visit_status_filter)
       .by_reserve(visit_reserve_filter)
       .where(
-        starts_at: ..start_date.end_of_month.end_of_week,
-        ends_at: start_date.beginning_of_month.beginning_of_week..,
+        starts_at: ..calendar_range_end,
+        ends_at: calendar_range_start..,
       )
+  end
+
+  def calendar_range_start
+    start_date.beginning_of_month.beginning_of_week.beginning_of_day
+  end
+
+  def calendar_range_end
+    start_date.end_of_month.end_of_week.end_of_day
   end
 
   def lowest_available(arr)
