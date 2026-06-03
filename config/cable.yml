@@ -11,6 +11,11 @@ dev_server:
   polling_interval: 0.3.seconds
   message_retention: 1.day
 
+staging:
+  adapter: solid_cable
+  polling_interval: 0.3.seconds
+  message_retention: 1.day
+
 production:
   adapter: solid_cable
   polling_interval: 0.3.seconds
