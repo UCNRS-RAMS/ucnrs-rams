@@ -2201,6 +2201,11 @@ en:
         course_number: Course Number
         instructor: Instructor
         date: Date
+      report_part_3_table:
+        institution_type: Institution Type
+        institution_name: Institution Name
+        course: Course
+        users: Users
       report_part_4:
         part_4_current_research: Part 4. Current Research
       report_part_4_data:

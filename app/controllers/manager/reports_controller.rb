@@ -64,6 +64,13 @@ class Manager::ReportsController < Manager::ApplicationController
           layout: "pdf",
           show_as_html: params[:debug].present?
       end
+
+      format.csv do
+        filename = "annual_report_#{current_reserve.name.downcase.tr(' ', '_')}_part_2"
+        response.headers["Content-Type"] = "text/csv"
+        response.headers["Content-Disposition"] = "attachment; filename=#{filename}.csv"
+        render layout: nil
+      end
     end
   end
 
@@ -72,6 +79,16 @@ class Manager::ReportsController < Manager::ApplicationController
     @presenter = Manager::Reports::ReportPart3Presenter.new(
       form: form,
     )
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        filename = "annual_report_#{current_reserve.name.downcase.tr(' ', '_')}_part_3"
+        response.headers["Content-Type"] = "text/csv"
+        response.headers["Content-Disposition"] = "attachment; filename=#{filename}.csv"
+        render layout: nil
+      end
+    end
   end
 
   def report_part_4
