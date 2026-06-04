@@ -1,0 +1,57 @@
+name: Deploy Staging Kamal
+
+on:
+  push:
+    branches:
+      - mm/staging-kamal
+  workflow_dispatch:
+
+# Never let two staging deploys run at once.
+concurrency:
+  group: deploy-staging-kamal
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, macOS, ARM64]
+    environment: staging-kamal
+
+    env:
+      KAMAL_VERSION: "2.11.0"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Verify Docker is available
+        run: |
+          docker version
+          docker buildx version
+
+      - name: Ensure kamal is installed
+        run: |
+          set -euo pipefail
+          if command -v kamal >/dev/null 2>&1; then
+            echo "✅ kamal already present: $(kamal version)"
+          elif command -v gem >/dev/null 2>&1; then
+            echo "kamal not found — installing v${KAMAL_VERSION} via gem..."
+            gem install kamal -v "${KAMAL_VERSION}" --no-document
+            echo "✅ installed: $(kamal version)"
+          else
+            echo "::error::No kamal binary and no Ruby/gem toolchain on this runner."
+            echo "Install Ruby and run 'gem install kamal -v ${KAMAL_VERSION}', or pre-install kamal on the runner."
+            exit 1
+          fi
+
+      - name: Boot accessories (creates the DB on first deploy; no-op afterwards)
+        env:
+          KAMAL_REGISTRY_PASSWORD: ${{ secrets.KAMAL_REGISTRY_PASSWORD }}
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+        run: kamal accessory boot all -d staging.kamal
+
+      - name: Deploy with Kamal
+        env:
+          KAMAL_REGISTRY_PASSWORD: ${{ secrets.KAMAL_REGISTRY_PASSWORD }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
+        run: kamal deploy -d staging.kamal

@@ -1,0 +1,72 @@
+# Name of your application. Used to uniquely configure containers.
+service: ucnrs-rams-staging
+
+# Name of the container image.
+image: ucnrs-manuel/ucnrs-rams-staging
+
+# Deploy to these servers.
+servers:
+  web:
+    - 138.23.192.61
+
+ssh:
+  user: manuelm
+
+proxy:
+  ssl: true
+  hosts:
+    - staging.ucnature.org
+  app_port: 80
+
+# Credentials for your image host.
+registry:
+  server: ghcr.io
+  username: ucnrs-manuel
+
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+# Configure builder setup.
+builder:
+  context: .
+  dockerfile: Dockerfile.staging.kamal
+
+  arch: arm64
+
+env:
+  clear:
+    HOST: "138.23.192.61"
+    FORCE_SSL: true
+    ASSUME_SSL: true
+    RAILS_SERVE_STATIC_FILES: true
+    DATABASE_NAME: rams3_production
+    DATABASE_USERNAME: root
+    DATABASE_HOST: ucnrs-rams-staging-db
+    DATABASE_PORT: 3306
+  secret:
+    - DATABASE_PASSWORD
+    - SECRET_KEY_BASE
+
+aliases:
+  console: app exec --interactive --reuse "bin/rails console"
+  shell: app exec --interactive --reuse "bash"
+  logs: app logs -f
+  dbc: app exec --interactive --reuse "bin/rails dbconsole"
+
+volumes:
+  - "ucnrs-rams-staging_storage:/rails/storage"
+
+# Use accessory services (secrets come from .kamal/secrets).
+#
+accessories:
+  db:
+    image: mysql:9.0
+    host: 138.23.192.61
+    port: "127.0.0.1:3307:3306"
+    env:
+      clear:
+        MYSQL_ROOT_HOST: '%'
+      secret:
+        - MYSQL_ROOT_PASSWORD
+    directories:
+      - data:/var/lib/mysql
