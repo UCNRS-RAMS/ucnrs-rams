@@ -1,5 +1,6 @@
 class AddUniqueIndexToProjectTeamMembershipsUserProject < ActiveRecord::Migration[7.2]
   def up
+    # It finds rows in project_team_memberships that represent the same (user_id, project_id) pair more than once, and deletes the “older” one so only one remains.
     execute(<<~SQL)
       DELETE ptm1
       FROM project_team_memberships ptm1
