@@ -2,7 +2,9 @@ class AmenityRateCategory < ApplicationRecord
   belongs_to :reserve
   has_many :amenity_rates, -> { in_order }, dependent: :destroy, inverse_of: :amenity_rate_category
 
+  # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates :sort_order, uniqueness: { scope: [:visible, :reserve_id] }
+  # rubocop:enable Rails/UniqueValidationWithoutIndex
   validates :description, presence: true
   validates :visible, inclusion: [true, false]
   validates :state_university, inclusion: [true, false]

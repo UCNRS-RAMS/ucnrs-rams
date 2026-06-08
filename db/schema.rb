@@ -117,7 +117,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_174728) do
     t.boolean "visible", default: true, null: false
     t.index ["reserve_id", "sort_order"], name: "SortOrderReserves"
     t.index ["sort_order", "description"], name: "RSODescription"
-    t.index ["sort_order", "visible", "reserve_id"], name: "index_arc_on_sort_order_visible_reserve", unique: true
+    t.index ["sort_order", "visible", "reserve_id"], name: "index_arc_on_sort_order_visible_reserve"
     t.index ["sort_order"], name: "SortOrderPlain"
     t.index ["visible", "sort_order", "description"], name: "Visible"
   end
@@ -276,7 +276,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_174728) do
     t.integer "state_id"
     t.datetime "updated_at", null: false
     t.index ["institution_type", "name"], name: "institution_type"
-    t.index ["name", "city"], name: "index_institutions_on_name_and_city", unique: true
+    t.index ["name", "city"], name: "index_institutions_on_name_and_city"
     t.index ["name"], name: "name"
   end
 
@@ -625,7 +625,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_174728) do
     t.bigint "reserve_id", null: false
     t.integer "sort_order", default: 1, null: false
     t.datetime "updated_at", null: false
-    t.index ["reserve_id", "sort_order"], name: "index_reserve_addendums_on_reserve_id_and_sort_order", unique: true
+    t.index ["reserve_id", "sort_order"], name: "index_reserve_addendums_on_reserve_id_and_sort_order"
     t.index ["reserve_id"], name: "index_reserve_addendums_on_reserve_id"
   end
 
@@ -726,7 +726,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_174728) do
     t.boolean "vertebrate_flag"
     t.boolean "visible"
     t.index ["location", "sort_order", "question_type"], name: "LocationSOShowType"
-    t.index ["reserve_id", "location", "sort_order"], name: "index_reserve_questions_on_reserve_location_sort_order", unique: true
+    t.index ["reserve_id", "location", "sort_order"], name: "index_reserve_questions_on_reserve_location_sort_order"
     t.index ["reserve_id", "sort_order"], name: "SortOrderByReserve"
     t.index ["sort_order"], name: "SortOrderPlain"
   end
