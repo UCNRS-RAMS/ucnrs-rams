@@ -4,7 +4,9 @@ class Institution < ApplicationRecord
   GENERIC_INSTITUTION_IDS = 2367..2377
 
   validates :name, presence: true
+  # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates :name, uniqueness: { scope: :city, case_sensitive: false }
+  # rubocop:enable Rails/UniqueValidationWithoutIndex
   validates :city, presence: true
   validates :country, presence: true
 

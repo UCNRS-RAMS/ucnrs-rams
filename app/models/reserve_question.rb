@@ -4,7 +4,9 @@ class ReserveQuestion < ApplicationRecord
   validates :question_type, presence: true
   validates :question, presence: true
   validates :location, presence: true
+  # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates :sort_order, uniqueness: { scope: [:reserve_id, :location] }
+  # rubocop:enable Rails/UniqueValidationWithoutIndex
   validates :visible, inclusion: [true, false]
   validates :answer_required, inclusion: [true, false]
   validates :public_use, inclusion: [true, false]
