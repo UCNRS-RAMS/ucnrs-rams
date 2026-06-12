@@ -66,9 +66,15 @@
             <% end %>
           </div>
         </div>
-        <div class="field small orcid">
+        <div class="field small orcid" data-controller="orcid">
           <%= f.label :orcid, t(".labels.orcid") %>
-          <%= f.text_field :orcid %>
+          <%= f.text_field :orcid, data: { orcid_target: "input" } %>
+          <%= link_to t(".links.connect_orcid"),
+            user_orcid_omniauth_authorize_path(origin: request.fullpath),
+            method: :post,
+            data: { turbo: false },
+            class: "button-inline button-clear orcid-auth-button"
+          %>
           <p class="helper-text">
             <%= link_to t(".links.orcid"), t(".urls.orcid"), target: :_blank %>
           </p>
