@@ -12,10 +12,12 @@ class User < ApplicationRecord
 
   devise :confirmable,
     :database_authenticatable,
+    :omniauthable,
     :registerable,
     :recoverable,
     :rememberable,
-    :validatable
+    :validatable,
+    omniauth_providers: [:orcid]
 
   validates :first_name, presence: true
   validates :last_name, presence: true

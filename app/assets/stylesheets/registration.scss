@@ -99,6 +99,10 @@
           }
           .orcid {
             max-width: 170px;
+
+            .orcid-auth-button {
+              margin-bottom: 0.5rem;
+            }
           }
         }
         &.emergency-contact {
