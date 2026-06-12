@@ -62,13 +62,17 @@
         <% end %>
       </div>
     </div>
-    <div class="field small orcid" data-controller="orcid">
+    <div
+      class="field small orcid"
+      data-controller="orcid"
+      data-orcid-auth-path-value="<%= user_orcid_omniauth_authorize_path %>"
+      data-orcid-origin-value="<%= request.fullpath %>"
+    >
       <%= f.label :orcid, t(".labels.orcid") %>
       <%= f.text_field :orcid, data: { orcid_target: "input" } %>
-      <%= link_to t(".links.connect_orcid"),
-        user_orcid_omniauth_authorize_path(origin: request.fullpath),
-        method: :post,
-        data: { turbo: false },
+      <%= button_tag t(".links.connect_orcid"),
+        type: "button",
+        data: { action: "orcid#startAuth" },
         class: "button-inline button-clear orcid-auth-button"
       %>
       <p class="helper-text">
