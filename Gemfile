@@ -50,7 +50,7 @@ group :development, :test do
   gem 'pronto-rubocop', require: false
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 7.0'
+  gem 'rspec-rails', '~> 8.0'
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
   gem 'shoulda-matchers'
