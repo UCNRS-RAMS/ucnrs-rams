@@ -30,4 +30,12 @@ RSpec.describe Unauthenticated::OmniauthCallbacksController, type: :request do
       expect(response).to redirect_to("/users/sign_up?orcid=0000-0002-1825-0097&orcid_callback=1")
     end
   end
+
+  describe "GET /users/auth/failure" do
+    it "redirects back to origin param when omniauth env origin is missing" do
+      get "/users/auth/failure", params: { origin: "/users/edit", message: "authenticity_error" }
+
+      expect(response).to redirect_to("/users/edit?orcid_auth_error=authenticity_error&orcid_callback=1")
+    end
+  end
 end

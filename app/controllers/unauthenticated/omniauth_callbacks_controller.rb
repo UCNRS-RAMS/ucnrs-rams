@@ -28,7 +28,8 @@ module Unauthenticated
 
     def safe_origin_path
       origin = request.env["omniauth.origin"].presence ||
-        request.env.dig("omniauth.params", "origin").presence
+        request.env.dig("omniauth.params", "origin").presence ||
+        params[:origin].presence
       return new_user_registration_path if origin.blank?
 
       uri = URI.parse(origin)
