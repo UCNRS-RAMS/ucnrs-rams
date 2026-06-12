@@ -9,6 +9,8 @@ gem 'carrierwave'
 gem 'csv'
 gem "cssbundling-rails"
 gem "devise", '~> 5.0'
+gem "omniauth"
+gem "omniauth-orcid"
 gem 'faraday-retry'
 gem 'fog-aws'
 gem 'foreman'
