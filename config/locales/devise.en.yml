@@ -107,6 +107,7 @@ en:
           create_new_instituion: "Create a New Institution."
           go_back: "Cancel, Go Back"
           create_account: "Create Account %{icon}"
+          connect_orcid: "Connect ORCID"
           orcid: "What is an ORCID?"
           ucnrs_newsletter: "UC Nature Newsletter."
           terms_of_use: "Terms of Use"
@@ -174,6 +175,7 @@ en:
         links:
           change_my_password: "Change My Password"
           create_new_instituion: "Create a New Institution."
+          connect_orcid: "Connect ORCID"
           orcid: "What is an ORCID?"
         urls:
           orcid: "https://orcid.org/"
