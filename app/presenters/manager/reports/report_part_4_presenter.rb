@@ -29,6 +29,6 @@ class Manager::Reports::ReportPart4Presenter < Manager::Reports::ReportBasePrese
           )
       )
       .group(:id)
-      .includes(team_memberships: :user)
+      .includes(team_memberships: [:user, :institution])
   end
 end
