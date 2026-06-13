@@ -2270,6 +2270,11 @@ en:
       report_part_9_content:
         owner: Owner
         date: Date
+      report_part_9_table:
+        institution_type: Institution Type
+        institution_name: Institution Name
+        abstract: Abstract
+        users: Users
       fiscal_year_select:
         fiscal_year: Fiscal Year
       report_approval_form:
