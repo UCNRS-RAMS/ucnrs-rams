@@ -8,6 +8,11 @@
       <header><%= t(".part_9_meeting") %></header>
       <div class="fiscal-year-select">
         <%= render partial: 'fiscal_year_select', locals: { presenter: @presenter } %>
+        <%= link_to "csv",
+          report_part_9_manager_reserve_report_path(
+            current_reserve, @presenter.fiscal_year_ending, format: :csv
+          )
+        %>
       </div>
       <%= render partial: 'report_part_9_data', locals: { presenter: @presenter } %>
     </section>
