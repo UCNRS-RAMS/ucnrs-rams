@@ -8,6 +8,11 @@
       <header><%= t(".part_8_use_by_public") %></header>
       <div class="fiscal-year-select">
         <%= render partial: 'fiscal_year_select', locals: { presenter: @presenter } %>
+        <%= link_to "csv",
+          report_part_8_manager_reserve_report_path(
+            current_reserve, @presenter.fiscal_year_ending, format: :csv
+          )
+        %>
       </div>
       <%= render partial: 'report_part_8_data', locals: { presenter: @presenter } %>
     </section>

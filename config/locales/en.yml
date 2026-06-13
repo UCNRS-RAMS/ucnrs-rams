@@ -2262,6 +2262,11 @@ en:
       report_part_8_content:
         owner: Owner
         date: Date
+      report_part_8_table:
+        institution_type: Institution Type
+        institution_name: Institution Name
+        abstract: Abstract
+        users: Users
       report_part_9:
         part_9_meeting: Part 9. Meeting Use
       report_part_9_data:
