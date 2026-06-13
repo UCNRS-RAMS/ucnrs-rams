@@ -330,11 +330,11 @@ class Project < ApplicationRecord
   end
 
   def earliest_user_visit_time
-    [*UserVisit.where(visit_id: visits.ids).find_each.map(&:arrives_at)].min
+    UserVisit.where(visit: visits).minimum(:arrives_at)
   end
 
   def latest_user_visit_time
-    [*UserVisit.where(visit_id: visits.ids).find_each.map(&:departs_at)].max
+    UserVisit.where(visit: visits).maximum(:departs_at)
   end
 
   private
