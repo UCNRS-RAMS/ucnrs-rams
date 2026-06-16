@@ -107,7 +107,40 @@
             width: 100%;
           }
           .orcid {
-            max-width: 170px;
+            max-width: none;
+            width: 100%;
+
+            .orcid-auth-button {
+              align-items: center;
+              display: inline-flex;
+              gap: 0.35rem;
+              align-self: flex-start;
+              line-height: 1;
+              margin: 0 0 0.5rem;
+              width: fit-content;
+
+              img {
+                height: 1rem;
+                width: 1rem;
+              }
+            }
+
+            .orcid-authenticated {
+              align-items: center;
+              display: inline-flex;
+              gap: 0.35rem;
+              margin: 0 0 0.5rem;
+              width: 100%;
+
+              img {
+                height: 1rem;
+                width: 1rem;
+              }
+
+              a {
+                font-size: 0.75rem;
+              }
+            }
           }
         }
         &.emergency-contact {
