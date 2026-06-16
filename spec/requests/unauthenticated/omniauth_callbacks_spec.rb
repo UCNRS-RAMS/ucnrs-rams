@@ -40,6 +40,26 @@ RSpec.describe Unauthenticated::OmniauthCallbacksController, type: :request do
       expect(response.body).not_to include('value="https://orcid.org/0000-0002-1825-0097"')
     end
 
+    it "prefills ORCID only for the first sign-up render after callback" do
+      create(:country, name: "United States")
+      allow_any_instance_of(described_class)
+        .to receive(:orcid_identifier)
+        .and_return("0000-0002-1825-0097")
+
+      get "/users/auth/orcid/callback", params: { origin: "/users/sign_up" }
+
+      expect(response).to redirect_to("/users/sign_up?orcid_callback=1")
+
+      follow_redirect!
+
+      expect(response.body).to include('value="0000-0002-1825-0097"')
+
+      get "/users/sign_up"
+
+      expect(response.body).to include('id="user_orcid"')
+      expect(response.body).not_to include('value="0000-0002-1825-0097"')
+    end
+
     it "falls back to sign-up path for unsafe origin" do
       OmniAuth.config.mock_auth[:orcid] = OmniAuth::AuthHash.new(uid: "0000-0002-1825-0097")
 
