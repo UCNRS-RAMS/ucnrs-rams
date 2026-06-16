@@ -1028,6 +1028,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_22_160000) do
     t.string "last_name", limit: 100
     t.string "middle_name", limit: 20
     t.string "orcid", limit: 50, comment: "Unique ID for Researchers https://orcid.org/"
+    t.boolean "orcid_authenticated", default: false, null: false
     t.string "phone_number", limit: 20
     t.boolean "record_complete", default: false, null: false, comment: "This is to check if user has completed their information entry."
     t.datetime "remember_created_at", precision: nil
