@@ -10,22 +10,20 @@ export default class extends Controller {
 
   connect() {
     const params = new URLSearchParams(window.location.search)
-    const orcid = params.get("orcid")
     const callback = params.get("orcid_callback")
 
-    if (!orcid || callback !== "1") return
+    if (callback !== "1") return
 
-    this.inputTarget.value = orcid
-    this.inputTarget.dispatchEvent(new Event("input", { bubbles: true }))
-    this.inputTarget.dispatchEvent(new Event("change", { bubbles: true }))
+    this.restoreDraft()
 
-    params.delete("orcid")
     params.delete("orcid_callback")
     params.delete("orcid_auth_error")
     this.replaceCurrentUrl(params)
   }
 
   startAuth() {
+    this.persistDraft()
+
     const form = document.createElement("form")
     form.method = "post"
     form.action = this.authPathValue
@@ -36,6 +34,53 @@ export default class extends Controller {
 
     document.body.appendChild(form)
     form.submit()
+  }
+
+  private persistDraft() {
+    const form = this.inputTarget.form
+    if (!form) return
+
+    const draft = Array.from(new FormData(form).entries())
+    window.sessionStorage.setItem(this.draftStorageKey(), JSON.stringify(draft))
+  }
+
+  private restoreDraft() {
+    const form = this.inputTarget.form
+    const serializedDraft = window.sessionStorage.getItem(this.draftStorageKey())
+    if (!form || !serializedDraft) return
+
+    const draftEntries: [string, FormDataEntryValue][] = JSON.parse(serializedDraft)
+    draftEntries.forEach(([name, value]) => {
+      if (name === this.inputTarget.name) return
+      if (typeof value !== "string") return
+
+      const escapedName = this.escapeAttributeSelector(name)
+      const fields = form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(`[name="${escapedName}"]`)
+
+      fields.forEach((field) => {
+        if (field instanceof HTMLInputElement && field.type === "radio") {
+          field.checked = field.value === value
+          if (field.checked) field.dispatchEvent(new Event("change", { bubbles: true }))
+          return
+        }
+
+        if (field instanceof HTMLInputElement && field.type === "checkbox") {
+          field.checked = true
+          field.dispatchEvent(new Event("change", { bubbles: true }))
+          return
+        }
+
+        field.value = value
+        field.dispatchEvent(new Event("input", { bubbles: true }))
+        field.dispatchEvent(new Event("change", { bubbles: true }))
+      })
+    })
+
+    window.sessionStorage.removeItem(this.draftStorageKey())
+  }
+
+  private draftStorageKey() {
+    return "registration-orcid-draft"
   }
 
   private csrfToken() {
@@ -56,5 +101,9 @@ export default class extends Controller {
     const nextUrl = `${window.location.pathname}${query ? `?${query}` : ""}${window.location.hash}`
 
     window.history.replaceState({}, "", nextUrl)
+  }
+
+  private escapeAttributeSelector(value: string) {
+    return value.replace(/\\/g, "\\\\").replace(/"/g, "\\\"")
   }
 }
