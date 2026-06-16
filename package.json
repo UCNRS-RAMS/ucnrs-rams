@@ -21,7 +21,7 @@
     "@rails/activestorage": "~8.1.0",
     "@rails/ujs": "~7.1.0",
     "babel-loader": "10",
-    "chart.js": "4.4.9",
+    "chart.js": "4",
     "chartkick": "^5.0.1",
     "compression-webpack-plugin": "12",
     "fork-ts-checker-webpack-plugin": "^9.0.2",
