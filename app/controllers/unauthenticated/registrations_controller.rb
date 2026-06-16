@@ -1,12 +1,15 @@
 module Unauthenticated
   class RegistrationsController < Devise::RegistrationsController
+    REGISTRATION_ORCID_SESSION_KEY = :registration_orcid_identifier
+
     def new
-      @presenter = RegistrationFormPresenter.new
+      @presenter = RegistrationFormPresenter.new(RegistrationForm.new(params: pending_orcid_params))
     end
 
     def create
-      @form = RegistrationForm.new(params: user_params)
+      @form = RegistrationForm.new(params: create_user_params)
       if @form.submit
+        clear_pending_orcid!
         flash[:success] = I18n.t(".devise.registrations.create.success")
         redirect_to root_path
       else
@@ -17,15 +20,16 @@ module Unauthenticated
     end
 
     def edit
-      form = RegistrationForm.new(user: current_user)
+      form = RegistrationForm.new(user: current_user, params: pending_orcid_params)
       @presenter = RegistrationFormPresenter.new(form)
     end
 
     def update
-      @form = RegistrationForm.new(user: current_user, params: user_params)
+      @form = RegistrationForm.new(user: current_user, params: update_user_params)
       @presenter = RegistrationFormPresenter.new(@form)
 
       if @form.submit
+        clear_pending_orcid!
         flash.now[:notice] = I18n.t(".devise.registrations.flash.updated")
         render :edit
       else
@@ -73,6 +77,27 @@ module Unauthenticated
         :billing_person_phone_number,
         :terms_accepted_at,
       )
+    end
+
+    private
+
+    def create_user_params
+      user_params.to_h.merge(pending_orcid_params).compact
+    end
+
+    def update_user_params
+      user_params.to_h.merge(pending_orcid_params).compact
+    end
+
+    def pending_orcid_params
+      identifier = session[REGISTRATION_ORCID_SESSION_KEY].presence
+      return {} if identifier.blank?
+
+      { orcid: identifier }
+    end
+
+    def clear_pending_orcid!
+      session.delete(REGISTRATION_ORCID_SESSION_KEY)
     end
   end
 end
