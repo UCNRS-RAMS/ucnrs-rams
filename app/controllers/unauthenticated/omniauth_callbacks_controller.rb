@@ -1,8 +1,12 @@
 module Unauthenticated
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+    ORCID_IDENTIFIER_PATTERN = /\A\d{4}-\d{4}-\d{4}-[\dX]{4}\z/i
+    REGISTRATION_ORCID_SESSION_KEY = :registration_orcid_identifier
+
     def orcid
       if orcid_identifier.present?
-        redirect_to callback_destination(orcid: orcid_identifier, orcid_callback: "1")
+        session[REGISTRATION_ORCID_SESSION_KEY] = orcid_identifier
+        redirect_to callback_destination(orcid_callback: "1")
       else
         redirect_to callback_destination(orcid_auth_error: "missing_orcid", orcid_callback: "1")
       end
@@ -15,7 +19,21 @@ module Unauthenticated
     private
 
     def orcid_identifier
-      request.env.dig("omniauth.auth", "uid").presence
+      normalize_orcid_identifier(request.env.dig("omniauth.auth", "uid").presence)
+    end
+
+    def normalize_orcid_identifier(raw_identifier)
+      return if raw_identifier.blank?
+
+      identifier = raw_identifier.to_s
+        .strip
+        .sub(%r{\Ahttps?://orcid\.org/}i, "")
+        .split(/[?#]/)
+        .first
+        .to_s
+        .delete_suffix("/")
+
+      identifier if identifier.match?(ORCID_IDENTIFIER_PATTERN)
     end
 
     def callback_destination(params = {})
