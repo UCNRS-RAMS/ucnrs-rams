@@ -69,12 +69,22 @@
       data-orcid-origin-value="<%= request.fullpath %>"
     >
       <%= f.label :orcid, t(".labels.orcid") %>
-      <%= f.text_field :orcid, data: { orcid_target: "input" } %>
-      <%= button_tag t(".links.connect_orcid"),
-        type: "button",
-        data: { action: "orcid#startAuth" },
-        class: "button-inline button-clear orcid-auth-button"
-      %>
+      <%= f.hidden_field :orcid, data: { orcid_target: "input" } %>
+
+      <% if f.object.orcid.present? %>
+        <% orcid_uri = "https://orcid.org/#{f.object.orcid}" %>
+        <p class="orcid-authenticated">
+          <%= image_tag("orcid-icon.svg", alt: "ORCID iD") %>
+          <%= link_to orcid_uri, orcid_uri, target: :_blank, rel: "noopener" %>
+        </p>
+      <% else %>
+        <%= button_tag t(".links.connect_orcid"),
+          type: "button",
+          data: { action: "orcid#startAuth" },
+          class: "button-inline button-clear orcid-auth-button"
+        %>
+      <% end %>
+
       <p class="helper-text">
         <%= link_to t(".links.orcid"), t(".urls.orcid"), target: :_blank %>
       </p>
