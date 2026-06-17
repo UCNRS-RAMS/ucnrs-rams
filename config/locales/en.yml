@@ -1158,6 +1158,7 @@ en:
       step_2: Team
       step_3: Permits
       step_4: Funding
+      step_5: Reserves
     team_memberships:
       form:
         add_team_member_title: Add a Team Member
@@ -1241,12 +1242,26 @@ en:
         alt:
           right_facing_arrow: Right-facing arrow
           left_facing_arrow: Left-facing arrow
-        next_step: Save Project & Submit
+        next_step: "Next: Reserves"
         no_funding_required: >-
           No funding information is required for this project type. Please
           continue to the next step.
         project_funding: Project Funding
         title: Funding
+    reserves:
+      index:
+        alt:
+          right_facing_arrow: Right-facing arrow
+          left_facing_arrow: Left-facing arrow
+        back: Go Back
+        next_step: Save Project & Submit
+        select_reserves: Select Reserve(s)
+        select_reserves_description: >-
+          Select each reserve you wish to visit as part of this project. This
+          will notify reserve managers of your interest in working at their
+          reserve. After this step, you will need to Schedule a Visit to each
+          reserve.
+        title: Reserves
     show:
       amphibians: Amphibians
       birds: Birds
@@ -1826,13 +1841,25 @@ en:
         index:
           title: Funding
           add_funding_title: Add Information About Your Grant
-          next_step: Save Project & Submit
+          next_reserves: "Next: Reserves"
+          save_funding: Save Funding
           add_funding_submit: Add Funding Information
           project_funding: Project Funding
           back: Go Back
           alt:
             right_facing_arrow: Right-facing arrow
             left_facing_arrow: Left-facing arrow
+      reserves:
+        index:
+          title: Reserves
+          back: Go Back
+          next_step: Save Project & Submit
+          select_reserves: Select Reserve(s)
+          select_reserves_description: >-
+            Select each reserve you wish to visit as part of this project. This
+            will notify reserve managers of your interest in working at their
+            reserve. After this step, you will need to Schedule a Visit to each
+            reserve.
       show:
         research: Research
         right_facing_arrow: A right facing arrow
@@ -1903,6 +1930,7 @@ en:
         step_2: Team
         step_3: Permits
         step_4: Funding
+        step_5: Reserves
       research_form:
         details: Details
         choose_discipline: Choose a discipline that best describes your project
