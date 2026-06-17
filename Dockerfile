@@ -2,7 +2,7 @@
 FROM node:24-slim AS node
 
 # Stage 2: Build the Rails environment
-FROM ruby:4.0.3
+FROM ruby:4.0.5
 
 # Copy Node.js and package managers from the 'node' stage
 COPY --from=node /usr/local/bin/ /usr/local/bin/
