@@ -1,0 +1,30 @@
+@use "variables" as *;
+@use "mixins/layouts" as *;
+@use "mixins/controls" as *;
+
+.manager.reserves-index,
+.manager.complete-update {
+  @include controls;
+
+  color: $navy-blue;
+
+  main > .container {
+    max-width: unset;
+  }
+
+  .form-container {
+    @include projects-visits-form-container;
+  }
+
+  .reserves-form {
+    @include projects-visits-form-layout;
+
+    form {
+      .field ul.reserve-checkboxes {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        max-height: none;
+      }
+    }
+  }
+}

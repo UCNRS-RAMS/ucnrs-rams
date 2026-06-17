@@ -1,0 +1,38 @@
+<% content_for(:title) { t(".title") } %>
+<%= render partial: "projects/steps", locals: { presenter: @presenter } %>
+
+<section class="reserves-form">
+  <header class="form-container">
+    <h1><%= t(".title") %></h1>
+  </header>
+
+  <section class="form-subsection form-container">
+    <header>
+      <h2><%= t(".select_reserves") %></h2>
+      <span><%= t(".select_reserves_description") %></span>
+    </header>
+    <%= form_with url: manager_reserve_project_complete_path(current_reserve, project_id: @presenter.project), method: :patch, id: "reserves-selection" do %>
+      <div class="field">
+        <ul class="reserve-checkboxes">
+          <% @presenter.reserves.each do |reserve| %>
+            <li>
+              <%= check_box_tag "project[reserve_ids][]", reserve.id, false, id: "reserve-#{reserve.id}" %>
+              <%= label_tag "reserve-#{reserve.id}", reserve.name %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </section>
+</section>
+
+<section class="controls">
+  <%= link_to manager_reserve_project_fundings_path(current_reserve, project_id: @presenter.project) do %>
+    <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t("alt.left_facing_arrow")  %>
+    <%= t(".back") %>
+  <% end %>
+  <button form="reserves-selection" class="active" data-turbo="false">
+    <%= t(".next_step") %>
+    <%= image_tag "arrow-right.svg", alt: t("alt.right_facing_arrow") %>
+  </button>
+</section>

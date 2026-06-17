@@ -260,7 +260,15 @@ class EditProjectFlow
   end
 
   def submit_funding
-    page.find("form.button_to button").click
+    page.find(".controls a.active").click
+  end
+
+  def on_project_reserves_page?
+    page.has_css?("body.reserves-index")
+  end
+
+  def submit_reserves
+    page.find("button[form='reserves-selection']").click
   end
 
   def on_project_summary_page?

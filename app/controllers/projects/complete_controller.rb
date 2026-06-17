@@ -5,16 +5,18 @@ class Projects::CompleteController < ApplicationController
   def update
     form = ProjectCompleteForm.new(params: { id: project_id })
     project = form.project
+    first_submission = project.incomplete?
 
     if form.save
+      notify_reserve_managers!(project: project) if first_submission
       redirect_to project_path(project)
     else
-      @presenter = Projects::FundingsIndexPresenter.new(
-        current_step: 4,
+      @presenter = Projects::ReservesIndexPresenter.new(
+        current_step: 5,
         project: project,
       )
       flash[:alert] = t("projects.complete.not_saved")
-      render template: "projects/fundings/index", status: :unprocessable_entity
+      render template: "projects/reserves/index", status: :unprocessable_entity
     end
   end
 
@@ -23,6 +25,27 @@ class Projects::CompleteController < ApplicationController
   end
 
   private
+
+  def notify_reserve_managers!(project:)
+    selected_reserves.each do |reserve|
+      send_contact_manager_email!(project: project, reserve: reserve)
+    end
+  end
+
+  def selected_reserves
+    Reserve.where(id: params.dig(:project, :reserve_ids))
+  end
+
+  def send_contact_manager_email!(project:, reserve:)
+    UserMailer
+      .with(
+        project: project,
+        reserve: reserve,
+        user: current_user,
+      )
+      .project_contact_manager
+      .deliver_later
+  end
 
   def authorize_user
     project = Project.find(project_id)

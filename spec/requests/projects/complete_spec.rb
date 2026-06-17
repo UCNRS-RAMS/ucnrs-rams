@@ -23,6 +23,49 @@ RSpec.describe Projects::CompleteController, type: :request do
       expect(doc).to have_css("body.projects-show")
     end
 
+    it "notifies the managers of each selected reserve on first submission" do
+      user = create(:user, :confirmed)
+      sign_in(user)
+      project = create(:project, status: :incomplete)
+      create(
+        :project_team_membership,
+        user: user,
+        project: project,
+        active: true,
+        can_edit_project: true,
+      )
+      reserve_one = create(:reserve, email_address: "one@example.com")
+      reserve_two = create(:reserve, email_address: "two@example.com")
+
+      expect do
+        patch "/projects/#{project.id}/complete", params: {
+          project_id: project.id,
+          project: { reserve_ids: [reserve_one.id, reserve_two.id] },
+        }
+      end.to have_enqueued_mail(UserMailer, :project_contact_manager).twice
+    end
+
+    it "does not notify reserve managers when the project was already submitted" do
+      user = create(:user, :confirmed)
+      sign_in(user)
+      project = create(:project, status: :open)
+      create(
+        :project_team_membership,
+        user: user,
+        project: project,
+        active: true,
+        can_edit_project: true,
+      )
+      reserve = create(:reserve, email_address: "one@example.com")
+
+      expect do
+        patch "/projects/#{project.id}/complete", params: {
+          project_id: project.id,
+          project: { reserve_ids: [reserve.id] },
+        }
+      end.not_to have_enqueued_mail(UserMailer, :project_contact_manager)
+    end
+
     it "renders the fundings page if updating was unsuccessful" do
       user = create(:user, :confirmed)
       sign_in(user)

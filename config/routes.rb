@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     resources :questions, only: [:index], controller: "projects/questions"
     resources :answers, only: [:create], controller: "projects/answers"
     resources :fundings, only: [:index, :create], controller: "projects/fundings"
+    resources :reserves, only: [:index], controller: "projects/reserves"
     resource :complete, only: [:update], controller: "projects/complete"
     resource :file_upload, only: [:update], controller: "projects/file_upload"
   end
@@ -116,6 +117,7 @@ Rails.application.routes.draw do
         resources :questions, only: [:index], controller: "projects/questions"
         resources :answers, only: [:create], controller: "projects/answers"
         resources :fundings, only: [:index, :create], controller: "projects/fundings"
+        resources :reserves, only: [:index], controller: "projects/reserves"
         resource :complete, only: [:update], controller: "projects/complete"
         resource :summary, only: [:show], controller: "projects/summary"
         resource :detail, only: [:edit, :update], controller: "projects/detail"

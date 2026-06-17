@@ -41,8 +41,15 @@
     <%= image_tag "arrow-left-blue.svg", height: "16px", width: "16px", alt: t("alt.left_facing_arrow")  %>
     <%= t(".back") %>
   <% end %>
-  <%= button_to manager_reserve_project_complete_path(current_reserve, project_id: @presenter.project), method: :patch, class: "active" do %>
-    <%= t(".next_step") %>
-    <%= image_tag "arrow-right.svg", alt: t("alt.right_facing_arrow") %>
+  <% if @presenter.project.incomplete? %>
+    <%= button_to manager_reserve_project_reserves_path(current_reserve, project_id: @presenter.project), method: :get, class: "active" do %>
+      <%= t(".next_reserves") %>
+      <%= image_tag "arrow-right.svg", alt: t(".alt.right_facing_arrow") %>
+    <% end %>
+  <% else %>
+    <%= link_to manager_reserve_project_path(current_reserve, @presenter.project), class: "active" do %>
+      <%= t(".save_funding") %>
+      <%= image_tag "arrow-right.svg", alt: t("alt.right_facing_arrow") %>
+    <% end %>
   <% end %>
 </section>
