@@ -66,7 +66,7 @@ group :development, :test, :dev_server, :staging do
 end
 
 group :development do
-  gem 'letter_opener'
+  gem 'letter_opener_web'
   gem 'listen'
   gem 'rack-mini-profiler'
   gem 'web-console', '>= 4.1.0'

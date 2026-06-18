@@ -609,7 +609,6 @@ DEPENDENCIES
   kamal
   kaminari
   launchy
-  letter_opener
   letter_opener_web
   listen
   lograge
