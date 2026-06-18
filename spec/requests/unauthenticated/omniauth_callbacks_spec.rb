@@ -37,6 +37,9 @@ RSpec.describe Unauthenticated::OmniauthCallbacksController, type: :request do
 
       expect(response.body).to include('id="user_orcid"')
       expect(response.body).to include('value="0000-0002-1825-0097"')
+      expect(response.body).to include('id="user_orcid_authenticated"')
+      expect(response.body).to include('value="true"')
+      expect(response.body).to include('p class="orcid-authenticated"')
       expect(response.body).not_to include('value="https://orcid.org/0000-0002-1825-0097"')
     end
 
