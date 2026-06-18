@@ -69,9 +69,9 @@ RSpec.describe "Registration" do
     end
 
     it "allows users to search for an institution by name", js: true do
-      uc = create(:institution, name: "University of California")
-      umass = create(:institution, name: "University of Massachusetts")
-      caltech = create(:institution, name: "California Institute of Technology")
+      _uc = create(:institution, name: "University of California")
+      _umass = create(:institution, name: "University of Massachusetts")
+      _caltech = create(:institution, name: "California Institute of Technology")
 
       flow = RegistrationFlow.new(page)
 
@@ -201,11 +201,57 @@ RSpec.describe "Registration" do
       expect(flow).to have_no_form_errors
     end
 
+    it "shows an unauthenticated ORCID status for existing ORCID data that has not been authenticated", js: true do
+      country = create(:country, name: "United States")
+      state = create(:state, country: country)
+      institution = create(:institution, name: "University of California", country: country, state: state)
+      user = create(
+        :user,
+        :confirmed,
+        institution: institution,
+        address_country: country,
+        address_state: state,
+        orcid: "0000-0002-1825-0097",
+        orcid_authenticated: false,
+      )
+
+      sign_in(user)
+
+      visit "/users/edit"
+
+      expect(page).to have_css("p.orcid-unauthenticated")
+      expect(page).to have_css("button.orcid-auth-button")
+      expect(page).to have_text("(unauthenticated)")
+    end
+
+    it "shows an authenticated ORCID status when the stored ORCID has been authenticated", js: true do
+      country = create(:country, name: "United States")
+      state = create(:state, country: country)
+      institution = create(:institution, name: "University of California", country: country, state: state)
+      user = create(
+        :user,
+        :confirmed,
+        institution: institution,
+        address_country: country,
+        address_state: state,
+        orcid: "0000-0002-1825-0097",
+        orcid_authenticated: true,
+      )
+
+      sign_in(user)
+
+      visit "/users/edit"
+
+      expect(page).to have_css("p.orcid-authenticated")
+      expect(page).not_to have_css("p.orcid-unauthenticated")
+      expect(page).not_to have_css("button.orcid-auth-button")
+    end
+
     it "allows users to search for an institution by name", js: true do
       user = create(:user, :confirmed)
-      uc = create(:institution, name: "University of California")
-      umass = create(:institution, name: "University of Massachusetts")
-      caltech = create(:institution, name: "California Institute of Technology")
+      _uc = create(:institution, name: "University of California")
+      _umass = create(:institution, name: "University of Massachusetts")
+      _caltech = create(:institution, name: "California Institute of Technology")
 
       flow = RegistrationFlow.new(page)
       sign_in(user)
