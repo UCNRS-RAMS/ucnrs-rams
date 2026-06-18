@@ -1,10 +1,12 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["input"]
+  static targets = ["input", "authenticated"]
   static values = { authPath: String, origin: String }
 
   declare inputTarget: HTMLInputElement
+  declare authenticatedTarget: HTMLInputElement
+  declare hasAuthenticatedTarget: boolean
   declare authPathValue: string
   declare originValue: string
 
@@ -15,6 +17,7 @@ export default class extends Controller {
     if (callback !== "1") return
 
     this.restoreDraft()
+    this.markAuthenticated()
 
     params.delete("orcid_callback")
     params.delete("orcid_auth_error")
@@ -77,6 +80,12 @@ export default class extends Controller {
     })
 
     window.sessionStorage.removeItem(this.draftStorageKey())
+  }
+
+  private markAuthenticated() {
+    if (!this.hasAuthenticatedTarget) return
+
+    this.authenticatedTarget.value = "true"
   }
 
   private draftStorageKey() {
