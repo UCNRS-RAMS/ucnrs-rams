@@ -58,6 +58,7 @@ module Unauthenticated
         :role,
         :institution,
         :orcid,
+        :orcid_authenticated,
         :advisor,
         :emergency_contact_full_name,
         :emergency_contact_phone_number,
@@ -95,7 +96,7 @@ module Unauthenticated
       identifier = session[REGISTRATION_ORCID_SESSION_KEY].presence
       return {} if identifier.blank?
 
-      { orcid: identifier }
+      { orcid: identifier, orcid_authenticated: true }
     end
 
     def clear_pending_orcid!

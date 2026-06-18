@@ -52,6 +52,7 @@ class Manager::UsersController < Manager::ApplicationController
       :role,
       :institution,
       :orcid,
+      :orcid_authenticated,
       :advisor,
       :emergency_contact_full_name,
       :emergency_contact_phone_number,
