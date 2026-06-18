@@ -70,13 +70,28 @@
     >
       <%= f.label :orcid, t(".labels.orcid") %>
       <%= f.hidden_field :orcid, data: { orcid_target: "input" } %>
+      <%= f.hidden_field :orcid_authenticated, data: { orcid_target: "authenticated" } %>
 
       <% if f.object.orcid.present? %>
         <% orcid_uri = "https://orcid.org/#{f.object.orcid}" %>
-        <p class="orcid-authenticated">
-          <%= image_tag("orcid-icon.svg", alt: "ORCID iD") %>
-          <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener" %>
-        </p>
+        <% if f.object.orcid_authenticated? %>
+          <p class="orcid-authenticated">
+            <%= image_tag("orcid-icon.svg", alt: "ORCID iD") %>
+            <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener" %>
+          </p>
+        <% else %>
+          <p class="orcid-authenticated orcid-unauthenticated">
+            <%= image_tag("orcid-icon-unauth.svg", alt: "ORCID iD unauthenticated") %>
+            <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener" %>
+            <span>(unauthenticated)</span>
+          </p>
+          <%= button_tag type: "button",
+            data: { action: "orcid#startAuth" },
+            class: "button-inline button-clear orcid-auth-button" do %>
+            <%= image_tag("orcid-icon.svg", alt: "") %>
+            <span><%= t(".links.connect_orcid") %></span>
+          <% end %>
+        <% end %>
       <% else %>
         <%= button_tag type: "button",
           data: { action: "orcid#startAuth" },
