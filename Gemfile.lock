@@ -391,7 +391,7 @@ GEM
     rack (3.2.6)
     rack-mini-profiler (4.0.1)
       rack (>= 1.2.0)
-    rack-proxy (0.7.7)
+    rack-proxy (0.8.2)
       rack
     rack-session (2.1.2)
       base64 (>= 0.1.0)
@@ -502,7 +502,7 @@ GEM
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
     semantic_range (3.1.1)
-    shakapacker (9.7.0)
+    shakapacker (10.1.0)
       activesupport (>= 5.2)
       package_json
       rack-proxy (>= 0.6.1)
