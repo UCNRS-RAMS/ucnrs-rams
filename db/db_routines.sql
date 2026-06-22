@@ -1,3 +1,16 @@
+-- NOTE: these were dumped as of 2026-06-22. They were inserted into rails migrations at that date.
+-- You don't need to run this file manually if you run rails migrations.  In the migrations that run, any routines
+-- that already exist in the database will be skipped for adding.
+--
+-- DO NOT DELETE this file since that migration finds the approx 57 routines that need to be added and adds them to
+-- the database based on this file.
+--
+-- DO NOT ADD other routines into this file, it should be considered in a "FROZEN" state for the initial state of
+-- a functioning database as of 2026-06-22.
+--
+-- In the future if database routines need to be modified/removed they should be added in later migrations to keep
+-- both the database schema/routines in sync with the code that uses them.
+
 -- MySQL dump 10.13  Distrib 8.0.46, for macos15.7 (arm64)
 --
 -- Host: localhost    Database: rams3_production
