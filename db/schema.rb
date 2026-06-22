@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_20_174728) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_22_160000) do
   create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "archived_data_location", limit: 200, null: false, comment: "Where is data archived"
     t.string "data_collected", limit: 200, null: false, comment: "What data is collected"
@@ -1028,6 +1028,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_20_174728) do
     t.string "last_name", limit: 100
     t.string "middle_name", limit: 20
     t.string "orcid", limit: 50, comment: "Unique ID for Researchers https://orcid.org/"
+    t.boolean "orcid_authenticated", default: false, null: false
     t.string "phone_number", limit: 20
     t.boolean "record_complete", default: false, null: false, comment: "This is to check if user has completed their information entry."
     t.datetime "remember_created_at", precision: nil
