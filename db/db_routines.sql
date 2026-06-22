@@ -8,7 +8,7 @@
 -- DO NOT ADD other routines into this file, it should be considered in a "FROZEN" state for the initial state of
 -- a functioning database as of 2026-06-22.
 --
--- In the future if database routines need to be modified/removed they should be added in later migrations to keep
+-- In the future if database routines need to be added/modified/removed they should be added in later rails migrations to keep
 -- both the database schema/routines in sync with the code that uses them.
 
 -- MySQL dump 10.13  Distrib 8.0.46, for macos15.7 (arm64)
