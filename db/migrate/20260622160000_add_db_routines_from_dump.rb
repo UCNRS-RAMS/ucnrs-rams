@@ -1,5 +1,5 @@
 class AddDbRoutinesFromDump < ActiveRecord::Migration[8.1]
-  ROUTINES_DUMP_PATH = Rails.root.join("db", "db_routines.sql")
+  ROUTINES_DUMP_PATH = Rails.root.join("db/db_routines.sql")
 
   def up
     sql_dump = File.read(ROUTINES_DUMP_PATH)
