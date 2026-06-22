@@ -10,7 +10,7 @@ default: &default
 
 development:
   <<: *default
-  database: <%= ENV['DATABASE_NAME'] || 'ucnrs_rams_development' %>
+  database: <%= ENV['DATABASE_NAME'] && ENV['OVERRIDE_DB_NAME'] == 'true' ? ENV['DATABASE_NAME'] : 'ucnrs_rams_development' %>
 
 dev_server:
   <<: *default
