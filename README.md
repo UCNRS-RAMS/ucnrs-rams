@@ -1,4 +1,4 @@
-# uc_nature_rams
+# UC Nature RAMS codebase setup
 
 ## Local setup on mac
 
@@ -137,6 +137,41 @@ end
 
 [Ruby Version](.ruby-version)
 
-## Updating gnar-style
+## Rubocop linting
 
-After updating the gnar-style gem, you must take care to ensure that your local rubocop file does not stray from the update made to the gem in an unintended manner. Any changes in the local rubocop file will take precedence over what is in the gnar-style gem. See the gnar-style [docs](https://github.com/TheGnarCo/gnar-style#overriding-styles) for more details.
+Rubocop linting takes place on the codebase in the CI.  The settings are relaxed to a more reasonable
+level, but violations will make CI fail.
+
+To check for issues run.
+
+```bash
+bundle exec rubocop
+```
+
+You can correct issues manually, but for many common issues (such as some style things) it's quite easy to
+autofix many linting errors. Rubocop seems pretty good about fixing things without changing any functionality.
+(I've never observed it breaking things with the autofix.)
+
+```bash
+bundle exec rubocop -A
+```
+
+For some errors, imo, it's perfectly acceptable to disable linting for a method or section if you've evaluated
+the issue that rubocop is raising and the recommendation doesn't make sense in the context.  For example some
+methods may be long but perfectly simple (such as adding things in with a builder pattern in one method).  In
+some cases, there may also be legacy code that may be difficult to refactor or should be deferred or is not
+so critical (such as tests for a long module).
+
+Observe the error rubocop gives, usually in the format `<error-category>/<error>`.
+
+Put a comment like this before the section (change the error name to the specific one you care about by copy/paste):
+
+```bash
+# rubocop:disable Metrics/ModuleLength
+```
+
+And this after
+
+```bash
+# rubocop:enable Metrics/ModuleLength
+```
