@@ -7,10 +7,22 @@ class AddUniqueIndexToProjectTeamMembershipsUserProject < ActiveRecord::Migratio
       INNER JOIN project_team_memberships ptm2
       WHERE ptm1.user_id = ptm2.user_id
         AND ptm1.project_id = ptm2.project_id
+        AND ptm1.id != ptm2.id
         AND (
-          ptm1.created_at < ptm2.created_at
+          (
+            ptm1.created_at IS NULL
+            AND ptm2.created_at IS NOT NULL
+          )
+          OR (
+            ptm1.created_at < ptm2.created_at
+          )
           OR (
             ptm1.created_at = ptm2.created_at
+            AND ptm1.id < ptm2.id
+          )
+          OR (
+            ptm1.created_at IS NULL
+            AND ptm2.created_at IS NULL
             AND ptm1.id < ptm2.id
           )
         )
