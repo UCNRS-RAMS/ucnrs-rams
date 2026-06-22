@@ -9,7 +9,6 @@ class AddUniqueIndexToProjectTeamMembershipsUserProject < ActiveRecord::Migratio
         AND ptm1.project_id = ptm2.project_id
         AND (
           ptm1.created_at < ptm2.created_at
-          OR ptm1.created_at IS NULL
           OR (
             ptm1.created_at = ptm2.created_at
             AND ptm1.id < ptm2.id
