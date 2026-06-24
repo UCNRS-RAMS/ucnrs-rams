@@ -17,7 +17,7 @@ class Manager::UsersController < Manager::ApplicationController
   end
 
   def update
-    form = RegistrationForm.new(user: user, params: user_params)
+    form = RegistrationForm.new(user: user, params: user_params, validate_orcid: true)
     @presenter = Manager::UserEditPresenter.new(form)
 
     if form.submit
