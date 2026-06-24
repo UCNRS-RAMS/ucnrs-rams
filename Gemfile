@@ -69,7 +69,6 @@ group :development, :dev_server, :staging do
   gem 'letter_opener_web'
 end
 
-
 group :development do
   gem 'listen'
   gem 'rack-mini-profiler'
