@@ -21,6 +21,17 @@ module ApplicationHelper
     link_to(name, options, html_options, &block)
   end
 
+  def orcid_display_uri(orcid)
+    normalized_orcid = orcid.to_s.strip
+    return if normalized_orcid.blank?
+
+    normalized_orcid = normalized_orcid.sub(%r{\Ahttps?://orcid\.org/}i, "")
+    normalized_orcid = normalized_orcid.split(/[?#]/).first.to_s.delete_suffix("/")
+    return if normalized_orcid.blank?
+
+    "https://orcid.org/#{normalized_orcid}"
+  end
+
   # rubocop:disable Metrics/MethodLength
   def num_of_units(arr_time, dep_time, units_type)
     case units_type&.downcase
