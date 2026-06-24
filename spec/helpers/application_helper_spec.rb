@@ -21,7 +21,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
 
     it "is an empty string if the passed resource does not match the controller name" do
-      allow(controller).to receive(:controller_name).and_return("application")
+      allow(controller).to receive(:controller_name).and_return("not_application")
 
       resulting_class = active_class_for("not_application")
 
@@ -60,6 +60,20 @@ RSpec.describe ApplicationHelper, type: :helper do
 
         expect(resulting_link_to).to eq(link_to("link_name", "link", class:"test active"))
       end
+    end
+  end
+
+  describe "#orcid_display_uri" do
+    it "formats a bare ORCID identifier as an ORCID URL" do
+      expect(orcid_display_uri("0000-0002-1825-0097")).to eq("https://orcid.org/0000-0002-1825-0097")
+    end
+
+    it "normalizes a full ORCID URL" do
+      expect(orcid_display_uri("https://orcid.org/0000-0002-1825-0097/")).to eq("https://orcid.org/0000-0002-1825-0097")
+    end
+
+    it "returns nil for blank values" do
+      expect(orcid_display_uri("")).to be_nil
     end
   end
 end
