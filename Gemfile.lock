@@ -83,8 +83,12 @@ GEM
     ast (2.4.3)
     auth-sanitizer (0.2.2)
       version_gem (~> 1.1, >= 1.1.10)
-    axe-core-api (4.12.0)
+    axe-core-api (4.2.1)
+      capybara
       dumb_delegator
+      selenium-webdriver
+      virtus
+      watir
     axe-core-capybara (4.2.1)
       axe-core-api
       dumb_delegator
@@ -603,6 +607,9 @@ GEM
       descendants_tracker (~> 0.0, >= 0.0.3)
     warden (1.2.9)
       rack (>= 2.0.9)
+    watir (7.3.0)
+      regexp_parser (>= 1.2, < 3)
+      selenium-webdriver (~> 4.2)
     web-console (4.3.0)
       actionview (>= 8.0.0)
       bindex (>= 0.4.0)
@@ -709,7 +716,7 @@ CHECKSUMS
   anonymous_loader (0.1.2) sha256=8ccf77c3f0812fb93d47956fdd6f30344a3835864e3cb1431ca597905985efc2
   ast (2.4.3) sha256=954615157c1d6a382bc27d690d973195e79db7f55e9765ac7c481c60bdb4d383
   auth-sanitizer (0.2.2) sha256=300112debb67fe5e7a4f67a697790cea09744970e816745afb1f4235d6f27bae
-  axe-core-api (4.12.0) sha256=9d0284681faacfc0d8609f13da389483814e9ab545b01e99909a6d8fdc312d72
+  axe-core-api (4.2.1) sha256=c49e88da10d80b00f04e03570fa541d1d8515a9e8394e91a6d43d5c8c9c524e4
   axe-core-capybara (4.2.1) sha256=b2cba9cd05118aac74db6dea9cdd7caac3c412596659d371c2f7965e5414f406
   axe-core-rspec (4.2.1) sha256=bfc99e921ef51034f3d2729184ec859adc5ca75f08c107d4e20108eecc5ad11d
   axiom-types (0.1.1) sha256=c1ff113f3de516fa195b2db7e0a9a95fd1b08475a502ff660d04507a09980383
@@ -921,6 +928,7 @@ CHECKSUMS
   version_gem (1.1.13) sha256=77f3035ac45877cd14610648fec2d23bd8c10fa13dfcf63a588825aa98587260
   virtus (2.0.0) sha256=8841dae4eb7fcc097320ba5ea516bf1839e5d056c61ee27138aa4bddd6e3d1c2
   warden (1.2.9) sha256=46684f885d35a69dbb883deabf85a222c8e427a957804719e143005df7a1efd0
+  watir (7.3.0) sha256=9aabb3f64c8be912745863743ab9cbdb3f750f431df21b2360b517850692e46f
   web-console (4.3.0) sha256=e13b71301cdfc2093f155b5aa3a622db80b4672d1f2f713119cc7ec7ac6a6da4
   websocket (1.2.11) sha256=b7e7a74e2410b5e85c25858b26b3322f29161e300935f70a0e0d3c35e0462737
   websocket-driver (0.8.2) sha256=97c556b019bf3410b4961002ac501621e9322d3f8a7bc02161a09301cc4c4146
