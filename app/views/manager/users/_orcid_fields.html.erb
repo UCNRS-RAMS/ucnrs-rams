@@ -1,0 +1,28 @@
+<div class="field small orcid">
+  <%= f.label :orcid, orcid_label %>
+
+  <% if f.object.orcid.present? %>
+    <% orcid_uri = orcid_display_uri(f.object.orcid) %>
+    <% if orcid_uri.present? %>
+      <% if f.object.orcid_authenticated? %>
+        <p class="orcid-authenticated">
+          <%= image_tag("orcid-icon.svg", alt: "ORCID iD") %>
+          <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener" %>
+        </p>
+      <% else %>
+        <p class="orcid-authenticated orcid-unauthenticated">
+          <%= image_tag("orcid-icon-unauth.svg", alt: "ORCID iD unauthenticated") %>
+          <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener" %>
+          <span>(unauthenticated)</span>
+        </p>
+      <% end %>
+      <%= f.hidden_field :orcid %>
+    <% end %>
+  <% else %>
+    <%= f.text_field :orcid, placeholder: "XXXX-XXXX-XXXX-XXXX" %>
+  <% end %>
+
+  <p class="helper-text">
+    <%= link_to orcid_link_text, orcid_url, target: "_blank" %>
+  </p>
+</div>

@@ -1,3 +1,4 @@
+<% orcid_partial = local_assigns.fetch(:orcid_partial, "/devise/registrations/orcid_fields") %>
 <div class="section-container">
   <section class="basics">
     <h2><%= t(".titles.basics") %></h2>
@@ -62,7 +63,7 @@
         <% end %>
       </div>
     </div>
-    <%= render partial: "/devise/registrations/orcid_fields", locals: {
+    <%= render partial: orcid_partial, locals: {
       f: f,
       orcid_label: t(".labels.orcid"),
       connect_orcid_text: t(".links.connect_orcid"),
