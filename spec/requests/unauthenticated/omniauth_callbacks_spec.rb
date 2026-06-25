@@ -63,6 +63,40 @@ RSpec.describe Unauthenticated::OmniauthCallbacksController, type: :request do
       expect(response.body).not_to include('value="0000-0002-1825-0097"')
     end
 
+    it "prefills ORCID only for the first edit-page render after callback and not on subsequent visits" do
+      country = create(:country, name: "United States")
+      state = create(:state, country: country)
+      institution = create(:institution, country: country, state: state)
+      user = create(
+        :user,
+        :confirmed,
+        institution: institution,
+        address_country: country,
+        address_state: state,
+        orcid: "1234-4583-3873-3872",
+        orcid_authenticated: false,
+      )
+
+      sign_in user
+
+      allow_any_instance_of(described_class)
+        .to receive(:orcid_identifier)
+        .and_return("0000-0002-4734-4551")
+
+      # Simulate ORCID OAuth callback returning the sandbox ORCID
+      get "/users/auth/orcid/callback", params: { origin: "/users/edit" }
+      expect(response).to redirect_to("/users/edit?orcid_callback=1")
+
+      # First edit render: pending ORCID from session appears in the form
+      follow_redirect!
+      expect(response.body).to include('value="0000-0002-4734-4551"')
+
+      # Second visit (user navigated away and came back) — must show the DB value only
+      get "/users/edit"
+      expect(response.body).to include('value="1234-4583-3873-3872"')
+      expect(response.body).not_to include('value="0000-0002-4734-4551"')
+    end
+
     it "falls back to sign-up path for unsafe origin" do
       OmniAuth.config.mock_auth[:orcid] = OmniAuth::AuthHash.new(uid: "0000-0002-1825-0097")
 
