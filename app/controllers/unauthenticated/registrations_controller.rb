@@ -22,7 +22,9 @@ module Unauthenticated
     end
 
     def edit
-      form = RegistrationForm.new(user: current_user, params: pending_orcid_params)
+      pending_params = pending_orcid_params
+      clear_pending_orcid!
+      form = RegistrationForm.new(user: current_user, params: pending_params)
       @presenter = RegistrationFormPresenter.new(form)
     end
 
