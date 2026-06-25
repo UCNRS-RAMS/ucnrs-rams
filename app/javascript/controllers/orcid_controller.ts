@@ -1,5 +1,12 @@
 import { Controller } from "@hotwired/stimulus"
 
+const DRAFT_TTL_MS = 30 * 60 * 1000
+
+type OrcidDraft = {
+  savedAt: number
+  entries: Array<[string, string]>
+}
+
 export default class extends Controller {
   static targets = ["input", "authenticated"]
   static values = { authPath: String, origin: String }
@@ -10,7 +17,12 @@ export default class extends Controller {
   declare authPathValue: string
   declare originValue: string
 
+  private readonly handleFormSubmit = () => this.clearDraft()
+
   connect() {
+    this.inputTarget.form?.addEventListener("submit", this.handleFormSubmit)
+    this.pruneExpiredDraft()
+
     const params = new URLSearchParams(window.location.search)
     const callback = params.get("orcid_callback")
 
@@ -22,6 +34,10 @@ export default class extends Controller {
     params.delete("orcid_callback")
     params.delete("orcid_auth_error")
     this.replaceCurrentUrl(params)
+  }
+
+  disconnect() {
+    this.inputTarget.form?.removeEventListener("submit", this.handleFormSubmit)
   }
 
   startAuth() {
@@ -43,19 +59,28 @@ export default class extends Controller {
     const form = this.inputTarget.form
     if (!form) return
 
-    const draft = Array.from(new FormData(form).entries())
-    window.sessionStorage.setItem(this.draftStorageKey(), JSON.stringify(draft))
+    const entries = Array.from(new FormData(form).entries())
+      .filter(([, value]) => typeof value === "string")
+      .map(([name, value]) => [name, value] as [string, string])
+
+    window.sessionStorage.setItem(
+      this.draftStorageKey(),
+      JSON.stringify({ savedAt: Date.now(), entries })
+    )
   }
 
   private restoreDraft() {
     const form = this.inputTarget.form
-    const serializedDraft = window.sessionStorage.getItem(this.draftStorageKey())
-    if (!form || !serializedDraft) return
+    const draft = this.readDraft()
+    if (!form || !draft) return
 
-    const draftEntries: [string, FormDataEntryValue][] = JSON.parse(serializedDraft)
-    draftEntries.forEach(([name, value]) => {
+    if (this.draftIsExpired(draft.savedAt)) {
+      this.clearDraft()
+      return
+    }
+
+    draft.entries.forEach(([name, value]) => {
       if (name === this.inputTarget.name) return
-      if (typeof value !== "string") return
 
       const escapedName = this.escapeAttributeSelector(name)
       const fields = form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(`[name="${escapedName}"]`)
@@ -79,7 +104,14 @@ export default class extends Controller {
       })
     })
 
-    window.sessionStorage.removeItem(this.draftStorageKey())
+    this.clearDraft()
+  }
+
+  private pruneExpiredDraft() {
+    const draft = this.readDraft()
+    if (!draft) return
+
+    if (this.draftIsExpired(draft.savedAt)) this.clearDraft()
   }
 
   private markAuthenticated() {
@@ -88,8 +120,37 @@ export default class extends Controller {
     this.authenticatedTarget.value = "true"
   }
 
+  private clearDraft() {
+    window.sessionStorage.removeItem(this.draftStorageKey())
+  }
+
+  private readDraft() {
+    const serializedDraft = window.sessionStorage.getItem(this.draftStorageKey())
+    if (!serializedDraft) return
+
+    try {
+      return JSON.parse(serializedDraft) as OrcidDraft
+    } catch {
+      this.clearDraft()
+    }
+  }
+
   private draftStorageKey() {
-    return "registration-orcid-draft"
+    return `registration-orcid-draft:${this.normalizedOrigin()}`
+  }
+
+  private normalizedOrigin() {
+    const rawOrigin = this.originValue || `${window.location.pathname}${window.location.search}${window.location.hash}`
+    const url = new URL(rawOrigin, window.location.origin)
+
+    url.searchParams.delete("orcid_callback")
+    url.searchParams.delete("orcid_auth_error")
+
+    return `${url.pathname}${url.search}${url.hash}`
+  }
+
+  private draftIsExpired(savedAt: number) {
+    return Date.now() - savedAt > DRAFT_TTL_MS
   }
 
   private csrfToken() {

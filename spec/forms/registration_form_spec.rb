@@ -97,6 +97,34 @@ RSpec.describe RegistrationForm do
 
       expect(form.user).to have_attributes(institution_id: institution.id)
     end
+
+    it "marks manually entered ORCID values as unauthenticated when no auth flag is submitted" do
+      user = build(:user, orcid_authenticated: true)
+
+      form = RegistrationForm.new(user: user, params: { orcid: "0000-0002-1825-0097" })
+
+      expect(form.user).to have_attributes(
+        orcid: "0000-0002-1825-0097",
+        orcid_authenticated: false,
+      )
+    end
+
+    it "keeps ORCID authenticated when an explicit auth flag is submitted" do
+      user = build(:user, orcid_authenticated: false)
+
+      form = RegistrationForm.new(
+        user: user,
+        params: {
+          orcid: "0000-0002-1825-0097",
+          orcid_authenticated: true,
+        }
+      )
+
+      expect(form.user).to have_attributes(
+        orcid: "0000-0002-1825-0097",
+        orcid_authenticated: true,
+      )
+    end
   end
 
   describe "#submit" do
