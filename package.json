@@ -30,7 +30,7 @@
     "shakapacker": "10",
     "stimulus-autocomplete": "^3.0.0-rc.5",
     "terser-webpack-plugin": "5",
-    "trix": "^2.0.2",
+    "trix": "^2.1.0",
     "typescript": "^6.0",
     "webpack": "5",
     "webpack-assets-manifest": "6",
@@ -42,7 +42,7 @@
     "babel-jest": "^30.0",
     "jest": "^30.0",
     "jest-environment-jsdom": "^30.2.0",
-    "webpack-dev-server": "^5.0"
+    "webpack-dev-server": "^5.2"
   },
   "babel": {
     "presets": [
