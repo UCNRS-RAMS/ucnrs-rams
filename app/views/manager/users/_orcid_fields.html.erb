@@ -1,22 +1,18 @@
 <div class="field small orcid">
   <%= f.label :orcid, orcid_label %>
 
-  <% if f.object.orcid.present? %>
+  <% show_read_only_orcid = f.object.orcid_authenticated? && f.object.orcid.present? && f.object.errors[:orcid].blank? %>
+
+  <% if show_read_only_orcid %>
     <% orcid_uri = orcid_display_uri(f.object.orcid) %>
     <% if orcid_uri.present? %>
-      <% if f.object.orcid_authenticated? %>
-        <p class="orcid-authenticated">
-          <%= image_tag("orcid-icon.svg", alt: "ORCID iD") %>
-          <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener" %>
-        </p>
-      <% else %>
-        <p class="orcid-authenticated orcid-unauthenticated">
-          <%= image_tag("orcid-icon-unauth.svg", alt: "ORCID iD unauthenticated") %>
-          <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener" %>
-          <span>(unauthenticated)</span>
-        </p>
-      <% end %>
+      <p class="orcid-authenticated">
+        <%= image_tag("orcid-icon.svg", alt: "ORCID iD") %>
+        <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener" %>
+      </p>
       <%= f.hidden_field :orcid %>
+    <% else %>
+      <%= f.text_field :orcid, placeholder: "XXXX-XXXX-XXXX-XXXX" %>
     <% end %>
   <% else %>
     <%= f.text_field :orcid, placeholder: "XXXX-XXXX-XXXX-XXXX" %>
