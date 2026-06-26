@@ -1,3 +1,8 @@
+<% orcid_authenticated_alt_text = local_assigns.fetch(:orcid_authenticated_alt_text, t("devise.registrations.user_fields.alt.orcid_id")) %>
+<% orcid_unauthenticated_alt_text = local_assigns.fetch(:orcid_unauthenticated_alt_text, t("devise.registrations.user_fields.alt.orcid_id_unauthenticated")) %>
+<% orcid_unauthenticated_text = local_assigns.fetch(:orcid_unauthenticated_text, t("devise.registrations.user_fields.status.unauthenticated")) %>
+<% orcid_unsaved_text = local_assigns.fetch(:orcid_unsaved_text, t("devise.registrations.user_fields.helper_text.unsaved")) %>
+
 <div
   class="field small orcid"
   data-controller="orcid"
@@ -14,14 +19,14 @@
     <% if orcid_uri.present? %>
       <% if f.object.orcid_authenticated? %>
         <p class="orcid-authenticated">
-          <%= image_tag("orcid-icon.svg", alt: "ORCID iD") %>
+          <%= image_tag("orcid-icon.svg", alt: orcid_authenticated_alt_text) %>
           <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener" %>
         </p>
       <% else %>
         <p class="orcid-authenticated orcid-unauthenticated">
-          <%= image_tag("orcid-icon-unauth.svg", alt: "ORCID iD unauthenticated") %>
+          <%= image_tag("orcid-icon-unauth.svg", alt: orcid_unauthenticated_alt_text) %>
           <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener" %>
-          <span>(unauthenticated)</span>
+          <span><%= orcid_unauthenticated_text %></span>
         </p>
         <%= button_tag type: "button",
           data: { action: "orcid#startAuth" },
@@ -31,7 +36,7 @@
         <% end %>
       <% end %>
 
-      <p class="helper-text orcid-unsaved" data-orcid-target="unsaved" hidden>Unsaved</p>
+      <p class="helper-text orcid-unsaved" data-orcid-target="unsaved" hidden><%= orcid_unsaved_text %></p>
     <% end %>
   <% else %>
     <%= button_tag type: "button",
