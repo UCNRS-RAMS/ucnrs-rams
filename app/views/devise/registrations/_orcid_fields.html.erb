@@ -3,6 +3,7 @@
   data-controller="orcid"
   data-orcid-auth-path-value="<%= user_orcid_omniauth_authorize_path %>"
   data-orcid-origin-value="<%= request.fullpath %>"
+  data-orcid-record-persisted-value="<%= f.object.persisted? %>"
 >
   <%= f.label :orcid, orcid_label %>
   <%= f.hidden_field :orcid, data: { orcid_target: "input" } %>
@@ -29,6 +30,8 @@
           <span><%= connect_orcid_text %></span>
         <% end %>
       <% end %>
+
+      <p class="helper-text orcid-unsaved" data-orcid-target="unsaved" hidden>Unsaved</p>
     <% end %>
   <% else %>
     <%= button_tag type: "button",
