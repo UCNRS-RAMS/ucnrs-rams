@@ -156,6 +156,24 @@ bundle exec rspec
 docker compose exec web bundle exec rspec
 ```
 
+### Running Jest tests
+
+To run the JavaScript unit tests:
+
+```sh
+# from install on mac
+yarn jest
+
+# from a running docker-compose container
+docker compose exec web yarn jest
+```
+
+You can run a single Jest spec file by passing the file path:
+
+```sh
+yarn jest app/javascript/path/to/file_spec.ts
+```
+
 ### Switching out Capybara Driver:
 
 If you'd like to not run your tests headless, for example, to troubleshoot an issue and see what's on the screen, modify the `driven_by` configuration in `spec/support/system_test_configuration.rb` to use `:chrome` instead of `:headless_chrome`. After the change, this block should look as follows:
