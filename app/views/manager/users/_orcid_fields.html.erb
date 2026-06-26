@@ -1,22 +1,27 @@
 <% orcid_authenticated_alt_text = local_assigns.fetch(:orcid_authenticated_alt_text, t("devise.registrations.user_fields.alt.orcid_id")) %>
 <% orcid_placeholder = local_assigns.fetch(:orcid_placeholder, t("devise.registrations.user_fields.placeholders.orcid")) %>
 
-<div class="field small orcid">
+<% show_read_only_orcid = f.object.orcid_authenticated? && f.object.orcid.present? && f.object.errors[:orcid].blank? %>
+<% orcid_uri = show_read_only_orcid ? orcid_display_uri(f.object.orcid) : nil %>
+
+<div class="field small orcid" data-controller="toggle">
   <%= f.label :orcid, orcid_label %>
 
-  <% show_read_only_orcid = f.object.orcid_authenticated? && f.object.orcid.present? && f.object.errors[:orcid].blank? %>
-
-  <% if show_read_only_orcid %>
-    <% orcid_uri = orcid_display_uri(f.object.orcid) %>
-    <% if orcid_uri.present? %>
+  <% if orcid_uri.present? %>
+    <div data-toggle-target="toggle" data-toggle-class="hidden">
       <p class="orcid-authenticated">
         <%= image_tag("orcid-icon.svg", alt: orcid_authenticated_alt_text) %>
-        <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener" %>
+        <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener" %>&nbsp;&nbsp;
+        <%= button_tag "change orcid",
+          type: "button",
+          class: "button-inline button-clear",
+          data: { action: "click->toggle#toggle" } %>
       </p>
       <%= f.hidden_field :orcid %>
-    <% else %>
+    </div>
+    <div class="hidden" data-toggle-target="toggle" data-toggle-class="hidden">
       <%= f.text_field :orcid, placeholder: orcid_placeholder %>
-    <% end %>
+    </div>
   <% else %>
     <%= f.text_field :orcid, placeholder: orcid_placeholder %>
   <% end %>
