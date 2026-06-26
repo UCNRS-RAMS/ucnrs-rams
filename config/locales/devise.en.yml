@@ -95,6 +95,7 @@ en:
         placeholders:
           date_of_birth: "MM / DD / YYYY"
           institution: "search institution"
+          orcid: "XXXX-XXXX-XXXX-XXXX"
         helper_text:
           tip: "TIP:"
           institution: 'Your institution is likely already in our database. Start typing in the
@@ -103,6 +104,12 @@ en:
           emergency_contact: "In case we need to notify someone while you’re at the reserve."
           receive_nrs_updates: "If you would like to receive updates from the NRS please sign up for the"
           age_range: "This helps with demographic reporting"
+          unsaved: "Unsaved"
+        status:
+          unauthenticated: "(unauthenticated)"
+        alt:
+          orcid_id: "ORCID iD"
+          orcid_id_unauthenticated: "ORCID iD unauthenticated"
         links:
           create_new_instituion: "Create a New Institution."
           go_back: "Cancel, Go Back"
@@ -164,6 +171,7 @@ en:
         placeholders:
           date_of_birth: "MM / DD / YYYY"
           institution: "search institution"
+          orcid: "XXXX-XXXX-XXXX-XXXX"
         helper_text:
           tip: "TIP:"
           institution: 'Your institution is likely already in our database. Start typing
@@ -172,6 +180,12 @@ en:
           emergency_contact: "In case we need to notify someone while you’re at the reserve."
           receive_nrs_updates: "If you would like to receive updates from the NRS please sign up for the"
           age_range: "This helps with demographic reporting"
+          unsaved: "Unsaved"
+        status:
+          unauthenticated: "(unauthenticated)"
+        alt:
+          orcid_id: "ORCID iD"
+          orcid_id_unauthenticated: "ORCID iD unauthenticated"
         links:
           change_my_password: "Change My Password"
           create_new_instituion: "Create a New Institution."
