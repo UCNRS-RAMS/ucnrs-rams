@@ -8,14 +8,17 @@ type OrcidDraft = {
 }
 
 export default class extends Controller {
-  static targets = ["input", "authenticated"]
-  static values = { authPath: String, origin: String }
+  static targets = ["input", "authenticated", "unsaved"]
+  static values = { authPath: String, origin: String, recordPersisted: Boolean }
 
   declare inputTarget: HTMLInputElement
   declare authenticatedTarget: HTMLInputElement
   declare hasAuthenticatedTarget: boolean
+  declare unsavedTarget: HTMLElement
+  declare hasUnsavedTarget: boolean
   declare authPathValue: string
   declare originValue: string
+  declare recordPersistedValue: boolean
 
   private readonly handleFormSubmit = () => this.clearDraft()
 
@@ -26,10 +29,15 @@ export default class extends Controller {
     const params = new URLSearchParams(window.location.search)
     const callback = params.get("orcid_callback")
 
-    if (callback !== "1") return
+    if (callback !== "1") {
+      if (this.recordPersistedValue) this.clearUnsavedFlag()
+      this.syncUnsavedIndicator()
+      return
+    }
 
     this.restoreDraft()
     this.markAuthenticated()
+    this.markUnsaved()
 
     params.delete("orcid_callback")
     params.delete("orcid_auth_error")
@@ -124,6 +132,30 @@ export default class extends Controller {
     window.sessionStorage.removeItem(this.draftStorageKey())
   }
 
+  private markUnsaved() {
+    window.sessionStorage.setItem(this.unsavedStorageKey(), "1")
+    this.syncUnsavedIndicator()
+  }
+
+  private clearUnsavedFlag() {
+    window.sessionStorage.removeItem(this.unsavedStorageKey())
+  }
+
+  private syncUnsavedIndicator() {
+    if (!this.hasUnsavedTarget) return
+
+    const shouldShow = this.unsavedFlagSet() && this.inputTarget.value.trim().length > 0
+    this.unsavedTarget.hidden = !shouldShow
+
+    if (!shouldShow && this.unsavedFlagSet() && this.inputTarget.value.trim().length === 0) {
+      this.clearUnsavedFlag()
+    }
+  }
+
+  private unsavedFlagSet() {
+    return window.sessionStorage.getItem(this.unsavedStorageKey()) === "1"
+  }
+
   private readDraft() {
     const serializedDraft = window.sessionStorage.getItem(this.draftStorageKey())
     if (!serializedDraft) return
@@ -137,6 +169,10 @@ export default class extends Controller {
 
   private draftStorageKey() {
     return `registration-orcid-draft:${this.normalizedOrigin()}`
+  }
+
+  private unsavedStorageKey() {
+    return `registration-orcid-unsaved:${this.normalizedOrigin()}`
   }
 
   private normalizedOrigin() {
