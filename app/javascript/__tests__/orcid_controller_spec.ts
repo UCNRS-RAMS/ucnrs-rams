@@ -18,15 +18,17 @@ describe("OrcidController", () => {
 
   const flush = () => new Promise((resolve) => setTimeout(resolve, 0))
 
-  const renderForm = (originValue = "/users/edit") => {
+  const renderForm = (originValue = "/users/edit", recordPersistedValue = "false") => {
     renderDOM(`
       <div data-controller="orcid"
            data-orcid-auth-path-value="/users/auth/orcid"
-           data-orcid-origin-value="${originValue}">
+           data-orcid-origin-value="${originValue}"
+           data-orcid-record-persisted-value="${recordPersistedValue}">
         <form id="orcid_form">
           <input id="user_first_name" name="user[first_name]" value="Jane" />
           <input id="user_orcid" name="user[orcid]" data-orcid-target="input" value="0000-0002-1825-0097" />
           <input id="user_orcid_authenticated" name="user[orcid_authenticated]" data-orcid-target="authenticated" value="false" />
+          <p id="orcid_unsaved" data-orcid-target="unsaved" hidden>Unsaved</p>
           <button type="button" data-action="orcid#startAuth">Connect</button>
         </form>
       </div>
@@ -74,11 +76,12 @@ describe("OrcidController", () => {
     expect((document.getElementById("user_first_name") as HTMLInputElement).value).toEqual("Jane")
     expect((document.getElementById("user_orcid") as HTMLInputElement).value).toEqual("0000-0002-1825-0097")
     expect((document.getElementById("user_orcid_authenticated") as HTMLInputElement).value).toEqual("true")
+    expect((document.getElementById("orcid_unsaved") as HTMLElement).hidden).toBe(false)
     expect(window.sessionStorage.getItem("registration-orcid-draft:/users/edit")).toBeNull()
     expect(window.location.search).toEqual("")
   })
 
-  it("clears the draft when the form is submitted normally", async () => {
+  it("clears only the draft when the form is submitted normally", async () => {
     renderForm()
     window.sessionStorage.setItem(
       "registration-orcid-draft:/users/edit",
@@ -87,13 +90,28 @@ describe("OrcidController", () => {
         entries: [["user[orcid]", "0000-0002-1825-0097"]],
       })
     )
+    window.sessionStorage.setItem("registration-orcid-unsaved:/users/edit", "1")
 
     await flush()
+
+    expect((document.getElementById("orcid_unsaved") as HTMLElement).hidden).toBe(false)
 
     const form = document.getElementById("orcid_form") as HTMLFormElement
     form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }))
 
     expect(window.sessionStorage.getItem("registration-orcid-draft:/users/edit")).toBeNull()
+    expect(window.sessionStorage.getItem("registration-orcid-unsaved:/users/edit")).toEqual("1")
+    expect((document.getElementById("orcid_unsaved") as HTMLElement).hidden).toBe(false)
+  })
+
+  it("hides and clears Unsaved when the ORCID comes from a persisted record", async () => {
+    window.sessionStorage.setItem("registration-orcid-unsaved:/users/edit", "1")
+    renderForm("/users/edit", "true")
+
+    await flush()
+
+    expect(window.sessionStorage.getItem("registration-orcid-unsaved:/users/edit")).toBeNull()
+    expect((document.getElementById("orcid_unsaved") as HTMLElement).hidden).toBe(true)
   })
 })
 
