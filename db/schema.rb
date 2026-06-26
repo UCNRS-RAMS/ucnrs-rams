@@ -632,7 +632,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_22_160000) do
   create_table "reserve_notes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "action", default: "reserve note"
     t.datetime "created_at", null: false
-    t.text "note", size: :medium
+    t.text "note"
     t.bigint "record_id", null: false
     t.string "record_type", null: false
     t.bigint "reserve_id", null: false
@@ -832,7 +832,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_22_160000) do
     t.string "billing_city", limit: 50
     t.string "check_payable_to_name", limit: 50
     t.boolean "class_projects_accepted", default: true, null: false, comment: "Boolean"
-    t.string "code_of_conduct_url", default: "http://rams.ucnature.org/PDF/nrs-codeofconduct.pdf", null: false, comment: "Code of Conduct"
+    t.string "code_of_conduct_url", default: "https://rams.ucnature.org/PDF/nrs-codeofconduct.pdf", null: false, comment: "Code of Conduct"
     t.boolean "conference_projects_accepted", default: false, null: false
     t.boolean "contact_for_project_review", default: false, null: false
     t.datetime "created_at", precision: nil
@@ -923,7 +923,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_22_160000) do
     t.index ["waiver_id"], name: "index_signatures_on_waiver_id"
   end
 
-  create_table "solid_cable_messages", charset: "utf8mb3", force: :cascade do |t|
+  create_table "solid_cable_messages", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
     t.binary "channel", limit: 1024, null: false
     t.bigint "channel_hash", null: false
     t.datetime "created_at", null: false
@@ -944,12 +944,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_22_160000) do
   create_table "use_policies", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.column "agreement_type", "enum('Reserve Use Agreement','Code of Conduct Agreement','Data Management Agreement')"
     t.datetime "created_at", null: false
-    t.text "description", size: :medium
-    t.text "image_url", size: :medium
-    t.text "policy_link_text", size: :medium
+    t.text "description"
+    t.text "image_url"
+    t.text "policy_link_text"
     t.string "policy_url"
     t.integer "sort_order"
-    t.text "title", size: :medium
+    t.text "title"
     t.datetime "updated_at", null: false
   end
 
