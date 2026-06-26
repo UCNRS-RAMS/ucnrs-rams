@@ -1,3 +1,6 @@
+<% orcid_authenticated_alt_text = local_assigns.fetch(:orcid_authenticated_alt_text, t("devise.registrations.user_fields.alt.orcid_id")) %>
+<% orcid_placeholder = local_assigns.fetch(:orcid_placeholder, t("devise.registrations.user_fields.placeholders.orcid")) %>
+
 <div class="field small orcid">
   <%= f.label :orcid, orcid_label %>
 
@@ -7,15 +10,15 @@
     <% orcid_uri = orcid_display_uri(f.object.orcid) %>
     <% if orcid_uri.present? %>
       <p class="orcid-authenticated">
-        <%= image_tag("orcid-icon.svg", alt: "ORCID iD") %>
+        <%= image_tag("orcid-icon.svg", alt: orcid_authenticated_alt_text) %>
         <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener" %>
       </p>
       <%= f.hidden_field :orcid %>
     <% else %>
-      <%= f.text_field :orcid, placeholder: "XXXX-XXXX-XXXX-XXXX" %>
+      <%= f.text_field :orcid, placeholder: orcid_placeholder %>
     <% end %>
   <% else %>
-    <%= f.text_field :orcid, placeholder: "XXXX-XXXX-XXXX-XXXX" %>
+    <%= f.text_field :orcid, placeholder: orcid_placeholder %>
   <% end %>
 
   <p class="helper-text">
