@@ -22,6 +22,10 @@ class ReservePersonnel < ApplicationRecord
     where(receive_new_visit_email: true)
   end
 
+  def self.receiving_new_visit_or_update_email
+    where(receive_new_visit_email: true).or(where(receive_update_email: true))
+  end
+
   def self.role(user)
     find_by(user_id: user)&.role
   end

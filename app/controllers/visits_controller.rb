@@ -49,6 +49,7 @@ class VisitsController < ApplicationController
     form = VisitForm.new(user: current_user, params: {id: visit_id})
     if form.cancel_visit
       create_log2(action: :cancelled, visit: form.visit, user: current_user)
+      notify_managers_of_cancellation(form.visit)
       redirect_to visit_path, notice: I18n.translate("visits.show.successfully_cancelled")
     else
       flash.now[:alert] = I18n.translate("visits.show.could_not_cancel")
@@ -57,6 +58,13 @@ class VisitsController < ApplicationController
   end
 
   private
+
+  def notify_managers_of_cancellation(visit)
+    ManagerMailer
+      .with(presenter: Mail::Manager::VisitCancelPresenter.new(visit))
+      .visit_cancel
+      .deliver_now
+  end
 
   def check_edit_access
     return if visit.status == "incomplete"
