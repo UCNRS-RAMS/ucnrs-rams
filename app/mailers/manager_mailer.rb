@@ -16,6 +16,19 @@ class ManagerMailer < ApplicationMailer
     )
   end
 
+  def visit_cancel
+    @presenter = params[:presenter]
+
+    return if @presenter.visit_reserve_personnel_emails.blank?
+
+    mail(
+      to: @presenter.visit_reserve_personnel_emails,
+      reply_to: @presenter.visit_applicant_email,
+      subject: @presenter.email_subject,
+      content_type: "text/html",
+    )
+  end
+
   def invoice_email
     @presenter = Mail::Manager::InvoiceEmailPresenter.new(
       invoice: params[:invoice],

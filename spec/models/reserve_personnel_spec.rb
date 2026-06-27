@@ -34,6 +34,19 @@ RSpec.describe ReservePersonnel, type: :model do
     end
   end
 
+  describe ".receiving_new_visit_or_update_email" do
+    it "returns personnel receiving either the new visit or the update email" do
+      new_visit_only = create(:reserve_personnel, receive_new_visit_email: true, receive_update_email: false)
+      update_only = create(:reserve_personnel, receive_new_visit_email: false, receive_update_email: true)
+      both = create(:reserve_personnel, receive_new_visit_email: true, receive_update_email: true)
+      create(:reserve_personnel, receive_new_visit_email: false, receive_update_email: false)
+
+      results = ReservePersonnel.receiving_new_visit_or_update_email
+
+      expect(results).to match_array [new_visit_only, update_only, both]
+    end
+  end
+
   describe "#avatar_src" do
     it "presents placeholder image if no avatar is attached" do
       reserve_personnel = build(:reserve_personnel)
