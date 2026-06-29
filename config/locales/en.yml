@@ -1131,20 +1131,23 @@ en:
         step_1: "Next: Team"
       alt:
         right_facing_arrow: A right facing arrow
-      project_types_accepted: Project types each reserve will accept
+      project_types_accepted: >-
+        Click here for a list of project types currently accepted at each reserve.
+      project_types_explanation: >-
+        Be sure to choose the correct project type based on the descriptions below:
       project_type_options:
         title: Project Type
         labels:
           research: Research
-          class: University Class
-          meeting: All Academic Meeting or Conference
+          class: University Course
+          meeting: Academic Meeting or Conference
           public_use: Public Use
           housing: Housing
         explanation:
           research: Field or lab-based research in any discipline
-          class: University or college course or class
+          class: University/college class (with official course number)
           meeting: >-
-            Symposia, lab retreats, and meetings for university or college groups
+            College or University affiliated symposia, retreats, meetings, tours, etc.
           public_use: >-
             All non-university uses, including community events, fundraising, volunteer use,
             Tribal use, K-12 classes, and meetings for groups unaffiliated with a university

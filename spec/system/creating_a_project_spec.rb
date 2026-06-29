@@ -28,7 +28,7 @@ RSpec.describe "Creating a project", type: :system, js: true do
     flow.dismiss_modal
     expect(flow).to have_no_selected_project_type("Research")
     expect(flow).to have_no_selected_project_type("Meeting")
-    expect(flow).to have_no_selected_project_type("Class")
+    expect(flow).to have_no_selected_project_type("University Course")
     expect(flow).to have_no_selected_project_type("Public Use")
 
     flow.select_project_type("Research")
