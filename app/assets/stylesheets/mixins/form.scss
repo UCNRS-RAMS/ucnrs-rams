@@ -5,6 +5,8 @@
 @mixin form {
   @include errors;
 
+  @include controls;
+
   section {
     margin-bottom: 2.5rem;
 
@@ -94,8 +96,8 @@
       flex: 1;
 
       &:last-child-of-type {
-        padding-right: 0;
         margin-right: 0;
+        padding-right: 0;
       }
     }
 
@@ -116,10 +118,10 @@
       display: flex;
       flex-direction: column;
       flex-wrap: wrap;
+      list-style: none;
       margin-bottom: 0;
       margin-top: 0.5rem;
       max-height: 175px;
-      list-style: none;
       padding-left: 0;
       padding-top: 0;
 
@@ -161,8 +163,8 @@
 
     .planning-question-label {
       color: $navy-blue;
-      font-weight: $normal;
       font-size: 0.8125rem;
+      font-weight: $normal;
       margin-bottom: 0.5rem;
     }
 
@@ -224,8 +226,6 @@
     display: flex;
     justify-content: end;
   }
-
-  @include controls;
 }
 
 @mixin form2 {

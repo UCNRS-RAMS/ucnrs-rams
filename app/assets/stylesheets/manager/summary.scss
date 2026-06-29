@@ -81,13 +81,13 @@
 
   .team-member {
     align-items: center;
-    display: flex;
-    justify-content: space-between;
     background-color: $white;
     border: 1px solid;
     border-radius: 10px;
-    padding: 15px;
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 10px;
+    padding: 15px;
   }
 }
 

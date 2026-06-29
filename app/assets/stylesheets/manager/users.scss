@@ -57,11 +57,11 @@
   }
 
   form {
-    @include errors;
     align-items: flex-start;
     display: flex;
     flex-direction: column;
     width: 100%;
+    @include errors;
 
     .inner-spacer {
       padding: 20px;
@@ -112,9 +112,9 @@
 
             .orcid-auth-button {
               align-items: center;
+              align-self: flex-start;
               display: inline-flex;
               gap: 0.35rem;
-              align-self: flex-start;
               line-height: 1;
               margin: 0 0 0.5rem;
               width: fit-content;
@@ -166,8 +166,8 @@
                 align-items: center;
                 display: flex;
                 flex-direction: row;
-                margin-top: 1rem;
                 margin-bottom: 1rem;
+                margin-top: 1rem;
                 padding-left: 1rem;
               }
             }
@@ -280,10 +280,10 @@
           input[type="tel"],
           select,
           textarea {
-            color: $navy-blue;
             background-color: $white;
             border: 1px solid $dark-bluegray;
             border-radius: 0.375rem;
+            color: $navy-blue;
             height: 34px;
             margin-bottom: 0.875rem;
 

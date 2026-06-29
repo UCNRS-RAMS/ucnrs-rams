@@ -6,7 +6,8 @@
 @use "mixins/layouts" as *;
 
 .manager.fundings-index,
-.manager.fundings-create {
+.manager.fundings-create,
+.manager.complete-update {
   @include controls;
 
   color: $navy-blue;

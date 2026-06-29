@@ -167,6 +167,8 @@
   section.content {
     display: block;
 
+    @include search-subsection;
+
     header {
       margin: 0.5rem 0;
 
@@ -214,8 +216,6 @@
         }
       }
     }
-
-    @include search-subsection;
 
     .search-subsection {
       font-size: 0.875rem;
