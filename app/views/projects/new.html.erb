@@ -12,9 +12,7 @@
           <%= form.label(:project_type, t(".project_type_options.title")) %>
         </h2>
         <small>
-          <%= link_to t(".project_types_accepted"),
-            reserves_project_types_path(),
-            data: { "turbo-frame": "modal-content" } %>
+          <%= t(".project_types_explanation") %>
         </small>
       </header>
 
@@ -34,6 +32,11 @@
           </label>
         <% end %>
       </div>
+      <small>
+        <%= link_to t(".project_types_accepted"),
+          reserves_project_types_path(),
+          data: { "turbo-frame": "modal-content" } %>
+      </small>
     </section>
 
     <%= turbo_frame_tag "project_type_form", data: { pattern: new_project_path(project_type: "VALUE"), "turbo-content-target": "destination" } do %>
