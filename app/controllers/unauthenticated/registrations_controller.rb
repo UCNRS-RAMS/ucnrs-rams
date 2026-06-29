@@ -45,7 +45,8 @@ module Unauthenticated
     protected
 
     def user_params
-      params.require(:user).permit(
+      user_attributes = params.require(:user)
+      permitted_attributes = user_attributes.permit(
         :first_name,
         :last_name,
         :email,
@@ -57,10 +58,8 @@ module Unauthenticated
         :secondary_phone_number,
         :accessibility_requirements,
         :backup_email_address,
-        :role,
         :institution,
         :orcid,
-        :orcid_authenticated,
         :advisor,
         :emergency_contact_full_name,
         :emergency_contact_phone_number,
@@ -82,6 +81,24 @@ module Unauthenticated
         :billing_person_phone_number,
         :terms_accepted_at,
       )
+
+      permitted_attributes.merge(sanitized_user_attributes(user_attributes))
+    end
+
+    def sanitized_user_attributes(user_attributes)
+      {}.tap do |attributes|
+        role = user_attributes[:role]
+        attributes[:role] = role if valid_user_role?(role)
+
+        orcid_authenticated = user_attributes[:orcid_authenticated]
+        if [true, false].include?(ActiveModel::Type::Boolean.new.cast(orcid_authenticated))
+          attributes[:orcid_authenticated] = ActiveModel::Type::Boolean.new.cast(orcid_authenticated)
+        end
+      end
+    end
+
+    def valid_user_role?(role)
+      User.roles.key?(role)
     end
 
     private
