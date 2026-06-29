@@ -102,8 +102,8 @@ main {
       position: relative;
 
       .status-bar {
-        bottom: 0;
         border: none;
+        bottom: 0;
         left: 0;
         margin: 0px;
         padding-left: 0px;
@@ -826,8 +826,8 @@ table#reserve-project-types {
   }
 
   .project-type {
-    text-align: center;
     min-width: 75px;
+    text-align: center;
   }
 }
 
@@ -916,8 +916,8 @@ table#reserve-project-types {
 
     .card {
       flex-basis: 40%;
-      min-width: 150px;
       min-height: unset;
+      min-width: 150px;
 
       h2 {
         font-size: 0.75rem;

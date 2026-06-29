@@ -110,10 +110,10 @@
 
 .visits-show {
   .visit.container {
-    @include summary;
 
     display: flex;
     flex-direction: row;
+    @include summary;
 
     .content {
       > header {
@@ -144,9 +144,9 @@
       }
 
       .edit-btn:hover {
-        color: $navbar-link-color;
         background: $navbar-link-schedule-hover-background-color;
         border: 1px solid $navbar-link-schedule-hover-border-color;
+        color: $navbar-link-color;
       }
 
       .visit-summary {
@@ -307,9 +307,9 @@
   }
 
   .invoice-list {
-    @include flex(row, space-between);
-    margin-top: 60px;
     margin-bottom: 0 !important;
+    margin-top: 60px;
+    @include flex(row, space-between);
   }
 
   .disabled-link {

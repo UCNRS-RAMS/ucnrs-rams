@@ -15,8 +15,8 @@
     border-radius: $border-radius;
     display: flex;
     justify-content: space-between;
-    padding: 10px 10px;
     margin-top: 14px;
+    padding: 10px 10px;
     transition: all .15s ease-in-out;
 
     h3 {
@@ -66,9 +66,9 @@
       }
 
       img.amenity-check-icon, img.amenity-plus-icon {
+        align-self: center;
         height: 30px;
         width: 30px;
-        align-self: center;
       }
 
       img.amenity-check-icon {
@@ -78,8 +78,8 @@
       }
 
       img.amenity-plus-icon {
-        filter: opacity(30%);
         cursor: pointer;
+        filter: opacity(30%);
       }
 
       img.amenity-img {
@@ -136,9 +136,9 @@
 
       hr {
         border-bottom: 1px solid $light-bluegray;
-        border-top: none;
         border-left: none;
         border-right: none;
+        border-top: none;
       }
 
       .amenity-header .content .description:not(.showing) {
@@ -225,8 +225,8 @@
               justify-content: center;
 
               img {
-                filter: opacity(40%);
                 cursor: pointer;
+                filter: opacity(40%);
               }
 
               img:hover {
@@ -252,8 +252,8 @@
 
             a {
               align-items: center;
-              display: flex;
               color: $dark-gray;
+              display: flex;
               padding: 3px 11px;
               text-decoration: none;
 

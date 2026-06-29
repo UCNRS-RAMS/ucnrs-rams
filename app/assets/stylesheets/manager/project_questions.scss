@@ -5,9 +5,9 @@
 
 .manager.questions-index,
 .manager.questions {
-  @include controls;
 
   color: $navy-blue;
+  @include controls;
 
   main > .container {
     max-width: unset;

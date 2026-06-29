@@ -9,8 +9,8 @@
 
   main {
     display: flex;
-    flex-direction: column;
     flex: 1;
+    flex-direction: column;
     justify-content: space-between;
 
     section.content {
@@ -41,7 +41,6 @@
       }
 
       header {
-        @include sort-style;
 
         align-items: center;
         border-bottom: 2px solid $gray;
@@ -55,6 +54,7 @@
         margin-bottom: 1.875rem;
         padding: 0.75rem 0;
         width: 100%;
+        @include sort-style;
 
         h1 {
           flex: 1;
@@ -152,6 +152,8 @@
       }
 
       .simple-calendar {
+
+        text-align: center;
         .calendar-heading {
           align-items: center;
           display: flex;
@@ -169,8 +171,6 @@
           margin: 0px 70px 0px 70px;
           text-align: center;
         }
-
-        text-align: center;
 
         .table {
           border: 0px;
@@ -220,8 +220,8 @@
           position: relative;
 
           .status-bar {
-            bottom: 0;
             border: none;
+            bottom: 0;
             left: 0;
             margin: 0px;
             padding-left: 0px;
@@ -363,8 +363,8 @@
 
     table.visit-requests {
       .reserve-name {
-        width: 70px;
         text-wrap: nowrap;
+        width: 70px;
       }
     }
   }
@@ -392,10 +392,10 @@
       .news_article {
         background: $white;
         border-radius: 0.25rem;
-        flex-direction: column;
         flex: 1;
-        margin-right: 0;
+        flex-direction: column;
         margin: 1.25rem;
+        margin-right: 0;
         min-width: 250px;
         text-decoration: none;
 

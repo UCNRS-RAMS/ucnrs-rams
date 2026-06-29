@@ -67,8 +67,8 @@
       a.active {
         background-color: unset;
         border-bottom: 1px solid $gold;
-        border-top: 1px solid $gold;
         border-right: 8px solid $gold;
+        border-top: 1px solid $gold;
         font-weight: $bold;
         margin-top: -1px;
       }
@@ -109,8 +109,8 @@
   }
 
   .reserve-pictures {
-    display: flex;
     align-items: flex-start;
+    display: flex;
     flex-wrap: wrap;
 
     > * {
@@ -143,16 +143,16 @@
     }
 
     .support-text {
-      font-weight: normal;
-      font-size: 0.66rem;
-      margin-top: 0;
       color: $dark-bluegray;
+      font-size: 0.66rem;
+      font-weight: normal;
+      margin-top: 0;
     }
   }
 
   table.personnel-table .avatar-img {
-    height: 60px;
     border-radius: 50px;
+    height: 60px;
     width: 60px;
   }
 
