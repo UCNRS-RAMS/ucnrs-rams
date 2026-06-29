@@ -5,10 +5,10 @@
 
 .waivers_policies-show,
 .waivers_policies-update {
-  @include controls;
 
   color: $navy-blue;
   font-size: 0.875rem;
+  @include controls;
 
   .form-container {
     @include projects-visits-form-container;
@@ -121,8 +121,8 @@
 
       label {
         .require{
-          display: inline-block;
           color: $red;
+          display: inline-block;
         }
       }
     }
@@ -136,11 +136,11 @@
     .policy-link {
       color: $sky-blue;
       display: block;
-      font-weight: bold;
       font-size: 0.813rem;
+      font-weight: bold;
       height: 18px;
-      line-height: 18px;
       letter-spacing: 0;
+      line-height: 18px;
       margin: 10px 0;
       text-decoration: none;
     }

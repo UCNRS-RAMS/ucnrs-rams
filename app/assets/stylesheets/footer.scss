@@ -103,8 +103,8 @@ footer {
     }
     .left-side, .right-side {
       > span:not(:last-child)::after {
-        width: 0;
         margin: 0 .5rem;
+        width: 0;
       }
     }
     .left-side {

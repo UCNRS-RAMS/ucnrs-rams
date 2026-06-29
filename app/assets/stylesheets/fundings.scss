@@ -8,9 +8,9 @@
 .fundings-index,
 .fundings-create,
 .complete-update {
-  @include controls;
 
   color: $navy-blue;
+  @include controls;
 
   .form-container {
     @include projects-visits-form-container;

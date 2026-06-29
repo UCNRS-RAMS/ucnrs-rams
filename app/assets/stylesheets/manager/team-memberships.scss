@@ -7,9 +7,9 @@
 .manager.team_memberships-index,
 .manager.team_memberships-edit,
 .manager.team_memberships-create {
-  @include controls;
 
   color: $navy-blue;
+  @include controls;
 
   main > .container {
     max-width: unset;
