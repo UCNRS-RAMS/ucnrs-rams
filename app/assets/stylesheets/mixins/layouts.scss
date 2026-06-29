@@ -108,8 +108,8 @@
       border-radius: $border-radius;
       cursor: pointer;
       display: flex;
-      flex-direction: row;
       flex: 1;
+      flex-direction: row;
       padding: calc(1rem + 1px);
       transition: all .15s ease-in-out;
 
@@ -120,8 +120,8 @@
       .project-type-label {
         align-content: flex-start;
         display: flex;
-        flex-direction: column;
         flex: 1;
+        flex-direction: column;
 
         h3 {
           font-size: 1rem;

@@ -3,6 +3,8 @@
 @use "mixins/pagination" as *;
 
 .manager.activities-index {
+
+  @include pagination;
   section.content {
     .disabled-link {
       filter: invert(50%);
@@ -65,6 +67,4 @@
       vertical-align: middle;
     }
   }
-
-  @include pagination;
 }
