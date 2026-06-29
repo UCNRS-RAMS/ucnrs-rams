@@ -4,11 +4,11 @@
 .invoices-show {
   .content{
     font-size: 0.8125rem;
+    max-width: 1000px;
     padding-bottom: 1rem;
     padding-left: 1rem;
     padding-right: 1rem;
     padding-top: 3rem;
-    max-width: 1000px;
 
     > header {
       align-items: center;
@@ -23,8 +23,8 @@
         align-items: center;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
         gap: 10px;
+        justify-content: space-between;
 
         img {
           display: block;

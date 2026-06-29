@@ -1,13 +1,13 @@
 @use "variables" as *;
 
 .field {
-  margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
+  margin-bottom: 1rem;
 
   .input-with-buttons {
-    position: relative;
     display: flex;
+    position: relative;
 
     input {
       flex: 1;
@@ -15,10 +15,10 @@
 
     img.input-icon {
       height: 1rem;
-      width: 1rem;
       position: absolute;
-      top: 0.5rem;
       right: 0.5rem;
+      top: 0.5rem;
+      width: 1rem;
     }
   }
 }

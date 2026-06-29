@@ -8,9 +8,9 @@
 @use "mixins/input" as *;
 
 .projects-index {
-  @include pagination;
 
   height: 100%;
+  @include pagination;
 
   main {
     .content {
@@ -27,7 +27,6 @@
         width: 60%;
 
         header {
-          @include sort-style;
 
           align-items: center;
           border-bottom: 2px solid $gray;
@@ -41,6 +40,7 @@
           margin-bottom: 1.875rem;
           padding: 0.75rem 0;
           width: 100%;
+          @include sort-style;
 
           h1 {
             flex: 1;
@@ -70,8 +70,8 @@
 
           #project-visit-date,
           .project-visit-date {
-            width: 145px;
             text-align: right;
+            width: 145px;
           }
 
           #project-recent-visit-reserve {
@@ -246,8 +246,8 @@
         border-radius: $border-radius;
         cursor: pointer;
         display: flex;
-        flex-direction: row;
         flex: 1;
+        flex-direction: row;
         padding: calc(1rem + 1px);
         transition: all .15s ease-in-out;
 
@@ -258,8 +258,8 @@
         .project-type-label {
           align-content: flex-start;
           display: flex;
-          flex-direction: column;
           flex: 1;
+          flex-direction: column;
 
           h3 {
             font-size: 1rem;
@@ -323,10 +323,10 @@
 }
 
 .project.container {
-  @include summary;
 
   display: flex;
   flex-direction: row;
+  @include summary;
 
   .content {
     @include project-summary;
@@ -386,9 +386,9 @@ div#reserve_question-summary-list {
 
   div.answers-list {
     border-left: 2px solid $gray;
-    padding-left: 1rem;
     margin-bottom: 1.5rem;
     margin-left: .75rem;
+    padding-left: 1rem;
 
     .question-answer {
       margin-bottom: 1.5rem;

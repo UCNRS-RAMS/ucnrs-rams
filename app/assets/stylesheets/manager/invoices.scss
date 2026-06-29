@@ -174,8 +174,8 @@
 
     a.clear {
       align-items: center;
-      border-radius: 1.5625rem;
       border: 1px solid $dark-sky-blue;
+      border-radius: 1.5625rem;
       color: $dark-sky-blue;
       display: flex;
       flex-direction: row;
@@ -308,8 +308,8 @@
         align-items: center;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
         gap: 10px;
+        justify-content: space-between;
 
         img {
           display: block;
