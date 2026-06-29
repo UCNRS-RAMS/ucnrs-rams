@@ -19,10 +19,7 @@ module Unauthenticated
     private
 
     def orcid_identifier
-      auth = request.env["omniauth.auth"] || request.env[:"omniauth.auth"]
-      uid = auth&.[]("uid").presence || auth&.[](:uid).presence
-
-      normalize_orcid_identifier(uid)
+      normalize_orcid_identifier(request.env.dig("omniauth.auth", "uid").presence)
     end
 
     def normalize_orcid_identifier(raw_identifier)
