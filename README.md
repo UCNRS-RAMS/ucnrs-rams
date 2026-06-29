@@ -229,3 +229,13 @@ And this after
 ```bash
 # rubocop:enable Metrics/ModuleLength
 ```
+
+## SCSS Sorting
+
+SCSS is preferred to be sorted in alphabetical order.  The easiest way
+to ensure consistency is to type this. It will reorder the SCSS into
+the preferred order for you if things are out of order:
+
+```bash
+yarn postcss:sort
+```
