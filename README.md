@@ -70,7 +70,7 @@ $ bundle install
 $ bundle exec rake db:create
 $ bundle exec rake db:migrate
 $ bundle exec rake db:seed
-$ bin/dev # will start the development server with any needed services to pack assets and under the bundle
+$ bundle exec rails s
 
 # open http://localhost:3000 in a browser to verify it's up
 
@@ -233,4 +233,14 @@ And this after
 
 ```bash
 # rubocop:enable Metrics/ModuleLength
+```
+
+## SCSS Sorting
+
+SCSS is preferred to be sorted in alphabetical order.  The easiest way
+to ensure consistency is to type this. It will reorder the SCSS into
+the preferred order for you if things are out of order:
+
+```bash
+yarn postcss:sort
 ```
