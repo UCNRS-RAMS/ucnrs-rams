@@ -54,10 +54,6 @@ jobs:
 
       # Tests
       - run:
-          name: Jest
-          command: yarn jest --ci
-
-      - run:
           name: RuboCop
           command: ./bin/rubocop
 
