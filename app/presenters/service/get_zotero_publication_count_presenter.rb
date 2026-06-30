@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 class Service::GetZoteroPublicationCountPresenter
+  # in the future (8.2) Rails.app.creds will handle both things from encrypted credentials and from environment passed in
+  # with one interface but it's not out yet, so simply using the ENV for now.
   ZOTERO_URL = "https://api.zotero.org/groups/"
   HEADERS = {
     "Zotero-API-Version": "3",
-    "Zotero-API-Key": "fXVnV4ZyNyK3k2XSFkiLfiK4",
+    "Zotero-API-Key": ENV.fetch('ZOTERO_API_KEY', nil)
   }.freeze
 
   def initialize(getter = HttpGetter, reserve_id: nil, item_type: nil)
