@@ -1,0 +1,15 @@
+<div style="max-width: 800px; margin: 0 auto; color: #002045; font-size: 14px;
+  font-family: 'Sora', sans-serif"
+>
+  <%= render partial: "mails/shared/header_manager", locals: { presenter: @presenter } %>
+  <%= link_to t(".login_and_view_visit"),
+    manager_reserve_visit_url(@presenter.reserve, @presenter.id)
+  %>
+  <%= render partial: "mails/shared/hr" %>
+  <p style="color: red; margin-bottom: 2em;">
+    <span style="color: red;"><%= t(".visit_has_been_cancelled") %></span>
+  </p>
+  <%= render partial: "mails/shared/hr" %>
+  <%= render partial: "mails/shared/visit_detail", locals: { visit: @presenter.visit } %>
+  <%= render partial: "mails/shared/project_brief", locals: { project: @presenter.visit_project } %>
+</div>

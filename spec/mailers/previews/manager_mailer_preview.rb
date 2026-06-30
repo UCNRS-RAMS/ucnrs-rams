@@ -12,6 +12,18 @@ class ManagerMailerPreview < ActionMailer::Preview
       .visit_new
   end
 
+  def visit_cancel
+    ManagerMailer
+      .with(presenter:
+        Mail::Manager::VisitCancelPresenter.new(
+          Visit
+            .submitted_recent_first
+            .first
+        )
+      )
+      .visit_cancel
+  end
+
   def invoice_email
     invoice = Invoice.last
     email_new_presenter = Manager::Invoices::EmailsNewPresenter.new(invoice: invoice)

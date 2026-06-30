@@ -2984,6 +2984,9 @@ en:
       email_explanation: >-
         You are receiving this email because you are listed as one of the Scuba
         contact person for this reserve.
+    visit_cancel:
+      login_and_view_visit: Login and view Visit
+      visit_has_been_cancelled: User marked this visit as CANCELLED.
     visit_new:
       login_and_view_visit: Login and view Visit
     visit_update:
