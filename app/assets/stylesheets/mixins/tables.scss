@@ -110,28 +110,28 @@
       transition: all 0.25s ease-in-out;
 
       &.approved {
-        border-color: transparent;
         background-color: $green;
+        border-color: transparent;
       }
 
       &.in_review {
-        border-color: transparent;
         background-color: $yellow;
+        border-color: transparent;
       }
 
       &.denied {
-        border-color: transparent;
         background-color: $blue;
+        border-color: transparent;
       }
 
       &.incomplete {
-        border-color: transparent;
         background-color: $red-alert;
+        border-color: transparent;
       }
 
       &.cancelled {
-        border-color: transparent;
         background-color: $pink;
+        border-color: transparent;
       }
     }
   }
@@ -317,7 +317,7 @@
     tr {
       td {
         border-bottom: 1px solid $gray;
-        padding: .5rem .5rem .5rem 0
+        padding: .5rem .5rem .5rem 0;
       }
     }
 

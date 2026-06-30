@@ -76,8 +76,6 @@ html {
 }
 
 body {
-  @include input_default;
-  @include dropdown;
 
   background-color: $white;
   border: 0;
@@ -89,6 +87,8 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  @include input_default;
+  @include dropdown;
 
   &.no-scroll {
     overflow: hidden;
@@ -97,8 +97,8 @@ body {
 
 main {
   display: flex;
-  flex-direction: column;
   flex: 1;
+  flex-direction: column;
 
   a {
     color: $dark-sky-blue;
@@ -121,14 +121,14 @@ textarea:focus {
 }
 
 select {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right .5rem center;
-  background-size: 16px 12px;
-  padding-right: 30px !important;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  background-position: right .5rem center;
+  background-repeat: no-repeat;
+  background-size: 16px 12px;
+  padding-right: 30px !important;
 }
 
 turbo-frame {
@@ -183,7 +183,7 @@ table.summary-table {
         border-bottom: 1px solid $gray;
         border-collapse: collapse;
         font-size: 0.8125rem;
-        padding: .75rem .75rem .75rem 0
+        padding: .75rem .75rem .75rem 0;
       }
     }
 
@@ -247,20 +247,20 @@ table.summary-table {
           position: absolute;
           right: 0;
           top: 0;
-          transition: .4s;
           -webkit-transition: .4s;
+          transition: .4s;
         }
 
         .slider:before {
-          bottom: 4px;
           background-color: $white;
+          bottom: 4px;
           content: "";
           height: 26px;
           left: 4px;
           position: absolute;
+          -webkit-transition: .4s;
           transition: .4s;
           width: 26px;
-          -webkit-transition: .4s;
         }
 
         input:checked + .slider {
@@ -273,8 +273,8 @@ table.summary-table {
 
         input:checked + .slider:before {
           -ms-transform: translateX(26px);
-          transform: translateX(26px);
           -webkit-transform: translateX(26px);
+          transform: translateX(26px);
         }
 
         .slider.round {

@@ -1,0 +1,53 @@
+<% orcid_authenticated_alt_text = local_assigns.fetch(:orcid_authenticated_alt_text, t("devise.registrations.user_fields.alt.orcid_id")) %>
+<% orcid_unauthenticated_alt_text = local_assigns.fetch(:orcid_unauthenticated_alt_text, t("devise.registrations.user_fields.alt.orcid_id_unauthenticated")) %>
+<% orcid_unauthenticated_text = local_assigns.fetch(:orcid_unauthenticated_text, t("devise.registrations.user_fields.status.unauthenticated")) %>
+<% orcid_unsaved_text = local_assigns.fetch(:orcid_unsaved_text, t("devise.registrations.user_fields.helper_text.unsaved")) %>
+
+<div
+  class="field small orcid"
+  data-controller="orcid"
+  data-orcid-auth-path-value="<%= user_orcid_omniauth_authorize_path %>"
+  data-orcid-origin-value="<%= request.fullpath %>"
+  data-orcid-record-persisted-value="<%= f.object.persisted? %>"
+>
+  <%= f.label :orcid, orcid_label %>
+  <%= f.hidden_field :orcid, data: { orcid_target: "input" } %>
+  <%= f.hidden_field :orcid_authenticated, data: { orcid_target: "authenticated" } %>
+
+  <% if f.object.orcid.present? %>
+    <% orcid_uri = orcid_display_uri(f.object.orcid) %>
+    <% if orcid_uri.present? %>
+      <% if f.object.orcid_authenticated? %>
+        <p class="orcid-authenticated">
+          <%= image_tag("orcid-icon.svg", alt: orcid_authenticated_alt_text) %>
+          <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener" %>
+        </p>
+      <% else %>
+        <p class="orcid-authenticated orcid-unauthenticated">
+          <%= image_tag("orcid-icon-unauth.svg", alt: orcid_unauthenticated_alt_text) %>
+          <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener" %>
+          <span><%= orcid_unauthenticated_text %></span>
+        </p>
+        <%= button_tag type: "button",
+          data: { action: "orcid#startAuth" },
+          class: "button-inline button-clear orcid-auth-button" do %>
+          <%= image_tag("orcid-icon.svg", alt: "") %>
+          <span><%= connect_orcid_text %></span>
+        <% end %>
+      <% end %>
+
+      <p class="helper-text orcid-unsaved" data-orcid-target="unsaved" hidden><%= orcid_unsaved_text %></p>
+    <% end %>
+  <% else %>
+    <%= button_tag type: "button",
+      data: { action: "orcid#startAuth" },
+      class: "button-inline button-clear orcid-auth-button" do %>
+      <%= image_tag("orcid-icon.svg", alt: "") %>
+      <span><%= connect_orcid_text %></span>
+    <% end %>
+  <% end %>
+
+  <p class="helper-text">
+    <%= link_to orcid_link_text, orcid_url, target: "_blank" %>
+  </p>
+</div>

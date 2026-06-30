@@ -97,6 +97,34 @@ RSpec.describe RegistrationForm do
 
       expect(form.user).to have_attributes(institution_id: institution.id)
     end
+
+    it "marks manually entered ORCID values as unauthenticated when no auth flag is submitted" do
+      user = build(:user, orcid_authenticated: true)
+
+      form = RegistrationForm.new(user: user, params: { orcid: "0000-0002-1825-0097" })
+
+      expect(form.user).to have_attributes(
+        orcid: "0000-0002-1825-0097",
+        orcid_authenticated: false,
+      )
+    end
+
+    it "keeps ORCID authenticated when an explicit auth flag is submitted" do
+      user = build(:user, orcid_authenticated: false)
+
+      form = RegistrationForm.new(
+        user: user,
+        params: {
+          orcid: "0000-0002-1825-0097",
+          orcid_authenticated: true,
+        }
+      )
+
+      expect(form.user).to have_attributes(
+        orcid: "0000-0002-1825-0097",
+        orcid_authenticated: true,
+      )
+    end
   end
 
   describe "#submit" do
@@ -109,6 +137,37 @@ RSpec.describe RegistrationForm do
       form = RegistrationForm.new(params: invalid_user_params)
 
       expect(form.submit).to be_falsey
+    end
+
+    it "adds an error when an invalid ORCID is supplied and ORCID validation is enabled" do
+      country = create(:country)
+      state = create(:state, country: country)
+      institution = create(:institution, name: "University of California")
+      valid_params = {
+        first_name: "John",
+        last_name: "Muir",
+        address_line_1: "1 Muir Woods Road",
+        address_city: "Mill Valley",
+        address_country_id: country.id,
+        address_state_id: state.id,
+        address_postal_code: "94941",
+        email: "john@muirwoods.test",
+        phone_number: "(222) 222-2222",
+        emergency_contact_full_name: "Louisa Wanda Strentzel",
+        emergency_contact_phone_number: "(111) 111-1111",
+        institution: institution.name,
+        role: "Docent",
+        billing_address_same_as_current: "1",
+        password: "Password1",
+        password_confirmation: "Password1",
+        terms_accepted_at: "1",
+        orcid: "not-an-orcid",
+      }
+
+      form = RegistrationForm.new(params: valid_params, validate_orcid: true)
+
+      expect(form.submit).to be_falsey
+      expect(form.errors[:orcid]).to include("is invalid")
     end
 
     it "creates saves and successfully creates a new user when passed valid params" do

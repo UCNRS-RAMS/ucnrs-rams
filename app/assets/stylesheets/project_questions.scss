@@ -6,9 +6,9 @@
 
 
 .questions-index {
-  @include controls;
 
   color: $navy-blue;
+  @include controls;
 
   .form-container {
     @include projects-visits-form-container;
@@ -111,9 +111,9 @@
     color: $navy-blue;
     cursor: pointer;
     display: flex;
-    height: 2rem;
     flex-grow: 0;
     font-size: 0.875rem;
+    height: 2rem;
     padding-left: 8px;
     padding-right: 14px;
     white-space: nowrap;
@@ -129,9 +129,9 @@
 
   .answers.field {
     textarea {
-      width: 240px;
       height: 3rem;
       margin-right: 0;
+      width: 240px;
     }
   }
 }

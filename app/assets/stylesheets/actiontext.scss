@@ -13,8 +13,8 @@
     > action-text-attachment,
     > .attachment {
       flex: 1 0 33%;
-      padding: 0 0.5em;
       max-width: 33%;
+      padding: 0 0.5em;
     }
 
     &.attachment-gallery--2,
@@ -29,8 +29,8 @@
 
   action-text-attachment {
     .attachment {
-      padding: 0 !important;
       max-width: 100% !important;
+      padding: 0 !important;
     }
   }
 }

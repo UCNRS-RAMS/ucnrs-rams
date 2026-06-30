@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {
     confirmations: "unauthenticated/confirmations",
+    omniauth_callbacks: "unauthenticated/omniauth_callbacks",
     passwords: "unauthenticated/passwords",
     registrations: "unauthenticated/registrations",
     sessions: "unauthenticated/sessions",
@@ -197,7 +198,7 @@ Rails.application.routes.draw do
     resources :reports, only: [:index]
     resources :new_features
   end
-  if Rails.env.dev_server? || Rails.env.staging?
+  if Rails.env.development? || Rails.env.dev_server? || Rails.env.staging?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
 end

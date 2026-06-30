@@ -17,7 +17,7 @@ class Manager::UsersController < Manager::ApplicationController
   end
 
   def update
-    form = RegistrationForm.new(user: user, params: user_params)
+    form = RegistrationForm.new(user: user, params: user_params, validate_orcid: true)
     @presenter = Manager::UserEditPresenter.new(form)
 
     if form.submit
@@ -37,7 +37,8 @@ class Manager::UsersController < Manager::ApplicationController
 
 
   def user_params
-    params.require(:user).permit(
+    user_attributes = params.require(:user)
+    permitted_attributes = user_attributes.permit(
       :first_name,
       :last_name,
       :email,
@@ -49,7 +50,6 @@ class Manager::UsersController < Manager::ApplicationController
       :secondary_phone_number,
       :accessibility_requirements,
       :backup_email_address,
-      :role,
       :institution,
       :orcid,
       :advisor,
@@ -73,6 +73,24 @@ class Manager::UsersController < Manager::ApplicationController
       :billing_person_phone_number,
       :terms_accepted_at,
     )
+
+    permitted_attributes.merge(sanitized_user_attributes(user_attributes))
+  end
+
+  def sanitized_user_attributes(user_attributes)
+    {}.tap do |attributes|
+      role = user_attributes[:role]
+      attributes[:role] = role if valid_user_role?(role)
+
+      orcid_authenticated = user_attributes[:orcid_authenticated]
+      if [true, false].include?(ActiveModel::Type::Boolean.new.cast(orcid_authenticated))
+        attributes[:orcid_authenticated] = ActiveModel::Type::Boolean.new.cast(orcid_authenticated)
+      end
+    end
+  end
+
+  def valid_user_role?(role)
+    User.roles.key?(role)
   end
 
   def page_number
