@@ -39,7 +39,10 @@ if %w[dev_server staging production].include?(Rails.env)
 
     config.fog_credentials = fog_creds
     config.fog_directory = ENV.fetch("BUCKET_NAME", nil)
-    config.fog_public = false
+    # I believe fog_public true is the default. Seems the CarrierWave config expects the bucket to be public
+    # and enforce ACLs on a more individual level rather than beeing private and having application control access.
+    # This also has implications on S3 bucket setup in the infrastructure repo sceptre/CloudFormation.
+    config.fog_public = true
     config.fog_attributes = { cache_control: "public, max-age=#{365.days.to_i}" }
   end
 
