@@ -39,6 +39,7 @@ if %w[dev_server staging production].include?(Rails.env)
 
     config.fog_credentials = fog_creds
     config.fog_directory = ENV.fetch("BUCKET_NAME", nil)
+    config.fog_public = false
     config.fog_attributes = { cache_control: "public, max-age=#{365.days.to_i}" }
   end
 
