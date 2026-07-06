@@ -15,10 +15,23 @@ RSpec.describe "ops:fix-orcid-format" do
 
   before do
     task.reenable
+    @copy_tables = []
+    connection.execute("DELETE FROM users WHERE email LIKE 'ops-orcid-test-%@example.com'")
+  end
+
+  after do
+    @copy_tables.each { |table| connection.execute("DROP TABLE IF EXISTS `#{table}`") }
+    connection.execute("DELETE FROM users WHERE email LIKE 'ops-orcid-test-%@example.com'")
   end
 
   def create_user_with_orcid(orcid)
-    create(:user, orcid: orcid)
+    email = "ops-orcid-test-#{SecureRandom.hex(4)}@example.com"
+    quoted_orcid = orcid.nil? ? "NULL" : "'#{connection.quote_string(orcid)}'"
+    connection.execute(<<~SQL)
+      INSERT INTO users (email, encrypted_password, orcid, created_at, updated_at)
+      VALUES ('#{connection.quote_string(email)}', 'encrypted', #{quoted_orcid}, NOW(), NOW())
+    SQL
+    connection.select_value("SELECT id FROM users WHERE email = '#{connection.quote_string(email)}'")
   end
 
   def orcid_from(table, user_id)
@@ -29,6 +42,7 @@ RSpec.describe "ops:fix-orcid-format" do
     it "copies users to a timestamped table and transforms ORCID values without modifying the original users table" do
       freeze_time do
         copy_table = "users_copy-#{Time.current.strftime('%Y-%m-%d-%H%M%S')}"
+        @copy_tables << copy_table
 
         user_placeholder = create_user_with_orcid("none")
         user_url_https = create_user_with_orcid("https://orcid.org/0000-0001-2345-6789")
@@ -46,24 +60,24 @@ RSpec.describe "ops:fix-orcid-format" do
 
         expect { task.invoke("dry_run") }.to output(/Dry run mode/).to_stdout
 
-        expect(orcid_from(copy_table, user_placeholder.id)).to be_nil
-        expect(orcid_from(copy_table, user_url_https.id)).to eq("0000-0001-2345-6789")
-        expect(orcid_from(copy_table, user_url_http.id)).to eq("0000-0001-2345-6789")
-        expect(orcid_from(copy_table, user_url_www.id)).to eq("0000-0001-2345-6789")
-        expect(orcid_from(copy_table, user_url_no_protocol.id)).to eq("0000-0001-2345-6789")
-        expect(orcid_from(copy_table, user_url_trailing_slash.id)).to eq("0000-0001-2345-6789")
-        expect(orcid_from(copy_table, user_url_space.id)).to eq("0000-0001-2345-6789")
-        expect(orcid_from(copy_table, user_orcid_prefix.id)).to eq("0000-0001-2345-6789")
-        expect(orcid_from(copy_table, user_space_separated.id)).to eq("0000-0001-2345-6789")
-        expect(orcid_from(copy_table, user_16_digit.id)).to eq("0000-0001-2345-6789")
-        expect(orcid_from(copy_table, user_already_correct.id)).to eq("0000-0001-2345-6789")
-        expect(orcid_from(copy_table, user_invalid.id)).to eq("invalid-orcid")
-        expect(orcid_from(copy_table, user_blank.id)).to be_nil
+        expect(orcid_from(copy_table, user_placeholder)).to be_nil
+        expect(orcid_from(copy_table, user_url_https)).to eq("0000-0001-2345-6789")
+        expect(orcid_from(copy_table, user_url_http)).to eq("0000-0001-2345-6789")
+        expect(orcid_from(copy_table, user_url_www)).to eq("0000-0001-2345-6789")
+        expect(orcid_from(copy_table, user_url_no_protocol)).to eq("0000-0001-2345-6789")
+        expect(orcid_from(copy_table, user_url_trailing_slash)).to eq("0000-0001-2345-6789")
+        expect(orcid_from(copy_table, user_url_space)).to eq("0000-0001-2345-6789")
+        expect(orcid_from(copy_table, user_orcid_prefix)).to eq("0000-0001-2345-6789")
+        expect(orcid_from(copy_table, user_space_separated)).to eq("0000-0001-2345-6789")
+        expect(orcid_from(copy_table, user_16_digit)).to eq("0000-0001-2345-6789")
+        expect(orcid_from(copy_table, user_already_correct)).to eq("0000-0001-2345-6789")
+        expect(orcid_from(copy_table, user_invalid)).to eq("invalid-orcid")
+        expect(orcid_from(copy_table, user_blank)).to be_nil
 
         # Original users table is unchanged
-        expect(User.find(user_placeholder.id).orcid).to eq("none")
-        expect(User.find(user_url_https.id).orcid).to eq("https://orcid.org/0000-0001-2345-6789")
-        expect(User.find(user_already_correct.id).orcid).to eq("0000-0001-2345-6789")
+        expect(orcid_from("users", user_placeholder)).to eq("none")
+        expect(orcid_from("users", user_url_https)).to eq("https://orcid.org/0000-0001-2345-6789")
+        expect(orcid_from("users", user_already_correct)).to eq("0000-0001-2345-6789")
       end
     end
   end
@@ -82,15 +96,15 @@ RSpec.describe "ops:fix-orcid-format" do
 
       expect { task.invoke("real_run") }.to output(/Real run mode/).to_stdout
 
-      expect(User.find(user_placeholder.id).orcid).to be_nil
-      expect(User.find(user_url_https.id).orcid).to eq("0000-0001-2345-6789")
-      expect(User.find(user_url_space.id).orcid).to eq("0000-0001-2345-6789")
-      expect(User.find(user_orcid_prefix.id).orcid).to eq("0000-0001-2345-6789")
-      expect(User.find(user_space_separated.id).orcid).to eq("0000-0001-2345-6789")
-      expect(User.find(user_16_digit.id).orcid).to eq("0000-0001-2345-6789")
-      expect(User.find(user_already_correct.id).orcid).to eq("0000-0001-2345-6789")
-      expect(User.find(user_invalid.id).orcid).to eq("invalid-orcid")
-      expect(User.find(user_blank.id).orcid).to be_nil
+      expect(orcid_from("users", user_placeholder)).to be_nil
+      expect(orcid_from("users", user_url_https)).to eq("0000-0001-2345-6789")
+      expect(orcid_from("users", user_url_space)).to eq("0000-0001-2345-6789")
+      expect(orcid_from("users", user_orcid_prefix)).to eq("0000-0001-2345-6789")
+      expect(orcid_from("users", user_space_separated)).to eq("0000-0001-2345-6789")
+      expect(orcid_from("users", user_16_digit)).to eq("0000-0001-2345-6789")
+      expect(orcid_from("users", user_already_correct)).to eq("0000-0001-2345-6789")
+      expect(orcid_from("users", user_invalid)).to eq("invalid-orcid")
+      expect(orcid_from("users", user_blank)).to be_nil
     end
   end
 
@@ -98,12 +112,13 @@ RSpec.describe "ops:fix-orcid-format" do
     it "uses dry_run when no mode is provided" do
       freeze_time do
         copy_table = "users_copy-#{Time.current.strftime('%Y-%m-%d-%H%M%S')}"
+        @copy_tables << copy_table
         user = create_user_with_orcid("https://orcid.org/0000-0001-2345-6789")
 
         expect { task.invoke }.to output(/Dry run mode/).to_stdout
 
-        expect(orcid_from(copy_table, user.id)).to eq("0000-0001-2345-6789")
-        expect(User.find(user.id).orcid).to eq("https://orcid.org/0000-0001-2345-6789")
+        expect(orcid_from(copy_table, user)).to eq("0000-0001-2345-6789")
+        expect(orcid_from("users", user)).to eq("https://orcid.org/0000-0001-2345-6789")
       end
     end
   end
