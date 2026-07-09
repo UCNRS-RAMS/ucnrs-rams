@@ -1,5 +1,5 @@
+# rubocop:disable Metrics/BlockLength
 namespace :ops do
-  # rubocop:disable Metrics/BlockLength
 
   desc "Fixes the format of ORCID identifiers in the database. " \
        "Modes: dry_run (default) copies users to users_copy-<timestamp> and updates the copy; " \
@@ -143,5 +143,5 @@ namespace :ops do
           );
     SQL
   end
-  # rubocop:enable Metrics/BlockLength
 end
+# rubocop:enable Metrics/BlockLength
