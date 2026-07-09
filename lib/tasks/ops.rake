@@ -141,6 +141,9 @@ namespace :ops do
             orcid,
             '^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9Xx]$'
           );
+
+      When you use the dry run option it creates a new test table each time you run the task, so you will want to
+      delete the extra tables it creates after you're done testing.
     SQL
   end
 end
