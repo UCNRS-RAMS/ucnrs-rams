@@ -1,9 +1,10 @@
 namespace :ops do
+  # rubocop:disable Metrics/BlockLength
+
   desc "Fixes the format of ORCID identifiers in the database. " \
        "Modes: dry_run (default) copies users to users_copy-<timestamp> and updates the copy; " \
        "real_run updates the users table directly. " \
        'Usage: bin/rails "ops:fix-orcid-format[dry_run]" or bin/rails "ops:fix-orcid-format[real_run]"'
-  # rubocop:disable Metrics/BlockLength
   task :"fix-orcid-format", [:mode] => :environment do |_t, args|
     args.with_defaults(mode: "dry_run")
 
