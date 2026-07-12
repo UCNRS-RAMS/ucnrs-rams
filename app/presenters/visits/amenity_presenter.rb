@@ -46,7 +46,9 @@ class Visits::AmenityPresenter
   end
 
   def selected_amenity_rate_id
-    return form.first.amenity_rate_id if form.first.amenity_rate_id
+    form_rate_id = Array(form).first&.amenity_rate_id
+
+    return form_rate_id if rates.find { |rate| rate.id == form_rate_id }
 
     return rates.detect{ |r| r.default_for_user == 1 }&.id if rates.detect{ |r| r.default_for_user == 1 }
 
@@ -133,7 +135,7 @@ class Visits::AmenityPresenter
 
   def selected_rate_in_number
     rate = rates.find { |rate| rate.id == selected_amenity_rate_id }
-    rate_string = "#{rate.amount}".delete!("$")
+    "#{rate.amount}".delete!("$")
   end
 
   def selected_rate_description
