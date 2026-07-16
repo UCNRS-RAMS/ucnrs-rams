@@ -4,7 +4,7 @@
     <%= form_with model: @presenter.form, url: @presenter.user_visit_form_path do |form|%>
       <%= form.hidden_field :visit_id, value: @presenter.visit_id %>
       <div class="flex-row">
-        <div class="field autocomplete visitor-name" data-controller="autocomplete" data-autocomplete-url-value="<%= users_path %>">
+        <div class="field autocomplete visitor-name" role="combobox" data-controller="autocomplete" data-autocomplete-url-value="<%= users_path %>">
           <%= form.label :guest_name, t(".guest_name") %>
           <%= form.text_field :guest_name, placeholder: t(".search_by_name"), value: presenter.guest_name, data: { "autocomplete-target": "input" } %>
           <%= form.hidden_field :user_id, data: { "autocomplete-target": "hidden" } %>

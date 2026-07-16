@@ -45,7 +45,7 @@
           <%= form.label :user_role %>
           <%= form.select :user_role, presenter.user_role_options, prompt: t(".select_user_role") %>
         </div>
-        <div class="field autocomplete" data-controller="autocomplete" data-autocomplete-url-value="<%= institutions_path %>">
+        <div class="field autocomplete" role="combobox" data-controller="autocomplete" data-autocomplete-url-value="<%= institutions_path %>">
           <%= form.label :institution_name %>
           <%= form.text_field :institution_name, placeholder: t(".search_by_name"), value: presenter.institution_name, data: { "autocomplete-target": "input" } %>
           <%= form.hidden_field :institution_id, data: { "autocomplete-target": "hidden" } %>

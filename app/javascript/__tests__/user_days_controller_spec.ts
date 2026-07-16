@@ -45,7 +45,7 @@ describe("UserDaysController", () => {
               <input type="text" value="ahmad" name="user_visit[guest_name]" id="user_visit_guest_name">
               <input data-user-days-target="count" autocomplete="off" type="hidden" value="1" name="user_visit[count]" id="user_visit_count">
             </div>
-          <div class="field autocomplete" data-controller="autocomplete" data-autocomplete-url-value="/institutions" aria-expanded="false" data-autocomplete-ready-value="true">
+          <div class="field autocomplete" role="combobox" data-controller="autocomplete" data-autocomplete-url-value="/institutions" aria-expanded="false" data-autocomplete-ready-value="true">
             <label for="user_visit_institution_name">Institution name</label>
             <input placeholder="Search by Name" value="Totally a Real University" data-autocomplete-target="input" type="text" name="user_visit[institution_name]" id="user_visit_institution_name" autocomplete="off" spellcheck="false">
             <input data-autocomplete-target="hidden" autocomplete="off" type="hidden" value="3" name="user_visit[institution_id]" id="user_visit_institution_id">
