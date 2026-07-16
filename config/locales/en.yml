@@ -3619,6 +3619,7 @@ en:
           title: Title
           funding_agency: Funding Agency
           award_amount: Award Amount
+          actions: Actions
         funding:
           edit: Edit
     reports:

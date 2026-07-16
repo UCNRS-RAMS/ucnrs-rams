@@ -49,7 +49,9 @@
       </div>
       <small>
         <%= t(".cannot_find_them") %>
-        <%= link_to t(".create_new_user"), presenter.user_form_path, data: { "turbo-frame": "modal-content" } %>
+        <span>
+          <%= link_to t(".create_new_user"), presenter.user_form_path, data: { "turbo-frame": "modal-content" } %>
+        </span>
       </small>
     </div>
     <div class="submit-row">
