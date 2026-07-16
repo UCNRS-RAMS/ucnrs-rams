@@ -51,6 +51,7 @@ class Manager::UsersController < Manager::ApplicationController
       :backup_email_address,
       :role,
       :institution,
+      :institution_id,
       :orcid,
       :advisor,
       :emergency_contact_full_name,
