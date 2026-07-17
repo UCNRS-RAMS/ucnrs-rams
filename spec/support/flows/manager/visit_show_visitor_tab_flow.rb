@@ -120,7 +120,7 @@ class Manager::VisitShowVisitorTabFlow
   end
 
   def select_option
-    page.find("#stimulus-autocomplete-option-0").click
+    page.find(".autocomplete-results [role='option']", match: :first).click
   end
 
   def has_error_message?(text)

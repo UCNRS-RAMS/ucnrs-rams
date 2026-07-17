@@ -147,6 +147,11 @@ span.required {
   background-color: $light-light-blue;
   padding-bottom: 1rem;
   padding-top: 1rem;
+
+  a {
+    color: $dark-sky-blue;
+    text-decoration: underline;
+  }
 }
 
 .display-none,
