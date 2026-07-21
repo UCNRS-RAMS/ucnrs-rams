@@ -36,8 +36,7 @@ namespace :ops do
         <<~SQL
           UPDATE `#{target_table}`
           SET orcid = NULL
-          WHERE NULLIF(TRIM(orcid), '') IS NOT NULL
-            AND LOWER(TRIM(orcid)) IN ('none', 'n/a', 'na', 'not applicable', 'unsure', '-', 'no', '???');
+          WHERE LOWER(TRIM(orcid)) IN ('none', 'n/a', 'na', 'not applicable', 'unsure', '-', 'no', '???');
         SQL
       ],
       [
