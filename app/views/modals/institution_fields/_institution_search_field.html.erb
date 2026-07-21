@@ -1,6 +1,6 @@
 <turbo-frame id="institution" >
   <%= form.fields_for form.object.institution_form.institution do |f| %>
-    <div class="field autocomplete" role="combobox" data-controller="autocomplete" data-autocomplete-url-value="<%= institutions_path %>">
+    <div class="field autocomplete" data-controller="autocomplete" data-autocomplete-url-value="<%= institutions_path %>">
       <%= f.label :name %>
       <%= f.text_field :name, placeholder: t(".search_by_name"),
         value: presenter.institution_name, data: { "autocomplete-target": "input" },

@@ -40,7 +40,7 @@
     <hr class="subtle" />
   </header>
   <%= form_with model: presenter.form, url: presenter.team_memberships_form_path do |form| %>
-    <div class="field autocomplete" role="combobox" data-controller="autocomplete" data-autocomplete-url-value="<%= users_path %>">
+    <div class="field autocomplete" data-controller="autocomplete" data-autocomplete-url-value="<%= users_path %>">
       <%= form.label :full_name %>
       <%= form.text_field :full_name, placeholder: t(".search_by_name"), "data-autocomplete-target": "input" %>
       <%= form.hidden_field :user_id, "data-autocomplete-target": "hidden" %>
@@ -49,9 +49,7 @@
       </div>
       <small>
         <%= t(".cannot_find_them") %>
-        <span>
-          <%= link_to t(".create_new_user"), presenter.user_form_path, data: { "turbo-frame": "modal-content" } %>
-        </span>
+        <%= link_to t(".create_new_user"), presenter.user_form_path, data: { "turbo-frame": "modal-content" } %>
       </small>
     </div>
     <div class="submit-row">

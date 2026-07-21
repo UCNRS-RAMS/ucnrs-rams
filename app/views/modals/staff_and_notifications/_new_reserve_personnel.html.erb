@@ -19,7 +19,7 @@
         <header class="modal-header">
           <h2><%= t(".title") %></h2>
         </header>
-        <div class="autocomplete form-group" role="combobox" data-controller="autocomplete" data-autocomplete-url-value="<%= users_path %>">
+        <div class="autocomplete form-group" data-controller="autocomplete" data-autocomplete-url-value="<%= users_path %>">
           <%= form.label :full_name, class:"form-label" %>
           <%= form.text_field :full_name, placeholder: t(".search_by_name"), "data-autocomplete-target": "input", class: "form-input" %>
           <%= form.hidden_field :user_id, "data-autocomplete-target": "hidden" %>

@@ -23,7 +23,7 @@
           %>
         </header>
         <%= form.hidden_field :id %>
-        <div class="autocomplete form-group" role="combobox" data-controller="autocomplete" data-autocomplete-url-value="<%= institutions_path %>">
+        <div class="autocomplete form-group" data-controller="autocomplete" data-autocomplete-url-value="<%= institutions_path %>">
           <%= form.label :institution_name, class:"form-label" %>
           <%= form.text_field :institution_name,
             placeholder: t(".search_by_name"),

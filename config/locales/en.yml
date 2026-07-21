@@ -1172,7 +1172,6 @@ en:
         alt:
           left_facing_arrow: Left-facing arrow
       team_member_table:
-        owner: Owner
         name: Name
         institution: Institution
         role: Role
@@ -1181,7 +1180,6 @@ en:
         edit: Edit
         book: Book
         invoice: Invoice
-        actions: Actions
         project_team: Project Team
       team_membership:
         edit: Edit
