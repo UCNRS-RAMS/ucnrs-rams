@@ -1,7 +1,6 @@
 class Manager::Visits::AnswersController < Manager::ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_manager!, unless: -> { super_admin? }, only: [:show]
-  before_action :confirm_reserve_manager!, unless: -> { super_admin? }, only: [:destroy]
+  before_action :confirm_reserve_manager!, unless: -> { super_admin? }
 
   def create
     form = Visits::VisitAnswersForm.new(
