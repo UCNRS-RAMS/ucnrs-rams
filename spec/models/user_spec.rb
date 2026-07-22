@@ -27,6 +27,33 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of(:terms_accepted_at) }
     it { is_expected.to validate_presence_of(:institution) }
 
+    describe "#orcid" do
+      it "is valid when blank" do
+        user = build(:user, orcid: "")
+
+        expect(user).to be_valid
+      end
+
+      it "is valid when nil" do
+        user = build(:user, orcid: nil)
+
+        expect(user).to be_valid
+      end
+
+      it "is valid with a correctly formatted ORCID" do
+        user = build(:user, orcid: "0000-0002-1825-0097")
+
+        expect(user).to be_valid
+      end
+
+      it "is invalid with an incorrectly formatted ORCID" do
+        user = build(:user, orcid: "not-an-orcid")
+
+        expect(user).not_to be_valid
+        expect(user.errors[:orcid]).to include("is invalid")
+      end
+    end
+
     describe "#password_complexity" do
       let!(:country) { create(:country, name: "United States") }
       let!(:state) { create(:state, name: "California", country: country) }
