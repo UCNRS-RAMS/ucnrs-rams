@@ -164,7 +164,7 @@ RSpec.describe RegistrationForm do
         orcid: "not-an-orcid",
       }
 
-      form = RegistrationForm.new(params: valid_params, validate_orcid: true)
+      form = RegistrationForm.new(params: valid_params)
 
       expect(form.submit).to be_falsey
       expect(form.errors[:orcid]).to include("is invalid")
