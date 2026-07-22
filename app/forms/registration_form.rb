@@ -1,10 +1,7 @@
 class RegistrationForm
-  ORCID_PATTERN = /\A(\d{4}-){3}\d{3}(\d|X)\z/
-
-  def initialize(user: User.new, params: {}, validate_orcid: false)
+  def initialize(user: User.new, params: {})
     @user = user
     @params = params
-    @validate_orcid = validate_orcid
     assign(params)
 
     if billing_address_same_as_current_address?
@@ -27,14 +24,13 @@ class RegistrationForm
 
   def submit
     user.valid?
-    validate_orcid_format
     return false if user.errors.any?
     user.save
   end
 
   private
 
-  attr_reader :params, :validate_orcid
+  attr_reader :params
 
   def copy_address_fields_to_billing_address
     user.assign_attributes(
@@ -77,14 +73,4 @@ class RegistrationForm
     params.key?(:orcid_authenticated) || params.key?("orcid_authenticated")
   end
 
-  def validate_orcid_format
-    return unless validate_orcid
-
-    orcid = user.orcid.to_s.strip
-    return if orcid.blank?
-
-    return if orcid.match?(ORCID_PATTERN)
-
-    user.errors.add(:orcid, :invalid)
-  end
 end
