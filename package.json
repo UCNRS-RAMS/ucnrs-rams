@@ -42,6 +42,10 @@
     "babel-jest": "^30.0",
     "jest": "^30.0",
     "jest-environment-jsdom": "^30.2.0",
+    "postcss": "^8.5.16",
+    "postcss-cli": "^11.0.1",
+    "postcss-scss": "^4.0.9",
+    "postcss-sorting": "^10.0.0",
     "webpack-dev-server": "^6.0.0"
   },
   "babel": {
@@ -70,6 +74,7 @@
     ]
   },
   "scripts": {
-    "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules --load-path=app/assets/stylesheets"
+    "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules --load-path=app/assets/stylesheets",
+    "postcss:sort": "node ./scripts/sort-scss.js"
   }
 }

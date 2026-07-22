@@ -15,8 +15,8 @@
   .body{
     align-items: center;
     background: $white;
-    border-radius: 10px;
     border: 1px solid $dark-gray;
+    border-radius: 10px;
     margin: 2rem auto;
     max-width: 800px;
 
@@ -56,11 +56,11 @@
   }
 
   form {
-    @include errors;
     align-items: flex-start;
     display: flex;
     flex-direction: column;
     width: 100%;
+    @include errors;
 
     .section-container {
       align-items: center;
@@ -98,7 +98,40 @@
             width: 100%;
           }
           .orcid {
-            max-width: 170px;
+            max-width: none;
+            width: 100%;
+
+            .orcid-auth-button {
+              align-items: center;
+              align-self: flex-start;
+              display: inline-flex;
+              gap: 0.35rem;
+              line-height: 1;
+              margin: 0 0 0.5rem;
+              width: fit-content;
+
+              img {
+                height: 1rem;
+                width: 1rem;
+              }
+            }
+
+            .orcid-authenticated {
+              align-items: center;
+              display: inline-flex;
+              gap: 0.35rem;
+              margin: 0 0 0.5rem;
+              width: 100%;
+
+              img {
+                height: 1rem;
+                width: 1rem;
+              }
+
+              a {
+                font-size: 0.75rem;
+              }
+            }
           }
         }
         &.emergency-contact {
@@ -124,8 +157,8 @@
                 align-items: center;
                 display: flex;
                 flex-direction: row;
-                margin-top: 1rem;
                 margin-bottom: 1rem;
+                margin-top: 1rem;
                 padding-left: 1rem;
               }
             }
@@ -243,10 +276,10 @@
           input[type="tel"],
           select,
           textarea {
-            color: $navy-blue;
             background-color: $white;
             border: 1px solid $dark-bluegray;
             border-radius: 0.375rem;
+            color: $navy-blue;
             height: 34px;
             margin-bottom: 0.875rem;
 
@@ -298,8 +331,8 @@
 
   ul {
     background-color: $white;
-    border-radius: 0.375rem;
     border: 1px solid $dark-bluegray;
+    border-radius: 0.375rem;
     display: flex;
     flex-direction: column;
     margin-bottom: 0;
@@ -350,8 +383,8 @@
           }
           &.role {
             .radio-buttons {
-              height: auto;
               flex-wrap: nowrap;
+              height: auto;
             }
           }
           &.address {

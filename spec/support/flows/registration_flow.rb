@@ -76,7 +76,7 @@ class RegistrationFlow
     page.fill_in("Backup Email Address", id: "user_backup_email_address", with: backup_email_address)
     page.choose(role)
     page.fill_in("Institution, Organization, or Agency", with: institution)
-    page.fill_in("ORCID (Optional)", with: orcid)
+    page.execute_script("document.getElementById('user_orcid').value = #{orcid.to_json}")
     page.fill_in("Advisor/Supervisor Name", with: advisor)
     page.fill_in("Full Name", with: emergency_contact_full_name)
     page.fill_in("Phone Number", id: "user_emergency_contact_phone_number", with: emergency_contact_phone_number)
@@ -152,7 +152,7 @@ class RegistrationFlow
     page.fill_in("Backup Email Address", id: "user_backup_email_address", with: backup_email_address)
     page.choose(role)
     page.fill_in("Institution, Organization, or Agency", with: institution)
-    page.fill_in("ORCID (Optional)", with: orcid)
+    page.execute_script("document.getElementById('user_orcid').value = #{orcid.to_json}")
 
     page.fill_in("Full Name", with: emergency_contact_full_name)
     page.fill_in("Phone Number", id: "user_emergency_contact_phone_number", with: emergency_contact_phone_number)

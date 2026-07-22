@@ -9,6 +9,9 @@ gem 'carrierwave'
 gem 'csv'
 gem "cssbundling-rails"
 gem "devise", '~> 5.0'
+gem "omniauth"
+gem "omniauth-orcid"
+gem "omniauth-rails_csrf_protection"
 gem 'faraday-retry'
 gem 'fog-aws'
 gem 'foreman'
@@ -62,15 +65,17 @@ group :development, :test, :dev_server, :staging do
   gem 'dotenv-rails'
 end
 
+group :development, :dev_server, :staging do
+  gem 'letter_opener_web'
+end
+
 group :development do
-  gem 'letter_opener'
   gem 'listen'
   gem 'rack-mini-profiler'
   gem 'web-console', '>= 4.1.0'
 end
 
 group :dev_server, :staging do
-  gem 'letter_opener_web'  # standard letter_opener requires a browser on the machine that is running the code
   gem 'lograge'
   gem 'logstash-event'
 end
