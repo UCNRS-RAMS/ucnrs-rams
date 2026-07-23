@@ -1,0 +1,26 @@
+@use "variables" as *;
+@use "mixins/layouts" as *;
+@use "mixins/controls" as *;
+
+.projects-reserves,
+.projects-complete {
+  @include controls;
+
+  color: $navy-blue;
+
+  .form-container {
+    @include projects-visits-form-container;
+  }
+
+  .reserves-form {
+    @include projects-visits-form-layout;
+
+    form {
+      .field ul.reserve-checkboxes {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        max-height: none;
+      }
+    }
+  }
+}

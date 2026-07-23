@@ -77,7 +77,7 @@ RSpec.describe "app/views/projects/fundings/index.html.erb" do
         .for_field("Enter Funding Agency Name")
     end
 
-    it "renders a button as a form with the correct text for step 4" do
+    it "renders a link to continue to the reserves step" do
       project = create(:project)
       assign(:presenter, Projects::FundingsIndexPresenter.new(
         current_step: 4,
@@ -88,8 +88,8 @@ RSpec.describe "app/views/projects/fundings/index.html.erb" do
 
       doc = Capybara.string(rendered)
       expect(doc).to have_css(
-        ".controls form[action='/projects/#{project.id}/complete']",
-        text: "Save Project & Submit",
+        ".controls a[href='/projects/#{project.id}/reserves']",
+        text: "Next: Reserves",
       )
     end
 
