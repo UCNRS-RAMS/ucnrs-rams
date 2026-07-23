@@ -70,12 +70,13 @@ export default class extends Controller {
   }
 
   calculateTotal() {
-    let subtotal
-    if (document.getElementById('total') != null)
+    let subtotal = '0'
+    const totalElement = document.getElementById('total')
+    if (totalElement != null) {
       subtotal = Array.from(document.querySelectorAll('.subtotal'))
         .reduce((total, arg) => total + parseFloat(arg.innerHTML), 0.0).toFixed(2).toString();
-
-    document.getElementById('total').innerHTML = '$' + subtotal
+      totalElement.innerHTML = '$' + subtotal
+    }
 
     return parseFloat(subtotal)
   }
