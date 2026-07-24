@@ -38,6 +38,6 @@ RSpec.describe "manager navbar", type: :view do
       href: "/manager/reserves/#{reserve.id}/users"
     )
     expect(rendered).to have_link("Help", href: "https://ramshelp.ucnature.org/managers")
-    expect(rendered).to have_link("", href: "/users/sign_out")
+    expect(rendered).to have_css("a#log-out[href='/users/sign_out'][data-method='delete']")
   end
 end

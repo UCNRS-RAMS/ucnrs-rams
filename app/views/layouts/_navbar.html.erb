@@ -48,7 +48,7 @@
                 class: ["nav-link", "schedule"] %>
             </li>
             <li>
-              <%= link_to t(".aria.sign_out"), href: destroy_user_session_path,
+              <%= link_to t(".aria.sign_out"), href: destroy_user_session_path, method: :delete,
                 title: t(".aria.sign_out"), "aria-label": t(".aria.sign_out"),
                 class: ["nav-link", "nav-link-icon"], id: "log-out" do
               %>
