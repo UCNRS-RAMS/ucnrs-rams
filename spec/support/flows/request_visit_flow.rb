@@ -170,7 +170,7 @@ class RequestVisitFlow
   end
 
   def submit_visit_request
-    page.find("button[type='submit']").click
+    page.find(".controls button[form='visits-new']").click
   end
 
   def has_error_on?(label, message)
