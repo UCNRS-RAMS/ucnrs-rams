@@ -20,15 +20,16 @@
       <% if f.object.orcid_authenticated? %>
         <p class="orcid-authenticated">
           <%= image_tag("orcid-icon.svg", alt: orcid_authenticated_alt_text) %>
-          <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener" %>
+          <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener", data: { orcid_target: "displayLink" } %>
         </p>
       <% else %>
         <p class="orcid-authenticated orcid-unauthenticated">
           <%= image_tag("orcid-icon-unauth.svg", alt: orcid_unauthenticated_alt_text) %>
-          <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener" %>
+          <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener", data: { orcid_target: "displayLink" } %>
           <span><%= orcid_unauthenticated_text %></span>
         </p>
         <%= button_tag type: "button",
+          id: "orcid-auth-button",
           data: { action: "orcid#startAuth" },
           class: "button-inline button-clear orcid-auth-button" do %>
           <%= image_tag("orcid-icon.svg", alt: "") %>
@@ -40,6 +41,7 @@
     <% end %>
   <% else %>
     <%= button_tag type: "button",
+      id: "orcid-auth-button",
       data: { action: "orcid#startAuth" },
       class: "button-inline button-clear orcid-auth-button" do %>
       <%= image_tag("orcid-icon.svg", alt: "") %>

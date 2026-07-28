@@ -8,7 +8,7 @@ type OrcidDraft = {
 }
 
 export default class extends Controller {
-  static targets = ["input", "authenticated", "unsaved"]
+  static targets = ["input", "authenticated", "unsaved", "displayLink"]
   static values = { authPath: String, origin: String, recordPersisted: Boolean }
 
   declare inputTarget: HTMLInputElement
@@ -16,6 +16,8 @@ export default class extends Controller {
   declare hasAuthenticatedTarget: boolean
   declare unsavedTarget: HTMLElement
   declare hasUnsavedTarget: boolean
+  declare displayLinkTarget: HTMLElement
+  declare hasDisplayLinkTarget: boolean
   declare authPathValue: string
   declare originValue: string
   declare recordPersistedValue: boolean
@@ -38,6 +40,7 @@ export default class extends Controller {
     this.restoreDraft()
     this.markAuthenticated()
     this.markUnsaved()
+    this.restoreFocus()
 
     params.delete("orcid_callback")
     params.delete("orcid_auth_error")
@@ -50,6 +53,7 @@ export default class extends Controller {
 
   startAuth() {
     this.persistDraft()
+    this.persistActiveElement()
 
     const form = document.createElement("form")
     form.method = "post"
@@ -132,6 +136,38 @@ export default class extends Controller {
     window.sessionStorage.removeItem(this.draftStorageKey())
   }
 
+  private persistActiveElement() {
+    const activeElement = document.activeElement as HTMLElement | null
+    if (!activeElement || !this.element.contains(activeElement)) return
+
+    if (!activeElement.id) {
+      activeElement.id = `orcid-auth-trigger-${Date.now()}`
+    }
+
+    window.sessionStorage.setItem(this.focusStorageKey(), activeElement.id)
+  }
+
+  private restoreFocus() {
+    const savedId = window.sessionStorage.getItem(this.focusStorageKey())
+    this.clearFocus()
+
+    if (!savedId) return
+
+    const savedElement = document.getElementById(savedId)
+    if (savedElement && "focus" in savedElement) {
+      ;(savedElement as HTMLElement).focus()
+      return
+    }
+
+    if (this.hasDisplayLinkTarget) {
+      this.displayLinkTarget.focus()
+    }
+  }
+
+  private clearFocus() {
+    window.sessionStorage.removeItem(this.focusStorageKey())
+  }
+
   private markUnsaved() {
     window.sessionStorage.setItem(this.unsavedStorageKey(), "1")
     this.syncUnsavedIndicator()
@@ -173,6 +209,10 @@ export default class extends Controller {
 
   private unsavedStorageKey() {
     return `registration-orcid-unsaved:${this.normalizedOrigin()}`
+  }
+
+  private focusStorageKey() {
+    return `registration-orcid-focus:${this.normalizedOrigin()}`
   }
 
   private normalizedOrigin() {
