@@ -177,7 +177,7 @@ class RegistrationFlow
   end
 
   def submit_account_edit_form
-    page.find("button[type='submit']").click
+    page.find(".content .actions button[type='submit']").click
   end
 
   def has_form_error?(error, on_field_with_id:)
