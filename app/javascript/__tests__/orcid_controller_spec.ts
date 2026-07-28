@@ -29,7 +29,7 @@ describe("OrcidController", () => {
           <input id="user_orcid" name="user[orcid]" data-orcid-target="input" value="0000-0002-1825-0097" />
           <input id="user_orcid_authenticated" name="user[orcid_authenticated]" data-orcid-target="authenticated" value="false" />
           <p id="orcid_unsaved" data-orcid-target="unsaved" hidden>Unsaved</p>
-          <button type="button" data-action="orcid#startAuth">Connect</button>
+          <button type="button" id="orcid-auth-button" data-action="orcid#startAuth">Connect</button>
         </form>
       </div>
     `)
@@ -51,6 +51,22 @@ describe("OrcidController", () => {
     expect(draft.entries).toContainEqual(["user[first_name]", "Jane"])
     expect(draft.entries).toContainEqual(["user[orcid]", "0000-0002-1825-0097"])
     expect(draft.entries).toContainEqual(["user[orcid_authenticated]", "false"])
+
+    submitSpy.mockRestore()
+  })
+
+  it("stores the active element id when auth starts", async () => {
+    renderForm("/users/edit?tab=profile&orcid_callback=1")
+    const submitSpy = jest.spyOn(HTMLFormElement.prototype, "submit").mockImplementation(() => {})
+
+    await flush()
+
+    const button = document.querySelector("button[data-action='orcid#startAuth']") as HTMLButtonElement
+    button.focus()
+    button.click()
+
+    const key = "registration-orcid-focus:/users/edit?tab=profile"
+    expect(window.sessionStorage.getItem(key)).toEqual(button.id)
 
     submitSpy.mockRestore()
   })
@@ -79,6 +95,68 @@ describe("OrcidController", () => {
     expect((document.getElementById("orcid_unsaved") as HTMLElement).hidden).toBe(false)
     expect(window.sessionStorage.getItem("registration-orcid-draft:/users/edit")).toBeNull()
     expect(window.location.search).toEqual("")
+  })
+
+  it("restores focus to the saved trigger element after the ORCID callback", async () => {
+    window.history.replaceState({}, "", "/users/edit?orcid_callback=1")
+    window.sessionStorage.setItem("registration-orcid-focus:/users/edit", "orcid-auth-button")
+    window.sessionStorage.setItem(
+      "registration-orcid-draft:/users/edit",
+      JSON.stringify({
+        savedAt: Date.now(),
+        entries: [["user[orcid]", "0000-0002-1825-0097"]],
+      })
+    )
+
+    renderDOM(`
+      <div data-controller="orcid"
+           data-orcid-auth-path-value="/users/auth/orcid"
+           data-orcid-origin-value="/users/edit"
+           data-orcid-record-persisted-value="false">
+        <form id="orcid_form">
+          <input id="user_orcid" name="user[orcid]" data-orcid-target="input" value="0000-0002-1825-0097" />
+          <input id="user_orcid_authenticated" name="user[orcid_authenticated]" data-orcid-target="authenticated" value="false" />
+          <button type="button" id="orcid-auth-button" data-action="orcid#startAuth">Connect</button>
+        </form>
+      </div>
+    `)
+
+    await flush()
+
+    expect(document.activeElement?.id).toEqual("orcid-auth-button")
+    expect(window.sessionStorage.getItem("registration-orcid-focus:/users/edit")).toBeNull()
+  })
+
+  it("focuses the display link when the saved trigger element is gone after callback", async () => {
+    window.history.replaceState({}, "", "/users/edit?orcid_callback=1")
+    window.sessionStorage.setItem("registration-orcid-focus:/users/edit", "orcid-auth-button")
+    window.sessionStorage.setItem(
+      "registration-orcid-draft:/users/edit",
+      JSON.stringify({
+        savedAt: Date.now(),
+        entries: [["user[orcid]", "0000-0002-1825-0097"]],
+      })
+    )
+
+    renderDOM(`
+      <div data-controller="orcid"
+           data-orcid-auth-path-value="/users/auth/orcid"
+           data-orcid-origin-value="/users/edit"
+           data-orcid-record-persisted-value="false">
+        <form id="orcid_form">
+          <input id="user_orcid" name="user[orcid]" data-orcid-target="input" value="0000-0002-1825-0097" />
+          <input id="user_orcid_authenticated" name="user[orcid_authenticated]" data-orcid-target="authenticated" value="false" />
+          <p class="orcid-authenticated">
+            <a id="orcid-display-link" href="https://orcid.org/0000-0002-1825-0097" data-orcid-target="displayLink">https://orcid.org/0000-0002-1825-0097</a>
+          </p>
+        </form>
+      </div>
+    `)
+
+    await flush()
+
+    expect(document.activeElement?.id).toEqual("orcid-display-link")
+    expect(window.sessionStorage.getItem("registration-orcid-focus:/users/edit")).toBeNull()
   })
 
   it("clears only the draft when the form is submitted normally", async () => {
