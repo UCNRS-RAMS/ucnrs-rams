@@ -4,6 +4,8 @@ module Unauthenticated
     REGISTRATION_ORCID_SESSION_KEY = :registration_orcid_identifier
 
     def orcid
+      log_orcid_auth_info
+
       if orcid_identifier.present?
         session[REGISTRATION_ORCID_SESSION_KEY] = orcid_identifier
         redirect_to callback_destination(orcid_callback: "1")
@@ -20,6 +22,16 @@ module Unauthenticated
 
     def orcid_identifier
       normalize_orcid_identifier(request.env.dig("omniauth.auth", "uid").presence)
+    end
+
+    def log_orcid_auth_info
+      auth_hash = request.env["omniauth.auth"]
+      if auth_hash.present?
+        Rails.logger.info "[ORCID OAuth] auth hash: #{auth_hash.to_hash.inspect}"
+        Rails.logger.info "[ORCID OAuth] access token: #{auth_hash.dig('credentials', 'token').inspect}"
+      else
+        Rails.logger.info "[ORCID OAuth] no auth hash present in request.env"
+      end
     end
 
     def normalize_orcid_identifier(raw_identifier)
