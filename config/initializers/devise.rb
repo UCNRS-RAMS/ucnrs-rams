@@ -279,17 +279,18 @@ Devise.setup do |config|
     # for profile lookups. /read-limited requires the member API, so force v3.0
     # on the member API host.
     OmniAuth::Strategies::ORCID.class_eval do
-      def api_base_url
-        options[:sandbox] ? "https://api.sandbox.orcid.org/v3.0" : "https://api.orcid.org/v3.0"
-      end
+      # TODO: enabling ORCID 3.0 api makes login fail, but might not fail if member acct with /read-limited scope
+      # def api_base_url
+      #   options[:sandbox] ? "https://api.sandbox.orcid.org/v3.0" : "https://api.orcid.org/v3.0"
+      # end
     end
 
     config.omniauth :orcid,
       ENV["ORCID_CLIENT_ID"],
       ENV["ORCID_CLIENT_SECRET"],
-      member: true,
-      sandbox: orcid_sandbox,
-      scope: "/read-limited"
+      member: false,
+      sandbox: orcid_sandbox
+    # scope: "/read-limited"   #   TODO: Enable the scope once granted to see if it works.
   end
 
   # ==> Warden configuration
