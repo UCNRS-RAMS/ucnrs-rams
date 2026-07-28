@@ -30,6 +30,7 @@ en:
     omniauth_callbacks:
       failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
       success: "Successfully authenticated from %{kind} account."
+      orcid_failure: "ORCID login was not successful"
     passwords:
       no_token: "You need to use the password reset email to use this page fully."
       send_instructions: "You will receive an email with instructions on how to reset your password in a few minutes."

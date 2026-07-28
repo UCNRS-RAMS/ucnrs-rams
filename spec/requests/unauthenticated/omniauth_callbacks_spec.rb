@@ -111,6 +111,7 @@ RSpec.describe Unauthenticated::OmniauthCallbacksController, type: :request do
       get "/users/auth/orcid/callback", params: { origin: "/users/sign_up" }
 
       expect(response).to redirect_to("/users/sign_up?orcid_auth_error=missing_orcid&orcid_callback=1")
+      expect(flash[:alert]).to eq("ORCID login was not successful")
     end
   end
 end

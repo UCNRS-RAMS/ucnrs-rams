@@ -11,11 +11,13 @@ module Unauthenticated
         session[REGISTRATION_ORCID_SESSION_KEY] = orcid_identifier
         redirect_to callback_destination(orcid_callback: "1")
       else
+        flash[:alert] = I18n.t("devise.omniauth_callbacks.orcid_failure")
         redirect_to callback_destination(orcid_auth_error: "missing_orcid", orcid_callback: "1")
       end
     end
 
     def failure
+      flash[:alert] = I18n.t("devise.omniauth_callbacks.orcid_failure")
       redirect_to callback_destination(orcid_auth_error: params[:message], orcid_callback: "1")
     end
 
