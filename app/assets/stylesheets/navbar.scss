@@ -148,6 +148,14 @@ nav.main-navigation {
       margin-right: 0;
     }
 
+    button.nav-link {
+      background: transparent;
+      border-left: none;
+      border-right: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
     #user-initials, #grid-icon, #log-out-icon {
       align-items: center;
       background: aliceblue;
