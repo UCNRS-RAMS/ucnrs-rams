@@ -25,7 +25,7 @@ RSpec.describe "navbar", type: :view do
     expect(left_side_children.last).to have_link("RAMS", href: "/dashboard")
     expect(rendered).to have_link("", href: "/users/edit")
     expect(rendered).to have_link("Home", href: "/dashboard")
-    expect(rendered).to have_css("a#log-out[href='/users/sign_out'][data-method='delete']")
+    expect(rendered).to have_css("form.button_to[action='/users/sign_out'] button#log-out[type='submit']")
 
     expect(rendered).to have_link("Schedule a Visit", href: "/visits/new")
   end
