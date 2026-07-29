@@ -70,7 +70,7 @@ $ bundle install
 $ bundle exec rake db:create
 $ bundle exec rake db:migrate
 $ bundle exec rake db:seed
-$ bin/rails # will start the development server with any needed services to pack assets and under the bundle
+$ bin/rails s # will start the development server with any needed services to pack assets and under the bundle
 
 # open http://localhost:3000 in a browser to verify it's up
 ```
