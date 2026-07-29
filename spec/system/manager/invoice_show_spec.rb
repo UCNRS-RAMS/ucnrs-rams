@@ -20,6 +20,7 @@ RSpec.describe "Invoice Detail" do
       expect(flow).to be_showing_text(".project-name", project.title)
       expect(flow).to be_showing_text(".visit-purpose", visit.purpose_of_visit.truncate(100, separator: ' '))
       expect(flow).to be_showing_text(".date-of-use", DateRangePresenter.new(start_date: visit.starts_at.to_date, end_date: visit.ends_at.to_date).value("date_range.different_years"))
+      expect(page).to be_axe_clean
     end
   end
 
@@ -32,6 +33,7 @@ RSpec.describe "Invoice Detail" do
 
       flow.visit_manager_projects_invoice_detail_page
       expect(flow).to be_showing_bill_to_table
+      expect(page).to be_axe_clean
     end
   end
 
@@ -46,6 +48,7 @@ RSpec.describe "Invoice Detail" do
 
       flow.visit_manager_projects_invoice_detail_page
       expect(flow).to be_showing_amenity_visit_table
+      expect(page).to be_axe_clean
     end
   end
 
@@ -57,6 +60,7 @@ RSpec.describe "Invoice Detail" do
       flow.visit_manager_projects_invoice_detail_page
       expect(flow).to be_showing_saved_note
       expect(flow).not_to be_showing_notes_field
+      expect(page).to be_axe_clean
     end
   end
 
