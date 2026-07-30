@@ -288,9 +288,9 @@ Devise.setup do |config|
     config.omniauth :orcid,
       ENV["ORCID_CLIENT_ID"],
       ENV["ORCID_CLIENT_SECRET"],
-      member: false,
-      sandbox: orcid_sandbox
-    # scope: "/read-limited"   #   TODO: Enable the scope once granted to see if it works.
+      member: true,
+      sandbox: orcid_sandbox,
+      scope: "/read-limited"   #   TODO: Enable the scope once granted to see if it works.
   end
 
   # ==> Warden configuration
