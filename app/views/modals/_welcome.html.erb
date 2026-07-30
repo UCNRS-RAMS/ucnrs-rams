@@ -5,7 +5,7 @@
   aria-describedby="modal-description"
   data-modal-target="dialog openOnLoad" data-action="mousedown@window->modal#closeBackground"
 >
-  <%= image_tag "latest-news-background.jpg", class: "main-image" %>
+  <%= image_tag "latest-news-background.jpg", class: "main-image", alt: t(".alt.welcome_background") %>
   <section class="text">
     <h1 id="modal-title"><%= t(".title") %></h1>
     <p class="screenreader-text" id="modal-description"><%= t(".accessible_description") %></p>

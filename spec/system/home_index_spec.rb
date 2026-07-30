@@ -162,6 +162,7 @@ RSpec.describe "Home Index" do
       sleep 0.5
       flow.visit_home_index_page
       expect(flow).to have_welcome_modal
+      expect(page).to be_axe_clean
 
       flow.visit_home_index_page
       expect(flow).not_to have_welcome_modal
