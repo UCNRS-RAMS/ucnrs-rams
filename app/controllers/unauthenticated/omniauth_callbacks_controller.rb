@@ -4,7 +4,7 @@ module Unauthenticated
     REGISTRATION_ORCID_SESSION_KEY = :registration_orcid_identifier
 
     def orcid
-      # todo: this is for troubleshooting setup, once we get 3.0 working or correct member setup shold probably remove
+      # the line below is for troubleshooting setup, todo: comment out when not needed
       log_orcid_auth_info
 
       if orcid_identifier.present?

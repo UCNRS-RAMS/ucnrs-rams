@@ -271,26 +271,17 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   if ENV["ORCID_CLIENT_ID"].present? && ENV["ORCID_CLIENT_SECRET"].present?
     orcid_sandbox = ActiveModel::Type::Boolean.new.cast(ENV["ORCID_USE_SANDBOX"])
 
     # omniauth-orcid 2.1.1 hardcodes API v2.0 and uses the public API endpoint
-    # for profile lookups. /read-limited requires the member API, so force v3.0
-    # on the member API host.
-    OmniAuth::Strategies::ORCID.class_eval do
-      # TODO: enabling ORCID 3.0 api makes login fail, but might not fail if member acct with /read-limited scope
-      # def api_base_url
-      #   options[:sandbox] ? "https://api.sandbox.orcid.org/v3.0" : "https://api.orcid.org/v3.0"
-      # end
-    end
-
+    # for profile lookups. /read-limited requires the member API
     config.omniauth :orcid,
       ENV["ORCID_CLIENT_ID"],
       ENV["ORCID_CLIENT_SECRET"],
       member: true,
       sandbox: orcid_sandbox,
-      scope: "/read-limited"   #   TODO: Enable the scope once granted to see if it works.
+      scope: "/read-limited"
   end
 
   # ==> Warden configuration
