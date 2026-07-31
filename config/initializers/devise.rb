@@ -273,15 +273,21 @@ Devise.setup do |config|
   # up on your models and hooks.
   if ENV["ORCID_CLIENT_ID"].present? && ENV["ORCID_CLIENT_SECRET"].present?
     orcid_sandbox = ActiveModel::Type::Boolean.new.cast(ENV["ORCID_USE_SANDBOX"])
+    orcid_member = ActiveModel::Type::Boolean.new.cast(ENV["ORCID_MEMBER"])
+    # orcid_redirect_uri = ENV["ORCID_REDIRECT_URI"].presence
 
-    # omniauth-orcid 2.1.1 hardcodes API v2.0 and uses the public API endpoint
     # for profile lookups. /read-limited requires the member API
+    opts = {
+      member: orcid_member,
+      sandbox: orcid_sandbox
+    }
+    opts[:scope] = ENV["ORCID_SCOPES"] if ENV["ORCID_SCOPES"].present?
+
     config.omniauth :orcid,
       ENV["ORCID_CLIENT_ID"],
       ENV["ORCID_CLIENT_SECRET"],
-      member: true,
-      sandbox: orcid_sandbox,
-      scope: "/read-limited"
+      **opts
+      # redirect_uri: orcid_redirect_uri
   end
 
   # ==> Warden configuration
