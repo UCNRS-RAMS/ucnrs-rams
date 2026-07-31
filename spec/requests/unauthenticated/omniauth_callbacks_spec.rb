@@ -14,7 +14,10 @@ RSpec.describe Unauthenticated::OmniauthCallbacksController, type: :request do
     end
 
     it "redirects back to origin with callback marker" do
-      OmniAuth.config.mock_auth[:orcid] = OmniAuth::AuthHash.new(uid: "0000-0002-1825-0097")
+      OmniAuth.config.mock_auth[:orcid] = OmniAuth::AuthHash.new(
+        provider: "orcid",
+        uid: "0000-0002-1825-0097",
+      )
 
       get "/users/auth/orcid/callback", params: { origin: "/users/sign_up?source=registration" }
 
@@ -27,7 +30,10 @@ RSpec.describe Unauthenticated::OmniauthCallbacksController, type: :request do
 
     it "normalizes ORCID URI uid and renders numeric identifier in hidden field" do
       create(:country, name: "United States")
-      OmniAuth.config.mock_auth[:orcid] = OmniAuth::AuthHash.new(uid: "https://orcid.org/0000-0002-1825-0097")
+      OmniAuth.config.mock_auth[:orcid] = OmniAuth::AuthHash.new(
+        provider: "orcid",
+        uid: "https://orcid.org/0000-0002-1825-0097",
+      )
 
       get "/users/auth/orcid/callback", params: { origin: "/users/sign_up" }
 
@@ -98,7 +104,10 @@ RSpec.describe Unauthenticated::OmniauthCallbacksController, type: :request do
     end
 
     it "falls back to sign-up path for unsafe origin" do
-      OmniAuth.config.mock_auth[:orcid] = OmniAuth::AuthHash.new(uid: "0000-0002-1825-0097")
+      OmniAuth.config.mock_auth[:orcid] = OmniAuth::AuthHash.new(
+        provider: "orcid",
+        uid: "0000-0002-1825-0097",
+      )
 
       get "/users/auth/orcid/callback", params: { origin: "https://malicious.example/redirect" }
 
@@ -106,7 +115,23 @@ RSpec.describe Unauthenticated::OmniauthCallbacksController, type: :request do
     end
 
     it "redirects with ORCID auth error when callback uid is missing" do
-      OmniAuth.config.mock_auth[:orcid] = OmniAuth::AuthHash.new(uid: nil)
+      OmniAuth.config.mock_auth[:orcid] = OmniAuth::AuthHash.new(
+        provider: "orcid",
+        uid: nil,
+      )
+
+      get "/users/auth/orcid/callback", params: { origin: "/users/sign_up" }
+
+      expect(response).to redirect_to("/users/sign_up?orcid_auth_error=missing_orcid&orcid_callback=1")
+      expect(flash[:alert]).to eq("ORCID login was not successful")
+    end
+
+    it "rejects callback auth hashes from non-ORCID providers" do
+      OmniAuth.config.mock_auth[:orcid] = OmniAuth::AuthHash.new(
+        provider: "github",
+        uid: "0000-0002-1825-0097",
+        credentials: { token: "github-token" },
+      )
 
       get "/users/auth/orcid/callback", params: { origin: "/users/sign_up" }
 
