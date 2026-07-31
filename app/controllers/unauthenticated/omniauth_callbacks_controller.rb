@@ -10,7 +10,7 @@ module Unauthenticated
 
       # Don't leave this logging by default, but it is very useful when troubleshooting login or API tokens.
       # Comment out when not needed.
-      # log_orcid_auth_info
+      log_orcid_auth_info
 
       if orcid_identifier.present?
         session[REGISTRATION_ORCID_SESSION_KEY] = orcid_identifier
