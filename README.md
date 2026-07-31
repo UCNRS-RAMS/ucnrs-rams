@@ -73,6 +73,11 @@ $ bundle exec rake db:seed
 $ bin/dev # will start the development server with any needed services to pack assets and under the bundle
 
 # open http://localhost:3000 in a browser to verify it's up
+
+note that using bin/dev will not allow access to debugging breakpoints such as byebug to work correctly.
+
+One solution is to comment out the `web: env . . .` line in `Procfile.dev`, add the `byebug` breakpoint to code and then run the web
+server separately with `bin/rails s` (you will still need to run `bin/dev` for the css and js processes).  When the breakpoint happens you can then interact with the debugger in the web application.
 ```
 
 ## Development setup in Docker 
