@@ -32,9 +32,9 @@
     "terser-webpack-plugin": "5",
     "trix": "^2.0.2",
     "typescript": "^7.0.2",
-    "webpack": "5.108.4",
+    "webpack": "^5.108",
     "webpack-assets-manifest": "6",
-    "webpack-cli": "7.2.1",
+    "webpack-cli": "^7.2",
     "webpack-merge": "6"
   },
   "devDependencies": {
