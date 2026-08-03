@@ -25,7 +25,7 @@ gem "paranoia", "~> 3"
 gem "propshaft"
 gem 'puma', '>= 5.0'
 gem 'rails', '~> 8.1.0'
-gem 'shakapacker'
+gem 'shakapacker', '10.3.1'
 gem 'simple_calendar', '~> 3.0'
 gem 'solid_cable'
 gem 'turbo-rails', '~> 2.0'

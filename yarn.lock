@@ -4334,9 +4334,9 @@ js-yaml@^3.13.1:
     esprima "^4.0.0"
 
 js-yaml@^4.1.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-4.3.0.tgz#d1900572a7f7cf0b5f540c83673e60bad3436592"
-  integrity sha512-1td788aAnnZ5qs7V2QIRl1owjtYpbKt749Y3xauqQgwIIGF/xXWz1wMTEBx5O3LK3lXLVuqXPdPxj2BoFHaW9Q==
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-4.3.1.tgz#01216c001d67f48e2cd560d708c7af21090a3848"
+  integrity sha512-CY6crGq313MX8GkwvB7tzgp99vjQxY1++5y10/BKN/GUfHqWaOGQMNZkBvqSzsZKWk/ijwHlWzzkLulsGHhjWQ==
   dependencies:
     argparse "^2.0.1"
 
@@ -5298,10 +5298,10 @@ setprototypeof@1.2.0, setprototypeof@~1.2.0:
   resolved "https://registry.yarnpkg.com/setprototypeof/-/setprototypeof-1.2.0.tgz#66c9a24a73f9fc28cbe66b09fed3d33dcaf1b424"
   integrity sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==
 
-shakapacker@10.3.0:
-  version "10.3.0"
-  resolved "https://registry.yarnpkg.com/shakapacker/-/shakapacker-10.3.0.tgz#6c6a76bf3175d80a5a234109d3255c6774a482a0"
-  integrity sha512-+MsocLZYaOPoE5giLygxiIF/xpdfl4nsoENtcCI2RPEM50OX4Jb6LKqrJdsK3leJiXXcbVOy6YYCbIqasduTzQ==
+shakapacker@10.3.1:
+  version "10.3.1"
+  resolved "https://registry.yarnpkg.com/shakapacker/-/shakapacker-10.3.1.tgz#f92047ac89534cbedd8ac01864facc122e128b22"
+  integrity sha512-yYSbA+JaFisZQL9ImB9IMmPNKUzm0Ycw/wUnwf88f7BeHX9k/M4FIa/4syq/0xx18JqgEL3MIJmsM0RaXQ5zuA==
   dependencies:
     js-yaml "^4.1.0"
     pack-config-diff "^0.1.0"
