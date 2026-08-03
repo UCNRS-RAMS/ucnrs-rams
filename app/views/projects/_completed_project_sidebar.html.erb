@@ -38,7 +38,8 @@
     method: :post  do |form|
   %>
     <%= form.select(:reserve_id, options_from_collection_for_select(Reserve.alphabetized, :id, :name),
-      { prompt: t(".select_a_reserve") }, class: "reserve-list"
+      { prompt: t(".select_a_reserve") },
+      class: "reserve-list", aria: { label: t(".select_a_reserve") }
     ) %>
     <%= form.button t("submit") %>
   <% end %>
