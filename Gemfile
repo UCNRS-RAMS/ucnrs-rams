@@ -11,7 +11,6 @@ gem "cssbundling-rails"
 gem "devise", '~> 5.0'
 gem 'http'
 gem "omniauth"
-# gem 'omniauth-orcid', path: '/Users/sfisher/workspace/omniauth-orcid'
 gem "omniauth-orcid"
 gem "omniauth-rails_csrf_protection"
 gem 'faraday-retry'
