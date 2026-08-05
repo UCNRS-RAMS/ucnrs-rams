@@ -83,7 +83,8 @@ class Manager::UsersController < Manager::ApplicationController
       attributes[:role] = role if valid_user_role?(role)
 
       orcid_authenticated = user_attributes[:orcid_authenticated]
-      if [true, false].include?(ActiveModel::Type::Boolean.new.cast(orcid_authenticated))
+      if user_attributes.key?(:orcid_authenticated) &&
+          [true, false].include?(ActiveModel::Type::Boolean.new.cast(orcid_authenticated))
         attributes[:orcid_authenticated] = ActiveModel::Type::Boolean.new.cast(orcid_authenticated)
       end
     end

@@ -43,6 +43,8 @@ RSpec.describe "manager/users/_orcid_fields.html.erb", type: :view do
     expect(doc).to have_link("https://orcid.org/0000-0002-1825-0097")
     expect(doc).to have_button("change orcid")
     expect(doc).to have_css("input[type='hidden'][name='user[orcid]'][value='0000-0002-1825-0097']", visible: false)
+    expect(doc).to have_css("input[type='hidden'][name='user[orcid_authenticated]'][value='true'][data-toggle-target='authenticated']", visible: false)
+    expect(doc).to have_css("button[data-action='click->toggle#toggle click->toggle#markUnauthenticated']")
     expect(doc).to have_css("div.hidden[data-toggle-target='toggle'][data-toggle-class='hidden']")
     expect(doc).to have_css("input[type='text'][name='user[orcid]'][value='0000-0002-1825-0097']")
   end

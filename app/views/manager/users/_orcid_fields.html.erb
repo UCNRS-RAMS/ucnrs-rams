@@ -15,9 +15,10 @@
         <%= button_tag "change orcid",
           type: "button",
           class: "button-inline button-clear",
-          data: { action: "click->toggle#toggle" } %>
+          data: { action: "click->toggle#toggle click->toggle#markUnauthenticated" } %>
       </p>
       <%= f.hidden_field :orcid %>
+      <%= f.hidden_field :orcid_authenticated, data: { toggle_target: "authenticated" } %>
     </div>
     <div class="hidden" data-toggle-target="toggle" data-toggle-class="hidden">
       <%= f.text_field :orcid, placeholder: orcid_placeholder %>
