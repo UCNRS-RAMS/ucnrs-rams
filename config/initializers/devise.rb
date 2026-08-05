@@ -287,7 +287,6 @@ Devise.setup do |config|
       ENV["ORCID_CLIENT_ID"],
       ENV["ORCID_CLIENT_SECRET"],
       **opts
-      # redirect_uri: orcid_redirect_uri
   end
 
   # ==> Warden configuration
