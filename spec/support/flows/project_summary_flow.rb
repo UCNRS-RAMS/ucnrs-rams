@@ -143,11 +143,13 @@ class ProjectSummaryFlow
 
   attr_reader :page
 
-  def has_row_with_cells?(row_selector, cells)
-    page.all(row_selector).any? do |row|
-      row.all("td").map(&:text).take(cells.size) == cells
-    end
+def has_row_with_cells?(row_selector, cells)
+  return false unless page.has_css?(row_selector)
+
+  page.all(row_selector).any? do |row|
+    row.all("td").map(&:text).take(cells.size) == cells
   end
+end
 
   def summary_row(label)
     page.all(".project-summary-table tr").find do |row|
