@@ -4,8 +4,6 @@
 @use "mixins/date_fields" as *;
 
 .modal {
-  @include form2;
-  @include date_fields;
 
   background: rgba($navy-blue, 0.85);
   bottom: 0;
@@ -16,6 +14,8 @@
   right: 0;
   top: 0;
   z-index: 2;
+  @include form2;
+  @include date_fields;
 
   a, a:visited {
     color: $dark-sky-blue;
@@ -58,11 +58,11 @@
 
     > .close {
       cursor: pointer;
-      top: 0;
-      right: 0;
-      padding-top: 1rem;
       padding-right: 1rem;
+      padding-top: 1rem;
       position: absolute;
+      right: 0;
+      top: 0;
     }
 
     header.modal-header {
@@ -120,7 +120,7 @@
 
   .d-flex {
     @include flex(row, space-between, center)
-  }
+  ;}
 
   .d-flex-column {
     @include flex(column);
@@ -187,9 +187,9 @@
 
     h1 {
       font-size: 1rem;
+      margin-bottom: 0.75rem;
       margin-left: 0;
       margin-right: 0;
-      margin-bottom: 0.75rem;
       margin-top: 0.75rem;
     }
   }
@@ -226,9 +226,9 @@
 
     hr {
       border-bottom: 1px solid $modal-hr-color;
-      border-top: none;
       border-left: none;
       border-right: none;
+      border-top: none;
       margin: 1.25rem 0;
     }
 
@@ -239,8 +239,8 @@
     }
 
     input, select {
-      border-radius: 0.3125rem;
       border: 1px solid $modal-input-select-border;
+      border-radius: 0.3125rem;
       box-sizing: border-box;
       color: $modal-input-select-color;
     }

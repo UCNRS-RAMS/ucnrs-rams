@@ -2,6 +2,7 @@
 
 class User < ApplicationRecord
   VALID_PASSWORD_PATTERN = /^(?=.*?[A-Z])(?=.*?[0-9]).{8,70}$/
+  ORCID_PATTERN = /\A(\d{4}-){3}\d{3}(\d|X)\z/
 
   UCNRS_STREET_ADDRESS = "1111 Franklin Street"
   UCNRS_CITY = "Oakland"
@@ -12,10 +13,12 @@ class User < ApplicationRecord
 
   devise :confirmable,
     :database_authenticatable,
+    :omniauthable,
     :registerable,
     :recoverable,
     :rememberable,
-    :validatable
+    :validatable,
+    omniauth_providers: [:orcid]
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -30,6 +33,7 @@ class User < ApplicationRecord
   validates :billing_address_state, presence: true, if: :required_for_billing_address_country?
   validates :terms_accepted_at, presence: true
   validates :institution, presence: true
+  validates :orcid, format: { with: ORCID_PATTERN }, allow_blank: true
 
   validate :password_complexity
 

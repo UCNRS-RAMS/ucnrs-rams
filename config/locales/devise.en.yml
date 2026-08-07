@@ -30,6 +30,7 @@ en:
     omniauth_callbacks:
       failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
       success: "Successfully authenticated from %{kind} account."
+      orcid_failure: "ORCID login was not successful"
     passwords:
       no_token: "You need to use the password reset email to use this page fully."
       send_instructions: "You will receive an email with instructions on how to reset your password in a few minutes."
@@ -95,6 +96,7 @@ en:
         placeholders:
           date_of_birth: "MM / DD / YYYY"
           institution: "search institution"
+          orcid: "XXXX-XXXX-XXXX-XXXX"
         helper_text:
           tip: "TIP:"
           institution: 'Your institution is likely already in our database. Start typing in the
@@ -103,10 +105,17 @@ en:
           emergency_contact: "In case we need to notify someone while you’re at the reserve."
           receive_nrs_updates: "If you would like to receive updates from the NRS please sign up for the"
           age_range: "This helps with demographic reporting"
+          unsaved: "Unsaved"
+        status:
+          unauthenticated: "(unauthenticated)"
+        alt:
+          orcid_id: "ORCID iD"
+          orcid_id_unauthenticated: "ORCID iD unauthenticated"
         links:
           create_new_instituion: "Create a New Institution."
           go_back: "Cancel, Go Back"
           create_account: "Create Account %{icon}"
+          connect_orcid: "Login/Sign-Up to connect ORCID"
           orcid: "What is an ORCID?"
           ucnrs_newsletter: "UC Nature Newsletter."
           terms_of_use: "Terms of Use"
@@ -163,6 +172,7 @@ en:
         placeholders:
           date_of_birth: "MM / DD / YYYY"
           institution: "search institution"
+          orcid: "XXXX-XXXX-XXXX-XXXX"
         helper_text:
           tip: "TIP:"
           institution: 'Your institution is likely already in our database. Start typing
@@ -171,9 +181,16 @@ en:
           emergency_contact: "In case we need to notify someone while you’re at the reserve."
           receive_nrs_updates: "If you would like to receive updates from the NRS please sign up for the"
           age_range: "This helps with demographic reporting"
+          unsaved: "Unsaved"
+        status:
+          unauthenticated: "(unauthenticated)"
+        alt:
+          orcid_id: "ORCID iD"
+          orcid_id_unauthenticated: "ORCID iD unauthenticated"
         links:
           change_my_password: "Change My Password"
           create_new_instituion: "Create a New Institution."
+          connect_orcid: "Login/Sign-Up to connect ORCID"
           orcid: "What is an ORCID?"
         urls:
           orcid: "https://orcid.org/"

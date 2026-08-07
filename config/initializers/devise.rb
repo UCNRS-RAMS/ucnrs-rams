@@ -271,7 +271,23 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  if ENV["ORCID_CLIENT_ID"].present? && ENV["ORCID_CLIENT_SECRET"].present?
+    orcid_sandbox = ActiveModel::Type::Boolean.new.cast(ENV["ORCID_USE_SANDBOX"])
+    orcid_member = ActiveModel::Type::Boolean.new.cast(ENV["ORCID_MEMBER"])
+    # orcid_redirect_uri = ENV["ORCID_REDIRECT_URI"].presence
+
+    # for profile lookups. /read-limited requires the member API
+    opts = {
+      member: orcid_member,
+      sandbox: orcid_sandbox
+    }
+    opts[:scope] = ENV["ORCID_SCOPES"] if ENV["ORCID_SCOPES"].present?
+
+    config.omniauth :orcid,
+      ENV["ORCID_CLIENT_ID"],
+      ENV["ORCID_CLIENT_SECRET"],
+      **opts
+  end
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

@@ -7,9 +7,9 @@
 .team_memberships-index,
 .team_memberships-edit,
 .team_memberships-create {
-  @include controls;
 
   color: $navy-blue;
+  @include controls;
 
   .form-container {
     @include projects-visits-form-container;

@@ -4,9 +4,9 @@
 
 .questions-index,
 .questions {
-  @include controls;
 
   color: $navy-blue;
+  @include controls;
 
   .form-container {
     @include projects-visits-form-container;
@@ -28,8 +28,8 @@
         margin-bottom: 0.25rem;
 
         .explanation {
-          width: unset;
           margin: 0 0 4px 0;
+          width: unset;
         }
       }
 
@@ -39,8 +39,8 @@
         ul {
           font-weight: $semi-bold;
           list-style-type: none;
-          margin-block-start: 0;
           margin-block-end: 0;
+          margin-block-start: 0;
           padding-inline-start: 0;
         }
       }

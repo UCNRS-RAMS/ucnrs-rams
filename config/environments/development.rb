@@ -74,6 +74,15 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
+  # The Shakapacker dev-server proxy can strip the non-default port from the
+  # Origin header, causing Rails' origin check to fail against request.base_url.
+  # Disable the origin check in development only; the authenticity token is still
+  # verified.
+
+  # without this disabled then 127.0.0.1:3000 doesn't work correctly which may
+  # be needed to test logging in with orcid sandbox.
+  config.action_controller.forgery_protection_origin_check = false
+
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
 

@@ -93,14 +93,14 @@ class AuthenticationFlow
   alias_method :hide_password, :show_password
 
   def sign_out
-    page.find("a#log-out", visible: :visible, wait: Capybara.default_max_wait_time).click
+    page.find("button#log-out", visible: :visible, wait: Capybara.default_max_wait_time).click
 
     # Turbo navigation can be async; wait until the browser is on the sign-in route.
     page.has_current_path?(%r{/users/sign_in}, wait: Capybara.default_max_wait_time)
   end
 
   def signed_in?
-    page.has_css?("a#log-out")
+    page.has_css?("button#log-out")
   end
 
   def on_sign_in_page?

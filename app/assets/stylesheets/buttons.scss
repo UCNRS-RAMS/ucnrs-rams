@@ -5,8 +5,8 @@ a.button,
 input[type="submit"] {
   align-items: center;
   background: $active-button-fill;
-  border-radius: 2.25rem;
   border: 0;
+  border-radius: 2.25rem;
   color: $active-button-text !important;
   cursor: pointer;
   display: flex;
@@ -47,8 +47,8 @@ a.button.button-inline {
 
 .button-main {
   background-color: #ffb511;
-  border-radius: 1.5625rem;
   border: 0;
+  border-radius: 1.5625rem;
   box-sizing: border-box;
   color: #002045;
   display: block;
@@ -60,8 +60,8 @@ a.button.button-inline {
 
 .button-clear {
   background-color: unset !important;
-  border-radius: 1.5625rem !important;
   border: 1px solid #002045 !important;
+  border-radius: 1.5625rem !important;
   color: #002045 !important;
   cursor: pointer;
   display: inline-block;
@@ -85,10 +85,10 @@ a.button-subtle {
 }
 
 a.button-subtle:hover {
-  background-color: rgba(0, 0, 0, 0.05)
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 a.button-subtle:active {
-  background-color: rgba(0, 0, 0, 0.1)
+  background-color: rgba(0, 0, 0, 0.1);
 
 }

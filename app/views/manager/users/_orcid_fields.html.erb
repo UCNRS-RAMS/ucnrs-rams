@@ -1,0 +1,28 @@
+<% orcid_authenticated_alt_text = local_assigns.fetch(:orcid_authenticated_alt_text, t("devise.registrations.user_fields.alt.orcid_id")) %>
+<% orcid_placeholder = local_assigns.fetch(:orcid_placeholder, t("devise.registrations.user_fields.placeholders.orcid")) %>
+<% orcid_unauthenticated_text = local_assigns.fetch(:orcid_unauthenticated_text, t("devise.registrations.user_fields.status.unauthenticated")) %>
+
+<% show_read_only_orcid = f.object.orcid_authenticated? && f.object.orcid.present? && f.object.errors[:orcid].blank? %>
+<% orcid_uri = show_read_only_orcid ? orcid_display_uri(f.object.orcid) : nil %>
+
+<div class="field small orcid">
+  <%= f.label :orcid, orcid_label %>
+
+  <% if orcid_uri.present? %>
+    <p class="orcid-authenticated">
+      <%= image_tag("orcid-icon.svg", alt: orcid_authenticated_alt_text) %>
+      <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener" %>
+    </p>
+    <%= f.hidden_field :orcid %>
+    <%= f.hidden_field :orcid_authenticated %>
+  <% else %>
+    <div class="orcid-entry">
+      <%= f.text_field :orcid, placeholder: orcid_placeholder %>
+      <span class="orcid-unauthenticated"><%= orcid_unauthenticated_text %></span>
+    </div>
+  <% end %>
+
+  <p class="helper-text">
+    <%= link_to orcid_link_text, orcid_url, target: "_blank", rel: "noopener noreferrer" %>
+  </p>
+</div>

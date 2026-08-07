@@ -6,7 +6,8 @@
 @use "mixins/controls" as *;
 
 .fundings-index,
-.fundings-create {
+.fundings-create,
+.complete-update {
   @include controls;
 
   color: $navy-blue;

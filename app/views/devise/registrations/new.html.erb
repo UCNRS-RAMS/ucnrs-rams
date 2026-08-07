@@ -66,13 +66,18 @@
             <% end %>
           </div>
         </div>
-        <div class="field small orcid">
-          <%= f.label :orcid, t(".labels.orcid") %>
-          <%= f.text_field :orcid %>
-          <p class="helper-text">
-            <%= link_to t(".links.orcid"), t(".urls.orcid"), target: :_blank %>
-          </p>
-        </div>
+        <%= render partial: "/devise/registrations/orcid_fields", locals: {
+          f: f,
+          orcid_label: t(".labels.orcid"),
+          connect_orcid_text: t(".links.connect_orcid"),
+          orcid_link_text: t(".links.orcid"),
+          orcid_url: t(".urls.orcid"),
+          orcid_authenticated_alt_text: t(".alt.orcid_id"),
+          orcid_unauthenticated_alt_text: t(".alt.orcid_id_unauthenticated"),
+          orcid_unauthenticated_text: t(".status.unauthenticated"),
+          orcid_unsaved_text: t(".helper_text.unsaved"),
+          orcid_placeholder: t(".placeholders.orcid")
+        } %>
         <div
           class="field institution-field large"
           data-controller="autocomplete"
@@ -243,7 +248,7 @@
         <div class="actions">
           <span><%= image_tag("arrow-left.svg", alt: "left facing arrow") %> <%= link_to t(".links.go_back"), root_path %></span>
           <%= f.button t(".links.create_account", icon: image_tag("arrow-right.svg", alt: "right facing arrow")).html_safe, type: :submit, class: "active" %>
-        <div>
+        </div>
       </section>
     </div>
   <% end %>

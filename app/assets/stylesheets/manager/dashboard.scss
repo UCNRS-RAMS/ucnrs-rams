@@ -62,6 +62,8 @@
 }
 
 .manager[class*="manager-dashboard"] {
+
+  @include search-subsection;
   .content {
     padding: 3.5rem 1.25rem 1.25rem 1.25rem;
 
@@ -74,16 +76,16 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
-    margin-top: .5rem;
     margin-bottom: .5rem;
+    margin-top: .5rem;
 
     h2 {
       display: inline-block;
       font-size: 1.85rem;
       font-weight: $medium;
       margin-bottom: 0;
-      margin-top: 0;
       margin-right: 1.5rem;
+      margin-top: 0;
     }
 
     a {
@@ -116,7 +118,7 @@
     margin-bottom: 3rem;
 
     > *:not(:last-child) {
-      border-bottom: 1px solid $gray
+      border-bottom: 1px solid $gray;
     }
 
     .dash-cards {
@@ -134,7 +136,7 @@
         }
 
         img {
-          margin: 0 .4rem
+          margin: 0 .4rem;
         }
       }
     }
@@ -143,8 +145,8 @@
       padding-bottom: .75rem;
 
       small.user-role {
-        display: block;
         color: $semidark-bluegray;
+        display: block;
       }
     }
 
@@ -172,8 +174,6 @@
     }
   }
 
-  @include search-subsection;
-
   .search-subsection {
     font-size: 0.875rem;
   }
@@ -184,6 +184,8 @@
     }
 
     .simple-calendar {
+
+      text-align: center;
       .calendar-heading {
         align-items: center;
         display: flex;
@@ -201,8 +203,6 @@
         margin: 0px 70px 0px 70px;
         text-align: center;
       }
-
-      text-align: center;
 
       .table {
         border: 0px;
@@ -260,19 +260,19 @@
       }
 
       .left-radius {
-        border-top-left-radius: 15px;
         border-bottom-left-radius: 15px;
+        border-top-left-radius: 15px;
       }
 
       .right-radius {
-        border-top-right-radius: 15px;
         border-bottom-right-radius: 15px;
+        border-top-right-radius: 15px;
       }
 
       .disable-link {
-        pointer-events: none;
         cursor: default;
         opacity: 0;
+        pointer-events: none;
         visibility: hidden;
       }
 
@@ -377,8 +377,8 @@
       }
 
       p:first-child, p:last-child {
-        min-width: 150px;
         max-width: 300px;
+        min-width: 150px;
       }
     }
 

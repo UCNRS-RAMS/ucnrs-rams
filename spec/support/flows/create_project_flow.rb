@@ -243,7 +243,7 @@ class CreateProjectFlow
   end
 
   def submit_team_memberships
-    page.find("form.button_to button").click
+    page.find("form.button_to button.active").click
   end
 
   def on_questions_page?
