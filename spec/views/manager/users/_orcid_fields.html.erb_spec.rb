@@ -21,11 +21,31 @@ RSpec.describe "manager/users/_orcid_fields.html.erb", type: :view do
 
     doc = Capybara.string(rendered)
     expect(doc).to have_field("ORCID", type: "text", with: "invalid-orcid")
+    expect(doc).to have_css(".orcid-entry .orcid-unauthenticated", text: "(unauthenticated)")
     expect(doc).not_to have_css("input[type='hidden'][name='user[orcid]']", visible: false)
     expect(doc).not_to have_css("p.orcid-authenticated")
   end
 
-  it "shows authenticated ORCID as read-only display with change button and editable field toggle" do
+  it "shows an unauthenticated ORCID as an editable text field with unauthenticated label" do
+    user = User.new(orcid: "0000-0002-1825-0097", orcid_authenticated: false)
+
+    FakeForm.fields_for(user) do |f|
+      render partial: "manager/users/orcid_fields",
+        locals: {
+          f: f,
+          orcid_label: orcid_label,
+          orcid_link_text: orcid_link_text,
+          orcid_url: orcid_url,
+        }
+    end
+
+    doc = Capybara.string(rendered)
+    expect(doc).to have_field("ORCID", type: "text", with: "0000-0002-1825-0097")
+    expect(doc).to have_css(".orcid-entry .orcid-unauthenticated", text: "(unauthenticated)")
+    expect(doc).not_to have_css("p.orcid-authenticated")
+  end
+
+  it "shows authenticated ORCID as a read-only link without a change button" do
     user = User.new(orcid: "0000-0002-1825-0097", orcid_authenticated: true)
 
     FakeForm.fields_for(user) do |f|
@@ -41,11 +61,9 @@ RSpec.describe "manager/users/_orcid_fields.html.erb", type: :view do
     doc = Capybara.string(rendered)
     expect(doc).to have_css("p.orcid-authenticated")
     expect(doc).to have_link("https://orcid.org/0000-0002-1825-0097")
-    expect(doc).to have_button("change orcid")
+    expect(doc).not_to have_button("change orcid")
+    expect(doc).not_to have_field("ORCID", type: "text")
     expect(doc).to have_css("input[type='hidden'][name='user[orcid]'][value='0000-0002-1825-0097']", visible: false)
-    expect(doc).to have_css("input[type='hidden'][name='user[orcid_authenticated]'][value='true'][data-toggle-target='authenticated']", visible: false)
-    expect(doc).to have_css("button[data-action='click->toggle#toggle click->toggle#markUnauthenticated']")
-    expect(doc).to have_css("div.hidden[data-toggle-target='toggle'][data-toggle-class='hidden']")
-    expect(doc).to have_css("input[type='text'][name='user[orcid]'][value='0000-0002-1825-0097']")
+    expect(doc).to have_css("input[type='hidden'][name='user[orcid_authenticated]'][value='true']", visible: false)
   end
 end

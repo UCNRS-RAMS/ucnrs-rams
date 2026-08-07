@@ -141,6 +141,24 @@
                 font-size: 0.75rem;
               }
             }
+
+            .orcid-entry {
+              align-items: center;
+              display: flex;
+              gap: 0.5rem;
+              margin: 0 0 0.5rem;
+
+              input[type="text"] {
+                margin-bottom: 0;
+                width: 280px;
+              }
+
+              .orcid-unauthenticated {
+                color: $semidark-bluegray;
+                font-size: 0.75rem;
+                white-space: nowrap;
+              }
+            }
           }
         }
         &.emergency-contact {
