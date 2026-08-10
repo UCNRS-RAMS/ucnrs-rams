@@ -17,13 +17,15 @@ RUN rm -f /usr/local/bin/yarn /usr/local/bin/yarnpkg /usr/local/bin/npm /usr/loc
 
 # Install dependencies:
 # ImageMagick for image processing, libmariadb-dev for the mysql2 gem
-# cmake and pkg-config for rugged, a dependency of Pronto
+# cmake, pkg-config, libssl-dev, zlib1g-dev for rugged, a dependency of Pronto
 RUN apt-get update -qq && apt-get install -y \
     build-essential \
     libmariadb-dev \
     imagemagick \
     cmake \
     pkg-config \
+    libssl-dev \
+    zlib1g-dev \
     git \
     chromium \
     chromium-driver
