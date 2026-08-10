@@ -17,7 +17,7 @@ RUN rm -f /usr/local/bin/yarn /usr/local/bin/yarnpkg /usr/local/bin/npm /usr/loc
 
 # Install dependencies:
 # ImageMagick for image processing, libmariadb-dev for the mysql2 gem
-# cmake, pkg-config, libssl-dev, zlib1g-dev for rugged, a dependency of Pronto
+# cmake, pkg-config, libssl-dev, zlib1g-dev, libgit2-dev for rugged, a dependency of Pronto
 RUN apt-get update -qq && apt-get install -y \
     build-essential \
     libmariadb-dev \
@@ -26,6 +26,7 @@ RUN apt-get update -qq && apt-get install -y \
     pkg-config \
     libssl-dev \
     zlib1g-dev \
+    libgit2-dev \
     git \
     chromium \
     chromium-driver
@@ -45,6 +46,8 @@ WORKDIR /app
 # Copy the Gemfile and Gemfile.lock first to leverage Docker caching
 COPY Gemfile ./
 COPY Gemfile.lock ./
+# Use system libgit2 to avoid building the bundled one
+RUN bundle config set build.rugged --use-system-libraries
 # Install gems
 RUN bundle install
 
