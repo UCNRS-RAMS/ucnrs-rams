@@ -22,23 +22,23 @@ module ExternalApis
       end
 
       def full_catalog_file
-        Rails.configuration.x.ror&.full_catalog_file || Rails.root.join("tmp/ror/ror.json")
+        Rails.configuration.x.ror&.full_catalog_file
       end
 
       def file_dir
-        Rails.configuration.x.ror&.file_dir || Rails.root.join("tmp/ror")
+        Rails.configuration.x.ror&.file_dir
       end
 
       def checksum_file
-        Rails.configuration.x.ror&.checksum_file || Rails.root.join("tmp/ror/checksum.txt")
+        Rails.configuration.x.ror&.checksum_file
       end
 
       def zip_file
-        Rails.configuration.x.ror&.zip_file || Rails.root.join("tmp/ror/latest-ror-data.zip")
+        Rails.configuration.x.ror&.zip_file
       end
 
       def active?
-        Rails.configuration.x.ror&.active.nil? ? super : Rails.configuration.x.ror.active
+        Rails.configuration.x.ror&.active || super
       end
 
       def heartbeat_path
@@ -49,53 +49,62 @@ module ExternalApis
         Rails.configuration.x.ror&.search_path
       end
 
-      
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def fetch(force: false)
-        force = ActiveModel::Type::Boolean.new.cast(force)
         method = "ExternalApis::RorService.fetch(force: #{force})"
 
         # Fetch the Zenodo metadata for ROR to see if we have the latest data dump
         metadata = fetch_zenodo_metadata
-        if metadata.blank?
+
+        if metadata.present?
+          FileUtils.mkdir_p(file_dir)
+
+          checksum = File.open(checksum_file, 'w+') unless File.exist?(checksum_file) && !force
+          checksum = File.open(checksum_file, 'r+') if checksum.blank?
+          old_checksum_val = checksum.read
+
+          if old_checksum_val == metadata[:checksum]
+            log_message(method: method, message: 'There is no new ROR file to process.')
+          else
+            download_file = metadata.fetch(:links, {})[:download]
+            log_message(method: method, message: "New ROR file detected - checksum #{metadata[:checksum]}")
+            log_message(method: method, message: "Downloading #{download_file}")
+
+            payload = download_ror_file(url: metadata.fetch(:links, {})[:download])
+            if payload.present?
+              file = File.open(zip_file, 'wb')
+              file.write(payload)
+
+              # rubocop:disable Metrics/BlockNesting
+              if validate_downloaded_file(file_path: zip_file, checksum: metadata[:checksum])
+                json_file = download_file.split('/').last.gsub('.zip', '')
+                json_file = "#{json_file}.json" unless json_file.end_with?('.json')
+
+                # Process the ROR JSON
+                if process_ror_file(zip_file: zip_file, file: json_file)
+                  checksum = File.open(checksum_file, 'w')
+                  checksum.write(metadata[:checksum])
+                end
+              else
+                log_error(method: method, error: StandardError.new('Downloaded ROR zip does not match checksum!'))
+              end
+              # rubocop:enable Metrics/BlockNesting
+            else
+              log_error(method: method, error: StandardError.new('Unable to download ROR file!'))
+            end
+          end
+        else
           log_error(method: method, error: StandardError.new('Unable to fetch ROR metadata from Zenodo!'))
-          return :failure
         end
-
-        FileUtils.mkdir_p(file_dir)
-        old_checksum_val = File.read(checksum_file) if File.exist?(checksum_file) && !force
-
-        if old_checksum_val == metadata[:checksum]
-          log_message(method: method, message: 'There is no new ROR file to process.')
-          return :no_change
-        end
-
-        download_link = metadata.fetch(:links, {})[:download]
-        download_file = metadata[:key].presence || File.basename(download_link.to_s)
-        log_message(method: method, message: "New ROR file detected - checksum #{metadata[:checksum]}")
-        log_message(method: method, message: "Downloading #{download_file}")
-        log_message(method: method, message: "From #{download_link}")
-
-        payload = download_ror_file(url: download_link)
-        if payload.blank?
-          log_error(method: method, error: StandardError.new('Unable to download ROR file!'))
-          return :failure
-        end
-
-        File.binwrite(zip_file, payload)
-
-        json_file = download_file.split('/').last.gsub('.zip', '')
-        json_file = "#{json_file}.json" unless json_file.end_with?('.json')
-
-        return :failure unless process_ror_file(zip_file: zip_file, file: json_file)
-
-        File.write(checksum_file, metadata[:checksum])
-        :success
       end
-      # rubocop:enable Metrics/AbcSize
-            private
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+      private
 
       # Fetch the latest Zenodo metadata for ROR files
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def fetch_zenodo_metadata
         Rails.logger.error 'No :download_url defined for RorService!' if download_url.blank?
         return nil if download_url.blank?
@@ -103,7 +112,6 @@ module ExternalApis
         # Fetch the latest ROR metadata from Zenodo (the query will place the most recent
         # version 1st)
         resp = http_get(uri: download_url, additional_headers: { host: 'zenodo.org' }, debug: false)
-
         unless resp.present? && resp.code == 200
           handle_http_failure(method: 'Fetching ROR metadata from Zenodo', http_response: resp)
           notify_administrators(obj: 'RorService', response: resp)
@@ -112,21 +120,19 @@ module ExternalApis
         json = JSON.parse(resp.body)
 
         # Extract the most recent file's metadata
-        file_metadata = json.fetch('hits', {}).fetch('hits', []).first&.fetch('files', [])&.last&.with_indifferent_access
-        if file_metadata.blank?
+        file_metadata = json.first.fetch('files', []).first&.with_indifferent_access
+        unless file_metadata.present? && file_metadata.fetch(:links, {})[:download].present?
           handle_http_failure(method: 'No file found in ROR metadata from Zenodo', http_response: resp)
           notify_administrators(obj: 'RorService', response: resp)
           return nil
         end
 
-        file_metadata[:links] = file_metadata.fetch(:links, {}).with_indifferent_access
-        file_metadata[:links][:download] ||= file_metadata[:links][:self]
         file_metadata
       rescue JSON::ParserError => e
         log_error(method: 'RorService', error: e)
         nil
       end
-      # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       # Download the latest ROR data
       def download_ror_file(url:)
@@ -134,13 +140,9 @@ module ExternalApis
 
         headers = {
           host: 'zenodo.org',
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'User-Agent': "California Digital Library - dmptool.org (mailto:dmptool@ucop.edu)"
+          Accept: 'application/zip'
         }
-
         resp = http_get(uri: url, additional_headers: headers, debug: false)
-
         unless resp.present? && resp.code == 200
           handle_http_failure(method: "Fetching ROR file from Zenodo - #{url}", http_response: resp)
           notify_administrators(obj: 'RorService', response: resp)
@@ -150,7 +152,8 @@ module ExternalApis
       end
 
       # Parse the JSON file and process each individual record
-      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def process_ror_file(zip_file:, file:)
         return false unless zip_file.present? && file.present?
 
@@ -177,7 +180,7 @@ module ExternalApis
             end
             # Remove any old ROR records (their file_timestamps would not have been updated)
             # Note this does not remove any associated Org records!
-            Ror.where('file_timestamp < ?', json_file.mtime.strftime('%Y-%m-%d %H:%M:%S')).destroy_all
+            RorOrg.where('file_timestamp < ?', json_file.mtime.strftime('%Y-%m-%d %H:%M:%S')).destroy_all
             true
           else
             log_error(method: method, error: StandardError.new('Unable to find json in zip!'))
@@ -191,24 +194,31 @@ module ExternalApis
         log_error(method: method, error: e)
         false
       end
-      # rubocop:enable Metrics/AbcSize
-            # Transfer the contents of a ROR record to the local rors table
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+      # Transfer the contents of the JSON record to the org_indices table
       # rubocop:disable Metrics/AbcSize
       def process_ror_record(record:, time:)
         return nil unless record.present? && record.is_a?(Hash) && record['id'].present?
 
-        ror_model = Ror.find_or_create_by(ror_id: record['id'])
-        ror_model.name = safe_string(value: org_name(item: record))
-        ror_model.acronyms = ror_acronyms(item: record)
-        ror_model.aliases = ror_aliases(item: record)
-        ror_model.country = country_data(item: record)
-        ror_model.types = record['types'] || []
-        ror_model.language = org_language(item: record)
-        ror_model.file_timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
-        ror_model.fundref_id = fundref_id(item: record)
-        ror_model.home_page = safe_string(value: primary_website(item: record))
+        ror_org = RorOrg.find_or_create_by(ror_id: record['id'])
+        ror_org.name = safe_string(value: org_name(item: record))
+        ror_org.acronyms = record['acronyms']
+        ror_org.aliases = record['aliases']
+        ror_org.country = record['country']
+        ror_org.types = record['types']
+        ror_org.language = org_language(item: record)
+        ror_org.file_timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
+        ror_org.fundref_id = fundref_id(item: record)
+        ror_org.home_page = safe_string(value: record.fetch('links', []).first)
 
-        ror_model.save!
+        # Attempt to find a matching Org record
+        ror_org.org_id = check_for_org_association(ror_org: ror_org)
+
+        # TODO: We should create some sort of Super Admin page to highlight unmapped
+        #       RorOrg records so that they can be connected to their Org
+        ror_org.save
         true
       rescue StandardError => e
         log_error(method: 'ExternalApis::RorService.process_ror_record', error: e)
@@ -223,75 +233,32 @@ module ExternalApis
         value[0..254]
       end
 
-      def ror_names(item:, type:)
-        return [] unless item.present? && item['names'].is_a?(Array)
+      # Determine if there is a matching Org record in the DB if so, attach it
+      def check_for_org_association(ror_org:)
+        return ror_org.org&.id if ror_org.org.present?
 
-        item['names'].filter_map do |name|
-          next unless name.is_a?(Hash)
+        ror = Identifier.by_scheme_name('ror', 'Org')
+                        .where(value: ror_org.ror_id)
+                        .first
+        return nil if ror.blank?
 
-          types = Array(name['types'])
-          next unless types.any?
-          next unless types.map(&:to_s).include?(type.to_s)
-
-          name['value'].presence
-        end
-      end
-
-      def ror_acronyms(item:)
-        ror_names(item: item, type: 'acronym')
-      end
-
-      def ror_aliases(item:)
-        ror_names(item: item, type: 'alias')
-      end
-
-      def country_data(item:)
-        return item['country'] if item.present? && item['country'].is_a?(Hash) && item['country'].present?
-
-        return {} if item.blank?
-
-        geonames = Array(item['locations']).first&.[]('geonames_details')
-        return {} if geonames.blank?
-
-        {
-          'country_name' => geonames['country_name'],
-          'country_code' => geonames['country_code']
-        }
+        ror.present? ? ror.identifiable_id : nil
       end
 
       # Org names are not unique, so include the Org URL if available or
       # the country. For example:
       #    "Example College (example.edu)"
       #    "Example College (Brazil)"
-      # rubocop:disable Metrics/AbcSize
       def org_name(item:)
-        return '' if item.blank?
+        return '' unless item.present? && item['name'].present?
 
-        legacy_name = item['name']
-        return legacy_name if legacy_name.present? && item['links'].blank? && item['country'].blank? && item['names'].blank?
-
-        candidate_name = preferred_ror_name(item) || item['name']
-        candidate_name = candidate_name.to_s.strip
-        return '' if candidate_name.blank?
-
-        country_name = country_name_for(item)
+        country = item.fetch('country', {}).fetch('country_name', '')
         website = org_website(item: item)
-        return candidate_name unless website.present? || country_name.present?
+        # If no website or country then just return the name
+        return item['name'] unless website.present? || country.present?
 
-        "#{candidate_name} (#{website || country_name})"
-      end
-      # rubocop:enable Metrics/AbcSize
-
-      def preferred_ror_name(item)
-        return nil unless item['names'].is_a?(Array)
-
-        item['names'].find { |name| name.is_a?(Hash) && Array(name['types']).include?('ror_display') } ||
-          item['names'].find { |name| name.is_a?(Hash) && Array(name['types']).include?('label') }
-      end
-
-      def country_name_for(item)
-        country = country_data(item: item)
-        country.is_a?(Hash) ? country['country_name'].to_s : ''
+        # Otherwise return the contextualized name
+        "#{item['name']} (#{website || country})"
       end
 
       # Extracts the org's ISO639 if available
@@ -299,104 +266,38 @@ module ExternalApis
         dflt = I18n.default_locale || 'en'
         return dflt if item.blank?
 
-        country = country_code_for(item)
-        return 'en' if country == 'US'
-
-        lang = lang_from_names(item)
-        return lang if lang.present?
-
-        legacy_labels = item.fetch('labels', [])
-        return legacy_labels.first&.[]('iso639') || dflt if legacy_labels.is_a?(Array) && legacy_labels.first.present?
-
-        dflt
+        country = item.fetch('country', {}).fetch('country_code', '')
+        labels = case country
+                 when 'US'
+                   [{ iso639: 'en' }]
+                 else
+                   item.fetch('labels', [{ iso639: dflt }])
+                 end
+        labels.first&.fetch('iso639', I18n.default_locale) || dflt
       end
 
-      def country_code_for(item)
-        loc = Array(item['locations']).first&.[]('geonames_details')
-        return loc['country_code'] if loc.present? && loc['country_code'].present?
-
-        item.dig('country', 'country_code')
-      end
-
-      def lang_from_names(item)
-        names = Array(item['names'])
-        names.find { |name| name.is_a?(Hash) && name['lang'].present? }&.[]('lang')
-      end
-
-      # Extracts the website URL from the item
-      def primary_website(item:)
-        return nil if item.blank?
-
-        links = item['links']
-        return website_from_links(links) if links.is_a?(Array)
-
-        links
-      end
-
-      # rubocop:disable Metrics/AbcSize
-      def website_from_links(links)
-        website = links.find { |link| link.is_a?(Hash) && link['type'].to_s == 'website' && link['value'].present? }
-        return website['value'] if website.present?
-
-        first_link = links.find { |link| link.is_a?(Hash) && link['value'].present? }
-        return first_link['value'] if first_link.present?
-
-        string_link = links.find { |link| link.is_a?(String) && link.present? }
-        return string_link if string_link.present?
-
-        return links.first if links.first.is_a?(String) && links.first.present?
-
-        nil
-      end
-      # rubocop:enable Metrics/AbcSize
-
-      # Extracts the website domain from the item for contextual names
+      # Extracts the website domain from the item
       def org_website(item:)
-        website = primary_website(item: item)
-        return nil if website.blank?
+        return nil unless item.present? && item.fetch('links', [])&.any?
+        return nil if item['links'].first.blank?
 
-        domain = extract_domain(website.to_s)
-        return nil if domain.blank?
-
-        domain.gsub('www.', '')
-      end
-
-      def extract_domain(website)
+        # A website was found, so extract just the domain without the www
         domain_regex = %r{^(?:http://|www\.|https://)([^/]+)}
-        website.scan(domain_regex).last&.first
+        website = item['links'].first.scan(domain_regex).last.first
+        website.gsub('www.', '')
       end
 
       # Extracts the FundRef Id if available
       def fundref_id(item:)
-        return '' if item.blank?
+        return '' unless item.present? && item['external_ids'].present?
+        return '' unless item['external_ids'].fetch('FundRef', {}).any?
 
-        external_ids = item['external_ids']
-        return fundref_id_from_hash(external_ids) if external_ids.is_a?(Hash)
+        # If a preferred Id was specified then use it
+        ret = item['external_ids'].fetch('FundRef', {}).fetch('preferred', '')
+        return ret if ret.present?
 
-        fundref = find_fundref_entry(external_ids)
-        return '' if fundref.blank?
-
-        preferred_or_first(fundref)
-      end
-
-      def fundref_id_from_hash(external_ids)
-        fundref = external_ids['FundRef'] || external_ids['fundref']
-        return '' if fundref.blank?
-
-        preferred_or_first(fundref)
-      end
-
-      def preferred_or_first(item)
-        preferred = item['preferred']
-        return preferred.to_s if preferred.present?
-
-        Array(item['all']).first.to_s
-      end
-
-      def find_fundref_entry(external_ids)
-        Array(external_ids).find do |id_info|
-          id_info.is_a?(Hash) && id_info['type'].to_s.casecmp('fundref').zero?
-        end
+        # Otherwise take the first one listed
+        item['external_ids'].fetch('FundRef', {}).fetch('all', []).first
       end
     end
   end

@@ -67,7 +67,7 @@ module ExternalApis
 
       # Logs the results of a failed HTTP response
       def handle_uri_failure(method:, uri:)
-        msg = "received an invalid uri: '#{uri}'!"
+        msg = "received an invalid uri: '#{uri&.to_s}'!"
         log_error(method: method, error: ExternalApiError.new(msg))
       end
 
@@ -86,24 +86,28 @@ module ExternalApis
         Rails.logger.send((info ? :info : :warn), "#{self.class.name}.#{method} #{message}")
       end
 
-      # Logs the error and response for operators. This intentionally does not
-      # send email because these tasks may run in environments without mail.
+      # Emails the error and response to the administrators
+      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def notify_administrators(obj:, response: nil, error: nil)
-        return false unless obj.present? || response.present? || error.present?
+        return false unless obj.present? && response.present?
 
-        source = obj.is_a?(String) ? obj : obj.class.name
-        message = "#{source} received an unexpected response"
-        message += " from #{name}" if respond_to?(:name)
+        message = "#{obj.class.name} - #{obj.respond_to?(:id) ? obj.id : ''}"
+        message += '<br>----------------------------------------<br><br>'
 
-        Rails.logger.error message
-        Rails.logger.error response.inspect if response.present?
+        message += "Sent: #{Rails.logger.debug(json_from_template(plan: obj))}" if obj.is_a?(Plan)
+        message += '<br>----------------------------------------<br><br>' if obj.is_a?(Plan)
 
-        return true unless error.present? && error.is_a?(StandardError)
+        message += "#{name} received the following unexpected response:<br>"
+        message += response.inspect.to_s
+        message += '<br>----------------------------------------<br><br>'
 
-        Rails.logger.error "#{error.class}: #{error.message}"
-        Rails.logger.error error.backtrace if error.backtrace.present?
+        message += error.message if error.present? && error.is_a?(StandardError)
+        message += error.backtrace || '' if error.present? && error.is_a?(StandardError)
+
+        UserMailer.notify_administrators(message).deliver_now
         true
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       private
 
@@ -114,9 +118,8 @@ module ExternalApis
 
       # Retrieves the helpdesk email from dmproadmap.rb initializer or uses the contact page url
       def app_email
-        Rails.configuration.x.organisation.fetch(:helpdesk_email) do
-          Rails.application.routes.url_helpers.contact_us_url || ''
-        end
+        dflt = Rails.application.routes.url_helpers.contact_us_url || ''
+        Rails.configuration.x.organisation.fetch(:helpdesk_email, dflt)
       end
 
       # Makes a GET request to the specified uri with the additional headers.
@@ -185,21 +188,15 @@ module ExternalApis
       def unzip_file(zip_file:, destination:)
         return false unless zip_file.present? && File.exist?(zip_file)
 
-        begin
-          Zip::File.open(zip_file) do |files|
-            files.each do |entry|
-              next if File.exist?(entry.name)
+        Zip::File.open(zip_file) do |files|
+          files.each do |entry|
+            next if File.exist?(entry.name)
 
-              f_path = File.join(destination, entry.name)
-              FileUtils.mkdir_p(File.dirname(f_path))
-              entry.extract(destination_directory: File.dirname(f_path)) unless File.exist?(f_path)
-            end
+            f_path = File.join(destination, entry.name)
+            FileUtils.mkdir_p(File.dirname(f_path))
+            files.extract(entry, f_path) unless File.exist?(f_path)
           end
-        rescue StandardError => e
-          Rails.logger.error("ZIP File (#{zip_file}) error: #{e.message}")
-          return false
         end
-
         true
       end
 
