@@ -203,13 +203,19 @@ module ExternalApis
       def validate_downloaded_file(file_path:, checksum:)
         return false unless file_path.present? && checksum.present? && File.exist?(file_path)
 
+        # Strip whitespace, convert to lowercase, and remove common algorithm prefixes
+        # Matches formats like: md5:, sha256:, sha-256=, {md5}, {sha256}:, etc.
+        prefix_regex = /\A(?:\{?(?:md5|sha-?\d+|crc32)\}?[:=]|\{(?:md5|sha-?\d+|crc32)\})/i
+        cleaned_checksum = checksum.to_s.strip.downcase.sub(prefix_regex, '')
+
         possible_checksums = [
-          Digest::SHA1.file(file_path).to_s,
-          Digest::SHA256.file(file_path).to_s,
-          Digest::SHA512.file(file_path).to_s,
-          Digest::MD5.file(file_path).to_s
+          Digest::SHA1.file(file_path).hexdigest,
+          Digest::SHA256.file(file_path).hexdigest,
+          Digest::SHA512.file(file_path).hexdigest,
+          Digest::MD5.file(file_path).hexdigest
         ]
-        possible_checksums.include?(checksum)
+
+        possible_checksums.include?(cleaned_checksum)
       end
     end
   end
