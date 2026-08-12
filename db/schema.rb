@@ -10,7 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_14_104820) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_12_172207) do
+  create_table "ActPeople_copy1", primary_key: "ActPeopleID", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "ActivityID", null: false
+    t.integer "ActualCount"
+    t.decimal "ActualDays", precision: 6, scale: 3, default: "0.0"
+    t.date "ArrivalDate", default: "1999-12-31"
+    t.time "ArrivalTime", default: "2000-01-01 00:00:00"
+    t.integer "ConfirmedByID"
+    t.date "DepartureDate", default: "1999-12-31"
+    t.time "DepartureTime", default: "2000-01-01 00:00:00"
+    t.integer "InstitutionID"
+    t.integer "PeopleID", null: false
+    t.integer "ReserveID"
+    t.column "Role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')", null: false
+    t.column "Status", "enum('Pending approval','Approved','Cancelled','Rejected','Bodega Laboratory only','Approved conditionally')", default: "Pending approval", null: false, comment: "Status of each Entry in the Activity"
+    t.boolean "UsageConfirmed", default: false, comment: "Boolean"
+    t.text "UsageNotes"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.index ["ActivityID", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "ActivityArrivalDate"
+    t.index ["ActivityID", "DepartureDate", "DepartureTime"], name: "ActivityDepartureDate"
+    t.index ["ActivityID"], name: "ActivityID"
+    t.index ["ArrivalDate"], name: "ArrivalDate"
+    t.index ["DepartureDate"], name: "DepartureDate"
+    t.index ["PeopleID", "ActivityID", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "People"
+    t.index ["PeopleID"], name: "PeopleID"
+    t.index ["ReserveID", "ArrivalDate", "ActivityID"], name: "Reserves"
+    t.index ["Status", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "StatusAndDate"
+  end
+
   create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "archived_data_location", limit: 200, null: false, comment: "Where is data archived"
     t.string "data_collected", limit: 200, null: false, comment: "What data is collected"
@@ -944,7 +973,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_104820) do
     t.index ["waiver_id"], name: "index_signatures_on_waiver_id"
   end
 
-  create_table "solid_cable_messages", charset: "utf8mb3", force: :cascade do |t|
+  create_table "solid_cable_messages", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
     t.binary "channel", limit: 1024, null: false
     t.bigint "channel_hash", null: false
     t.datetime "created_at", null: false
@@ -965,16 +994,48 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_104820) do
   create_table "use_policies", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.column "agreement_type", "enum('Reserve Use Agreement','Code of Conduct Agreement','Data Management Agreement')"
     t.datetime "created_at", null: false
-    t.text "description", size: :medium
-    t.text "image_url", size: :medium
-    t.text "policy_link_text", size: :medium
+    t.text "description"
+    t.text "image_url"
+    t.text "policy_link_text"
     t.string "policy_url"
     t.integer "sort_order"
-    t.text "title", size: :medium
+    t.text "title"
     t.datetime "updated_at", null: false
   end
 
   create_table "user_visits", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.date "ArrivalDate", default: "1999-12-31", comment: "DEPRECATED"
+    t.time "ArrivalTime", default: "2000-01-01 00:00:00", comment: "DEPRECATED"
+    t.integer "ConfirmedByID", comment: "DEPRECATED"
+    t.date "DepartureDate", default: "1999-12-31", comment: "DEPRECATED"
+    t.time "DepartureTime", default: "2000-01-01 00:00:00", comment: "DEPRECATED"
+    t.boolean "UsageConfirmed", default: false, comment: "DEPRECATED"
+    t.text "UsageNotes", comment: "DEPRECATED"
+    t.decimal "actual_days", precision: 6, scale: 3, default: "0.0"
+    t.datetime "arrives_at", precision: nil
+    t.integer "count"
+    t.datetime "created_at", precision: nil
+    t.datetime "departs_at", precision: nil
+    t.string "guest_name"
+    t.integer "institution_id"
+    t.integer "reserve_id", comment: "DEPRECATED - use reserve_id through visit"
+    t.column "role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')", null: false
+    t.column "status", "enum('Pending approval','Approved','Cancelled','Rejected','Bodega Laboratory only','Approved conditionally')", default: "Pending approval", null: false, comment: "Status of each Entry in the Activity"
+    t.datetime "updated_at", precision: nil
+    t.integer "user_id", null: false
+    t.integer "visit_id", null: false
+    t.index ["ArrivalDate"], name: "ArrivalDate"
+    t.index ["DepartureDate"], name: "DepartureDate"
+    t.index ["reserve_id", "ArrivalDate", "visit_id"], name: "reserve"
+    t.index ["status", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "StatusAndDate"
+    t.index ["user_id", "visit_id", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "user_visit_date_range"
+    t.index ["user_id"], name: "user"
+    t.index ["visit_id", "ArrivalDate", "ArrivalTime", "DepartureDate", "DepartureTime"], name: "visit_arrival_date"
+    t.index ["visit_id", "DepartureDate", "DepartureTime"], name: "visit_departure_date"
+    t.index ["visit_id"], name: "visit_id"
+  end
+
+  create_table "user_visits_clone_20251102", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.date "ArrivalDate", default: "1999-12-31", comment: "DEPRECATED"
     t.time "ArrivalTime", default: "2000-01-01 00:00:00", comment: "DEPRECATED"
     t.integer "ConfirmedByID", comment: "DEPRECATED"
@@ -1050,6 +1111,134 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_104820) do
     t.string "middle_name", limit: 20
     t.string "orcid", limit: 50, comment: "Unique ID for Researchers https://orcid.org/"
     t.boolean "orcid_authenticated", default: false, null: false
+    t.string "phone_number", limit: 20
+    t.boolean "record_complete", default: false, null: false, comment: "This is to check if user has completed their information entry."
+    t.datetime "remember_created_at", precision: nil
+    t.datetime "reset_password_sent_at", precision: nil
+    t.string "reset_password_token", limit: 100
+    t.column "role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')"
+    t.string "secondary_phone_number", limit: 20
+    t.datetime "terms_accepted_at", precision: nil
+    t.string "title", limit: 100
+    t.string "unconfirmed_email"
+    t.datetime "updated_at", precision: nil
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["id"], name: "user"
+    t.index ["institution_id", "last_name", "first_name", "middle_name"], name: "Institution+Name"
+    t.index ["institution_id"], name: "Institution"
+    t.index ["last_name", "first_name", "middle_name"], name: "Name"
+    t.index ["last_name", "first_name"], name: "Group"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "users_clone", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "DefaultReserveID", default: 0, null: false, comment: "This value will determain which reserve the user is placed by default when they log in."
+    t.text "accessibility_requirements"
+    t.string "address_city", limit: 100
+    t.integer "address_country_id"
+    t.string "address_line_1", limit: 100
+    t.string "address_line_2", limit: 100
+    t.string "address_postal_code", limit: 20
+    t.integer "address_state_id"
+    t.boolean "admin", default: false
+    t.string "administrative_notes", limit: 1000, default: "", comment: "notes about the user (not intended to be public)"
+    t.string "advisor", limit: 100, comment: "Advisor or Supervisor"
+    t.column "age_range", "enum('1-17','18-25','25-50','50 or older')"
+    t.string "backup_email_address"
+    t.string "billing_address_city", limit: 100
+    t.integer "billing_address_country_id"
+    t.string "billing_address_line_1", limit: 100
+    t.string "billing_address_line_2", limit: 100
+    t.string "billing_address_postal_code", limit: 20
+    t.boolean "billing_address_same_as_current", default: false
+    t.integer "billing_address_state_id"
+    t.string "billing_person_email", limit: 100
+    t.string "billing_person_full_name", limit: 100
+    t.string "billing_person_phone_number", limit: 20
+    t.datetime "confirmation_sent_at", precision: nil
+    t.string "confirmation_token", limit: 100
+    t.datetime "confirmed_at", precision: nil
+    t.datetime "created_at", precision: nil
+    t.datetime "date_created", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Use to determain if need to update record"
+    t.date "date_of_birth", default: "2000-01-01"
+    t.string "department", limit: 200
+    t.string "email", limit: 100, null: false
+    t.string "emergency_contact_full_name", limit: 100
+    t.string "emergency_contact_phone_number", limit: 60
+    t.string "encrypted_password", null: false
+    t.string "first_name", limit: 100
+    t.column "gender_identity", "enum('Male','Female','Non-binary','Other','Prefer not to state')"
+    t.string "housing_concerns", limit: 1000
+    t.string "identification_number", limit: 20
+    t.integer "institution_id"
+    t.string "last_name", limit: 100
+    t.string "middle_name", limit: 20
+    t.string "orcid", limit: 50, comment: "Unique ID for Researchers https://orcid.org/"
+    t.string "phone_number", limit: 20
+    t.boolean "record_complete", default: false, null: false, comment: "This is to check if user has completed their information entry."
+    t.datetime "remember_created_at", precision: nil
+    t.datetime "reset_password_sent_at", precision: nil
+    t.string "reset_password_token", limit: 100
+    t.column "role", "enum('No selection','Faculty','Research Scientist/Post Doc','Research Assistant (non-student/faculty/postdoc)','Graduate Student','Undergraduate Student','K-12 Instructor','K-12 Student','Professional','Other','Docent','Volunteer','Staff')"
+    t.string "secondary_phone_number", limit: 20
+    t.datetime "terms_accepted_at", precision: nil
+    t.string "title", limit: 100
+    t.string "unconfirmed_email"
+    t.datetime "updated_at", precision: nil
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["id"], name: "user"
+    t.index ["institution_id", "last_name", "first_name", "middle_name"], name: "Institution+Name"
+    t.index ["institution_id"], name: "Institution"
+    t.index ["last_name", "first_name", "middle_name"], name: "Name"
+    t.index ["last_name", "first_name"], name: "Group"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "users_copy-2026-06-17", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "DefaultReserveID", default: 0, null: false, comment: "This value will determain which reserve the user is placed by default when they log in."
+    t.text "accessibility_requirements"
+    t.string "address_city", limit: 100
+    t.integer "address_country_id"
+    t.string "address_line_1", limit: 100
+    t.string "address_line_2", limit: 100
+    t.string "address_postal_code", limit: 20
+    t.integer "address_state_id"
+    t.boolean "admin", default: false
+    t.string "administrative_notes", limit: 1000, default: "", comment: "notes about the user (not intended to be public)"
+    t.string "advisor", limit: 100, comment: "Advisor or Supervisor"
+    t.column "age_range", "enum('1-17','18-25','25-50','50 or older')"
+    t.string "backup_email_address"
+    t.string "billing_address_city", limit: 100
+    t.integer "billing_address_country_id"
+    t.string "billing_address_line_1", limit: 100
+    t.string "billing_address_line_2", limit: 100
+    t.string "billing_address_postal_code", limit: 20
+    t.boolean "billing_address_same_as_current", default: false
+    t.integer "billing_address_state_id"
+    t.string "billing_person_email", limit: 100
+    t.string "billing_person_full_name", limit: 100
+    t.string "billing_person_phone_number", limit: 20
+    t.datetime "confirmation_sent_at", precision: nil
+    t.string "confirmation_token", limit: 100
+    t.datetime "confirmed_at", precision: nil
+    t.datetime "created_at", precision: nil
+    t.datetime "date_created", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Use to determain if need to update record"
+    t.date "date_of_birth", default: "2000-01-01"
+    t.string "department", limit: 200
+    t.string "email", limit: 100, null: false
+    t.string "emergency_contact_full_name", limit: 100
+    t.string "emergency_contact_phone_number", limit: 60
+    t.string "encrypted_password", null: false
+    t.string "first_name", limit: 100
+    t.column "gender_identity", "enum('Male','Female','Non-binary','Other','Prefer not to state')"
+    t.string "housing_concerns", limit: 1000
+    t.string "identification_number", limit: 20
+    t.integer "institution_id"
+    t.string "last_name", limit: 100
+    t.string "middle_name", limit: 20
+    t.string "orcid", limit: 50, comment: "Unique ID for Researchers https://orcid.org/"
     t.string "phone_number", limit: 20
     t.boolean "record_complete", default: false, null: false, comment: "This is to check if user has completed their information entry."
     t.datetime "remember_created_at", precision: nil
