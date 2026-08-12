@@ -834,7 +834,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_104820) do
     t.string "billing_city", limit: 50
     t.string "check_payable_to_name", limit: 50
     t.boolean "class_projects_accepted", default: true, null: false, comment: "Boolean"
-    t.string "code_of_conduct_url", default: "https://rams.ucnature.org/PDF/nrs-codeofconduct.pdf", null: false, comment: "Code of Conduct"
+    t.string "code_of_conduct_url", default: "http://rams.ucnature.org/PDF/nrs-codeofconduct.pdf", null: false, comment: "Code of Conduct"
     t.boolean "conference_projects_accepted", default: false, null: false
     t.boolean "contact_for_project_review", default: false, null: false
     t.datetime "created_at", precision: nil
@@ -862,7 +862,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_104820) do
     t.string "large_hero_photo"
     t.float "latitude", limit: 53, default: 0.0, null: false
     t.virtual "latitude_degrees", type: :integer, as: "floor(abs(`latitude`))"
-    t.virtual "latitude_hemisphere", type: :string, limit: 50, as: "if((`latitude` > 0),_utf8mb4'N',_utf8mb4'S')"
+    t.virtual "latitude_hemisphere", type: :string, limit: 50, as: "if((`latitude` > 0),_utf8mb3'N',_utf8mb3'S')"
     t.virtual "latitude_minutes", type: :integer, as: "floor(((abs(`latitude`) % 1) * 60))"
     t.virtual "latitude_seconds", type: :float, as: "((((abs(`latitude`) % 1) * 60) % 1) * 60)"
     t.string "ldap_address", limit: 100, default: "uid=nrsadmin,o=unaffiliated,dc=ecoinformatics,dc=org", null: false
@@ -871,7 +871,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_104820) do
     t.string "logo_url_old", comment: "URL of reserve Icon"
     t.float "longitude", limit: 53, default: 0.0, null: false
     t.virtual "longitude_degrees", type: :integer, as: "floor(abs(`longitude`))"
-    t.virtual "longitude_hemisphere", type: :string, limit: 50, as: "if((`longitude` > 0),_utf8mb4'E',_utf8mb4'W')"
+    t.virtual "longitude_hemisphere", type: :string, limit: 50, as: "if((`longitude` > 0),_utf8mb3'E',_utf8mb3'W')"
     t.virtual "longitude_minutes", type: :integer, as: "floor(((abs(`longitude`) % 1) * 60))"
     t.virtual "longitude_seconds", type: :float, as: "((((abs(`longitude`) % 1) * 60) % 1) * 60)"
     t.integer "managing_campus_id"
@@ -944,7 +944,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_104820) do
     t.index ["waiver_id"], name: "index_signatures_on_waiver_id"
   end
 
-  create_table "solid_cable_messages", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "solid_cable_messages", charset: "utf8mb3", force: :cascade do |t|
     t.binary "channel", limit: 1024, null: false
     t.bigint "channel_hash", null: false
     t.datetime "created_at", null: false
