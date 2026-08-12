@@ -60,6 +60,7 @@ module ExternalApis
 
         FileUtils.mkdir_p(file_dir)
 
+        # this is just to cache the last downloaded checksum to a file (if it persists)
         checksum = File.open(checksum_file, 'w+') unless File.exist?(checksum_file) && !force
         checksum = File.open(checksum_file, 'r+') if checksum.blank?
         old_checksum_val = checksum.read
@@ -73,7 +74,7 @@ module ExternalApis
         log_message(method: method, message: "New ROR file detected - checksum #{metadata[:checksum]}")
         log_message(method: method, message: "Downloading #{download_file}")
 
-        payload = download_ror_file(url: metadata.fetch(:links, {})[:download])
+        payload = download_ror_file(url: download_file)
         return :failure if payload.blank?
 
         file = File.open(zip_file, 'wb')
@@ -108,12 +109,18 @@ module ExternalApis
         unless resp.present? && resp.code == 200
           handle_http_failure(method: 'Fetching ROR metadata from Zenodo', http_response: resp)
           notify_administrators(obj: 'RorService', response: resp)
-          return nil
+          ret urn nil
         end
         json = JSON.parse(resp.body)
 
-        # Extract the most recent file's metadata
-        file_metadata = json.first.fetch('files', []).first&.with_indifferent_access
+        # Zenodo search results contain records under hits.hits.
+        records = json.dig('hits', 'hits')
+        record = records.first if records.is_a?(Array)
+        files = record.fetch('files', []) if record.is_a?(Hash)
+        file_metadata = files.first&.with_indifferent_access if files.is_a?(Array)
+        if file_metadata.present? && file_metadata[:links].is_a?(Hash)
+          file_metadata[:links][:download] ||= file_metadata[:links][:self]
+        end
         unless file_metadata.present? && file_metadata.fetch(:links, {})[:download].present?
           handle_http_failure(method: 'No file found in ROR metadata from Zenodo', http_response: resp)
           notify_administrators(obj: 'RorService', response: resp)
@@ -132,7 +139,7 @@ module ExternalApis
 
         headers = {
           host: 'zenodo.org',
-          Accept: 'application/zip'
+          Accept: 'application/json'
         }
         resp = http_get(uri: url, additional_headers: headers, debug: false)
         unless resp.present? && resp.code == 200
