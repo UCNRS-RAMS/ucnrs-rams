@@ -56,47 +56,43 @@ module ExternalApis
 
         # Fetch the Zenodo metadata for ROR to see if we have the latest data dump
         metadata = fetch_zenodo_metadata
+        return :failure if metadata.blank?
 
-        if metadata.present?
-          FileUtils.mkdir_p(file_dir)
+        FileUtils.mkdir_p(file_dir)
 
-          checksum = File.open(checksum_file, 'w+') unless File.exist?(checksum_file) && !force
-          checksum = File.open(checksum_file, 'r+') if checksum.blank?
-          old_checksum_val = checksum.read
+        checksum = File.open(checksum_file, 'w+') unless File.exist?(checksum_file) && !force
+        checksum = File.open(checksum_file, 'r+') if checksum.blank?
+        old_checksum_val = checksum.read
 
-          if old_checksum_val == metadata[:checksum]
-            log_message(method: method, message: 'There is no new ROR file to process.')
-          else
-            download_file = metadata.fetch(:links, {})[:download]
-            log_message(method: method, message: "New ROR file detected - checksum #{metadata[:checksum]}")
-            log_message(method: method, message: "Downloading #{download_file}")
-
-            payload = download_ror_file(url: metadata.fetch(:links, {})[:download])
-            if payload.present?
-              file = File.open(zip_file, 'wb')
-              file.write(payload)
-
-              # rubocop:disable Metrics/BlockNesting
-              if validate_downloaded_file(file_path: zip_file, checksum: metadata[:checksum])
-                json_file = download_file.split('/').last.gsub('.zip', '')
-                json_file = "#{json_file}.json" unless json_file.end_with?('.json')
-
-                # Process the ROR JSON
-                if process_ror_file(zip_file: zip_file, file: json_file)
-                  checksum = File.open(checksum_file, 'w')
-                  checksum.write(metadata[:checksum])
-                end
-              else
-                log_error(method: method, error: StandardError.new('Downloaded ROR zip does not match checksum!'))
-              end
-              # rubocop:enable Metrics/BlockNesting
-            else
-              log_error(method: method, error: StandardError.new('Unable to download ROR file!'))
-            end
-          end
-        else
-          log_error(method: method, error: StandardError.new('Unable to fetch ROR metadata from Zenodo!'))
+        if old_checksum_val == metadata[:checksum]
+          log_message(method: method, message: 'There is no new ROR file to process.')
+          return :no_change
         end
+
+        download_file = metadata.fetch(:links, {})[:download]
+        log_message(method: method, message: "New ROR file detected - checksum #{metadata[:checksum]}")
+        log_message(method: method, message: "Downloading #{download_file}")
+
+        payload = download_ror_file(url: metadata.fetch(:links, {})[:download])
+        return :failure if payload.blank?
+
+        file = File.open(zip_file, 'wb')
+        file.write(payload)
+
+        unless validate_downloaded_file(file_path: zip_file, checksum: metadata[:checksum])
+          log_error(method: method, error: StandardError.new('Downloaded ROR zip does not match checksum!'))
+          return :failure
+        end
+
+        json_file = download_file.split('/').last.gsub('.zip', '')
+        json_file = "#{json_file}.json" unless json_file.end_with?('.json')
+
+        # Process the ROR JSON
+        return :failure unless process_ror_file(zip_file: zip_file, file: json_file)
+
+        checksum = File.open(checksum_file, 'w')
+        checksum.write(metadata[:checksum])
+        :success
       end
 
       private
