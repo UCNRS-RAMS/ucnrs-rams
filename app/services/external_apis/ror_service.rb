@@ -51,8 +51,6 @@ module ExternalApis
         Rails.configuration.x.ror&.search_path
       end
 
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def fetch(force: false)
         method = "ExternalApis::RorService.fetch(force: #{force})"
 
@@ -100,13 +98,10 @@ module ExternalApis
           log_error(method: method, error: StandardError.new('Unable to fetch ROR metadata from Zenodo!'))
         end
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       private
 
       # Fetch the latest Zenodo metadata for ROR files
-      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def fetch_zenodo_metadata
         Rails.logger.error 'No :download_url defined for RorService!' if download_url.blank?
         return nil if download_url.blank?
@@ -134,7 +129,6 @@ module ExternalApis
         log_error(method: 'RorService', error: e)
         nil
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       # Download the latest ROR data
       def download_ror_file(url:)
@@ -154,8 +148,6 @@ module ExternalApis
       end
 
       # Parse the JSON file and process each individual record
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def process_ror_file(zip_file:, file:)
         return false unless zip_file.present? && file.present?
 
@@ -181,8 +173,7 @@ module ExternalApis
               )
             end
             # Remove any old ROR records (their file_timestamps would not have been updated)
-            # Note this does not remove any associated Org records!
-            RorOrg.where('file_timestamp < ?', json_file.mtime.strftime('%Y-%m-%d %H:%M:%S')).destroy_all
+            Ror.where('file_timestamp < ?', json_file.mtime.strftime('%Y-%m-%d %H:%M:%S')).destroy_all
             true
           else
             log_error(method: method, error: StandardError.new('Unable to find json in zip!'))
@@ -196,55 +187,33 @@ module ExternalApis
         log_error(method: method, error: e)
         false
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-      # Transfer the contents of the JSON record to the org_indices table
-      # rubocop:disable Metrics/AbcSize
+      # Transfer the contents of the JSON record to the rors table
       def process_ror_record(record:, time:)
         return nil unless record.present? && record.is_a?(Hash) && record['id'].present?
 
-        ror_org = RorOrg.find_or_create_by(ror_id: record['id'])
-        ror_org.name = safe_string(value: org_name(item: record))
-        ror_org.acronyms = record['acronyms']
-        ror_org.aliases = record['aliases']
-        ror_org.country = record['country']
-        ror_org.types = record['types']
-        ror_org.language = org_language(item: record)
-        ror_org.file_timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
-        ror_org.fundref_id = fundref_id(item: record)
-        ror_org.home_page = safe_string(value: record.fetch('links', []).first)
-
-        # Attempt to find a matching Org record
-        ror_org.org_id = check_for_org_association(ror_org: ror_org)
-
-        # TODO: We should create some sort of Super Admin page to highlight unmapped
-        #       RorOrg records so that they can be connected to their Org
-        ror_org.save
+        ror = Ror.find_or_create_by(ror_id: record['id'])
+        ror.name = safe_string(value: org_name(item: record))
+        ror.acronyms = record['acronyms']
+        ror.aliases = record['aliases']
+        ror.country = record['country']
+        ror.types = record['types']
+        ror.language = org_language(item: record)
+        ror.file_timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
+        ror.fundref_id = fundref_id(item: record)
+        ror.home_page = safe_string(value: record.fetch('links', []).first)
+        ror.save
         true
       rescue StandardError => e
         log_error(method: 'ExternalApis::RorService.process_ror_record', error: e)
         log_message(method: 'ExternalApis::RorService.process_ror-record', message: record.to_s)
         false
       end
-      # rubocop:enable Metrics/AbcSize
 
       def safe_string(value:)
         return value if value.blank? || value.length < 255
 
         value[0..254]
-      end
-
-      # Determine if there is a matching Org record in the DB if so, attach it
-      def check_for_org_association(ror_org:)
-        return ror_org.org&.id if ror_org.org.present?
-
-        ror = Identifier.by_scheme_name('ror', 'Org')
-                        .where(value: ror_org.ror_id)
-                        .first
-        return nil if ror.blank?
-
-        ror.present? ? ror.identifiable_id : nil
       end
 
       # Org names are not unique, so include the Org URL if available or

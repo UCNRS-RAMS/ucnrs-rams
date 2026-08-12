@@ -273,11 +273,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_104820) do
     t.column "institution_type", "enum('University of California','California State University System','California Community College','California - Other University or College','U.S. - University or College Outside of California','International University or College','K-12 Education','Non-Governmental Organization or Non-Profit Entity','Governmental Agency or Entity','Business Entity','Individual or Other Entity')"
     t.integer "managing_institution_id", default: 0
     t.string "name", limit: 80
+    t.string "ror_id"
     t.integer "state_id"
     t.datetime "updated_at", null: false
     t.index ["institution_type", "name"], name: "institution_type"
     t.index ["name", "city"], name: "index_institutions_on_name_and_city"
     t.index ["name"], name: "name"
+    t.index ["ror_id"], name: "index_institutions_on_ror_id"
   end
 
   create_table "invoice_payments", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -909,6 +911,25 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_104820) do
     t.index ["reserve_id", "waiver_id"], name: "index_reserves_waivers_on_reserve_id_and_waiver_id", unique: true
     t.index ["reserve_id"], name: "index_reserves_waivers_on_reserve_id"
     t.index ["waiver_id"], name: "index_reserves_waivers_on_waiver_id"
+  end
+
+  create_table "rors", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.json "acronyms"
+    t.json "aliases"
+    t.json "country"
+    t.datetime "created_at", null: false
+    t.datetime "file_timestamp"
+    t.string "fundref_id"
+    t.string "home_page"
+    t.string "language"
+    t.string "name"
+    t.string "ror_id"
+    t.json "types"
+    t.datetime "updated_at", null: false
+    t.index ["file_timestamp"], name: "index_rors_on_file_timestamp"
+    t.index ["fundref_id"], name: "index_rors_on_fundref_id"
+    t.index ["name"], name: "index_rors_on_name"
+    t.index ["ror_id"], name: "index_rors_on_ror_id"
   end
 
   create_table "signatures", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
