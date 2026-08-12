@@ -185,16 +185,24 @@ module ExternalApis
       def unzip_file(zip_file:, destination:)
         return false unless zip_file.present? && File.exist?(zip_file)
 
-        Zip::File.open(zip_file) do |files|
-          files.each do |entry|
-            next if File.exist?(entry.name)
+        destination = File.expand_path(destination.to_s)
+        FileUtils.mkdir_p(destination)
+
+        Zip::File.open(zip_file) do |zip|
+          zip.each do |entry|
+            next if entry.name.to_s.end_with?('/')
 
             f_path = File.join(destination, entry.name)
             FileUtils.mkdir_p(File.dirname(f_path))
-            files.extract(entry, f_path) unless File.exist?(f_path)
+            next if File.exist?(f_path)
+
+            File.binwrite(f_path, zip.read(entry))
           end
         end
         true
+      rescue StandardError => e
+        log_error(method: 'BaseService.unzip_file', error: e)
+        false
       end
 
       # Determine if the downloaded file matches the expected checksum
