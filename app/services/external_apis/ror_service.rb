@@ -85,8 +85,8 @@ module ExternalApis
           return :failure
         end
 
-        json_file = download_file.split('/').last.gsub('.zip', '')
-        json_file = "#{json_file}.json" unless json_file.end_with?('.json')
+        json_file = json_file_name_from_zip(zip_file: zip_file)
+        return :failure if json_file.blank?
 
         # Process the ROR JSON
         return :failure unless process_ror_file(zip_file: zip_file, file: json_file)
@@ -150,14 +150,28 @@ module ExternalApis
         resp.body
       end
 
+      def json_file_name_from_zip(zip_file:)
+        return nil unless zip_file.present? && File.exist?(zip_file)
+
+        Zip::File.open(zip_file) do |zip|
+          zip.each do |entry|
+            next if entry.name.to_s.end_with?('/')
+            return entry.name.split('/').last if entry.name.to_s.end_with?('.json')
+          end
+        end
+
+        nil
+      end
+
       # Parse the JSON file and process each individual record
       def process_ror_file(zip_file:, file:)
         return false unless zip_file.present? && file.present?
 
         if unzip_file(zip_file: zip_file, destination: file_dir)
           method = 'ExternalApis::RorService.process_ror-file'
-          if File.exist?("#{file_dir}/#{file}")
-            json_file = File.open("#{file_dir}/#{file}", 'r')
+          json_path = File.join(file_dir.to_s, file)
+          if File.exist?(json_path)
+            json_file = File.open(json_path, 'r')
             json = JSON.parse(json_file.read)
             cntr = 0
             total = json.length
@@ -179,7 +193,7 @@ module ExternalApis
             Ror.where('file_timestamp < ?', json_file.mtime.strftime('%Y-%m-%d %H:%M:%S')).destroy_all
             true
           else
-            log_error(method: method, error: StandardError.new('Unable to find json in zip!'))
+            log_error(method: method, error: StandardError.new("Unable to find json in zip: #{json_path}"))
             false
           end
         else
