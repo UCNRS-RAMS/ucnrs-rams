@@ -69,7 +69,7 @@ module ExternalApis
 
       # Logs the results of a failed HTTP response
       def handle_uri_failure(method:, uri:)
-        msg = "received an invalid uri: '#{uri&.to_s}'!"
+        msg = "received an invalid uri: '#{uri}'!"
         log_error(method: method, error: ExternalApiError.new(msg))
       end
 
@@ -88,28 +88,24 @@ module ExternalApis
         Rails.logger.send((info ? :info : :warn), "#{self.class.name}.#{method} #{message}")
       end
 
-      # Emails the error and response to the administrators
-      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # Logs the error and response for operators. This intentionally does not
+      # send email because these tasks may run in environments without mail.
       def notify_administrators(obj:, response: nil, error: nil)
-        return false unless obj.present? && response.present?
+        return false unless obj.present? || response.present? || error.present?
 
-        message = "#{obj.class.name} - #{obj.respond_to?(:id) ? obj.id : ''}"
-        message += '<br>----------------------------------------<br><br>'
+        source = obj.is_a?(String) ? obj : obj.class.name
+        message = "#{source} received an unexpected response"
+        message += " from #{name}" if respond_to?(:name)
 
-        message += "Sent: #{Rails.logger.debug(json_from_template(plan: obj))}" if obj.is_a?(Plan)
-        message += '<br>----------------------------------------<br><br>' if obj.is_a?(Plan)
+        Rails.logger.error message
+        Rails.logger.error response.inspect if response.present?
 
-        message += "#{name} received the following unexpected response:<br>"
-        message += response.inspect.to_s
-        message += '<br>----------------------------------------<br><br>'
+        return true unless error.present? && error.is_a?(StandardError)
 
-        message += error.message if error.present? && error.is_a?(StandardError)
-        message += error.backtrace || '' if error.present? && error.is_a?(StandardError)
-
-        UserMailer.notify_administrators(message).deliver_now
+        Rails.logger.error "#{error.class}: #{error.message}"
+        Rails.logger.error error.backtrace if error.backtrace.present?
         true
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       private
 
@@ -120,8 +116,9 @@ module ExternalApis
 
       # Retrieves the helpdesk email from dmproadmap.rb initializer or uses the contact page url
       def app_email
-        dflt = Rails.application.routes.url_helpers.contact_us_url || ''
-        Rails.configuration.x.organisation.fetch(:helpdesk_email, dflt)
+        Rails.configuration.x.organisation.fetch(:helpdesk_email) do
+          Rails.application.routes.url_helpers.contact_us_url || ''
+        end
       end
 
       # Makes a GET request to the specified uri with the additional headers.
