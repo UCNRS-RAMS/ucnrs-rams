@@ -1,4 +1,11 @@
 class RegistrationForm
+  def self.params_with_pending_orcid(params, pending_orcid_identifier)
+    params = params.to_h
+    return params if pending_orcid_identifier.blank?
+
+    params.merge(orcid: pending_orcid_identifier, orcid_authenticated: true)
+  end
+
   def initialize(user: User.new, params: {})
     @user = user
     @params = params
@@ -23,8 +30,7 @@ class RegistrationForm
   end
 
   def submit
-    user.valid?
-    return false if user.errors.any?
+    return unless user.valid?
     user.save
   end
 
