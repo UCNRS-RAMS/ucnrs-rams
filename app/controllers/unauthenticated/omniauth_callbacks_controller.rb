@@ -5,6 +5,13 @@ module Unauthenticated
     ORCID_IDENTIFIER_PATTERN = /\A\d{4}-\d{4}-\d{4}-[\dX]{4}\z/i
     ORCID_PROVIDER = "orcid"
     REGISTRATION_ORCID_SESSION_KEY = :registration_orcid_identifier
+    ORCID_API_HOST = "api.orcid.org"
+    ORCID_SANDBOX_API_HOST = "api.sandbox.orcid.org"
+    AUTHORIZATION_HEADER = "Authorization"
+    ACCEPT_HEADER = "Accept"
+    JSON_MEDIA_TYPE = "application/json"
+    PERSON_KEY = "person"
+    NAME_KEY = "name"
 
     def orcid
 
@@ -113,20 +120,20 @@ module Unauthenticated
 
     # A simple test of api version(s) to see that authenticated call with orcid token works and returns basic data
     def test_authenticated_request(api_version:, token:, orcid:)
-      api_host = orcid_sandbox? ? "api.sandbox.orcid.org" : "api.orcid.org"
+      api_host = orcid_sandbox? ? ORCID_SANDBOX_API_HOST : ORCID_API_HOST
       base_url = "https://#{api_host}/v#{api_version}"
       url = "#{base_url}/#{orcid}/record"
 
       # Chain authorization and header definitions
       response = Faraday.get(url) do |request|
-        request.headers['Authorization'] = "Bearer #{token}"
-        request.headers['Accept'] = 'application/json'
+        request.headers[AUTHORIZATION_HEADER] = "Bearer #{token}"
+        request.headers[ACCEPT_HEADER] = JSON_MEDIA_TYPE
       end
 
       if response.success?
         data = JSON.parse(response.body)
 
-        person_name = data.dig('person', 'name')  # for some reason name seems to be null in json orcid returns sometimes
+        person_name = data.dig(PERSON_KEY, NAME_KEY)  # for some reason name seems to be null in json orcid returns sometimes
         return [true, person_name]
       else
         return [false, nil]
