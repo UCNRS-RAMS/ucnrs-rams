@@ -66,7 +66,7 @@ class RegistrationForm
   end
 
   def orcid_value_submitted?(params)
-    params.key?(:orcid) || params.key?("orcid")
+    params[:orcid].present?
   end
 
   def orcid_authenticated_value_submitted?(params)
