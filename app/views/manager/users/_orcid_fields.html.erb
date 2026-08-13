@@ -1,6 +1,6 @@
-<% orcid_authenticated_alt_text = local_assigns.fetch(:orcid_authenticated_alt_text, t("devise.registrations.user_fields.alt.orcid_id")) %>
-<% orcid_placeholder = local_assigns.fetch(:orcid_placeholder, t("devise.registrations.user_fields.placeholders.orcid")) %>
-<% orcid_unauthenticated_text = local_assigns.fetch(:orcid_unauthenticated_text, t("devise.registrations.user_fields.status.unauthenticated")) %>
+<% orcid_authenticated_alt_text = local_assigns[:orcid_authenticated_alt_text] %>
+<% orcid_placeholder = local_assigns[:orcid_placeholder] %>
+<% orcid_unauthenticated_text = local_assigns[:orcid_unauthenticated_text] %>
 
 <% show_read_only_orcid = f.object.orcid_authenticated? && f.object.orcid.present? && f.object.errors[:orcid].blank? %>
 <% orcid_uri = show_read_only_orcid ? orcid_display_uri(f.object.orcid) : nil %>
