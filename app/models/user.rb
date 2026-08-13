@@ -34,6 +34,7 @@ class User < ApplicationRecord
   validates :terms_accepted_at, presence: true
   validates :institution, presence: true
   validates :orcid, format: { with: ORCID_PATTERN }, allow_blank: true
+  validates :orcid_authenticated, inclusion: { in: [true, false] }, allow_nil: true
 
   validate :password_complexity
 
@@ -94,7 +95,25 @@ class User < ApplicationRecord
     docent: "Docent",
     volunteer: "Volunteer",
     reserve_staff: "Staff",
-  }
+  }, validate: true
+
+  def orcid_authenticated=(value)
+    normalized_value = if value.nil?
+      nil
+    elsif value.is_a?(String)
+      value.strip.downcase
+    else
+      value
+    end
+
+    if [true, false].include?(value)
+      super(value)
+    elsif ["true", "false", "1", "0", "yes", "no", "t", "f"].include?(normalized_value)
+      super(ActiveModel::Type::Boolean.new.cast(value))
+    else
+      super(false)
+    end
+  end
 
   enum :age_range, {
     one_to_seventeen: "1-17",

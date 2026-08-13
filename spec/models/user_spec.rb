@@ -54,6 +54,22 @@ RSpec.describe User, type: :model do
       end
     end
 
+    describe "#role" do
+      it "rejects non-enum role values" do
+        user = build(:user, role: "not_a_real_role")
+
+        expect(user).not_to be_valid
+      end
+    end
+
+    describe "#orcid_authenticated" do
+      it "coerces invalid boolean strings to false" do
+        user = build(:user, orcid_authenticated: "not-a-boolean")
+
+        expect(user.orcid_authenticated).to be false
+      end
+    end
+
     describe "#password_complexity" do
       let!(:country) { create(:country, name: "United States") }
       let!(:state) { create(:state, name: "California", country: country) }
