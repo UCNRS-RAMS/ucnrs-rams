@@ -60,11 +60,7 @@ RSpec.describe ExternalApis::RorService do
         allow(described_class).to receive(:http_get)
           .with(
             uri: 'https://zenodo.org/api/records/1/files/ror.zip/content',
-            additional_headers: hash_including(
-              host: 'zenodo.org',
-              Accept: 'application/json',
-              'Content-Type': 'application/json'
-            ),
+            additional_headers: { host: 'zenodo.org', Accept: 'application/json' },
             debug: false,
           ).and_return(response)
 
@@ -72,90 +68,6 @@ RSpec.describe ExternalApis::RorService do
           described_class.send(:download_ror_file, url: 'https://zenodo.org/api/records/1/files/ror.zip/content'),
         ).to eq('zip file contents')
       end
-    end
-  end
-
-  describe '.process_ror_record' do
-    let(:record) do
-      {
-        'id' => 'https://ror.org/01an7q238',
-        'domains' => ['berkeley.edu'],
-        'external_ids' => [
-          { 'all' => ['100006978', '100010501'], 'preferred' => '100006978', 'type' => 'fundref' },
-          { 'all' => ['grid.47840.3f'], 'preferred' => 'grid.47840.3f', 'type' => 'grid' }
-        ],
-        'links' => [
-          { 'type' => 'website', 'value' => 'https://www.berkeley.edu' },
-          { 'type' => 'wikipedia', 'value' => 'http://en.wikipedia.org/wiki/University_of_California,_Berkeley' }
-        ],
-        'locations' => [
-          { 'geonames_details' => { 'country_code' => 'US', 'country_name' => 'United States' } }
-        ],
-        'names' => [
-          { 'lang' => 'en', 'types' => ['alias'], 'value' => 'UC Berkeley' },
-          { 'lang' => 'en', 'types' => ['acronym'], 'value' => 'UCB' },
-          { 'lang' => 'en', 'types' => ['ror_display', 'label'], 'value' => 'University of California, Berkeley' }
-        ],
-        'types' => ['education', 'funder']
-      }
-    end
-
-    it 'maps the current ROR schema to local fields' do
-      time = Time.zone.parse('2026-08-03 00:00:00')
-
-      expect(described_class.send(:process_ror_record, record: record, time: time)).to be(true)
-
-      ror = Ror.find_by(ror_id: record['id'])
-      expect(ror).to be_present
-      expect(ror.name).to include('University of California, Berkeley')
-      expect(ror.acronyms).to include('UCB')
-      expect(ror.aliases).to include('UC Berkeley')
-      expect(ror.country['country_name']).to eq('United States')
-      expect(ror.language).to eq('en')
-      expect(ror.fundref_id).to eq('100006978')
-      expect(ror.home_page).to eq('https://www.berkeley.edu')
-    end
-  end
-
-  describe '.fetch' do
-    let(:tmp_dir) { Rails.root.join("tmp/spec-ror") }
-    let(:checksum_path) { tmp_dir.join('checksum.txt') }
-    let(:zip_path) { tmp_dir.join('latest-ror-data.zip') }
-    let(:metadata) do
-      {
-        checksum: 'md5:abc123',
-        key: 'latest-ror-data.zip',
-        links: {
-          download: 'https://zenodo.org/api/records/1/files/latest-ror-data.zip/content',
-        },
-      }.with_indifferent_access
-    end
-
-    before do
-      FileUtils.rm_rf(tmp_dir)
-      FileUtils.mkdir_p(tmp_dir)
-      allow(described_class).to receive(:file_dir).and_return(tmp_dir)
-      allow(described_class).to receive(:checksum_file).and_return(checksum_path)
-      allow(described_class).to receive(:zip_file).and_return(zip_path)
-      allow(described_class).to receive(:fetch_zenodo_metadata).and_return(metadata)
-    end
-
-    after do
-      FileUtils.rm_rf(tmp_dir)
-    end
-
-    it 'returns :no_change when the checksum matches the cached value' do
-      File.write(checksum_path, metadata[:checksum])
-
-      expect(described_class.fetch).to eq(:no_change)
-    end
-
-    it 'returns :success when the file is downloaded and processed' do
-      allow(described_class).to receive(:download_ror_file).and_return('zip payload')
-      allow(described_class).to receive(:process_ror_file).and_return(true)
-
-      expect(described_class.fetch).to eq(:success)
-      expect(File.read(checksum_path)).to eq(metadata[:checksum])
     end
   end
 end

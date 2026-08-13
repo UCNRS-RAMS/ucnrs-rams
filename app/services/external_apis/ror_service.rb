@@ -209,14 +209,14 @@ module ExternalApis
 
         ror = Ror.find_or_create_by(ror_id: record['id'])
         ror.name = safe_string(value: org_name(item: record))
-        ror.acronyms = record['acronyms']
-        ror.aliases = record['aliases']
-        ror.country = record['country']
+        ror.acronyms = extract_names_by_type(item: record, type: 'acronym')
+        ror.aliases = extract_names_by_type(item: record, type: 'alias')
+        ror.country = country_name(item: record)
         ror.types = record['types']
         ror.language = org_language(item: record)
         ror.file_timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
         ror.fundref_id = fundref_id(item: record)
-        ror.home_page = safe_string(value: record.fetch('links', []).first)
+        ror.home_page = safe_string(value: org_website(item: record))
         ror.save
         true
       rescue StandardError => e
@@ -226,9 +226,32 @@ module ExternalApis
       end
 
       def safe_string(value:)
-        return value if value.blank? || value.length < 255
+        return value if value.blank? || value.is_a?(String) && value.length < 255
+        return value.to_s if value.is_a?(Hash) && value['value'].present?
+        return value['value'] if value.is_a?(Hash) && value['value'].present?
 
-        value[0..254]
+        string_value = value.to_s
+        return string_value if string_value.length < 255
+
+        string_value[0..254]
+      end
+
+      def extract_names_by_type(item:, type:)
+        return [] unless item.present? && item['names'].is_a?(Array)
+
+        item['names'].filter_map do |entry|
+          next unless entry.is_a?(Hash)
+          next unless Array(entry['types']).include?(type.to_s)
+
+          entry['value']
+        end
+      end
+
+      def country_name(item:)
+        country = item.dig('country', 'country_name')
+        return country if country.present?
+
+        item.dig('locations', 0, 'geonames_details', 'country_name')
       end
 
       # Org names are not unique, so include the Org URL if available or
@@ -236,15 +259,25 @@ module ExternalApis
       #    "Example College (example.edu)"
       #    "Example College (Brazil)"
       def org_name(item:)
-        return '' unless item.present? && item['name'].present?
+        return '' unless item.present?
 
-        country = item.fetch('country', {}).fetch('country_name', '')
+        candidate_name = item['name'] || first_named_value(item: item)
+        return '' if candidate_name.blank?
+
+        country = country_name(item: item)
         website = org_website(item: item)
-        # If no website or country then just return the name
-        return item['name'] unless website.present? || country.present?
+        return candidate_name unless website.present? || country.present?
 
-        # Otherwise return the contextualized name
-        "#{item['name']} (#{website || country})"
+        "#{candidate_name} (#{website || country})"
+      end
+
+      def first_named_value(item:)
+        return nil unless item.present? && item['names'].is_a?(Array)
+
+        preferred = item['names'].find { |name| name.is_a?(Hash) && Array(name['types']).include?('ror_display') }
+        preferred ||= item['names'].find { |name| name.is_a?(Hash) && Array(name['types']).include?('label') }
+        preferred ||= item['names'].first
+        preferred.is_a?(Hash) ? preferred['value'] : preferred
       end
 
       # Extracts the org's ISO639 if available
@@ -252,38 +285,42 @@ module ExternalApis
         dflt = I18n.default_locale || 'en'
         return dflt if item.blank?
 
-        country = item.fetch('country', {}).fetch('country_code', '')
-        labels = case country
-                 when 'US'
-                   [{ iso639: 'en' }]
-                 else
-                   item.fetch('labels', [{ iso639: dflt }])
-                 end
-        labels.first&.fetch('iso639', I18n.default_locale) || dflt
+        name_entry = item['names']&.find do |candidate|
+          candidate.is_a?(Hash) && Array(candidate['types']).include?('ror_display')
+        end
+        name_entry ||= item['names']&.find { |candidate| candidate.is_a?(Hash) && candidate['lang'].present? }
+        language = name_entry&.fetch('lang', nil)
+        return language if language.present?
+
+        country_code = item.dig('country', 'country_code') || item.dig('locations', 0, 'geonames_details', 'country_code')
+        return 'en' if country_code == 'US'
+
+        dflt
       end
 
       # Extracts the website domain from the item
       def org_website(item:)
-        return nil unless item.present? && item.fetch('links', [])&.any?
-        return nil if item['links'].first.blank?
+        return nil unless item.present?
 
-        # A website was found, so extract just the domain without the www
-        domain_regex = %r{^(?:http://|www\.|https://)([^/]+)}
-        website = item['links'].first.scan(domain_regex).last.first
-        website.gsub('www.', '')
+        links = Array(item['links'])
+        website_link = links.find { |link| link.is_a?(Hash) && link['type'] == 'website' }
+        website = website_link.present? ? website_link['value'] : links.first
+        return nil if website.blank?
+
+        website.to_s
       end
 
       # Extracts the FundRef Id if available
       def fundref_id(item:)
-        return '' unless item.present? && item['external_ids'].present?
-        return '' unless item['external_ids'].fetch('FundRef', {}).any?
+        return '' unless item.present? && item['external_ids'].is_a?(Array)
 
-        # If a preferred Id was specified then use it
-        ret = item['external_ids'].fetch('FundRef', {}).fetch('preferred', '')
-        return ret if ret.present?
+        external_id = item['external_ids'].find { |entry| entry.is_a?(Hash) && entry['type'].to_s.casecmp('FundRef').zero? }
+        return '' if external_id.blank?
 
-        # Otherwise take the first one listed
-        item['external_ids'].fetch('FundRef', {}).fetch('all', []).first
+        preferred = external_id['preferred']
+        return preferred if preferred.present?
+
+        Array(external_id['all']).first
       end
     end
   end
