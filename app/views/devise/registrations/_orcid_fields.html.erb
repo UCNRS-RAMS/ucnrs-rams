@@ -1,7 +1,7 @@
-<% orcid_authenticated_alt_text = local_assigns.fetch(:orcid_authenticated_alt_text, t("devise.registrations.user_fields.alt.orcid_id")) %>
-<% orcid_unauthenticated_alt_text = local_assigns.fetch(:orcid_unauthenticated_alt_text, t("devise.registrations.user_fields.alt.orcid_id_unauthenticated")) %>
-<% orcid_unauthenticated_text = local_assigns.fetch(:orcid_unauthenticated_text, t("devise.registrations.user_fields.status.unauthenticated")) %>
-<% orcid_unsaved_text = local_assigns.fetch(:orcid_unsaved_text, t("devise.registrations.user_fields.helper_text.unsaved")) %>
+<% orcid_authenticated_alt_text = local_assigns[:orcid_authenticated_alt_text] %>
+<% orcid_unauthenticated_alt_text = local_assigns[:orcid_unauthenticated_alt_text] %>
+<% orcid_unauthenticated_text = local_assigns[:orcid_unauthenticated_text] %>
+<% orcid_unsaved_text = local_assigns[:orcid_unsaved_text] %>
 
 <div
   class="field small orcid"

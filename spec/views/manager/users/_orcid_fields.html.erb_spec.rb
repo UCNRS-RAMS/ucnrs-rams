@@ -16,6 +16,9 @@ RSpec.describe "manager/users/_orcid_fields.html.erb", type: :view do
           orcid_label: orcid_label,
           orcid_link_text: orcid_link_text,
           orcid_url: orcid_url,
+          orcid_authenticated_alt_text: "ORCID iD",
+          orcid_unauthenticated_text: "(unauthenticated)",
+          orcid_placeholder: "XXXX-XXXX-XXXX-XXXX",
         }
     end
 
@@ -36,6 +39,9 @@ RSpec.describe "manager/users/_orcid_fields.html.erb", type: :view do
           orcid_label: orcid_label,
           orcid_link_text: orcid_link_text,
           orcid_url: orcid_url,
+          orcid_authenticated_alt_text: "ORCID iD",
+          orcid_unauthenticated_text: "(unauthenticated)",
+          orcid_placeholder: "XXXX-XXXX-XXXX-XXXX",
         }
     end
 
@@ -55,6 +61,9 @@ RSpec.describe "manager/users/_orcid_fields.html.erb", type: :view do
           orcid_label: orcid_label,
           orcid_link_text: orcid_link_text,
           orcid_url: orcid_url,
+          orcid_authenticated_alt_text: "ORCID iD",
+          orcid_unauthenticated_text: "(unauthenticated)",
+          orcid_placeholder: "XXXX-XXXX-XXXX-XXXX",
         }
     end
 
