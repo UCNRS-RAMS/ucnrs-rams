@@ -87,11 +87,11 @@ module Unauthenticated
     private
 
     def create_user_params
-      RegistrationForm.params_with_pending_orcid(user_params.to_h, session[REGISTRATION_ORCID_SESSION_KEY].presence)
+      RegistrationForm.params_with_pending_orcid(user_params, session[REGISTRATION_ORCID_SESSION_KEY].presence)
     end
 
     def update_user_params
-      RegistrationForm.params_with_pending_orcid(user_params.to_h, session[REGISTRATION_ORCID_SESSION_KEY].presence)
+      RegistrationForm.params_with_pending_orcid(user_params, session[REGISTRATION_ORCID_SESSION_KEY].presence)
     end
 
     def pending_orcid_params
