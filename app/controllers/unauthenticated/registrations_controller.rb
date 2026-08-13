@@ -87,18 +87,15 @@ module Unauthenticated
     private
 
     def create_user_params
-      user_params.to_h.merge(pending_orcid_params).compact
+      RegistrationForm.params_with_pending_orcid(user_params.to_h, session[REGISTRATION_ORCID_SESSION_KEY].presence)
     end
 
     def update_user_params
-      user_params.to_h.merge(pending_orcid_params).compact
+      RegistrationForm.params_with_pending_orcid(user_params.to_h, session[REGISTRATION_ORCID_SESSION_KEY].presence)
     end
 
     def pending_orcid_params
-      identifier = session[REGISTRATION_ORCID_SESSION_KEY].presence
-      return {} if identifier.blank?
-
-      { orcid: identifier, orcid_authenticated: true }
+      RegistrationForm.params_with_pending_orcid({}, session[REGISTRATION_ORCID_SESSION_KEY].presence)
     end
 
     def clear_pending_orcid!
