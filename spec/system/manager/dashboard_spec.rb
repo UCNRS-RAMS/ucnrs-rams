@@ -94,13 +94,13 @@ RSpec.describe "Manager Dashboard" do
       expect(flow).to have_modal
 
       page.click_on("Close")
-      expect(flow).not_to have_modal
+      expect(flow).to have_no_modal
 
       page.first(".amenity-count").click
       expect(flow).to have_modal
 
       page.click_on("Close")
-      expect(flow).not_to have_modal
+      expect(flow).to have_no_modal
     end
   end
 

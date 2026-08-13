@@ -23,6 +23,7 @@ export default class extends Controller {
     if (this.hasDialogTarget) {
       this.element.classList.add("visible")
       this.element.setAttribute("aria-hidden", "false")
+      this.element.removeAttribute("inert")
       document.body.classList.add("no-scroll")
     }
   }
@@ -34,6 +35,7 @@ export default class extends Controller {
     }
     this.element.classList.remove("visible")
     this.element.setAttribute("aria-hidden", "true")
+    this.element.setAttribute("inert", "")
     document.body.classList.remove("no-scroll")
   }
 
