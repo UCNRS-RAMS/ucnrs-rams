@@ -57,6 +57,10 @@ class Manager::DashboardFlow
     page.has_css?(".calendar-modal")
   end
 
+  def has_no_modal?
+    page.has_no_css?(".calendar-modal")
+  end
+
   private
 
   attr_reader :page

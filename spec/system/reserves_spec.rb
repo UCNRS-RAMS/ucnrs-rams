@@ -208,13 +208,13 @@ RSpec.describe "Reserves", type: :system, js: true do
       expect(flow).to have_modal
 
       page.find(".close").click
-      expect(flow).not_to have_modal
+      expect(flow).to have_no_modal
 
       page.first(".amenity-count").click
       expect(flow).to have_modal
 
       page.find(".close").click
-      expect(flow).not_to have_modal
+      expect(flow).to have_no_modal
     end
   end
 end

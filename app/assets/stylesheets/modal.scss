@@ -5,17 +5,37 @@
 
 .modal {
 
-  background: rgba($navy-blue, 0.85);
   bottom: 0;
-  display: none;
   left: 0;
   overflow: hidden;
   position: fixed;
   right: 0;
   top: 0;
+  transition: visibility 0.3s linear;
+  visibility: hidden;
   z-index: 2;
   @include form2;
   @include date_fields;
+
+  &.visible {
+    overflow-x: hidden;
+    overflow-y: auto;
+    visibility: visible;
+
+    .modal-container {
+      opacity: 1;
+      transform: none;
+      transition:
+        opacity 0s,
+        transform 0.3s ease-out;
+    }
+
+    .modal-backdrop {
+      -webkit-backdrop-filter: blur(3px);
+      backdrop-filter: blur(3px);
+      background: rgba($navy-blue, 0.85);
+    }
+  }
 
   a, a:visited {
     color: $dark-sky-blue;
@@ -27,6 +47,29 @@
     margin: 2rem auto;
     max-width: 800px;
     min-height: calc(100% - 4rem);
+    opacity: 0;
+    position: relative;
+    transform: translate(0, 2rem);
+    transition:
+      opacity 0.3s linear,
+      transform 0.3s ease-out;
+    z-index: 2;
+  }
+
+  .modal-backdrop {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba($navy-blue, 0);
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    transition:
+      background 0.3s linear,
+      -webkit-backdrop-filter 0.3s linear,
+      backdrop-filter 0.3s linear;
+    z-index: 1;
   }
 
   .close {
@@ -110,12 +153,6 @@
 
   .screenreader-text {
     display: none;
-  }
-
-  &.visible {
-    display: block;
-    overflow-x: hidden;
-    overflow-y: auto;
   }
 
   .d-flex {
