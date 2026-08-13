@@ -1,4 +1,4 @@
-require 'http'
+require 'faraday'
 
 module Unauthenticated
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
@@ -118,10 +118,13 @@ module Unauthenticated
       url = "#{base_url}/#{orcid}/record"
 
       # Chain authorization and header definitions
-      response = HTTP.auth("Bearer #{token}").accept(:json).get(url)
+      response = Faraday.get(url) do |request|
+        request.headers['Authorization'] = "Bearer #{token}"
+        request.headers['Accept'] = 'application/json'
+      end
 
-      if response.status.success?
-        data = response.parse
+      if response.success?
+        data = JSON.parse(response.body)
 
         person_name = data.dig('person', 'name')  # for some reason name seems to be null in json orcid returns sometimes
         return [true, person_name]

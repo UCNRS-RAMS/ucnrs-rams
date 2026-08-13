@@ -9,7 +9,6 @@ gem 'carrierwave'
 gem 'csv'
 gem "cssbundling-rails"
 gem "devise", '~> 5.0'
-gem 'http'
 gem "omniauth"
 gem "omniauth-orcid"
 gem "omniauth-rails_csrf_protection"
