@@ -194,6 +194,21 @@ en:
           orcid: "What is an ORCID?"
         urls:
           orcid: "https://orcid.org/"
+      orcid_fields:
+        labels:
+          orcid: "ORCID (Optional)"
+        links:
+          connect_orcid: "Login/Sign-Up to connect ORCID"
+          orcid: "What is an ORCID?"
+        urls:
+          orcid: "https://orcid.org/"
+        alt:
+          orcid_id: "ORCID iD"
+          orcid_id_unauthenticated: "ORCID iD unauthenticated"
+        status:
+          unauthenticated: "(unauthenticated)"
+        helper_text:
+          unsaved: "Unsaved"
       terms_accepted_at_field:
         labels:
           agree_to_terms_of_use: "I agree to the %{link} of the UC RAMS website."

@@ -1,8 +1,3 @@
-<% orcid_authenticated_alt_text = local_assigns[:orcid_authenticated_alt_text] %>
-<% orcid_unauthenticated_alt_text = local_assigns[:orcid_unauthenticated_alt_text] %>
-<% orcid_unauthenticated_text = local_assigns[:orcid_unauthenticated_text] %>
-<% orcid_unsaved_text = local_assigns[:orcid_unsaved_text] %>
-
 <div
   class="field small orcid"
   data-controller="orcid"
@@ -10,7 +5,7 @@
   data-orcid-origin-value="<%= request.fullpath %>"
   data-orcid-record-persisted-value="<%= f.object.persisted? %>"
 >
-  <%= f.label :orcid, orcid_label %>
+  <%= f.label :orcid, t(".labels.orcid") %>
   <%= f.hidden_field :orcid, data: { orcid_target: "input" } %>
   <%= f.hidden_field :orcid_authenticated, data: { orcid_target: "authenticated" } %>
 
@@ -19,25 +14,25 @@
     <% if orcid_uri.present? %>
       <% if f.object.orcid_authenticated? %>
         <p class="orcid-authenticated">
-          <%= image_tag("orcid-icon.svg", alt: orcid_authenticated_alt_text) %>
+          <%= image_tag("orcid-icon.svg", alt: t(".alt.orcid_id")) %>
           <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener", data: { orcid_target: "displayLink" } %>
         </p>
       <% else %>
         <p class="orcid-authenticated orcid-unauthenticated">
-          <%= image_tag("orcid-icon-unauth.svg", alt: orcid_unauthenticated_alt_text) %>
+          <%= image_tag("orcid-icon-unauth.svg", alt: t(".alt.orcid_id_unauthenticated")) %>
           <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener", data: { orcid_target: "displayLink" } %>
-          <span><%= orcid_unauthenticated_text %></span>
+          <span><%= t(".status.unauthenticated") %></span>
         </p>
         <%= button_tag type: "button",
           id: "orcid-auth-button",
           data: { action: "orcid#startAuth" },
           class: "button-inline button-clear orcid-auth-button" do %>
           <%= image_tag("orcid-icon.svg", alt: "") %>
-          <span><%= connect_orcid_text %></span>
+          <span><%= t(".links.connect_orcid") %></span>
         <% end %>
       <% end %>
 
-      <p class="helper-text orcid-unsaved" data-orcid-target="unsaved" hidden><%= orcid_unsaved_text %></p>
+      <p class="helper-text orcid-unsaved" data-orcid-target="unsaved" hidden><%= t(".helper_text.unsaved") %></p>
     <% end %>
   <% else %>
     <%= button_tag type: "button",
@@ -45,11 +40,11 @@
       data: { action: "orcid#startAuth" },
       class: "button-inline button-clear orcid-auth-button" do %>
       <%= image_tag("orcid-icon.svg", alt: "") %>
-      <span><%= connect_orcid_text %></span>
+      <span><%= t(".links.connect_orcid") %></span>
     <% end %>
   <% end %>
 
   <p class="helper-text">
-    <%= link_to orcid_link_text, orcid_url, target: "_blank", rel: "noopener noreferrer" %>
+    <%= link_to t(".links.orcid"), t(".urls.orcid"), target: "_blank", rel: "noopener noreferrer" %>
   </p>
 </div>
