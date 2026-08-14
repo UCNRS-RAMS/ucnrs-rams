@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+ActiveRecord::Schema[8.1].define(version: 2026_08_14_104820) do
   create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "archived_data_location", limit: 200, null: false, comment: "Where is data archived"
     t.string "data_collected", limit: 200, null: false, comment: "What data is collected"
@@ -859,7 +860,7 @@
     t.string "large_hero_photo"
     t.float "latitude", limit: 53, default: 0.0, null: false
     t.virtual "latitude_degrees", type: :integer, as: "floor(abs(`latitude`))"
-    t.virtual "latitude_hemisphere", type: :string, limit: 50, as: "if((`latitude` > 0),_utf8mb3'N',_utf8mb3'S')"
+    t.virtual "latitude_hemisphere", type: :string, limit: 50, as: "if((`latitude` > 0),_utf8mb4'N',_utf8mb4'S')"
     t.virtual "latitude_minutes", type: :integer, as: "floor(((abs(`latitude`) % 1) * 60))"
     t.virtual "latitude_seconds", type: :float, as: "((((abs(`latitude`) % 1) * 60) % 1) * 60)"
     t.string "ldap_address", limit: 100, default: "uid=nrsadmin,o=unaffiliated,dc=ecoinformatics,dc=org", null: false
@@ -868,7 +869,7 @@
     t.string "logo_url_old", comment: "URL of reserve Icon"
     t.float "longitude", limit: 53, default: 0.0, null: false
     t.virtual "longitude_degrees", type: :integer, as: "floor(abs(`longitude`))"
-    t.virtual "longitude_hemisphere", type: :string, limit: 50, as: "if((`longitude` > 0),_utf8mb3'E',_utf8mb3'W')"
+    t.virtual "longitude_hemisphere", type: :string, limit: 50, as: "if((`longitude` > 0),_utf8mb4'E',_utf8mb4'W')"
     t.virtual "longitude_minutes", type: :integer, as: "floor(((abs(`longitude`) % 1) * 60))"
     t.virtual "longitude_seconds", type: :float, as: "((((abs(`longitude`) % 1) * 60) % 1) * 60)"
     t.integer "managing_campus_id"
@@ -922,7 +923,7 @@
     t.index ["waiver_id"], name: "index_signatures_on_waiver_id"
   end
 
-  create_table "solid_cable_messages", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
+  create_table "solid_cable_messages", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.binary "channel", limit: 1024, null: false
     t.bigint "channel_hash", null: false
     t.datetime "created_at", null: false
