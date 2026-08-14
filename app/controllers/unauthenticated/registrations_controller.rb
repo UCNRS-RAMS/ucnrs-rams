@@ -93,7 +93,7 @@ module Unauthenticated
       RegistrationForm.params_with_pending_orcid(user_params, session[REGISTRATION_ORCID_SESSION_KEY].presence)
     end
 
-    def pending_orcid_params
+    def pending_params
       RegistrationForm.params_with_pending_orcid({}, session[REGISTRATION_ORCID_SESSION_KEY].presence)
     end
 
