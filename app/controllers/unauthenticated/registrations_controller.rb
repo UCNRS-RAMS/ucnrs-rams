@@ -3,9 +3,9 @@ module Unauthenticated
     REGISTRATION_ORCID_SESSION_KEY = :registration_orcid_identifier
 
     def new
-      pending_params = pending_orcid_params
+      @form = RegistrationForm.new(params: pending_params)
       clear_pending_orcid!
-      @presenter = RegistrationFormPresenter.new(RegistrationForm.new(params: pending_params))
+      @presenter = RegistrationFormPresenter.new(@form)
     end
 
     def create
@@ -22,10 +22,9 @@ module Unauthenticated
     end
 
     def edit
-      pending_params = pending_orcid_params
+      @form = RegistrationForm.new(user: current_user, params: pending_params)
       clear_pending_orcid!
-      form = RegistrationForm.new(user: current_user, params: pending_params)
-      @presenter = RegistrationFormPresenter.new(form)
+      @presenter = RegistrationFormPresenter.new(@form)
     end
 
     def update
