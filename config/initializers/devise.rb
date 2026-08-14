@@ -279,9 +279,9 @@ Devise.setup do |config|
     # for profile lookups. /read-limited requires the member API
     opts = {
       member: orcid_member,
-      sandbox: orcid_sandbox
-    }
-    opts[:scope] = ENV["ORCID_SCOPES"] if ENV["ORCID_SCOPES"].present?
+      sandbox: orcid_sandbox,
+      scope: ENV["ORCID_SCOPES"].presence,
+    }.compact
 
     config.omniauth :orcid,
       ENV["ORCID_CLIENT_ID"],
