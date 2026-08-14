@@ -2825,6 +2825,19 @@ en:
         visit: Visit
         visit_dates: Visit Dates
     users:
+      orcid_fields:
+        labels:
+          orcid: ORCID (Optional)
+        placeholders:
+          orcid: XXXX-XXXX-XXXX-XXXX
+        links:
+          orcid: What is an ORCID?
+        urls:
+          orcid: https://orcid.org/
+        alt:
+          orcid_id: ORCID iD
+        status:
+          unauthenticated: "(unauthenticated)"
       edit:
         delete_user: Delete User
         submit_visit_request_for_user: Submit Visit Request for User
