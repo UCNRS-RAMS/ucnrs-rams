@@ -52,6 +52,13 @@ jobs:
           name: Precompile Assets
           command: bundle exec bin/rails assets:precompile
 
+      # Guard against migrations that update the database without updating db/schema.rb
+      - run:
+          name: Check schema is up to date
+          command: |
+            bundle exec rails db:migrate
+            git diff --exit-code -- db/schema.rb
+
       # Tests
       - run:
           name: RuboCop
