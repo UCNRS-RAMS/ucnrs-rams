@@ -19,6 +19,11 @@ module Unauthenticated
       # Comment out when not needed.
       # log_orcid_auth_info
 
+      if unsafe_origin?
+        redirect_to callback_destination(orcid_callback: "1")
+        return
+      end
+
       if orcid_identifier.present?
         session[REGISTRATION_ORCID_SESSION_KEY] = orcid_identifier
         redirect_to callback_destination(orcid_callback: "1")
@@ -100,6 +105,18 @@ module Unauthenticated
 
       uri.query = query.to_query
       uri.to_s
+    end
+
+    def unsafe_origin?
+      origin = request.env["omniauth.origin"].presence ||
+        request.env.dig("omniauth.params", "origin").presence ||
+        params[:origin].presence
+      return true if origin.blank?
+
+      uri = URI.parse(origin)
+      uri.host.present? || uri.scheme.present? || !uri.path.to_s.start_with?("/") || uri.path.to_s.start_with?("//")
+    rescue URI::InvalidURIError
+      true
     end
 
     def safe_origin_path
