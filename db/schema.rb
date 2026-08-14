@@ -10,7 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_22_160000) do
   create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "archived_data_location", limit: 200, null: false, comment: "Where is data archived"
     t.string "data_collected", limit: 200, null: false, comment: "What data is collected"
@@ -632,7 +631,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_22_160000) do
   create_table "reserve_notes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "action", default: "reserve note"
     t.datetime "created_at", null: false
-    t.text "note"
+    t.text "note", size: :medium
     t.bigint "record_id", null: false
     t.string "record_type", null: false
     t.bigint "reserve_id", null: false
@@ -944,12 +943,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_22_160000) do
   create_table "use_policies", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.column "agreement_type", "enum('Reserve Use Agreement','Code of Conduct Agreement','Data Management Agreement')"
     t.datetime "created_at", null: false
-    t.text "description"
-    t.text "image_url"
-    t.text "policy_link_text"
+    t.text "description", size: :medium
+    t.text "image_url", size: :medium
+    t.text "policy_link_text", size: :medium
     t.string "policy_url"
     t.integer "sort_order"
-    t.text "title"
+    t.text "title", size: :medium
     t.datetime "updated_at", null: false
   end
 
