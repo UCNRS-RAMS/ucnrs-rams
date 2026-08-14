@@ -58,10 +58,6 @@ class RegistrationForm
   end
 
   def assign(params)
-    if orcid_value_submitted?(params) && !orcid_authenticated_value_submitted?(params)
-      user.orcid_authenticated = false
-    end
-
     params.each do |key, value|
       if key.to_s == "institution"
         self.institution_id = institution_id
@@ -69,14 +65,6 @@ class RegistrationForm
         self.send("#{key}=", value)
       end
     end
-  end
-
-  def orcid_value_submitted?(params)
-    params[:orcid].present?
-  end
-
-  def orcid_authenticated_value_submitted?(params)
-    params.key?(:orcid_authenticated) || params.key?("orcid_authenticated")
   end
 
 end
