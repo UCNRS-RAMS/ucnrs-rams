@@ -68,7 +68,7 @@ class RegistrationForm
       end
     end
 
-    return unless params[:orcid].present?
+    return if params[:orcid].blank?
     return if params.key?(:orcid_authenticated)
 
     user.orcid_authenticated = false
