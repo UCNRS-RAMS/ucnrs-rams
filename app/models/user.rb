@@ -4,6 +4,44 @@ class User < ApplicationRecord
   VALID_PASSWORD_PATTERN = /^(?=.*?[A-Z])(?=.*?[0-9]).{8,70}$/
   ORCID_PATTERN = /\A(\d{4}-){3}\d{3}(\d|X)\z/
 
+  REGISTRATION_ATTRIBUTES = %i[
+    role
+    first_name
+    last_name
+    email
+    password
+    password_confirmation
+    gender_identity
+    age_range
+    phone_number
+    secondary_phone_number
+    accessibility_requirements
+    backup_email_address
+    institution
+    orcid
+    orcid_authenticated
+    advisor
+    emergency_contact_full_name
+    emergency_contact_phone_number
+    address_country_id
+    address_line_1
+    address_line_2
+    address_city
+    address_state_id
+    address_postal_code
+    billing_address_same_as_current
+    billing_address_country_id
+    billing_address_line_1
+    billing_address_line_2
+    billing_address_city
+    billing_address_state_id
+    billing_address_postal_code
+    billing_person_full_name
+    billing_person_email
+    billing_person_phone_number
+    terms_accepted_at
+  ].freeze
+
   UCNRS_STREET_ADDRESS = "1111 Franklin Street"
   UCNRS_CITY = "Oakland"
   UCNRS_POSTAL_CODE = "94607"
@@ -71,6 +109,10 @@ class User < ApplicationRecord
 
   def institution_name
     read_attribute(:institution_name) || institution.name
+  end
+
+  def self.permitted_registration_attributes
+    REGISTRATION_ATTRIBUTES
   end
 
   enum :gender_identity, {
