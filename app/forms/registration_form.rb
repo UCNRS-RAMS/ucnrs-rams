@@ -58,6 +58,8 @@ class RegistrationForm
   end
 
   def assign(params)
+    params = params.to_h.with_indifferent_access
+
     params.each do |key, value|
       if key.to_s == "institution"
         self.institution_id = institution_id
@@ -65,6 +67,11 @@ class RegistrationForm
         self.send("#{key}=", value)
       end
     end
+
+    return unless params[:orcid].present?
+    return if params.key?(:orcid_authenticated)
+
+    user.orcid_authenticated = false
   end
 
 end
