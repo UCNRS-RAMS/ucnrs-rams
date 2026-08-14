@@ -10,6 +10,16 @@
   <%= f.hidden_field :orcid_authenticated, data: { orcid_target: "authenticated" } %>
 
   <% orcid_uri = orcid_display_uri(f.object.orcid) %>
+  <% orcid_auth_button = capture do %>
+    <%= button_tag type: "button",
+      id: "orcid-auth-button",
+      data: { action: "orcid#startAuth" },
+      class: "button-inline button-clear orcid-auth-button" do %>
+      <%= image_tag("orcid-icon.svg", alt: "") %>
+      <span><%= t(".links.connect_orcid") %></span>
+    <% end %>
+  <% end %>
+
   <% if orcid_uri.present? %>
     <% if f.object.orcid_authenticated? %>
       <p class="orcid-authenticated">
@@ -22,24 +32,12 @@
         <%= link_to orcid_uri, orcid_uri, target: "_blank", rel: "noopener", data: { orcid_target: "displayLink" } %>
         <span><%= t(".status.unauthenticated") %></span>
       </p>
-      <%= button_tag type: "button",
-        id: "orcid-auth-button",
-        data: { action: "orcid#startAuth" },
-        class: "button-inline button-clear orcid-auth-button" do %>
-        <%= image_tag("orcid-icon.svg", alt: "") %>
-        <span><%= t(".links.connect_orcid") %></span>
-      <% end %>
+      <%= orcid_auth_button %>
     <% end %>
 
     <p class="helper-text orcid-unsaved" data-orcid-target="unsaved" hidden><%= t(".helper_text.unsaved") %></p>
   <% else %>
-    <%= button_tag type: "button",
-      id: "orcid-auth-button",
-      data: { action: "orcid#startAuth" },
-      class: "button-inline button-clear orcid-auth-button" do %>
-      <%= image_tag("orcid-icon.svg", alt: "") %>
-      <span><%= t(".links.connect_orcid") %></span>
-    <% end %>
+    <%= orcid_auth_button %>
   <% end %>
 
   <p class="helper-text">
