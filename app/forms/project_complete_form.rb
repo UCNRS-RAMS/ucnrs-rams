@@ -25,7 +25,7 @@ class ProjectCompleteForm
 
   def send_email!(project:)
     UserMailer
-      .with(presenter: Mail::User::ProjectCompletePresenter.new(project))
+      .with(project: project)
       .project_complete
       .deliver_now
   end

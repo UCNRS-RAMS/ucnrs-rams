@@ -49,12 +49,12 @@ class Visits::WaiversPoliciesController < ApplicationController
 
   def send_emails!(visit:)
     ManagerMailer
-      .with(presenter: Mail::Manager::VisitNewPresenter.new(visit))
+      .with(visit: visit)
       .visit_new
       .deliver_now
 
     UserMailer
-      .with(presenter: Mail::User::VisitNewPresenter.new(visit))
+      .with(visit: visit)
       .visit_new
       .deliver_now
 

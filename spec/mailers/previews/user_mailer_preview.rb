@@ -1,13 +1,11 @@
 class UserMailerPreview < ActionMailer::Preview
   def visit_new
     UserMailer
-      .with(presenter:
-        Mail::User::VisitNewPresenter.new(
-          Visit
-            .in_review
-            .submitted_recent_first
-            .first
-        )
+      .with(
+        visit: Visit
+          .in_review
+          .submitted_recent_first
+          .first
       )
       .visit_new
   end
