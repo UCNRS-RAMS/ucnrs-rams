@@ -4,7 +4,7 @@ class ManagerMailer < ApplicationMailer
   after_deliver :log_notification_email, if: :notification_email?
 
   def visit_new
-    @presenter = params[:presenter]
+    @presenter = Mail::Manager::VisitNewPresenter.new(params[:visit])
 
     return if @presenter.visit_reserve_personnel_emails.blank?
 

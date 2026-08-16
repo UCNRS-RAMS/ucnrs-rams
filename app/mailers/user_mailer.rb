@@ -2,7 +2,7 @@ class UserMailer < ApplicationMailer
   layout "mailer"
 
   def visit_new
-    @presenter = params[:presenter]
+    @presenter = Mail::User::VisitNewPresenter.new(params[:visit])
 
     mail(
       to: [@presenter.visit_applicant_email],
@@ -12,7 +12,7 @@ class UserMailer < ApplicationMailer
   end
 
   def project_complete
-    @presenter = params[:presenter]
+    @presenter = Mail::User::ProjectCompletePresenter.new(params[:project])
 
     mail(
       to: @presenter.team_member_emails,
