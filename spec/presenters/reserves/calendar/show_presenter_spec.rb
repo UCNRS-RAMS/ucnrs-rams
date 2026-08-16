@@ -38,4 +38,24 @@ RSpec.describe Reserves::Calendar::ShowPresenter do
       expect(show_presenter.visits_link_params).to eq output
     end
   end
+
+  describe "#visits" do
+    it "includes approved visits that start later on the last visible calendar day" do
+      start_date = Date.current.beginning_of_month
+      boundary_day = start_date.end_of_month.end_of_week
+      boundary_time = boundary_day.in_time_zone.change(hour: 12)
+      boundary_visit = create(:visit,
+        reserve: reserve,
+        status: :approved,
+        starts_at: boundary_time,
+        ends_at: boundary_time + 1.day,
+        start_date: boundary_time.to_date,
+        end_date: (boundary_time + 1.day).to_date,
+        start_time: boundary_time,
+        end_time: boundary_time + 1.day)
+      show_presenter = Reserves::Calendar::ShowPresenter.new(reserve: reserve, start_date: start_date)
+
+      expect(show_presenter.visits.map(&:id)).to include(boundary_visit.id)
+    end
+  end
 end
