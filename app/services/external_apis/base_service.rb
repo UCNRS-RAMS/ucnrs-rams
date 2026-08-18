@@ -1,5 +1,3 @@
-# from path app/services/external_apis/base_service.rb
-
 # frozen_string_literal: true
 
 require 'httparty'
@@ -187,43 +185,35 @@ module ExternalApis
       def unzip_file(zip_file:, destination:)
         return false unless zip_file.present? && File.exist?(zip_file)
 
-        destination = File.expand_path(destination.to_s)
-        FileUtils.mkdir_p(destination)
+        begin
+          Zip::File.open(zip_file) do |files|
+            files.each do |entry|
+              next if File.exist?(entry.name)
 
-        Zip::File.open(zip_file) do |zip|
-          zip.each do |entry|
-            next if entry.name.to_s.end_with?('/')
-
-            f_path = File.join(destination, entry.name)
-            FileUtils.mkdir_p(File.dirname(f_path))
-            next if File.exist?(f_path)
-
-            File.binwrite(f_path, zip.read(entry))
+              f_path = File.join(destination, entry.name)
+              FileUtils.mkdir_p(File.dirname(f_path))
+              entry.extract(destination_directory: File.dirname(f_path)) unless File.exist?(f_path)
+            end
           end
+        rescue StandardError => e
+          Rails.logger.send(error, "ZIP File (#{zip_file}) error: #{e.message}")
+          return false
         end
+
         true
-      rescue StandardError => e
-        log_error(method: 'BaseService.unzip_file', error: e)
-        false
       end
 
       # Determine if the downloaded file matches the expected checksum
       def validate_downloaded_file(file_path:, checksum:)
         return false unless file_path.present? && checksum.present? && File.exist?(file_path)
 
-        # Strip whitespace, convert to lowercase, and remove common algorithm prefixes
-        # Matches formats like: md5:, sha256:, sha-256=, {md5}, {sha256}:, etc.
-        prefix_regex = /\A(?:\{?(?:md5|sha-?\d+|crc32)\}?[:=]|\{(?:md5|sha-?\d+|crc32)\})/i
-        cleaned_checksum = checksum.to_s.strip.downcase.sub(prefix_regex, '')
-
         possible_checksums = [
-          Digest::SHA1.file(file_path).hexdigest,
-          Digest::SHA256.file(file_path).hexdigest,
-          Digest::SHA512.file(file_path).hexdigest,
-          Digest::MD5.file(file_path).hexdigest
+          Digest::SHA1.file(file_path).to_s,
+          Digest::SHA256.file(file_path).to_s,
+          Digest::SHA512.file(file_path).to_s,
+          Digest::MD5.file(file_path).to_s
         ]
-
-        possible_checksums.include?(cleaned_checksum)
+        possible_checksums.include?(checksum)
       end
     end
   end
