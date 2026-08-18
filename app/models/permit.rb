@@ -91,8 +91,10 @@ class Permit < ApplicationRecord
   end
 
   def self.with_flag_type(flag_type)
-    if FLAG_TYPE_COLUMN_MAP[flag_type.downcase]
-      where(FLAG_TYPE_COLUMN_MAP[flag_type.downcase] => true)
+    column = FLAG_TYPE_COLUMN_MAP[flag_type.to_s.downcase]
+
+    if column
+      where(column => true)
     else
       none
     end
