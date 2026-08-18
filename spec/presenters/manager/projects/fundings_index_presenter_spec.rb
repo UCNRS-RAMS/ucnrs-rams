@@ -7,7 +7,10 @@ RSpec.describe Manager::Projects::FundingsIndexPresenter do
       project = create(:project, reserve: reserve)
       fundings = create_list(:funding, 3, project: project)
 
-      presenter = Manager::Projects::FundingsIndexPresenter.new(project: project)
+      presenter = Manager::Projects::FundingsIndexPresenter.new(
+        project: project,
+        reserve: reserve,
+      )
       results = presenter.fundings
 
       expect(results.map(&:id)).to eq [

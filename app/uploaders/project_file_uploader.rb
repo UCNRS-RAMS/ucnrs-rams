@@ -1,5 +1,9 @@
 class ProjectFileUploader < CarrierWave::Uploader::Base
+  DATE_SUFFIX = /_\d{4}-\d{2}-\d{2}\z/
+
   def filename
+    return "#{file_name}#{file_extension}" if file_name.to_s.match?(DATE_SUFFIX)
+
     "#{file_name}_#{file_date}#{file_extension}"
   end
 

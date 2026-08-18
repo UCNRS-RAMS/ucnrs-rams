@@ -13,7 +13,7 @@ RSpec.describe ProjectCompleteForm, type: :model do
   describe "#save" do
     describe "a project with a status of 'incomplete'" do
       it "updates the project's status to 'open'" do
-        project = create(:project, status: :incomplete)
+        project = create(:project, status: :incomplete, members: [create(:user)])
         form = ProjectCompleteForm.new(params: { id: project.id })
 
         form.save
