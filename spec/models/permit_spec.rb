@@ -188,6 +188,12 @@ RSpec.describe Permit, type: :model do
       expect(Permit.with_flag_type("scuba_flag")).to eq [scuba_permit]
     end
 
+    it "accepts a symbol flag type" do
+      iacuc_permit = create(:permit, iacuc: true)
+
+      expect(Permit.with_flag_type(:iacuc_flag)).to eq [iacuc_permit]
+    end
+
     it "is case-insensitive" do
       iacuc_permit = create(:permit, iacuc: true)
 
