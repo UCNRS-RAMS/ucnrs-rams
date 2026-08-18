@@ -5,7 +5,7 @@ RSpec.describe ProjectFileUploader do
   include CarrierWave::Test::Matchers
 
   let(:project) { create(:project) }
-  let(:uploader) { described_class.new(project) }
+  let(:uploader) { described_class.new(project, :files) }
 
   before do
     described_class.enable_processing = true
@@ -21,8 +21,8 @@ RSpec.describe ProjectFileUploader do
 
   describe "#store_dir" do
     it "creates the correct store directory path for the test environment" do
-      expect(uploader.store_dir).to match(
-        "uploads/#{project.class.to_s.underscore}//#{project.id}"
+      expect(uploader.store_dir).to eq(
+        "#{project.class.to_s.underscore}/files/#{project.id}"
       )
     end
   end

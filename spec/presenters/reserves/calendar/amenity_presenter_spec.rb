@@ -4,7 +4,9 @@ RSpec.describe Reserves::Calendar::AmenityPresenter do
   describe "#visit_link_params" do
     it "returns params for visits_link method" do
       reserve = create(:reserve)
-      amenity = AmenityPresenter.new(create(:amenity, reserve_id: reserve.id))
+      amenity = AmenityPresenter.new(
+        create(:amenity, reserve_id: reserve.id, title: "Amenity 1")
+      )
       visit = create(:visit, reserve_id: reserve.id)
       show_presenter = Reserves::Calendar::AmenityPresenter.new(amenity: amenity, visit: visit)
 
