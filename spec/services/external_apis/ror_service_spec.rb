@@ -75,6 +75,48 @@ RSpec.describe ExternalApis::RorService do
     end
   end
 
+  describe '.process_ror_record' do
+    let(:record) do
+      {
+        'id' => 'https://ror.org/01an7q238',
+        'domains' => ['berkeley.edu'],
+        'external_ids' => [
+          { 'all' => ['100006978', '100010501'], 'preferred' => '100006978', 'type' => 'fundref' },
+          { 'all' => ['grid.47840.3f'], 'preferred' => 'grid.47840.3f', 'type' => 'grid' }
+        ],
+        'links' => [
+          { 'type' => 'website', 'value' => 'https://www.berkeley.edu' },
+          { 'type' => 'wikipedia', 'value' => 'http://en.wikipedia.org/wiki/University_of_California,_Berkeley' }
+        ],
+        'locations' => [
+          { 'geonames_details' => { 'country_code' => 'US', 'country_name' => 'United States' } }
+        ],
+        'names' => [
+          { 'lang' => 'en', 'types' => ['alias'], 'value' => 'UC Berkeley' },
+          { 'lang' => 'en', 'types' => ['acronym'], 'value' => 'UCB' },
+          { 'lang' => 'en', 'types' => ['ror_display', 'label'], 'value' => 'University of California, Berkeley' }
+        ],
+        'types' => ['education', 'funder']
+      }
+    end
+
+    it 'maps the current ROR schema to local fields' do
+      time = Time.zone.parse('2026-08-03 00:00:00')
+
+      expect(described_class.send(:process_ror_record, record: record, time: time)).to be(true)
+
+      ror = Ror.find_by(ror_id: record['id'])
+      expect(ror).to be_present
+      expect(ror.name).to include('University of California, Berkeley')
+      expect(ror.acronyms).to include('UCB')
+      expect(ror.aliases).to include('UC Berkeley')
+      expect(ror.country['country_name']).to eq('United States')
+      expect(ror.language).to eq('en')
+      expect(ror.fundref_id).to eq('100006978')
+      expect(ror.home_page).to eq('https://www.berkeley.edu')
+    end
+  end
+
   describe '.fetch' do
     let(:tmp_dir) { Rails.root.join('tmp', 'spec-ror') }
     let(:checksum_path) { tmp_dir.join('checksum.txt') }
