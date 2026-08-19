@@ -3,6 +3,8 @@
 # Local cache of Research Organization Registry (ROR) records.
 # See https://ror.org
 class Ror < ApplicationRecord
+  has_many :institutions, primary_key: :ror_id, foreign_key: :ror_id, inverse_of: :ror
+
   # ==========
   # = Scopes =
   # ==========

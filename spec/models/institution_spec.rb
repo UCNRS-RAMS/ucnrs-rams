@@ -12,11 +12,21 @@ RSpec.describe Institution, type: :model do
   end
 
   describe "associations" do
+    it { is_expected.to belong_to(:ror).optional(true) }
     it { is_expected.to belong_to(:country) }
     it { is_expected.to belong_to(:state).optional(true) }
     it { is_expected.to have_many(:users).inverse_of(:institution).dependent(:restrict_with_error) }
     it { is_expected.to have_many(:project_team_memberships).inverse_of(:institution).dependent(:restrict_with_error) }
     it { is_expected.to have_many(:user_visits).inverse_of(:institution).dependent(:restrict_with_error) }
+  end
+
+  describe "ROR association" do
+    it "matches a ROR entry by ror_id" do
+      ror = create(:ror)
+      institution = create(:institution, ror_id: ror.ror_id)
+
+      expect(institution.ror).to eq(ror)
+    end
   end
 
   it do

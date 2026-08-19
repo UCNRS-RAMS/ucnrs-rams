@@ -10,88 +10,87 @@ module ExternalApis
     class << self
       # Retrieve the config settings from the initializer
       def landing_page_url
-        Rails.configuration.x.dmproadmap.ror_landing_page_url || super
+        Rails.configuration.x.ror&.landing_page_url || super
       end
 
       def api_base_url
-        Rails.configuration.x.dmproadmap.ror_api_base_url || super
+        Rails.configuration.x.ror&.api_base_url || super
       end
 
       def download_url
-        Rails.configuration.x.dmproadmap.ror_download_url
+        Rails.configuration.x.ror&.download_url
       end
 
       def full_catalog_file
-        Rails.root.join('tmp', 'ror', 'ror.json')
+        Rails.configuration.x.ror&.full_catalog_file || Rails.root.join('tmp', 'ror', 'ror.json')
       end
 
       def file_dir
-        Rails.root.join('tmp', 'ror')
+        Rails.configuration.x.ror&.file_dir || Rails.root.join('tmp', 'ror')
       end
 
       def checksum_file
-        Rails.root.join('tmp', 'ror', 'checksum.txt')
+        Rails.configuration.x.ror&.checksum_file || Rails.root.join('tmp', 'ror', 'checksum.txt')
       end
 
       def zip_file
-        Rails.root.join('tmp', 'ror', 'latest-ror-data.zip')
+        Rails.configuration.x.ror&.zip_file || Rails.root.join('tmp', 'ror', 'latest-ror-data.zip')
       end
 
       def active?
-        Rails.configuration.x.dmproadmap.ror_active || super
+        Rails.configuration.x.ror&.active.nil? ? super : Rails.configuration.x.ror.active
       end
 
       def heartbeat_path
-        Rails.configuration.x.dmproadmap.ror_heartbeat_path
+        Rails.configuration.x.ror&.heartbeat_path
       end
 
       def search_path
-        Rails.configuration.x.dmproadmap.ror_search_path
+        Rails.configuration.x.ror&.search_path
       end
 
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def fetch(force: false)
+        force = ActiveModel::Type::Boolean.new.cast(force)
         method = "ExternalApis::RorService.fetch(force: #{force})"
 
         # Fetch the Zenodo metadata for ROR to see if we have the latest data dump
         metadata = fetch_zenodo_metadata
-        if metadata.present?
-          FileUtils.mkdir_p(file_dir)
-
-          checksum = File.open(checksum_file, 'w+') unless File.exist?(checksum_file) && !force
-          checksum = File.open(checksum_file, 'r+') if checksum.blank?
-          old_checksum_val = checksum.read
-
-          if old_checksum_val == metadata[:checksum]
-            log_message(method: method, message: 'There is no new ROR file to process.')
-          else
-            download_file = metadata['key']
-            download_url = metadata.fetch('links', {}).fetch('download', metadata.fetch('links', {})['self'])
-            log_message(method: method, message: "New ROR file detected - checksum #{metadata[:checksum]}")
-            log_message(method: method, message: "Downloading #{download_file}")
-            log_message(method: method, message: "From #{download_url}")
-
-            payload = download_ror_file(url: download_url)
-            if payload.present?
-              file = File.open(zip_file, 'wb')
-              file.write(payload)
-
-              json_file = download_file.split('/').last.gsub('.zip', '')
-              json_file = "#{json_file}.json" unless json_file.end_with?('.json')
-
-              # Process the ROR JSON
-              if process_ror_file(zip_file: zip_file, file: json_file)
-                checksum = File.open(checksum_file, 'w')
-                checksum.write(metadata[:checksum])
-              end
-            else
-              log_error(method: method, error: StandardError.new('Unable to download ROR file!'))
-            end
-          end
-        else
+        unless metadata.present?
           log_error(method: method, error: StandardError.new('Unable to fetch ROR metadata from Zenodo!'))
+          return :failure
         end
+
+        FileUtils.mkdir_p(file_dir)
+        old_checksum_val = File.read(checksum_file) if File.exist?(checksum_file) && !force
+
+        if old_checksum_val == metadata[:checksum]
+          log_message(method: method, message: 'There is no new ROR file to process.')
+          return :no_change
+        end
+
+        download_link = metadata.fetch(:links, {})[:download]
+        download_file = metadata[:key].presence || File.basename(download_link.to_s)
+        log_message(method: method, message: "New ROR file detected - checksum #{metadata[:checksum]}")
+        log_message(method: method, message: "Downloading #{download_file}")
+        log_message(method: method, message: "From #{download_link}")
+
+        payload = download_ror_file(url: download_link)
+        unless payload.present?
+          log_error(method: method, error: StandardError.new('Unable to download ROR file!'))
+          return :failure
+        end
+
+        File.binwrite(zip_file, payload)
+
+        json_file = download_file.split('/').last.gsub('.zip', '')
+        json_file = "#{json_file}.json" unless json_file.end_with?('.json')
+
+        return :failure unless process_ror_file(zip_file: zip_file, file: json_file)
+
+        File.write(checksum_file, metadata[:checksum])
+        :success
       end
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
       # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -123,6 +122,8 @@ module ExternalApis
           return nil
         end
 
+        file_metadata[:links] = file_metadata.fetch(:links, {}).with_indifferent_access
+        file_metadata[:links][:download] ||= file_metadata[:links][:self]
         file_metadata
       rescue JSON::ParserError => e
         log_error(method: 'RorService', error: e)
@@ -197,7 +198,7 @@ module ExternalApis
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
       # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-      # Transfer the contents of the JSON record to the org_indices table
+      # Transfer the contents of a ROR record to the local rors table
       # rubocop:disable Metrics/AbcSize
       def process_ror_record(record:, time:)
         return nil unless record.present? && record.is_a?(Hash) && record['id'].present?
@@ -213,12 +214,7 @@ module ExternalApis
         ror_model.fundref_id = fundref_id(item: record)
         ror_model.home_page = safe_string(value: record.fetch('links', []).first)
 
-        # Attempt to find a matching Org record
-        ror_model.org_id = check_for_org_association(ror_model: ror_model)
-
-        # TODO: We should create some sort of Super Admin page to highlight unmapped
-        #       Ror records so that they can be connected to their Org
-        ror_model.save
+        ror_model.save!
         true
       rescue StandardError => e
         log_error(method: 'ExternalApis::RorService.process_ror_record', error: e)
@@ -231,18 +227,6 @@ module ExternalApis
         return value if value.blank? || value.length < 255
 
         value[0..254]
-      end
-
-      # Determine if there is a matching Org record in the DB if so, attach it
-      def check_for_org_association(ror_model:)
-        return ror_model.org&.id if ror_model.org.present?
-
-        ror = Identifier.by_scheme_name('ror', 'Org')
-                        .where(value: ror_model.ror_id)
-                        .first
-        return nil if ror.blank?
-
-        ror.present? ? ror.identifiable_id : nil
       end
 
       # Org names are not unique, so include the Org URL if available or

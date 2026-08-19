@@ -196,7 +196,7 @@ module ExternalApis
             end
           end
         rescue StandardError => e
-          Rails.logger.send(error, "ZIP File (#{zip_file}) error: #{e.message}")
+          Rails.logger.error("ZIP File (#{zip_file}) error: #{e.message}")
           return false
         end
 
