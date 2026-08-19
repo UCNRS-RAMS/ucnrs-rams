@@ -205,14 +205,14 @@ module ExternalApis
 
         ror_model = Ror.find_or_create_by(ror_id: record['id'])
         ror_model.name = safe_string(value: org_name(item: record))
-        ror_model.acronyms = record['acronyms']
-        ror_model.aliases = record['aliases']
-        ror_model.country = record['country']
-        ror_model.types = record['types']
+        ror_model.acronyms = ror_acronyms(item: record)
+        ror_model.aliases = ror_aliases(item: record)
+        ror_model.country = country_data(item: record)
+        ror_model.types = record['types'] || []
         ror_model.language = org_language(item: record)
         ror_model.file_timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
         ror_model.fundref_id = fundref_id(item: record)
-        ror_model.home_page = safe_string(value: record.fetch('links', []).first)
+        ror_model.home_page = safe_string(value: primary_website(item: record))
 
         ror_model.save!
         true
@@ -229,20 +229,74 @@ module ExternalApis
         value[0..254]
       end
 
+      def ror_names(item:, type:)
+        return [] unless item.present? && item['names'].is_a?(Array)
+
+        item['names'].filter_map do |name|
+          next unless name.is_a?(Hash)
+
+          types = Array(name['types'])
+          next unless types.any?
+          next unless types.map(&:to_s).include?(type.to_s)
+
+          name['value'].presence
+        end
+      end
+
+      def ror_acronyms(item:)
+        ror_names(item: item, type: 'acronym')
+      end
+
+      def ror_aliases(item:)
+        ror_names(item: item, type: 'alias')
+      end
+
+      def country_data(item:)
+        return item['country'] if item.present? && item['country'].is_a?(Hash) && item['country'].present?
+
+        return {} if item.blank?
+
+        geonames = Array(item['locations']).first&.[]('geonames_details')
+        return {} if geonames.blank?
+
+        {
+          'country_name' => geonames['country_name'],
+          'country_code' => geonames['country_code']
+        }
+      end
+
       # Org names are not unique, so include the Org URL if available or
       # the country. For example:
       #    "Example College (example.edu)"
       #    "Example College (Brazil)"
       def org_name(item:)
-        return '' unless item.present? && item['name'].present?
+        return '' if item.blank?
 
-        country = item.fetch('country', {}).fetch('country_name', '')
+        legacy_name = item['name']
+        return legacy_name if legacy_name.present? && item['links'].blank? && item['country'].blank? && item['names'].blank?
+
+        preferred_name = if item['names'].is_a?(Array)
+                           item['names'].find do |name|
+                             next false unless name.is_a?(Hash)
+
+                             Array(name['types']).include?('ror_display')
+                           end || item['names'].find do |name|
+                             next false unless name.is_a?(Hash)
+
+                             Array(name['types']).include?('label')
+                           end
+                         end
+
+        candidate_name = preferred_name&.[]('value') || item['name']
+        candidate_name = candidate_name.to_s.strip
+        return '' if candidate_name.blank?
+
+        country = country_data(item: item)
+        country_name = country.is_a?(Hash) ? country['country_name'].to_s : ''
         website = org_website(item: item)
-        # If no website or country then just return the name
-        return item['name'] unless website.present? || country.present?
+        return candidate_name unless website.present? || country_name.present?
 
-        # Otherwise return the contextualized name
-        "#{item['name']} (#{website || country})"
+        "#{candidate_name} (#{website || country_name})"
       end
 
       # Extracts the org's ISO639 if available
@@ -250,38 +304,80 @@ module ExternalApis
         dflt = I18n.default_locale || 'en'
         return dflt if item.blank?
 
-        country = item.fetch('country', {}).fetch('country_code', '')
-        labels = case country
-                 when 'US'
-                   [{ iso639: 'en' }]
-                 else
-                   item.fetch('labels', [{ iso639: dflt }])
-                 end
-        labels.first&.fetch('iso639', I18n.default_locale) || dflt
+        loc = Array(item['locations']).first&.[]('geonames_details')
+        country = loc.present? ? loc['country_code'] : item.dig('country', 'country_code')
+        return 'en' if country == 'US'
+
+        names = Array(item['names'])
+        lang = names.find { |name| name.is_a?(Hash) && name['lang'].present? }&.[]('lang')
+        return lang if lang.present?
+
+        legacy_labels = item.fetch('labels', [])
+        return legacy_labels.first&.[]('iso639') || dflt if legacy_labels.is_a?(Array)
+
+        dflt
       end
 
-      # Extracts the website domain from the item
-      def org_website(item:)
-        return nil unless item.present? && item.fetch('links', [])&.any?
-        return nil if item['links'].first.blank?
+      # Extracts the website URL from the item
+      def primary_website(item:)
+        return nil if item.blank?
 
-        # A website was found, so extract just the domain without the www
+        links = item['links']
+        if links.is_a?(Array)
+          website = links.find do |link|
+            link.is_a?(Hash) && link['type'].to_s == 'website' && link['value'].present?
+          end
+          return website['value'] if website.present?
+
+          first_link = links.find { |link| link.is_a?(Hash) && link['value'].present? }
+          return first_link['value'] if first_link.present?
+
+          string_link = links.find { |link| link.is_a?(String) && link.present? }
+          return string_link if string_link.present?
+
+          return links.first if links.first.is_a?(String) && links.first.present?
+        end
+
+        links
+      end
+
+      # Extracts the website domain from the item for contextual names
+      def org_website(item:)
+        website = primary_website(item: item)
+        return nil if website.blank?
+
         domain_regex = %r{^(?:http://|www\.|https://)([^/]+)}
-        website = item['links'].first.scan(domain_regex).last.first
-        website.gsub('www.', '')
+        website = website.to_s
+        domain = website.scan(domain_regex).last&.first
+        return nil if domain.blank?
+
+        domain.gsub('www.', '')
       end
 
       # Extracts the FundRef Id if available
       def fundref_id(item:)
-        return '' unless item.present? && item['external_ids'].present?
-        return '' unless item['external_ids'].fetch('FundRef', {}).any?
+        return '' if item.blank?
 
-        # If a preferred Id was specified then use it
-        ret = item['external_ids'].fetch('FundRef', {}).fetch('preferred', '')
-        return ret if ret.present?
+        external_ids = item['external_ids']
+        if external_ids.is_a?(Hash)
+          fundref = external_ids['FundRef'] || external_ids['fundref']
+          return '' if fundref.blank?
 
-        # Otherwise take the first one listed
-        item['external_ids'].fetch('FundRef', {}).fetch('all', []).first
+          preferred = fundref['preferred']
+          return preferred.to_s if preferred.present?
+
+          return Array(fundref['all']).first.to_s
+        end
+
+        fundref = Array(external_ids).find do |id_info|
+          id_info.is_a?(Hash) && id_info['type'].to_s.casecmp('fundref').zero?
+        end
+        return '' if fundref.blank?
+
+        preferred = fundref['preferred']
+        return preferred.to_s if preferred.present?
+
+        Array(fundref['all']).first.to_s
       end
     end
   end
