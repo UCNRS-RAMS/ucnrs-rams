@@ -14,10 +14,10 @@ Rails.configuration.x.ror.max_results_per_page = 20
 Rails.configuration.x.ror.max_redirects = 3
 Rails.configuration.x.ror.active = true
 
-Rails.configuration.x.ror.full_catalog_file = Rails.root.join('tmp', 'ror', 'ror.json')
-Rails.configuration.x.ror.file_dir = Rails.root.join('tmp', 'ror')
-Rails.configuration.x.ror.checksum_file = Rails.root.join('tmp', 'ror', 'checksum.txt')
-Rails.configuration.x.ror.zip_file = Rails.root.join('tmp', 'ror', 'latest-ror-data.zip')
+Rails.configuration.x.ror.full_catalog_file = Rails.root.join("tmp/ror/ror.json")
+Rails.configuration.x.ror.file_dir = Rails.root.join("tmp/ror")
+Rails.configuration.x.ror.checksum_file = Rails.root.join("tmp/ror/checksum.txt")
+Rails.configuration.x.ror.zip_file = Rails.root.join("tmp/ror/latest-ror-data.zip")
 
 # BaseService requires a helpdesk email for its User-Agent header.
 Rails.configuration.x.organisation.helpdesk_email = 'support@ucnrs.org'
