@@ -118,7 +118,7 @@ RSpec.describe ExternalApis::RorService do
   end
 
   describe '.fetch' do
-    let(:tmp_dir) { Rails.root.join('tmp', 'spec-ror') }
+    let(:tmp_dir) { Rails.root.join("tmp/spec-ror") }
     let(:checksum_path) { tmp_dir.join('checksum.txt') }
     let(:zip_path) { tmp_dir.join('latest-ror-data.zip') }
     let(:metadata) do
