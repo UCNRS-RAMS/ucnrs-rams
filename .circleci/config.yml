@@ -37,9 +37,13 @@ jobs:
       - run:
           name: Create database
           command: bundle exec rake db:create
+
+      # Guard against migrations that update the database without updating db/schema.rb or migrations not added to version control
       - run:
-          name: Load database schema
-          command: bundle exec rake db:schema:load
+          name: Check schema and migrations are in sync
+          command: |
+            bundle exec rails db:migrate
+            git diff --exit-code -- db/schema.rb
 
       # After rails 7 yarn install is not run with assets:precompile
       # Use --frozen-lockfile for CI
