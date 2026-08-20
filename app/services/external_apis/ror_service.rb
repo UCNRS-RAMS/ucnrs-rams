@@ -22,19 +22,19 @@ module ExternalApis
       end
 
       def full_catalog_file
-        Rails.configuration.x.ror&.full_catalog_file || Rails.root.join('tmp', 'ror', 'ror.json')
+        Rails.configuration.x.ror&.full_catalog_file || Rails.root.join("tmp/ror/ror.json")
       end
 
       def file_dir
-        Rails.configuration.x.ror&.file_dir || Rails.root.join('tmp', 'ror')
+        Rails.configuration.x.ror&.file_dir || Rails.root.join("tmp/ror")
       end
 
       def checksum_file
-        Rails.configuration.x.ror&.checksum_file || Rails.root.join('tmp', 'ror', 'checksum.txt')
+        Rails.configuration.x.ror&.checksum_file || Rails.root.join("tmp/ror/checksum.txt")
       end
 
       def zip_file
-        Rails.configuration.x.ror&.zip_file || Rails.root.join('tmp', 'ror', 'latest-ror-data.zip')
+        Rails.configuration.x.ror&.zip_file || Rails.root.join("tmp/ror/latest-ror-data.zip")
       end
 
       def active?
@@ -49,15 +49,14 @@ module ExternalApis
         Rails.configuration.x.ror&.search_path
       end
 
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      
       def fetch(force: false)
         force = ActiveModel::Type::Boolean.new.cast(force)
         method = "ExternalApis::RorService.fetch(force: #{force})"
 
         # Fetch the Zenodo metadata for ROR to see if we have the latest data dump
         metadata = fetch_zenodo_metadata
-        unless metadata.present?
+        if metadata.blank?
           log_error(method: method, error: StandardError.new('Unable to fetch ROR metadata from Zenodo!'))
           return :failure
         end
@@ -77,7 +76,7 @@ module ExternalApis
         log_message(method: method, message: "From #{download_link}")
 
         payload = download_ror_file(url: download_link)
-        unless payload.present?
+        if payload.blank?
           log_error(method: method, error: StandardError.new('Unable to download ROR file!'))
           return :failure
         end
@@ -92,13 +91,11 @@ module ExternalApis
         File.write(checksum_file, metadata[:checksum])
         :success
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-
-      private
+      # rubocop:enable Metrics/AbcSize
+            private
 
       # Fetch the latest Zenodo metadata for ROR files
-      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # rubocop:disable Metrics/AbcSize
       def fetch_zenodo_metadata
         Rails.logger.error 'No :download_url defined for RorService!' if download_url.blank?
         return nil if download_url.blank?
@@ -116,7 +113,7 @@ module ExternalApis
 
         # Extract the most recent file's metadata
         file_metadata = json.fetch('hits', {}).fetch('hits', []).first&.fetch('files', [])&.last&.with_indifferent_access
-        unless file_metadata.present?
+        if file_metadata.blank?
           handle_http_failure(method: 'No file found in ROR metadata from Zenodo', http_response: resp)
           notify_administrators(obj: 'RorService', response: resp)
           return nil
@@ -129,7 +126,7 @@ module ExternalApis
         log_error(method: 'RorService', error: e)
         nil
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # rubocop:enable Metrics/AbcSize
 
       # Download the latest ROR data
       def download_ror_file(url:)
@@ -153,8 +150,7 @@ module ExternalApis
       end
 
       # Parse the JSON file and process each individual record
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # rubocop:disable Metrics/AbcSize
       def process_ror_file(zip_file:, file:)
         return false unless zip_file.present? && file.present?
 
@@ -195,10 +191,8 @@ module ExternalApis
         log_error(method: method, error: e)
         false
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-
-      # Transfer the contents of a ROR record to the local rors table
+      # rubocop:enable Metrics/AbcSize
+            # Transfer the contents of a ROR record to the local rors table
       # rubocop:disable Metrics/AbcSize
       def process_ror_record(record:, time:)
         return nil unless record.present? && record.is_a?(Hash) && record['id'].present?
@@ -269,34 +263,35 @@ module ExternalApis
       # the country. For example:
       #    "Example College (example.edu)"
       #    "Example College (Brazil)"
+      # rubocop:disable Metrics/AbcSize
       def org_name(item:)
         return '' if item.blank?
 
         legacy_name = item['name']
         return legacy_name if legacy_name.present? && item['links'].blank? && item['country'].blank? && item['names'].blank?
 
-        preferred_name = if item['names'].is_a?(Array)
-                           item['names'].find do |name|
-                             next false unless name.is_a?(Hash)
-
-                             Array(name['types']).include?('ror_display')
-                           end || item['names'].find do |name|
-                             next false unless name.is_a?(Hash)
-
-                             Array(name['types']).include?('label')
-                           end
-                         end
-
-        candidate_name = preferred_name&.[]('value') || item['name']
+        candidate_name = preferred_ror_name(item) || item['name']
         candidate_name = candidate_name.to_s.strip
         return '' if candidate_name.blank?
 
-        country = country_data(item: item)
-        country_name = country.is_a?(Hash) ? country['country_name'].to_s : ''
+        country_name = country_name_for(item)
         website = org_website(item: item)
         return candidate_name unless website.present? || country_name.present?
 
         "#{candidate_name} (#{website || country_name})"
+      end
+      # rubocop:enable Metrics/AbcSize
+
+      def preferred_ror_name(item)
+        return nil unless item['names'].is_a?(Array)
+
+        item['names'].find { |name| name.is_a?(Hash) && Array(name['types']).include?('ror_display') } ||
+          item['names'].find { |name| name.is_a?(Hash) && Array(name['types']).include?('label') }
+      end
+
+      def country_name_for(item)
+        country = country_data(item: item)
+        country.is_a?(Hash) ? country['country_name'].to_s : ''
       end
 
       # Extracts the org's ISO639 if available
@@ -304,18 +299,28 @@ module ExternalApis
         dflt = I18n.default_locale || 'en'
         return dflt if item.blank?
 
-        loc = Array(item['locations']).first&.[]('geonames_details')
-        country = loc.present? ? loc['country_code'] : item.dig('country', 'country_code')
+        country = country_code_for(item)
         return 'en' if country == 'US'
 
-        names = Array(item['names'])
-        lang = names.find { |name| name.is_a?(Hash) && name['lang'].present? }&.[]('lang')
+        lang = lang_from_names(item)
         return lang if lang.present?
 
         legacy_labels = item.fetch('labels', [])
-        return legacy_labels.first&.[]('iso639') || dflt if legacy_labels.is_a?(Array)
+        return legacy_labels.first&.[]('iso639') || dflt if legacy_labels.is_a?(Array) && legacy_labels.first.present?
 
         dflt
+      end
+
+      def country_code_for(item)
+        loc = Array(item['locations']).first&.[]('geonames_details')
+        return loc['country_code'] if loc.present? && loc['country_code'].present?
+
+        item.dig('country', 'country_code')
+      end
+
+      def lang_from_names(item)
+        names = Array(item['names'])
+        names.find { |name| name.is_a?(Hash) && name['lang'].present? }&.[]('lang')
       end
 
       # Extracts the website URL from the item
@@ -323,35 +328,42 @@ module ExternalApis
         return nil if item.blank?
 
         links = item['links']
-        if links.is_a?(Array)
-          website = links.find do |link|
-            link.is_a?(Hash) && link['type'].to_s == 'website' && link['value'].present?
-          end
-          return website['value'] if website.present?
-
-          first_link = links.find { |link| link.is_a?(Hash) && link['value'].present? }
-          return first_link['value'] if first_link.present?
-
-          string_link = links.find { |link| link.is_a?(String) && link.present? }
-          return string_link if string_link.present?
-
-          return links.first if links.first.is_a?(String) && links.first.present?
-        end
+        return website_from_links(links) if links.is_a?(Array)
 
         links
       end
+
+      # rubocop:disable Metrics/AbcSize
+      def website_from_links(links)
+        website = links.find { |link| link.is_a?(Hash) && link['type'].to_s == 'website' && link['value'].present? }
+        return website['value'] if website.present?
+
+        first_link = links.find { |link| link.is_a?(Hash) && link['value'].present? }
+        return first_link['value'] if first_link.present?
+
+        string_link = links.find { |link| link.is_a?(String) && link.present? }
+        return string_link if string_link.present?
+
+        return links.first if links.first.is_a?(String) && links.first.present?
+
+        nil
+      end
+      # rubocop:enable Metrics/AbcSize
 
       # Extracts the website domain from the item for contextual names
       def org_website(item:)
         website = primary_website(item: item)
         return nil if website.blank?
 
-        domain_regex = %r{^(?:http://|www\.|https://)([^/]+)}
-        website = website.to_s
-        domain = website.scan(domain_regex).last&.first
+        domain = extract_domain(website.to_s)
         return nil if domain.blank?
 
         domain.gsub('www.', '')
+      end
+
+      def extract_domain(website)
+        domain_regex = %r{^(?:http://|www\.|https://)([^/]+)}
+        website.scan(domain_regex).last&.first
       end
 
       # Extracts the FundRef Id if available
@@ -359,25 +371,32 @@ module ExternalApis
         return '' if item.blank?
 
         external_ids = item['external_ids']
-        if external_ids.is_a?(Hash)
-          fundref = external_ids['FundRef'] || external_ids['fundref']
-          return '' if fundref.blank?
+        return fundref_id_from_hash(external_ids) if external_ids.is_a?(Hash)
 
-          preferred = fundref['preferred']
-          return preferred.to_s if preferred.present?
-
-          return Array(fundref['all']).first.to_s
-        end
-
-        fundref = Array(external_ids).find do |id_info|
-          id_info.is_a?(Hash) && id_info['type'].to_s.casecmp('fundref').zero?
-        end
+        fundref = find_fundref_entry(external_ids)
         return '' if fundref.blank?
 
-        preferred = fundref['preferred']
+        preferred_or_first(fundref)
+      end
+
+      def fundref_id_from_hash(external_ids)
+        fundref = external_ids['FundRef'] || external_ids['fundref']
+        return '' if fundref.blank?
+
+        preferred_or_first(fundref)
+      end
+
+      def preferred_or_first(item)
+        preferred = item['preferred']
         return preferred.to_s if preferred.present?
 
-        Array(fundref['all']).first.to_s
+        Array(item['all']).first.to_s
+      end
+
+      def find_fundref_entry(external_ids)
+        Array(external_ids).find do |id_info|
+          id_info.is_a?(Hash) && id_info['type'].to_s.casecmp('fundref').zero?
+        end
       end
     end
   end
