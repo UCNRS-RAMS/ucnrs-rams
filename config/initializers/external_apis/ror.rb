@@ -20,4 +20,4 @@ Rails.configuration.x.ror.checksum_file = Rails.root.join('tmp', 'ror', 'checksu
 Rails.configuration.x.ror.zip_file = Rails.root.join('tmp', 'ror', 'latest-ror-data.zip')
 
 # BaseService requires a helpdesk email for its User-Agent header.
-Rails.configuration.x.organisation.helpdesk_email = 'support@ucnrs.org'
+Rails.configuration.x.organisation.helpdesk_email = 'support@ucnature.org'
