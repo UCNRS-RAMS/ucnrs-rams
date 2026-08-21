@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'faraday'
+require 'faraday/follow_redirects'
 require 'faraday/retry'
 require 'digest'
 require 'logger'
@@ -169,6 +170,7 @@ module ExternalApis
                             backoff_factor: 2,
                             methods: %i[get post put],
                             retry_statuses: [429, 500, 502, 503, 504]
+          f.response :follow_redirects, limit: max_redirects
           f.response :logger, Logger.new($stdout), bodies: true if debug
           f.adapter Faraday.default_adapter
         end

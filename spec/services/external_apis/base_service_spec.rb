@@ -277,6 +277,7 @@ RSpec.describe ExternalApis::BaseService do
         expect(result.headers).to include('Accept' => 'application/json', 'X-Test' => 'yes')
         expect(result.options.timeout).to eq(60)
         expect(result.options.open_timeout).to eq(30)
+        expect(result.builder.handlers).to include(Faraday::FollowRedirects::Middleware)
       end
     end
 
