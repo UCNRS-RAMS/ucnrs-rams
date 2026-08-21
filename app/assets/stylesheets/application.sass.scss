@@ -47,6 +47,9 @@
 @use "visits" as *;
 @use "waivers_policies" as *;
 
+// Admin styles
+@use "admin/reports" as *;
+
 // Manager styles
 @use "manager/activities" as *;
 @use "manager/dashboard" as *;
