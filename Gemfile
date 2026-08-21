@@ -12,6 +12,7 @@ gem "devise", '~> 5.0'
 gem "omniauth"
 gem "omniauth-orcid"
 gem "omniauth-rails_csrf_protection"
+gem "faraday-follow_redirects"
 gem 'faraday-retry'
 gem 'fog-aws'
 gem 'foreman'
