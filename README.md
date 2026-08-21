@@ -13,7 +13,7 @@ You only need one of these paths for day-to-day development.
 
 This repo currently expects:
 
-- Ruby `4.0.3` from [`.ruby-version`](.ruby-version)
+- Ruby `4.0.6` from [`.ruby-version`](.ruby-version)
 - Node `24.x` from [`package.json`](package.json)
 - Yarn `1.22.22`
 - MySQL `8.4` if you're running locally without Docker
@@ -151,7 +151,7 @@ $ brew tap homebrew/cask
 $ brew install --cask chromedriver
 ```
 
-To run the full test suite:
+To run the RSpec suite:
 
 ```sh
 # from install on mac
@@ -177,6 +177,18 @@ You can run a single Jest spec file by passing the file path:
 
 ```sh
 yarn jest app/javascript/path/to/file_spec.ts
+```
+
+### Running all automated tests
+
+The default Rake task runs both RSpec and Jest:
+
+```sh
+# from install on mac
+bundle exec rake
+
+# from a running Docker container
+docker compose exec web bundle exec rake
 ```
 
 ### Switching out Capybara Driver:
