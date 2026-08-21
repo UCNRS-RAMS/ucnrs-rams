@@ -75,15 +75,30 @@ module ExternalApis
       def log_error(method:, error:)
         return unless method.present? && error.present?
 
-        Rails.logger.error "#{self.class.name}.#{method} #{error.message}"
+        output = "#{self.class.name}.#{method} #{error.message}"
+        Rails.logger.error output
         Rails.logger.error error.backtrace
+        print_to_console(output, level: :error)
       end
 
       # Logs the specified message (as INFO by default, WARN otherwise)
       def log_message(method:, message:, info: true)
         return unless method.present? && message.present?
 
-        Rails.logger.send((info ? :info : :warn), "#{self.class.name}.#{method} #{message}")
+        output = "#{self.class.name}.#{method} #{message}"
+        Rails.logger.send((info ? :info : :warn), output)
+        print_to_console(output, level: info ? :info : :warn)
+      end
+
+      def print_to_console(output, level: :info)
+        return unless output.present?
+
+        # Long-running external sync jobs need stdout output in dev/CLI runs even when Rails
+        # is configured to write logs elsewhere.
+        return unless Rails.env.development? || Rails.env.dev_server? || ENV["RAILS_LOG_TO_STDOUT"].present?
+
+        prefix = level == :error ? "ERROR" : level == :warn ? "WARN" : "INFO"
+        $stdout.puts "[#{prefix}] #{output}"
       end
 
       # Logs the error and response for operators. This intentionally does not
