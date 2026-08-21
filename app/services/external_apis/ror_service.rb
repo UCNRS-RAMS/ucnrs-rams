@@ -142,7 +142,7 @@ module ExternalApis
           host: 'zenodo.org',
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          'User-Agent': "California Digital Library - dmptool.org (mailto:dmptool@ucop.edu)"
+          'User-Agent': "UC Nature RAMS - rams.ucnature.org (mailto:support@ucnature.org)"
         }
 
         resp = http_get(uri: url, additional_headers: headers, debug: false)
