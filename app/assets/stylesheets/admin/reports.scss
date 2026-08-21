@@ -1,0 +1,36 @@
+@use "variables" as *;
+
+body.admin-reports {
+  .content > header {
+    font-size: 2rem;
+    font-weight: $light;
+    margin-bottom: 1.5rem;
+  }
+
+  .fiscal-year-select {
+    align-items: center;
+    display: flex;
+    font-size: .875rem;
+    gap: .5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  table.table-style1 {
+    td.reserve-name {
+      font-weight: $medium;
+      max-width: none;
+    }
+
+    th.part,
+    td.part {
+      text-align: center;
+      width: 4.5rem;
+    }
+
+    img {
+      height: 1rem;
+      vertical-align: middle;
+      width: 1rem;
+    }
+  }
+}
