@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
-require 'httparty'
+require 'faraday'
+require 'faraday/retry'
 require 'digest'
+require 'logger'
 require 'zip'
 
 module ExternalApis
@@ -60,8 +62,19 @@ module ExternalApis
 
       # Logs the results of a failed HTTP response
       def handle_http_failure(method:, http_response:)
-        content = http_response.inspect
-        msg = "received a #{http_response&.code} response with: #{content}!"
+        status = if http_response.respond_to?(:status)
+                   http_response.status
+                 else
+                   http_response&.code
+                 end
+        content = if http_response.respond_to?(:inspect)
+                    http_response.inspect
+                  elsif http_response.present?
+                    http_response.to_s
+                  else
+                    'nil'
+                  end
+        msg = "received a #{status} response with: #{content}!"
         log_error(method: method, error: ExternalApiError.new(msg))
       end
 
@@ -139,13 +152,12 @@ module ExternalApis
       def http_get(uri:, additional_headers: {}, debug: false)
         return nil if uri.blank?
 
-        HTTParty.get(uri, options(additional_headers: additional_headers,
-                                  debug: debug))
+        faraday_connection(uri: uri, additional_headers: additional_headers, debug: debug).get(uri)
       rescue URI::InvalidURIError => e
         handle_uri_failure(method: "BaseService.http_get #{e.message}",
                            uri: uri)
         nil
-      rescue HTTParty::Error => e
+      rescue Faraday::Error => e
         handle_http_failure(method: "BaseService.http_get #{e.message}",
                             http_response: nil)
         nil
@@ -156,14 +168,15 @@ module ExternalApis
       def http_put(uri:, additional_headers: {}, data: {}, basic_auth: nil, debug: false)
         return nil if uri.blank?
 
-        opts = options(additional_headers: additional_headers, debug: debug)
-        opts[:body] = data
-        opts[:basic_auth] = basic_auth if basic_auth.present?
-        HTTParty.put(uri, opts)
+        request = faraday_connection(uri: uri,
+                                    additional_headers: additional_headers,
+                                    debug: debug,
+                                    basic_auth: basic_auth)
+        request.put(uri, data)
       rescue URI::InvalidURIError => e
         handle_uri_failure(method: "BaseService.http_put #{e.message}", uri: uri)
         nil
-      rescue HTTParty::Error => e
+      rescue Faraday::Error => e
         handle_http_failure(method: "BaseService.http_put #{e.message}", http_response: nil)
         nil
       end
@@ -173,24 +186,52 @@ module ExternalApis
       def http_post(uri:, additional_headers: {}, data: {}, basic_auth: nil, debug: false)
         return nil if uri.blank?
 
-        opts = options(additional_headers: additional_headers, debug: debug)
-        opts[:body] = data
-        opts[:basic_auth] = basic_auth if basic_auth.present?
-        HTTParty.post(uri, opts)
+        request = faraday_connection(uri: uri,
+                                    additional_headers: additional_headers,
+                                    debug: debug,
+                                    basic_auth: basic_auth)
+        request.post(uri, data)
       rescue URI::InvalidURIError => e
         handle_uri_failure(method: "BaseService.http_post #{e.message}", uri: uri)
         nil
-      rescue HTTParty::Error => e
+      rescue Faraday::Error => e
         handle_http_failure(method: "BaseService.http_post #{e.message}", http_response: nil)
         nil
       end
 
-      # Options for the HTTParty call
+      # Builds a Faraday connection with the standard headers, retries, and timeout settings.
+      def faraday_connection(uri:, additional_headers: {}, debug: false, basic_auth: nil)
+        opts = options(additional_headers: additional_headers, debug: debug)
+        connection = Faraday.new(uri, headers: opts[:headers], request: opts[:request]) do |f|
+          f.options.timeout = opts.dig(:request, :timeout) || 60
+          f.options.open_timeout = opts.dig(:request, :open_timeout) || 30
+          f.request :retry, max: opts[:limit].to_i,
+                            interval: 0.5,
+                            backoff_factor: 2,
+                            methods: %i[get post put],
+                            retry_statuses: [429, 500, 502, 503, 504]
+          f.response :logger, Logger.new($stdout), bodies: true if opts[:debug_output].present?
+          f.adapter Faraday.default_adapter
+        end
+
+        if basic_auth.present?
+          connection.request(:authorization, :basic,
+                            basic_auth[:username], basic_auth[:password])
+        end
+
+        connection
+      end
+
+      # Options for the Faraday call
       def options(additional_headers: {}, debug: false)
         hash = {
           headers: headers.merge(additional_headers),
           follow_redirects: true,
-          limit: 6
+          limit: 6,
+          request: {
+            timeout: 60,
+            open_timeout: 30
+          }
         }
         hash[:debug_output] = $stdout if debug
         hash

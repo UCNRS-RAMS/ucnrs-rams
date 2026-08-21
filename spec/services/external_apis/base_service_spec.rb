@@ -51,7 +51,7 @@ RSpec.describe ExternalApis::BaseService do
   end
 
   describe '.handle_http_failure' do
-    let(:response) { instance_double(HTTParty::Response, code: 500, body: 'It failed', inspect: 'HTTP 500') }
+    let(:response) { instance_double(Faraday::Response, status: 500, body: 'It failed', inspect: 'HTTP 500') }
 
     it 'logs the failure when the method name is present' do
       expect(described_class).to receive(:log_error).with(
@@ -157,7 +157,7 @@ RSpec.describe ExternalApis::BaseService do
     end
 
     it 'logs the response and returns true for unexpected responses' do
-      response = instance_double(HTTParty::Response, inspect: 'HTTP 500')
+      response = instance_double(Faraday::Response, inspect: 'HTTP 500', status: 500)
 
       expect(Rails.logger).to receive(:error).with('String received an unexpected response from ExternalApis::BaseService').ordered
       expect(Rails.logger).to receive(:error).with('HTTP 500').ordered
@@ -209,7 +209,7 @@ RSpec.describe ExternalApis::BaseService do
     end
 
     describe '.http_get' do
-      let(:response) { instance_double(HTTParty::Response, code: 200, body: 'ok') }
+      let(:response) { instance_double(Faraday::Response, status: 200, body: 'ok', inspect: 'HTTP 200') }
 
       it 'returns nil when uri is blank' do
         expect(described_class.send(:http_get, uri: nil)).to be_nil
@@ -217,54 +217,55 @@ RSpec.describe ExternalApis::BaseService do
 
       it 'logs and returns nil when the URI is invalid' do
         allow(described_class).to receive(:handle_uri_failure)
-        allow(HTTParty).to receive(:get).and_raise(URI::InvalidURIError)
+        allow(described_class).to receive(:faraday_connection).and_raise(URI::InvalidURIError)
 
         expect(described_class.send(:http_get, uri: 'badurl~^(%')).to be_nil
         expect(described_class).to have_received(:handle_uri_failure)
       end
 
       it 'returns the response for a valid request' do
-        allow(described_class).to receive(:options).and_return({ headers: { Accept: 'application/json' } })
-        allow(HTTParty).to receive(:get).with('https://example.com', { headers: { Accept: 'application/json' } }).and_return(response)
+        connection = instance_double(Faraday::Connection)
+        allow(described_class).to receive(:faraday_connection).and_return(connection)
+        allow(connection).to receive(:get).with('https://example.com').and_return(response)
 
         expect(described_class.send(:http_get, uri: 'https://example.com')).to eq(response)
       end
     end
 
     describe '.http_put' do
-      let(:response) { instance_double(HTTParty::Response, code: 200, body: 'ok') }
+      let(:response) { instance_double(Faraday::Response, status: 200, body: 'ok', inspect: 'HTTP 200') }
 
       it 'returns nil when uri is blank' do
         expect(described_class.send(:http_put, uri: nil)).to be_nil
       end
 
       it 'passes through the payload and basic auth options' do
-        options = { headers: { Accept: 'application/json' }, body: { foo: 'bar' }, basic_auth: { username: 'user', password: 'pass' } }
-        allow(described_class).to receive(:options).and_return({ headers: { Accept: 'application/json' } })
-        allow(HTTParty).to receive(:put).with('https://example.com', options).and_return(response)
+        connection = instance_double(Faraday::Connection)
+        allow(described_class).to receive(:faraday_connection).and_return(connection)
+        allow(connection).to receive(:put).with('https://example.com', { foo: 'bar' }).and_return(response)
 
         expect(described_class.send(:http_put, uri: 'https://example.com', data: { foo: 'bar' }, basic_auth: { username: 'user', password: 'pass' })).to eq(response)
       end
     end
 
     describe '.http_post' do
-      let(:response) { instance_double(HTTParty::Response, code: 201, body: 'created') }
+      let(:response) { instance_double(Faraday::Response, status: 201, body: 'created', inspect: 'HTTP 201') }
 
       it 'returns nil when uri is blank' do
         expect(described_class.send(:http_post, uri: nil)).to be_nil
       end
 
       it 'passes through the payload and basic auth options' do
-        options = { headers: { Accept: 'application/json' }, body: { foo: 'bar' }, basic_auth: { username: 'user', password: 'pass' } }
-        allow(described_class).to receive(:options).and_return({ headers: { Accept: 'application/json' } })
-        allow(HTTParty).to receive(:post).with('https://example.com', options).and_return(response)
+        connection = instance_double(Faraday::Connection)
+        allow(described_class).to receive(:faraday_connection).and_return(connection)
+        allow(connection).to receive(:post).with('https://example.com', { foo: 'bar' }).and_return(response)
 
         expect(described_class.send(:http_post, uri: 'https://example.com', data: { foo: 'bar' }, basic_auth: { username: 'user', password: 'pass' })).to eq(response)
       end
     end
 
     describe '.options' do
-      it 'builds a standard HTTParty config with headers and redirect settings' do
+      it 'builds a standard Faraday config with headers and timeout settings' do
         allow(described_class).to receive(:headers).and_return({ Accept: 'application/json' })
 
         result = described_class.send(:options, additional_headers: { 'X-Test' => 'yes' }, debug: false)
@@ -272,6 +273,7 @@ RSpec.describe ExternalApis::BaseService do
         expect(result[:headers]).to eq({ Accept: 'application/json', 'X-Test' => 'yes' })
         expect(result[:follow_redirects]).to be(true)
         expect(result[:limit]).to eq(6)
+        expect(result[:request]).to eq({ timeout: 60, open_timeout: 30 })
         expect(result[:debug_output]).to be_nil
       end
 
