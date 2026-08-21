@@ -110,7 +110,7 @@ module ExternalApis
         # version 1st)
         resp = http_get(uri: download_url, additional_headers: { host: 'zenodo.org' }, debug: false)
 
-        unless resp.present? && resp.code == 200
+        unless resp.present? && resp.status == 200
           handle_http_failure(method: 'Fetching ROR metadata from Zenodo', http_response: resp)
           notify_administrators(obj: 'RorService', response: resp)
           return nil
@@ -147,7 +147,7 @@ module ExternalApis
 
         resp = http_get(uri: url, additional_headers: headers, debug: false)
 
-        unless resp.present? && resp.code == 200
+        unless resp.present? && resp.status == 200
           handle_http_failure(method: "Fetching ROR file from Zenodo - #{url}", http_response: resp)
           notify_administrators(obj: 'RorService', response: resp)
           return nil

@@ -62,18 +62,8 @@ module ExternalApis
 
       # Logs the results of a failed HTTP response
       def handle_http_failure(method:, http_response:)
-        status = if http_response.respond_to?(:status)
-                   http_response.status
-                 else
-                   http_response&.code
-                 end
-        content = if http_response.respond_to?(:inspect)
-                    http_response.inspect
-                  elsif http_response.present?
-                    http_response.to_s
-                  else
-                    'nil'
-                  end
+        status = http_response&.status
+        content = http_response&.inspect || 'nil'
         msg = "received a #{status} response with: #{content}!"
         log_error(method: method, error: ExternalApiError.new(msg))
       end
@@ -150,91 +140,61 @@ module ExternalApis
       # Makes a GET request to the specified uri with the additional headers.
       # Additional headers are combined with the base headers defined above.
       def http_get(uri:, additional_headers: {}, debug: false)
-        return nil if uri.blank?
-
-        faraday_connection(uri: uri, additional_headers: additional_headers, debug: debug).get(uri)
-      rescue URI::InvalidURIError => e
-        handle_uri_failure(method: "BaseService.http_get #{e.message}",
-                           uri: uri)
-        nil
-      rescue Faraday::Error => e
-        handle_http_failure(method: "BaseService.http_get #{e.message}",
-                            http_response: nil)
-        nil
+        http_request(method: :get, uri: uri, additional_headers: additional_headers, debug: debug)
       end
 
       # Makes a PUT request to the specified uri with the additional headers.
       # Additional headers are combined with the base headers defined above.
       def http_put(uri:, additional_headers: {}, data: {}, basic_auth: nil, debug: false)
-        return nil if uri.blank?
-
-        request = faraday_connection(uri: uri,
-                                    additional_headers: additional_headers,
-                                    debug: debug,
-                                    basic_auth: basic_auth)
-        request.put(uri, data)
-      rescue URI::InvalidURIError => e
-        handle_uri_failure(method: "BaseService.http_put #{e.message}", uri: uri)
-        nil
-      rescue Faraday::Error => e
-        handle_http_failure(method: "BaseService.http_put #{e.message}", http_response: nil)
-        nil
+        http_request(method: :put, uri: uri, additional_headers: additional_headers,
+                     data: data, basic_auth: basic_auth, debug: debug)
       end
 
       # Makes a POST request to the specified uri with the additional headers.
       # Additional headers are combined with the base headers defined above.
       def http_post(uri:, additional_headers: {}, data: {}, basic_auth: nil, debug: false)
-        return nil if uri.blank?
-
-        request = faraday_connection(uri: uri,
-                                    additional_headers: additional_headers,
-                                    debug: debug,
-                                    basic_auth: basic_auth)
-        request.post(uri, data)
-      rescue URI::InvalidURIError => e
-        handle_uri_failure(method: "BaseService.http_post #{e.message}", uri: uri)
-        nil
-      rescue Faraday::Error => e
-        handle_http_failure(method: "BaseService.http_post #{e.message}", http_response: nil)
-        nil
+        http_request(method: :post, uri: uri, additional_headers: additional_headers,
+                     data: data, basic_auth: basic_auth, debug: debug)
       end
 
       # Builds a Faraday connection with the standard headers, retries, and timeout settings.
       def faraday_connection(uri:, additional_headers: {}, debug: false, basic_auth: nil)
-        opts = options(additional_headers: additional_headers, debug: debug)
-        connection = Faraday.new(uri, headers: opts[:headers], request: opts[:request]) do |f|
-          f.options.timeout = opts.dig(:request, :timeout) || 60
-          f.options.open_timeout = opts.dig(:request, :open_timeout) || 30
-          f.request :retry, max: opts[:limit].to_i,
+        connection = Faraday.new(
+          uri,
+          headers: headers.merge(additional_headers),
+          request: { timeout: 60, open_timeout: 30 }
+        ) do |f|
+          f.request :retry, max: 6,
                             interval: 0.5,
                             backoff_factor: 2,
                             methods: %i[get post put],
                             retry_statuses: [429, 500, 502, 503, 504]
-          f.response :logger, Logger.new($stdout), bodies: true if opts[:debug_output].present?
+          f.response :logger, Logger.new($stdout), bodies: true if debug
           f.adapter Faraday.default_adapter
         end
 
         if basic_auth.present?
           connection.request(:authorization, :basic,
-                            basic_auth[:username], basic_auth[:password])
+                             basic_auth[:username], basic_auth[:password])
         end
 
         connection
       end
 
-      # Options for the Faraday call
-      def options(additional_headers: {}, debug: false)
-        hash = {
-          headers: headers.merge(additional_headers),
-          follow_redirects: true,
-          limit: 6,
-          request: {
-            timeout: 60,
-            open_timeout: 30
-          }
-        }
-        hash[:debug_output] = $stdout if debug
-        hash
+      def http_request(method:, uri:, additional_headers:, data: nil, basic_auth: nil, debug: false)
+        return nil if uri.blank?
+
+        connection = faraday_connection(uri: uri, additional_headers: additional_headers,
+                                        debug: debug, basic_auth: basic_auth)
+        return connection.get(uri) if method == :get
+
+        connection.public_send(method, uri, data)
+      rescue URI::InvalidURIError => e
+        handle_uri_failure(method: "BaseService.http_#{method} #{e.message}", uri: uri)
+        nil
+      rescue Faraday::Error => e
+        handle_http_failure(method: "BaseService.http_#{method} #{e.message}", http_response: nil)
+        nil
       end
 
       # Unzips the specified file
