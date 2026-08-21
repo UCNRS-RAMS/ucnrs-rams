@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe ExternalApis::RorService do
   describe '.fetch_zenodo_metadata' do
-    let(:response) { instance_double(HTTParty::Response, code: 200, body: body) }
+    let(:response) { instance_double(Faraday::Response, status: 200, body: body) }
 
     before do
       allow(described_class).to receive(:download_url).and_return('https://zenodo.org/api/records/?communities=ror-data&sort=mostrecent')
@@ -58,7 +58,7 @@ RSpec.describe ExternalApis::RorService do
     let(:url) { 'https://zenodo.org/api/records/1/files/ror.zip/content' }
 
     it 'returns the response body when the request succeeds' do
-      response = instance_double(HTTParty::Response, code: 200, body: 'zip file contents')
+      response = instance_double(Faraday::Response, status: 200, body: 'zip file contents')
       allow(described_class).to receive(:http_get).with(
         uri: url,
         additional_headers: {
@@ -78,7 +78,7 @@ RSpec.describe ExternalApis::RorService do
     end
 
     it 'handles a non-200 response by calling the failure handler' do
-      response = instance_double(HTTParty::Response, code: 403, body: 'forbidden')
+      response = instance_double(Faraday::Response, status: 403, body: 'forbidden')
       allow(described_class).to receive(:http_get).and_return(response)
       allow(described_class).to receive(:handle_http_failure)
       allow(described_class).to receive(:notify_administrators)

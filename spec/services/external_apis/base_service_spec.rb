@@ -264,26 +264,19 @@ RSpec.describe ExternalApis::BaseService do
       end
     end
 
-    describe '.options' do
-      it 'builds a standard Faraday config with headers and timeout settings' do
+    describe '.faraday_connection' do
+      it 'builds a standard Faraday connection with headers and timeout settings' do
         allow(described_class).to receive(:headers).and_return({ Accept: 'application/json' })
 
-        result = described_class.send(:options, additional_headers: { 'X-Test' => 'yes' }, debug: false)
+        result = described_class.send(
+          :faraday_connection,
+          uri: 'https://example.com',
+          additional_headers: { 'X-Test' => 'yes' }
+        )
 
-        expect(result[:headers]).to eq({ Accept: 'application/json', 'X-Test' => 'yes' })
-        expect(result[:follow_redirects]).to be(true)
-        expect(result[:limit]).to eq(6)
-        expect(result[:request]).to eq({ timeout: 60, open_timeout: 30 })
-        expect(result[:debug_output]).to be_nil
-      end
-
-      it 'includes stdout for debug output when requested' do
-        allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new('development'))
-        allow(described_class).to receive(:headers).and_return({ Accept: 'application/json' })
-
-        result = described_class.send(:options, additional_headers: {}, debug: true)
-
-        expect(result[:debug_output]).to eq($stdout)
+        expect(result.headers).to include('Accept' => 'application/json', 'X-Test' => 'yes')
+        expect(result.options.timeout).to eq(60)
+        expect(result.options.open_timeout).to eq(30)
       end
     end
 
