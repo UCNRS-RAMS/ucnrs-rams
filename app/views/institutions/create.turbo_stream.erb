@@ -1,0 +1,14 @@
+<turbo-stream action="set_value" targets="#user_institution" value="<%= @form.institution.name %>"></turbo-stream>
+<turbo-stream action="set_value" targets="#user_institution_id" value="<%= @form.institution.id %>"></turbo-stream>
+
+<turbo-stream action="replace" target="modal-content">
+  <template>
+    <%= render partial: "modals/empty", formats: [:html] %>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="replace" target="flash">
+  <template>
+    <%= render partial: "shared/flash", formats: [:html] %>
+  </template>
+</turbo-stream>
