@@ -87,7 +87,7 @@ module ExternalApis
         log_message(method: method, message: "Stage: save - downloaded archive written to #{zip_file}")
 
         json_file = download_file.split('/').last.gsub('.zip', '')
-        json_file = "#{json_file}.json" unless json_file.end_with?('.json')
+        # json_file = "#{json_file}.json" unless json_file.end_with?('.json')  # todo: do I really need this?
 
         log_message(method: method, message: "Stage: populate - processing #{json_file} into the local ROR table")
         return :failure unless process_ror_file(zip_file: zip_file, file: json_file)
@@ -108,11 +108,11 @@ module ExternalApis
 
         # Fetch the latest ROR metadata from Zenodo (the query will place the most recent
         # version 1st)
-        resp = http_get(uri: download_url, additional_headers: { host: 'zenodo.org' }, debug: false)
+        resp = http_get(uri: download_url, additional_headers: { host: 'zenodo.org' }, debug: false)  # todo: do I really need to add host like this?
 
         unless resp.present? && resp.status == 200
           handle_http_failure(method: 'Fetching ROR metadata from Zenodo', http_response: resp)
-          notify_administrators(obj: 'RorService', response: resp)
+          notify_administrators(obj: 'RorService', response: resp)  # todo: is this really the right name for this method and do we really notify them?
           return nil
         end
         json = JSON.parse(resp.body)
@@ -121,7 +121,7 @@ module ExternalApis
         file_metadata = json.fetch('hits', {}).fetch('hits', []).first&.fetch('files', [])&.last&.with_indifferent_access
         if file_metadata.blank?
           handle_http_failure(method: 'No file found in ROR metadata from Zenodo', http_response: resp)
-          notify_administrators(obj: 'RorService', response: resp)
+          notify_administrators(obj: 'RorService', response: resp)  # todo: is notifying them really the right thing to do here?
           return nil
         end
 
@@ -139,10 +139,10 @@ module ExternalApis
         return nil if url.blank?
 
         headers = {
-          host: 'zenodo.org',
+          host: 'zenodo.org',  # todo: do I really need to add a host header if I give the full URL?
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          'User-Agent': "UC Nature RAMS - rams.ucnature.org (mailto:support@ucnature.org)"
+          'User-Agent': "#{ApplicationService.application_name} (mailto:#{app_email})"  # todo: check that this works
         }
 
         resp = http_get(uri: url, additional_headers: headers, debug: false)
@@ -186,6 +186,7 @@ module ExternalApis
               )
             end
 
+            # cleanup items removed from ror
             log_message(method: method, message: "Stage: cleanup - removing stale records older than #{json_file.mtime.strftime('%Y-%m-%d %H:%M:%S')}")
             Ror.where('file_timestamp < ?', json_file.mtime.strftime('%Y-%m-%d %H:%M:%S')).destroy_all
             log_message(method: method, message: "Stage: complete - finished processing #{total} ROR records")
@@ -203,6 +204,7 @@ module ExternalApis
         false
       end
 
+      # interval for updated info based on the size of the total records.
       def progress_interval_for(total_records)
         return 1 if total_records <= 1
         return 100 if total_records <= 1000
@@ -221,7 +223,8 @@ module ExternalApis
         ((current_record.to_f / total_records) * 100).round(1)
       end
       # rubocop:enable Metrics/AbcSize
-            # Transfer the contents of a ROR record to the local rors table
+
+      # Transfer the contents of a ROR record to the local rors table
       # rubocop:disable Metrics/AbcSize
       def process_ror_record(record:, time:)
         return nil unless record.present? && record.is_a?(Hash) && record['id'].present?
@@ -336,6 +339,7 @@ module ExternalApis
         lang = lang_from_names(item)
         return lang if lang.present?
 
+        # this is for an older style of ROR record that has a 'labels' array with an 'iso639' key
         legacy_labels = item.fetch('labels', [])
         return legacy_labels.first&.[]('iso639') || dflt if legacy_labels.is_a?(Array) && legacy_labels.first.present?
 
