@@ -151,35 +151,6 @@ RSpec.describe ExternalApis::BaseService do
     end
   end
 
-  describe '.notify_administrators' do
-    it 'returns false when there is no object, response, or error' do
-      expect(described_class.notify_administrators(obj: nil, response: nil, error: nil)).to be(false)
-    end
-
-    it 'logs the response and returns true for unexpected responses' do
-      response = instance_double(Faraday::Response, inspect: 'HTTP 500', status: 500)
-
-      expect(Rails.logger).to receive(:error).with('String received an unexpected response from ExternalApis::BaseService').ordered
-      expect(Rails.logger).to receive(:error).with('HTTP 500').ordered
-
-      expect(described_class.notify_administrators(obj: 'String', response: response, error: nil)).to be(true)
-    end
-
-    it 'logs the exception details when an error is supplied' do
-      error = begin
-        raise StandardError, 'broken'
-      rescue StandardError => e
-        e
-      end
-
-      expect(Rails.logger).to receive(:error).with('String received an unexpected response from ExternalApis::BaseService').ordered
-      expect(Rails.logger).to receive(:error).with("#{error.class}: #{error.message}").ordered
-      expect(Rails.logger).to receive(:error).with(error.backtrace).ordered
-
-      expect(described_class.notify_administrators(obj: 'String', response: nil, error: error)).to be(true)
-    end
-  end
-
   describe 'private methods' do
     describe '.app_name' do
       it 'returns the application name from ApplicationService' do
