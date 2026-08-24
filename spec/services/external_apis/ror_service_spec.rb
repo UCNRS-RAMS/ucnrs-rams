@@ -19,6 +19,7 @@ RSpec.describe ExternalApis::RorService do
               {
                 'files' => [
                   {
+                    'key' => 'ror-data.zip',
                     'checksum' => 'md5:abc123',
                     'links' => { 'self' => 'https://zenodo.org/records/1/files/ror.zip/content' }
                   }
@@ -45,11 +46,14 @@ RSpec.describe ExternalApis::RorService do
     context 'when Zenodo returns an unexpected payload shape' do
       let(:body) { { 'hits' => {} }.to_json }
 
-      it 'returns nil and triggers the HTTP failure path' do
-        allow(described_class).to receive(:handle_http_failure)
-        allow(described_class).to receive(:notify_administrators)
+      it 'returns nil and logs an invalid metadata response' do
+        allow(described_class).to receive(:log_error)
 
         expect(described_class.send(:fetch_zenodo_metadata)).to be_nil
+        expect(described_class).to have_received(:log_error).with(
+          method: 'Fetching ROR metadata from Zenodo',
+          error: an_instance_of(StandardError)
+        )
       end
     end
   end
@@ -61,12 +65,6 @@ RSpec.describe ExternalApis::RorService do
       response = instance_double(Faraday::Response, status: 200, body: 'zip file contents')
       allow(described_class).to receive(:http_get).with(
         uri: url,
-        additional_headers: {
-          host: 'zenodo.org',
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'User-Agent': /dmptool/ 
-        },
         debug: false
       ).and_return(response)
 
@@ -81,7 +79,6 @@ RSpec.describe ExternalApis::RorService do
       response = instance_double(Faraday::Response, status: 403, body: 'forbidden')
       allow(described_class).to receive(:http_get).and_return(response)
       allow(described_class).to receive(:handle_http_failure)
-      allow(described_class).to receive(:notify_administrators)
 
       expect(described_class.send(:download_ror_file, url: url)).to be_nil
     end
@@ -89,7 +86,7 @@ RSpec.describe ExternalApis::RorService do
 
   describe '.fetch' do
     before do
-      allow(described_class).to receive(:file_dir).and_return(Rails.root.join('tmp', 'ror_test'))
+      allow(described_class).to receive(:file_dir).and_return(Rails.root.join('tmp/ror_test'))
       allow(FileUtils).to receive(:mkdir_p)
       allow(described_class).to receive(:download_url).and_return('https://zenodo.org/api/records/?communities=ror-data')
     end
@@ -123,6 +120,18 @@ RSpec.describe ExternalApis::RorService do
       allow(File).to receive(:write)
 
       expect(described_class.fetch).to eq(:success)
+    end
+
+    it 'returns :failure when metadata does not include an archive key' do
+      allow(described_class).to receive(:fetch_zenodo_metadata).and_return(
+        {
+          checksum: 'def456',
+          links: { download: 'https://zenodo.org/records/1/files/ror-data.zip/content' }
+        }
+      )
+      allow(File).to receive(:exist?).with(described_class.checksum_file).and_return(false)
+
+      expect(described_class.fetch).to eq(:failure)
     end
   end
 

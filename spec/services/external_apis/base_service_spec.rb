@@ -30,19 +30,19 @@ RSpec.describe ExternalApis::BaseService do
       expect(headers[:Accept]).to eq('application/json')
     end
 
-    it 'sets the host and user-agent headers from the app configuration' do
+    it 'sets the user-agent header from the app configuration without forcing a host' do
       original = Rails.configuration.x.organisation.helpdesk_email
       Rails.configuration.x.organisation.helpdesk_email = 'support@example.com'
 
       headers = described_class.headers
 
-      expect(headers[:Host]).to eq('api.example.com')
       expect(headers[:'User-Agent']).to eq("#{described_class.send(:app_name)} (support@example.com)")
+      expect(headers).not_to have_key(:Host)
     ensure
       Rails.configuration.x.organisation.helpdesk_email = original
     end
 
-    it 'falls back to a valid host header when the API base URL is invalid' do
+    it 'does not use the API base URL to construct headers' do
       allow(described_class).to receive(:api_base_url).and_return('not a valid url')
 
       expect { described_class.headers }.not_to raise_error
