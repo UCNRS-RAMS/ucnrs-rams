@@ -49,16 +49,11 @@ module ExternalApis
       # by sending your changes in the `additional_headers` attribute of
       # `http_get`
       def headers
-        hash = {
+        {
           'Content-Type': 'application/json',
           Accept: 'application/json',
           'User-Agent': "#{app_name} (#{app_email})"
         }
-        hash.merge({ Host: URI(api_base_url).hostname.to_s })
-      rescue URI::InvalidURIError => e
-        handle_uri_failure(method: "BaseService.headers #{e.message}",
-                           uri: api_base_url)
-        hash
       end
 
       # Logs the results of a failed HTTP response
@@ -95,7 +90,7 @@ module ExternalApis
       end
 
       def print_to_console(output, level: :info)
-        return unless output.present?
+        return if output.blank?
 
         # Long-running external sync jobs need stdout output in dev/CLI runs even when Rails
         # is configured to write logs elsewhere.

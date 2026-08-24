@@ -71,8 +71,12 @@ module ExternalApis
           return :no_change
         end
 
-        download_link = metadata.fetch(:links, {})[:download]
-        download_file = metadata[:key].presence || File.basename(download_link.to_s)
+        download_link = metadata.dig(:links, :download)
+        download_file = metadata[:key].presence
+        if download_link.blank? || download_file.blank?
+          log_error(method: method, error: StandardError.new('ROR metadata is missing a download link or archive key.'))
+          return :failure
+        end
         log_message(method: method, message: "New ROR file detected - checksum #{metadata[:checksum]}")
         log_message(method: method, message: "Stage: download - #{download_file}")
         log_message(method: method, message: "Source: #{download_link}")
@@ -86,8 +90,7 @@ module ExternalApis
         File.binwrite(zip_file, payload)
         log_message(method: method, message: "Stage: save - downloaded archive written to #{zip_file}")
 
-        json_file = download_file.split('/').last.gsub('.zip', '')
-        # json_file = "#{json_file}.json" unless json_file.end_with?('.json')  # todo: do I really need this?
+        json_file = "#{File.basename(download_file).delete_suffix('.zip')}.json"
 
         log_message(method: method, message: "Stage: populate - processing #{json_file} into the local ROR table")
         return :failure unless process_ror_file(zip_file: zip_file, file: json_file)
@@ -108,11 +111,10 @@ module ExternalApis
 
         # Fetch the latest ROR metadata from Zenodo (the query will place the most recent
         # version 1st)
-        resp = http_get(uri: download_url, additional_headers: { host: 'zenodo.org' }, debug: false)  # todo: do I really need to add host like this?
+        resp = http_get(uri: download_url, debug: false)
 
         unless resp.present? && resp.status == 200
           handle_http_failure(method: 'Fetching ROR metadata from Zenodo', http_response: resp)
-          notify_administrators(obj: 'RorService', response: resp)  # todo: is this really the right name for this method and do we really notify them?
           return nil
         end
         json = JSON.parse(resp.body)
@@ -120,8 +122,7 @@ module ExternalApis
         # Extract the most recent file's metadata
         file_metadata = json.fetch('hits', {}).fetch('hits', []).first&.fetch('files', [])&.last&.with_indifferent_access
         if file_metadata.blank?
-          handle_http_failure(method: 'No file found in ROR metadata from Zenodo', http_response: resp)
-          notify_administrators(obj: 'RorService', response: resp)  # todo: is notifying them really the right thing to do here?
+          log_error(method: 'Fetching ROR metadata from Zenodo', error: StandardError.new('No ROR file found in Zenodo metadata response.'))
           return nil
         end
 
@@ -138,18 +139,10 @@ module ExternalApis
       def download_ror_file(url:)
         return nil if url.blank?
 
-        headers = {
-          host: 'zenodo.org',  # todo: do I really need to add a host header if I give the full URL?
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'User-Agent': "#{ApplicationService.application_name} (mailto:#{app_email})"  # todo: check that this works
-        }
-
-        resp = http_get(uri: url, additional_headers: headers, debug: false)
+        resp = http_get(uri: url, debug: false)
 
         unless resp.present? && resp.status == 200
           handle_http_failure(method: "Fetching ROR file from Zenodo - #{url}", http_response: resp)
-          notify_administrators(obj: 'RorService', response: resp)
           return nil
         end
         resp.body
