@@ -17,7 +17,7 @@ class InstitutionsController < ApplicationController
       flash.now[:success] = "Institution <strong>#{@form.institution.name}</strong> successfully <span class='u-l-off'>added</span>."
 
       respond_to do |format|
-        format.js   { render action: "created", status: :created }
+        format.turbo_stream
         format.html { redirect_back(fallback_location: root_path) }
       end
     else

@@ -14,6 +14,7 @@ Rails.start()
 ActiveStorage.start()
 
 import "controllers"
+import "custom_turbo_stream_actions"
 
 require("trix")
 require("@rails/actiontext")
