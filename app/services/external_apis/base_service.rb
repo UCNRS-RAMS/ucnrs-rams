@@ -100,25 +100,6 @@ module ExternalApis
         $stdout.puts "[#{prefix}] #{output}"
       end
 
-      # Logs the error and response for operators. This intentionally does not
-      # send email because these tasks may run in environments without mail.
-      def notify_administrators(obj:, response: nil, error: nil)
-        return false unless obj.present? || response.present? || error.present?
-
-        source = obj.is_a?(String) ? obj : obj.class.name
-        message = "#{source} received an unexpected response"
-        message += " from #{name}" if respond_to?(:name)
-
-        Rails.logger.error message
-        Rails.logger.error response.inspect if response.present?
-
-        return true unless error.present? && error.is_a?(StandardError)
-
-        Rails.logger.error "#{error.class}: #{error.message}"
-        Rails.logger.error error.backtrace if error.backtrace.present?
-        true
-      end
-
       private
 
       # Retrieves the application name from dmproadmap.rb initializer or uses the App name
