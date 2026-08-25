@@ -8,7 +8,7 @@
     <p><%= t(".header.description") %></p>
   </header>
 
-  <%= form_with model: @presenter.form_user, url: user_registration_path, data: { turbo: false } do |f| %>
+  <%= form_with model: @presenter.form_user, url: user_registration_path do |f| %>
     <%= render partial: "user_fields", locals: { f: f, presenter: @presenter } %>
     <% if @presenter.form_user.terms_accepted_at == nil %>
       <%= render partial: "terms_accepted_at_field", locals: { f: f, presenter: @presenter } %>
