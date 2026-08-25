@@ -196,7 +196,7 @@ RSpec.describe "Registration" do
         address_state: state.name,
       )
       flow.submit_account_edit_form
-      expect(flow).to be_on_account_update_page
+      expect(flow).to be_on_account_edit_page
       expect(page).to be_axe_clean
       expect(flow).to have_no_form_errors
     end

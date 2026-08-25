@@ -1,6 +1,8 @@
 class UsersIndexPresenter
+  MINIMUM_QUERY_LENGTH = 2
+
   def initialize(query:)
-    @query = query
+    @query = query.to_s
   end
 
   attr_reader :query
@@ -14,6 +16,8 @@ class UsersIndexPresenter
   private
 
   def results
+    return User.none if query.strip.length < MINIMUM_QUERY_LENGTH
+
     User.search(query)
   end
 end

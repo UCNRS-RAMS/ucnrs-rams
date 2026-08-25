@@ -394,6 +394,10 @@ en:
       confirmation_message: >-
         Are you sure you want to delete the visit and all of its amenities and
         invoices?
+    institutions:
+      new_institution:
+        title: Create Institution
+        accessible_description: A modal pop-up form to create a new institution.
     invoices:
       record_payment:
         record_payment: Record Payment

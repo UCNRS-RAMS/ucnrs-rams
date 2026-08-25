@@ -107,14 +107,6 @@ class User < ApplicationRecord
   has_many :invoice_payments, dependent: :restrict_with_error
   has_many :invoices, through: :invoice_recipients
 
-  def institution_name
-    read_attribute(:institution_name) || institution.name
-  end
-
-  def self.permitted_registration_attributes
-    REGISTRATION_ATTRIBUTES
-  end
-
   enum :gender_identity, {
     male: "Male",
     female: "Female",
@@ -139,6 +131,17 @@ class User < ApplicationRecord
     reserve_staff: "Staff",
   }, validate: true
 
+  enum :age_range, {
+    one_to_seventeen: "1-17",
+    eighteen_to_twenty_five: "18-25",
+    twenty_five_to_fifty: "25-50",
+    fifty_or_older: "50 or older",
+  }
+
+  def institution_name
+    read_attribute(:institution_name) || institution.name
+  end
+
   def orcid_authenticated=(value)
     normalized_value = if value.nil?
       nil
@@ -157,12 +160,9 @@ class User < ApplicationRecord
     end
   end
 
-  enum :age_range, {
-    one_to_seventeen: "1-17",
-    eighteen_to_twenty_five: "18-25",
-    twenty_five_to_fifty: "25-50",
-    fifty_or_older: "50 or older",
-  }
+  def self.permitted_registration_attributes
+    REGISTRATION_ATTRIBUTES
+  end
 
   def self.placeholder_data_for_non_registered_users
     default_country = Country.where(name: "United States").first_or_create
@@ -175,8 +175,8 @@ class User < ApplicationRecord
   end
 
   def self.search(query, limit: 30)
-    URI
-      .decode_www_form_component(query)
+    query
+      .to_s
       .strip
       .split
       .inject(self) do |scope, part|
