@@ -1,8 +1,8 @@
 <turbo-frame id="modal-content">
   <div class="modal-content" data-modal-target="dialog openOnLoad">
     <p class="screenreader-text">
-      <span id="modal-title">title</span>
-      <span id="modal-description">accessible description</span>
+      <span id="modal-title"><%= t(".title") %></span>
+      <span id="modal-description"><%= t(".accessible_description") %></span>
     </p>
     <div class="close">
       <%= image_tag "x.svg", height: "16px", width: "16px",
@@ -17,7 +17,7 @@
     %>
       <section>
         <header class="modal-header">
-          <h2 class="modal-title">title</h2>
+          <h2 class="modal-title"><%= t(".title") %></h2>
         </header>
 
         <%= render partial: "institutions/institution_field", locals: { f: form, presenter: presenter } %>
@@ -32,5 +32,5 @@
         </section>
       </section>
     <% end %>
-  </div>>
+  </div>
 </turbo-frame>

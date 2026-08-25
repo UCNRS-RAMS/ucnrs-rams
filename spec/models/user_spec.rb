@@ -497,6 +497,12 @@ RSpec.describe User, type: :model do
 
       expect(results).to eq [jane]
     end
+
+    it "does not error when the query contains a percent sign" do
+      create(:user, first_name: "Scrooge", last_name: "McDuck")
+
+      expect { User.search("100%").to_a }.not_to raise_error
+    end
   end
 
   describe "#able_to_edit?" do

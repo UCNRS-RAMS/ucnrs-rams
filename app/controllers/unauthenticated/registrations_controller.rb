@@ -33,8 +33,8 @@ module Unauthenticated
 
       if @form.submit
         clear_pending_orcid!
-        flash.now[:notice] = I18n.t(".devise.registrations.flash.updated")
-        render :edit
+        flash[:notice] = I18n.t(".devise.registrations.flash.updated")
+        redirect_to edit_user_registration_path
       else
         flash.now[:error] = I18n.t(".devise.registrations.flash.error")
         render :edit, status: :unprocessable_entity
