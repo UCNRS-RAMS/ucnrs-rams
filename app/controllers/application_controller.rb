@@ -127,9 +127,9 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(current_user)
     if current_user.is_manager?
-      manager_reserve_dashboard_path(current_user.managed_reserves.first)
+      manager_reserve_dashboard_path(current_user.managed_reserves.first, format: :html)
     else
-      dashboard_index_path
+      dashboard_index_path(format: :html)
     end
   end
 end
