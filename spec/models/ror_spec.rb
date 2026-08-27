@@ -32,6 +32,14 @@ RSpec.describe Ror, type: :model do
       expect(described_class.by_acronym(term)).to contain_exactly(match)
     end
 
+    it ".by_acronym is case-insensitive and escapes wildcard characters" do
+      literal_term = "RoR%_Test"
+      match.update!(acronyms: [literal_term])
+      not_match.update!(acronyms: ["RoR_Test"])
+
+      expect(described_class.by_acronym(literal_term.upcase)).to contain_exactly(match)
+    end
+
     it ".by_alias returns the matching records" do
       match.update!(aliases: match.aliases + [term])
       not_match.update!(aliases: [])
