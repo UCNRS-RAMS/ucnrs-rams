@@ -74,7 +74,7 @@ module ExternalApis
       def log_error(method:, error:)
         return unless method.present? && error.present?
 
-        output = "#{self.class.name}.#{method} #{error.message}"
+        output = "#{name || to_s}.#{method} #{error.message}"
         Rails.logger.error output
         Rails.logger.error error.backtrace
         print_to_console(output, level: :error)
@@ -84,7 +84,7 @@ module ExternalApis
       def log_message(method:, message:, info: true)
         return unless method.present? && message.present?
 
-        output = "#{self.class.name}.#{method} #{message}"
+        output = "#{name || to_s}.#{method} #{message}"
         Rails.logger.send((info ? :info : :warn), output)
         print_to_console(output, level: info ? :info : :warn)
       end
@@ -109,7 +109,7 @@ module ExternalApis
 
       # Retrieves the helpdesk email from dmproadmap.rb initializer or uses the contact page url
       def app_email
-        Rails.configuration.x.organisation.fetch(:helpdesk_email) do
+        Rails.configuration.x.organization.fetch(:helpdesk_email) do
           Rails.application.routes.url_helpers.contact_us_url || ''
         end
       end

@@ -31,15 +31,15 @@ RSpec.describe ExternalApis::BaseService do
     end
 
     it 'sets the user-agent header from the app configuration without forcing a host' do
-      original = Rails.configuration.x.organisation.helpdesk_email
-      Rails.configuration.x.organisation.helpdesk_email = 'support@example.com'
+      original = Rails.configuration.x.organization.helpdesk_email
+      Rails.configuration.x.organization.helpdesk_email = 'support@example.com'
 
       headers = described_class.headers
 
       expect(headers[:'User-Agent']).to eq("#{described_class.send(:app_name)} (support@example.com)")
       expect(headers).not_to have_key(:Host)
     ensure
-      Rails.configuration.x.organisation.helpdesk_email = original
+      Rails.configuration.x.organization.helpdesk_email = original
     end
 
     it 'does not use the API base URL to construct headers' do
@@ -102,7 +102,7 @@ RSpec.describe ExternalApis::BaseService do
 
       described_class.log_error(method: 'BaseService.fetch', error: error)
 
-      expect(Rails.logger).to have_received(:error).with('Class.BaseService.fetch broken').at_least(:once)
+      expect(Rails.logger).to have_received(:error).with('ExternalApis::BaseService.BaseService.fetch broken').at_least(:once)
       expect(Rails.logger).to have_received(:error).with(error.backtrace).at_least(:once)
     end
   end
@@ -123,13 +123,13 @@ RSpec.describe ExternalApis::BaseService do
     it 'logs info messages by default' do
       described_class.log_message(method: 'BaseService.fetch', message: 'hello')
 
-      expect(Rails.logger).to have_received(:info).with('Class.BaseService.fetch hello')
+      expect(Rails.logger).to have_received(:info).with('ExternalApis::BaseService.BaseService.fetch hello')
     end
 
     it 'logs warnings when info is false' do
       described_class.log_message(method: 'BaseService.fetch', message: 'hello', info: false)
 
-      expect(Rails.logger).to have_received(:warn).with('Class.BaseService.fetch hello')
+      expect(Rails.logger).to have_received(:warn).with('ExternalApis::BaseService.BaseService.fetch hello')
     end
   end
 
@@ -160,22 +160,22 @@ RSpec.describe ExternalApis::BaseService do
 
     describe '.app_email' do
       it 'returns the configured helpdesk email when present' do
-        original = Rails.configuration.x.organisation.helpdesk_email
-        Rails.configuration.x.organisation.helpdesk_email = 'support@example.com'
+        original = Rails.configuration.x.organization.helpdesk_email
+        Rails.configuration.x.organization.helpdesk_email = 'support@example.com'
 
         expect(described_class.send(:app_email)).to eq('support@example.com')
       ensure
-        Rails.configuration.x.organisation.helpdesk_email = original
+        Rails.configuration.x.organization.helpdesk_email = original
       end
 
       it 'falls back to the contact page URL when no helpdesk email is configured' do
-        original = Rails.configuration.x.organisation.helpdesk_email
-        Rails.configuration.x.organisation.helpdesk_email = nil
-        allow(Rails.configuration.x.organisation).to receive(:fetch).with(:helpdesk_email).and_return('https://example.com/contact-us')
+        original = Rails.configuration.x.organization.helpdesk_email
+        Rails.configuration.x.organization.helpdesk_email = nil
+        allow(Rails.configuration.x.organization).to receive(:fetch).with(:helpdesk_email).and_return('https://example.com/contact-us')
 
         expect(described_class.send(:app_email)).to eq('https://example.com/contact-us')
       ensure
-        Rails.configuration.x.organisation.helpdesk_email = original
+        Rails.configuration.x.organization.helpdesk_email = original
       end
     end
 
