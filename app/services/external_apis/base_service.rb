@@ -21,11 +21,11 @@ module ExternalApis
       #     config.x.ror.api_base_url = "https://api.example.org/"
       #   end
       def landing_page_url
-        nil
+        raise NotImplementedError
       end
 
       def api_base_url
-        nil
+        raise NotImplementedError
       end
 
       def max_pages
