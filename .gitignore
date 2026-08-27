@@ -63,6 +63,7 @@ public/packs
 
 /public/packs
 /public/packs-test
+/public/pdf
 /node_modules
 /yarn-error.log
 yarn-debug.log*
