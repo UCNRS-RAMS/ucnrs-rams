@@ -10,31 +10,36 @@ class Ror < ApplicationRecord
   # ==========
 
   scope :by_acronym, lambda { |term|
-    where(safe_json_lower_where_clause(table: 'rors', attribute: 'acronyms'),
-          "%\"#{safe_json_lower_where_clause}\"%")
+    where(safe_json_lower_where_clause(table: 'rors', attribute: 'acronyms'), json_like_pattern(term))
   }
 
   scope :by_alias, lambda { |term|
-    where(safe_json_lower_where_clause(table: 'rors', attribute: 'aliases'),
-          "%\"#{term}\"%")
+    where(safe_json_lower_where_clause(table: 'rors', attribute: 'aliases'), json_like_pattern(term))
   }
 
   scope :by_name, lambda { |term|
-    where('LOWER(rors.name) LIKE LOWER(?)', "%#{term}%")
+    where('LOWER(rors.name) LIKE ?', like_pattern(term))
   }
 
   scope :by_type, lambda { |term|
-    where(safe_json_lower_where_clause(table: 'rors', attribute: 'types'),
-          "%\"#{term}\"%")
+    where(safe_json_lower_where_clause(table: 'rors', attribute: 'types'), json_like_pattern(term))
   }
 
   scope :by_domain, lambda { |term|
-    where('LOWER(rors.home_page) LIKE LOWER(?)', "%#{term}%")
+    where('LOWER(rors.home_page) LIKE ?', like_pattern(term))
   }
 
   scope :search, lambda { |term|
     by_name(term).or(by_acronym(term)).or(by_alias(term))
   }
+
+  def self.like_pattern(term)
+    "%#{sanitize_sql_like(term.to_s.downcase)}%"
+  end
+
+  def self.json_like_pattern(term)
+    "%\"#{sanitize_sql_like(term.to_s.downcase)}\"%"
+  end
 
   # =================
   # = Class methods =
