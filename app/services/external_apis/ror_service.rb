@@ -100,11 +100,10 @@ module ExternalApis
         log_message(method: method, message: 'ROR sync completed successfully.')
         :success
       end
-      # rubocop:enable Metrics/AbcSize
-            private
+
+      private
 
       # Fetch the latest Zenodo metadata for ROR files
-      # rubocop:disable Metrics/AbcSize
       def fetch_zenodo_metadata
         Rails.logger.error 'No :download_url defined for RorService!' if download_url.blank?
         return nil if download_url.blank?
@@ -181,7 +180,7 @@ module ExternalApis
 
             # cleanup items removed from ror
             log_message(method: method, message: "Stage: cleanup - removing stale records older than #{json_file.mtime.strftime('%Y-%m-%d %H:%M:%S')}")
-            Ror.where('file_timestamp < ?', json_file.mtime.strftime('%Y-%m-%d %H:%M:%S')).destroy_all
+            Ror.where('file_timestamp < ?', json_file.mtime).delete_all
             log_message(method: method, message: "Stage: complete - finished processing #{total} ROR records")
             true
           else
@@ -196,6 +195,7 @@ module ExternalApis
         log_error(method: method, error: e)
         false
       end
+      # rubocop:enable Metrics/AbcSize
 
       # interval for updated info based on the size of the total records.
       def progress_interval_for(total_records)
@@ -215,9 +215,7 @@ module ExternalApis
 
         ((current_record.to_f / total_records) * 100).round(1)
       end
-      # rubocop:enable Metrics/AbcSize
-
-      # Transfer the contents of a ROR record to the local rors table
+            # Transfer the contents of a ROR record to the local rors table
       # rubocop:disable Metrics/AbcSize
       def process_ror_record(record:, time:)
         return nil unless record.present? && record.is_a?(Hash) && record['id'].present?
@@ -229,7 +227,7 @@ module ExternalApis
         ror_model.country = country_data(item: record)
         ror_model.types = record['types'] || []
         ror_model.language = org_language(item: record)
-        ror_model.file_timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
+        ror_model.file_timestamp = time
         ror_model.fundref_id = fundref_id(item: record)
         ror_model.home_page = safe_string(value: primary_website(item: record))
 
@@ -310,10 +308,15 @@ module ExternalApis
       # rubocop:enable Metrics/AbcSize
 
       def preferred_ror_name(item)
-        return nil unless item['names'].is_a?(Array)
+        return nil unless item.is_a?(Hash)
 
-        item['names'].find { |name| name.is_a?(Hash) && Array(name['types']).include?('ror_display') } ||
-          item['names'].find { |name| name.is_a?(Hash) && Array(name['types']).include?('label') }
+        names = Array(item['names'])
+        names.find { |name| name_type?(name, 'ror_display') }&.[]('value') ||
+          names.find { |name| name_type?(name, 'label') }&.[]('value')
+      end
+
+      def name_type?(name, type)
+        name.is_a?(Hash) && Array(name['types']).include?(type)
       end
 
       def country_name_for(item)

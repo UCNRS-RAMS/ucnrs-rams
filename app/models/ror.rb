@@ -11,7 +11,7 @@ class Ror < ApplicationRecord
 
   scope :by_acronym, lambda { |term|
     where(safe_json_lower_where_clause(table: 'rors', attribute: 'acronyms'),
-          "%\"#{term}\"%")
+          "%\"#{safe_json_lower_where_clause}\"%")
   }
 
   scope :by_alias, lambda { |term|

@@ -18,7 +18,7 @@ class CreateRors < ActiveRecord::Migration[8.1]
       t.index :file_timestamp
       t.index :fundref_id
       t.index :name
-      t.index :ror_id
+      t.index :ror_id, unique: true
     end
   end
 end
