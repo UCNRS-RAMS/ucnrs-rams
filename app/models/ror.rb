@@ -41,32 +41,27 @@ class Ror < ApplicationRecord
     "%\"#{sanitize_sql_like(term.to_s.downcase)}\"%"
   end
 
-  # =================
-  # = Class methods =
-  # =================
-  class << self
-    # Get the Ror entry with the closest matching domain for the email domain
-    def from_email_domain(email_domain:)
-      return nil if email_domain.blank?
+  # Get the Ror entry with the closest matching domain for the email domain
+  def self.from_email_domain(email_domain:)
+    return nil if email_domain.blank?
 
-      domain = email_domain.downcase
-      rors = where('LOWER(home_page) LIKE ? OR LOWER(home_page) LIKE ?', "%//#{domain}%", "%.#{domain}%")
-      return nil unless rors.any?
+    domain = email_domain.downcase
+    rors = where('LOWER(home_page) LIKE ? OR LOWER(home_page) LIKE ?', "%//#{domain}%", "%.#{domain}%")
+    return nil unless rors.any?
 
-      # Get the one with closest match (e.g. http://ucsd.edu instead of
-      # http://health.ucsd.edu if the email_domain is 'ucsd.edu')
-      rors.sort do |a, b|
-        l = email_domain.length
-        (domain_for(url: a.home_page).length - l) <=> (domain_for(url: b.home_page).length - l)
-      end.first
-    end
+    # Get the one with closest match (e.g. http://ucsd.edu instead of
+    # http://health.ucsd.edu if the email_domain is 'ucsd.edu')
+    rors.sort do |a, b|
+      l = email_domain.length
+      (domain_for(url: a.home_page).length - l) <=> (domain_for(url: b.home_page).length - l)
+    end.first
+  end
 
-    private
+  private
 
-    def domain_for(url:)
-      return '' if url.blank?
+  def self.domain_for(url:)
+    return '' if url.blank?
 
-      url.downcase.gsub(%r{^(?:http://|https://|www\.)+}, '').split('/').first.to_s
-    end
+    url.downcase.gsub(%r{^(?:http://|https://|www\.)+}, '').split('/').first.to_s
   end
 end

@@ -4,6 +4,8 @@
 # Research Organization Registry (ROR) API. For more information about
 # the API and to verify that your configuration settings are correct,
 # please refer to: https://github.com/ror-community/ror-api
+Rails.configuration.x.ror ||= ActiveSupport::OrderedOptions.new
+Rails.configuration.x.organization ||= ActiveSupport::OrderedOptions.new
 Rails.configuration.x.ror.download_url = 'https://zenodo.org/api/records/?communities=ror-data&sort=mostrecent'
 Rails.configuration.x.ror.landing_page_url = 'https://ror.org/'
 Rails.configuration.x.ror.api_base_url = 'https://api.ror.org/'
@@ -20,4 +22,4 @@ Rails.configuration.x.ror.checksum_file = Rails.root.join("tmp/ror/checksum.txt"
 Rails.configuration.x.ror.zip_file = Rails.root.join("tmp/ror/latest-ror-data.zip")
 
 # BaseService requires a helpdesk email for its User-Agent header.
-Rails.configuration.x.organisation.helpdesk_email = 'support@ucnature.org'
+Rails.configuration.x.organization.helpdesk_email ||= 'support@ucnature.org'
