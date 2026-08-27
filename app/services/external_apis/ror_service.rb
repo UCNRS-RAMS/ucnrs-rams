@@ -116,10 +116,10 @@ module ExternalApis
           handle_http_failure(method: 'Fetching ROR metadata from Zenodo', http_response: resp)
           return nil
         end
-        json = JSON.parse(resp.body)
+        json = JSON.parse(resp.body).with_indifferent_access
 
         # Extract the most recent file's metadata
-        file_metadata = json.fetch('hits', {}).fetch('hits', []).first&.fetch('files', [])&.last&.with_indifferent_access
+        file_metadata = json.dig(:hits, :hits, 0, :files)&.last
         if file_metadata.blank?
           log_error(method: 'Fetching ROR metadata from Zenodo', error: StandardError.new('No ROR file found in Zenodo metadata response.'))
           return nil
