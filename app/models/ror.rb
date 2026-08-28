@@ -57,7 +57,6 @@ class Ror < ApplicationRecord
     end.first
   end
 
-  private
 
   def self.domain_for(url:)
     return '' if url.blank?
