@@ -3,15 +3,16 @@
 module ExternalApis
   module Ror
     class Client
-      def initialize(service: ExternalApis::RorService)
+      def initialize(service: ExternalApis::RorService, config: Config)
         @service = service
+        @config = config
       end
 
       def latest_dump_metadata
         return service.fetch_zenodo_metadata if stubbed?(service, :fetch_zenodo_metadata)
-        return nil if service.download_url.blank?
+        return nil if config.download_url.blank?
 
-        response = service_http_client.get(uri: service.download_url, debug: false)
+        response = service_http_client.get(uri: config.download_url, debug: false)
         return nil unless response.present? && response.status == 200
 
         json = JSON.parse(response.body).with_indifferent_access
@@ -41,13 +42,7 @@ module ExternalApis
 
       private
 
-      attr_reader :service
-
-      def stubbed?(target, method_name)
-        return false unless target.respond_to?(method_name)
-
-        target.method(method_name).owner != target.singleton_class
-      end
+      attr_reader :service, :config
 
       def service_http_client
         if service.respond_to?(:http_client, true)
@@ -55,6 +50,12 @@ module ExternalApis
         else
           ExternalApis::HttpClient.new(service: service)
         end
+      end
+
+      def stubbed?(target, method_name)
+        return false unless target.respond_to?(method_name)
+
+        target.method(method_name).owner != target.singleton_class
       end
     end
   end
