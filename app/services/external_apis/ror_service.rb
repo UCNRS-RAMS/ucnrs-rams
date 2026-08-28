@@ -10,43 +10,43 @@ module ExternalApis
     class << self
       # Retrieve the config settings from the initializer
       def landing_page_url
-        Rails.configuration.x.ror&.landing_page_url || super
+        ExternalApis::Ror::Config.landing_page_url
       end
 
       def api_base_url
-        Rails.configuration.x.ror&.api_base_url || super
+        ExternalApis::Ror::Config.api_base_url
       end
 
       def download_url
-        Rails.configuration.x.ror&.download_url
+        ExternalApis::Ror::Config.download_url
       end
 
       def full_catalog_file
-        Rails.configuration.x.ror&.full_catalog_file || Rails.root.join("tmp/ror/ror.json")
+        ExternalApis::Ror::Config.full_catalog_file
       end
 
       def file_dir
-        Rails.configuration.x.ror&.file_dir || Rails.root.join("tmp/ror")
+        ExternalApis::Ror::Config.file_dir
       end
 
       def checksum_file
-        Rails.configuration.x.ror&.checksum_file || Rails.root.join("tmp/ror/checksum.txt")
+        ExternalApis::Ror::Config.checksum_file
       end
 
       def zip_file
-        Rails.configuration.x.ror&.zip_file || Rails.root.join("tmp/ror/latest-ror-data.zip")
+        ExternalApis::Ror::Config.zip_file
       end
 
       def active?
-        Rails.configuration.x.ror&.active.nil? ? super : Rails.configuration.x.ror.active
+        ExternalApis::Ror::Config.active?
       end
 
       def heartbeat_path
-        Rails.configuration.x.ror&.heartbeat_path
+        ExternalApis::Ror::Config.heartbeat_path
       end
 
       def search_path
-        Rails.configuration.x.ror&.search_path
+        ExternalApis::Ror::Config.search_path
       end
 
       def fetch(force: false)
@@ -90,7 +90,6 @@ module ExternalApis
         log_message(method: method, message: "Stage: save - downloaded archive written to #{zip_file}")
 
         json_file = "#{File.basename(download_file).delete_suffix('.zip')}.json"
-
         log_message(method: method, message: "Stage: populate - processing #{json_file} into the local ROR table")
         return :failure unless process_ror_file(zip_file: zip_file, file: json_file)
 
@@ -115,8 +114,6 @@ module ExternalApis
       def process_ror_record(record:, time:)
         ExternalApis::Ror::Sync.new(service: self).send(:process_ror_record, record: record, time: time)
       end
-
-      private
     end
   end
 end

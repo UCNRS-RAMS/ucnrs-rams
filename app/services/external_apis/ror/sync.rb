@@ -3,10 +3,11 @@
 module ExternalApis
   module Ror
     class Sync
-      def initialize(service: ExternalApis::RorService, client: nil, mapper: RecordMapper)
+      def initialize(service: ExternalApis::RorService, client: nil, mapper: RecordMapper, config: Config)
         @service = service
-        @client = client || Client.new(service: service)
+        @client = client || Client.new(service: service, config: config)
         @mapper = mapper
+        @config = config
       end
 
       def call(force: false)
@@ -21,8 +22,8 @@ module ExternalApis
           return :failure
         end
 
-        FileUtils.mkdir_p(service.file_dir)
-        old_checksum_val = File.read(service.checksum_file) if File.exist?(service.checksum_file) && !force
+        FileUtils.mkdir_p(config.file_dir)
+        old_checksum_val = File.read(config.checksum_file) if File.exist?(config.checksum_file) && !force
 
         if old_checksum_val == metadata[:checksum]
           service.log_message(method: method, message: 'No new ROR file to process; checksum matches the cached copy.')
@@ -46,22 +47,22 @@ module ExternalApis
           return :failure
         end
 
-        File.binwrite(service.zip_file, payload)
-        service.log_message(method: method, message: "Stage: save - downloaded archive written to #{service.zip_file}")
+        File.binwrite(config.zip_file, payload)
+        service.log_message(method: method, message: "Stage: save - downloaded archive written to #{config.zip_file}")
 
         json_file = "#{File.basename(download_file).delete_suffix('.zip')}.json"
         service.log_message(method: method, message: "Stage: populate - processing #{json_file} into the local ROR table")
-        return :failure unless process_ror_file(zip_file: service.zip_file, file: json_file)
+        return :failure unless process_ror_file(zip_file: config.zip_file, file: json_file)
 
         service.log_message(method: method, message: "Stage: finalize - writing checksum #{metadata[:checksum]}")
-        File.write(service.checksum_file, metadata[:checksum])
+        File.write(config.checksum_file, metadata[:checksum])
         service.log_message(method: method, message: 'ROR sync completed successfully.')
         :success
       end
 
       private
 
-      attr_reader :service, :client, :mapper
+      attr_reader :service, :client, :mapper, :config
 
       def process_ror_file(zip_file:, file:)
         return service.process_ror_file(zip_file: zip_file, file: file) if stubbed?(service, :process_ror_file)
@@ -69,9 +70,9 @@ module ExternalApis
 
         method = 'ExternalApis::Ror::Sync.process_ror_file'
 
-        if service.send(:unzip_file, zip_file: zip_file, destination: service.file_dir)
-          if File.exist?("#{service.file_dir}/#{file}")
-            json_file = File.open("#{service.file_dir}/#{file}", 'r')
+        if service.send(:unzip_file, zip_file: zip_file, destination: config.file_dir)
+          if File.exist?("#{config.file_dir}/#{file}")
+            json_file = File.open("#{config.file_dir}/#{file}", 'r')
             json = JSON.parse(json_file.read)
             total = json.length
             interval = progress_interval_for(total)
