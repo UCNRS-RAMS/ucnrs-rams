@@ -110,7 +110,7 @@ module ExternalApis
 
         # Fetch the latest ROR metadata from Zenodo (the query will place the most recent
         # version 1st)
-        resp = http_get(uri: download_url, debug: false)
+        resp = http_client.get(uri: download_url, debug: false)
 
         unless resp.present? && resp.status == 200
           handle_http_failure(method: 'Fetching ROR metadata from Zenodo', http_response: resp)
@@ -138,7 +138,7 @@ module ExternalApis
       def download_ror_file(url:)
         return nil if url.blank?
 
-        resp = http_get(uri: url, debug: false)
+        resp = http_client.get(uri: url, debug: false)
 
         unless resp.present? && resp.status == 200
           handle_http_failure(method: "Fetching ROR file from Zenodo - #{url}", http_response: resp)

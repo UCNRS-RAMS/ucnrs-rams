@@ -5,10 +5,12 @@ require 'rails_helper'
 RSpec.describe ExternalApis::RorService do
   describe '.fetch_zenodo_metadata' do
     let(:response) { instance_double(Faraday::Response, status: 200, body: body) }
+    let(:client) { instance_double(ExternalApis::HttpClient) }
 
     before do
       allow(described_class).to receive(:download_url).and_return('https://zenodo.org/api/records/?communities=ror-data&sort=mostrecent')
-      allow(described_class).to receive(:http_get).and_return(response)
+      allow(described_class).to receive(:http_client).and_return(client)
+      allow(client).to receive(:get).and_return(response)
     end
 
     context 'when Zenodo returns a valid result set' do
@@ -60,10 +62,15 @@ RSpec.describe ExternalApis::RorService do
 
   describe '.download_ror_file' do
     let(:url) { 'https://zenodo.org/api/records/1/files/ror.zip/content' }
+    let(:client) { instance_double(ExternalApis::HttpClient) }
+
+    before do
+      allow(described_class).to receive(:http_client).and_return(client)
+    end
 
     it 'returns the response body when the request succeeds' do
       response = instance_double(Faraday::Response, status: 200, body: 'zip file contents')
-      allow(described_class).to receive(:http_get).with(
+      allow(client).to receive(:get).with(
         uri: url,
         debug: false
       ).and_return(response)
@@ -77,7 +84,7 @@ RSpec.describe ExternalApis::RorService do
 
     it 'handles a non-200 response by calling the failure handler' do
       response = instance_double(Faraday::Response, status: 403, body: 'forbidden')
-      allow(described_class).to receive(:http_get).and_return(response)
+      allow(client).to receive(:get).and_return(response)
       allow(described_class).to receive(:handle_http_failure)
 
       expect(described_class.send(:download_ror_file, url: url)).to be_nil

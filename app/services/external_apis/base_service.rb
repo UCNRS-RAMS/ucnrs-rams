@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
-require 'faraday'
-require 'faraday/follow_redirects'
-require 'faraday/retry'
 require 'digest'
-require 'logger'
 require 'zip'
 
 module ExternalApis
@@ -117,62 +113,25 @@ module ExternalApis
       # Makes a GET request to the specified uri with the additional headers.
       # Additional headers are combined with the base headers defined above.
       def http_get(uri:, additional_headers: {}, debug: false)
-        http_request(method: :get, uri: uri, additional_headers: additional_headers, debug: debug)
+        http_client.get(uri: uri, additional_headers: additional_headers, debug: debug)
       end
 
       # Makes a PUT request to the specified uri with the additional headers.
       # Additional headers are combined with the base headers defined above.
       def http_put(uri:, additional_headers: {}, data: {}, basic_auth: nil, debug: false)
-        http_request(method: :put, uri: uri, additional_headers: additional_headers,
-                     data: data, basic_auth: basic_auth, debug: debug)
+        http_client.put(uri: uri, additional_headers: additional_headers,
+                        data: data, basic_auth: basic_auth, debug: debug)
       end
 
       # Makes a POST request to the specified uri with the additional headers.
       # Additional headers are combined with the base headers defined above.
       def http_post(uri:, additional_headers: {}, data: {}, basic_auth: nil, debug: false)
-        http_request(method: :post, uri: uri, additional_headers: additional_headers,
-                     data: data, basic_auth: basic_auth, debug: debug)
+        http_client.post(uri: uri, additional_headers: additional_headers,
+                         data: data, basic_auth: basic_auth, debug: debug)
       end
 
-      # Builds a Faraday connection with the standard headers, retries, and timeout settings.
-      def faraday_connection(uri:, additional_headers: {}, debug: false, basic_auth: nil)
-        connection = Faraday.new(
-          uri,
-          headers: headers.merge(additional_headers),
-          request: { timeout: 60, open_timeout: 30 }
-        ) do |f|
-          f.request :retry, max: 6,
-                            interval: 0.5,
-                            backoff_factor: 2,
-                            methods: %i[get post put],
-                            retry_statuses: [429, 500, 502, 503, 504]
-          f.response :follow_redirects, limit: max_redirects
-          f.response :logger, Logger.new($stdout), bodies: true if debug
-          f.adapter Faraday.default_adapter
-        end
-
-        if basic_auth.present?
-          connection.request(:authorization, :basic,
-                             basic_auth[:username], basic_auth[:password])
-        end
-
-        connection
-      end
-
-      def http_request(method:, uri:, additional_headers:, data: nil, basic_auth: nil, debug: false)
-        return nil if uri.blank?
-
-        connection = faraday_connection(uri: uri, additional_headers: additional_headers,
-                                        debug: debug, basic_auth: basic_auth)
-        return connection.get(uri) if method == :get
-
-        connection.public_send(method, uri, data)
-      rescue URI::InvalidURIError => e
-        handle_uri_failure(method: "BaseService.http_#{method} #{e.message}", uri: uri)
-        nil
-      rescue Faraday::Error => e
-        handle_http_failure(method: "BaseService.http_#{method} #{e.message}", http_response: nil)
-        nil
+      def http_client
+        HttpClient.new(service: self)
       end
 
       # Unzips the specified file

@@ -181,23 +181,14 @@ RSpec.describe ExternalApis::BaseService do
 
     describe '.http_get' do
       let(:response) { instance_double(Faraday::Response, status: 200, body: 'ok', inspect: 'HTTP 200') }
+      let(:client) { instance_double(ExternalApis::HttpClient) }
 
-      it 'returns nil when uri is blank' do
-        expect(described_class.send(:http_get, uri: nil)).to be_nil
+      before do
+        allow(described_class).to receive(:http_client).and_return(client)
       end
 
-      it 'logs and returns nil when the URI is invalid' do
-        allow(described_class).to receive(:handle_uri_failure)
-        allow(described_class).to receive(:faraday_connection).and_raise(URI::InvalidURIError)
-
-        expect(described_class.send(:http_get, uri: 'badurl~^(%')).to be_nil
-        expect(described_class).to have_received(:handle_uri_failure)
-      end
-
-      it 'returns the response for a valid request' do
-        connection = instance_double(Faraday::Connection)
-        allow(described_class).to receive(:faraday_connection).and_return(connection)
-        allow(connection).to receive(:get).with('https://example.com').and_return(response)
+      it 'delegates to the shared HTTP client' do
+        allow(client).to receive(:get).with(uri: 'https://example.com', additional_headers: {}, debug: false).and_return(response)
 
         expect(described_class.send(:http_get, uri: 'https://example.com')).to eq(response)
       end
@@ -205,15 +196,20 @@ RSpec.describe ExternalApis::BaseService do
 
     describe '.http_put' do
       let(:response) { instance_double(Faraday::Response, status: 200, body: 'ok', inspect: 'HTTP 200') }
+      let(:client) { instance_double(ExternalApis::HttpClient) }
 
-      it 'returns nil when uri is blank' do
-        expect(described_class.send(:http_put, uri: nil)).to be_nil
+      before do
+        allow(described_class).to receive(:http_client).and_return(client)
       end
 
-      it 'passes through the payload and basic auth options' do
-        connection = instance_double(Faraday::Connection)
-        allow(described_class).to receive(:faraday_connection).and_return(connection)
-        allow(connection).to receive(:put).with('https://example.com', { foo: 'bar' }).and_return(response)
+      it 'delegates the payload and auth options to the shared HTTP client' do
+        allow(client).to receive(:put).with(
+          uri: 'https://example.com',
+          additional_headers: {},
+          data: { foo: 'bar' },
+          basic_auth: { username: 'user', password: 'pass' },
+          debug: false
+        ).and_return(response)
 
         expect(described_class.send(:http_put, uri: 'https://example.com', data: { foo: 'bar' }, basic_auth: { username: 'user', password: 'pass' })).to eq(response)
       end
@@ -221,34 +217,31 @@ RSpec.describe ExternalApis::BaseService do
 
     describe '.http_post' do
       let(:response) { instance_double(Faraday::Response, status: 201, body: 'created', inspect: 'HTTP 201') }
+      let(:client) { instance_double(ExternalApis::HttpClient) }
 
-      it 'returns nil when uri is blank' do
-        expect(described_class.send(:http_post, uri: nil)).to be_nil
+      before do
+        allow(described_class).to receive(:http_client).and_return(client)
       end
 
-      it 'passes through the payload and basic auth options' do
-        connection = instance_double(Faraday::Connection)
-        allow(described_class).to receive(:faraday_connection).and_return(connection)
-        allow(connection).to receive(:post).with('https://example.com', { foo: 'bar' }).and_return(response)
+      it 'delegates the payload and auth options to the shared HTTP client' do
+        allow(client).to receive(:post).with(
+          uri: 'https://example.com',
+          additional_headers: {},
+          data: { foo: 'bar' },
+          basic_auth: { username: 'user', password: 'pass' },
+          debug: false
+        ).and_return(response)
 
         expect(described_class.send(:http_post, uri: 'https://example.com', data: { foo: 'bar' }, basic_auth: { username: 'user', password: 'pass' })).to eq(response)
       end
     end
 
-    describe '.faraday_connection' do
-      it 'builds a standard Faraday connection with headers and timeout settings' do
-        allow(described_class).to receive(:headers).and_return({ Accept: 'application/json' })
+    describe '.http_client' do
+      it 'builds a shared HTTP client bound to the service' do
+        client = described_class.send(:http_client)
 
-        result = described_class.send(
-          :faraday_connection,
-          uri: 'https://example.com',
-          additional_headers: { 'X-Test' => 'yes' }
-        )
-
-        expect(result.headers).to include('Accept' => 'application/json', 'X-Test' => 'yes')
-        expect(result.options.timeout).to eq(60)
-        expect(result.options.open_timeout).to eq(30)
-        expect(result.builder.handlers).to include(Faraday::FollowRedirects::Middleware)
+        expect(client).to be_a(ExternalApis::HttpClient)
+        expect(client.instance_variable_get(:@service)).to eq(described_class)
       end
     end
 
