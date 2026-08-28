@@ -94,5 +94,11 @@ RSpec.describe ExternalApis::HttpClient do
 
       expect(result.builder.handlers).to include(Faraday::Request::Authorization)
     end
+
+    it 'configures request logging when debug is enabled' do
+      result = client.send(:faraday_connection, uri: 'https://example.com', debug: true)
+
+      expect(result.builder.handlers).to include(Faraday::Response::Logger)
+    end
   end
 end

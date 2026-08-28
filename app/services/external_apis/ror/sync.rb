@@ -84,33 +84,7 @@ module ExternalApis
         return false unless zip_file.present? && file.present?
 
         if unzip_file(zip_file: zip_file, destination: config.file_dir)
-          if File.exist?("#{config.file_dir}/#{file}")
-            json_file = File.open("#{config.file_dir}/#{file}", 'r')
-            json = JSON.parse(json_file.read)
-            total = json.length
-            interval = progress_interval_for(total)
-
-            logger.info("Stage: populate - starting record processing for #{total} records; progress updates every #{interval} records")
-
-            json.each_with_index do |hash, index|
-              current = index + 1
-              logger.info("Progress: #{current}/#{total} records (#{percentage(current, total)}%)") if should_log_progress?(current, total, interval)
-
-              hash = hash.with_indifferent_access if hash.is_a?(Hash)
-
-              next if process_ror_record(record: hash, time: json_file.mtime)
-
-              logger.warn("Unable to process record #{current}/#{total} for: '#{hash&.fetch('name', hash&.fetch('id', 'unknown'))}'")
-            end
-
-            logger.info("Stage: cleanup - removing stale records older than #{json_file.mtime.strftime('%Y-%m-%d %H:%M:%S')}")
-            ::Ror.where('file_timestamp < ?', json_file.mtime).delete_all
-            logger.info("Stage: complete - finished processing #{total} ROR records")
-            true
-          else
-            logger.error(context: 'ROR import', error: StandardError.new('Unable to find JSON file in archive.'))
-            false
-          end
+          process_json_file(file: "#{config.file_dir}/#{file}")
         else
           logger.error(context: 'ROR import', error: StandardError.new('Unable to unzip ROR archive.'))
           false
@@ -153,6 +127,47 @@ module ExternalApis
         logger.error(context: 'ROR import', error: StandardError.new(detail))
         logger.warn("Payload for failed record: #{record.to_s[0, 1000]}")
         false
+      end
+
+      def process_json_file(file:)
+        unless File.exist?(file)
+          logger.error(context: 'ROR import', error: StandardError.new('Unable to find JSON file in archive.'))
+          return false
+        end
+
+        File.open(file, 'r') do |json_file|
+          records = JSON.parse(json_file.read)
+          unless records.is_a?(Array)
+            logger.error(context: 'ROR import', error: StandardError.new('ROR archive must contain an array of records.'))
+            return false
+          end
+
+          total = records.length
+          interval = progress_interval_for(total)
+          logger.info("Stage: populate - starting record processing for #{total} records; progress updates every #{interval} records")
+
+          records.each_with_index do |record, index|
+            current = index + 1
+            logger.info("Progress: #{current}/#{total} records (#{percentage(current, total)}%)") if should_log_progress?(current, total, interval)
+            record = record.with_indifferent_access if record.is_a?(Hash)
+
+            next if process_ror_record(record: record, time: json_file.mtime)
+
+            logger.warn("Unable to process record #{current}/#{total} for: '#{record_label(record)}'")
+            return false
+          end
+
+          logger.info("Stage: cleanup - removing stale records older than #{json_file.mtime.strftime('%Y-%m-%d %H:%M:%S')}")
+          ::Ror.where('file_timestamp < ?', json_file.mtime).delete_all
+          logger.info("Stage: complete - finished processing #{total} ROR records")
+        end
+        true
+      end
+
+      def record_label(record)
+        return 'unknown' unless record.is_a?(Hash)
+
+        record['name'] || record['id'] || 'unknown'
       end
 
       def unzip_file(zip_file:, destination:)
