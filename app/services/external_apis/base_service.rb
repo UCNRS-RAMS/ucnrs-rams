@@ -102,7 +102,7 @@ module ExternalApis
 
       private
 
-      # Retrieves the application name from dmproadmap.rb initializer or uses the App name
+      # Retrieves the application name from the initializer or uses the App name
       def app_name
         ApplicationService.application_name
       end
