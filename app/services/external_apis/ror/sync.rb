@@ -1,24 +1,40 @@
 # frozen_string_literal: true
 
+require 'fileutils'
+require 'zip'
+
 module ExternalApis
   module Ror
     class Sync
-      def initialize(service: ExternalApis::RorService, client: nil, mapper: RecordMapper, config: Config)
-        @service = service
-        @client = client || Client.new(service: service, config: config)
+      def self.from_rails
+        config = Config.from_rails
+        logger = ExternalApis::Logger.new
+        http_client = ExternalApis::HttpClient.new(
+          headers: config.http_headers,
+          max_redirects: config.max_redirects,
+          logger: logger,
+          name: 'ROR'
+        )
+        client = Client.new(http_client: http_client, metadata_url: config.download_url, logger: logger)
+        new(client: client, config: config, logger: logger)
+      end
+
+      def initialize(client:, config:, logger:, mapper: RecordMapper)
+        @client = client
         @mapper = mapper
         @config = config
+        @logger = logger
       end
 
       def call(force: false)
         force = ActiveModel::Type::Boolean.new.cast(force)
-        method = "ExternalApis::Ror::Sync.call(force: #{force})"
+        context = "ROR sync (force: #{force})"
 
-        service.log_message(method: method, message: 'Starting ROR sync: checking Zenodo metadata')
+        logger.info('Starting ROR sync: checking Zenodo metadata')
 
         metadata = client.latest_dump_metadata
         if metadata.blank?
-          service.log_error(method: method, error: StandardError.new('Unable to fetch ROR metadata from Zenodo!'))
+          logger.error(context: context, error: StandardError.new('Unable to fetch ROR metadata from Zenodo.'))
           return :failure
         end
 
@@ -26,88 +42,81 @@ module ExternalApis
         old_checksum_val = File.read(config.checksum_file) if File.exist?(config.checksum_file) && !force
 
         if old_checksum_val == metadata[:checksum]
-          service.log_message(method: method, message: 'No new ROR file to process; checksum matches the cached copy.')
+          logger.info('No new ROR file to process; checksum matches the cached copy.')
           return :no_change
         end
 
         download_link = metadata.dig(:links, :download)
         download_file = metadata[:key].presence
         if download_link.blank? || download_file.blank?
-          service.log_error(method: method, error: StandardError.new('ROR metadata is missing a download link or archive key.'))
+          logger.error(context: context, error: StandardError.new('ROR metadata is missing a download link or archive key.'))
           return :failure
         end
 
-        service.log_message(method: method, message: "New ROR file detected - checksum #{metadata[:checksum]}")
-        service.log_message(method: method, message: "Stage: download - #{download_file}")
-        service.log_message(method: method, message: "Source: #{download_link}")
+        logger.info("New ROR file detected - checksum #{metadata[:checksum]}")
+        logger.info("Stage: download - #{download_file}")
+        logger.info("Source: #{download_link}")
 
         payload = client.download(download_link)
         if payload.blank?
-          service.log_error(method: method, error: StandardError.new('Unable to download ROR file!'))
+          logger.error(context: context, error: StandardError.new('Unable to download ROR file.'))
           return :failure
         end
 
         File.binwrite(config.zip_file, payload)
-        service.log_message(method: method, message: "Stage: save - downloaded archive written to #{config.zip_file}")
+        logger.info("Stage: save - downloaded archive written to #{config.zip_file}")
 
         json_file = "#{File.basename(download_file).delete_suffix('.zip')}.json"
-        service.log_message(method: method, message: "Stage: populate - processing #{json_file} into the local ROR table")
+        logger.info("Stage: populate - processing #{json_file} into the local ROR table")
         return :failure unless process_ror_file(zip_file: config.zip_file, file: json_file)
 
-        service.log_message(method: method, message: "Stage: finalize - writing checksum #{metadata[:checksum]}")
+        logger.info("Stage: finalize - writing checksum #{metadata[:checksum]}")
         File.write(config.checksum_file, metadata[:checksum])
-        service.log_message(method: method, message: 'ROR sync completed successfully.')
+        logger.info('ROR sync completed successfully.')
         :success
       end
 
       private
 
-      attr_reader :service, :client, :mapper, :config
+      attr_reader :client, :mapper, :config, :logger
 
       def process_ror_file(zip_file:, file:)
-        return service.process_ror_file(zip_file: zip_file, file: file) if stubbed?(service, :process_ror_file)
         return false unless zip_file.present? && file.present?
 
-        method = 'ExternalApis::Ror::Sync.process_ror_file'
-
-        if service.send(:unzip_file, zip_file: zip_file, destination: config.file_dir)
+        if unzip_file(zip_file: zip_file, destination: config.file_dir)
           if File.exist?("#{config.file_dir}/#{file}")
             json_file = File.open("#{config.file_dir}/#{file}", 'r')
             json = JSON.parse(json_file.read)
             total = json.length
             interval = progress_interval_for(total)
 
-            service.log_message(method: method, message: "Stage: populate - starting record processing for #{total} records; progress updates every #{interval} records")
+            logger.info("Stage: populate - starting record processing for #{total} records; progress updates every #{interval} records")
 
             json.each_with_index do |hash, index|
               current = index + 1
-              service.log_message(method: method, message: "Progress: #{current}/#{total} records (#{percentage(current, total)}%)") if should_log_progress?(current, total, interval)
+              logger.info("Progress: #{current}/#{total} records (#{percentage(current, total)}%)") if should_log_progress?(current, total, interval)
 
               hash = hash.with_indifferent_access if hash.is_a?(Hash)
 
               next if process_ror_record(record: hash, time: json_file.mtime)
 
-              service.log_message(
-                method: method,
-                message: "Unable to process record #{current}/#{total} for: '#{hash&.fetch('name', hash&.fetch('id', 'unknown'))}'",
-                info: false
-              )
+              logger.warn("Unable to process record #{current}/#{total} for: '#{hash&.fetch('name', hash&.fetch('id', 'unknown'))}'")
             end
 
-            service.log_message(method: method, message: "Stage: cleanup - removing stale records older than #{json_file.mtime.strftime('%Y-%m-%d %H:%M:%S')}")
+            logger.info("Stage: cleanup - removing stale records older than #{json_file.mtime.strftime('%Y-%m-%d %H:%M:%S')}")
             ::Ror.where('file_timestamp < ?', json_file.mtime).delete_all
-            service.log_message(method: method, message: "Stage: complete - finished processing #{total} ROR records")
+            logger.info("Stage: complete - finished processing #{total} ROR records")
             true
           else
-            service.log_error(method: method, error: StandardError.new('Unable to find json in zip!'))
+            logger.error(context: 'ROR import', error: StandardError.new('Unable to find JSON file in archive.'))
             false
           end
         else
-          service.log_error(method: method, error: StandardError.new('Unable to unzip contents of ROR file'))
+          logger.error(context: 'ROR import', error: StandardError.new('Unable to unzip ROR archive.'))
           false
         end
       rescue JSON::ParserError => e
-        service.log_error(method: method, error: e)
+        logger.error(context: 'ROR import', error: e)
         false
       end
 
@@ -130,8 +139,6 @@ module ExternalApis
       end
 
       def process_ror_record(record:, time:)
-        return service.process_ror_record(record: record, time: time) if stubbed?(service, :process_ror_record)
-
         attrs = mapper.call(record)
         return nil if attrs.blank? || attrs[:ror_id].blank?
 
@@ -143,15 +150,35 @@ module ExternalApis
       rescue StandardError => e
         record_id = record['id'] || record['ror_id'] || 'unknown'
         detail = "Record #{record_id} failed during ROR population: #{e.message}"
-        service.log_error(method: 'ExternalApis::Ror::Sync.process_ror_record', error: StandardError.new(detail))
-        service.log_message(method: 'ExternalApis::Ror::Sync.process_ror_record', message: "Payload for failed record: #{record.to_s[0, 1000]}", info: false)
+        logger.error(context: 'ROR import', error: StandardError.new(detail))
+        logger.warn("Payload for failed record: #{record.to_s[0, 1000]}")
         false
       end
 
-      def stubbed?(target, method_name)
-        return false unless target.respond_to?(method_name)
+      def unzip_file(zip_file:, destination:)
+        return false unless File.exist?(zip_file)
 
-        target.method(method_name).owner != target.singleton_class
+        destination = File.expand_path(destination.to_s)
+        Zip::File.open(zip_file) do |zip|
+          zip.each do |entry|
+            next if entry.directory?
+
+            output_file = File.expand_path(entry.name, destination)
+            unless output_file.start_with?("#{destination}/")
+              logger.error(context: 'ROR import', error: StandardError.new("Archive entry escapes import directory: #{entry.name}"))
+              return false
+            end
+
+            FileUtils.mkdir_p(File.dirname(output_file))
+            File.open(output_file, 'wb') do |output|
+              entry.get_input_stream { |input| IO.copy_stream(input, output) }
+            end
+          end
+        end
+        true
+      rescue Zip::Error, Errno::ENOENT => e
+        logger.error(context: 'ROR import', error: e)
+        false
       end
     end
   end

@@ -3,46 +3,35 @@
 module ExternalApis
   module Ror
     class Config
-      class << self
-        def landing_page_url
-          Rails.configuration.x.ror&.landing_page_url || raise(NotImplementedError)
-        end
+      attr_reader :download_url, :file_dir, :checksum_file, :zip_file, :max_redirects
 
-        def api_base_url
-          Rails.configuration.x.ror&.api_base_url || raise(NotImplementedError)
-        end
+      def self.from_rails(configuration: Rails.configuration)
+        ror = configuration.x.ror
+        new(
+          download_url: ror.download_url,
+          file_dir: ror.file_dir || Rails.root.join('tmp/ror'),
+          checksum_file: ror.checksum_file || Rails.root.join('tmp/ror/checksum.txt'),
+          zip_file: ror.zip_file || Rails.root.join('tmp/ror/latest-ror-data.zip'),
+          max_redirects: ror.max_redirects || 3,
+          user_agent: "#{ApplicationService.application_name} (#{configuration.x.organization.helpdesk_email})"
+        )
+      end
 
-        def download_url
-          Rails.configuration.x.ror&.download_url
-        end
+      def initialize(download_url:, file_dir:, checksum_file:, zip_file:, max_redirects:, user_agent:)
+        @download_url = download_url
+        @file_dir = Pathname.new(file_dir)
+        @checksum_file = Pathname.new(checksum_file)
+        @zip_file = Pathname.new(zip_file)
+        @max_redirects = max_redirects
+        @user_agent = user_agent
+      end
 
-        def full_catalog_file
-          Rails.configuration.x.ror&.full_catalog_file || Rails.root.join('tmp/ror/ror.json')
-        end
-
-        def file_dir
-          Rails.configuration.x.ror&.file_dir || Rails.root.join('tmp/ror')
-        end
-
-        def checksum_file
-          Rails.configuration.x.ror&.checksum_file || Rails.root.join('tmp/ror/checksum.txt')
-        end
-
-        def zip_file
-          Rails.configuration.x.ror&.zip_file || Rails.root.join('tmp/ror/latest-ror-data.zip')
-        end
-
-        def active?
-          Rails.configuration.x.ror&.active.nil? ? false : Rails.configuration.x.ror.active
-        end
-
-        def heartbeat_path
-          Rails.configuration.x.ror&.heartbeat_path
-        end
-
-        def search_path
-          Rails.configuration.x.ror&.search_path
-        end
+      def http_headers
+        {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'User-Agent': @user_agent
+        }
       end
     end
   end

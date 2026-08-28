@@ -69,7 +69,6 @@ module ExternalApis
       # the country. For example:
       #    "Example College (example.edu)"
       #    "Example College (Brazil)"
-      # rubocop:disable Metrics/AbcSize
       def org_name(item:)
         return '' if item.blank?
 
@@ -86,7 +85,6 @@ module ExternalApis
 
         "#{candidate_name} (#{website || country_name})"
       end
-      # rubocop:enable Metrics/AbcSize
 
       def preferred_ror_name(item)
         return nil unless item.is_a?(Hash)
@@ -145,7 +143,6 @@ module ExternalApis
         links
       end
 
-      # rubocop:disable Metrics/AbcSize
       def website_from_links(links)
         website = links.find { |link| link.is_a?(Hash) && link['type'].to_s == 'website' && link['value'].present? }
         return website['value'] if website.present?
@@ -160,7 +157,6 @@ module ExternalApis
 
         nil
       end
-      # rubocop:enable Metrics/AbcSize
 
       # Extracts the website domain from the item for contextual names
       def org_website(item:)

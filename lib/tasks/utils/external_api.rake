@@ -4,7 +4,7 @@ namespace :external_api do
   desc 'Populate the rors table from the latest ROR Zenodo dump. To force reprocessing pass `rails "external_api:sync_rors[true]"` (note the quotes)'
   task :sync_rors, [:force] => :environment do |_, args|
     Rails.logger.info 'Processing the latest ROR registry and updating the rors table'
-    result = ExternalApis::RorService.fetch(force: args[:force])
+    result = ExternalApis::Ror::Sync.from_rails.call(force: args[:force])
 
     case result
     when :success
