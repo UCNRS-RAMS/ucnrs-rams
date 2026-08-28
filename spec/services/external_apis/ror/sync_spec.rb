@@ -26,6 +26,22 @@ RSpec.describe ExternalApis::Ror::Sync do
 
   after { FileUtils.rm_rf(directory) }
 
+  def metadata
+    {
+      checksum: 'def456',
+      key: 'ror-data.zip',
+      links: { download: 'https://example.test/ror-data.zip' }
+    }
+  end
+
+  def build_archive(records)
+    FileUtils.mkdir_p(directory)
+    Zip::File.open(config.zip_file, create: true) do |zip|
+      zip.get_output_stream('ror-data.json') { |stream| stream.write(records.to_json) }
+    end
+    config.zip_file
+  end
+
   describe '#call' do
     it 'returns failure when metadata cannot be retrieved' do
       allow(client).to receive(:latest_dump_metadata).and_return(nil)
@@ -55,6 +71,42 @@ RSpec.describe ExternalApis::Ror::Sync do
       expect(File.binread(config.zip_file)).to eq('zip payload')
       expect(File.read(config.checksum_file)).to eq('def456')
     end
+
+    it 'imports a valid archive and removes stale cached records' do
+      create(:ror, ror_id: 'https://ror.org/stale', file_timestamp: 1.day.ago)
+      archive = build_archive([{ 'id' => 'https://ror.org/current', 'name' => 'Current University' }])
+      allow(client).to receive(:latest_dump_metadata).and_return(metadata)
+      allow(client).to receive(:download).with(metadata.dig(:links, :download)).and_return(File.binread(archive))
+
+      expect(sync.call).to eq(:success)
+      expect(Ror.pluck(:ror_id)).to eq(['https://ror.org/current'])
+      expect(File.read(config.checksum_file)).to eq('def456')
+    end
+
+    it 'preserves cached records and does not record the checksum for a malformed archive' do
+      stale_ror = create(:ror, ror_id: 'https://ror.org/stale', file_timestamp: 1.day.ago)
+      archive = build_archive({ 'id' => 'https://ror.org/not-an-array' })
+      allow(client).to receive(:latest_dump_metadata).and_return(metadata)
+      allow(client).to receive(:download).with(metadata.dig(:links, :download)).and_return(File.binread(archive))
+
+      expect(sync.call).to eq(:failure)
+      expect(Ror.find_by(ror_id: stale_ror.ror_id)).to be_present
+      expect(File.exist?(config.checksum_file)).to be(false)
+    end
+
+    it 'preserves cached records and does not record the checksum when a record cannot be imported' do
+      stale_ror = create(:ror, ror_id: 'https://ror.org/stale', file_timestamp: 1.day.ago)
+      archive = build_archive([
+                                { 'id' => 'https://ror.org/current', 'name' => 'Current University' },
+                                { 'name' => 'Missing identifier' }
+                              ])
+      allow(client).to receive(:latest_dump_metadata).and_return(metadata)
+      allow(client).to receive(:download).with(metadata.dig(:links, :download)).and_return(File.binread(archive))
+
+      expect(sync.call).to eq(:failure)
+      expect(Ror.find_by(ror_id: stale_ror.ror_id)).to be_present
+      expect(File.exist?(config.checksum_file)).to be(false)
+    end
   end
 
   describe '#process_ror_record' do
@@ -69,30 +121,30 @@ RSpec.describe ExternalApis::Ror::Sync do
       expect(sync.send(:process_ror_record, record: record, time: Time.current)).to be(true)
       expect(Ror.find_by!(ror_id: record['id']).name).to eq('Example University (example.edu)')
     end
+  end
 
-    describe '#unzip_file' do
-      it 'extracts an archive into a Pathname destination' do
-        FileUtils.mkdir_p(directory)
-        Zip::File.open(config.zip_file, create: true) do |zip|
-          zip.get_output_stream('ror-data.json') { |stream| stream.write('[]') }
-        end
-
-        expect(sync.send(:unzip_file, zip_file: config.zip_file, destination: config.file_dir)).to be(true)
-        expect(File.read(directory.join('ror-data.json'))).to eq('[]')
+  describe '#unzip_file' do
+    it 'extracts an archive into a Pathname destination' do
+      FileUtils.mkdir_p(directory)
+      Zip::File.open(config.zip_file, create: true) do |zip|
+        zip.get_output_stream('ror-data.json') { |stream| stream.write('[]') }
       end
 
-      it 'rejects an archive entry outside the import directory' do
-        FileUtils.mkdir_p(directory)
-        Zip::File.open(config.zip_file, create: true) do |zip|
-          zip.get_output_stream('../outside.json') { |stream| stream.write('[]') }
-        end
+      expect(sync.send(:unzip_file, zip_file: config.zip_file, destination: config.file_dir)).to be(true)
+      expect(File.read(directory.join('ror-data.json'))).to eq('[]')
+    end
 
-        expect(sync.send(:unzip_file, zip_file: config.zip_file, destination: config.file_dir)).to be(false)
-        expect(logger).to have_received(:error).with(
-          context: 'ROR import',
-          error: an_instance_of(StandardError)
-        )
+    it 'rejects an archive entry outside the import directory' do
+      FileUtils.mkdir_p(directory)
+      Zip::File.open(config.zip_file, create: true) do |zip|
+        zip.get_output_stream('../outside.json') { |stream| stream.write('[]') }
       end
+
+      expect(sync.send(:unzip_file, zip_file: config.zip_file, destination: config.file_dir)).to be(false)
+      expect(logger).to have_received(:error).with(
+        context: 'ROR import',
+        error: an_instance_of(StandardError)
+      )
     end
   end
 end

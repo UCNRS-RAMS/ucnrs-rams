@@ -62,7 +62,7 @@ module ExternalApis
                           methods: %i[get post put],
                           retry_statuses: [429, 500, 502, 503, 504]
         f.response :follow_redirects, limit: max_redirects
-        f.response :logger, Logger.new($stdout), bodies: true if debug
+        f.response :logger, ::Logger.new($stdout), bodies: true if debug
         f.adapter Faraday.default_adapter
       end
 
