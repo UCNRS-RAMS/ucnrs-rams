@@ -3,22 +3,22 @@
 module ExternalApis
   module Ror
     class Client
-      def initialize(service: ExternalApis::RorService, config: Config)
-        @service = service
-        @config = config
+      def initialize(http_client:, metadata_url:, logger:)
+        @http_client = http_client
+        @metadata_url = metadata_url
+        @logger = logger
       end
 
       def latest_dump_metadata
-        return service.fetch_zenodo_metadata if stubbed?(service, :fetch_zenodo_metadata)
-        return nil if config.download_url.blank?
+        return nil if metadata_url.blank?
 
-        response = service_http_client.get(uri: config.download_url, debug: false)
+        response = http_client.get(uri: metadata_url, debug: false)
         return nil unless response.present? && response.status == 200
 
         json = JSON.parse(response.body).with_indifferent_access
         file_metadata = json.dig(:hits, :hits, 0, :files)&.last
         if file_metadata.blank?
-          service.log_error(method: 'Fetching ROR metadata from Zenodo', error: StandardError.new('No ROR file found in Zenodo metadata response.'))
+          logger.error(context: 'ROR metadata', error: StandardError.new('No ROR file found in Zenodo metadata response.'))
           return nil
         end
 
@@ -26,15 +26,14 @@ module ExternalApis
         file_metadata[:links][:download] ||= file_metadata[:links][:self]
         file_metadata
       rescue JSON::ParserError => e
-        service.log_error(method: 'Fetching ROR metadata from Zenodo', error: e)
+        logger.error(context: 'ROR metadata', error: e)
         nil
       end
 
       def download(url)
-        return service.download_ror_file(url: url) if stubbed?(service, :download_ror_file)
         return nil if url.blank?
 
-        response = service_http_client.get(uri: url, debug: false)
+        response = http_client.get(uri: url, debug: false)
         return nil unless response.present? && response.status == 200
 
         response.body
@@ -42,21 +41,7 @@ module ExternalApis
 
       private
 
-      attr_reader :service, :config
-
-      def service_http_client
-        if service.respond_to?(:http_client, true)
-          service.send(:http_client)
-        else
-          ExternalApis::HttpClient.new(service: service)
-        end
-      end
-
-      def stubbed?(target, method_name)
-        return false unless target.respond_to?(method_name)
-
-        target.method(method_name).owner != target.singleton_class
-      end
+      attr_reader :http_client, :metadata_url, :logger
     end
   end
 end

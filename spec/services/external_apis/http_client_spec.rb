@@ -3,18 +3,15 @@
 require 'rails_helper'
 
 RSpec.describe ExternalApis::HttpClient do
-  let(:service) do
-    class_double(
-      ExternalApis::BaseService,
+  let(:logger) { instance_double(ExternalApis::Logger, error: nil) }
+  let(:client) do
+    described_class.new(
       headers: { Accept: 'application/json' },
       max_redirects: 4,
-      name: 'ExternalApis::BaseService'
-    ).tap do |service_double|
-      allow(service_double).to receive(:handle_uri_failure)
-      allow(service_double).to receive(:handle_http_failure)
-    end
+      logger: logger,
+      name: 'Test API'
+    )
   end
-  let(:client) { described_class.new(service: service) }
 
   describe '#get' do
     let(:response) { instance_double(Faraday::Response, status: 200, body: 'ok', inspect: 'HTTP 200') }
@@ -35,9 +32,9 @@ RSpec.describe ExternalApis::HttpClient do
       allow(client).to receive(:faraday_connection).and_raise(URI::InvalidURIError.new('bad'))
 
       expect(client.get(uri: 'badurl~^(%')).to be_nil
-      expect(service).to have_received(:handle_uri_failure).with(
-        method: include('ExternalApis::BaseService.http_get'),
-        uri: 'badurl~^(%'
+      expect(logger).to have_received(:error).with(
+        context: 'Test API.get',
+        error: an_instance_of(ExternalApis::HttpClient::RequestError)
       )
     end
 
@@ -45,9 +42,9 @@ RSpec.describe ExternalApis::HttpClient do
       allow(client).to receive(:faraday_connection).and_raise(Faraday::TimeoutError.new('timeout'))
 
       expect(client.get(uri: 'https://example.com')).to be_nil
-      expect(service).to have_received(:handle_http_failure).with(
-        method: include('ExternalApis::BaseService.http_get'),
-        http_response: nil
+      expect(logger).to have_received(:error).with(
+        context: 'Test API.get',
+        error: an_instance_of(ExternalApis::HttpClient::RequestError)
       )
     end
   end
