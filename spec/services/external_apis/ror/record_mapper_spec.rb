@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Ror::RecordMapper do
+RSpec.describe ExternalApis::Ror::RecordMapper do
   describe '.call' do
     it 'returns mapped attributes for a valid ROR record' do
       record = {
