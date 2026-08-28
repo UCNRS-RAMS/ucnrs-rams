@@ -180,7 +180,7 @@ module ExternalApis
 
             # cleanup items removed from ror
             log_message(method: method, message: "Stage: cleanup - removing stale records older than #{json_file.mtime.strftime('%Y-%m-%d %H:%M:%S')}")
-            Ror.where('file_timestamp < ?', json_file.mtime).delete_all
+            ::Ror.where('file_timestamp < ?', json_file.mtime).delete_all
             log_message(method: method, message: "Stage: complete - finished processing #{total} ROR records")
             true
           else
@@ -215,16 +215,16 @@ module ExternalApis
 
         ((current_record.to_f / total_records) * 100).round(1)
       end
-            # Transfer the contents of a ROR record to the local rors table
-            def process_ror_record(record:, time:)
-              attrs = Ror::RecordMapper.call(record)
-              return nil if attrs.blank? || attrs[:ror_id].blank?
+      # Transfer the contents of a ROR record to the local rors table
+      def process_ror_record(record:, time:)
+        attrs = ExternalApis::Ror::RecordMapper.call(record)
+        return nil if attrs.blank? || attrs[:ror_id].blank?
 
-              ror_model = Ror.find_or_create_by(ror_id: attrs[:ror_id])
-              ror_model.assign_attributes(attrs.except(:ror_id).merge(file_timestamp: time))
+        ror_model = ::Ror.find_or_create_by(ror_id: attrs[:ror_id])
+        ror_model.assign_attributes(attrs.except(:ror_id).merge(file_timestamp: time))
 
-              ror_model.save!
-              true
+        ror_model.save!
+        true
       rescue StandardError => e
         record_id = record['id'] || record['ror_id'] || 'unknown'
         detail = "Record #{record_id} failed during ROR population: #{e.message}"
