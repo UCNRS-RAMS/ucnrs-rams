@@ -49,14 +49,12 @@ module ExternalApis
         Rails.configuration.x.ror&.search_path
       end
 
-
       def fetch(force: false)
         force = ActiveModel::Type::Boolean.new.cast(force)
         method = "ExternalApis::RorService.fetch(force: #{force})"
 
         log_message(method: method, message: 'Starting ROR sync: checking Zenodo metadata')
 
-        # Fetch the Zenodo metadata for ROR to see if we have the latest data dump
         metadata = fetch_zenodo_metadata
         if metadata.blank?
           log_error(method: method, error: StandardError.new('Unable to fetch ROR metadata from Zenodo!'))
@@ -77,6 +75,7 @@ module ExternalApis
           log_error(method: method, error: StandardError.new('ROR metadata is missing a download link or archive key.'))
           return :failure
         end
+
         log_message(method: method, message: "New ROR file detected - checksum #{metadata[:checksum]}")
         log_message(method: method, message: "Stage: download - #{download_file}")
         log_message(method: method, message: "Source: #{download_link}")
@@ -101,137 +100,23 @@ module ExternalApis
         :success
       end
 
-      private
-
-      # Fetch the latest Zenodo metadata for ROR files
       def fetch_zenodo_metadata
-        Rails.logger.error 'No :download_url defined for RorService!' if download_url.blank?
-        return nil if download_url.blank?
-
-        # Fetch the latest ROR metadata from Zenodo (the query will place the most recent
-        # version 1st)
-        resp = http_client.get(uri: download_url, debug: false)
-
-        unless resp.present? && resp.status == 200
-          handle_http_failure(method: 'Fetching ROR metadata from Zenodo', http_response: resp)
-          return nil
-        end
-        json = JSON.parse(resp.body).with_indifferent_access
-
-        # Extract the most recent file's metadata
-        file_metadata = json.dig(:hits, :hits, 0, :files)&.last
-        if file_metadata.blank?
-          log_error(method: 'Fetching ROR metadata from Zenodo', error: StandardError.new('No ROR file found in Zenodo metadata response.'))
-          return nil
-        end
-
-        file_metadata[:links] = file_metadata.fetch(:links, {}).with_indifferent_access
-        file_metadata[:links][:download] ||= file_metadata[:links][:self]
-        file_metadata
-      rescue JSON::ParserError => e
-        log_error(method: 'RorService', error: e)
-        nil
+        ExternalApis::Ror::Client.new(service: self).latest_dump_metadata
       end
-      # rubocop:enable Metrics/AbcSize
 
-      # Download the latest ROR data
       def download_ror_file(url:)
-        return nil if url.blank?
-
-        resp = http_client.get(uri: url, debug: false)
-
-        unless resp.present? && resp.status == 200
-          handle_http_failure(method: "Fetching ROR file from Zenodo - #{url}", http_response: resp)
-          return nil
-        end
-        resp.body
+        ExternalApis::Ror::Client.new(service: self).download(url)
       end
 
-      # Parse the JSON file and process each individual record
-      # rubocop:disable Metrics/AbcSize
       def process_ror_file(zip_file:, file:)
-        return false unless zip_file.present? && file.present?
-
-        method = 'ExternalApis::RorService.process_ror_file'
-
-        if unzip_file(zip_file: zip_file, destination: file_dir)
-          if File.exist?("#{file_dir}/#{file}")
-            json_file = File.open("#{file_dir}/#{file}", 'r')
-            json = JSON.parse(json_file.read)
-            total = json.length
-            interval = progress_interval_for(total)
-
-            log_message(method: method, message: "Stage: populate - starting record processing for #{total} records; progress updates every #{interval} records")
-
-            json.each_with_index do |hash, index|
-              current = index + 1
-              log_message(method: method, message: "Progress: #{current}/#{total} records (#{percentage(current, total)}%)") if should_log_progress?(current, total, interval)
-
-              hash = hash.with_indifferent_access if hash.is_a?(Hash)
-
-              next if process_ror_record(record: hash, time: json_file.mtime)
-
-              log_message(
-                method: method,
-                message: "Unable to process record #{current}/#{total} for: '#{hash&.fetch('name', hash&.fetch('id', 'unknown'))}'",
-                info: false
-              )
-            end
-
-            # cleanup items removed from ror
-            log_message(method: method, message: "Stage: cleanup - removing stale records older than #{json_file.mtime.strftime('%Y-%m-%d %H:%M:%S')}")
-            ::Ror.where('file_timestamp < ?', json_file.mtime).delete_all
-            log_message(method: method, message: "Stage: complete - finished processing #{total} ROR records")
-            true
-          else
-            log_error(method: method, error: StandardError.new('Unable to find json in zip!'))
-            false
-          end
-        else
-          log_error(method: method, error: StandardError.new('Unable to unzip contents of ROR file'))
-          false
-        end
-      rescue JSON::ParserError => e
-        log_error(method: method, error: e)
-        false
-      end
-      # rubocop:enable Metrics/AbcSize
-
-      # interval for updated info based on the size of the total records.
-      def progress_interval_for(total_records)
-        return 1 if total_records <= 1
-        return 100 if total_records <= 1000
-        return 1000 if total_records <= 10_000
-
-        10_000
+        ExternalApis::Ror::Sync.new(service: self).send(:process_ror_file, zip_file: zip_file, file: file)
       end
 
-      def should_log_progress?(current_record, total_records, interval)
-        current_record == total_records || (current_record % interval).zero?
-      end
-
-      def percentage(current_record, total_records)
-        return 0 if total_records.zero?
-
-        ((current_record.to_f / total_records) * 100).round(1)
-      end
-      # Transfer the contents of a ROR record to the local rors table
       def process_ror_record(record:, time:)
-        attrs = ExternalApis::Ror::RecordMapper.call(record)
-        return nil if attrs.blank? || attrs[:ror_id].blank?
-
-        ror_model = ::Ror.find_or_create_by(ror_id: attrs[:ror_id])
-        ror_model.assign_attributes(attrs.except(:ror_id).merge(file_timestamp: time))
-
-        ror_model.save!
-        true
-      rescue StandardError => e
-        record_id = record['id'] || record['ror_id'] || 'unknown'
-        detail = "Record #{record_id} failed during ROR population: #{e.message}"
-        log_error(method: 'ExternalApis::RorService.process_ror_record', error: StandardError.new(detail))
-        log_message(method: 'ExternalApis::RorService.process_ror_record', message: "Payload for failed record: #{record.to_s[0, 1000]}", info: false)
-        false
+        ExternalApis::Ror::Sync.new(service: self).send(:process_ror_record, record: record, time: time)
       end
+
+      private
     end
   end
 end
