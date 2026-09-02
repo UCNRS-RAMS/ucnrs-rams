@@ -115,65 +115,34 @@ $ docker compose exec web bundle exec rails db:seed
 
 ## Development database primer
 
-RAMS includes a development primer with connected, representative data for
-working on project, visit, funding, researcher, and reserve-management features
-without restoring a production database. The data is synthetic and contains no
-production credentials or personal information.
+The development primer creates synthetic, connected data for projects, visits,
+funding, researchers, and reserve management. It is safe to run more than once.
 
-Run the primer locally with:
+Run it locally:
 
 ```sh
 bin/rails dev:prime
 ```
 
-Or, from the Docker development environment:
+Or with Docker:
 
 ```sh
 docker compose exec web bin/rails dev:prime
 ```
 
-The task prepares the database, loads the environment-independent records from
-`db/seeds/base.rb`, and loads the connected examples under
-`db/seeds/development/`. It is safe to run repeatedly: records are found by
-stable development-only attributes, updated to the declared state, and not
-duplicated.
-
-The representative data includes:
-
-- two institutions and several researchers with and without ORCIDs;
-- two reserves with amenities and rates;
-- a research project with three team members, funding, and a completed visit;
-- three participant records connecting the researchers to that visit;
-- a class project with two team members; and
-- a reserve administrator for testing station-management workflows.
-
+Sign in at [http://localhost:3000/users/sign_in](http://localhost:3000/users/sign_in).
 All development users use the password `Password1`:
 
-| Email | Role and useful coverage |
+| Email | Role |
 | --- | --- |
-| `mister@moustache.test` | Principal investigator for the research project |
-| `river@researcher.test` | Researcher with editing access to both projects |
-| `sage@scientist.test` | Team member with more limited project permissions |
-| `manager@single-tree.test` | Administrator for the A Single Tree reserve |
+| `mister@moustache.test` | Principal investigator |
+| `river@researcher.test` | Researcher |
+| `sage@scientist.test` | Project team member |
+| `manager@single-tree.test` | Reserve administrator |
 
-Sign in at [http://localhost:3000/users/sign_in](http://localhost:3000/users/sign_in).
-Researchers can inspect their projects, memberships, funding, visits, and visit
-participants through the normal dashboard. The reserve administrator is sent to
-the manager dashboard and can inspect the station calendar, associated projects
-and visits, participants, amenities, rates, and administrative views.
-
-Do not rely on development record IDs in documentation or code; IDs can change
-when the database is rebuilt. Navigate through the dashboards or find records by
-their stable seed attributes.
-
-The primer has a regression test that loads it twice against the current test
-schema. This catches missing required attributes, validation changes, broken
-associations, and accidental duplication:
+Run the primer spec with:
 
 ```sh
-bundle exec rspec spec/seeds/development_spec.rb
-
-# With Docker
 docker compose exec web bundle exec rspec spec/seeds/development_spec.rb
 ```
 
