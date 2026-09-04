@@ -46,5 +46,11 @@ FactoryBot.define do
         )
       end
     end
+
+    trait :with_team_member do
+      after(:create) do |project|
+        create(:project_team_membership, project: project)
+      end
+    end
   end
 end

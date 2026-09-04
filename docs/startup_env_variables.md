@@ -27,8 +27,8 @@ The variables we need to set for getting the server to run (and where they come 
 | SMTP_USERNAME | ssm            | The SMTP username for sending emails                                                      |
 | SMTP_PASSWORD | ssm            | The SMTP password for sending emails                                                      |
 | SMTP_DOMAIN | ssm            | The SMTP domain for sending emails (e.g. localhost)                                       |
+| RAMS_API_TOKEN | ssm            | Bearer token used to authenticate read-only RAMS API requests                             |
 
 Note that right now a RAILS_MASTER_KEY is set but it is likely not required
 because the SECRET_KEY_BASE is set directly in the environment variables and there are essentially no encrypted credentials being used.
 If we were to use encrypted credentials, then the RAILS_MASTER_KEY would be required to decrypt them.
-
