@@ -25,6 +25,7 @@ class Mail::VisitQuestionsPresenter
     ReserveQuestion
       .in_order
       .visible
+      .involving_related(visit.project)
       .includes([:reserve])
       .with_answers_for_visit(visit)
   end

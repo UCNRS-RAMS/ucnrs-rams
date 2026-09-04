@@ -112,4 +112,31 @@ class ReserveQuestion < ApplicationRecord
       all
     end
   end
+
+  def self.involving_related(project)
+    without_involvements
+      .or(where("(? AND reserve_questions.involves_mammals)", [project.involves_mammals]))
+      .or(where("(? AND reserve_questions.involves_reptiles)", [project.involves_reptiles]))
+      .or(where("(? AND reserve_questions.involves_amphibians)", [project.involves_amphibians]))
+      .or(where("(? AND reserve_questions.involves_fish)", [project.involves_fish]))
+      .or(where("(? AND reserve_questions.involves_birds)", [project.involves_birds]))
+      .or(where(
+        "(? AND reserve_questions.involves_plants_fungi_soil)",
+        [project.involves_plants_fungi_soil]
+      ))
+      .or(where(
+        "(? AND reserve_questions.threatened_endangered_flag)",
+        [project.involves_threatened_endangered_species]
+      ))
+  end
+
+  def self.without_involvements
+    where(involves_mammals: [false, nil])
+      .where(involves_reptiles: [false, nil])
+      .where(involves_amphibians: [false, nil])
+      .where(involves_fish: [false, nil])
+      .where(involves_birds: [false, nil])
+      .where(involves_plants_fungi_soil: [false, nil])
+      .where(threatened_endangered_flag: [false, nil])
+  end
 end

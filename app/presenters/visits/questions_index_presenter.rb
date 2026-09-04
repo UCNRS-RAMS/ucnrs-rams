@@ -82,13 +82,14 @@ class Visits::QuestionsIndexPresenter
   end
 
   def project_reserve_answer_exist?
-    ProjectReserveAnswer.where(id: visit.project_id).present?
+    ProjectReserveAnswer.where(project: visit.project).present?
   end
 
   def reserve_question_scope_from_questions
     scope = ReserveQuestion
       .where(reserve: visit.reserve)
       .for_project_type(visit.project.project_type)
+      .involving_related(visit.project)
       .by_location
       .in_order
       .visible
