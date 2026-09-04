@@ -20,12 +20,11 @@
     <% end %>
   </section>
 
-  <section>
-    <header>
-      <h2><%= t(".permit_questions") %></h2>
-    </header>
-
-    <% if presenter.has_permit_questions_for_project? %>
+  <% if presenter.has_permit_questions_for_project? %>
+    <section>
+      <header>
+        <h2><%= t(".permit_questions") %></h2>
+      </header>
       <section>
         <% presenter.permit_questions_by_authority.each do |authority, questions| %>
           <%= render partial: "projects/questions/group",
@@ -45,11 +44,6 @@
           </p>
         </div>
       </section>
-
-    <% else %>
-      <input name="project[no_questions]" value="" type="hidden"/>
-      <h4><%= t(".no_permit_questions") %></h4>
-
-    <% end %>
-  </section>
+    </section>
+  <% end %>
 <% end %>

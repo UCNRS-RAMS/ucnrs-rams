@@ -63,6 +63,21 @@ RSpec.describe Visits::QuestionsIndexPresenter do
 
         expect(results.values.flatten.map(&:id)).to eq [question1.id, question3.id]
       end
+
+      it "returns only reserve questions involving what the project involves" do
+        reserve = create(:reserve)
+        project = create(:project, involves_none: false, involves_mammals: true)
+        visit = create(:visit, reserve: reserve, project: project)
+        untagged_question = create(:reserve_question, reserve: reserve, location: :visit)
+        mammals_question = create(:reserve_question, reserve: reserve, location: :visit, involves_mammals: true)
+        create(:reserve_question, reserve: reserve, location: :visit, involves_fish: true)
+        presenter = Visits::QuestionsIndexPresenter.new(current_step: 3, visit: visit)
+
+        results = presenter.reserve_questions_by_location
+
+        expect(results.values.flatten.map(&:id))
+          .to match_array [untagged_question.id, mammals_question.id]
+      end
     end
 
     context "if visit has not been submitted and visit answer exist" do

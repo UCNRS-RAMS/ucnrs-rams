@@ -47,6 +47,7 @@ class Mail::ProjectQuestionsPresenter
       .in_order
       .for_projects
       .visible
+      .involving_related(project)
       .includes([:reserve])
       .with_answers_for_project(project)
   end

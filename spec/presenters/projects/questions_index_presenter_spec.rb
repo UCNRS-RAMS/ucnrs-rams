@@ -26,6 +26,23 @@ RSpec.describe Projects::QuestionsIndexPresenter do
       expect(results["Reserve 1"].map(&:id)).to eq [reserve1_question1.id]
       expect(results["Reserve 2"].map(&:id)).to eq [reserve2_question1.id]
     end
+
+    it "returns only reserve questions involving what the project involves" do
+      project = create(:project, involves_none: false, involves_mammals: true)
+      reserve = create(:reserve, name: "Reserve 1")
+      untagged_question = create(:reserve_question, reserve: reserve)
+      mammals_question = create(:reserve_question, reserve: reserve, involves_mammals: true)
+      fish_question = create(:reserve_question, reserve: reserve, involves_fish: true)
+      create(:project_reserve_answer, project: project, reserve_question: untagged_question)
+      create(:project_reserve_answer, project: project, reserve_question: mammals_question)
+      create(:project_reserve_answer, project: project, reserve_question: fish_question)
+      presenter = Projects::QuestionsIndexPresenter.new(current_step: 3, project: project)
+
+      results = presenter.questions_by_reserve
+
+      expect(results["Reserve 1"].map(&:id))
+        .to match_array [untagged_question.id, mammals_question.id]
+    end
   end
 
   describe "#questions_by_authority" do
