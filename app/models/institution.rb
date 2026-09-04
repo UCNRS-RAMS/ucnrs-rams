@@ -12,6 +12,7 @@ class Institution < ApplicationRecord
 
   validates :institution_type, presence: true
 
+  belongs_to :ror, primary_key: :ror_id, inverse_of: :institutions, optional: true
   belongs_to :country
   belongs_to :state, optional: true
   has_many :users, inverse_of: :institution, dependent: :restrict_with_error
