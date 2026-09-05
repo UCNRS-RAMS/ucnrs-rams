@@ -488,3 +488,7 @@
     }
   }
 }
+
+.involvement-scope:has(.involvement-scope-ignore:checked) ~ .involvement-scope-fields {
+  display: none;
+}

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_14_104820) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_04_092503) do
   create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "archived_data_location", limit: 200, null: false, comment: "Where is data archived"
     t.string "data_collected", limit: 200, null: false, comment: "What data is collected"
@@ -696,7 +696,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_104820) do
     t.boolean "drone_flag"
     t.boolean "housing", default: true, null: false
     t.boolean "iacuc_flag"
-    t.boolean "involves_all"
+    t.boolean "ignore_involvements", default: true, null: false
     t.boolean "involves_amphibians"
     t.boolean "involves_birds"
     t.boolean "involves_fish"
@@ -704,6 +704,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_104820) do
     t.boolean "involves_none"
     t.boolean "involves_plants_fungi_soil"
     t.boolean "involves_reptiles"
+    t.boolean "involves_threatened_endangered_species", default: false, null: false
     t.column "location", "enum('project','visit')"
     t.boolean "public_use", default: true, null: false
     t.text "question"

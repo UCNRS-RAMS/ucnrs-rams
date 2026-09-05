@@ -128,84 +128,49 @@ RSpec.describe ReserveQuestion, type: :model do
     end
   end
 
-  describe ".without_involvements" do
-    it "only selects questions having no involve flags set" do
-      untagged_question = create(:reserve_question)
-      explicitly_false_question = create(
-        :reserve_question,
-        involves_mammals: false,
-        involves_fish: false,
-      )
-      fish_question = create(:reserve_question, involves_fish: true)
-      endangered_question = create(:reserve_question, threatened_endangered_flag: true)
-
-      results = ReserveQuestion.without_involvements
-
-      expect(results).to match_array [untagged_question, explicitly_false_question]
-      expect(results).not_to include fish_question, endangered_question
-    end
-
-    it "excludes a question tagged with any involves flags" do
-      untagged_question = create(:reserve_question)
-      create(:reserve_question, involves_mammals: true)
-      create(:reserve_question, involves_reptiles: true)
-      create(:reserve_question, involves_amphibians: true)
-      create(:reserve_question, involves_fish: true)
-      create(:reserve_question, involves_birds: true)
-      create(:reserve_question, involves_plants_fungi_soil: true)
-      create(:reserve_question, threatened_endangered_flag: true)
-
-      expect(ReserveQuestion.without_involvements).to eq [untagged_question]
-    end
-
-    it "ignores involves_all and involves_none" do
-      all_question = create(:reserve_question, involves_all: true)
-      none_question = create(:reserve_question, involves_none: true)
-
-      expect(ReserveQuestion.without_involvements).to match_array [all_question, none_question]
-    end
-  end
-
   describe ".involving_related" do
     def project(boolean_key, value: true)
       build(:project, involves_none: false, boolean_key => value)
     end
 
-    it "returns questions that declare no involvements at all" do
-      untagged_question = create(:reserve_question)
-      unset_question = create(
-        :reserve_question,
-        involves_all: false,
-        involves_mammals: false,
-        involves_fish: false,
-      )
-      fish_question = create(:reserve_question, involves_fish: true)
+    it "returns nothing for a question that neither ignores nor declares involvements" do
+      untagged_question = create(:reserve_question, ignore_involvements: false)
+      fish_question = create(:reserve_question, ignore_involvements: false, involves_fish: true)
 
-      results = ReserveQuestion.involving_related(project(:involves_mammals))
-
-      expect(results).to match_array [untagged_question, unset_question]
-      expect(results).not_to include fish_question
+      expect(ReserveQuestion.involving_related(project(:involves_fish))).to eq [fish_question]
+      expect(ReserveQuestion.involving_related(project(:involves_mammals))).to be_empty
+      expect(ReserveQuestion.all).to include untagged_question
     end
 
-    it "ignores involves_all, filtering on the specific involvements instead" do
-      all_and_fish_question = create(:reserve_question, involves_all: true, involves_fish: true)
-      all_untagged_question = create(:reserve_question, involves_all: true)
-      birds_question = create(:reserve_question, involves_birds: true)
+    it "returns the question whatever the project involves when ignore_involvements is set" do
+      all_and_fish_question = create(:reserve_question, ignore_involvements: true, involves_fish: true)
+      all_untagged_question = create(:reserve_question, ignore_involvements: true)
+      birds_question = create(:reserve_question, ignore_involvements: false, involves_birds: true)
 
       expect(ReserveQuestion.involving_related(project(:involves_fish)))
         .to match_array [all_and_fish_question, all_untagged_question]
       expect(ReserveQuestion.involving_related(project(:involves_birds)))
-        .to match_array [all_untagged_question, birds_question]
+        .to match_array [all_and_fish_question, all_untagged_question, birds_question]
+      expect(ReserveQuestion.involving_related(build(:project, involves_none: true)))
+        .to match_array [all_and_fish_question, all_untagged_question]
     end
 
     it "returns the question if the involvements match the project's involvements" do
-      mammals_question = create(:reserve_question, involves_mammals: true)
-      reptiles_question = create(:reserve_question, involves_reptiles: true)
-      amphibians_question = create(:reserve_question, involves_amphibians: true)
-      fish_question = create(:reserve_question, involves_fish: true)
-      birds_question = create(:reserve_question, involves_birds: true)
-      plants_fungi_soil_question = create(:reserve_question, involves_plants_fungi_soil: true)
-      endangered_question = create(:reserve_question, threatened_endangered_flag: true)
+      mammals_question = create(:reserve_question, ignore_involvements: false, involves_mammals: true)
+      reptiles_question = create(:reserve_question, ignore_involvements: false, involves_reptiles: true)
+      amphibians_question = create(:reserve_question, ignore_involvements: false, involves_amphibians: true)
+      fish_question = create(:reserve_question, ignore_involvements: false, involves_fish: true)
+      birds_question = create(:reserve_question, ignore_involvements: false, involves_birds: true)
+      plants_fungi_soil_question = create(
+        :reserve_question,
+        ignore_involvements: false,
+        involves_plants_fungi_soil: true,
+      )
+      endangered_question = create(
+        :reserve_question,
+        ignore_involvements: false,
+        involves_threatened_endangered_species: true,
+      )
 
       expect(ReserveQuestion.involving_related(project(:involves_mammals))).to eq [mammals_question]
       expect(ReserveQuestion.involving_related(project(:involves_reptiles))).to eq [reptiles_question]
@@ -218,21 +183,10 @@ RSpec.describe ReserveQuestion, type: :model do
         .to eq [endangered_question]
     end
 
-    it "ignores involves_none on both sides, treating the specific columns as the truth" do
-      none_question = create(:reserve_question, involves_none: true)
-      fish_question = create(:reserve_question, involves_none: true, involves_fish: true)
-      contradictory_project = build(:project, involves_none: true, involves_fish: true)
-
-      expect(ReserveQuestion.involving_related(build(:project, involves_none: true)))
-        .to eq [none_question]
-      expect(ReserveQuestion.involving_related(contradictory_project))
-        .to match_array [none_question, fish_question]
-    end
-
     it "returns a question that matches any one of the project's involvements" do
-      mammals_question = create(:reserve_question, involves_mammals: true)
-      fish_question = create(:reserve_question, involves_fish: true)
-      birds_question = create(:reserve_question, involves_birds: true)
+      mammals_question = create(:reserve_question, ignore_involvements: false, involves_mammals: true)
+      fish_question = create(:reserve_question, ignore_involvements: false, involves_fish: true)
+      birds_question = create(:reserve_question, ignore_involvements: false, involves_birds: true)
       project = build(:project, involves_none: false, involves_mammals: true, involves_fish: true)
 
       results = ReserveQuestion.involving_related(project)
@@ -243,13 +197,13 @@ RSpec.describe ReserveQuestion, type: :model do
 
     it "keeps every question for a project involving everything" do
       questions = [
-        create(:reserve_question, involves_mammals: true),
-        create(:reserve_question, involves_reptiles: true),
-        create(:reserve_question, involves_amphibians: true),
-        create(:reserve_question, involves_fish: true),
-        create(:reserve_question, involves_birds: true),
-        create(:reserve_question, involves_plants_fungi_soil: true),
-        create(:reserve_question),
+        create(:reserve_question, ignore_involvements: false, involves_mammals: true),
+        create(:reserve_question, ignore_involvements: false, involves_reptiles: true),
+        create(:reserve_question, ignore_involvements: false, involves_amphibians: true),
+        create(:reserve_question, ignore_involvements: false, involves_fish: true),
+        create(:reserve_question, ignore_involvements: false, involves_birds: true),
+        create(:reserve_question, ignore_involvements: false, involves_plants_fungi_soil: true),
+        create(:reserve_question, ignore_involvements: true),
       ]
       project = build(
         :project,
@@ -268,8 +222,18 @@ RSpec.describe ReserveQuestion, type: :model do
     it "qualifies its columns so it survives a join against projects" do
       project = build(:project, involves_none: false, involves_fish: true)
       project.save!(validate: false)
-      fish_question = create(:reserve_question, location: :project, involves_fish: true)
-      birds_question = create(:reserve_question, location: :project, involves_birds: true)
+      fish_question = create(
+        :reserve_question,
+        ignore_involvements: false,
+        location: :project,
+        involves_fish: true,
+      )
+      birds_question = create(
+        :reserve_question,
+        ignore_involvements: false,
+        location: :project,
+        involves_birds: true,
+      )
       create(:project_reserve_answer, project: project, reserve_question: fish_question)
       create(:project_reserve_answer, project: project, reserve_question: birds_question)
 
