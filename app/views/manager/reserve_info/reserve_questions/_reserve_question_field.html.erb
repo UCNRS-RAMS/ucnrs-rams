@@ -78,7 +78,23 @@
       <%= form.label(:housing, t(".labels.housing_project"), class: "form-inline-label") %>
     </div>
   </div>
-  <div class="form-group">
+
+  <div class="form-group involvement-scope">
+    <div class="form-label"><%= t(".labels.ignore_involvements") %></div>
+    <div>
+      <div class="form-inline">
+        <%= form.radio_button(:ignore_involvements, true, class: "involvement-scope-ignore") %>
+        <%= form.label(:ignore_involvements_true, t(".labels.ignore_involvements_yes"), class: "form-inline-label") %>
+      </div>
+      <div class="form-inline">
+        <%= form.radio_button(:ignore_involvements, false) %>
+        <%= form.label(:ignore_involvements_false, t(".labels.ignore_involvements_no"), class: "form-inline-label") %>
+      </div>
+    </div>
+    <small><%=t(".helper_text.ignore_involvements")%></small>
+  </div>
+
+  <div class="form-group involvement-scope-fields">
     <div class="form-label"><%= t(".labels.does_this_question_involves") %></div>
     <div>
       <%= form.check_box(:involves_mammals, {}, 'true', 'false') %>
@@ -104,8 +120,14 @@
       <%= form.check_box(:involves_plants_fungi_soil, {}, 'true', 'false') %>
       <%= form.label(:involves_plants_fungi_soil, t(".labels.plants_fungi_soil"), class: "form-inline-label") %>
     </div>
+    <div>
+      <%= form.check_box(:involves_threatened_endangered_species, {}, 'true', 'false') %>
+      <%= form.label(:involves_threatened_endangered_species,
+            t(".labels.threatened_endangered_species"), class: "form-inline-label") %>
+    </div>
     <small><%=t(".helper_text.does_this_question_involves")%></small>
   </div>
+
   <div class="form-group">
     <div class="form-label"><%= t(".labels.flag") %></div>
     <div>

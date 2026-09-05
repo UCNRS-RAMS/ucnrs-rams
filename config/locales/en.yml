@@ -2738,13 +2738,17 @@ en:
             threatened: Threatened
             required: Required
             optional: Optional
-            does_this_question_involves: Does this question involve?
+            does_this_question_involves: Ask it when the project involves any of the following
             mammals: Mammals
             reptiles: Reptiles
             amphibians: Amphibians
             fish: Fish
             birds: Birds
-            plants_fungi_soil: Plants, Fungi, Soil
+            plants_fungi_soil: Plants, Fungi, or Soils
+            threatened_endangered_species: Threatened, Endangered, or Species of Special Concern
+            ignore_involvements: When should this question be asked?
+            ignore_involvements_yes: On every project
+            ignore_involvements_no: Only when the project involves the items below
             enabled: Enabled
             disabled: Disabled
             visible: Visible
@@ -2753,8 +2757,11 @@ en:
               This additional information is located to the right of the answer
               box
             does_this_question_involves: >-
-              Question will be triggered by the following boxes checked in the
-              associated project
+              These are matched against what the researcher ticked on their
+              project. A single match is enough.
+            ignore_involvements: >-
+              A question asked on every project appears whatever the project
+              involves, and the boxes below are not used
             flag: >-
               Checking this will send an automated message to the people
               identified in the Staff and Notifications section
