@@ -89,8 +89,8 @@ class Manager::ReserveInfo::ReserveQuestionsController < Manager::ApplicationCon
       :involves_fish,
       :involves_birds,
       :involves_plants_fungi_soil,
-      :involves_none,
-      :involves_all,
+      :involves_threatened_endangered_species,
+      :ignore_involvements,
       :state_id,
     )
   end
