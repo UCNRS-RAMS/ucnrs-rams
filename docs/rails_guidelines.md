@@ -1,10 +1,3 @@
-# RAMS Rails guidelines
-
-Adapted from FAIRStation's `docs/rails_guidelines.md`. These are design
-preferences for new and changed code, not a requirement to rewrite adjacent
-legacy code. RAMS uses MySQL, RSpec, and server-rendered views; FAIRStation's
-UUID/import-provenance schema and API-only assumptions do not apply here.
-
 ## Models and domain objects
 
 - Prefer domain objects named after concepts, with meaningful methods such as

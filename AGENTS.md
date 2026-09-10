@@ -28,6 +28,3 @@ MySQL, Turbo/Stimulus, and TypeScript bundled through Shakapacker.
   RuboCop feedback in Claude Code and Codex.
 - [Docker setup](docs/docker.md): container development and troubleshooting.
 - [Environment variables](docs/startup_env_variables.md): server configuration.
-
-Formatting and lint rules belong in `.rubocop.yml` and the existing tooling,
-not in this file.
