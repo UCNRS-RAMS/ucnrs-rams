@@ -43,11 +43,7 @@ The harness imposes a 120-second timeout; a timeout is an incomplete check.
   offense and its implications instead of making an unrelated refactor.
 
 This is a feedback loop, not a guarantee that code passes lint. It does not
-run tests or change CI. Validate the hook itself with:
-
-```sh
-python3 scripts/test_rubocop_stop.py
-```
+run tests or change CI.
 
 Protocol references: [Claude Code hooks](https://code.claude.com/docs/en/hooks)
 and [Codex hooks](https://learn.chatgpt.com/docs/hooks).
