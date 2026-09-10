@@ -19,13 +19,13 @@ MySQL, Turbo/Stimulus, and TypeScript bundled through Shakapacker.
   JavaScript-enabled system specs require Chrome; see
   `spec/support/system_test_configuration.rb` for driver configuration.
 - Run checks relevant to the change and report any checks you could not run.
-  `bin/ci` currently references Minitest and a missing Importmap executable;
-  use the test commands above until that configuration is corrected.
 
 ## Read when relevant
 
 - [Rails guidelines](docs/rails_guidelines.md): before changing Rails code or
-  specs, read the sections relevant to the task. Adapted from FAIRStation.
+  specs, read the sections relevant to the task.
+- [Agent hooks](docs/agent_hooks.md): setup and troubleshooting for automatic
+  RuboCop feedback in Claude Code and Codex.
 - [Docker setup](docs/docker.md): container development and troubleshooting.
 - [Environment variables](docs/startup_env_variables.md): server configuration.
 

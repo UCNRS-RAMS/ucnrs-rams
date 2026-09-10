@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "ruby \"$(git rev-parse --show-toplevel)/scripts/rubocop-stop.rb\"",
+            "timeout": 120
+          }
+        ]
+      }
+    ]
+  }
+}
