@@ -28,6 +28,9 @@ RUN apt-get update -qq && apt-get install -y \
     tzdata \
     && rm -rf /var/lib/apt/lists/*
 
+# upgrade apt
+RUN apt-get update -qq && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
+
 # Copy Node.js and package managers from the 'node' stage
 COPY --from=node /usr/local/bin/ /usr/local/bin/
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
@@ -77,6 +80,7 @@ RUN apt-get update -qq && apt-get install -y \
     imagemagick \
     curl \
     tzdata \
+    && apt-get upgrade -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy Node.js from node stage (needed for runtime if any JS execution is required)
