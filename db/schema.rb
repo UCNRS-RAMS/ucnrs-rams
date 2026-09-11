@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_04_092503) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_10_233410) do
   create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "archived_data_location", limit: 200, null: false, comment: "Where is data archived"
     t.string "data_collected", limit: 200, null: false, comment: "What data is collected"
@@ -183,6 +183,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_092503) do
     t.column "year_old", "enum('2000-01','2001-02','2002-03','2003-04','2004-05','2005-06','2006-07','2007-08','2008-09','2009-10','2010-11','2011-12','2012-13','2013-14','2014-15','2015-16','2016-17','2017-18','2018-19','2019-20')", comment: "DEPRECATED"
     t.index ["reserve_id", "fiscal_year_ending"], name: "unique_reserve_annual_reports", unique: true
     t.index ["reserve_id", "year_old"], name: "reserve_year"
+  end
+
+  create_table "api_clients", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.integer "reserve_id"
+    t.string "token_digest", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reserve_id"], name: "index_api_clients_on_reserve_id"
+    t.index ["token_digest"], name: "index_api_clients_on_token_digest", unique: true
   end
 
   create_table "application_permit_answers", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", comment: "Obsolete table, use project_permit_answers.", force: :cascade do |t|
@@ -930,7 +941,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_092503) do
     t.index ["file_timestamp"], name: "index_rors_on_file_timestamp"
     t.index ["fundref_id"], name: "index_rors_on_fundref_id"
     t.index ["name"], name: "index_rors_on_name"
-    t.index ["ror_id"], name: "index_rors_on_ror_id"
+    t.index ["ror_id"], name: "index_rors_on_ror_id", unique: true
   end
 
   create_table "signatures", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -1137,6 +1148,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_092503) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "api_clients", "reserves"
   add_foreign_key "project_permit_answers", "permits"
   add_foreign_key "project_permit_answers", "projects"
   add_foreign_key "reserve_tags", "reserves"
