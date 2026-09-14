@@ -70,9 +70,10 @@ RUN apt-get update -qq && \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
     libmariadb-dev-compat \
+    libyaml-0-2 \
     imagemagick \
     curl \
-    tzdata \
+    tzdata
     && rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user to run the application
