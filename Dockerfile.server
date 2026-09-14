@@ -7,29 +7,19 @@ FROM ${BASE_IMAGE_PREFIX}node:24-slim AS node
 # Stage 2: Build the Rails environment
 FROM ${BASE_IMAGE_PREFIX}ruby:4.0.6-slim AS builder
 
-# Install build dependencies
-RUN apt-get update -qq && apt-get install -y \
+RUN apt-get update -qq && apt-get install -y --no-install-recommends \
     build-essential \
     libmariadb-dev \
+    libmariadb-dev-compat \
     libyaml-dev \
+    libyaml-0-2 \
     pkg-config \
     imagemagick \
     cmake \
     git \
     curl \
-    && rm -rf /var/lib/apt/lists/*
-
-# runtime
-RUN apt-get update -qq && apt-get install -y \
-    libmariadb-dev-compat \
-    libyaml-0-2 \
-    imagemagick \
-    curl \
     tzdata \
     && rm -rf /var/lib/apt/lists/*
-
-# upgrade apt
-RUN apt-get update -qq && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
 
 # Copy Node.js and package managers from the 'node' stage
 COPY --from=node /usr/local/bin/ /usr/local/bin/
@@ -74,13 +64,14 @@ RUN RAILS_ENV=production \
 # Stage 3: Production runtime image
 FROM ${BASE_IMAGE_PREFIX}ruby:4.0.6-slim
 
-# Install runtime dependencies only
-RUN apt-get update -qq && apt-get install -y \
+# OPTIMIZED: Update catalog -> Upgrade existing stale files -> Install packages -> Clean up cache immediately.
+RUN apt-get update -qq && \
+    apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends \
     libmariadb-dev-compat \
     imagemagick \
     curl \
     tzdata \
-    && apt-get upgrade -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy Node.js from node stage (needed for runtime if any JS execution is required)
