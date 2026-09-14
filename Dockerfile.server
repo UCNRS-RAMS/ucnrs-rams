@@ -75,10 +75,6 @@ RUN apt-get update -qq && \
     tzdata \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy Node.js from node stage (needed for runtime if any JS execution is required)
-# COPY --from=node /usr/local/bin/node /usr/local/bin/node
-# COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
-
 # Create a non-root user to run the application
 RUN groupadd -r rails && useradd -r -g rails rails
 
