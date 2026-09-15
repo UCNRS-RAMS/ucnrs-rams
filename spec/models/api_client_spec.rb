@@ -95,4 +95,22 @@ RSpec.describe ApiClient, type: :model do
       end
     end
   end
+  describe "#visible_projects" do
+    it "returns all projects when the client is unscoped" do
+      project = create(:project)
+      client = create(:api_client)
+
+      expect(client.visible_projects).to include(project)
+    end
+
+    it "returns only the reserve's projects when scoped" do
+      reserve = create(:reserve)
+      included_project = create(:project, reserve: reserve)
+      excluded_project = create(:project)
+      client = create(:api_client, reserve: reserve)
+
+      expect(client.visible_projects).to include(included_project)
+      expect(client.visible_projects).not_to include(excluded_project)
+    end
+  end
 end
