@@ -63,6 +63,63 @@ Created API client 1 (FAIR Station)
 Token: rams_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
+## Endpoints
+
+### `GET /api/v1/projects`
+
+Returns the projects visible to the client.
+
+Query parameters:
+
+| Parameter | Default | Notes |
+| --- | --- | --- |
+| `page` | `1` | Page number. |
+| `per_page` | `25` | Items per page, capped at `100`. |
+| `status` | (none) | One of `open`, `closed`, `incomplete`. An unknown value returns `400`. |
+| `project_type` | (none) | One of `research`, `class`, `meeting`, `public_use`, `housing`. An unknown value returns `400`. |
+| `reserve_id` | (none) | Restricts results to a single reserve, within the client's scope. |
+
+```bash
+curl -H "Authorization: Bearer $RAMS_API_TOKEN" \
+  "https://example.com/api/v1/projects?status=open&per_page=50"
+```
+
+### `GET /api/v1/projects/:id`
+
+Returns a single project. A project outside the client's scope returns `404`.
+
+```bash
+curl -H "Authorization: Bearer $RAMS_API_TOKEN" \
+  "https://example.com/api/v1/projects/42"
+```
+
+### Project fields
+
+Fields are explicitly allowlisted; database columns are never exposed by
+default.
+
+| Field | Notes |
+| --- | --- |
+| `id` | RAMS project ID. |
+| `type` | Always `"projects"`. |
+| `title` | |
+| `status` | Enum key: `open`, `closed`, or `incomplete`. |
+| `project_type` | Enum key, e.g. `research`, `class`, `meeting`, `public_use`, `housing`. |
+| `abstract` | |
+| `discipline`, `discipline_other` | |
+| `keywords`, `taxonomic_keywords` | |
+| `thesis_title` | |
+| `course_title`, `course_number` | |
+| `start_date`, `end_date` | ISO 8601 dates, or `null`. |
+| `submitted_at` | ISO 8601 timestamp, or `null`. |
+| `reserve` | `{ type, id, name, short_name }`, or `null` for projects with no reserve. |
+| `owner` | `{ type, id, full_name, orcid }`, or `null`. |
+| `applicant` | `{ type, id, full_name, orcid }`, or `null`. |
+| `created_at`, `updated_at` | ISO 8601 timestamps. |
+
+`status` and `project_type` are returned as Rails enum keys (lowercase), which
+match the values accepted by the corresponding query parameters.
+
 ## Response format
 
 Collection responses use a `data` + `meta` envelope:
@@ -113,13 +170,12 @@ if that becomes a problem.
 ```bash
 docker compose exec web bundle exec rspec \
   spec/models/api_client_spec.rb \
-  spec/requests/api/v1/base_controller_spec.rb
+  spec/requests/api/v1/base_controller_spec.rb \
+  spec/requests/api/v1/projects_spec.rb
 ```
 
 ## Not yet implemented
 
-- Endpoints. The path version and authentication/response layers are in place;
-  resource controllers are added on top of `Api::V1::BaseController`.
 - Write endpoints (the API is read-only).
 - OAuth2 / Doorkeeper. Authentication is isolated behind
   `Api::BaseController#authenticate_api_client!`, so Doorkeeper can replace the
