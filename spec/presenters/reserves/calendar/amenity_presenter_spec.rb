@@ -8,7 +8,7 @@ RSpec.describe Reserves::Calendar::AmenityPresenter do
         create(:amenity, reserve_id: reserve.id, title: "Amenity 1")
       )
       visit = create(:visit, reserve_id: reserve.id)
-      show_presenter = Reserves::Calendar::AmenityPresenter.new(amenity: amenity, visit: visit)
+      show_presenter = Reserves::Calendar::AmenityPresenter.new(amenity: amenity, visit: visit, date: Date.current.tomorrow)
 
       output = CalendarBarPresenter.new(
         link_classes: "",
