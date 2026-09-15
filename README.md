@@ -239,9 +239,9 @@ end
 
 ## JSON API
 
-RAMS exposes a read-only, versioned JSON API (`/api/v1`) for external
-integrations. See [`docs/api.md`](docs/api.md) for authentication and token
-management, endpoints, the response contract, and error handling.
+RAMS authorizes external integrations with Bearer tokens issued to `ApiClient`
+records. See [`docs/api.md`](docs/api.md) for issuing, scoping, and rotating
+those credentials.
 
 ## Dependencies
 
