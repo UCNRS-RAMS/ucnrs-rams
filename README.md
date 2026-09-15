@@ -237,6 +237,12 @@ config.before(:each, type: :system, js: true) do
 end
 ```
 
+## JSON API
+
+RAMS exposes a read-only, versioned JSON API (`/api/v1`) for external
+integrations. See [`docs/api.md`](docs/api.md) for authentication and token
+management, endpoints, the response contract, and error handling.
+
 ## Dependencies
 
 [Ruby Version](.ruby-version)
