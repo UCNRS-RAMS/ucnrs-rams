@@ -237,6 +237,12 @@ config.before(:each, type: :system, js: true) do
 end
 ```
 
+## JSON API
+
+RAMS authorizes external integrations with Bearer tokens issued to `ApiClient`
+records. See [`docs/api.md`](docs/api.md) for issuing, scoping, and rotating
+those credentials.
+
 ## Dependencies
 
 [Ruby Version](.ruby-version)
