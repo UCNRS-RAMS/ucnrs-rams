@@ -1,84 +1,98 @@
 require "rails_helper"
 
 RSpec.describe ApiClient, type: :model do
+  let(:client) { create(:api_client) }
+
   describe "token generation" do
-    it "exposes the plaintext token once and persists only its digest" do
-      client = create(:api_client)
-
+    it "generates a plaintext token on creation" do
       expect(client.plain_text_token).to be_present
-      expect(client.token_digest).to be_present
-      expect(client.token_digest).not_to eq(client.plain_text_token)
+    end
 
+    it "stores the SHA-256 digest of the token" do
+      expect(client.token_digest).to eq(described_class.digest_for(client.plain_text_token))
+    end
+
+    it "never persists the plaintext token" do
       reloaded = described_class.find(client.id)
 
       expect(reloaded.plain_text_token).to be_nil
-      expect(reloaded.token_digest).to eq(client.token_digest)
     end
 
-    it "prefixes tokens so they are recognizable in logs and secret stores" do
-      client = create(:api_client)
-
+    it "prefixes the token so it is recognizable in logs and secret stores" do
       expect(client.plain_text_token).to start_with(described_class::TOKEN_PREFIX)
+    end
+
+    it "issues a different token to each client" do
+      other = create(:api_client)
+
+      expect(client.plain_text_token).not_to eq(other.plain_text_token)
     end
   end
 
   describe ".authenticate" do
     it "returns the client for a valid token" do
-      client = create(:api_client)
-
       expect(described_class.authenticate(client.plain_text_token)).to eq(client)
     end
 
-    it "returns nil for a blank or unknown token" do
-      create(:api_client)
-
+    it "returns nil for a blank token" do
       expect(described_class.authenticate(nil)).to be_nil
       expect(described_class.authenticate("")).to be_nil
+    end
+
+    it "returns nil for an unknown token" do
       expect(described_class.authenticate("not-a-real-token")).to be_nil
     end
 
-    it "returns nil for an inactive client" do
-      client = create(:api_client, active: false)
+    context "when the client is inactive" do
+      let(:client) { create(:api_client, active: false) }
 
-      expect(described_class.authenticate(client.plain_text_token)).to be_nil
+      it "returns nil" do
+        expect(described_class.authenticate(client.plain_text_token)).to be_nil
+      end
     end
 
-    it "returns nil after the token has been rotated" do
-      client = create(:api_client)
-      original_token = client.plain_text_token
+    context "when the token has been rotated" do
+      # let! so the original token is read before the rotation below.
+      let!(:original_token) { client.plain_text_token }
 
-      client.rotate_token!
+      before { client.rotate_token! }
 
-      expect(described_class.authenticate(original_token)).to be_nil
-      expect(described_class.authenticate(client.plain_text_token)).to eq(client)
-    end
-  end
+      it "rejects the old token" do
+        expect(described_class.authenticate(original_token)).to be_nil
+      end
 
-  describe "reserve scoping" do
-    it "allows a platform-wide client with no reserve" do
-      client = create(:api_client)
-
-      expect(client.reserve).to be_nil
-    end
-
-    it "allows a client scoped to a single reserve" do
-      reserve = create(:reserve)
-      client = create(:api_client, reserve: reserve)
-
-      expect(client.reserve).to eq(reserve)
+      it "accepts the new token" do
+        expect(described_class.authenticate(client.plain_text_token)).to eq(client)
+      end
     end
   end
 
   describe "#rotate_token!" do
-    it "issues a new token and invalidates the old one" do
-      client = create(:api_client)
-      old_token = client.plain_text_token
+    it "replaces the existing token" do
+      original_token = client.plain_text_token
 
       client.rotate_token!
 
-      expect(client.plain_text_token).not_to eq(old_token)
-      expect(described_class.authenticate(client.plain_text_token)).to eq(client)
-      expect(described_class.authenticate(old_token)).to be_nil
+      expect(client.plain_text_token).not_to eq(original_token)
+    end
+
+    it "returns the client" do
+      expect(client.rotate_token!).to eq(client)
+    end
+  end
+
+  describe "reserve scoping" do
+    it "leaves the reserve unset for a platform-wide client" do
+      expect(client.reserve).to be_nil
+    end
+
+    context "when the client is scoped to a reserve" do
+      let(:reserve) { create(:reserve) }
+      let(:client) { create(:api_client, reserve: reserve) }
+
+      it "records the reserve" do
+        expect(client.reserve).to eq(reserve)
+      end
     end
   end
 end
