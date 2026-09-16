@@ -10,7 +10,7 @@ require 'csv'
 # 521,Adventure Risk Management,Idyllwild,https://ror.org/05222ev03,Risk Management Agency
 # 541,California Institute for Biodiversity,Oakland,https://ror.org/01n8ggb71,Institute for Biodiversity
 module Imports
-  class RorAssociation < ApplicationService
+  class RorAssociation
     def initialize(csv_path = nil)
       @csv_path = csv_path
     end
@@ -28,10 +28,10 @@ module Imports
         end
 
         institutions.update!(ror_id: row[:ror_id])
-        updated_institutions << institution
+        updated_institutions.concat(institutions.to_a)
       end
 
-      updated_institutions.flatten
+      updated_institutions
     end
 
     def self.matching_string?(str1, str2)
@@ -48,7 +48,7 @@ module Imports
 
     def self.find_matching_institutions(row)
       h = normalize_row(row)
-      return nil if h[:ror_id].blank?
+      return [] if h[:ror_id].blank?
 
       by_id = Institution.where(id: h[:rams_id])
 
@@ -64,4 +64,3 @@ module Imports
 
   end
 end
-
