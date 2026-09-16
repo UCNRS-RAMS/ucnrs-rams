@@ -1,6 +1,34 @@
 # rubocop:disable Metrics/BlockLength
 namespace :ops do
 
+  desc 'Updates institution ROR associations from a CSV file. Usage: bin/rails "ops:update-ror-associations[/path/to/file.csv]"'
+  task :'update-ror-associations', [:csv_path] => :environment do |_t, args|
+    csv_path = args[:csv_path].to_s.strip
+    if csv_path.blank?
+     usage = <<~USAGE.chomp
+       Usage: bin/rails "ops:update-ror-associations[/path/to/file.csv]"
+
+       Example CSV:
+       rams_id,rams_name,rams_city,ror_id,ror_name
+       521,Adventure Risk Management,Idyllwild,https://ror.org/05222ev03,Risk Management Agency
+       541,California Institute for Biodiversity,Oakland,https://ror.org/01n8ggb71,Institute for Biodiversity
+     USAGE
+
+     warn usage
+     exit 1
+   end
+
+    updated_institutions = Imports::RorAssociation.new(csv_path).call
+    names = updated_institutions.map { |institution| institution.name }.compact
+
+    if names.empty?
+      puts 'No institutions were updated.'
+    else
+      puts 'Updated institutions:'
+      names.each { |name| puts "- #{name}" }
+    end
+  end
+
   desc "Fixes the format of ORCID identifiers in the database. " \
        "Modes: dry_run (default) copies users to users_copy-<timestamp> and updates the copy; " \
        "real_run updates the users table directly. " \
@@ -145,5 +173,7 @@ namespace :ops do
       delete the extra tables it creates after you're done testing.
     SQL
   end
+
+
 end
 # rubocop:enable Metrics/BlockLength
