@@ -70,7 +70,8 @@ $ bundle install
 $ bundle exec rake db:create
 $ bundle exec rake db:migrate
 $ bundle exec rake db:seed
-$ bundle exec rails s
+$ bin/rails "external_api:sync_rors[true]"  # sync ROR data from latest dump to local database
+$ bin/dev  # start development server with hot reloading for js and css
 
 # open http://localhost:3000 in a browser to verify it's up
 
@@ -109,6 +110,8 @@ $ docker compose exec web bundle exec rails db:create db:migrate
 
 # populate seed data for development
 $ docker compose exec web bundle exec rails db:seed
+
+$ docker compose exec web bin/rails "external_api:sync_rors[true]"
 
 # open http://localhost:3000 in a browser to verify it's up
 ```
