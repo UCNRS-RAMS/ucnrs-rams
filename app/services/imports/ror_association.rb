@@ -23,7 +23,7 @@ module Imports
       CSV.foreach(@csv_path, headers: true, header_converters: :symbol) do |row|
         institutions = self.class.find_matching_institutions(row)
         if institutions.empty?
-          puts "No matches found for #{row[:rams_name]} (rams_id=#{row[:rams_id]})"
+          Rails.logger.debug "No matches found for #{row[:rams_name]} (rams_id=#{row[:rams_id]})"
           next
         end
 
