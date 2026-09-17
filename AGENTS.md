@@ -24,6 +24,7 @@ MySQL, Turbo/Stimulus, and TypeScript bundled through Shakapacker.
 
 - [Rails guidelines](docs/rails_guidelines.md): before changing Rails code or
   specs, read the sections relevant to the task.
+- [Git conventions](docs/git_conventions.md) before making a commit or creating a branch.
 - [Agent hooks](docs/agent_hooks.md): setup and troubleshooting for automatic
   RuboCop feedback in Claude Code and Codex.
 - [Docker setup](docs/docker.md): container development and troubleshooting.
