@@ -97,6 +97,17 @@ RSpec.describe Ror, type: :model do
         "London School of Economics and Political Science (lse.ac.uk)"
       )
     end
+
+    it ".search loads the rors.sql fixture and matches San/Fran and UCLA variants" do
+      fixture_sql = Rails.root.join("spec/fixtures/rors.sql").read
+      ActiveRecord::Base.connection.execute(fixture_sql)
+
+      expect(described_class.search("San").map(&:name)).to include("University of California, San Francisco (ucsf.edu)")
+      expect(described_class.search("San").map(&:name)).to include("University of California San Diego (ucsd.edu)")
+      expect(described_class.search("Fran").map(&:name)).to include("University of California, San Francisco (ucsf.edu)")
+      expect(described_class.search("San Fran").map(&:name)).to include("University of California, San Francisco (ucsf.edu)")
+      expect(described_class.search("UCLA").map(&:name)).to include("University of California, Los Angeles (ucla.edu)")
+    end
   end
 
   describe ".from_email_domain" do
