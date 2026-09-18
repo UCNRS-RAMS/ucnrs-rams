@@ -29,9 +29,22 @@ class Ror < ApplicationRecord
     where('LOWER(rors.home_page) LIKE ?', like_pattern(term))
   }
 
-  scope :search, lambda { |term|
-    by_name(term).or(by_acronym(term)).or(by_alias(term))
-  }
+  def self.search(query)
+    return all if query.blank?
+
+    found_rors = all
+
+    tokenize(query).each do |partial|
+      found_rors = found_rors.where(
+        "LOWER(rors.name) REGEXP :match
+          OR LOWER(CAST(rors.aliases AS CHAR)) REGEXP :match
+          OR LOWER(CAST(rors.acronyms AS CHAR)) REGEXP :match",
+        { match: partial }
+      )
+    end
+
+    found_rors
+  end
 
   def self.like_pattern(term)
     "%#{sanitize_sql_like(term.to_s.downcase)}%"
@@ -40,6 +53,11 @@ class Ror < ApplicationRecord
   def self.json_like_pattern(term)
     "%\"#{sanitize_sql_like(term.to_s.downcase)}\"%"
   end
+
+  def self.tokenize(query)
+    URI.decode_www_form_component(query.to_s).strip.split
+  end
+  private_class_method :tokenize
 
   # Get the Ror entry with the closest matching domain for the email domain
   def self.from_email_domain(email_domain:)
