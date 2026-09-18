@@ -32,6 +32,10 @@ gem 'turbo-rails', '~> 2.0'
 gem "wicked_pdf", "~> 2.7"
 gem "wkhtmltopdf-binary", "~> 0.12.6"
 
+# Public JSON API documentation (OpenAPI spec + Swagger UI).
+gem 'rswag-api'
+gem 'rswag-ui'
+
 # charting
 gem "chartkick"
 gem "groupdate", '~> 6.5'
@@ -56,6 +60,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 8.0'
+  gem 'rswag-specs'
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
   gem 'shoulda-matchers'
@@ -75,6 +80,8 @@ group :development do
   gem 'listen'
   gem 'rack-mini-profiler'
   gem 'web-console', '>= 4.1.0'
+  # Developer documentation. Run with `bundle exec rake yard`.
+  gem 'yard', require: false
 end
 
 group :dev_server, :staging do
