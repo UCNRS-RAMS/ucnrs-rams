@@ -106,6 +106,7 @@ RSpec.describe Ror, type: :model do
       expect(described_class.search("San").map(&:name)).to include("University of California San Diego (ucsd.edu)")
       expect(described_class.search("Fran").map(&:name)).to include("University of California, San Francisco (ucsf.edu)")
       expect(described_class.search("San Fran").map(&:name)).to include("University of California, San Francisco (ucsf.edu)")
+      expect(described_class.search("San Fran").map(&:name)).not_to include("University of California San Diego (ucsd.edu)")
       expect(described_class.search("UCLA").map(&:name)).to include("University of California, Los Angeles (ucla.edu)")
     end
   end
