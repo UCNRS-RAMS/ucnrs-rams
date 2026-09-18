@@ -243,6 +243,27 @@ RAMS authorizes external integrations with Bearer tokens issued to `ApiClient`
 records. See [`docs/api.md`](docs/api.md) for issuing, scoping, and rotating
 those credentials.
 
+Interactive OpenAPI documentation is served at `/api-docs` when the app is
+running; use the **Authorize** button with an `ApiClient` token to call
+endpoints from the UI. The OpenAPI document is generated from the specs in
+`spec/api/` and committed; regenerate it after changing the API:
+
+```bash
+bundle exec rake rswag:specs:swaggerize
+```
+
+## Documentation
+
+Developer documentation is generated with [YARD](https://yardoc.org) from the
+comments in `app/` and `lib/`, together with the Markdown files in `docs/`:
+
+```bash
+bundle exec rake yard
+```
+
+Open `doc/yard/index.html` to browse the result. CI builds the same
+documentation and uploads it as an artifact.
+
 ## Dependencies
 
 [Ruby Version](.ruby-version)
