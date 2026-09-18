@@ -4,29 +4,38 @@ module Api
   module V1
     # Read-only access to the projects an ApiClient is authorized to see.
     class ProjectsController < Api::V1::BaseController
+      # Accepted values for the +status+ query filter.
       STATUS_FILTERS = Project.statuses.keys.freeze
+      # Accepted values for the +project_type+ query filter.
       PROJECT_TYPE_FILTERS = Project.project_types.keys.freeze
 
+      # @return [void]
       def index
         page = paginate(filtered_projects)
 
         render_collection(page) { |project| serialize(project) }
       end
 
+      # @return [void]
       def show
         render_resource(project, presenter: ProjectPresenter)
       end
 
       private
 
+      # @return [Project]
+      # @raise [ActiveRecord::RecordNotFound] when the project is unknown or
+      #   outside the client's scope
       def project
         @project ||= authorized_projects.includes(:owner, :applicant, :reserve).find(params[:id])
       end
 
+      # @return [ActiveRecord::Relation<Project>]
       def authorized_projects
         current_api_client.visible_projects
       end
 
+      # @return [ActiveRecord::Relation<Project>]
       def filtered_projects
         # Offset pagination needs a total order: created_at alone ties, which can
         # duplicate or drop rows across pages. id breaks ties deterministically.
@@ -42,6 +51,8 @@ module Api
         scope
       end
 
+      # @param project [Project]
+      # @return [Hash] the serialized project
       def serialize(project)
         ProjectPresenter.new(project).as_json
       end

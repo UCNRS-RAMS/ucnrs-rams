@@ -9,6 +9,7 @@ module Api
     class ProjectPresenter < BasePresenter
       private
 
+      # @return [Hash{Symbol=>Object}]
       def attributes
         {
           title: record.title,
@@ -33,6 +34,7 @@ module Api
         }
       end
 
+      # @return [Hash, nil] the reserve stub, or nil when the project has no reserve
       def reserve_stub
         reserve = record.reserve
         return nil if reserve.nil?
@@ -40,6 +42,8 @@ module Api
         entity("reserves", reserve.id, name: reserve.name, short_name: reserve.short_name)
       end
 
+      # @param user [User, nil]
+      # @return [Hash, nil]
       def user_stub(user)
         return nil if user.nil?
 
