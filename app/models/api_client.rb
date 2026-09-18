@@ -33,6 +33,13 @@ class ApiClient < ApplicationRecord
     "#{TOKEN_PREFIX}#{SecureRandom.urlsafe_base64(TOKEN_LENGTH)}"
   end
 
+  # Projects this client is allowed to read. A client with a reserve sees only
+  # that reserve's projects; a client with no reserve is a platform-wide
+  # integration and sees all of them.
+  def visible_projects
+    reserve.present? ? Project.where(reserve: reserve) : Project.all
+  end
+
   # Issues a new token, invalidating the previous one, and returns it.
   def rotate_token!
     token = self.class.generate_token
