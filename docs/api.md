@@ -81,6 +81,38 @@ Created API client 1 (FAIR Station)
 Token: rams_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
+## Trying it locally
+
+The API and its documentation run against your development database.
+
+1. Start the app and prepare the database:
+
+   ```bash
+   docker compose up -d
+   docker compose exec web bin/rails db:prepare
+   ```
+
+   If the development database has no projects, seed it or create a few:
+
+   ```bash
+   docker compose exec web bin/rails db:seed
+   ```
+
+2. Issue an `ApiClient` token (printed once):
+
+   ```bash
+   docker compose exec web env NAME="Local testing" bin/rails api:clients:create
+   ```
+
+3. Open <http://localhost:3000/api-docs>, click **Authorize**, and paste the
+   token (without the `Bearer ` prefix).
+
+4. Run `GET /api/v1/projects` with **Try it out** → **Execute**.
+
+The docs page is public; only the API calls need the token. Add
+`RESERVE_ID=<id>` to the token command to create a reserve-scoped client and see
+scoping in action.
+
 ## Response format
 
 Collection responses use a `data` + `meta` envelope; single-resource responses
