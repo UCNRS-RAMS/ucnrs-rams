@@ -65,6 +65,18 @@ jobs:
           name: rake
           command: bundle exec rake
 
+      # Fail if the committed OpenAPI document is stale relative to spec/api.
+      - run:
+          name: Check generated API docs are in sync
+          command: |
+            PATTERN="spec/api/**/*_spec.rb" bundle exec rake rswag:specs:swaggerize
+            git diff --exit-code -- swagger/
+
+      # Build YARD developer documentation for upload as an artifact.
+      - run:
+          name: Build developer documentation
+          command: bundle exec rake yard
+
       # Security analysis
       - run:
           name: Bundler Audit
@@ -91,6 +103,11 @@ jobs:
       - store_artifacts:
           path: coverage
           destination: coverage
+
+      # Save developer documentation
+      - store_artifacts:
+          path: doc/yard
+          destination: docs/yard
 
       # Save Capybara Screenshots
       - store_artifacts:
