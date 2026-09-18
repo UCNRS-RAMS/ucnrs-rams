@@ -15,6 +15,10 @@ MySQL, Turbo/Stimulus, and TypeScript bundled through Shakapacker.
 - Full test suite: `bundle exec rake` runs RSpec and Jest.
 - Ruby lint: `bundle exec rubocop path/to/changed_file.rb`; CSS build:
   `yarn build:css`; JavaScript build: `bin/shakapacker`.
+- API docs: after changing `app/controllers/api` or `app/presenters/api`,
+  regenerate the committed OpenAPI document with
+  `bundle exec rake rswag:specs:swaggerize`. Developer documentation is built
+  with `bundle exec rake yard`.
 - With Docker running, prefix commands with `docker compose exec web`.
   JavaScript-enabled system specs require Chrome; see
   `spec/support/system_test_configuration.rb` for driver configuration.
@@ -22,6 +26,8 @@ MySQL, Turbo/Stimulus, and TypeScript bundled through Shakapacker.
 
 ## Read when relevant
 
+- [API documentation](docs/api.md): the JSON API contract, authentication, and
+  how the OpenAPI document is generated.
 - [Rails guidelines](docs/rails_guidelines.md): before changing Rails code or
   specs, read the sections relevant to the task.
 - [Git conventions](docs/git_conventions.md) before making a commit or creating a branch.
