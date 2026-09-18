@@ -68,17 +68,34 @@ RSpec.describe Ror, type: :model do
       expect(described_class.by_domain(term)).to contain_exactly(match)
     end
 
-    it ".search combines the name, acronym, and alias scopes" do
-      stubbed = described_class.all
-      allow(described_class).to receive(:by_name).with(term).and_return(stubbed)
-      allow(described_class).to receive(:by_acronym).with(term).and_return(stubbed)
-      allow(described_class).to receive(:by_alias).with(term).and_return(stubbed)
+    it ".search tokenizes and partially matches the name, alias, and acronym fields" do
+      match.update!(
+        name: "University of California, Davis",
+        aliases: ["UC Davis"],
+        acronyms: ["UCD"]
+      )
+      not_match.update!(
+        name: "Stanford University",
+        aliases: ["SU"],
+        acronyms: ["SU"]
+      )
 
-      described_class.search(term)
+      expect(described_class.search("uc davis")).to contain_exactly(match)
+      expect(described_class.search("davis")).to contain_exactly(match)
+      expect(described_class.search("UCD")).to contain_exactly(match)
+    end
 
-      expect(described_class).to have_received(:by_name).with(term)
-      expect(described_class).to have_received(:by_acronym).with(term)
-      expect(described_class).to have_received(:by_alias).with(term)
+    it ".search loads the rors.sql fixture and returns records for a full-word match" do
+      fixture_sql = Rails.root.join("spec/fixtures/rors.sql").read
+      ActiveRecord::Base.connection.execute(fixture_sql)
+
+      results = described_class.search("London")
+
+      expect(results.map(&:name)).to include(
+        "Transport for London (tfl.gov.uk)",
+        "London Borough of Camden (camden.gov.uk)",
+        "London School of Economics and Political Science (lse.ac.uk)"
+      )
     end
   end
 
