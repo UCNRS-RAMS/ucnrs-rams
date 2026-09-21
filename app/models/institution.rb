@@ -33,6 +33,12 @@ class Institution < ApplicationRecord
     individual_or_other_entity: "Individual or Other Entity",
   }
 
+  scope :matching_name_and_city, ->(name, city) {
+    where('TRIM(name) = ?', name.to_s.strip)
+      .where('TRIM(city) = ?', city.to_s.strip)
+  }
+
+
   def self.with_name_like(value)
     where("LOWER(name) LIKE LOWER(?)", "%#{value}%")
   end
