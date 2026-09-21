@@ -50,9 +50,7 @@ module Imports
       return by_id if by_id.exists? && matching_string?(by_id.first.name, h[:rams_name])
 
       # otherwise find the matching name and city record(s) for the item(s)
-      Institution
-        .where('TRIM(name) = ?', h[:rams_name])
-        .where('TRIM(city) = ?', h[:rams_city])
+      Institution.matching_name_and_city(h[:rams_name], h[:rams_city])
     end
 
     private_class_method :find_matching_institutions, :normalize_for_match, :normalize_row, :matching_string?
