@@ -29,10 +29,10 @@ class Ror < ApplicationRecord
     where('LOWER(rors.home_page) LIKE ?', like_pattern(term))
   }
 
-  def self.search(query)
-    return all if query.blank?
-
+  def self.search(query, exclude_institutions: false, limit: nil)
     found_rors = all
+    found_rors = found_rors.left_joins(:institutions).where(institutions: { id: nil }) if exclude_institutions
+    return found_rors if query.blank?
 
     tokenize(query).each do |partial|
       found_rors = found_rors.where(
@@ -43,6 +43,7 @@ class Ror < ApplicationRecord
       )
     end
 
+    found_rors = found_rors.limit(limit) if limit.present?
     found_rors
   end
 
