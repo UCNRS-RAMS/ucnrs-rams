@@ -10,28 +10,21 @@ require 'csv'
 # 521,Adventure Risk Management,Idyllwild,https://ror.org/05222ev03,Risk Management Agency
 # 541,California Institute for Biodiversity,Oakland,https://ror.org/01n8ggb71,Institute for Biodiversity
 module Imports
-  class RorAssociation
-    def initialize(csv_path = nil)
-      @csv_path = csv_path
-    end
+  module RorAssociation
+    def self.process_spreadsheet(csv_path = nil)
+      raise ArgumentError, 'CSV path is required' if csv_path.blank?
 
-    def call
-      raise ArgumentError, 'CSV path is required' if @csv_path.blank?
+      CSV.foreach(csv_path, headers: true, header_converters: :symbol).flat_map do |row|
+        institutions = find_matching_institutions(row)
 
-      updated_institutions = []
-
-      CSV.foreach(@csv_path, headers: true, header_converters: :symbol) do |row|
-        institutions = self.class.find_matching_institutions(row)
         if institutions.empty?
-          Rails.logger.debug "No matches found for #{row[:rams_name]} (rams_id=#{row[:rams_id]})"
-          next
+          Rails.logger.info "No matches found for #{row[:rams_name]} (rams_id=#{row[:rams_id]})"
+          next []
         end
 
         institutions.update!(ror_id: row[:ror_id])
-        updated_institutions.concat(institutions.to_a)
+        institutions.to_a
       end
-
-      updated_institutions
     end
 
     def self.matching_string?(str1, str2)
@@ -61,6 +54,8 @@ module Imports
         .where('TRIM(name) = ?', h[:rams_name])
         .where('TRIM(city) = ?', h[:rams_city])
     end
+
+    private_class_method :find_matching_institutions, :normalize_for_match, :normalize_row, :matching_string?
 
   end
 end
