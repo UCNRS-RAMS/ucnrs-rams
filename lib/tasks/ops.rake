@@ -18,7 +18,7 @@ namespace :ops do
      exit 1
    end
 
-    updated_institutions = Imports::RorAssociation.new(csv_path).call
+    updated_institutions = Imports::RorAssociation.process_spreadsheet(csv_path)
     names = updated_institutions.map { |institution| institution.name }.compact
 
     if names.empty?
