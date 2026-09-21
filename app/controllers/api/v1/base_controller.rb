@@ -19,12 +19,13 @@ module Api
       private
 
       def paginate(scope)
-        scope.page(params[:page]).per(per_page)
+        requested_page = Integer(params[:page], exception: false)
+        scope.page(requested_page&.positive? ? requested_page : 1).per(per_page)
       end
 
       def per_page
-        requested = params[:per_page].to_i
-        return DEFAULT_PER_PAGE unless requested.positive?
+        requested = Integer(params[:per_page], exception: false)
+        return DEFAULT_PER_PAGE unless requested&.positive?
 
         [requested, MAX_PER_PAGE].min
       end

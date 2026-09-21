@@ -128,13 +128,16 @@ RSpec.describe Api::V1::ProjectsController, type: :request do
     end
 
     it "orders newest first with id as a deterministic tiebreaker" do
+      timestamp = 1.day.ago
       older = create(:project, created_at: 2.days.ago)
-      newer = create(:project, created_at: 1.day.ago)
+      first_tied = create(:project, created_at: timestamp)
+      second_tied = create(:project, created_at: timestamp)
 
       get "/api/v1/projects", headers: auth_headers
 
       ids = response.parsed_body["data"].map { |row| row["id"] }
-      expect(ids.index(newer.id)).to be < ids.index(older.id)
+      expect(ids.index(second_tied.id)).to be < ids.index(first_tied.id)
+      expect(ids.index(first_tied.id)).to be < ids.index(older.id)
     end
 
     it "only returns projects belonging to the client's reserve" do
