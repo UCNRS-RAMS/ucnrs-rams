@@ -10,7 +10,7 @@ feat(api): add pagination
 fix!: drop Node 6 support
 
 ## Branches — `<type>/description`
-Types: feature/feat, bugfix/fix, hotfix, release, chore
+Types: feature/feat, bug/bugfix/fix, docs, hotfix, release, chore
 - lowercase, hyphens only, no leading/trailing/double hyphens
 - dots only in release versions: release/v1.2.0
 - trunk (main/master/develop) = no prefix
