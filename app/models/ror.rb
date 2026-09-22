@@ -29,9 +29,8 @@ class Ror < ApplicationRecord
     where('LOWER(rors.home_page) LIKE ?', like_pattern(term))
   }
 
-  def self.search(query, exclude_institutions: false, limit: nil)
+  def self.search(query)
     found_rors = all
-    found_rors = found_rors.left_joins(:institutions).where(institutions: { id: nil }) if exclude_institutions
     return found_rors if query.blank?
 
     tokenize(query).each do |partial|
