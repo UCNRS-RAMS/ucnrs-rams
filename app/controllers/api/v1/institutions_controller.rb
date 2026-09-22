@@ -30,7 +30,7 @@ module Api
 
       # @return [ActiveRecord::Relation<Institution>]
       def authorized_institutions
-        current_api_client.visible_institutions.select(
+        read_scope.institutions.select(
           :id, :name, :acronym, :city, :institution_type, :country_id, :state_id, :ror_id,
           :created_at, :updated_at
         )

@@ -4,8 +4,8 @@
 #
 # Only the SHA-256 digest of the token is persisted. The plaintext token is
 # available once, via #plain_text_token, on the instance that created or
-# rotated it. A client may optionally be scoped to a single reserve; endpoint
-# controllers decide how that scope narrows what they return.
+# rotated it. A client may optionally be scoped to a single reserve, which
+# Api::V1::ReadScope narrows each endpoint's reads to.
 class ApiClient < ApplicationRecord
   # Number of random bytes encoded into each token.
   TOKEN_LENGTH = 32
@@ -43,34 +43,6 @@ class ApiClient < ApplicationRecord
     "#{TOKEN_PREFIX}#{SecureRandom.urlsafe_base64(TOKEN_LENGTH)}"
   end
 
-  # Projects this client is allowed to read. A client with a reserve sees only
-  # that reserve's projects; a client with no reserve is a platform-wide
-  # integration and sees all of them.
-  #
-  # @return [ActiveRecord::Relation<Project>]
-  def visible_projects
-    reserve.present? ? Project.where(reserve: reserve) : Project.all
-  end
-
-  # Institutions this client is allowed to read. A client with a reserve sees
-  # only the institutions affiliated with that reserve: its managing campus,
-  # and the institutions of the people on the reserve's projects (owner,
-  # applicant, and team members). A client with no reserve is a platform-wide
-  # integration and sees all of them.
-  #
-  # @return [ActiveRecord::Relation<Institution>]
-  def visible_institutions
-    return Institution.all if reserve.blank?
-
-    reserve_projects = Project.where(reserve: reserve)
-
-    Institution
-      .where(id: ProjectTeamMembership.where(project: reserve_projects).select(:institution_id))
-      .or(Institution.where(id: participant_institution_ids(reserve_projects, :user_id)))
-      .or(Institution.where(id: participant_institution_ids(reserve_projects, :applicant_id)))
-      .or(Institution.where(id: reserve.managing_campus_id))
-  end
-
   # Issues a new token, invalidating the previous one, and returns it.
   #
   # @return [self] the client, with {#plain_text_token} set to the new token
@@ -82,16 +54,6 @@ class ApiClient < ApplicationRecord
   end
 
   private
-
-  # The institution ids of the users named by +column+ on the given projects,
-  # as a subquery for {#visible_institutions}.
-  #
-  # @param projects [ActiveRecord::Relation<Project>]
-  # @param column [Symbol] +:user_id+ (the project owner) or +:applicant_id+
-  # @return [ActiveRecord::Relation<User>] a relation selecting +institution_id+
-  def participant_institution_ids(projects, column)
-    User.where(id: projects.select(column)).select(:institution_id)
-  end
 
   # @return [void]
   def assign_token
