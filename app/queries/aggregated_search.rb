@@ -33,7 +33,8 @@ class AggregatedSearch
 
     # both sets of results in common format, excluding duplicate ror records, sorted by name (case-insensitive)
     (institutions.map { |inst| institution_result(inst) } +
-      rors.where.not(ror_id: dup_rors_ids.to_a).map { |ror| ror_result(ror) }).sort_by { |item| item[:name].to_s.downcase }
+      rors.where.not(ror_id: dup_rors_ids.to_a).map { |ror| ror_result(ror) })
+      .sort_by { |item| item[:name].to_s.downcase }
   end
 
   private
