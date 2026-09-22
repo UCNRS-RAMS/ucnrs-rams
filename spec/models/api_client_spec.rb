@@ -113,4 +113,42 @@ RSpec.describe ApiClient, type: :model do
       expect(client.visible_projects).not_to include(excluded_project)
     end
   end
+
+  describe "#visible_institutions" do
+    it "returns all institutions when the client is unscoped" do
+      institution = create(:institution)
+      client = create(:api_client)
+
+      expect(client.visible_institutions).to include(institution)
+    end
+
+    context "when the client is scoped to a reserve" do
+      let(:reserve) { create(:reserve) }
+      let(:client) { create(:api_client, reserve: reserve) }
+      let(:project) { create(:project, reserve: reserve) }
+
+      it "includes the reserve's managing campus" do
+        expect(client.visible_institutions).to include(reserve.managing_campus)
+      end
+
+      it "includes the institutions of the project's owner and applicant" do
+        expect(client.visible_institutions)
+          .to include(project.owner.institution, project.applicant.institution)
+      end
+
+      it "includes the institutions of the project's team members" do
+        membership = create(:project_team_membership, project: project)
+
+        expect(client.visible_institutions).to include(membership.institution)
+      end
+
+      it "excludes institutions unaffiliated with the reserve" do
+        expect(client.visible_institutions).not_to include(create(:institution))
+      end
+
+      it "excludes the institutions of another reserve's projects" do
+        expect(client.visible_institutions).not_to include(create(:project).owner.institution)
+      end
+    end
+  end
 end
