@@ -26,13 +26,14 @@ class AggregatedSearch
   end
 
   def results
-    @results ||= begin
-      combined = institutions.to_a + rors.to_a
-      combined
-        .sort_by { |item| item.respond_to?(:name) ? item.name.to_s.downcase : item.to_s.downcase }
-        .uniq { |item| item.is_a?(Institution) ? ["institution", item.id] : ["ror", item.ror_id] }
-        .map { |item| item.is_a?(Institution) ? institution_result(item) : ror_result(item) }
-    end
+    # get ror_ids from both institutions and rors and get set of overlapping ids between the two
+    inst_ror_ids = institutions.where.not(ror_id: [nil, ""]).pluck(:ror_id).to_set
+    ror_ids = rors.pluck(:ror_id).to_set
+    dup_rors_ids = ror_ids & inst_ror_ids  # intersection of ror_ids and inst_ror_ids
+
+    # both sets of results in common format, excluding duplicate ror records, sorted by name (case-insensitive)
+    (institutions.map { |inst| institution_result(inst) } +
+      rors.where.not(ror_id: dup_rors_ids.to_a).map { |ror| ror_result(ror) }).sort_by { |item| item[:name].to_s.downcase }
   end
 
   private
