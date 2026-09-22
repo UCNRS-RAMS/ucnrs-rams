@@ -24,7 +24,12 @@ module Api
       end
 
       def authorized_projects
-        current_api_client.visible_projects
+        current_api_client.visible_projects.select(
+          :id, :title, :status, :project_type, :abstract, :discipline, :discipline_other,
+          :keywords, :taxonomic_keywords, :thesis_title, :course_title, :course_number,
+          :start_date, :end_date, :submitted_at, :reserve_id, :user_id, :applicant_id,
+          :created_at, :updated_at
+        )
       end
 
       def filtered_projects
