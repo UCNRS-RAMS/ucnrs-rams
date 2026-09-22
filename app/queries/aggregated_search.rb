@@ -21,7 +21,7 @@ class AggregatedSearch
 
   def rors
     @rors ||= Ror
-      .search(query, exclude_institutions: true, limit: limit)
+      .search(query, limit: limit)
       .order(:name)
   end
 
