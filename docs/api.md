@@ -56,6 +56,10 @@ research: its projects, and the institutions affiliated with those projects —
 the reserve's managing campus, and the institutions of each project's owner,
 applicant, and team members.
 
+`Api::V1::ReadScope` (`app/queries/api/v1/read_scope.rb`) owns that rule, one
+method per resource, so a new endpoint adds a method there rather than another
+scope to the `ApiClient` record.
+
 ## Creating an API client
 
 Use the `api:clients:create` rake task. It prints the token once; store it in
@@ -145,6 +149,7 @@ if that becomes a problem.
 ```bash
 docker compose exec web bundle exec rspec \
   spec/models/api_client_spec.rb \
+  spec/queries/api/v1/read_scope_spec.rb \
   spec/requests/api/v1/institutions_spec.rb \
   spec/requests/api/v1/projects_spec.rb \
   spec/api
