@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :institutions, only: [:index, :show]
       resources :projects, only: [:index, :show]
     end
   end

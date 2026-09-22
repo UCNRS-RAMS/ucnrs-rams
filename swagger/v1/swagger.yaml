@@ -13,6 +13,105 @@ info:
     name: MIT
     url: https://github.com/UCNRS-RAMS/ucnrs-rams/blob/main/LICENSE.md
 paths:
+  "/api/v1/institutions":
+    get:
+      summary: List institutions
+      tags:
+      - Institutions
+      operationId: listInstitutions
+      description: Returns the institutions visible to the authenticated client, newest
+        first.
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Page number (defaults to 1).
+      - name: per_page
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+        description: Items per page (defaults to 25, capped at 100).
+      - name: institution_type
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - university_of_california
+          - california_state_university_system
+          - california_community_college
+          - other_california_university_or_college
+          - non_california_us_university_or_college
+          - international_university_or_college
+          - k_12_education
+          - non_governmental_organization_or_entity
+          - governmental_organization_or_entity
+          - business_entity
+          - individual_or_other_entity
+        description: Filter by institution type. An unknown value returns 400.
+      - name: country_id
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Filter by country.
+      - name: state_id
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Filter by state.
+      responses:
+        '200':
+          description: institutions visible to the client
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/InstitutionsCollection"
+        '400':
+          description: an unknown institution_type filter
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '401':
+          description: missing, malformed, unknown, or deactivated token
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+  "/api/v1/institutions/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: RAMS institution ID.
+    get:
+      summary: Show an institution
+      tags:
+      - Institutions
+      operationId: showInstitution
+      description: Returns a single institution. An institution outside the client's
+        scope returns 404.
+      responses:
+        '200':
+          description: the requested institution
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/InstitutionResource"
+        '404':
+          description: unknown institution, or one outside the client scope
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
   "/api/v1/projects":
     get:
       summary: List projects
@@ -117,6 +216,8 @@ security:
 tags:
 - name: Projects
   description: Research, class, meeting, public use, and housing projects.
+- name: Institutions
+  description: Organizations the people on a project are affiliated with.
 components:
   securitySchemes:
     bearerAuth:
@@ -258,6 +359,115 @@ components:
         orcid:
           type: string
           nullable: true
+    Institution:
+      type: object
+      required:
+      - id
+      - type
+      - name
+      - institution_type
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+          enum:
+          - institutions
+        name:
+          type: string
+        acronym:
+          type: string
+          nullable: true
+        city:
+          type: string
+          nullable: true
+        institution_type:
+          type: string
+          enum:
+          - university_of_california
+          - california_state_university_system
+          - california_community_college
+          - other_california_university_or_college
+          - non_california_us_university_or_college
+          - international_university_or_college
+          - k_12_education
+          - non_governmental_organization_or_entity
+          - governmental_organization_or_entity
+          - business_entity
+          - individual_or_other_entity
+          description: Rails enum key.
+        country:
+          type: object
+          nullable: true
+          allOf:
+          - "$ref": "#/components/schemas/CountryStub"
+        state:
+          type: object
+          nullable: true
+          allOf:
+          - "$ref": "#/components/schemas/StateStub"
+        ror:
+          type: object
+          nullable: true
+          allOf:
+          - "$ref": "#/components/schemas/RorStub"
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    CountryStub:
+      type: object
+      required:
+      - type
+      - id
+      - name
+      properties:
+        type:
+          type: string
+          enum:
+          - countries
+        id:
+          type: integer
+        name:
+          type: string
+    StateStub:
+      type: object
+      required:
+      - type
+      - id
+      - name
+      properties:
+        type:
+          type: string
+          enum:
+          - states
+        id:
+          type: integer
+        name:
+          type: string
+          nullable: true
+    RorStub:
+      type: object
+      required:
+      - type
+      - id
+      - ror_id
+      - name
+      properties:
+        type:
+          type: string
+          enum:
+          - rors
+        id:
+          type: integer
+        ror_id:
+          type: string
+          description: Research Organization Registry identifier.
+        name:
+          type: string
+          nullable: true
     ProjectsCollection:
       type: object
       required:
@@ -277,6 +487,25 @@ components:
       properties:
         data:
           "$ref": "#/components/schemas/Project"
+    InstitutionsCollection:
+      type: object
+      required:
+      - data
+      - meta
+      properties:
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Institution"
+        meta:
+          "$ref": "#/components/schemas/PaginationMeta"
+    InstitutionResource:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          "$ref": "#/components/schemas/Institution"
     PaginationMeta:
       type: object
       required:

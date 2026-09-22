@@ -52,7 +52,9 @@ prefix; Swagger UI adds it to each request it sends.
 An `ApiClient` may optionally belong to a `Reserve`. Scoping only limits what a
 client may read; it never widens it. A client with no reserve is a platform-wide
 integration, while a client with a reserve is limited to that reserve's
-research.
+research: its projects, and the institutions affiliated with those projects —
+the reserve's managing campus, and the institutions of each project's owner,
+applicant, and team members.
 
 ## Creating an API client
 
@@ -143,6 +145,7 @@ if that becomes a problem.
 ```bash
 docker compose exec web bundle exec rspec \
   spec/models/api_client_spec.rb \
+  spec/requests/api/v1/institutions_spec.rb \
   spec/requests/api/v1/projects_spec.rb \
   spec/api
 ```
