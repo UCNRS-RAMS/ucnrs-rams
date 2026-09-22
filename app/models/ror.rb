@@ -29,7 +29,7 @@ class Ror < ApplicationRecord
     where('LOWER(rors.home_page) LIKE ?', like_pattern(term))
   }
 
-  def self.search(query)
+  def self.search(query, limit: nil)
     found_rors = all
     return found_rors if query.blank?
 
