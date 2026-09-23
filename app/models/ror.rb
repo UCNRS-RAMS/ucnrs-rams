@@ -31,7 +31,7 @@ class Ror < ApplicationRecord
 
   def self.search(query, limit: nil)
     found_rors = all
-    return found_rors if query.blank?
+return found_rors.limit(limit) if query.blank? && limit.present?
 
     tokenize(query).each do |partial|
       found_rors = found_rors.where(
