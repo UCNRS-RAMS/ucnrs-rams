@@ -183,7 +183,7 @@ RSpec.describe Institution, type: :model do
 
     context "when given query is NOT present" do
       it "returns all institutions" do
-        results = Institution.search(nil)
+        results = Institution.search("")
 
         expect(results).to match_array [institution1, institution2, institution3, institution4]
       end

@@ -629,7 +629,7 @@ RSpec.describe User, type: :model do
 
     context "when given query is NOT present" do
       it "returns all users" do
-        results = User.search_institution(nil)
+        results = User.search_institution("")
 
         expect(results).to match_array [user1, user2, user3, user4]
       end
