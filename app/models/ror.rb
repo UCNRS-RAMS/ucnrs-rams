@@ -38,7 +38,7 @@ return found_rors.limit(limit) if query.blank? && limit.present?
         "LOWER(rors.name) REGEXP :match
           OR LOWER(CAST(rors.aliases AS CHAR)) REGEXP :match
           OR LOWER(CAST(rors.acronyms AS CHAR)) REGEXP :match",
-        { match: partial }
+{ match: Regexp.escape(partial.downcase) }
       )
     end
 
