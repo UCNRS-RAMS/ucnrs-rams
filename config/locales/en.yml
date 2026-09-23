@@ -2197,6 +2197,7 @@ en:
         report_status: Report Status
         use_by_publicly_affiliated_groups: Use By Publicly Affiliated Groups
         flex_report: Flex Report
+        admin_report_status: Admin Report Status
       report_part_1:
         fiscal_year: Fiscal year
         part_1_reserve_use_data: Part 1. Reserve Use Data - Using Unique People Roles
