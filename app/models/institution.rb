@@ -51,23 +51,27 @@ class Institution < ApplicationRecord
     order(created_at: :desc)
   end
 
-  def self.search(query)
-    if query
-      found_institutions = left_joins(:country)
+  def self.search(query, limit: nil)
+    found_institutions = if query
+                           left_joins(:country)
+                         else
+                           all
+                         end
 
-      tokenize(query).each do |partial|
-        found_institutions = found_institutions.where(
-          "institutions.`name` REGEXP :match
-          OR city REGEXP :match
-          OR acronym REGEXP :match
-          OR countries.`name` REGEXP :match",
-          { match: partial }
-        )
-      end
-      found_institutions
-    else
-      all
+    return found_institutions if query.blank?
+
+    tokenize(query).each do |partial|
+      found_institutions = found_institutions.where(
+        "institutions.`name` REGEXP :match
+        OR city REGEXP :match
+        OR acronym REGEXP :match
+        OR countries.`name` REGEXP :match",
+        { match: partial }
+      )
     end
+
+    found_institutions = found_institutions.limit(limit) if limit.present?
+    found_institutions
   end
 
   def self.sorted_using(sort_option = nil)

@@ -14,8 +14,7 @@ class AggregatedSearch
 
   def institutions
     @institutions ||= Institution
-      .search(query)
-      .limit(limit)
+      .search(query, limit: limit)
       .alphabetized
   end
 

@@ -85,6 +85,12 @@ RSpec.describe Ror, type: :model do
       expect(described_class.search("UCD")).to contain_exactly(match)
     end
 
+    it ".search accepts a limit keyword to cap the number of matching records" do
+      create_list(:ror, 3, name: "Research University")
+
+      expect(described_class.search("Research University", limit: 2).count).to eq(2)
+    end
+
     it ".search loads the rors.sql fixture and returns records for a full-word match" do
       fixture_sql = Rails.root.join("spec/fixtures/rors.sql").read
       ActiveRecord::Base.connection.execute(fixture_sql)
