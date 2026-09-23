@@ -61,7 +61,7 @@ RSpec.describe "reports menu", type: :view do
 
     expect(rendered).to have_link("Admin Report Status", href: "/admin/reports")
     expect(rendered).to have_css(
-      "a[href='/admin/reports'][target='_blank']",
+      "a[href='/admin/reports'][target='_blank'][aria-label='Admin Report Status (opens in new tab)']",
       text: "Admin Report Status",
     )
   end
