@@ -104,5 +104,42 @@ RSpec.describe AggregatedSearch, type: :model do
       )
     end
 
+    it "complex search example that returns multiple records" do
+      ActiveRecord::Base.connection.execute(Rails.root.join("spec/fixtures/rors.sql").read)
+      ActiveRecord::Base.connection.execute(Rails.root.join("spec/fixtures/institutions.sql").read)
+
+      results = described_class.new(query: "Audubon", limit: 20).results
+
+      names = results.map { |result| result[:name] }
+
+      # this gets many different Audubon records, mostly from the institutions fixture, but the
+      # "Alabama Audubon (alaudubon.org)" record is from the ROR fixture because it actually has a different ROR record
+      # than the national record. (Mostly, ROR doesn't have state or local Audubon records, but his is an exception.)
+      #
+      # RAMS has manually added a bunch of local Audubons that are not in ROR data and don't have ROR records, but in the
+      # data cleanup they get associated with a ROR record of the national Audubon Society ror record (because that is what
+      # the cleanup spreadsheet says to do).
+      #
+      # This allows multiple of these more granular items to be returned because RAMS apparently requires more specifics,
+      # but they still have some association with an umbrella organization by ror_id.  Note: ror_id may not be unique in
+      # institutions since there may be multiple associated items in institutions with a single ror_id in the ror table.
+
+      # The national record is in both ROR and institutions, but only one is shown in the results to avoid redundancy.
+
+      # If we don't like the names given to some items in institutions, we should clean them to be reasonable since they
+      # will be displayed in search results (while search terms from ROR may still add to results, though both aren't shown).
+      # These names may be more specific than the ROR names for these items.
+
+      # the deduplicated results, sorted by name
+      expect(names).to eq(
+        ["Alabama Audubon (alaudubon.org)", "Audubon California", "Audubon Society (National & Local)",
+         "Eastern Sierra Audubon Society", "Mendocino Coast Audubon Society", "Montana Audubon",
+         "Santa Barbara Audubon"]
+      )
+
+      # This is the ROR record overridden by the Audubon Society (National & Local) institution record in institutions.
+      expect(names).not_to include('National Audubon Society (audubon.org)')
+    end
+
   end
 end
