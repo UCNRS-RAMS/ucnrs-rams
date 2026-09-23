@@ -166,6 +166,12 @@ RSpec.describe Institution, type: :model do
           expect(results).to match_array [institution1, institution2, institution3]
         end
 
+        it "accepts a limit keyword to cap the number of matching results" do
+          results = Institution.search("the", limit: 2)
+
+          expect(results).to contain_exactly(institution1, institution2)
+        end
+
         it "returns an empty array if there are no institutions where the name is similar
         to the passed value" do
           results = Institution.search("xyz")
