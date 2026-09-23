@@ -58,7 +58,7 @@ class Institution < ApplicationRecord
                            all
                          end
 
-    return found_institutions if query.blank?
+return found_institutions.limit(limit) if query.blank? && limit.present?
 
     tokenize(query).each do |partial|
       found_institutions = found_institutions.where(
