@@ -114,7 +114,7 @@ RSpec.describe AggregatedSearch, type: :model do
 
       # this gets many different Audubon records, mostly from the institutions fixture, but the
       # "Alabama Audubon (alaudubon.org)" record is from the ROR fixture because it actually has a different ROR record
-      # than the national record. (Mostly, ROR doesn't have state or local Audubon records, but his is an exception.)
+      # than the national record. (Mostly, ROR doesn't have state or local Audubon records, but this is an exception.)
       #
       # RAMS has manually added a bunch of local Audubons that are not in ROR data and don't have ROR records, but in the
       # data cleanup they get associated with a ROR record of the national Audubon Society ror record (because that is what
