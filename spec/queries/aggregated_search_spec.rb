@@ -89,5 +89,20 @@ RSpec.describe AggregatedSearch, type: :model do
         [:ror, other_ror.name],
       )
     end
+
+    it "suppresses the matching ROR result when the same UCLA record appears in institutions fixture data" do
+      ActiveRecord::Base.connection.execute(Rails.root.join("spec/fixtures/rors.sql").read)
+      ActiveRecord::Base.connection.execute(Rails.root.join("spec/fixtures/institutions.sql").read)
+
+      results = described_class.new(query: "UCLA", limit: 20).results
+
+      expect(results.map { |result| [result[:type], result[:name]] }).to include(
+        [:institution, "University of California, Los Angeles"],
+      )
+      expect(results.map { |result| [result[:type], result[:name]] }).not_to include(
+        [:ror, "University of California, Los Angeles (ucla.edu)"],
+      )
+    end
+
   end
 end
