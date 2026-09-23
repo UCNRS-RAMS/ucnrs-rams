@@ -21,6 +21,12 @@ RSpec.describe "development database primer" do
     expect(primer_counts).to eq(counts)
   end
 
+  it "gives every reserve a managing campus so reserve reports render" do
+    load_primer
+
+    expect(Reserve.where(managing_campus: nil)).to be_empty
+  end
+  
   it "creates a usable system admin for exercising admin-only pages" do
     load_primer
 

@@ -607,6 +607,7 @@ ucnrs = Institution.where(name: "UC Nature").first_or_create(
 uc_reserve = Reserve.where(name: "UC Reserve").first_or_create(
   short_name: "UC Reserve",
   pulldown_name: "UC Reserve",
+  managing_campus: ucnrs,
   address_country: united_states,
   address_state: california,
   research_projects_accepted: true,
@@ -619,6 +620,7 @@ uc_reserve = Reserve.where(name: "UC Reserve").first_or_create(
 yosemite_geographical_research_lab = Reserve.where(name: "Yosemite Geographical Research Laboratory").first_or_create(
   short_name: "Yosemite Geo-Lab",
   pulldown_name: "Yosemite Geographical Research Laboratory",
+  managing_campus: ucnrs,
   address_country: united_states,
   address_state: california,
   research_projects_accepted: true,
@@ -631,6 +633,7 @@ yosemite_geographical_research_lab = Reserve.where(name: "Yosemite Geographical 
 harvard_yard = Reserve.where(name: "Harvard Yard").first_or_create(
   short_name: "Harvard Yard",
   pulldown_name: "Harvard Yard",
+  managing_campus: ucnrs,
   address_country: united_states,
   address_state: massachusetts,
   research_projects_accepted: false,
@@ -643,6 +646,7 @@ harvard_yard = Reserve.where(name: "Harvard Yard").first_or_create(
 big_sur_conference_center = Reserve.where(name: "Big Sur Conference Center").first_or_create(
   short_name: "Big Sur Conference",
   pulldown_name: "Big Sur Conference Center",
+  managing_campus: ucnrs,
   address_country: united_states,
   address_state: california,
   research_projects_accepted: false,
@@ -655,6 +659,7 @@ big_sur_conference_center = Reserve.where(name: "Big Sur Conference Center").fir
 sunny_los_angeles_marine_center = Reserve.where(name: "Sunny Los Angeles Marine Center").first_or_create(
   short_name: "L.A. Marine Ctr.",
   pulldown_name: "Sunny Los Angeles Marine Center",
+  managing_campus: ucnrs,
   address_country: united_states,
   address_state: california,
   research_projects_accepted: true,

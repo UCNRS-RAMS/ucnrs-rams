@@ -2,6 +2,14 @@
 
 united_states = Country.coded("US")
 
+managing_campus = DevelopmentSeeds.record(
+  Institution,
+  { name: "University of California, Berkeley", city: "Berkeley" },
+  state: State.coded("CA"),
+  country: united_states,
+  institution_type: :university_of_california,
+)
+
 a_single_tree = DevelopmentSeeds.record(
   Reserve,
   { name: "A Single Tree" },
@@ -9,6 +17,7 @@ a_single_tree = DevelopmentSeeds.record(
   pulldown_name: "Single Tree, A",
   address_country: united_states,
   address_state: State.coded("MA"),
+  managing_campus: managing_campus,
   research_projects_accepted: true,
   class_projects_accepted: false,
   conference_projects_accepted: true,
@@ -28,6 +37,7 @@ oak_ridge = DevelopmentSeeds.record(
   pulldown_name: "Oak Ridge",
   address_country: united_states,
   address_state: State.coded("CA"),
+  managing_campus: managing_campus,
   research_projects_accepted: false,
   class_projects_accepted: true,
   conference_projects_accepted: true,
