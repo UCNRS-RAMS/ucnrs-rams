@@ -142,6 +142,10 @@ All development users use the password `Password1`:
 | `river@researcher.test` | Researcher |
 | `sage@scientist.test` | Project team member |
 | `manager@single-tree.test` | Reserve administrator |
+| `admin@rams.test` | System admin (access to `/admin` pages) |
+
+`admin@rams.test` is the only development account with the `users.admin` flag,
+which no UI grants. Use it to exercise admin-only pages such as `/admin/reports`.
 
 Run the primer spec with:
 

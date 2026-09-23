@@ -21,6 +21,17 @@ RSpec.describe "development database primer" do
     expect(primer_counts).to eq(counts)
   end
 
+  it "creates a usable system admin for exercising admin-only pages" do
+    load_primer
+
+    admin = User.find_by(email: "admin@rams.test")
+
+    expect(admin).to be_present
+    expect(admin).to be_admin
+    expect(admin).to be_confirmed
+    expect(admin.valid_password?("Password1")).to be(true)
+  end
+
   def primer_counts
     [
       Institution.count,
