@@ -7,5 +7,8 @@ namespace :dev do
 
     Rake::Task["db:prepare"].invoke
     Rake::Task["db:seed"].invoke
+    # db:prepare schema-loads fresh databases, which records routine migrations as
+    # run without executing them, so stored functions/procedures may be missing.
+    DbRoutinesLoader.load_missing
   end
 end
