@@ -10,4 +10,7 @@
   <li class="list-item"><%= active_link_to_by_url t(".use_by_publicly_affiliated_groups"), report_part_8_manager_reserve_report_path(current_reserve, presenter.fiscal_year_ending) %></li>
   <li class="list-item"><%= active_link_to_by_url t(".meeting_use"), report_part_9_manager_reserve_report_path(current_reserve, presenter.fiscal_year_ending) %></li>
   <li class="list-item"><%= link_to t(".flex_report"), manager_reserve_reports_flex_index_path(current_reserve) %></li>
+  <% if super_admin? %>
+    <li class="list-item"><%= link_to t(".admin_report_status"), admin_reports_path, target: "_blank", rel: "noopener" %></li>
+  <% end %>
 </ul>
