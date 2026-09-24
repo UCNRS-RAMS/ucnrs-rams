@@ -23,7 +23,7 @@ class UserVisitForm
   validates :user_id, presence: true
   validates :institution_id, presence: true
 
-  attr_accessor :userdays
+  attr_accessor :userdays, :institution_selection_type
   attr_reader :user_visit, :user, :institution_form
   attr_writer :manual_user_days
 
@@ -67,6 +67,8 @@ class UserVisitForm
   alias valid? validate
 
   def save
+    return save_with_selected_institution if institution_selection_type.present?
+
     if validate
       ActiveRecord::Base.transaction do
         institution_form.submit
@@ -105,7 +107,39 @@ class UserVisitForm
   end
 
   def institution_form_params(params)
+    return {} if institution_selection_type.present?
+
     params.delete(:institution) || { id: user_visit.institution_id }
+  end
+
+  def save_with_selected_institution
+    success = false
+
+    ActiveRecord::Base.transaction do
+      selection = InstitutionSelection.new(
+        id: params.dig(:institution, :id),
+        type: institution_selection_type,
+      )
+      institution = selection.resolve
+
+      unless institution
+        selection.errors.full_messages.each { |message| errors.add(:institution_id, message) }
+        raise ActiveRecord::Rollback
+      end
+
+      institution.save! unless institution.persisted?
+      user_visit.institution = institution
+      @institution_form = InstitutionForm.new(id: institution.id)
+
+      if validate
+        user_visit.save!
+        success = true
+      else
+        raise ActiveRecord::Rollback
+      end
+    end
+
+    success
   end
 
   def adding_user_as_guest_visitor?
