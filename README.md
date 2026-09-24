@@ -329,6 +329,10 @@ longer needed disappear:
 bundle exec rubocop --regenerate-todo
 ```
 
+Run these through `bundle exec rubocop`, not `bin/rubocop`. The binstub forces
+`--config .rubocop.yml`, which makes RuboCop read the existing todo file before it
+rewrites it, so every entry is dropped and the next run reports thousands of offenses.
+
 The first generation is the only one that needs the explicit flags; they are recorded
 in the todo file's own header, and `--regenerate-todo` reuses them:
 
