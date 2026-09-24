@@ -314,6 +314,35 @@ And this after
 # rubocop:enable Metrics/ModuleLength
 ```
 
+### Omakase style and the todo file
+
+The style rules come from [rubocop-rails-omakase](https://github.com/rails/rubocop-rails-omakase)
+(Rails' default set), with the `Lint`, `Security`, `Rails`, and `Metrics` departments
+switched back on in `.rubocop.yml`.
+
+`.rubocop_todo.yml` quarantines offenses that already exist in the codebase, so new
+files are held to the full standard while legacy files are opted out one at a time.
+When you have cleaned some files up, regenerate it and the exclusions that are no
+longer needed disappear:
+
+```bash
+bundle exec rubocop --regenerate-todo
+```
+
+The first generation is the only one that needs the explicit flags; they are recorded
+in the todo file's own header, and `--regenerate-todo` reuses them:
+
+```bash
+bundle exec rubocop --auto-gen-config --auto-gen-only-exclude --exclude-limit 10000
+```
+
+To clean up a specific area (the API, say), autocorrect it and then regenerate:
+
+```bash
+bundle exec rubocop -a app/controllers/api app/presenters/api
+bundle exec rubocop --regenerate-todo
+```
+
 ## SCSS Sorting
 
 SCSS is preferred to be sorted in alphabetical order.  The easiest way
