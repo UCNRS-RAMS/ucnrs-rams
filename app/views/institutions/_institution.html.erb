@@ -1,3 +1,14 @@
-<li id="<%= dom_id institution.institution %>" role="option" data-autocomplete-value="<%= institution.id %>" data-autocomplete-label="<%= institution.name %>">
-  <strong><%= institution.name %></strong> - <span><%= institution.city %> | <%= institution.country_name %></span>
+<li
+  id="institution-result-<%= result[:type] %>-<%= result[:id].parameterize %>"
+  role="option"
+  data-autocomplete-value="<%= result[:id] %>"
+  data-autocomplete-label="<%= result[:name] %>"
+  data-autocomplete-selection-type="<%= result[:type] %>"
+>
+  <strong><%= result[:name] %></strong>
+  <% if result[:type] == :ror %>
+    <span> - ROR</span>
+  <% elsif result[:city].present? || result[:source].country&.name.present? %>
+    <span> - <%= [result[:city], result[:source].country&.name].compact_blank.join(" | ") %></span>
+  <% end %>
 </li>

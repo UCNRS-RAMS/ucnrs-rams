@@ -15,6 +15,7 @@ class AggregatedSearch
   def institutions
     @institutions ||= Institution
       .search(query, limit: limit)
+      .preload(:country)
       .alphabetized
   end
 
