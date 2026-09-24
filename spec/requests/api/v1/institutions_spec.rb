@@ -154,5 +154,18 @@ RSpec.describe Api::V1::InstitutionsController, type: :request do
         ]
       )
     end
+
+    it "serializes optional relations as null and timestamps in UTC ISO 8601" do
+      institution = create(:institution, acronym: nil, state: nil, ror_id: nil)
+
+      get "/api/v1/institutions/#{institution.id}", headers: auth_headers
+
+      data = response.parsed_body["data"]
+      expect(data["acronym"]).to be_nil
+      expect(data["state"]).to be_nil
+      expect(data["ror"]).to be_nil
+      expect(data["country"]).to include("id" => institution.country_id)
+      expect(data["created_at"]).to match(/\A\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\z/)
+    end
   end
 end
