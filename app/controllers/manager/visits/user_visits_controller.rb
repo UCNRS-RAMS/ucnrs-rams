@@ -69,6 +69,7 @@ class Manager::Visits::UserVisitsController < Manager::ApplicationController
       :role,
       :actual_days,
       :institution_id,
+      :institution_selection_type,
       :user_id,
       :visit_id,
       :guest_name,

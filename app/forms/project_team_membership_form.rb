@@ -18,7 +18,7 @@ class ProjectTeamMembershipForm
   end
 
   attr_accessor :full_name
-  attr_accessor :institution_name
+  attr_accessor :institution_name, :institution_selection_type
   attr_reader :project_role
 
   attr_reader :project_team_membership
@@ -63,6 +63,12 @@ class ProjectTeamMembershipForm
       self.can_add_visit = false
       self.can_receive_invoice = false
     end
+
+  end
+
+  def institution_id=(institution_id)
+    @institution_selection_id = institution_id
+    project_team_membership.institution_id = institution_id
   end
 
   def assigned_as_project_owner=(value)
@@ -84,10 +90,24 @@ class ProjectTeamMembershipForm
   alias_method :valid?, :validate
 
   def save
+    success = false
+
     ActiveRecord::Base.transaction do
-      project.save(validate: false) if project.user_id_changed?
-      validate && project_team_membership.save
+      assign_selected_institution!
+
+      if validate
+        project.save!(validate: false) if project.user_id_changed?
+        project_team_membership.save!
+        success = true
+      else
+        raise ActiveRecord::Rollback
+      end
     end
+
+    success
+  rescue ActiveRecord::RecordInvalid => error
+    errors.merge!(error.record.errors)
+    false
   end
 
   private
@@ -115,6 +135,23 @@ class ProjectTeamMembershipForm
         .where(users: { id: user_id })
         .pick(:id)
     end
+  end
+
+  def assign_selected_institution!
+    return if institution_selection_type.blank?
+
+    selection = InstitutionSelection.new(
+      id: @institution_selection_id,
+      type: institution_selection_type,
+    )
+    institution = selection.resolve
+    unless institution
+      selection.errors.full_messages.each { |message| errors.add(:institution_name, message) }
+      raise ActiveRecord::RecordInvalid, project_team_membership
+    end
+
+    institution.save! unless institution.persisted?
+    self.institution = institution
   end
 
   def maybe_set_user_role_from_user

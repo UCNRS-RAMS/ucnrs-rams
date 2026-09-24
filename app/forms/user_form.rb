@@ -25,6 +25,7 @@ class UserForm
     :can_receive_invoice,
     :project_id,
     :institution_name,
+    :institution_selection_type,
     :user_role
 
   delegate_missing_to :user
@@ -67,6 +68,12 @@ class UserForm
       self.can_add_visit = false
       self.can_receive_invoice = false
     end
+
+  end
+
+  def institution_id=(institution_id)
+    @institution_selection_id = institution_id
+    user.institution_id = institution_id
   end
 
   alias_method :validate_form, :validate
@@ -83,6 +90,7 @@ class UserForm
   def save
     begin
       User.transaction do
+        assign_selected_institution!
         save_user!
         save_project_team_membership!
         true
@@ -104,6 +112,24 @@ class UserForm
 
   def assign_user_role
     user.role = self.user_role
+  end
+
+  def assign_selected_institution!
+    return if institution_selection_type.blank?
+
+    selection = InstitutionSelection.new(
+      id: @institution_selection_id,
+      type: institution_selection_type,
+    )
+    institution = selection.resolve
+    unless institution
+      selection.errors.full_messages.each { |message| user.errors.add(:institution, message) }
+      raise ActiveRecord::RecordInvalid, user
+    end
+
+    institution.save! unless institution.persisted?
+    user.institution = institution
+    project_team_membership.institution = institution
   end
 
 

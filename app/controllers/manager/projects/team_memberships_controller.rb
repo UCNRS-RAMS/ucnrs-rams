@@ -110,6 +110,7 @@ class Manager::Projects::TeamMembershipsController < Manager::ApplicationControl
       :user_id,
       :project_id,
       :institution_id,
+      :institution_selection_type,
       :user_role,
       :project_role,
       :is_principal_investigator,

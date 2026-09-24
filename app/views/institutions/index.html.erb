@@ -1,5 +1,5 @@
-<% if @presenter.institutions.present? %>
-  <%= render(partial: "institution", collection: @presenter.institutions) %>
+<% if @presenter.results.present? %>
+  <%= render partial: "institution", collection: @presenter.results, as: :result %>
 <% else %>  
   <li role='option' aria-disabled='true'><%= t(".no_results").html_safe %></li>
 <% end %>

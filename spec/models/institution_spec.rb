@@ -5,7 +5,6 @@ RSpec.describe Institution, type: :model do
 
   describe "validations" do
     it { is_expected.to validate_presence_of(:name) }
-    it { is_expected.to validate_presence_of(:city) }
     it { is_expected.to validate_presence_of(:country) }
     it { is_expected.to validate_uniqueness_of(:name).scoped_to(:city).case_insensitive }
     it { is_expected.to validate_presence_of(:institution_type) }
@@ -43,6 +42,15 @@ RSpec.describe Institution, type: :model do
         governmental_organization_or_entity: "Governmental Agency or Entity",
         business_entity: "Business Entity",
         individual_or_other_entity: "Individual or Other Entity",
+        healthcare: "Healthcare",
+        education: "Education",
+        company: "Company",
+        archive: "Archive",
+        nonprofit: "Nonprofit",
+        government: "Government",
+        facility: "Facility",
+        funder: "Funder",
+        other: "Other",
       ).backed_by_column_of_type(:string)
   end
 

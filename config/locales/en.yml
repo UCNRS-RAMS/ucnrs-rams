@@ -2609,6 +2609,15 @@ en:
             governmental_agency_or_entity: Governmental Agency or Entity
             business_entity: Business Entity
             individual_or_other_entity: Individual or Other Entity
+            healthcare: Healthcare
+            education: Education
+            company: Company
+            archive: Archive
+            nonprofit: Nonprofit
+            government: Government
+            facility: Facility
+            funder: Funder
+            other: Other
           create:
             flash:
               create_error: Create error, please check all the required fields.
