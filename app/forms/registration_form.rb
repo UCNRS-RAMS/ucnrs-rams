@@ -30,8 +30,14 @@ class RegistrationForm
   end
 
   def submit
-    return unless user.valid?
-    user.save
+    institution_assigned = assign_selected_institution
+    return unless user.valid? && institution_assigned
+
+    User.transaction do
+      selected_institution.save! unless selected_institution.persisted?
+      user.save!
+    end
+    true
   end
 
   private
@@ -54,24 +60,59 @@ class RegistrationForm
   end
 
   def institution_id
-    Institution.find_by(name: params[:institution])&.id
+    selected_institution&.id
   end
 
   def assign(params)
     params = params.to_h.with_indifferent_access
 
     params.each do |key, value|
-      if key.to_s == "institution"
-        self.institution_id = institution_id
+      if %w[institution institution_id institution_selection_type].include?(key.to_s)
+        next
       else
         self.send("#{key}=", value)
       end
     end
 
+    user.institution = selected_institution if selected_institution
+
     return if params[:orcid].blank?
     return if params.key?(:orcid_authenticated)
 
     user.orcid_authenticated = false
+  end
+
+  def assign_selected_institution
+    institution = selected_institution
+    if institution
+      user.institution = institution
+      true
+    else
+      selection_errors.each { |error| user.errors.add(:institution, error) }
+      false
+    end
+  end
+
+  def selected_institution
+    return @selected_institution if defined?(@selected_institution)
+
+    @selected_institution = if params[:institution_selection_type].present?
+      @institution_selection = InstitutionSelection.new(
+        id: params[:institution_id],
+        type: params[:institution_selection_type],
+      )
+      @institution_selection.resolve
+    elsif params[:institution_id].present?
+      Institution.find_by(id: params[:institution_id])
+    elsif params[:institution].present?
+      Institution.find_by(name: params[:institution])
+    end
+  end
+
+  def selection_errors
+    return ["must exist"] unless defined?(@institution_selection)
+
+    @institution_selection.errors.full_messages
   end
 
 end
