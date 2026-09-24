@@ -14,6 +14,7 @@ module ExternalApis
             acronyms: ror_acronyms(item: record),
             aliases: ror_aliases(item: record),
             country: country_data(item: record),
+            locations: record['locations'] || [],
             types: record['types'] || [],
             language: org_language(item: record),
             fundref_id: fundref_id(item: record),
