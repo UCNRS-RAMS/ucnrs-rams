@@ -49,6 +49,7 @@
           <%= form.label :institution_name %>
           <%= form.text_field :institution_name, placeholder: t(".search_by_name"), value: presenter.institution_name, data: { "autocomplete-target": "input" } %>
           <%= form.hidden_field :institution_id, data: { "autocomplete-target": "hidden" } %>
+          <%= form.hidden_field :institution_selection_type, data: { "autocomplete-target": "selectionType" } %>
           <div class="autocomplete-results-container">
             <ul class="autocomplete-results" data-autocomplete-target="results"></ul>
           </div>
