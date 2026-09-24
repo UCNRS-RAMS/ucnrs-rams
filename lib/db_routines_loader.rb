@@ -43,7 +43,7 @@ class DbRoutinesLoader
     match = statement.match(/\b(FUNCTION|PROCEDURE)\s+`([^`]+)`/i)
     raise "Unable to parse routine name/type from SQL statement" unless match
 
-    [match[1].upcase, match[2]]
+    [ match[1].upcase, match[2] ]
   end
 
   def routine_exists?(type:, name:)
