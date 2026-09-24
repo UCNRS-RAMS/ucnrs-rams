@@ -63,6 +63,7 @@ group :development, :test do
   gem 'rswag-specs'
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
+  gem 'rubocop-rails-omakase', require: false
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
 end
