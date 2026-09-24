@@ -14,6 +14,22 @@ RSpec.describe ExternalApis::Ror::RecordMapper do
           { 'value' => 'Example University', 'types' => ['ror_display'] },
           { 'value' => 'Example', 'types' => ['alias'] }
         ],
+        'locations' => [
+          {
+            'geonames_details' => {
+              'continent_code' => 'NA',
+              'continent_name' => 'North America',
+              'country_code' => 'US',
+              'country_name' => 'United States',
+              'country_subdivision_code' => 'OH',
+              'country_subdivision_name' => 'Ohio',
+              'lat' => 39.96118,
+              'lng' => -82.99879,
+              'name' => 'Columbus'
+            },
+            'geonames_id' => 4_509_177
+          }
+        ],
         'country' => { 'country_name' => 'United States', 'country_code' => 'US' },
         'external_ids' => { 'FundRef' => { 'preferred' => '123', 'all' => ['123', '456'] } }
       }
@@ -25,6 +41,7 @@ RSpec.describe ExternalApis::Ror::RecordMapper do
         aliases: ['Example'],
         acronyms: [],
         country: { 'country_name' => 'United States', 'country_code' => 'US' },
+        locations: record['locations'],
         types: ['Education'],
         language: 'en',
         fundref_id: '123',
