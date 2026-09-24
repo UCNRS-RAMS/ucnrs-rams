@@ -106,6 +106,7 @@ class Visits::UserVisitsController < ApplicationController
       :count,
       :role,
       :institution_id,
+      :institution_selection_type,
       :user_id,
       :visit_id,
       :guest_name,
