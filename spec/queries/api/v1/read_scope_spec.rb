@@ -59,6 +59,24 @@ RSpec.describe Api::V1::ReadScope do
       it "excludes the institutions of another reserve's projects" do
         expect(scope.institutions).not_to include(create(:project).owner.institution)
       end
+
+      it "returns exactly the reserve's managing campus and its projects' participant institutions" do
+        membership = create(:project_team_membership, project: project)
+
+        expect(scope.institutions).to contain_exactly(
+          reserve.managing_campus,
+          project.owner.institution,
+          project.applicant.institution,
+          membership.institution
+        )
+      end
+
+      it "returns the projects' participant institutions when the reserve has no managing campus" do
+        reserve.update!(managing_campus: nil)
+
+        expect(scope.institutions)
+          .to contain_exactly(project.owner.institution, project.applicant.institution)
+      end
     end
   end
 end
