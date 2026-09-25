@@ -55,10 +55,14 @@ class AggregatedSearch
     {
       id: ror.ror_id,
       name: ror.name,
-      city: nil,
+      city: ror_city(ror),
       acronym: ror.acronyms.first,
       type: :ror,
       source: ror,
     }
+  end
+
+  def ror_city(ror)
+    ror.locations&.first&.dig("geonames_details", "name")
   end
 end
