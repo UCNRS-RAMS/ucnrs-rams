@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+# Resolves an autocomplete selection into a RAMS institution, whether it
+# references an existing institution or a ROR record.
+# This shared domain object lives with the models because several forms use
+# the same resolution rules; it is not itself an Active Record model.
 class InstitutionSelection
   include ActiveModel::Model
 
