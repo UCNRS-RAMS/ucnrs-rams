@@ -5,6 +5,22 @@
 class Ror < ApplicationRecord
   has_many :institutions, primary_key: :ror_id, inverse_of: :ror, dependent: :nullify
 
+  def cities
+    location_values("name")
+  end
+
+  def country_codes
+    location_values("country_code")
+  end
+
+  def continent_codes
+    location_values("continent_code")
+  end
+
+  def state_codes
+    location_values("country_subdivision_code")
+  end
+
   # ==========
   # = Scopes =
   # ==========
@@ -29,9 +45,22 @@ class Ror < ApplicationRecord
     where('LOWER(rors.home_page) LIKE ?', like_pattern(term))
   }
 
-  scope :search, lambda { |term|
-    by_name(term).or(by_acronym(term)).or(by_alias(term))
-  }
+  def self.search(query, limit: nil)
+    found_rors = all
+return found_rors.limit(limit) if query.blank? && limit.present?
+
+    tokenize(query).each do |partial|
+      found_rors = found_rors.where(
+        "LOWER(rors.name) REGEXP :match
+          OR LOWER(CAST(rors.aliases AS CHAR)) REGEXP :match
+          OR LOWER(CAST(rors.acronyms AS CHAR)) REGEXP :match",
+{ match: Regexp.escape(partial.downcase) }
+      )
+    end
+
+    found_rors = found_rors.limit(limit) if limit.present?
+    found_rors
+  end
 
   def self.like_pattern(term)
     "%#{sanitize_sql_like(term.to_s.downcase)}%"
@@ -40,6 +69,11 @@ class Ror < ApplicationRecord
   def self.json_like_pattern(term)
     "%\"#{sanitize_sql_like(term.to_s.downcase)}\"%"
   end
+
+  def self.tokenize(query)
+    URI.decode_www_form_component(query.to_s).strip.split
+  end
+  private_class_method :tokenize
 
   # Get the Ror entry with the closest matching domain for the email domain
   def self.from_email_domain(email_domain:)
@@ -62,5 +96,15 @@ class Ror < ApplicationRecord
     return '' if url.blank?
 
     url.downcase.gsub(%r{^(?:http://|https://|www\.)+}, '').split('/').first.to_s
+  end
+
+  private
+
+  def location_values(attribute)
+    Array(locations).filter_map do |location|
+      next unless location.is_a?(Hash) && location["geonames_details"].is_a?(Hash)
+
+      location.dig("geonames_details", attribute).presence
+    end
   end
 end

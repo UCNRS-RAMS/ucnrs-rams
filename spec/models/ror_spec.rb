@@ -15,6 +15,48 @@ RSpec.describe Ror, type: :model do
     end
   end
 
+  describe "location accessors" do
+    it "returns values from each location and skips missing or malformed data" do
+      ror = build(
+        :ror,
+        locations: [
+          {
+            "geonames_details" => {
+              "name" => "San Francisco",
+              "country_code" => "US",
+              "continent_code" => "NA",
+              "country_subdivision_code" => "CA",
+            },
+          },
+          {
+            "geonames_details" => {
+              "name" => "London",
+              "country_code" => "GB",
+              "continent_code" => "EU",
+              "country_subdivision_code" => "ENG",
+            },
+          },
+          { "geonames_details" => nil },
+          "invalid location",
+        ]
+      )
+
+      expect(ror.cities).to eq(["San Francisco", "London"])
+      expect(ror.country_codes).to eq(["US", "GB"])
+      expect(ror.continent_codes).to eq(["NA", "EU"])
+      expect(ror.state_codes).to eq(["CA", "ENG"])
+    end
+
+    it "returns empty arrays when locations are missing" do
+      ror = build(:ror, locations: nil)
+
+      expect(ror.cities).to eq([])
+      expect(ror.country_codes).to eq([])
+      expect(ror.continent_codes).to eq([])
+      expect(ror.state_codes).to eq([])
+    end
+  end
+
   describe "scopes" do
     let(:match) { create(:ror) }
     let(:not_match) { create(:ror) }
@@ -68,17 +110,52 @@ RSpec.describe Ror, type: :model do
       expect(described_class.by_domain(term)).to contain_exactly(match)
     end
 
-    it ".search combines the name, acronym, and alias scopes" do
-      stubbed = described_class.all
-      allow(described_class).to receive(:by_name).with(term).and_return(stubbed)
-      allow(described_class).to receive(:by_acronym).with(term).and_return(stubbed)
-      allow(described_class).to receive(:by_alias).with(term).and_return(stubbed)
+    it ".search tokenizes and partially matches the name, alias, and acronym fields" do
+      match.update!(
+        name: "University of California, Davis",
+        aliases: ["UC Davis"],
+        acronyms: ["UCD"]
+      )
+      not_match.update!(
+        name: "Stanford University",
+        aliases: ["SU"],
+        acronyms: ["SU"]
+      )
 
-      described_class.search(term)
+      expect(described_class.search("uc davis")).to contain_exactly(match)
+      expect(described_class.search("davis")).to contain_exactly(match)
+      expect(described_class.search("UCD")).to contain_exactly(match)
+    end
 
-      expect(described_class).to have_received(:by_name).with(term)
-      expect(described_class).to have_received(:by_acronym).with(term)
-      expect(described_class).to have_received(:by_alias).with(term)
+    it ".search accepts a limit keyword to cap the number of matching records" do
+      create_list(:ror, 3, name: "Research University")
+
+      expect(described_class.search("Research University", limit: 2).count).to eq(2)
+    end
+
+    it ".search loads the rors.sql fixture and returns records for a full-word match" do
+      fixture_sql = Rails.root.join("spec/fixtures/rors.sql").read
+      ActiveRecord::Base.connection.execute(fixture_sql)
+
+      results = described_class.search("London")
+
+      expect(results.map(&:name)).to include(
+        "Transport for London (tfl.gov.uk)",
+        "London Borough of Camden (camden.gov.uk)",
+        "London School of Economics and Political Science (lse.ac.uk)"
+      )
+    end
+
+    it ".search loads the rors.sql fixture and matches San/Fran and UCLA variants" do
+      fixture_sql = Rails.root.join("spec/fixtures/rors.sql").read
+      ActiveRecord::Base.connection.execute(fixture_sql)
+
+      expect(described_class.search("San").map(&:name)).to include("University of California, San Francisco (ucsf.edu)")
+      expect(described_class.search("San").map(&:name)).to include("University of California San Diego (ucsd.edu)")
+      expect(described_class.search("Fran").map(&:name)).to include("University of California, San Francisco (ucsf.edu)")
+      expect(described_class.search("San Fran").map(&:name)).to include("University of California, San Francisco (ucsf.edu)")
+      expect(described_class.search("San Fran").map(&:name)).not_to include("University of California San Diego (ucsd.edu)")
+      expect(described_class.search("UCLA").map(&:name)).to include("University of California, Los Angeles (ucla.edu)")
     end
   end
 
