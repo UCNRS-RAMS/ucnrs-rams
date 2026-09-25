@@ -5,6 +5,22 @@
 class Ror < ApplicationRecord
   has_many :institutions, primary_key: :ror_id, inverse_of: :ror, dependent: :nullify
 
+  def cities
+    location_values("name")
+  end
+
+  def country_codes
+    location_values("country_code")
+  end
+
+  def continent_codes
+    location_values("continent_code")
+  end
+
+  def state_codes
+    location_values("country_subdivision_code")
+  end
+
   # ==========
   # = Scopes =
   # ==========
@@ -80,5 +96,16 @@ return found_rors.limit(limit) if query.blank? && limit.present?
     return '' if url.blank?
 
     url.downcase.gsub(%r{^(?:http://|https://|www\.)+}, '').split('/').first.to_s
+  end
+
+  private
+
+  def location_values(attribute)
+    Array(locations).filter_map do |location|
+      next unless location.is_a?(Hash)
+
+      geonames_details = location["geonames_details"]
+      geonames_details[attribute].presence if geonames_details.is_a?(Hash)
+    end
   end
 end
