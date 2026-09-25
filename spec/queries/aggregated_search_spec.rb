@@ -25,7 +25,13 @@ RSpec.describe AggregatedSearch, type: :model do
   describe "#results" do
     it "returns the expected hash shape for institution and ROR hits" do
       institution = create(:institution, name: "Research University", city: "Berkeley", acronym: "RU")
-      ror = create(:ror, name: "Research Observatory", acronyms: ["RO"], ror_id: "https://ror.org/0003abcd")
+      ror = create(
+        :ror,
+        name: "Research Observatory",
+        acronyms: [ "RO" ],
+        locations: [ { "geonames_details" => { "name" => "Berkeley" } } ],
+        ror_id: "https://ror.org/0003abcd"
+      )
 
       result = described_class.new(query: "research", limit: 10).results.find { |item| item[:source].is_a?(Institution) }
       ror_result = described_class.new(query: "research", limit: 10).results.find { |item| item[:source].is_a?(Ror) }
@@ -41,11 +47,24 @@ RSpec.describe AggregatedSearch, type: :model do
       expect(ror_result).to include(
         id: ror.ror_id,
         name: ror.name,
-        city: nil,
+        city: "Berkeley",
         acronym: ror.acronyms.first,
         type: :ror,
         source: ror,
       )
+    end
+
+    it "returns nil for a ROR city when locations are missing" do
+      ror = create(
+        :ror,
+        name: "Research Observatory",
+        locations: nil,
+        ror_id: "https://ror.org/0009abcd"
+      )
+
+      result = described_class.new(query: "research", limit: 10).results.find { |item| item[:source] == ror }
+
+      expect(result[:city]).to be_nil
     end
 
     it "honors the per-source limit while still sorting the combined set" do
