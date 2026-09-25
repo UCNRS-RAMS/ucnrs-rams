@@ -39,6 +39,10 @@ RSpec.configure do |config|
         {
           name: 'Projects',
           description: 'Research, class, meeting, public use, and housing projects.'
+        },
+        {
+          name: 'Institutions',
+          description: 'Organizations the people on a project are affiliated with.'
         }
       ],
       components: {
@@ -123,6 +127,77 @@ RSpec.configure do |config|
               orcid: { type: :string, nullable: true }
             }
           },
+          Institution: {
+            type: :object,
+            required: %w[id type name institution_type],
+            properties: {
+              id: { type: :integer },
+              type: { type: :string, enum: ['institutions'] },
+              name: { type: :string },
+              acronym: { type: :string, nullable: true },
+              city: { type: :string, nullable: true },
+              institution_type: {
+                type: :string,
+                enum: Institution.institution_types.keys,
+                description: 'Rails enum key.'
+              },
+              country: {
+                type: :object,
+                nullable: true,
+                allOf: [{ '$ref' => '#/components/schemas/CountryStub' }]
+              },
+              state: {
+                type: :object,
+                nullable: true,
+                allOf: [{ '$ref' => '#/components/schemas/StateStub' }]
+              },
+              ror: {
+                type: :object,
+                nullable: true,
+                allOf: [{ '$ref' => '#/components/schemas/RorStub' }]
+              },
+              created_at: { type: :string, format: 'date-time' },
+              updated_at: { type: :string, format: 'date-time' }
+            }
+          },
+          CountryStub: {
+            type: :object,
+            required: %w[type id code name],
+            properties: {
+              type: { type: :string, enum: ['countries'] },
+              id: { type: :integer },
+              code: {
+                type: :string,
+                nullable: true,
+                description: 'ISO 3166-1 alpha-2 code, and the value +country_code+ filters accept.'
+              },
+              name: { type: :string }
+            }
+          },
+          StateStub: {
+            type: :object,
+            required: %w[type id code name],
+            properties: {
+              type: { type: :string, enum: ['states'] },
+              id: { type: :integer },
+              code: {
+                type: :string,
+                nullable: true,
+                description: 'State or province code within its country, and the value +state_code+ filters accept.'
+              },
+              name: { type: :string, nullable: true }
+            }
+          },
+          RorStub: {
+            type: :object,
+            required: %w[type id ror_id name],
+            properties: {
+              type: { type: :string, enum: ['rors'] },
+              id: { type: :integer },
+              ror_id: { type: :string, description: 'Research Organization Registry identifier.' },
+              name: { type: :string, nullable: true }
+            }
+          },
           ProjectsCollection: {
             type: :object,
             required: %w[data meta],
@@ -139,6 +214,24 @@ RSpec.configure do |config|
             required: %w[data],
             properties: {
               data: { '$ref' => '#/components/schemas/Project' }
+            }
+          },
+          InstitutionsCollection: {
+            type: :object,
+            required: %w[data meta],
+            properties: {
+              data: {
+                type: :array,
+                items: { '$ref' => '#/components/schemas/Institution' }
+              },
+              meta: { '$ref' => '#/components/schemas/PaginationMeta' }
+            }
+          },
+          InstitutionResource: {
+            type: :object,
+            required: %w[data],
+            properties: {
+              data: { '$ref' => '#/components/schemas/Institution' }
             }
           },
           PaginationMeta: {

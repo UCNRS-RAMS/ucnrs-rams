@@ -47,6 +47,10 @@ class Institution < ApplicationRecord
     order(:name)
   end
 
+  def self.recent_first
+    order(created_at: :desc)
+  end
+
   def self.search(query)
     if query
       found_institutions = left_joins(:country)

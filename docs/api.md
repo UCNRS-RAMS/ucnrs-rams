@@ -52,7 +52,13 @@ prefix; Swagger UI adds it to each request it sends.
 An `ApiClient` may optionally belong to a `Reserve`. Scoping only limits what a
 client may read; it never widens it. A client with no reserve is a platform-wide
 integration, while a client with a reserve is limited to that reserve's
-research.
+research: its projects, and the institutions affiliated with those projects —
+the reserve's managing campus, and the institutions of each project's owner,
+applicant, and team members.
+
+`Api::V1::ReadScope` (`app/queries/api/v1/read_scope.rb`) owns that rule, one
+method per resource, so a new endpoint adds a method there rather than another
+scope to the `ApiClient` record.
 
 ## Creating an API client
 
@@ -121,6 +127,17 @@ which allowlist the fields they expose and embed related records as entity
 stubs (`type`, `id`, and a short label) rather than full objects. The exact
 fields and envelope for each endpoint are in the generated reference.
 
+## Filtering
+
+Collection endpoints accept optional filters, documented per endpoint in the
+generated reference. Geographic filters use standard codes rather than internal
+database ids: `country_code` is an ISO 3166-1 alpha-2 code (`country_code=US`),
+and `state_code` is a state or province code resolved within that country
+(`country_code=US&state_code=CA`). State codes are not unique across countries —
+`MA` is both Massachusetts and Maranhao — so `state_code` requires
+`country_code`. Every response embeds these codes on the `country` and `state`
+stubs, so a value read from one response can be reused as a filter.
+
 ## Errors
 
 Errors are returned as JSON with an `error` key:
@@ -143,6 +160,8 @@ if that becomes a problem.
 ```bash
 docker compose exec web bundle exec rspec \
   spec/models/api_client_spec.rb \
+  spec/queries/api/v1/read_scope_spec.rb \
+  spec/requests/api/v1/institutions_spec.rb \
   spec/requests/api/v1/projects_spec.rb \
   spec/api
 ```

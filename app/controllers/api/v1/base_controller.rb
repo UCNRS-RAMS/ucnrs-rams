@@ -3,7 +3,7 @@
 module Api
   # Version 1 of the JSON API.
   module V1
-    # Base controller for v1 endpoints: pagination, filtering, and the
+    # Base controller for v1 endpoints: scoping, pagination, filtering, and the
     # response envelope.
     #
     # Version-specific behaviour lives here rather than in Api::BaseController,
@@ -21,6 +21,11 @@ module Api
       rescue_from InvalidFilter, with: :render_bad_request
 
       private
+
+      # @return [Api::V1::ReadScope] the records the authenticated client may read
+      def read_scope
+        @read_scope ||= ReadScope.new(current_api_client)
+      end
 
       # @param scope [ActiveRecord::Relation]
       # @return [ActiveRecord::Relation] the requested page of +scope+

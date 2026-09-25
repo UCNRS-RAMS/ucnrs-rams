@@ -4,8 +4,8 @@
 #
 # Only the SHA-256 digest of the token is persisted. The plaintext token is
 # available once, via #plain_text_token, on the instance that created or
-# rotated it. A client may optionally be scoped to a single reserve; endpoint
-# controllers decide how that scope narrows what they return.
+# rotated it. A client may optionally be scoped to a single reserve, which
+# Api::V1::ReadScope narrows each endpoint's reads to.
 class ApiClient < ApplicationRecord
   # Number of random bytes encoded into each token.
   TOKEN_LENGTH = 32
@@ -41,15 +41,6 @@ class ApiClient < ApplicationRecord
   # @return [String] a new, unpersisted plaintext token
   def self.generate_token
     "#{TOKEN_PREFIX}#{SecureRandom.urlsafe_base64(TOKEN_LENGTH)}"
-  end
-
-  # Projects this client is allowed to read. A client with a reserve sees only
-  # that reserve's projects; a client with no reserve is a platform-wide
-  # integration and sees all of them.
-  #
-  # @return [ActiveRecord::Relation<Project>]
-  def visible_projects
-    reserve.present? ? Project.where(reserve: reserve) : Project.all
   end
 
   # Issues a new token, invalidating the previous one, and returns it.
