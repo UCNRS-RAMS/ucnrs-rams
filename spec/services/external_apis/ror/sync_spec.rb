@@ -115,11 +115,19 @@ RSpec.describe ExternalApis::Ror::Sync do
         'id' => 'https://ror.org/1234567890',
         'names' => [{ 'value' => 'Example University', 'types' => ['ror_display'] }],
         'links' => [{ 'type' => 'website', 'value' => 'https://example.edu' }],
+        'locations' => [
+          {
+            'geonames_details' => { 'country_name' => 'United States', 'country_code' => 'US', 'name' => 'Columbus' },
+            'geonames_id' => 4_509_177
+          }
+        ],
         'country' => { 'country_name' => 'United States', 'country_code' => 'US' }
       }
 
       expect(sync.send(:process_ror_record, record: record, time: Time.current)).to be(true)
-      expect(Ror.find_by!(ror_id: record['id']).name).to eq('Example University (example.edu)')
+      ror = Ror.find_by!(ror_id: record['id'])
+      expect(ror.name).to eq('Example University (example.edu)')
+      expect(ror.locations).to eq(record['locations'])
     end
   end
 

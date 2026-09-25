@@ -26,7 +26,7 @@ RSpec.describe "development database primer" do
 
     expect(Reserve.where(managing_campus: nil)).to be_empty
   end
-  
+
   it "creates a usable system admin for exercising admin-only pages" do
     load_primer
 

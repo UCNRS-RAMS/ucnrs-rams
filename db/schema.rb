@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_10_233410) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_24_214315) do
   create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "archived_data_location", limit: 200, null: false, comment: "Where is data archived"
     t.string "data_collected", limit: 200, null: false, comment: "What data is collected"
@@ -934,6 +934,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_10_233410) do
     t.string "fundref_id"
     t.string "home_page"
     t.string "language"
+    t.json "locations"
     t.string "name"
     t.string "ror_id"
     t.json "types"
