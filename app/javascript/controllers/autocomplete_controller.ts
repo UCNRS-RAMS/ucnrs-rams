@@ -5,6 +5,7 @@ let resultsId = 0
 export default class extends Autocomplete {
   static targets = ["selectionType"]
 
+  // Keep the selected result's source so the form can distinguish institution IDs from ROR IDs.
   commit(selected: HTMLElement) {
     super.commit(selected)
 
@@ -14,6 +15,7 @@ export default class extends Autocomplete {
     }
   }
 
+  // Clear source metadata whenever the base controller clears the selected ID.
   clear() {
     super.clear()
     if (this.hasSelectionTypeTarget) this.selectionTypeTarget.value = ""
@@ -21,6 +23,7 @@ export default class extends Autocomplete {
 
   connect() {
     super.connect()
+    // Typing invalidates the prior result type; the base controller clears the hidden ID.
     this.inputTarget.addEventListener("input", this.clearSelectionType)
 
     if (!this.resultsTarget.id) {
@@ -36,6 +39,7 @@ export default class extends Autocomplete {
   }
 
   disconnect() {
+    // Remove the listener added here before the controller is detached.
     this.inputTarget.removeEventListener("input", this.clearSelectionType)
     super.disconnect()
   }
@@ -55,6 +59,7 @@ export default class extends Autocomplete {
     this.element.removeAttribute("aria-expanded")
   }
 
+  // Prevent edits to the query from reusing the previous result's source type.
   clearSelectionType = () => {
     if (this.hasSelectionTypeTarget) this.selectionTypeTarget.value = ""
   }
