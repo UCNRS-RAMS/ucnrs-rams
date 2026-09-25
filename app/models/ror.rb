@@ -102,10 +102,9 @@ return found_rors.limit(limit) if query.blank? && limit.present?
 
   def location_values(attribute)
     Array(locations).filter_map do |location|
-      next unless location.is_a?(Hash)
+      next unless location.is_a?(Hash) && location["geonames_details"].is_a?(Hash)
 
-      geonames_details = location["geonames_details"]
-      geonames_details[attribute].presence if geonames_details.is_a?(Hash)
+      location.dig("geonames_details", attribute).presence
     end
   end
 end
