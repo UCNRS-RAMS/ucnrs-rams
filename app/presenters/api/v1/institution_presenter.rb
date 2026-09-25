@@ -20,7 +20,7 @@ module Api
           state: state_stub,
           ror: ror_stub,
           created_at: timestamp(record.created_at),
-          updated_at: timestamp(record.updated_at),
+          updated_at: timestamp(record.updated_at)
         }
       end
 
