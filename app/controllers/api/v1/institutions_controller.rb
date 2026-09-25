@@ -60,14 +60,23 @@ module Api
       # did not filter. Codes are ISO 3166-1 alpha-2, the values in
       # +countries.code+
       #
+      # A lookup miss establishes only that RAMS has no such country on file:
+      # the code may still be a valid ISO code, so the rejection reports the
+      # miss instead of judging the code.
+      #
       # @return [Country, nil]
-      # @raise [InvalidFilter] when the code is present but names no country
+      # @raise [InvalidFilter] when the code is not two letters, or matches no
+      #   country
       def country_filter
         code = params[:country_code].presence
         return nil if code.nil?
 
+        unless code.match?(/\A[a-zA-Z]{2}\z/)
+          raise(InvalidFilter, "country_code must be a two-letter ISO 3166-1 alpha-2 code")
+        end
+
         Country.coded(code) ||
-          raise(InvalidFilter, "country_code #{code.inspect} is not a known ISO 3166-1 alpha-2 country code")
+          raise(InvalidFilter, "country_code #{code.inspect} matches no country in RAMS")
       end
 
       # The state named by the +state_code+ filter within +country+, or nil when
