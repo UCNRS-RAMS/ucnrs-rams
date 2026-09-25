@@ -89,6 +89,7 @@ class ProjectTeamMembershipForm
   end
   alias_method :valid?, :validate
 
+  # Keep institution creation, project-owner updates, and membership save atomic.
   def save
     success = false
 
