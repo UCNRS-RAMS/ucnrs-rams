@@ -7,6 +7,9 @@ class Manager::VisitShowFlow
 
   def visit_show_page
     page.visit("/manager/reserves/#{reserve_id}/visits/#{visit_id}")
+    # Wait for the lazy tab frames, or clicks land mid-reflow on the wrong
+    # control; `visible: false` because unrendered frames have no size.
+    page.has_no_css?("turbo-frame[src]:not([complete])", visible: false)
   end
 
   def showing_summary_box?
