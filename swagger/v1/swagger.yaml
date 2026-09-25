@@ -53,18 +53,23 @@ paths:
           - business_entity
           - individual_or_other_entity
         description: Filter by institution type. An unknown value returns 400.
-      - name: country_id
+      - name: country_code
         in: query
         required: false
         schema:
-          type: integer
-        description: Filter by country.
-      - name: state_id
+          type: string
+          minLength: 2
+          maxLength: 2
+        description: Filter by country, as an ISO 3166-1 alpha-2 code such as "US".
+          An unknown code returns 400.
+      - name: state_code
         in: query
         required: false
         schema:
-          type: integer
-        description: Filter by state.
+          type: string
+        description: Filter by state or province within country_code. State codes
+          are not unique across countries, so state_code without country_code, or
+          one naming no state in that country, returns 400.
       responses:
         '200':
           description: institutions visible to the client
@@ -73,7 +78,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/InstitutionsCollection"
         '400':
-          description: an unknown institution_type filter
+          description: a rejected filter value
           content:
             application/json:
               schema:
@@ -422,6 +427,7 @@ components:
       required:
       - type
       - id
+      - code
       - name
       properties:
         type:
@@ -430,6 +436,11 @@ components:
           - countries
         id:
           type: integer
+        code:
+          type: string
+          nullable: true
+          description: ISO 3166-1 alpha-2 code, and the value +country_code+ filters
+            accept.
         name:
           type: string
     StateStub:
@@ -437,6 +448,7 @@ components:
       required:
       - type
       - id
+      - code
       - name
       properties:
         type:
@@ -445,6 +457,11 @@ components:
           - states
         id:
           type: integer
+        code:
+          type: string
+          nullable: true
+          description: State or province code within its country, and the value +state_code+
+            filters accept.
         name:
           type: string
           nullable: true

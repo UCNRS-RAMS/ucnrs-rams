@@ -36,12 +36,15 @@ RSpec.describe 'Api::V1::Institutions', type: :request do
       parameter name: :institution_type, in: :query, required: false,
         schema: { type: :string, enum: Institution.institution_types.keys },
         description: 'Filter by institution type. An unknown value returns 400.'
-      parameter name: :country_id, in: :query, required: false,
-        schema: { type: :integer },
-        description: 'Filter by country.'
-      parameter name: :state_id, in: :query, required: false,
-        schema: { type: :integer },
-        description: 'Filter by state.'
+      parameter name: :country_code, in: :query, required: false,
+        schema: { type: :string, minLength: 2, maxLength: 2 },
+        description: 'Filter by country, as an ISO 3166-1 alpha-2 code such as "US". ' \
+          'An unknown code returns 400.'
+      parameter name: :state_code, in: :query, required: false,
+        schema: { type: :string },
+        description: 'Filter by state or province within country_code. State codes are not unique ' \
+          'across countries, so state_code without country_code, or one naming no state in that ' \
+          'country, returns 400.'
 
       response '200', 'institutions visible to the client' do
         schema '$ref' => '#/components/schemas/InstitutionsCollection'
@@ -54,7 +57,7 @@ RSpec.describe 'Api::V1::Institutions', type: :request do
         run_test!
       end
 
-      response '400', 'an unknown institution_type filter' do
+      response '400', 'a rejected filter value' do
         schema '$ref' => '#/components/schemas/Error'
 
         let(:institution_type) { 'library' }

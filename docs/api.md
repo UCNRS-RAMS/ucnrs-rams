@@ -127,6 +127,17 @@ which allowlist the fields they expose and embed related records as entity
 stubs (`type`, `id`, and a short label) rather than full objects. The exact
 fields and envelope for each endpoint are in the generated reference.
 
+## Filtering
+
+Collection endpoints accept optional filters, documented per endpoint in the
+generated reference. Geographic filters use standard codes rather than internal
+database ids: `country_code` is an ISO 3166-1 alpha-2 code (`country_code=US`),
+and `state_code` is a state or province code resolved within that country
+(`country_code=US&state_code=CA`). State codes are not unique across countries —
+`MA` is both Massachusetts and Maranhao — so `state_code` requires
+`country_code`. Every response embeds these codes on the `country` and `state`
+stubs, so a value read from one response can be reused as a filter.
+
 ## Errors
 
 Errors are returned as JSON with an `error` key:

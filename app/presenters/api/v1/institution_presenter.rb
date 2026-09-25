@@ -29,7 +29,7 @@ module Api
         country = record.country
         return nil if country.nil?
 
-        entity("countries", country.id, name: country.name)
+        entity("countries", country.id, code: country.code, name: country.name)
       end
 
       # @return [Hash, nil] the state stub, or nil when the institution has no state
@@ -37,7 +37,7 @@ module Api
         state = record.state
         return nil if state.nil?
 
-        entity("states", state.id, name: state.name)
+        entity("states", state.id, code: state.code, name: state.name)
       end
 
       # @return [Hash, nil] the ROR stub, or nil when the institution has no

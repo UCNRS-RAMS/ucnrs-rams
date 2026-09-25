@@ -46,19 +46,75 @@ RSpec.describe Api::V1::InstitutionsController, type: :request do
       expect(ids).not_to include(university.id)
     end
 
-    it "filters by country and state" do
-      country = create(:country)
-      state = create(:state, country: country)
+    it "filters by country code and state code" do
+      country = create(:country, code: "US")
+      state = create(:state, country: country, code: "CA")
       included = create(:institution, country: country, state: state)
       excluded = create(:institution)
 
       get "/api/v1/institutions",
-        params: { country_id: country.id, state_id: state.id },
+        params: { country_code: "US", state_code: "CA" },
         headers: auth_headers
 
       ids = response.parsed_body["data"].map { |row| row["id"] }
       expect(ids).to include(included.id)
       expect(ids).not_to include(excluded.id)
+    end
+
+    it "returns 400 for an unknown country code" do
+      get "/api/v1/institutions",
+        params: { country_code: "ZZ" },
+        headers: auth_headers
+
+      expect(response).to have_http_status(:bad_request)
+      expect(response.parsed_body["error"]).to eq("bad_request")
+    end
+
+    it "returns 400 for a state code without a country code" do
+      create(:state, code: "CA")
+
+      get "/api/v1/institutions",
+        params: { state_code: "CA" },
+        headers: auth_headers
+
+      expect(response).to have_http_status(:bad_request)
+      expect(response.parsed_body["error"]).to eq("bad_request")
+    end
+
+    it "returns 400 for a state code that names no state in the filtered country" do
+      create(:country, code: "US")
+      create(:state, country: create(:country, code: "BR"), code: "MA", name: "Maranhao")
+
+      get "/api/v1/institutions",
+        params: { country_code: "US", state_code: "MA" },
+        headers: auth_headers
+
+      expect(response).to have_http_status(:bad_request)
+    end
+
+    it "resolves a state code within the filtered country" do
+      united_states = create(:country, code: "US")
+      brazil = create(:country, code: "BR")
+      massachusetts = create(:state, country: united_states, code: "MA", name: "Massachusetts")
+      maranhao = create(:state, country: brazil, code: "MA", name: "Maranhao")
+      us_institution = create(:institution, country: united_states, state: massachusetts)
+      br_institution = create(:institution, country: brazil, state: maranhao)
+
+      get "/api/v1/institutions",
+        params: { country_code: "US", state_code: "MA" },
+        headers: auth_headers
+
+      ids = response.parsed_body["data"].map { |row| row["id"] }
+      expect(ids).to include(us_institution.id)
+      expect(ids).not_to include(br_institution.id)
+
+      get "/api/v1/institutions",
+        params: { country_code: "BR", state_code: "MA" },
+        headers: auth_headers
+
+      ids = response.parsed_body["data"].map { |row| row["id"] }
+      expect(ids).to include(br_institution.id)
+      expect(ids).not_to include(us_institution.id)
     end
 
     it "returns 400 for an unknown institution type filter" do
@@ -105,8 +161,8 @@ RSpec.describe Api::V1::InstitutionsController, type: :request do
 
   describe "GET /api/v1/institutions/:id" do
     it "returns the institution with its country, state, and ROR match" do
-      country = create(:country, name: "United States")
-      state = create(:state, name: "California", country: country)
+      country = create(:country, name: "United States", code: "US")
+      state = create(:state, name: "California", code: "CA", country: country)
       ror = create(:ror)
       institution = create(
         :institution,
@@ -123,8 +179,8 @@ RSpec.describe Api::V1::InstitutionsController, type: :request do
       expect(data["id"]).to eq(institution.id)
       expect(data["name"]).to eq("Bodega Marine Laboratory")
       expect(data["institution_type"]).to eq("university_of_california")
-      expect(data["country"]).to include("id" => country.id, "name" => "United States")
-      expect(data["state"]).to include("id" => state.id)
+      expect(data["country"]).to include("id" => country.id, "code" => "US", "name" => "United States")
+      expect(data["state"]).to include("id" => state.id, "code" => "CA")
       expect(data["ror"]).to include("ror_id" => ror.ror_id)
     end
 

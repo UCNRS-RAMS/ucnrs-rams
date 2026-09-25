@@ -162,19 +162,29 @@ RSpec.configure do |config|
           },
           CountryStub: {
             type: :object,
-            required: %w[type id name],
+            required: %w[type id code name],
             properties: {
               type: { type: :string, enum: ['countries'] },
               id: { type: :integer },
+              code: {
+                type: :string,
+                nullable: true,
+                description: 'ISO 3166-1 alpha-2 code, and the value +country_code+ filters accept.'
+              },
               name: { type: :string }
             }
           },
           StateStub: {
             type: :object,
-            required: %w[type id name],
+            required: %w[type id code name],
             properties: {
               type: { type: :string, enum: ['states'] },
               id: { type: :integer },
+              code: {
+                type: :string,
+                nullable: true,
+                description: 'State or province code within its country, and the value +state_code+ filters accept.'
+              },
               name: { type: :string, nullable: true }
             }
           },

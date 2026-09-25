@@ -47,9 +47,46 @@ module Api
           scope = scope.where(institution_type: Institution.institution_types.fetch(institution_type))
         end
 
-        scope = scope.where(country_id: params[:country_id]) if params[:country_id].present?
-        scope = scope.where(state_id: params[:state_id]) if params[:state_id].present?
+        country = country_filter
+        scope = scope.where(country_id: country.id) if country
+
+        state = state_filter(country)
+        scope = scope.where(state_id: state.id) if state
+
         scope
+      end
+
+      # The country named by the +country_code+ filter, or nil when the caller
+      # did not filter. Codes are ISO 3166-1 alpha-2, the values in
+      # +countries.code+
+      #
+      # @return [Country, nil]
+      # @raise [InvalidFilter] when the code is present but names no country
+      def country_filter
+        code = params[:country_code].presence
+        return nil if code.nil?
+
+        Country.coded(code) ||
+          raise(InvalidFilter, "country_code #{code.inspect} is not a known ISO 3166-1 alpha-2 country code")
+      end
+
+      # The state named by the +state_code+ filter within +country+, or nil when
+      # the caller did not filter it. State codes are only unique within a
+      # country — "MA" is both Massachusetts and Maranhao — so the code is
+      # resolved against the filtered country and rejected without one.
+      #
+      # @param country [Country, nil] the country resolved from +country_code+
+      # @return [State, nil]
+      # @raise [InvalidFilter] when +state_code+ is present without
+      #   +country_code+, or names no state in +country+
+      def state_filter(country)
+        code = params[:state_code].presence
+        return nil if code.nil?
+
+        raise(InvalidFilter, "state_code requires country_code") if country.nil?
+
+        country.states.coded(code) ||
+          raise(InvalidFilter, "state_code #{code.inspect} is not a state in #{country.name}")
       end
 
       # @param institution [Institution]
