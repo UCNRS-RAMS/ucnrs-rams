@@ -15,6 +15,48 @@ RSpec.describe Ror, type: :model do
     end
   end
 
+  describe "location accessors" do
+    it "returns values from each location and skips missing or malformed data" do
+      ror = build(
+        :ror,
+        locations: [
+          {
+            "geonames_details" => {
+              "name" => "San Francisco",
+              "country_code" => "US",
+              "continent_code" => "NA",
+              "country_subdivision_code" => "CA",
+            },
+          },
+          {
+            "geonames_details" => {
+              "name" => "London",
+              "country_code" => "GB",
+              "continent_code" => "EU",
+              "country_subdivision_code" => "ENG",
+            },
+          },
+          { "geonames_details" => nil },
+          "invalid location",
+        ]
+      )
+
+      expect(ror.cities).to eq(["San Francisco", "London"])
+      expect(ror.country_codes).to eq(["US", "GB"])
+      expect(ror.continent_codes).to eq(["NA", "EU"])
+      expect(ror.state_codes).to eq(["CA", "ENG"])
+    end
+
+    it "returns empty arrays when locations are missing" do
+      ror = build(:ror, locations: nil)
+
+      expect(ror.cities).to eq([])
+      expect(ror.country_codes).to eq([])
+      expect(ror.continent_codes).to eq([])
+      expect(ror.state_codes).to eq([])
+    end
+  end
+
   describe "scopes" do
     let(:match) { create(:ror) }
     let(:not_match) { create(:ror) }
