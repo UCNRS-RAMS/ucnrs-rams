@@ -75,7 +75,8 @@ RSpec.describe "Manager Visit Show" do
         flow.click_on_trash_icon
         flow.click_on_delete_button
 
-        Visit.find_by(id: visit.id).nil?
+        expect(flow.success_message?).to eq true
+        expect(Visit.find_by(id: visit.id)).to be_nil
       end
     end
   end
