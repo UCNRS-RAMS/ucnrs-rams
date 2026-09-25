@@ -32,7 +32,7 @@ module Api
         reserve_projects = projects
 
         Institution
-          .where(id: ProjectTeamMembership.where(project: reserve_projects).select(:institution_id))
+          .where(id: ProjectTeamMembership.is_active.where(project: reserve_projects).select(:institution_id))
           .or(Institution.where(id: participant_institution_ids(reserve_projects, :user_id)))
           .or(Institution.where(id: participant_institution_ids(reserve_projects, :applicant_id)))
           .or(Institution.where(id: reserve.managing_campus_id))
