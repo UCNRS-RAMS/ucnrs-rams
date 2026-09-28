@@ -31,15 +31,6 @@ class Institution < ApplicationRecord
     governmental_organization_or_entity: "Governmental Agency or Entity",
     business_entity: "Business Entity",
     individual_or_other_entity: "Individual or Other Entity",
-    healthcare: "Healthcare",
-    education: "Education",
-    company: "Company",
-    archive: "Archive",
-    nonprofit: "Nonprofit",
-    government: "Government",
-    facility: "Facility",
-    funder: "Funder",
-    other: "Other",
   }
 
   scope :matching_name_and_city, ->(name, city) {
