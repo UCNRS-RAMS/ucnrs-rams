@@ -25,19 +25,19 @@ RSpec.describe Ror, type: :model do
               "name" => "San Francisco",
               "country_code" => "US",
               "continent_code" => "NA",
-              "country_subdivision_code" => "CA",
-            },
+              "country_subdivision_code" => "CA"
+            }
           },
           {
             "geonames_details" => {
               "name" => "London",
               "country_code" => "GB",
               "continent_code" => "EU",
-              "country_subdivision_code" => "ENG",
-            },
+              "country_subdivision_code" => "ENG"
+            }
           },
           { "geonames_details" => nil },
-          "invalid location",
+          "invalid location"
         ]
       )
 
