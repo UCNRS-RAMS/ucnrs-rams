@@ -7,16 +7,16 @@ RSpec.describe AggregatedSearch, type: :model do
     it "combines matching institutions and ROR records and sorts them alphabetically by name" do
       alpha_institution = create(:institution, name: "Zebra Research Institute", city: "San Diego", acronym: "ZRI")
       beta_institution = create(:institution, name: "Alpha Research University", city: "Riverside", acronym: "ARU")
-      alpha_ror = create(:ror, name: "Alpha Research Center", acronyms: ["ARC"], ror_id: "https://ror.org/0001abcd")
-      beta_ror = create(:ror, name: "Beta Research Network", acronyms: ["BRN"], ror_id: "https://ror.org/0002abcd")
+      alpha_ror = create(:ror, name: "Alpha Research Center", acronyms: [ "ARC" ], ror_id: "https://ror.org/0001abcd")
+      beta_ror = create(:ror, name: "Beta Research Network", acronyms: [ "BRN" ], ror_id: "https://ror.org/0002abcd")
 
       results = described_class.institution_search("research", limit: 2)
 
-      expect(results.map { |result| [result[:type], result[:name]] }).to eq([
-        [:ror, alpha_ror.name],
-        [:institution, beta_institution.name],
-        [:ror, beta_ror.name],
-        [:institution, alpha_institution.name],
+      expect(results.map { |result| [ result[:type], result[:name] ] }).to eq([
+        [ :ror, alpha_ror.name ],
+        [ :institution, beta_institution.name ],
+        [ :ror, beta_ror.name ],
+        [ :institution, alpha_institution.name ]
       ])
       expect(results.map { |result| result[:source] }).to all(be_a(ActiveRecord::Base))
     end
@@ -71,9 +71,9 @@ RSpec.describe AggregatedSearch, type: :model do
       create(:institution, name: "Zebra Research Institute", city: "San Diego", acronym: "ZRI")
       create(:institution, name: "Alpha Research University", city: "Riverside", acronym: "ARU")
       create(:institution, name: "Gamma Research College", city: "Los Angeles", acronym: "GRC")
-      create(:ror, name: "Beta Research Network", acronyms: ["BRN"], ror_id: "https://ror.org/0004abcd")
-      create(:ror, name: "Alpha Research Center", acronyms: ["ARC"], ror_id: "https://ror.org/0005abcd")
-      create(:ror, name: "Delta Research Forum", acronyms: ["DRF"], ror_id: "https://ror.org/0006abcd")
+      create(:ror, name: "Beta Research Network", acronyms: [ "BRN" ], ror_id: "https://ror.org/0004abcd")
+      create(:ror, name: "Alpha Research Center", acronyms: [ "ARC" ], ror_id: "https://ror.org/0005abcd")
+      create(:ror, name: "Delta Research Forum", acronyms: [ "DRF" ], ror_id: "https://ror.org/0006abcd")
 
       results = described_class.new(query: "research", limit: 2).results
 
@@ -82,7 +82,7 @@ RSpec.describe AggregatedSearch, type: :model do
         "Alpha Research Center",
         "Alpha Research University",
         "Beta Research Network",
-        "Gamma Research College",
+        "Gamma Research College"
       ])
       expect(results.count { |result| result[:type] == :institution }).to eq(2)
       expect(results.count { |result| result[:type] == :ror }).to eq(2)
@@ -92,20 +92,20 @@ RSpec.describe AggregatedSearch, type: :model do
       shared_ror = "https://ror.org/0007abcd"
       matching_institution_1 = create(:institution, name: "Alpha University", city: "Berkeley", acronym: "AU", ror_id: shared_ror)
       matching_institution_2 = create(:institution, name: "Alpha University Satellite", city: "Oakland", acronym: "AUS", ror_id: shared_ror)
-      create(:ror, name: "Alpha University", acronyms: ["AU"], ror_id: shared_ror)
-      other_ror = create(:ror, name: "Alpha Research Alliance", acronyms: ["ARA"], ror_id: "https://ror.org/0008abcd")
+      create(:ror, name: "Alpha University", acronyms: [ "AU" ], ror_id: shared_ror)
+      other_ror = create(:ror, name: "Alpha Research Alliance", acronyms: [ "ARA" ], ror_id: "https://ror.org/0008abcd")
 
       results = described_class.new(query: "alpha", limit: 10).results
 
-      expect(results.map { |result| [result[:type], result[:name]] }).to include(
-        [:institution, matching_institution_1.name],
-        [:institution, matching_institution_2.name],
+      expect(results.map { |result| [ result[:type], result[:name] ] }).to include(
+        [ :institution, matching_institution_1.name ],
+        [ :institution, matching_institution_2.name ],
       )
-      expect(results.map { |result| [result[:type], result[:name]] }).not_to include(
-        [:ror, "Alpha University"],
+      expect(results.map { |result| [ result[:type], result[:name] ] }).not_to include(
+        [ :ror, "Alpha University" ],
       )
-      expect(results.map { |result| [result[:type], result[:name]] }).to include(
-        [:ror, other_ror.name],
+      expect(results.map { |result| [ result[:type], result[:name] ] }).to include(
+        [ :ror, other_ror.name ],
       )
     end
 
@@ -115,11 +115,11 @@ RSpec.describe AggregatedSearch, type: :model do
 
       results = described_class.new(query: "UCLA", limit: 20).results
 
-      expect(results.map { |result| [result[:type], result[:name]] }).to include(
-        [:institution, "University of California, Los Angeles"],
+      expect(results.map { |result| [ result[:type], result[:name] ] }).to include(
+        [ :institution, "University of California, Los Angeles" ],
       )
-      expect(results.map { |result| [result[:type], result[:name]] }).not_to include(
-        [:ror, "University of California, Los Angeles (ucla.edu)"],
+      expect(results.map { |result| [ result[:type], result[:name] ] }).not_to include(
+        [ :ror, "University of California, Los Angeles (ucla.edu)" ],
       )
     end
 
@@ -151,14 +151,13 @@ RSpec.describe AggregatedSearch, type: :model do
 
       # the deduplicated results, sorted by name
       expect(names).to eq(
-        ["Alabama Audubon (alaudubon.org)", "Audubon California", "Audubon Society (National & Local)",
+        [ "Alabama Audubon (alaudubon.org)", "Audubon California", "Audubon Society (National & Local)",
          "Eastern Sierra Audubon Society", "Mendocino Coast Audubon Society", "Montana Audubon",
-         "Santa Barbara Audubon"]
+         "Santa Barbara Audubon" ]
       )
 
       # This is the ROR record overridden by the Audubon Society (National & Local) institution record in institutions.
       expect(names).not_to include('National Audubon Society (audubon.org)')
     end
-
   end
 end

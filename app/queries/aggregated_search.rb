@@ -26,7 +26,7 @@ class AggregatedSearch
 
   def results
     # get ror_ids from both institutions and rors and get set of overlapping ids between the two
-    inst_ror_ids = institutions.where.not(ror_id: [nil, ""]).pluck(:ror_id).to_set
+    inst_ror_ids = institutions.where.not(ror_id: [ nil, "" ]).pluck(:ror_id).to_set
     ror_ids = rors.pluck(:ror_id).to_set
     dup_rors_ids = ror_ids & inst_ror_ids  # intersection of ror_ids and inst_ror_ids
 
@@ -47,7 +47,7 @@ class AggregatedSearch
       city: institution.city,
       acronym: institution.acronym,
       type: :institution,
-      source: institution,
+      source: institution
     }
   end
 
@@ -58,7 +58,7 @@ class AggregatedSearch
       city: ror.cities.first,
       acronym: ror.acronyms.first,
       type: :ror,
-      source: ror,
+      source: ror
     }
   end
 end
