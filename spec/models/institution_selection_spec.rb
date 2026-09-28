@@ -141,6 +141,61 @@ RSpec.describe InstitutionSelection do
       end
     end
 
+    it "strips a trailing parenthetical domain from the ROR name" do
+      country = create(:country, code: "US")
+      ror = create(
+        :ror,
+        name: "Example Institute (example.edu)",
+        country: { "country_code" => country.code },
+        locations: [ { "geonames_details" => { "name" => "City" } } ],
+      )
+
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+
+      expect(institution.name).to eq("Example Institute")
+    end
+
+    it "does not strip parenthetical text that is not a trailing domain" do
+      country = create(:country, code: "US")
+      ror = create(
+        :ror,
+        name: "Example (formerly Old Name) Institute",
+        country: { "country_code" => country.code },
+        locations: [ { "geonames_details" => { "name" => "City" } } ],
+      )
+
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+
+      expect(institution.name).to eq("Example (formerly Old Name) Institute")
+    end
+
+    it "sets the state when the ROR location matches a known state code" do
+      country = create(:country, code: "US")
+      state = create(:state, country: country, code: "CA", name: "California")
+      ror = create(
+        :ror,
+        country: { "country_code" => country.code },
+        locations: [ { "geonames_details" => { "name" => "San Diego", "country_code" => "US", "country_subdivision_code" => "CA" } } ],
+      )
+
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+
+      expect(institution.state).to eq(state)
+    end
+
+    it "leaves the state blank when no matching state is found" do
+      country = create(:country, code: "US")
+      ror = create(
+        :ror,
+        country: { "country_code" => country.code },
+        locations: [ { "geonames_details" => { "name" => "City", "country_code" => "US", "country_subdivision_code" => "ZZ" } } ],
+      )
+
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+
+      expect(institution.state).to be_nil
+    end
+
     it "reuses an institution already linked to the ROR" do
       ror = create(:ror)
       institution = create(:institution, ror_id: ror.ror_id)
