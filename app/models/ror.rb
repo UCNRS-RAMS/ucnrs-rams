@@ -30,6 +30,25 @@ class Ror < ApplicationRecord
     location_values("country_subdivision_code")
   end
 
+  # Subdivision code (e.g. "CA") for the first location matching the given
+  # country code, if any.
+
+  # disambiguates between multiple locations in different countries.  Example:
+  # MS: Mato Grosso do Sul (Brazil) possibly overlaps with Mississippi
+  def state_code_for(country_code)
+    Array(locations).each do |location|
+      next unless location.is_a?(Hash) && location["geonames_details"].is_a?(Hash)
+
+      details = location["geonames_details"]
+      next unless details["country_code"] == country_code
+
+      code = details["country_subdivision_code"].presence
+      return code if code
+    end
+
+    nil
+  end
+
   # ==========
   # = Scopes =
   # ==========
