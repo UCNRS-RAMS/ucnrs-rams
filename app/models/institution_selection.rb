@@ -59,13 +59,25 @@ class InstitutionSelection
     end
 
     Institution.new(
-      name: ror.name,
+      name: name_for(ror),
       acronym: ror.acronyms.to_a.first,
       city: ror.cities.first,
       country: country,
+      state: state_for(ror, country: country),
       institution_type: institution_type_for(ror, country: country),
       ror_id: ror.ror_id,
     )
+  end
+
+  def name_for(ror)
+    ror.name.to_s.sub(/\s*\([^()]*\)\z/, "")
+  end
+
+  def state_for(ror, country:)
+    code = ror.state_code_for(country.code)
+    return nil if code.blank?
+
+    State.in_country(country).find_by(code: code)
   end
 
   def institution_type_for(ror, country:)
