@@ -63,9 +63,33 @@ class InstitutionSelection
       acronym: ror.acronyms.to_a.first,
       city: ror.cities.first,
       country: country,
-      institution_type: "individual_or_other_entity",
+      institution_type: institution_type_for(ror, country: country),
       ror_id: ror.ror_id,
     )
+  end
+
+  def institution_type_for(ror, country:)
+    types = Array(ror.types).map { |ror_type| ror_type.to_s.strip.downcase.delete_suffix("/") }
+
+    if types.include?("education")
+      return "k_12_education" if k12_education?(ror)
+      return "other_california_university_or_college" if ror.state_codes.include?("CA")
+      return "non_california_us_university_or_college" if country.code == "US"
+
+      return "international_university_or_college"
+    end
+
+    return "business_entity" if types.include?("company")
+    return "governmental_organization_or_entity" if types.include?("government")
+    return "non_governmental_organization_or_entity" if types.include?("nonprofit")
+
+    "individual_or_other_entity"
+  end
+
+  def k12_education?(ror)
+    domain = ror.home_page.to_s.sub(%r{\Ahttps?://}i, "").split(/[\/?#]/, 2).first
+
+    domain.to_s.match?(/\.k12\./i) || ror.name.to_s.match?(/unified|school district|\busd\b/i)
   end
 
   def country_for(ror)
