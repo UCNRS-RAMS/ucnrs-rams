@@ -8,18 +8,6 @@ class InstitutionSelection
   include ActiveModel::Model
 
   TYPES = %w[institution ror].freeze
-  ROR_INSTITUTION_TYPES = Institution.institution_types.slice(
-    "healthcare",
-    "education",
-    "company",
-    "archive",
-    "nonprofit",
-    "government",
-    "facility",
-    "funder",
-    "other",
-  ).keys.freeze
-
   attr_reader :id, :type
 
   def initialize(id:, type:)
@@ -73,8 +61,9 @@ class InstitutionSelection
     Institution.new(
       name: ror.name,
       acronym: ror.acronyms.to_a.first,
+      city: ror.cities.first,
       country: country,
-      institution_type: institution_type_for(ror),
+      institution_type: "individual_or_other_entity",
       ror_id: ror.ror_id,
     )
   end
@@ -82,10 +71,5 @@ class InstitutionSelection
   def country_for(ror)
     data = ror.country || {}
     Country.coded(data["country_code"]) || Country.find_by(name: data["country_name"])
-  end
-
-  def institution_type_for(ror)
-    type = ror.types.to_a.first.to_s.downcase
-    ROR_INSTITUTION_TYPES.include?(type) ? type : "other"
   end
 end
