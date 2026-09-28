@@ -14,9 +14,10 @@ RSpec.describe InstitutionSelection do
       country = create(:country, code: "US", name: "United States")
       ror = create(
         :ror,
-        acronyms: ["ROR"],
+        acronyms: [ "ROR" ],
         country: { "country_code" => country.code, "country_name" => country.name },
-        types: ["healthcare", "funder"],
+        locations: [ { "geonames_details" => { "name" => "San Francisco" } } ],
+        types: [ "healthcare", "funder" ],
       )
 
       institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
@@ -25,20 +26,25 @@ RSpec.describe InstitutionSelection do
       expect(institution).to have_attributes(
         name: ror.name,
         acronym: "ROR",
+        city: "San Francisco",
         country: country,
-        institution_type: "healthcare",
+        institution_type: "individual_or_other_entity",
         ror_id: ror.ror_id,
-        city: nil,
       )
     end
 
-    it "uses the first ROR type and otherwise falls back to other" do
+    it "uses the legacy individual or other type for ROR records" do
       country = create(:country, code: "US")
-      ror = create(:ror, country: { "country_code" => country.code }, types: ["unknown", "funder"])
+      ror = create(
+        :ror,
+        country: { "country_code" => country.code },
+        locations: [ { "geonames_details" => { "name" => "San Francisco" } } ],
+        types: [ "unknown", "funder" ],
+      )
 
       institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
 
-      expect(institution.institution_type).to eq("other")
+      expect(institution.institution_type).to eq("individual_or_other_entity")
     end
 
     it "reuses an institution already linked to the ROR" do
