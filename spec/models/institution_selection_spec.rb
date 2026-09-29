@@ -3,11 +3,11 @@
 require "rails_helper"
 
 RSpec.describe InstitutionSelection do
-  describe "#resolve!" do
+  describe "#resolve_and_save" do
     it "returns an existing institution selection" do
       institution = create(:institution)
 
-      expect(described_class.new(id: institution.id, type: "institution").resolve!).to eq(institution)
+      expect(described_class.new(id: institution.id, type: "institution").resolve_and_save).to eq(institution)
     end
 
     it "creates an institution linked to the selected ROR" do
@@ -20,7 +20,7 @@ RSpec.describe InstitutionSelection do
         types: [ "healthcare", "funder" ],
       )
 
-      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve_and_save
 
       expect(institution).to be_persisted
       expect(institution).to have_attributes(
@@ -42,7 +42,7 @@ RSpec.describe InstitutionSelection do
         types: [ "unknown", "funder" ],
       )
 
-      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve_and_save
 
       expect(institution.institution_type).to eq("individual_or_other_entity")
     end
@@ -58,7 +58,7 @@ RSpec.describe InstitutionSelection do
         types: [ "Education" ],
       )
 
-      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve_and_save
 
       expect(institution.institution_type).to eq("k_12_education")
     end
@@ -73,7 +73,7 @@ RSpec.describe InstitutionSelection do
         types: [ "education/" ],
       )
 
-      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve_and_save
 
       expect(institution.institution_type).to eq("k_12_education")
     end
@@ -87,7 +87,7 @@ RSpec.describe InstitutionSelection do
         types: [ "education" ],
       )
 
-      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve_and_save
 
       expect(institution.institution_type).to eq("other_california_university_or_college")
     end
@@ -101,7 +101,7 @@ RSpec.describe InstitutionSelection do
         types: [ "education" ],
       )
 
-      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve_and_save
 
       expect(institution.institution_type).to eq("international_university_or_college")
     end
@@ -115,7 +115,7 @@ RSpec.describe InstitutionSelection do
         types: [ "education" ],
       )
 
-      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve_and_save
 
       expect(institution.institution_type).to eq("non_california_us_university_or_college")
     end
@@ -129,7 +129,7 @@ RSpec.describe InstitutionSelection do
         types: [ "education" ],
       )
 
-      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve_and_save
 
       expect(institution.institution_type).to eq("international_university_or_college")
     end
@@ -149,7 +149,7 @@ RSpec.describe InstitutionSelection do
           locations: [ { "geonames_details" => { "name" => "City" } } ],
           types: [ ror_type ],
         )
-        institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+        institution = described_class.new(id: ror.ror_id, type: "ror").resolve_and_save
 
         expect(institution.institution_type).to eq(institution_type)
       end
@@ -164,7 +164,7 @@ RSpec.describe InstitutionSelection do
         locations: [ { "geonames_details" => { "name" => "City" } } ],
       )
 
-      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve_and_save
 
       expect(institution.name).to eq("Example Institute")
     end
@@ -178,7 +178,7 @@ RSpec.describe InstitutionSelection do
         locations: [ { "geonames_details" => { "name" => "City" } } ],
       )
 
-      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve_and_save
 
       expect(institution).to be_persisted
       expect(institution.name.length).to be > 80
@@ -193,7 +193,7 @@ RSpec.describe InstitutionSelection do
         locations: [ { "geonames_details" => { "name" => "City" } } ],
       )
 
-      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve_and_save
 
       expect(institution.name).to eq("Example (formerly Old Name) Institute")
     end
@@ -207,7 +207,7 @@ RSpec.describe InstitutionSelection do
         locations: [ { "geonames_details" => { "name" => "San Diego", "country_code" => "US", "country_subdivision_code" => "CA" } } ],
       )
 
-      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve_and_save
 
       expect(institution.state).to eq(state)
     end
@@ -233,7 +233,7 @@ RSpec.describe InstitutionSelection do
         ]
       )
 
-      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve_and_save
 
       expect(institution.state).to eq(state)
     end
@@ -246,7 +246,7 @@ RSpec.describe InstitutionSelection do
         locations: [ { "geonames_details" => { "name" => "City", "country_code" => "US", "country_subdivision_code" => "ZZ" } } ],
       )
 
-      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve_and_save
 
       expect(institution.state).to be_nil
     end
@@ -255,15 +255,15 @@ RSpec.describe InstitutionSelection do
       ror = create(:ror)
       institution = create(:institution, ror_id: ror.ror_id)
 
-      expect(described_class.new(id: ror.ror_id, type: "ror").resolve!).to eq(institution)
+      expect(described_class.new(id: ror.ror_id, type: "ror").resolve_and_save).to eq(institution)
     end
 
     it "returns the same institution when resolving a ROR more than once" do
       country = create(:country, code: "US")
       ror = create(:ror, country: { "country_code" => country.code })
 
-      first_institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
-      second_institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+      first_institution = described_class.new(id: ror.ror_id, type: "ror").resolve_and_save
+      second_institution = described_class.new(id: ror.ror_id, type: "ror").resolve_and_save
 
       expect(second_institution).to eq(first_institution)
       expect(Institution.where(ror_id: ror.ror_id)).to contain_exactly(first_institution)
@@ -273,7 +273,7 @@ RSpec.describe InstitutionSelection do
       ror = create(:ror, country: { "country_code" => "ZZ", "country_name" => "Unknown" })
       selection = described_class.new(id: ror.ror_id, type: "ror")
 
-      expect(selection.resolve!).to be_nil
+      expect(selection.resolve_and_save).to be_nil
       expect(selection.errors[:country]).to include("is not recognized")
     end
 
@@ -281,7 +281,7 @@ RSpec.describe InstitutionSelection do
       create(:country, code: "US")
       ror = create(:ror, locations: [])
 
-      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve_and_save
 
       expect(institution).to be_persisted
       expect(institution.city).to eq("unknown")
