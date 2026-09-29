@@ -7,7 +7,6 @@
 class InstitutionSelection
   include ActiveModel::Model
 
-  TYPES = %w[institution ror].freeze
   attr_reader :id, :type
 
   def initialize(id:, type:)
