@@ -210,5 +210,15 @@ RSpec.describe InstitutionSelection do
       expect(selection.resolve!).to be_nil
       expect(selection.errors[:country]).to include("is not recognized")
     end
+
+    it "uses an unknown city when the ROR record has no city" do
+      create(:country, code: "US")
+      ror = create(:ror, locations: [])
+
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+
+      expect(institution).to be_persisted
+      expect(institution.city).to eq("unknown")
+    end
   end
 end
