@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :institutions, only: [:index, :show]
       resources :projects, only: [:index, :show]
+      resources :reserves, only: [:index, :show]
     end
   end
 

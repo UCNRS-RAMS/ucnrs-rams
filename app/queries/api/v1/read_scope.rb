@@ -21,6 +21,13 @@ module Api
         Project.where(reserve: reserve)
       end
 
+      # @return [ActiveRecord::Relation<Reserve>]
+      def reserves
+        return Reserve.all if platform_wide?
+
+        Reserve.where(id: reserve)
+      end
+
       # Institutions affiliated with the client's reserve: its managing campus,
       # and the institutions of the people on the reserve's projects (owner,
       # applicant, and team members).

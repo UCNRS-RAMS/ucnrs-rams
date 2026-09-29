@@ -25,6 +25,23 @@ RSpec.describe Api::V1::ReadScope do
     end
   end
 
+  describe "#reserves" do
+    let(:other_reserve) { create(:reserve) }
+
+    it "returns every reserve to a platform-wide client" do
+      expect(scope.reserves).to include(other_reserve)
+    end
+
+    context "when the client is scoped to a reserve" do
+      let(:reserve) { create(:reserve) }
+      let(:api_client) { create(:api_client, reserve: reserve) }
+
+      it "returns only the client's reserve" do
+        expect(scope.reserves).to contain_exactly(reserve)
+      end
+    end
+  end
+
   describe "#institutions" do
     let(:unaffiliated_institution) { create(:institution) }
 
