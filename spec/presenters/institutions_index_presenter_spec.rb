@@ -2,6 +2,15 @@ require "rails_helper"
 
 RSpec.describe InstitutionsIndexPresenter do
   describe "#results" do
+    it "searches once when results are requested repeatedly" do
+      results = [ { name: "Example" } ]
+      expect(AggregatedSearch).to receive(:institution_search).once.and_return(results)
+      presenter = described_class.new(query: "Example")
+
+      expect(presenter.results).to eq(results)
+      expect(presenter.results).to eq(results)
+    end
+
     it "presents matching institutions in order" do
       first_institution = create(:institution, name: "One, Two, Three")
       second_institution = create(:institution, name: "School of Rock")
