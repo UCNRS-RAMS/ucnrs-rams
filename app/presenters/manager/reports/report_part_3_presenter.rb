@@ -19,19 +19,8 @@ class Manager::Reports::ReportPart3Presenter < Manager::Reports::ReportBasePrese
     Project
       .select("projects.*, institutions.institution_type, institutions.name AS institution_name")
       .of_type("class")
-      .joins(:visits, owner: :institution)
-      .merge(
-        Visit
-          .by_reserve(reserve_id)
-          .with_report_access(true)
-          .joins(:user_visits)
-          .merge(
-              UserVisit
-                .having_between_time(date_start: start_date, date_end: stop_date)
-                .where(status: :approved),
-            )
-      )
-      .group(:id)
+      .joins(owner: :institution)
+      .where(id: reportable_user_visits.select(Visit.arel_table[:project_id]))
       .order(
         Institution.arel_table[:institution_type],
         Institution.arel_table[:name],
@@ -49,13 +38,19 @@ class Manager::Reports::ReportPart3Presenter < Manager::Reports::ReportBasePrese
   end
 
   def project_user_details(project)
-    UserVisit
-      .joins(:visit)
-      .merge(
-        Visit.where(project: project),
-      )
-      .having_between_time(date_start: start_date, date_end: stop_date)
+    reportable_user_visits
+      .where(visits: { project_id: project.id })
       .group(:role)
       .sum(:count)
+  end
+
+  private
+
+  def reportable_user_visits
+    UserVisit
+      .joins(:visit)
+      .merge(Visit.by_reserve(reserve_id).with_report_access(true))
+      .having_between_time(date_start: start_date, date_end: stop_date)
+      .where(status: :approved)
   end
 end

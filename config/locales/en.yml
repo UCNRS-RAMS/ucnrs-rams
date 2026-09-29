@@ -2238,8 +2238,9 @@ en:
         part_3_use_by_instructional_groups: Part 3. Use by Instructional Groups
       report_part_3_content:
         course_number: Course Number
+        project_date: "Project date:"
         instructor: Instructor
-        date: Date
+        user_count_for_this_reserve: "User count for this reserve--"
       report_part_3_table:
         institution_type: Institution Type
         institution_name: Institution Name
