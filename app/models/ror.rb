@@ -49,6 +49,26 @@ class Ror < ApplicationRecord
     nil
   end
 
+  # Subdivision name (e.g. "California") for the first location matching the
+  # given country code, if any. Our `states` table uses inconsistent coding
+  # schemes across countries (e.g. UK counties instead of ISO 3166-2 country
+  # subdivisions), so matching state records by code alone misses many
+  # otherwise-resolvable matches. Callers should try `state_code_for` first
+  # and fall back to matching by this name.
+  def state_name_for(country_code)
+    Array(locations).each do |location|
+      next unless location.is_a?(Hash) && location["geonames_details"].is_a?(Hash)
+
+      details = location["geonames_details"]
+      next unless details["country_code"] == country_code
+
+      name = details["country_subdivision_name"].presence
+      return name if name
+    end
+
+    nil
+  end
+
   # ==========
   # = Scopes =
   # ==========
