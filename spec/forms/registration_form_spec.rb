@@ -98,6 +98,28 @@ RSpec.describe RegistrationForm do
       expect(form.user).to have_attributes(institution_id: institution.id)
     end
 
+    it "preserves a selected ROR institution after other validation errors" do
+      country = create(:country, code: "US")
+      ror = create(
+        :ror,
+        country: { "country_code" => country.code },
+        locations: [ { "geonames_details" => { "name" => "Berkeley" } } ],
+      )
+      form = RegistrationForm.new(params: {
+        institution: ror.name,
+        institution_id: ror.ror_id,
+        institution_selection_type: "ror",
+      })
+
+      expect(form.submit).to be_falsey
+      expect(form).to have_attributes(
+        institution_id: ror.ror_id,
+        institution_selection_type: "ror",
+      )
+      expect(form.user.institution).to be_present
+      expect(form.user.institution).not_to be_persisted
+    end
+
     it "marks manually entered ORCID values as unauthenticated when no auth flag is submitted" do
       user = build(:user, orcid_authenticated: true)
 
