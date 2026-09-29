@@ -76,11 +76,24 @@ class InstitutionSelection
     ror.name.to_s.sub(/\s*\([^()]*\)\z/, "")
   end
 
+  # Our `states` table uses inconsistent coding schemes across countries
+  # (e.g. UK ceremonial counties and French departments instead of ISO
+  # 3166-2 country subdivisions), so a ROR-provided subdivision code often
+  # will not match a state record even when the country and subdivision are
+  # otherwise unambiguous. Fall back to matching by subdivision name so
+  # countries whose `states.name` values do line up (e.g. Australia, Brazil,
+  # the Netherlands, Mexico) still resolve correctly.
   def state_for(ror, country:)
-    code = ror.state_code_for(country.code)
-    return nil if code.blank?
+    states_in_country = State.in_country(country)
 
-    State.in_country(country).find_by(code: code)
+    code = ror.state_code_for(country.code)
+    state = states_in_country.find_by(code: code) if code.present?
+    return state if state
+
+    name = ror.state_name_for(country.code)
+    return nil if name.blank?
+
+    states_in_country.where("LOWER(name) = ?", name.downcase).first
   end
 
   def institution_type_for(ror, country:)

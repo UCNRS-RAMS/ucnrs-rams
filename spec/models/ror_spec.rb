@@ -59,6 +59,40 @@ RSpec.describe Ror, type: :model do
     end
   end
 
+  describe "#state_code_for and #state_name_for" do
+    let(:ror) do
+      build(
+        :ror,
+        locations: [
+          {
+            "geonames_details" => {
+              "country_code" => "US",
+              "country_subdivision_code" => "CA",
+              "country_subdivision_name" => "California"
+            }
+          },
+          {
+            "geonames_details" => {
+              "country_code" => "GB",
+              "country_subdivision_code" => "ENG",
+              "country_subdivision_name" => "England"
+            }
+          }
+        ]
+      )
+    end
+
+    it "returns the code and name for the matching country" do
+      expect(ror.state_code_for("GB")).to eq("ENG")
+      expect(ror.state_name_for("GB")).to eq("England")
+    end
+
+    it "returns nil when no location matches the given country" do
+      expect(ror.state_code_for("FR")).to be_nil
+      expect(ror.state_name_for("FR")).to be_nil
+    end
+  end
+
   describe "scopes" do
     let(:match) { create(:ror) }
     let(:not_match) { create(:ror) }
