@@ -160,6 +160,7 @@ if that becomes a problem.
 ```bash
 docker compose exec web bundle exec rspec \
   spec/models/api_client_spec.rb \
+  spec/presenters/api/v1/reserve_presenter_spec.rb \
   spec/queries/api/v1/read_scope_spec.rb \
   spec/requests/api/v1/institutions_spec.rb \
   spec/requests/api/v1/projects_spec.rb \

@@ -1,24 +1,24 @@
 require "rails_helper"
 
-# Behavior specs for the v1 reserves endpoints: authentication, reserve scoping,
-# ordering, and the field allowlist.
+# HTTP behaviour for the v1 reserves endpoints: authentication, reserve scoping,
+# the collection envelope, and ordering.
 #
-# The published OpenAPI contract (paths, parameters, documented status codes,
-# and schema validation of responses) is declared separately in
-# spec/api/v1/reserves_spec.rb. Keep the two from overlapping: behavior and edge
-# cases here, one representative example per documented response there.
+# What a reserve serializes to — the field allowlist, the embedded entity stubs,
+# and the DOI sentinel — is Api::V1::ReservePresenter's contract, covered in
+# spec/presenters/api/v1/reserve_presenter_spec.rb. The published OpenAPI
+# contract is declared in spec/api/v1/reserves_spec.rb. Don't duplicate either
+# here.
 RSpec.describe Api::V1::ReservesController, type: :request do
   include_context "api authentication"
 
   describe "GET /api/v1/reserves" do
     it "returns the reserves visible to the client" do
-      reserve = create(:reserve, name: "Bodega Marine Reserve")
+      reserve = create(:reserve)
 
       get "/api/v1/reserves", headers: auth_headers
 
-      body = response.parsed_body
       expect(response).to have_http_status(:ok)
-      expect(body["data"].map { |row| row["id"] }).to include(reserve.id)
+      expect(response.parsed_body["data"].map { |row| row["id"] }).to include(reserve.id)
     end
 
     it "reports the pagination meta for the collection" do
@@ -68,18 +68,8 @@ RSpec.describe Api::V1::ReservesController, type: :request do
   end
 
   describe "GET /api/v1/reserves/:id" do
-    it "returns the reserve's own attributes" do
-      reserve = create(
-        :reserve,
-        name: "Bodega Marine Reserve",
-        short_name: "BMR",
-        description: "A coastal reserve.",
-        doi: "10.21973/N3NP4Q",
-        year_reserve_established: 1965,
-        home_page_url: "https://bml.ucdavis.edu",
-        latitude: 38.318,
-        longitude: -123.071
-      )
+    it "returns the requested reserve" do
+      reserve = create(:reserve)
 
       get "/api/v1/reserves/#{reserve.id}", headers: auth_headers
 
@@ -87,71 +77,8 @@ RSpec.describe Api::V1::ReservesController, type: :request do
       expect(response.parsed_body["data"]).to include(
         "id" => reserve.id,
         "type" => "reserves",
-        "name" => "Bodega Marine Reserve",
-        "short_name" => "BMR",
-        "description" => "A coastal reserve.",
-        "doi" => "10.21973/N3NP4Q",
-        "year_reserve_established" => 1965,
-        "home_page_url" => "https://bml.ucdavis.edu",
-        "latitude" => 38.318,
-        "longitude" => -123.071
+        "name" => reserve.name
       )
-    end
-
-    it "returns the address, with country and state as code-carrying stubs" do
-      country = create(:country, name: "United States", code: "US")
-      state = create(:state, name: "California", code: "CA", country: country)
-      reserve = create(
-        :reserve,
-        address_line_1: "2099 Westshore Road",
-        address_line_2: "PO Box 247",
-        address_city: "Bodega Bay",
-        address_postal_code: "94923",
-        address_country: country,
-        address_state: state
-      )
-
-      get "/api/v1/reserves/#{reserve.id}", headers: auth_headers
-
-      data = response.parsed_body["data"]
-      expect(data).to include(
-        "address_line_1" => "2099 Westshore Road",
-        "address_line_2" => "PO Box 247",
-        "address_city" => "Bodega Bay",
-        "address_postal_code" => "94923"
-      )
-      expect(data["country"]).to eq(
-        "type" => "countries", "id" => country.id, "code" => "US", "name" => "United States"
-      )
-      expect(data["state"]).to eq(
-        "type" => "states", "id" => state.id, "code" => "CA", "name" => "California"
-      )
-    end
-
-    it "returns the managing campus as an institution stub" do
-      campus = create(
-        :institution,
-        name: "University of California, Davis",
-        acronym: "UC Davis"
-      )
-      reserve = create(:reserve, managing_campus: campus)
-
-      get "/api/v1/reserves/#{reserve.id}", headers: auth_headers
-
-      expect(response.parsed_body["data"]["managing_campus"]).to eq(
-        "type" => "institutions",
-        "id" => campus.id,
-        "name" => "University of California, Davis",
-        "acronym" => "UC Davis"
-      )
-    end
-
-    it "returns null for a reserve whose DOI holds the column's unset sentinel" do
-      reserve = create(:reserve, doi: "0")
-
-      get "/api/v1/reserves/#{reserve.id}", headers: auth_headers
-
-      expect(response.parsed_body["data"]["doi"]).to be_nil
     end
 
     it "returns 404 for an unknown reserve" do
@@ -166,46 +93,6 @@ RSpec.describe Api::V1::ReservesController, type: :request do
       get "/api/v1/reserves/#{create(:reserve).id}", headers: auth_headers
 
       expect(response).to have_http_status(:not_found)
-    end
-
-    it "does not expose non-allowlisted attributes" do
-      reserve = create(:reserve)
-
-      get "/api/v1/reserves/#{reserve.id}", headers: auth_headers
-
-      expect(response.parsed_body["data"].keys).to match_array(
-        %w[
-          id type name short_name description doi year_reserve_established home_page_url
-          latitude longitude address_line_1 address_line_2 address_city address_postal_code
-          country state managing_campus created_at updated_at
-        ]
-      )
-    end
-
-    it "serializes optional attributes as null and timestamps in UTC ISO 8601" do
-      reserve = create(
-        :reserve,
-        short_name: nil,
-        description: nil,
-        doi: "0",
-        year_reserve_established: nil,
-        home_page_url: nil,
-        address_state: nil,
-        managing_campus: nil
-      )
-
-      get "/api/v1/reserves/#{reserve.id}", headers: auth_headers
-
-      data = response.parsed_body["data"]
-      expect(data["short_name"]).to be_nil
-      expect(data["description"]).to be_nil
-      expect(data["doi"]).to be_nil
-      expect(data["year_reserve_established"]).to be_nil
-      expect(data["home_page_url"]).to be_nil
-      expect(data["state"]).to be_nil
-      expect(data["managing_campus"]).to be_nil
-      expect(data["country"]).to include("id" => reserve.address_country_id)
-      expect(data["created_at"]).to match(/\A\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\z/)
     end
   end
 end
