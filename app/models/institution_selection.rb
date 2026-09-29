@@ -57,15 +57,19 @@ class InstitutionSelection
       return nil
     end
 
-    Institution.new(
+    institution = Institution.new(
       name: name_for(ror),
       acronym: ror.acronyms.to_a.first,
-      city: ror.cities.first,
+      city: ror.cities.first.presence || "unknown",
       country: country,
       state: state_for(ror, country: country),
       institution_type: institution_type_for(ror, country: country),
       ror_id: ror.ror_id,
     )
+    return institution if institution.valid?
+
+    errors.merge!(institution.errors)
+    nil
   end
 
   def name_for(ror)
