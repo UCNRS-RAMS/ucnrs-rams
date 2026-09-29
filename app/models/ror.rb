@@ -47,14 +47,14 @@ class Ror < ApplicationRecord
 
   def self.search(query, limit: nil)
     found_rors = all
-return found_rors.limit(limit) if query.blank? && limit.present?
+    return found_rors.limit(limit) if query.blank? && limit.present?
 
     tokenize(query).each do |partial|
       found_rors = found_rors.where(
         "LOWER(rors.name) REGEXP :match
           OR LOWER(CAST(rors.aliases AS CHAR)) REGEXP :match
           OR LOWER(CAST(rors.acronyms AS CHAR)) REGEXP :match",
-{ match: Regexp.escape(partial.downcase) }
+        { match: Regexp.escape(partial.downcase) }
       )
     end
 
