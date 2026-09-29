@@ -59,19 +59,15 @@ class RegistrationForm
     ActiveModel::Type::Boolean.new.cast(params[:billing_address_same_as_current])
   end
 
-  def institution_id
-    selected_institution&.id
-  end
-
   def assign(params)
     params = params.to_h.with_indifferent_access
 
     params.each do |key, value|
       if %w[institution institution_id institution_selection_type].include?(key.to_s)
         next
-      else
-        self.send("#{key}=", value)
       end
+
+      public_send("#{key}=", value)
     end
 
     user.institution = selected_institution if selected_institution
@@ -110,9 +106,8 @@ class RegistrationForm
   end
 
   def selection_errors
-    return ["must exist"] unless defined?(@institution_selection)
+    return [ "must exist" ] unless defined?(@institution_selection)
 
     @institution_selection.errors.full_messages
   end
-
 end
