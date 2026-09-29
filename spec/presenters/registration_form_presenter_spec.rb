@@ -10,6 +10,27 @@ RSpec.describe RegistrationFormPresenter do
     end
   end
 
+  describe "institution selection fields" do
+    it "uses submitted selection values for re-rendering" do
+      form = RegistrationForm.new(params: {
+        institution_id: "ror-id",
+        institution_selection_type: "ror"
+      })
+      presenter = described_class.new(form)
+
+      expect(presenter.institution_id).to eq("ror-id")
+      expect(presenter.institution_selection_type).to eq("ror")
+    end
+
+    it "defaults the institution ID to the user's current institution when no value was submitted" do
+      institution = create(:institution)
+      presenter = described_class.new(RegistrationForm.new(user: build(:user, institution: institution)))
+
+      expect(presenter.institution_id).to eq(institution.id)
+      expect(presenter.institution_selection_type).to be_nil
+    end
+  end
+
   describe "#gender_identity_options" do
     it "is an array of gender identity options" do
       presenter = RegistrationFormPresenter.new
