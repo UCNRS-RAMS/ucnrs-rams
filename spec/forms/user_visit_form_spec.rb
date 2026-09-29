@@ -216,5 +216,54 @@ RSpec.describe UserVisitForm, type: :model do
       expect(form.user_visit).to_not be_persisted
       expect(form.errors).to be_present
     end
+
+    describe "institution selection" do
+      it "creates and links an institution from a selected ROR record" do
+        country = create(:country, code: "US", name: "United States")
+        ror = create(
+          :ror,
+          country: { "country_code" => country.code },
+          locations: [ { "geonames_details" => { "name" => "Berkeley" } } ],
+        )
+        form = UserVisitForm.new(
+          params: {
+            visit_id: create(:visit).id,
+            user_id: create(:user).id,
+            arrives_at: Date.current,
+            departs_at: Date.current + 2.days,
+            role: "Other",
+            count: 1,
+            institution: { id: ror.ror_id },
+            institution_selection_type: "ror",
+          },
+        )
+
+        expect(form.save).to be_truthy
+        expect(form.user_visit).to be_persisted
+        expect(form.user_visit.institution).to have_attributes(
+          name: ror.name,
+          ror_id: ror.ror_id,
+        )
+      end
+
+      it "surfaces an error and does not save when the selected ROR record cannot be resolved" do
+        form = UserVisitForm.new(
+          params: {
+            visit_id: create(:visit).id,
+            user_id: create(:user).id,
+            arrives_at: Date.current,
+            departs_at: Date.current + 2.days,
+            role: "Other",
+            count: 1,
+            institution: { id: "nonexistent-ror-id" },
+            institution_selection_type: "ror",
+          },
+        )
+
+        expect(form.save).to be_falsy
+        expect(form.user_visit).to_not be_persisted
+        expect(form.errors[:institution_id]).to include("Id is invalid")
+      end
+    end
   end
 end

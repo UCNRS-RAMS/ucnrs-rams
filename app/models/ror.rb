@@ -31,22 +31,12 @@ class Ror < ApplicationRecord
   end
 
   # Subdivision code (e.g. "CA") for the first location matching the given
-  # country code, if any.
-
-  # disambiguates between multiple locations in different countries.  Example:
-  # MS: Mato Grosso do Sul (Brazil) possibly overlaps with Mississippi
+  # country code, if any. Matching by country code (rather than just taking
+  # the first location) disambiguates between locations that share a
+  # subdivision code across countries, e.g. "MS" for Mato Grosso do Sul
+  # (Brazil) versus Mississippi (US).
   def state_code_for(country_code)
-    Array(locations).each do |location|
-      next unless location.is_a?(Hash) && location["geonames_details"].is_a?(Hash)
-
-      details = location["geonames_details"]
-      next unless details["country_code"] == country_code
-
-      code = details["country_subdivision_code"].presence
-      return code if code
-    end
-
-    nil
+    geonames_details_for(country_code)&.dig("country_subdivision_code").presence
   end
 
   # Subdivision name (e.g. "California") for the first location matching the
@@ -56,17 +46,7 @@ class Ror < ApplicationRecord
   # otherwise-resolvable matches. Callers should try `state_code_for` first
   # and fall back to matching by this name.
   def state_name_for(country_code)
-    Array(locations).each do |location|
-      next unless location.is_a?(Hash) && location["geonames_details"].is_a?(Hash)
-
-      details = location["geonames_details"]
-      next unless details["country_code"] == country_code
-
-      name = details["country_subdivision_name"].presence
-      return name if name
-    end
-
-    nil
+    geonames_details_for(country_code)&.dig("country_subdivision_name").presence
   end
 
   # ==========
@@ -208,5 +188,18 @@ class Ror < ApplicationRecord
 
       location.dig("geonames_details", attribute).presence
     end
+  end
+
+  # The `geonames_details` hash for the first location matching the given
+  # country code, if any.
+  def geonames_details_for(country_code)
+    Array(locations).each do |location|
+      next unless location.is_a?(Hash) && location["geonames_details"].is_a?(Hash)
+
+      details = location["geonames_details"]
+      return details if details["country_code"] == country_code
+    end
+
+    nil
   end
 end

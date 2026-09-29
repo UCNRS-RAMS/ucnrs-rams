@@ -159,6 +159,52 @@ RSpec.describe ProjectTeamMembershipForm, type: :model do
   end
 
   describe "#save" do
+    describe "institution selection" do
+      it "creates and links an institution from a selected ROR record" do
+        country = create(:country, code: "US", name: "United States")
+        ror = create(
+          :ror,
+          country: { "country_code" => country.code },
+          locations: [ { "geonames_details" => { "name" => "Berkeley" } } ],
+        )
+        membership = create(:project_team_membership)
+        form = ProjectTeamMembershipForm.new(
+          project: membership.project,
+          params: {
+            id: membership.id,
+            user_id: membership.user.id,
+            institution_id: ror.ror_id,
+            institution_selection_type: "ror",
+            project_role: ProjectTeamMembership::TEAM_MEMBER_ROLE,
+          }
+        )
+
+        expect(form.save).to be true
+        expect(form.project_team_membership.institution).to have_attributes(
+          name: ror.name,
+          ror_id: ror.ror_id,
+        )
+      end
+
+      it "surfaces an error and does not save when the selected ROR record cannot be resolved" do
+        membership = create(:project_team_membership)
+        form = ProjectTeamMembershipForm.new(
+          project: membership.project,
+          params: {
+            id: membership.id,
+            user_id: membership.user.id,
+            institution_id: "nonexistent-ror-id",
+            institution_selection_type: "ror",
+            project_role: ProjectTeamMembership::TEAM_MEMBER_ROLE,
+          }
+        )
+
+        expect(form.save).to be false
+        expect(form.errors.full_messages).to include("Institution name Id is invalid")
+        expect(form.project_team_membership.reload.institution).to_not be_nil
+      end
+    end
+
     describe "change project owner" do
       it "updates the project's owner when assigned_as_project_owner is checked" do
         current_owner = create(:user, :confirmed)
