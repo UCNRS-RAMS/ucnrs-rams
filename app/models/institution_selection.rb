@@ -72,6 +72,8 @@ class InstitutionSelection
     nil
   end
 
+  # Parenthetical suffixes (including countries) are useful in autocomplete
+  # and remain on the linked ROR record, so the RAMS institution name can omit them.
   def name_for(ror)
     ror.name.to_s.sub(/\s*\([^()]*\)\z/, "")
   end
