@@ -1,5 +1,6 @@
 class UserForm
   include ActiveModel::Model
+  include InstitutionSelectable
 
   def model_name
     ActiveModel::Name.new(User)
@@ -94,6 +95,8 @@ class UserForm
   alias_method :valid?, :validate
 
   def save
+    @institution_selection_error_messages = nil
+
     begin
       User.transaction do
         assign_selected_institution!
@@ -102,7 +105,11 @@ class UserForm
         true
       end
     rescue ActiveRecord::RecordInvalid => e
+      # Re-validating below clears user.errors, so any institution-selection
+      # failure message added in assign_selected_institution! would otherwise
+      # be lost; re-apply it afterwards.
       validate
+      reapply_institution_selection_errors
       Rails.logger.error(e)
       false
     end
@@ -123,13 +130,14 @@ class UserForm
   def assign_selected_institution!
     return if institution_selection_type.blank?
 
-    selection = InstitutionSelection.new(
+    institution = resolve_institution_selection(
       id: @institution_selection_id,
       type: institution_selection_type,
+      error_target: user.errors,
+      error_attribute: :institution,
     )
-    institution = selection.resolve_and_save
     unless institution
-      selection.errors.full_messages.each { |message| user.errors.add(:institution, message) }
+      @institution_selection_error_messages = user.errors[:institution].dup
       raise ActiveRecord::RecordInvalid, user
     end
 
@@ -137,6 +145,11 @@ class UserForm
     project_team_membership.institution = institution
   end
 
+  def reapply_institution_selection_errors
+    Array(@institution_selection_error_messages).each do |message|
+      errors.add(:institution_name, message) unless errors.added?(:institution_name, message)
+    end
+  end
 
   def maybe_assign_placeholder_email
     if user.email.blank? && applicant.present?

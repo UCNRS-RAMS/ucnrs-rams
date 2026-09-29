@@ -2,6 +2,7 @@
 
 class UserVisitForm
   include ActiveModel::Model
+  include InstitutionSelectable
 
   def model_name
     ActiveModel::Name.new(UserVisit)
@@ -116,14 +117,14 @@ class UserVisitForm
     success = false
 
     ActiveRecord::Base.transaction do
-      selection = InstitutionSelection.new(
+      institution = resolve_institution_selection(
         id: params.dig(:institution, :id),
         type: institution_selection_type,
+        error_target: errors,
+        error_attribute: :institution_id,
       )
-      institution = selection.resolve_and_save
 
       unless institution
-        selection.errors.full_messages.each { |message| errors.add(:institution_id, message) }
         raise ActiveRecord::Rollback
       end
 
