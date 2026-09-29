@@ -68,7 +68,6 @@ class UserForm
       self.can_add_visit = false
       self.can_receive_invoice = false
     end
-
   end
 
   def institution_id=(institution_id)
