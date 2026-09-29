@@ -120,14 +120,13 @@ class UserVisitForm
         id: params.dig(:institution, :id),
         type: institution_selection_type,
       )
-      institution = selection.resolve
+      institution = selection.resolve!
 
       unless institution
         selection.errors.full_messages.each { |message| errors.add(:institution_id, message) }
         raise ActiveRecord::Rollback
       end
 
-      institution.save! unless institution.persisted?
       user_visit.institution = institution
       @institution_form = InstitutionForm.new(id: institution.id)
 
