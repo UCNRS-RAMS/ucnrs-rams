@@ -11,7 +11,7 @@ RSpec.describe Api::V1::ReservesController, type: :request do
   include_context "api authentication"
 
   describe "GET /api/v1/reserves" do
-    it "returns the reserves visible to the client with pagination meta" do
+    it "returns the reserves visible to the client" do
       reserve = create(:reserve, name: "Bodega Marine Reserve")
 
       get "/api/v1/reserves", headers: auth_headers
@@ -19,11 +19,19 @@ RSpec.describe Api::V1::ReservesController, type: :request do
       body = response.parsed_body
       expect(response).to have_http_status(:ok)
       expect(body["data"].map { |row| row["id"] }).to include(reserve.id)
-      expect(body["meta"]).to include(
+    end
+
+    it "reports the pagination meta for the collection" do
+      create(:reserve)
+
+      get "/api/v1/reserves", headers: auth_headers
+
+      expect(response.parsed_body["meta"]).to eq(
         "page" => 1,
-        "per_page" => described_class::DEFAULT_PER_PAGE
+        "per_page" => described_class::DEFAULT_PER_PAGE,
+        "total_pages" => 1,
+        "total_count" => 1
       )
-      expect(body["meta"]["total_count"]).to be >= 1
     end
 
     it "returns 401 without a token" do
