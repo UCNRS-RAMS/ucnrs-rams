@@ -68,14 +68,7 @@ RSpec.describe Api::V1::ReservesController, type: :request do
   end
 
   describe "GET /api/v1/reserves/:id" do
-    it "returns the reserve with its address, managing campus, and DOI" do
-      country = create(:country, name: "United States", code: "US")
-      state = create(:state, name: "California", code: "CA", country: country)
-      campus = create(
-        :institution,
-        name: "University of California, Davis",
-        acronym: "UC Davis"
-      )
+    it "returns the reserve's own attributes" do
       reserve = create(
         :reserve,
         name: "Bodega Marine Reserve",
@@ -85,31 +78,68 @@ RSpec.describe Api::V1::ReservesController, type: :request do
         year_reserve_established: 1965,
         home_page_url: "https://bml.ucdavis.edu",
         latitude: 38.318,
-        longitude: -123.071,
+        longitude: -123.071
+      )
+
+      get "/api/v1/reserves/#{reserve.id}", headers: auth_headers
+
+      expect(response).to have_http_status(:ok)
+      expect(response.parsed_body["data"]).to include(
+        "id" => reserve.id,
+        "type" => "reserves",
+        "name" => "Bodega Marine Reserve",
+        "short_name" => "BMR",
+        "description" => "A coastal reserve.",
+        "doi" => "10.21973/N3NP4Q",
+        "year_reserve_established" => 1965,
+        "home_page_url" => "https://bml.ucdavis.edu",
+        "latitude" => 38.318,
+        "longitude" => -123.071
+      )
+    end
+
+    it "returns the address, with country and state as code-carrying stubs" do
+      country = create(:country, name: "United States", code: "US")
+      state = create(:state, name: "California", code: "CA", country: country)
+      reserve = create(
+        :reserve,
         address_line_1: "2099 Westshore Road",
         address_line_2: "PO Box 247",
         address_city: "Bodega Bay",
         address_postal_code: "94923",
         address_country: country,
-        address_state: state,
-        managing_campus: campus
+        address_state: state
       )
 
       get "/api/v1/reserves/#{reserve.id}", headers: auth_headers
 
       data = response.parsed_body["data"]
-      expect(response).to have_http_status(:ok)
-      expect(data["id"]).to eq(reserve.id)
-      expect(data["name"]).to eq("Bodega Marine Reserve")
-      expect(data["short_name"]).to eq("BMR")
-      expect(data["doi"]).to eq("10.21973/N3NP4Q")
-      expect(data["year_reserve_established"]).to eq(1965)
-      expect(data["latitude"]).to eq(38.318)
-      expect(data["address_line_1"]).to eq("2099 Westshore Road")
-      expect(data["address_city"]).to eq("Bodega Bay")
-      expect(data["country"]).to include("id" => country.id, "code" => "US", "name" => "United States")
-      expect(data["state"]).to include("id" => state.id, "code" => "CA")
-      expect(data["managing_campus"]).to include(
+      expect(data).to include(
+        "address_line_1" => "2099 Westshore Road",
+        "address_line_2" => "PO Box 247",
+        "address_city" => "Bodega Bay",
+        "address_postal_code" => "94923"
+      )
+      expect(data["country"]).to eq(
+        "type" => "countries", "id" => country.id, "code" => "US", "name" => "United States"
+      )
+      expect(data["state"]).to eq(
+        "type" => "states", "id" => state.id, "code" => "CA", "name" => "California"
+      )
+    end
+
+    it "returns the managing campus as an institution stub" do
+      campus = create(
+        :institution,
+        name: "University of California, Davis",
+        acronym: "UC Davis"
+      )
+      reserve = create(:reserve, managing_campus: campus)
+
+      get "/api/v1/reserves/#{reserve.id}", headers: auth_headers
+
+      expect(response.parsed_body["data"]["managing_campus"]).to eq(
+        "type" => "institutions",
         "id" => campus.id,
         "name" => "University of California, Davis",
         "acronym" => "UC Davis"
