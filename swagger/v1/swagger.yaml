@@ -214,6 +214,69 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+  "/api/v1/reserves":
+    get:
+      summary: List reserves
+      tags:
+      - Reserves
+      operationId: listReserves
+      description: Returns the reserves visible to the authenticated client, newest
+        first.
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Page number (defaults to 1).
+      - name: per_page
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+        description: Items per page (defaults to 25, capped at 100).
+      responses:
+        '200':
+          description: reserves visible to the client
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ReservesCollection"
+        '401':
+          description: missing, malformed, unknown, or deactivated token
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+  "/api/v1/reserves/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: RAMS reserve ID.
+    get:
+      summary: Show a reserve
+      tags:
+      - Reserves
+      operationId: showReserve
+      description: Returns a single reserve. A reserve outside the client's scope
+        returns 404.
+      responses:
+        '200':
+          description: the requested reserve
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ReserveResource"
+        '404':
+          description: unknown reserve, or one outside the client scope
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
 servers:
 - url: "/"
 security:
@@ -223,6 +286,8 @@ tags:
   description: Research, class, meeting, public use, and housing projects.
 - name: Institutions
   description: Organizations the people on a project are affiliated with.
+- name: Reserves
+  description: UC Natural Reserve System reserves, where research projects take place.
 components:
   securitySchemes:
     bearerAuth:
@@ -320,6 +385,74 @@ components:
           nullable: true
           allOf:
           - "$ref": "#/components/schemas/UserStub"
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    Reserve:
+      type: object
+      required:
+      - id
+      - type
+      - name
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+          enum:
+          - reserves
+        name:
+          type: string
+        short_name:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        doi:
+          type: string
+          nullable: true
+          description: Reserve DOI. Null when the reserve has none.
+        year_reserve_established:
+          type: integer
+          nullable: true
+        home_page_url:
+          type: string
+          nullable: true
+        latitude:
+          type: number
+        longitude:
+          type: number
+        address_line_1:
+          type: string
+          nullable: true
+        address_line_2:
+          type: string
+          nullable: true
+        address_city:
+          type: string
+          nullable: true
+        address_postal_code:
+          type: string
+          nullable: true
+        country:
+          type: object
+          nullable: true
+          allOf:
+          - "$ref": "#/components/schemas/CountryStub"
+        state:
+          type: object
+          nullable: true
+          allOf:
+          - "$ref": "#/components/schemas/StateStub"
+        managing_campus:
+          type: object
+          nullable: true
+          allOf:
+          - "$ref": "#/components/schemas/InstitutionStub"
         created_at:
           type: string
           format: date-time
@@ -485,6 +618,24 @@ components:
         name:
           type: string
           nullable: true
+    InstitutionStub:
+      type: object
+      required:
+      - type
+      - id
+      - name
+      properties:
+        type:
+          type: string
+          enum:
+          - institutions
+        id:
+          type: integer
+        name:
+          type: string
+        acronym:
+          type: string
+          nullable: true
     ProjectsCollection:
       type: object
       required:
@@ -523,6 +674,25 @@ components:
       properties:
         data:
           "$ref": "#/components/schemas/Institution"
+    ReservesCollection:
+      type: object
+      required:
+      - data
+      - meta
+      properties:
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Reserve"
+        meta:
+          "$ref": "#/components/schemas/PaginationMeta"
+    ReserveResource:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          "$ref": "#/components/schemas/Reserve"
     PaginationMeta:
       type: object
       required:

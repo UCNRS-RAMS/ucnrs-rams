@@ -43,6 +43,10 @@ RSpec.configure do |config|
         {
           name: 'Institutions',
           description: 'Organizations the people on a project are affiliated with.'
+        },
+        {
+          name: 'Reserves',
+          description: 'UC Natural Reserve System reserves, where research projects take place.'
         }
       ],
       components: {
@@ -102,6 +106,47 @@ RSpec.configure do |config|
                 type: :object,
                 nullable: true,
                 allOf: [{ '$ref' => '#/components/schemas/UserStub' }]
+              },
+              created_at: { type: :string, format: 'date-time' },
+              updated_at: { type: :string, format: 'date-time' }
+            }
+          },
+          Reserve: {
+            type: :object,
+            required: %w[id type name],
+            properties: {
+              id: { type: :integer },
+              type: { type: :string, enum: ['reserves'] },
+              name: { type: :string },
+              short_name: { type: :string, nullable: true },
+              description: { type: :string, nullable: true },
+              doi: {
+                type: :string,
+                nullable: true,
+                description: 'Reserve DOI. Null when the reserve has none.'
+              },
+              year_reserve_established: { type: :integer, nullable: true },
+              home_page_url: { type: :string, nullable: true },
+              latitude: { type: :number },
+              longitude: { type: :number },
+              address_line_1: { type: :string, nullable: true },
+              address_line_2: { type: :string, nullable: true },
+              address_city: { type: :string, nullable: true },
+              address_postal_code: { type: :string, nullable: true },
+              country: {
+                type: :object,
+                nullable: true,
+                allOf: [{ '$ref' => '#/components/schemas/CountryStub' }]
+              },
+              state: {
+                type: :object,
+                nullable: true,
+                allOf: [{ '$ref' => '#/components/schemas/StateStub' }]
+              },
+              managing_campus: {
+                type: :object,
+                nullable: true,
+                allOf: [{ '$ref' => '#/components/schemas/InstitutionStub' }]
               },
               created_at: { type: :string, format: 'date-time' },
               updated_at: { type: :string, format: 'date-time' }
@@ -198,6 +243,16 @@ RSpec.configure do |config|
               name: { type: :string, nullable: true }
             }
           },
+          InstitutionStub: {
+            type: :object,
+            required: %w[type id name],
+            properties: {
+              type: { type: :string, enum: ['institutions'] },
+              id: { type: :integer },
+              name: { type: :string },
+              acronym: { type: :string, nullable: true }
+            }
+          },
           ProjectsCollection: {
             type: :object,
             required: %w[data meta],
@@ -232,6 +287,24 @@ RSpec.configure do |config|
             required: %w[data],
             properties: {
               data: { '$ref' => '#/components/schemas/Institution' }
+            }
+          },
+          ReservesCollection: {
+            type: :object,
+            required: %w[data meta],
+            properties: {
+              data: {
+                type: :array,
+                items: { '$ref' => '#/components/schemas/Reserve' }
+              },
+              meta: { '$ref' => '#/components/schemas/PaginationMeta' }
+            }
+          },
+          ReserveResource: {
+            type: :object,
+            required: %w[data],
+            properties: {
+              data: { '$ref' => '#/components/schemas/Reserve' }
             }
           },
           PaginationMeta: {

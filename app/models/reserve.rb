@@ -37,6 +37,10 @@ class Reserve < ApplicationRecord
     order(:pulldown_name)
   end
 
+  def self.recent_first
+    order(created_at: :desc)
+  end
+
   def self.with_accepted_project_type(project_type)
     case project_type
     when "research" then where(research_projects_accepted: true)
