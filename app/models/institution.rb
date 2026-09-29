@@ -70,9 +70,36 @@ return found_institutions.limit(limit) if query.blank? && limit.present?
       )
     end
 
+    if query.present? && limit.present?
+      # Rank the most relevant matches (exact acronym/name matches, then name
+      # prefixes, then everything else) ahead of the rest so that a `limit`
+      # cuts off the least relevant records instead of an arbitrary slice
+      # that can drop a well-known institution. Callers that don't cap
+      # results with `limit` keep their existing (e.g. alphabetical) order.
+      found_institutions = found_institutions.order(Arel.sql(relevance_order_sql(query))).order(:name)
+    end
     found_institutions = found_institutions.limit(limit) if limit.present?
     found_institutions
   end
+
+  def self.relevance_order_sql(query)
+    normalized = query.to_s.downcase.strip
+
+    sanitize_sql_array([
+      <<~SQL.squish,
+        CASE
+          WHEN LOWER(institutions.acronym) = ? THEN 0
+          WHEN LOWER(institutions.name) = ? THEN 0
+          WHEN LOWER(institutions.name) LIKE ? THEN 1
+          ELSE 2
+        END
+      SQL
+      normalized,
+      normalized,
+      "#{sanitize_sql_like(normalized)}%"
+    ])
+  end
+  private_class_method :relevance_order_sql
 
   def self.sorted_using(sort_option = nil)
     case sort_option.to_s

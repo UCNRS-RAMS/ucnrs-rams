@@ -172,6 +172,17 @@ RSpec.describe Institution, type: :model do
           expect(results).to contain_exactly(institution1, institution2)
         end
 
+        it ".search ranks exact acronym/name matches ahead of incidental substring matches so a limit doesn't drop them" do
+          create(:institution, name: "Arthur Ashe Learning Center (arthurashe.ucla.edu)", acronym: nil, city: "Los Angeles")
+          create(:institution, name: "California NanoSystems Institute (cnsi.ucla.edu)", acronym: nil, city: "Los Angeles")
+          create(:institution, name: "Harbor-UCLA Medical Center", acronym: nil, city: "Los Angeles")
+          target = create(:institution, name: "University of California, Los Angeles", acronym: "UCLA", city: "Los Angeles")
+
+          results = Institution.search("UCLA", limit: 2)
+
+          expect(results).to include(target)
+        end
+
         it "returns an empty array if there are no institutions where the name is similar
         to the passed value" do
           results = Institution.search("xyz")
