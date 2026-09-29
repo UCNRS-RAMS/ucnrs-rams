@@ -223,6 +223,27 @@ RSpec.describe UserForm, type: :model do
       expect(form.project_team_membership.institution).to eq(form.user.institution)
     end
 
+    it "surfaces the specific institution selection error when the ROR record cannot be resolved" do
+      form = UserForm.new(
+        applicant: create(:user),
+        project: create(:project),
+        params: {
+          first_name: "Mister",
+          last_name: "Moustache",
+          institution_id: "nonexistent-ror-id",
+          institution_selection_type: "ror",
+          institution_name: "Some Institution",
+          email: "mister@moustache.test",
+          user_role: "Other",
+          project_role: ProjectTeamMembership::PRINCIPAL_INVESTIGATOR_ROLE,
+        }
+      )
+
+      expect(form.save).to be false
+      expect(form.user).to_not be_persisted
+      expect(form.errors.full_messages).to include("Institution name Id is invalid")
+    end
+
     it "makes sure errors are visible when save fails" do
       form = UserForm.new(
         applicant: build(:user),

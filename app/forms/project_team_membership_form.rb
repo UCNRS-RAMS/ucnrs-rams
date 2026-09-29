@@ -2,6 +2,7 @@
 
 class ProjectTeamMembershipForm
   include ActiveModel::Model
+  include InstitutionSelectable
 
   def model_name
     ActiveModel::Name.new(ProjectTeamMembership)
@@ -140,15 +141,13 @@ class ProjectTeamMembershipForm
   def assign_selected_institution!
     return if institution_selection_type.blank?
 
-    selection = InstitutionSelection.new(
+    institution = resolve_institution_selection(
       id: @institution_selection_id,
       type: institution_selection_type,
+      error_target: errors,
+      error_attribute: :institution_name,
     )
-    institution = selection.resolve_and_save
-    unless institution
-      selection.errors.full_messages.each { |message| errors.add(:institution_name, message) }
-      raise ActiveRecord::RecordInvalid, project_team_membership
-    end
+    raise ActiveRecord::RecordInvalid, project_team_membership unless institution
 
     self.institution = institution
   end
