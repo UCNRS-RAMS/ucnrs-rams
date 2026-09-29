@@ -8,8 +8,8 @@ class RegistrationForm
 
   def initialize(user: User.new, params: {})
     @user = user
-    @params = params
-    assign(params)
+    @params = params.to_h.with_indifferent_access
+    assign(@params)
 
     if billing_address_same_as_current_address?
       copy_address_fields_to_billing_address
@@ -24,6 +24,16 @@ class RegistrationForm
 
   delegate :errors, to: :user
   delegate_missing_to :user
+
+  def institution_id
+    return params[:institution_id] if params.key?(:institution_id)
+
+    user.institution_id
+  end
+
+  def institution_selection_type
+    params[:institution_selection_type]
+  end
 
   def terms_accepted?
     ActiveModel::Type::Boolean.new.cast(params[:terms_accepted_at])
@@ -60,8 +70,6 @@ class RegistrationForm
   end
 
   def assign(params)
-    params = params.to_h.with_indifferent_access
-
     params.each do |key, value|
       if %w[institution institution_id institution_selection_type].include?(key.to_s)
         next
