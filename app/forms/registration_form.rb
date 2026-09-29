@@ -116,7 +116,7 @@ class RegistrationForm
   def persist_selected_institution!
     return selected_institution unless defined?(@institution_selection)
 
-    user.institution = @institution_selection.resolve!
+    user.institution = @institution_selection.resolve_and_save
   end
 
   def selection_errors

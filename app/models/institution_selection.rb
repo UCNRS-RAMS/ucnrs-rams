@@ -30,7 +30,7 @@ class InstitutionSelection
     end
   end
 
-  def resolve!
+  def resolve_and_save
     return resolve unless type == "ror"
 
     resolve_ror!
