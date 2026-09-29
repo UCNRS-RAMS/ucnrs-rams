@@ -120,7 +120,7 @@ class UserVisitForm
         id: params.dig(:institution, :id),
         type: institution_selection_type,
       )
-      institution = selection.resolve!
+      institution = selection.resolve_and_save
 
       unless institution
         selection.errors.full_messages.each { |message| errors.add(:institution_id, message) }

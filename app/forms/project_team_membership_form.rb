@@ -144,7 +144,7 @@ class ProjectTeamMembershipForm
       id: @institution_selection_id,
       type: institution_selection_type,
     )
-    institution = selection.resolve!
+    institution = selection.resolve_and_save
     unless institution
       selection.errors.full_messages.each { |message| errors.add(:institution_name, message) }
       raise ActiveRecord::RecordInvalid, project_team_membership
