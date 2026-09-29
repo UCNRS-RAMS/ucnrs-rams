@@ -127,13 +127,12 @@ class UserForm
       id: @institution_selection_id,
       type: institution_selection_type,
     )
-    institution = selection.resolve
+    institution = selection.resolve!
     unless institution
       selection.errors.full_messages.each { |message| user.errors.add(:institution, message) }
       raise ActiveRecord::RecordInvalid, user
     end
 
-    institution.save! unless institution.persisted?
     user.institution = institution
     project_team_membership.institution = institution
   end
