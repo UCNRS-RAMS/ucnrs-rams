@@ -85,8 +85,8 @@
           value: presenter.institution_field_value,
           placeholder: t(".placeholders.institution")
         %>
-        <%= f.hidden_field :institution_id, data: { "autocomplete-target": "hidden" } %>
-        <%= f.hidden_field :institution_selection_type, data: { "autocomplete-target": "selectionType" } %>
+        <%= f.hidden_field :institution_id, value: presenter.institution_id, data: { "autocomplete-target": "hidden" } %>
+        <%= f.hidden_field :institution_selection_type, value: presenter.institution_selection_type, data: { "autocomplete-target": "selectionType" } %>
         <div class="autocomplete-results-container">
           <ul class="autocomplete-results" data-autocomplete-target="results"></ul>
         </div>
