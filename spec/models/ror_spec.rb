@@ -133,6 +133,26 @@ RSpec.describe Ror, type: :model do
       expect(described_class.search("Research University", limit: 2).count).to eq(2)
     end
 
+    it ".search ranks exact acronym/name matches ahead of incidental substring matches so a limit doesn't drop them" do
+      # These all alphabetically precede "University of California, Los Angeles" and would
+      # crowd it out of a small limit if results were only alphabetized instead of ranked
+      # by relevance first.
+      create(:ror, name: "Arthur Ashe Learning Center (arthurashe.ucla.edu)", acronyms: [], aliases: [])
+      create(:ror, name: "California NanoSystems Institute (cnsi.ucla.edu)", acronyms: [], aliases: [])
+      create(:ror, name: "Harbor–UCLA Medical Center (harbor-ucla.org)", acronyms: [], aliases: [])
+      create(:ror, name: "Mattel Children's Hospital (uclahealth.org)", acronyms: [], aliases: [])
+      target = create(
+        :ror,
+        name: "University of California, Los Angeles (ucla.edu)",
+        acronyms: [ "UCLA" ],
+        aliases: [ "UC Los Angeles" ]
+      )
+
+      results = described_class.search("UCLA", limit: 2)
+
+      expect(results.map(&:name)).to include(target.name)
+    end
+
     it ".search loads the rors.sql fixture and returns records for a full-word match" do
       fixture_sql = Rails.root.join("spec/fixtures/rors.sql").read
       ActiveRecord::Base.connection.execute(fixture_sql)
