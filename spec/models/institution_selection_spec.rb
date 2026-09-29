@@ -183,6 +183,32 @@ RSpec.describe InstitutionSelection do
       expect(institution.state).to eq(state)
     end
 
+    it "falls back to the subdivision name when the code does not match a known state" do
+      # Some countries' `states` records use coding schemes (e.g. postal
+      # abbreviations added at different times) that don't line up with the
+      # ROR/GeoNames subdivision code, but the name still matches.
+      country = create(:country, code: "AU")
+      state = create(:state, country: country, code: "QL", name: "Queensland")
+      ror = create(
+        :ror,
+        country: { "country_code" => country.code },
+        locations: [
+          {
+            "geonames_details" => {
+              "name" => "Brisbane",
+              "country_code" => "AU",
+              "country_subdivision_code" => "QLD",
+              "country_subdivision_name" => "Queensland"
+            }
+          }
+        ]
+      )
+
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+
+      expect(institution.state).to eq(state)
+    end
+
     it "leaves the state blank when no matching state is found" do
       country = create(:country, code: "US")
       ror = create(
