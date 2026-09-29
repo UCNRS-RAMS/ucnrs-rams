@@ -17,6 +17,7 @@ class RegistrationFormPresenter
   end
 
   delegate :user, to: :form, prefix: true
+  delegate :institution_id, :institution_selection_type, to: :form
 
   def gender_identity_options
     User.gender_identities.map {|key, value| [value, key]}
