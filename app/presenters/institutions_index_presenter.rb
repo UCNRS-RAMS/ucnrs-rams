@@ -4,7 +4,7 @@ class InstitutionsIndexPresenter
   end
 
   def results
-    AggregatedSearch.institution_search(
+    @results ||= AggregatedSearch.institution_search(
       query,
       limit: Institution::DEFAULT_LIMIT_FOR_INDEX,
     )
