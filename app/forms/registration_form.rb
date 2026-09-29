@@ -44,7 +44,7 @@ class RegistrationForm
     return unless user.valid? && institution_assigned
 
     User.transaction do
-      selected_institution.save! unless selected_institution.persisted?
+      persist_selected_institution!
       user.save!
     end
     true
@@ -111,6 +111,12 @@ class RegistrationForm
     elsif params[:institution].present?
       Institution.find_by(name: params[:institution])
     end
+  end
+
+  def persist_selected_institution!
+    return selected_institution unless defined?(@institution_selection)
+
+    user.institution = @institution_selection.resolve!
   end
 
   def selection_errors
