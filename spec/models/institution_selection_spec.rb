@@ -92,6 +92,20 @@ RSpec.describe InstitutionSelection do
       expect(institution.institution_type).to eq("other_california_university_or_college")
     end
 
+    it "does not classify non-US Education records with a CA subdivision as California colleges" do
+      country = create(:country, code: "NI", name: "Nicaragua")
+      ror = create(
+        :ror,
+        country: { "country_code" => country.code, "country_name" => country.name },
+        locations: [ { "geonames_details" => { "name" => "City", "country_code" => country.code, "country_subdivision_code" => "CA" } } ],
+        types: [ "education" ],
+      )
+
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+
+      expect(institution.institution_type).to eq("international_university_or_college")
+    end
+
     it "classifies non-California US Education records as out-of-state colleges" do
       country = create(:country, code: "US")
       ror = create(
@@ -153,6 +167,21 @@ RSpec.describe InstitutionSelection do
       institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
 
       expect(institution.name).to eq("Example Institute")
+    end
+
+    it "persists ROR names that exceed the former institution name limit" do
+      country = create(:country, code: "US")
+      ror = create(
+        :ror,
+        name: "Example Institute #{'with a deliberately long name ' * 4}",
+        country: { "country_code" => country.code },
+        locations: [ { "geonames_details" => { "name" => "City" } } ],
+      )
+
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+
+      expect(institution).to be_persisted
+      expect(institution.name.length).to be > 80
     end
 
     it "does not strip parenthetical text that is not a trailing domain" do
@@ -227,6 +256,17 @@ RSpec.describe InstitutionSelection do
       institution = create(:institution, ror_id: ror.ror_id)
 
       expect(described_class.new(id: ror.ror_id, type: "ror").resolve!).to eq(institution)
+    end
+
+    it "returns the same institution when resolving a ROR more than once" do
+      country = create(:country, code: "US")
+      ror = create(:ror, country: { "country_code" => country.code })
+
+      first_institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+      second_institution = described_class.new(id: ror.ror_id, type: "ror").resolve!
+
+      expect(second_institution).to eq(first_institution)
+      expect(Institution.where(ror_id: ror.ror_id)).to contain_exactly(first_institution)
     end
 
     it "rejects ROR records without a matching country" do

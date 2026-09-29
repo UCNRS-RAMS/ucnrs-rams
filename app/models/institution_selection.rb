@@ -31,11 +31,9 @@ class InstitutionSelection
   end
 
   def resolve!
-    institution = resolve
-    return nil if institution.blank? || errors.present?
+    return resolve unless type == "ror"
 
-    institution.save! unless institution.persisted?
-    institution
+    resolve_ror!
   end
 
   private
@@ -48,6 +46,26 @@ class InstitutionSelection
     end
 
     ror.institutions.order(:id).first || build_institution(ror)
+  end
+
+  def resolve_ror!
+    ror = Ror.find_by(ror_id: id)
+    unless ror
+      errors.add(:id, "is invalid")
+      return nil
+    end
+
+    # Autocomplete submits only the ROR ID; institution creation happens when
+    # the surrounding form is saved. Serialize first-time selections here so
+    # concurrent submissions reuse one new institution. A unique ror_id index
+    # is not appropriate because legacy imports can intentionally link several
+    # distinct institutions to the same ROR.
+    ror.with_lock do
+      @institution = ror.institutions.order(:id).first || build_institution(ror)
+      @institution.save! if @institution&.new_record?
+    end
+
+    @institution
   end
 
   def build_institution(ror)
@@ -103,7 +121,7 @@ class InstitutionSelection
 
     if types.include?("education")
       return "k_12_education" if k12_education?(ror)
-      return "other_california_university_or_college" if ror.state_codes.include?("CA")
+      return "other_california_university_or_college" if country.code == "US" && ror.state_codes.include?("CA")
       return "non_california_us_university_or_college" if country.code == "US"
 
       return "international_university_or_college"
