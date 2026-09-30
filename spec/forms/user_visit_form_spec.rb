@@ -286,7 +286,7 @@ RSpec.describe UserVisitForm, type: :model do
 
         expect(form.save).to be_falsy
         expect(form.user_visit).to_not be_persisted
-        expect(form.errors[:institution_id]).to include("Id is invalid")
+        expect(form.errors[:institution_id]).to include("is invalid")
       end
     end
   end
