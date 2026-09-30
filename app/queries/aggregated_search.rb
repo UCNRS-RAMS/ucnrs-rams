@@ -25,8 +25,12 @@ class AggregatedSearch
   end
 
   def results
+    # Freeze the ranked, limited ROR set before deduplication so filtering out
+    # duplicates cannot backfill lower-ranked records beyond the search limit.
+    matching_rors = rors.to_a
+
     # ids of every ROR record that matched the query
-    ror_ids = rors.pluck(:ror_id).to_set
+    ror_ids = matching_rors.map(&:ror_id).to_set
 
     # ids of every institution that either matched the query directly, or is
     # linked to a matched ROR record via ror_id (e.g. the query only matched
@@ -39,7 +43,7 @@ class AggregatedSearch
     # get the common ror_ids between the two sets of results for elimination from the duplicate
     # ROR results
     dup_ror_ids = ror_ids & matching_institutions.pluck(:ror_id).to_set
-    matching_rors = rors.where.not(ror_id: dup_ror_ids.to_a)
+    matching_rors = matching_rors.reject { |ror| dup_ror_ids.include?(ror.ror_id) }
 
     # both sets of results in common format, excluding duplicate ror records, sorted by name (case-insensitive)
     (matching_institutions.map { |inst| institution_result(inst) } +
