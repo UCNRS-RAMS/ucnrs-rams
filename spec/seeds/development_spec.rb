@@ -45,8 +45,12 @@ RSpec.describe "development database primer" do
     expect(primed.where(address_postal_code: [ nil, "" ])).to be_empty
 
     # One carries the identifiers and coordinates the API publishes as values.
-    expect(primed.where.not(doi: [ nil, "", "0" ])).to be_present
-    expect(primed.where.not(latitude: 0)).to be_present
+    expect(
+      primed
+        .where.not(doi: [ nil, "", "0" ])
+        .where.not(latitude: 0)
+        .where.not(longitude: 0),
+    ).to be_present
 
     # One holds the placeholders the API turns into null.
     expect(primed.where(latitude: 0, longitude: 0)).to be_present
