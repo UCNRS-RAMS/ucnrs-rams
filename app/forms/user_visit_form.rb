@@ -10,6 +10,7 @@ class UserVisitForm
 
   def initialize(params: {})
     @params = params
+    @institution_selection_id = params.dig(:institution, :id) if params.key?(:institution)
     @user = User.find_by(id: params[:user_id])
     @user_visit = UserVisit.find_by(id: params[:id]) || UserVisit.new(new_user_visit_params)
     assign(params.except(:institution))
@@ -27,6 +28,12 @@ class UserVisitForm
   attr_accessor :userdays, :institution_selection_type
   attr_reader :user_visit, :user, :institution_form
   attr_writer :manual_user_days
+
+  def institution_selection_id
+    return @institution_selection_id if defined?(@institution_selection_id)
+
+    user_visit.institution_id
+  end
 
   alias validate_form validate
   alias valid_form? valid?
