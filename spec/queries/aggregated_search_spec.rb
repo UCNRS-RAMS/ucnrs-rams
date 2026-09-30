@@ -4,17 +4,7 @@ require "rails_helper"
 
 RSpec.describe AggregatedSearch, type: :model do
   describe ".institution_search" do
-    self.use_transactional_tests = false
-
-    around do |example|
-      ror_ids = Ror.pluck(:id)
-      institution_ids = Institution.pluck(:id)
-
-      example.run
-    ensure
-      Ror.where.not(id: ror_ids).delete_all
-      Institution.where.not(id: institution_ids).delete_all
-    end
+    commits_data_for_full_text_search!
 
     it "combines matching institutions and ROR records and sorts them alphabetically by name" do
       alpha_institution = create(:institution, name: "Zebra Research Institute", city: "San Diego", acronym: "ZRI")
@@ -35,17 +25,7 @@ RSpec.describe AggregatedSearch, type: :model do
   end
 
   describe "#results" do
-    self.use_transactional_tests = false
-
-    around do |example|
-      ror_ids = Ror.pluck(:id)
-      institution_ids = Institution.pluck(:id)
-
-      example.run
-    ensure
-      Ror.where.not(id: ror_ids).delete_all
-      Institution.where.not(id: institution_ids).delete_all
-    end
+    commits_data_for_full_text_search!
 
     it "returns the expected hash shape for institution and ROR hits" do
       institution = create(:institution, name: "Research University", city: "Berkeley", acronym: "RU")

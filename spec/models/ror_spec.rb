@@ -3,17 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Ror, type: :model do
-  self.use_transactional_tests = false
-
-  around do |example|
-    ror_ids = described_class.pluck(:id)
-    institution_ids = Institution.pluck(:id)
-
-    example.run
-  ensure
-    described_class.where.not(id: ror_ids).delete_all
-    Institution.where.not(id: institution_ids).delete_all
-  end
+  commits_data_for_full_text_search!
 
   describe "associations" do
     it { is_expected.to have_many(:institutions).with_primary_key(:ror_id).inverse_of(:ror).dependent(:nullify) }
