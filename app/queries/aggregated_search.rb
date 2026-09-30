@@ -36,9 +36,9 @@ class AggregatedSearch
 
     matching_institutions = Institution.where(id: institution_ids.to_a)
 
-    # get the common ror_ids between the two sets of results for elimination from the ROR results
+    # get the common ror_ids between the two sets of results for elimination from the duplicate
+    # ROR results
     dup_ror_ids = ror_ids & matching_institutions.pluck(:ror_id).to_set
-
     matching_rors = rors.where.not(ror_id: dup_ror_ids.to_a)
 
     # both sets of results in common format, excluding duplicate ror records, sorted by name (case-insensitive)
