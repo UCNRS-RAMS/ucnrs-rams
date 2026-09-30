@@ -71,6 +71,15 @@ class ProjectTeamMembershipForm
     project_team_membership.institution_id = institution_id
   end
 
+  # the form builder reads institution_id through delegate_missing_to, which returns the resolved institution's
+  # numeric ID. If another membership validation fails, the modal re-renders that numeric ID with selection type ror,
+  # so retrying cannot resolve the selection. Add a getter that returns the submitted value whenever it was assigned,
+  # including a blank value.
+  def institution_id
+    return @institution_selection_id if defined?(@institution_selection_id)
+    project_team_membership.institution_id
+  end
+
   def assigned_as_project_owner=(value)
     project.owner = user if value == "true"
   end
