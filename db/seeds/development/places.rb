@@ -30,6 +30,7 @@ a_single_tree = DevelopmentSeeds.record(
   amenity_group_label_2: "Stuff to Get",
   amenity_group_label_3: "Accommodations",
   doi: "10.0000/example.single-tree",
+  year_reserve_established: 1965,
   latitude: 37.8044,
   longitude: -122.2712,
 )
@@ -53,8 +54,12 @@ oak_ridge = DevelopmentSeeds.record(
   amenity_group_label_2: "Only One Acorn, Okay?",
   amenity_group_label_3: "(Not) Spooky Cabin",
   doi: "10.0000/example.oak-ridge",
-  latitude: 38.5341,
-  longitude: -122.4552,
+  # Left on the columns' placeholders on purpose: a reserve with no recorded
+  # establishment year or location is the common shape in production, and the
+  # API turns 0 and 0, 0 into null.
+  year_reserve_established: 0,
+  latitude: 0,
+  longitude: 0,
 )
 
 DevelopmentSeeds.record(
