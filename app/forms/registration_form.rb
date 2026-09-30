@@ -134,6 +134,6 @@ class RegistrationForm
   def selection_errors
     return [ "must exist" ] unless defined?(@institution_selection)
 
-    @institution_selection.errors.full_messages
+    @institution_selection.errors.map(&:message)
   end
 end
