@@ -54,9 +54,9 @@ class Institution < ApplicationRecord
   def self.search(query, limit: nil)
     found_institutions = if query
                            left_joins(:country)
-                         else
+    else
                            all
-                         end
+    end
 
 return found_institutions.limit(limit) if query.blank? && limit.present?
 
