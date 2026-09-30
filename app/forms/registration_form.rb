@@ -40,8 +40,12 @@ class RegistrationForm
   end
 
   def submit
+    # Validate user first because user.valid? clears user.errors; running
+    # assign_selected_institution afterwards preserves any institution selection
+    # errors so they can be surfaced back to the form.
+    valid = user.valid?
     institution_assigned = assign_selected_institution
-    return unless user.valid? && institution_assigned
+    return unless valid && institution_assigned
 
     User.transaction do
       persist_selected_institution!
@@ -78,12 +82,18 @@ class RegistrationForm
       public_send("#{key}=", value)
     end
 
-    user.institution = selected_institution if selected_institution
+    if institution_params_present?
+      user.institution = selected_institution
+    end
 
     return if params[:orcid].blank?
     return if params.key?(:orcid_authenticated)
 
     user.orcid_authenticated = false
+  end
+
+  def institution_params_present?
+    %w[institution institution_id institution_selection_type].any? { |key| params.key?(key) }
   end
 
   def assign_selected_institution
@@ -92,7 +102,9 @@ class RegistrationForm
       user.institution = institution
       true
     else
-      selection_errors.each { |error| user.errors.add(:institution, error) }
+      selection_errors.each do |error|
+        user.errors.add(:institution, error) unless user.errors.added?(:institution, error)
+      end
       false
     end
   end
