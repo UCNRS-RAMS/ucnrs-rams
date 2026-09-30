@@ -34,7 +34,7 @@ class AggregatedSearch
     institution_ids = institutions.pluck(:id).to_set |
       Institution.where(ror_id: ror_ids.to_a).pluck(:id).to_set
 
-    matching_institutions = Institution.where(id: institution_ids.to_a)
+    matching_institutions = Institution.where(id: institution_ids.to_a).preload(:country)
 
     # get the common ror_ids between the two sets of results for elimination from the duplicate
     # ROR results
