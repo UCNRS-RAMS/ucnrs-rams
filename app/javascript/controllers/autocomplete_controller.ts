@@ -4,6 +4,8 @@ let resultsId = 0
 
 export default class extends Autocomplete {
   static targets = ["selectionType"]
+  declare selectionTypeTarget: HTMLInputElement
+  declare hasSelectionTypeTarget: boolean
 
   // Keep the selected result's source so the form can distinguish institution IDs from ROR IDs.
   commit(selected: HTMLElement) {
