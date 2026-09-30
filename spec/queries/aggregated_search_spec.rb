@@ -125,6 +125,22 @@ RSpec.describe AggregatedSearch, type: :model do
       )
     end
 
+    it "does not backfill excluded RORs from beyond the limited search results" do
+      selected_ror_id = "https://ror.org/0011abcd"
+      unselected_ror_id = "https://ror.org/0012abcd"
+      create(:ror, name: "Research", ror_id: selected_ror_id)
+      create(:ror, name: "Research Network", ror_id: unselected_ror_id)
+      create(:institution, name: "Research", city: "Berkeley", acronym: "RI", ror_id: unselected_ror_id)
+      create(:institution, name: "Linked Organization", city: "Oakland", acronym: "LO", ror_id: selected_ror_id)
+
+      results = described_class.new(query: "Research", limit: 1).results
+
+      expect(results.map { |result| [ result[:type], result[:name] ] }).to eq([
+        [ :institution, "Linked Organization" ],
+        [ :institution, "Research" ]
+      ])
+    end
+
     it "suppresses the matching ROR result when the same UCLA record appears in institutions fixture data" do
       load_ror_fixture
       ActiveRecord::Base.connection.execute(Rails.root.join("spec/fixtures/institutions.sql").read)
