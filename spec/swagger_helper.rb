@@ -107,8 +107,8 @@ RSpec.configure do |config|
                 nullable: true,
                 allOf: [{ '$ref' => '#/components/schemas/UserStub' }]
               },
-              created_at: { type: :string, format: 'date-time' },
-              updated_at: { type: :string, format: 'date-time' }
+              created_at: { type: :string, format: 'date-time', nullable: true },
+              updated_at: { type: :string, format: 'date-time', nullable: true }
             }
           },
           Reserve: {
@@ -127,8 +127,8 @@ RSpec.configure do |config|
               },
               year_reserve_established: { type: :integer, nullable: true },
               home_page_url: { type: :string, nullable: true },
-              latitude: { type: :number },
-              longitude: { type: :number },
+              latitude: { type: :number, nullable: true },
+              longitude: { type: :number, nullable: true },
               address_line_1: { type: :string, nullable: true },
               address_line_2: { type: :string, nullable: true },
               address_city: { type: :string, nullable: true },
@@ -148,8 +148,8 @@ RSpec.configure do |config|
                 nullable: true,
                 allOf: [{ '$ref' => '#/components/schemas/InstitutionStub' }]
               },
-              created_at: { type: :string, format: 'date-time' },
-              updated_at: { type: :string, format: 'date-time' }
+              created_at: { type: :string, format: 'date-time', nullable: true },
+              updated_at: { type: :string, format: 'date-time', nullable: true }
             }
           },
           ReserveStub: {
@@ -183,8 +183,9 @@ RSpec.configure do |config|
               city: { type: :string, nullable: true },
               institution_type: {
                 type: :string,
+                nullable: true,
                 enum: Institution.institution_types.keys,
-                description: 'Rails enum key.'
+                description: 'Rails enum key. Null where the institution type is not recorded.'
               },
               country: {
                 type: :object,
@@ -201,8 +202,8 @@ RSpec.configure do |config|
                 nullable: true,
                 allOf: [{ '$ref' => '#/components/schemas/RorStub' }]
               },
-              created_at: { type: :string, format: 'date-time' },
-              updated_at: { type: :string, format: 'date-time' }
+              created_at: { type: :string, format: 'date-time', nullable: true },
+              updated_at: { type: :string, format: 'date-time', nullable: true }
             }
           },
           CountryStub: {

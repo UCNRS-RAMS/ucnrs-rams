@@ -388,9 +388,11 @@ components:
         created_at:
           type: string
           format: date-time
+          nullable: true
         updated_at:
           type: string
           format: date-time
+          nullable: true
     Reserve:
       type: object
       required:
@@ -424,8 +426,10 @@ components:
           nullable: true
         latitude:
           type: number
+          nullable: true
         longitude:
           type: number
+          nullable: true
         address_line_1:
           type: string
           nullable: true
@@ -456,9 +460,11 @@ components:
         created_at:
           type: string
           format: date-time
+          nullable: true
         updated_at:
           type: string
           format: date-time
+          nullable: true
     ReserveStub:
       type: object
       required:
@@ -521,6 +527,7 @@ components:
           nullable: true
         institution_type:
           type: string
+          nullable: true
           enum:
           - university_of_california
           - california_state_university_system
@@ -533,7 +540,7 @@ components:
           - governmental_organization_or_entity
           - business_entity
           - individual_or_other_entity
-          description: Rails enum key.
+          description: Rails enum key. Null where the institution type is not recorded.
         country:
           type: object
           nullable: true
@@ -552,9 +559,11 @@ components:
         created_at:
           type: string
           format: date-time
+          nullable: true
         updated_at:
           type: string
           format: date-time
+          nullable: true
     CountryStub:
       type: object
       required:

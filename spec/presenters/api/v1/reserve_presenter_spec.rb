@@ -60,6 +60,30 @@ RSpec.describe Api::V1::ReservePresenter do
       expect(described_class.new(reserve).as_json[:doi]).to be_nil
     end
 
+    it "serializes the establishment year column's unset default as null" do
+      reserve = build_stubbed(:reserve, year_reserve_established: 0)
+
+      expect(described_class.new(reserve).as_json[:year_reserve_established]).to be_nil
+    end
+
+    it "serializes unrecorded coordinates as null" do
+      reserve = build_stubbed(:reserve, latitude: 0, longitude: 0)
+
+      data = described_class.new(reserve).as_json
+
+      expect(data[:latitude]).to be_nil
+      expect(data[:longitude]).to be_nil
+    end
+
+    it "keeps coordinates that have only one axis at zero" do
+      reserve = build_stubbed(:reserve, latitude: 0, longitude: -122.4552)
+
+      data = described_class.new(reserve).as_json
+
+      expect(data[:latitude]).to eq(0)
+      expect(data[:longitude]).to eq(-122.4552)
+    end
+
     it "embeds the country and state as entity stubs carrying their codes" do
       country = build_stubbed(:country, name: "United States", code: "US")
       state = build_stubbed(:state, name: "California", code: "CA")
