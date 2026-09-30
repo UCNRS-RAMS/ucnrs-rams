@@ -20,10 +20,10 @@ module Api
           short_name: record.short_name,
           description: record.description,
           doi: doi,
-          year_reserve_established: record.year_reserve_established,
+          year_reserve_established: year_reserve_established,
           home_page_url: record.home_page_url,
-          latitude: record.latitude,
-          longitude: record.longitude,
+          latitude: latitude,
+          longitude: longitude,
           address_line_1: record.address_line_1,
           address_line_2: record.address_line_2,
           address_city: record.address_city,
@@ -41,6 +41,34 @@ module Api
       def doi
         value = record.doi.presence
         value unless value == UNSET_DOI
+      end
+
+      # @return [Integer, nil] the year the reserve was established, or nil when
+      #   the column holds its unset default. Nothing was established in year 0,
+      #   and production carries it as the placeholder.
+      def year_reserve_established
+        year = record.year_reserve_established
+        year unless year.to_i.zero?
+      end
+
+      # The coordinates columns default to 0.0, which is a point in the Gulf of
+      # Guinea rather than a place in RAMS. A reserve at 0, 0 has not been given
+      # coordinates, so the payload says null; a reserve on the equator or the
+      # prime meridian keeps the axis it does have.
+      #
+      # @return [Float, nil]
+      def latitude
+        record.latitude if coordinates_recorded?
+      end
+
+      # @return [Float, nil]
+      def longitude
+        record.longitude if coordinates_recorded?
+      end
+
+      # @return [Boolean]
+      def coordinates_recorded?
+        record.latitude.to_f != 0 || record.longitude.to_f != 0
       end
 
       # @return [Hash, nil] the managing campus stub, or nil when the reserve
