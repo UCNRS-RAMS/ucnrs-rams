@@ -15,6 +15,10 @@ a_single_tree = DevelopmentSeeds.record(
   { name: "A Single Tree" },
   short_name: "Tree",
   pulldown_name: "Single Tree, A",
+  address_line_1: "100 Single Tree Road",
+  address_line_2: "PO Box 12",
+  address_city: "Example City",
+  address_postal_code: "00001",
   address_country: united_states,
   address_state: State.coded("MA"),
   managing_campus: managing_campus,
@@ -35,6 +39,9 @@ oak_ridge = DevelopmentSeeds.record(
   { name: "Oak Ridge" },
   short_name: "Oak Ridge",
   pulldown_name: "Oak Ridge",
+  address_line_1: "200 Oak Ridge Lane",
+  address_city: "Example City",
+  address_postal_code: "00002",
   address_country: united_states,
   address_state: State.coded("CA"),
   managing_campus: managing_campus,
@@ -45,6 +52,9 @@ oak_ridge = DevelopmentSeeds.record(
   amenity_group_label_1: "ATV Vroooooooom",
   amenity_group_label_2: "Only One Acorn, Okay?",
   amenity_group_label_3: "(Not) Spooky Cabin",
+  doi: "10.0000/example.oak-ridge",
+  latitude: 38.5341,
+  longitude: -122.4552,
 )
 
 DevelopmentSeeds.record(
