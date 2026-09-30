@@ -25,15 +25,25 @@ class AggregatedSearch
   end
 
   def results
-    # get ror_ids from both institutions and rors and get set of overlapping ids between the two
-    inst_ror_ids = institutions.where.not(ror_id: [ nil, "" ]).pluck(:ror_id).to_set
+    # ids of every ROR record that matched the query
     ror_ids = rors.pluck(:ror_id).to_set
-    dup_rors_ids = ror_ids & inst_ror_ids  # intersection of ror_ids and inst_ror_ids
+
+    # ids of every institution that either matched the query directly, or is
+    # linked to a matched ROR record via ror_id (e.g. the query only matched
+    # a ROR alias, so the linked RAMS institution didn't match the query itself)
+    institution_ids = institutions.pluck(:id).to_set |
+      Institution.where(ror_id: ror_ids.to_a).pluck(:id).to_set
+
+    matching_institutions = Institution.where(id: institution_ids.to_a)
+
+    # get the common ror_ids between the two sets of results for elimination from the ROR results
+    dup_ror_ids = ror_ids & matching_institutions.pluck(:ror_id).to_set
+
+    matching_rors = rors.where.not(ror_id: dup_ror_ids.to_a)
 
     # both sets of results in common format, excluding duplicate ror records, sorted by name (case-insensitive)
-    (institutions.map { |inst| institution_result(inst) } +
-      rors.where.not(ror_id: dup_rors_ids.to_a).map { |ror| ror_result(ror) })
-      .sort_by { |item| item[:name].to_s.downcase }
+    (matching_institutions.map { |inst| institution_result(inst) } +
+      matching_rors.map { |ror| ror_result(ror) }).sort_by { |item| item[:name].to_s.downcase }
   end
 
   private

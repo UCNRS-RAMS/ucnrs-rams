@@ -109,6 +109,18 @@ RSpec.describe AggregatedSearch, type: :model do
       )
     end
 
+    it "prefers the linked institution over a ROR result matched only by a ROR alias" do
+      shared_ror = "https://ror.org/0010abcd"
+      linked_institution = create(:institution, name: "Golden Bear College", city: "Berkeley", acronym: "GBC", ror_id: shared_ror)
+      create(:ror, name: "Golden Bear University", acronyms: [ "GBU" ], aliases: [ "Bruin Institute" ], ror_id: shared_ror)
+
+      results = described_class.new(query: "Bruin", limit: 10).results
+
+      expect(results.map { |result| [ result[:type], result[:name] ] }).to eq(
+        [ [ :institution, linked_institution.name ] ],
+      )
+    end
+
     it "suppresses the matching ROR result when the same UCLA record appears in institutions fixture data" do
       ActiveRecord::Base.connection.execute(Rails.root.join("spec/fixtures/rors.sql").read)
       ActiveRecord::Base.connection.execute(Rails.root.join("spec/fixtures/institutions.sql").read)
