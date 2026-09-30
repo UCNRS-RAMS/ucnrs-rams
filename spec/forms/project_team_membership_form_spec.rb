@@ -200,7 +200,7 @@ RSpec.describe ProjectTeamMembershipForm, type: :model do
         )
 
         expect(form.save).to be false
-        expect(form.errors.full_messages).to include("Institution name Id is invalid")
+        expect(form.errors.full_messages).to include("Institution name is invalid")
         expect(form.project_team_membership.reload.institution).to_not be_nil
       end
     end
