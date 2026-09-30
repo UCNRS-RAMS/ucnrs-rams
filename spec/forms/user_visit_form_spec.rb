@@ -246,6 +246,30 @@ RSpec.describe UserVisitForm, type: :model do
         )
       end
 
+      it "preserves the selected ROR ID when another validation rolls back institution creation" do
+        country = create(:country, code: "US", name: "United States")
+        ror = create(
+          :ror,
+          country: { "country_code" => country.code },
+          locations: [ { "geonames_details" => { "name" => "Berkeley" } } ],
+        )
+        form = UserVisitForm.new(
+          params: {
+            visit_id: create(:visit).id,
+            arrives_at: Date.current,
+            departs_at: Date.current + 2.days,
+            role: "Other",
+            count: 1,
+            institution: { id: ror.ror_id },
+            institution_selection_type: "ror",
+          },
+        )
+
+        expect(form.save).to be_falsy
+        expect(form.institution_selection_id).to eq(ror.ror_id)
+        expect(Institution.find_by(ror_id: ror.ror_id)).to be_nil
+      end
+
       it "surfaces an error and does not save when the selected ROR record cannot be resolved" do
         form = UserVisitForm.new(
           params: {
