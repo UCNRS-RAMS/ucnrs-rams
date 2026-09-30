@@ -241,7 +241,7 @@ RSpec.describe UserForm, type: :model do
 
       expect(form.save).to be false
       expect(form.user).to_not be_persisted
-      expect(form.errors.full_messages).to include("Institution name Id is invalid")
+      expect(form.errors.full_messages).to include("Institution name is invalid")
     end
 
     it "makes sure errors are visible when save fails" do
