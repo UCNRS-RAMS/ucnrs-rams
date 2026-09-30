@@ -177,6 +177,18 @@ RSpec.describe Project, type: :model do
     end
   end
 
+  describe "timestamps" do
+    # projects.updated_at carried a "0001-01-01" NOT NULL default inherited from
+    # the legacy schema. A column default counts as an already-set attribute, and
+    # ActiveRecord leaves those alone when it writes timestamps on create, so a
+    # new project was stored with the sentinel instead of its creation time.
+    it "sets updated_at to the time the project was created" do
+      project = create(:project)
+
+      expect(project.reload.updated_at).to be_within(1.minute).of(Time.current)
+    end
+  end
+
   it do
     is_expected.to define_enum_for(:status)
       .with_values(

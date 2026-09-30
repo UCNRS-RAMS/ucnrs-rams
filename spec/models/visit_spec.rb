@@ -31,6 +31,17 @@ RSpec.describe Visit, type: :model do
     end
   end
 
+  describe "timestamps" do
+    # visits.updated_at carried the same "0001-01-01" NOT NULL default as
+    # projects, which ActiveRecord treats as an already-set timestamp and leaves
+    # alone on create. See spec/models/project_spec.rb.
+    it "sets updated_at to the time the visit was created" do
+      visit = create(:visit)
+
+      expect(visit.reload.updated_at).to be_within(1.minute).of(Time.current)
+    end
+  end
+
   describe "delegations" do
     it { is_expected.to delegate_method(:short_name).to(:reserve).with_prefix }
     it { is_expected.to delegate_method(:name).to(:reserve).with_prefix }
