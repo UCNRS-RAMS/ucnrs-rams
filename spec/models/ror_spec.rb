@@ -3,6 +3,18 @@
 require "rails_helper"
 
 RSpec.describe Ror, type: :model do
+  self.use_transactional_tests = false
+
+  around do |example|
+    ror_ids = described_class.pluck(:id)
+    institution_ids = Institution.pluck(:id)
+
+    example.run
+  ensure
+    described_class.where.not(id: ror_ids).delete_all
+    Institution.where.not(id: institution_ids).delete_all
+  end
+
   describe "associations" do
     it { is_expected.to have_many(:institutions).with_primary_key(:ror_id).inverse_of(:ror).dependent(:nullify) }
 
@@ -154,8 +166,7 @@ RSpec.describe Ror, type: :model do
     end
 
     it ".search loads the rors.sql fixture and returns records for a full-word match" do
-      fixture_sql = Rails.root.join("spec/fixtures/rors.sql").read
-      ActiveRecord::Base.connection.execute(fixture_sql)
+      load_ror_fixture
 
       results = described_class.search("London")
 
@@ -167,15 +178,22 @@ RSpec.describe Ror, type: :model do
     end
 
     it ".search loads the rors.sql fixture and matches San/Fran and UCLA variants" do
-      fixture_sql = Rails.root.join("spec/fixtures/rors.sql").read
-      ActiveRecord::Base.connection.execute(fixture_sql)
+      load_ror_fixture
 
       expect(described_class.search("San").map(&:name)).to include("University of California, San Francisco (ucsf.edu)")
       expect(described_class.search("San").map(&:name)).to include("University of California San Diego (ucsd.edu)")
+      expect(described_class.search("S").map(&:name)).to include("University of California, San Francisco (ucsf.edu)")
       expect(described_class.search("Fran").map(&:name)).to include("University of California, San Francisco (ucsf.edu)")
       expect(described_class.search("San Fran").map(&:name)).to include("University of California, San Francisco (ucsf.edu)")
       expect(described_class.search("San Fran").map(&:name)).not_to include("University of California San Diego (ucsd.edu)")
       expect(described_class.search("UCLA").map(&:name)).to include("University of California, Los Angeles (ucla.edu)")
+    end
+  end
+
+  def load_ror_fixture
+    fixture_sql = Rails.root.join("spec/fixtures/rors.sql").read
+    fixture_sql.split(";").each do |statement|
+      ActiveRecord::Base.connection.execute(statement) if statement.present?
     end
   end
 

@@ -3,6 +3,8 @@
 # Local cache of Research Organization Registry (ROR) records.
 # See https://ror.org
 class Ror < ApplicationRecord
+  before_validation :update_searchable_text
+
   has_many :institutions, primary_key: :ror_id, inverse_of: :ror, dependent: :nullify
 
   def cities
@@ -50,12 +52,15 @@ class Ror < ApplicationRecord
     return found_rors.limit(limit) if query.blank? && limit.present?
 
     tokenize(query).each do |partial|
-      found_rors = found_rors.where(
-        "LOWER(rors.name) REGEXP :match
-          OR LOWER(CAST(rors.aliases AS CHAR)) REGEXP :match
-          OR LOWER(CAST(rors.acronyms AS CHAR)) REGEXP :match",
-        { match: Regexp.escape(partial.downcase) }
-      )
+      terms = partial.scan(/[\p{Alnum}]+/)
+      return found_rors.none if terms.empty?
+
+      terms.each do |term|
+        found_rors = found_rors.where(
+          "MATCH(rors.searchable_text) AGAINST (? IN BOOLEAN MODE)",
+          full_text_prefix(term.downcase)
+        )
+      end
     end
 
     if query.present? && limit.present?
@@ -107,6 +112,11 @@ class Ror < ApplicationRecord
   end
   private_class_method :tokenize
 
+  def self.full_text_prefix(term)
+    "+#{term}*"
+  end
+  private_class_method :full_text_prefix
+
   # Get the Ror entry with the closest matching domain for the email domain
   def self.from_email_domain(email_domain:)
     return nil if email_domain.blank?
@@ -131,6 +141,10 @@ class Ror < ApplicationRecord
   end
 
   private
+
+  def update_searchable_text
+    self.searchable_text = [ name, *Array(aliases), *Array(acronyms) ].compact.join(" ").downcase
+  end
 
   def location_values(attribute)
     Array(locations).filter_map do |location|

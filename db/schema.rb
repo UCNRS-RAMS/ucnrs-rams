@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_30_005021) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_30_154000) do
   create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "archived_data_location", limit: 200, null: false, comment: "Where is data archived"
     t.string "data_collected", limit: 200, null: false, comment: "What data is collected"
@@ -582,7 +582,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_30_005021) do
     t.text "taxonomic_keywords"
     t.text "thesis_title"
     t.text "title"
-    t.datetime "updated_at", precision: nil
+    t.datetime "updated_at", precision: nil, default: "0001-01-01 00:00:00", null: false
     t.integer "user_id", null: false, comment: "This person can be selected by the manager and can change over time.\nThis is the name that shows up on reports and in calendars."
     t.index ["course_title"], name: "project_course_name"
     t.index ["date_submitted"], name: "project_date_submitted"
@@ -937,12 +937,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_30_005021) do
     t.json "locations"
     t.string "name"
     t.string "ror_id"
+    t.text "searchable_text"
     t.json "types"
     t.datetime "updated_at", null: false
     t.index ["file_timestamp"], name: "index_rors_on_file_timestamp"
     t.index ["fundref_id"], name: "index_rors_on_fundref_id"
     t.index ["name"], name: "index_rors_on_name"
     t.index ["ror_id"], name: "index_rors_on_ror_id", unique: true
+    t.index ["searchable_text"], name: "rors_searchable_text", type: :fulltext
   end
 
   create_table "signatures", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

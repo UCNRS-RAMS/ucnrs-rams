@@ -4,6 +4,18 @@ require "rails_helper"
 
 RSpec.describe AggregatedSearch, type: :model do
   describe ".institution_search" do
+    self.use_transactional_tests = false
+
+    around do |example|
+      ror_ids = Ror.pluck(:id)
+      institution_ids = Institution.pluck(:id)
+
+      example.run
+    ensure
+      Ror.where.not(id: ror_ids).delete_all
+      Institution.where.not(id: institution_ids).delete_all
+    end
+
     it "combines matching institutions and ROR records and sorts them alphabetically by name" do
       alpha_institution = create(:institution, name: "Zebra Research Institute", city: "San Diego", acronym: "ZRI")
       beta_institution = create(:institution, name: "Alpha Research University", city: "Riverside", acronym: "ARU")
@@ -23,6 +35,18 @@ RSpec.describe AggregatedSearch, type: :model do
   end
 
   describe "#results" do
+    self.use_transactional_tests = false
+
+    around do |example|
+      ror_ids = Ror.pluck(:id)
+      institution_ids = Institution.pluck(:id)
+
+      example.run
+    ensure
+      Ror.where.not(id: ror_ids).delete_all
+      Institution.where.not(id: institution_ids).delete_all
+    end
+
     it "returns the expected hash shape for institution and ROR hits" do
       institution = create(:institution, name: "Research University", city: "Berkeley", acronym: "RU")
       ror = create(
@@ -122,7 +146,7 @@ RSpec.describe AggregatedSearch, type: :model do
     end
 
     it "suppresses the matching ROR result when the same UCLA record appears in institutions fixture data" do
-      ActiveRecord::Base.connection.execute(Rails.root.join("spec/fixtures/rors.sql").read)
+      load_ror_fixture
       ActiveRecord::Base.connection.execute(Rails.root.join("spec/fixtures/institutions.sql").read)
 
       results = described_class.new(query: "UCLA", limit: 20).results
@@ -136,7 +160,7 @@ RSpec.describe AggregatedSearch, type: :model do
     end
 
     it "complex search example that returns multiple records" do
-      ActiveRecord::Base.connection.execute(Rails.root.join("spec/fixtures/rors.sql").read)
+      load_ror_fixture
       ActiveRecord::Base.connection.execute(Rails.root.join("spec/fixtures/institutions.sql").read)
 
       results = described_class.new(query: "Audubon", limit: 20).results
@@ -170,6 +194,13 @@ RSpec.describe AggregatedSearch, type: :model do
 
       # This is the ROR record overridden by the Audubon Society (National & Local) institution record in institutions.
       expect(names).not_to include('National Audubon Society (audubon.org)')
+    end
+
+    def load_ror_fixture
+      fixture_sql = Rails.root.join("spec/fixtures/rors.sql").read
+      fixture_sql.split(";").each do |statement|
+        ActiveRecord::Base.connection.execute(statement) if statement.present?
+      end
     end
   end
 end
