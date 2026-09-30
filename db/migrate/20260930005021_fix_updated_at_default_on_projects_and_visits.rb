@@ -10,8 +10,10 @@
 # looked correct only after the row was updated for some other reason, and the
 # sentinel leaked out through the manager UI and the JSON API.
 #
-# Dropping the default restores the usual behaviour, and rows still holding the
-# sentinel are backfilled from their creation time.
+# Dropping the default restores the usual behaviour. Rows still holding the
+# sentinel take their creation time; rows whose +created_at+ is itself the
+# sentinel (imports from the pre-Rails system) have no time to copy and become
+# null, which the newly nullable column can express and the sentinel could not.
 class FixUpdatedAtDefaultOnProjectsAndVisits < ActiveRecord::Migration[8.1]
   # The value the legacy schema used in place of an absent timestamp.
   SENTINEL = "0001-01-01 00:00:00"
@@ -27,8 +29,8 @@ class FixUpdatedAtDefaultOnProjectsAndVisits < ActiveRecord::Migration[8.1]
 
       execute(<<~SQL.squish)
         UPDATE #{table}
-        SET updated_at = created_at
-        WHERE updated_at = '#{SENTINEL}' AND created_at IS NOT NULL
+        SET updated_at = NULLIF(created_at, '#{SENTINEL}')
+        WHERE updated_at = '#{SENTINEL}'
       SQL
     end
   end
