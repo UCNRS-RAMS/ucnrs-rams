@@ -52,13 +52,14 @@ class Institution < ApplicationRecord
   end
 
   def self.search(query, limit: nil)
-    found_institutions = if query
-                           left_joins(:country)
-    else
-                           all
-    end
+    found_institutions =
+      if query
+        left_joins(:country)
+      else
+        all
+      end
 
-return found_institutions.limit(limit) if query.blank? && limit.present?
+    return limit.present? ? found_institutions.limit(limit) : found_institutions if query.blank?
 
     tokenize(query).each do |partial|
       found_institutions = found_institutions.where(
