@@ -30,7 +30,7 @@ RSpec.describe "development database primer" do
   # base.rb seeds deliberately bare placeholder reserves in every environment, so
   # scope the data-quality assertions to the reserves the development primer
   # creates itself.
-  it "gives the reserves it creates the address, coordinates, and DOI the API publishes" do
+  it "primes the reserve shapes the API publishes and the ones it normalizes" do
     load Rails.root.join("db/seeds/base.rb")
     placeholders = Reserve.pluck(:id)
 
@@ -38,12 +38,19 @@ RSpec.describe "development database primer" do
     primed = Reserve.where.not(id: placeholders)
 
     expect(primed).to be_present
-    expect(primed.where(doi: [ nil, "", "0" ])).to be_empty
-    expect(primed.where(latitude: 0)).to be_empty
-    expect(primed.where(longitude: 0)).to be_empty
+
+    # Every primed reserve is addressable.
     expect(primed.where(address_line_1: [ nil, "" ])).to be_empty
     expect(primed.where(address_city: [ nil, "" ])).to be_empty
     expect(primed.where(address_postal_code: [ nil, "" ])).to be_empty
+
+    # One carries the identifiers and coordinates the API publishes as values.
+    expect(primed.where.not(doi: [ nil, "", "0" ])).to be_present
+    expect(primed.where.not(latitude: 0)).to be_present
+
+    # One holds the placeholders the API turns into null.
+    expect(primed.where(latitude: 0, longitude: 0)).to be_present
+    expect(primed.where(year_reserve_established: 0)).to be_present
   end
 
   it "primes a project with no reserve, which the API serves as a null stub" do
