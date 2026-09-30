@@ -20,7 +20,7 @@ module InstitutionSelectable
     institution = selection.resolve_and_save
     return institution if institution
 
-    selection.errors.full_messages.each { |message| error_target.add(error_attribute, message) }
+    selection.errors.each { |error| error_target.add(error_attribute, error.message) }
     nil
   end
 end
