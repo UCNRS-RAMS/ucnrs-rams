@@ -38,7 +38,7 @@ class FixUpdatedAtDefaultOnProjectsAndVisits < ActiveRecord::Migration[8.1]
   def down
     TABLES.each do |table|
       change_column_default table, :updated_at, from: nil, to: SENTINEL
-      change_column_null table, :updated_at, false
+      change_column_null table, :updated_at, false, SENTINEL
     end
   end
 end
