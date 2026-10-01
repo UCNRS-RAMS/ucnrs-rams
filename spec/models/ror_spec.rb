@@ -178,6 +178,37 @@ RSpec.describe Ror, type: :model do
       expect(described_class.search("San Fran").map(&:name)).not_to include("University of California San Diego (ucsd.edu)")
       expect(described_class.search("UCLA").map(&:name)).to include("University of California, Los Angeles (ucla.edu)")
     end
+
+    it ".search matches queries containing stopwords such as 'of' and 'for'" do
+      match.update!(
+        name: "University of California, Davis",
+        aliases: ["UC Davis"],
+        acronyms: ["UCD"]
+      )
+      csu = create(:ror, name: "California State University", aliases: ["CSU"], acronyms: ["CSU"])
+
+      results = described_class.search("University of California")
+
+      expect(results).to include(match)
+      expect(results).not_to include(csu)
+      expect(described_class.search("of")).to include(match)
+    end
+
+    it ".search loads the rors.sql fixture and matches queries containing stopwords" do
+      load_ror_fixture
+
+      expect(described_class.search("Transport for London").map(&:name)).to include(
+        "Transport for London (tfl.gov.uk)"
+      )
+      expect(described_class.search("London School of Economics").map(&:name)).to include(
+        "London School of Economics and Political Science (lse.ac.uk)"
+      )
+      expect(described_class.search("University of California").map(&:name)).to include(
+        "University of California, Berkeley (berkeley.edu)",
+        "University of California, Los Angeles (ucla.edu)",
+        "University of California, San Francisco (ucsf.edu)"
+      )
+    end
   end
 
   def load_ror_fixture
