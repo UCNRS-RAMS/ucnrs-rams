@@ -1,5 +1,4 @@
 #frozen_string_literal: true
-# rubodop:disable Metrics/ClassLength
 
 class Project < ApplicationRecord
   mount_uploaders :files, ProjectFileUploader
