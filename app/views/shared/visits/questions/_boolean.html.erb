@@ -6,7 +6,9 @@
   <span class="explanation"><%= question.statement %></span>
   <div class="yes-no-row">
     <div class="yes-no-options">
-      <%# Always submit the question so an unselected required answer is validated %>
+      <%# Unselected radios send no param at all, so a required question would skip
+          validation. This blank value is always submitted; a checked radio below
+          overrides it (last param wins). %>
       <%= f.hidden_field :boolean_answer, value: "", id: nil %>
       <%= f.radio_button :boolean_answer, "1", data: { action: "change->value-projection#change" } %>
       <%= f.label :boolean_answer, t("yes"), for: "visit_#{question.location}_reserve_answers_#{question.id}_boolean_answer_1" %>
