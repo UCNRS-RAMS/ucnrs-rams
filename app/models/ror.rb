@@ -5,6 +5,13 @@
 class Ror < ApplicationRecord
   before_validation :update_searchable_text
 
+  # MySQL InnoDB full-text default stopwords that are omitted from full-text indexes.
+  # See https://dev.mysql.com/doc/refman/8.0/en/fulltext-stopwords.html
+  STOPWORDS = %w[
+    a about an are as at be by com de en for from how i in is it
+    la of on or that the this to und was what when where who will with www
+  ].to_set.freeze
+
   has_many :institutions, primary_key: :ror_id, inverse_of: :ror, dependent: :nullify
 
   def cities
@@ -56,10 +63,15 @@ class Ror < ApplicationRecord
       return found_rors.none if terms.empty?
 
       terms.each do |term|
-        found_rors = found_rors.where(
-          "MATCH(rors.searchable_text) AGAINST (? IN BOOLEAN MODE)",
-          full_text_prefix(term.downcase)
-        )
+        term_down = term.downcase
+        if stopword?(term_down)
+          found_rors = found_rors.where("rors.searchable_text LIKE ?", like_pattern(term_down))
+        else
+          found_rors = found_rors.where(
+            "MATCH(rors.searchable_text) AGAINST (? IN BOOLEAN MODE)",
+            full_text_prefix(term_down)
+          )
+        end
       end
     end
 
@@ -116,6 +128,11 @@ class Ror < ApplicationRecord
     "+#{term}*"
   end
   private_class_method :full_text_prefix
+
+  def self.stopword?(term)
+    STOPWORDS.include?(term.to_s.downcase)
+  end
+  private_class_method :stopword?
 
   # Get the Ror entry with the closest matching domain for the email domain
   def self.from_email_domain(email_domain:)
