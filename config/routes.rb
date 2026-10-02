@@ -157,6 +157,7 @@ Rails.application.routes.draw do
         resource :amenity_visits, only: [:update], controller: "visits/amenity_visits"
         resource :summary, only: [:edit, :update, :show], controller: "visits/summary"
         resource :detail, only: [:edit, :update], controller: "visits/detail"
+        resource :report_part_1, only: [:show], controller: "visits/report_part_1"
         resources :activity_and_notes, only: [:index, :create],
           controller: "visits/activity_and_notes"
         resources :logs, only: [:show], controller: "visits/logs"
