@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Adding a project team member", type: :system, js: true do
+  commits_data_for_full_text_search!(additional_tables: %w[project_team_memberships projects reserves users])
+
   it "creates a user with a selected ROR institution" do
     country = create(:country, code: "US", name: "United States")
     state = create(:state, name: "California", country: country)
@@ -11,8 +13,8 @@ RSpec.describe "Adding a project team member", type: :system, js: true do
       locations: [ { "geonames_details" => { "name" => "Berkeley" } } ],
     )
     user = create(:user, :confirmed, address_country: country, address_state: state)
-    project = create(:project, applicant: user)
-    create(:project_team_membership, :principal_investigator, project: project, user: user)
+    project = create(:project, owner: user, applicant: user)
+    create(:project_team_membership, :principal_investigator, project: project, user: user, institution: user.institution)
     sign_in(user)
 
     visit project_team_memberships_path(project)
@@ -40,6 +42,7 @@ RSpec.describe "Adding a project team member", type: :system, js: true do
     expect(page.find("#user_institution_selection_id", visible: false).value).to eq(ror.ror_id)
     expect(page.find("#user_institution_selection_type", visible: false).value).to eq("ror")
     click_button "Save"
+    expect(page).to have_no_css(".modal.visible")
 
     new_user = User.find_by!(email: "new.member@example.test")
     expect(new_user.institution).to have_attributes(
