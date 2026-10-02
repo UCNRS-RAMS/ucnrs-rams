@@ -1,0 +1,23 @@
+<div class="fiscal-year-select">
+  <%= t("modals.manager.visit.report_part_1.fiscal_year") %>:
+  <% if presenter.multiple_fiscal_years? %>
+    <%= tag.div class: "dropdown", data: { controller: "dropdown" } do %>
+      <%= tag.button presenter.fiscal_year_label,
+        class: "dropdown-toggle",
+        type: "button",
+        data: { action: "click->dropdown#toggle click@window->dropdown#hide" }
+      %>
+      <%= tag.div class: "dropdown-menu", data: { "dropdown-class": "show", "dropdown-target": "dropdown" } do %>
+        <% presenter.fiscal_year_dropdown_options.each do |fye| %>
+          <%= link_to presenter.fiscal_year_label(fye),
+            manager_reserve_visit_report_part_1_path(reserve_id: current_reserve.id, visit_id: presenter.visit_id, fiscal_year_ending: fye),
+            class: "dropdown-item",
+            method: :get
+          %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= tag.span presenter.fiscal_year_label %>
+  <% end %>
+</div>

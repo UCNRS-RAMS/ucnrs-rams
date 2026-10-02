@@ -1,0 +1,85 @@
+<turbo-frame id="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title"
+  data-action="mousedown@window->modal#closeBackground">
+  <div class="modal-content"  data-modal-target="dialog openOnLoad">
+    <p class="screenreader-text">
+      <span id="modal-title"><%= t(".title", visit_id: presenter.visit_id, reserve_name: presenter.reserve_name) %></span>
+      <span id="modal-description"></span>
+    </p>
+    <div class="close">
+      <%= image_tag "x.svg", height: "16px", width: "16px",
+        id: "x-icon",
+        data: { action: "click->modal#close" },
+        alt: t("alt.icon_x")
+      %>
+    </div>
+    <section class="visit-report-part-1-modal">
+      <header class="modal-header">
+        <h1><%= t(".title", visit_id: presenter.visit_id, reserve_name: presenter.reserve_name) %></h1>
+        <h2><%= presenter.visit_date_range %></h2>
+      </header>
+      <hr />
+      <div class="table-scroll">
+        <% if presenter.project_type_rows.any? %>
+          <% presenter.project_type_rows.each do |project_type, rows| %>
+            <div class="report-part-1-table-header">
+              <h2 class="report-part-1-project-type"><%= project_type %></h2>
+              <%= render "modals/manager/visit/report_part_1_fiscal_year_select", presenter: presenter %>
+            </div>
+            <table class="annual-report">
+              <thead>
+                <tr>
+                  <th></th>
+                  <% presenter.report_part1_columns.each_slice(2) do |count_col, _| %>
+                    <% full_label = t(".column_labels.#{count_col}") %>
+                    <% abbr = t(".column_abbr.#{count_col}", default: nil) %>
+                    <%= tag.th abbr.presence || full_label, colspan: 2, title: (full_label if abbr.present?) %>
+                  <% end %>
+                </tr>
+                <tr>
+                  <th>CAT.</th>
+                  <% (presenter.report_part1_columns.size / 2).times do %>
+                    <th>U</th>
+                    <th>UD</th>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody>
+                <% rows.each do |row| %>
+                  <tr class="<%= "row-subtotal" if row.role.downcase == "subtotal" %>">
+                    <td><%= t(".roles.#{row.user_role_key || row["role"].downcase}", default: row["role"]) %></td>
+                    <% presenter.report_part1_columns.each do |column| %>
+                      <td><%= presenter.format_count(row[column]) %></td>
+                    <% end %>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
+        <% else %>
+          <div class="report-part-1-table-header">
+            <p><%= t(".no_data", fiscal_year: presenter.fiscal_year_label) %></p>
+            <%= render "modals/manager/visit/report_part_1_fiscal_year_select", presenter: presenter %>
+          </div>
+          <div class="report-part-1-no-data-reasons">
+            <p><%= t(".no_data_reasons.intro") %></p>
+            <ul>
+              <% %w[visit_status report_access visitors_not_approved outside_fiscal_year].each do |reason| %>
+                <li><%= t(".no_data_reasons.#{reason}") %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+      <% if presenter.project_type_rows.any? %>
+        <div class="report-part-1-legend">
+          <% presenter.report_part1_columns.each_slice(2) do |count_col, _| %>
+            <% abbr = t(".column_abbr.#{count_col}", default: nil) %>
+            <% next if abbr.blank? %>
+            <span><strong><%= abbr %></strong><%= t(".column_labels.#{count_col}") %></span>
+          <% end %>
+          <span><%= t(".legend_units") %></span>
+        </div>
+      <% end %>
+    </section>
+  </div>
+</turbo-frame>
