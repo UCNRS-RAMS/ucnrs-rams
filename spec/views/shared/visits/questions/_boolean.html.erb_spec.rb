@@ -18,7 +18,7 @@ RSpec.describe "shared/visits/questions/_boolean.html.erb", type: :view do
 
   it "submits a blank answer so an unselected required question is validated" do
     question = create(:reserve_question, location: :visit, answer_required: true)
-    mock_reserve_answer(question, boolean: false)
+    allow(question).to receive_messages(boolean_answer: nil, text_answer: nil)
     presenter = Visits::QuestionPresenter.new(question)
 
     FakeForm.fields_for(presenter) do |f|
@@ -27,6 +27,7 @@ RSpec.describe "shared/visits/questions/_boolean.html.erb", type: :view do
 
     doc = Capybara.string(rendered)
     expect(doc).to have_css("input[type='hidden'][name$='[boolean_answer]'][value='']", visible: :all)
+    expect(doc).not_to have_css(".yes-no-options input[type='radio']:checked")
     expect(doc).to have_css("span.clr-red", text: "*")
   end
 
