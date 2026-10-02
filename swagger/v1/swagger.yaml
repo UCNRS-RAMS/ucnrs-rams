@@ -277,6 +277,99 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+  "/api/v1/visits":
+    get:
+      summary: List visits
+      tags:
+      - Visits
+      operationId: listVisits
+      description: Returns the visits visible to the authenticated client, newest
+        first.
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Page number (defaults to 1).
+      - name: per_page
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+        description: Items per page (defaults to 25, capped at 100).
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - approved
+          - in_review
+          - cancelled
+          - incomplete
+          - denied
+        description: Filter by status. An unknown value returns 400.
+      - name: project_id
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Restrict to one project, within the client's scope.
+      - name: reserve_id
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Restrict to one reserve, within the client's scope.
+      responses:
+        '200':
+          description: visits visible to the client
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/VisitsCollection"
+        '400':
+          description: a rejected filter value
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '401':
+          description: missing, malformed, unknown, or deactivated token
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+  "/api/v1/visits/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      description: RAMS visit ID.
+    get:
+      summary: Show a visit
+      tags:
+      - Visits
+      operationId: showVisit
+      description: Returns a single visit. A visit outside the client's scope returns
+        404.
+      responses:
+        '200':
+          description: the requested visit
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/VisitResource"
+        '404':
+          description: unknown visit, or one outside the client scope
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
 servers:
 - url: "/"
 security:
@@ -288,6 +381,8 @@ tags:
   description: Organizations the people on a project are affiliated with.
 - name: Reserves
   description: UC Natural Reserve System reserves, where research projects take place.
+- name: Visits
+  description: When and where a research project carried out activity at a reserve.
 components:
   securitySchemes:
     bearerAuth:
@@ -465,6 +560,32 @@ components:
           type: string
           format: date-time
           nullable: true
+    ProjectStub:
+      type: object
+      required:
+      - type
+      - id
+      - title
+      properties:
+        type:
+          type: string
+          enum:
+          - projects
+        id:
+          type: integer
+        title:
+          type: string
+          nullable: true
+        project_type:
+          type: string
+          nullable: true
+          enum:
+          - research
+          - class
+          - meeting
+          - public_use
+          - housing
+          description: Rails enum key. Null where the project type is not recorded.
     ReserveStub:
       type: object
       required:
@@ -502,6 +623,49 @@ components:
           type: string
         orcid:
           type: string
+          nullable: true
+    VisitVisitor:
+      type: object
+      required:
+      - user
+      - role
+      properties:
+        user:
+          type: object
+          nullable: true
+          allOf:
+          - "$ref": "#/components/schemas/UserStub"
+        role:
+          type: string
+          enum:
+          - faculty
+          - research_scientist
+          - research_assistant
+          - graduate_student
+          - undergraduate_student
+          - k_12_instructor
+          - k_12_student
+          - professional
+          - other
+          - docent
+          - volunteer
+          - reserve_staff
+          description: Rails enum key.
+        institution:
+          type: object
+          nullable: true
+          allOf:
+          - "$ref": "#/components/schemas/InstitutionStub"
+        arrives_at:
+          type: string
+          format: date-time
+          nullable: true
+        departs_at:
+          type: string
+          format: date-time
+          nullable: true
+        count:
+          type: integer
           nullable: true
     Institution:
       type: object
@@ -645,6 +809,93 @@ components:
         acronym:
           type: string
           nullable: true
+    Visit:
+      type: object
+      required:
+      - id
+      - type
+      - visitors
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+          enum:
+          - visits
+        status:
+          type: string
+          nullable: true
+          enum:
+          - approved
+          - in_review
+          - cancelled
+          - incomplete
+          - denied
+          description: Rails enum key. Null where the status is not recorded.
+        purpose_of_visit:
+          type: string
+          nullable: true
+        public_use_category:
+          type: string
+          nullable: true
+          enum:
+          - general_use
+          - community_event
+          - fundraiser
+          - k_12_class
+          - private_class
+          - volunteer
+          description: Rails enum key. Only meaningful for public-use visits.
+        study_area:
+          type: string
+          nullable: true
+        start_date:
+          type: string
+          format: date
+          nullable: true
+        end_date:
+          type: string
+          format: date
+          nullable: true
+        starts_at:
+          type: string
+          format: date-time
+          nullable: true
+        ends_at:
+          type: string
+          format: date-time
+          nullable: true
+        submitted_at:
+          type: string
+          format: date-time
+          nullable: true
+        project:
+          type: object
+          nullable: true
+          allOf:
+          - "$ref": "#/components/schemas/ProjectStub"
+        reserve:
+          type: object
+          nullable: true
+          allOf:
+          - "$ref": "#/components/schemas/ReserveStub"
+        submitter:
+          type: object
+          nullable: true
+          allOf:
+          - "$ref": "#/components/schemas/UserStub"
+        visitors:
+          type: array
+          items:
+            "$ref": "#/components/schemas/VisitVisitor"
+        created_at:
+          type: string
+          format: date-time
+          nullable: true
+        updated_at:
+          type: string
+          format: date-time
+          nullable: true
     ProjectsCollection:
       type: object
       required:
@@ -702,6 +953,25 @@ components:
       properties:
         data:
           "$ref": "#/components/schemas/Reserve"
+    VisitsCollection:
+      type: object
+      required:
+      - data
+      - meta
+      properties:
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Visit"
+        meta:
+          "$ref": "#/components/schemas/PaginationMeta"
+    VisitResource:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          "$ref": "#/components/schemas/Visit"
     PaginationMeta:
       type: object
       required:
