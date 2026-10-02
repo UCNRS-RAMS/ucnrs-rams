@@ -276,14 +276,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_30_154000) do
   end
 
   create_table "institutions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "acronym", limit: 10
-    t.string "city", limit: 30
+    t.string "acronym"
+    t.string "city"
     t.integer "country_id"
     t.datetime "created_at", null: false
     t.string "doi", limit: 25, default: "0000", comment: "Unique ID"
     t.column "institution_type", "enum('University of California','California State University System','California Community College','California - Other University or College','U.S. - University or College Outside of California','International University or College','K-12 Education','Non-Governmental Organization or Non-Profit Entity','Governmental Agency or Entity','Business Entity','Individual or Other Entity')"
     t.integer "managing_institution_id", default: 0
-    t.string "name", limit: 80
+    t.string "name"
     t.string "ror_id"
     t.integer "state_id"
     t.datetime "updated_at", null: false
@@ -582,7 +582,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_30_154000) do
     t.text "taxonomic_keywords"
     t.text "thesis_title"
     t.text "title"
-    t.datetime "updated_at", precision: nil, default: "0001-01-01 00:00:00", null: false
+    t.datetime "updated_at", precision: nil
     t.integer "user_id", null: false, comment: "This person can be selected by the manager and can change over time.\nThis is the name that shows up on reports and in calendars."
     t.index ["course_title"], name: "project_course_name"
     t.index ["date_submitted"], name: "project_date_submitted"
