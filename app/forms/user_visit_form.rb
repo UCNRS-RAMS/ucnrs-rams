@@ -2,6 +2,7 @@
 
 class UserVisitForm
   include ActiveModel::Model
+  include InstitutionSelectable
 
   def model_name
     ActiveModel::Name.new(UserVisit)
@@ -9,6 +10,7 @@ class UserVisitForm
 
   def initialize(params: {})
     @params = params
+    @institution_selection_id = params.dig(:institution, :id) if params.key?(:institution)
     @user = User.find_by(id: params[:user_id])
     @user_visit = UserVisit.find_by(id: params[:id]) || UserVisit.new(new_user_visit_params)
     assign(params.except(:institution))
@@ -23,9 +25,15 @@ class UserVisitForm
   validates :user_id, presence: true
   validates :institution_id, presence: true
 
-  attr_accessor :userdays
+  attr_accessor :userdays, :institution_selection_type
   attr_reader :user_visit, :user, :institution_form
   attr_writer :manual_user_days
+
+  def institution_selection_id
+    return @institution_selection_id if defined?(@institution_selection_id)
+
+    user_visit.institution_id
+  end
 
   alias validate_form validate
   alias valid_form? valid?
@@ -67,6 +75,8 @@ class UserVisitForm
   alias valid? validate
 
   def save
+    return save_with_selected_institution if institution_selection_type.present?
+
     if validate
       ActiveRecord::Base.transaction do
         institution_form.submit
@@ -105,7 +115,38 @@ class UserVisitForm
   end
 
   def institution_form_params(params)
+    return {} if institution_selection_type.present?
+
     params.delete(:institution) || { id: user_visit.institution_id }
+  end
+
+  def save_with_selected_institution
+    success = false
+
+    ActiveRecord::Base.transaction do
+      institution = resolve_institution_selection(
+        id: params.dig(:institution, :id),
+        type: institution_selection_type,
+        error_target: errors,
+        error_attribute: :institution_id,
+      )
+
+      unless institution
+        raise ActiveRecord::Rollback
+      end
+
+      user_visit.institution = institution
+      @institution_form = InstitutionForm.new(id: institution.id)
+
+      if validate
+        user_visit.save!
+        success = true
+      else
+        raise ActiveRecord::Rollback
+      end
+    end
+
+    success
   end
 
   def adding_user_as_guest_visitor?

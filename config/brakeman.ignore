@@ -995,13 +995,13 @@
     {
       "warning_type": "Mass Assignment",
       "warning_code": 105,
-      "fingerprint": "7bbd5038f33ab00c13212490cad9957b2ff0080c607b5b01145471067e4cae3d",
+      "fingerprint": "25c8d83930f33a82cd75ac3388f1f83ff103c9109cd507019b43209b0b5d0746",
       "check_name": "PermitAttributes",
       "message": "Potentially dangerous key allowed for mass assignment",
       "file": "app/controllers/visits/user_visits_controller.rb",
       "line": 107,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
-      "code": "params.require(:user_visit).permit(:id, :arrives_at, :departs_at, :count, :role, :institution_id, :user_id, :visit_id, :guest_name, :institution => ([:id, :name, :city, :country_id, :state_id, :institution_type]))",
+      "code": "params.require(:user_visit).permit(:id, :arrives_at, :departs_at, :count, :role, :institution_id, :institution_selection_type, :user_id, :visit_id, :guest_name, :institution => ([:id, :name, :city, :country_id, :state_id, :institution_type]))",
       "render_path": null,
       "location": {
         "type": "method",
@@ -2093,13 +2093,13 @@
     {
       "warning_type": "Mass Assignment",
       "warning_code": 105,
-      "fingerprint": "c8f7a0183569b76ee87b389c72e3bfdbcbbf23f501f623ae60f1ca6b52970ffc",
+      "fingerprint": "77f2c1ef037ce2df5afd5047178a04a61572d794d021810466b0571c515d0319",
       "check_name": "PermitAttributes",
       "message": "Potentially dangerous key allowed for mass assignment",
       "file": "app/controllers/manager/visits/user_visits_controller.rb",
       "line": 69,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
-      "code": "params.require(:user_visit).permit(:id, :arrives_at, :departs_at, :count, :role, :actual_days, :institution_id, :user_id, :visit_id, :guest_name, :userdays, :manual_user_days, :institution => ([:id, :name, :city, :country_id, :state_id, :institution_type]))",
+      "code": "params.require(:user_visit).permit(:id, :arrives_at, :departs_at, :count, :role, :actual_days, :institution_id, :institution_selection_type, :user_id, :visit_id, :guest_name, :userdays, :manual_user_days, :institution => ([:id, :name, :city, :country_id, :state_id, :institution_type]))",
       "render_path": null,
       "location": {
         "type": "method",

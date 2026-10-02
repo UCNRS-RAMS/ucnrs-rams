@@ -1,0 +1,147 @@
+# frozen_string_literal: true
+
+# Resolves an autocomplete selection into a RAMS institution, whether it
+# references an existing institution or a ROR record.
+# This shared domain object lives with the models because several forms use
+# the same resolution rules; it is not itself an Active Record model.
+class InstitutionSelection
+  include ActiveModel::Model
+
+  attr_reader :id, :type
+
+  def initialize(id:, type:)
+    @id = id.to_s
+    @type = type.to_s
+  end
+
+  def resolve
+    return @institution if defined?(@institution)
+
+    @institution = case type
+    when "institution"
+      Institution.find_by(id: id).tap do |institution|
+        errors.add(:id, "is invalid") if institution.blank?
+      end
+    when "ror"
+      institution_for_ror
+    else
+      errors.add(:type, "is invalid")
+      nil
+    end
+  end
+
+  def resolve_and_save
+    return resolve unless type == "ror"
+
+    resolve_ror!
+  end
+
+  private
+
+  def institution_for_ror
+    ror = Ror.find_by(ror_id: id)
+    unless ror
+      errors.add(:id, "is invalid")
+      return nil
+    end
+
+    ror.institutions.order(:id).first || build_institution(ror)
+  end
+
+  def resolve_ror!
+    ror = Ror.find_by(ror_id: id)
+    unless ror
+      errors.add(:id, "is invalid")
+      return nil
+    end
+
+    # Autocomplete submits only the ROR ID; institution creation happens when
+    # the surrounding form is saved. Serialize first-time selections here so
+    # concurrent submissions reuse one new institution. A unique ror_id index
+    # is not appropriate because legacy imports can intentionally link several
+    # distinct institutions to the same ROR.
+    ror.with_lock do
+      @institution = ror.institutions.order(:id).first || build_institution(ror)
+      @institution.save! if @institution&.new_record?
+    end
+
+    @institution
+  end
+
+  def build_institution(ror)
+    country = country_for(ror)
+    unless country
+      errors.add(:country, "is not recognized")
+      return nil
+    end
+
+    institution = Institution.new(
+      name: name_for(ror),
+      acronym: ror.acronyms.to_a.first,
+      city: ror.cities.first.presence || "unknown",
+      country: country,
+      state: state_for(ror, country: country),
+      institution_type: institution_type_for(ror, country: country),
+      ror_id: ror.ror_id,
+    )
+    return institution if institution.valid?
+
+    errors.merge!(institution.errors)
+    nil
+  end
+
+  # Parenthetical suffixes (including countries) are useful in autocomplete
+  # and remain on the linked ROR record, so the RAMS institution name can omit them.
+  def name_for(ror)
+    ror.name.to_s.sub(/\s*\([^()]*\)\z/, "")
+  end
+
+  # Our `states` table uses inconsistent coding schemes across countries
+  # (e.g. UK ceremonial counties and French departments instead of ISO
+  # 3166-2 country subdivisions), so a ROR-provided subdivision code often
+  # will not match a state record even when the country and subdivision are
+  # otherwise unambiguous. Fall back to matching by subdivision name so
+  # countries whose `states.name` values do line up (e.g. Australia, Brazil,
+  # the Netherlands, Mexico) still resolve correctly.
+  def state_for(ror, country:)
+    states_in_country = State.in_country(country)
+
+    code = ror.state_code_for(country.code)
+    state = states_in_country.find_by(code: code) if code.present?
+    return state if state
+
+    name = ror.state_name_for(country.code)
+    return nil if name.blank?
+
+    states_in_country.where("LOWER(name) = ?", name.downcase).first
+  end
+
+  def institution_type_for(ror, country:)
+    types = Array(ror.types).map { |ror_type| ror_type.to_s.strip.downcase.delete_suffix("/") }
+
+    if types.include?("education")
+      return "k_12_education" if k12_education?(ror)
+      return "other_california_university_or_college" if country.code == "US" && ror.state_codes.include?("CA")
+      return "non_california_us_university_or_college" if country.code == "US"
+
+      return "international_university_or_college"
+    end
+
+    return "business_entity" if types.include?("company")
+    return "governmental_organization_or_entity" if types.include?("government")
+    return "non_governmental_organization_or_entity" if types.include?("nonprofit")
+
+    "individual_or_other_entity"
+  end
+
+  def k12_education?(ror)
+    domain = ror.home_page.to_s.sub(%r{\Ahttps?://}i, "").split(/[\/?#]/, 2).first
+
+    domain.to_s.match?(/\.k12\./i) || ror.name.to_s.match?(/unified|school district|\busd\b/i)
+  end
+
+  def country_for(ror)
+    data = ror.country || {}
+    Country.coded(data["country_code"]) || Country.find_by(name: data["country_name"])
+  end
+end

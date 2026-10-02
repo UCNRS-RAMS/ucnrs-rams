@@ -1,5 +1,6 @@
 class UserForm
   include ActiveModel::Model
+  include InstitutionSelectable
 
   def model_name
     ActiveModel::Name.new(User)
@@ -25,6 +26,7 @@ class UserForm
     :can_receive_invoice,
     :project_id,
     :institution_name,
+    :institution_selection_type,
     :user_role
 
   delegate_missing_to :user
@@ -69,6 +71,18 @@ class UserForm
     end
   end
 
+  def institution_id=(institution_id)
+    @institution_selection_id = institution_id
+    user.institution_id = institution_id
+  end
+
+  def institution_id
+    @institution_selection_id || user.institution_id
+  end
+
+  alias_method :institution_selection_id, :institution_id
+  alias_method :institution_selection_id=, :institution_id=
+
   alias_method :validate_form, :validate
   alias_method :valid_form?, :valid?
   def validate
@@ -81,14 +95,21 @@ class UserForm
   alias_method :valid?, :validate
 
   def save
+    @institution_selection_error_messages = nil
+
     begin
       User.transaction do
+        assign_selected_institution!
         save_user!
         save_project_team_membership!
         true
       end
     rescue ActiveRecord::RecordInvalid => e
+      # Re-validating below clears user.errors, so any institution-selection
+      # failure message added in assign_selected_institution! would otherwise
+      # be lost; re-apply it afterwards.
       validate
+      reapply_institution_selection_errors
       Rails.logger.error(e)
       false
     end
@@ -106,6 +127,29 @@ class UserForm
     user.role = self.user_role
   end
 
+  def assign_selected_institution!
+    return if institution_selection_type.blank?
+
+    institution = resolve_institution_selection(
+      id: @institution_selection_id,
+      type: institution_selection_type,
+      error_target: user.errors,
+      error_attribute: :institution,
+    )
+    unless institution
+      @institution_selection_error_messages = user.errors[:institution].dup
+      raise ActiveRecord::RecordInvalid, user
+    end
+
+    user.institution = institution
+    project_team_membership.institution = institution
+  end
+
+  def reapply_institution_selection_errors
+    Array(@institution_selection_error_messages).each do |message|
+      errors.add(:institution_name, message) unless errors.added?(:institution_name, message)
+    end
+  end
 
   def maybe_assign_placeholder_email
     if user.email.blank? && applicant.present?

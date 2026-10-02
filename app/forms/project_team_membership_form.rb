@@ -2,6 +2,7 @@
 
 class ProjectTeamMembershipForm
   include ActiveModel::Model
+  include InstitutionSelectable
 
   def model_name
     ActiveModel::Name.new(ProjectTeamMembership)
@@ -18,7 +19,7 @@ class ProjectTeamMembershipForm
   end
 
   attr_accessor :full_name
-  attr_accessor :institution_name
+  attr_accessor :institution_name, :institution_selection_type
   attr_reader :project_role
 
   attr_reader :project_team_membership
@@ -65,6 +66,20 @@ class ProjectTeamMembershipForm
     end
   end
 
+  def institution_id=(institution_id)
+    @institution_selection_id = institution_id
+    project_team_membership.institution_id = institution_id
+  end
+
+  # the form builder reads institution_id through delegate_missing_to, which returns the resolved institution's
+  # numeric ID. If another membership validation fails, the modal re-renders that numeric ID with selection type ror,
+  # so retrying cannot resolve the selection. Add a getter that returns the submitted value whenever it was assigned,
+  # including a blank value.
+  def institution_id
+    return @institution_selection_id if defined?(@institution_selection_id)
+    project_team_membership.institution_id
+  end
+
   def assigned_as_project_owner=(value)
     project.owner = user if value == "true"
   end
@@ -83,11 +98,26 @@ class ProjectTeamMembershipForm
   end
   alias_method :valid?, :validate
 
+  # Keep institution creation, project-owner updates, and membership save atomic.
   def save
+    success = false
+
     ActiveRecord::Base.transaction do
-      project.save(validate: false) if project.user_id_changed?
-      validate && project_team_membership.save
+      assign_selected_institution!
+
+      if validate
+        project.save!(validate: false) if project.user_id_changed?
+        project_team_membership.save!
+        success = true
+      else
+        raise ActiveRecord::Rollback
+      end
     end
+
+    success
+  rescue ActiveRecord::RecordInvalid => error
+    errors.merge!(error.record.errors)
+    false
   end
 
   private
@@ -115,6 +145,20 @@ class ProjectTeamMembershipForm
         .where(users: { id: user_id })
         .pick(:id)
     end
+  end
+
+  def assign_selected_institution!
+    return if institution_selection_type.blank?
+
+    institution = resolve_institution_selection(
+      id: @institution_selection_id,
+      type: institution_selection_type,
+      error_target: errors,
+      error_attribute: :institution_name,
+    )
+    raise ActiveRecord::RecordInvalid, project_team_membership unless institution
+
+    self.institution = institution
   end
 
   def maybe_set_user_role_from_user
