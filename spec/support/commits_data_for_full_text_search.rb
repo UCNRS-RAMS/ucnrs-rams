@@ -16,12 +16,13 @@ module CommitsDataForFullTextSearch
   # Institutions reference countries/states, so they're deleted first.
   TRACKED_TABLES = %w[institutions rors countries states].freeze
 
-  def commits_data_for_full_text_search!
+  def commits_data_for_full_text_search!(additional_tables: [])
     self.use_transactional_tests = false
 
     around do |example|
       connection = ActiveRecord::Base.connection
-      snapshot = CommitsDataForFullTextSearch::TRACKED_TABLES.index_with do |table|
+      tracked_tables = additional_tables + CommitsDataForFullTextSearch::TRACKED_TABLES
+      snapshot = tracked_tables.index_with do |table|
         {
           ids: connection.select_values("SELECT id FROM #{table}"),
           auto_increment: connection.select_value(
@@ -34,7 +35,7 @@ module CommitsDataForFullTextSearch
       example.run
     ensure
       connection = ActiveRecord::Base.connection
-      CommitsDataForFullTextSearch::TRACKED_TABLES.each do |table|
+      tracked_tables.each do |table|
         kept_ids = snapshot[table][:ids]
         if kept_ids.present?
           connection.execute("DELETE FROM #{table} WHERE id NOT IN (#{kept_ids.join(',')})")
