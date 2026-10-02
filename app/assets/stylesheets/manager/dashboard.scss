@@ -393,3 +393,245 @@
     width: 30px;
   }
 }
+
+.modal {
+  .visit-report-part-1-modal {
+    hr {
+      border-top: 1px solid #e0e9eb;
+      border-bottom: 0;
+      border-left: 0;
+      border-right: 0;
+      margin: 1rem 0;
+    }
+
+    header {
+      h1 {
+        font-size: 1.25rem;
+        font-weight: $semi-bold;
+        margin-bottom: 0.5rem;
+        margin-top: 0;
+        text-align: left;
+      }
+
+      h2 {
+        color: $semidark-bluegray;
+        font-size: .75rem;
+        font-weight: $normal;
+        margin-bottom: 0;
+        margin-top: 0;
+        text-align: left;
+      }
+    }
+
+    div.report-part-1-table-header {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+
+      h2.report-part-1-project-type {
+        color: $navy-blue;
+        font-size: 14px;
+        font-weight: $medium;
+        margin: 0;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      .fiscal-year-select {
+        align-items: center;
+        display: flex;
+        gap: 8px;
+      }
+    }
+
+    .report-part-1-no-data-reasons {
+      color: $semidark-bluegray;
+      font-size: .75rem;
+
+      p {
+        margin: 0 0 0.25rem;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 1.25rem;
+      }
+    }
+
+    .table-scroll {
+      //overflow-x: auto;
+    }
+
+    // "Clean matrix" table style: fixed borders instead of the legacy
+    // annual-report grid, column bands per affiliation, and a heavier
+    // Total column. Scoped here so the full-page report and the PDF
+    // export (application_pdf.scss) keep the older table.annual-report
+    // look untouched.
+    table.annual-report {
+      border-collapse: separate;
+      border-spacing: 0;
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 0;
+      table-layout: fixed;
+
+      th, td {
+        border-color: #cdd8dd;
+        border-style: solid;
+        border-width: 0;
+      }
+
+      tr {
+        height: auto;
+      }
+
+      thead {
+        tr:first-child th {
+          background: $white;
+          color: $navy-blue;
+          font-size: 11px;
+          font-weight: $semi-bold;
+          letter-spacing: 0.03em;
+          padding: 7px 4px 6px;
+          text-align: center;
+          vertical-align: bottom;
+
+          &:first-child {
+            color: $semidark-bluegray;
+            font-size: 10px;
+            letter-spacing: 0.06em;
+            padding: 0 8px 8px 0;
+            text-align: left;
+            text-transform: uppercase;
+            width: 70px;
+          }
+
+          &:not(:first-child) {
+            border-left-width: 1px;
+            border-bottom-width: 1px;
+          }
+
+          &:nth-child(odd):not(:first-child) {
+            background: #eaf0f2;
+          }
+
+
+        }
+
+        tr:last-child th {
+          color: $semidark-bluegray;
+          font-size: 10px;
+          font-weight: $medium;
+          padding: 5px 4px 6px;
+          text-align: center;
+
+          &:nth-child(even) {
+            border-left-width: 1px;
+          }
+
+          &:nth-child(4n), &:nth-child(4n+1):not(:first-child) {
+            background: #eaf0f2;
+          }
+        }
+      }
+
+      tbody {
+        td {
+          border-top-width: 1px;
+          color: $navy-blue;
+          font-size: 10px;
+          font-weight: $normal;
+          padding: 11px 4px;
+          text-align: center;
+
+          &:first-child {
+            font-weight: $medium;
+            padding: 11px 6px 11px 2px;
+            text-align: left;
+          }
+
+          &:nth-child(even) {
+            border-left-width: 1px;
+          }
+
+          &:nth-child(4n), &:nth-child(4n+1):not(:first-child) {
+            background: #eaf0f2;
+          }
+        }
+
+        tr.row-subtotal td {
+          background: #e7ecf2;
+          border-top-color: $navy-blue;
+          border-top-width: 2px;
+          font-weight: $semi-bold;
+
+          &:first-child {
+            font-size: 10px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+          }
+        }
+      }
+
+      // Total column (last Users / User-Days pair) reads heavier than the
+      // per-affiliation columns it sums, so it stays legible once the rest
+      // of the matrix is banded.
+      thead tr:first-child th:last-child {
+        background: #dde5ee;
+        border-left-color: $navy-blue;
+        border-left-width: 2px;
+      }
+
+      thead tr:last-child th:last-child,
+      thead tr:last-child th:nth-last-child(2) {
+        background: #dde5ee;
+      }
+
+      thead tr:last-child th:nth-last-child(2) {
+        border-left-color: $navy-blue;
+        border-left-width: 2px;
+      }
+
+      tbody td:last-child,
+      tbody td:nth-last-child(2) {
+        background: #eaeff5;
+        font-weight: $semi-bold;
+      }
+
+      tbody td:nth-last-child(2) {
+        border-left-color: $navy-blue;
+        border-left-width: 2px;
+      }
+
+      tbody tr.row-subtotal td:last-child,
+      tbody tr.row-subtotal td:nth-last-child(2) {
+        background: #d7e0ea;
+      }
+    }
+
+    .report-part-1-legend {
+      border-top: 1px solid #e0e9eb;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 18px;
+      margin-top: 16px;
+      padding-top: 14px;
+
+      span {
+        align-items: baseline;
+        color: $semidark-bluegray;
+        display: inline-flex;
+        font-size: 10px;
+        gap: 5px;
+
+        strong {
+          color: $navy-blue;
+          font-weight: $semi-bold;
+          letter-spacing: 0.03em;
+        }
+      }
+    }
+  }
+}

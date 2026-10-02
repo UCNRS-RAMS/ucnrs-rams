@@ -433,6 +433,53 @@ en:
       create_invoice: Create Invoice
       close: Close
       project: "Under Project # %{id} | %{project_type}"
+    manager:
+      visit:
+        report_part_1:
+          title: "Visit #%{visit_id} @%{reserve_name} — Annual Report Part 1"
+          fiscal_year: Fiscal Year
+          no_data: "No annual report data for this visit in fiscal year %{fiscal_year}."
+          no_data_reasons:
+            intro: "This may be because:"
+            visit_status: The visit hasn't been submitted yet, or it was cancelled or denied.
+            report_access: "\"Include Visit in Annual Report\" is unchecked for this visit."
+            visitors_not_approved: No visitors have been added to this visit, or none have been approved yet.
+            outside_fiscal_year: None of the approved visitors' stays fall within this fiscal year.
+          column_labels:
+            CountUCHome: UC Home
+            CountUCAway: UC Other
+            CountCSU: CSU System
+            CountComCol: CA Comm College
+            CountOthCA: Other CA College
+            CountOthUS: Out of State College
+            CountIntl: Int. Univ
+            CountGov: Government
+            CountNGO: NGO / Non-Profit
+            CountBus: Business Entity
+            CountK12: K-12
+            CountOthers: Other
+            CountAll: Total
+          column_abbr:
+            CountGov: GOV
+            CountNGO: NGO
+            CountBus: BIZ
+            CountK12: K12
+          legend_units: CAT — category · U — users · UD — user-days
+          roles:
+            faculty: Faculty
+            research_scientist: Research Scientist/ Post Doc
+            research_assistant: Research Assistant (non-student/ faculty/ postdoc)
+            graduate_student: Graduate
+            undergraduate_student: Undergrad
+            k_12_instructor: K-12 Instructor
+            k_12_student: K-12 Student
+            professional: Professional
+            other: Other
+            docent: Docent
+            volunteer: Volunteer
+            reserve_staff: Reserve Staff
+            no_selection: No Selection
+            subtotal: SUBTOTAL
     edit_project_team_membership:
       title: Edit Team Member
       accessible_description: A modal pop-up form to edit details of a team member on this project.
@@ -1733,6 +1780,7 @@ en:
         date_submitted: Date Submitted
         number: Visits Number
         project_title: Project
+        report_part_1: Annual Report Part 1
         reserve: Reserve
         visit_dates: Visit Dates
         visit_purpose: Visit Purpose
