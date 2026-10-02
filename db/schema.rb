@@ -943,7 +943,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_30_154000) do
     t.index ["file_timestamp"], name: "index_rors_on_file_timestamp"
     t.index ["fundref_id"], name: "index_rors_on_fundref_id"
     t.index ["name"], name: "index_rors_on_name"
-    t.index ["ror_id"], name: "index_rors_on_ror_id"
+    t.index ["ror_id"], name: "index_rors_on_ror_id", unique: true
     t.index ["searchable_text"], name: "rors_searchable_text", type: :fulltext
   end
 
