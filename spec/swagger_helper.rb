@@ -47,6 +47,10 @@ RSpec.configure do |config|
         {
           name: 'Reserves',
           description: 'UC Natural Reserve System reserves, where research projects take place.'
+        },
+        {
+          name: 'Visits',
+          description: 'When and where a research project carried out activity at a reserve.'
         }
       ],
       components: {
@@ -152,6 +156,21 @@ RSpec.configure do |config|
               updated_at: { type: :string, format: 'date-time', nullable: true }
             }
           },
+          ProjectStub: {
+            type: :object,
+            required: %w[type id title],
+            properties: {
+              type: { type: :string, enum: ['projects'] },
+              id: { type: :integer },
+              title: { type: :string, nullable: true },
+              project_type: {
+                type: :string,
+                nullable: true,
+                enum: Project.project_types.keys,
+                description: 'Rails enum key. Null where the project type is not recorded.'
+              }
+            }
+          },
           ReserveStub: {
             type: :object,
             required: %w[type id name short_name],
@@ -170,6 +189,30 @@ RSpec.configure do |config|
               id: { type: :integer },
               full_name: { type: :string },
               orcid: { type: :string, nullable: true }
+            }
+          },
+          VisitVisitor: {
+            type: :object,
+            required: %w[user role],
+            properties: {
+              user: {
+                type: :object,
+                nullable: true,
+                allOf: [{ '$ref' => '#/components/schemas/UserStub' }]
+              },
+              role: {
+                type: :string,
+                enum: UserVisit.roles.keys,
+                description: 'Rails enum key.'
+              },
+              institution: {
+                type: :object,
+                nullable: true,
+                allOf: [{ '$ref' => '#/components/schemas/InstitutionStub' }]
+              },
+              arrives_at: { type: :string, format: 'date-time', nullable: true },
+              departs_at: { type: :string, format: 'date-time', nullable: true },
+              count: { type: :integer, nullable: true }
             }
           },
           Institution: {
@@ -254,6 +297,54 @@ RSpec.configure do |config|
               acronym: { type: :string, nullable: true }
             }
           },
+          Visit: {
+            type: :object,
+            required: %w[id type visitors],
+            properties: {
+              id: { type: :integer },
+              type: { type: :string, enum: ['visits'] },
+              status: {
+                type: :string,
+                nullable: true,
+                enum: Visit.statuses.keys,
+                description: 'Rails enum key. Null where the status is not recorded.'
+              },
+              purpose_of_visit: { type: :string, nullable: true },
+              public_use_category: {
+                type: :string,
+                nullable: true,
+                enum: Visit.public_use_categories.keys,
+                description: 'Rails enum key. Only meaningful for public-use visits.'
+              },
+              study_area: { type: :string, nullable: true },
+              start_date: { type: :string, format: :date, nullable: true },
+              end_date: { type: :string, format: :date, nullable: true },
+              starts_at: { type: :string, format: 'date-time', nullable: true },
+              ends_at: { type: :string, format: 'date-time', nullable: true },
+              submitted_at: { type: :string, format: 'date-time', nullable: true },
+              project: {
+                type: :object,
+                nullable: true,
+                allOf: [{ '$ref' => '#/components/schemas/ProjectStub' }]
+              },
+              reserve: {
+                type: :object,
+                nullable: true,
+                allOf: [{ '$ref' => '#/components/schemas/ReserveStub' }]
+              },
+              submitter: {
+                type: :object,
+                nullable: true,
+                allOf: [{ '$ref' => '#/components/schemas/UserStub' }]
+              },
+              visitors: {
+                type: :array,
+                items: { '$ref' => '#/components/schemas/VisitVisitor' }
+              },
+              created_at: { type: :string, format: 'date-time', nullable: true },
+              updated_at: { type: :string, format: 'date-time', nullable: true }
+            }
+          },
           ProjectsCollection: {
             type: :object,
             required: %w[data meta],
@@ -306,6 +397,24 @@ RSpec.configure do |config|
             required: %w[data],
             properties: {
               data: { '$ref' => '#/components/schemas/Reserve' }
+            }
+          },
+          VisitsCollection: {
+            type: :object,
+            required: %w[data meta],
+            properties: {
+              data: {
+                type: :array,
+                items: { '$ref' => '#/components/schemas/Visit' }
+              },
+              meta: { '$ref' => '#/components/schemas/PaginationMeta' }
+            }
+          },
+          VisitResource: {
+            type: :object,
+            required: %w[data],
+            properties: {
+              data: { '$ref' => '#/components/schemas/Visit' }
             }
           },
           PaginationMeta: {

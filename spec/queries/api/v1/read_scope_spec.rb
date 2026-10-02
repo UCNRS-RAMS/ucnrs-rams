@@ -96,4 +96,23 @@ RSpec.describe Api::V1::ReadScope do
       end
     end
   end
+
+  describe "#visits" do
+    let(:unaffiliated_visit) { create(:visit) }
+
+    it "returns every visit to a platform-wide client" do
+      expect(scope.visits).to include(unaffiliated_visit)
+    end
+
+    context "when the client is scoped to a reserve" do
+      let(:reserve) { create(:reserve) }
+      let(:api_client) { create(:api_client, reserve: reserve) }
+      let(:reserve_visit) { create(:visit, reserve: reserve) }
+
+      it "returns only the reserve's visits" do
+        expect(scope.visits).to include(reserve_visit)
+        expect(scope.visits).not_to include(unaffiliated_visit)
+      end
+    end
+  end
 end

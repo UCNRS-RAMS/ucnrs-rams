@@ -45,6 +45,17 @@ module Api
           .or(Institution.where(id: reserve.managing_campus_id))
       end
 
+      # A visit names the reserve it took place at, so a reserve-scoped client
+      # sees the reserve's own visits. Legacy visits left without a reserve
+      # belong to no reserve and are visible only to a platform-wide client.
+      #
+      # @return [ActiveRecord::Relation<Visit>]
+      def visits
+        return Visit.all if platform_wide?
+
+        Visit.where(reserve: reserve)
+      end
+
       private
 
       # @return [Reserve, nil] the reserve the client is limited to, if any
