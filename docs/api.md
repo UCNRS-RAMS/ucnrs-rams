@@ -52,9 +52,9 @@ prefix; Swagger UI adds it to each request it sends.
 An `ApiClient` may optionally belong to a `Reserve`. Scoping only limits what a
 client may read; it never widens it. A client with no reserve is a platform-wide
 integration, while a client with a reserve is limited to that reserve's
-research: the reserve itself, its projects, and the institutions affiliated with
-those projects — the reserve's managing campus, and the institutions of each
-project's owner, applicant, and team members.
+research: the reserve itself, its projects, its visits, and the institutions
+affiliated with those projects — the reserve's managing campus, and the
+institutions of each project's owner, applicant, and team members.
 
 `Api::V1::ReadScope` (`app/queries/api/v1/read_scope.rb`) owns that rule, one
 method per resource, so a new endpoint adds a method there rather than another
@@ -161,10 +161,12 @@ if that becomes a problem.
 docker compose exec web bundle exec rspec \
   spec/models/api_client_spec.rb \
   spec/presenters/api/v1/reserve_presenter_spec.rb \
+  spec/presenters/api/v1/visit_presenter_spec.rb \
   spec/queries/api/v1/read_scope_spec.rb \
   spec/requests/api/v1/institutions_spec.rb \
   spec/requests/api/v1/projects_spec.rb \
   spec/requests/api/v1/reserves_spec.rb \
+  spec/requests/api/v1/visits_spec.rb \
   spec/api
 ```
 
