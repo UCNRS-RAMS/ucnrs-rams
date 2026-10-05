@@ -61,6 +61,21 @@ RSpec.describe Ops::InstitutionRorDeduplicator do
       expect(Institution.exists?(duplicate.id)).to be(false)
       expect(kept.reload.ror_id).to eq(ror_id)
       expect(user.reload.institution_id).to eq(kept.id)
+
+      audit = ActiveRecord::Base.connection.select_one(<<~SQL)
+        SELECT *
+        FROM institution_deduplication_audits
+        WHERE deleted_institution_id = #{duplicate.id}
+      SQL
+      expect(audit).to include(
+        "run_id" => result.audit_run_id,
+        "source_csv_path" => path,
+        "ror_id" => ror_id,
+        "retained_institution_id" => kept.id,
+        "deleted_institution_id" => duplicate.id
+      )
+      expect(JSON.parse(audit.fetch("reference_updates"))).to eq("users" => 1)
+      expect(audit.fetch("source_csv_sha256")).to match(/\A\h{64}\z/)
     end
   end
 
