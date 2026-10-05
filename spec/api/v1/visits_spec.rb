@@ -42,6 +42,15 @@ RSpec.describe 'Api::V1::Visits', type: :request do
       parameter name: :reserve_id, in: :query, required: false,
         schema: { type: :integer },
         description: 'Restrict to one reserve, within the client\'s scope.'
+      parameter name: :updated_since, in: :query, required: false,
+        schema: { type: :string, format: 'date-time' },
+        description: 'Only visits updated at or after this ISO 8601 instant, inclusive.'
+      parameter name: :starts_on, in: :query, required: false,
+        schema: { type: :string, format: 'date' },
+        description: 'Only visits whose activity window overlaps this ISO 8601 date or later.'
+      parameter name: :ends_on, in: :query, required: false,
+        schema: { type: :string, format: 'date' },
+        description: 'Only visits whose activity window overlaps this ISO 8601 date or earlier.'
 
       response '200', 'visits visible to the client' do
         schema '$ref' => '#/components/schemas/VisitsCollection'
