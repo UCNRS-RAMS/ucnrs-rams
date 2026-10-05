@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_30_005021) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_05_120000) do
   create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "archived_data_location", limit: 200, null: false, comment: "Where is data archived"
     t.string "data_collected", limit: 200, null: false, comment: "What data is collected"
@@ -934,11 +934,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_30_005021) do
     t.string "fundref_id"
     t.string "home_page"
     t.string "language"
-    t.json "locations"
     t.string "name"
     t.string "ror_id"
     t.json "types"
     t.datetime "updated_at", null: false
+    t.json "locations"
     t.index ["file_timestamp"], name: "index_rors_on_file_timestamp"
     t.index ["fundref_id"], name: "index_rors_on_fundref_id"
     t.index ["name"], name: "index_rors_on_name"
@@ -1134,6 +1134,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_30_005021) do
     t.index ["id"], name: "id"
     t.index ["project_id", "id"], name: "Application"
     t.index ["reserve_id"], name: "reserve"
+    t.index ["updated_at"], name: "index_visits_on_updated_at"
     t.index ["user_id"], name: "user"
   end
 

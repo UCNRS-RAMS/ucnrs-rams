@@ -74,6 +74,74 @@ RSpec.describe Api::V1::VisitsController, type: :request do
       expect(ids).not_to include(excluded.id)
     end
 
+    it "filters by updated_since, including the boundary visit" do
+      boundary = Time.zone.parse("2026-01-15T12:00:00Z")
+      at_boundary = create(:visit, updated_at: boundary)
+      after_boundary = create(:visit, updated_at: boundary + 1.minute)
+      before_boundary = create(:visit, updated_at: boundary - 1.minute)
+
+      get "/api/v1/visits",
+        params: { updated_since: boundary.iso8601 },
+        headers: auth_headers
+
+      ids = response.parsed_body["data"].map { |row| row["id"] }
+      expect(ids).to include(at_boundary.id, after_boundary.id)
+      expect(ids).not_to include(before_boundary.id)
+    end
+
+    it "filters by the visit date range, keeping every visit that overlaps it" do
+      overlapping = create(:visit,
+        starts_at: Time.zone.parse("2026-01-05T09:00:00Z"),
+        ends_at: Time.zone.parse("2026-01-15T17:00:00Z"))
+      inside = create(:visit,
+        starts_at: Time.zone.parse("2026-01-12T09:00:00Z"),
+        ends_at: Time.zone.parse("2026-01-13T17:00:00Z"))
+      after = create(:visit,
+        starts_at: Time.zone.parse("2026-01-25T09:00:00Z"),
+        ends_at: Time.zone.parse("2026-01-30T17:00:00Z"))
+      before = create(:visit,
+        starts_at: Time.zone.parse("2025-12-01T09:00:00Z"),
+        ends_at: Time.zone.parse("2025-12-05T17:00:00Z"))
+
+      get "/api/v1/visits",
+        params: { starts_on: "2026-01-10", ends_on: "2026-01-20" },
+        headers: auth_headers
+
+      ids = response.parsed_body["data"].map { |row| row["id"] }
+      expect(ids).to include(overlapping.id, inside.id)
+      expect(ids).not_to include(after.id, before.id)
+    end
+
+    it "includes a visit that begins on the ends_on date" do
+      same_day = create(:visit,
+        starts_at: Time.zone.parse("2026-01-20T09:00:00Z"),
+        ends_at: Time.zone.parse("2026-01-20T17:00:00Z"))
+
+      get "/api/v1/visits",
+        params: { ends_on: "2026-01-20" },
+        headers: auth_headers
+
+      ids = response.parsed_body["data"].map { |row| row["id"] }
+      expect(ids).to include(same_day.id)
+    end
+
+    it "accepts a date range with only one bound" do
+      upcoming = create(:visit,
+        starts_at: Time.zone.parse("2026-06-01T09:00:00Z"),
+        ends_at: Time.zone.parse("2026-06-02T17:00:00Z"))
+      past = create(:visit,
+        starts_at: Time.zone.parse("2020-01-01T09:00:00Z"),
+        ends_at: Time.zone.parse("2020-01-02T17:00:00Z"))
+
+      get "/api/v1/visits",
+        params: { starts_on: "2026-01-01" },
+        headers: auth_headers
+
+      ids = response.parsed_body["data"].map { |row| row["id"] }
+      expect(ids).to include(upcoming.id)
+      expect(ids).not_to include(past.id)
+    end
+
     it "returns 400 for an unknown status filter" do
       get "/api/v1/visits",
         params: { status: "archived" },
@@ -81,6 +149,24 @@ RSpec.describe Api::V1::VisitsController, type: :request do
 
       expect(response).to have_http_status(:bad_request)
       expect(response.parsed_body["error"]).to eq("bad_request")
+    end
+
+    it "returns 400 for a malformed updated_since" do
+      get "/api/v1/visits",
+        params: { updated_since: "yesterday" },
+        headers: auth_headers
+
+      expect(response).to have_http_status(:bad_request)
+      expect(response.parsed_body["detail"]).to eq("updated_since must be an ISO 8601 timestamp")
+    end
+
+    it "returns 400 for a malformed date bound" do
+      get "/api/v1/visits",
+        params: { starts_on: "01/10/2026" },
+        headers: auth_headers
+
+      expect(response).to have_http_status(:bad_request)
+      expect(response.parsed_body["detail"]).to eq("starts_on must be an ISO 8601 date")
     end
 
     it "orders newest first with id as a deterministic tiebreaker" do

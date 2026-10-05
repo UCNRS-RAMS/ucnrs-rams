@@ -323,6 +323,29 @@ paths:
         schema:
           type: integer
         description: Restrict to one reserve, within the client's scope.
+      - name: updated_since
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+        description: Only visits updated at or after this ISO 8601 instant, inclusive.
+      - name: starts_on
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+        description: Only visits whose activity window overlaps this ISO 8601 date
+          or later.
+      - name: ends_on
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+        description: Only visits whose activity window overlaps this ISO 8601 date
+          or earlier.
       responses:
         '200':
           description: visits visible to the client

@@ -50,7 +50,62 @@ module Api
 
         scope = scope.where(project_id: params[:project_id]) if params[:project_id].present?
         scope = scope.where(reserve_id: params[:reserve_id]) if params[:reserve_id].present?
+
+        updated_since = updated_since_filter
+        scope = scope.where(updated_at: updated_since..) if updated_since
+
+        date_range = visit_date_range_filter
+        scope = scope.having_between_time_for(**date_range) if date_range
+
         scope
+      end
+
+      # The +updated_since+ filter: visits updated at or after the given
+      # instant, or nil when the caller did not filter. The bound is inclusive
+      # so a client syncing incrementally cannot skip a visit that shares a
+      # timestamp with its previous pull; it re-reads that visit instead.
+      #
+      # @return [Time, nil]
+      # @raise [InvalidFilter] when the value is not an ISO 8601 timestamp
+      def updated_since_filter
+        value = params[:updated_since].presence
+        return nil if value.nil?
+
+        Time.zone.iso8601(value)
+      rescue ArgumentError
+        raise(InvalidFilter, "updated_since must be an ISO 8601 timestamp")
+      end
+
+      # The +starts_on+ / +ends_on+ filter as arguments for
+      # Visit.having_between_time_for, or nil when neither is supplied. The
+      # dates are widened to whole days, so a visit that starts or ends on a
+      # boundary date falls inside the window rather than being cut off at
+      # midnight.
+      #
+      # @return [Hash, nil]
+      # @raise [InvalidFilter] when either value is not an ISO 8601 date
+      def visit_date_range_filter
+        starts_on = date_filter(:starts_on)
+        ends_on = date_filter(:ends_on)
+        return nil if starts_on.nil? && ends_on.nil?
+
+        {
+          date_range_option: :visit_date_range,
+          date_start: starts_on&.beginning_of_day,
+          date_end: ends_on&.end_of_day
+        }
+      end
+
+      # @param param [Symbol] the query parameter name
+      # @return [Date, nil]
+      # @raise [InvalidFilter] when the value is present but not an ISO 8601 date
+      def date_filter(param)
+        value = params[param].presence
+        return nil if value.nil?
+
+        Date.iso8601(value)
+      rescue ArgumentError
+        raise(InvalidFilter, "#{param} must be an ISO 8601 date")
       end
 
       # @param visit [Visit]
