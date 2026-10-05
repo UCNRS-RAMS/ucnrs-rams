@@ -25,6 +25,7 @@ namespace :ops do
     end
     puts "Updated references: #{result.updated_references.map { |table, count| "#{table}=#{count}" }.join(', ')}" if mode == "apply"
     puts "Deleted #{result.deleted_count} institution(s)." if mode == "apply"
+    puts "Audit run: #{result.audit_run_id}" if result.audit_run_id
   end
 
   desc 'Updates institution ROR associations from a CSV file. Usage: bin/rails "ops:update-ror-associations[/path/to/file.csv]"'
