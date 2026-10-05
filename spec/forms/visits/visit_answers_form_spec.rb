@@ -33,5 +33,21 @@ RSpec.describe Visits::VisitAnswersForm do
         })
       end
     end
+
+    context "when a required yes/no question is submitted without a selection" do
+      it "does not save" do
+        visit = create(:visit)
+        question = create(
+          :reserve_question, :boolean_question,
+          reserve: visit.reserve, location: :visit, answer_required: true
+        )
+        form = Visits::VisitAnswersForm.new(visit: visit, params: {
+          visit_reserve_answers: { question.id.to_s => { boolean_answer: "" } },
+        })
+
+        expect(form.save).to be_falsey
+        expect(visit.visit_reserve_answers).to be_empty
+      end
+    end
   end
 end
