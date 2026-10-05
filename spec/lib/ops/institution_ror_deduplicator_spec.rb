@@ -79,6 +79,77 @@ RSpec.describe Ops::InstitutionRorDeduplicator do
     end
   end
 
+  describe "reference updates on apply" do
+    let(:connection) { ActiveRecord::Base.connection }
+    let(:unrelated) { create(:institution, ror_id: nil) }
+    let!(:kept) { kept_institution }
+    let!(:duplicate) { duplicate_institution }
+
+    def insert_funding_principal_investigator(institution_id)
+      connection.execute("INSERT INTO funding_principal_investigators (institution_id) VALUES (#{institution_id})")
+      connection.select_value("SELECT LAST_INSERT_ID()")
+    end
+
+    def funding_principal_investigator_institution_id(id)
+      connection.select_value("SELECT institution_id FROM funding_principal_investigators WHERE id = #{id}")
+    end
+
+    def apply_merge
+      with_csv(csv_for([ [ kept, ror_id, "direct" ], [ duplicate, ror_id, "direct" ] ])) do |path|
+        return described_class.new(path).call(apply: true)
+      end
+    end
+
+    it "repoints funding_principal_investigators, project_team_memberships, user_visits, users and institutions" do
+      funding_id = insert_funding_principal_investigator(duplicate.id)
+      unrelated_funding_id = insert_funding_principal_investigator(unrelated.id)
+      membership = create(:project_team_membership, institution: duplicate)
+      user_visit = create(:user_visit, institution: duplicate)
+      user = create(:user, institution: duplicate)
+      managed = create(:institution, managing_institution_id: duplicate.id)
+      unrelated_user = create(:user, institution: unrelated)
+
+      result = apply_merge
+
+      expect(funding_principal_investigator_institution_id(funding_id)).to eq(kept.id)
+      expect(membership.reload.institution_id).to eq(kept.id)
+      expect(user_visit.reload.institution_id).to eq(kept.id)
+      expect(user.reload.institution_id).to eq(kept.id)
+      expect(managed.reload.managing_institution_id).to eq(kept.id)
+
+      expect(funding_principal_investigator_institution_id(unrelated_funding_id)).to eq(unrelated.id)
+      expect(unrelated_user.reload.institution_id).to eq(unrelated.id)
+      expect(result.updated_references).to include(
+        "funding_principal_investigators" => 1,
+        "project_team_memberships" => 1,
+        "user_visits" => 1,
+        "users" => 1,
+        "institutions" => 1
+      )
+    end
+
+    it "records the per-table reference counts in the audit row" do
+      insert_funding_principal_investigator(duplicate.id)
+      create(:project_team_membership, institution: duplicate)
+      create(:user_visit, institution: duplicate)
+      create(:user, institution: duplicate)
+      create(:institution, managing_institution_id: duplicate.id)
+
+      apply_merge
+
+      audit = connection.select_one(
+        "SELECT reference_updates FROM institution_deduplication_audits WHERE deleted_institution_id = #{duplicate.id}"
+      )
+      expect(JSON.parse(audit.fetch("reference_updates"))).to eq(
+        "funding_principal_investigators" => 1,
+        "project_team_memberships" => 1,
+        "user_visits" => 1,
+        "users" => 1,
+        "institutions" => 1
+      )
+    end
+  end
+
   it "rejects a direct CSV row whose institution already has a different ROR ID" do
     institution = create(:institution, ror_id: "https://ror.org/different")
 
