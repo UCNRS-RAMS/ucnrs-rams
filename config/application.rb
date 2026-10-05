@@ -22,6 +22,7 @@ module UcnrsRams
     # in config/environments, which are processed later.
     #
     config.time_zone = "Pacific Time (US & Canada)"
+    config.x.matomo_enabled = false
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end
