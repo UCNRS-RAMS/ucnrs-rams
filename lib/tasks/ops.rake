@@ -1,6 +1,32 @@
 # rubocop:disable Metrics/BlockLength
 namespace :ops do
 
+  desc "Merge institutions listed in direct ROR CSV rows. Usage: bin/rails \"ops:deduplicate-institutions[/path/to/file.csv,apply]\""
+  task :"deduplicate-institutions", [:csv_path, :mode] => :environment do |_task, args|
+    csv_path = args[:csv_path].to_s.strip
+    raise ArgumentError, 'CSV path is required. Use: bin/rails "ops:deduplicate-institutions[/path/to/file.csv,dry_run|apply]"' if csv_path.blank?
+
+    mode = args[:mode].presence || "dry_run"
+    unless %w[dry_run apply].include?(mode)
+      raise ArgumentError, "Invalid mode '#{mode}'. Use 'dry_run' or 'apply'."
+    end
+
+    result = Ops::InstitutionRorDeduplicator.new(csv_path).call(apply: mode == "apply")
+
+    puts mode == "apply" ? "Applying institution merges..." : "Dry run mode: no records were changed."
+    result.groups.each do |group|
+      if group.duplicate_ids.empty?
+        puts "ROR #{group.ror_id}: keeping institution ##{group.keep_id}; no duplicates."
+      else
+        puts "ROR #{group.ror_id}: keeping institution ##{group.keep_id}; " \
+               "merging institutions #{group.duplicate_ids.join(', ')}."
+      end
+      puts "  The retained institution's ror_id will be set." if group.set_ror_id
+    end
+    puts "Updated references: #{result.updated_references.map { |table, count| "#{table}=#{count}" }.join(', ')}" if mode == "apply"
+    puts "Deleted #{result.deleted_count} institution(s)." if mode == "apply"
+  end
+
   desc 'Updates institution ROR associations from a CSV file. Usage: bin/rails "ops:update-ror-associations[/path/to/file.csv]"'
   task :'update-ror-associations', [:csv_path] => :environment do |_t, args|
     csv_path = args[:csv_path].to_s.strip
