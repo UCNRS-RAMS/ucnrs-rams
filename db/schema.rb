@@ -277,12 +277,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_05_120000) do
 
   create_table "institutions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "managing_institution_id", default: 0
-    t.string "name", limit: 80
-    t.string "city", limit: 30
+    t.string "name"
+    t.string "city"
     t.integer "state_id"
     t.integer "country_id"
     t.column "institution_type", "enum('University of California','California State University System','California Community College','California - Other University or College','U.S. - University or College Outside of California','International University or College','K-12 Education','Non-Governmental Organization or Non-Profit Entity','Governmental Agency or Entity','Business Entity','Individual or Other Entity')"
-    t.string "acronym", limit: 10
+    t.string "acronym"
     t.string "doi", limit: 25, default: "0000", comment: "Unique ID"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
