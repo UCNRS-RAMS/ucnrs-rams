@@ -1,8 +1,19 @@
 # frozen_string_literal: true
 
+# Aggregates and merges institution search results across local RAMS Institution
+# records and external ROR cache records for autocomplete UI.
+#
+# @note The +limit+ parameter applies per source during initial candidate retrieval
+#   (see {DEFAULT_LIMIT_PER_SOURCE}). Linked institution expansion occurs after
+#   initial candidate retrieval to ensure local records mapped to matched ROR
+#   entries are surfaced, which may intentionally result in more than +limit+
+#   local institution results.
 class AggregatedSearch
   DEFAULT_LIMIT_PER_SOURCE = 15
 
+  # @param query [String] search query string
+  # @param limit [Integer] maximum candidates to retrieve per source before expansion
+  # @return [Array<Hash>] normalized, deduplicated, and sorted search results
   def self.institution_search(query, limit: DEFAULT_LIMIT_PER_SOURCE)
     new(query: query, limit: limit).results
   end
@@ -11,6 +22,7 @@ class AggregatedSearch
     @query = query
     @limit = limit
   end
+
 
   def results
     MergePolicy.call(
