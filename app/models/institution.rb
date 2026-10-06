@@ -62,12 +62,13 @@ class Institution < ApplicationRecord
     return limit.present? ? found_institutions.limit(limit) : found_institutions if query.blank?
 
     tokenize(query).each do |partial|
+      pattern = "%#{sanitize_sql_like(partial)}%"
       found_institutions = found_institutions.where(
-        "institutions.`name` REGEXP :match
-        OR city REGEXP :match
-        OR acronym REGEXP :match
-        OR countries.`name` REGEXP :match",
-        { match: partial }
+        "institutions.`name` LIKE :match
+        OR institutions.city LIKE :match
+        OR institutions.acronym LIKE :match
+        OR countries.`name` LIKE :match",
+        { match: pattern }
       )
     end
 
@@ -136,7 +137,7 @@ class Institution < ApplicationRecord
   end
 
   def self.tokenize(query)
-    URI.decode_www_form_component(query).strip.split
+    query.to_s.strip.split
   end
 
   private_class_method :tokenize
