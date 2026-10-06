@@ -141,6 +141,24 @@ RSpec.describe AggregatedSearch, type: :model do
       ])
     end
 
+    it "allows linked-institution expansion to include all matching local records even if exceeding limit" do
+      shared_ror = "https://ror.org/0099abcd"
+      create(:ror, name: "Consortium", ror_id: shared_ror)
+      create(:institution, name: "Direct Match Consortium")
+      create(:institution, name: "Linked Sub-station A", ror_id: shared_ror)
+      create(:institution, name: "Linked Sub-station B", ror_id: shared_ror)
+
+      # limit: 1 caps direct searches per source, but linked institutions expand based on the matched ROR
+      results = described_class.new(query: "Consortium", limit: 1).results
+      institution_names = results.select { |r| r[:type] == :institution }.map { |r| r[:name] }
+
+      expect(institution_names).to contain_exactly(
+        "Direct Match Consortium",
+        "Linked Sub-station A",
+        "Linked Sub-station B"
+      )
+    end
+
     it "suppresses the matching ROR result when the same UCLA record appears in institutions fixture data" do
       load_ror_fixture
       ActiveRecord::Base.connection.execute(Rails.root.join("spec/fixtures/institutions.sql").read)
