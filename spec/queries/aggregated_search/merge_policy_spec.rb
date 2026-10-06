@@ -17,6 +17,21 @@ RSpec.describe AggregatedSearch::MergePolicy do
     expect(results.map { |r| r[:type] }).to eq([ :ror, :institution ])
   end
 
+  it "filters out ROR records with missing ror_id and deduplicates duplicate ror_ids" do
+    valid_ror = build_stubbed(:ror, name: "Stanford University", ror_id: "https://ror.org/00f54p054")
+    duplicate_ror = build_stubbed(:ror, name: "Stanford Duplicate", ror_id: "https://ror.org/00f54p054")
+    nil_id_ror = build_stubbed(:ror, name: "Mystery Org", ror_id: nil)
+    blank_id_ror = build_stubbed(:ror, name: "Blank Org", ror_id: "")
+
+    results = described_class.call(
+      matching_rors: [ valid_ror, duplicate_ror, nil_id_ror, blank_id_ror ],
+      matching_institutions: []
+    )
+
+    expect(results.map { |r| r[:name] }).to eq([ "Stanford University" ])
+    expect(results.map { |r| r[:id] }).to eq([ "https://ror.org/00f54p054" ])
+  end
+
   it "formats institution and ROR result hashes correctly" do
     institution = build_stubbed(:institution, id: 42, name: "Alpha Inst", city: "Davis", acronym: "AI")
     ror = build_stubbed(
