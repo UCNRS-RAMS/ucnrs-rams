@@ -12,9 +12,9 @@ class AggregatedSearch
     end
 
     def call
-      ror_ids = matching_rors.map(&:ror_id).to_set
+      ror_ids = candidate_rors.map(&:ror_id).to_set
       dup_ror_ids = ror_ids & matching_institutions.map(&:ror_id).compact.to_set
-      filtered_rors = matching_rors.reject { |ror| dup_ror_ids.include?(ror.ror_id) }
+      filtered_rors = candidate_rors.reject { |ror| dup_ror_ids.include?(ror.ror_id) }
 
       (matching_institutions.map { |inst| institution_result(inst) } +
         filtered_rors.map { |ror| ror_result(ror) })
@@ -24,6 +24,10 @@ class AggregatedSearch
     private
 
     attr_reader :matching_rors, :matching_institutions
+
+    def candidate_rors
+      matching_rors.select { |ror| ror.ror_id.present? }.uniq(&:ror_id)
+    end
 
     def institution_result(institution)
       {

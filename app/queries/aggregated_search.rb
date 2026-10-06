@@ -43,7 +43,7 @@ class AggregatedSearch
 
   def matching_institutions
     @matching_institutions ||= begin
-      ror_ids = matching_rors.map(&:ror_id).to_set
+      ror_ids = matching_rors.map(&:ror_id).compact_blank.to_set
       # ids of every institution that either matched the query directly, or is
       # linked to a matched ROR record via ror_id (e.g. the query only matched
       # a ROR alias, so the linked RAMS institution didn't match the query itself)
