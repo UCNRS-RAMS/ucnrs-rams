@@ -26,6 +26,7 @@
     "compression-webpack-plugin": "12",
     "fork-ts-checker-webpack-plugin": "^9.0.2",
     "pnp-webpack-plugin": "1",
+    "klaro-ui": "https://github.com/cdlib/klaro-ui#v1.4.0",
     "sass": "^1.99.0",
     "shakapacker": "10.3.1",
     "stimulus-autocomplete": "^3.0.0-rc.5",

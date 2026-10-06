@@ -16,5 +16,6 @@ ActiveStorage.start()
 import "controllers"
 import "custom_turbo_stream_actions"
 
+import "klaro"
 require("trix")
 require("@rails/actiontext")
