@@ -87,7 +87,7 @@ module Api
       def visit_date_range_filter
         starts_on = date_filter(:starts_on)
         ends_on = date_filter(:ends_on)
-        return nil if starts_on.nil? && ends_on.nil?
+        raise InvalidFilter, "starts_on must be on or before ends_on" if starts_on && ends_on && starts_on > ends_on
 
         {
           date_range_option: :visit_date_range,
