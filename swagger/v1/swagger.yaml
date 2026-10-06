@@ -661,6 +661,7 @@ components:
         role:
           type: string
           enum:
+          - no_selection
           - faculty
           - research_scientist
           - research_assistant

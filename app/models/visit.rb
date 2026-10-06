@@ -211,13 +211,26 @@ class Visit < ApplicationRecord
   def self.having_between_time_for(date_range_option: nil, date_start: nil, date_end: nil)
     case date_range_option
     when :visit_date_range
-      DateQuery.call(
-        self, date_start_type: :ends_at, date_start: date_start, date_end_type: :starts_at, date_end: date_end
-      )
+      scope = all
+      scope = scope.where(effective_visit_datetime(:ends_at, :end_date, :end_time).gteq(date_start)) if date_start.present?
+      scope = scope.where(effective_visit_datetime(:starts_at, :start_date, :start_time).lteq(date_end)) if date_end.present?
+      scope
     else
       all
     end
   end
+
+  def self.effective_visit_datetime(datetime, date, time)
+    Arel::Nodes::NamedFunction.new(
+      "COALESCE",
+      [
+        arel_table[datetime],
+        Arel::Nodes::NamedFunction.new("TIMESTAMP", [arel_table[date], arel_table[time]]),
+        arel_table[time]
+      ]
+    )
+  end
+  private_class_method :effective_visit_datetime
 
   def self.submitted_recent_first
     order(submitted_at: :desc)

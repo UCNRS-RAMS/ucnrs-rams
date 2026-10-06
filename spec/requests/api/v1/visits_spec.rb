@@ -125,6 +125,31 @@ RSpec.describe Api::V1::VisitsController, type: :request do
       expect(ids).to include(same_day.id)
     end
 
+    it "filters legacy visits by their start and end dates" do
+      legacy = create(:visit,
+        starts_at: nil,
+        ends_at: nil,
+        start_date: Date.new(2026, 1, 12),
+        start_time: Time.zone.parse("2000-01-01T09:00:00Z"),
+        end_date: Date.new(2026, 1, 13),
+        end_time: Time.zone.parse("2000-01-01T17:00:00Z"))
+      outside = create(:visit,
+        starts_at: nil,
+        ends_at: nil,
+        start_date: Date.new(2026, 1, 25),
+        start_time: Time.zone.parse("2000-01-01T09:00:00Z"),
+        end_date: Date.new(2026, 1, 26),
+        end_time: Time.zone.parse("2000-01-01T17:00:00Z"))
+
+      get "/api/v1/visits",
+        params: { starts_on: "2026-01-10", ends_on: "2026-01-20" },
+        headers: auth_headers
+
+      ids = response.parsed_body["data"].map { |row| row["id"] }
+      expect(ids).to include(legacy.id)
+      expect(ids).not_to include(outside.id)
+    end
+
     it "accepts a date range with only one bound" do
       upcoming = create(:visit,
         starts_at: Time.zone.parse("2026-06-01T09:00:00Z"),
@@ -169,6 +194,15 @@ RSpec.describe Api::V1::VisitsController, type: :request do
       expect(response.parsed_body["detail"]).to eq("starts_on must be an ISO 8601 date")
     end
 
+    it "returns 400 for an inverted date range" do
+      get "/api/v1/visits",
+        params: { starts_on: "2026-01-20", ends_on: "2026-01-10" },
+        headers: auth_headers
+
+      expect(response).to have_http_status(:bad_request)
+      expect(response.parsed_body["detail"]).to eq("starts_on must be on or before ends_on")
+    end
+
     it "orders newest first with id as a deterministic tiebreaker" do
       timestamp = 1.day.ago
       older = create(:visit, created_at: 2.days.ago)
@@ -199,8 +233,7 @@ RSpec.describe Api::V1::VisitsController, type: :request do
   describe "GET /api/v1/visits/:id" do
     it "returns the visit with its project, reserve, submitter, and visitors" do
       visit = create(:visit)
-      visitor = create(:user_visit, visit: visit)
-
+      visitor = create(:user_visit, visit: visit, role: :no_selection)
       get "/api/v1/visits/#{visit.id}", headers: auth_headers
 
       data = response.parsed_body["data"]
@@ -211,6 +244,7 @@ RSpec.describe Api::V1::VisitsController, type: :request do
       expect(data["reserve"]).to include("id" => visit.reserve.id, "name" => visit.reserve.name)
       expect(data["submitter"]).to include("id" => visit.user.id, "full_name" => visit.user.full_name)
       expect(data["visitors"].map { |row| row.dig("user", "id") }).to include(visitor.user_id)
+      expect(data["visitors"]).to include(hash_including("role" => "no_selection"))
     end
 
     it "returns 404 for an unknown visit" do

@@ -19,6 +19,7 @@ class UserVisit < ApplicationRecord
   delegate :full_name, to: :user, prefix: true
 
   enum :role, {
+    no_selection: "No selection",
     faculty: "Faculty",
     research_scientist: "Research Scientist/Post Doc",
     research_assistant: "Research Assistant (non-student/faculty/postdoc)",
