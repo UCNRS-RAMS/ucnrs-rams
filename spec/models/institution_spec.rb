@@ -189,6 +189,24 @@ RSpec.describe Institution, type: :model do
 
           expect(results).to be_empty
         end
+
+        it "treats punctuation and regex metacharacters like (, [, and . as literal text without error" do
+          institution_with_parens = create(:institution, name: "UC (Berkeley)", acronym: "UCB", city: "Berkeley")
+          institution_with_period = create(:institution, name: "St. Mary's College", acronym: "SMC", city: "Moraga")
+          institution_with_brackets = create(:institution, name: "Campus [North]", acronym: "CN", city: "Davis")
+
+          expect(Institution.search("UC (")).to include(institution_with_parens)
+          expect(Institution.search("[North]")).to contain_exactly(institution_with_brackets)
+          expect(Institution.search("St.")).to contain_exactly(institution_with_period)
+          # Ensure '.' is treated literally rather than matching any character:
+          expect(Institution.search("St. Mary's")).to contain_exactly(institution_with_period)
+        end
+
+        it "safely handles queries with percent signs and underscores without encoding or wildcard errors" do
+          expect { Institution.search("%") }.not_to raise_error
+          expect { Institution.search("100% match") }.not_to raise_error
+          expect(Institution.search("xyz%")).to be_empty
+        end
       end
     end
 
