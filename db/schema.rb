@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_05_173404) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_05_120000) do
   create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.integer "project_id", null: false
@@ -277,12 +277,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_05_173404) do
 
   create_table "institutions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "managing_institution_id", default: 0
-    t.string "name"
-    t.string "city"
+    t.string "name", limit: 80
+    t.string "city", limit: 30
     t.integer "state_id"
     t.integer "country_id"
     t.column "institution_type", "enum('University of California','California State University System','California Community College','California - Other University or College','U.S. - University or College Outside of California','International University or College','K-12 Education','Non-Governmental Organization or Non-Profit Entity','Governmental Agency or Entity','Business Entity','Individual or Other Entity')"
-    t.string "acronym"
+    t.string "acronym", limit: 10
     t.string "doi", limit: 25, default: "0000", comment: "Unique ID"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -898,11 +898,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_05_173404) do
     t.virtual "latitude_degrees", type: :integer, as: "floor(abs(`latitude`))"
     t.virtual "latitude_minutes", type: :integer, as: "floor(((abs(`latitude`) % 1) * 60))"
     t.virtual "latitude_seconds", type: :float, as: "((((abs(`latitude`) % 1) * 60) % 1) * 60)"
-    t.virtual "latitude_hemisphere", type: :string, limit: 50, as: "if((`latitude` > 0),_utf8mb3'N',_utf8mb3'S')"
+    t.virtual "latitude_hemisphere", type: :string, limit: 50, as: "if((`latitude` > 0),_utf8mb4'N',_utf8mb4'S')"
     t.virtual "longitude_degrees", type: :integer, as: "floor(abs(`longitude`))"
     t.virtual "longitude_minutes", type: :integer, as: "floor(((abs(`longitude`) % 1) * 60))"
     t.virtual "longitude_seconds", type: :float, as: "((((abs(`longitude`) % 1) * 60) % 1) * 60)"
-    t.virtual "longitude_hemisphere", type: :string, limit: 50, as: "if((`longitude` > 0),_utf8mb3'E',_utf8mb3'W')"
+    t.virtual "longitude_hemisphere", type: :string, limit: 50, as: "if((`longitude` > 0),_utf8mb4'E',_utf8mb4'W')"
     t.text "description"
     t.string "listing_photo"
     t.string "large_hero_photo"
@@ -942,7 +942,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_05_173404) do
     t.index ["file_timestamp"], name: "index_rors_on_file_timestamp"
     t.index ["fundref_id"], name: "index_rors_on_fundref_id"
     t.index ["name"], name: "index_rors_on_name"
-    t.index ["ror_id"], name: "index_rors_on_ror_id"
+    t.index ["ror_id"], name: "index_rors_on_ror_id", unique: true
   end
 
   create_table "signatures", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -957,7 +957,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_05_173404) do
     t.index ["waiver_id"], name: "index_signatures_on_waiver_id"
   end
 
-  create_table "solid_cable_messages", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
+  create_table "solid_cable_messages", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.binary "channel", limit: 1024, null: false
     t.binary "payload", size: :long, null: false
     t.datetime "created_at", null: false
