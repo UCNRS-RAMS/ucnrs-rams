@@ -110,10 +110,14 @@ RSpec.describe ExternalApis::Ror::Sync do
   end
 
   describe '#process_ror_record' do
-    it 'persists attributes mapped from a valid ROR record' do
+    it 'persists attributes mapped from a valid ROR record and generates searchable_text' do
       record = {
         'id' => 'https://ror.org/1234567890',
-        'names' => [{ 'value' => 'Example University', 'types' => ['ror_display'] }],
+        'names' => [
+          { 'value' => 'Example University', 'types' => ['ror_display'] },
+          { 'value' => 'EU', 'types' => ['acronym'] },
+          { 'value' => 'Example U', 'types' => ['alias'] }
+        ],
         'links' => [{ 'type' => 'website', 'value' => 'https://example.edu' }],
         'locations' => [
           {
@@ -128,6 +132,7 @@ RSpec.describe ExternalApis::Ror::Sync do
       ror = Ror.find_by!(ror_id: record['id'])
       expect(ror.name).to eq('Example University (example.edu)')
       expect(ror.locations).to eq(record['locations'])
+      expect(ror.searchable_text).to eq('example university (example.edu) example u eu')
     end
   end
 
