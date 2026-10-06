@@ -44,6 +44,11 @@
             <span id="privacy-short" class="display-none show-765"><%= I18n.t(".footer.link.privacy_policy_short") %></span>
           <% end %>
         </span>
+        <% if Rails.application.config.x.matomo_enabled %>
+          <span>
+            <%= link_to I18n.t(".footer.link.cookie_settings"), "#", data: { klaro_open: true } %>
+          </span>
+        <% end %>
       </div>
     </div>
   </div>
