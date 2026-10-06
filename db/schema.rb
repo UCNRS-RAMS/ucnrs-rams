@@ -939,10 +939,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_05_120000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "locations"
+    t.text "searchable_text"
     t.index ["file_timestamp"], name: "index_rors_on_file_timestamp"
     t.index ["fundref_id"], name: "index_rors_on_fundref_id"
     t.index ["name"], name: "index_rors_on_name"
     t.index ["ror_id"], name: "index_rors_on_ror_id", unique: true
+    t.index ["searchable_text"], name: "rors_searchable_text", type: :fulltext
   end
 
   create_table "signatures", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
