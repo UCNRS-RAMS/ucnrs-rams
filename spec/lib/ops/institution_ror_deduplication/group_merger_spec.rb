@@ -51,4 +51,25 @@ RSpec.describe Ops::InstitutionRorDeduplication::GroupMerger do
     expect(retained.reload.ror_id).to eq("https://ror.org/one")
     expect(connection).to be_present
   end
+
+  it "raises an error and does not delete the institution if a remaining reference is detected" do
+    ror_id = "https://ror.org/01an7q238"
+    retained = create(:institution, ror_id: nil)
+    duplicate = create(:institution, ror_id: ror_id)
+    updater = instance_double(Ops::InstitutionRorDeduplication::ReferenceUpdater)
+    audit_log = instance_double(Ops::InstitutionRorDeduplication::AuditLog)
+    merger = described_class.new(updater, audit_log)
+    group = Ops::InstitutionRorDeduplication::Group.new(
+      ror_id: ror_id, keep_id: retained.id, duplicate_ids: [ duplicate.id ], set_ror_id: false
+    )
+
+    allow(updater).to receive(:move).with(duplicate.id, retained.id).and_return({ "users" => 1 })
+    allow(updater).to receive(:remaining_references).with(duplicate.id).and_return([ "users.institution_id (1)" ])
+
+    expect {
+      merger.merge(group)
+    }.to raise_error(RuntimeError, /Concurrent write detected during deduplication/)
+
+    expect(Institution.exists?(duplicate.id)).to be(true)
+  end
 end

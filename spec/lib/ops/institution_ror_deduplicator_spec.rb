@@ -157,4 +157,30 @@ RSpec.describe Ops::InstitutionRorDeduplicator do
       expect { described_class.new(path).call }.to raise_error(ArgumentError, /already has ROR ID/)
     end
   end
+
+  describe "advisory locking" do
+    it "raises an error if the advisory lock cannot be acquired" do
+      deduplicator = described_class.new("dummy.csv")
+      connection = ActiveRecord::Base.connection
+      allow(connection).to receive(:select_value).with(/GET_LOCK/).and_return(0)
+
+      expect {
+        deduplicator.send(:with_advisory_lock, connection) { true }
+      }.to raise_error(RuntimeError, /Could not acquire advisory lock/)
+    end
+
+    it "yields and releases the lock on completion" do
+      deduplicator = described_class.new("dummy.csv")
+      connection = ActiveRecord::Base.connection
+      executed = false
+
+      expect(connection).to receive(:execute).with(/RELEASE_LOCK/).and_call_original
+
+      deduplicator.send(:with_advisory_lock, connection) do
+        executed = true
+      end
+
+      expect(executed).to be(true)
+    end
+  end
 end
