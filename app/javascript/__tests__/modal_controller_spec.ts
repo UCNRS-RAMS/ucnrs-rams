@@ -148,4 +148,96 @@ describe("ModalController", () => {
       expect(propagationFn).not.toHaveBeenCalled()
     })
   })
+
+  describe("focus management", () => {
+    beforeEach(() => {
+      renderDOM(`
+        <a id="trigger" href="#">Open</a>
+        <div id="modal" class="modal" data-controller="modal" aria-hidden="true">
+          <div id="dialog" data-modal-target="dialog">
+            <input id="field" />
+          </div>
+        </div>`)
+    })
+
+    it("moves focus to the dialog when it opens", () => {
+      document.getElementById("trigger").focus()
+
+      document.getElementById("modal").modal.open()
+
+      expect(document.activeElement).toBe(document.getElementById("dialog"))
+    })
+
+    it("leaves focus alone when it is already inside the dialog", () => {
+      const field = document.getElementById("field")
+      field.focus()
+
+      document.getElementById("modal").modal.open()
+
+      expect(document.activeElement).toBe(field)
+    })
+
+    it("returns focus to the element that opened the modal when it closes", () => {
+      const trigger = document.getElementById("trigger")
+      const modal = document.getElementById("modal")
+      trigger.focus()
+
+      modal.modal.open()
+      modal.modal.close()
+
+      expect(document.activeElement).toBe(trigger)
+    })
+
+    it("does not move focus when closing a modal that never opened", () => {
+      const field = document.getElementById("field")
+      field.focus()
+
+      document.getElementById("modal").modal.close()
+
+      expect(document.activeElement).toBe(field)
+    })
+  })
+
+  describe("#closeOnEscape", () => {
+    const modalHTML = (visible: boolean) => `
+      <div id="modal" class="modal ${visible ? "visible" : ""}" data-controller="modal"
+        data-action="keydown.esc@window->modal#closeOnEscape" aria-hidden="${!visible}">
+        <div class="modal-content" role="dialog" data-modal-target="dialog">Modal</div>
+      </div>`
+
+    describe("when the modal is visible", () => {
+      beforeEach(() => renderDOM(modalHTML(true)))
+
+      it("closes the modal when Escape is pressed", () => {
+        const modal = document.getElementById("modal")
+
+        window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }))
+
+        expect(modal.classList.contains("visible")).toBe(false)
+        expect(modal.getAttribute("aria-hidden")).toEqual("true")
+        expect(modal.hasAttribute("inert")).toBe(true)
+      })
+
+      it("ignores other keys", () => {
+        const modal = document.getElementById("modal")
+
+        window.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" }))
+
+        expect(modal.classList.contains("visible")).toBe(true)
+      })
+    })
+
+    describe("when the modal is not visible", () => {
+      beforeEach(() => renderDOM(modalHTML(false)))
+
+      it("does nothing when Escape is pressed", () => {
+        const modal = document.getElementById("modal")
+        const closeFn = jest.spyOn(modal.modal, "close")
+
+        window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }))
+
+        expect(closeFn).not.toHaveBeenCalled()
+      })
+    })
+  })
 })
