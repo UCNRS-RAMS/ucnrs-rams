@@ -1,6 +1,5 @@
 import * as Klaro from "klaro/dist/klaro-no-css"
 import { setMatomoConsent, trackMatomoPageView } from "matomo"
-import "klaro-ui/dist/css/klaro-ui.css"
 
 const privacyPolicyUrl = "https://ucnature.org/rams-privacy-statement/"
 
