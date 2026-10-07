@@ -1,4 +1,5 @@
 import * as Klaro from "klaro/dist/klaro-no-css"
+import { setMatomoConsent, trackMatomoPageView } from "matomo"
 import "klaro-ui/dist/css/klaro-ui.css"
 
 const privacyPolicyUrl = "https://ucnature.org/rams-privacy-statement/"
@@ -52,7 +53,12 @@ const setupKlaro = () => {
         cookies: [[/^_pk_.*$/, "/", window.location.hostname]],
         required: false,
         optOut: false,
-        onlyOnce: true
+        callback: (consent) => {
+          const hadConsent = window.ramsMatomoConsent === true
+
+          setMatomoConsent(consent)
+          if (consent && !hadConsent) window.setTimeout(trackMatomoPageView)
+        }
       }
     ]
   }
