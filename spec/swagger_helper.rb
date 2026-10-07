@@ -345,6 +345,39 @@ RSpec.configure do |config|
               updated_at: { type: :string, format: 'date-time', nullable: true }
             }
           },
+          Funding: {
+            type: :object,
+            required: %w[id type title sponsor project],
+            properties: {
+              id: { type: :integer },
+              type: { type: :string, enum: ['fundings'] },
+              title: { type: :string },
+              grant_number: { type: :string, nullable: true },
+              sponsor: {
+                type: :string,
+                enum: Funding.sponsors.keys,
+                description: 'Rails enum key.'
+              },
+              sponsor_other: { type: :string, nullable: true },
+              funding_opportunity_number: { type: :string, nullable: true },
+              principal_investigators: { type: :string, nullable: true },
+              co_principal_investigators: { type: :string, nullable: true },
+              is_funded: { type: :boolean, nullable: true },
+              is_submitted: { type: :boolean, nullable: true },
+              will_be_submitted: { type: :boolean, nullable: true },
+              was_denied: { type: :boolean, nullable: true },
+              start_date: { type: :string, format: :date, nullable: true },
+              end_date: { type: :string, format: :date, nullable: true },
+              project: { '$ref' => '#/components/schemas/ProjectStub' },
+              reserve: {
+                type: :object,
+                nullable: true,
+                allOf: [{ '$ref' => '#/components/schemas/ReserveStub' }]
+              },
+              created_at: { type: :string, format: 'date-time', nullable: true },
+              updated_at: { type: :string, format: 'date-time', nullable: true }
+            }
+          },
           ProjectsCollection: {
             type: :object,
             required: %w[data meta],
@@ -415,6 +448,24 @@ RSpec.configure do |config|
             required: %w[data],
             properties: {
               data: { '$ref' => '#/components/schemas/Visit' }
+            }
+          },
+          FundingsCollection: {
+            type: :object,
+            required: %w[data meta],
+            properties: {
+              data: {
+                type: :array,
+                items: { '$ref' => '#/components/schemas/Funding' }
+              },
+              meta: { '$ref' => '#/components/schemas/PaginationMeta' }
+            }
+          },
+          FundingResource: {
+            type: :object,
+            required: %w[data],
+            properties: {
+              data: { '$ref' => '#/components/schemas/Funding' }
             }
           },
           PaginationMeta: {

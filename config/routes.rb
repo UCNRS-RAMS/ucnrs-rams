@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       resources :projects, only: [:index, :show]
       resources :reserves, only: [:index, :show]
       resources :visits, only: [:index, :show]
+      resources :fundings, only: [:index, :show]
     end
   end
 
