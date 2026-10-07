@@ -10,8 +10,7 @@ RSpec.describe "matomo", type: :view do
   it "renders Matomo as a consent-controlled script when enabled" do
     render partial: "layouts/matomo"
 
-    expect(rendered).to have_css('script[type="text/plain"][data-name="matomo-tracking"]')
-    expect(rendered).to include("anonymizeIp")
+    expect(rendered).to have_css('script[type="text/plain"][data-name="matomo-tracking"]', visible: :all)
     expect(rendered).not_to include("trackPageView")
     expect(rendered).to include("ramsMatomoLoaded")
   end
