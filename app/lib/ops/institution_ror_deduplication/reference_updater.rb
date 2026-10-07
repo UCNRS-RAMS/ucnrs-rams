@@ -33,13 +33,14 @@ module Ops
           quoted_table = @connection.quote_table_name(table_name)
           quoted_column = @connection.quote_column_name(column_name)
 
-          count = @connection.select_value(<<~SQL).to_i
-            SELECT COUNT(*)
+          matching_rows = @connection.select_values(<<~SQL)
+            SELECT 1
             FROM #{quoted_table}
             WHERE #{quoted_column} = #{@connection.quote(old_id)}
             FOR UPDATE
           SQL
 
+          count = matching_rows.length
           "#{table_name}.#{column_name} (#{count})" if count.positive?
         end
       end

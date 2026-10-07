@@ -182,5 +182,18 @@ RSpec.describe Ops::InstitutionRorDeduplicator do
 
       expect(executed).to be(true)
     end
+
+    it "acquires the advisory lock around processing when apply is true" do
+      kept = kept_institution
+      duplicate = duplicate_institution
+
+      with_csv(csv_for([ [ kept, ror_id, "direct" ], [ duplicate, ror_id, "direct" ] ])) do |path|
+        deduplicator = described_class.new(path)
+        expect(deduplicator).to receive(:with_advisory_lock).and_call_original
+
+        result = deduplicator.call(apply: true)
+        expect(result.deleted_count).to eq(1)
+      end
+    end
   end
 end

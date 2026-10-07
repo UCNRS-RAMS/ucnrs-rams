@@ -16,16 +16,24 @@ module Ops
       rows = CsvReader.new(@csv_path).rows
 
       ActiveRecord::Base.connection_pool.with_connection do |connection|
-        StagingTable.with(connection, rows) do |staging_table|
-          groups = GroupPlanner.new(staging_table).groups
-          RorIdValidator.new(groups).validate!
-
-          apply ? merge_groups(connection, groups) : dry_run_result(groups)
+        if apply
+          with_advisory_lock(connection) { process(connection, rows, apply: true) }
+        else
+          process(connection, rows, apply: false)
         end
       end
     end
 
     private
+
+    def process(connection, rows, apply:)
+      StagingTable.with(connection, rows) do |staging_table|
+        groups = GroupPlanner.new(staging_table).groups
+        RorIdValidator.new(groups).validate!
+
+        apply ? merge_groups(connection, groups) : dry_run_result(groups)
+      end
+    end
 
     def dry_run_result(groups)
       Result.new(groups: groups, updated_references: {}, deleted_count: 0, audit_run_id: nil)
@@ -33,21 +41,19 @@ module Ops
 
     # one transaction so a failure leaves neither moved references nor audit rows behind
     def merge_groups(connection, groups)
-      with_advisory_lock(connection) do
-        Institution.transaction do
-          reference_updater = ReferenceUpdater.new(connection)
-          audit_log = AuditLog.new(connection, @csv_path)
-          merger = GroupMerger.new(reference_updater, audit_log)
+      Institution.transaction do
+        reference_updater = ReferenceUpdater.new(connection)
+        audit_log = AuditLog.new(connection, @csv_path)
+        merger = GroupMerger.new(reference_updater, audit_log)
 
-          deleted_count = groups.sum { |group| merger.merge(group) }
+        deleted_count = groups.sum { |group| merger.merge(group) }
 
-          Result.new(
-            groups: groups,
-            updated_references: reference_updater.totals,
-            deleted_count: deleted_count,
-            audit_run_id: audit_log.run_id
-          )
-        end
+        Result.new(
+          groups: groups,
+          updated_references: reference_updater.totals,
+          deleted_count: deleted_count,
+          audit_run_id: audit_log.run_id
+        )
       end
     end
 
