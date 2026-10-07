@@ -24,10 +24,11 @@ module Ops
 
       private
 
-      # Scan the live schema so every current institution_id reference is moved before deletion.
+      # Scan the live schema so every current institution reference is moved before deletion.
       def reference_columns
         references = @connection.tables.flat_map { |table_name| institution_id_columns(table_name) }
         references << [ "institutions", "managing_institution_id" ] if managing_institution_id?
+        references << [ "reserves", "managing_campus_id" ] if managing_campus_id?
         references
       end
 
@@ -39,6 +40,10 @@ module Ops
 
       def managing_institution_id?
         @connection.columns(:institutions).any? { |column| column.name == "managing_institution_id" }
+      end
+
+      def managing_campus_id?
+        @connection.columns(:reserves).any? { |column| column.name == "managing_campus_id" }
       end
 
       # @return [Integer] number of rows updated
