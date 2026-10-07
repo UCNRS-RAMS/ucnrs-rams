@@ -6,6 +6,7 @@
 @use "mixins/input" as *;
 @use "mixins/tables" as *;
 @use "mixins/summary" as *;
+@use "klaro-ui/dist/css/klaro-ui";
 
 // Base styles
 @use "base/animation" as *;
