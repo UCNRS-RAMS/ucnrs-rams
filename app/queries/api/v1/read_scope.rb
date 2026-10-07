@@ -56,6 +56,14 @@ module Api
         Visit.where(reserve: reserve)
       end
 
+      # Funding access follows the associated project. The optional
+      # +fundings.reserve_id+ is not authoritative for authorization.
+      #
+      # @return [ActiveRecord::Relation<Funding>]
+      def fundings
+        Funding.where(project: projects)
+      end
+
       private
 
       # @return [Reserve, nil] the reserve the client is limited to, if any

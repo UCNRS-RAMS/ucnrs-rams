@@ -1,0 +1,102 @@
+# frozen_string_literal: true
+
+require 'swagger_helper'
+
+# The published v1 fundings contract. Each path/response block declares the
+# OpenAPI metadata (paths, parameters, documented status codes); `run_test!`
+# executes one representative request and validates the response against the
+# schemas in spec/swagger_helper.rb.
+#
+# Behavior and edge cases — authentication failure modes, project-derived
+# reserve scoping, filtering, ordering/pagination rules, and the field
+# allowlist — belong in spec/requests/api/v1/fundings_spec.rb. Don't duplicate
+# them here; this file exists so the generated swagger/v1/swagger.yaml stays
+# accurate. Regenerate it with:
+#
+#   bundle exec rake rswag:specs:swaggerize
+RSpec.describe 'Api::V1::Fundings', type: :request do
+  include_context "api authentication"
+
+  # rswag reads the bearer token from this let for the declared security scheme.
+  let(:Authorization) { auth_headers.fetch("Authorization") }
+
+  path "/api/v1/fundings" do
+    get "List fundings" do
+      tags "Fundings"
+      operationId "listFundings"
+      produces "application/json"
+      description "Returns the fundings whose projects are visible to the authenticated client, newest first."
+
+      parameter name: :page, in: :query, required: false,
+        schema: { type: :integer },
+        description: "Page number (defaults to 1)."
+      parameter name: :per_page, in: :query, required: false,
+        schema: { type: :integer, maximum: 100 },
+        description: "Items per page (defaults to 25, capped at 100)."
+      parameter name: :project_id, in: :query, required: false,
+        schema: { type: :integer },
+        description: "Restrict to one project, within the client's scope."
+      parameter name: :reserve_id, in: :query, required: false,
+        schema: { type: :integer },
+        description: "Restrict to projects at one reserve, within the client's scope."
+      parameter name: :updated_since, in: :query, required: false,
+        schema: { type: :string, format: "date-time" },
+        description: "Only fundings updated at or after this ISO 8601 instant, inclusive."
+
+      response "200", "fundings visible to the client" do
+        schema "$ref" => "#/components/schemas/FundingsCollection"
+
+        let(:per_page) { 25 }
+
+        before { create(:funding) }
+
+        run_test!
+      end
+
+      response "400", "a rejected filter value" do
+        schema "$ref" => "#/components/schemas/Error"
+
+        let(:updated_since) { "yesterday" }
+
+        run_test!
+      end
+
+      response "401", "missing, malformed, unknown, or deactivated token" do
+        schema "$ref" => "#/components/schemas/Error"
+
+        let(:Authorization) { "Bearer not-a-real-token" }
+
+        run_test!
+      end
+    end
+  end
+
+  path "/api/v1/fundings/{id}" do
+    parameter name: :id, in: :path, required: true,
+      schema: { type: :integer },
+      description: "RAMS funding ID."
+
+    get "Show a funding" do
+      tags "Fundings"
+      operationId "showFunding"
+      produces "application/json"
+      description "Returns a single funding. A funding whose project is outside the client's scope returns 404."
+
+      response "200", "the requested funding" do
+        schema "$ref" => "#/components/schemas/FundingResource"
+
+        let(:id) { create(:funding).id }
+
+        run_test!
+      end
+
+      response "404", "unknown funding, or one whose project is outside the client's scope" do
+        schema "$ref" => "#/components/schemas/Error"
+
+        let(:id) { 0 }
+
+        run_test!
+      end
+    end
+  end
+end
