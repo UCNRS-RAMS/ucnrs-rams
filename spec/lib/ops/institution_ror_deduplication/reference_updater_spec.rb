@@ -26,4 +26,25 @@ RSpec.describe Ops::InstitutionRorDeduplication::ReferenceUpdater do
     expect(updater.move(duplicate.id, retained.id)).to eq({})
     expect(updater.totals).to include("users" => 2, "institutions" => 1, "reserves" => 1)
   end
+
+  describe "#remaining_references" do
+    it "returns an empty array when no references exist" do
+      institution = create(:institution)
+      updater = described_class.new(connection)
+
+      expect(updater.remaining_references(institution.id)).to eq([])
+    end
+
+    it "returns table and column descriptors when references exist" do
+      institution = create(:institution)
+      create(:user, institution: institution)
+      create(:reserve, managing_campus: institution)
+      updater = described_class.new(connection)
+
+      expect(updater.remaining_references(institution.id)).to contain_exactly(
+        "users.institution_id (1)",
+        "reserves.managing_campus_id (1)"
+      )
+    end
+  end
 end

@@ -33,19 +33,41 @@ module Ops
 
     # one transaction so a failure leaves neither moved references nor audit rows behind
     def merge_groups(connection, groups)
-      Institution.transaction do
-        reference_updater = ReferenceUpdater.new(connection)
-        audit_log = AuditLog.new(connection, @csv_path)
-        merger = GroupMerger.new(reference_updater, audit_log)
+      with_advisory_lock(connection) do
+        Institution.transaction do
+          reference_updater = ReferenceUpdater.new(connection)
+          audit_log = AuditLog.new(connection, @csv_path)
+          merger = GroupMerger.new(reference_updater, audit_log)
 
-        deleted_count = groups.sum { |group| merger.merge(group) }
+          deleted_count = groups.sum { |group| merger.merge(group) }
 
-        Result.new(
-          groups: groups,
-          updated_references: reference_updater.totals,
-          deleted_count: deleted_count,
-          audit_run_id: audit_log.run_id
-        )
+          Result.new(
+            groups: groups,
+            updated_references: reference_updater.totals,
+            deleted_count: deleted_count,
+            audit_run_id: audit_log.run_id
+          )
+        end
+      end
+    end
+
+    # Acquires a MySQL session-level advisory lock (GET_LOCK) to ensure only one
+    # deduplication run executes at a time across application processes, without
+    # locking database tables.
+    def with_advisory_lock(connection)
+      return yield unless connection.adapter_name.downcase.include?("mysql")
+
+      lock_name = "ops_institution_ror_deduplication"
+      acquired = connection.select_value(
+        "SELECT GET_LOCK(#{connection.quote(lock_name)}, 0)"
+      ).to_i == 1
+
+      raise "Could not acquire advisory lock '#{lock_name}'. Another deduplication run is active." unless acquired
+
+      begin
+        yield
+      ensure
+        connection.execute("SELECT RELEASE_LOCK(#{connection.quote(lock_name)})")
       end
     end
   end

@@ -22,6 +22,28 @@ module Ops
         end.select { |_table_name, count| count.positive? }
       end
 
+      # Checks if any rows still reference old_id across all referencing tables.
+      # Under MySQL InnoDB's default REPEATABLE READ isolation level, a plain SELECT reads
+      # from the transaction's initial snapshot and would miss rows inserted or updated by
+      # concurrent web requests. Using FOR UPDATE forces a locking current read that inspects
+      # the latest committed data in each table.
+      # @return [Array<String>] list of "table.column (count)" for any remaining references
+      def remaining_references(old_id)
+        @columns.filter_map do |table_name, column_name|
+          quoted_table = @connection.quote_table_name(table_name)
+          quoted_column = @connection.quote_column_name(column_name)
+
+          count = @connection.select_value(<<~SQL).to_i
+            SELECT COUNT(*)
+            FROM #{quoted_table}
+            WHERE #{quoted_column} = #{@connection.quote(old_id)}
+            FOR UPDATE
+          SQL
+
+          "#{table_name}.#{column_name} (#{count})" if count.positive?
+        end
+      end
+
       private
 
       # Scan the live schema so every current institution reference is moved before deletion.
