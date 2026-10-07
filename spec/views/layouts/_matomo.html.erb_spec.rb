@@ -12,6 +12,8 @@ RSpec.describe "matomo", type: :view do
 
     expect(rendered).to have_css('script[type="text/plain"][data-name="matomo-tracking"]')
     expect(rendered).to include("anonymizeIp")
+    expect(rendered).not_to include("trackPageView")
+    expect(rendered).to include("ramsMatomoLoaded")
   end
 
   context "when Matomo is disabled" do
