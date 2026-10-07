@@ -10,9 +10,9 @@ COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 COPY --from=node /usr/local/include/node /usr/local/include/node
 COPY --from=node /usr/local/share/man /usr/local/share/man
 
-# Remove existing yarn/npm symlinks and enable corepack
-RUN rm -f /usr/local/bin/yarn /usr/local/bin/yarnpkg /usr/local/bin/npm /usr/local/bin/npx && \
-    corepack enable && corepack prepare yarn@stable --activate
+# Preserve npm and npx: transitive packages may invoke `npm run` during install.
+RUN rm -f /usr/local/bin/yarn /usr/local/bin/yarnpkg && \
+    corepack enable && corepack prepare yarn@1.22.22 --activate
 
 
 # Install dependencies:
