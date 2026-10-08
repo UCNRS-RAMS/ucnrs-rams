@@ -48,7 +48,7 @@ RSpec.describe "modals/_new_user.html.erb", type: :view do
     expect(doc).to have_field("First name")
     expect(doc).to have_field("Last name")
     expect(doc).to have_field("Email")
-    expect(doc).to have_field("user[institution_selection_id]", type: "hidden")
+    expect(doc).to have_field("user[institution_id]", type: "hidden")
     expect(doc).to have_field("Institution name")
     expect(doc).to have_select("User role")
     expect(doc).to have_select("Project role")
