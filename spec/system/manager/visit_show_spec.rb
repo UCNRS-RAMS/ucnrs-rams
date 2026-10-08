@@ -75,7 +75,8 @@ RSpec.describe "Manager Visit Show" do
         flow.click_on_trash_icon
         flow.click_on_delete_button
 
-        Visit.find_by(id: visit.id).nil?
+        expect(flow.success_message?).to eq true
+        expect(Visit.find_by(id: visit.id)).to be_nil
       end
     end
   end
@@ -403,6 +404,84 @@ RSpec.describe "Manager Visit Show" do
       sign_in(user)
       flow.visit_show_page
       expect(flow).to be_showing_text_area
+    end
+  end
+
+  describe "annual report part 1 modal" do
+    it "opens showing the visit's report data and closes again", js: true do
+      approved_visit = create(:visit, reserve: reserve, status: "approved")
+      institution = create(:institution, institution_type: "non_california_us_university_or_college")
+      create(:user_visit, visit: approved_visit, status: "Approved", institution: institution,
+        arrives_at: approved_visit.starts_at, departs_at: approved_visit.ends_at)
+
+      flow = Manager::VisitShowFlow.new(page: page, visit_id: approved_visit.id, reserve_id: reserve.id)
+
+      sign_in(user)
+      flow.visit_show_page
+      flow.click_on_report_part_1_link
+      sleep(1.0) # important, gives modal time to load.
+
+      expect(flow).to be_showing_report_part_1_modal
+
+      flow.close_report_part_1_modal
+      expect(flow).to be_showing_no_report_part_1_modal
+    end
+
+    it "shows a fiscal year dropdown and switches data when the visit spans two fiscal years", js: true do
+      fiscal_boundary = Time.zone.local(2023, 6, 25)
+      spanning_visit = create(:visit, reserve: reserve, status: "approved",
+        starts_at: fiscal_boundary, ends_at: fiscal_boundary + 10.days,
+        start_date: fiscal_boundary.to_date, end_date: (fiscal_boundary + 10.days).to_date)
+      institution = create(:institution, institution_type: "non_california_us_university_or_college")
+      create(:user_visit, visit: spanning_visit, status: "Approved", institution: institution,
+        arrives_at: spanning_visit.starts_at, departs_at: spanning_visit.ends_at)
+
+      flow = Manager::VisitShowFlow.new(page: page, visit_id: spanning_visit.id, reserve_id: reserve.id)
+
+      sign_in(user)
+      flow.visit_show_page
+      flow.click_on_report_part_1_link
+      sleep(1.0) # important, gives modal time to load.
+
+      expect(flow).to be_showing_report_part_1_modal
+      expect(flow.fiscal_year_toggle_text).to eq("2023-2024")
+
+      flow.select_fiscal_year("2022-2023")
+      sleep(1.0) # important, gives modal time to reload.
+
+      expect(flow.fiscal_year_toggle_text).to eq("2022-2023")
+    end
+
+    it "keeps the fiscal year dropdown when the selected year has no data", js: true do
+      fiscal_boundary = Time.zone.local(2023, 6, 25)
+      spanning_visit = create(:visit, reserve: reserve, status: "approved",
+        starts_at: fiscal_boundary, ends_at: fiscal_boundary + 10.days,
+        start_date: fiscal_boundary.to_date, end_date: (fiscal_boundary + 10.days).to_date)
+      institution = create(:institution, institution_type: "non_california_us_university_or_college")
+      # Only the earlier fiscal year has reportable data; the cancelled
+      # user_visit still stretches the visit's span into FY 2023-2024, which
+      # the modal opens on by default.
+      create(:user_visit, visit: spanning_visit, status: "Approved", institution: institution,
+        arrives_at: fiscal_boundary, departs_at: fiscal_boundary + 3.days)
+      create(:user_visit, visit: spanning_visit, status: "Cancelled", institution: institution,
+        arrives_at: fiscal_boundary + 7.days, departs_at: fiscal_boundary + 10.days)
+
+      flow = Manager::VisitShowFlow.new(page: page, visit_id: spanning_visit.id, reserve_id: reserve.id)
+
+      sign_in(user)
+      flow.visit_show_page
+      flow.click_on_report_part_1_link
+      sleep(1.0) # important, gives modal time to load.
+
+      expect(flow).to be_showing_report_part_1_no_data("2023-2024")
+      expect(flow).to be_showing_report_part_1_no_data_reasons
+      expect(flow.fiscal_year_toggle_text).to eq("2023-2024")
+
+      flow.select_fiscal_year("2022-2023")
+      sleep(1.0) # important, gives modal time to reload.
+
+      expect(flow).to be_showing_report_part_1_table
+      expect(flow.fiscal_year_toggle_text).to eq("2022-2023")
     end
   end
 end

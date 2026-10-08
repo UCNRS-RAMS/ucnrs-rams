@@ -1,0 +1,15 @@
+--markup markdown
+--readme README.md
+--title "RAMS Developer Documentation"
+--protected
+--private
+--output-dir doc/yard
+--exclude spec/
+--exclude node_modules/
+--exclude vendor/
+--exclude tmp/
+--exclude public/
+--exclude db/
+--files docs/api.md,docs/docker.md,docs/rails_guidelines.md,docs/startup_env_variables.md,docs/agent_hooks.md
+app/**/*.rb
+lib/**/*.rb

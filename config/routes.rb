@@ -1,6 +1,19 @@
 Rails.application.routes.draw do
+  # Public API documentation: Swagger UI and the generated OpenAPI document.
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
+
   # Health check endpoint for container orchestration (ECS, K8s, etc.)
   get "up" => "rails/health#show", as: :rails_health_check
+
+  namespace :api do
+    namespace :v1 do
+      resources :institutions, only: [:index, :show]
+      resources :projects, only: [:index, :show]
+      resources :reserves, only: [:index, :show]
+      resources :visits, only: [:index, :show]
+    end
+  end
 
   devise_for :users, controllers: {
     confirmations: "unauthenticated/confirmations",
@@ -145,6 +158,7 @@ Rails.application.routes.draw do
         resource :amenity_visits, only: [:update], controller: "visits/amenity_visits"
         resource :summary, only: [:edit, :update, :show], controller: "visits/summary"
         resource :detail, only: [:edit, :update], controller: "visits/detail"
+        resource :report_part_1, only: [:show], controller: "visits/report_part_1"
         resources :activity_and_notes, only: [:index, :create],
           controller: "visits/activity_and_notes"
         resources :logs, only: [:show], controller: "visits/logs"

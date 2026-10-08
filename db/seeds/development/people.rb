@@ -51,3 +51,20 @@ common_attributes = {
   ) { |record| record.password = "Password1" }
   user.confirm unless user.confirmed?
 end
+
+# System admin. No UI, form, or factory grants the users.admin flag, so without
+# this record the pages under /admin (which only super admins can reach) cannot
+# be exercised from a freshly primed development database.
+system_admin = DevelopmentSeeds.record(
+  User,
+  { email: "admin@rams.test" },
+  common_attributes.merge(
+    first_name: "Ada",
+    last_name: "Admin",
+    role: :reserve_staff,
+    institution: field_institute,
+    orcid: nil,
+    admin: true,
+  ),
+) { |record| record.password = "Password1" }
+system_admin.confirm unless system_admin.confirmed?

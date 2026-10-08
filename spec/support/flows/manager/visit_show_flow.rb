@@ -7,6 +7,9 @@ class Manager::VisitShowFlow
 
   def visit_show_page
     page.visit("/manager/reserves/#{reserve_id}/visits/#{visit_id}")
+    # Wait for the lazy tab frames, or clicks land mid-reflow on the wrong
+    # control; `visible: false` because unrendered frames have no size.
+    page.has_no_css?("turbo-frame[src]:not([complete])", visible: false)
   end
 
   def showing_summary_box?
@@ -147,6 +150,43 @@ class Manager::VisitShowFlow
 
   def showing_text_area?
     page.has_css?(".email-message")
+  end
+
+  def click_on_report_part_1_link
+    page.click_on("Annual Report Part 1")
+  end
+
+  def showing_report_part_1_modal?
+    page.has_css?(".visit-report-part-1-modal")
+  end
+
+  def showing_no_report_part_1_modal?
+    page.has_no_css?(".visit-report-part-1-modal")
+  end
+
+  def close_report_part_1_modal
+    page.find("#x-icon").click
+  end
+
+  def select_fiscal_year(label)
+    page.find(".fiscal-year-select .dropdown-toggle").click
+    page.click_on(label)
+  end
+
+  def fiscal_year_toggle_text
+    page.find(".fiscal-year-select .dropdown-toggle").text
+  end
+
+  def showing_report_part_1_table?
+    page.has_css?(".visit-report-part-1-modal table.annual-report")
+  end
+
+  def showing_report_part_1_no_data?(fiscal_year_label)
+    page.has_text?("No annual report data for this visit in fiscal year #{fiscal_year_label}.")
+  end
+
+  def showing_report_part_1_no_data_reasons?
+    page.has_css?(".report-part-1-no-data-reasons li", count: 4)
   end
 
   private

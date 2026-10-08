@@ -73,8 +73,8 @@ RUN apt-get update -qq && \
     libyaml-0-2 \
     imagemagick \
     curl \
-    tzdata
-    && rm -rf /var/lib/apt/lists/*
+    tzdata && \
+    rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user to run the application
 RUN groupadd -r rails && useradd -r -g rails rails

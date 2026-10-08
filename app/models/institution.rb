@@ -33,6 +33,12 @@ class Institution < ApplicationRecord
     individual_or_other_entity: "Individual or Other Entity",
   }
 
+  scope :matching_name_and_city, ->(name, city) {
+    where('TRIM(name) = ?', name.to_s.strip)
+      .where('TRIM(city) = ?', city.to_s.strip)
+  }
+
+
   def self.with_name_like(value)
     where("LOWER(name) LIKE LOWER(?)", "%#{value}%")
   end
@@ -41,24 +47,61 @@ class Institution < ApplicationRecord
     order(:name)
   end
 
-  def self.search(query)
-    if query
-      found_institutions = left_joins(:country)
-
-      tokenize(query).each do |partial|
-        found_institutions = found_institutions.where(
-          "institutions.`name` REGEXP :match
-          OR city REGEXP :match
-          OR acronym REGEXP :match
-          OR countries.`name` REGEXP :match",
-          { match: partial }
-        )
-      end
-      found_institutions
-    else
-      all
-    end
+  def self.recent_first
+    order(created_at: :desc)
   end
+
+  def self.search(query, limit: nil)
+    found_institutions =
+      if query
+        left_joins(:country)
+      else
+        all
+      end
+
+    return limit.present? ? found_institutions.limit(limit) : found_institutions if query.blank?
+
+    tokenize(query).each do |partial|
+      pattern = "%#{sanitize_sql_like(partial)}%"
+      found_institutions = found_institutions.where(
+        "institutions.`name` LIKE :match
+        OR institutions.city LIKE :match
+        OR institutions.acronym LIKE :match
+        OR countries.`name` LIKE :match",
+        { match: pattern }
+      )
+    end
+
+    if query.present? && limit.present?
+      # Rank the most relevant matches (exact acronym/name matches, then name
+      # prefixes, then everything else) ahead of the rest so that a `limit`
+      # cuts off the least relevant records instead of an arbitrary slice
+      # that can drop a well-known institution. Callers that don't cap
+      # results with `limit` keep their existing (e.g. alphabetical) order.
+      found_institutions = found_institutions.order(Arel.sql(relevance_order_sql(query))).order(:name)
+    end
+    found_institutions = found_institutions.limit(limit) if limit.present?
+    found_institutions
+  end
+
+  def self.relevance_order_sql(query)
+    normalized = query.to_s.downcase.strip
+
+    sanitize_sql_array([
+      <<~SQL.squish,
+        CASE
+          WHEN LOWER(institutions.acronym) = ? THEN 0
+          WHEN LOWER(institutions.name) = ? THEN 0
+          WHEN LOWER(institutions.name) LIKE ? THEN 1
+          ELSE 2
+        END
+      SQL
+      normalized,
+      normalized,
+      "#{sanitize_sql_like(normalized)}%"
+    ])
+  end
+  private_class_method :relevance_order_sql
 
   def self.sorted_using(sort_option = nil)
     case sort_option.to_s
@@ -94,7 +137,7 @@ class Institution < ApplicationRecord
   end
 
   def self.tokenize(query)
-    URI.decode_www_form_component(query).strip.split
+    query.to_s.strip.split
   end
 
   private_class_method :tokenize

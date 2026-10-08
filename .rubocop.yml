@@ -1,16 +1,22 @@
+inherit_from: .rubocop_todo.yml
+
 plugins:
   - rubocop-rails
+  - rubocop-performance
+
+# Rails' omakase style (https://github.com/rails/rubocop-rails-omakase) is the
+# base: it turns every department off and opts back into a curated set of
+# style/layout cops. The correctness departments below are re-enabled on top of
+# it so the checks this codebase already passes stay enforced.
+inherit_gem:
+  rubocop-rails-omakase: rubocop.yml
 
 AllCops:
-  # RuboCop 1.81.7's KNOWN_RUBIES goes up to 3.5, and Ruby 4.0 is not yet listed.
-  # However, rubocop-ast 1.48.0 loads `prism/translation/parserXX` for targets >= 3.4,
-  # and those adapters are not available in the prism bundled with Ruby 4.0.
-  # 3.3 uses the legacy `parser` gem backend which works fine. Revisit when
-  # rubocop-ast ships a Ruby 4.0-native adapter.
-  TargetRubyVersion: 3.3
+  # Matches .ruby-version / Gemfile. RuboCop >= 1.84 and rubocop-ast >= 1.49
+  # support the 4.0 target with the Prism backend.
+  TargetRubyVersion: 4.0
   NewCops: disable
   SuggestExtensions: false
-  DisabledByDefault: true
   Exclude:
     - 'bin/*'
     - 'db/schema.rb'
@@ -19,7 +25,8 @@ AllCops:
     - 'tmp/**/*'
     - 'vendor/**/*'
 
-# Keep linting focused on correctness first.
+# Keep linting focused on correctness: omakase handles style, these four
+# departments catch bugs and security problems.
 Lint:
   Enabled: true
 
@@ -90,4 +97,3 @@ Rails/UnknownEnv:
     - production
     - dev_server
     - staging
-

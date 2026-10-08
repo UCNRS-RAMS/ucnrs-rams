@@ -3,6 +3,8 @@
 require "rails_helper"
 
 RSpec.describe Ror, type: :model do
+  commits_data_for_full_text_search!
+
   describe "associations" do
     it { is_expected.to have_many(:institutions).with_primary_key(:ror_id).inverse_of(:ror).dependent(:nullify) }
 
@@ -12,6 +14,48 @@ RSpec.describe Ror, type: :model do
       create(:institution, ror_id: "https://ror.org/other")
 
       expect(ror.institutions).to contain_exactly(matching_institution)
+    end
+  end
+
+  describe "location accessors" do
+    it "returns values from each location and skips missing or malformed data" do
+      ror = build(
+        :ror,
+        locations: [
+          {
+            "geonames_details" => {
+              "name" => "San Francisco",
+              "country_code" => "US",
+              "continent_code" => "NA",
+              "country_subdivision_code" => "CA"
+            }
+          },
+          {
+            "geonames_details" => {
+              "name" => "London",
+              "country_code" => "GB",
+              "continent_code" => "EU",
+              "country_subdivision_code" => "ENG"
+            }
+          },
+          { "geonames_details" => nil },
+          "invalid location"
+        ]
+      )
+
+      expect(ror.cities).to eq(["San Francisco", "London"])
+      expect(ror.country_codes).to eq(["US", "GB"])
+      expect(ror.continent_codes).to eq(["NA", "EU"])
+      expect(ror.state_codes).to eq(["CA", "ENG"])
+    end
+
+    it "returns empty arrays when locations are missing" do
+      ror = build(:ror, locations: nil)
+
+      expect(ror.cities).to eq([])
+      expect(ror.country_codes).to eq([])
+      expect(ror.continent_codes).to eq([])
+      expect(ror.state_codes).to eq([])
     end
   end
 
@@ -68,17 +112,109 @@ RSpec.describe Ror, type: :model do
       expect(described_class.by_domain(term)).to contain_exactly(match)
     end
 
-    it ".search combines the name, acronym, and alias scopes" do
-      stubbed = described_class.all
-      allow(described_class).to receive(:by_name).with(term).and_return(stubbed)
-      allow(described_class).to receive(:by_acronym).with(term).and_return(stubbed)
-      allow(described_class).to receive(:by_alias).with(term).and_return(stubbed)
+    it ".search tokenizes and partially matches the name, alias, and acronym fields" do
+      match.update!(
+        name: "University of California, Davis",
+        aliases: ["UC Davis"],
+        acronyms: ["UCD"]
+      )
+      not_match.update!(
+        name: "Stanford University",
+        aliases: ["SU"],
+        acronyms: ["SU"]
+      )
 
-      described_class.search(term)
+      expect(described_class.search("uc davis")).to contain_exactly(match)
+      expect(described_class.search("davis")).to contain_exactly(match)
+      expect(described_class.search("UCD")).to contain_exactly(match)
+    end
 
-      expect(described_class).to have_received(:by_name).with(term)
-      expect(described_class).to have_received(:by_acronym).with(term)
-      expect(described_class).to have_received(:by_alias).with(term)
+    it ".search accepts a limit keyword to cap the number of matching records" do
+      create_list(:ror, 3, name: "Research University")
+
+      expect(described_class.search("Research University", limit: 2).count).to eq(2)
+    end
+
+    it ".search ranks exact acronym/name matches ahead of incidental substring matches so a limit doesn't drop them" do
+      # These all alphabetically precede "University of California, Los Angeles" and would
+      # crowd it out of a small limit if results were only alphabetized instead of ranked
+      # by relevance first.
+      create(:ror, name: "Arthur Ashe Learning Center (arthurashe.ucla.edu)", acronyms: [], aliases: [])
+      create(:ror, name: "California NanoSystems Institute (cnsi.ucla.edu)", acronyms: [], aliases: [])
+      create(:ror, name: "Harbor–UCLA Medical Center (harbor-ucla.org)", acronyms: [], aliases: [])
+      create(:ror, name: "Mattel Children's Hospital (uclahealth.org)", acronyms: [], aliases: [])
+      target = create(
+        :ror,
+        name: "University of California, Los Angeles (ucla.edu)",
+        acronyms: [ "UCLA" ],
+        aliases: [ "UC Los Angeles" ]
+      )
+
+      results = described_class.search("UCLA", limit: 2)
+
+      expect(results.map(&:name)).to include(target.name)
+    end
+
+    it ".search loads the rors.sql fixture and returns records for a full-word match" do
+      load_ror_fixture
+
+      results = described_class.search("London")
+
+      expect(results.map(&:name)).to include(
+        "Transport for London (tfl.gov.uk)",
+        "London Borough of Camden (camden.gov.uk)",
+        "London School of Economics and Political Science (lse.ac.uk)"
+      )
+    end
+
+    it ".search loads the rors.sql fixture and matches San/Fran and UCLA variants" do
+      load_ror_fixture
+
+      expect(described_class.search("San").map(&:name)).to include("University of California, San Francisco (ucsf.edu)")
+      expect(described_class.search("San").map(&:name)).to include("University of California San Diego (ucsd.edu)")
+      expect(described_class.search("S").map(&:name)).to include("University of California, San Francisco (ucsf.edu)")
+      expect(described_class.search("Fran").map(&:name)).to include("University of California, San Francisco (ucsf.edu)")
+      expect(described_class.search("San Fran").map(&:name)).to include("University of California, San Francisco (ucsf.edu)")
+      expect(described_class.search("San Fran").map(&:name)).not_to include("University of California San Diego (ucsd.edu)")
+      expect(described_class.search("UCLA").map(&:name)).to include("University of California, Los Angeles (ucla.edu)")
+    end
+
+    it ".search matches queries containing stopwords such as 'of' and 'for'" do
+      match.update!(
+        name: "University of California, Davis",
+        aliases: ["UC Davis"],
+        acronyms: ["UCD"]
+      )
+      csu = create(:ror, name: "California State University", aliases: ["CSU"], acronyms: ["CSU"])
+
+      results = described_class.search("University of California")
+
+      expect(results).to include(match)
+      expect(results).not_to include(csu)
+      expect(described_class.search("of")).to include(match)
+    end
+
+    it ".search loads the rors.sql fixture and matches queries containing stopwords" do
+      load_ror_fixture
+
+      expect(described_class.search("Transport for London").map(&:name)).to include(
+        "Transport for London (tfl.gov.uk)"
+      )
+      expect(described_class.search("London School of Economics").map(&:name)).to include(
+        "London School of Economics and Political Science (lse.ac.uk)"
+      )
+      expect(described_class.search("University of California").map(&:name)).to include(
+        "University of California, Berkeley (berkeley.edu)",
+        "University of California, Los Angeles (ucla.edu)",
+        "University of California, San Francisco (ucsf.edu)"
+      )
+    end
+  end
+
+  def load_ror_fixture
+    fixture_sql = Rails.root.join("spec/fixtures/rors.sql").read
+    fixture_sql.split(";").each do |statement|
+      ActiveRecord::Base.connection.execute(statement) if statement.present?
     end
   end
 

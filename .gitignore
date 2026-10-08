@@ -28,6 +28,10 @@
 # Ignore output of simplecov
 coverage
 
+# Ignore generated YARD documentation
+doc/yard
+.yardoc
+
 # Ignore node_modules
 node_modules
 

@@ -166,18 +166,53 @@ RSpec.describe Institution, type: :model do
           expect(results).to match_array [institution1, institution2, institution3]
         end
 
+        it "accepts a limit keyword to cap the number of matching results" do
+          results = Institution.search("the", limit: 2)
+
+          expect(results).to contain_exactly(institution1, institution2)
+        end
+
+        it ".search ranks exact acronym/name matches ahead of incidental substring matches so a limit doesn't drop them" do
+          create(:institution, name: "Arthur Ashe Learning Center (arthurashe.ucla.edu)", acronym: nil, city: "Los Angeles")
+          create(:institution, name: "California NanoSystems Institute (cnsi.ucla.edu)", acronym: nil, city: "Los Angeles")
+          create(:institution, name: "Harbor-UCLA Medical Center", acronym: nil, city: "Los Angeles")
+          target = create(:institution, name: "University of California, Los Angeles", acronym: "UCLA", city: "Los Angeles")
+
+          results = Institution.search("UCLA", limit: 2)
+
+          expect(results).to include(target)
+        end
+
         it "returns an empty array if there are no institutions where the name is similar
         to the passed value" do
           results = Institution.search("xyz")
 
           expect(results).to be_empty
         end
+
+        it "treats punctuation and regex metacharacters like (, [, and . as literal text without error" do
+          institution_with_parens = create(:institution, name: "UC (Berkeley)", acronym: "UCB", city: "Berkeley")
+          institution_with_period = create(:institution, name: "St. Mary's College", acronym: "SMC", city: "Moraga")
+          institution_with_brackets = create(:institution, name: "Campus [North]", acronym: "CN", city: "Davis")
+
+          expect(Institution.search("UC (")).to include(institution_with_parens)
+          expect(Institution.search("[North]")).to contain_exactly(institution_with_brackets)
+          expect(Institution.search("St.")).to contain_exactly(institution_with_period)
+          # Ensure '.' is treated literally rather than matching any character:
+          expect(Institution.search("St. Mary's")).to contain_exactly(institution_with_period)
+        end
+
+        it "safely handles queries with percent signs and underscores without encoding or wildcard errors" do
+          expect { Institution.search("%") }.not_to raise_error
+          expect { Institution.search("100% match") }.not_to raise_error
+          expect(Institution.search("xyz%")).to be_empty
+        end
       end
     end
 
     context "when given query is NOT present" do
       it "returns all institutions" do
-        results = Institution.search(nil)
+        results = Institution.search("")
 
         expect(results).to match_array [institution1, institution2, institution3, institution4]
       end

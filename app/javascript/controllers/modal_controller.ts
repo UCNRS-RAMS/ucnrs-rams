@@ -7,6 +7,8 @@ export default class extends Controller {
   declare hasOpenOnLoadTarget: boolean
   declare dialogTarget: HTMLElement
 
+  previouslyFocused: HTMLElement | null = null
+
   connect() {
     this.element[this.identifier] = this
   }
@@ -25,6 +27,7 @@ export default class extends Controller {
       this.element.setAttribute("aria-hidden", "false")
       this.element.removeAttribute("inert")
       document.body.classList.add("no-scroll")
+      this.focusDialog()
     }
   }
 
@@ -37,10 +40,34 @@ export default class extends Controller {
     this.element.setAttribute("aria-hidden", "true")
     this.element.setAttribute("inert", "")
     document.body.classList.remove("no-scroll")
+    this.restoreFocus()
   }
 
   closeAndContinue(e: MouseEvent) {
     this.close()
+  }
+
+  focusDialog() {
+    const active = document.activeElement as HTMLElement | null
+    if (active && this.dialogTarget.contains(active)) {
+      return
+    }
+    this.previouslyFocused = active
+    this.dialogTarget.setAttribute("tabindex", "-1")
+    this.dialogTarget.focus()
+  }
+
+  restoreFocus() {
+    if (this.previouslyFocused?.isConnected) {
+      this.previouslyFocused.focus()
+    }
+    this.previouslyFocused = null
+  }
+
+  closeOnEscape() {
+    if (this.modalVisible()) {
+      this.close()
+    }
   }
 
   closeBackground(e) {

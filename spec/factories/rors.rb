@@ -8,6 +8,7 @@ FactoryBot.define do
     acronyms { ['UCSF'] }
     aliases { ['Example University'] }
     country { { 'country_code' => 'US', 'country_name' => 'United States' } }
+    locations { [] }
     file_timestamp { Time.zone.now }
   end
 end

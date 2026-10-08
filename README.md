@@ -70,7 +70,8 @@ $ bundle install
 $ bundle exec rake db:create
 $ bundle exec rake db:migrate
 $ bundle exec rake db:seed
-$ bundle exec rails s
+$ bin/rails "external_api:sync_rors[true]"  # sync ROR data from latest dump to local database
+$ bin/dev  # start development server with hot reloading for js and css
 
 # open http://localhost:3000 in a browser to verify it's up
 
@@ -110,6 +111,8 @@ $ docker compose exec web bundle exec rails db:create db:migrate
 # populate seed data for development
 $ docker compose exec web bundle exec rails db:seed
 
+$ docker compose exec web bin/rails "external_api:sync_rors[true]"
+
 # open http://localhost:3000 in a browser to verify it's up
 ```
 
@@ -139,6 +142,10 @@ All development users use the password `Password1`:
 | `river@researcher.test` | Researcher |
 | `sage@scientist.test` | Project team member |
 | `manager@single-tree.test` | Reserve administrator |
+| `admin@rams.test` | System admin (access to `/admin` pages) |
+
+`admin@rams.test` is the only development account with the `users.admin` flag,
+which no UI grants. Use it to exercise admin-only pages such as `/admin/reports`.
 
 Run the primer spec with:
 
@@ -243,6 +250,27 @@ RAMS authorizes external integrations with Bearer tokens issued to `ApiClient`
 records. See [`docs/api.md`](docs/api.md) for issuing, scoping, and rotating
 those credentials.
 
+Interactive OpenAPI documentation is served at `/api-docs` when the app is
+running; use the **Authorize** button with an `ApiClient` token to call
+endpoints from the UI. The OpenAPI document is generated from the specs in
+`spec/api/` and committed; regenerate it after changing the API:
+
+```bash
+bundle exec rake rswag:specs:swaggerize
+```
+
+## Documentation
+
+Developer documentation is generated with [YARD](https://yardoc.org) from the
+comments in `app/` and `lib/`, together with the Markdown files in `docs/`:
+
+```bash
+bundle exec rake yard
+```
+
+Open `doc/yard/index.html` to browse the result. CI builds the same
+documentation and uploads it as an artifact.
+
 ## Dependencies
 
 [Ruby Version](.ruby-version)
@@ -284,6 +312,39 @@ And this after
 
 ```bash
 # rubocop:enable Metrics/ModuleLength
+```
+
+### Omakase style and the todo file
+
+The style rules come from [rubocop-rails-omakase](https://github.com/rails/rubocop-rails-omakase)
+(Rails' default set), with the `Lint`, `Security`, `Rails`, and `Metrics` departments
+switched back on in `.rubocop.yml`.
+
+`.rubocop_todo.yml` quarantines offenses that already exist in the codebase, so new
+files are held to the full standard while legacy files are opted out one at a time.
+When you have cleaned some files up, regenerate it and the exclusions that are no
+longer needed disappear:
+
+```bash
+bundle exec rubocop --regenerate-todo
+```
+
+Run these through `bundle exec rubocop`, not `bin/rubocop`. The binstub forces
+`--config .rubocop.yml`, which makes RuboCop read the existing todo file before it
+rewrites it, so every entry is dropped and the next run reports thousands of offenses.
+
+The first generation is the only one that needs the explicit flags; they are recorded
+in the todo file's own header, and `--regenerate-todo` reuses them:
+
+```bash
+bundle exec rubocop --auto-gen-config --auto-gen-only-exclude --exclude-limit 10000
+```
+
+To clean up a specific area (the API, say), autocorrect it and then regenerate:
+
+```bash
+bundle exec rubocop -a app/controllers/api app/presenters/api
+bundle exec rubocop --regenerate-todo
 ```
 
 ## SCSS Sorting

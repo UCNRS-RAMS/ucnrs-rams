@@ -61,6 +61,27 @@ class_project = DevelopmentSeeds.record(
   ),
 )
 
+# The API declares Project#reserve nullable and serves a null stub for a project
+# that names no reserve, which is the common shape in the deployed environments.
+# Without a project like this in the primer, that payload is never exercised.
+DevelopmentSeeds.record(
+  Project,
+  { title: "Statewide Pollinator Survey" },
+  project_defaults.merge(
+    reserve: nil,
+    owner: researcher,
+    applicant: researcher,
+    project_type: :research,
+    start_date: 1.month.ago.to_date,
+    end_date: 6.months.from_now.to_date,
+    submitted_at: 1.month.ago,
+    abstract: "A representative multi-reserve study not yet assigned to a reserve.",
+    discipline: "Biology",
+    method_description: "Pollinator transects at sites to be determined.",
+    method_study_area: "Sites to be determined.",
+  ),
+)
+
 memberships = [
   [research_project, principal_investigator, true, true, true, true, true],
   [research_project, researcher, false, true, true, true, false],

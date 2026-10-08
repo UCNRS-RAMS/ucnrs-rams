@@ -23,7 +23,7 @@ gem 'nokogiri', '>= 1.16.5'
 gem "paranoia", "~> 3"
 gem "propshaft"
 gem 'puma', '>= 5.0'
-gem 'rails', '~> 8.1.0'
+gem "rails", "~> 8.1.4"
 gem 'rubyzip'
 gem 'shakapacker', '10.3.1'
 gem 'simple_calendar', '~> 3.0'
@@ -31,6 +31,10 @@ gem 'solid_cable'
 gem 'turbo-rails', '~> 2.0'
 gem "wicked_pdf", "~> 2.7"
 gem "wkhtmltopdf-binary", "~> 0.12.6"
+
+# Public JSON API documentation (OpenAPI spec + Swagger UI).
+gem 'rswag-api'
+gem 'rswag-ui'
 
 # charting
 gem "chartkick"
@@ -56,8 +60,10 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 8.0'
+  gem 'rswag-specs'
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
+  gem 'rubocop-rails-omakase', require: false
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
 end
@@ -75,6 +81,8 @@ group :development do
   gem 'listen'
   gem 'rack-mini-profiler'
   gem 'web-console', '>= 4.1.0'
+  # Developer documentation. Run with `bundle exec rake yard`.
+  gem 'yard', require: false
 end
 
 group :dev_server, :staging do

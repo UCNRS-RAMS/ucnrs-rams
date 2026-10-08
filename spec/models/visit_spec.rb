@@ -31,6 +31,17 @@ RSpec.describe Visit, type: :model do
     end
   end
 
+  describe "timestamps" do
+    # visits.updated_at carried the same "0001-01-01" NOT NULL default as
+    # projects, which ActiveRecord treats as an already-set timestamp and leaves
+    # alone on create. See spec/models/project_spec.rb.
+    it "sets updated_at to the time the visit was created" do
+      visit = create(:visit)
+
+      expect(visit.reload.updated_at).to be_within(1.minute).of(Time.current)
+    end
+  end
+
   describe "delegations" do
     it { is_expected.to delegate_method(:short_name).to(:reserve).with_prefix }
     it { is_expected.to delegate_method(:name).to(:reserve).with_prefix }
@@ -409,21 +420,30 @@ RSpec.describe Visit, type: :model do
 
   describe ".having_between_time_for" do
     context "when the supplied date_range_option: is ':visit_date_range'" do
-      it "calls the DateQuery.having_between_time_for with types :ends_at and :starts_at" do
-        date1 = Date.new(1969, 7, 20)
-        date2 = Date.new(1980, 7, 31)
+      it "falls back to legacy dates and times when canonical timestamps are absent" do
+        legacy = create(:visit,
+          starts_at: nil,
+          ends_at: nil,
+          start_date: Date.new(2026, 1, 12),
+          start_time: Time.zone.parse("2000-01-01T09:00:00Z"),
+          end_date: Date.new(2026, 1, 13),
+          end_time: Time.zone.parse("2000-01-01T17:00:00Z"))
+        outside = create(:visit,
+          starts_at: nil,
+          ends_at: nil,
+          start_date: Date.new(2026, 1, 25),
+          start_time: Time.zone.parse("2000-01-01T09:00:00Z"),
+          end_date: Date.new(2026, 1, 26),
+          end_time: Time.zone.parse("2000-01-01T17:00:00Z"))
 
-        allow(DateQuery).to receive(:call)
-
-        Visit.having_between_time_for(date_range_option: :visit_date_range, date_start: date1, date_end: date2)
-
-        expect(DateQuery).to have_received(:call).with(
-          Visit,
-          date_start_type: :ends_at,
-          date_start: date1,
-          date_end_type: :starts_at,
-          date_end: date2
+        results = Visit.having_between_time_for(
+          date_range_option: :visit_date_range,
+          date_start: Time.zone.parse("2026-01-10T00:00:00Z"),
+          date_end: Time.zone.parse("2026-01-20T23:59:59Z")
         )
+
+        expect(results).to include(legacy)
+        expect(results).not_to include(outside)
       end
     end
 

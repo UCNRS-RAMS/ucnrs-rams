@@ -2,13 +2,26 @@
 
 united_states = Country.coded("US")
 
+managing_campus = DevelopmentSeeds.record(
+  Institution,
+  { name: "University of California, Berkeley", city: "Berkeley" },
+  state: State.coded("CA"),
+  country: united_states,
+  institution_type: :university_of_california,
+)
+
 a_single_tree = DevelopmentSeeds.record(
   Reserve,
   { name: "A Single Tree" },
   short_name: "Tree",
   pulldown_name: "Single Tree, A",
+  address_line_1: "100 Single Tree Road",
+  address_line_2: "PO Box 12",
+  address_city: "Example City",
+  address_postal_code: "00001",
   address_country: united_states,
   address_state: State.coded("MA"),
+  managing_campus: managing_campus,
   research_projects_accepted: true,
   class_projects_accepted: false,
   conference_projects_accepted: true,
@@ -17,6 +30,7 @@ a_single_tree = DevelopmentSeeds.record(
   amenity_group_label_2: "Stuff to Get",
   amenity_group_label_3: "Accommodations",
   doi: "10.0000/example.single-tree",
+  year_reserve_established: 1965,
   latitude: 37.8044,
   longitude: -122.2712,
 )
@@ -26,8 +40,12 @@ oak_ridge = DevelopmentSeeds.record(
   { name: "Oak Ridge" },
   short_name: "Oak Ridge",
   pulldown_name: "Oak Ridge",
+  address_line_1: "200 Oak Ridge Lane",
+  address_city: "Example City",
+  address_postal_code: "00002",
   address_country: united_states,
   address_state: State.coded("CA"),
+  managing_campus: managing_campus,
   research_projects_accepted: false,
   class_projects_accepted: true,
   conference_projects_accepted: true,
@@ -35,6 +53,13 @@ oak_ridge = DevelopmentSeeds.record(
   amenity_group_label_1: "ATV Vroooooooom",
   amenity_group_label_2: "Only One Acorn, Okay?",
   amenity_group_label_3: "(Not) Spooky Cabin",
+  doi: "10.0000/example.oak-ridge",
+  # Left on the columns' placeholders on purpose: a reserve with no recorded
+  # establishment year or location is the common shape in production, and the
+  # API turns 0 and 0, 0 into null.
+  year_reserve_established: 0,
+  latitude: 0,
+  longitude: 0,
 )
 
 DevelopmentSeeds.record(

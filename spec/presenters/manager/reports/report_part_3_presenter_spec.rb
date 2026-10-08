@@ -291,4 +291,49 @@ RSpec.describe Manager::Reports::ReportPart3Presenter do
       expect(report_part3_data_scope).to match_array [project2]
     end
   end
+
+  describe "#project_user_details" do
+    it "sums approved user_visit counts by role for report_access visits at the report reserve within the fiscal year" do
+      travel_to Time.zone.local(2022, 2, 22)
+      reserve = create(:reserve)
+      other_reserve = create(:reserve)
+      project = create(:project, project_type: :class)
+      visit = create(:visit, project: project, reserve: reserve, report_access: true,
+        starts_at: 4.year.ago, ends_at: 4.year.from_now,
+      )
+      other_reserve_visit = create(:visit, project: project, reserve: other_reserve, report_access: true,
+        starts_at: 4.year.ago, ends_at: 4.year.from_now,
+      )
+      no_report_access_visit = create(:visit, project: project, reserve: reserve, report_access: false,
+        starts_at: 4.year.ago, ends_at: 4.year.from_now,
+      )
+      create(:user_visit, visit: visit, role: :faculty, count: 3, status: :approved,
+        arrives_at: 2.day.ago, departs_at: 1.day.ago,
+      )
+      create(:user_visit, visit: visit, role: :graduate_student, count: 2, status: :approved,
+        arrives_at: 2.day.ago, departs_at: 1.day.ago,
+      )
+      create(:user_visit, visit: visit, role: :faculty, count: 4, status: :approved,
+        arrives_at: 2.year.ago, departs_at: 2.year.ago + 1.day,
+      )
+      create(:user_visit, visit: visit, role: :faculty, count: 6, status: :cancelled,
+        arrives_at: 2.day.ago, departs_at: 1.day.ago,
+      )
+      create(:user_visit, visit: other_reserve_visit, role: :faculty, count: 5, status: :approved,
+        arrives_at: 2.day.ago, departs_at: 1.day.ago,
+      )
+      create(:user_visit, visit: no_report_access_visit, role: :faculty, count: 7, status: :approved,
+        arrives_at: 2.day.ago, departs_at: 1.day.ago,
+      )
+      annual_report = double AnnualReport
+      allow(annual_report).to receive(:fiscal_year_ending).and_return(Date.current.year)
+      allow(annual_report).to receive(:reserve_id).and_return(reserve.id)
+      form = AnnualReportForm.new(annual_report: annual_report)
+      presenter = Manager::Reports::ReportPart3Presenter.new(form: form)
+
+      project_user_details = presenter.project_user_details(project)
+
+      expect(project_user_details).to eq("faculty" => 3, "graduate_student" => 2)
+    end
+  end
 end

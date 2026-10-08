@@ -20,6 +20,7 @@
   &.visible {
     overflow-x: hidden;
     overflow-y: auto;
+    transition: visibility 0s;
     visibility: visible;
 
     .modal-container {
@@ -72,7 +73,24 @@
     z-index: 1;
   }
 
+  [data-modal-target~="dialog"]:focus {
+    outline: none;
+  }
+
   .close {
+    button {
+      background: none;
+      border: 0;
+      border-radius: 50%;
+      cursor: pointer;
+      display: block;
+      padding: 0;
+    }
+
+    button > img {
+      display: block;
+    }
+
     img#x-icon {
       background-color: rgba($gray, 0.36);
       border-radius: 50%;
