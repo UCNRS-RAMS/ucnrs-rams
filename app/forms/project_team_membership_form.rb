@@ -80,6 +80,10 @@ class ProjectTeamMembershipForm
     project_team_membership.institution_id
   end
 
+  def institution_id_before_type_cast
+    institution_id
+  end
+
   def assigned_as_project_owner=(value)
     project.owner = user if value == "true"
   end
