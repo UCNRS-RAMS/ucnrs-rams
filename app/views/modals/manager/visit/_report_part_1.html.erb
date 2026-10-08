@@ -1,16 +1,16 @@
-<turbo-frame id="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title"
-  data-action="mousedown@window->modal#closeBackground">
-  <div class="modal-content"  data-modal-target="dialog openOnLoad">
+<turbo-frame id="modal-content">
+  <div class="modal-content" data-modal-target="dialog openOnLoad">
     <p class="screenreader-text">
       <span id="modal-title"><%= t(".title", visit_id: presenter.visit_id, reserve_name: presenter.reserve_name) %></span>
       <span id="modal-description"></span>
     </p>
     <div class="close">
-      <%= image_tag "x.svg", height: "16px", width: "16px",
-        id: "x-icon",
-        data: { action: "click->modal#close" },
-        alt: t("alt.icon_x")
+      <%= tag.button type: "button",
+        aria: { label: t("close") },
+        data: { action: "click->modal#close" } do
       %>
+        <%= image_tag "x.svg", height: "16px", width: "16px", id: "x-icon", alt: "" %>
+      <% end %>
     </div>
     <section class="visit-report-part-1-modal">
       <header class="modal-header">

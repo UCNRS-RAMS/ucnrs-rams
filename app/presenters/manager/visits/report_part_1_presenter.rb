@@ -15,7 +15,7 @@ class Manager::Visits::ReportPart1Presenter
 
   def visit_date_range
     DateRangePresenter.new(start_date: visit.starts_at, end_date: visit.ends_at)
-      .value("date_range.different_years")
+      .value(nil)
   end
 
   def project_type_rows
