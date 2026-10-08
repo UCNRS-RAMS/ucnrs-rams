@@ -36,10 +36,10 @@ RSpec.describe "Adding a project team member", type: :system, js: true do
 
     click_button "Save"
     expect(page).to have_css(".modal.visible h2", text: "Create a New User")
-    expect(page.find("#user_institution_selection_id", visible: false).value).to eq(ror.ror_id)
+    expect(page.find("#user_institution_id", visible: false).value).to eq(ror.ror_id)
     expect(page.find("#user_institution_selection_type", visible: false).value).to eq("ror")
     fill_in "First name", with: "New"
-    expect(page.find("#user_institution_selection_id", visible: false).value).to eq(ror.ror_id)
+    expect(page.find("#user_institution_id", visible: false).value).to eq(ror.ror_id)
     expect(page.find("#user_institution_selection_type", visible: false).value).to eq("ror")
     click_button "Save"
     expect(page).to have_no_css(".modal.visible")

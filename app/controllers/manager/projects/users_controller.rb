@@ -53,7 +53,6 @@ class Manager::Projects::UsersController < Manager::ApplicationController
       :id,
       :project_id,
       :institution_id,
-      :institution_selection_id,
       :institution_selection_type,
       :institution_name,
       :first_name,
