@@ -1,4 +1,6 @@
 class Manager::Visits::ReportPart1Controller < Manager::ApplicationController
+  include VisitScopedToReserve
+
   def self.controller_path
     "manager/visits/report_part_1"
   end
@@ -9,7 +11,8 @@ class Manager::Visits::ReportPart1Controller < Manager::ApplicationController
   FISCAL_DAY_END = Manager::Reports::ReportBasePresenter::FISCAL_DAY_END
 
   before_action :authenticate_user!
-  before_action :confirm_manager!, unless: -> { super_admin? }
+  before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
+  before_action :confirm_visit_in_reserve!
 
   def show
     @presenter = Manager::Visits::ReportPart1Presenter.new(
