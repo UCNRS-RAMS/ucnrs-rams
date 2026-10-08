@@ -27,7 +27,8 @@ class AggregatedSearch
   def results
     MergePolicy.call(
       matching_rors: matching_rors,
-      matching_institutions: matching_institutions
+      matching_institutions: matching_institutions,
+      query: query
     )
   end
 
@@ -50,7 +51,7 @@ class AggregatedSearch
       institution_ids = direct_institutions.pluck(:id).to_set |
         Institution.where(ror_id: ror_ids.to_a).pluck(:id).to_set
 
-      Institution.where(id: institution_ids.to_a).preload(:country)
+      Institution.where(id: institution_ids.to_a).preload(:country, :ror)
     end
   end
 
