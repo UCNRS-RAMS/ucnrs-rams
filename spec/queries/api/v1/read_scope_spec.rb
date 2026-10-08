@@ -115,4 +115,37 @@ RSpec.describe Api::V1::ReadScope do
       end
     end
   end
+
+  describe "#fundings" do
+    let(:unaffiliated_funding) { create(:funding) }
+
+    it "returns every funding to a platform-wide client" do
+      expect(scope.fundings).to include(unaffiliated_funding)
+    end
+
+    context "when the client is scoped to a reserve" do
+      let(:reserve) { create(:reserve) }
+      let(:api_client) { create(:api_client, reserve: reserve) }
+      let(:project) { create(:project, reserve: reserve) }
+
+      it "returns only fundings whose projects belong to the reserve" do
+        funding = create(:funding, project: project, reserve: nil)
+        unaffiliated_funding
+
+        expect(scope.fundings).to contain_exactly(funding)
+      end
+
+      it "includes a project funding even when its optional reserve differs" do
+        funding = create(:funding, project: project, reserve: create(:reserve))
+
+        expect(scope.fundings).to include(funding)
+      end
+
+      it "excludes another project's funding even when its optional reserve matches" do
+        funding = create(:funding, reserve: reserve)
+
+        expect(scope.fundings).not_to include(funding)
+      end
+    end
+  end
 end

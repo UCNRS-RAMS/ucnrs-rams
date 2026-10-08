@@ -61,6 +61,8 @@ module Api
       #
       # @return [ActiveRecord::Relation<Funding>]
       def fundings
+        return Funding.all if platform_wide?
+
         Funding.where(project: projects)
       end
 
