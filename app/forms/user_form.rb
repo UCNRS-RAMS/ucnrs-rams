@@ -77,11 +77,14 @@ class UserForm
   end
 
   def institution_id
-    @institution_selection_id || user.institution_id
+    return @institution_selection_id if defined?(@institution_selection_id)
+
+    user.institution_id
   end
 
-  alias_method :institution_selection_id, :institution_id
-  alias_method :institution_selection_id=, :institution_id=
+  def institution_id_before_type_cast
+    institution_id
+  end
 
   alias_method :validate_form, :validate
   alias_method :valid_form?, :valid?
