@@ -25,11 +25,11 @@ class AggregatedSearch
 
 
   def results
-    MergePolicy.call(
+    merged = MergePolicy.call(
       matching_rors: matching_rors,
-      matching_institutions: matching_institutions,
-      query: query
+      matching_institutions: matching_institutions
     )
+    SortPolicy.call(merged, query: query)
   end
 
   private
