@@ -80,6 +80,14 @@
     </div>
   </div>
 
+  <div class="info-block">
+    <%= link_to t(".report_part_1"),
+      manager_reserve_visit_report_part_1_path(reserve_id: current_reserve.id, visit_id: presenter.id),
+      class: "clr-blue",
+      method: :get
+    %>
+  </div>
+
   <% if notice.present? %>
     <p class="notice"><%= notice %></p>
   <% end %>
