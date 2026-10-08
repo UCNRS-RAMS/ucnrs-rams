@@ -52,6 +52,7 @@ RSpec.describe AggregatedSearch::MergePolicy do
         id: 42,
         name: "Alpha Inst",
         city: "Davis",
+        country: "United States",
         acronym: "AI",
         type: :institution,
         source: institution
@@ -60,6 +61,7 @@ RSpec.describe AggregatedSearch::MergePolicy do
         id: "https://ror.org/123",
         name: "Beta ROR",
         city: "San Jose",
+        country: "United States",
         acronym: "BR",
         type: :ror,
         source: ror
