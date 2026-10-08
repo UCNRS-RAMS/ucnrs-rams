@@ -13,7 +13,7 @@ RSpec.describe InstitutionsIndexPresenter do
 
     it "presents matching institutions in order" do
       first_institution = create(:institution, name: "One, Two, Three")
-      second_institution = create(:institution, name: "School of Rock")
+      second_institution = create(:institution, name: "SSchool of Rock")
       third_institution = create(:institution, name: "One Cool School")
       presenter = InstitutionsIndexPresenter.new(query: "School")
 
@@ -22,7 +22,7 @@ RSpec.describe InstitutionsIndexPresenter do
       expect(results.length).to eq 2
       expect(results.map { |result| result[:name] }).to eq [
         "One Cool School",
-        "School of Rock",
+        "SSchool of Rock",
       ]
     end
   end
