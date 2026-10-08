@@ -33,6 +33,7 @@ class AggregatedSearch
         id: institution.id,
         name: institution.name,
         city: institution.city,
+        country: institution.country&.name,
         acronym: institution.acronym,
         type: :institution,
         source: institution
@@ -44,6 +45,7 @@ class AggregatedSearch
         id: ror.ror_id,
         name: ror.name,
         city: ror.cities&.first,
+        country: ror.country&.dig("country_name"),
         acronym: ror.acronyms&.first,
         type: :ror,
         source: ror
