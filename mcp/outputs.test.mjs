@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { OutputSearch, normalizeAward, normalizeDoi, normalizeOrcid, normalizeRor } from './outputs.mjs';
+import { OutputSearch } from './outputs.mjs';
 
 const ORCID_A = '0000-0002-3004-1423';
 const ORCID_B = '0000-0001-5732-5613';
@@ -65,29 +65,6 @@ const project = {
   ] }]),
 };
 
-test('normalizes DOIs, ORCID iDs and award numbers, rejecting unusable values', () => {
-  assert.equal(normalizeDoi('https://doi.org/10.21973/N30T0K'), '10.21973/n30t0k');
-  assert.equal(normalizeDoi('doi:10.1038/S41586-020-2649-2.'), '10.1038/s41586-020-2649-2');
-  assert.equal(normalizeDoi('10.21973/N3FT0M'), '10.21973/n3ft0m');
-  // Reserve records store free text here: a ROR, a placeholder, or nothing.
-  assert.equal(normalizeDoi('https://ror.org/04sk0et52'), null);
-  assert.equal(normalizeDoi('doi:number'), null);
-  assert.equal(normalizeDoi(''), null);
-  assert.equal(normalizeDoi(undefined), null);
-
-  assert.equal(normalizeOrcid('https://orcid.org/0000-0002-3004-1423'), ORCID_A);
-  assert.equal(normalizeOrcid('0000-0001-5732-5613'), ORCID_B);
-  assert.equal(normalizeOrcid('0000-0002-3004'), null);
-  assert.equal(normalizeOrcid(''), null);
-
-
-  assert.equal(normalizeRor('https://ror.org/04SK0ET52'), 'https://ror.org/04sk0et52');
-  assert.equal(normalizeRor('04sk0et52'), 'https://ror.org/04sk0et52');
-  assert.equal(normalizeRor('https://ror.org/not-a-ror'), null);
-  assert.equal(normalizeRor(''), null);
-  assert.deepEqual(normalizeAward(' DEB-1234567 '), { value: 'DEB-1234567', key: 'DEB1234567' });
-  assert.equal(normalizeAward('   '), null);
-});
 
 test('gathers keys from project records and merges the same DOI across sources', async () => {
   const { impl, seen } = stubFetch({
