@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { OutputSearch, normalizeAward, normalizeDoi, normalizeOrcid } from './outputs.mjs';
+import { OutputSearch, normalizeAward, normalizeDoi, normalizeOrcid, normalizeRor } from './outputs.mjs';
 
 const ORCID_A = '0000-0002-3004-1423';
 const ORCID_B = '0000-0001-5732-5613';
@@ -80,6 +80,11 @@ test('normalizes DOIs, ORCID iDs and award numbers, rejecting unusable values', 
   assert.equal(normalizeOrcid('0000-0002-3004'), null);
   assert.equal(normalizeOrcid(''), null);
 
+
+  assert.equal(normalizeRor('https://ror.org/04SK0ET52'), 'https://ror.org/04sk0et52');
+  assert.equal(normalizeRor('04sk0et52'), 'https://ror.org/04sk0et52');
+  assert.equal(normalizeRor('https://ror.org/not-a-ror'), null);
+  assert.equal(normalizeRor(''), null);
   assert.deepEqual(normalizeAward(' DEB-1234567 '), { value: 'DEB-1234567', key: 'DEB1234567' });
   assert.equal(normalizeAward('   '), null);
 });
@@ -119,6 +124,34 @@ test('gathers keys from project records and merges the same DOI across sources',
   assert.equal(result.candidates[0].relation, 'unconfirmed');
   assert.equal(result.coverage.linkage_confirmation, 'not_performed');
   assert.equal(result.coverage.external_output_search, 'performed');
+});
+
+test('uses a reserve ROR as an exact affiliation key in every scholarly source', async () => {
+  const { impl, seen } = stubFetch({
+    datacite: reply({ data: [] }),
+    openalex: reply({ results: [] }),
+    crossref: reply({ message: { items: [] } }),
+  });
+  const search = new OutputSearch({
+    rams: stubRams({
+      'reserves:27': ok({ id: 27, type: 'reserves', name: 'Gump South Pacific Research Station', doi: 'https://ror.org/04SK0ET52' }),
+    }),
+    fetch: impl,
+    bases,
+  });
+
+  const result = await search.search({ reserve_id: 27 });
+
+  assert.equal(result.status, 'ok');
+  assert.deepEqual(result.search_keys.reserve_dois, []);
+  assert.deepEqual(result.search_keys.rors, [{ ror: 'https://ror.org/04sk0et52', source: 'reserve_doi_field' }]);
+  assert.equal(result.search_keys.queried.rors, 1);
+  assert.equal(seen.length, 3);
+  const queries = Object.fromEntries(seen.map(entry => [entry.source, new URL(entry.url).searchParams]));
+  assert.equal(queries.datacite.get('affiliation-id'), 'https://ror.org/04sk0et52');
+  assert.equal(queries.datacite.get('affiliation'), 'true');
+  assert.equal(queries.openalex.get('filter'), 'institutions.ror:https://ror.org/04sk0et52');
+  assert.equal(queries.crossref.get('filter'), 'ror-id:https://ror.org/04sk0et52');
 });
 
 test('orders candidates by year and reports an empty source separately from a failed one', async () => {

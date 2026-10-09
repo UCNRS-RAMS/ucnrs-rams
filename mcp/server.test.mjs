@@ -150,7 +150,7 @@ test('search_outputs turns RAMS identifiers into unconfirmed candidates and neve
     }
   }, port => ({ RAMS_API_TOKEN: 'test-secret', RAMS_SCHOLARLY_BASES: scholarly(port) }));
 
-  const result = await client.callTool({ name: 'search_outputs', arguments: { project_id: 7 } });
+  const result = await client.callTool({ name: 'search_outputs', arguments: { project_id: 7, ror: '04SK0ET52' } });
   const search = result.structuredContent;
 
   assert.equal(result.isError, false);
@@ -158,6 +158,7 @@ test('search_outputs turns RAMS identifiers into unconfirmed candidates and neve
   // The reserve record stores its DOI as free text, so the search key is normalized.
   assert.deepEqual(search.search_keys.reserve_dois, ['10.21973/n30t0k']);
   assert.deepEqual(search.search_keys.orcids, [{ orcid: '0000-0002-3004-1423', role: 'owner' }]);
+  assert.deepEqual(search.search_keys.rors, [{ ror: 'https://ror.org/04sk0et52', source: 'caller_supplied' }]);
   assert.deepEqual(search.sources.map(source => source.source).sort(), ['crossref', 'datacite', 'openalex']);
 
   assert.equal(search.candidates.length, 1);
@@ -167,9 +168,9 @@ test('search_outputs turns RAMS identifiers into unconfirmed candidates and neve
   assert.equal(candidate.year, 2024);
   assert.equal(candidate.relation, 'unconfirmed');
   assert.equal(candidate.url, 'https://doi.org/10.21973/n30t0k');
-  // The same dataset answered the reserve-DOI query and the award-number query.
+  // The same dataset answered the reserve-DOI, award-number, and ROR queries.
   assert.deepEqual([...new Set(candidate.observed_in.map(entry => entry.source))], ['datacite']);
-  assert.equal(candidate.observed_in.length, 2);
+  assert.equal(candidate.observed_in.length, 3);
   assert.equal(search.coverage.external_output_search, 'performed');
   assert.equal(search.coverage.linkage_confirmation, 'not_performed');
 });
@@ -222,6 +223,7 @@ test('search_outputs rejects a keyless or malformed request without reading RAMS
     {},
     { project_id: 7, doi: 'https://ror.org/04sk0et52' },
     { reserve_id: 27, orcid: 'not-an-orcid' },
+    { ror: 'not-a-ror' },
     { project_id: 7, per_source: 101 },
   ]) {
     const result = await client.callTool({ name: 'search_outputs', arguments: args });

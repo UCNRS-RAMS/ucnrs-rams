@@ -5,7 +5,7 @@ import { StdioServerTransport } from '@modelcontextprotocol/server/stdio';
 import { parse } from 'yaml';
 import * as z from 'zod';
 import { RamsApi, evidenceLimits } from './api.mjs';
-import { OutputSearch, normalizeDoi, normalizeOrcid } from './outputs.mjs';
+import { OutputSearch, normalizeDoi, normalizeOrcid, normalizeRor } from './outputs.mjs';
 
 const resources = {
   projects: {
@@ -76,7 +76,7 @@ export async function createServer(config) {
       'Read-only RAMS research access. Start with list_reserves or a known project ID.',
       'Collections return exactly one page, never an automatic crawl. Follow pagination.next_call explicitly.',
       'Use get_project_context to assemble a bounded evidence dossier. Cite source URLs and record IDs.',
-      'search_outputs returns candidate publications and datasets matched on RAMS identifiers. RAMS stores no output records, so every candidate is an unconfirmed match until a curator links it.',
+      'search_outputs returns candidate publications and datasets matched on exact RAMS identifiers. Every candidate remains unconfirmed until a downstream curator links it.',
       'Unknown and inaccessible records share a 404. Never interpret a failed read as an empty collection.',
       ...evidenceLimits,
     ].join('\n'),
@@ -118,34 +118,42 @@ export async function createServer(config) {
 
   server.registerTool('search_outputs', {
     description: [
-      'Search DataCite, OpenAlex, Crossref, and optionally a Zotero group library for candidate publications and datasets, using identifiers RAMS already holds: reserve DOIs, researcher ORCIDs, and funding award numbers.',
-      'Makes at most four reads against RAMS plus one query per identifier per source; key collection reads one page of fundings and visits.',
-      'Every result is an unconfirmed identifier match. RAMS stores no output records and this tool writes none, so nothing here establishes that an output used a reserve.',
+      'Search DataCite, OpenAlex, Crossref, and optionally a Zotero group library for candidate publications and datasets, using exact DOI, ROR, ORCID, and funding award identifiers.',
+      'Makes at most four reads against RAMS plus one query per source-supported identifier; key collection reads one page of fundings and visits.',
+      'Every result is an unconfirmed identifier match. This read-only tool creates no project-output link, so nothing here establishes that an output used a reserve.',
       'No candidates means these keys and sources returned nothing, not that no outputs exist. Failed or skipped sources are listed separately from empty ones.',
     ].join(' '),
     inputSchema: z.strictObject({
       project_id: positiveInteger.optional().describe('RAMS project ID; keys come from its owner, applicant, fundings, and visit participants.'),
-      reserve_id: positiveInteger.optional().describe('RAMS reserve ID; contributes its DOI as a key. Projects at that reserve are not crawled.'),
+      reserve_id: positiveInteger.optional().describe('RAMS reserve ID; contributes the typed DOI or legacy ROR value from its free-text DOI field. Projects at that reserve are not crawled.'),
       orcid: z.union([z.string(), z.array(z.string())]).optional().describe('Extra ORCID iD or iDs to search, exact match.'),
+      ror: z.union([z.string(), z.array(z.string())]).optional().describe('Extra ROR ID or IDs to search as exact creator or contributor affiliations.'),
       grant_number: z.string().optional().describe('Extra award number to search, exact match.'),
       doi: z.string().optional().describe('Extra DOI to search as an exact related identifier, for example a reserve or dataset DOI.'),
       zotero_group_id: z.string().optional().describe('Zotero group library ID to read; requires ZOTERO_API_KEY in the MCP environment, otherwise that source is reported skipped.'),
       per_source: pageSize.optional().describe('Records requested per query, defaults to 25, maximum 100.'),
       max_orcids: positiveInteger.max(25).optional().describe('Maximum ORCID keys queried, defaults to 5.'),
+      max_rors: positiveInteger.max(25).optional().describe('Maximum ROR keys queried, defaults to 5.'),
       max_grants: positiveInteger.max(50).optional().describe('Maximum award-number keys queried, defaults to 10.'),
       per_page: pageSize.optional().describe('RAMS page size used when collecting funding and visit keys, defaults to 100 (the API maximum) so a project\'s whole visit history is covered in one read.'),
     }).superRefine((args, context) => {
-      const identifiers = [args.orcid].flat().filter(Boolean);
-      if (args.project_id === undefined && args.reserve_id === undefined && identifiers.length === 0
-          && !args.grant_number && !args.doi) {
+      const orcids = [args.orcid].flat().filter(Boolean);
+      const rors = [args.ror].flat().filter(Boolean);
+      if (args.project_id === undefined && args.reserve_id === undefined && orcids.length === 0
+          && rors.length === 0 && !args.grant_number && !args.doi) {
         context.addIssue({ code: 'custom', path: ['project_id'], message: 'Supply project_id, reserve_id, or at least one identifier.' });
       }
       if (args.doi !== undefined && !normalizeDoi(args.doi)) {
         context.addIssue({ code: 'custom', path: ['doi'], message: 'doi must be a DOI such as 10.21973/N30T0K.' });
       }
-      for (const value of identifiers) {
+      for (const value of orcids) {
         if (!normalizeOrcid(value)) {
           context.addIssue({ code: 'custom', path: ['orcid'], message: 'Each orcid must be an iD such as 0000-0002-3004-1423.' });
+        }
+      }
+      for (const value of rors) {
+        if (!normalizeRor(value)) {
+          context.addIssue({ code: 'custom', path: ['ror'], message: 'Each ror must be an ID such as https://ror.org/04sk0et52.' });
         }
       }
     }),

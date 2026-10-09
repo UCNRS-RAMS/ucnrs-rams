@@ -256,45 +256,53 @@ project-output relationships, or write curator decisions.
 `search_outputs` accepts:
 
 - `project_id` and/or `reserve_id` (at least one of these or an identifier);
-- optional exact identifiers: `orcid` (one iD or an array), `grant_number`,
-  `doi`;
+- optional exact identifiers: `orcid` and `ror` (one ID or an array),
+  `grant_number`, and `doi`;
 - `zotero_group_id` for the optional Zotero group library source;
-- `per_source` (defaults to 25, maximum 100), `max_orcids` (defaults to 5,
-  maximum 25), `max_grants` (defaults to 10, maximum 50), and `per_page`
-  (the RAMS page size used when collecting keys, defaults to 100 — the API
-  maximum — so a project's whole visit history is covered in one read).
+- `per_source` (defaults to 25, maximum 100), `max_orcids` and `max_rors`
+  (each defaults to 5, maximum 25), `max_grants` (defaults to 10, maximum
+  50), and `per_page` (the RAMS page size used when collecting keys, defaults
+  to 100, the API maximum, so a project's whole visit history is covered in
+  one read).
 
 It collects keys from the same four RAMS reads as `get_project_context`, then
-queries DataCite, OpenAlex and Crossref once per key, plus Zotero when a group
-is named and a key is configured. Identifiers are normalized before use: DOIs
-lose URL and `doi:` prefixes and are lowercased, and ORCID iDs are validated.
-Reserve `doi` values are free text, so a ROR iD or placeholder stored there is
-not used as a search key. Visit participants beyond one page are not read, and
-`search_keys.read_coverage` reports what each key read actually covered.
+queries each source only for the identifier types it supports. DataCite searches
+reserve DOIs as related identifiers, award numbers, and ROR affiliations.
+OpenAlex and Crossref search ORCIDs, award numbers, and ROR affiliations. Zotero
+is read when a group is named and a key is configured.
+
+Identifiers are normalized before use. DOIs lose URL and `doi:` prefixes and
+are lowercased, ORCID iDs are validated, and ROR IDs become canonical
+`https://ror.org/...` URLs. Reserve `doi` values are free text, so the MCP
+recognizes the known legacy ROR value there without misclassifying it as a DOI.
+Callers can also supply ROR IDs read from institution records. Visit participants
+beyond one page are not read, and `search_keys.read_coverage` reports what each
+key read actually covered.
 
 Every result is a candidate, never a link. Each candidate carries
 `relation: "unconfirmed"`, the queries that matched it in `observed_in`, and a
 `coverage` block with `external_output_search: "performed"` and
 `linkage_confirmation: "not_performed"`. `get_project_context` in the same
-session still reports `external_output_search: "not_performed"` — the flag
-describes that tool's work, not the session. Absence of candidates is reported
-as an empty list, and a search with no usable key returns
+session still reports `external_output_search: "not_performed"` because the
+flag describes that tool's work, not the session. Absence of candidates is
+reported as an empty list, and a search with no usable key returns
 `status: "no_identifiers"` without contacting any source, because a missing
 identifier is not a missing output.
 
 Sources are reported individually. A failed source or a failed RAMS key read
 yields `status: "partial"` with the failure named in `coverage.sources_failed`
 or `coverage.ram_reads_failed`, so an incomplete search is never read as an
-empty one. Key reads are capped by `max_orcids` and `max_grants`, and any
-truncation appears in `search_keys.truncated`.
+empty one. Queries are capped by `max_orcids`, `max_rors`, and `max_grants`;
+any truncation appears in `search_keys.truncated`.
 
-Two limits are worth knowing before trusting a result set. First, ORCID
-coverage in RAMS is thin, so an ORCID-keyed search is low-recall and the
-project owner and applicant are the main identities available without reading
-visits. Second, the reserve DOIs held in RAMS resolve in DataCite as
-`Collection` records, but no registered output currently names a reserve DOI as
-a related identifier, so a reserve-DOI query returns nothing today. That
-follows from how outputs are deposited, not from the query.
+Three limits matter before trusting a result set. ORCID coverage in RAMS is
+thin, so an ORCID-keyed search is low-recall and the project owner and applicant
+are the main identities available without reading visits. ROR searches are
+institution-wide and therefore low-precision for an individual project or
+reserve. Finally, reserve DOIs held in RAMS resolve in DataCite as `Collection`
+records, but no registered output currently names a reserve DOI as a related
+identifier. Those coverage limits follow from deposited metadata, not from the
+queries.
 
 Each successful API read includes its source URL, applied filters, retrieval
 time, and original record data. Collection results include `total_count`,

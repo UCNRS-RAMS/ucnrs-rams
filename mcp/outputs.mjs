@@ -1,13 +1,14 @@
 // Candidate-output search across external scholarly sources.
 //
-// RAMS stores no output records. This module uses the identifiers RAMS already
-// exposes (reserve DOIs, researcher ORCIDs, funding award numbers) as exact
-// search keys, asks DataCite, OpenAlex, Crossref and optionally a Zotero group
-// library, and returns CANDIDATES. A candidate is an unconfirmed identifier
-// match; it is never a reserve-provenance link.
+// RAMS exposes reserve DOIs, researcher ORCIDs, funding award numbers, and a
+// legacy reserve ROR value. This module uses them as exact search keys, asks
+// DataCite, OpenAlex, Crossref and optionally a Zotero group library, and
+// returns CANDIDATES. A candidate is an unconfirmed identifier match; it is
+// never a reserve-provenance link.
 
 const DOI_PREFIX = /^10\.\d{4,9}\//;
 const ORCID = /^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$/;
+const ROR = /^0[0-9a-hj-km-np-tv-z]{6}\d{2}$/;
 const REQUEST_TIMEOUT_MS = 15_000;
 
 const defaultBases = {
@@ -18,8 +19,9 @@ const defaultBases = {
 };
 
 export const outputEvidenceLimits = [
-  'Candidates are unconfirmed identifier matches. A shared DOI, ORCID, or award number does not prove that an output used a reserve.',
-  'Only a curator-recorded project-output link would confirm provenance, and RAMS stores none today.',
+  'Candidates are unconfirmed identifier matches. A shared DOI, ROR ID, ORCID, or award number does not prove that an output used a reserve.',
+  'ROR searches are institution-wide affiliation matches, not project- or reserve-specific evidence.',
+  'Only a curator-reviewed project-output link would confirm provenance; this read-only search creates none.',
   'No candidates is not evidence that no outputs exist; it means these search keys and sources returned nothing.',
   'Search keys come from a single page of RAMS records. Truncated or failed key reads are reported in search_keys.',
 ];
@@ -40,6 +42,12 @@ export function normalizeOrcid(value) {
   if (typeof value !== 'string') return null;
   const orcid = value.trim().replace(/^https?:\/\/orcid\.org\//i, '').toUpperCase();
   return ORCID.test(orcid) ? orcid : null;
+}
+
+export function normalizeRor(value) {
+  if (typeof value !== 'string') return null;
+  const id = value.trim().replace(/^https?:\/\/(?:www\.)?ror\.org\//i, '').replace(/\/$/, '').toLowerCase();
+  return ROR.test(id) ? `https://ror.org/${id}` : null;
 }
 
 // Award numbers are free text in RAMS, so both the raw value (for the query)
@@ -153,6 +161,11 @@ export class OutputSearch {
         params: { 'page[size]': perSource, query: `fundingReferences.awardNumber:"${award.value}"` },
       }));
     }
+    for (const ror of keys.rors) {
+      queries.push(this.#request('datacite', '/dois', {
+        params: { 'page[size]': perSource, 'affiliation-id': ror, affiliation: true },
+      }));
+    }
     const results = await Promise.all(queries);
     const records = [];
     const failed = results.filter(result => result.status === 'error');
@@ -168,7 +181,7 @@ export class OutputSearch {
         });
       }
     }
-    return { source: 'datacite', attempted: keys.dois.length + keys.grants.length, records, failed };
+    return { source: 'datacite', attempted: queries.length, records, failed };
   }
 
   async #openalex(keys, perSource) {
@@ -178,6 +191,9 @@ export class OutputSearch {
     }
     for (const award of keys.grants) {
       queries.push(this.#request('openalex', '/works', { params: { 'per-page': perSource, filter: `grants.award_id:${award.value}` } }));
+    }
+    for (const ror of keys.rors) {
+      queries.push(this.#request('openalex', '/works', { params: { 'per-page': perSource, filter: `institutions.ror:${ror}` } }));
     }
     const results = await Promise.all(queries);
     const records = [];
@@ -202,6 +218,9 @@ export class OutputSearch {
     }
     for (const award of keys.grants) {
       queries.push(this.#request('crossref', '/works', { params: { rows: perSource, filter: `award.number:${award.value}` } }));
+    }
+    for (const ror of keys.rors) {
+      queries.push(this.#request('crossref', '/works', { params: { rows: perSource, filter: `ror-id:${ror}` } }));
     }
     const results = await Promise.all(queries);
     const records = [];
@@ -238,12 +257,12 @@ export class OutputSearch {
     return { source: 'zotero', attempted: 1, records, failed: [] };
   }
 
-  // Collects the search keys RAMS already holds. At most four RAMS reads, the
-  // same bound as get_project_context, and each read's outcome is reported so a
-  // failed key read is never mistaken for an absent identifier.
+  // Collects search keys from the same bounded RAMS reads as
+  // get_project_context. Each read's outcome is reported so a failed key read
+  // is never mistaken for an absent identifier.
   async #collectKeys({ project_id, reserve_id, per_page }) {
     const reads = [];
-    const keys = { dois: [], orcids: [], grants: [] };
+    const keys = { dois: [], rors: [], orcids: [], grants: [] };
     let reserveId = reserve_id;
 
     if (project_id !== undefined) {
@@ -282,25 +301,28 @@ export class OutputSearch {
       // when the reserve is the only requested target it is the whole answer.
       if (reserve.status !== 'ok' && project_id === undefined) return { failure: reserve };
       if (reserve.status === 'ok') {
-        // A reserve DOI is stored as free text, so it may be absent or hold a
-        // different identifier scheme (ROR, test placeholder). Only DOIs are usable.
+        // This legacy field is free text. Preserve the identifier type rather
+        // than treating the known ROR value as a malformed DOI.
         const doi = normalizeDoi(reserve.data.doi);
+        const ror = normalizeRor(reserve.data.doi);
         if (doi) keys.dois.push({ doi });
+        if (ror) keys.rors.push({ ror, source: 'reserve_doi_field' });
       }
     }
 
-    const seen = { orcids: new Set(), grants: new Set(), dois: new Set() };
+    const seen = { orcids: new Set(), grants: new Set(), dois: new Set(), rors: new Set() };
     keys.orcids = keys.orcids.filter(entry => !seen.orcids.has(entry.orcid) && seen.orcids.add(entry.orcid));
     keys.grants = keys.grants.filter(entry => entry.key && !seen.grants.has(entry.key) && seen.grants.add(entry.key));
     keys.dois = keys.dois.filter(entry => !seen.dois.has(entry.doi) && seen.dois.add(entry.doi));
+    keys.rors = keys.rors.filter(entry => !seen.rors.has(entry.ror) && seen.rors.add(entry.ror));
     return { keys, reads };
   }
 
-  async search({ project_id, reserve_id, orcid, grant_number, doi, zotero_group_id, per_source = 25, max_orcids = 5, max_grants = 10, per_page = 100 }) {
-    if (project_id === undefined && reserve_id === undefined && !orcid && !grant_number && !doi) {
+  async search({ project_id, reserve_id, orcid, ror, grant_number, doi, zotero_group_id, per_source = 25, max_orcids = 5, max_rors = 5, max_grants = 10, per_page = 100 }) {
+    if (project_id === undefined && reserve_id === undefined && !orcid && !ror && !grant_number && !doi) {
       return {
         status: 'error',
-        error: { code: 'bad_request', message: 'Supply project_id, reserve_id, or at least one identifier (orcid, grant_number, doi).' },
+        error: { code: 'bad_request', message: 'Supply project_id, reserve_id, or at least one identifier (orcid, ror, grant_number, doi).' },
       };
     }
 
@@ -314,16 +336,31 @@ export class OutputSearch {
         keys.orcids.push({ orcid: normalized, role: 'caller_supplied' });
       }
     }
+    for (const value of [ror].flat()) {
+      const normalized = normalizeRor(value);
+      if (normalized && !keys.rors.some(entry => entry.ror === normalized)) {
+        keys.rors.push({ ror: normalized, source: 'caller_supplied' });
+      }
+    }
     const award = normalizeAward(grant_number);
     if (award && !keys.grants.some(entry => entry.key === award.key)) keys.grants.push({ ...award, sponsor: null });
     const explicitDoi = normalizeDoi(doi);
     if (explicitDoi && !keys.dois.some(entry => entry.doi === explicitDoi)) keys.dois.push({ doi: explicitDoi });
 
-    const truncated = { orcids: keys.orcids.length > max_orcids, grants: keys.grants.length > max_grants };
-    const usable = { dois: keys.dois, orcids: keys.orcids.slice(0, max_orcids).map(entry => entry.orcid), grants: keys.grants.slice(0, max_grants) };
+    const truncated = {
+      orcids: keys.orcids.length > max_orcids,
+      rors: keys.rors.length > max_rors,
+      grants: keys.grants.length > max_grants,
+    };
+    const usable = {
+      dois: keys.dois,
+      rors: keys.rors.slice(0, max_rors).map(entry => entry.ror),
+      orcids: keys.orcids.slice(0, max_orcids).map(entry => entry.orcid),
+      grants: keys.grants.slice(0, max_grants),
+    };
 
     const sources = [];
-    if (!usable.dois.length && !usable.orcids.length && !usable.grants.length) {
+    if (!usable.dois.length && !usable.rors.length && !usable.orcids.length && !usable.grants.length) {
       return {
         status: 'no_identifiers',
         query: { project_id: project_id ?? null, reserve_id: reserve_id ?? null, zotero_group_id: zotero_group_id ?? null },
@@ -405,7 +442,7 @@ export class OutputSearch {
     const partialReads = reads.filter(read => read.coverage && !read.coverage.complete);
     return {
       status: incomplete.length ? 'partial' : 'ok',
-      query: { project_id: project_id ?? null, reserve_id: reserve_id ?? null, zotero_group_id: zotero_group_id ?? null },
+      query: { project_id: project_id ?? null, reserve_id: reserve_id ?? null, ror: ror ?? null, zotero_group_id: zotero_group_id ?? null },
       rams_reads: reads,
       search_keys: keyReport(keys, usable, truncated, reads),
       sources,
@@ -417,7 +454,7 @@ export class OutputSearch {
       coverage: {
         external_output_search: 'performed',
         linkage_confirmation: 'not_performed',
-        relation_semantics: 'Every candidate is an unconfirmed identifier match. Only a curator-recorded project-output link would confirm that an output used a reserve, and RAMS stores none.',
+        relation_semantics: 'Every candidate is an unconfirmed identifier match. Only a curator-reviewed project-output link would confirm that an output used a reserve; this read-only search creates none.',
         sources_queried: sources.filter(source => source.status !== 'skipped').map(source => source.source),
         sources_failed: failedSources.map(source => source.source),
         candidates_before_deduplication: sources.reduce((total, source) => total + source.records_returned, 0),
@@ -440,9 +477,10 @@ function readCoverage(result) {
 function keyReport(keys, usable, truncated, reads) {
   return {
     reserve_dois: keys.dois.map(entry => entry.doi),
+    rors: keys.rors.map(entry => ({ ror: entry.ror, source: entry.source })),
     orcids: keys.orcids.map(entry => ({ orcid: entry.orcid, role: entry.role })),
     award_numbers: keys.grants.map(entry => ({ award_number: entry.value, sponsor: entry.sponsor })),
-    queried: { dois: usable.dois.length, orcids: usable.orcids.length, award_numbers: usable.grants.length },
+    queried: { dois: usable.dois.length, rors: usable.rors.length, orcids: usable.orcids.length, award_numbers: usable.grants.length },
     truncated,
     read_coverage: reads.filter(read => read.coverage).map(read => ({ resource: read.resource, ...read.coverage })),
   };
