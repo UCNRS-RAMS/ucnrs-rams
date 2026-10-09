@@ -9,8 +9,11 @@ declare module "stimulus-autocomplete" {
     hasHiddenTarget: boolean
     hasResultsTarget: boolean
     resultsShown: boolean
+    commit(selected: HTMLElement): void
+    clear(): void
     open(): void
     close(): void
+    replaceResults(html: string): void
   }
 
   export default Autocomplete

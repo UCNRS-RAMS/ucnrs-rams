@@ -46,6 +46,7 @@ class Projects::UsersController < ApplicationController
       :id,
       :project_id,
       :institution_id,
+      :institution_selection_type,
       :institution_name,
       :first_name,
       :last_name,
