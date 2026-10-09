@@ -1,36 +1,84 @@
+<% filter = @presenter.filter %>
+
 <section class="content">
   <%= render partial: "shared/manager/dashboard/header", locals: { selected_tab: 2 } %>
   <hr />
-  <%= turbo_frame_tag 'dashboard-content' do %>
-    <section class="calendar-container">
-      <section class="search-subsection">
-        <div class="search-primary">
-          <div></div>
-          <div>
-            <%= form_with url: manager_reserve_dashboard_calendar_path, method: :get do |f| %>
-              <%= hidden_field_tag 'start_date', @presenter.start_date %>
-              <%= hidden_field_tag 'partial_name', "calendar" %>
-              <%= f.label :type, t(".display") %>
-              <%= f.select :type,
-                options_for_select(@presenter.type_options, @presenter.type),
-                {},
-                onchange: "this.form.requestSubmit();"
-              %>
-              <%= f.label :status, t(".with_the_status") %>
-              <%= f.select :status,
-                options_for_select(@presenter.status_options, @presenter.status),
-                {},
-                onchange: "this.form.requestSubmit();"
-              %>
-            <% end %>
+  <%= turbo_frame_tag "dashboard-content" do %>
+    <section class="reserve-calendar">
+      <%= turbo_frame_tag "dashboard-calendar" do %>
+        <%= form_with url: manager_reserve_dashboard_calendar_path(current_reserve),
+                      method: :get,
+                      data: { turbo_frame: "dashboard-calendar", turbo_action: "advance" } do %>
+
+          <div style="margin:0 auto;">
+            <div class="cal-filters-container">
+
+              <div class="cal-group">
+                <div class="cal-pill cal-pill-approved">
+                  <%= hidden_field_tag("show_approved", "false", id: nil) %>
+                  <%= check_box_tag("show_approved", "true", filter.show_approved?, onchange: "this.form.requestSubmit()") %>
+                  <%= label_tag("show_approved", "Approved") %>
+                </div>
+                <div class="cal-pill cal-pill-in-review">
+                  <%= hidden_field_tag("show_in_review", "false", id: nil) %>
+                  <%= check_box_tag("show_in_review", "true", filter.show_in_review?, onchange: "this.form.requestSubmit()") %>
+                  <%= label_tag("show_in_review", "In Review") %>
+                </div>
+                <div class="cal-pill cal-pill-incomplete">
+                  <%= hidden_field_tag("show_incomplete", "false", id: nil) %>
+                  <%= check_box_tag("show_incomplete", "true", filter.show_incomplete?, onchange: "this.form.requestSubmit()") %>
+                  <%= label_tag("show_incomplete", "Incomplete") %>
+                </div>
+                <div class="cal-pill cal-pill-cancelled">
+                  <%= hidden_field_tag("show_cancelled", "false", id: nil) %>
+                  <%= check_box_tag("show_cancelled", "true", filter.show_cancelled?, onchange: "this.form.requestSubmit()") %>
+                  <%= label_tag("show_cancelled", "Cancelled") %>
+                </div>
+                <div class="cal-pill cal-pill-denied">
+                  <%= hidden_field_tag("show_denied", "false", id: nil) %>
+                  <%= check_box_tag("show_denied", "true", filter.show_denied?, onchange: "this.form.requestSubmit()") %>
+                  <%= label_tag("show_denied", "Denied") %>
+                </div>
+              </div>
+
+              <div class="cal-group">
+                <div>Group:</div>
+                <% (1..ReserveCalendarFilter::GROUP_COUNT).each do |n| %>
+                  <div class="cal-pill cal-pill-neutral">
+                    <%= hidden_field_tag("group#{n}", "false", id: nil) %>
+                    <%= check_box_tag("group#{n}", "true", filter.group?(n), onchange: "this.form.requestSubmit()") %>
+                    <%= label_tag("group#{n}", @presenter.short_group_label(n), title: @presenter.group_label(n)) %>
+                  </div>
+                <% end %>
+              </div>
+
+              <div class="cal-group">
+                <div class="cal-pill" id="cal-filters-visits">
+                  <%= hidden_field_tag("show_visits", "false", id: nil) %>
+                  <%= check_box_tag("show_visits", "true", filter.show_visits?, onchange: "this.form.requestSubmit()") %>
+                  <%= label_tag("show_visits", "Visits") %>
+                </div>
+                <div class="cal-pill" id="cal-filters-user">
+                  <%= hidden_field_tag("show_others", "false", id: nil) %>
+                  <%= check_box_tag("show_others", "true", filter.show_others?, onchange: "this.form.requestSubmit()") %>
+                  <%= label_tag("show_others", "Visitors") %>
+                </div>
+                <div class="cal-pill" id="cal-filters-amenity">
+                  <%= hidden_field_tag("show_amenity", "false", id: nil) %>
+                  <%= check_box_tag("show_amenity", "true", filter.show_amenity?, onchange: "this.form.requestSubmit()") %>
+                  <%= label_tag("show_amenity", "Amenities") %>
+                </div>
+              </div>
+
+            </div>
           </div>
-        </div>
-      </section>
-      <%= month_calendar @presenter.calendar_params do |date, visits| %>
-        <% @presenter.add_date_visits(date: date, visits: visits) %>
-        <span class="date-text" ><strong><%= date.day %></strong></span>
-        <%= render partial: "bar", object: @presenter.visits_link_params %>
-        <%= render partial: "bar", collection: @presenter.amenities_link_params %>
+
+          <div data-controller="calendar-highlight">
+            <%= render partial: "manager/dashboard/calendar/calendar",
+                       locals: { month: @presenter.month, year: @presenter.year,
+                                 visitor_counts: @presenter.visitor_counts, weeks: @presenter.weeks } %>
+          </div>
+        <% end %>
       <% end %>
     </section>
   <% end %>
