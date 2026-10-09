@@ -13,8 +13,8 @@ RSpec.describe AggregatedSearch::MergePolicy do
       matching_institutions: [ institution ]
     )
 
-    expect(results.map { |r| r[:name] }).to eq([ "Stanford University", "UC Berkeley" ])
-    expect(results.map { |r| r[:type] }).to eq([ :ror, :institution ])
+    expect(results.map { |r| r[:name] }).to contain_exactly("Stanford University", "UC Berkeley")
+    expect(results.map { |r| r[:type] }).to contain_exactly(:ror, :institution)
   end
 
   it "filters out ROR records with missing ror_id and deduplicates duplicate ror_ids" do

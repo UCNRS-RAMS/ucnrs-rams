@@ -16,9 +16,8 @@ class AggregatedSearch
       dup_ror_ids = ror_ids & matching_institutions.map(&:ror_id).compact.to_set
       filtered_rors = candidate_rors.reject { |ror| dup_ror_ids.include?(ror.ror_id) }
 
-      (matching_institutions.map { |inst| institution_result(inst) } +
-        filtered_rors.map { |ror| ror_result(ror) })
-          .sort_by { |item| "#{item[:name].to_s.downcase} #{item[:type]} #{item[:id]}" }
+      matching_institutions.map { |inst| institution_result(inst) } +
+        filtered_rors.map { |ror| ror_result(ror) }
     end
 
     private
