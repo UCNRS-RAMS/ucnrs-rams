@@ -56,6 +56,21 @@ export default class extends Autocomplete {
     this.syncExpanded()
   }
 
+  // Reset scroll to the top so the first, most relevant result is visible when results change.
+  replaceResults(html: string) {
+    super.replaceResults(html)
+    this.resetResultsScroll()
+  }
+
+  resetResultsScroll() {
+    if (this.hasResultsTarget) {
+      this.resultsTarget.scrollTop = 0
+    }
+    if (this.hasInputTarget) {
+      this.inputTarget.removeAttribute("aria-activedescendant")
+    }
+  }
+
   syncExpanded() {
     this.inputTarget.setAttribute("aria-expanded", this.resultsShown ? "true" : "false")
     this.element.removeAttribute("aria-expanded")
