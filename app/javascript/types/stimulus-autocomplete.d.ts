@@ -13,6 +13,7 @@ declare module "stimulus-autocomplete" {
     clear(): void
     open(): void
     close(): void
+    replaceResults(html: string): void
   }
 
   export default Autocomplete
