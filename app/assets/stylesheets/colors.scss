@@ -1,0 +1,46 @@
+@use "sass:map";
+
+$status-colors: (
+
+  "approved":    (visit: #d9fddc, user: #c4fcb9, amenity: #b9ebad, highlight: #80ff66),
+  "in-review":   (visit: #fefec7, user: #fefea4, amenity: #f7ef81, highlight: #FDFD35),
+  "cancelled":   (visit: #ffc0df, user: #f9c,    amenity: #f284b9, highlight: #ff70b8),
+  "denied":      (visit: #b3e6f9, user: #83d7f5, amenity: #5fc3f0, highlight: #42C1F0),
+  "incomplete":  (visit: #ffc3c3, user: #f7b0b0, amenity: #f39a9a, highlight: #F77A7A),
+  "neutral":     (visit: #cad2d5, user: #aab7bb, amenity: #97a7ad, highlight: #cad2d5),
+
+  "draft":       (user: #c9bdf0, amenity: #b3a4e2, highlight: #ded6f6),
+  "scheduled":   (user: #a8c0f5, amenity: #8da9e9, highlight: #c9d8f9),
+  "archived":    (user: #b89dd1, amenity: #a687c4, highlight: #d3c2e2),
+  "checked-in":  (user: #7fd6cd, amenity: #6ac5bc, highlight: #b0e6e0),
+  "completed":   (user: #a8ecd9, amenity: #8bd9c3, highlight: #c9f3e7),
+  "provisional": (user: #c2d6a8, amenity: #adc390, highlight: #d9e6c9),
+  "waitlisted":  (user: #e8d5a8, amenity: #d8c18d, highlight: #f1e5c9),
+  "on-hold":     (user: #ffc79e, amenity: #f0b080, highlight: #ffdcc3),
+  "overdue":     (user: #e8a68a, amenity: #da9073, highlight: #f1c8b6),
+  "expired":     (user: #b3c2cc, amenity: #9fafb9, highlight: #d0d9df)
+);
+
+@function status-color($name, $tier: user) {
+  $status: map.get($status-colors, $name);
+
+  @if $status == null {
+    @error "Unknown status `#{$name}`. Known statuses: #{map.keys($status-colors)}.";
+  }
+
+  $color: map.get($status, $tier);
+
+  @if $color == null {
+    @error "Unknown tier `#{$tier}` for status `#{$name}`. Known tiers: #{map.keys($status)}.";
+  }
+
+  @return $color;
+}
+
+:root {
+  @each $name, $tiers in $status-colors {
+    @each $tier, $color in $tiers {
+      --status-#{$name}-#{$tier}: #{$color};
+    }
+  }
+}

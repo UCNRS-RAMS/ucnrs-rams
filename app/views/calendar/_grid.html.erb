@@ -1,0 +1,112 @@
+<div class="calendar-grid">
+  <% weeks.each do |week| %>
+    <div class="cal-data-grid-container">
+      <table class="cal-data-table">
+        <tbody>
+          <tr class="cal-date-row">
+            <% week.dates.each do |date| %>
+              <% visitor_count = visitor_counts[date] %>
+              <td>
+                <span class="cal-day" id="<%= date.iso8601 %>">
+                  <%= date.strftime("%b") if date.yesterday.month != date.month %>
+                  <%= date.day %>
+                </span>
+                <% if visitor_count.positive? %>
+                  <span class="cal-visitor-count"
+                        title="<%= pluralize(visitor_count, "visitor") %> on <%= l(date, format: :long) %>">
+                    <%= visitor_count %>
+                  </span>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+
+          <% week.entries_starting_on(0).each do |entry| %>
+            <tr>
+              <% week.leading_cells_for(entry).times do %><td></td><% end %>
+              <td colspan="<%= week.span_for(entry) %>">
+                <%= calendar_entry_link(entry, *week.modifiers_for(entry)) %>
+              </td>
+              <% week.trailing_cells_for(entry).times do %><td></td><% end %>
+            </tr>
+          <% end %>
+
+          <% week.entries_starting_on(1).each do |entry| %>
+            <tr>
+              <% week.leading_cells_for(entry).times do %><td></td><% end %>
+              <td colspan="<%= week.span_for(entry) %>">
+                <%= calendar_entry_link(entry, *week.modifiers_for(entry)) %>
+              </td>
+              <% week.trailing_cells_for(entry).times do %><td></td><% end %>
+            </tr>
+          <% end %>
+
+          <% week.entries_starting_on(2).each do |entry| %>
+            <tr>
+              <% week.leading_cells_for(entry).times do %><td></td><% end %>
+              <td colspan="<%= week.span_for(entry) %>">
+                <%= calendar_entry_link(entry, *week.modifiers_for(entry)) %>
+              </td>
+              <% week.trailing_cells_for(entry).times do %><td></td><% end %>
+            </tr>
+          <% end %>
+
+          <% week.entries_starting_on(3).each do |entry| %>
+            <tr>
+              <% week.leading_cells_for(entry).times do %><td></td><% end %>
+              <td colspan="<%= week.span_for(entry) %>">
+                <%= calendar_entry_link(entry, *week.modifiers_for(entry)) %>
+              </td>
+              <% week.trailing_cells_for(entry).times do %><td></td><% end %>
+            </tr>
+          <% end %>
+
+          <% week.entries_starting_on(4).each do |entry| %>
+            <tr>
+              <% week.leading_cells_for(entry).times do %><td></td><% end %>
+              <td colspan="<%= week.span_for(entry) %>">
+                <%= calendar_entry_link(entry, *week.modifiers_for(entry)) %>
+              </td>
+              <% week.trailing_cells_for(entry).times do %><td></td><% end %>
+            </tr>
+          <% end %>
+
+          <% week.entries_starting_on(5).each do |entry| %>
+            <tr>
+              <% week.leading_cells_for(entry).times do %><td></td><% end %>
+              <td colspan="<%= week.span_for(entry) %>">
+                <%= calendar_entry_link(entry, *week.modifiers_for(entry)) %>
+              </td>
+              <% week.trailing_cells_for(entry).times do %><td></td><% end %>
+            </tr>
+          <% end %>
+
+          <% week.entries_starting_on(6).each do |entry| %>
+            <tr>
+              <% week.leading_cells_for(entry).times do %><td></td><% end %>
+              <td colspan="<%= week.span_for(entry) %>">
+                <%= calendar_entry_link(entry, *week.modifiers_for(entry)) %>
+              </td>
+              <% week.trailing_cells_for(entry).times do %><td></td><% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <% height = week.entry_count > 4 ? week.entry_count * 24 + 25 : 135 %>
+      <table class="cal-grid" style="height:<%= height %>px;">
+        <tbody>
+          <tr>
+            <% week.dates.each do |date| %>
+              <td class="<%= if date == Date.current
+                               "cal-current-day"
+                             elsif date.month == month
+                               "cal-current-month"
+                             end %>"></td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+</div>

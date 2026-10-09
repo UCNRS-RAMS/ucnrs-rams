@@ -1,0 +1,610 @@
+@use "sass:color";
+@use "colors" as *;
+@use "variables" as *;
+
+.reserve-calendar {
+  font-size: 0.875rem;
+  margin-top: 1.5rem;
+
+  .cal-container {
+    min-width: 37.5rem;
+  }
+
+  .cal-main {
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .cal-navigation {
+    font-weight: bold;
+    padding: 0.625rem;
+    text-align: center;
+
+    a {
+      text-decoration: none;
+      color: #1095d9;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .next-month {
+      float: right;
+    }
+
+    .prev-month {
+      float: left;
+    }
+  }
+
+  .cal-navigation-container {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .cal-month-navigation {
+    align-items: center;
+    display: flex;
+    gap: 0.5rem;
+
+    .prev-month,
+    .next-month {
+      align-items: center;
+      background-color: $buttonset-background;
+      border: 1px solid $navy-blue;
+      border-radius: $border-radius;
+      box-sizing: border-box;
+      color: $navy-blue;
+      cursor: pointer;
+      display: inline-flex;
+      font-size: 0.8125rem;
+      font-weight: $normal;
+      height: 2rem;
+      justify-content: center;
+      padding: 0.25rem 0.75rem;
+      text-decoration: none;
+    }
+  }
+
+  .cal-header {
+    background-color: #1095d9;
+    border-radius: 0.375rem 0.375rem 0 0;
+    color: #fff;
+    table-layout: fixed;
+    width: 100%;
+
+    td {
+      padding: 0.375rem;
+    }
+  }
+
+  .cal-pill-approved   {
+    &:hover {
+      border: 1px solid status-color("approved", highlight);
+    }
+
+    &:has(input:checked) {
+      background-color: status-color("approved", user);
+      border: 1px solid status-color("approved", highlight);
+
+      label::before {
+        background-color: status-color("approved", highlight);
+      }
+    }
+  }
+
+  .cal-pill-in-review   {
+    &:hover {
+      border: 1px solid status-color("in-review", highlight);
+    }
+
+    &:has(input:checked) {
+      background-color: status-color("in-review", user);
+      border: 1px solid status-color("in-review", highlight);
+
+      label::before {
+        background-color: status-color("in-review", highlight);
+      }
+    }
+  }
+
+  .cal-pill-incomplete  {
+    &:hover {
+      border: 1px solid status-color("incomplete", highlight);
+    }
+
+    &:has(input:checked) {
+      background-color: status-color("incomplete", user);
+      border: 1px solid status-color("incomplete", highlight);
+
+      label::before {
+        background-color: status-color("incomplete", highlight);
+      }
+    }
+  }
+
+  .cal-pill-cancelled {
+    &:hover {
+      border: 1px solid status-color("cancelled", highlight);
+    }
+
+    &:has(input:checked)   {
+      background-color: status-color("cancelled", user);
+      border: 1px solid status-color("cancelled", highlight);
+
+      label::before {
+        background-color: status-color("cancelled", highlight);
+      }
+    }
+  }
+
+  .cal-pill-denied   {
+    &:hover {
+      border: 1px solid status-color("denied", highlight);
+    }
+
+    &:has(input:checked) {
+      background-color: status-color("denied", user);
+      border: 1px solid status-color("denied", highlight);
+
+      label::before {
+        background-color: status-color("denied", highlight);
+      }
+    }
+  }
+
+  .cal-pill-neutral,
+  #cal-filters-user,
+  #cal-filters-amenity,
+  #cal-filters-visits {
+    &:hover {
+      border-color: #777;
+    }
+
+    &:has(input:checked) {
+      background-color: #eee;
+      border-color: #aaa;
+
+      &:hover {
+        border-color: #777;
+      }
+
+      label::before {
+        background-color: #999;
+      }
+    }
+  }
+
+  .cal-pill {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    cursor: pointer;
+    font-size: 0.8125rem;
+    padding: 0.25rem 0.5rem;
+    white-space: nowrap;
+
+    input[type="checkbox"] {
+      display: none;
+    }
+
+    label {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+
+      &::before {
+        content: " ";
+        display: inline-block;
+        height: 0.75rem;
+        margin-right: 0.5rem;
+        width: 0.75rem;
+        border-radius: 1rem;
+        background-color: #ccc;
+      }
+    }
+  }
+
+  .cal-filters-container {
+    align-items: flex-end;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    justify-content: space-between;
+    margin-bottom: .5rem;
+  }
+
+  .cal-filters-left,
+  .cal-filters-right {
+    align-items: center;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .cal-group {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    div {
+      height: 1.125rem;
+    }
+  }
+
+  .cal-group:has(#cal-filters-visits) {
+    margin-left: auto;
+    order: 2;
+  }
+
+  .cal-group:has(.cal-pill-neutral) {
+    flex: 0 0 100%;
+    justify-content: flex-end;
+    order: 3;
+  }
+
+  .cal-loading {
+    background-color: rgba(255, 255, 255, 0.85);
+    border: 1px solid #ccc;
+    font-weight: bold;
+    z-index: 10;
+  }
+}
+
+$cal-modal-rail-width: 18.75rem;
+$cal-modal-width: 56.25rem;
+$cal-modal-focus-ring: 2px solid $dark-sky-blue;
+
+.modal {
+
+  .modal-container:has(.cal-visit-modal) {
+    max-width: $cal-modal-width;
+  }
+
+  .modal-content.cal-visit-modal {
+    display: grid;
+    grid-template-columns: 1fr $cal-modal-rail-width;
+    overflow: hidden;
+    padding: 0;
+
+    @media (max-width: 48rem) {
+      grid-template-columns: 1fr;
+    }
+
+    a {
+      border-radius: 3px;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &:focus-visible {
+        outline: $cal-modal-focus-ring;
+        outline-offset: 3px;
+      }
+    }
+  }
+
+  .cal-visit-main {
+    display: flex;
+    flex-direction: column;
+    padding: 1.75rem 1.875rem 1.625rem;
+  }
+
+  .cal-visit-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .cal-visit-meta {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+  }
+
+  .cal-visit-id {
+    color: $semidark-bluegray;
+    font-size: 0.6875rem;
+    font-weight: 600;
+  }
+
+  .cal-visit-purpose {
+    display: block;
+    font-size: 1.0625rem;
+    font-weight: 500;
+    line-height: 1.5;
+    margin: 0.875rem 0 0;
+    text-wrap: pretty;
+  }
+
+  .cal-visit-pill {
+    align-items: center;
+    background-color: $lightgray;
+    border: 1px solid transparent;
+    border-radius: 1rem;
+    color: $dark-bluegray;
+    display: inline-flex;
+    font-size: 0.625rem;
+    font-weight: 600;
+    gap: 0.375rem;
+    height: 1.25rem;
+    padding: 0 0.5625rem;
+    white-space: nowrap;
+  }
+
+  .cal-visit-pill-dot {
+    background-color: currentcolor;
+    border-radius: 50%;
+    height: 0.375rem;
+    width: 0.375rem;
+  }
+
+  .cal-visit-pill-type .cal-visit-pill-dot {
+    display: none;
+  }
+
+  $cal-pill-text-lightness: 22%;
+  $cal-pill-dot-lightness: 38%;
+
+  @each $status in (approved, in-review, cancelled, denied, incomplete) {
+    .cal-visit-pill-#{$status} {
+      background-color: status-color($status, user);
+      border-color: status-color($status, amenity);
+      color: color.change(status-color($status, amenity), $lightness: $cal-pill-text-lightness);
+
+      .cal-visit-pill-dot {
+        background-color: color.change(status-color($status, amenity), $lightness: $cal-pill-dot-lightness);
+      }
+    }
+  }
+
+  .cal-visit-note {
+    background-color: $yellow;
+    border-radius: 5px;
+    color: $taupe;
+    display: flex;
+    font-size: $small-font-size;
+    gap: 0.625rem;
+    margin: 0 0 1.125rem;
+    padding: 0.625rem 0.875rem;
+
+    strong {
+      font-weight: 600;
+    }
+  }
+
+  .cal-visit-section + .cal-visit-section {
+    margin-top: 1.25rem;
+  }
+
+  .cal-visit-section-head {
+    align-items: baseline;
+    border-bottom: 2px solid $lightgray;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 0.5rem;
+  }
+
+  .cal-visit-modal .cal-visit-section-head h3 {
+    color: $semidark-bluegray;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .cal-visit-section-head-actions {
+    align-items: baseline;
+    display: flex;
+    gap: 0.625rem;
+  }
+
+  .cal-visit-section-link {
+    color: $dark-sky-blue;
+    font-size: 0.6875rem;
+    font-weight: 600;
+  }
+
+  .cal-visit-section-count {
+    color: $semidark-bluegray;
+    font-size: 0.6875rem;
+  }
+
+  .cal-visit-rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cal-visit-row {
+    align-items: center;
+    border-bottom: 1px solid rgba($lightgray, 0.55);
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.8125rem 0;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+
+  .cal-visit-avatar {
+    align-items: center;
+    background-color: $lightgray;
+    border-radius: 3rem;
+    color: $navy-blue;
+    display: inline-flex;
+    flex-shrink: 0;
+    font-size: $small-font-size;
+    font-weight: 600;
+    height: 2.125rem;
+    justify-content: center;
+    width: 2.125rem;
+  }
+
+  .cal-visit-row-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.125rem;
+    min-width: 0;
+  }
+
+  .cal-visit-row-name {
+    align-items: baseline;
+    color: $navy-blue;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.875rem;
+    font-weight: 500;
+    gap: 0.375rem;
+  }
+
+  .cal-visit-row-sub,
+  .cal-visit-row-units {
+    color: $semidark-bluegray;
+    font-size: $small-font-size;
+    font-weight: $normal;
+  }
+
+  .cal-visit-row-dates {
+    color: $dark-bluegray;
+    flex-shrink: 0;
+    font-size: $small-font-size;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  .cal-visit-empty {
+    color: $semidark-bluegray;
+    font-size: $small-font-size;
+    margin: 0.8125rem 0 0;
+  }
+
+  .cal-visit-rail {
+    background-color: $light-gray;
+    border-left: 1px solid $lightgray;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.5rem 1.625rem 1.75rem;
+
+    @media (max-width: 48rem) {
+      border-left: 0;
+      border-top: 1px solid $lightgray;
+    }
+  }
+
+  .cal-visit-rail-close {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .cal-visit-close {
+    align-items: center;
+    background-color: rgba($gray, 0.36);
+    border: 0;
+    border-radius: 50%;
+    color: $navy-blue;
+    cursor: pointer;
+    display: flex;
+    font-family: inherit;
+    font-size: 1.125rem;
+    height: 2.125rem;
+    justify-content: center;
+    line-height: 1;
+    padding: 0;
+    transition: background-color 0.15s ease-in-out;
+    width: 2.125rem;
+
+    &:hover {
+      background-color: rgba($gray, 0.6);
+    }
+
+    &:active {
+      background-color: rgba($gray, 0.75);
+    }
+
+    &:focus-visible {
+      outline: $cal-modal-focus-ring;
+      outline-offset: 2px;
+    }
+  }
+
+  .cal-visit-schedule {
+    background-color: $light-gray;
+    border: 1px solid $lightgray;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    padding: 1rem 1.125rem;
+  }
+
+  .cal-visit-schedule-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .cal-visit-schedule-rule {
+    background-color: $lightgray;
+    height: 1px;
+  }
+
+  .cal-visit-schedule-value {
+    color: $navy-blue;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cal-visit-schedule-nights {
+    color: $semidark-bluegray;
+    font-size: $small-font-size;
+  }
+
+  .cal-visit-rail-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3125rem;
+  }
+
+  .cal-visit-rail-label {
+    color: $semidark-bluegray;
+    font-size: 0.625rem;
+    font-weight: 600;
+  }
+
+  .cal-visit-rail-name {
+    color: $navy-blue;
+    font-size: 0.8125rem;
+    font-weight: 500;
+  }
+
+  .cal-visit-rail-sub {
+    color: $dark-bluegray;
+    font-size: $small-font-size;
+    line-height: 1.5;
+  }
+
+  .cal-visit-rail-field a {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+
+  .cal-visit-footer {
+    grid-column: 1 / -1;
+    margin: 0;
+
+    &:empty {
+      display: none;
+    }
+  }
+}

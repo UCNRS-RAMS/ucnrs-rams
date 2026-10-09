@@ -1,31 +1,15 @@
-class Manager::Dashboard::CalendarController < ApplicationController
+class Manager::Dashboard::CalendarController < Manager::ApplicationController
   before_action :authenticate_user!
-  before_action :confirm_manager!
+  before_action :confirm_current_reserve_manager!, unless: -> { super_admin? }
+
   layout "manager"
 
   def show
-    @presenter = initialize_calendar_presenter
+    @presenter = Manager::Dashboard::CalendarShowPresenter.new(
+      reserve: current_reserve,
+      filter: ReserveCalendarFilter.from_params(params),
+    )
 
     session[:dashboard] = :calendar
-  end
-
-  private
-
-  def initialize_calendar_presenter
-    set_start_date
-    Manager::Dashboard::CalendarShowPresenter.new(
-      reserve: current_reserve,
-      start_date: params[:start_date],
-      type: params[:type],
-      status: params[:status],
-    )
-  end
-
-  def date_from_month_str(date_str)
-    Date.new(*date_str&.split("-")&.map(&:to_i))
-  end
-
-  def set_start_date
-    params[:start_date] = params[:start_date].present? ? date_from_month_str(params[:start_date]) : Date.current
   end
 end

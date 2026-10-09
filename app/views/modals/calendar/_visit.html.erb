@@ -1,21 +1,146 @@
-<section class="calendar-visit">
-  <header>
-    <h2>
-      <%= link_to truncate(visit.purpose_of_visit, length: 50),
-        manager_reserve_visit_path(visit.reserve_id, visit.id),
-        data: { turbo_frame: "_top"}
-      %>
-    </h2>
-  </header>
-  <div class="calendar-visit-body">
-    <div>
-      <p><%= t(".id_with_reserve_name", id: visit.id, reserve_name: visit.reserve_name ) %></p>
-      <p><%= visit.user_info %> - <%= visit.institution_name %></p>
+<turbo-frame id="modal-content">
+  <div class="modal-content cal-visit-modal" data-modal-target="dialog openOnLoad">
+
+    <div class="cal-visit-main">
+      <header class="cal-visit-header">
+        <div class="cal-visit-meta">
+          <span id="modal-title" class="cal-visit-id">
+            <%= t(".id_with_reserve_name", id: presenter.visit_id, reserve_name: presenter.visit_reserve_name) %>
+          </span>
+
+          <span class="cal-visit-pill cal-visit-pill-<%= presenter.status_modifier %>">
+            <span class="cal-visit-pill-dot" aria-hidden="true"></span>
+            <%= presenter.status_label %>
+          </span>
+
+          <% if presenter.project_type_label.present? %>
+            <span class="cal-visit-pill cal-visit-pill-type"><%= presenter.project_type_label %></span>
+          <% end %>
+        </div>
+
+        <%= link_to presenter.purpose, presenter.visit_path, class: "cal-visit-purpose", data: { turbo_frame: "_top" } %>
+      </header>
+
+      <% if presenter.note? %>
+        <p class="cal-visit-note">
+          <strong><%= t(".note") %></strong>
+          <span><%= presenter.note %></span>
+        </p>
+      <% end %>
+
+      <section class="cal-visit-section" aria-labelledby="cal-visit-visitors-heading">
+        <div class="cal-visit-section-head">
+          <h3 id="cal-visit-visitors-heading"><%= t(".visitors") %></h3>
+          <span class="cal-visit-section-count"><%= presenter.visitor_count %></span>
+        </div>
+
+        <% if presenter.visitors.any? %>
+          <ul class="cal-visit-rows">
+            <% presenter.visitors.each do |visitor| %>
+              <li class="cal-visit-row">
+                <span class="cal-visit-avatar" aria-hidden="true"><%= visitor.initials %></span>
+                <span class="cal-visit-row-body">
+                  <span class="cal-visit-row-name"><%= visitor.name %></span>
+                  <span class="cal-visit-row-sub"><%= visitor.role_label %></span>
+                </span>
+                <span class="cal-visit-row-dates">
+                  <%= visitor.arrives_label %><br><%= visitor.departs_label %>
+                </span>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="cal-visit-empty"><%= t(".no_visitors") %></p>
+        <% end %>
+      </section>
+
+      <section class="cal-visit-section" aria-labelledby="cal-visit-amenities-heading">
+        <div class="cal-visit-section-head">
+          <h3 id="cal-visit-amenities-heading"><%= t(".amenities") %></h3>
+          <div class="cal-visit-section-head-actions">
+            <%= link_to t(".create_invoice"), presenter.invoice_path, class: "cal-visit-section-link", data: { turbo_frame: "_top" } %>
+            <span class="cal-visit-section-count"><%= presenter.amenity_row_count %></span>
+          </div>
+        </div>
+
+        <% if presenter.amenities.any? %>
+          <ul class="cal-visit-rows">
+            <% presenter.amenities.each do |amenity| %>
+              <li class="cal-visit-row cal-visit-row-amenity">
+                <span class="cal-visit-row-body">
+                  <span class="cal-visit-row-name">
+                    <%= amenity.title %>
+                    <span class="cal-visit-row-units"><%= amenity.units_label %></span>
+                  </span>
+                  <% if amenity.invoiced? %>
+                    <span class="cal-visit-row-sub">
+                      <%= t(".invoice") %>
+                      <%= link_to t(".invoice_number", id: amenity.invoice_id),
+                                  amenity.invoice_path,
+                                  data: { turbo_frame: "_top" } %>
+                    </span>
+                  <% end %>
+                </span>
+                <span class="cal-visit-row-dates">
+                  <%= amenity.arrives_label %><br><%= amenity.departs_label %>
+                </span>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="cal-visit-empty"><%= t(".no_amenities") %></p>
+        <% end %>
+      </section>
     </div>
 
-    <div class="visit-status">
-      <%= tag.span t("universal.visit.statuses.#{visit.status_class}"), class: "pill #{visit.status_class}" %>
-      <%= tag.p pluralize(visit.visitor_count_on_date(begin_date), t(".visitor")) %>
+    <div class="cal-visit-rail">
+      <div class="cal-visit-rail-close">
+        <button type="button"
+                class="cal-visit-close"
+                title="<%= t(".close") %>"
+                aria-label="<%= t(".close_label") %>"
+                data-action="click->modal#close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="cal-visit-schedule">
+        <div class="cal-visit-schedule-field">
+          <span class="cal-visit-rail-label"><%= t(".starts_at") %></span>
+          <span class="cal-visit-schedule-value"><%= presenter.starts_at_label %></span>
+        </div>
+        <div class="cal-visit-schedule-rule"></div>
+        <div class="cal-visit-schedule-field">
+          <span class="cal-visit-rail-label"><%= t(".ends_at") %></span>
+          <span class="cal-visit-schedule-value"><%= presenter.ends_at_label %></span>
+        </div>
+        <% if presenter.nights %>
+          <span class="cal-visit-schedule-nights"><%= t(".nights", count: presenter.nights) %></span>
+        <% end %>
+      </div>
+
+      <% if presenter.project_number %>
+        <div class="cal-visit-rail-field">
+          <span class="cal-visit-rail-label"><%= t(".project_number", id: presenter.project_number) %></span>
+          <%= link_to presenter.project_title.presence || t(".untitled_project"),
+                      presenter.project_path,
+                      data: { turbo_frame: "_top" } %>
+        </div>
+      <% end %>
+
+      <div class="cal-visit-rail-field">
+        <span class="cal-visit-rail-label"><%= t(".owner") %></span>
+        <% if presenter.owner %>
+          <span class="cal-visit-rail-name"><%= presenter.owner.full_name %></span>
+          <span class="cal-visit-rail-sub"><%= presenter.owner.institution_name %></span>
+        <% else %>
+          <span class="cal-visit-rail-sub"><%= t(".no_owner") %></span>
+        <% end %>
+      </div>
     </div>
+
+    <section id="modal-footer" class="modal-footer cal-visit-footer">
+      <%= render partial: "shared/turbo_frame/flash-modal", locals: { flash: flash } %>
+    </section>
   </div>
-</section>
+</turbo-frame>

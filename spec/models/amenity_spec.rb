@@ -79,6 +79,36 @@ RSpec.describe Amenity do
     end
   end
 
+  describe ".in_group" do
+    context "when group numbers are given" do
+      it "returns only the amenities in those groups" do
+        amenity1 = create(:amenity, group_number: "1")
+        create(:amenity, group_number: "2")
+        amenity3 = create(:amenity, group_number: "3")
+
+        amenities = Amenity.in_group([ "1", "3" ])
+
+        expect(amenities).to match_array [ amenity1, amenity3 ]
+      end
+    end
+
+    context "when group numbers are nil" do
+      it "returns every amenity" do
+        amenities = create_list(:amenity, 3)
+
+        expect(Amenity.in_group(nil)).to match_array amenities
+      end
+    end
+
+    context "when group numbers are empty" do
+      it "returns every amenity" do
+        amenities = create_list(:amenity, 3)
+
+        expect(Amenity.in_group([])).to match_array amenities
+      end
+    end
+  end
+
   describe ".visible" do
     it "returns only visible records" do
       amenity1 = create(:amenity, visible: true)

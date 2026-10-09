@@ -42,29 +42,15 @@ RSpec.describe "Manager Dashboard" do
       flow.visit_manager_dashboard
       page.find("#calendar").click
 
-      expect(flow).to be_calendar_partial
+      expect(page).to have_css("turbo-frame#dashboard-content .reserve-calendar table.cal-data-table")
+      expect(page).to have_css("#calendar a.active")
     end
   end
 
   describe "dashboard calendar" do
-    it "display user_visit for a visit", js: true do
-      visit = create(:visit, reserve: reserve)
-      create(:user_visit, visit: visit )
-
-      sign_in(user)
-      flow = Manager::DashboardFlow.new(page, reserve, user)
-
-      flow.visit_manager_dashboard
-      page.find("#calendar").click
-
-      expect(flow).to have_visit_visitor("1")
-      expect(flow).to have_visitor_bar(visit.starts_at.strftime("%Y-%m-%d"))
-    end
-
-    it "display amenity_visit for a visit", js: true do
+    it "draws a bar for a visit after clicking the calendar tab", js: true do
       visit = create(:visit, reserve: reserve)
       create(:user_visit, visit: visit)
-      create(:amenity_visit, visit: visit)
 
       sign_in(user)
       flow = Manager::DashboardFlow.new(page, reserve, user)
@@ -72,16 +58,42 @@ RSpec.describe "Manager Dashboard" do
       flow.visit_manager_dashboard
       page.find("#calendar").click
 
-      expect(flow).to have_amenity_visitor
-      expect(flow).to have_one_amenity_visitor
+      expect(page).to have_css("a.cal-entry[data-visit-id='#{visit.id}']")
+    end
+
+    it "draws a bar for a visit when the calendar URL is loaded directly", js: true do
+      visit = create(:visit, reserve: reserve)
+      create(:user_visit, visit: visit)
+
+      sign_in(user)
+
+      page.visit("/manager/reserves/#{reserve.id}/dashboard/calendar")
+
+      expect(page).to have_css("#calendar a.active")
+      expect(page).to have_css("a.cal-entry[data-visit-id='#{visit.id}']")
+    end
+
+    it "draws one bar per visit", js: true do
+      visit_one = create(:visit, reserve: reserve)
+      visit_two = create(:visit, reserve: reserve)
+      create(:user_visit, visit: visit_one)
+      create(:user_visit, visit: visit_two)
+
+      sign_in(user)
+      flow = Manager::DashboardFlow.new(page, reserve, user)
+
+      flow.visit_manager_dashboard
+      page.find("#calendar").click
+
+      expect(page).to have_css("a.cal-entry[data-visit-id='#{visit_one.id}']")
+      expect(page).to have_css("a.cal-entry[data-visit-id='#{visit_two.id}']")
     end
   end
 
   describe "dashboard calendar modal" do
-    it "display modal after click on user_visit and amenity_visit bar", js: true do
+    it "opens the visit modal from a bar and closes it again", js: true do
       visit = create(:visit, reserve: reserve)
-      create(:user_visit, visit: visit, arrives_at: visit.starts_at, departs_at: visit.ends_at)
-      create(:amenity_visit, visit: visit, amenity: create(:amenity, reserve: reserve))
+      create(:user_visit, visit: visit)
 
       sign_in(user)
       flow = Manager::DashboardFlow.new(page, reserve, user)
@@ -89,106 +101,35 @@ RSpec.describe "Manager Dashboard" do
       flow.visit_manager_dashboard
       page.find("#calendar").click
 
-      page.first(".visitor-count").click
-      sleep(1.0) # important, gives modal time to load.
-      expect(flow).to have_modal
+      page.first("a.cal-entry[data-visit-id='#{visit.id}']").click
+      expect(page).to have_css("#modal.visible")
+      expect(page).to have_css("#modal", text: "Visit ##{visit.id}")
 
       page.click_on("Close")
-      expect(flow).to have_no_modal
-
-      page.first(".amenity-count").click
-      expect(flow).to have_modal
-
-      page.click_on("Close")
-      expect(flow).to have_no_modal
+      expect(page).to have_no_css("#modal.visible")
     end
   end
 
   describe "dashboard calendar filters" do
-    it "display data on calendar after filtering type", js: true do
-      visit = create(:visit,
-        reserve: reserve,
-        starts_at: Time.current.beginning_of_month,
-        ends_at: Time.current.end_of_week
-      )
-      create(:user_visit,
-        visit: visit,
-        arrives_at: visit.starts_at,
-        departs_at: visit.ends_at
-      )
-      create(:amenity_visit,
-        visit: visit,
-        arrives: visit.starts_at,
-        departs: visit.ends_at
-      )
+    it "swaps only the grid and advances the URL when a pill is toggled", js: true do
+      visit = create(:visit, reserve: reserve)
+      create(:user_visit, visit: visit)
 
       sign_in(user)
       flow = Manager::DashboardFlow.new(page, reserve, user)
 
       flow.visit_manager_dashboard
       page.find("#calendar").click
+      expect(page).to have_css("a.cal-entry[data-visit-id='#{visit.id}']")
+      title = page.title
 
-      page.find("#type").select("Amenities Only")
-      expect(flow).to have_amenity_visitor
-      expect(flow).to have_one_amenity_visitor
+      page.find("label[for='show_visits']").click
 
-      page.find("#type").select("Visits Only")
-      sleep(0.1)
-      expect(flow).to have_visit_visitor("1")
-      expect(flow).to have_visitor_bar(visit.starts_at.strftime("%Y-%m-%d"))
-
-      page.find("#type").select("Visits and Amenities")
-      sleep(0.1)
-      expect(flow).to have_visit_visitor("1")
-      expect(flow).to have_visitor_bar(visit.starts_at.strftime("%Y-%m-%d"))
-      expect(flow).to have_amenity_visitor
-      expect(flow).to have_one_amenity_visitor
-    end
-
-    it "display data on calendar after filtering status", js: true do
-      visit_incomplete = create(:visit, reserve: reserve)
-      create(:user_visit,
-        visit: visit_incomplete,
-        arrives_at: visit_incomplete.starts_at,
-        departs_at: visit_incomplete.ends_at
-      )
-      create(:amenity_visit, visit: visit_incomplete, status: "approved")
-
-      sign_in(user)
-      flow = Manager::DashboardFlow.new(page, reserve, user)
-
-      flow.visit_manager_dashboard
-      page.find("#calendar").click
-
-      page.find("#status").select("Approved")
-      sleep(0.1)
-
-      expect(flow).not_to have_visit_visitor("1")
-      expect(flow).not_to have_amenity_visitor
-
-      page.find("#status").select("All")
-      sleep(0.1)
-
-      expect(flow).to have_visit_visitor("1")
-      expect(flow).to have_amenity_visitor
-      expect(flow).to have_one_amenity_visitor
-    end
-
-    it "display only one visitor bar for all visits", js: true do
-      visit_one = create(:visit, reserve: reserve)
-      visit_two = create(:visit, reserve: reserve)
-      arr = [
-        create(:user_visit, visit: visit_one, arrives_at: visit_one.starts_at, departs_at: visit_one.ends_at),
-        create(:user_visit, visit: visit_two, arrives_at: visit_one.starts_at + 1.day, departs_at: visit_one.ends_at),
-      ]
-
-      sign_in(user)
-      flow = Manager::DashboardFlow.new(page, reserve, user)
-
-      flow.visit_manager_dashboard
-      page.find("#calendar").click
-
-      expect(flow).to have_visitor_bar(visit_one.starts_at.strftime("%Y-%m-%d"), arr.count)
+      expect(page).to have_no_css("a.cal-entry[data-visit-id='#{visit.id}']")
+      expect(page).to have_current_path(/dashboard\/calendar\?.*show_visits=false/)
+      expect(page).to have_css("header.content-header #calendar a.active")
+      expect(page.title).to eq title
+      expect(page.title).to be_present
     end
   end
 end
