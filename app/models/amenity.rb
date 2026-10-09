@@ -33,6 +33,14 @@ class Amenity < ApplicationRecord
     reorder(:group_number, :sort_order)
   end
 
+  def self.in_group(group_numbers)
+    if group_numbers.present?
+      where(group_number: group_numbers)
+    else
+      all
+    end
+  end
+
   enum :units_type, {
     unit: "unit",
     session: "session",
