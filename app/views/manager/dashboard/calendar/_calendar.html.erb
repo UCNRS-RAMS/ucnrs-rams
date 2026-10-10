@@ -1,0 +1,48 @@
+<div class="cal-container">
+  <div class="cal-main">
+    <table class="cal-header">
+      <tbody>
+        <tr class="cal-month-row">
+          <td colspan="7">
+            <div class="cal-navigation-container">
+              <div class="cal-month-year-select"></div>
+              <div class="cal-month-navigation">
+                <%= select_tag "month",
+                               options_for_select(Date::MONTHNAMES.each_with_index.to_a.drop(1), month),
+                               onchange: "this.form.requestSubmit()"
+                %>
+                <%= select_tag "year",
+                               options_for_select((2001..(5.years.from_now.year)).to_a, year),
+                               onchange: "this.form.requestSubmit()"
+                %>
+                <%= link_to "←", month_step_path(month, year, -1), class: "prev-month",
+                            data: { turbo_frame: "dashboard-calendar", turbo_action: "advance" }
+                %>
+                <%= link_to "→", month_step_path(month, year, 1), class: "next-month",
+                            data: { turbo_frame: "dashboard-calendar", turbo_action: "advance" }
+                %>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr class="cal-day-headers">
+          <% Date::DAYNAMES.each do |day| %>
+            <%= tag.td day %>
+          <% end %>
+        </tr>
+      </tbody>
+    </table>
+
+    <%= render partial: "calendar/grid",
+               locals: { weeks: weeks, visitor_counts: visitor_counts, month: month } %>
+  </div>
+
+  <div class="cal-navigation">
+    <%= link_to "< PREVIOUS MONTH", month_step_path(month, year, -1), class: "prev-month",
+                data: { turbo_frame: "dashboard-calendar", turbo_action: "advance" }
+    %>
+    <%= link_to "NEXT MONTH >", month_step_path(month, year, 1), class: "next-month",
+                data: { turbo_frame: "dashboard-calendar", turbo_action: "advance" }
+    %>
+  </div>
+</div>

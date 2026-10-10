@@ -1,0 +1,209 @@
+@use "colors" as *;
+@use "variables" as *;
+
+$cal-hover-transition-duration: 0.15s;
+$cal-hover-transition-easing: ease-in-out;
+
+.calendar-grid {
+  .cal-data-grid-container {
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .cal-grid {
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout:fixed;
+    width:100%;
+
+    td {
+      background: #f0f0f0;
+      border: 1px solid #ddd;
+
+      &.cal-current-month {
+        background: #fefefe;
+      }
+
+      &.cal-current-day {
+        background: #fff;
+      }
+    }
+  }
+
+  .cal-data-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    color: #555;
+    position: absolute;
+    table-layout: fixed;
+    width: 100%;
+
+    td {
+      padding: 0;
+    }
+
+    .cal-date-row td {
+      padding-left: 0.5rem;
+      padding-top: 0.375rem;
+      padding-bottom: 0.375rem;
+      padding-right: 0.5rem;
+    }
+
+    .cal-day {
+      cursor: pointer;
+      font-weight: $semi-bold;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .cal-visitor-count {
+      background-color: #e4e9ec;
+      border-radius: 0.625rem;
+      color: #4a5b66;
+      float: right;
+      font-size: 0.6875rem;
+      margin-left: 0.25rem;
+      padding: 0.0625rem 0.375rem;
+      vertical-align: baseline;
+      white-space: nowrap;
+    }
+  }
+
+  .cal-entry {
+    color: inherit;
+    display: block;
+    text-decoration: none;
+
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1.25rem;
+    margin: 0;
+    padding-left: 3px;
+    position: relative;
+    transition:
+      background-color $cal-hover-transition-duration $cal-hover-transition-easing,
+      opacity $cal-hover-transition-duration $cal-hover-transition-easing;
+
+    &.next-week {
+      border-top-right-radius: 0rem;
+      border-bottom-right-radius: 0rem;
+    }
+
+    &.prev-week {
+      border-top-left-radius: 0rem;
+      border-bottom-left-radius: 0rem;
+    }
+  }
+
+  [class*="cal-visit-"] .cal-entry-label {
+    font-weight: 500;
+  }
+
+  .cal-entry-label {
+    overflow: hidden;
+    padding: 0 0.25rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+
+  .cal-user-approved {
+    background-color: status-color("approved", user);
+  }
+
+  .cal-user-in-review {
+    background-color: status-color("in-review", user);
+  }
+
+  .cal-user-cancelled {
+    background-color: status-color("cancelled", user);
+  }
+
+  .cal-user-denied {
+    background-color: status-color("denied", user);
+  }
+
+  .cal-user-incomplete {
+    background-color: status-color("incomplete", user);
+  }
+
+  .cal-amenity-approved {
+    background-color: status-color("approved", amenity);
+  }
+
+  .cal-amenity-in-review {
+    background-color: status-color("in-review", amenity);
+  }
+
+  .cal-amenity-cancelled {
+    background-color: status-color("cancelled", amenity);
+  }
+
+  .cal-amenity-denied {
+    background-color: status-color("denied", amenity);
+  }
+
+  .cal-amenity-incomplete {
+    background-color: status-color("incomplete", amenity);
+  }
+
+  .cal-visit-approved {
+    background-color: status-color("approved", visit);
+  }
+
+  .cal-visit-in-review {
+    background-color: status-color("in-review", visit);
+  }
+
+  .cal-visit-cancelled {
+    background-color: status-color("cancelled", visit);
+  }
+
+  .cal-visit-denied {
+    background-color: status-color("denied", visit);
+  }
+
+  .cal-visit-incomplete {
+    background-color: status-color("incomplete", visit);
+  }
+
+  .cal-user-approved.cal-highlight,
+  .cal-amenity-approved.cal-highlight,
+  .cal-visit-approved.cal-highlight {
+    background-color: status-color("approved", highlight);
+  }
+
+  .cal-user-in-review.cal-highlight,
+  .cal-amenity-in-review.cal-highlight,
+  .cal-visit-in-review.cal-highlight {
+    background-color: status-color("in-review", highlight);
+  }
+
+  .cal-user-cancelled.cal-highlight,
+  .cal-amenity-cancelled.cal-highlight,
+  .cal-visit-cancelled.cal-highlight {
+    background-color: status-color("cancelled", highlight);
+  }
+
+  .cal-user-denied.cal-highlight,
+  .cal-amenity-denied.cal-highlight,
+  .cal-visit-denied.cal-highlight {
+    background-color: status-color("denied", highlight);
+  }
+
+  .cal-user-incomplete.cal-highlight,
+  .cal-amenity-incomplete.cal-highlight,
+  .cal-visit-incomplete.cal-highlight {
+    background-color: status-color("incomplete", highlight);
+  }
+
+  .cal-muted {
+    background-color: #aab7bb;
+    opacity: 0.5;
+
+  }
+}

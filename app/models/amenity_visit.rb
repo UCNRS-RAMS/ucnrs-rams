@@ -67,6 +67,24 @@ class AmenityVisit < ApplicationRecord
     where(invoice_id: [nil, 0])
   end
 
+  def self.having_between_time(date_start: nil, date_end: nil)
+    DateQuery.call(
+      self,
+      date_start_type: :departs,
+      date_start: date_start&.to_date&.midnight,
+      date_end_type: :arrives,
+      date_end: date_end&.to_date&.end_of_day,
+    )
+  end
+
+  def self.with_amenity_group(group_numbers)
+    if group_numbers.present?
+      joins(:amenity).merge(Amenity.in_group(group_numbers))
+    else
+      all
+    end
+  end
+
   def self.on_date(date)
     DateQuery.call(
       self,
