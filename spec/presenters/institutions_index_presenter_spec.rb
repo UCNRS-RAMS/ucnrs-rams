@@ -20,9 +20,10 @@ RSpec.describe InstitutionsIndexPresenter do
       results = presenter.results
 
       expect(results.length).to eq 2
+      # because exact starts with matches should come before partial matches
       expect(results.map { |result| result[:name] }).to eq [
-        "One Cool School",
         "School of Rock",
+        "One Cool School",
       ]
     end
   end
