@@ -87,6 +87,18 @@ RSpec.describe Ror, type: :model do
       expect(ror.state_name_for("GB")).to eq("England")
     end
 
+    it "matches country codes case-insensitively" do
+      expect(ror.state_code_for("gb")).to eq("ENG")
+      expect(ror.state_name_for("gb")).to eq("England")
+    end
+
+    it "returns nil when country code is blank or nil" do
+      expect(ror.state_code_for(nil)).to be_nil
+      expect(ror.state_code_for("")).to be_nil
+      expect(ror.state_name_for(nil)).to be_nil
+      expect(ror.state_name_for("")).to be_nil
+    end
+
     it "returns nil when no location matches the given country" do
       expect(ror.state_code_for("FR")).to be_nil
       expect(ror.state_name_for("FR")).to be_nil

@@ -193,11 +193,14 @@ class Ror < ApplicationRecord
   # The `geonames_details` hash for the first location matching the given
   # country code, if any.
   def geonames_details_for(country_code)
+    return nil if country_code.blank?
+
+    target_code = country_code.to_s.upcase
     Array(locations).each do |location|
       next unless location.is_a?(Hash) && location["geonames_details"].is_a?(Hash)
 
       details = location["geonames_details"]
-      return details if details["country_code"] == country_code
+      return details if details["country_code"] == target_code
     end
 
     nil
