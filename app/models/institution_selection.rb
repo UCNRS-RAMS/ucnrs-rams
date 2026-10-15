@@ -45,7 +45,7 @@ class InstitutionSelection
       return nil
     end
 
-    ror.institutions.order(:id).first || build_institution(ror)
+    ror.institutions.order(:id).first || matching_unlinked_institution_for(ror) || build_institution(ror)
   end
 
   def resolve_ror!
@@ -61,11 +61,30 @@ class InstitutionSelection
     # is not appropriate because legacy imports can intentionally link several
     # distinct institutions to the same ROR.
     ror.with_lock do
-      @institution = ror.institutions.order(:id).first || build_institution(ror)
-      @institution.save! if @institution&.new_record?
+      @institution = ror.institutions.order(:id).first ||
+        matching_unlinked_institution_for(ror) ||
+        build_institution(ror)
+
+      if @institution&.persisted? && @institution.ror_id.blank?
+        @institution.update!(ror_id: ror.ror_id)
+      elsif @institution&.new_record?
+        @institution.save!
+      end
     end
 
     @institution
+  end
+
+  def matching_unlinked_institution_for(ror)
+    Institution
+      .matching_name_and_city(name_for(ror), city_for(ror))
+      .where(ror_id: [ nil, ror.ror_id ])
+      .order(:id)
+      .first
+  end
+
+  def city_for(ror)
+    ror.cities.first.presence || "unknown"
   end
 
   def build_institution(ror)
@@ -78,7 +97,7 @@ class InstitutionSelection
     institution = Institution.new(
       name: name_for(ror),
       acronym: ror.acronyms.to_a.first,
-      city: ror.cities.first.presence || "unknown",
+      city: city_for(ror),
       country: country,
       state: state_for(ror, country: country),
       institution_type: institution_type_for(ror, country: country),
