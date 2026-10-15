@@ -22,7 +22,7 @@ module UcnrsRams
     # in config/environments, which are processed later.
     #
     config.time_zone = "Pacific Time (US & Canada)"
-    config.x.matomo_enabled = false
+    config.x.matomo_enabled = %w[true 1 yes].include?(ENV["MATOMO_ENABLED"].to_s.downcase)
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end
