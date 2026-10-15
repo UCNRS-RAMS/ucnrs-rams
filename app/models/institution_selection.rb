@@ -75,6 +75,10 @@ class InstitutionSelection
     @institution
   end
 
+  # RAMS enforces a unique [:name, :city] constraint on institutions. If a legacy
+  # RAMS institution already matches this name and city but lacks a `ror_id`,
+  # reuse it so saving does not trigger a uniqueness validation failure, and link
+  # it to the ROR record.
   def matching_unlinked_institution_for(ror)
     Institution
       .matching_name_and_city(name_for(ror), city_for(ror))
@@ -83,6 +87,8 @@ class InstitutionSelection
       .first
   end
 
+  # The `institutions` table requires a non-blank city, but ROR location data
+  # does not always include a city (e.g. national entities). Fall back to "unknown".
   def city_for(ror)
     ror.cities.first.presence || "unknown"
   end
@@ -135,6 +141,11 @@ class InstitutionSelection
     states_in_country.where("LOWER(name) = ?", name.downcase).first
   end
 
+  # Map ROR organizational types to RAMS institution types.
+  # Education is mapped hierarchically: K-12 first (detected via domain or name),
+  # then California higher education, non-California US higher education, and
+  # finally international institutions. Other ROR types map directly to their
+  # RAMS counterparts with a fallback to "individual_or_other_entity".
   def institution_type_for(ror, country:)
     types = Array(ror.types).map { |ror_type| ror_type.to_s.strip.downcase.delete_suffix("/") }
 
@@ -153,6 +164,7 @@ class InstitutionSelection
     "individual_or_other_entity"
   end
 
+  # Detect K-12 educational institutions which ROR groups generically under "Education".
   def k12_education?(ror)
     domain = ror.home_page.to_s.sub(%r{\Ahttps?://}i, "").split(/[\/?#]/, 2).first
 

@@ -52,6 +52,9 @@ class RegistrationForm
       user.save!
     end
     true
+  rescue ActiveRecord::RecordInvalid => error
+    user.errors.merge!(error.record.errors)
+    false
   end
 
   private

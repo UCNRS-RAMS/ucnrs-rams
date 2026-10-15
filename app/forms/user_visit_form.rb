@@ -147,6 +147,9 @@ class UserVisitForm
     end
 
     success
+  rescue ActiveRecord::RecordInvalid => error
+    errors.merge!(error.record.errors)
+    false
   end
 
   def adding_user_as_guest_visitor?

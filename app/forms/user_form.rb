@@ -76,6 +76,10 @@ class UserForm
     user.institution_id = institution_id
   end
 
+  # The form builder reads institution_id through delegate_missing_to, which returns
+  # the resolved institution's numeric ID. If a subsequent validation fails, the modal
+  # re-renders that numeric ID with selection type ror, preventing retry resolution.
+  # Return the submitted value whenever assigned so the ROR ID survives re-render.
   def institution_id
     return @institution_selection_id if defined?(@institution_selection_id)
 
