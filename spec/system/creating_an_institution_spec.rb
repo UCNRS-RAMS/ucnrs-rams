@@ -26,6 +26,7 @@ RSpec.describe "Creating an institution from the profile form", type: :system do
 
     institution = Institution.find_by(name: "Bodega Marine Laboratory")
     expect(page).to have_field("user[institution_id]", with: institution.id.to_s, type: :hidden)
+    expect(page).to have_field("user[institution_selection_type]", with: "institution", type: :hidden)
     expect(page).not_to have_css("#modal.visible")
   end
 end

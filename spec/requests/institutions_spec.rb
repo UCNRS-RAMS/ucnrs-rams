@@ -49,9 +49,12 @@ RSpec.describe InstitutionsController, type: :request do
         .at_css('turbo-stream[action="set_value"][targets="#user_institution"]')
       id_stream = Nokogiri::HTML.fragment(response.body)
         .at_css('turbo-stream[action="set_value"][targets="#user_institution_id"]')
+      selection_type_stream = Nokogiri::HTML.fragment(response.body)
+        .at_css('turbo-stream[action="set_value"][targets="#user_institution_selection_type"]')
 
       expect(name_stream["value"]).to eq("Bodega Marine Laboratory")
       expect(id_stream["value"]).to eq(institution.id.to_s)
+      expect(selection_type_stream["value"]).to eq("institution")
     end
 
     it "re-renders the modal frame on failure so the form stays open" do
