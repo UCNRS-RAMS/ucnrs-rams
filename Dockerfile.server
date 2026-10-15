@@ -45,7 +45,8 @@ RUN bundle config set --local without 'development test' && \
 COPY package.json yarn.lock ./
 
 # Install production JS dependencies only
-RUN yarn install --production --frozen-lockfile --non-interactive
+RUN yarn install --production --frozen-lockfile --non-interactive --network-concurrency 1 || \
+    (yarn cache clean && yarn install --production --frozen-lockfile --non-interactive --network-concurrency 1)
 
 # Copy the rest of the application code
 COPY . .
