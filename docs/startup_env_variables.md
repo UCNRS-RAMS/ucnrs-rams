@@ -22,6 +22,7 @@ The variables we need to set for getting the server to run (and where they come 
 | RAILS_MIN_THREADS | sceptre config | The minimum number of threads for Rails (e.g. 2) per server                               |
 | RAILS_LOG_TO_STDOUT | sceptre config | Whether to log to stdout (true/false)                                                     |
 | RAILS_SERVE_STATIC_FILES | sceptre config | Whether Rails should serve static files (true/false)                                      |
+| MATOMO_ENABLED | sceptre config | Whether optional Matomo analytics is enabled (`true`, `1`, or `yes`, case-insensitive; otherwise disabled) |
 | SMTP_HOST | ssm            | The SMTP host for sending emails (e.g. localhost)                                         |
 | SMTP_PORT | ssm            | The SMTP port for sending emails (e.g. 587)                                               |
 | SMTP_USERNAME | ssm            | The SMTP username for sending emails                                                      |

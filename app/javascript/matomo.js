@@ -1,7 +1,9 @@
 const matomoPageUrl = () => `${window.location.origin}${window.location.pathname}`
 
 export const setMatomoConsent = (consent) => {
+  const hadConsent = window.ramsMatomoConsent === true
   window.ramsMatomoConsent = consent
+  if (consent && !hadConsent && window.ramsTurboLoaded) trackMatomoPageView()
 }
 
 export const trackMatomoPageView = () => {
@@ -14,4 +16,7 @@ export const trackMatomoPageView = () => {
   window._paq.push(["trackPageView"])
 }
 
-document.addEventListener("turbo:load", trackMatomoPageView)
+document.addEventListener("turbo:load", () => {
+  window.ramsTurboLoaded = true
+  trackMatomoPageView()
+})
