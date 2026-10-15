@@ -286,5 +286,50 @@ RSpec.describe InstitutionSelection do
       expect(institution).to be_persisted
       expect(institution.city).to eq("unknown")
     end
+
+    it "reuses an existing unlinked institution matching by name and city and links it to the ROR upon save" do
+      country = create(:country, code: "US")
+      existing_institution = create(
+        :institution,
+        name: "Existing University",
+        city: "Berkeley",
+        country: country,
+        ror_id: nil,
+      )
+      ror = create(
+        :ror,
+        name: "Existing University",
+        country: { "country_code" => country.code },
+        locations: [ { "geonames_details" => { "name" => "Berkeley" } } ],
+      )
+
+      institution = described_class.new(id: ror.ror_id, type: "ror").resolve_and_save
+
+      expect(institution).to eq(existing_institution)
+      expect(existing_institution.reload.ror_id).to eq(ror.ror_id)
+    end
+
+    it "resolves an existing unlinked institution matching by name and city without saving ror_id yet" do
+      country = create(:country, code: "US")
+      existing_institution = create(
+        :institution,
+        name: "Existing University",
+        city: "Berkeley",
+        country: country,
+        ror_id: nil,
+      )
+      ror = create(
+        :ror,
+        name: "Existing University",
+        country: { "country_code" => country.code },
+        locations: [ { "geonames_details" => { "name" => "Berkeley" } } ],
+      )
+
+      selection = described_class.new(id: ror.ror_id, type: "ror")
+      institution = selection.resolve
+
+      expect(institution).to eq(existing_institution)
+      expect(existing_institution.reload.ror_id).to be_nil
+    end
   end
 end
