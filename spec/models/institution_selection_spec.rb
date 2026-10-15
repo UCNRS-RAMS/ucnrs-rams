@@ -10,6 +10,27 @@ RSpec.describe InstitutionSelection do
       expect(described_class.new(id: institution.id, type: "institution").resolve_and_save).to eq(institution)
     end
 
+    it "adds an error when an institution ID does not exist" do
+      selection = described_class.new(id: -999, type: "institution")
+
+      expect(selection.resolve_and_save).to be_nil
+      expect(selection.errors[:id]).to include("is invalid")
+    end
+
+    it "adds an error when a ROR ID does not exist" do
+      selection = described_class.new(id: "nonexistent-ror-id", type: "ror")
+
+      expect(selection.resolve_and_save).to be_nil
+      expect(selection.errors[:id]).to include("is invalid")
+    end
+
+    it "adds an error when selection type is unrecognized" do
+      selection = described_class.new(id: 123, type: "unknown")
+
+      expect(selection.resolve_and_save).to be_nil
+      expect(selection.errors[:type]).to include("is invalid")
+    end
+
     it "creates an institution linked to the selected ROR" do
       country = create(:country, code: "US", name: "United States")
       ror = create(
