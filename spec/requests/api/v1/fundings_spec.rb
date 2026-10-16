@@ -85,7 +85,7 @@ RSpec.describe Api::V1::FundingsController, type: :request do
 
     it "only returns fundings whose projects belong to the client's reserve" do
       reserve = create(:reserve)
-      api_client.update!(reserve: reserve)
+      api_client.update!(platform_wide: false, reserves: [ reserve ])
       included = create(:funding, project: create(:project, reserve: reserve))
       excluded = create(:funding)
 
@@ -122,7 +122,7 @@ RSpec.describe Api::V1::FundingsController, type: :request do
     end
 
     it "returns 404 for a funding outside the client's reserve" do
-      api_client.update!(reserve: create(:reserve))
+      api_client.update!(platform_wide: false, reserves: [ create(:reserve) ])
 
       get "/api/v1/fundings/#{create(:funding).id}", headers: auth_headers
 

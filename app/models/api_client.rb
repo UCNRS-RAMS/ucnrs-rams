@@ -4,15 +4,16 @@
 #
 # Only the SHA-256 digest of the token is persisted. The plaintext token is
 # available once, via #plain_text_token, on the instance that created or
-# rotated it. A client may optionally be scoped to a single reserve, which
-# Api::V1::ReadScope narrows each endpoint's reads to.
+# rotated it. A client is either platform-wide or scoped to assigned reserves.
+# The read scope applies that grant consistently across API resources.
 class ApiClient < ApplicationRecord
   # Number of random bytes encoded into each token.
   TOKEN_LENGTH = 32
   # Prefix that identifies a leaked value as a RAMS API token.
   TOKEN_PREFIX = "rams_"
 
-  belongs_to :reserve, optional: true
+  has_many :api_client_reserves, dependent: :destroy
+  has_many :reserves, through: :api_client_reserves
 
   # @return [String, nil] the plaintext token, available only on the instance
   #   that just created or rotated it
@@ -22,6 +23,7 @@ class ApiClient < ApplicationRecord
   validates :token_digest, presence: true, uniqueness: true
 
   before_validation :assign_token
+  validate :access_scope_must_be_configured
 
   # @param token [String, nil] the plaintext bearer token presented by a client
   # @return [ApiClient, nil] the active client whose token matches, or nil when
@@ -54,6 +56,18 @@ class ApiClient < ApplicationRecord
   end
 
   private
+
+  # A client's explicit platform-wide grant and reserve assignments are exclusive.
+  #
+  # @return [void]
+  def access_scope_must_be_configured
+    has_reserves = reserves.any?
+    if platform_wide?
+      errors.add(:reserves, "must be empty for a platform-wide client") if has_reserves
+    elsif !has_reserves
+      errors.add(:reserves, "must include at least one reserve unless platform-wide")
+    end
+  end
 
   # @return [void]
   def assign_token
