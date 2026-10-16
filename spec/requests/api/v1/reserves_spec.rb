@@ -56,7 +56,7 @@ RSpec.describe Api::V1::ReservesController, type: :request do
 
     it "only returns the client's reserve when the client is scoped to one" do
       reserve = create(:reserve)
-      api_client.update!(reserve: reserve)
+      api_client.update!(platform_wide: false, reserves: [ reserve ])
       other = create(:reserve)
 
       get "/api/v1/reserves", headers: auth_headers
@@ -88,7 +88,7 @@ RSpec.describe Api::V1::ReservesController, type: :request do
     end
 
     it "returns 404 for a reserve outside the client's reserve" do
-      api_client.update!(reserve: create(:reserve))
+      api_client.update!(platform_wide: false, reserves: [ create(:reserve) ])
 
       get "/api/v1/reserves/#{create(:reserve).id}", headers: auth_headers
 

@@ -28,6 +28,8 @@ class Reserve < ApplicationRecord
   has_many :permits, through: :reserve_permits, dependent: :destroy
   has_many :visits, dependent: :destroy
   has_many :reserve_tags, dependent: :destroy
+  has_many :api_client_reserves, dependent: :destroy
+  has_many :api_clients, through: :api_client_reserves
 
   def self.blank
     Reserve.new(id: -1, name: "", pulldown_name: "")

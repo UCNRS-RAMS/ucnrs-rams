@@ -81,18 +81,38 @@ RSpec.describe ApiClient, type: :model do
     end
   end
 
-  describe "reserve scoping" do
-    it "leaves the reserve unset for a platform-wide client" do
-      expect(client.reserve).to be_nil
+  describe "access scope" do
+    it "allows a platform-wide client without reserve assignments" do
+      expect(client).to be_platform_wide
+      expect(client.reserves).to be_empty
     end
 
-    context "when the client is scoped to a reserve" do
-      let(:reserve) { create(:reserve) }
-      let(:client) { create(:api_client, reserve: reserve) }
+    it "allows a client scoped to one reserve" do
+      reserve = create(:reserve)
+      scoped_client = create(:api_client, platform_wide: false, reserves: [ reserve ])
 
-      it "records the reserve" do
-        expect(client.reserve).to eq(reserve)
-      end
+      expect(scoped_client.reserves).to contain_exactly(reserve)
+    end
+
+    it "allows a client scoped to multiple reserves" do
+      reserves = create_list(:reserve, 2)
+      scoped_client = create(:api_client, platform_wide: false, reserves: reserves)
+
+      expect(scoped_client.reserves).to contain_exactly(*reserves)
+    end
+
+    it "rejects a non-platform-wide client without assigned reserves" do
+      scoped_client = build(:api_client, platform_wide: false)
+
+      expect(scoped_client).not_to be_valid
+      expect(scoped_client.errors[:reserves]).to be_present
+    end
+
+    it "rejects a platform-wide client with reserve assignments" do
+      scoped_client = build(:api_client, reserves: [ create(:reserve) ])
+
+      expect(scoped_client).not_to be_valid
+      expect(scoped_client.errors[:reserves]).to be_present
     end
   end
 end
