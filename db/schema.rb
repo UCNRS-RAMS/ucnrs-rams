@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_05_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_05_173404) do
   create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.integer "project_id", null: false
@@ -273,6 +273,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_05_120000) do
     t.string "guardian_name"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+  end
+
+  create_table "institution_deduplication_audits", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "run_id", null: false
+    t.string "source_csv_path", null: false
+    t.string "source_csv_sha256", limit: 64, null: false
+    t.string "ror_id", null: false
+    t.integer "retained_institution_id", null: false
+    t.integer "deleted_institution_id", null: false
+    t.json "reference_updates", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deleted_institution_id"], name: "idx_on_deleted_institution_id_9d18c1c667"
+    t.index ["retained_institution_id"], name: "idx_on_retained_institution_id_bd477c8a19"
+    t.index ["run_id"], name: "index_institution_deduplication_audits_on_run_id"
   end
 
   create_table "institutions", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
