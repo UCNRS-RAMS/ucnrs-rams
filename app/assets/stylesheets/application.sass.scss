@@ -8,6 +8,8 @@
 @use "mixins/summary" as *;
 @use "klaro-ui/dist/css/klaro-ui";
 
+@use "colors" as *;
+
 // Base styles
 @use "base/animation" as *;
 @use "base/site" as *;
@@ -53,6 +55,8 @@
 
 // Manager styles
 @use "manager/activities" as *;
+@use "calendar_grid" as *;
+@use "manager/calendar" as *;
 @use "manager/dashboard" as *;
 @use "manager/flex" as *;
 @use "manager/footer" as *;

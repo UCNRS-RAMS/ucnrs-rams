@@ -208,6 +208,9 @@ en:
       hours_minutes_seconds: "%H:%M:%S"
       submitted_date: "%b %d,%Y at %I %p"
       date_month_hour: "%d %b, %I %p"
+      calendar_short_datetime: "%d %b, %-l%P"
+      calendar_long_datetime: "%d %b, %-l:%M %P"
+      calendar_long_datetime_with_year: "%d %b %Y, %-l:%M %P"
       date_range:
         month_name: "%b"
   date:
@@ -418,21 +421,34 @@ en:
         search_by_name: Search by Name
     calendar:
       visit:
-        visitor: visitor
-        id_with_reserve_name: "Visit # %{id} @ %{reserve_name}"
-        project: "Under Project # %{id} | %{project_type}"
+        title: "Visit #%{id}"
+        id_with_reserve_name: "Visit #%{id} · %{reserve_name}"
+        close: Close
+        close_label: Close visit details
+        note: Note
+        visitors: Visitors
+        amenities: Amenities
+        create_invoice: Create Invoice
+        units: "×%{count} %{unit}"
+        invoice: Invoice
+        invoice_number: "#%{id}"
+        no_purpose: No purpose of visit recorded
+        no_visitors: No visitors on this visit
+        no_amenities: No amenities on this visit
+        starts_at: Start
+        ends_at: End
+        nights:
+          one: "%{count} night"
+          other: "%{count} nights"
+        project_number: "Project #%{id}"
+        untitled_project: Untitled project
+        owner: Owner
+        no_owner: Not recorded
     calendar_public:
       show_visit:
         amenities: Amenities
         group_of: Group of %{count}
         visitor_list: Visitor List
-    calendar_visit_modal:
-      visit: "Visit #%{id} @%{reserve_name}"
-      visitor_list: Visitor List
-      reserve_amenities: Reserve Amenities
-      create_invoice: Create Invoice
-      close: Close
-      project: "Under Project # %{id} | %{project_type}"
     manager:
       visit:
         report_part_1:
@@ -1389,10 +1405,6 @@ en:
   manager:
     no_amenity_visit: Invoice has no amenity visit
     dashboard:
-      calendar:
-        show:
-          display: Display
-          with_the_status: with the status
       dashboard:
         todays_visit_and_resources: Today's Visit & Resources
         last_24_hours: Last 24 Hours
