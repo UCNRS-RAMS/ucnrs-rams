@@ -13,13 +13,23 @@ RSpec.describe Api::V1::ReadScope do
       expect(scope.projects).to include(unaffiliated_project)
     end
 
-    context "when the client is scoped to a reserve" do
+    context "when a scoped client has no assigned reserves" do
+      let(:api_client) { build(:api_client, platform_wide: false) }
+
+      it "does not treat the client as platform-wide" do
+        expect(scope.projects).to be_empty
+      end
+    end
+
+    context "when the client is scoped to reserves" do
       let(:reserve) { create(:reserve) }
-      let(:api_client) { create(:api_client, reserve: reserve) }
+      let(:another_reserve) { create(:reserve) }
+      let(:api_client) { create(:api_client, platform_wide: false, reserves: [ reserve, another_reserve ]) }
       let(:reserve_project) { create(:project, reserve: reserve) }
 
-      it "returns only the reserve's projects" do
-        expect(scope.projects).to include(reserve_project)
+      it "returns projects from assigned reserves and excludes other reserves" do
+        another_reserve_project = create(:project, reserve: another_reserve)
+        expect(scope.projects).to include(reserve_project, another_reserve_project)
         expect(scope.projects).not_to include(unaffiliated_project)
       end
     end
@@ -32,12 +42,13 @@ RSpec.describe Api::V1::ReadScope do
       expect(scope.reserves).to include(other_reserve)
     end
 
-    context "when the client is scoped to a reserve" do
+    context "when the client is scoped to multiple reserves" do
       let(:reserve) { create(:reserve) }
-      let(:api_client) { create(:api_client, reserve: reserve) }
+      let(:another_reserve) { create(:reserve) }
+      let(:api_client) { create(:api_client, platform_wide: false, reserves: [ reserve, another_reserve ]) }
 
-      it "returns only the client's reserve" do
-        expect(scope.reserves).to contain_exactly(reserve)
+      it "returns only the client's assigned reserves" do
+        expect(scope.reserves).to contain_exactly(reserve, another_reserve)
       end
     end
   end
@@ -49,9 +60,10 @@ RSpec.describe Api::V1::ReadScope do
       expect(scope.institutions).to include(unaffiliated_institution)
     end
 
-    context "when the client is scoped to a reserve" do
+    context "when the client is scoped to reserves" do
       let(:reserve) { create(:reserve) }
-      let(:api_client) { create(:api_client, reserve: reserve) }
+      let(:another_reserve) { create(:reserve) }
+      let(:api_client) { create(:api_client, platform_wide: false, reserves: [ reserve, another_reserve ]) }
       let(:project) { create(:project, reserve: reserve) }
 
       it "includes the reserve's managing campus" do
@@ -77,8 +89,15 @@ RSpec.describe Api::V1::ReadScope do
         expect(scope.institutions).not_to include(create(:project).owner.institution)
       end
 
+      it "includes participant institutions from every assigned reserve" do
+        another_project = create(:project, reserve: another_reserve)
+
+        expect(scope.institutions).to include(another_project.owner.institution)
+      end
+
       it "returns exactly the reserve's managing campus and its projects' participant institutions" do
         membership = create(:project_team_membership, project: project)
+        another_reserve.update!(managing_campus: nil)
 
         expect(scope.institutions).to contain_exactly(
           reserve.managing_campus,
@@ -90,6 +109,7 @@ RSpec.describe Api::V1::ReadScope do
 
       it "returns the projects' participant institutions when the reserve has no managing campus" do
         reserve.update!(managing_campus: nil)
+        another_reserve.update!(managing_campus: nil)
 
         expect(scope.institutions)
           .to contain_exactly(project.owner.institution, project.applicant.institution)
@@ -104,13 +124,15 @@ RSpec.describe Api::V1::ReadScope do
       expect(scope.visits).to include(unaffiliated_visit)
     end
 
-    context "when the client is scoped to a reserve" do
+    context "when the client is scoped to reserves" do
       let(:reserve) { create(:reserve) }
-      let(:api_client) { create(:api_client, reserve: reserve) }
+      let(:another_reserve) { create(:reserve) }
+      let(:api_client) { create(:api_client, platform_wide: false, reserves: [ reserve, another_reserve ]) }
       let(:reserve_visit) { create(:visit, reserve: reserve) }
 
-      it "returns only the reserve's visits" do
-        expect(scope.visits).to include(reserve_visit)
+      it "returns visits from assigned reserves and excludes other reserves" do
+        another_reserve_visit = create(:visit, reserve: another_reserve)
+        expect(scope.visits).to include(reserve_visit, another_reserve_visit)
         expect(scope.visits).not_to include(unaffiliated_visit)
       end
     end
@@ -123,16 +145,18 @@ RSpec.describe Api::V1::ReadScope do
       expect(scope.fundings).to include(unaffiliated_funding)
     end
 
-    context "when the client is scoped to a reserve" do
+    context "when the client is scoped to reserves" do
       let(:reserve) { create(:reserve) }
-      let(:api_client) { create(:api_client, reserve: reserve) }
+      let(:another_reserve) { create(:reserve) }
+      let(:api_client) { create(:api_client, platform_wide: false, reserves: [ reserve, another_reserve ]) }
       let(:project) { create(:project, reserve: reserve) }
 
-      it "returns only fundings whose projects belong to the reserve" do
+      it "returns funding for projects from all assigned reserves" do
         funding = create(:funding, project: project, reserve: nil)
+        another_reserve_funding = create(:funding, project: create(:project, reserve: another_reserve), reserve: nil)
         unaffiliated_funding
 
-        expect(scope.fundings).to contain_exactly(funding)
+        expect(scope.fundings).to contain_exactly(funding, another_reserve_funding)
       end
 
       it "includes a project funding even when its optional reserve differs" do
