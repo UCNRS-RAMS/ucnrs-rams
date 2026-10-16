@@ -49,12 +49,12 @@ prefix; Swagger UI adds it to each request it sends.
 
 ## Scoping
 
-An `ApiClient` may optionally belong to a `Reserve`. Scoping only limits what a
-client may read; it never widens it. A client with no reserve is a platform-wide
-integration, while a client with a reserve is limited to that reserve's
-research: the reserve itself, its projects, its visits, and the institutions
-affiliated with those projects — the reserve's managing campus, and the
-institutions of each project's owner, applicant, and team members.
+An `ApiClient` is either explicitly platform-wide or scoped to one or more
+reserves. Scoping only limits what a client may read; it never widens it. A
+platform-wide client sees all reserves. A reserve-scoped client sees only its
+assigned reserves and their research: projects, visits, and affiliated
+institutions — the reserves' managing campuses and the institutions of each
+project's owner, applicant, and team members. A client cannot have both grants.
 
 `Api::V1::ReadScope` (`app/queries/api/v1/read_scope.rb`) owns that rule, one
 method per resource, so a new endpoint adds a method there rather than another
@@ -66,18 +66,22 @@ Use the `api:clients:create` rake task. It prints the token once; store it in
 the integrating application's secret store.
 
 ```bash
-# Platform-wide client (all reserves)
-docker compose exec web env NAME="FAIR Station" bin/rails api:clients:create
+# Platform-wide client (all reserves; explicit opt-in)
+docker compose exec web env NAME="FAIR Station" PLATFORM_WIDE=true bin/rails api:clients:create
 
 # Client scoped to one reserve
-docker compose exec web env NAME="FAIR Station (Valentine)" RESERVE_ID=3 \
+docker compose exec web env NAME="FAIR Station (Valentine)" RESERVE_IDS=3 \
+  bin/rails api:clients:create
+
+# Client scoped to multiple reserves
+docker compose exec web env NAME="FAIR Station (UC Davis)" RESERVE_IDS=3,7,12 \
   bin/rails api:clients:create
 ```
 
 Outside Docker, drop the `docker compose exec web` prefix:
 
 ```bash
-env NAME="FAIR Station" bin/rails api:clients:create
+env NAME="FAIR Station" PLATFORM_WIDE=true bin/rails api:clients:create
 ```
 
 Output:
@@ -107,7 +111,8 @@ The API and its documentation run against your development database.
 2. Issue an `ApiClient` token (printed once):
 
    ```bash
-   docker compose exec web env NAME="Local testing" bin/rails api:clients:create
+   docker compose exec web env NAME="Local testing" PLATFORM_WIDE=true \
+     bin/rails api:clients:create
    ```
 
 3. Open <http://localhost:3000/api-docs>, click **Authorize**, and paste the
@@ -115,9 +120,9 @@ The API and its documentation run against your development database.
 
 4. Run `GET /api/v1/projects` with **Try it out** → **Execute**.
 
-The docs page is public; only the API calls need the token. Add
-`RESERVE_ID=<id>` to the token command to create a reserve-scoped client and see
-scoping in action.
+The docs page is public; only API calls need the token. Set
+`PLATFORM_WIDE=true` for a platform-wide client or `RESERVE_IDS=<id>[,<id>...]`
+to restrict it to one or more reserves.
 
 ## Response format
 

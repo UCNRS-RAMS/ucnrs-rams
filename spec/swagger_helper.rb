@@ -18,8 +18,8 @@ RSpec.configure do |config|
           Read-only JSON API for UC Natural Reserve System research projects.
 
           All endpoints require a Bearer token issued to an `ApiClient`. A client
-          may be scoped to a single reserve; scoping only narrows what a client
-          can read. See `docs/api.md` for how to create and rotate clients.
+          must be explicitly platform-wide or assigned one or more reserves.
+          See `docs/api.md` for how to create and rotate clients.
         DESCRIPTION
         license: {
           name: 'MIT',
@@ -63,7 +63,7 @@ RSpec.configure do |config|
               is an `ApiClient` token. In Swagger UI, click Authorize and paste
               the token without the `Bearer ` prefix. Tokens are shown once when
               a client is created or rotated, for example with
-              `bin/rails api:clients:create NAME="My integration"`.
+              `bin/rails api:clients:create NAME="My integration" PLATFORM_WIDE=true`.
             DESCRIPTION
           }
         },

@@ -218,7 +218,7 @@ RSpec.describe Api::V1::VisitsController, type: :request do
 
     it "only returns visits at the client's reserve" do
       reserve = create(:reserve)
-      api_client.update!(reserve: reserve)
+      api_client.update!(platform_wide: false, reserves: [ reserve ])
       included = create(:visit, reserve: reserve)
       excluded = create(:visit)
 
@@ -254,7 +254,7 @@ RSpec.describe Api::V1::VisitsController, type: :request do
     end
 
     it "returns 404 for a visit outside the client's reserve" do
-      api_client.update!(reserve: create(:reserve))
+      api_client.update!(platform_wide: false, reserves: [ create(:reserve) ])
 
       get "/api/v1/visits/#{create(:visit).id}", headers: auth_headers
 

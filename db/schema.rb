@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_05_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_16_133000) do
   create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.integer "project_id", null: false
@@ -185,14 +185,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_05_120000) do
     t.index ["reserve_id", "year_old"], name: "reserve_year"
   end
 
+  create_table "api_client_reserves", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "api_client_id", null: false
+    t.integer "reserve_id", null: false
+    t.index ["api_client_id", "reserve_id"], name: "index_api_client_reserves_on_api_client_id_and_reserve_id", unique: true
+    t.index ["reserve_id"], name: "index_api_client_reserves_on_reserve_id"
+  end
+
   create_table "api_clients", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "token_digest", null: false
     t.boolean "active", default: true, null: false
-    t.integer "reserve_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["reserve_id"], name: "index_api_clients_on_reserve_id"
+    t.boolean "platform_wide", default: false, null: false
     t.index ["token_digest"], name: "index_api_clients_on_token_digest", unique: true
   end
 
@@ -1152,7 +1158,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_05_120000) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "api_clients", "reserves"
+  add_foreign_key "api_client_reserves", "api_clients"
+  add_foreign_key "api_client_reserves", "reserves"
   add_foreign_key "project_permit_answers", "permits"
   add_foreign_key "project_permit_answers", "projects"
   add_foreign_key "reserve_tags", "reserves"

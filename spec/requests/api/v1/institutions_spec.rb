@@ -141,7 +141,7 @@ RSpec.describe Api::V1::InstitutionsController, type: :request do
 
     it "only returns institutions affiliated with the client's reserve" do
       reserve = create(:reserve)
-      api_client.update!(reserve: reserve)
+      api_client.update!(platform_wide: false, reserves: [ reserve ])
       project = create(:project, reserve: reserve)
       membership = create(:project_team_membership, project: project)
       unaffiliated = create(:institution)
@@ -191,7 +191,7 @@ RSpec.describe Api::V1::InstitutionsController, type: :request do
     end
 
     it "returns 404 for an institution outside the client's reserve" do
-      api_client.update!(reserve: create(:reserve))
+      api_client.update!(platform_wide: false, reserves: [ create(:reserve) ])
 
       get "/api/v1/institutions/#{create(:institution).id}", headers: auth_headers
 

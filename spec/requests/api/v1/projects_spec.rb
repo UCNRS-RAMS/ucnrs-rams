@@ -140,16 +140,18 @@ RSpec.describe Api::V1::ProjectsController, type: :request do
       expect(ids.index(first_tied.id)).to be < ids.index(older.id)
     end
 
-    it "only returns projects belonging to the client's reserve" do
+    it "returns projects only from the client's assigned reserves" do
       reserve = create(:reserve)
-      api_client.update!(reserve: reserve)
+      another_reserve = create(:reserve)
+      api_client.update!(platform_wide: false, reserves: [ reserve, another_reserve ])
       included_project = create(:project, reserve: reserve)
+      included_from_another_reserve = create(:project, reserve: another_reserve)
       excluded_project = create(:project)
 
       get "/api/v1/projects", headers: auth_headers
 
       ids = response.parsed_body["data"].map { |row| row["id"] }
-      expect(ids).to include(included_project.id)
+      expect(ids).to include(included_project.id, included_from_another_reserve.id)
       expect(ids).not_to include(excluded_project.id)
     end
   end
@@ -174,8 +176,8 @@ RSpec.describe Api::V1::ProjectsController, type: :request do
       expect(response).to have_http_status(:not_found)
     end
 
-    it "returns 404 for a project outside the client's reserve" do
-      api_client.update!(reserve: create(:reserve))
+    it "returns 404 for a project outside the client's assigned reserves" do
+      api_client.update!(platform_wide: false, reserves: [ create(:reserve) ])
       other_project = create(:project)
 
       get "/api/v1/projects/#{other_project.id}", headers: auth_headers

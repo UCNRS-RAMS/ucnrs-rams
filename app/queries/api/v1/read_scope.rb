@@ -5,9 +5,8 @@ module Api
     # Narrows v1 reads to the records an ApiClient is authorized to see.
     #
     # One method per resource, so the v1 read policy lives in a single place
-    # instead of accumulating on ApiClient, which stays a credential. A client
-    # with no reserve is a platform-wide integration and sees everything; a
-    # client with a reserve is limited to that reserve's research.
+    # instead of accumulating on ApiClient, which stays a credential. The grant
+    # is explicitly platform-wide or limited to assigned reserves.
     class ReadScope
       # @param api_client [ApiClient] the authenticated client
       def initialize(api_client)
@@ -18,19 +17,18 @@ module Api
       def projects
         return Project.all if platform_wide?
 
-        Project.where(reserve: reserve)
+        Project.where(reserve: reserves)
       end
 
       # @return [ActiveRecord::Relation<Reserve>]
       def reserves
         return Reserve.all if platform_wide?
 
-        Reserve.where(id: reserve)
+        @api_client.reserves
       end
 
-      # Institutions affiliated with the client's reserve: its managing campus,
-      # and the institutions of the people on the reserve's projects (owner,
-      # applicant, and team members).
+      # Institutions affiliated with the client's reserves: their managing
+      # campuses and the people on their projects (owner, applicant, team).
       #
       # @return [ActiveRecord::Relation<Institution>]
       def institutions
@@ -42,18 +40,17 @@ module Api
           .where(id: ProjectTeamMembership.is_active.where(project: reserve_projects).select(:institution_id))
           .or(Institution.where(id: participant_institution_ids(reserve_projects, :user_id)))
           .or(Institution.where(id: participant_institution_ids(reserve_projects, :applicant_id)))
-          .or(Institution.where(id: reserve.managing_campus_id))
+          .or(Institution.where(id: reserves.select(:managing_campus_id)))
       end
 
-      # A visit names the reserve it took place at, so a reserve-scoped client
-      # sees the reserve's own visits. Legacy visits left without a reserve
-      # belong to no reserve and are visible only to a platform-wide client.
+      # A visit names its reserve. Scoped clients see visits from assigned
+      # reserves; legacy visits without a reserve are platform-wide only.
       #
       # @return [ActiveRecord::Relation<Visit>]
       def visits
         return Visit.all if platform_wide?
 
-        Visit.where(reserve: reserve)
+        Visit.where(reserve: reserves)
       end
 
       # Funding access follows the associated project. The optional
@@ -68,14 +65,9 @@ module Api
 
       private
 
-      # @return [Reserve, nil] the reserve the client is limited to, if any
-      def reserve
-        @api_client.reserve
-      end
-
-      # @return [Boolean] true when the client is not limited to one reserve
+      # @return [Boolean] whether the client has a platform-wide grant
       def platform_wide?
-        reserve.nil?
+        @api_client.platform_wide?
       end
 
       # The institution ids of the users named by +column+ on the given
