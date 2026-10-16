@@ -178,6 +178,72 @@ RSpec.describe UserForm, type: :model do
       )
     end
 
+    it "saves the user when the selected institution is a ROR record" do
+      country = create(:country, code: "US", name: "United States")
+      ror = create(
+        :ror,
+        country: { "country_code" => country.code },
+        locations: [ { "geonames_details" => { "name" => "Berkeley" } } ],
+      )
+      us = create(:country, name: "United States")
+      ca = create(:state, name: "California", country: us)
+      form = UserForm.new(
+        applicant: create(:user),
+        project: create(:project),
+        params: {
+          first_name: "",
+          last_name: "Moustache",
+          institution_id: ror.ror_id,
+          institution_selection_type: "ror",
+          institution_name: ror.name,
+          email: "mister@moustache.test",
+          user_role: "Other",
+          project_role: ProjectTeamMembership::PRINCIPAL_INVESTIGATOR_ROLE,
+          phone_number: "111-111-1111",
+          emergency_contact_full_name: "name 1",
+          emergency_contact_phone_number: "222-222-2222",
+          address_line_1: "123 main",
+          address_city: "city 123",
+          address_postal_code: "91234",
+          address_state_id: ca.id,
+          address_country_id: us.id,
+        }
+      )
+
+      expect(form.save).to be false
+      expect(form.institution_id).to eq(ror.ror_id)
+
+      form.first_name = "Mister"
+      expect(form.save).to be true
+      expect(form.user).to be_persisted
+      expect(form.user.institution).to have_attributes(
+        name: ror.name,
+        ror_id: ror.ror_id,
+      )
+      expect(form.project_team_membership.institution).to eq(form.user.institution)
+    end
+
+    it "surfaces the specific institution selection error when the ROR record cannot be resolved" do
+      form = UserForm.new(
+        applicant: create(:user),
+        project: create(:project),
+        params: {
+          first_name: "Mister",
+          last_name: "Moustache",
+          institution_id: "nonexistent-ror-id",
+          institution_selection_type: "ror",
+          institution_name: "Some Institution",
+          email: "mister@moustache.test",
+          user_role: "Other",
+          project_role: ProjectTeamMembership::PRINCIPAL_INVESTIGATOR_ROLE,
+        }
+      )
+
+      expect(form.save).to be false
+      expect(form.user).to_not be_persisted
+      expect(form.errors.full_messages).to include("Institution name is invalid")
+    end
+
     it "makes sure errors are visible when save fails" do
       form = UserForm.new(
         applicant: build(:user),

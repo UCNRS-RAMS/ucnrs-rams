@@ -6,7 +6,8 @@
         value: presenter.institution_name, data: { "autocomplete-target": "input" },
         required: true
       %>
-      <%= f.hidden_field :id, data: { "autocomplete-target": "hidden" }, value: presenter.institution_id  %>
+      <%= f.hidden_field :id, data: { "autocomplete-target": "hidden" }, value: presenter.institution_selection_id %>
+      <%= form.hidden_field :institution_selection_type, data: { "autocomplete-target": "selectionType" } %>
       <div class="autocomplete-results-container">
         <ul class="autocomplete-results" data-autocomplete-target="results"></ul>
       </div>

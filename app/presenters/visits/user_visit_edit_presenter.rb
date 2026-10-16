@@ -11,6 +11,7 @@ class Visits::UserVisitEditPresenter
   attr_reader :form, :display_institution_form
 
   delegate :id, :errors, to: :form
+  delegate :institution_selection_id, to: :form
 
   delegate_missing_to :editing_user_visit
 

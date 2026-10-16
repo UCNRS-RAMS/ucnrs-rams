@@ -18,6 +18,8 @@ class User < ApplicationRecord
     accessibility_requirements
     backup_email_address
     institution
+    institution_id
+    institution_selection_type
     orcid
     orcid_authenticated
     advisor
