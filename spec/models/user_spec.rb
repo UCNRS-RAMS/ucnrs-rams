@@ -25,6 +25,13 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of(:address_city) }
     it { is_expected.to validate_presence_of(:address_postal_code) }
     it { is_expected.to validate_presence_of(:terms_accepted_at) }
+
+    it "does not require terms_accepted_at when the terms validation is skipped" do
+      user = build(:user, terms_accepted_at: nil)
+      user.skip_terms_accepted_validation = true
+
+      expect(user).to be_valid
+    end
     it { is_expected.to validate_presence_of(:institution) }
 
     describe "#orcid" do
@@ -466,6 +473,67 @@ RSpec.describe User, type: :model do
         twenty_five_to_fifty: "25-50",
         fifty_or_older: "50 or older",
       ).backed_by_column_of_type(:string)
+  end
+
+  describe "#profile_incomplete?" do
+    it "is false for a user with every required detail and accepted terms" do
+      expect(create(:user).profile_incomplete?).to be(false)
+    end
+
+    %i[
+      first_name
+      last_name
+      role
+      institution
+      emergency_contact_full_name
+      emergency_contact_phone_number
+      phone_number
+      address_line_1
+      address_city
+      address_postal_code
+      address_country
+      terms_accepted_at
+    ].each do |attribute|
+      it "is true when #{attribute} is blank" do
+        expect(build(:user, attribute => nil).profile_incomplete?).to be(true)
+      end
+    end
+  end
+
+  describe "#reset_password" do
+    it "saves the new password even when unrelated fields are invalid" do
+      user = build(:user, terms_accepted_at: nil, phone_number: nil, confirmed_at: 1.day.ago)
+      user.save!(validate: false)
+
+      expect(user.reset_password("Password2", "Password2")).to be(true)
+      expect(user.reload.valid_password?("Password2")).to be(true)
+    end
+
+    it "confirms an unconfirmed account" do
+      user = build(:user, terms_accepted_at: nil, phone_number: nil, confirmed_at: nil)
+      user.save!(validate: false)
+
+      user.reset_password("Password2", "Password2")
+
+      expect(user.reload).to be_confirmed
+    end
+
+    it "rejects a password that fails the password rules, and only reports those" do
+      user = build(:user, terms_accepted_at: nil, phone_number: nil)
+      user.save!(validate: false)
+
+      expect(user.reset_password("Password2", "Password3")).to be(false)
+      expect(user.errors.attribute_names).to eq([ :password_confirmation ])
+      expect(user.reload).not_to be_confirmed
+    end
+
+    it "rejects a blank password" do
+      user = build(:user, terms_accepted_at: nil, phone_number: nil)
+      user.save!(validate: false)
+
+      expect(user.reset_password("", "")).to be(false)
+      expect(user.errors.attribute_names).to eq([ :password ])
+    end
   end
 
   describe "#full_name" do

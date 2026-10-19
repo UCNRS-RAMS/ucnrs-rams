@@ -1049,6 +1049,8 @@ en:
     user_visit:
       group_name: Group of %{count}
       group_name_and_user_role: Group of %{count} %{user_role}
+  profile_completion:
+    required: Please fill in your missing contact details to continue.
   password:
     change_password: Change Password
     new:

@@ -2,6 +2,9 @@ module Unauthenticated
   class RegistrationsController < Devise::RegistrationsController
     REGISTRATION_ORCID_SESSION_KEY = :registration_orcid_identifier
 
+    before_action :note_incomplete_profile, only: %i[edit update]
+    layout :registration_layout
+
     def new
       @form = RegistrationForm.new(params: pending_params)
       clear_pending_orcid!
@@ -34,7 +37,7 @@ module Unauthenticated
       if @form.submit
         clear_pending_orcid!
         flash[:notice] = I18n.t(".devise.registrations.flash.updated")
-        redirect_to edit_user_registration_path
+        redirect_to session.delete(ApplicationController::RETURN_PATH_SESSION_KEY) || edit_user_registration_path
       else
         flash.now[:error] = I18n.t(".devise.registrations.flash.error")
         render :edit, status: :unprocessable_entity
@@ -48,6 +51,14 @@ module Unauthenticated
     end
 
     private
+
+    def note_incomplete_profile
+      @completing_profile = current_user.profile_incomplete?
+    end
+
+    def registration_layout
+      user_signed_in? && !@completing_profile ? "application" : "focused"
+    end
 
     def create_user_params
       RegistrationForm.params_with_pending_orcid(user_params, session[REGISTRATION_ORCID_SESSION_KEY].presence)

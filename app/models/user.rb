@@ -3,6 +3,21 @@
 class User < ApplicationRecord
   VALID_PASSWORD_PATTERN = /^(?=.*?[A-Z])(?=.*?[0-9]).{8,70}$/
   ORCID_PATTERN = /\A(\d{4}-){3}\d{3}(\d|X)\z/
+  PASSWORD_ATTRIBUTES = %i[password password_confirmation].freeze
+  PROFILE_ATTRIBUTES = %i[
+    first_name
+    last_name
+    role
+    institution_id
+    emergency_contact_full_name
+    emergency_contact_phone_number
+    phone_number
+    address_line_1
+    address_city
+    address_postal_code
+    address_country_id
+    terms_accepted_at
+  ].freeze
 
   REGISTRATION_ATTRIBUTES = %i[
     role
@@ -60,6 +75,8 @@ class User < ApplicationRecord
     :validatable,
     omniauth_providers: [:orcid]
 
+  attr_accessor :skip_terms_accepted_validation
+
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :role, presence: true
@@ -71,7 +88,7 @@ class User < ApplicationRecord
   validates :address_state, presence: true, if: :required_for_address_country?
   validates :address_postal_code, presence: true
   validates :billing_address_state, presence: true, if: :required_for_billing_address_country?
-  validates :terms_accepted_at, presence: true
+  validates :terms_accepted_at, presence: true, unless: :skip_terms_accepted_validation
   validates :institution, presence: true
   validates :orcid, format: { with: ORCID_PATTERN }, allow_blank: true
   validates :orcid_authenticated, inclusion: { in: [true, false] }, allow_nil: true
@@ -172,7 +189,6 @@ class User < ApplicationRecord
 
     {
       password: SecureRandom.urlsafe_base64(10) + "1!",
-      terms_accepted_at: Time.current,
     }
   end
 
@@ -199,6 +215,21 @@ class User < ApplicationRecord
 
   def initials
     "#{first_name[0,1]} #{last_name[0,1]}"
+  end
+
+  def profile_incomplete?
+    PROFILE_ATTRIBUTES.any? { |attribute| self[attribute].blank? }
+  end
+
+  def reset_password(new_password, new_password_confirmation)
+    return super if new_password.blank?
+
+    self.password = new_password
+    self.password_confirmation = new_password_confirmation
+    return false unless password_valid?
+
+    self.confirmed_at = Time.current unless confirmed?
+    save(validate: false)
   end
 
   def able_to_edit?(project)
@@ -260,6 +291,14 @@ class User < ApplicationRecord
   end
 
   private
+
+  def password_valid?
+    validate
+    errors.attribute_names.each do |attribute|
+      errors.delete(attribute) unless PASSWORD_ATTRIBUTES.include?(attribute)
+    end
+    errors.empty?
+  end
 
   def password_complexity
     return if password.blank? || password =~ VALID_PASSWORD_PATTERN

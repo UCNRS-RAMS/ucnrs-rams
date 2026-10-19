@@ -16,7 +16,9 @@
     <div class="section-container blue-bg">
       <section class="actions blue-bg">
         <div class="actions">
-          <span><%= image_tag("arrow-left.svg", alt: t("alt.left_facing_arrow")) %> <%= link_to t(".links.go_back"), root_path %></span>
+          <% unless @completing_profile %>
+            <span><%= image_tag("arrow-left.svg", alt: t("alt.left_facing_arrow")) %> <%= link_to t(".links.go_back"), root_path %></span>
+          <% end %>
           <%= f.button t(".links.edit_account", icon: image_tag("arrow-right.svg", alt: t("alt.right_facing_arrow"))).html_safe, type: :submit, class: "active" %>
         <div>
       </section>

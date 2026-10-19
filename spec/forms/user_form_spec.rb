@@ -175,6 +175,7 @@ RSpec.describe UserForm, type: :model do
         address_postal_code: "91234",
         address_state_id: ca.id,
         address_country_id: us.id,
+        terms_accepted_at: nil,
       )
     end
 
