@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users, controllers: {
+  devise_for :users, failure_app: "Unauthenticated::FailureApp", controllers: {
     confirmations: "unauthenticated/confirmations",
     omniauth_callbacks: "unauthenticated/omniauth_callbacks",
     passwords: "unauthenticated/passwords",

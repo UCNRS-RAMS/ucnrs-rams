@@ -167,6 +167,7 @@ class UserForm
   def assign_placeholder_data_for_non_registered_users
     placeholder_data = User.placeholder_data_for_non_registered_users
     user.assign_attributes(placeholder_data)
+    user.skip_terms_accepted_validation = true
   end
 
   def initialize_project_team_membership

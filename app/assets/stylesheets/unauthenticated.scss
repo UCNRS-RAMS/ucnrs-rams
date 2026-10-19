@@ -201,6 +201,13 @@
             text-decoration: underline;
           }
         }
+
+        .extra_actions:not(.afterword) {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem 1rem;
+          justify-content: space-between;
+        }
       }
 
       .legal {

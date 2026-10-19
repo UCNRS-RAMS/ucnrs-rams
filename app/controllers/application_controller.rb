@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  RETURN_PATH_SESSION_KEY = :return_path_after_profile_completion
+
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :turbo_frame_request_variant
   before_action :set_layout_presenter, if: -> { request.format.html? }
@@ -126,8 +128,29 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(current_user)
-    if current_user.is_manager?
-      manager_reserve_dashboard_path(current_user.managed_reserves.first, format: :html)
+    destination = html_location(stored_location_for(current_user)) || dashboard_path_for(current_user)
+    return destination unless current_user.profile_incomplete?
+
+    session[RETURN_PATH_SESSION_KEY] = destination
+    flash[:notice] = t("profile_completion.required")
+    edit_user_registration_path
+  end
+
+  def html_location(path)
+    return if path.blank?
+
+    uri = URI.parse(path)
+    return if uri.path.blank? || uri.path == "/"
+
+    uri.path = "#{uri.path}.html" if File.extname(uri.path).empty?
+    uri.to_s
+  rescue URI::InvalidURIError
+    nil
+  end
+
+  def dashboard_path_for(user)
+    if user.is_manager?
+      manager_reserve_dashboard_path(user.managed_reserves.first, format: :html)
     else
       dashboard_index_path(format: :html)
     end

@@ -16,6 +16,8 @@
     <section class="instructions">
       The token used to identify you has expired. Please resend the password reset email and try again.
     </section>
+  <% else %>
+    <%= render "devise/shared/error_messages", resource: resource %>
   <% end %>
 
   <div class="field" data-controller="passwords">

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>UC Nature RAMS</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_link_tag 'simple_calendar', media: 'all' %>
+    <%= javascript_pack_tag 'application' %>
+    <%= favicon_link_tag 'favico.png' %>
+
+    <%= render partial: "layouts/fonts" %>
+    <%= render partial: "layouts/matomo" %>
+  </head>
+
+  <body class="focused <%= body_class %>">
+    <header>
+      <%= render partial: 'layouts/domain_banner' %>
+      <nav class="main-navigation" role="navigation">
+        <div class="navbar">
+          <div class="container">
+            <div class="navbar-content">
+              <div class="left-side">
+                <small id="title-extra">
+                  <%= image_tag('ucnature-logo.png', alt: 'UC Nature Logo') %>
+                </small>
+                <h1 class="title">RAMS</h1>
+              </div>
+              <div class="right-side">
+                <% if user_signed_in? %>
+                  <ul class="navbar-nav">
+                    <li>
+                      <%= render "layouts/sign_out_button" %>
+                    </li>
+                  </ul>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <%= render "shared/flash", formats: [:html] %>
+    </header>
+    <main role="main">
+      <%= yield %>
+    </main>
+    <%= render partial: "layouts/footer" %>
+    <%= render partial: "layouts/modal" %>
+  </body>
+</html>

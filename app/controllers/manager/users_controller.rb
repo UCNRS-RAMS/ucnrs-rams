@@ -32,7 +32,7 @@ class Manager::UsersController < Manager::ApplicationController
   private
 
   def user
-    @user ||= User.find(params[:id])
+    @user ||= User.find(params[:id]).tap { |user| user.skip_terms_accepted_validation = true }
   end
 
 
