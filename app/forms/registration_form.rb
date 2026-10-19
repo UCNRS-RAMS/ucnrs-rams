@@ -8,8 +8,8 @@ class RegistrationForm
 
   def initialize(user: User.new, params: {})
     @user = user
-    @params = params
-    assign(params)
+    @params = params.to_h.with_indifferent_access
+    assign(@params)
 
     if billing_address_same_as_current_address?
       copy_address_fields_to_billing_address
@@ -25,13 +25,33 @@ class RegistrationForm
   delegate :errors, to: :user
   delegate_missing_to :user
 
+  def institution_id
+    return params[:institution_id] if params.key?(:institution_id)
+
+    user.institution_id
+  end
+
+  def institution_selection_type
+    params[:institution_selection_type]
+  end
+
   def terms_accepted?
     ActiveModel::Type::Boolean.new.cast(params[:terms_accepted_at])
   end
 
   def submit
-    return unless user.valid?
-    user.save
+    # Validate user first because user.valid? clears user.errors; running
+    # assign_selected_institution afterwards preserves any institution selection
+    # errors so they can be surfaced back to the form.
+    valid = user.valid?
+    institution_assigned = assign_selected_institution
+    return unless valid && institution_assigned
+
+    User.transaction do
+      persist_selected_institution!
+      user.save!
+    end
+    true
   end
 
   private
@@ -53,19 +73,17 @@ class RegistrationForm
     ActiveModel::Type::Boolean.new.cast(params[:billing_address_same_as_current])
   end
 
-  def institution_id
-    Institution.find_by(name: params[:institution])&.id
-  end
-
   def assign(params)
-    params = params.to_h.with_indifferent_access
-
     params.each do |key, value|
-      if key.to_s == "institution"
-        self.institution_id = institution_id
-      else
-        self.send("#{key}=", value)
+      if %w[institution institution_id institution_selection_type].include?(key.to_s)
+        next
       end
+
+      public_send("#{key}=", value)
+    end
+
+    if institution_params_present?
+      user.institution = selected_institution
     end
 
     return if params[:orcid].blank?
@@ -74,4 +92,48 @@ class RegistrationForm
     user.orcid_authenticated = false
   end
 
+  def institution_params_present?
+    %w[institution institution_id institution_selection_type].any? { |key| params.key?(key) }
+  end
+
+  def assign_selected_institution
+    institution = selected_institution
+    if institution
+      user.institution = institution
+      true
+    else
+      selection_errors.each do |error|
+        user.errors.add(:institution, error) unless user.errors.added?(:institution, error)
+      end
+      false
+    end
+  end
+
+  def selected_institution
+    return @selected_institution if defined?(@selected_institution)
+
+    @selected_institution = if params[:institution_selection_type].present?
+      @institution_selection = InstitutionSelection.new(
+        id: params[:institution_id],
+        type: params[:institution_selection_type],
+      )
+      @institution_selection.resolve
+    elsif params[:institution_id].present?
+      Institution.find_by(id: params[:institution_id])
+    elsif params[:institution].present?
+      Institution.find_by(name: params[:institution])
+    end
+  end
+
+  def persist_selected_institution!
+    return selected_institution unless defined?(@institution_selection)
+
+    user.institution = @institution_selection.resolve_and_save
+  end
+
+  def selection_errors
+    return [ "must exist" ] unless defined?(@institution_selection)
+
+    @institution_selection.errors.map(&:message)
+  end
 end

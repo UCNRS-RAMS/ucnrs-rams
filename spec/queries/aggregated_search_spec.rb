@@ -136,8 +136,8 @@ RSpec.describe AggregatedSearch, type: :model do
       results = described_class.new(query: "Research", limit: 1).results
 
       expect(results.map { |result| [ result[:type], result[:name] ] }).to eq([
-        [ :institution, "Linked Organization" ],
-        [ :institution, "Research" ]
+        [ :institution, "Research" ],
+        [ :institution, "Linked Organization" ]
       ])
     end
 
@@ -199,12 +199,17 @@ RSpec.describe AggregatedSearch, type: :model do
       # will be displayed in search results (while search terms from ROR may still add to results, though both aren't shown).
       # These names may be more specific than the ROR names for these items.
 
-      # the deduplicated results, sorted by name
-      expect(names).to eq(
-        [ "Alabama Audubon (alaudubon.org)", "Audubon California", "Audubon Society (National & Local)",
-         "Eastern Sierra Audubon Society", "Mendocino Coast Audubon Society", "Montana Audubon",
-         "Santa Barbara Audubon" ]
-      )
+      # prioritized matches (name or linked ROR alias starting with query) sorted first alphabetically,
+      # followed by remaining matches sorted alphabetically
+      expect(names).to eq([
+        "Audubon California",
+        "Audubon Society (National & Local)",
+        "Eastern Sierra Audubon Society",
+        "Montana Audubon",
+        "Santa Barbara Audubon",
+        "Alabama Audubon (alaudubon.org)",
+        "Mendocino Coast Audubon Society"
+      ])
 
       # This is the ROR record overridden by the Audubon Society (National & Local) institution record in institutions.
       expect(names).not_to include('National Audubon Society (audubon.org)')

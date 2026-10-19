@@ -30,6 +30,25 @@ class Ror < ApplicationRecord
     location_values("country_subdivision_code")
   end
 
+  # Subdivision code (e.g. "CA") for the first location matching the given
+  # country code, if any. Matching by country code (rather than just taking
+  # the first location) disambiguates between locations that share a
+  # subdivision code across countries, e.g. "MS" for Mato Grosso do Sul
+  # (Brazil) versus Mississippi (US).
+  def state_code_for(country_code)
+    geonames_details_for(country_code)&.dig("country_subdivision_code").presence
+  end
+
+  # Subdivision name (e.g. "California") for the first location matching the
+  # given country code, if any. Our `states` table uses inconsistent coding
+  # schemes across countries (e.g. UK counties instead of ISO 3166-2 country
+  # subdivisions), so matching state records by code alone misses many
+  # otherwise-resolvable matches. Callers should try `state_code_for` first
+  # and fall back to matching by this name.
+  def state_name_for(country_code)
+    geonames_details_for(country_code)&.dig("country_subdivision_name").presence
+  end
+
   # ==========
   # = Scopes =
   # ==========
@@ -169,5 +188,18 @@ class Ror < ApplicationRecord
 
       location.dig("geonames_details", attribute).presence
     end
+  end
+
+  # The `geonames_details` hash for the first location matching the given
+  # country code, if any.
+  def geonames_details_for(country_code)
+    Array(locations).each do |location|
+      next unless location.is_a?(Hash) && location["geonames_details"].is_a?(Hash)
+
+      details = location["geonames_details"]
+      return details if details["country_code"] == country_code
+    end
+
+    nil
   end
 end
