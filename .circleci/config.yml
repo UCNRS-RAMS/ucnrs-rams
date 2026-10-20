@@ -49,7 +49,7 @@ jobs:
       # Use --frozen-lockfile for CI
       - run:
           name: Yarn Install
-          command: yarn install --frozen-lockfile
+          command: yarn cache clean foreground-child && yarn install --frozen-lockfile
 
       # Assets setup
       - run:
