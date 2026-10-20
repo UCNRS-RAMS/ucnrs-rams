@@ -51,6 +51,23 @@ RSpec.describe Visits::QuestionsIndexPresenter do
         expect(results["project"].map(&:id)).to match_array [project_question1.id]
       end
 
+      it "includes visit questions on a later visit even when project answers exist" do
+        reserve = create(:reserve)
+        project = create(:project)
+        project_question = create(:reserve_question, reserve: reserve, location: :project)
+        visit_question = create(
+          :reserve_question, :boolean_question, reserve: reserve, location: :visit, answer_required: true
+        )
+        create(:visit, reserve: reserve, project: project)
+        create(:project_reserve_answer, project: project, reserve_question: project_question)
+        second_visit = create(:visit, reserve: reserve, project: project, submitted_at: nil)
+        presenter = Visits::QuestionsIndexPresenter.new(current_step: 3, visit: second_visit)
+
+        results = presenter.reserve_questions_by_location
+
+        expect(results["visit"].map(&:id)).to eq [visit_question.id]
+      end
+
       it "returns only visible reserve questions" do
         reserve = create(:reserve)
         visit = create(:visit, reserve: reserve)

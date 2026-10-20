@@ -1,6 +1,7 @@
 class Projects::PermitPresenter
-  def initialize(permit)
+  def initialize(permit, submitted: nil)
     @permit = permit
+    @submitted = submitted
   end
 
   def render_values
@@ -23,7 +24,9 @@ class Projects::PermitPresenter
   end
 
   def answer
-    if permit.respond_to?(:answer)
+    if submitted
+      submitted[:answer].to_s == "1" ? "1" : "0"
+    elsif permit.respond_to?(:answer)
       permit.answer
     else
       "0"
@@ -36,5 +39,5 @@ class Projects::PermitPresenter
 
   private
 
-  attr_reader :permit
+  attr_reader :permit, :submitted
 end

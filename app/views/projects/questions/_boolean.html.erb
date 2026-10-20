@@ -1,6 +1,13 @@
 <div class="question">
-  <span class="question_text"><%= question.question %></span>
+  <span class="question_text">
+    <%= question.question %>
+    <%= tag.span " *", class: "clr-red" if question.answer_required %>
+  </span>
   <div class="answers">
+    <%# Unselected radios send no param at all, so a required question would skip
+        validation. This blank value is always submitted; a checked radio below
+        overrides it (last param wins). %>
+    <%= f.hidden_field :boolean_answer, value: "", id: nil %>
     <%= f.radio_button :boolean_answer, "1", data: { action: "change->value-projection#change" } %>
     <%= f.label :boolean_answer, t("projects.questions.index.yes_option"), for: "project_reserve_answers_#{question.id}_boolean_answer_1" %>
     <%= f.radio_button :boolean_answer, "0", data: { action: "change->value-projection#change" } %>

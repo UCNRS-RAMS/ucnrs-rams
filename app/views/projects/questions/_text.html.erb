@@ -1,5 +1,8 @@
 <div class="question">
-  <span class="question_text"><%= question.question %></span>
+  <span class="question_text">
+    <%= question.question %>
+    <%= tag.span " *", class: "clr-red" if question.answer_required %>
+  </span>
   <div class="answers field">
     <%= f.text_area :text_answer, aria: { label: t(".aria_label_for", question: question.id) } %>
   </div>

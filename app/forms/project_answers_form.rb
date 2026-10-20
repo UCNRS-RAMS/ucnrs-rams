@@ -19,6 +19,8 @@ class ProjectAnswersForm
   attr_reader :project, :permit_answers_params, :reserve_answers_params
 
   def save
+    return false unless valid?
+
     ActiveRecord::Base.transaction do
       ProjectPermitAnswer.replace_all(project_permit_answers)
       ProjectReserveAnswer.replace_all(project_reserve_answers)
@@ -26,7 +28,41 @@ class ProjectAnswersForm
     end
   end
 
+  def valid?
+    errors.clear
+    project_permit_answers.each(&:validate)
+
+    unanswered_question_ids.each do |question_id|
+      errors.add(:base, I18n.t("projects.answers.required_question", question: question_text(question_id)))
+    end
+
+    errors.empty?
+  end
+
   private
+
+  # Required questions are checked against the submitted answers and against
+  # the questions the project is expected to answer, so a question left out of
+  # the params entirely is caught as well.
+  def unanswered_question_ids
+    invalid = project_reserve_answers.reject(&:valid?).map { |answer| answer.reserve_question_id.to_i }
+    omitted = required_question_ids - reserve_answers_params.keys.map(&:to_i)
+    (invalid + omitted).uniq
+  end
+
+  def required_question_ids
+    ReserveQuestion
+      .for_projects
+      .visible
+      .involving_related(project)
+      .with_answers_for_project(project)
+      .where(answer_required: true)
+      .map(&:id)
+  end
+
+  def question_text(question_id)
+    ReserveQuestion.find_by(id: question_id)&.question
+  end
 
   def project_permit_answers
     @project_permit_answers ||= permit_answers_params.each.map do |permit_id, answer|

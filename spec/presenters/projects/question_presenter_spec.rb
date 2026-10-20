@@ -17,6 +17,27 @@ RSpec.describe Projects::QuestionPresenter do
     end
   end
 
+  describe "submitted answers" do
+    it "shows the submitted answers instead of the stored ones" do
+      question = create(:reserve_question)
+      mock_reserve_answer(question, text: "stored", boolean: false)
+      presenter = Projects::QuestionPresenter.new(
+        question, submitted: { text_answer: "typed", boolean_answer: "1" }
+      )
+
+      expect(presenter.text_answer).to eq "typed"
+      expect(presenter.boolean_answer).to eq "1"
+    end
+
+    it "treats a blank submitted yes/no as unanswered" do
+      question = create(:reserve_question)
+      mock_reserve_answer(question)
+      presenter = Projects::QuestionPresenter.new(question, submitted: { boolean_answer: "" })
+
+      expect(presenter.boolean_answer).to be_nil
+    end
+  end
+
   describe "#urls" do
     it "returns a hash of urls and their descriptions" do
       question = create(

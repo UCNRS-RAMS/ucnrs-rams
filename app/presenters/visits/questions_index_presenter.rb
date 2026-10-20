@@ -58,7 +58,7 @@ class Visits::QuestionsIndexPresenter
   end
 
   def reserve_question_scope
-    if !visit.submitted_at? && !visit_reserve_answer_exist? && !project_reserve_answer_exist?
+    if !visit.submitted_at? && !visit_reserve_answer_exist? && (!project_reserve_answer_exist? || !first_reserve_visit_on_project?)
       reserve_question_scope_from_questions
     else
       reserve_question_scope_from_answers

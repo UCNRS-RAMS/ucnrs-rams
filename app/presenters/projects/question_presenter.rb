@@ -1,6 +1,9 @@
 class Projects::QuestionPresenter
-  def initialize(question)
+  # submitted: the answer params from a rejected form submission, so the
+  # person's unsaved answers are shown again rather than the stored ones.
+  def initialize(question, submitted: nil)
     @question = question
+    @submitted = submitted
   end
 
   def render_values
@@ -28,12 +31,20 @@ class Projects::QuestionPresenter
     self
   end
 
+  def text_answer
+    submitted ? submitted[:text_answer] : question.text_answer
+  end
+
   def boolean_answer
-    question.boolean_answer == 1 ? "1" : "0"
+    case submitted ? submitted[:boolean_answer].presence : question.boolean_answer
+    when nil then nil
+    when 1, true, "1" then "1"
+    else "0"
+    end
   end
 
   def answer
-    if !respond_to?(:boolean_answer) || !respond_to?(:text_answer)
+    if !question.respond_to?(:boolean_answer) || !question.respond_to?(:text_answer)
       raise <<~end_error
         This Question does not have an answer. To have an answer, you
         probably want to query Questions with
@@ -52,5 +63,5 @@ class Projects::QuestionPresenter
 
   private
 
-  attr_reader :question
+  attr_reader :question, :submitted
 end

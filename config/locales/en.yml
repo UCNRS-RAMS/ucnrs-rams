@@ -1086,6 +1086,8 @@ en:
     create:
       reset_password_sent: A reset password email has been sent.
   projects:
+    answers:
+      required_question: "Please answer the required question: %{question}"
     file_table:
       file_name: Name
       date: Date

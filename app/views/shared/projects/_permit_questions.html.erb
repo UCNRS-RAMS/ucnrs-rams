@@ -1,4 +1,11 @@
 <%= form_with model: presenter.form, url: presenter.form_url, id: "questions" do |form| %>
+  <% if presenter.form.errors.any? %>
+    <section role="alert" class="flash">
+      <% presenter.form.errors.full_messages.each do |message| %>
+        <div class="error"><%= message %></div>
+      <% end %>
+    </section>
+  <% end %>
   <% if presenter.has_permit_questions_for_project? %>
     <% presenter.questions_by_authority.each do |authority, questions| %>
       <%= render partial: "projects/questions/group",

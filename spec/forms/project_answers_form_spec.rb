@@ -49,5 +49,68 @@ RSpec.describe ProjectAnswersForm do
         })
       end
     end
+
+    context "when a required question is submitted blank" do
+      it "does not save a required yes/no question" do
+        project = create(:project)
+        question = create(:reserve_question, :boolean_question, location: :project, answer_required: true)
+        form = ProjectAnswersForm.new(project: project, params: {
+          reserve_answers: { question.id.to_s => { boolean_answer: "" } },
+        })
+
+        expect(form.save).to be_falsey
+        expect(project.project_reserve_answers).to be_empty
+      end
+
+      it "does not save a required text question" do
+        project = create(:project)
+        question = create(:reserve_question, :text_question, location: :project, answer_required: true)
+        form = ProjectAnswersForm.new(project: project, params: {
+          reserve_answers: { question.id.to_s => { text_answer: "" } },
+        })
+
+        expect(form.save).to be_falsey
+        expect(project.project_reserve_answers).to be_empty
+      end
+
+      it "rejects a required question omitted from the params and names it" do
+        project = create(:project)
+        question = create(
+          :reserve_question, :boolean_question,
+          location: :project, answer_required: true, question: "Any owls?", ignore_involvements: true
+        )
+        build(:project_reserve_answer, project: project, reserve_question: question, boolean_answer: nil)
+          .save!(validate: false)
+        form = ProjectAnswersForm.new(project: project, params: {})
+
+        expect(form.save).to be_falsey
+        expect(form.errors.full_messages).to eq([ "Please answer the required question: Any owls?" ])
+      end
+
+      it "saves required yes and no answers" do
+        project = create(:project)
+        yes_question = create(:reserve_question, :boolean_question, location: :project, answer_required: true)
+        no_question = create(:reserve_question, :boolean_question, location: :project, answer_required: true)
+        form = ProjectAnswersForm.new(project: project, params: {
+          reserve_answers: {
+            yes_question.id.to_s => { boolean_answer: "1" },
+            no_question.id.to_s => { boolean_answer: "0" },
+          },
+        })
+
+        expect(form.save).to be_truthy
+        expect(project.project_reserve_answers.pluck(:boolean_answer)).to match_array([ true, false ])
+      end
+
+      it "saves an optional question left blank" do
+        project = create(:project)
+        question = create(:reserve_question, :boolean_question, location: :project, answer_required: false)
+        form = ProjectAnswersForm.new(project: project, params: {
+          reserve_answers: { question.id.to_s => { boolean_answer: "" } },
+        })
+
+        expect(form.save).to be_truthy
+      end
+    end
   end
 end

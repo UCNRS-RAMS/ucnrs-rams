@@ -64,9 +64,9 @@ class Projects::QuestionsIndexPresenter
 
   def wrap_question_in_presenter(question)
     if question.is_a?(Permit)
-      Projects::PermitPresenter.new(question)
+      Projects::PermitPresenter.new(question, submitted: form.permit_answers_params[question.id.to_s])
     else
-      Projects::QuestionPresenter.new(question)
+      Projects::QuestionPresenter.new(question, submitted: form.reserve_answers_params[question.id.to_s])
     end
   end
 
