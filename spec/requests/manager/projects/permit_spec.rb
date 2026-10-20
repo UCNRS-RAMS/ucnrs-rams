@@ -16,5 +16,31 @@ RSpec.describe Manager::Projects::PermitController, type: :request do
       expect(response).to be_ok
       expect(page).to have_css(".project-summary-box")
     end
+
+    it "re-renders the manager form on rejection and accepts the corrected submission" do
+      user = create(:user, :confirmed)
+      reserve = create(:reserve)
+      project = create(:project, reserve: reserve)
+      create(:reserve_personnel, user: user, reserve: reserve)
+      question = create(
+        :reserve_question, :boolean_question,
+        reserve: reserve, location: :project, answer_required: true, ignore_involvements: true
+      )
+      build(:project_reserve_answer, project: project, reserve_question: question, boolean_answer: nil)
+        .save!(validate: false)
+      sign_in(user)
+      path = "/manager/reserves/#{reserve.id}/projects/#{project.id}/permit"
+
+      post path, params: { project: { reserve_answers: { question.id.to_s => { boolean_answer: "" } } } }
+
+      expect(response).to have_http_status(:unprocessable_content)
+      doc = Capybara.string(response.body)
+      expect(doc).to have_css("form#questions[action='#{path}']")
+      expect(doc).to have_css("[role='alert'] .error")
+
+      post path, params: { project: { reserve_answers: { question.id.to_s => { boolean_answer: "1" } } } }
+
+      expect(response).to redirect_to("/manager/reserves/#{reserve.id}/projects/#{project.id}")
+    end
   end
 end

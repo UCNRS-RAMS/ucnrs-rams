@@ -19,10 +19,10 @@ class Manager::Projects::PermitController < Manager::ApplicationController
     if form.save
       redirect_to manager_reserve_project_path(current_reserve, project.id)
     else
-      @presenter = Projects::QuestionsIndexPresenter.new(
-        current_step: 3,
+      @presenter = Manager::Projects::QuestionsIndexPresenter.new(
         project: project,
         form: form,
+        reserve: current_reserve,
       )
       render :edit, status: :unprocessable_entity
     end
