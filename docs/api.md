@@ -52,7 +52,7 @@ prefix; Swagger UI adds it to each request it sends.
 An `ApiClient` is either explicitly platform-wide or scoped to one or more
 reserves. Scoping only limits what a client may read; it never widens it. A
 platform-wide client sees all reserves. A reserve-scoped client sees only its
-assigned reserves and their research: projects, visits, and affiliated
+assigned reserves and their research: projects, visits, fundings, and affiliated
 institutions — the reserves' managing campuses and the institutions of each
 project's owner, applicant, and team members. A client cannot have both grants.
 
@@ -168,6 +168,7 @@ docker compose exec web bundle exec rspec \
   spec/presenters/api/v1/reserve_presenter_spec.rb \
   spec/presenters/api/v1/visit_presenter_spec.rb \
   spec/queries/api/v1/read_scope_spec.rb \
+  spec/requests/api/v1/fundings_spec.rb \
   spec/requests/api/v1/institutions_spec.rb \
   spec/requests/api/v1/projects_spec.rb \
   spec/requests/api/v1/reserves_spec.rb \
