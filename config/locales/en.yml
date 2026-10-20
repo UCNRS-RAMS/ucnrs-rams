@@ -1088,6 +1088,7 @@ en:
   projects:
     answers:
       required_question: "Please answer the required question: %{question}"
+      required_permit: "Please answer the permit question: %{question}"
     file_table:
       file_name: Name
       date: Date

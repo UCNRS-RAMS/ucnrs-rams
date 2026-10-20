@@ -30,7 +30,9 @@ class ProjectAnswersForm
 
   def valid?
     errors.clear
-    project_permit_answers.each(&:validate)
+    project_permit_answers.reject(&:valid?).each do |answer|
+      errors.add(:base, I18n.t("projects.answers.required_permit", question: permit_text(answer.permit_id)))
+    end
 
     unanswered_question_ids.each do |question_id|
       errors.add(:base, I18n.t("projects.answers.required_question", question: question_text(question_id)))
@@ -58,6 +60,10 @@ class ProjectAnswersForm
       .with_answers_for_project(project)
       .where(answer_required: true)
       .map(&:id)
+  end
+
+  def permit_text(permit_id)
+    Permit.find_by(id: permit_id)&.question
   end
 
   def question_text(question_id)

@@ -108,7 +108,7 @@ class Visits::QuestionsIndexPresenter
       ReserveQuestion
         .from("
           (
-            #{visit_reserve_questions_from_answers.to_sql}
+            #{draft_visit_reserve_questions.to_sql}
             UNION
             #{project_reserve_questions_from_answers.to_sql}
           )
@@ -117,6 +117,28 @@ class Visits::QuestionsIndexPresenter
         .by_location
         .in_order
     end
+  end
+
+  # A draft visit is asked every applicable visit question, answered or not,
+  # so questions it has no answer for yet (a newly added question, or a visit
+  # whose project answers were saved first) are not lost.
+  def draft_visit_reserve_questions
+    ReserveQuestion
+      .select(
+        ReserveQuestion.arel_table[Arel.star],
+        VisitReserveAnswer.arel_table["text_answer"],
+        VisitReserveAnswer.arel_table["boolean_answer"]
+      )
+      .joins(<<~end_sql)
+        LEFT OUTER JOIN visit_reserve_answers
+        ON reserve_questions.id = visit_reserve_answers.reserve_question_id
+        AND visit_reserve_answers.visit_id = #{visit.id.to_i}
+      end_sql
+      .where(reserve: visit.reserve)
+      .for_project_type(visit.project.project_type)
+      .involving_related(visit.project)
+      .visible
+      .for_visits
   end
 
   def visit_reserve_questions_from_answers

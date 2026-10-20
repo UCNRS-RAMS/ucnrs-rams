@@ -52,6 +52,24 @@ RSpec.describe "Required reserve questions (ngRAMS#213)", type: :request do
   end
 
   describe "second visit to the same project and reserve" do
+    it "shows the visit-level question on a first visit when project answers already exist" do
+      project_question = create(
+        :reserve_question, :boolean_question, reserve: reserve, location: :project, ignore_involvements: true
+      )
+      create(
+        :reserve_question, :boolean_question,
+        reserve: reserve, location: :visit, answer_required: true, question: "Every visit?", ignore_involvements: true
+      )
+      create(:project_reserve_answer, project: project, reserve_question: project_question, boolean_answer: true)
+      visit = create(:visit, reserve: reserve, project: project, submitted_at: nil)
+      create(:user_visit, visit: visit, user: user)
+
+      get "/visits/#{visit.id}/questions"
+
+      expect(response).to be_ok
+      expect(Capybara.string(response.body)).to have_text("Every visit?")
+    end
+
     it "still shows the required visit-level question" do
       project_question = create(
         :reserve_question, :boolean_question, reserve: reserve, location: :project, ignore_involvements: true

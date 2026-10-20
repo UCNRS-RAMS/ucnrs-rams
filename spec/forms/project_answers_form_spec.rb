@@ -102,6 +102,18 @@ RSpec.describe ProjectAnswersForm do
         expect(project.project_reserve_answers.pluck(:boolean_answer)).to match_array([ true, false ])
       end
 
+      it "does not save a permit answer left blank" do
+        permit = create(:permit, involves_all: true)
+        project = create(:project)
+        form = ProjectAnswersForm.new(project: project, params: {
+          permit_answers: { permit.id.to_s => { answer: "" } },
+        })
+
+        expect(form.save).to be_falsey
+        expect(form.errors.full_messages).to eq([ "Please answer the permit question: #{permit.question}" ])
+        expect(project.project_permit_answers).to be_empty
+      end
+
       it "saves an optional question left blank" do
         project = create(:project)
         question = create(:reserve_question, :boolean_question, location: :project, answer_required: false)
