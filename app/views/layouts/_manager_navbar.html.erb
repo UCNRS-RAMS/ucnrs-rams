@@ -81,12 +81,12 @@
               <% end %>
             </li>
           <li>
-            <%= link_to t(".aria.my_profile"),
-              href: edit_manager_reserve_user_path(layout_presenter.current_reserve, layout_presenter.current_user),
-              title: t(".aria.my_profile"), "aria-label": t(".aria.my_profile"),
+            <%= link_to edit_manager_reserve_user_path(layout_presenter.current_reserve, layout_presenter.current_user),
+              title: t(".aria.my_profile"),
               class: ["nav-link", "nav-link-icon"] do
             %>
               <%= tag.span layout_presenter.current_user.initials, id: "user-initials" %>
+              <%= tag.span t(".aria.my_profile"), class: "visually-hidden" %>
             <% end %>
           </li>
         </ul>
