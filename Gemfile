@@ -18,6 +18,7 @@ gem 'fog-aws'
 gem 'foreman'
 gem 'jbuilder'
 gem 'kaminari'
+gem 'mini_magick'
 gem 'mysql2', '~> 0.5'
 gem 'nokogiri', '>= 1.16.5'
 gem "paranoia", "~> 3"
@@ -25,7 +26,7 @@ gem "propshaft"
 gem 'puma', '>= 5.0'
 gem "rails", "~> 8.1.4"
 gem 'rubyzip'
-gem 'shakapacker', '10.3.1'
+gem 'shakapacker', '10.3.2'
 gem 'simple_calendar', '~> 3.0'
 gem 'solid_cable'
 gem 'turbo-rails', '~> 2.0'
