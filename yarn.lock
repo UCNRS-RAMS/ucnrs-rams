@@ -1666,11 +1666,6 @@
   dependencies:
     eslint-scope "5.1.1"
 
-"@noble/hashes@1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@noble/hashes/-/hashes-1.4.0.tgz#45814aa329f30e4fe0ba49426f49dfccdd066426"
-  integrity sha512-V1JJ1WTRUqHHrOSh597hURcMqVKVGL/ea3kv0gSnEdsEZ0/+VyPghM1lMNGc00z7CIQorSvbKpuJkxvuHbvdbg==
-
 "@noble/hashes@1.8.0":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@noble/hashes/-/hashes-1.8.0.tgz#cee43d801fcef9644b11b8194857695acd5f815a"
@@ -2890,9 +2885,9 @@ char-regex@^1.0.2:
   integrity sha512-kWWXztvZ5SBQV+eRgKFeh8q5sLuZY2+8WUIzlxWVTg+oGwY14qylx1KbKzHd8P6ZYkAg0xyIDU9JMHhyJMZ1jw==
 
 chart.js@4:
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-4.5.1.tgz#19dd1a9a386a3f6397691672231cb5fc9c052c35"
-  integrity sha512-GIjfiT9dbmHRiYi6Nl2yFCq7kkwdkp1W/lp2J99rX0yo9tgJGn3lKQATztIjb5tVtevcBtIdICNWqlq5+E8/Pw==
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-4.6.1.tgz#40a924bc0b92544ed66fa3f4873981152fc62c52"
+  integrity sha512-hJyniucsFmq//EvXYvJ6c6mahPoI3kaxdjVH8awTaJ/fDNWeSqqqArixMJWkWNN6fcYvPU3HneSANFNYtRi61g==
   dependencies:
     "@kurkle/color" "^0.3.0"
 
@@ -5239,18 +5234,7 @@ safe-buffer@5.2.1:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-sass@^1.25.0:
-  version "1.105.1"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.105.1.tgz#9ef19b947f65007ccfe0ed385cc570b858ae42e0"
-  integrity sha512-1CnAWPyrrnVQzXGB/DUep1vYCKCm1CIBr+YxjjiW6wk9qtzemnGP4qicH56T2F9S4Hjtv/Ne3jDz8JqfdDU4oA==
-  dependencies:
-    chokidar "^5.0.0"
-    immutable "^5.1.5"
-    source-map-js ">=0.6.2 <2.0.0"
-  optionalDependencies:
-    "@parcel/watcher" "^2.4.1"
-
-sass@^1.99.0:
+sass@^1.25.0, sass@^1.99.0:
   version "1.105.1"
   resolved "https://registry.yarnpkg.com/sass/-/sass-1.105.1.tgz#9ef19b947f65007ccfe0ed385cc570b858ae42e0"
   integrity sha512-1CnAWPyrrnVQzXGB/DUep1vYCKCm1CIBr+YxjjiW6wk9qtzemnGP4qicH56T2F9S4Hjtv/Ne3jDz8JqfdDU4oA==
@@ -5355,10 +5339,10 @@ setprototypeof@1.2.0, setprototypeof@~1.2.0:
   resolved "https://registry.yarnpkg.com/setprototypeof/-/setprototypeof-1.2.0.tgz#66c9a24a73f9fc28cbe66b09fed3d33dcaf1b424"
   integrity sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==
 
-shakapacker@10.3.1:
-  version "10.3.1"
-  resolved "https://registry.yarnpkg.com/shakapacker/-/shakapacker-10.3.1.tgz#f92047ac89534cbedd8ac01864facc122e128b22"
-  integrity sha512-yYSbA+JaFisZQL9ImB9IMmPNKUzm0Ycw/wUnwf88f7BeHX9k/M4FIa/4syq/0xx18JqgEL3MIJmsM0RaXQ5zuA==
+shakapacker@10.3.2:
+  version "10.3.2"
+  resolved "https://registry.yarnpkg.com/shakapacker/-/shakapacker-10.3.2.tgz#cc8047b8fa67e0b141c8c1a428bc7992967ce62a"
+  integrity sha512-W4LV0MFS1c6ayODF/Ra4RM5xS3DljBc9XGLqz04WGSap97U5gJ7FjBTChPmoJ/7VDiTYmL1w+vh+D360e9qK7Q==
   dependencies:
     js-yaml "^4.1.0"
     pack-config-diff "^0.1.0"
