@@ -1,1 +1,5 @@
-<%= render partial: "modals/manager/visit/report_part_1", locals: { presenter: @presenter } %>
+<% if turbo_frame_request_id == "modal-content" %>
+  <%= render partial: "modals/manager/visit/report_part_1", locals: { presenter: @presenter } %>
+<% else %>
+  <%= render partial: "manager/visits/report_part_1/inline", locals: { presenter: @presenter } %>
+<% end %>

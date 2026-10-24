@@ -284,8 +284,9 @@
   }
 }
 
-.modal {
-  .visit-report-part-1-modal {
+.modal,
+.manager.visits-show {
+  .visit-report-part-1 {
     hr {
       border-top: 1px solid #e0e9eb;
       border-bottom: 0;
@@ -319,7 +320,7 @@
       justify-content: space-between;
       margin-bottom: 0.5rem;
 
-      h2.report-part-1-project-type {
+      h3.report-part-1-project-type {
         color: $navy-blue;
         font-size: 14px;
         font-weight: $medium;

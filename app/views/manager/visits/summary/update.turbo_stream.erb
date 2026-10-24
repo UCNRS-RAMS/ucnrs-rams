@@ -9,3 +9,11 @@
       <%= render "shared/flash" %>
   </template>
 </turbo-stream>
+
+<turbo-stream action="replace" target="visit-report-part-1">
+  <template>
+    <%= turbo_frame_tag "visit-report-part-1",
+      src: manager_reserve_visit_report_part_1_path(reserve_id: current_reserve.id, visit_id: @presenter.id)
+    %>
+  </template>
+</turbo-stream>
