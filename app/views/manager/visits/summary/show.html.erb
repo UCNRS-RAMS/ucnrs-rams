@@ -34,5 +34,8 @@
       </header>
       <%= render partial: "manager/visits/summary/amenity_visits_table", locals: { presenter: @presenter } %>
     </section>
+    <%= turbo_frame_tag "visit-report-part-1",
+      src: manager_reserve_visit_report_part_1_path(reserve_id: current_reserve.id, visit_id: @presenter.id)
+    %>
   </section>
 </turbo-frame>

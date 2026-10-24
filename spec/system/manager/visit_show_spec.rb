@@ -407,8 +407,8 @@ RSpec.describe "Manager Visit Show" do
     end
   end
 
-  describe "annual report part 1 modal" do
-    it "opens showing the visit's report data and closes again", js: true do
+  describe "annual report part 1 section" do
+    it "shows the visit's report data in the summary tab below the amenities", js: true do
       approved_visit = create(:visit, reserve: reserve, status: "approved")
       institution = create(:institution, institution_type: "non_california_us_university_or_college")
       create(:user_visit, visit: approved_visit, status: "Approved", institution: institution,
@@ -418,13 +418,22 @@ RSpec.describe "Manager Visit Show" do
 
       sign_in(user)
       flow.visit_show_page
-      flow.click_on_report_part_1_link
-      sleep(1.0) # important, gives modal time to load.
 
-      expect(flow).to be_showing_report_part_1_modal
+      expect(flow).to be_showing_report_part_1_section
+      expect(flow).to be_showing_report_part_1_table
+      expect(flow).to be_showing_report_part_1_below_amenities
+    end
 
-      flow.close_report_part_1_modal
-      expect(flow).to be_showing_no_report_part_1_modal
+    it "goes away when another tab is selected", js: true do
+      flow = Manager::VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
+
+      sign_in(user)
+      flow.visit_show_page
+      expect(flow).to be_showing_report_part_1_section
+
+      flow.click_on_reserve_info_btn
+
+      expect(flow).to be_showing_no_report_part_1_section
     end
 
     it "shows a fiscal year dropdown and switches data when the visit spans two fiscal years", js: true do
@@ -440,14 +449,12 @@ RSpec.describe "Manager Visit Show" do
 
       sign_in(user)
       flow.visit_show_page
-      flow.click_on_report_part_1_link
-      sleep(1.0) # important, gives modal time to load.
 
-      expect(flow).to be_showing_report_part_1_modal
+      expect(flow).to be_showing_report_part_1_section
       expect(flow.fiscal_year_toggle_text).to eq("2023-2024")
 
       flow.select_fiscal_year("2022-2023")
-      sleep(1.0) # important, gives modal time to reload.
+      sleep(1.0) # important, gives the section time to reload.
 
       expect(flow.fiscal_year_toggle_text).to eq("2022-2023")
     end
@@ -460,7 +467,7 @@ RSpec.describe "Manager Visit Show" do
       institution = create(:institution, institution_type: "non_california_us_university_or_college")
       # Only the earlier fiscal year has reportable data; the cancelled
       # user_visit still stretches the visit's span into FY 2023-2024, which
-      # the modal opens on by default.
+      # the section opens on by default.
       create(:user_visit, visit: spanning_visit, status: "Approved", institution: institution,
         arrives_at: fiscal_boundary, departs_at: fiscal_boundary + 3.days)
       create(:user_visit, visit: spanning_visit, status: "Cancelled", institution: institution,
@@ -470,15 +477,13 @@ RSpec.describe "Manager Visit Show" do
 
       sign_in(user)
       flow.visit_show_page
-      flow.click_on_report_part_1_link
-      sleep(1.0) # important, gives modal time to load.
 
       expect(flow).to be_showing_report_part_1_no_data("2023-2024")
       expect(flow).to be_showing_report_part_1_no_data_reasons
       expect(flow.fiscal_year_toggle_text).to eq("2023-2024")
 
       flow.select_fiscal_year("2022-2023")
-      sleep(1.0) # important, gives modal time to reload.
+      sleep(1.0) # important, gives the section time to reload.
 
       expect(flow).to be_showing_report_part_1_table
       expect(flow.fiscal_year_toggle_text).to eq("2022-2023")

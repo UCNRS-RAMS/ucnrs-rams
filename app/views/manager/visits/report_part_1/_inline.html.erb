@@ -1,0 +1,6 @@
+<%= turbo_frame_tag "visit-report-part-1" do %>
+  <section class="visit-report-part-1">
+    <h2 class="main-header"><%= t(".heading") %></h2>
+    <%= render "manager/visits/report_part_1/report", presenter: presenter %>
+  </section>
+<% end %>

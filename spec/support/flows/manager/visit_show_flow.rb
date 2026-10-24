@@ -152,20 +152,16 @@ class Manager::VisitShowFlow
     page.has_css?(".email-message")
   end
 
-  def click_on_report_part_1_link
-    page.click_on("Annual Report Part 1")
+  def showing_report_part_1_section?
+    page.has_css?("#visit-report-part-1 .visit-report-part-1")
   end
 
-  def showing_report_part_1_modal?
-    page.has_css?(".visit-report-part-1-modal")
+  def showing_report_part_1_below_amenities?
+    page.has_css?("section:has(#amenities-summary-table) + #visit-report-part-1")
   end
 
-  def showing_no_report_part_1_modal?
-    page.has_no_css?(".visit-report-part-1-modal")
-  end
-
-  def close_report_part_1_modal
-    page.find("#x-icon").click
+  def showing_no_report_part_1_section?
+    page.has_no_css?("#visit-report-part-1")
   end
 
   def select_fiscal_year(label)
@@ -178,7 +174,7 @@ class Manager::VisitShowFlow
   end
 
   def showing_report_part_1_table?
-    page.has_css?(".visit-report-part-1-modal table.annual-report")
+    page.has_css?("#visit-report-part-1 table.annual-report")
   end
 
   def showing_report_part_1_no_data?(fiscal_year_label)
