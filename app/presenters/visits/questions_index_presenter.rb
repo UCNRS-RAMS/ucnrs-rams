@@ -58,7 +58,7 @@ class Visits::QuestionsIndexPresenter
   end
 
   def reserve_question_scope
-    if !visit.submitted_at? && !visit_reserve_answer_exist? && (!project_reserve_answer_exist? || !first_reserve_visit_on_project?)
+    if !visit.submitted_at? && !visit_reserve_answer_exist? && !project_reserve_answer_exist?
       reserve_question_scope_from_questions
     else
       reserve_question_scope_from_answers
@@ -119,9 +119,10 @@ class Visits::QuestionsIndexPresenter
     end
   end
 
-  # A draft visit is asked every applicable visit question, answered or not,
-  # so questions it has no answer for yet (a newly added question, or a visit
-  # whose project answers were saved first) are not lost.
+  # A draft visit is always asked its required visit questions, answered or
+  # not, so a required question with no answer yet (a second visit, or a
+  # question added after the draft's answers were saved) is not skipped.
+  # Optional questions are listed only once they have an answer.
   def draft_visit_reserve_questions
     ReserveQuestion
       .select(
@@ -139,6 +140,7 @@ class Visits::QuestionsIndexPresenter
       .involving_related(visit.project)
       .visible
       .for_visits
+      .where("reserve_questions.answer_required = TRUE OR visit_reserve_answers.id IS NOT NULL")
   end
 
   def visit_reserve_questions_from_answers

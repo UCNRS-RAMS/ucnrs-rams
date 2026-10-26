@@ -68,6 +68,23 @@ RSpec.describe Visits::QuestionsIndexPresenter do
         expect(results["visit"].map(&:id)).to eq [visit_question.id]
       end
 
+      it "does not add an optional visit question the draft has no answer for when project answers exist" do
+        reserve = create(:reserve)
+        project = create(:project)
+        project_question = create(:reserve_question, reserve: reserve, location: :project)
+        required_question = create(
+          :reserve_question, reserve: reserve, location: :visit, answer_required: true, sort_order: 1
+        )
+        create(:reserve_question, reserve: reserve, location: :visit, answer_required: false, sort_order: 2)
+        create(:project_reserve_answer, project: project, reserve_question: project_question)
+        visit = create(:visit, reserve: reserve, project: project, submitted_at: nil)
+        presenter = Visits::QuestionsIndexPresenter.new(current_step: 3, visit: visit)
+
+        results = presenter.reserve_questions_by_location
+
+        expect(results["visit"].map(&:id)).to eq [required_question.id]
+      end
+
       it "returns only visible reserve questions" do
         reserve = create(:reserve)
         visit = create(:visit, reserve: reserve)
