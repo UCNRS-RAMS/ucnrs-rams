@@ -27,6 +27,10 @@ const setupKlaro = () => {
             `<p>RAMS uses Matomo analytics to help us understand how the service is used and to improve its functionality, performance, and user experience. ` +
             `<a href="${privacyPolicyUrl}" target="_blank" rel="noopener">Our Privacy Statement</a> includes more details about the cookies we use and how we protect your privacy.</p>`
         },
+        consentModal: {
+          title: "Cookie Settings",
+          description: "Choose which optional cookies RAMS can use. Necessary cookies are always on."
+        },
         decline: "Allow only necessary cookies",
         ok: "Allow all cookies",
         purposes: {
