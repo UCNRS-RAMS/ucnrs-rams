@@ -1,5 +1,11 @@
 @use "variables" as *;
 
+// Without klaro's own CSS the modal runs edge to edge.
+.cookie-modal .cm-modal {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
 // klaro-ui only styles the cookie banner, so the settings modal's buttons
 // pick up the same look as the "Schedule a Visit" button (.button-main).
 .cookie-modal .cm-btn {
@@ -10,6 +16,7 @@
   cursor: pointer;
   font-size: 1rem;
   font-weight: normal;
+  margin-bottom: 1.5rem;
   padding: 0.9375rem 2rem;
 
   &:hover,
