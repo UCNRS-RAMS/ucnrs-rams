@@ -5,7 +5,7 @@ ARG BASE_IMAGE_PREFIX=""
 FROM ${BASE_IMAGE_PREFIX}node:24-slim AS node
 
 # Stage 2: Build the Rails environment
-FROM ${BASE_IMAGE_PREFIX}ruby:4.0.6-slim AS builder
+FROM ${BASE_IMAGE_PREFIX}ruby:4.0.9-slim AS builder
 
 RUN apt-get update -qq && apt-get install -y --no-install-recommends \
     build-essential \
@@ -64,7 +64,7 @@ RUN RAILS_ENV=production \
     rm -rf node_modules
 
 # Stage 3: Production runtime image
-FROM ${BASE_IMAGE_PREFIX}ruby:4.0.6-slim
+FROM ${BASE_IMAGE_PREFIX}ruby:4.0.9-slim
 
 # OPTIMIZED: Update catalog -> Upgrade existing stale files -> Install packages -> Clean up cache immediately.
 RUN apt-get update -qq && \

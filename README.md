@@ -13,7 +13,7 @@ You only need one of these paths for day-to-day development.
 
 This repo currently expects:
 
-- Ruby `4.0.6` from [`.ruby-version`](.ruby-version)
+- Ruby `4.0.9` from [`.ruby-version`](.ruby-version)
 - Node `24.x` from [`package.json`](package.json)
 - Yarn `1.22.22`
 - MySQL `8.4` if you're running locally without Docker
