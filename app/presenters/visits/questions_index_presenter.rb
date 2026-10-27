@@ -63,6 +63,31 @@ class Visits::QuestionsIndexPresenter
     else
       reserve_question_scope_from_answers
     end
+  def reserve_question_scope
+    first_visit = first_reserve_visit_on_project?
+
+    # Submitted visit: the visit questions it answered
+    if visit.submitted_at?
+      visit_reserve_questions_from_answers.in_order
+
+    # First visit, back from the next page: visit and project questions, with saved answers
+    elsif first_visit && (visit_reserve_answer_exist? || project_reserve_questions_from_answers.exists?)
+      reserve_question_scope_from_answers
+
+    # First visit, first time on the page (including a first visit to
+    # another reserve on the project): visit and project questions
+    elsif first_visit
+      reserve_question_scope_from_questions
+
+    # Second visit, back from the next page: visit questions, with saved answers
+    elsif visit_reserve_answer_exist?
+      visit_reserve_questions_from_answers.in_order
+
+    # Second visit, first time on the page: visit questions only
+    else
+      reserve_question_scope_from_questions
+
+    end
   end
 
   def wrap_question_in_presenter(question)
