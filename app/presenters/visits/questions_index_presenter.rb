@@ -58,12 +58,6 @@ class Visits::QuestionsIndexPresenter
   end
 
   def reserve_question_scope
-    if !visit.submitted_at? && !visit_reserve_answer_exist? && !project_reserve_answer_exist?
-      reserve_question_scope_from_questions
-    else
-      reserve_question_scope_from_answers
-    end
-  def reserve_question_scope
     first_visit = first_reserve_visit_on_project?
 
     # Submitted visit: the visit questions it answered
@@ -86,7 +80,6 @@ class Visits::QuestionsIndexPresenter
     # Second visit, first time on the page: visit questions only
     else
       reserve_question_scope_from_questions
-
     end
   end
 
