@@ -34,6 +34,7 @@ const setupKlaro = () => {
         },
         decline: "Allow only necessary cookies",
         ok: "Allow all cookies",
+        // Klaro looks up the "Purpose:" label under service.purpose, not at the top level.
         service: {
           purpose: "Purpose"
         },
