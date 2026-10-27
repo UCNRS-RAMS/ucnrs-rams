@@ -1,0 +1,36 @@
+@use "variables" as *;
+
+// klaro-ui only styles the cookie banner, so the settings modal's buttons
+// pick up the same look as the "Schedule a Visit" button (.button-main).
+.cookie-modal .cm-btn {
+  background-color: $active-button-fill;
+  border: 0;
+  border-radius: 1.5625rem;
+  color: $active-button-text;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: normal;
+  padding: 0.9375rem 2rem;
+
+  &:hover,
+  &:focus {
+    filter: brightness(108%);
+    text-decoration: none;
+  }
+}
+
+// The close button is a bare <button> around an SVG X with no stroke set, so
+// without klaro's own CSS it renders as an empty gray box.
+.cookie-modal button.hide {
+  background: transparent;
+  border: 0;
+  color: $active-button-text;
+  cursor: pointer;
+  float: right;
+  padding: 0.5rem;
+
+  svg line {
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+}

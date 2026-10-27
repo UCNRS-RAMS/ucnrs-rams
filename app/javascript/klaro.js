@@ -17,6 +17,7 @@ const setupKlaro = () => {
     mustConsent: false,
     acceptAll: true,
     hideLearnMore: true,
+    disablePoweredBy: true,
     translations: {
       en: {
         privacyPolicyUrl,
@@ -29,10 +30,13 @@ const setupKlaro = () => {
         },
         consentModal: {
           title: "Cookie Settings",
-          description: "Choose which optional cookies RAMS can use. Necessary cookies are always on."
+          description: "RAMS uses cookies that are necessary for the operation of the service and, with your consent, optional analytics cookies. Use the setting below to choose whether to allow analytics cookies."
         },
         decline: "Allow only necessary cookies",
         ok: "Allow all cookies",
+        service: {
+          purpose: "Purpose"
+        },
         purposes: {
           analytics: {
             title: "Analytics"
@@ -49,7 +53,7 @@ const setupKlaro = () => {
             title: "Matomo analytics"
           },
           en: {
-            description: "Matomo is a self-hosted analytics service used without a RAMS user identifier."
+            description: "RAMS uses Matomo analytics to help us understand how the service is used and to improve its functionality, performance, and user experience. Matomo is hosted by us and does not use a RAMS user identifier."
           }
         },
         purposes: ["analytics"],
