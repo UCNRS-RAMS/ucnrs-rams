@@ -51,6 +51,10 @@ RSpec.configure do |config|
         {
           name: 'Visits',
           description: 'When and where a research project carried out activity at a reserve.'
+        },
+        {
+          name: 'Team memberships',
+          description: 'The people on a project, their role, and what they may do for it.'
         }
       ],
       components: {
@@ -345,6 +349,35 @@ RSpec.configure do |config|
               updated_at: { type: :string, format: 'date-time', nullable: true }
             }
           },
+          TeamMembership: {
+            type: :object,
+            required: %w[id type active project user],
+            properties: {
+              id: { type: :integer },
+              type: { type: :string, enum: ['team_memberships'] },
+              active: { type: :boolean },
+              user_role: {
+                type: :string,
+                nullable: true,
+                enum: ProjectTeamMembership.user_roles.keys,
+                description: 'Rails enum key. Null where the role is not recorded.'
+              },
+              is_principal_investigator: { type: :boolean },
+              can_edit_project: { type: :boolean },
+              can_add_project_user: { type: :boolean },
+              can_add_visit: { type: :boolean },
+              can_receive_invoice: { type: :boolean },
+              project: { '$ref' => '#/components/schemas/ProjectStub' },
+              user: { '$ref' => '#/components/schemas/UserStub' },
+              institution: {
+                type: :object,
+                nullable: true,
+                allOf: [{ '$ref' => '#/components/schemas/InstitutionStub' }]
+              },
+              created_at: { type: :string, format: 'date-time', nullable: true },
+              updated_at: { type: :string, format: 'date-time', nullable: true }
+            }
+          },
           Funding: {
             type: :object,
             required: %w[id type title sponsor project],
@@ -466,6 +499,24 @@ RSpec.configure do |config|
             required: %w[data],
             properties: {
               data: { '$ref' => '#/components/schemas/Funding' }
+            }
+          },
+          TeamMembershipsCollection: {
+            type: :object,
+            required: %w[data meta],
+            properties: {
+              data: {
+                type: :array,
+                items: { '$ref' => '#/components/schemas/TeamMembership' }
+              },
+              meta: { '$ref' => '#/components/schemas/PaginationMeta' }
+            }
+          },
+          TeamMembershipResource: {
+            type: :object,
+            required: %w[data],
+            properties: {
+              data: { '$ref' => '#/components/schemas/TeamMembership' }
             }
           },
           PaginationMeta: {

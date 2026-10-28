@@ -86,6 +86,21 @@ module Api
         value
       end
 
+      # Returns the requested boolean value, or nil when the caller did not
+      # filter. Values other than "true" and "false" raise InvalidFilter (400).
+      #
+      # @param param [Symbol] the query parameter name
+      # @return [Boolean, nil]
+      # @raise [InvalidFilter] when the value is present but not a boolean
+      def boolean_filter(param)
+        value = params[param].presence
+        return nil if value.nil?
+        return true if value == "true"
+        return false if value == "false"
+
+        raise InvalidFilter, "#{param} must be true or false"
+      end
+
       # @param error [InvalidFilter]
       # @return [void]
       def render_bad_request(error)
