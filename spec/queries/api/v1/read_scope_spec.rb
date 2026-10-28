@@ -172,4 +172,33 @@ RSpec.describe Api::V1::ReadScope do
       end
     end
   end
+
+  describe "#team_memberships" do
+    let(:unaffiliated_membership) { create(:project_team_membership) }
+
+    it "returns every team membership to a platform-wide client" do
+      expect(scope.team_memberships).to include(unaffiliated_membership)
+    end
+
+    context "when the client is scoped to reserves" do
+      let(:reserve) { create(:reserve) }
+      let(:another_reserve) { create(:reserve) }
+      let(:api_client) { create(:api_client, platform_wide: false, reserves: [ reserve, another_reserve ]) }
+      let(:project) { create(:project, reserve: reserve) }
+
+      it "returns memberships from projects at all assigned reserves" do
+        membership = create(:project_team_membership, project: project)
+        another_reserve_membership = create(
+          :project_team_membership,
+          project: create(:project, reserve: another_reserve)
+        )
+
+        expect(scope.team_memberships).to contain_exactly(membership, another_reserve_membership)
+      end
+
+      it "excludes memberships from projects at other reserves" do
+        expect(scope.team_memberships).not_to include(unaffiliated_membership)
+      end
+    end
+  end
 end

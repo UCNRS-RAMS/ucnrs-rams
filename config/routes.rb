@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :reserves, only: [:index, :show]
       resources :visits, only: [:index, :show]
       resources :fundings, only: [:index, :show]
+      resources :team_memberships, only: [:index, :show]
     end
   end
 
