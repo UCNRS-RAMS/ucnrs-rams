@@ -204,8 +204,7 @@ RSpec.describe Api::V1::TeamMembershipsController, type: :request do
 
       expect(response.parsed_body["data"].keys).to match_array(
         %w[
-          id type active user_role is_principal_investigator can_edit_project
-          can_add_project_user can_add_visit can_receive_invoice project user
+          id type active user_role is_principal_investigator project user
           institution created_at updated_at
         ]
       )

@@ -1170,14 +1170,6 @@ components:
           description: Rails enum key. Null where the role is not recorded.
         is_principal_investigator:
           type: boolean
-        can_edit_project:
-          type: boolean
-        can_add_project_user:
-          type: boolean
-        can_add_visit:
-          type: boolean
-        can_receive_invoice:
-          type: boolean
         project:
           "$ref": "#/components/schemas/ProjectStub"
         user:
