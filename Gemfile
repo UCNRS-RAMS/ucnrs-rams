@@ -16,6 +16,7 @@ gem "faraday-follow_redirects"
 gem 'faraday-retry'
 gem 'fog-aws'
 gem 'foreman'
+gem "honeybadger", "~> 6.10"
 gem 'jbuilder'
 gem 'kaminari'
 gem 'mini_magick'
