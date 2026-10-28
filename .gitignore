@@ -80,3 +80,8 @@ yarn-debug.log*
 .kamal/secrets.*
 /config/deploy.*.dev.yml
 Dockerfile.*.dev.kamal
+
+# Ignore key files for decrypting credentials and more.
+/config/*.key
+
+/config/honeybadger.yml
