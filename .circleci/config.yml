@@ -62,8 +62,16 @@ jobs:
           command: ./bin/rubocop
 
       - run:
-          name: rake
-          command: bundle exec rake
+          name: Prepare parallel test databases
+          command: bundle exec rake parallel:prepare
+
+      - run:
+          name: Ruby specs (parallel)
+          command: bundle exec parallel_rspec spec -n 2
+
+      - run:
+          name: JavaScript specs
+          command: yarn jest
 
       # Fail if the committed OpenAPI document is stale relative to spec/api.
       - run:

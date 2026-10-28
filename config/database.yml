@@ -24,7 +24,9 @@ staging:
 
 test:
   <<: *default
-  database: ucnrs_rams_test
+  # parallel_tests sets TEST_ENV_NUMBER per worker; the first worker gets an
+  # empty value, so the plain database name is used there.
+  database: ucnrs_rams_test<%= ENV['TEST_ENV_NUMBER'] %>
 
 production:
   <<: *default

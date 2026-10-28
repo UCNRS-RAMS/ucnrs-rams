@@ -11,9 +11,11 @@ Rails.application.configure do
     config.log_level = :fatal
   end
 
-  # Bullet gem initialization
+  # Bullet gem initialization. Disabled by default: it instruments every query
+  # and writes notifications to log/bullet.log, which costs more than it catches
+  # in a suite this size. Opt in with BULLET=1 when hunting N+1 queries.
   config.after_initialize do
-    Bullet.enable = true
+    Bullet.enable = ENV["BULLET"].present?
     Bullet.bullet_logger = true
     Bullet.raise = false
   end

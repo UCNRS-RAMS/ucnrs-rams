@@ -58,5 +58,64 @@ RSpec.describe Projects::AnswersController, type: :request do
 
       expect(response).to redirect_to(project_url(project))
     end
+
+    it "saves the permit answers for the project" do
+      user = create(:user, :confirmed)
+      project = create(:project, involves_fish: true)
+      create(
+        :project_team_membership,
+        user: user,
+        project: project,
+        active: true,
+        can_edit_project: true,
+      )
+      permit = create(:permit, involves_fish: true)
+      sign_in(user)
+
+      post "/projects/#{project.id}/answers", params: {
+        project: {
+          permit_answers: { permit.id.to_s => { answer: "true" } }
+        }
+      }
+
+      expect(response).to redirect_to(project_fundings_path(project))
+      answer = project.project_permit_answers.reload.first
+      expect(answer.permit_id).to eq permit.id
+      expect(answer).to be_answer
+    end
+
+    it "saves the reserve question answers for the project" do
+      user = create(:user, :confirmed)
+      reserve = create(:reserve)
+      project = create(:project, reserve: reserve)
+      create(
+        :project_team_membership,
+        user: user,
+        project: project,
+        active: true,
+        can_edit_project: true,
+      )
+      boolean_question = create(:reserve_question, :boolean, reserve: reserve)
+      text_question = create(:reserve_question, :text, reserve: reserve)
+      sign_in(user)
+
+      post "/projects/#{project.id}/answers", params: {
+        project: {
+          reserve_answers: {
+            boolean_question.id.to_s => { boolean_answer: "true" },
+            text_question.id.to_s => { text_answer: "You CAN'T not" }
+          }
+        }
+      }
+
+      expect(response).to redirect_to(project_fundings_path(project))
+      answers = project.project_reserve_answers.reload
+      expect(
+        answers.find_by(reserve_question: boolean_question).boolean_answer,
+      ).to be true
+      expect(
+        answers.find_by(reserve_question: text_question).text_answer,
+      ).to eq "You CAN'T not"
+    end
   end
 end

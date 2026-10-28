@@ -3,6 +3,19 @@ RSpec.configure do |config|
     driven_by :rack_test
   end
 
+  # Shakapacker's digest check can report a fresh build while the referenced
+  # pack files are missing or stale. That silently disables Stimulus/Turbo and
+  # turns every browser example into a confusing "element not found" failure,
+  # so fail fast with an actionable message instead.
+  config.before(:each, type: :system, js: true) do
+    pack = Shakapacker.manifest.lookup!("application.js")
+    pack_path = Rails.public_path.join(pack.delete_prefix("/"))
+    unless pack_path.exist?
+      raise "Compiled test JavaScript is missing at #{pack_path}. " \
+        "Run `bin/shakapacker` (or `bundle exec rails assets:precompile`) before running browser specs."
+    end
+  end
+
   config.before(:each, type: :system, js: true) do
     # If you don't want headless (for troubleshooting), use :selenium_chrome
     # driven_by :selenium_chrome

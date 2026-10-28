@@ -19,14 +19,17 @@ RSpec.describe "Adding a project team member", type: :system, js: true do
 
     visit project_team_memberships_path(project)
     click_link "Create new user"
+    fill_in "First name", with: "New"
     fill_in "Last name", with: "Member"
     fill_in "Email", with: "new.member@example.test"
     fill_in "Phone number", with: "111-111-1111"
     fill_in "Emergency contact full name", with: "Emergency Contact"
     fill_in "Emergency contact phone number", with: "222-222-2222"
+    select "Other", from: "User role"
     fill_in "Institution name", with: ror.name
     find(".autocomplete-results li", text: ror.name).click
-    select "Other", from: "User role"
+    expect(page.find("#user_institution_id", visible: false).value).to eq(ror.ror_id)
+    expect(page.find("#user_institution_selection_type", visible: false).value).to eq("ror")
     select "Team Member", from: "Project role"
     find("#user_address_country_id option[value='#{country.id}']").select_option
     fill_in "Address line 1", with: "123 Main Street"
@@ -35,14 +38,7 @@ RSpec.describe "Adding a project team member", type: :system, js: true do
     select state.name, from: "Address state"
 
     click_button "Save"
-    expect(page).to have_css(".modal.visible h2", text: "Create a New User")
-    expect(page.find("#user_institution_id", visible: false).value).to eq(ror.ror_id)
-    expect(page.find("#user_institution_selection_type", visible: false).value).to eq("ror")
-    fill_in "First name", with: "New"
-    expect(page.find("#user_institution_id", visible: false).value).to eq(ror.ror_id)
-    expect(page.find("#user_institution_selection_type", visible: false).value).to eq("ror")
-    click_button "Save"
-    expect(page).to have_no_css(".modal.visible")
+    expect(page).to have_css("table.team-member-table", text: "New Member")
 
     new_user = User.find_by!(email: "new.member@example.test")
     expect(new_user.institution).to have_attributes(

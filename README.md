@@ -160,7 +160,7 @@ use `run` instead.
 ```sh
 $ docker compose exec web bundle exec rspec
 # or an individual test like
-$ docker compose exec web bundle exec rspec ./spec/system/authentication_spec.rb:19
+$ docker compose exec web bundle exec rspec ./spec/requests/authentication_spec.rb:14
 ```
 
 ### Using pry with Docker
@@ -200,6 +200,46 @@ bundle exec rspec
 # from a running Docker container
 docker compose exec web bundle exec rspec
 ```
+
+### Running RSpec in parallel
+
+RSpec is sharded with `parallel_tests`; each worker uses its own test database
+(`ucnrs_rams_test`, `ucnrs_rams_test2`, ...) selected by `TEST_ENV_NUMBER`.
+Create/refresh the worker databases after schema changes:
+
+```sh
+bundle exec rake parallel:prepare
+```
+
+Then run the suite across all CPUs, or a subset with a fixed worker count:
+
+```sh
+bundle exec parallel_rspec spec
+bundle exec parallel_rspec spec/presenters spec/requests -n 4
+```
+
+Browser specs (`js: true`) are reserved for behavior that genuinely requires
+JavaScript. Everything else should be a request spec or a presenter spec.
+They need the compiled test JavaScript; rebuild it after pulling JavaScript
+changes (missing packs now fail fast with an explicit message):
+
+```sh
+RAILS_ENV=test bin/shakapacker
+```
+
+### Profiling slow specs
+
+`test-prof` is installed for profiling. For example, to see where a directory
+spends its time across SQL and factories:
+
+```sh
+TAG_PROF=type TAG_PROF_EVENT=sql.active_record,factory.create \
+  bundle exec rspec spec/requests
+```
+
+Use `FPROF=1` with `FACTORY_DEFAULT_PROF=1` on a single file to inspect factory
+associations, and `TEST_STACK_PROF=1 SAMPLE=200 bundle exec rspec spec` for a
+sampling profile that can be opened at https://speedscope.app.
 
 ### Running Jest tests
 

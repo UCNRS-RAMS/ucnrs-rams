@@ -26,7 +26,17 @@
   and refactoring. Test observable outcomes and meaningful failure cases,
   rather than private methods or a quota of tests per method.
 - Prefer model/PORO specs for domain behavior, request specs for HTTP and
-  authorization, and system specs for browser interactions.
+  authorization, and presenter specs for presentation logic (labels, formatting,
+  conditional partials). Keep view specs only for rendering behavior that cannot
+  be expressed as presenter output.
+- Reserve `type: :system, js: true` (Selenium) for interactions that genuinely
+  require a browser, such as Stimulus/Turbo behavior that has no other coverage.
+  Server-rendered pages, redirects, flashes, and form persistence belong in
+  request specs; dynamic widget behavior is usually best covered by a Jest unit
+  test for the Stimulus controller.
+- Request specs may assert rendered markup with `Capybara.string(response.body)`
+  when the page itself is the behavior under test; keep those assertions to
+  stable structure and user-visible content.
 - Keep example-specific setup visible in the example. Existing RSpec `let`
   and `before` conventions may be retained; avoid unrelated fixture rewrites.
 - Factories live in `spec/factories/`. Prefer `build` or `build_stubbed` when

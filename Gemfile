@@ -60,6 +60,7 @@ group :development, :test do
   gem 'pronto-rubocop', require: false
   gem 'pry-byebug'
   gem 'pry-rails'
+  gem 'parallel_tests'
   gem 'rspec-rails', '~> 8.0'
   gem 'rswag-specs'
   gem 'rubocop', require: false
@@ -67,6 +68,7 @@ group :development, :test do
   gem 'rubocop-rails-omakase', require: false
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
+  gem 'test-prof', require: false
 end
 
 # this is for testing when needed

@@ -7,6 +7,7 @@ require File.expand_path("../config/environment", __dir__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "rspec/rails"
+require "test_prof"
 # Add additional requires below this line. Rails is not loaded until this point!
 require "capybara/rails"
 require "axe-rspec"
@@ -14,8 +15,13 @@ require "axe-capybara"
 require "selenium/webdriver"
 require "capybara/rspec"
 
-# Build CSS assets before running specs
-system("yarn build:css") || warn("Warning: yarn build:css failed")
+# Build CSS assets only when they are missing, or when explicitly requested with
+# BUILD_CSS=1. Rebuilding on every boot costs a subprocess per test process and
+# the result is only needed by the handful of system specs.
+css_bundle = Rails.root.join("app/assets/builds/application.css")
+if ENV["BUILD_CSS"].present? || !css_bundle.exist?
+  system("yarn build:css") || warn("Warning: yarn build:css failed")
+end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -83,13 +89,15 @@ RSpec.configure do |config|
       example.run
       Bullet.perform_out_of_channel_notifications if Bullet.notification?
       Bullet.end_request
+    else
+      example.run
     end
   end
 
-  # Remove images generated during test runs
+  # Remove images generated during test runs (per parallel worker)
   config.after(:all) do
     if Rails.env.test?
-      FileUtils.rm_rf(Dir["#{Rails.root.join("tmp/ucnrs-test")}"])
+      FileUtils.rm_rf(Rails.root.join("tmp/ucnrs-test#{ENV['TEST_ENV_NUMBER']}"))
     end
   end
 end

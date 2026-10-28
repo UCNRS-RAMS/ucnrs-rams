@@ -164,5 +164,88 @@ RSpec.describe Manager::Dashboard::CalendarController, type: :request do
       }.uniq
       expect(widths).to eq [ 7 ]
     end
+
+    describe "calendar filter pills" do
+      def filter_params(overrides = {})
+        ReserveCalendarFilter::DEFAULTS
+          .transform_values(&:to_s)
+          .merge(overrides.transform_values(&:to_s))
+      end
+
+      def manager_of(reserve)
+        create(:reserve_personnel, user: create(:user, :confirmed), reserve: reserve).user
+      end
+
+      def booked_visit(reserve:, user:, status:, from:, to:)
+        visit = create(:visit, reserve: reserve, status: status,
+          starts_at: Time.zone.parse(from), ends_at: Time.zone.parse(to))
+        create(:user_visit, visit: visit, user: user,
+          arrives_at: Time.zone.parse(from), departs_at: Time.zone.parse(to))
+        visit
+      end
+
+      it "hides the visit bars when the Visits pill is switched off, keeping the amenity rows" do
+        reserve = create(:reserve)
+        user = manager_of(reserve)
+        visit = booked_visit(reserve: reserve, user: user, status: :approved,
+          from: "2026-05-06 10:00", to: "2026-05-08 16:00")
+        amenity_visit = create(:amenity_visit, visit: visit,
+          amenity: create(:amenity, reserve: reserve),
+          arrives: Time.zone.parse("2026-05-06 10:00"),
+          departs: Time.zone.parse("2026-05-08 16:00"))
+        sign_in(user)
+
+        get "/manager/reserves/#{reserve.id}/dashboard/calendar",
+          params: { month: 5, year: 2026 }.merge(filter_params(show_visits: "false"))
+
+        page = Capybara.string(response.body)
+        expect(page).to have_no_css("a.cal-entry[data-entry-id^='visit-#{visit.id}-']")
+        expect(page).to have_css("a.cal-entry[data-amenity-visit-id='#{amenity_visit.id}']")
+      end
+
+      it "keeps only the bars whose status pill is switched on" do
+        reserve = create(:reserve)
+        user = manager_of(reserve)
+        approved = booked_visit(reserve: reserve, user: user, status: :approved,
+          from: "2026-05-06 10:00", to: "2026-05-08 16:00")
+        cancelled = booked_visit(reserve: reserve, user: user, status: :cancelled,
+          from: "2026-05-13 10:00", to: "2026-05-15 16:00")
+        sign_in(user)
+
+        get "/manager/reserves/#{reserve.id}/dashboard/calendar",
+          params: { month: 5, year: 2026 }
+
+        page = Capybara.string(response.body)
+        expect(page).to have_css("a.cal-entry[data-entry-id^='visit-#{approved.id}-']")
+        expect(page).to have_no_css("a.cal-entry[data-entry-id^='visit-#{cancelled.id}-']")
+
+        get "/manager/reserves/#{reserve.id}/dashboard/calendar",
+          params: { month: 5, year: 2026 }.merge(
+            filter_params(show_approved: "false", show_cancelled: "true")
+          )
+
+        page = Capybara.string(response.body)
+        expect(page).to have_no_css("a.cal-entry[data-entry-id^='visit-#{approved.id}-']")
+        expect(page).to have_css("a.cal-entry[data-entry-id^='visit-#{cancelled.id}-']")
+      end
+
+      it "links the grid to the previous and next month, carrying the filters along" do
+        reserve = create(:reserve)
+        user = manager_of(reserve)
+        sign_in(user)
+
+        get "/manager/reserves/#{reserve.id}/dashboard/calendar",
+          params: { month: 5, year: 2026 }.merge(filter_params(show_visits: "false"))
+
+        page = Capybara.string(response.body)
+        next_href = page.all("a.next-month").map { |link| link[:href] }.uniq
+        prev_href = page.all("a.prev-month").map { |link| link[:href] }.uniq
+
+        expect(next_href.size).to eq 1
+        expect(next_href.first).to include("month=6", "year=2026", "show_visits=false")
+        expect(prev_href.size).to eq 1
+        expect(prev_href.first).to include("month=4", "year=2026", "show_visits=false")
+      end
+    end
   end
 end

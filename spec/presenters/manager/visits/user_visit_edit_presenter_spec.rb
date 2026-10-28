@@ -50,4 +50,22 @@ RSpec.describe Visits::UserVisitEditPresenter do
       expect(presenter.user_days_description).to eq "3 days x 5 users = 15 userdays"
     end
   end
+
+  describe "#manual_days?" do
+    it "is false when the visitor uses the arrival and departure dates" do
+      user_visit = create(:user_visit)
+      form = UserVisitForm.new(params: { id: user_visit.id, actual_days: 0 })
+      presenter = Manager::Visits::UserVisitEditPresenter.new(form: form)
+
+      expect(presenter.manual_days?).to eq false
+    end
+
+    it "is true when the visitor has manually entered actual days" do
+      user_visit = create(:user_visit)
+      form = UserVisitForm.new(params: { id: user_visit.id, actual_days: 2 })
+      presenter = Manager::Visits::UserVisitEditPresenter.new(form: form)
+
+      expect(presenter.manual_days?).to eq true
+    end
+  end
 end

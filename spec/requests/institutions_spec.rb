@@ -14,6 +14,34 @@ RSpec.describe InstitutionsController, type: :request do
     }
   end
 
+  describe "GET /institutions" do
+    it "returns the institutions matching the autocomplete query" do
+      sign_in(create(:user, :confirmed))
+      create(:institution, name: "University of California")
+      create(:institution, name: "University of Massachusetts")
+
+      get "/institutions", params: { q: "Cal" }
+
+      expect(response).to be_ok
+
+      doc = Capybara.string(response.body)
+      expect(doc).to have_css("li[role='option'][data-autocomplete-label='University of California']")
+      expect(doc).to have_no_css("li[data-autocomplete-label='University of Massachusetts']")
+    end
+
+    it "renders a no results option when nothing matches" do
+      sign_in(create(:user, :confirmed))
+      create(:institution, name: "University of California")
+
+      get "/institutions", params: { q: "Nowhere Tech" }
+
+      expect(response).to be_ok
+
+      doc = Capybara.string(response.body)
+      expect(doc).to have_css("li[aria-disabled='true']")
+    end
+  end
+
   describe "GET /institutions/new" do
     it "renders the modal frame for a turbo frame request" do
       sign_in(create(:user, :confirmed))

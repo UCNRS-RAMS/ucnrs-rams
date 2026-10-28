@@ -11,7 +11,9 @@ if Rails.env.test?
   CarrierWave.configure do |config|
     config.storage = :file
     config.enable_processing = false
-    config.root = "#{Rails.root.join("tmp/ucnrs-test")}".freeze
+    # Keep each parallel worker's uploads separate so they cannot delete or
+    # overwrite files another worker is asserting on.
+    config.root = Rails.root.join("tmp/ucnrs-test#{ENV['TEST_ENV_NUMBER']}").to_s.freeze
     config.cache_dir = "uploads/cache".freeze
   end
 end

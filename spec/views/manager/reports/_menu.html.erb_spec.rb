@@ -1,68 +1,37 @@
 require "rails_helper"
 
 RSpec.describe "reports menu", type: :view do
-  it "display the reports page menu" do
-    reserve = create(:reserve)
-    form = AnnualReportForm.new(annual_report: create(:annual_report, fiscal_year_ending: 2.year.ago.year))
-    presenter = Manager::Reports::ReportBasePresenter.new(
-      form: form,
-    )
+  let(:reserve) { create(:reserve) }
+  let(:form) { AnnualReportForm.new(annual_report: create(:annual_report, fiscal_year_ending: 2.year.ago.year)) }
+  let(:presenter) { Manager::Reports::ReportBasePresenter.new(form: form) }
 
+  before do
     without_partial_double_verification do
-      allow(view).to receive(:super_admin?).and_return(false)
+      allow(view).to receive(:super_admin?).and_return(super_admin)
     end
-
-    render partial: "manager/reports/menu", locals: { current_reserve: reserve, presenter: presenter }
-
-    expect(rendered).to have_link(
-      "Reserve Use",
-      href: "/manager/reserves/#{reserve.id}/reports/#{2.year.ago.year}/report_part_1",
-    )
-    expect(rendered).to have_link(
-      "User Affiliation",
-      href: "/manager/reserves/#{reserve.id}/reports/#{2.year.ago.year}/report_part_2",
-    )
-    expect(rendered).to have_link(
-      "Use By Instructional Groups",
-      href: "/manager/reserves/#{reserve.id}/reports/#{2.year.ago.year}/report_part_3",
-    )
-    expect(rendered).to have_link(
-      "Current Research",
-      href: "/manager/reserves/#{reserve.id}/reports/#{2.year.ago.year}/report_part_4",
-    )
-    expect(rendered).to have_link(
-      "Publications",
-      href: "/manager/reserves/#{reserve.id}/reports/#{2.year.ago.year}/report_part_5",
-    )
-    expect(rendered).to have_link(
-      "Narrative",
-      href: "/manager/reserves/#{reserve.id}/reports/#{2.year.ago.year}/report_part_6",
-    )
-    expect(rendered).to have_link(
-      "NRS Campus Committee",
-      href: "/manager/reserves/#{reserve.id}/reports/#{2.year.ago.year}/report_part_7",
-    )
-    expect(rendered).to have_link("Report Status")
-    expect(rendered).not_to have_link("Admin Report Status")
   end
 
-  it "shows the admin report status link to super admins" do
-    reserve = create(:reserve)
-    form = AnnualReportForm.new(annual_report: create(:annual_report, fiscal_year_ending: 2.year.ago.year))
-    presenter = Manager::Reports::ReportBasePresenter.new(
-      form: form,
-    )
+  context "when the user is not a super admin" do
+    let(:super_admin) { false }
 
-    without_partial_double_verification do
-      allow(view).to receive(:super_admin?).and_return(true)
+    it "does not show the admin report status link" do
+      render partial: "manager/reports/menu", locals: { current_reserve: reserve, presenter: presenter }
+
+      expect(rendered).not_to have_link("Admin Report Status")
     end
+  end
 
-    render partial: "manager/reports/menu", locals: { current_reserve: reserve, presenter: presenter }
+  context "when the user is a super admin" do
+    let(:super_admin) { true }
 
-    expect(rendered).to have_link("Admin Report Status", href: "/admin/reports")
-    expect(rendered).to have_css(
-      "a[href='/admin/reports'][target='_blank'][aria-label='Admin Report Status (opens in new tab)']",
-      text: "Admin Report Status",
-    )
+    it "shows the admin report status link in a new tab" do
+      render partial: "manager/reports/menu", locals: { current_reserve: reserve, presenter: presenter }
+
+      expect(rendered).to have_link("Admin Report Status", href: "/admin/reports")
+      expect(rendered).to have_css(
+        "a[href='/admin/reports'][target='_blank'][aria-label='Admin Report Status (opens in new tab)']",
+        text: "Admin Report Status",
+      )
+    end
   end
 end

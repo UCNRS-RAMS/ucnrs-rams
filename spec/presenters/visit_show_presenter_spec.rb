@@ -41,6 +41,27 @@ RSpec.describe VisitShowPresenter do
 
       expect(presenter.sidebar_partial_name).to eq "visits/sidebar_approved_show"
     end
+
+    it "returns the in_review sidebar partial for a visit awaiting review" do
+      visit = create(:visit, status: :in_review)
+      presenter = VisitShowPresenter.new(visit)
+
+      expect(presenter.sidebar_partial_name).to eq "visits/sidebar_in_review_show"
+    end
+
+    it "returns the cancelled sidebar partial for a cancelled visit" do
+      visit = create(:visit, status: :cancelled)
+      presenter = VisitShowPresenter.new(visit)
+
+      expect(presenter.sidebar_partial_name).to eq "visits/sidebar_cancelled_show"
+    end
+
+    it "returns the denied sidebar partial for a denied visit" do
+      visit = create(:visit, status: :denied)
+      presenter = VisitShowPresenter.new(visit)
+
+      expect(presenter.sidebar_partial_name).to eq "visits/sidebar_denied_show"
+    end
   end
 
   describe "#visit_is_user_editable?" do

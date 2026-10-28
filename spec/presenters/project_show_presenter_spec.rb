@@ -8,6 +8,13 @@ RSpec.describe ProjectShowPresenter do
 
       expect(presenter.project_status).to eq "Open Project"
     end
+
+    it "displays the incomplete status of a project that has not been submitted" do
+      project = create(:project, status: :incomplete)
+      presenter = ProjectShowPresenter.new(project)
+
+      expect(presenter.project_status).to eq "Incomplete Project"
+    end
   end
 
   describe "#submitted_at" do
@@ -17,6 +24,13 @@ RSpec.describe ProjectShowPresenter do
       presenter = ProjectShowPresenter.new(project)
 
       expect(presenter.submitted_at).to eq "Nov. 24, 2004 at  1:04 AM"
+    end
+
+    it "is 'Not yet submitted' when the project has not been submitted" do
+      project = create(:project, submitted_at: nil)
+      presenter = ProjectShowPresenter.new(project)
+
+      expect(presenter.submitted_at).to eq "Not yet submitted"
     end
   end
 
