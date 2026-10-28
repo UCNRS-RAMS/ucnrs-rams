@@ -13,8 +13,7 @@ RSpec.describe Api::V1::TeamMembershipPresenter do
 
       expect(described_class.new(membership).as_json.keys).to match_array(
         %i[
-          id type active user_role is_principal_investigator can_edit_project
-          can_add_project_user can_add_visit can_receive_invoice project user
+          id type active user_role is_principal_investigator project user
           institution created_at updated_at
         ]
       )
@@ -25,11 +24,7 @@ RSpec.describe Api::V1::TeamMembershipPresenter do
         :project_team_membership,
         active: false,
         user_role: :faculty,
-        is_principal_investigator: true,
-        can_edit_project: true,
-        can_add_project_user: false,
-        can_add_visit: true,
-        can_receive_invoice: false
+        is_principal_investigator: true
       )
 
       expect(described_class.new(membership).as_json).to include(
@@ -37,11 +32,7 @@ RSpec.describe Api::V1::TeamMembershipPresenter do
         type: "team_memberships",
         active: false,
         user_role: "faculty",
-        is_principal_investigator: true,
-        can_edit_project: true,
-        can_add_project_user: false,
-        can_add_visit: true,
-        can_receive_invoice: false
+        is_principal_investigator: true
       )
     end
 
