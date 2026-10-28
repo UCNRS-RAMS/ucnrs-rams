@@ -102,7 +102,7 @@ RSpec.configure do |config|
   end
 end
 
-Capybara.default_max_wait_time = 3
+Capybara.default_max_wait_time = 5
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|

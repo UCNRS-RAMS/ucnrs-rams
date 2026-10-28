@@ -15,8 +15,7 @@ RSpec.describe "Manager Visit Show" do
       flow = Manager::VisitShowVisitorTabFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
 
       sign_in(user)
-      flow.visit_show_page
-      flow.click_on_vistors_tab
+      flow.visit_user_visits_page
 
       flow.click_on_add_individual
       flow.set_guest
