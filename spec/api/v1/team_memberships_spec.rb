@@ -47,10 +47,14 @@ RSpec.describe 'Api::V1::TeamMemberships', type: :request do
         description: 'Filter by user role. An unknown value returns 400.'
       parameter name: :active, in: :query, required: false,
         schema: { type: :boolean },
-        description: 'Only active or inactive memberships. A value other than true or false returns 400.'
+        description: 'Only active or inactive memberships. A value other than true or false returns 400. ' \
+          'No default: active and inactive memberships are both returned unless this filter is set.'
       parameter name: :is_principal_investigator, in: :query, required: false,
         schema: { type: :boolean },
         description: 'Only principal investigators or non-principal investigators. A value other than true or false returns 400.'
+      parameter name: :updated_since, in: :query, required: false,
+        schema: { type: :string, format: 'date-time' },
+        description: 'Only memberships updated at or after this ISO 8601 instant, inclusive.'
 
       response '200', 'team memberships visible to the client' do
         schema '$ref' => '#/components/schemas/TeamMembershipsCollection'

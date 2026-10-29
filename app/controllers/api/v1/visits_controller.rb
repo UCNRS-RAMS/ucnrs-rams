@@ -60,22 +60,6 @@ module Api
         scope
       end
 
-      # The +updated_since+ filter: visits updated at or after the given
-      # instant, or nil when the caller did not filter. The bound is inclusive
-      # so a client syncing incrementally cannot skip a visit that shares a
-      # timestamp with its previous pull; it re-reads that visit instead.
-      #
-      # @return [Time, nil]
-      # @raise [InvalidFilter] when the value is not an ISO 8601 timestamp
-      def updated_since_filter
-        value = params[:updated_since].presence
-        return nil if value.nil?
-
-        Time.zone.iso8601(value)
-      rescue ArgumentError
-        raise(InvalidFilter, "updated_since must be an ISO 8601 timestamp")
-      end
-
       # The +starts_on+ / +ends_on+ filter as arguments for
       # Visit.having_between_time_for, or nil when neither is supplied. The
       # dates are widened to whole days, so a visit that starts or ends on a

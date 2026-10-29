@@ -101,6 +101,22 @@ module Api
         raise InvalidFilter, "#{param} must be true or false"
       end
 
+      # The +updated_since+ filter shared by collection endpoints that support
+      # incremental sync: records updated at or after the given instant, or nil
+      # when the caller did not filter. The bound is inclusive so a client
+      # syncing at a timestamp re-reads tied records rather than skipping one.
+      #
+      # @return [Time, nil]
+      # @raise [InvalidFilter] when the value is not an ISO 8601 timestamp
+      def updated_since_filter
+        value = params[:updated_since].presence
+        return nil if value.nil?
+
+        Time.zone.iso8601(value)
+      rescue ArgumentError
+        raise(InvalidFilter, "updated_since must be an ISO 8601 timestamp")
+      end
+
       # @param error [InvalidFilter]
       # @return [void]
       def render_bad_request(error)
