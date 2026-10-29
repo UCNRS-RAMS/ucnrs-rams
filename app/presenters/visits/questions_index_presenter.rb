@@ -58,11 +58,34 @@ class Visits::QuestionsIndexPresenter
   end
 
   def reserve_question_scope
-    if !visit.submitted_at? && !visit_reserve_answer_exist? && !project_reserve_answer_exist?
-      reserve_question_scope_from_questions
+    return visit_reserve_questions_from_answers.in_order if visit.submitted_at?
+
+    if first_reserve_visit_on_project?
+      first_visit_reserve_question_scope
     else
-      reserve_question_scope_from_answers
+      later_visit_reserve_question_scope
     end
+  end
+
+  # A first visit shows the visit answers and the project answers saved for this
+  # reserve. Before anything is answered it shows everything the reserve asks, so
+  # required questions cannot be skipped.
+  def first_visit_reserve_question_scope
+    return reserve_question_scope_from_answers if reserve_answers_saved?
+
+    reserve_question_scope_from_questions
+  end
+
+  # Later visits only ask visit-level questions. Once past this step, show the
+  # ones that were answered; otherwise show them all.
+  def later_visit_reserve_question_scope
+    return visit_reserve_questions_from_answers.in_order if visit_reserve_answer_exist?
+
+    reserve_question_scope_from_questions
+  end
+
+  def reserve_answers_saved?
+    visit_reserve_answer_exist? || project_reserve_questions_from_answers.exists?
   end
 
   def wrap_question_in_presenter(question)
@@ -74,15 +97,15 @@ class Visits::QuestionsIndexPresenter
   end
 
   def first_reserve_visit_on_project?
-    Visit.where(project_id: visit.project_id, reserve_id: visit.reserve_id).count < 2
+    unless defined?(@first_reserve_visit_on_project)
+      @first_reserve_visit_on_project = visit.first_reserve_visit_on_project?
+    end
+
+    @first_reserve_visit_on_project
   end
 
   def visit_reserve_answer_exist?
     visit.visit_reserve_answers.present?
-  end
-
-  def project_reserve_answer_exist?
-    ProjectReserveAnswer.where(project: visit.project).present?
   end
 
   def reserve_question_scope_from_questions
@@ -101,22 +124,17 @@ class Visits::QuestionsIndexPresenter
   end
 
   def reserve_question_scope_from_answers
-    if visit.submitted_at?
-      visit_reserve_questions_from_answers.in_order
-
-    else
-      ReserveQuestion
-        .from("
-          (
-            #{visit_reserve_questions_from_answers.to_sql}
-            UNION
-            #{project_reserve_questions_from_answers.to_sql}
-          )
-          AS reserve_questions
-        ")
-        .by_location
-        .in_order
-    end
+    ReserveQuestion
+      .from("
+        (
+          #{visit_reserve_questions_from_answers.to_sql}
+          UNION
+          #{project_reserve_questions_from_answers.to_sql}
+        )
+        AS reserve_questions
+      ")
+      .by_location
+      .in_order
   end
 
   def visit_reserve_questions_from_answers

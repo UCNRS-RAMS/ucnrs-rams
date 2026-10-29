@@ -7,178 +7,176 @@ RSpec.describe Visits::QuestionsIndexPresenter do
   end
 
   describe "#reserve_questions_by_location" do
-    it "returns reserve questions wrapped in Visits::QuestionPresenter" do
-      reserve = create(:reserve)
-      visit = create(:visit, reserve: reserve)
-      question1 = create(:reserve_question, reserve: reserve, location: :visit)
-      question2 = create(:reserve_question, reserve: reserve, location: :project)
-      presenter = Visits::QuestionsIndexPresenter.new(current_step: 3, visit: visit)
+    subject(:results) { presenter.reserve_questions_by_location }
 
-      results = presenter.reserve_questions_by_location
+    let(:presenter) { described_class.new(current_step: 3, visit: visit) }
+    let(:reserve) { create(:reserve) }
+    let(:project) { create(:project) }
+    let(:visit) { create(:visit, reserve: reserve, project: project) }
 
-      expect(results.values.flatten.map(&:id))
-        .to match_array [question1.id, question2.id]
-      expect(results.values.flatten).to all(be_instance_of Visits::QuestionPresenter)
-    end
-
-    it "returns reserve questions in order" do
-      reserve = create(:reserve)
-      visit = create(:visit, reserve: reserve)
-      question1 = create(:reserve_question, reserve: reserve, location: :visit, sort_order: 2)
-      question2 = create(:reserve_question, reserve: reserve, location: :visit, sort_order: 1)
-      question3 = create(:reserve_question, reserve: reserve, location: :visit, sort_order: 3)
-      presenter = Visits::QuestionsIndexPresenter.new(current_step: 3, visit: visit)
-
-      results = presenter.reserve_questions_by_location
-
-      expect(results.values.flatten.map(&:id)).to eq [question2.id, question1.id, question3.id]
-    end
-
-    context "if visit has not been submitted and answers do not exist" do
-      it "return questions from reserve questions table" do
-        reserve = create(:reserve)
-        visit = create(:visit, reserve: reserve, submitted_at: nil)
-        visit_question1 = create(:reserve_question, location: :visit)
-        visit_question2 = create(:reserve_question, reserve: reserve, location: :visit)
-        project_question1 = create(:reserve_question, reserve: reserve, location: :project)
-        project_question2 = create(:reserve_question, location: :project)
-        presenter = Visits::QuestionsIndexPresenter.new(current_step: 3, visit: visit)
-
-        results = presenter.reserve_questions_by_location
-
-        expect(results.keys).to match_array %w[visit project]
-        expect(results["visit"].map(&:id)).to match_array [visit_question2.id]
-        expect(results["project"].map(&:id)).to match_array [project_question1.id]
+    context "when the visit is submitted" do
+      let(:visit) { create(:visit, reserve: reserve, project: project, submitted_at: Time.current) }
+      let!(:earlier_visit) { create(:visit, reserve: reserve, project: project, submitted_at: Time.current) }
+      let!(:visit_question) do
+        create(:reserve_question, reserve: reserve, location: :visit, question_type: :text)
+      end
+      let!(:other_visit_question) do
+        create(:reserve_question, reserve: reserve, location: :visit, question_type: :text)
+      end
+      let!(:project_question) do
+        create(:reserve_question, reserve: reserve, location: :project, question_type: :text)
       end
 
-      it "returns only visible reserve questions" do
-        reserve = create(:reserve)
-        visit = create(:visit, reserve: reserve)
-        question1 = create(:reserve_question, reserve: reserve, location: :visit, visible: true)
-        question2 = create(:reserve_question, reserve: reserve, location: :visit, visible: false)
-        question3 = create(:reserve_question, reserve: reserve, location: :visit, visible: true)
-        presenter = Visits::QuestionsIndexPresenter.new(current_step: 3, visit: visit)
-
-        results = presenter.reserve_questions_by_location
-
-        expect(results.values.flatten.map(&:id)).to eq [question1.id, question3.id]
+      before do
+        create(:visit_reserve_answer, visit: earlier_visit, reserve_question: visit_question,
+          text_answer: "earlier visit")
+        create(:project_reserve_answer, project: project, reserve_question: project_question,
+          text_answer: "project answer")
       end
 
-      it "returns only reserve questions involving what the project involves" do
-        reserve = create(:reserve)
-        project = create(:project, involves_none: false, involves_mammals: true)
-        visit = create(:visit, reserve: reserve, project: project)
-        ignoring_question = create(:reserve_question, reserve: reserve, location: :visit, ignore_involvements: true)
-        mammals_question = create(
-          :reserve_question,
-          reserve: reserve,
-          location: :visit,
-          ignore_involvements: false,
-          involves_mammals: true,
-        )
-        create(
-          :reserve_question,
-          reserve: reserve,
-          location: :visit,
-          ignore_involvements: false,
-          involves_fish: true,
-        )
-        presenter = Visits::QuestionsIndexPresenter.new(current_step: 3, visit: visit)
-
-        results = presenter.reserve_questions_by_location
-
-        expect(results.values.flatten.map(&:id))
-          .to match_array [ignoring_question.id, mammals_question.id]
-      end
-    end
-
-    context "if visit has not been submitted and visit answer exist" do
-      it "return questions from project answer and visit answer table " do
-        reserve = create(:reserve)
-        visit = create(:visit, reserve: reserve, submitted_at: nil)
-        visit_question1 = create(:reserve_question, location: :visit)
-        visit_question2 = create(:reserve_question, reserve: reserve, location: :visit)
-        project_question1 = create(:reserve_question, reserve: reserve, location: :project)
-        project_question2 = create(:reserve_question, location: :project)
-        visit_answer2 = create(:visit_reserve_answer, visit: visit, reserve_question: visit_question2)
-        project_answer1 = create(:project_reserve_answer, project: visit.project, reserve_question: project_question1)
-        presenter = Visits::QuestionsIndexPresenter.new(current_step: 3, visit: visit)
-
-        results = presenter.reserve_questions_by_location
-
-        expect(results.keys).to match_array %w[visit project]
-        expect(results["visit"].map(&:id)).to match_array [visit_question2.id]
-        expect(results["project"].map(&:id)).to match_array [project_question1.id]
-      end
-
-      it "return the answers from project answer and visit answer table" do
-        reserve = create(:reserve)
-        visit = create(:visit, reserve: reserve, submitted_at: nil)
-        visit_question1 = create(:reserve_question, location: :visit, question_type: :text)
-        visit_question2 = create(:reserve_question, reserve: reserve, location: :visit, question_type: :text)
-        project_question1 = create(:reserve_question, reserve: reserve, location: :project, question_type: :text)
-        project_question2 = create(:reserve_question, location: :project, question_type: :text)
-        visit_answer2 = create(:visit_reserve_answer, visit: visit, reserve_question: visit_question2,
-          text_answer: "answer for visit question")
-        project_answer1 = create(:project_reserve_answer, project: visit.project, reserve_question: project_question1,
-          text_answer: "answer for project question")
-        presenter = Visits::QuestionsIndexPresenter.new(current_step: 3, visit: visit)
-
-        results = presenter.reserve_questions_by_location
-
-        expect(results.keys).to match_array %w[visit project]
-        expect(results["visit"].map(&:text_answer)).to match_array [visit_answer2.text_answer]
-        expect(results["project"].map(&:text_answer)).to match_array [project_answer1.text_answer]
-      end
-    end
-
-    context "if visit is submitted" do
-      it "returns questions only from visit answer table" do
-        reserve = create(:reserve)
-        visit = create(:visit, reserve: reserve, submitted_at: Time.current)
-        visit_question1 = create(:reserve_question, reserve: reserve, location: :visit)
-        visit_question2 = create(:reserve_question, reserve: reserve, location: :visit)
-        project_question1 = create(:reserve_question, reserve: reserve, location: :project)
-        visit_answer1 = create(:visit_reserve_answer, visit: visit, reserve_question: visit_question1)
-        project_answer1 = create(:project_reserve_answer, project: visit.project, reserve_question: project_question1)
-        presenter = Visits::QuestionsIndexPresenter.new(current_step: 3, visit: visit)
-
-        results = presenter.reserve_questions_by_location
+      it "returns only the visit questions this visit answered, without project questions" do
+        create(:visit_reserve_answer, visit: visit, reserve_question: visit_question,
+          text_answer: "visit answer")
+        create(:visit_reserve_answer, visit: visit, reserve_question: other_visit_question,
+          text_answer: "other visit answer")
 
         expect(results.keys).to match_array %w[visit]
-        expect(results["visit"].map(&:id)).to match_array [visit_question1.id]
+        expect(results["visit"].map(&:id)).to match_array [visit_question.id, other_visit_question.id]
+        expect(results["visit"].map(&:text_answer)).to match_array ["visit answer", "other visit answer"]
       end
 
-      it "return the answers only from visit answer table" do
-        reserve = create(:reserve)
-        visit = create(:visit, reserve: reserve, submitted_at: Time.current)
-        visit_question1 = create(:reserve_question, location: :visit, question_type: :text)
-        visit_question2 = create(:reserve_question, reserve: reserve, location: :visit, question_type: :text)
-        project_question1 = create(:reserve_question, reserve: reserve, location: :project, question_type: :text)
-        project_question2 = create(:reserve_question, location: :project, question_type: :text)
-        visit_answer2 = create(:visit_reserve_answer, visit: visit, reserve_question: visit_question2,
-          text_answer: "answer for visit question")
-        project_answer1 = create(:project_reserve_answer, project: visit.project, reserve_question: project_question1,
-          text_answer: "answer for project question")
-        presenter = Visits::QuestionsIndexPresenter.new(current_step: 3, visit: visit)
+      it "omits visit questions this visit did not answer" do
+        create(:visit_reserve_answer, visit: visit, reserve_question: visit_question,
+          text_answer: "visit answer")
 
-        results = presenter.reserve_questions_by_location
-
-        expect(results.keys).to match_array %w[visit]
-        expect(results["visit"].map(&:text_answer)).to match_array [visit_answer2.text_answer]
+        expect(results["visit"].map(&:id)).to eq [visit_question.id]
       end
     end
 
-    it "groups questions according to location" do
-      reserve = create(:reserve)
-      visit = create(:visit, reserve: reserve)
-      create(:reserve_question, reserve: reserve, location: :visit)
-      create(:reserve_question, reserve: reserve, location: :project)
-      presenter = Visits::QuestionsIndexPresenter.new(current_step: 3, visit: visit)
+    context "on a first visit to the reserve" do
+      context "before any answers are saved" do
+        it "returns the reserve's visit and project questions wrapped in Visits::QuestionPresenter" do
+          visit_question = create(:reserve_question, reserve: reserve, location: :visit)
+          project_question = create(:reserve_question, reserve: reserve, location: :project)
 
-      results = presenter.reserve_questions_by_location
+          expect(results.keys).to match_array %w[visit project]
+          expect(results.values.flatten.map(&:id)).to match_array [visit_question.id, project_question.id]
+          expect(results.values.flatten).to all(be_instance_of Visits::QuestionPresenter)
+        end
 
-      expect(results.keys).to match_array %w[visit project]
+        it "returns reserve questions in order" do
+          question2 = create(:reserve_question, reserve: reserve, location: :visit, sort_order: 2)
+          question1 = create(:reserve_question, reserve: reserve, location: :visit, sort_order: 1)
+          question3 = create(:reserve_question, reserve: reserve, location: :visit, sort_order: 3)
+
+          expect(results["visit"].map(&:id)).to eq [question1.id, question2.id, question3.id]
+        end
+
+        it "returns only visible reserve questions" do
+          question1 = create(:reserve_question, reserve: reserve, location: :visit, visible: true)
+          create(:reserve_question, reserve: reserve, location: :visit, visible: false)
+          question3 = create(:reserve_question, reserve: reserve, location: :visit, visible: true)
+
+          expect(results["visit"].map(&:id)).to eq [question1.id, question3.id]
+        end
+
+        context "when the project involves mammals" do
+          let(:project) { create(:project, involves_none: false, involves_mammals: true) }
+
+          it "returns only reserve questions involving what the project involves" do
+            ignoring_question = create(:reserve_question, reserve: reserve, location: :visit,
+              ignore_involvements: true)
+            mammals_question = create(:reserve_question, reserve: reserve, location: :visit,
+              ignore_involvements: false, involves_mammals: true)
+            create(:reserve_question, reserve: reserve, location: :visit,
+              ignore_involvements: false, involves_fish: true)
+
+            expect(results["visit"].map(&:id)).to match_array [ignoring_question.id, mammals_question.id]
+          end
+        end
+      end
+
+      context "with saved answers" do
+        it "returns the answered visit and project questions" do
+          visit_question = create(:reserve_question, reserve: reserve, location: :visit, question_type: :text)
+          project_question = create(:reserve_question, reserve: reserve, location: :project,
+            question_type: :text)
+          create(:visit_reserve_answer, visit: visit, reserve_question: visit_question,
+            text_answer: "visit answer")
+          create(:project_reserve_answer, project: project, reserve_question: project_question,
+            text_answer: "project answer")
+
+          expect(results.keys).to match_array %w[visit project]
+          expect(results["visit"].map(&:text_answer)).to match_array ["visit answer"]
+          expect(results["project"].map(&:text_answer)).to match_array ["project answer"]
+        end
+
+        it "omits an unanswered visit question when a project answer exists for this reserve" do
+          project_question = create(:reserve_question, reserve: reserve, location: :project)
+          visit_question = create(:reserve_question, reserve: reserve, location: :visit, answer_required: true)
+          create(:project_reserve_answer, project: project, reserve_question: project_question)
+
+          expect(results.keys).to match_array %w[project]
+          expect(results["project"].map(&:id)).to match_array [project_question.id]
+          expect(results.values.flatten.map(&:id)).not_to include(visit_question.id)
+        end
+      end
+
+      context "when the project already answered at another reserve" do
+        let!(:other_reserve_visit) { create(:visit, submitted_at: Time.current) }
+        let(:visit) { create(:visit, reserve: reserve, project: other_reserve_visit.project) }
+
+        before do
+          other_reserve_question = create(
+            :reserve_question,
+            reserve: other_reserve_visit.reserve,
+            location: :project,
+          )
+          create(:project_reserve_answer, project: other_reserve_visit.project,
+            reserve_question: other_reserve_question)
+        end
+
+        it "still returns this reserve's visit and project questions" do
+          visit_question = create(:reserve_question, reserve: reserve, location: :visit)
+          project_question = create(:reserve_question, reserve: reserve, location: :project)
+
+          expect(results["visit"].map(&:id)).to match_array [visit_question.id]
+          expect(results["project"].map(&:id)).to match_array [project_question.id]
+        end
+      end
+    end
+
+    context "on a later visit to the reserve" do
+      let!(:earlier_visit) { create(:visit, reserve: reserve, project: project, submitted_at: Time.current) }
+
+      it "returns the reserve's visit-level questions before any answers are saved" do
+        visit_question = create(:reserve_question, reserve: reserve, location: :visit)
+        create(:reserve_question, reserve: reserve, location: :project)
+        create(:visit_reserve_answer, visit: earlier_visit, reserve_question: visit_question)
+
+        expect(results.keys).to match_array %w[visit]
+        expect(results["visit"].map(&:id)).to match_array [visit_question.id]
+      end
+
+      context "with saved answers" do
+        it "returns only the visit questions this visit answered, without project questions" do
+          visit_question = create(:reserve_question, reserve: reserve, location: :visit, question_type: :text)
+          other_visit_question = create(:reserve_question, reserve: reserve, location: :visit,
+            question_type: :text)
+          project_question = create(:reserve_question, reserve: reserve, location: :project,
+            question_type: :text)
+          create(:visit_reserve_answer, visit: visit, reserve_question: visit_question,
+            text_answer: "visit answer")
+          create(:visit_reserve_answer, visit: earlier_visit, reserve_question: other_visit_question,
+            text_answer: "earlier visit")
+          create(:project_reserve_answer, project: project, reserve_question: project_question,
+            text_answer: "project answer")
+
+          expect(results.keys).to match_array %w[visit]
+          expect(results["visit"].map(&:id)).to eq [visit_question.id]
+          expect(results["visit"].map(&:text_answer)).to match_array ["visit answer"]
+        end
+      end
     end
   end
 
