@@ -13,13 +13,4 @@ end
 
 Honeybadger.configure do |config|
   config.api_key = api_key.presence || ENV["HONEYBADGER_API_KEY"].presence
-
-  # Notices carry raw request params; the gem filters only password fields by
-  # default. Keys match case-insensitively as substrings, and assigning replaces
-  # the defaults, so repeat them here.
-  config.request.filter_keys = %w[
-    password password_confirmation HTTP_AUTHORIZATION
-    email name phone orcid date_of_birth
-    accessibility address billing emergency_contact
-  ]
 end
