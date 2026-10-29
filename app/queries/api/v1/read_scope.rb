@@ -63,6 +63,15 @@ module Api
         Funding.where(project: projects)
       end
 
+      # Team memberships belong to a project, so access follows the project.
+      #
+      # @return [ActiveRecord::Relation<ProjectTeamMembership>]
+      def team_memberships
+        return ProjectTeamMembership.all if platform_wide?
+
+        ProjectTeamMembership.where(project: projects)
+      end
+
       private
 
       # @return [Boolean] whether the client has a platform-wide grant

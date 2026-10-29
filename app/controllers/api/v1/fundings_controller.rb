@@ -54,20 +54,6 @@ module Api
         scope
       end
 
-      # The +updated_since+ bound is inclusive so a client synchronizing at a
-      # timestamp re-reads tied records rather than skipping one.
-      #
-      # @return [Time, nil]
-      # @raise [InvalidFilter] when the value is not an ISO 8601 timestamp
-      def updated_since_filter
-        value = params[:updated_since].presence
-        return nil if value.nil?
-
-        Time.zone.iso8601(value)
-      rescue ArgumentError
-        raise(InvalidFilter, "updated_since must be an ISO 8601 timestamp")
-      end
-
       # @param funding [Funding]
       # @return [Hash] the serialized funding
       def serialize(funding)
