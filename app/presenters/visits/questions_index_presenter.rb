@@ -99,10 +99,6 @@ class Visits::QuestionsIndexPresenter
     visit.visit_reserve_answers.present?
   end
 
-  def project_reserve_answer_exist?
-    ProjectReserveAnswer.where(project: visit.project).present?
-  end
-
   def reserve_question_scope_from_questions
     scope = ReserveQuestion
       .where(reserve: visit.reserve)
@@ -126,7 +122,7 @@ class Visits::QuestionsIndexPresenter
       ReserveQuestion
         .from("
           (
-            #{draft_visit_reserve_questions.to_sql}
+            #{visit_reserve_questions_from_answers.to_sql}
             UNION
             #{project_reserve_questions_from_answers.to_sql}
           )
@@ -135,30 +131,6 @@ class Visits::QuestionsIndexPresenter
         .by_location
         .in_order
     end
-  end
-
-  # A draft visit is always asked its required visit questions, answered or
-  # not, so a required question with no answer yet (a second visit, or a
-  # question added after the draft's answers were saved) is not skipped.
-  # Optional questions are listed only once they have an answer.
-  def draft_visit_reserve_questions
-    ReserveQuestion
-      .select(
-        ReserveQuestion.arel_table[Arel.star],
-        VisitReserveAnswer.arel_table["text_answer"],
-        VisitReserveAnswer.arel_table["boolean_answer"]
-      )
-      .joins(<<~end_sql)
-        LEFT OUTER JOIN visit_reserve_answers
-        ON reserve_questions.id = visit_reserve_answers.reserve_question_id
-        AND visit_reserve_answers.visit_id = #{visit.id.to_i}
-      end_sql
-      .where(reserve: visit.reserve)
-      .for_project_type(visit.project.project_type)
-      .involving_related(visit.project)
-      .visible
-      .for_visits
-      .where("reserve_questions.answer_required = TRUE OR visit_reserve_answers.id IS NOT NULL")
   end
 
   def visit_reserve_questions_from_answers
