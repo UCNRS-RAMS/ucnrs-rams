@@ -10,7 +10,7 @@ The variables we need to set for getting the server to run (and where they come 
 | AWS_ACCESS_KEY | ssm            | The AWS access key for S3 bucket                                                          |
 | AWS_SECRET_KEY | ssm            | The AWS secret key for S3 bucket                                                          |
 | ACTIVE_STORAGE_BUCKET | sceptre config | The name of the S3 bucket for Active Storage uploads                                      |
-| RAILS_MASTER_KEY | ssm            | The Rails master key for decrypting credentials         |
+| RAILS_MASTER_KEY | ssm            | The Rails master key for decrypting credentials (doesn't seem to be used for much)        |
 | SECRET_KEY_BASE | ssm            | The Rails secret key base for verifying the integrity of signed cookies and other secrets |
 | RAILS_ENV | sceptre config | The Rails environment (production, staging, etc.)                                         |
 | HOST | sceptre config | The host for the application (e.g. example.com)                                           |
@@ -29,7 +29,7 @@ The variables we need to set for getting the server to run (and where they come 
 | SMTP_PASSWORD | ssm            | The SMTP password for sending emails                                                      |
 | SMTP_DOMAIN | ssm            | The SMTP domain for sending emails (e.g. localhost)                                       |
 
-Rails credentials are encrypted; `RAILS_MASTER_KEY` must match the key for
-`config/credentials.yml.enc`. Add the Honeybadger project key to the existing credentials as
-`honeybadger.api_key`; `config/initializers/honeybadger.rb` reads it at boot.
+Note that right now a RAILS_MASTER_KEY is set but it is likely not required
+because the SECRET_KEY_BASE is set directly in the environment variables and there are essentially no encrypted credentials being used.
+If we were to use encrypted credentials, then the RAILS_MASTER_KEY would be required to decrypt them.
 
