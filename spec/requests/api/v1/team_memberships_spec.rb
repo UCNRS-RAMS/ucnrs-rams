@@ -101,6 +101,16 @@ RSpec.describe Api::V1::TeamMembershipsController, type: :request do
       expect(ids).not_to include(active.id)
     end
 
+    it "includes inactive memberships when no active filter is given" do
+      active = create(:project_team_membership, active: true)
+      inactive = create(:project_team_membership, active: false)
+
+      get "/api/v1/team_memberships", headers: auth_headers
+
+      ids = response.parsed_body["data"].map { |row| row["id"] }
+      expect(ids).to include(active.id, inactive.id)
+    end
+
     it "filters by principal investigators" do
       principal_investigator = create(:project_team_membership, :principal_investigator)
       team_member = create(:project_team_membership, :team_member)
@@ -112,6 +122,30 @@ RSpec.describe Api::V1::TeamMembershipsController, type: :request do
       ids = response.parsed_body["data"].map { |row| row["id"] }
       expect(ids).to include(principal_investigator.id)
       expect(ids).not_to include(team_member.id)
+    end
+
+    it "filters by updated_since, including the boundary membership" do
+      boundary = Time.zone.parse("2026-01-15T12:00:00Z")
+      at_boundary = create(:project_team_membership, updated_at: boundary)
+      after_boundary = create(:project_team_membership, updated_at: boundary + 1.minute)
+      before_boundary = create(:project_team_membership, updated_at: boundary - 1.minute)
+
+      get "/api/v1/team_memberships",
+        params: { updated_since: boundary.iso8601 },
+        headers: auth_headers
+
+      ids = response.parsed_body["data"].map { |row| row["id"] }
+      expect(ids).to include(at_boundary.id, after_boundary.id)
+      expect(ids).not_to include(before_boundary.id)
+    end
+
+    it "returns 400 for a malformed updated_since" do
+      get "/api/v1/team_memberships",
+        params: { updated_since: "yesterday" },
+        headers: auth_headers
+
+      expect(response).to have_http_status(:bad_request)
+      expect(response.parsed_body["detail"]).to eq("updated_since must be an ISO 8601 timestamp")
     end
 
     it "returns 400 for an unknown user role filter" do

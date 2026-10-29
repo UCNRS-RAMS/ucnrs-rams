@@ -55,11 +55,17 @@ module Api
           scope = scope.where(user_role: ProjectTeamMembership.user_roles.fetch(user_role))
         end
 
+        # +active+ has no default: a client assembling a project's roster for
+        # publication discovery needs former members (graduate students who left
+        # but published), so both states are returned unless +active+ is passed.
         active = boolean_filter(:active)
         scope = scope.where(active: active) unless active.nil?
 
         principal_investigator = boolean_filter(:is_principal_investigator)
         scope = scope.where(is_principal_investigator: principal_investigator) unless principal_investigator.nil?
+
+        updated_since = updated_since_filter
+        scope = scope.where(updated_at: updated_since..) if updated_since
 
         scope
       end
