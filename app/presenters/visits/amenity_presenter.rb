@@ -82,7 +82,7 @@ class Visits::AmenityPresenter
   end
 
   def time_options
-    midnight = Time.current.beginning_of_day
+    midnight = Time.utc(2000, 1, 1)
     (0..23).to_a.map do |i|
       OpenStruct.new(
         value: I18n.l(

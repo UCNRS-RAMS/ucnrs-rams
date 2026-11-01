@@ -141,6 +141,18 @@ RSpec.describe Visits::AmenityPresenter do
         "11:00 PM",
       ]
     end
+
+    it "gives one option per hour on daylight saving change days" do
+      [Time.zone.local(2026, 11, 1, 12), Time.zone.local(2027, 3, 14, 12)].each do |day|
+        travel_to day do
+          presenter = Visits::AmenityPresenter.new(build(:amenity))
+
+          options = presenter.time_options
+
+          expect(options.map(&:value)).to eq((0..23).map { |hour| format("%02d:00", hour) })
+        end
+      end
+    end
   end
 
   describe "#group_label" do
