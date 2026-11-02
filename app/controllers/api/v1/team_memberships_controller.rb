@@ -34,8 +34,7 @@ module Api
       # @return [ActiveRecord::Relation<ProjectTeamMembership>]
       def authorized_team_memberships
         read_scope.team_memberships.select(
-          :id, :active, :user_role, :is_principal_investigator, :can_edit_project,
-          :can_add_project_user, :can_add_visit, :can_receive_invoice,
+          :id, :active, :user_role, :is_principal_investigator,
           :project_id, :user_id, :institution_id, :created_at, :updated_at
         )
       end
