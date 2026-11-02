@@ -25,6 +25,7 @@ RSpec.describe 'Api::V1::Reserves', type: :request do
       tags 'Reserves'
       operationId 'listReserves'
       produces 'application/json'
+      include_examples "API rate limit response"
       description 'Returns the reserves visible to the authenticated client, newest first.'
 
       parameter name: :page, in: :query, required: false,
@@ -63,6 +64,7 @@ RSpec.describe 'Api::V1::Reserves', type: :request do
       tags 'Reserves'
       operationId 'showReserve'
       produces 'application/json'
+      include_examples "API rate limit response"
       description "Returns a single reserve. A reserve outside the client's scope returns 404."
 
       response '200', 'the requested reserve' do

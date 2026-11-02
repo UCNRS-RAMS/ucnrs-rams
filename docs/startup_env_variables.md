@@ -33,3 +33,10 @@ Note that right now a RAILS_MASTER_KEY is set but it is likely not required
 because the SECRET_KEY_BASE is set directly in the environment variables and there are essentially no encrypted credentials being used.
 If we were to use encrypted credentials, then the RAILS_MASTER_KEY would be required to decrypt them.
 
+
+## API request quota
+
+`API_RATE_LIMIT` is a positive integer, default `300`, limiting requests per
+client (or unauthenticated IP) per minute across API resources. Restart after
+changing it. See [API rate limiting](api.md#rate-limiting) for the required shared
+counter store before public release; the existing local file cache is insufficient.

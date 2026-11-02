@@ -19,7 +19,10 @@ RSpec.configure do |config|
 
           All endpoints require a Bearer token issued to an `ApiClient`. A client
           must be explicitly platform-wide or assigned one or more reserves.
-          See `docs/api.md` for how to create and rotate clients.
+          All resources share a quota per client (default 300 requests/minute).
+          Invalid credentials share a separate quota by IP. HTTP 429 responses
+          include Retry-After in seconds. See `docs/api.md` for client management
+          and the shared cache deployment prerequisite.
         DESCRIPTION
         license: {
           name: 'MIT',
@@ -531,7 +534,7 @@ RSpec.configure do |config|
             properties: {
               error: {
                 type: :string,
-                enum: %w[unauthorized not_found bad_request]
+                enum: %w[unauthorized not_found bad_request rate_limit_exceeded]
               },
               detail: {
                 type: :string,
