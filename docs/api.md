@@ -66,23 +66,27 @@ Exceeding either quota returns HTTP 429 with
 `{"error":"rate_limit_exceeded"}` and `Retry-After: 60`. Wait at least that many
 seconds before retrying. This is a conservative wait, not an exact reset time.
 
-### Release prerequisite: shared counter storage
+### Counter storage and deployment limitations
+
+Current production is one noncontainerized RAMS instance on a Mac Pro. Its actual
+app-server concurrency and runtime cache configuration have not been verified.
+The checked-in server configurations leave Rails' default local FileStore in
+place; this does not establish which store production is actually using.
 
 The Rails built-in limiter uses `config.action_controller.cache_store` (which
-inherits the application cache store). The current server configurations leave
-the Rails default **local FileStore** in place. This is **not a deployment-wide
-rate limit**: workers using the same directory can read each other's counters,
-but FileStore's read-modify-write increments can lose updates under concurrency.
-Containers/hosts with separate cache directories do not share counters at all,
-and releases/cache clears can reset them. Development uses MemoryStore; test uses NullStore.
+inherits the application cache store). FileStore increments can lose updates
+under concurrent requests, even on a single host. Separate cache directories do
+not share counters, and releases/cache clears can reset them. Development uses
+MemoryStore; test uses NullStore. Rails skips limiting when a store returns nil
+from `increment`, so this is best-effort protection, not a hard availability or
+billing boundary. Authentication database lookups still occur before limiting.
 
-Before public API release, configure a shared store supporting atomic `increment`
-and expiry, such as RedisCacheStore or MemCacheStore, for every API worker and
-host using the same namespace. That requires a separately reviewed deployment
-change and the corresponding adapter dependency if not installed. Verify
-cross-process enforcement and cache outage behavior there. Rails skips limiting
-when a store returns nil from `increment`, so this is best-effort protection,
-not a hard availability or billing boundary. AWS WAF can supplement it.
+Before relying on the quota operationally, verify the production store,
+concurrency, counter enforcement, and cache-outage behavior. A future deployment
+with multiple processes or instances needs atomic counters and expiry shared by
+all API workers in the same namespace. RedisCacheStore and MemCacheStore are
+possible options, not selected infrastructure. Any backend or deployment change
+requires separate review. AWS templates are future plans, not current runtime.
 
 This change does not provision a cache service or change server configuration.
 
