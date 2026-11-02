@@ -38,5 +38,6 @@ If we were to use encrypted credentials, then the RAILS_MASTER_KEY would be requ
 
 `API_RATE_LIMIT` is a positive integer, default `300`, limiting requests per
 client (or unauthenticated IP) per minute across API resources. Restart after
-changing it. See [API rate limiting](api.md#rate-limiting) for the required shared
-counter store before public release; the existing local file cache is insufficient.
+changing it. See [API rate limiting](api.md#rate-limiting) for current best-effort
+limitations and the production cache/concurrency checks needed before relying on
+the quota. No new cache backend is configured by this change.
