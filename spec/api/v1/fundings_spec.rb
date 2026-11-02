@@ -25,6 +25,7 @@ RSpec.describe 'Api::V1::Fundings', type: :request do
       tags "Fundings"
       operationId "listFundings"
       produces "application/json"
+      include_examples "API rate limit response"
       description "Returns the fundings whose projects are visible to the authenticated client, newest first."
 
       parameter name: :page, in: :query, required: false,
@@ -80,6 +81,7 @@ RSpec.describe 'Api::V1::Fundings', type: :request do
       tags "Fundings"
       operationId "showFunding"
       produces "application/json"
+      include_examples "API rate limit response"
       description "Returns a single funding. A funding whose project is outside the client's scope returns 404."
 
       response "200", "the requested funding" do

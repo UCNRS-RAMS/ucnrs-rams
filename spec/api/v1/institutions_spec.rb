@@ -25,6 +25,7 @@ RSpec.describe 'Api::V1::Institutions', type: :request do
       tags 'Institutions'
       operationId 'listInstitutions'
       produces 'application/json'
+      include_examples "API rate limit response"
       description 'Returns the institutions visible to the authenticated client, newest first.'
 
       parameter name: :page, in: :query, required: false,
@@ -84,6 +85,7 @@ RSpec.describe 'Api::V1::Institutions', type: :request do
       tags 'Institutions'
       operationId 'showInstitution'
       produces 'application/json'
+      include_examples "API rate limit response"
       description "Returns a single institution. An institution outside the client's scope returns 404."
 
       response '200', 'the requested institution' do

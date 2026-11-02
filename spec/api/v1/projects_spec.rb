@@ -25,6 +25,7 @@ RSpec.describe 'Api::V1::Projects', type: :request do
       tags 'Projects'
       operationId 'listProjects'
       produces 'application/json'
+      include_examples "API rate limit response"
       description 'Returns the projects visible to the authenticated client, newest first.'
 
       parameter name: :page, in: :query, required: false,
@@ -79,6 +80,7 @@ RSpec.describe 'Api::V1::Projects', type: :request do
       tags 'Projects'
       operationId 'showProject'
       produces 'application/json'
+      include_examples "API rate limit response"
       description "Returns a single project. A project outside the client's scope returns 404."
 
       response '200', 'the requested project' do

@@ -47,6 +47,45 @@ The interactive docs at `/api-docs` are public, but every endpoint requires a
 token. Click **Authorize** and paste an `ApiClient` token without the `Bearer `
 prefix; Swagger UI adds it to each request it sends.
 
+## Rate limiting
+
+All API resources share a quota of **300 requests per 60 seconds** per active
+`ApiClient`, including platform-wide and multi-reserve clients. Set the positive
+integer `API_RATE_LIMIT` environment variable to change the quota (restart the
+application). Token rotation, switching endpoints, or switching reserves does
+not reset a client's quota. Failed endpoint requests also count.
+
+Missing, malformed, unknown, and inactive credentials share a separate quota by
+`request.remote_ip`. They return 401 until that quota is exceeded. Valid clients
+on the same IP keep independent quotas. Authentication is resolved before counting,
+so this does not shield the authentication database lookup from abusive traffic.
+Trusted proxy configuration must reflect the deployment; do not trust arbitrary
+forwarded IP headers.
+
+Exceeding either quota returns HTTP 429 with
+`{"error":"rate_limit_exceeded"}` and `Retry-After: 60`. Wait at least that many
+seconds before retrying. This is a conservative wait, not an exact reset time.
+
+### Release prerequisite: shared counter storage
+
+The Rails built-in limiter uses `config.action_controller.cache_store` (which
+inherits the application cache store). The current server configurations leave
+the Rails default **local FileStore** in place. This is **not a deployment-wide
+rate limit**: workers using the same directory can read each other's counters,
+but FileStore's read-modify-write increments can lose updates under concurrency.
+Containers/hosts with separate cache directories do not share counters at all,
+and releases/cache clears can reset them. Development uses MemoryStore; test uses NullStore.
+
+Before public API release, configure a shared store supporting atomic `increment`
+and expiry, such as RedisCacheStore or MemCacheStore, for every API worker and
+host using the same namespace. That requires a separately reviewed deployment
+change and the corresponding adapter dependency if not installed. Verify
+cross-process enforcement and cache outage behavior there. Rails skips limiting
+when a store returns nil from `increment`, so this is best-effort protection,
+not a hard availability or billing boundary. AWS WAF can supplement it.
+
+This change does not provision a cache service or change server configuration.
+
 ## Scoping
 
 An `ApiClient` is either explicitly platform-wide or scoped to one or more
@@ -150,6 +189,8 @@ Errors are returned as JSON with an `error` key:
 - `401 unauthorized` — missing, malformed, unknown, or deactivated token. The
   response carries a `WWW-Authenticate: Bearer realm="rams-api"` header.
 - `404 not_found` — an unknown record, or one outside the client's scope.
+- `429 rate_limit_exceeded` — the client or unauthenticated IP quota is exhausted;
+  `Retry-After` gives a conservative wait in seconds.
 - `400 bad_request` — a rejected filter value, with a `detail` explaining it.
 
 ## Pagination
@@ -180,7 +221,6 @@ docker compose exec web bundle exec rspec \
 
 - Write endpoints (the API is read-only).
 - OAuth2 / Doorkeeper. Authentication is isolated behind
-  `Api::BaseController#authenticate_api_client!`, so Doorkeeper can replace the
+  `Api::BaseController#identify_api_client`, so Doorkeeper can replace the
   token check without changing endpoint controllers.
 - Rake tasks for rotating or deactivating clients (the model supports both).
-- Rate limiting.

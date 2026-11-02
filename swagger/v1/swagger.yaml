@@ -8,7 +8,10 @@ info:
 
     All endpoints require a Bearer token issued to an `ApiClient`. A client
     must be explicitly platform-wide or assigned one or more reserves.
-    See `docs/api.md` for how to create and rotate clients.
+    All resources share a quota per client (default 300 requests/minute).
+    Invalid credentials share a separate quota by IP. HTTP 429 responses
+    include Retry-After in seconds. See `docs/api.md` for client management
+    and the shared cache deployment prerequisite.
   license:
     name: MIT
     url: https://github.com/UCNRS-RAMS/ucnrs-rams/blob/main/LICENSE.md
@@ -55,6 +58,17 @@ paths:
           format: date-time
         description: Only fundings updated at or after this ISO 8601 instant, inclusive.
       responses:
+        '429':
+          description: client or unauthenticated IP quota exceeded
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              description: Conservative wait in seconds before retrying.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
         '200':
           description: fundings visible to the client
           content:
@@ -89,6 +103,17 @@ paths:
       description: Returns a single funding. A funding whose project is outside the
         client's scope returns 404.
       responses:
+        '429':
+          description: client or unauthenticated IP quota exceeded
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              description: Conservative wait in seconds before retrying.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
         '200':
           description: the requested funding
           content:
@@ -160,6 +185,17 @@ paths:
           are not unique across countries, so state_code without country_code, or
           one naming no state in that country, returns 400.
       responses:
+        '429':
+          description: client or unauthenticated IP quota exceeded
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              description: Conservative wait in seconds before retrying.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
         '200':
           description: institutions visible to the client
           content:
@@ -194,6 +230,17 @@ paths:
       description: Returns a single institution. An institution outside the client's
         scope returns 404.
       responses:
+        '429':
+          description: client or unauthenticated IP quota exceeded
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              description: Conservative wait in seconds before retrying.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
         '200':
           description: the requested institution
           content:
@@ -257,6 +304,17 @@ paths:
           type: integer
         description: Restrict to one reserve, within the client's scope.
       responses:
+        '429':
+          description: client or unauthenticated IP quota exceeded
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              description: Conservative wait in seconds before retrying.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
         '200':
           description: projects visible to the client
           content:
@@ -291,6 +349,17 @@ paths:
       description: Returns a single project. A project outside the client's scope
         returns 404.
       responses:
+        '429':
+          description: client or unauthenticated IP quota exceeded
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              description: Conservative wait in seconds before retrying.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
         '200':
           description: the requested project
           content:
@@ -326,6 +395,17 @@ paths:
           maximum: 100
         description: Items per page (defaults to 25, capped at 100).
       responses:
+        '429':
+          description: client or unauthenticated IP quota exceeded
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              description: Conservative wait in seconds before retrying.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
         '200':
           description: reserves visible to the client
           content:
@@ -354,6 +434,17 @@ paths:
       description: Returns a single reserve. A reserve outside the client's scope
         returns 404.
       responses:
+        '429':
+          description: client or unauthenticated IP quota exceeded
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              description: Conservative wait in seconds before retrying.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
         '200':
           description: the requested reserve
           content:
@@ -436,6 +527,17 @@ paths:
         description: Only visits whose activity window overlaps this ISO 8601 date
           or earlier.
       responses:
+        '429':
+          description: client or unauthenticated IP quota exceeded
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              description: Conservative wait in seconds before retrying.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
         '200':
           description: visits visible to the client
           content:
@@ -470,6 +572,17 @@ paths:
       description: Returns a single visit. A visit outside the client's scope returns
         404.
       responses:
+        '429':
+          description: client or unauthenticated IP quota exceeded
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              description: Conservative wait in seconds before retrying.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
         '200':
           description: the requested visit
           content:
@@ -1209,6 +1322,7 @@ components:
           - unauthorized
           - not_found
           - bad_request
+          - rate_limit_exceeded
         detail:
           type: string
           nullable: true

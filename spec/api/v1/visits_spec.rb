@@ -25,6 +25,7 @@ RSpec.describe 'Api::V1::Visits', type: :request do
       tags 'Visits'
       operationId 'listVisits'
       produces 'application/json'
+      include_examples "API rate limit response"
       description 'Returns the visits visible to the authenticated client, newest first.'
 
       parameter name: :page, in: :query, required: false,
@@ -89,6 +90,7 @@ RSpec.describe 'Api::V1::Visits', type: :request do
       tags 'Visits'
       operationId 'showVisit'
       produces 'application/json'
+      include_examples "API rate limit response"
       description "Returns a single visit. A visit outside the client's scope returns 404."
 
       response '200', 'the requested visit' do

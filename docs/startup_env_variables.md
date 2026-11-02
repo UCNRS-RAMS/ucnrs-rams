@@ -33,3 +33,10 @@ Rails credentials are encrypted; `RAILS_MASTER_KEY` must match the key for
 `config/credentials.yml.enc`. Add the Honeybadger project key to the existing credentials as
 `honeybadger.api_key`; `config/initializers/honeybadger.rb` reads it at boot.
 
+
+## API request quota
+
+`API_RATE_LIMIT` is a positive integer, default `300`, limiting requests per
+client (or unauthenticated IP) per minute across API resources. Restart after
+changing it. See [API rate limiting](api.md#rate-limiting) for the required shared
+counter store before public release; the existing local file cache is insufficient.
