@@ -31,3 +31,15 @@ body.new_features {
     width: 50%;
   }
 }
+
+body.admin-new_features {
+  table.table-style1 {
+    td.title {
+      max-width: none;
+    }
+
+    td:last-of-type form.button_to {
+      margin-left: .5rem;
+    }
+  }
+}

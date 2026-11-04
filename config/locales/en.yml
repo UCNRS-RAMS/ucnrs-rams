@@ -3979,6 +3979,14 @@ en:
           At least one grant or contract application will be submitted in the
           future
         was_denied: Project grant or contract application was denied by the funding agency
+  admin:
+    new_features:
+      index:
+        title: What's New/Changed
+        table_headers:
+          title: Title
+          posted: Posted
+          actions: Actions
   sitewide:
     back: Back
     go_back: Go Back
