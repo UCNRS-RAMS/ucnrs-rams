@@ -14,12 +14,16 @@ end
 Honeybadger.configure do |config|
   config.api_key = api_key.presence || ENV["HONEYBADGER_API_KEY"].presence
 
-  # Notices carry raw request params; the gem filters only password fields by
-  # default. Keys match case-insensitively as substrings, and assigning replaces
-  # the defaults, so repeat them here.
-  config.request.filter_keys = %w[
-    password password_confirmation HTTP_AUTHORIZATION
-    email name phone orcid date_of_birth
-    accessibility address billing emergency_contact
-  ]
+  # Zero identifiable data: never ship request payloads, cookies/session, Rack
+  # environment (headers, IP, user agent), URLs, breadcrumbs (application logs
+  # and SQL), or Insights events (SQL, controller params, HTTP URLs, job
+  # arguments). Only the error class, message, and backtrace are reported.
+  # This block is the highest-precedence config source, so these assignments
+  # override any honeybadger.yml or environment configuration.
+  config.request.disable_params = true
+  config.request.disable_session = true
+  config.request.disable_environment = true
+  config.request.disable_url = true
+  config.breadcrumbs.enabled = false
+  config.insights.enabled = false
 end
