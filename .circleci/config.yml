@@ -47,9 +47,12 @@ jobs:
 
       # After rails 7 yarn install is not run with assets:precompile
       # Use --frozen-lockfile for CI
+      # The cimg/ruby image ships a pre-baked yarn cache that intermittently
+      # contains corrupt tarballs (foreground-child, events, ...). Clear the
+      # whole cache so no corrupt entry survives; yarn re-fetches clean copies.
       - run:
           name: Yarn Install
-          command: yarn install --frozen-lockfile --network-concurrency 1
+          command: yarn cache clean && yarn install --frozen-lockfile --network-concurrency 1
 
       # Assets setup
       - run:
