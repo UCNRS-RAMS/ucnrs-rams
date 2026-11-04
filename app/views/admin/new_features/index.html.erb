@@ -1,14 +1,31 @@
 <section class="content">
   <header>
-    What's New/Changed
+    <%= t(".title") %>
   </header>
-  <div>
-    <% @presenter.new_features.each do |new_feature| %>
-      <section>
-        <%= new_feature.title %> | <%= link_to t("edit"), edit_admin_new_feature_path(new_feature) %>
-      </section>
-    <% end %>
+  <table class="table-style1">
+    <thead>
+      <tr>
+        <th><%= t(".table_headers.title") %></th>
+        <th><%= t(".table_headers.posted") %></th>
+        <th><%= t(".table_headers.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @presenter.new_features.each do |new_feature| %>
+        <tr>
+          <td class="title"><%= new_feature.title %></td>
+          <td><%= l(new_feature.created_at.to_date, format: :long) %></td>
+          <td>
+            <%= link_to t("edit"), edit_admin_new_feature_path(new_feature) %>
+            <%= button_to t("delete"), admin_new_feature_path(new_feature),
+              method: :delete,
+              form: { data: { turbo_confirm: t("confirm_removal", name: new_feature.title) } },
+              class: "link-button" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-    <%= link_to t("new"), new_admin_new_feature_path %>
-  </div>
+  <%= link_to t("new"), new_admin_new_feature_path %>
 </section>

@@ -81,6 +81,9 @@
 @use "manager/visits" as *;
 @use "manager/waivers_policies" as *;
 
+// Admin styles
+@use "admin/new_features" as *;
+
 
 html {
   height: 100%;

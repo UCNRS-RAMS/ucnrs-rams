@@ -1,0 +1,10 @@
+@use "variables" as *;
+
+body.admin-new_features {
+  .content > header {
+    border-bottom: 1px solid $gray;
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+}

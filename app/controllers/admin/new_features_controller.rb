@@ -46,6 +46,11 @@ class Admin::NewFeaturesController < Manager::ApplicationController
     end
   end
 
+  def destroy
+    new_feature.destroy!
+    redirect_to admin_new_features_path, status: :see_other
+  end
+
   private
 
   def new_feature
