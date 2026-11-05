@@ -43,7 +43,7 @@ RSpec.describe Admin::ReportsIndexPresenter do
       expect(annual_reports).to eq [system_report]
     end
 
-    it "is empty when no reports exist for the fiscal year" do
+    it "builds an unsaved report for a reserve without one for the fiscal year" do
       travel_to Time.zone.local(2025, 5, 5)
       reserve = create(:reserve, id: 1)
       create(:annual_report, reserve: reserve, fiscal_year_ending: 2024)
@@ -51,7 +51,22 @@ RSpec.describe Admin::ReportsIndexPresenter do
 
       annual_reports = presenter.annual_reports
 
-      expect(annual_reports).to be_empty
+      expect(annual_reports.size).to eq 1
+      expect(annual_reports.first).to be_new_record
+      expect(annual_reports.first).to have_attributes(reserve: reserve, fiscal_year_ending: 2025)
+    end
+
+    it "orders built reports among existing ones by reserve pulldown name" do
+      travel_to Time.zone.local(2025, 5, 5)
+      reserve_with_report = create(:reserve, id: 1, pulldown_name: "reserve 2")
+      reserve_without_report = create(:reserve, id: 2, pulldown_name: "reserve 1")
+      create(:annual_report, reserve: reserve_with_report, fiscal_year_ending: 2025)
+      presenter = Admin::ReportsIndexPresenter.new(fiscal_year_ending: 2025)
+
+      annual_reports = presenter.annual_reports
+
+      expect(annual_reports.map(&:reserve)).to eq [reserve_without_report, reserve_with_report]
+      expect(annual_reports.map(&:new_record?)).to eq [true, false]
     end
   end
 
