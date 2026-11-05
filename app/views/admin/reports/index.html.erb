@@ -32,43 +32,37 @@
       </tr>
     </thead>
     <tbody>
-      <% if @presenter.annual_reports.present? %>
-        <% @presenter.annual_reports.each do |ar_report| %>
-          <tr>
-            <%= tag.td ar_report.reserve.name, class: "reserve-name" %>
-            <td class="part">
-              <%= image_tag @presenter.icon_for_column(ar_report.part_1_approved),
-                alt: t(@presenter.icon_alt_i18n_key(ar_report.part_1_approved)) %>
-            </td>
-            <td class="part">
-              <%= image_tag @presenter.icon_for_column(ar_report.part_2_approved),
-                alt: t(@presenter.icon_alt_i18n_key(ar_report.part_2_approved)) %>
-            </td>
-            <td class="part">
-              <%= image_tag @presenter.icon_for_column(ar_report.part_3_approved),
-                alt: t(@presenter.icon_alt_i18n_key(ar_report.part_3_approved)) %>
-            </td>
-            <td class="part">
-              <%= image_tag @presenter.icon_for_column(ar_report.part_4_approved),
-                alt: t(@presenter.icon_alt_i18n_key(ar_report.part_4_approved)) %>
-            </td>
-            <td class="part">
-              <%= image_tag @presenter.icon_for_column(ar_report.part_5_approved),
-                alt: t(@presenter.icon_alt_i18n_key(ar_report.part_5_approved)) %>
-            </td>
-            <td class="part">
-              <%= image_tag @presenter.icon_for_column(ar_report.part_6_approved),
-                alt: t(@presenter.icon_alt_i18n_key(ar_report.part_6_approved)) %>
-            </td>
-            <td class="part">
-              <%= image_tag @presenter.icon_for_column(ar_report.part_7_approved),
-                alt: t(@presenter.icon_alt_i18n_key(ar_report.part_7_approved)) %>
-            </td>
-          </tr>
-        <% end %>
-      <% else %>
-        <tr class="empty">
-          <td colspan="8">No annual reports for <%= @presenter.labeled_designated_fiscal_year %>.</td>
+      <% @presenter.annual_reports.each do |ar_report| %>
+        <tr>
+          <%= tag.td ar_report.reserve.name, class: "reserve-name" %>
+          <td class="part">
+            <%= image_tag @presenter.icon_for_column(ar_report.part_1_approved),
+              alt: t(@presenter.icon_alt_i18n_key(ar_report.part_1_approved)) %>
+          </td>
+          <td class="part">
+            <%= image_tag @presenter.icon_for_column(ar_report.part_2_approved),
+              alt: t(@presenter.icon_alt_i18n_key(ar_report.part_2_approved)) %>
+          </td>
+          <td class="part">
+            <%= image_tag @presenter.icon_for_column(ar_report.part_3_approved),
+              alt: t(@presenter.icon_alt_i18n_key(ar_report.part_3_approved)) %>
+          </td>
+          <td class="part">
+            <%= image_tag @presenter.icon_for_column(ar_report.part_4_approved),
+              alt: t(@presenter.icon_alt_i18n_key(ar_report.part_4_approved)) %>
+          </td>
+          <td class="part">
+            <%= image_tag @presenter.icon_for_column(ar_report.part_5_approved),
+              alt: t(@presenter.icon_alt_i18n_key(ar_report.part_5_approved)) %>
+          </td>
+          <td class="part">
+            <%= image_tag @presenter.icon_for_column(ar_report.part_6_approved),
+              alt: t(@presenter.icon_alt_i18n_key(ar_report.part_6_approved)) %>
+          </td>
+          <td class="part">
+            <%= image_tag @presenter.icon_for_column(ar_report.part_7_approved),
+              alt: t(@presenter.icon_alt_i18n_key(ar_report.part_7_approved)) %>
+          </td>
         </tr>
       <% end %>
     </tbody>

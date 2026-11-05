@@ -15,11 +15,17 @@ class Admin::ReportsIndexPresenter
   end
 
   def annual_reports
-    @annual_reports ||= AnnualReport
-      .where(reserve: RESERVE_IDS, fiscal_year_ending: designated_fiscal_year_ending)
-      .includes(:reserve)
-      .references(:reserve)
-      .order("reserves.pulldown_name")
+    @annual_reports ||= begin
+      existing = AnnualReport
+        .where(reserve: RESERVE_IDS, fiscal_year_ending: designated_fiscal_year_ending)
+        .includes(:reserve)
+        .index_by(&:reserve_id)
+
+      Reserve.where(id: RESERVE_IDS).order(:pulldown_name).map do |reserve|
+        existing[reserve.id] ||
+          AnnualReport.new(reserve: reserve, fiscal_year_ending: designated_fiscal_year_ending)
+      end
+    end
   end
 
   def labeled_designated_fiscal_year
