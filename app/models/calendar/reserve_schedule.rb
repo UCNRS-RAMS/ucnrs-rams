@@ -26,7 +26,7 @@ module Calendar
 
       counts = Hash.new(0)
       user_visits.each do |uv|
-        next unless statuses.include?(user_visit_calendar_status(uv))
+        next unless statuses.include?(visit_calendar_status(uv.visit))
         next if uv.arrives_at.nil? || uv.departs_at.nil?
 
         head_count = uv.count.to_i
@@ -58,7 +58,7 @@ module Calendar
         Entry.new(
           id: uv.id,
           kind: :user,
-          status: user_visit_calendar_status(uv),
+          status: visit_calendar_status(uv.visit),
           title: user_visit_title(uv),
           visit_id: uv.visit_id,
           starts_on: uv.arrives_at&.to_date,
@@ -72,7 +72,7 @@ module Calendar
         Entry.new(
           id: av.id,
           kind: :amenity,
-          status: amenity_visit_calendar_status(av),
+          status: visit_calendar_status(av.visit),
           title: amenity_visit_title(av),
           visit_id: av.visit_id,
           starts_on: av.arrives&.to_date,
@@ -183,27 +183,6 @@ module Calendar
       count = amenity_visit.number_of_people.to_i
       prefix = amenity_visit.invoiced? ? "$-" : ""
       "#{prefix}#{title} (#{count})"
-    end
-
-    def user_visit_calendar_status(user_visit)
-      return :incomplete if user_visit.visit&.incomplete?
-
-      enum_to_status_sym(user_visit.status)
-    end
-
-    def amenity_visit_calendar_status(amenity_visit)
-      return :incomplete if amenity_visit.visit&.incomplete?
-
-      enum_to_status_sym(amenity_visit.status)
-    end
-
-    def enum_to_status_sym(status)
-      case status
-      when "approved"  then :approved
-      when "in_review" then :in_review
-      when "cancelled" then :cancelled
-      when "denied"    then :denied
-      end
     end
   end
 end

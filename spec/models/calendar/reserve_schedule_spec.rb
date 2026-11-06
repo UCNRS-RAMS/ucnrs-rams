@@ -30,9 +30,9 @@ RSpec.describe Calendar::ReserveSchedule do
       expect(schedule(reserve: reserve, statuses: []).entries).to eq []
     end
 
-    it "returns every kind and status when nothing narrows it" do
-      row_status_for = { approved: :approved, in_review: :in_review, incomplete: :approved,
-                         cancelled: :cancelled, denied: :denied }
+    it "uses the visit status for every kind even when row statuses disagree" do
+      row_status_for = { approved: :in_review, in_review: :approved, incomplete: :approved,
+                         cancelled: :in_review, denied: :in_review }
       row_status_for.each do |visit_status, row_status|
         visit = create(:visit, reserve: reserve, status: visit_status,
           starts_at: Date.new(2026, 5, 4).in_time_zone,
@@ -217,10 +217,10 @@ RSpec.describe Calendar::ReserveSchedule do
         expect(user_rows.first.title).to eq "Faculty (3)"
       end
 
-      it "takes its status from the user_visit rather than the visit" do
+      it "takes its status from the visit even when the user_visit disagrees" do
         user_visit_on(visit, from: Date.new(2026, 5, 4), to: Date.new(2026, 5, 6), status: :cancelled)
 
-        expect(user_rows.first.status).to eq :cancelled
+        expect(user_rows.first.status).to eq :approved
       end
 
       it "is incomplete whenever its visit is incomplete" do
@@ -297,10 +297,10 @@ RSpec.describe Calendar::ReserveSchedule do
         expect(amenity_rows.first.title).to eq "$-Bunkhouse (2)"
       end
 
-      it "takes its status from the amenity_visit rather than the visit" do
+      it "takes its status from the visit even when the amenity_visit disagrees" do
         amenity_visit_on(visit, from: Date.new(2026, 5, 4), to: Date.new(2026, 5, 6), status: :denied)
 
-        expect(amenity_rows.first.status).to eq :denied
+        expect(amenity_rows.first.status).to eq :approved
       end
 
       it "is incomplete whenever its visit is incomplete" do
@@ -409,6 +409,19 @@ RSpec.describe Calendar::ReserveSchedule do
 
       expect(schedule(reserve: reserve, statuses: [ :approved ]).visitor_counts[Date.new(2026, 5, 4)]).to eq 0
       expect(schedule(reserve: reserve, statuses: [ :incomplete ]).visitor_counts[Date.new(2026, 5, 4)]).to eq 2
+    end
+
+    Calendar::Entry::STATUSES.each do |visit_status|
+      it "counts stale pending user rows only under their #{visit_status} visit status" do
+        visit = approved_visit(reserve: reserve, user: user, count: 2,
+          from: Date.new(2026, 5, 4), to: Date.new(2026, 5, 5))
+        visit.update!(status: visit_status)
+        visit.user_visits.first.update!(status: :in_review)
+
+        expect(schedule(reserve: reserve, statuses: [ visit_status ]).visitor_counts[Date.new(2026, 5, 4)]).to eq 2
+        other_statuses = Calendar::Entry::STATUSES - [ visit_status ]
+        expect(schedule(reserve: reserve, statuses: other_statuses).visitor_counts[Date.new(2026, 5, 4)]).to eq 0
+      end
     end
 
     it "leaves out user_visits at another reserve" do
