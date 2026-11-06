@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :turbo_frame_request_variant
-  before_action :set_layout_presenter, if: -> { request.format.html? }
+  before_action :set_layout_presenter
 
   helper_method :current_reserve
   helper_method :super_admin?
