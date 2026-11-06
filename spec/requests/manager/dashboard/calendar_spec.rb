@@ -23,6 +23,35 @@ RSpec.describe Manager::Dashboard::CalendarController, type: :request do
       expect(page).to have_css("a.cal-entry[data-user-visit-id='#{user_visit.id}']")
     end
 
+    %i[approved cancelled].each do |visit_status|
+      it "renders and filters stale pending rows by their #{visit_status} visit status" do
+        reserve = create(:reserve)
+        user = create(:user, :confirmed)
+        create(:reserve_personnel, user: user, reserve: reserve)
+        visit = create(:visit, reserve: reserve, status: visit_status)
+        user_visit = create(:user_visit, visit: visit, user: user, status: :in_review)
+        amenity_visit = create(:amenity_visit, visit: visit, user: user, status: :in_review,
+          amenity: create(:amenity, reserve: reserve),
+          arrives: user_visit.arrives_at, departs: user_visit.departs_at)
+        sign_in(user)
+        params = ReserveCalendarFilter::DEFAULTS.merge(
+          month: user_visit.arrival_date.month, year: user_visit.arrival_date.year,
+          show_others: true, "show_#{visit_status}".to_sym => true,
+        ).transform_values(&:to_s)
+
+        get "/manager/reserves/#{reserve.id}/dashboard/calendar", params: params
+
+        page = Capybara.string(response.body)
+        expect(page).to have_css("a.cal-user-#{visit_status}[data-user-visit-id='#{user_visit.id}']")
+        expect(page).to have_css("a.cal-amenity-#{visit_status}[data-amenity-visit-id='#{amenity_visit.id}']")
+
+        get "/manager/reserves/#{reserve.id}/dashboard/calendar",
+          params: params.merge("show_#{visit_status}".to_sym => "false")
+
+        expect(Capybara.string(response.body)).to have_no_css("a.cal-entry[data-visit-id='#{visit.id}']")
+      end
+    end
+
     it "defaults to visitor rows off until they are switched on" do
       reserve = create(:reserve)
       user = create(:user, :confirmed)
