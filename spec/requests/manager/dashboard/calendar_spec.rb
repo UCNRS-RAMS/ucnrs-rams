@@ -23,32 +23,62 @@ RSpec.describe Manager::Dashboard::CalendarController, type: :request do
       expect(page).to have_css("a.cal-entry[data-user-visit-id='#{user_visit.id}']")
     end
 
-    %i[approved cancelled].each do |visit_status|
-      it "renders and filters stale pending rows by their #{visit_status} visit status" do
-        reserve = create(:reserve)
-        user = create(:user, :confirmed)
-        create(:reserve_personnel, user: user, reserve: reserve)
-        visit = create(:visit, reserve: reserve, status: visit_status)
-        user_visit = create(:user_visit, visit: visit, user: user, status: :in_review)
-        amenity_visit = create(:amenity_visit, visit: visit, user: user, status: :in_review,
-          amenity: create(:amenity, reserve: reserve),
-          arrives: user_visit.arrives_at, departs: user_visit.departs_at)
-        sign_in(user)
-        params = ReserveCalendarFilter::DEFAULTS.merge(
-          month: user_visit.arrival_date.month, year: user_visit.arrival_date.year,
-          show_others: true, "show_#{visit_status}".to_sym => true,
-        ).transform_values(&:to_s)
+    context "when reservation rows still have pending status" do
+      let(:reserve) { create(:reserve) }
+      let(:user) { create(:user, :confirmed) }
+      let(:visit_status) { :approved }
+      let(:visit) do
+        create(:visit, reserve: reserve, status: visit_status,
+          starts_at: Time.zone.parse("2026-05-04 10:00"),
+          ends_at: Time.zone.parse("2026-05-06 16:00"))
+      end
+      let(:params) do
+        ReserveCalendarFilter::DEFAULTS.merge(month: 5, year: 2026, show_others: true)
+          .transform_values(&:to_s)
+      end
 
+      before do
+        create(:reserve_personnel, user: user, reserve: reserve)
+        create(:user_visit, visit: visit, user: user, status: :in_review,
+          arrives_at: visit.starts_at, departs_at: visit.ends_at)
+        create(:amenity_visit, visit: visit, user: user, status: :in_review,
+          amenity: create(:amenity, reserve: reserve),
+          arrives: visit.starts_at, departs: visit.ends_at)
+        sign_in(user)
+      end
+
+      it "renders approved visitor and facility bars" do
         get "/manager/reserves/#{reserve.id}/dashboard/calendar", params: params
 
         page = Capybara.string(response.body)
-        expect(page).to have_css("a.cal-user-#{visit_status}[data-user-visit-id='#{user_visit.id}']")
-        expect(page).to have_css("a.cal-amenity-#{visit_status}[data-amenity-visit-id='#{amenity_visit.id}']")
+        expect(page).to have_css("a.cal-user-approved")
+        expect(page).to have_css("a.cal-amenity-approved")
+      end
 
+      it "hides approved bars when approved visits are deselected" do
         get "/manager/reserves/#{reserve.id}/dashboard/calendar",
-          params: params.merge("show_#{visit_status}".to_sym => "false")
+          params: params.merge(show_approved: "false")
 
-        expect(Capybara.string(response.body)).to have_no_css("a.cal-entry[data-visit-id='#{visit.id}']")
+        expect(Capybara.string(response.body)).to have_no_css("a.cal-entry")
+      end
+
+      context "when the visit is cancelled" do
+        let(:visit_status) { :cancelled }
+
+        it "hides its bars by default" do
+          get "/manager/reserves/#{reserve.id}/dashboard/calendar", params: params
+
+          expect(Capybara.string(response.body)).to have_no_css("a.cal-entry")
+        end
+
+        it "renders cancelled visitor and facility bars when cancelled visits are selected" do
+          get "/manager/reserves/#{reserve.id}/dashboard/calendar",
+            params: params.merge(show_cancelled: "true")
+
+          page = Capybara.string(response.body)
+          expect(page).to have_css("a.cal-user-cancelled")
+          expect(page).to have_css("a.cal-amenity-cancelled")
+        end
       end
     end
 
