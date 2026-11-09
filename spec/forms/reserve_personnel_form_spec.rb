@@ -26,6 +26,7 @@ RSpec.describe ReservePersonnelForm, type: :model do
         receive_drone_email: false,
         receive_scuba_email: false,
         receive_new_visit_email: false,
+        receive_project_interest_email: false,
         phone_number: nil,
         email: nil
       )
@@ -44,6 +45,7 @@ RSpec.describe ReservePersonnelForm, type: :model do
         receive_drone_email: true,
         receive_scuba_email: true,
         receive_new_visit_email: true,
+        receive_project_interest_email: true,
         phone_number: "111-222-3333",
         email: "someone@address.com",
       }
@@ -61,6 +63,7 @@ RSpec.describe ReservePersonnelForm, type: :model do
         receive_drone_email: true,
         receive_scuba_email: true,
         receive_new_visit_email: true,
+        receive_project_interest_email: true,
         phone_number: "111-222-3333",
         email: "someone@address.com",
       )

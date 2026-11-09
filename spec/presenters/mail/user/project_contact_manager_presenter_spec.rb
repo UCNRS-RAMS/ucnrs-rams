@@ -16,8 +16,12 @@ RSpec.describe Mail::User::ProjectContactManagerPresenter do
   end
 
   describe "#email_to" do
-    it "presents reserve email address" do
-      reserve = create(:reserve, email_address: "the_reserve@email.to")
+    it "presents the emails of reserve personnel who opted in to contact requests" do
+      reserve = create(:reserve, email_address: "the_reserve@ucnature.org")
+      opted_in = create(:user, email: "opted.in@ucnature.org")
+      create(:reserve_personnel, reserve: reserve, user: opted_in, receive_project_interest_email: true)
+      create(:reserve_personnel, reserve: reserve, receive_project_interest_email: false)
+      create(:reserve_personnel, receive_project_interest_email: true)
       presenter = Mail::User::ProjectContactManagerPresenter.new(
         project: :project,
         reserve: reserve,
@@ -26,7 +30,7 @@ RSpec.describe Mail::User::ProjectContactManagerPresenter do
 
       email_to = presenter.email_to
 
-      expect(email_to).to eq "the_reserve@email.to"
+      expect(email_to).to eq [ "opted.in@ucnature.org" ]
     end
   end
 

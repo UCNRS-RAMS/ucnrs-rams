@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_05_044301) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_06_072557) do
   create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.integer "project_id", null: false
@@ -516,6 +516,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_05_044301) do
     t.index ["reserve_question_id", "project_id"], name: "Questions"
   end
 
+  create_table "project_reserve_interests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "project_id", null: false, unsigned: true
+    t.integer "reserve_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id", "reserve_id"], name: "index_project_reserve_interests_on_project_id_and_reserve_id", unique: true
+    t.index ["reserve_id"], name: "index_project_reserve_interests_on_reserve_id"
+  end
+
   create_table "project_team_memberships", id: { type: :integer, unsigned: true }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "project_id", null: false
     t.integer "user_id", null: false
@@ -716,6 +725,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_05_044301) do
     t.string "avatar"
     t.boolean "visible", default: true, null: false
     t.string "role_title"
+    t.boolean "receive_project_interest_email", default: false, null: false
     t.index ["reserve_id"], name: "reserve"
     t.index ["user_id", "reserve_id"], name: "index_reserve_personnel_on_user_id_and_reserve_id", unique: true
     t.index ["user_id"], name: "user"
@@ -1177,6 +1187,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_05_044301) do
   add_foreign_key "api_client_reserves", "reserves"
   add_foreign_key "project_permit_answers", "permits"
   add_foreign_key "project_permit_answers", "projects"
+  add_foreign_key "project_reserve_interests", "projects"
+  add_foreign_key "project_reserve_interests", "reserves"
   add_foreign_key "reserve_tags", "reserves"
   add_foreign_key "reserves_waivers", "reserves"
   add_foreign_key "reserves_waivers", "waivers"

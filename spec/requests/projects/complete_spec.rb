@@ -45,6 +45,23 @@ RSpec.describe Projects::CompleteController, type: :request do
       end.to have_enqueued_mail(UserMailer, :project_contact_manager).twice
     end
 
+    it "emails the project team on first submission" do
+      user = create(:user, :confirmed)
+      sign_in(user)
+      project = create(:project, status: :incomplete)
+      create(
+        :project_team_membership,
+        user: user,
+        project: project,
+        active: true,
+        can_edit_project: true,
+      )
+
+      expect do
+        patch "/projects/#{project.id}/complete", params: { project_id: project.id }
+      end.to change { ActionMailer::Base.deliveries.count }.by(1)
+    end
+
     it "does not notify reserve managers when the project was already submitted" do
       user = create(:user, :confirmed)
       sign_in(user)
@@ -64,6 +81,7 @@ RSpec.describe Projects::CompleteController, type: :request do
           project: { reserve_ids: [reserve.id] },
         }
       end.not_to have_enqueued_mail(UserMailer, :project_contact_manager)
+      expect(project.reserve_interests.map(&:reserve)).to contain_exactly(reserve)
     end
 
     it "renders the fundings page if updating was unsuccessful" do
@@ -80,7 +98,7 @@ RSpec.describe Projects::CompleteController, type: :request do
       project_form_double = double(ProjectCompleteForm, save: false, project: project)
       allow(ProjectCompleteForm)
         .to receive(:new)
-        .with(params: { id: project.id.to_s })
+        .with(params: { id: project.id.to_s, reserve_ids: nil })
         .and_return(project_form_double)
       allow(project_form_double).to receive(:save).and_return(false)
 

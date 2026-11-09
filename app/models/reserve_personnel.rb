@@ -1,5 +1,14 @@
 class ReservePersonnel < ApplicationRecord
   AVATAR_PLACEHOLDER = "personnel_avatar_placeholder.png".freeze
+  EMAIL_FLAGS = %i[
+    receive_project_interest_email
+    receive_new_visit_email
+    receive_update_email
+    receive_invoice_email
+    receive_iacuc_email
+    receive_drone_email
+    receive_scuba_email
+  ].freeze
 
   mount_uploader :avatar, PersonnelUploader
   has_one_attached :avatar_old
@@ -14,12 +23,17 @@ class ReservePersonnel < ApplicationRecord
   validates :receive_iacuc_email, inclusion: [true, false]
   validates :receive_drone_email, inclusion: [true, false]
   validates :receive_scuba_email, inclusion: [true, false]
+  validates :receive_project_interest_email, inclusion: [true, false]
 
   belongs_to :reserve
   belongs_to :user
 
   def self.receiving_new_visit_email
     where(receive_new_visit_email: true)
+  end
+
+  def self.receiving_project_interest_email
+    where(receive_project_interest_email: true)
   end
 
   def self.receiving_new_visit_or_update_email

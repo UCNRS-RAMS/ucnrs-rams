@@ -1877,6 +1877,9 @@ en:
         invoice_created_at_date_range: Invoice Created At Date Range
         project: Project
         found: "%{name} found."
+        proposed_projects: Proposed Projects
+        proposed_projects_description: >-
+          Projects that request contact with a reserve manager before scheduling a visit.
         table_headers:
           title: Title
           timeframe: Timeframe
@@ -2856,13 +2859,40 @@ en:
         personnels:
           email_settings_for_reserve_personnel: Email settings for reserve personnel
           name: Name
-          receive_new_visit: Receive new visit
-          receive_visit_update: Receive visit update
-          receive_approval_only: Receive approval only
-          receive_invoice: Receive Invoice
-          receive_iacuc: Receive IACUC
-          receive_drone: Receive drone
-          receive_scuba: Receive SCUBA
+          email_flags:
+            receive_new_visit_email:
+              label: New visit
+              description: Emailed when a visit to this reserve is submitted or cancelled.
+            receive_update_email:
+              label: Visit update
+              description: >-
+                Copied (BCC) on visit update emails when the sender includes reserve personnel,
+                and emailed when a visit is cancelled.
+            receive_approval_email:
+              label: Approval
+              description: Not connected to any email yet.
+            receive_invoice_email:
+              label: Invoice
+              description: Copied on invoice emails when the sender includes reserve personnel.
+            receive_iacuc_email:
+              label: IACUC
+              description: >-
+                Emailed when a project's first visit to this reserve answers yes
+                to the IACUC question.
+            receive_drone_email:
+              label: Drone
+              description: >-
+                Emailed when a project's first visit to this reserve answers yes
+                to the drone question.
+            receive_scuba_email:
+              label: SCUBA
+              description: >-
+                Emailed when a project's first visit to this reserve answers yes
+                to the SCUBA question.
+            receive_project_interest_email:
+              label: Project interest
+              description: >-
+                Emailed when a user submits a project and selects to be contacted about this reserve.
         reserve_personnel_field:
           avatar: Avatar
           description_avatar_text: >-
@@ -2886,6 +2916,7 @@ en:
           receive_iacuc_email: IACUC
           receive_drone_email: Drone
           receive_scuba_email: SCUBA
+          receive_project_interest_email: Project Interest
       reserve_addendums:
         index:
           reserve_addendums: More Information
