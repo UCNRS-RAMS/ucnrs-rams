@@ -18,18 +18,6 @@
         <%= render partial: "projects_table", locals: { projects: @presenter.projects } %>
         <%= paginate @presenter.project_scope, data: { "turbo-action": "advance" } %>
       </section>
-      <% if @presenter.contact_requested_projects.any? %>
-        <section class="contact-requested-subsection">
-          <header>
-            <span class="list-count">
-              <strong><%= t(".proposed_projects") %></strong>
-              <br />
-              <%= tag.small t(".proposed_projects_description") %>
-            </span>
-          </header>
-          <%= render partial: "projects_table", locals: { projects: @presenter.contact_requested_projects } %>
-        </section>
-      <% end %>
     </section>
   </section>
 <% end %>

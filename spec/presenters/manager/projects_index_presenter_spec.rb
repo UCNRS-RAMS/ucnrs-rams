@@ -60,61 +60,6 @@ RSpec.describe Manager::ProjectsIndexPresenter do
     end
   end
 
-  describe "#contact_requested_projects" do
-    it "returns open projects that asked to be contacted about the reserve" do
-      reserve = create(:reserve)
-      other_reserve = create(:reserve)
-      requested = create(:project, status: :open, submitted_at: 2.days.ago)
-      requested_recently = create(:project, status: :open, submitted_at: 1.day.ago)
-      closed = create(:project, status: :closed)
-      other_reserves_project = create(:project, status: :open)
-      create(:project_reserve_interest, project: requested, reserve: reserve)
-      create(:project_reserve_interest, project: requested_recently, reserve: reserve)
-      create(:project_reserve_interest, project: closed, reserve: reserve)
-      create(:project_reserve_interest, project: other_reserves_project, reserve: other_reserve)
-      presenter = Manager::ProjectsIndexPresenter.new(reserve: reserve)
-
-      projects = presenter.contact_requested_projects
-
-      expect(projects.map(&:id)).to eq [requested_recently.id, requested.id]
-    end
-
-    it "drops a project once it has a submitted visit at the reserve" do
-      reserve = create(:reserve)
-      visited = create(:project, status: :open)
-      waiting = create(:project, status: :open)
-      create(:project_reserve_interest, project: visited, reserve: reserve)
-      create(:project_reserve_interest, project: waiting, reserve: reserve)
-      create(:visit, project: visited, reserve: reserve, status: :approved)
-      presenter = Manager::ProjectsIndexPresenter.new(reserve: reserve)
-
-      projects = presenter.contact_requested_projects
-
-      expect(projects.map(&:id)).to eq [ waiting.id ]
-    end
-
-    it "only returns the current reserve's projects when all reserves are selected" do
-      reserve = create(:reserve)
-      other_reserve = create(:reserve)
-      project = create(:project, status: :open)
-      other_reserves_project = create(:project, status: :open)
-      create(:project_reserve_interest, project: project, reserve: reserve)
-      create(:project_reserve_interest, project: other_reserves_project, reserve: other_reserve)
-      presenter = Manager::ProjectsIndexPresenter.new(reserve: reserve, filter: { reserve: "" })
-
-      projects = presenter.contact_requested_projects
-
-      expect(projects.map(&:id)).to eq [ project.id ]
-    end
-
-    it "returns nothing without a current reserve" do
-      create(:project_reserve_interest, project: create(:project, status: :open))
-      presenter = Manager::ProjectsIndexPresenter.new
-
-      expect(presenter.contact_requested_projects).to be_empty
-    end
-  end
-
   describe "#project_status_options" do
     it "is an array of project status options" do
       reserve = create(:reserve)

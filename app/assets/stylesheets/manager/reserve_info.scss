@@ -336,35 +336,6 @@
     .personnel-info {
       display: block;
     }
-
-    th.email-flag,
-    td.email-flag {
-      padding-left: 0.25rem;
-      padding-right: 0.25rem;
-      text-align: center;
-      width: 5.5rem;
-    }
-  }
-
-  .personnel-table-legend {
-    border-top: 1px solid #e0e9eb;
-    display: grid;
-    font-size: 10px;
-    gap: 4px 12px;
-    grid-template-columns: max-content 1fr;
-    margin: 16px 0 0;
-    padding-top: 14px;
-
-    dt {
-      color: $navy-blue;
-      font-weight: $semi-bold;
-      letter-spacing: 0.03em;
-    }
-
-    dd {
-      color: $semidark-bluegray;
-      margin: 0;
-    }
   }
 }
 
