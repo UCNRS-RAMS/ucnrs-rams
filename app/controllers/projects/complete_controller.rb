@@ -3,11 +3,12 @@ class Projects::CompleteController < ApplicationController
   before_action :authorize_user
 
   def update
-    form = ProjectCompleteForm.new(params: { id: project_id, reserve_ids: reserve_ids })
+    form = ProjectCompleteForm.new(params: { id: project_id })
     project = form.project
+    first_submission = project.incomplete?
 
     if form.save
-      notify_project_submitted!(form) if form.first_submission?
+      notify_reserve_managers!(project: project) if first_submission
       redirect_to project_path(project)
     else
       @presenter = Projects::ReservesIndexPresenter.new(
@@ -25,22 +26,25 @@ class Projects::CompleteController < ApplicationController
 
   private
 
-  def reserve_ids
-    params.fetch(:project, {}).permit(reserve_ids: [])[:reserve_ids]
+  def notify_reserve_managers!(project:)
+    selected_reserves.each do |reserve|
+      send_contact_manager_email!(project: project, reserve: reserve)
+    end
   end
 
-  def notify_project_submitted!(form)
-    UserMailer
-      .with(project: form.project)
-      .project_complete
-      .deliver_now
+  def selected_reserves
+    Reserve.where(id: params.dig(:project, :reserve_ids))
+  end
 
-    form.selected_reserves.each do |reserve|
-      UserMailer
-        .with(project: form.project, reserve: reserve, user: current_user)
-        .project_contact_manager
-        .deliver_later
-    end
+  def send_contact_manager_email!(project:, reserve:)
+    UserMailer
+      .with(
+        project: project,
+        reserve: reserve,
+        user: current_user,
+      )
+      .project_contact_manager
+      .deliver_later
   end
 
   def authorize_user

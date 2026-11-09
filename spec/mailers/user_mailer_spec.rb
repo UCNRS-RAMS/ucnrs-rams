@@ -1,35 +1,6 @@
 require "rails_helper"
 
 RSpec.describe UserMailer, type: :mailer do
-  describe "#project_contact_manager" do
-    it "sends the request to reserve personnel who opted in" do
-      reserve = create(:reserve)
-      staff = create(:user, email: "reserve_personnel@ucnature.org")
-      create(:reserve_personnel, reserve: reserve, user: staff, receive_project_interest_email: true)
-
-      email = UserMailer.with(
-        project: create(:project),
-        reserve: reserve,
-        user: create(:user),
-      ).project_contact_manager
-
-      expect(email.to).to eq ["reserve_personnel@ucnature.org"]
-    end
-
-    it "sends nothing when no reserve personnel opted in" do
-      reserve = create(:reserve, email_address: "reserve@ucnature.org")
-      create(:reserve_personnel, reserve: reserve, receive_project_interest_email: false)
-
-      email = UserMailer.with(
-        project: create(:project),
-        reserve: reserve,
-        user: create(:user),
-      ).project_contact_manager
-
-      expect(email.message).to be_a(ActionMailer::Base::NullMail)
-    end
-  end
-
   describe "#visit_update" do
     it "sends email with visit type information" do
       project = create(:project, project_type: :research)

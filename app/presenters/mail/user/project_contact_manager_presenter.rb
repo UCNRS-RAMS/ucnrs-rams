@@ -14,12 +14,7 @@ class Mail::User::ProjectContactManagerPresenter
   delegate :full_name, :email, to: :user, prefix: true
 
   def email_to
-    reserve
-      .personnel
-      .receiving_project_interest_email
-      .includes(:user)
-      .map { |personnel| personnel.user.email }
-      .compact_blank
+    reserve.email_address
   end
 
   def email_subject

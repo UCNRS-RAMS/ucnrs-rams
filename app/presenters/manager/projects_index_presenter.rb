@@ -34,15 +34,6 @@ class Manager::ProjectsIndexPresenter
       .includes(:applicant)
   end
 
-  def contact_requested_projects
-    @contact_requested_projects ||= Project
-      .where(status: :open)
-      .where(id: ProjectReserveInterest.where(reserve: reserve).without_submitted_visit.select(:project_id))
-      .order(submitted_at: :desc)
-      .includes(:applicant)
-      .map { |project| ProjectPresenter.new(project: project) }
-  end
-
   def project_status_options
     {
       "All" => Project::ALL_FILTER,

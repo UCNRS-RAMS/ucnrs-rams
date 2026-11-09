@@ -16,7 +16,7 @@
         <ul class="reserve-checkboxes">
           <% @presenter.reserves.each do |reserve| %>
             <li>
-              <%= check_box_tag "project[reserve_ids][]", reserve.id, @presenter.interested_in?(reserve), id: "reserve-#{reserve.id}" %>
+              <%= check_box_tag "project[reserve_ids][]", reserve.id, false, id: "reserve-#{reserve.id}" %>
               <%= label_tag "reserve-#{reserve.id}", reserve.name %>
             </li>
           <% end %>
