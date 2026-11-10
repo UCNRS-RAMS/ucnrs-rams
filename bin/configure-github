@@ -1,0 +1,89 @@
+#!/usr/bin/env ruby
+# Preview by default. Applying requires repository administrator permission.
+require "json"
+require "open3"
+require "base64"
+require "yaml"
+
+REPOSITORY = "UCNRS-RAMS/ucnrs-rams"
+API = "repos/#{REPOSITORY}"
+
+unless ARGV.empty? || ARGV == [ "--apply" ]
+  abort "Usage: bin/configure-github [--apply]"
+end
+
+def github(path, method: "GET", body: nil)
+  command = [ "gh", "api", "--method", method, path ]
+  command += [ "--input", "-" ] if body
+  output, error, status = Open3.capture3(*command, stdin_data: body ? JSON.generate(body) : "")
+  abort "GitHub #{method} #{path} failed: #{error}" unless status.success?
+  output.empty? ? nil : JSON.parse(output)
+end
+
+settings = {
+  allow_merge_commit: false, allow_squash_merge: true, allow_rebase_merge: false,
+  squash_merge_commit_title: "PR_TITLE", squash_merge_commit_message: "BLANK"
+}
+rulesets = [
+  {
+    name: "RAMS main", target: "branch", enforcement: "active",
+    bypass_actors: [],
+    conditions: { ref_name: { include: [ "refs/heads/main" ], exclude: [] } },
+    rules: [
+      { type: "deletion" },
+      { type: "non_fast_forward" },
+      {
+        type: "pull_request",
+        parameters: {
+          allowed_merge_methods: [ "squash" ],
+          dismiss_stale_reviews_on_push: false,
+          require_code_owner_review: false,
+          require_last_push_approval: false,
+          required_approving_review_count: 1,
+          required_review_thread_resolution: true
+        }
+      },
+      {
+        type: "required_status_checks",
+        parameters: {
+          required_status_checks: [
+            { context: "policy", integration_id: 15368 }, # GitHub Actions
+            { context: "ci/circleci: build" }
+          ],
+          strict_required_status_checks_policy: false
+        }
+      }
+    ]
+  },
+  {
+    name: "RAMS release tags", target: "tag", enforcement: "active",
+    bypass_actors: [],
+    conditions: { ref_name: { include: [ "refs/tags/v*" ], exclude: [] } },
+    rules: [ { type: "deletion" }, { type: "update" } ]
+  }
+]
+
+unless ARGV == [ "--apply" ]
+  puts JSON.pretty_generate({ repository: REPOSITORY, settings: settings, rulesets: rulesets })
+  exit
+end
+
+repository = github(API)
+abort "Repository admin permission is required; no settings changed." unless repository.dig("permissions", "admin")
+abort "The default branch must be main; no settings changed." unless repository.fetch("default_branch") == "main"
+
+# Do not require a status check that has not landed on the target branch yet.
+workflow = github("#{API}/contents/.github/workflows/pr-policy.yml?ref=main")
+jobs = YAML.safe_load(Base64.decode64(workflow.fetch("content"))).fetch("jobs")
+abort "main must contain the policy job before protection is enabled; no settings changed." unless jobs.key?("policy")
+existing_rules = github("#{API}/rulesets?includes_parents=false&per_page=100")
+
+github(API, method: "PATCH", body: settings)
+rulesets.each do |ruleset|
+  existing = existing_rules.find { |rule| rule.fetch("name") == ruleset.fetch(:name) }
+  path = "#{API}/rulesets"
+  path += "/#{existing.fetch('id')}" if existing
+  github(path, method: existing ? "PUT" : "POST", body: ruleset)
+end
+puts "Configured squash-only merges using PR titles, required policy and CircleCI checks, one approval, and protected release tags."
+puts "Unrelated rulesets were preserved. Add RELEASE_PLEASE_TOKEN separately; no secrets were read or written."

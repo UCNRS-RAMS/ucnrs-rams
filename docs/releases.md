@@ -17,9 +17,34 @@ documented in the [production server runbook](https://github.com/CDLUC3/ngrams-d
 2. Allow GitHub Actions and the actions used by the two workflows. The release
    workflow uses the PAT; the checklist workflow uses `GITHUB_TOKEN` with
    `contents: read` and `issues: write`.
-3. Keep CI and review requirements on `main`, including generated release PRs.
-   Use squash merges and [Conventional Commit PR titles](git_conventions.md).
-4. Merge this configuration, then merge a releasable PR to start the release PR.
+3. Merge this configuration and the `pr-policy.yml` workflow onto `main`, then
+   have a repository administrator preview and apply the enforcement settings:
+
+   ```sh
+   bin/configure-github
+   bin/configure-github --apply
+   ```
+
+   The apply command refuses to change settings without admin permission or
+   before the `policy` job exists on `main`. It requires one approving review,
+   resolved review threads, the GitHub Actions `policy` check, and the existing
+   `ci/circleci: build` check. It blocks direct pushes, force pushes, and deletion
+   of `main`, with no bypass actors configured. It enables squash merging only,
+   uses the PR title as the squash commit subject, and prevents updates/deletion
+   of `v*` release tags. It preserves unrelated repository settings and rulesets.
+4. Merge a releasable PR to start the release PR.
+
+The `policy` job requires PRs to target `main` and have a Conventional Commit
+title. It reruns when a title is edited as well as when code is pushed. Generated
+release PR titles such as `chore(main): release 3.4.1` pass. Required checks and
+squash-only repository settings make this enforceable for all contributors;
+the workflow alone would only report a failing check. See
+[Git conventions](git_conventions.md) for examples.
+
+The repository settings API and ruleset API are separate operations. If an apply
+fails partway through, correct the reported error and rerun it; existing named
+RAMS rulesets are updated rather than duplicated. Existing organization rules
+continue to apply.
 
 The dedicated token is required because events created with `GITHUB_TOKEN` do
 not normally trigger other Actions workflows. In particular, publishing the
