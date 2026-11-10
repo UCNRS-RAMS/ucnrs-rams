@@ -1879,7 +1879,7 @@ en:
         found: "%{name} found."
         proposed_projects: Proposed Projects
         proposed_projects_description: >-
-          Projects that request contact with a reserve manager before scheduling a visit.
+          Projects that have asked to be contacted by this reserve and have no visit scheduled yet.
         table_headers:
           title: Title
           timeframe: Timeframe
