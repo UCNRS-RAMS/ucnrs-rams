@@ -58,6 +58,26 @@ RSpec.describe Home::CalendarShowPresenter do
     end
   end
 
+  describe "#visits_link_params placeholders" do
+    it "fills gaps left by ended visits with bars the calendar partial can render" do
+      date = Date.new(2026, 11, 10) # a Tuesday, so positions carry over from the previous day
+      first, second = create_list(:visit, 2, user: user).map do |visit|
+        Home::Calendar::VisitPresenter.new(visit: visit)
+      end
+      show_presenter = Home::CalendarShowPresenter.new(user: user, start_date: date)
+
+      show_presenter.add_date_visits(date: date, visits: [first, second])
+      show_presenter.add_date_visits(date: date.tomorrow, visits: [second])
+
+      placeholder, real_bar = show_presenter.visits_link_params
+
+      expect(placeholder).to be_instance_of(Home::BarPresenter)
+      expect(placeholder).to respond_to(:status_class, :inner_classes)
+      expect(placeholder.link_classes).to eq "disable-link"
+      expect(real_bar).to eq second.visit_link_params
+    end
+  end
+
   describe "#current_date_visits" do
     let(:date) { 10.days.ago.to_date }
     it "returns an array of added visits in month_visits for the current_date" do

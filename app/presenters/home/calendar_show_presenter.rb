@@ -139,11 +139,13 @@ class Home::CalendarShowPresenter
   end
 
   def hidden_link_params
-    CalendarBarPresenter.new(
+    Home::BarPresenter.new(
       link_classes: "disable-link",
       background_classes: "border",
+      inner_classes: "",
       text_classes: "",
       text: "Dummay bar",
+      status_class: "",
       path: "#",
     )
   end
