@@ -27,6 +27,16 @@ title like `Add the institutions API` would be dropped from it.
 feat(api): add the read-only v1 institutions API
 fix(visits): reject overlapping reservation dates
 
+The GitHub Actions `policy` check validates titles and requires `main` as the
+target branch. It reruns on title edits. Once an administrator applies
+`bin/configure-github --apply`, merges require this check, CircleCI, one approving
+review, and resolved review threads. Only squash merges are allowed, with the
+PR title used as the commit subject. Individual commits on a feature branch may
+be work in progress; the final PR title must follow the convention.
+
+See [release setup](releases.md#initial-github-setup) for the required bootstrap
+order. The workflow must land on `main` before its check is made mandatory.
+
 ## Rules
 - 1 change/commit, subject ≤72 chars
 - branch off main/develop
