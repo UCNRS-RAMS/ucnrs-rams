@@ -34,6 +34,10 @@ gem 'turbo-rails', '~> 2.0'
 gem "wicked_pdf", "~> 2.7"
 gem "wkhtmltopdf-binary", "~> 0.12.6"
 
+# Hold below 2.1.0 until ORCID sign-in is checked against its new
+# allow_cross_origin_redirects: false default.
+gem "oauth2", "~> 2.0.26"
+
 # Public JSON API documentation (OpenAPI spec + Swagger UI).
 gem 'rswag-api'
 gem 'rswag-ui'
