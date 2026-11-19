@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   browser-tools: circleci/browser-tools@2.3.2
+  node: circleci/node@7.2.1
 jobs:
   build:
     docker:
@@ -11,6 +12,11 @@ jobs:
     resource_class: medium
     steps:
       - checkout
+      # Match .tool-versions; the Ruby browsers image may ship a newer Node major.
+      - node/install:
+          node-version: '24.14.1'
+          install-yarn: true
+          yarn-version: '1.22.22'
       - browser-tools/install_chrome
 
       # Restore bundle cache
