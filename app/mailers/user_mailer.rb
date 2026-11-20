@@ -44,6 +44,8 @@ class UserMailer < ApplicationMailer
       user: params[:user],
     )
 
+    return if @presenter.email_to.blank?
+
     mail(
       to: @presenter.email_to,
       subject: @presenter.email_subject,

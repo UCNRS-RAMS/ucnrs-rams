@@ -89,6 +89,7 @@ class Manager::ReserveInfo::StaffAndNotificationsController < Manager::Applicati
       :receive_scuba_email,
       :receive_new_project_email,
       :receive_new_visit_email,
+      :receive_project_interest_email,
       :role_title,
       :phone_number,
       :email,

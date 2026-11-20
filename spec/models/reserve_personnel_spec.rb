@@ -13,6 +13,7 @@ RSpec.describe ReservePersonnel, type: :model do
     it { is_expected.to validate_booleanish_values(:receive_iacuc_email) }
     it { is_expected.to validate_booleanish_values(:receive_drone_email) }
     it { is_expected.to validate_booleanish_values(:receive_scuba_email) }
+    it { is_expected.to validate_booleanish_values(:receive_project_interest_email) }
   end
 
   describe "associations" do
@@ -31,6 +32,17 @@ RSpec.describe ReservePersonnel, type: :model do
       results = ReservePersonnel.receiving_new_visit_email
 
       expect(results).to match_array [personnel2, personnel4]
+    end
+  end
+
+  describe ".receiving_project_interest_email" do
+    it "returns only personnel who opted in to contact request emails" do
+      opted_in = create(:reserve_personnel, receive_project_interest_email: true)
+      create(:reserve_personnel, receive_project_interest_email: false)
+
+      results = ReservePersonnel.receiving_project_interest_email
+
+      expect(results).to contain_exactly(opted_in)
     end
   end
 
