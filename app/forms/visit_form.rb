@@ -57,7 +57,7 @@ class VisitForm
 
   def cancel_visit
     visit.assign_attributes(status: :cancelled)
-    visit.save
+    update_status
   end
 
   def amenity_form(amenity_id)
@@ -105,7 +105,17 @@ class VisitForm
   end
 
   def update_status
-    visit.save && update_user_visits_status && update_amenity_visits_status
+    Visit.transaction do
+      visit.save!
+      update_user_visits_status!
+      update_amenity_visits_status!
+    end
+    true
+  rescue ActiveRecord::RecordInvalid
+    false
+  rescue ActiveRecord::ActiveRecordError => e
+    Rails.logger.error(e)
+    false
   end
 
   private
@@ -237,26 +247,25 @@ class VisitForm
     amenity_visit_ids - amenity_forms.values.flatten.map(&:id)
   end
 
-  def update_user_visits_status
-    begin
-      # rubocop:disable Rails/SkipsModelValidations
-      user_visits.update_all(status: UserVisit.statuses[status])
-            true
-    rescue ActiveRecord::ActiveRecordError => e
-      Rails.logger.error(e)
-      false
-    end
+  # Children have no "incomplete" status, so an incomplete visit leaves them as they are.
+  def update_user_visits_status!
+    user_visit_status = UserVisit.statuses[status]
+    return if user_visit_status.nil?
+
+    # rubocop:disable Rails/SkipsModelValidations
+    # Skip callbacks because we don't have to update the Visit's starts_at and ends_at.
+    user_visits.update_all(status: user_visit_status, updated_at: Time.current)
+    # rubocop:enable Rails/SkipsModelValidations
   end
 
-  def update_amenity_visits_status
-    begin
-      amenity_visits.update_all(status: AmenityVisit.statuses[status])
-      # rubocop:enable Rails/SkipsModelValidations
-      true
-    rescue ActiveRecord::ActiveRecordError => e
-      Rails.logger.error(e)
-      false
-    end
+  def update_amenity_visits_status!
+    amenity_visit_status = AmenityVisit.statuses[status]
+    return if amenity_visit_status.nil?
+
+    # rubocop:disable Rails/SkipsModelValidations
+    # Skip callbacks because we don't have to update the Visit's starts_at and ends_at.
+    amenity_visits.update_all(status: amenity_visit_status, updated_at: Time.current)
+    # rubocop:enable Rails/SkipsModelValidations
   end
 
   def today
