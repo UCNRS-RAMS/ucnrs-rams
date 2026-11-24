@@ -2,6 +2,7 @@
 
 class Visit < ApplicationRecord
   DEFAULT_LIMIT_FOR_INDEX = 10
+  LEGACY_CHILD_STATUS_CUTOFF = Date.new(2025, 5, 30)
 
   belongs_to :user
   belongs_to :project
@@ -280,6 +281,14 @@ class Visit < ApplicationRecord
       ends_at: ends.max,
     )
     # rubocop:enable Rails/SkipsModelValidations
+  end
+
+  def legacy_mixed_statuses?
+    return false if created_at.present? && created_at.to_date >= LEGACY_CHILD_STATUS_CUTOFF
+
+    statuses = user_visits.distinct.pluck(:status) | amenity_visits.distinct.pluck(:status)
+    statuses |= [status] unless incomplete? || statuses.empty?
+    statuses.size > 1
   end
 
   def first_reserve_visit_on_project?

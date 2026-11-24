@@ -5,6 +5,11 @@
       method: :put do |form|
     %>
       <%= render partial: "status_bar", locals: { form: form, presenter: @presenter } %>
+      <% if @presenter.visit.legacy_mixed_statuses? %>
+        <p class="legacy-status-notice" role="status">
+          <%= t(".legacy_mixed_statuses", cutoff: l(Visit::LEGACY_CHILD_STATUS_CUTOFF, format: :long)) %>
+        </p>
+      <% end %>
       <%= render partial: "email_notification", locals: { form: form, presenter: @presenter } %>
       <div class="form-end">
         <%= form.submit t(".update_status") %>

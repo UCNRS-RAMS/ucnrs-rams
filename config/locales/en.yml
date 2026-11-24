@@ -1751,6 +1751,11 @@ en:
           amenity_visits: Amenities (%{size})
           edit_amenities: Edit Amenities
         edit:
+          legacy_mixed_statuses: >-
+            Special case: this visit was created on RAMS v2, before %{cutoff}, when each visitor and amenity
+            had its own status, and their statuses differ. Annual Report Part 1 counts only the
+            approved visitors. Updating the visit status will overwrite every visitor and amenity
+            status and cannot be undone.
           update_status: Update Status
         user_visits_table:
           name: Name

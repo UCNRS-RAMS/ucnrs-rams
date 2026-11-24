@@ -520,4 +520,45 @@ RSpec.describe Visit, type: :model do
       end
     end
   end
+
+  describe "#legacy_mixed_statuses?" do
+    it "is true for a pre-cutoff visit whose children have different statuses" do
+      visit = create(:visit, created_at: Time.zone.local(2025, 5, 29))
+      create(:user_visit, visit: visit, status: "approved")
+      create(:amenity_visit, visit: visit, status: "cancelled")
+
+      expect(visit.legacy_mixed_statuses?).to eq true
+    end
+
+    it "is true when the children agree but differ from the visit status" do
+      visit = create(:visit, status: "approved", created_at: Time.zone.local(2025, 5, 29))
+      create(:user_visit, visit: visit, status: "cancelled")
+      create(:amenity_visit, visit: visit, status: "cancelled")
+
+      expect(visit.legacy_mixed_statuses?).to eq true
+    end
+
+    it "ignores the status of an incomplete visit" do
+      visit = create(:visit, status: "incomplete", created_at: Time.zone.local(2025, 5, 29))
+      create(:user_visit, visit: visit, status: "approved")
+
+      expect(visit.legacy_mixed_statuses?).to eq false
+    end
+
+    it "is false when the visit and every child share one status" do
+      visit = create(:visit, status: "approved", created_at: Time.zone.local(2025, 5, 29))
+      create_list(:user_visit, 2, visit: visit, status: "approved")
+      create(:amenity_visit, visit: visit, status: "approved")
+
+      expect(visit.legacy_mixed_statuses?).to eq false
+    end
+
+    it "is false for a visit created on or after the cutoff" do
+      visit = create(:visit, created_at: Time.zone.local(2025, 5, 30))
+      create(:user_visit, visit: visit, status: "approved")
+      create(:user_visit, visit: visit, status: "cancelled")
+
+      expect(visit.legacy_mixed_statuses?).to eq false
+    end
+  end
 end
