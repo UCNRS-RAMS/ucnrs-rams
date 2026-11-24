@@ -246,6 +246,34 @@ RSpec.describe VisitForm, type: :model do
       visit.reload
       expect(visit.status).to eq "cancelled"
     end
+
+    it "cancels the visit's user visits and amenity visits" do
+      visit = create(:visit, status: "approved")
+      user_visit = create(:user_visit, visit: visit, status: "approved", updated_at: 1.day.ago)
+      amenity_visit = create(:amenity_visit, visit: visit, status: "approved", updated_at: 1.day.ago)
+      form = VisitForm.new(params: { id: visit.id })
+
+      freeze_time do
+        expect(form.cancel_visit).to eq true
+
+        expect(user_visit.reload).to have_attributes(status: "cancelled", updated_at: Time.current)
+        expect(amenity_visit.reload).to have_attributes(status: "cancelled", updated_at: Time.current)
+      end
+    end
+
+    it "cancels the a rejected visit" do
+      visit = create(:visit, status: "denied")
+      user_visit = create(:user_visit, visit: visit, status: "denied", updated_at: 1.day.ago)
+      amenity_visit = create(:amenity_visit, visit: visit, status: "denied", updated_at: 1.day.ago)
+      form = VisitForm.new(params: { id: visit.id })
+
+      freeze_time do
+        expect(form.cancel_visit).to eq true
+        expect(visit.reload.status).to eq "cancelled"
+        expect(user_visit.reload).to have_attributes(status: "cancelled", updated_at: Time.current)
+        expect(amenity_visit.reload).to have_attributes(status: "cancelled", updated_at: Time.current)
+      end
+    end
   end
 
   describe "#parse_date" do
@@ -304,6 +332,29 @@ RSpec.describe VisitForm, type: :model do
       expect(form.update_status).to eq true
       visit.reload
       expect(visit.status).to eq "incomplete"
+    end
+
+    it "leaves children alone when the visit becomes incomplete" do
+      visit = create(:visit, status: "approved")
+      user_visit = create(:user_visit, visit: visit, status: "approved")
+
+      form = VisitForm.new(params: { id: visit.id, status: "incomplete" })
+
+      expect(form.update_status).to eq true
+      expect(visit.reload.status).to eq "incomplete"
+      expect(user_visit.reload.status).to eq "approved"
+    end
+
+    it "rolls back the visit status when updating user_visits or amenity_visits fails" do
+      visit = create(:visit, status: "approved")
+      create(:user_visit, visit: visit, status: "approved")
+      allow_any_instance_of(ActiveRecord::Relation)
+        .to receive(:update_all).and_raise(ActiveRecord::StatementInvalid)
+
+      form = VisitForm.new(params: { id: visit.id, status: "cancelled" })
+
+      expect(form.update_status).to eq false
+      expect(visit.reload.status).to eq "approved"
     end
   end
 end
