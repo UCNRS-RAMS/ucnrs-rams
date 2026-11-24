@@ -42,6 +42,30 @@ RSpec.describe "Manager Visit Show" do
     end
   end
 
+  describe "legacy visit with mixed child statuses", js: true do
+    it "warns the manager below the status options" do
+      legacy_visit = create(:visit, reserve: reserve, created_at: Time.zone.local(2024, 6, 3))
+      create(:user_visit, visit: legacy_visit, status: "approved")
+      create(:user_visit, visit: legacy_visit, status: "cancelled")
+      flow = Manager::VisitShowFlow.new(page: page, visit_id: legacy_visit.id, reserve_id: reserve.id)
+
+      sign_in(user)
+      flow.visit_show_page
+
+      expect(page).to have_css(".visit-summary-edit .legacy-status-notice", text: "before May 30, 2025")
+    end
+
+    it "shows no warning for a current visit" do
+      flow = Manager::VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)
+
+      sign_in(user)
+      flow.visit_show_page
+
+      expect(page).to have_css(".visit-summary-edit .status-bar")
+      expect(page).to have_no_css(".legacy-status-notice")
+    end
+  end
+
   describe "deleting a visit", js: true do
     it "open a confirmation modal by clicking the trash icon" do
       flow = Manager::VisitShowFlow.new(page: page, visit_id: visit.id, reserve_id: reserve.id)

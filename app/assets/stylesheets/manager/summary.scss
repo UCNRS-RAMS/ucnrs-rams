@@ -26,6 +26,12 @@
     margin-bottom: 3rem;
   }
 
+  .legacy-status-notice {
+    border-left: 4px solid $dark-bluegray;
+    margin: -1.5rem 0 3rem;
+    padding: 4px 0 4px 12px;
+  }
+
   .visit-status {
     border-radius: 20px;
     display: flex;
