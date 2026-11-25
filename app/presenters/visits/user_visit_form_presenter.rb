@@ -63,7 +63,7 @@ def initialize(current_user:, add_visitor_partial:, show_add_guest_modal: false,
       current_user.institution.id
     else
       Institution.find_by(id: Institution::GENERIC_INSTITUTION_IDS,
-        institution_type: current_user.institution.institution_type).id
+        institution_type: current_user.institution.institution_type)&.id
     end
   end
 
