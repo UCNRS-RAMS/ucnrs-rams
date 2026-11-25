@@ -19,6 +19,7 @@ RSpec.describe Visit, type: :model do
     it { is_expected.to validate_presence_of(:start_time) }
     it { is_expected.to validate_presence_of(:end_time) }
     it { is_expected.to validate_date(:end_date).is_after(:start_date) }
+    it { is_expected.to validate_length_of(:study_area).is_at_most(2000) }
 
     describe "when public-use" do
       before { subject.project_type = :public_use }

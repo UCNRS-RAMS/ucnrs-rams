@@ -103,7 +103,7 @@ describe("AmenityVisitController", () => {
       </div>
       <div class="field">
         <label for="visit_study_area">Study Area</label>
-        <input name="visit[study_area]" id="visit_study_area" value="">
+        <textarea name="visit[study_area]" id="visit_study_area"></textarea>
       </div>
      <div class="alert_message"></div>
      </div>

@@ -46,6 +46,7 @@ class Project < ApplicationRecord
 
   validates :project_type, presence: true
   validates :approved_permits, length: { maximum: 5000 }
+  validates :method_study_area, length: { maximum: 5000 }
 
   with_options(if: :project_type_research?) do
     validates :title, presence: true
