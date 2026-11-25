@@ -199,9 +199,8 @@ RSpec.describe Visits::UserVisitFormPresenter do
 
     it "returns nil when the user's institution has no institution type" do
       create(:institution, id: Institution::GENERIC_INSTITUTION_IDS.last, institution_type: :individual_or_other_entity)
-      institution = create(:institution, id: 9001)
-      # Mirrors the untyped "Unknown" institution (id 6619) in production data.
-      institution.update_column(:institution_type, nil) # rubocop:disable Rails/SkipsModelValidations
+      institution = build(:institution, id: 9001, institution_type: nil)
+      institution.save!(validate: false)
       user = create(:user, institution: institution)
       presenter = Visits::UserVisitFormPresenter.new(current_user: user, add_visitor_partial: "group")
 

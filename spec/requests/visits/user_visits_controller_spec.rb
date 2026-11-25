@@ -3,9 +3,8 @@ require "rails_helper"
 RSpec.describe Visits::UserVisitsController, type: :request do
   describe "GET /visits/:visit_id/user_visits/new" do
     it "renders the add visitor form with no institution selected when the user's institution has no type" do
-      institution = create(:institution, id: 9001)
-      # Mirrors the untyped "Unknown" institution (id 6619) in production data.
-      institution.update_column(:institution_type, nil) # rubocop:disable Rails/SkipsModelValidations
+      institution = build(:institution, id: 9001, institution_type: nil)
+      institution.save!(validate: false)
       user = create(:user, :confirmed, institution: institution)
       project = create(:project)
       create(:project_team_membership, user: user, project: project, active: true)
