@@ -179,6 +179,36 @@ RSpec.describe Visits::UserVisitFormPresenter do
     end
   end
 
+  describe "#default_institution" do
+    it "returns the user's institution when it is a selectable institution" do
+      institution = create(:institution, id: Institution::UC_IDS.first)
+      user = create(:user, institution: institution)
+      presenter = Visits::UserVisitFormPresenter.new(current_user: user, add_visitor_partial: "group")
+
+      expect(presenter.default_institution).to eq institution.id
+    end
+
+    it "returns the generic institution matching the user's institution type" do
+      generic = create(:institution, id: Institution::GENERIC_INSTITUTION_IDS.first, institution_type: :k_12_education)
+      institution = create(:institution, id: 9001, institution_type: :k_12_education)
+      user = create(:user, institution: institution)
+      presenter = Visits::UserVisitFormPresenter.new(current_user: user, add_visitor_partial: "group")
+
+      expect(presenter.default_institution).to eq generic.id
+    end
+
+    it "returns nil when the user's institution has no institution type" do
+      create(:institution, id: Institution::GENERIC_INSTITUTION_IDS.last, institution_type: :individual_or_other_entity)
+      institution = create(:institution, id: 9001)
+      # Mirrors the untyped "Unknown" institution (id 6619) in production data.
+      institution.update_column(:institution_type, nil) # rubocop:disable Rails/SkipsModelValidations
+      user = create(:user, institution: institution)
+      presenter = Visits::UserVisitFormPresenter.new(current_user: user, add_visitor_partial: "group")
+
+      expect(presenter.default_institution).to be_nil
+    end
+  end
+
   describe "#reset_visitor_partial" do
     it "reset add_visitor_partial to 'nil'" do
       user = create(:user)
