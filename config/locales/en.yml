@@ -962,7 +962,8 @@ en:
           use_area: Use Area
           use_area_description: >-
             Can be a place name or full description. Helps reserve staff manage
-            the activities of different user parties.
+            the activities of different user parties. Maximum %{max}
+            characters.
     show:
       successfully_cancelled: Visit Successfully Cancelled
       could_not_cancel: Could Not Cancel

@@ -10,7 +10,7 @@
 
   <div class="field">
     <%= tag.label t(".labels.use_area") , for: "visit_study_area" %>
-    <%= text_field_tag "visit[study_area]", form_values.study_area, id: "visit_study_area" %>
-    <%= tag.small t(".labels.use_area_description"), class: "label-description" %>
+    <%= tag.textarea form_values.study_area, name: "visit[study_area]", id: "visit_study_area", maxlength: Visit::STUDY_AREA_MAX_LENGTH %>
+    <%= tag.small t(".labels.use_area_description", max: number_with_delimiter(Visit::STUDY_AREA_MAX_LENGTH)), class: "label-description" %>
   </div>
 <% end %>

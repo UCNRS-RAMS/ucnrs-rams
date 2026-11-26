@@ -154,7 +154,7 @@ class RequestVisitFlow
   end
 
   def has_study_area_section?
-    page.has_css?("input[name='visit[study_area]']")
+    page.has_css?("textarea[name='visit[study_area]']")
   end
 
   def select_amenity(title)

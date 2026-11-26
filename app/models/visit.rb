@@ -2,6 +2,7 @@
 
 class Visit < ApplicationRecord
   DEFAULT_LIMIT_FOR_INDEX = 10
+  STUDY_AREA_MAX_LENGTH = 2000
 
   belongs_to :user
   belongs_to :project
@@ -21,6 +22,7 @@ class Visit < ApplicationRecord
   validates :end_time, presence: true
   validates :end_date, must_be_after: :start_date
   validates :public_use_category, presence: true, if: :public_use?
+  validates :study_area, length: { maximum: STUDY_AREA_MAX_LENGTH }
 
   # validate :user_visits_ranges_within_date_range
 

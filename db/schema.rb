@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_05_044301) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_25_230544) do
   create_table "Equipment", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "reserve_id", null: false
     t.integer "project_id", null: false
@@ -557,7 +557,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_05_044301) do
     t.boolean "method_soil_disturbance", comment: "Boolean"
     t.boolean "method_long_term_structures", comment: "Boolean"
     t.boolean "MethodAnchorCollectShoreline", comment: "DEPRECATED"
-    t.string "method_study_area", limit: 10000
+    t.text "method_study_area"
     t.boolean "NonNativeGenotype", default: false, comment: "DEPRECATED"
     t.date "date_submitted", comment: "Move data to submitted_at with default time"
     t.column "project_type", "enum('Research','Class','Public Use','Housing','Meeting')"
@@ -1150,7 +1150,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_05_044301) do
     t.time "end_time"
     t.column "project_type", "enum('research','university class','meeting or conference','public use')"
     t.column "public_use_category", "enum('general-use','community-event','fundraiser','k-12-class','private-class','volunteer')", default: "general-use"
-    t.string "study_area"
+    t.text "study_area"
     t.datetime "starts_at", precision: nil
     t.datetime "ends_at", precision: nil
     t.index ["DateSubmitted", "project_id", "id"], name: "Date"
