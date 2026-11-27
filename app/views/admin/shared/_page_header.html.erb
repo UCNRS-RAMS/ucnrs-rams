@@ -1,0 +1,25 @@
+<% crumbs = local_assigns.fetch(:crumbs, []) %>
+<% blurb = local_assigns[:blurb] %>
+
+<% if crumbs.any? %>
+  <nav class="breadcrumb" aria-label="<%= t(".aria.breadcrumb") %>">
+    <% crumbs.each do |label, path| %>
+      <% if path %>
+        <%= link_to label, path %>
+      <% else %>
+        <span><%= label %></span>
+      <% end %>
+      <span aria-hidden="true">/</span>
+    <% end %>
+  </nav>
+<% end %>
+
+<div class="page-header">
+  <div class="page-header-text">
+    <h1><%= title %></h1>
+    <% if blurb %>
+      <p><%= blurb %></p>
+    <% end %>
+  </div>
+  <%= yield if block_given? %>
+</div>

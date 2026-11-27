@@ -1,0 +1,25 @@
+<% groups = [
+  { label: t(".groups.overview"), items: [
+    { label: t(".links.dashboard"), path: admin_root_path, controller: "admin/dashboard" },
+  ] },
+  { label: t(".groups.reporting"), items: [
+    { label: t(".links.reports"), path: admin_reports_path, controller: "admin/reports" },
+  ] },
+  { label: t(".groups.content"), items: [
+    { label: t(".links.new_features"), path: admin_new_features_path, controller: "admin/new_features" },
+  ] },
+] %>
+
+<aside class="side-nav" aria-label="<%= t(".aria.section_navigation") %>">
+  <nav class="side-nav-menu" aria-label="<%= t(".aria.admin_sections") %>">
+    <% groups.each do |group| %>
+      <div class="side-nav-group">
+        <p class="side-nav-heading"><%= group[:label] %></p>
+        <% group[:items].each do |item| %>
+          <%= link_to item[:label], item[:path], class: "side-nav-link",
+            "aria-current": ("page" if controller_path == item[:controller]) %>
+        <% end %>
+      </div>
+    <% end %>
+  </nav>
+</aside>

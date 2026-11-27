@@ -1,0 +1,83 @@
+@use "variables" as *;
+
+.with-sidebar {
+  display: grid;
+  flex: 1 0 auto;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.with-sidebar-main {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem 2.5rem 3.5rem;
+}
+
+.side-nav {
+  background: $white;
+  border-right: 1px solid $light-gray;
+  box-sizing: border-box;
+  padding: 1.5rem 0.75rem 1rem;
+}
+
+.side-nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.side-nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.side-nav-heading {
+  color: $dark-bluegray;
+  font-size: 0.625rem;
+  font-weight: $semi-bold;
+  letter-spacing: 0.03em;
+  margin: 0 0 0.125rem;
+  padding: 0 0.75rem;
+  text-transform: uppercase;
+}
+
+.side-nav-link {
+  align-items: center;
+  border-left: 4px solid transparent;
+  border-radius: $border-radius;
+  color: $navy-blue;
+  display: flex;
+  font-size: 0.8125rem;
+  min-height: 36px;
+  padding: 0 0.75rem;
+  text-decoration: none;
+  transition: all 0.15s ease-in-out;
+
+  &:hover {
+    background: $light-gray;
+  }
+
+  &[aria-current="page"] {
+    background: $light-gray;
+    border-left-color: $gold;
+    font-weight: $semi-bold;
+  }
+}
+
+@media (min-width: 808px) {
+  .with-sidebar {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .side-nav {
+    align-self: start;
+    height: calc(100vh - var(--with-sidebar-top, 0px));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    position: sticky;
+    top: var(--with-sidebar-top, 0px);
+    width: 248px;
+  }
+}

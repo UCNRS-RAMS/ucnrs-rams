@@ -1,0 +1,131 @@
+@use "variables" as *;
+
+$admin-navbar-height: 56px;
+
+.admin {
+  --with-sidebar-top: #{$admin-navbar-height};
+
+  .admin-navbar {
+    align-items: center;
+    backdrop-filter: blur(6px);
+    background: rgba($white, 0.5);
+    box-sizing: border-box;
+    column-gap: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    min-height: $admin-navbar-height;
+    padding: 0 1.5rem;
+    position: relative;
+    row-gap: 0.25rem;
+    z-index: 1;
+  }
+
+  .admin-brand {
+    align-items: center;
+    color: $navy-blue;
+    display: flex;
+    gap: 0.75rem;
+    min-height: 44px;
+    text-decoration: none;
+  }
+
+  .admin-brand-icon {
+    line-height: 1;
+    font-size: 2rem;
+  }
+
+  .admin-brand-name {
+    font-size: 1.0625rem;
+    font-weight: $semi-bold;
+    letter-spacing: 0.01em;
+  }
+
+  .admin-brand-pill {
+    background: $gold;
+    border-radius: 1rem;
+    color: $navy-blue;
+    font-size: $small-font-size;
+    font-weight: $semi-bold;
+    padding: 3px 10px;
+  }
+
+  .admin-navbar-actions {
+    align-items: center;
+    display: flex;
+    gap: 0.5rem;
+    margin-left: auto;
+  }
+
+  .admin-navbar-account {
+    align-items: center;
+    border-left: 1px solid $gray;
+    display: flex;
+    min-height: 32px;
+    padding: 0 0.25rem 0 0.5rem;
+  }
+
+  .admin-sign-out {
+    display: contents;
+  }
+
+  .account-user {
+    align-items: center;
+    display: flex;
+    gap: 0.75rem;
+    min-width: 0;
+  }
+
+  .account-user-text {
+    min-width: 0;
+  }
+
+  .account-name {
+    font-size: 0.875rem;
+    font-weight: $semi-bold;
+    margin: 0;
+  }
+
+  .account-role {
+    color: $semidark-bluegray;
+    font-size: 0.8125rem;
+    margin: 2px 0 0;
+  }
+
+  .account-sign-out {
+    align-items: center;
+    background: none;
+    border: 1px solid $navy-blue;
+    border-radius: 50px;
+    color: $navy-blue;
+    cursor: pointer;
+    display: flex;
+    font-family: inherit;
+    font-size: 0.8125rem;
+    font-weight: $medium;
+    gap: 0.5rem;
+    justify-content: center;
+    min-height: 44px;
+    width: 100%;
+
+    &:hover {
+      background: $light-gray;
+    }
+  }
+
+  .with-sidebar-main .content {
+    display: block;
+    padding: 0;
+  }
+
+  @media (min-width: 808px) {
+    height: auto;
+    min-height: 100%;
+
+    > header {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+  }
+}

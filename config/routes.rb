@@ -213,6 +213,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    root to: "dashboard#index"
     resources :reports, only: [:index]
     resources :new_features
   end

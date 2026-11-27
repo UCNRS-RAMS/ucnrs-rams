@@ -1,9 +1,4 @@
-class Admin::NewFeaturesController < Manager::ApplicationController
-  before_action :authenticate_user!
-  before_action :confirm_admin!
-
-  layout "admin"
-
+class Admin::NewFeaturesController < Admin::ApplicationController
   def index
     @presenter = Admin::NewFeaturesIndexPresenter.new
   end
