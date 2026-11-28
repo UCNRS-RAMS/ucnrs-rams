@@ -238,6 +238,7 @@ en:
     select_one: Please Select One
   dashboard:
     index:
+      title: Dashboard
       await_approval: Await approval
       create_a_project: Create a Project
       create_a_project_instruction:
@@ -331,6 +332,8 @@ en:
         title: Invoices
       no_invoices: You do not have any Invoice at this time.
     index:
+      title: Home
+      calendar_title: My Calendar
       recent_invoices: Recent Invoices
       paid: Paid
       balance_due: Balance Due
@@ -349,6 +352,7 @@ en:
   invoices:
     show:
       invoice: Invoice %{id}-%{version}
+      title: User Invoice Show
     amenity_visits:
       amenities: Amenities
       amenity_name: Amenity Name
@@ -663,6 +667,7 @@ en:
       alt_text:
         reserve_picture: image of a reserve
     index:
+      title: Reserves List
       clear_icon: clear icon
       direction_title: Reserves
       direction_body: >-
@@ -676,6 +681,7 @@ en:
       clear_selection_and_start_over: Clear Selection & Start Over
       less_options: Less Options
     show:
+      title: Reserve Show
       alt_text:
         reserve_logo: small picture of reserve logo
         ucnrs_logo: small UC Nature logo
@@ -691,7 +697,7 @@ en:
         more_information: More Information
     addendums:
       index:
-        title: More Information
+        title: Reserve More Information
     amenities:
       amenity:
         more_info: Show More
@@ -710,14 +716,14 @@ en:
           with questions re: availability.
     rules_and_directions:
       show:
-        title: Rules and Directions
+        title: Reserve Rules and Directions
       directions:
         directions: Directions
       rules_and_regulations:
         rules_and_regulations: Rules and Regulations
     waivers:
       index:
-        title: Waivers
+        title: Reserve Waivers
       waivers:
         direction_title: >-
           All visitors must sign and return a waiver agreement prior to visiting
@@ -826,7 +832,7 @@ en:
         back: Go Back
         next_step: "Next: Waivers & Policies"
       index:
-        title: Additional Questions
+        title: Visit Questions
       text:
         aria_label_for: textarea answer field for question %{question}
     save:
@@ -870,7 +876,7 @@ en:
           You have no valid project. Plese create a project first to make a
           visit.
     edit:
-      title: Visit Details
+      title: Edit Visit
     index:
       title: Visit Requests
       most_recent_filter: Most recent
@@ -893,7 +899,7 @@ en:
           or termination of reserve use. Know and abide by University of
           California Nature, and reserve specific rules and
           regulations.
-        title: Waivers and Policies
+        title: Visit Waivers and Policies
         waivers_information: Waivers Information
         agree: >-
           I have read and agree to abide by the use policies listed above and
@@ -921,7 +927,7 @@ en:
         next_step: "Next: Reserve Info"
         no_amenity: No Amenity
         reserve: Reserve
-        title: Who is going on this visit?
+        title: Visit Visitors
         visit_summary: Visit Summary
         visitor_table: Visitor List
         warning: >-
@@ -951,7 +957,7 @@ en:
           time_of_arrival: Arrival Time
           time_of_departure: Departure Time
     new:
-      title: Visit Details
+      title: New Visit
     reserve_inputs:
       fields:
         labels:
@@ -1154,7 +1160,7 @@ en:
             or college.
           housing: Housing only
     new:
-      title: Project Details
+      title: New Project
       submit:
         step_1: "Next: Team"
       alt:
@@ -1196,7 +1202,7 @@ en:
         choose_role: Choose Role
         add_team_member_submit: Add Team Member
       index:
-        title: Team
+        title: Project Team Members
         back: Go Back
         alt:
           left_facing_arrow: Left-facing arrow
@@ -1225,7 +1231,7 @@ en:
       file:
         cross_icon: cross icon
       index:
-        title: Permits
+        title: Project Questions/Permits
         reserve_section_title: Reserve-specific Questions
         description: >-
           If you wish to attach any files to this project, such as permits or
@@ -1275,7 +1281,7 @@ en:
           No funding information is required for this project type. Please
           continue to the next step.
         project_funding: Project Funding
-        title: Funding
+        title: Project Funding
     reserves:
       index:
         alt:
@@ -1289,7 +1295,7 @@ en:
           will notify reserve managers of your interest in working at their
           reserve. After this step, you will need to Schedule a Visit to each
           reserve.
-        title: Reserves
+        title: Project Proposed Reserves
     show:
       amphibians: Amphibians
       birds: Birds
@@ -1362,6 +1368,9 @@ en:
     waiver:
       download_pdf: Download PDF
   manager:
+    new_features:
+      index:
+        title: What's New/Changed
     no_amenity_visit: Invoice has no amenity visit
     dashboard:
       dashboard:
@@ -1375,6 +1384,7 @@ en:
       list:
         title: List
       show:
+        title: Dashboard
         todays_visit_and_resources: Today's Visit & Resources
         last_24_hours: Last 24 Hours
         last_7_days: Last 7 Days
@@ -1389,11 +1399,14 @@ en:
         from: from %{time}
         until: until %{time}
       calendar:
+        show:
+          title: Calendar
         calendar:
           month: Month
           year: Year
       visits:
         index:
+          title: Visits
           visits: Visits
           date_submitted: Date Submitted
           visit_start_date: Visit Start Date
@@ -1425,15 +1438,19 @@ en:
       invoice:
         annual_report_disabled: Annual Report disabled
       index:
+        title: Invoices
         all: All
         paid: Paid
         pending: Pending
       show:
+        title: Invoice Show
         invoice: Invoice %{id}-%{version}
       new:
+        title: New Invoice
         new_invoice: New Invoice
         submit: Create Invoice
       edit:
+        title: Edit Invoice
         record_payment: Record Payment
         invoice: Edit Invoice %{id}-%{version}
         balance: Balance
@@ -1582,6 +1599,8 @@ en:
       administrator role
     error_message: Required fields are missing
     visits:
+      show:
+        title: Visit Show
       new:
         title: New Visit
       edit:
@@ -1601,7 +1620,7 @@ en:
             denial or termination of reserve use. Know and abide by University
             of California Nature, and reserve specific rules
             and regulations.
-          title: Waivers and Policies
+          title: Visit Waivers and Policies
           waivers_information: Waivers Information
           agree: >-
             I have read and agree to abide by the use policies listed above and
@@ -1810,7 +1829,7 @@ en:
         visitors: Visitors
       user_visits:
         index:
-          title: Who are you bringing with you?
+          title: Visit Visitors
           visit_summary: Visit Summary
           reserve: Reserve
           arrive_departs_date: Arrival & Departure
@@ -1834,7 +1853,7 @@ en:
           back: Go Back
           next_step: "Next: Waivers & Policies"
         index:
-          title: Additional Questions
+          title: Visit Questions
       project:
         links:
           create_a_new_project: Create A New Project
@@ -1864,6 +1883,7 @@ en:
         edit:
           save_changes: Save Changes
       index:
+        title: Projects
         arrival_date: Enter Arrival Date
         departure_date: Enter Departs Date
         projects: Projects
@@ -1915,7 +1935,7 @@ en:
           right_facing_arrow: A right facing arrow
       fundings:
         index:
-          title: Funding
+          title: Project Funding
           add_funding_title: Add Information About Your Grant
           next_reserves: "Next: Reserves"
           save_funding: Save Funding
@@ -1927,7 +1947,7 @@ en:
             left_facing_arrow: Left-facing arrow
       reserves:
         index:
-          title: Reserves
+          title: Project Proposed Reserves
           back: Go Back
           next_step: Save Project & Submit
           select_reserves: Select Reserve(s)
@@ -1937,6 +1957,7 @@ en:
             reserve. After this step, you will need to Schedule a Visit to each
             reserve.
       show:
+        title: Project Show
         research: Research
         right_facing_arrow: A right facing arrow
       project:
@@ -1966,7 +1987,7 @@ en:
         funding: Funding
         activity_and_notes: Activity & Notes
       edit:
-        title: Edit Project Details
+        title: Edit Project
         submit:
           step_1: "Next: Team"
         alt:
@@ -1984,7 +2005,7 @@ en:
             meeting: Meeting
             public_use: Public
       new:
-        title: Project Details
+        title: New Project
         submit:
           step_1: "Next: Team"
         alt:
@@ -2177,11 +2198,14 @@ en:
         not_saved: This project could not be saved as 'open'
       visits:
         index:
+          title: Project Visits
           visits: Visits (%{size})
         visit:
           visitor: Visitor
           amenity: Amenity
       activity_and_notes:
+        index:
+          title: Project Activity and Notes
         activity_table:
           action: Action
           date_and_time: Date & Time
@@ -2195,13 +2219,13 @@ en:
           user_or_admin: User/Admin
       team_memberships:
         index:
-          title: Team
+          title: Project Team Members
           back: Go Back
           alt:
             left_facing_arrow: Left-facing arrow
       questions:
         index:
-          title: Permits
+          title: Project Questions/Permits
           reserve_section_title: Reserve-specific Questions
           authority:
             federal: Federal Permits
@@ -2445,6 +2469,7 @@ en:
         create:
           reserve_tags_updated: Reserve Tags Updated
         new:
+          title: Reserve Tags
           reserve_tags: Reserve Tags
           submit: Submit
           add_more_tag_options: >-
@@ -2452,6 +2477,7 @@ en:
             administrator and they can work on adding it to the database
       reserve_details:
         edit:
+          title: Reserve Details
           reserve_details: Reserve Details
         reserve_details_field:
           alert_message: Alert Message
@@ -2561,6 +2587,7 @@ en:
             outside reservation system link.
       amenities_and_rates:
         index:
+          title: Reserve Amenities & Rates
           amenities_and_rates: Amenities & Rates
           amenities_list: Amenities List
           amenities_list_paragraph1: >-
@@ -2699,6 +2726,7 @@ en:
               update_success: Updated Successfully
       waivers:
         index:
+          title: Reserve Waivers
           waivers: Waivers
         waivers:
           name: Name
@@ -2713,6 +2741,7 @@ en:
           description_helper_text: Typically used to clarify information about this waiver.
       rules_and_regulations:
         edit:
+          title: Reserve Rules & Regulations
           rules_and_regulations: Rules & Regulations
           save_changes: Save Changes
           migration_helper_explanation: >-
@@ -2723,6 +2752,7 @@ en:
           code_of_conduct_url: Code of conduct url
       directions:
         edit:
+          title: Reserve Directions
           reserve_directions: Reserve Directions
           save_changes: Save Changes
           migration_helper_explanation: >-
@@ -2730,6 +2760,7 @@ en:
             to the new rules and regulations. It will be removed in the future.
       permits:
         index:
+          title: Reserve Permits
           permits: Permits
           about_permits: About Permits
           about_permits_paragraph: >-
@@ -2754,6 +2785,7 @@ en:
           conference_project: Conference Project
       reserve_questions:
         index:
+          title: Reserve Questions
           reserve_questions: Reserve Questions
           about_questions_paragraph1: >-
             Ask more questions about visits requested at your reserve. Answers
@@ -2840,6 +2872,7 @@ en:
               identified in the Staff and Notifications section
       staff_and_notifications:
         index:
+          title: Reserve Staff & Notifications
           staff_and_notifications: Staff & Notifications
         create:
           flash:
@@ -2888,6 +2921,7 @@ en:
           receive_scuba_email: SCUBA
       reserve_addendums:
         index:
+          title: Reserve More Information
           reserve_addendums: More Information
           about_addendums: >-
             Appears in the More Information section of your reserve information
@@ -2903,12 +2937,16 @@ en:
           name: Name
           description_helper_text: ""
     uninvoiced:
+      index:
+        title: Uninvoiced
       uninvoiced_visits:
         actions: Actions
         user: User
         visit: Visit
         visit_dates: Visit Dates
     users:
+      index:
+        title: Users
       orcid_fields:
         labels:
           orcid: ORCID (Optional)
@@ -2923,6 +2961,7 @@ en:
         status:
           unauthenticated: "(unauthenticated)"
       edit:
+        title: Edit User
         delete_user: Delete User
         submit_visit_request_for_user: Submit Visit Request for User
         account_details: Account Details
@@ -2946,6 +2985,7 @@ en:
         visits: Visits
       activities:
         index:
+          title: User Activities
           account_details: Account Details
           activity: Activity
           visits: Visits
@@ -2970,6 +3010,10 @@ en:
           reserve_name: Reserve Name
           amount: Amount
     institutions:
+      index:
+        title: Institutions
+      edit:
+        title: Edit Institution
       successfully_updated: Record for <strong>%{institution}</strong> successfully updated
       institution_form:
         cancel_go_back: Cancel, go back

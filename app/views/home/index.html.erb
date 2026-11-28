@@ -1,3 +1,5 @@
+<% content_for(:title) { @presenter.partial_name == "calendar" ? t(".calendar_title") : t(".title") } %>
+
 <section class="content">
   <%= render partial: @presenter.partial_name, locals: { presenter: @presenter } %>
   <%= render partial: "invoices_section", locals: { presenter: @presenter } %>
