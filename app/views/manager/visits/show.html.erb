@@ -1,3 +1,5 @@
+<% content_for(:title) { t(".title") } %>
+
 <section class="content">
   <section class="visit-summary-box">
     <%= render partial: "manager/visits/summary_box", locals: { presenter: @presenter } %>

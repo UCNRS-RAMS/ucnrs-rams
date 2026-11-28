@@ -121,15 +121,13 @@ RSpec.describe "Manager Dashboard" do
       flow.visit_manager_dashboard
       page.find("#calendar").click
       expect(page).to have_css("a.cal-entry[data-visit-id='#{visit.id}']")
-      title = page.title
 
       page.find("label[for='show_visits']").click
 
       expect(page).to have_no_css("a.cal-entry[data-visit-id='#{visit.id}']")
       expect(page).to have_current_path(/dashboard\/calendar\?.*show_visits=false/)
       expect(page).to have_css("header.content-header #calendar a.active")
-      expect(page.title).to eq title
-      expect(page.title).to be_present
+      expect(page).to have_title("UC Nature RAMS | Manager - Calendar")
     end
   end
 end

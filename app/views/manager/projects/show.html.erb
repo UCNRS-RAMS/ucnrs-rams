@@ -1,3 +1,5 @@
+<% content_for(:title) { t(".title") } %>
+
 <section class="content">
   <%= render partial: "manager/projects/summary_box", locals: { presenter: @presenter } %>
   <%= render "manager/projects/menu" %>

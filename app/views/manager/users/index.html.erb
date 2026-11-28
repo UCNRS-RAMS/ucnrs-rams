@@ -1,3 +1,5 @@
+<% content_for(:title) { t(".title") } %>
+
 <%= render partial: "shared/manager/users_and_institutions_index",
   locals: { presenter: @presenter, frame_id: "users-index", partial: "users" }
 %>

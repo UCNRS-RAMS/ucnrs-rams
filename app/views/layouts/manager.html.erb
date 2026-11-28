@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>UC Nature RAMS | Manager</title>
+    <title><%= safe_join(["UC Nature RAMS | Manager", content_for(:title)].compact, " - ") %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
