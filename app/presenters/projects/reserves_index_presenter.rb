@@ -13,7 +13,15 @@ class Projects::ReservesIndexPresenter
     Reserve.alphabetized
   end
 
+  def interested_in?(reserve)
+    interested_reserve_ids.include?(reserve.id)
+  end
+
   private
 
   attr_reader :steps_presenter, :current_step
+
+  def interested_reserve_ids
+    @interested_reserve_ids ||= project.reserve_interests.pluck(:reserve_id)
+  end
 end

@@ -41,6 +41,7 @@ class Project < ApplicationRecord
   has_many :project_permit_answers, dependent: :destroy
   has_many :fundings, dependent: :destroy
   has_many :project_reserve_answers, dependent: :destroy
+  has_many :reserve_interests, class_name: "ProjectReserveInterest", dependent: :delete_all
   has_many :reserve_notes, as: :record, dependent: :destroy
   has_many :logs, as: :record, dependent: :destroy
 

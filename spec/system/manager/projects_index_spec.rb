@@ -34,4 +34,36 @@ RSpec.describe "Manager Projects Index" do
       expect(flow).to have_selected_page_number_link(3)
     end
   end
+
+  describe "proposed projects" do
+    it "lists projects that asked to be contacted in a labelled table" do
+      user = create(:user, :confirmed)
+      reserve = create(:reserve)
+      create(:reserve_personnel, user: user, reserve: reserve)
+      requested = create(:project, title: "Wants a call", status: :open)
+      create(:visit, project: requested, reserve: reserve)
+      create(:project, title: "Quiet project", status: :open)
+      create(:project_reserve_interest, project: requested, reserve: reserve)
+      sign_in(user)
+
+      visit "/manager/reserves/#{reserve.id}/projects"
+
+      within(".contact-requested-subsection") do
+        expect(page).to have_content("Proposed Projects")
+        expect(page).to have_css("tr.project", count: 1)
+        expect(page).to have_link("Wants a call")
+      end
+    end
+
+    it "hides the table when no project asked to be contacted" do
+      user = create(:user, :confirmed)
+      reserve = create(:reserve)
+      create(:reserve_personnel, user: user, reserve: reserve)
+      sign_in(user)
+
+      visit "/manager/reserves/#{reserve.id}/projects"
+
+      expect(page).to have_no_css(".contact-requested-subsection")
+    end
+  end
 end
