@@ -259,7 +259,14 @@ endpoints from the UI. The OpenAPI document is generated from the specs in
 bundle exec rake rswag:specs:swaggerize
 ```
 
-## Documentation
+## Releases and deployment
+
+Release-please maintains a release PR on `main`. Merging it publishes the next
+version and opens a deployment checklist for the production server process. See the
+[release runbook](docs/releases.md) for token setup, release review, deployment,
+and rollback.
+
+## Developer documentation
 
 Developer documentation is generated with [YARD](https://yardoc.org) from the
 comments in `app/` and `lib/`, together with the Markdown files in `docs/`:

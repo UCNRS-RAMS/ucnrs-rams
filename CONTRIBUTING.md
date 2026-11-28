@@ -28,7 +28,9 @@ By contributing, you agree that your contributions are licensed under the [MIT L
 
 ## Releases
 
-* Releases are managed by the development team including tagged versions and release notes
+* Release-please maintains the version and changelog PR on `main`; merging it
+  publishes the tag/release and opens the deployment checklist. See the
+  [release runbook](docs/releases.md).
 * UC Nature validates operational readiness
 
 ## Security

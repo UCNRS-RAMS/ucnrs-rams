@@ -1,0 +1,27 @@
+name: Pull request policy
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited, ready_for_review]
+
+permissions:
+  contents: read
+
+jobs:
+  policy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check pull request title and target
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            if (pr.base.ref !== 'main') {
+              core.setFailed('Pull requests must target main.');
+              return;
+            }
+            if (!/^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([^()\r\n]+\))?!?: \S[^\r\n]*$/.test(pr.title)) {
+              core.setFailed('Use a Conventional Commit PR title, for example: feat(visits): add reservation search.');
+              return;
+            }
+            core.notice('Squash and merge: the PR title becomes the release commit subject.');

@@ -41,29 +41,34 @@ docker buildx build --platform linux/amd64,linux/amd64 -f Dockerfile.server -t u
 ```
 
 
-### Github actions example (not tested or running, but interesting)
+### Production releases and Docker/AWS environments
 
-- There is a file `.github/workflows/development-deploy.yml` that claims to be able to deploy
-  based on github actions.
-- This is not tested yet, but may be an option for auto-deploying a development branch
-  when changes happen to preview on some other server (alternative to codebuild in AWS)
+See the [release runbook](releases.md) for the release PR workflow and deployment
+checklist. Production currently uses a tagged checkout on the Mac Studio at
+Riverside; follow the [production server runbook](https://github.com/CDLUC3/ngrams-doc/blob/main/doc/production_server.md)
+for SSH access and deployment. GitHub Actions publishes releases and opens
+tracking issues for that procedure.
 
-### Deploy to AWS -- note, not tested and perhaps not how we'd want to do it, but an example
+The Docker/AWS examples here describe a separate CodePipeline/CodeBuild → ECR →
+ECS Fargate process. Confirm its configuration and environment ownership before
+using it; it is not the production server procedure.
 
-If following Brian's example we'd have new development code trigger AWS Codebuild
-and then push to Elastic Container Registry (ECR) and then ECS Fargate.
+The following are manual build/push examples, not an automated deployment.
+Check out the published release tag first and use that version consistently:
 
 ```bash
 # Build
+git checkout --detach v1.0.0  # replace with the published release tag
 docker build -f Dockerfile.server -t ucnrs-rams:v1.0.0 .
 
 # Push to ECR
 docker tag ucnrs-rams:v1.0.0 ACCOUNT.dkr.ecr.REGION.amazonaws.com/ucnrs-rams:v1.0.0
 docker push ACCOUNT.dkr.ecr.REGION.amazonaws.com/ucnrs-rams:v1.0.0
-
-# Or use the helper script
-./scripts/docker-deploy.sh deploy-ecr v1.0.0 us-west-2 ACCOUNT_ID
 ```
+
+`scripts/docker-deploy.sh` is an untested example; its `push-ecr` and `deploy-ecr`
+commands are disabled. If deploying to a Docker/AWS environment, record the
+release commit and resulting image digest in the deployment issue.
 
 ## About difference in environment
 
